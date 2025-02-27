@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,11 +10,8 @@ part of 'background.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 Background _$BackgroundFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'texture':
@@ -31,36 +29,39 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Background {
-  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
-
-  /// Serializes this Background to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> get extra;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $BackgroundCopyWith<Background> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$BackgroundCopyWithImpl<Background>(this as Background, _$identity);
+
+  /// Serializes this Background to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  String toString() {
+    return 'Background(extra: $extra)';
+  }
 }
 
 /// @nodoc
-abstract class $BackgroundCopyWith<$Res> {
+abstract mixin class $BackgroundCopyWith<$Res> {
   factory $BackgroundCopyWith(
-          Background value, $Res Function(Background) then) =
-      _$BackgroundCopyWithImpl<$Res, Background>;
+          Background value, $Res Function(Background) _then) =
+      _$BackgroundCopyWithImpl;
   @useResult
   $Res call({Map<String, dynamic> extra});
 }
 
 /// @nodoc
-class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
-    implements $BackgroundCopyWith<$Res> {
-  _$BackgroundCopyWithImpl(this._value, this._then);
+class _$BackgroundCopyWithImpl<$Res> implements $BackgroundCopyWith<$Res> {
+  _$BackgroundCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Background _self;
+  final $Res Function(Background) _then;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
@@ -69,82 +70,28 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
   $Res call({
     Object? extra = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       extra: null == extra
-          ? _value.extra
-          : extra // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$TextureBackgroundImplCopyWith<$Res>
-    implements $BackgroundCopyWith<$Res> {
-  factory _$$TextureBackgroundImplCopyWith(_$TextureBackgroundImpl value,
-          $Res Function(_$TextureBackgroundImpl) then) =
-      __$$TextureBackgroundImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({SurfaceTexture texture, Map<String, dynamic> extra});
-
-  $SurfaceTextureCopyWith<$Res> get texture;
-}
-
-/// @nodoc
-class __$$TextureBackgroundImplCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res, _$TextureBackgroundImpl>
-    implements _$$TextureBackgroundImplCopyWith<$Res> {
-  __$$TextureBackgroundImplCopyWithImpl(_$TextureBackgroundImpl _value,
-      $Res Function(_$TextureBackgroundImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? texture = null,
-    Object? extra = null,
-  }) {
-    return _then(_$TextureBackgroundImpl(
-      texture: null == texture
-          ? _value.texture
-          : texture // ignore: cast_nullable_to_non_nullable
-              as SurfaceTexture,
-      extra: null == extra
-          ? _value._extra
+          ? _self.extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
-  }
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SurfaceTextureCopyWith<$Res> get texture {
-    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
-      return _then(_value.copyWith(texture: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$TextureBackgroundImpl extends TextureBackground {
-  _$TextureBackgroundImpl(
+class TextureBackground extends Background {
+  TextureBackground(
       {required this.texture,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
         $type = $type ?? 'texture',
         super._();
+  factory TextureBackground.fromJson(Map<String, dynamic> json) =>
+      _$TextureBackgroundFromJson(json);
 
-  factory _$TextureBackgroundImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TextureBackgroundImplFromJson(json);
-
-  @override
   final SurfaceTexture texture;
   final Map<String, dynamic> _extra;
   @override
@@ -158,119 +105,83 @@ class _$TextureBackgroundImpl extends TextureBackground {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $TextureBackgroundCopyWith<TextureBackground> get copyWith =>
+      _$TextureBackgroundCopyWithImpl<TextureBackground>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$TextureBackgroundToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'Background.texture(texture: $texture, extra: $extra)';
   }
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TextureBackgroundImplCopyWith<_$TextureBackgroundImpl> get copyWith =>
-      __$$TextureBackgroundImplCopyWithImpl<_$TextureBackgroundImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TextureBackgroundImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class TextureBackground extends Background {
-  factory TextureBackground(
-      {required final SurfaceTexture texture,
-      final Map<String, dynamic> extra}) = _$TextureBackgroundImpl;
-  TextureBackground._() : super._();
-
-  factory TextureBackground.fromJson(Map<String, dynamic> json) =
-      _$TextureBackgroundImpl.fromJson;
-
-  SurfaceTexture get texture;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TextureBackgroundImplCopyWith<_$TextureBackgroundImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ImageBackgroundImplCopyWith<$Res>
+abstract mixin class $TextureBackgroundCopyWith<$Res>
     implements $BackgroundCopyWith<$Res> {
-  factory _$$ImageBackgroundImplCopyWith(_$ImageBackgroundImpl value,
-          $Res Function(_$ImageBackgroundImpl) then) =
-      __$$ImageBackgroundImplCopyWithImpl<$Res>;
+  factory $TextureBackgroundCopyWith(
+          TextureBackground value, $Res Function(TextureBackground) _then) =
+      _$TextureBackgroundCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {String source,
-      double width,
-      double height,
-      double scaleX,
-      double scaleY,
-      Map<String, dynamic> extra});
+  $Res call({SurfaceTexture texture, Map<String, dynamic> extra});
+
+  $SurfaceTextureCopyWith<$Res> get texture;
 }
 
 /// @nodoc
-class __$$ImageBackgroundImplCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res, _$ImageBackgroundImpl>
-    implements _$$ImageBackgroundImplCopyWith<$Res> {
-  __$$ImageBackgroundImplCopyWithImpl(
-      _$ImageBackgroundImpl _value, $Res Function(_$ImageBackgroundImpl) _then)
-      : super(_value, _then);
+class _$TextureBackgroundCopyWithImpl<$Res>
+    implements $TextureBackgroundCopyWith<$Res> {
+  _$TextureBackgroundCopyWithImpl(this._self, this._then);
+
+  final TextureBackground _self;
+  final $Res Function(TextureBackground) _then;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
-    Object? source = null,
-    Object? width = null,
-    Object? height = null,
-    Object? scaleX = null,
-    Object? scaleY = null,
+    Object? texture = null,
     Object? extra = null,
   }) {
-    return _then(_$ImageBackgroundImpl(
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as String,
-      width: null == width
-          ? _value.width
-          : width // ignore: cast_nullable_to_non_nullable
-              as double,
-      height: null == height
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
-              as double,
-      scaleX: null == scaleX
-          ? _value.scaleX
-          : scaleX // ignore: cast_nullable_to_non_nullable
-              as double,
-      scaleY: null == scaleY
-          ? _value.scaleY
-          : scaleY // ignore: cast_nullable_to_non_nullable
-              as double,
+    return _then(TextureBackground(
+      texture: null == texture
+          ? _self.texture
+          : texture // ignore: cast_nullable_to_non_nullable
+              as SurfaceTexture,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
+  }
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SurfaceTextureCopyWith<$Res> get texture {
+    return $SurfaceTextureCopyWith<$Res>(_self.texture, (value) {
+      return _then(_self.copyWith(texture: value));
+    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageBackgroundImpl extends ImageBackground {
-  _$ImageBackgroundImpl(
+class ImageBackground extends Background implements SourcedElement {
+  ImageBackground(
       {required this.source,
       required this.width,
       required this.height,
@@ -281,20 +192,14 @@ class _$ImageBackgroundImpl extends ImageBackground {
       : _extra = extra,
         $type = $type ?? 'image',
         super._();
+  factory ImageBackground.fromJson(Map<String, dynamic> json) =>
+      _$ImageBackgroundFromJson(json);
 
-  factory _$ImageBackgroundImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ImageBackgroundImplFromJson(json);
-
-  @override
   final String source;
-  @override
   final double width;
-  @override
   final double height;
-  @override
   @JsonKey()
   final double scaleX;
-  @override
   @JsonKey()
   final double scaleY;
   final Map<String, dynamic> _extra;
@@ -309,63 +214,33 @@ class _$ImageBackgroundImpl extends ImageBackground {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ImageBackgroundCopyWith<ImageBackground> get copyWith =>
+      _$ImageBackgroundCopyWithImpl<ImageBackground>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ImageBackgroundToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ImageBackgroundImplCopyWith<_$ImageBackgroundImpl> get copyWith =>
-      __$$ImageBackgroundImplCopyWithImpl<_$ImageBackgroundImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ImageBackgroundImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ImageBackground extends Background implements SourcedElement {
-  factory ImageBackground(
-      {required final String source,
-      required final double width,
-      required final double height,
-      final double scaleX,
-      final double scaleY,
-      final Map<String, dynamic> extra}) = _$ImageBackgroundImpl;
-  ImageBackground._() : super._();
-
-  factory ImageBackground.fromJson(Map<String, dynamic> json) =
-      _$ImageBackgroundImpl.fromJson;
-
-  String get source;
-  double get width;
-  double get height;
-  double get scaleX;
-  double get scaleY;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ImageBackgroundImplCopyWith<_$ImageBackgroundImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SvgBackgroundImplCopyWith<$Res>
+abstract mixin class $ImageBackgroundCopyWith<$Res>
     implements $BackgroundCopyWith<$Res> {
-  factory _$$SvgBackgroundImplCopyWith(
-          _$SvgBackgroundImpl value, $Res Function(_$SvgBackgroundImpl) then) =
-      __$$SvgBackgroundImplCopyWithImpl<$Res>;
+  factory $ImageBackgroundCopyWith(
+          ImageBackground value, $Res Function(ImageBackground) _then) =
+      _$ImageBackgroundCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -378,17 +253,17 @@ abstract class _$$SvgBackgroundImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SvgBackgroundImplCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res, _$SvgBackgroundImpl>
-    implements _$$SvgBackgroundImplCopyWith<$Res> {
-  __$$SvgBackgroundImplCopyWithImpl(
-      _$SvgBackgroundImpl _value, $Res Function(_$SvgBackgroundImpl) _then)
-      : super(_value, _then);
+class _$ImageBackgroundCopyWithImpl<$Res>
+    implements $ImageBackgroundCopyWith<$Res> {
+  _$ImageBackgroundCopyWithImpl(this._self, this._then);
+
+  final ImageBackground _self;
+  final $Res Function(ImageBackground) _then;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? source = null,
     Object? width = null,
@@ -397,29 +272,29 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
     Object? scaleY = null,
     Object? extra = null,
   }) {
-    return _then(_$SvgBackgroundImpl(
+    return _then(ImageBackground(
       source: null == source
-          ? _value.source
+          ? _self.source
           : source // ignore: cast_nullable_to_non_nullable
               as String,
       width: null == width
-          ? _value.width
+          ? _self.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
       height: null == height
-          ? _value.height
+          ? _self.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
       scaleX: null == scaleX
-          ? _value.scaleX
+          ? _self.scaleX
           : scaleX // ignore: cast_nullable_to_non_nullable
               as double,
       scaleY: null == scaleY
-          ? _value.scaleY
+          ? _self.scaleY
           : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -428,8 +303,8 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SvgBackgroundImpl extends SvgBackground {
-  _$SvgBackgroundImpl(
+class SvgBackground extends Background implements SourcedElement {
+  SvgBackground(
       {required this.source,
       required this.width,
       required this.height,
@@ -440,20 +315,14 @@ class _$SvgBackgroundImpl extends SvgBackground {
       : _extra = extra,
         $type = $type ?? 'svg',
         super._();
+  factory SvgBackground.fromJson(Map<String, dynamic> json) =>
+      _$SvgBackgroundFromJson(json);
 
-  factory _$SvgBackgroundImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SvgBackgroundImplFromJson(json);
-
-  @override
   final String source;
-  @override
   final double width;
-  @override
   final double height;
-  @override
   @JsonKey()
   final double scaleX;
-  @override
   @JsonKey()
   final double scaleY;
   final Map<String, dynamic> _extra;
@@ -468,52 +337,91 @@ class _$SvgBackgroundImpl extends SvgBackground {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SvgBackgroundCopyWith<SvgBackground> get copyWith =>
+      _$SvgBackgroundCopyWithImpl<SvgBackground>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SvgBackgroundToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
+}
+
+/// @nodoc
+abstract mixin class $SvgBackgroundCopyWith<$Res>
+    implements $BackgroundCopyWith<$Res> {
+  factory $SvgBackgroundCopyWith(
+          SvgBackground value, $Res Function(SvgBackground) _then) =
+      _$SvgBackgroundCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String source,
+      double width,
+      double height,
+      double scaleX,
+      double scaleY,
+      Map<String, dynamic> extra});
+}
+
+/// @nodoc
+class _$SvgBackgroundCopyWithImpl<$Res>
+    implements $SvgBackgroundCopyWith<$Res> {
+  _$SvgBackgroundCopyWithImpl(this._self, this._then);
+
+  final SvgBackground _self;
+  final $Res Function(SvgBackground) _then;
 
   /// Create a copy of Background
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SvgBackgroundImplCopyWith<_$SvgBackgroundImpl> get copyWith =>
-      __$$SvgBackgroundImplCopyWithImpl<_$SvgBackgroundImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SvgBackgroundImplToJson(
-      this,
-    );
+  $Res call({
+    Object? source = null,
+    Object? width = null,
+    Object? height = null,
+    Object? scaleX = null,
+    Object? scaleY = null,
+    Object? extra = null,
+  }) {
+    return _then(SvgBackground(
+      source: null == source
+          ? _self.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: null == width
+          ? _self.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _self.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleX: null == scaleX
+          ? _self.scaleX
+          : scaleX // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleY: null == scaleY
+          ? _self.scaleY
+          : scaleY // ignore: cast_nullable_to_non_nullable
+              as double,
+      extra: null == extra
+          ? _self._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
   }
 }
 
-abstract class SvgBackground extends Background implements SourcedElement {
-  factory SvgBackground(
-      {required final String source,
-      required final double width,
-      required final double height,
-      final double scaleX,
-      final double scaleY,
-      final Map<String, dynamic> extra}) = _$SvgBackgroundImpl;
-  SvgBackground._() : super._();
-
-  factory SvgBackground.fromJson(Map<String, dynamic> json) =
-      _$SvgBackgroundImpl.fromJson;
-
-  String get source;
-  double get width;
-  double get height;
-  double get scaleX;
-  double get scaleY;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of Background
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SvgBackgroundImplCopyWith<_$SvgBackgroundImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

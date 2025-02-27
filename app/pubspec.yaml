@@ -110,7 +110,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
-  freezed: ^2.5.2
+  freezed: ^3.0.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

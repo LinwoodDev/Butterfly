@@ -9,7 +9,7 @@ environment:
 dependencies:
   archive: ^4.0.0
   collection: ^1.18.0
-  freezed_annotation: ^2.2.0
+  freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   replay_bloc: ^0.3.0
   rxdart: ^0.28.0
@@ -30,6 +30,6 @@ dev_dependencies:
   test: ^1.25.3
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
-  freezed: ^2.5.8
+  freezed: ^3.0.2
   lints: ^5.0.0
   analyzer: ^7.1.0

@@ -4,9 +4,12 @@ part 'view.freezed.dart';
 part 'view.g.dart';
 
 @freezed
-sealed class ViewOption with _$ViewOption {
-  const factory ViewOption() = _ViewOption;
+@JsonSerializable()
+final class ViewOption with _$ViewOption {
+  const ViewOption();
 
   factory ViewOption.fromJson(Map<String, dynamic> json) =>
       _$ViewOptionFromJson(json);
+
+  Map<String, Object?> toJson() => _$ViewOptionToJson(this);
 }

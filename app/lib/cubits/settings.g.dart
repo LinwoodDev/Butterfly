@@ -6,8 +6,8 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>
-    _$InputConfigurationImpl(
+_InputConfiguration _$InputConfigurationFromJson(Map json) =>
+    _InputConfiguration(
       leftMouse: (json['leftMouse'] as num?)?.toInt(),
       middleMouse: (json['middleMouse'] as num?)?.toInt() ?? -1,
       rightMouse: (json['rightMouse'] as num?)?.toInt() ?? 1,
@@ -17,8 +17,7 @@ _$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>
       touch: (json['touch'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$InputConfigurationImplToJson(
-        _$InputConfigurationImpl instance) =>
+Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
     <String, dynamic>{
       'leftMouse': instance.leftMouse,
       'middleMouse': instance.middleMouse,

@@ -6,8 +6,8 @@ part of 'text.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DefinedSpanPropertyImpl _$$DefinedSpanPropertyImplFromJson(Map json) =>
-    _$DefinedSpanPropertyImpl(
+DefinedSpanProperty _$DefinedSpanPropertyFromJson(Map json) =>
+    DefinedSpanProperty(
       size: (json['size'] as num?)?.toDouble(),
       color: _$JsonConverterFromJson<int, SRGBColor>(
           json['color'], const ColorJsonConverter().fromJson),
@@ -27,8 +27,8 @@ _$DefinedSpanPropertyImpl _$$DefinedSpanPropertyImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DefinedSpanPropertyImplToJson(
-        _$DefinedSpanPropertyImpl instance) =>
+Map<String, dynamic> _$DefinedSpanPropertyToJson(
+        DefinedSpanProperty instance) =>
     <String, dynamic>{
       'size': instance.size,
       'color': _$JsonConverterToJson<int, SRGBColor>(
@@ -68,33 +68,30 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$NamedSpanPropertyImpl _$$NamedSpanPropertyImplFromJson(Map json) =>
-    _$NamedSpanPropertyImpl(
+NamedSpanProperty _$NamedSpanPropertyFromJson(Map json) => NamedSpanProperty(
       json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$NamedSpanPropertyImplToJson(
-        _$NamedSpanPropertyImpl instance) =>
+Map<String, dynamic> _$NamedSpanPropertyToJson(NamedSpanProperty instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.$type,
     };
 
-_$UndefinedSpanPropertyImpl _$$UndefinedSpanPropertyImplFromJson(Map json) =>
-    _$UndefinedSpanPropertyImpl(
+UndefinedSpanProperty _$UndefinedSpanPropertyFromJson(Map json) =>
+    UndefinedSpanProperty(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$UndefinedSpanPropertyImplToJson(
-        _$UndefinedSpanPropertyImpl instance) =>
+Map<String, dynamic> _$UndefinedSpanPropertyToJson(
+        UndefinedSpanProperty instance) =>
     <String, dynamic>{
       'type': instance.$type,
     };
 
-_$DefinedParagraphPropertyImpl _$$DefinedParagraphPropertyImplFromJson(
-        Map json) =>
-    _$DefinedParagraphPropertyImpl(
+DefinedParagraphProperty _$DefinedParagraphPropertyFromJson(Map json) =>
+    DefinedParagraphProperty(
       span: json['span'] == null
           ? const DefinedSpanProperty()
           : DefinedSpanProperty.fromJson(
@@ -105,8 +102,8 @@ _$DefinedParagraphPropertyImpl _$$DefinedParagraphPropertyImplFromJson(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DefinedParagraphPropertyImplToJson(
-        _$DefinedParagraphPropertyImpl instance) =>
+Map<String, dynamic> _$DefinedParagraphPropertyToJson(
+        DefinedParagraphProperty instance) =>
     <String, dynamic>{
       'span': instance.span.toJson(),
       'alignment': _$HorizontalAlignmentEnumMap[instance.alignment]!,
@@ -120,38 +117,37 @@ const _$HorizontalAlignmentEnumMap = {
   HorizontalAlignment.justify: 'justify',
 };
 
-_$NamedParagraphPropertyImpl _$$NamedParagraphPropertyImplFromJson(Map json) =>
-    _$NamedParagraphPropertyImpl(
+NamedParagraphProperty _$NamedParagraphPropertyFromJson(Map json) =>
+    NamedParagraphProperty(
       json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$NamedParagraphPropertyImplToJson(
-        _$NamedParagraphPropertyImpl instance) =>
+Map<String, dynamic> _$NamedParagraphPropertyToJson(
+        NamedParagraphProperty instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.$type,
     };
 
-_$UndefinedParagraphPropertyImpl _$$UndefinedParagraphPropertyImplFromJson(
-        Map json) =>
-    _$UndefinedParagraphPropertyImpl(
+UndefinedParagraphProperty _$UndefinedParagraphPropertyFromJson(Map json) =>
+    UndefinedParagraphProperty(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$UndefinedParagraphPropertyImplToJson(
-        _$UndefinedParagraphPropertyImpl instance) =>
+Map<String, dynamic> _$UndefinedParagraphPropertyToJson(
+        UndefinedParagraphProperty instance) =>
     <String, dynamic>{
       'type': instance.$type,
     };
 
-_$AreaPropertyImpl _$$AreaPropertyImplFromJson(Map json) => _$AreaPropertyImpl(
+_AreaProperty _$AreaPropertyFromJson(Map json) => _AreaProperty(
       alignment:
           $enumDecodeNullable(_$VerticalAlignmentEnumMap, json['alignment']) ??
               VerticalAlignment.top,
     );
 
-Map<String, dynamic> _$$AreaPropertyImplToJson(_$AreaPropertyImpl instance) =>
+Map<String, dynamic> _$AreaPropertyToJson(_AreaProperty instance) =>
     <String, dynamic>{
       'alignment': _$VerticalAlignmentEnumMap[instance.alignment]!,
     };
@@ -162,7 +158,7 @@ const _$VerticalAlignmentEnumMap = {
   VerticalAlignment.bottom: 'bottom',
 };
 
-_$TextSpanImpl _$$TextSpanImplFromJson(Map json) => _$TextSpanImpl(
+_TextSpan _$TextSpanFromJson(Map json) => _TextSpan(
       text: json['text'] as String? ?? '',
       property: json['property'] == null
           ? const SpanProperty.undefined()
@@ -170,14 +166,12 @@ _$TextSpanImpl _$$TextSpanImplFromJson(Map json) => _$TextSpanImpl(
               Map<String, dynamic>.from(json['property'] as Map)),
     );
 
-Map<String, dynamic> _$$TextSpanImplToJson(_$TextSpanImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TextSpanToJson(_TextSpan instance) => <String, dynamic>{
       'text': instance.text,
       'property': instance.property.toJson(),
     };
 
-_$ParagraphPropertyImpl _$$ParagraphPropertyImplFromJson(Map json) =>
-    _$ParagraphPropertyImpl(
+_ParagraphProperty _$ParagraphPropertyFromJson(Map json) => _ParagraphProperty(
       property: json['property'] == null
           ? const ParagraphProperty.undefined()
           : ParagraphProperty.fromJson(
@@ -189,14 +183,13 @@ _$ParagraphPropertyImpl _$$ParagraphPropertyImplFromJson(Map json) =>
           const [],
     );
 
-Map<String, dynamic> _$$ParagraphPropertyImplToJson(
-        _$ParagraphPropertyImpl instance) =>
+Map<String, dynamic> _$ParagraphPropertyToJson(_ParagraphProperty instance) =>
     <String, dynamic>{
       'property': instance.property.toJson(),
       'textSpans': instance.textSpans.map((e) => e.toJson()).toList(),
     };
 
-_$TextAreaImpl _$$TextAreaImplFromJson(Map json) => _$TextAreaImpl(
+_TextArea _$TextAreaFromJson(Map json) => _TextArea(
       areaProperty: json['areaProperty'] == null
           ? const AreaProperty()
           : AreaProperty.fromJson(
@@ -205,14 +198,12 @@ _$TextAreaImpl _$$TextAreaImplFromJson(Map json) => _$TextAreaImpl(
           Map<String, dynamic>.from(json['paragraph'] as Map)),
     );
 
-Map<String, dynamic> _$$TextAreaImplToJson(_$TextAreaImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TextAreaToJson(_TextArea instance) => <String, dynamic>{
       'areaProperty': instance.areaProperty.toJson(),
       'paragraph': instance.paragraph.toJson(),
     };
 
-_$TextStyleSheetImpl _$$TextStyleSheetImplFromJson(Map json) =>
-    _$TextStyleSheetImpl(
+_TextStyleSheet _$TextStyleSheetFromJson(Map json) => _TextStyleSheet(
       name: json['name'] as String? ?? '',
       spanProperties: (json['spanProperties'] as Map?)?.map(
             (k, e) => MapEntry(
@@ -230,8 +221,7 @@ _$TextStyleSheetImpl _$$TextStyleSheetImplFromJson(Map json) =>
           const {},
     );
 
-Map<String, dynamic> _$$TextStyleSheetImplToJson(
-        _$TextStyleSheetImpl instance) =>
+Map<String, dynamic> _$TextStyleSheetToJson(_TextStyleSheet instance) =>
     <String, dynamic>{
       'name': instance.name,
       'spanProperties':

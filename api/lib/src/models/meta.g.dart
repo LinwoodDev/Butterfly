@@ -6,7 +6,7 @@ part of 'meta.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FileMetadataImpl _$$FileMetadataImplFromJson(Map json) => _$FileMetadataImpl(
+_FileMetadata _$FileMetadataFromJson(Map json) => _FileMetadata(
       fileVersion: (json['fileVersion'] as num?)?.toInt(),
       type: $enumDecode(_$NoteFileTypeEnumMap, json['type']),
       createdAt: _$JsonConverterFromJson<int, DateTime>(
@@ -20,7 +20,7 @@ _$FileMetadataImpl _$$FileMetadataImplFromJson(Map json) => _$FileMetadataImpl(
       version: json['version'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$FileMetadataImplToJson(_$FileMetadataImpl instance) =>
+Map<String, dynamic> _$FileMetadataToJson(_FileMetadata instance) =>
     <String, dynamic>{
       'fileVersion': instance.fileVersion,
       'type': _$NoteFileTypeEnumMap[instance.type]!,

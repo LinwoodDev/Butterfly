@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,11 +10,8 @@ part of 'property.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'pen':
@@ -29,37 +27,54 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Property {
-  double get strokeWidth => throw _privateConstructorUsedError;
+  double get strokeWidth;
   @ColorJsonConverter()
-  SRGBColor get color => throw _privateConstructorUsedError;
-
-  /// Serializes this Property to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  SRGBColor get color;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $PropertyCopyWith<Property> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$PropertyCopyWithImpl<Property>(this as Property, _$identity);
+
+  /// Serializes this Property to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Property &&
+            (identical(other.strokeWidth, strokeWidth) ||
+                other.strokeWidth == strokeWidth) &&
+            (identical(other.color, color) || other.color == color));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, strokeWidth, color);
+
+  @override
+  String toString() {
+    return 'Property(strokeWidth: $strokeWidth, color: $color)';
+  }
 }
 
 /// @nodoc
-abstract class $PropertyCopyWith<$Res> {
-  factory $PropertyCopyWith(Property value, $Res Function(Property) then) =
-      _$PropertyCopyWithImpl<$Res, Property>;
+abstract mixin class $PropertyCopyWith<$Res> {
+  factory $PropertyCopyWith(Property value, $Res Function(Property) _then) =
+      _$PropertyCopyWithImpl;
   @useResult
   $Res call({double strokeWidth, @ColorJsonConverter() SRGBColor color});
 }
 
 /// @nodoc
-class _$PropertyCopyWithImpl<$Res, $Val extends Property>
-    implements $PropertyCopyWith<$Res> {
-  _$PropertyCopyWithImpl(this._value, this._then);
+class _$PropertyCopyWithImpl<$Res> implements $PropertyCopyWith<$Res> {
+  _$PropertyCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Property _self;
+  final $Res Function(Property) _then;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
@@ -69,89 +84,23 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
     Object? strokeWidth = null,
     Object? color = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       strokeWidth: null == strokeWidth
-          ? _value.strokeWidth
+          ? _self.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
       color: null == color
-          ? _value.color
+          ? _self.color
           : color // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$PenPropertyImplCopyWith<$Res>
-    implements $PropertyCopyWith<$Res> {
-  factory _$$PenPropertyImplCopyWith(
-          _$PenPropertyImpl value, $Res Function(_$PenPropertyImpl) then) =
-      __$$PenPropertyImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double strokeWidth,
-      double thinning,
-      @ColorJsonConverter() SRGBColor color,
-      bool fill,
-      double smoothing,
-      double streamline});
-}
-
-/// @nodoc
-class __$$PenPropertyImplCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$PenPropertyImpl>
-    implements _$$PenPropertyImplCopyWith<$Res> {
-  __$$PenPropertyImplCopyWithImpl(
-      _$PenPropertyImpl _value, $Res Function(_$PenPropertyImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? strokeWidth = null,
-    Object? thinning = null,
-    Object? color = null,
-    Object? fill = null,
-    Object? smoothing = null,
-    Object? streamline = null,
-  }) {
-    return _then(_$PenPropertyImpl(
-      strokeWidth: null == strokeWidth
-          ? _value.strokeWidth
-          : strokeWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      thinning: null == thinning
-          ? _value.thinning
-          : thinning // ignore: cast_nullable_to_non_nullable
-              as double,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
-      fill: null == fill
-          ? _value.fill
-          : fill // ignore: cast_nullable_to_non_nullable
-              as bool,
-      smoothing: null == smoothing
-          ? _value.smoothing
-          : smoothing // ignore: cast_nullable_to_non_nullable
-              as double,
-      streamline: null == streamline
-          ? _value.streamline
-          : streamline // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PenPropertyImpl implements PenProperty {
-  const _$PenPropertyImpl(
+class PenProperty implements Property, PathProperty {
+  const PenProperty(
       {this.strokeWidth = 5,
       this.thinning = 0.4,
       @ColorJsonConverter() this.color = SRGBColor.black,
@@ -160,43 +109,48 @@ class _$PenPropertyImpl implements PenProperty {
       this.streamline = 0.3,
       final String? $type})
       : $type = $type ?? 'pen';
-
-  factory _$PenPropertyImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PenPropertyImplFromJson(json);
+  factory PenProperty.fromJson(Map<String, dynamic> json) =>
+      _$PenPropertyFromJson(json);
 
   @override
   @JsonKey()
   final double strokeWidth;
-  @override
   @JsonKey()
   final double thinning;
   @override
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor color;
-  @override
   @JsonKey()
   final bool fill;
-  @override
   @JsonKey()
   final double smoothing;
-  @override
   @JsonKey()
   final double streamline;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Property.pen(strokeWidth: $strokeWidth, thinning: $thinning, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PenPropertyCopyWith<PenProperty> get copyWith =>
+      _$PenPropertyCopyWithImpl<PenProperty>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PenPropertyToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PenPropertyImpl &&
+            other is PenProperty &&
             (identical(other.strokeWidth, strokeWidth) ||
                 other.strokeWidth == strokeWidth) &&
             (identical(other.thinning, thinning) ||
@@ -214,58 +168,143 @@ class _$PenPropertyImpl implements PenProperty {
   int get hashCode => Object.hash(
       runtimeType, strokeWidth, thinning, color, fill, smoothing, streamline);
 
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
-      __$$PenPropertyImplCopyWithImpl<_$PenPropertyImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PenPropertyImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Property.pen(strokeWidth: $strokeWidth, thinning: $thinning, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
   }
 }
 
-abstract class PenProperty implements Property, PathProperty {
-  const factory PenProperty(
-      {final double strokeWidth,
-      final double thinning,
-      @ColorJsonConverter() final SRGBColor color,
-      final bool fill,
-      final double smoothing,
-      final double streamline}) = _$PenPropertyImpl;
+/// @nodoc
+abstract mixin class $PenPropertyCopyWith<$Res>
+    implements $PropertyCopyWith<$Res> {
+  factory $PenPropertyCopyWith(
+          PenProperty value, $Res Function(PenProperty) _then) =
+      _$PenPropertyCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {double strokeWidth,
+      double thinning,
+      @ColorJsonConverter() SRGBColor color,
+      bool fill,
+      double smoothing,
+      double streamline});
+}
 
-  factory PenProperty.fromJson(Map<String, dynamic> json) =
-      _$PenPropertyImpl.fromJson;
+/// @nodoc
+class _$PenPropertyCopyWithImpl<$Res> implements $PenPropertyCopyWith<$Res> {
+  _$PenPropertyCopyWithImpl(this._self, this._then);
+
+  final PenProperty _self;
+  final $Res Function(PenProperty) _then;
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? strokeWidth = null,
+    Object? thinning = null,
+    Object? color = null,
+    Object? fill = null,
+    Object? smoothing = null,
+    Object? streamline = null,
+  }) {
+    return _then(PenProperty(
+      strokeWidth: null == strokeWidth
+          ? _self.strokeWidth
+          : strokeWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      thinning: null == thinning
+          ? _self.thinning
+          : thinning // ignore: cast_nullable_to_non_nullable
+              as double,
+      color: null == color
+          ? _self.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+      fill: null == fill
+          ? _self.fill
+          : fill // ignore: cast_nullable_to_non_nullable
+              as bool,
+      smoothing: null == smoothing
+          ? _self.smoothing
+          : smoothing // ignore: cast_nullable_to_non_nullable
+              as double,
+      streamline: null == streamline
+          ? _self.streamline
+          : streamline // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class ShapeProperty implements Property {
+  const ShapeProperty(
+      {this.strokeWidth = 5,
+      required this.shape,
+      @ColorJsonConverter() this.color = SRGBColor.black,
+      final String? $type})
+      : $type = $type ?? 'shape';
+  factory ShapeProperty.fromJson(Map<String, dynamic> json) =>
+      _$ShapePropertyFromJson(json);
 
   @override
-  double get strokeWidth;
-  double get thinning;
+  @JsonKey()
+  final double strokeWidth;
+  final PathShape shape;
   @override
+  @JsonKey()
   @ColorJsonConverter()
-  SRGBColor get color;
-  bool get fill;
-  double get smoothing;
-  double get streamline;
+  final SRGBColor color;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $ShapePropertyCopyWith<ShapeProperty> get copyWith =>
+      _$ShapePropertyCopyWithImpl<ShapeProperty>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ShapePropertyToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ShapeProperty &&
+            (identical(other.strokeWidth, strokeWidth) ||
+                other.strokeWidth == strokeWidth) &&
+            (identical(other.shape, shape) || other.shape == shape) &&
+            (identical(other.color, color) || other.color == color));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, strokeWidth, shape, color);
+
+  @override
+  String toString() {
+    return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, color: $color)';
+  }
 }
 
 /// @nodoc
-abstract class _$$ShapePropertyImplCopyWith<$Res>
+abstract mixin class $ShapePropertyCopyWith<$Res>
     implements $PropertyCopyWith<$Res> {
-  factory _$$ShapePropertyImplCopyWith(
-          _$ShapePropertyImpl value, $Res Function(_$ShapePropertyImpl) then) =
-      __$$ShapePropertyImplCopyWithImpl<$Res>;
+  factory $ShapePropertyCopyWith(
+          ShapeProperty value, $Res Function(ShapeProperty) _then) =
+      _$ShapePropertyCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -277,33 +316,33 @@ abstract class _$$ShapePropertyImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ShapePropertyImplCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$ShapePropertyImpl>
-    implements _$$ShapePropertyImplCopyWith<$Res> {
-  __$$ShapePropertyImplCopyWithImpl(
-      _$ShapePropertyImpl _value, $Res Function(_$ShapePropertyImpl) _then)
-      : super(_value, _then);
+class _$ShapePropertyCopyWithImpl<$Res>
+    implements $ShapePropertyCopyWith<$Res> {
+  _$ShapePropertyCopyWithImpl(this._self, this._then);
+
+  final ShapeProperty _self;
+  final $Res Function(ShapeProperty) _then;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? strokeWidth = null,
     Object? shape = null,
     Object? color = null,
   }) {
-    return _then(_$ShapePropertyImpl(
+    return _then(ShapeProperty(
       strokeWidth: null == strokeWidth
-          ? _value.strokeWidth
+          ? _self.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
       shape: null == shape
-          ? _value.shape
+          ? _self.shape
           : shape // ignore: cast_nullable_to_non_nullable
               as PathShape,
       color: null == color
-          ? _value.color
+          ? _self.color
           : color // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
     ));
@@ -314,96 +353,10 @@ class __$$ShapePropertyImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $PathShapeCopyWith<$Res> get shape {
-    return $PathShapeCopyWith<$Res>(_value.shape, (value) {
-      return _then(_value.copyWith(shape: value));
+    return $PathShapeCopyWith<$Res>(_self.shape, (value) {
+      return _then(_self.copyWith(shape: value));
     });
   }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ShapePropertyImpl implements ShapeProperty {
-  const _$ShapePropertyImpl(
-      {this.strokeWidth = 5,
-      required this.shape,
-      @ColorJsonConverter() this.color = SRGBColor.black,
-      final String? $type})
-      : $type = $type ?? 'shape';
-
-  factory _$ShapePropertyImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ShapePropertyImplFromJson(json);
-
-  @override
-  @JsonKey()
-  final double strokeWidth;
-  @override
-  final PathShape shape;
-  @override
-  @JsonKey()
-  @ColorJsonConverter()
-  final SRGBColor color;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, color: $color)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ShapePropertyImpl &&
-            (identical(other.strokeWidth, strokeWidth) ||
-                other.strokeWidth == strokeWidth) &&
-            (identical(other.shape, shape) || other.shape == shape) &&
-            (identical(other.color, color) || other.color == color));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, strokeWidth, shape, color);
-
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
-      __$$ShapePropertyImplCopyWithImpl<_$ShapePropertyImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ShapePropertyImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ShapeProperty implements Property {
-  const factory ShapeProperty(
-      {final double strokeWidth,
-      required final PathShape shape,
-      @ColorJsonConverter() final SRGBColor color}) = _$ShapePropertyImpl;
-
-  factory ShapeProperty.fromJson(Map<String, dynamic> json) =
-      _$ShapePropertyImpl.fromJson;
-
-  @override
-  double get strokeWidth;
-  PathShape get shape;
-  @override
-  @ColorJsonConverter()
-  SRGBColor get color;
-
-  /// Create a copy of Property
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 PathShape _$PathShapeFromJson(Map<String, dynamic> json) {
@@ -426,75 +379,40 @@ PathShape _$PathShapeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PathShape {
   /// Serializes this PathShape to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
+  Map<String, dynamic> toJson();
 
-/// @nodoc
-abstract class $PathShapeCopyWith<$Res> {
-  factory $PathShapeCopyWith(PathShape value, $Res Function(PathShape) then) =
-      _$PathShapeCopyWithImpl<$Res, PathShape>;
-}
-
-/// @nodoc
-class _$PathShapeCopyWithImpl<$Res, $Val extends PathShape>
-    implements $PathShapeCopyWith<$Res> {
-  _$PathShapeCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$CircleShapeImplCopyWith<$Res> {
-  factory _$$CircleShapeImplCopyWith(
-          _$CircleShapeImpl value, $Res Function(_$CircleShapeImpl) then) =
-      __$$CircleShapeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({@ColorJsonConverter() SRGBColor fillColor});
-}
-
-/// @nodoc
-class __$$CircleShapeImplCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$CircleShapeImpl>
-    implements _$$CircleShapeImplCopyWith<$Res> {
-  __$$CircleShapeImplCopyWithImpl(
-      _$CircleShapeImpl _value, $Res Function(_$CircleShapeImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? fillColor = null,
-  }) {
-    return _then(_$CircleShapeImpl(
-      fillColor: null == fillColor
-          ? _value.fillColor
-          : fillColor // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
-    ));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is PathShape);
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'PathShape()';
   }
 }
 
 /// @nodoc
+class $PathShapeCopyWith<$Res> {
+  $PathShapeCopyWith(PathShape _, $Res Function(PathShape) __);
+}
+
+/// @nodoc
 @JsonSerializable()
-class _$CircleShapeImpl extends CircleShape {
-  const _$CircleShapeImpl(
+class CircleShape extends PathShape {
+  const CircleShape(
       {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
       final String? $type})
       : $type = $type ?? 'circle',
         super._();
+  factory CircleShape.fromJson(Map<String, dynamic> json) =>
+      _$CircleShapeFromJson(json);
 
-  factory _$CircleShapeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CircleShapeImplFromJson(json);
-
-  @override
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor fillColor;
@@ -502,16 +420,25 @@ class _$CircleShapeImpl extends CircleShape {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CircleShapeCopyWith<CircleShape> get copyWith =>
+      _$CircleShapeCopyWithImpl<CircleShape>(this, _$identity);
+
   @override
-  String toString() {
-    return 'PathShape.circle(fillColor: $fillColor)';
+  Map<String, dynamic> toJson() {
+    return _$CircleShapeToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CircleShapeImpl &&
+            other is CircleShape &&
             (identical(other.fillColor, fillColor) ||
                 other.fillColor == fillColor));
   }
@@ -520,102 +447,48 @@ class _$CircleShapeImpl extends CircleShape {
   @override
   int get hashCode => Object.hash(runtimeType, fillColor);
 
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
-      __$$CircleShapeImplCopyWithImpl<_$CircleShapeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CircleShapeImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PathShape.circle(fillColor: $fillColor)';
   }
 }
 
-abstract class CircleShape extends PathShape {
-  const factory CircleShape({@ColorJsonConverter() final SRGBColor fillColor}) =
-      _$CircleShapeImpl;
-  const CircleShape._() : super._();
-
-  factory CircleShape.fromJson(Map<String, dynamic> json) =
-      _$CircleShapeImpl.fromJson;
-
-  @ColorJsonConverter()
-  SRGBColor get fillColor;
-
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$RectangleShapeImplCopyWith<$Res> {
-  factory _$$RectangleShapeImplCopyWith(_$RectangleShapeImpl value,
-          $Res Function(_$RectangleShapeImpl) then) =
-      __$$RectangleShapeImplCopyWithImpl<$Res>;
+abstract mixin class $CircleShapeCopyWith<$Res>
+    implements $PathShapeCopyWith<$Res> {
+  factory $CircleShapeCopyWith(
+          CircleShape value, $Res Function(CircleShape) _then) =
+      _$CircleShapeCopyWithImpl;
   @useResult
-  $Res call(
-      {@ColorJsonConverter() SRGBColor fillColor,
-      double topLeftCornerRadius,
-      double topRightCornerRadius,
-      double bottomLeftCornerRadius,
-      double bottomRightCornerRadius});
+  $Res call({@ColorJsonConverter() SRGBColor fillColor});
 }
 
 /// @nodoc
-class __$$RectangleShapeImplCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$RectangleShapeImpl>
-    implements _$$RectangleShapeImplCopyWith<$Res> {
-  __$$RectangleShapeImplCopyWithImpl(
-      _$RectangleShapeImpl _value, $Res Function(_$RectangleShapeImpl) _then)
-      : super(_value, _then);
+class _$CircleShapeCopyWithImpl<$Res> implements $CircleShapeCopyWith<$Res> {
+  _$CircleShapeCopyWithImpl(this._self, this._then);
+
+  final CircleShape _self;
+  final $Res Function(CircleShape) _then;
 
   /// Create a copy of PathShape
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? fillColor = null,
-    Object? topLeftCornerRadius = null,
-    Object? topRightCornerRadius = null,
-    Object? bottomLeftCornerRadius = null,
-    Object? bottomRightCornerRadius = null,
   }) {
-    return _then(_$RectangleShapeImpl(
+    return _then(CircleShape(
       fillColor: null == fillColor
-          ? _value.fillColor
+          ? _self.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
-      topLeftCornerRadius: null == topLeftCornerRadius
-          ? _value.topLeftCornerRadius
-          : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      topRightCornerRadius: null == topRightCornerRadius
-          ? _value.topRightCornerRadius
-          : topRightCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      bottomLeftCornerRadius: null == bottomLeftCornerRadius
-          ? _value.bottomLeftCornerRadius
-          : bottomLeftCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      bottomRightCornerRadius: null == bottomRightCornerRadius
-          ? _value.bottomRightCornerRadius
-          : bottomRightCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$RectangleShapeImpl extends RectangleShape {
-  const _$RectangleShapeImpl(
+class RectangleShape extends PathShape {
+  const RectangleShape(
       {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
       this.topLeftCornerRadius = 0,
       this.topRightCornerRadius = 0,
@@ -624,40 +497,43 @@ class _$RectangleShapeImpl extends RectangleShape {
       final String? $type})
       : $type = $type ?? 'rectangle',
         super._();
+  factory RectangleShape.fromJson(Map<String, dynamic> json) =>
+      _$RectangleShapeFromJson(json);
 
-  factory _$RectangleShapeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RectangleShapeImplFromJson(json);
-
-  @override
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor fillColor;
-  @override
   @JsonKey()
   final double topLeftCornerRadius;
-  @override
   @JsonKey()
   final double topRightCornerRadius;
-  @override
   @JsonKey()
   final double bottomLeftCornerRadius;
-  @override
   @JsonKey()
   final double bottomRightCornerRadius;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $RectangleShapeCopyWith<RectangleShape> get copyWith =>
+      _$RectangleShapeCopyWithImpl<RectangleShape>(this, _$identity);
+
   @override
-  String toString() {
-    return 'PathShape.rectangle(fillColor: $fillColor, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
+  Map<String, dynamic> toJson() {
+    return _$RectangleShapeToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RectangleShapeImpl &&
+            other is RectangleShape &&
             (identical(other.fillColor, fillColor) ||
                 other.fillColor == fillColor) &&
             (identical(other.topLeftCornerRadius, topLeftCornerRadius) ||
@@ -676,90 +552,93 @@ class _$RectangleShapeImpl extends RectangleShape {
   int get hashCode => Object.hash(runtimeType, fillColor, topLeftCornerRadius,
       topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
 
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
-      __$$RectangleShapeImplCopyWithImpl<_$RectangleShapeImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RectangleShapeImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PathShape.rectangle(fillColor: $fillColor, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
   }
 }
 
-abstract class RectangleShape extends PathShape {
-  const factory RectangleShape(
-      {@ColorJsonConverter() final SRGBColor fillColor,
-      final double topLeftCornerRadius,
-      final double topRightCornerRadius,
-      final double bottomLeftCornerRadius,
-      final double bottomRightCornerRadius}) = _$RectangleShapeImpl;
-  const RectangleShape._() : super._();
-
-  factory RectangleShape.fromJson(Map<String, dynamic> json) =
-      _$RectangleShapeImpl.fromJson;
-
-  @ColorJsonConverter()
-  SRGBColor get fillColor;
-  double get topLeftCornerRadius;
-  double get topRightCornerRadius;
-  double get bottomLeftCornerRadius;
-  double get bottomRightCornerRadius;
-
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+/// @nodoc
+abstract mixin class $RectangleShapeCopyWith<$Res>
+    implements $PathShapeCopyWith<$Res> {
+  factory $RectangleShapeCopyWith(
+          RectangleShape value, $Res Function(RectangleShape) _then) =
+      _$RectangleShapeCopyWithImpl;
+  @useResult
+  $Res call(
+      {@ColorJsonConverter() SRGBColor fillColor,
+      double topLeftCornerRadius,
+      double topRightCornerRadius,
+      double bottomLeftCornerRadius,
+      double bottomRightCornerRadius});
 }
 
 /// @nodoc
-abstract class _$$LineShapeImplCopyWith<$Res> {
-  factory _$$LineShapeImplCopyWith(
-          _$LineShapeImpl value, $Res Function(_$LineShapeImpl) then) =
-      __$$LineShapeImplCopyWithImpl<$Res>;
-}
+class _$RectangleShapeCopyWithImpl<$Res>
+    implements $RectangleShapeCopyWith<$Res> {
+  _$RectangleShapeCopyWithImpl(this._self, this._then);
 
-/// @nodoc
-class __$$LineShapeImplCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$LineShapeImpl>
-    implements _$$LineShapeImplCopyWith<$Res> {
-  __$$LineShapeImplCopyWithImpl(
-      _$LineShapeImpl _value, $Res Function(_$LineShapeImpl) _then)
-      : super(_value, _then);
+  final RectangleShape _self;
+  final $Res Function(RectangleShape) _then;
 
   /// Create a copy of PathShape
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? fillColor = null,
+    Object? topLeftCornerRadius = null,
+    Object? topRightCornerRadius = null,
+    Object? bottomLeftCornerRadius = null,
+    Object? bottomRightCornerRadius = null,
+  }) {
+    return _then(RectangleShape(
+      fillColor: null == fillColor
+          ? _self.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+      topLeftCornerRadius: null == topLeftCornerRadius
+          ? _self.topLeftCornerRadius
+          : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      topRightCornerRadius: null == topRightCornerRadius
+          ? _self.topRightCornerRadius
+          : topRightCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomLeftCornerRadius: null == bottomLeftCornerRadius
+          ? _self.bottomLeftCornerRadius
+          : bottomLeftCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+      bottomRightCornerRadius: null == bottomRightCornerRadius
+          ? _self.bottomRightCornerRadius
+          : bottomRightCornerRadius // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LineShapeImpl extends LineShape {
-  const _$LineShapeImpl({final String? $type})
+class LineShape extends PathShape {
+  const LineShape({final String? $type})
       : $type = $type ?? 'line',
         super._();
-
-  factory _$LineShapeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LineShapeImplFromJson(json);
+  factory LineShape.fromJson(Map<String, dynamic> json) =>
+      _$LineShapeFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
-  String toString() {
-    return 'PathShape.line()';
+  Map<String, dynamic> toJson() {
+    return _$LineShapeToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LineShapeImpl);
+        (other.runtimeType == runtimeType && other is LineShape);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -767,67 +646,22 @@ class _$LineShapeImpl extends LineShape {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$$LineShapeImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class LineShape extends PathShape {
-  const factory LineShape() = _$LineShapeImpl;
-  const LineShape._() : super._();
-
-  factory LineShape.fromJson(Map<String, dynamic> json) =
-      _$LineShapeImpl.fromJson;
-}
-
-/// @nodoc
-abstract class _$$TriangleShapeImplCopyWith<$Res> {
-  factory _$$TriangleShapeImplCopyWith(
-          _$TriangleShapeImpl value, $Res Function(_$TriangleShapeImpl) then) =
-      __$$TriangleShapeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({@ColorJsonConverter() SRGBColor fillColor});
-}
-
-/// @nodoc
-class __$$TriangleShapeImplCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$TriangleShapeImpl>
-    implements _$$TriangleShapeImplCopyWith<$Res> {
-  __$$TriangleShapeImplCopyWithImpl(
-      _$TriangleShapeImpl _value, $Res Function(_$TriangleShapeImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? fillColor = null,
-  }) {
-    return _then(_$TriangleShapeImpl(
-      fillColor: null == fillColor
-          ? _value.fillColor
-          : fillColor // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
-    ));
+  String toString() {
+    return 'PathShape.line()';
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$TriangleShapeImpl extends TriangleShape {
-  const _$TriangleShapeImpl(
+class TriangleShape extends PathShape {
+  const TriangleShape(
       {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
       final String? $type})
       : $type = $type ?? 'triangle',
         super._();
+  factory TriangleShape.fromJson(Map<String, dynamic> json) =>
+      _$TriangleShapeFromJson(json);
 
-  factory _$TriangleShapeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TriangleShapeImplFromJson(json);
-
-  @override
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor fillColor;
@@ -835,16 +669,25 @@ class _$TriangleShapeImpl extends TriangleShape {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $TriangleShapeCopyWith<TriangleShape> get copyWith =>
+      _$TriangleShapeCopyWithImpl<TriangleShape>(this, _$identity);
+
   @override
-  String toString() {
-    return 'PathShape.triangle(fillColor: $fillColor)';
+  Map<String, dynamic> toJson() {
+    return _$TriangleShapeToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TriangleShapeImpl &&
+            other is TriangleShape &&
             (identical(other.fillColor, fillColor) ||
                 other.fillColor == fillColor));
   }
@@ -853,36 +696,43 @@ class _$TriangleShapeImpl extends TriangleShape {
   @override
   int get hashCode => Object.hash(runtimeType, fillColor);
 
-  /// Create a copy of PathShape
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$TriangleShapeImplCopyWith<_$TriangleShapeImpl> get copyWith =>
-      __$$TriangleShapeImplCopyWithImpl<_$TriangleShapeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TriangleShapeImplToJson(
-      this,
-    );
+  String toString() {
+    return 'PathShape.triangle(fillColor: $fillColor)';
   }
 }
 
-abstract class TriangleShape extends PathShape {
-  const factory TriangleShape(
-      {@ColorJsonConverter() final SRGBColor fillColor}) = _$TriangleShapeImpl;
-  const TriangleShape._() : super._();
+/// @nodoc
+abstract mixin class $TriangleShapeCopyWith<$Res>
+    implements $PathShapeCopyWith<$Res> {
+  factory $TriangleShapeCopyWith(
+          TriangleShape value, $Res Function(TriangleShape) _then) =
+      _$TriangleShapeCopyWithImpl;
+  @useResult
+  $Res call({@ColorJsonConverter() SRGBColor fillColor});
+}
 
-  factory TriangleShape.fromJson(Map<String, dynamic> json) =
-      _$TriangleShapeImpl.fromJson;
+/// @nodoc
+class _$TriangleShapeCopyWithImpl<$Res>
+    implements $TriangleShapeCopyWith<$Res> {
+  _$TriangleShapeCopyWithImpl(this._self, this._then);
 
-  @ColorJsonConverter()
-  SRGBColor get fillColor;
+  final TriangleShape _self;
+  final $Res Function(TriangleShape) _then;
 
   /// Create a copy of PathShape
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TriangleShapeImplCopyWith<_$TriangleShapeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? fillColor = null,
+  }) {
+    return _then(TriangleShape(
+      fillColor: null == fillColor
+          ? _self.fillColor
+          : fillColor // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+    ));
+  }
 }
+
+// dart format on

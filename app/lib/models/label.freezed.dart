@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,31 +10,54 @@ part of 'label.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$LabelContext {
-  LabelTool get tool => throw _privateConstructorUsedError;
-  TextPainter get textPainter => throw _privateConstructorUsedError;
-  PadElement? get element => throw _privateConstructorUsedError;
-  double get zoom => throw _privateConstructorUsedError;
-  TextSelection get selection => throw _privateConstructorUsedError;
+  LabelTool get tool;
+  TextPainter get textPainter;
+  PadElement? get element;
+  double get zoom;
+  TextSelection get selection;
 
   /// Create a copy of LabelContext
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $LabelContextCopyWith<LabelContext> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$LabelContextCopyWithImpl<LabelContext>(
+          this as LabelContext, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is LabelContext &&
+            (identical(other.tool, tool) || other.tool == tool) &&
+            (identical(other.textPainter, textPainter) ||
+                other.textPainter == textPainter) &&
+            (identical(other.element, element) || other.element == element) &&
+            (identical(other.zoom, zoom) || other.zoom == zoom) &&
+            (identical(other.selection, selection) ||
+                other.selection == selection));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, tool, textPainter, element, zoom, selection);
+
+  @override
+  String toString() {
+    return 'LabelContext(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
+  }
 }
 
 /// @nodoc
-abstract class $LabelContextCopyWith<$Res> {
+abstract mixin class $LabelContextCopyWith<$Res> {
   factory $LabelContextCopyWith(
-          LabelContext value, $Res Function(LabelContext) then) =
-      _$LabelContextCopyWithImpl<$Res, LabelContext>;
+          LabelContext value, $Res Function(LabelContext) _then) =
+      _$LabelContextCopyWithImpl;
   @useResult
   $Res call(
       {LabelTool tool,
@@ -43,14 +67,11 @@ abstract class $LabelContextCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
-    implements $LabelContextCopyWith<$Res> {
-  _$LabelContextCopyWithImpl(this._value, this._then);
+class _$LabelContextCopyWithImpl<$Res> implements $LabelContextCopyWith<$Res> {
+  _$LabelContextCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final LabelContext _self;
+  final $Res Function(LabelContext) _then;
 
   /// Create a copy of LabelContext
   /// with the given fields replaced by the non-null parameter values.
@@ -62,140 +83,31 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
     Object? zoom = null,
     Object? selection = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       tool: null == tool
-          ? _value.tool
+          ? _self.tool
           : tool // ignore: cast_nullable_to_non_nullable
               as LabelTool,
       textPainter: null == textPainter
-          ? _value.textPainter
+          ? _self.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
               as TextPainter,
       zoom: null == zoom
-          ? _value.zoom
+          ? _self.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
               as double,
       selection: null == selection
-          ? _value.selection
+          ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as TextSelection,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$TextContextImplCopyWith<$Res>
-    implements $LabelContextCopyWith<$Res> {
-  factory _$$TextContextImplCopyWith(
-          _$TextContextImpl value, $Res Function(_$TextContextImpl) then) =
-      __$$TextContextImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {LabelTool tool,
-      TextPainter textPainter,
-      TextElement? element,
-      double zoom,
-      TextSelection selection,
-      txt.ParagraphProperty? forcedProperty,
-      txt.SpanProperty? forcedSpanProperty,
-      bool? forceParagraph});
-
-  $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
-  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty;
-}
-
-/// @nodoc
-class __$$TextContextImplCopyWithImpl<$Res>
-    extends _$LabelContextCopyWithImpl<$Res, _$TextContextImpl>
-    implements _$$TextContextImplCopyWith<$Res> {
-  __$$TextContextImplCopyWithImpl(
-      _$TextContextImpl _value, $Res Function(_$TextContextImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? tool = null,
-    Object? textPainter = null,
-    Object? element = freezed,
-    Object? zoom = null,
-    Object? selection = null,
-    Object? forcedProperty = freezed,
-    Object? forcedSpanProperty = freezed,
-    Object? forceParagraph = freezed,
-  }) {
-    return _then(_$TextContextImpl(
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as LabelTool,
-      textPainter: null == textPainter
-          ? _value.textPainter
-          : textPainter // ignore: cast_nullable_to_non_nullable
-              as TextPainter,
-      element: freezed == element
-          ? _value.element
-          : element // ignore: cast_nullable_to_non_nullable
-              as TextElement?,
-      zoom: null == zoom
-          ? _value.zoom
-          : zoom // ignore: cast_nullable_to_non_nullable
-              as double,
-      selection: null == selection
-          ? _value.selection
-          : selection // ignore: cast_nullable_to_non_nullable
-              as TextSelection,
-      forcedProperty: freezed == forcedProperty
-          ? _value.forcedProperty
-          : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as txt.ParagraphProperty?,
-      forcedSpanProperty: freezed == forcedSpanProperty
-          ? _value.forcedSpanProperty
-          : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
-              as txt.SpanProperty?,
-      forceParagraph: freezed == forceParagraph
-          ? _value.forceParagraph
-          : forceParagraph // ignore: cast_nullable_to_non_nullable
-              as bool?,
     ));
   }
-
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ParagraphPropertyCopyWith<$Res>? get forcedProperty {
-    if (_value.forcedProperty == null) {
-      return null;
-    }
-
-    return $ParagraphPropertyCopyWith<$Res>(_value.forcedProperty!, (value) {
-      return _then(_value.copyWith(forcedProperty: value));
-    });
-  }
-
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty {
-    if (_value.forcedSpanProperty == null) {
-      return null;
-    }
-
-    return $SpanPropertyCopyWith<$Res>(_value.forcedSpanProperty!, (value) {
-      return _then(_value.copyWith(forcedSpanProperty: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$TextContextImpl extends TextContext {
-  const _$TextContextImpl(
+class TextContext extends LabelContext {
+  const TextContext(
       {required this.tool,
       required this.textPainter,
       this.element,
@@ -218,23 +130,23 @@ class _$TextContextImpl extends TextContext {
   @override
   @JsonKey()
   final TextSelection selection;
-  @override
   final txt.ParagraphProperty? forcedProperty;
-  @override
   final txt.SpanProperty? forcedSpanProperty;
-  @override
   final bool? forceParagraph;
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $TextContextCopyWith<TextContext> get copyWith =>
+      _$TextContextCopyWithImpl<TextContext>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TextContextImpl &&
+            other is TextContext &&
             (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
@@ -254,113 +166,124 @@ class _$TextContextImpl extends TextContext {
   int get hashCode => Object.hash(runtimeType, tool, textPainter, element, zoom,
       selection, forcedProperty, forcedSpanProperty, forceParagraph);
 
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
-      __$$TextContextImplCopyWithImpl<_$TextContextImpl>(this, _$identity);
-}
-
-abstract class TextContext extends LabelContext {
-  const factory TextContext(
-      {required final LabelTool tool,
-      required final TextPainter textPainter,
-      final TextElement? element,
-      final double zoom,
-      final TextSelection selection,
-      final txt.ParagraphProperty? forcedProperty,
-      final txt.SpanProperty? forcedSpanProperty,
-      final bool? forceParagraph}) = _$TextContextImpl;
-  const TextContext._() : super._();
-
-  @override
-  LabelTool get tool;
-  @override
-  TextPainter get textPainter;
-  @override
-  TextElement? get element;
-  @override
-  double get zoom;
-  @override
-  TextSelection get selection;
-  txt.ParagraphProperty? get forcedProperty;
-  txt.SpanProperty? get forcedSpanProperty;
-  bool? get forceParagraph;
-
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  String toString() {
+    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
+  }
 }
 
 /// @nodoc
-abstract class _$$MarkdownContextImplCopyWith<$Res>
+abstract mixin class $TextContextCopyWith<$Res>
     implements $LabelContextCopyWith<$Res> {
-  factory _$$MarkdownContextImplCopyWith(_$MarkdownContextImpl value,
-          $Res Function(_$MarkdownContextImpl) then) =
-      __$$MarkdownContextImplCopyWithImpl<$Res>;
+  factory $TextContextCopyWith(
+          TextContext value, $Res Function(TextContext) _then) =
+      _$TextContextCopyWithImpl;
   @override
   @useResult
   $Res call(
       {LabelTool tool,
       TextPainter textPainter,
-      MarkdownElement? element,
+      TextElement? element,
       double zoom,
-      TextSelection selection});
+      TextSelection selection,
+      txt.ParagraphProperty? forcedProperty,
+      txt.SpanProperty? forcedSpanProperty,
+      bool? forceParagraph});
+
+  $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
+  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty;
 }
 
 /// @nodoc
-class __$$MarkdownContextImplCopyWithImpl<$Res>
-    extends _$LabelContextCopyWithImpl<$Res, _$MarkdownContextImpl>
-    implements _$$MarkdownContextImplCopyWith<$Res> {
-  __$$MarkdownContextImplCopyWithImpl(
-      _$MarkdownContextImpl _value, $Res Function(_$MarkdownContextImpl) _then)
-      : super(_value, _then);
+class _$TextContextCopyWithImpl<$Res> implements $TextContextCopyWith<$Res> {
+  _$TextContextCopyWithImpl(this._self, this._then);
+
+  final TextContext _self;
+  final $Res Function(TextContext) _then;
 
   /// Create a copy of LabelContext
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? tool = null,
     Object? textPainter = null,
     Object? element = freezed,
     Object? zoom = null,
     Object? selection = null,
+    Object? forcedProperty = freezed,
+    Object? forcedSpanProperty = freezed,
+    Object? forceParagraph = freezed,
   }) {
-    return _then(_$MarkdownContextImpl(
+    return _then(TextContext(
       tool: null == tool
-          ? _value.tool
+          ? _self.tool
           : tool // ignore: cast_nullable_to_non_nullable
               as LabelTool,
       textPainter: null == textPainter
-          ? _value.textPainter
+          ? _self.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
               as TextPainter,
       element: freezed == element
-          ? _value.element
+          ? _self.element
           : element // ignore: cast_nullable_to_non_nullable
-              as MarkdownElement?,
+              as TextElement?,
       zoom: null == zoom
-          ? _value.zoom
+          ? _self.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
               as double,
       selection: null == selection
-          ? _value.selection
+          ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as TextSelection,
+      forcedProperty: freezed == forcedProperty
+          ? _self.forcedProperty
+          : forcedProperty // ignore: cast_nullable_to_non_nullable
+              as txt.ParagraphProperty?,
+      forcedSpanProperty: freezed == forcedSpanProperty
+          ? _self.forcedSpanProperty
+          : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
+              as txt.SpanProperty?,
+      forceParagraph: freezed == forceParagraph
+          ? _self.forceParagraph
+          : forceParagraph // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
+  }
+
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ParagraphPropertyCopyWith<$Res>? get forcedProperty {
+    if (_self.forcedProperty == null) {
+      return null;
+    }
+
+    return $ParagraphPropertyCopyWith<$Res>(_self.forcedProperty!, (value) {
+      return _then(_self.copyWith(forcedProperty: value));
+    });
+  }
+
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty {
+    if (_self.forcedSpanProperty == null) {
+      return null;
+    }
+
+    return $SpanPropertyCopyWith<$Res>(_self.forcedSpanProperty!, (value) {
+      return _then(_self.copyWith(forcedSpanProperty: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$MarkdownContextImpl extends MarkdownContext {
-  const _$MarkdownContextImpl(
+class MarkdownContext extends LabelContext {
+  const MarkdownContext(
       {required this.tool,
       required this.textPainter,
       this.element,
@@ -381,16 +304,19 @@ class _$MarkdownContextImpl extends MarkdownContext {
   @JsonKey()
   final TextSelection selection;
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $MarkdownContextCopyWith<MarkdownContext> get copyWith =>
+      _$MarkdownContextCopyWithImpl<MarkdownContext>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MarkdownContextImpl &&
+            other is MarkdownContext &&
             (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
@@ -404,40 +330,70 @@ class _$MarkdownContextImpl extends MarkdownContext {
   int get hashCode =>
       Object.hash(runtimeType, tool, textPainter, element, zoom, selection);
 
+  @override
+  String toString() {
+    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $MarkdownContextCopyWith<$Res>
+    implements $LabelContextCopyWith<$Res> {
+  factory $MarkdownContextCopyWith(
+          MarkdownContext value, $Res Function(MarkdownContext) _then) =
+      _$MarkdownContextCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {LabelTool tool,
+      TextPainter textPainter,
+      MarkdownElement? element,
+      double zoom,
+      TextSelection selection});
+}
+
+/// @nodoc
+class _$MarkdownContextCopyWithImpl<$Res>
+    implements $MarkdownContextCopyWith<$Res> {
+  _$MarkdownContextCopyWithImpl(this._self, this._then);
+
+  final MarkdownContext _self;
+  final $Res Function(MarkdownContext) _then;
+
   /// Create a copy of LabelContext
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
-      __$$MarkdownContextImplCopyWithImpl<_$MarkdownContextImpl>(
-          this, _$identity);
+  $Res call({
+    Object? tool = null,
+    Object? textPainter = null,
+    Object? element = freezed,
+    Object? zoom = null,
+    Object? selection = null,
+  }) {
+    return _then(MarkdownContext(
+      tool: null == tool
+          ? _self.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as LabelTool,
+      textPainter: null == textPainter
+          ? _self.textPainter
+          : textPainter // ignore: cast_nullable_to_non_nullable
+              as TextPainter,
+      element: freezed == element
+          ? _self.element
+          : element // ignore: cast_nullable_to_non_nullable
+              as MarkdownElement?,
+      zoom: null == zoom
+          ? _self.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as double,
+      selection: null == selection
+          ? _self.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as TextSelection,
+    ));
+  }
 }
 
-abstract class MarkdownContext extends LabelContext {
-  const factory MarkdownContext(
-      {required final LabelTool tool,
-      required final TextPainter textPainter,
-      final MarkdownElement? element,
-      final double zoom,
-      final TextSelection selection}) = _$MarkdownContextImpl;
-  const MarkdownContext._() : super._();
-
-  @override
-  LabelTool get tool;
-  @override
-  TextPainter get textPainter;
-  @override
-  MarkdownElement? get element;
-  @override
-  double get zoom;
-  @override
-  TextSelection get selection;
-
-  /// Create a copy of LabelContext
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

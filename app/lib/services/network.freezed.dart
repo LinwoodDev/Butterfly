@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,80 +10,60 @@ part of 'network.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-NetworkingUser _$NetworkingUserFromJson(Map<String, dynamic> json) {
-  return _NetworkingUser.fromJson(json);
-}
-
 /// @nodoc
-mixin _$NetworkingUser {
+mixin _$NetworkingUser implements DiagnosticableTreeMixin {
   @DoublePointJsonConverter()
-  Point<double>? get cursor => throw _privateConstructorUsedError;
-  List<PadElement>? get foreground => throw _privateConstructorUsedError;
-
-  /// Serializes this NetworkingUser to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Point<double>? get cursor;
+  List<PadElement>? get foreground;
 
   /// Create a copy of NetworkingUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NetworkingUserCopyWith<NetworkingUser> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NetworkingUserCopyWith<$Res> {
-  factory $NetworkingUserCopyWith(
-          NetworkingUser value, $Res Function(NetworkingUser) then) =
-      _$NetworkingUserCopyWithImpl<$Res, NetworkingUser>;
-  @useResult
-  $Res call(
-      {@DoublePointJsonConverter() Point<double>? cursor,
-      List<PadElement>? foreground});
-}
-
-/// @nodoc
-class _$NetworkingUserCopyWithImpl<$Res, $Val extends NetworkingUser>
-    implements $NetworkingUserCopyWith<$Res> {
-  _$NetworkingUserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NetworkingUser
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NetworkingUserCopyWith<NetworkingUser> get copyWith =>
+      _$NetworkingUserCopyWithImpl<NetworkingUser>(
+          this as NetworkingUser, _$identity);
+
+  /// Serializes this NetworkingUser to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? cursor = freezed,
-    Object? foreground = freezed,
-  }) {
-    return _then(_value.copyWith(
-      cursor: freezed == cursor
-          ? _value.cursor
-          : cursor // ignore: cast_nullable_to_non_nullable
-              as Point<double>?,
-      foreground: freezed == foreground
-          ? _value.foreground
-          : foreground // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>?,
-    ) as $Val);
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'NetworkingUser'))
+      ..add(DiagnosticsProperty('cursor', cursor))
+      ..add(DiagnosticsProperty('foreground', foreground));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NetworkingUser &&
+            (identical(other.cursor, cursor) || other.cursor == cursor) &&
+            const DeepCollectionEquality()
+                .equals(other.foreground, foreground));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, cursor, const DeepCollectionEquality().hash(foreground));
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NetworkingUser(cursor: $cursor, foreground: $foreground)';
   }
 }
 
 /// @nodoc
-abstract class _$$NetworkingUserImplCopyWith<$Res>
-    implements $NetworkingUserCopyWith<$Res> {
-  factory _$$NetworkingUserImplCopyWith(_$NetworkingUserImpl value,
-          $Res Function(_$NetworkingUserImpl) then) =
-      __$$NetworkingUserImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NetworkingUserCopyWith<$Res> {
+  factory $NetworkingUserCopyWith(
+          NetworkingUser value, $Res Function(NetworkingUser) _then) =
+      _$NetworkingUserCopyWithImpl;
   @useResult
   $Res call(
       {@DoublePointJsonConverter() Point<double>? cursor,
@@ -90,12 +71,12 @@ abstract class _$$NetworkingUserImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$NetworkingUserImplCopyWithImpl<$Res>
-    extends _$NetworkingUserCopyWithImpl<$Res, _$NetworkingUserImpl>
-    implements _$$NetworkingUserImplCopyWith<$Res> {
-  __$$NetworkingUserImplCopyWithImpl(
-      _$NetworkingUserImpl _value, $Res Function(_$NetworkingUserImpl) _then)
-      : super(_value, _then);
+class _$NetworkingUserCopyWithImpl<$Res>
+    implements $NetworkingUserCopyWith<$Res> {
+  _$NetworkingUserCopyWithImpl(this._self, this._then);
+
+  final NetworkingUser _self;
+  final $Res Function(NetworkingUser) _then;
 
   /// Create a copy of NetworkingUser
   /// with the given fields replaced by the non-null parameter values.
@@ -105,13 +86,13 @@ class __$$NetworkingUserImplCopyWithImpl<$Res>
     Object? cursor = freezed,
     Object? foreground = freezed,
   }) {
-    return _then(_$NetworkingUserImpl(
+    return _then(_self.copyWith(
       cursor: freezed == cursor
-          ? _value.cursor
+          ? _self.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
               as Point<double>?,
       foreground: freezed == foreground
-          ? _value._foreground
+          ? _self.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as List<PadElement>?,
     ));
@@ -120,16 +101,13 @@ class __$$NetworkingUserImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NetworkingUserImpl
-    with DiagnosticableTreeMixin
-    implements _NetworkingUser {
-  const _$NetworkingUserImpl(
+class _NetworkingUser with DiagnosticableTreeMixin implements NetworkingUser {
+  const _NetworkingUser(
       {@DoublePointJsonConverter() this.cursor,
       final List<PadElement>? foreground})
       : _foreground = foreground;
-
-  factory _$NetworkingUserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NetworkingUserImplFromJson(json);
+  factory _NetworkingUser.fromJson(Map<String, dynamic> json) =>
+      _$NetworkingUserFromJson(json);
 
   @override
   @DoublePointJsonConverter()
@@ -144,14 +122,23 @@ class _$NetworkingUserImpl
     return EqualUnmodifiableListView(value);
   }
 
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NetworkingUser(cursor: $cursor, foreground: $foreground)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NetworkingUserCopyWith<_NetworkingUser> get copyWith =>
+      __$NetworkingUserCopyWithImpl<_NetworkingUser>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$NetworkingUserToJson(
+      this,
+    );
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'NetworkingUser'))
       ..add(DiagnosticsProperty('cursor', cursor))
@@ -162,7 +149,7 @@ class _$NetworkingUserImpl
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NetworkingUserImpl &&
+            other is _NetworkingUser &&
             (identical(other.cursor, cursor) || other.cursor == cursor) &&
             const DeepCollectionEquality()
                 .equals(other._foreground, _foreground));
@@ -173,41 +160,52 @@ class _$NetworkingUserImpl
   int get hashCode => Object.hash(
       runtimeType, cursor, const DeepCollectionEquality().hash(_foreground));
 
-  /// Create a copy of NetworkingUser
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$NetworkingUserImplCopyWith<_$NetworkingUserImpl> get copyWith =>
-      __$$NetworkingUserImplCopyWithImpl<_$NetworkingUserImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NetworkingUserImplToJson(
-      this,
-    );
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'NetworkingUser(cursor: $cursor, foreground: $foreground)';
   }
 }
 
-abstract class _NetworkingUser implements NetworkingUser {
-  const factory _NetworkingUser(
-      {@DoublePointJsonConverter() final Point<double>? cursor,
-      final List<PadElement>? foreground}) = _$NetworkingUserImpl;
-
-  factory _NetworkingUser.fromJson(Map<String, dynamic> json) =
-      _$NetworkingUserImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$NetworkingUserCopyWith<$Res>
+    implements $NetworkingUserCopyWith<$Res> {
+  factory _$NetworkingUserCopyWith(
+          _NetworkingUser value, $Res Function(_NetworkingUser) _then) =
+      __$NetworkingUserCopyWithImpl;
   @override
-  @DoublePointJsonConverter()
-  Point<double>? get cursor;
-  @override
-  List<PadElement>? get foreground;
+  @useResult
+  $Res call(
+      {@DoublePointJsonConverter() Point<double>? cursor,
+      List<PadElement>? foreground});
+}
+
+/// @nodoc
+class __$NetworkingUserCopyWithImpl<$Res>
+    implements _$NetworkingUserCopyWith<$Res> {
+  __$NetworkingUserCopyWithImpl(this._self, this._then);
+
+  final _NetworkingUser _self;
+  final $Res Function(_NetworkingUser) _then;
 
   /// Create a copy of NetworkingUser
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NetworkingUserImplCopyWith<_$NetworkingUserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? cursor = freezed,
+    Object? foreground = freezed,
+  }) {
+    return _then(_NetworkingUser(
+      cursor: freezed == cursor
+          ? _self.cursor
+          : cursor // ignore: cast_nullable_to_non_nullable
+              as Point<double>?,
+      foreground: freezed == foreground
+          ? _self._foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as List<PadElement>?,
+    ));
+  }
 }
+
+// dart format on

@@ -42,6 +42,7 @@
 * Fix windows portable archive
 * Fix hover in pattern texture view
 * Fix rectangle selection preview wrongly having a rotation handle line
+* Fix debian arm build ([#801](https://github.com/LinwoodDev/Butterfly/issues/801))
 * Remove http sources
 * Upgrade to flutter 3.29
 

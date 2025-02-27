@@ -6,8 +6,7 @@ part of 'utilities.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
-    _$UtilitiesStateImpl(
+UtilitiesState _$UtilitiesStateFromJson(Map json) => UtilitiesState(
       lockCollection: json['lockCollection'] as bool? ?? false,
       lockZoom: json['lockZoom'] as bool? ?? false,
       lockHorizontal: json['lockHorizontal'] as bool? ?? false,
@@ -15,8 +14,7 @@ _$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
       fullSelection: json['fullSelection'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$UtilitiesStateImplToJson(
-        _$UtilitiesStateImpl instance) =>
+Map<String, dynamic> _$UtilitiesStateToJson(UtilitiesState instance) =>
     <String, dynamic>{
       'lockCollection': instance.lockCollection,
       'lockZoom': instance.lockZoom,

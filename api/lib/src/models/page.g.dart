@@ -6,7 +6,7 @@ part of 'page.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
+_DocumentPage _$DocumentPageFromJson(Map json) => _DocumentPage(
       animations: (json['animations'] as List<dynamic>?)
               ?.map((e) =>
                   AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -37,7 +37,7 @@ _$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
           const {},
     );
 
-Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
+Map<String, dynamic> _$DocumentPageToJson(_DocumentPage instance) =>
     <String, dynamic>{
       'animations': instance.animations.map((e) => e.toJson()).toList(),
       'layers': instance.layers.map((e) => e.toJson()).toList(),
@@ -47,8 +47,7 @@ Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
       'extra': instance.extra,
     };
 
-_$DocumentLayerImpl _$$DocumentLayerImplFromJson(Map json) =>
-    _$DocumentLayerImpl(
+_DocumentLayer _$DocumentLayerFromJson(Map json) => _DocumentLayer(
       id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       content: (json['content'] as List<dynamic>?)
@@ -58,7 +57,7 @@ _$DocumentLayerImpl _$$DocumentLayerImplFromJson(Map json) =>
           const [],
     );
 
-Map<String, dynamic> _$$DocumentLayerImplToJson(_$DocumentLayerImpl instance) =>
+Map<String, dynamic> _$DocumentLayerToJson(_DocumentLayer instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

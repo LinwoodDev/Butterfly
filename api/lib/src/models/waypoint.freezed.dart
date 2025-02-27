@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,154 +10,31 @@ part of 'waypoint.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Waypoint _$WaypointFromJson(Map<String, dynamic> json) {
-  return _Waypoint.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Waypoint {
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @DoublePointJsonConverter()
-  Point<double> get position => throw _privateConstructorUsedError;
-  double? get scale => throw _privateConstructorUsedError;
-
-  /// Serializes this Waypoint to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Point<double> get position;
+  double? get scale;
 
   /// Create a copy of Waypoint
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $WaypointCopyWith<Waypoint> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+      _$WaypointCopyWithImpl<Waypoint>(this as Waypoint, _$identity);
 
-/// @nodoc
-abstract class $WaypointCopyWith<$Res> {
-  factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) then) =
-      _$WaypointCopyWithImpl<$Res, Waypoint>;
-  @useResult
-  $Res call(
-      {String name,
-      @DoublePointJsonConverter() Point<double> position,
-      double? scale});
-}
-
-/// @nodoc
-class _$WaypointCopyWithImpl<$Res, $Val extends Waypoint>
-    implements $WaypointCopyWith<$Res> {
-  _$WaypointCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Waypoint
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? position = null,
-    Object? scale = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      position: null == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      scale: freezed == scale
-          ? _value.scale
-          : scale // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$WaypointImplCopyWith<$Res>
-    implements $WaypointCopyWith<$Res> {
-  factory _$$WaypointImplCopyWith(
-          _$WaypointImpl value, $Res Function(_$WaypointImpl) then) =
-      __$$WaypointImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      @DoublePointJsonConverter() Point<double> position,
-      double? scale});
-}
-
-/// @nodoc
-class __$$WaypointImplCopyWithImpl<$Res>
-    extends _$WaypointCopyWithImpl<$Res, _$WaypointImpl>
-    implements _$$WaypointImplCopyWith<$Res> {
-  __$$WaypointImplCopyWithImpl(
-      _$WaypointImpl _value, $Res Function(_$WaypointImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Waypoint
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? position = null,
-    Object? scale = freezed,
-  }) {
-    return _then(_$WaypointImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      freezed == scale
-          ? _value.scale
-          : scale // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WaypointImpl implements _Waypoint {
-  const _$WaypointImpl(this.name, @DoublePointJsonConverter() this.position,
-      [this.scale]);
-
-  factory _$WaypointImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointImplFromJson(json);
-
-  @override
-  final String name;
-  @override
-  @DoublePointJsonConverter()
-  final Point<double> position;
-  @override
-  final double? scale;
-
-  @override
-  String toString() {
-    return 'Waypoint(name: $name, position: $position, scale: $scale)';
-  }
+  /// Serializes this Waypoint to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointImpl &&
+            other is Waypoint &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.position, position) ||
                 other.position == position) &&
@@ -167,42 +45,152 @@ class _$WaypointImpl implements _Waypoint {
   @override
   int get hashCode => Object.hash(runtimeType, name, position, scale);
 
-  /// Create a copy of Waypoint
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
-      __$$WaypointImplCopyWithImpl<_$WaypointImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Waypoint(name: $name, position: $position, scale: $scale)';
   }
 }
 
-abstract class _Waypoint implements Waypoint {
-  const factory _Waypoint(final String name,
-      @DoublePointJsonConverter() final Point<double> position,
-      [final double? scale]) = _$WaypointImpl;
+/// @nodoc
+abstract mixin class $WaypointCopyWith<$Res> {
+  factory $WaypointCopyWith(Waypoint value, $Res Function(Waypoint) _then) =
+      _$WaypointCopyWithImpl;
+  @useResult
+  $Res call(
+      {String name,
+      @DoublePointJsonConverter() Point<double> position,
+      double? scale});
+}
 
-  factory _Waypoint.fromJson(Map<String, dynamic> json) =
-      _$WaypointImpl.fromJson;
+/// @nodoc
+class _$WaypointCopyWithImpl<$Res> implements $WaypointCopyWith<$Res> {
+  _$WaypointCopyWithImpl(this._self, this._then);
+
+  final Waypoint _self;
+  final $Res Function(Waypoint) _then;
+
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? position = null,
+    Object? scale = freezed,
+  }) {
+    return _then(_self.copyWith(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      position: null == position
+          ? _self.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      scale: freezed == scale
+          ? _self.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _Waypoint implements Waypoint {
+  const _Waypoint(this.name, @DoublePointJsonConverter() this.position,
+      [this.scale]);
+  factory _Waypoint.fromJson(Map<String, dynamic> json) =>
+      _$WaypointFromJson(json);
 
   @override
-  String get name;
+  final String name;
   @override
   @DoublePointJsonConverter()
-  Point<double> get position;
+  final Point<double> position;
   @override
-  double? get scale;
+  final double? scale;
 
   /// Create a copy of Waypoint
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  _$WaypointCopyWith<_Waypoint> get copyWith =>
+      __$WaypointCopyWithImpl<_Waypoint>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WaypointToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Waypoint &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
+            (identical(other.scale, scale) || other.scale == scale));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, position, scale);
+
+  @override
+  String toString() {
+    return 'Waypoint(name: $name, position: $position, scale: $scale)';
+  }
 }
+
+/// @nodoc
+abstract mixin class _$WaypointCopyWith<$Res>
+    implements $WaypointCopyWith<$Res> {
+  factory _$WaypointCopyWith(_Waypoint value, $Res Function(_Waypoint) _then) =
+      __$WaypointCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      @DoublePointJsonConverter() Point<double> position,
+      double? scale});
+}
+
+/// @nodoc
+class __$WaypointCopyWithImpl<$Res> implements _$WaypointCopyWith<$Res> {
+  __$WaypointCopyWithImpl(this._self, this._then);
+
+  final _Waypoint _self;
+  final $Res Function(_Waypoint) _then;
+
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? position = null,
+    Object? scale = freezed,
+  }) {
+    return _then(_Waypoint(
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == position
+          ? _self.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      freezed == scale
+          ? _self.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+// dart format on

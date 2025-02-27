@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,66 +10,64 @@ part of 'current_index.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CurrentIndex {
-  int? get index => throw _privateConstructorUsedError;
-  Handler<dynamic> get handler => throw _privateConstructorUsedError;
-  CameraViewport get cameraViewport => throw _privateConstructorUsedError;
-  SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
-  TransformCubit get transformCubit => throw _privateConstructorUsedError;
-  NetworkingService get networkingService => throw _privateConstructorUsedError;
-  UtilitiesState get utilities => throw _privateConstructorUsedError;
-  Handler<Tool>? get temporaryHandler => throw _privateConstructorUsedError;
-  List<Renderer> get foregrounds => throw _privateConstructorUsedError;
-  Selection<dynamic>? get selection => throw _privateConstructorUsedError;
-  bool get pinned => throw _privateConstructorUsedError;
-  List<Renderer>? get temporaryForegrounds =>
-      throw _privateConstructorUsedError;
-  Map<int, Handler<Tool>> get toggleableHandlers =>
-      throw _privateConstructorUsedError;
-  List<Renderer> get networkingForegrounds =>
-      throw _privateConstructorUsedError;
-  Map<int, List<Renderer>> get toggleableForegrounds =>
-      throw _privateConstructorUsedError;
-  MouseCursor get cursor => throw _privateConstructorUsedError;
-  MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
-  TemporaryState get temporaryState => throw _privateConstructorUsedError;
-  ui.Offset? get lastPosition => throw _privateConstructorUsedError;
-  List<int> get pointers => throw _privateConstructorUsedError;
-  int? get buttons => throw _privateConstructorUsedError;
-  AssetLocation get location => throw _privateConstructorUsedError;
-  Embedding? get embedding => throw _privateConstructorUsedError;
-  SaveState get saved => throw _privateConstructorUsedError;
-  PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
-  PreferredSizeWidget? get temporaryToolbar =>
-      throw _privateConstructorUsedError;
-  Map<String, RendererState> get rendererStates =>
-      throw _privateConstructorUsedError;
-  Map<String, RendererState>? get temporaryRendererStates =>
-      throw _privateConstructorUsedError;
-  ViewOption get viewOption => throw _privateConstructorUsedError;
-  HideState get hideUi => throw _privateConstructorUsedError;
-  bool get areaNavigatorCreate => throw _privateConstructorUsedError;
-  bool get areaNavigatorExact => throw _privateConstructorUsedError;
-  bool get areaNavigatorAsk => throw _privateConstructorUsedError;
+  int? get index;
+  Handler get handler;
+  CameraViewport get cameraViewport;
+  SettingsCubit get settingsCubit;
+  TransformCubit get transformCubit;
+  NetworkingService get networkingService;
+  UtilitiesState get utilities;
+  Handler<Tool>? get temporaryHandler;
+  List<Renderer> get foregrounds;
+  Selection? get selection;
+  bool get pinned;
+  List<Renderer>? get temporaryForegrounds;
+  Map<int, Handler<Tool>> get toggleableHandlers;
+  List<Renderer> get networkingForegrounds;
+  Map<int, List<Renderer>> get toggleableForegrounds;
+  MouseCursor get cursor;
+  MouseCursor? get temporaryCursor;
+  TemporaryState get temporaryState;
+  Offset? get lastPosition;
+  List<int> get pointers;
+  int? get buttons;
+  AssetLocation get location;
+  Embedding? get embedding;
+  SaveState get saved;
+  PreferredSizeWidget? get toolbar;
+  PreferredSizeWidget? get temporaryToolbar;
+  Map<String, RendererState> get rendererStates;
+  Map<String, RendererState>? get temporaryRendererStates;
+  ViewOption get viewOption;
+  HideState get hideUi;
+  bool get areaNavigatorCreate;
+  bool get areaNavigatorExact;
+  bool get areaNavigatorAsk;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$CurrentIndexCopyWithImpl<CurrentIndex>(
+          this as CurrentIndex, _$identity);
+
+  @override
+  String toString() {
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
+  }
 }
 
 /// @nodoc
-abstract class $CurrentIndexCopyWith<$Res> {
+abstract mixin class $CurrentIndexCopyWith<$Res> {
   factory $CurrentIndexCopyWith(
-          CurrentIndex value, $Res Function(CurrentIndex) then) =
-      _$CurrentIndexCopyWithImpl<$Res, CurrentIndex>;
+          CurrentIndex value, $Res Function(CurrentIndex) _then) =
+      _$CurrentIndexCopyWithImpl;
   @useResult
   $Res call(
       {int? index,
@@ -110,14 +109,11 @@ abstract class $CurrentIndexCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
-    implements $CurrentIndexCopyWith<$Res> {
-  _$CurrentIndexCopyWithImpl(this._value, this._then);
+class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
+  _$CurrentIndexCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CurrentIndex _self;
+  final $Res Function(CurrentIndex) _then;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
@@ -158,140 +154,140 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? areaNavigatorExact = null,
     Object? areaNavigatorAsk = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       index: freezed == index
-          ? _value.index
+          ? _self.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
       handler: null == handler
-          ? _value.handler
+          ? _self.handler!
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
       cameraViewport: null == cameraViewport
-          ? _value.cameraViewport
+          ? _self.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
               as CameraViewport,
       settingsCubit: null == settingsCubit
-          ? _value.settingsCubit
+          ? _self.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
               as SettingsCubit,
       transformCubit: null == transformCubit
-          ? _value.transformCubit
+          ? _self.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
       networkingService: null == networkingService
-          ? _value.networkingService
+          ? _self.networkingService
           : networkingService // ignore: cast_nullable_to_non_nullable
               as NetworkingService,
       utilities: null == utilities
-          ? _value.utilities
+          ? _self.utilities
           : utilities // ignore: cast_nullable_to_non_nullable
               as UtilitiesState,
       temporaryHandler: freezed == temporaryHandler
-          ? _value.temporaryHandler
+          ? _self.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
               as Handler<Tool>?,
       foregrounds: null == foregrounds
-          ? _value.foregrounds
+          ? _self.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
       selection: freezed == selection
-          ? _value.selection
+          ? _self.selection!
           : selection // ignore: cast_nullable_to_non_nullable
               as Selection<dynamic>?,
       pinned: null == pinned
-          ? _value.pinned
+          ? _self.pinned
           : pinned // ignore: cast_nullable_to_non_nullable
               as bool,
       temporaryForegrounds: freezed == temporaryForegrounds
-          ? _value.temporaryForegrounds
+          ? _self.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
       toggleableHandlers: null == toggleableHandlers
-          ? _value.toggleableHandlers
+          ? _self.toggleableHandlers
           : toggleableHandlers // ignore: cast_nullable_to_non_nullable
               as Map<int, Handler<Tool>>,
       networkingForegrounds: null == networkingForegrounds
-          ? _value.networkingForegrounds
+          ? _self.networkingForegrounds
           : networkingForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
       toggleableForegrounds: null == toggleableForegrounds
-          ? _value.toggleableForegrounds
+          ? _self.toggleableForegrounds
           : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
               as Map<int, List<Renderer>>,
       cursor: null == cursor
-          ? _value.cursor
+          ? _self.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor,
       temporaryCursor: freezed == temporaryCursor
-          ? _value.temporaryCursor
+          ? _self.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
       temporaryState: null == temporaryState
-          ? _value.temporaryState
+          ? _self.temporaryState
           : temporaryState // ignore: cast_nullable_to_non_nullable
               as TemporaryState,
       lastPosition: freezed == lastPosition
-          ? _value.lastPosition
+          ? _self.lastPosition!
           : lastPosition // ignore: cast_nullable_to_non_nullable
               as ui.Offset?,
       pointers: null == pointers
-          ? _value.pointers
+          ? _self.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
               as List<int>,
       buttons: freezed == buttons
-          ? _value.buttons
+          ? _self.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as int?,
       location: null == location
-          ? _value.location
+          ? _self.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
       embedding: freezed == embedding
-          ? _value.embedding
+          ? _self.embedding
           : embedding // ignore: cast_nullable_to_non_nullable
               as Embedding?,
       saved: null == saved
-          ? _value.saved
+          ? _self.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as SaveState,
       toolbar: freezed == toolbar
-          ? _value.toolbar
+          ? _self.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
               as PreferredSizeWidget?,
       temporaryToolbar: freezed == temporaryToolbar
-          ? _value.temporaryToolbar
+          ? _self.temporaryToolbar
           : temporaryToolbar // ignore: cast_nullable_to_non_nullable
               as PreferredSizeWidget?,
       rendererStates: null == rendererStates
-          ? _value.rendererStates
+          ? _self.rendererStates
           : rendererStates // ignore: cast_nullable_to_non_nullable
               as Map<String, RendererState>,
       temporaryRendererStates: freezed == temporaryRendererStates
-          ? _value.temporaryRendererStates
+          ? _self.temporaryRendererStates
           : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
               as Map<String, RendererState>?,
       viewOption: null == viewOption
-          ? _value.viewOption
+          ? _self.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
               as ViewOption,
       hideUi: null == hideUi
-          ? _value.hideUi
+          ? _self.hideUi
           : hideUi // ignore: cast_nullable_to_non_nullable
               as HideState,
       areaNavigatorCreate: null == areaNavigatorCreate
-          ? _value.areaNavigatorCreate
+          ? _self.areaNavigatorCreate
           : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
               as bool,
       areaNavigatorExact: null == areaNavigatorExact
-          ? _value.areaNavigatorExact
+          ? _self.areaNavigatorExact
           : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
               as bool,
       areaNavigatorAsk: null == areaNavigatorAsk
-          ? _value.areaNavigatorAsk
+          ? _self.areaNavigatorAsk
           : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
               as bool,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of CurrentIndex
@@ -299,8 +295,8 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
   @override
   @pragma('vm:prefer-inline')
   $UtilitiesStateCopyWith<$Res> get utilities {
-    return $UtilitiesStateCopyWith<$Res>(_value.utilities, (value) {
-      return _then(_value.copyWith(utilities: value) as $Val);
+    return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
+      return _then(_self.copyWith(utilities: value));
     });
   }
 
@@ -309,249 +305,16 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get viewOption {
-    return $ViewOptionCopyWith<$Res>(_value.viewOption, (value) {
-      return _then(_value.copyWith(viewOption: value) as $Val);
+    return $ViewOptionCopyWith<$Res>(_self.viewOption, (value) {
+      return _then(_self.copyWith(viewOption: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$CurrentIndexImplCopyWith<$Res>
-    implements $CurrentIndexCopyWith<$Res> {
-  factory _$$CurrentIndexImplCopyWith(
-          _$CurrentIndexImpl value, $Res Function(_$CurrentIndexImpl) then) =
-      __$$CurrentIndexImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? index,
-      Handler<dynamic> handler,
-      CameraViewport cameraViewport,
-      SettingsCubit settingsCubit,
-      TransformCubit transformCubit,
-      NetworkingService networkingService,
-      UtilitiesState utilities,
-      Handler<Tool>? temporaryHandler,
-      List<Renderer> foregrounds,
-      Selection<dynamic>? selection,
-      bool pinned,
-      List<Renderer>? temporaryForegrounds,
-      Map<int, Handler<Tool>> toggleableHandlers,
-      List<Renderer> networkingForegrounds,
-      Map<int, List<Renderer>> toggleableForegrounds,
-      MouseCursor cursor,
-      MouseCursor? temporaryCursor,
-      TemporaryState temporaryState,
-      ui.Offset? lastPosition,
-      List<int> pointers,
-      int? buttons,
-      AssetLocation location,
-      Embedding? embedding,
-      SaveState saved,
-      PreferredSizeWidget? toolbar,
-      PreferredSizeWidget? temporaryToolbar,
-      Map<String, RendererState> rendererStates,
-      Map<String, RendererState>? temporaryRendererStates,
-      ViewOption viewOption,
-      HideState hideUi,
-      bool areaNavigatorCreate,
-      bool areaNavigatorExact,
-      bool areaNavigatorAsk});
 
-  @override
-  $UtilitiesStateCopyWith<$Res> get utilities;
-  @override
-  $ViewOptionCopyWith<$Res> get viewOption;
-}
-
-/// @nodoc
-class __$$CurrentIndexImplCopyWithImpl<$Res>
-    extends _$CurrentIndexCopyWithImpl<$Res, _$CurrentIndexImpl>
-    implements _$$CurrentIndexImplCopyWith<$Res> {
-  __$$CurrentIndexImplCopyWithImpl(
-      _$CurrentIndexImpl _value, $Res Function(_$CurrentIndexImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CurrentIndex
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = freezed,
-    Object? handler = null,
-    Object? cameraViewport = null,
-    Object? settingsCubit = null,
-    Object? transformCubit = null,
-    Object? networkingService = null,
-    Object? utilities = null,
-    Object? temporaryHandler = freezed,
-    Object? foregrounds = null,
-    Object? selection = freezed,
-    Object? pinned = null,
-    Object? temporaryForegrounds = freezed,
-    Object? toggleableHandlers = null,
-    Object? networkingForegrounds = null,
-    Object? toggleableForegrounds = null,
-    Object? cursor = null,
-    Object? temporaryCursor = freezed,
-    Object? temporaryState = null,
-    Object? lastPosition = freezed,
-    Object? pointers = null,
-    Object? buttons = freezed,
-    Object? location = null,
-    Object? embedding = freezed,
-    Object? saved = null,
-    Object? toolbar = freezed,
-    Object? temporaryToolbar = freezed,
-    Object? rendererStates = null,
-    Object? temporaryRendererStates = freezed,
-    Object? viewOption = null,
-    Object? hideUi = null,
-    Object? areaNavigatorCreate = null,
-    Object? areaNavigatorExact = null,
-    Object? areaNavigatorAsk = null,
-  }) {
-    return _then(_$CurrentIndexImpl(
-      freezed == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int?,
-      null == handler
-          ? _value.handler
-          : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
-      null == cameraViewport
-          ? _value.cameraViewport
-          : cameraViewport // ignore: cast_nullable_to_non_nullable
-              as CameraViewport,
-      null == settingsCubit
-          ? _value.settingsCubit
-          : settingsCubit // ignore: cast_nullable_to_non_nullable
-              as SettingsCubit,
-      null == transformCubit
-          ? _value.transformCubit
-          : transformCubit // ignore: cast_nullable_to_non_nullable
-              as TransformCubit,
-      null == networkingService
-          ? _value.networkingService
-          : networkingService // ignore: cast_nullable_to_non_nullable
-              as NetworkingService,
-      utilities: null == utilities
-          ? _value.utilities
-          : utilities // ignore: cast_nullable_to_non_nullable
-              as UtilitiesState,
-      temporaryHandler: freezed == temporaryHandler
-          ? _value.temporaryHandler
-          : temporaryHandler // ignore: cast_nullable_to_non_nullable
-              as Handler<Tool>?,
-      foregrounds: null == foregrounds
-          ? _value._foregrounds
-          : foregrounds // ignore: cast_nullable_to_non_nullable
-              as List<Renderer>,
-      selection: freezed == selection
-          ? _value.selection
-          : selection // ignore: cast_nullable_to_non_nullable
-              as Selection<dynamic>?,
-      pinned: null == pinned
-          ? _value.pinned
-          : pinned // ignore: cast_nullable_to_non_nullable
-              as bool,
-      temporaryForegrounds: freezed == temporaryForegrounds
-          ? _value._temporaryForegrounds
-          : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
-              as List<Renderer>?,
-      toggleableHandlers: null == toggleableHandlers
-          ? _value._toggleableHandlers
-          : toggleableHandlers // ignore: cast_nullable_to_non_nullable
-              as Map<int, Handler<Tool>>,
-      networkingForegrounds: null == networkingForegrounds
-          ? _value._networkingForegrounds
-          : networkingForegrounds // ignore: cast_nullable_to_non_nullable
-              as List<Renderer>,
-      toggleableForegrounds: null == toggleableForegrounds
-          ? _value._toggleableForegrounds
-          : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<Renderer>>,
-      cursor: null == cursor
-          ? _value.cursor
-          : cursor // ignore: cast_nullable_to_non_nullable
-              as MouseCursor,
-      temporaryCursor: freezed == temporaryCursor
-          ? _value.temporaryCursor
-          : temporaryCursor // ignore: cast_nullable_to_non_nullable
-              as MouseCursor?,
-      temporaryState: null == temporaryState
-          ? _value.temporaryState
-          : temporaryState // ignore: cast_nullable_to_non_nullable
-              as TemporaryState,
-      lastPosition: freezed == lastPosition
-          ? _value.lastPosition
-          : lastPosition // ignore: cast_nullable_to_non_nullable
-              as ui.Offset?,
-      pointers: null == pointers
-          ? _value._pointers
-          : pointers // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      buttons: freezed == buttons
-          ? _value.buttons
-          : buttons // ignore: cast_nullable_to_non_nullable
-              as int?,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as AssetLocation,
-      embedding: freezed == embedding
-          ? _value.embedding
-          : embedding // ignore: cast_nullable_to_non_nullable
-              as Embedding?,
-      saved: null == saved
-          ? _value.saved
-          : saved // ignore: cast_nullable_to_non_nullable
-              as SaveState,
-      toolbar: freezed == toolbar
-          ? _value.toolbar
-          : toolbar // ignore: cast_nullable_to_non_nullable
-              as PreferredSizeWidget?,
-      temporaryToolbar: freezed == temporaryToolbar
-          ? _value.temporaryToolbar
-          : temporaryToolbar // ignore: cast_nullable_to_non_nullable
-              as PreferredSizeWidget?,
-      rendererStates: null == rendererStates
-          ? _value._rendererStates
-          : rendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<String, RendererState>,
-      temporaryRendererStates: freezed == temporaryRendererStates
-          ? _value._temporaryRendererStates
-          : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<String, RendererState>?,
-      viewOption: null == viewOption
-          ? _value.viewOption
-          : viewOption // ignore: cast_nullable_to_non_nullable
-              as ViewOption,
-      hideUi: null == hideUi
-          ? _value.hideUi
-          : hideUi // ignore: cast_nullable_to_non_nullable
-              as HideState,
-      areaNavigatorCreate: null == areaNavigatorCreate
-          ? _value.areaNavigatorCreate
-          : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
-              as bool,
-      areaNavigatorExact: null == areaNavigatorExact
-          ? _value.areaNavigatorExact
-          : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
-              as bool,
-      areaNavigatorAsk: null == areaNavigatorAsk
-          ? _value.areaNavigatorAsk
-          : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CurrentIndexImpl extends _CurrentIndex {
-  const _$CurrentIndexImpl(this.index, this.handler, this.cameraViewport,
+class _CurrentIndex extends CurrentIndex {
+  const _CurrentIndex(this.index, this.handler, this.cameraViewport,
       this.settingsCubit, this.transformCubit, this.networkingService,
       {this.utilities = const UtilitiesState(),
       this.temporaryHandler,
@@ -732,128 +495,271 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   @JsonKey()
   final bool areaNavigatorAsk;
 
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CurrentIndexCopyWith<_CurrentIndex> get copyWith =>
+      __$CurrentIndexCopyWithImpl<_CurrentIndex>(this, _$identity);
+
   @override
   String toString() {
     return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
   }
+}
+
+/// @nodoc
+abstract mixin class _$CurrentIndexCopyWith<$Res>
+    implements $CurrentIndexCopyWith<$Res> {
+  factory _$CurrentIndexCopyWith(
+          _CurrentIndex value, $Res Function(_CurrentIndex) _then) =
+      __$CurrentIndexCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int? index,
+      Handler<dynamic> handler,
+      CameraViewport cameraViewport,
+      SettingsCubit settingsCubit,
+      TransformCubit transformCubit,
+      NetworkingService networkingService,
+      UtilitiesState utilities,
+      Handler<Tool>? temporaryHandler,
+      List<Renderer> foregrounds,
+      Selection<dynamic>? selection,
+      bool pinned,
+      List<Renderer>? temporaryForegrounds,
+      Map<int, Handler<Tool>> toggleableHandlers,
+      List<Renderer> networkingForegrounds,
+      Map<int, List<Renderer>> toggleableForegrounds,
+      MouseCursor cursor,
+      MouseCursor? temporaryCursor,
+      TemporaryState temporaryState,
+      ui.Offset? lastPosition,
+      List<int> pointers,
+      int? buttons,
+      AssetLocation location,
+      Embedding? embedding,
+      SaveState saved,
+      PreferredSizeWidget? toolbar,
+      PreferredSizeWidget? temporaryToolbar,
+      Map<String, RendererState> rendererStates,
+      Map<String, RendererState>? temporaryRendererStates,
+      ViewOption viewOption,
+      HideState hideUi,
+      bool areaNavigatorCreate,
+      bool areaNavigatorExact,
+      bool areaNavigatorAsk});
+
+  @override
+  $UtilitiesStateCopyWith<$Res> get utilities;
+  @override
+  $ViewOptionCopyWith<$Res> get viewOption;
+}
+
+/// @nodoc
+class __$CurrentIndexCopyWithImpl<$Res>
+    implements _$CurrentIndexCopyWith<$Res> {
+  __$CurrentIndexCopyWithImpl(this._self, this._then);
+
+  final _CurrentIndex _self;
+  final $Res Function(_CurrentIndex) _then;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
-      __$$CurrentIndexImplCopyWithImpl<_$CurrentIndexImpl>(this, _$identity);
-}
-
-abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(
-      final int? index,
-      final Handler<dynamic> handler,
-      final CameraViewport cameraViewport,
-      final SettingsCubit settingsCubit,
-      final TransformCubit transformCubit,
-      final NetworkingService networkingService,
-      {final UtilitiesState utilities,
-      final Handler<Tool>? temporaryHandler,
-      final List<Renderer> foregrounds,
-      final Selection<dynamic>? selection,
-      final bool pinned,
-      final List<Renderer>? temporaryForegrounds,
-      final Map<int, Handler<Tool>> toggleableHandlers,
-      final List<Renderer> networkingForegrounds,
-      final Map<int, List<Renderer>> toggleableForegrounds,
-      final MouseCursor cursor,
-      final MouseCursor? temporaryCursor,
-      final TemporaryState temporaryState,
-      final ui.Offset? lastPosition,
-      final List<int> pointers,
-      final int? buttons,
-      final AssetLocation location,
-      final Embedding? embedding,
-      final SaveState saved,
-      final PreferredSizeWidget? toolbar,
-      final PreferredSizeWidget? temporaryToolbar,
-      final Map<String, RendererState> rendererStates,
-      final Map<String, RendererState>? temporaryRendererStates,
-      final ViewOption viewOption,
-      final HideState hideUi,
-      final bool areaNavigatorCreate,
-      final bool areaNavigatorExact,
-      final bool areaNavigatorAsk}) = _$CurrentIndexImpl;
-  const _CurrentIndex._() : super._();
-
-  @override
-  int? get index;
-  @override
-  Handler<dynamic> get handler;
-  @override
-  CameraViewport get cameraViewport;
-  @override
-  SettingsCubit get settingsCubit;
-  @override
-  TransformCubit get transformCubit;
-  @override
-  NetworkingService get networkingService;
-  @override
-  UtilitiesState get utilities;
-  @override
-  Handler<Tool>? get temporaryHandler;
-  @override
-  List<Renderer> get foregrounds;
-  @override
-  Selection<dynamic>? get selection;
-  @override
-  bool get pinned;
-  @override
-  List<Renderer>? get temporaryForegrounds;
-  @override
-  Map<int, Handler<Tool>> get toggleableHandlers;
-  @override
-  List<Renderer> get networkingForegrounds;
-  @override
-  Map<int, List<Renderer>> get toggleableForegrounds;
-  @override
-  MouseCursor get cursor;
-  @override
-  MouseCursor? get temporaryCursor;
-  @override
-  TemporaryState get temporaryState;
-  @override
-  ui.Offset? get lastPosition;
-  @override
-  List<int> get pointers;
-  @override
-  int? get buttons;
-  @override
-  AssetLocation get location;
-  @override
-  Embedding? get embedding;
-  @override
-  SaveState get saved;
-  @override
-  PreferredSizeWidget? get toolbar;
-  @override
-  PreferredSizeWidget? get temporaryToolbar;
-  @override
-  Map<String, RendererState> get rendererStates;
-  @override
-  Map<String, RendererState>? get temporaryRendererStates;
-  @override
-  ViewOption get viewOption;
-  @override
-  HideState get hideUi;
-  @override
-  bool get areaNavigatorCreate;
-  @override
-  bool get areaNavigatorExact;
-  @override
-  bool get areaNavigatorAsk;
+  $Res call({
+    Object? index = freezed,
+    Object? handler = null,
+    Object? cameraViewport = null,
+    Object? settingsCubit = null,
+    Object? transformCubit = null,
+    Object? networkingService = null,
+    Object? utilities = null,
+    Object? temporaryHandler = freezed,
+    Object? foregrounds = null,
+    Object? selection = freezed,
+    Object? pinned = null,
+    Object? temporaryForegrounds = freezed,
+    Object? toggleableHandlers = null,
+    Object? networkingForegrounds = null,
+    Object? toggleableForegrounds = null,
+    Object? cursor = null,
+    Object? temporaryCursor = freezed,
+    Object? temporaryState = null,
+    Object? lastPosition = freezed,
+    Object? pointers = null,
+    Object? buttons = freezed,
+    Object? location = null,
+    Object? embedding = freezed,
+    Object? saved = null,
+    Object? toolbar = freezed,
+    Object? temporaryToolbar = freezed,
+    Object? rendererStates = null,
+    Object? temporaryRendererStates = freezed,
+    Object? viewOption = null,
+    Object? hideUi = null,
+    Object? areaNavigatorCreate = null,
+    Object? areaNavigatorExact = null,
+    Object? areaNavigatorAsk = null,
+  }) {
+    return _then(_CurrentIndex(
+      freezed == index
+          ? _self.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
+      null == handler
+          ? _self.handler
+          : handler // ignore: cast_nullable_to_non_nullable
+              as Handler<dynamic>,
+      null == cameraViewport
+          ? _self.cameraViewport
+          : cameraViewport // ignore: cast_nullable_to_non_nullable
+              as CameraViewport,
+      null == settingsCubit
+          ? _self.settingsCubit
+          : settingsCubit // ignore: cast_nullable_to_non_nullable
+              as SettingsCubit,
+      null == transformCubit
+          ? _self.transformCubit
+          : transformCubit // ignore: cast_nullable_to_non_nullable
+              as TransformCubit,
+      null == networkingService
+          ? _self.networkingService
+          : networkingService // ignore: cast_nullable_to_non_nullable
+              as NetworkingService,
+      utilities: null == utilities
+          ? _self.utilities
+          : utilities // ignore: cast_nullable_to_non_nullable
+              as UtilitiesState,
+      temporaryHandler: freezed == temporaryHandler
+          ? _self.temporaryHandler
+          : temporaryHandler // ignore: cast_nullable_to_non_nullable
+              as Handler<Tool>?,
+      foregrounds: null == foregrounds
+          ? _self._foregrounds
+          : foregrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>,
+      selection: freezed == selection
+          ? _self.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as Selection<dynamic>?,
+      pinned: null == pinned
+          ? _self.pinned
+          : pinned // ignore: cast_nullable_to_non_nullable
+              as bool,
+      temporaryForegrounds: freezed == temporaryForegrounds
+          ? _self._temporaryForegrounds
+          : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>?,
+      toggleableHandlers: null == toggleableHandlers
+          ? _self._toggleableHandlers
+          : toggleableHandlers // ignore: cast_nullable_to_non_nullable
+              as Map<int, Handler<Tool>>,
+      networkingForegrounds: null == networkingForegrounds
+          ? _self._networkingForegrounds
+          : networkingForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>,
+      toggleableForegrounds: null == toggleableForegrounds
+          ? _self._toggleableForegrounds
+          : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Renderer>>,
+      cursor: null == cursor
+          ? _self.cursor
+          : cursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor,
+      temporaryCursor: freezed == temporaryCursor
+          ? _self.temporaryCursor
+          : temporaryCursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor?,
+      temporaryState: null == temporaryState
+          ? _self.temporaryState
+          : temporaryState // ignore: cast_nullable_to_non_nullable
+              as TemporaryState,
+      lastPosition: freezed == lastPosition
+          ? _self.lastPosition
+          : lastPosition // ignore: cast_nullable_to_non_nullable
+              as ui.Offset?,
+      pointers: null == pointers
+          ? _self._pointers
+          : pointers // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      buttons: freezed == buttons
+          ? _self.buttons
+          : buttons // ignore: cast_nullable_to_non_nullable
+              as int?,
+      location: null == location
+          ? _self.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as AssetLocation,
+      embedding: freezed == embedding
+          ? _self.embedding
+          : embedding // ignore: cast_nullable_to_non_nullable
+              as Embedding?,
+      saved: null == saved
+          ? _self.saved
+          : saved // ignore: cast_nullable_to_non_nullable
+              as SaveState,
+      toolbar: freezed == toolbar
+          ? _self.toolbar
+          : toolbar // ignore: cast_nullable_to_non_nullable
+              as PreferredSizeWidget?,
+      temporaryToolbar: freezed == temporaryToolbar
+          ? _self.temporaryToolbar
+          : temporaryToolbar // ignore: cast_nullable_to_non_nullable
+              as PreferredSizeWidget?,
+      rendererStates: null == rendererStates
+          ? _self._rendererStates
+          : rendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<String, RendererState>,
+      temporaryRendererStates: freezed == temporaryRendererStates
+          ? _self._temporaryRendererStates
+          : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<String, RendererState>?,
+      viewOption: null == viewOption
+          ? _self.viewOption
+          : viewOption // ignore: cast_nullable_to_non_nullable
+              as ViewOption,
+      hideUi: null == hideUi
+          ? _self.hideUi
+          : hideUi // ignore: cast_nullable_to_non_nullable
+              as HideState,
+      areaNavigatorCreate: null == areaNavigatorCreate
+          ? _self.areaNavigatorCreate
+          : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorExact: null == areaNavigatorExact
+          ? _self.areaNavigatorExact
+          : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorAsk: null == areaNavigatorAsk
+          ? _self.areaNavigatorAsk
+          : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $UtilitiesStateCopyWith<$Res> get utilities {
+    return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
+      return _then(_self.copyWith(utilities: value));
+    });
+  }
+
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ViewOptionCopyWith<$Res> get viewOption {
+    return $ViewOptionCopyWith<$Res>(_self.viewOption, (value) {
+      return _then(_self.copyWith(viewOption: value));
+    });
+  }
 }
+
+// dart format on

@@ -210,6 +210,10 @@ jobs:
       - name: 🏭 Make binary executable
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/butterfly
+      - name: Update files to arm64
+        if: ${{ matrix.arch.name == 'arm64' }}
+        run: |
+          sed -i 's/^Architecture: amd64/Architecture: arm64/' linux/debian/DEBIAN/control
       - name: Build .deb executable
         run: |
           cp -fr build/linux/${{ matrix.arch.dir }}/release/bundle linux/debian/usr/bin

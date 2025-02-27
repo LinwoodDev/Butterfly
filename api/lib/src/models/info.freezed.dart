@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,37 +10,59 @@ part of 'info.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-DocumentInfo _$DocumentInfoFromJson(Map<String, dynamic> json) {
-  return _DocumentInfo.fromJson(json);
-}
 
 /// @nodoc
 mixin _$DocumentInfo {
-  List<Tool> get tools => throw _privateConstructorUsedError;
-  List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
-  ViewOption get view => throw _privateConstructorUsedError;
-  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
-
-  /// Serializes this DocumentInfo to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  List<Tool> get tools;
+  List<ExportPreset> get exportPresets;
+  ViewOption get view;
+  Map<String, dynamic> get extra;
 
   /// Create a copy of DocumentInfo
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $DocumentInfoCopyWith<DocumentInfo> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$DocumentInfoCopyWithImpl<DocumentInfo>(
+          this as DocumentInfo, _$identity);
+
+  /// Serializes this DocumentInfo to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DocumentInfo &&
+            const DeepCollectionEquality().equals(other.tools, tools) &&
+            const DeepCollectionEquality()
+                .equals(other.exportPresets, exportPresets) &&
+            (identical(other.view, view) || other.view == view) &&
+            const DeepCollectionEquality().equals(other.extra, extra));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(tools),
+      const DeepCollectionEquality().hash(exportPresets),
+      view,
+      const DeepCollectionEquality().hash(extra));
+
+  @override
+  String toString() {
+    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, view: $view, extra: $extra)';
+  }
 }
 
 /// @nodoc
-abstract class $DocumentInfoCopyWith<$Res> {
+abstract mixin class $DocumentInfoCopyWith<$Res> {
   factory $DocumentInfoCopyWith(
-          DocumentInfo value, $Res Function(DocumentInfo) then) =
-      _$DocumentInfoCopyWithImpl<$Res, DocumentInfo>;
+          DocumentInfo value, $Res Function(DocumentInfo) _then) =
+      _$DocumentInfoCopyWithImpl;
   @useResult
   $Res call(
       {List<Tool> tools,
@@ -51,14 +74,11 @@ abstract class $DocumentInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
-    implements $DocumentInfoCopyWith<$Res> {
-  _$DocumentInfoCopyWithImpl(this._value, this._then);
+class _$DocumentInfoCopyWithImpl<$Res> implements $DocumentInfoCopyWith<$Res> {
+  _$DocumentInfoCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DocumentInfo _self;
+  final $Res Function(DocumentInfo) _then;
 
   /// Create a copy of DocumentInfo
   /// with the given fields replaced by the non-null parameter values.
@@ -70,24 +90,24 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
     Object? view = null,
     Object? extra = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       tools: null == tools
-          ? _value.tools
+          ? _self.tools
           : tools // ignore: cast_nullable_to_non_nullable
               as List<Tool>,
       exportPresets: null == exportPresets
-          ? _value.exportPresets
+          ? _self.exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
       view: null == view
-          ? _value.view
+          ? _self.view
           : view // ignore: cast_nullable_to_non_nullable
               as ViewOption,
       extra: null == extra
-          ? _value.extra
+          ? _self.extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of DocumentInfo
@@ -95,73 +115,16 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get view {
-    return $ViewOptionCopyWith<$Res>(_value.view, (value) {
-      return _then(_value.copyWith(view: value) as $Val);
+    return $ViewOptionCopyWith<$Res>(_self.view, (value) {
+      return _then(_self.copyWith(view: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$DocumentInfoImplCopyWith<$Res>
-    implements $DocumentInfoCopyWith<$Res> {
-  factory _$$DocumentInfoImplCopyWith(
-          _$DocumentInfoImpl value, $Res Function(_$DocumentInfoImpl) then) =
-      __$$DocumentInfoImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {List<Tool> tools,
-      List<ExportPreset> exportPresets,
-      ViewOption view,
-      Map<String, dynamic> extra});
-
-  @override
-  $ViewOptionCopyWith<$Res> get view;
-}
-
-/// @nodoc
-class __$$DocumentInfoImplCopyWithImpl<$Res>
-    extends _$DocumentInfoCopyWithImpl<$Res, _$DocumentInfoImpl>
-    implements _$$DocumentInfoImplCopyWith<$Res> {
-  __$$DocumentInfoImplCopyWithImpl(
-      _$DocumentInfoImpl _value, $Res Function(_$DocumentInfoImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentInfo
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? tools = null,
-    Object? exportPresets = null,
-    Object? view = null,
-    Object? extra = null,
-  }) {
-    return _then(_$DocumentInfoImpl(
-      tools: null == tools
-          ? _value._tools
-          : tools // ignore: cast_nullable_to_non_nullable
-              as List<Tool>,
-      exportPresets: null == exportPresets
-          ? _value._exportPresets
-          : exportPresets // ignore: cast_nullable_to_non_nullable
-              as List<ExportPreset>,
-      view: null == view
-          ? _value.view
-          : view // ignore: cast_nullable_to_non_nullable
-              as ViewOption,
-      extra: null == extra
-          ? _value._extra
-          : extra // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-    ));
-  }
-}
-
-/// @nodoc
 @JsonSerializable()
-class _$DocumentInfoImpl implements _DocumentInfo {
-  const _$DocumentInfoImpl(
+class _DocumentInfo implements DocumentInfo {
+  const _DocumentInfo(
       {final List<Tool> tools = const [],
       final List<ExportPreset> exportPresets = const [],
       this.view = const ViewOption(),
@@ -169,9 +132,8 @@ class _$DocumentInfoImpl implements _DocumentInfo {
       : _tools = tools,
         _exportPresets = exportPresets,
         _extra = extra;
-
-  factory _$DocumentInfoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentInfoImplFromJson(json);
+  factory _DocumentInfo.fromJson(Map<String, dynamic> json) =>
+      _$DocumentInfoFromJson(json);
 
   final List<Tool> _tools;
   @override
@@ -203,16 +165,26 @@ class _$DocumentInfoImpl implements _DocumentInfo {
     return EqualUnmodifiableMapView(_extra);
   }
 
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, view: $view, extra: $extra)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$DocumentInfoCopyWith<_DocumentInfo> get copyWith =>
+      __$DocumentInfoCopyWithImpl<_DocumentInfo>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$DocumentInfoToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentInfoImpl &&
+            other is _DocumentInfo &&
             const DeepCollectionEquality().equals(other._tools, _tools) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
@@ -229,45 +201,77 @@ class _$DocumentInfoImpl implements _DocumentInfo {
       view,
       const DeepCollectionEquality().hash(_extra));
 
-  /// Create a copy of DocumentInfo
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
-      __$$DocumentInfoImplCopyWithImpl<_$DocumentInfoImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentInfoImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, view: $view, extra: $extra)';
   }
 }
 
-abstract class _DocumentInfo implements DocumentInfo {
-  const factory _DocumentInfo(
-      {final List<Tool> tools,
-      final List<ExportPreset> exportPresets,
-      final ViewOption view,
-      final Map<String, dynamic> extra}) = _$DocumentInfoImpl;
+/// @nodoc
+abstract mixin class _$DocumentInfoCopyWith<$Res>
+    implements $DocumentInfoCopyWith<$Res> {
+  factory _$DocumentInfoCopyWith(
+          _DocumentInfo value, $Res Function(_DocumentInfo) _then) =
+      __$DocumentInfoCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {List<Tool> tools,
+      List<ExportPreset> exportPresets,
+      ViewOption view,
+      Map<String, dynamic> extra});
 
-  factory _DocumentInfo.fromJson(Map<String, dynamic> json) =
-      _$DocumentInfoImpl.fromJson;
+  @override
+  $ViewOptionCopyWith<$Res> get view;
+}
 
-  @override
-  List<Tool> get tools;
-  @override
-  List<ExportPreset> get exportPresets;
-  @override
-  ViewOption get view;
-  @override
-  Map<String, dynamic> get extra;
+/// @nodoc
+class __$DocumentInfoCopyWithImpl<$Res>
+    implements _$DocumentInfoCopyWith<$Res> {
+  __$DocumentInfoCopyWithImpl(this._self, this._then);
+
+  final _DocumentInfo _self;
+  final $Res Function(_DocumentInfo) _then;
 
   /// Create a copy of DocumentInfo
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? tools = null,
+    Object? exportPresets = null,
+    Object? view = null,
+    Object? extra = null,
+  }) {
+    return _then(_DocumentInfo(
+      tools: null == tools
+          ? _self._tools
+          : tools // ignore: cast_nullable_to_non_nullable
+              as List<Tool>,
+      exportPresets: null == exportPresets
+          ? _self._exportPresets
+          : exportPresets // ignore: cast_nullable_to_non_nullable
+              as List<ExportPreset>,
+      view: null == view
+          ? _self.view
+          : view // ignore: cast_nullable_to_non_nullable
+              as ViewOption,
+      extra: null == extra
+          ? _self._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ViewOptionCopyWith<$Res> get view {
+    return $ViewOptionCopyWith<$Res>(_self.view, (value) {
+      return _then(_self.copyWith(view: value));
+    });
+  }
 }
+
+// dart format on

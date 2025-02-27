@@ -96,7 +96,7 @@ sealed class AnimationTrack with _$AnimationTrack {
 }
 
 @freezed
-class AnimationKey with _$AnimationKey {
+sealed class AnimationKey with _$AnimationKey {
   const AnimationKey._();
 
   const factory AnimationKey({

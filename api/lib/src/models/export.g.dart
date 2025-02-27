@@ -6,8 +6,7 @@ part of 'export.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ImageExportOptionsImpl _$$ImageExportOptionsImplFromJson(Map json) =>
-    _$ImageExportOptionsImpl(
+ImageExportOptions _$ImageExportOptionsFromJson(Map json) => ImageExportOptions(
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       x: (json['x'] as num?)?.toDouble() ?? 0,
@@ -18,8 +17,7 @@ _$ImageExportOptionsImpl _$$ImageExportOptionsImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ImageExportOptionsImplToJson(
-        _$ImageExportOptionsImpl instance) =>
+Map<String, dynamic> _$ImageExportOptionsToJson(ImageExportOptions instance) =>
     <String, dynamic>{
       'width': instance.width,
       'height': instance.height,
@@ -31,8 +29,7 @@ Map<String, dynamic> _$$ImageExportOptionsImplToJson(
       'type': instance.$type,
     };
 
-_$SvgExportOptionsImpl _$$SvgExportOptionsImplFromJson(Map json) =>
-    _$SvgExportOptionsImpl(
+SvgExportOptions _$SvgExportOptionsFromJson(Map json) => SvgExportOptions(
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       x: (json['x'] as num?)?.toDouble() ?? 0,
@@ -41,8 +38,7 @@ _$SvgExportOptionsImpl _$$SvgExportOptionsImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SvgExportOptionsImplToJson(
-        _$SvgExportOptionsImpl instance) =>
+Map<String, dynamic> _$SvgExportOptionsToJson(SvgExportOptions instance) =>
     <String, dynamic>{
       'width': instance.width,
       'height': instance.height,
@@ -52,7 +48,7 @@ Map<String, dynamic> _$$SvgExportOptionsImplToJson(
       'type': instance.$type,
     };
 
-_$ExportPresetImpl _$$ExportPresetImplFromJson(Map json) => _$ExportPresetImpl(
+_ExportPreset _$ExportPresetFromJson(Map json) => _ExportPreset(
       name: json['name'] as String? ?? '',
       areas: (json['areas'] as List<dynamic>?)
               ?.map((e) =>
@@ -61,13 +57,13 @@ _$ExportPresetImpl _$$ExportPresetImplFromJson(Map json) => _$ExportPresetImpl(
           const [],
     );
 
-Map<String, dynamic> _$$ExportPresetImplToJson(_$ExportPresetImpl instance) =>
+Map<String, dynamic> _$ExportPresetToJson(_ExportPreset instance) =>
     <String, dynamic>{
       'name': instance.name,
       'areas': instance.areas.map((e) => e.toJson()).toList(),
     };
 
-_$AreaPresetImpl _$$AreaPresetImplFromJson(Map json) => _$AreaPresetImpl(
+_AreaPreset _$AreaPresetFromJson(Map json) => _AreaPreset(
       page: json['page'] as String? ?? 'default',
       name: json['name'] as String? ?? '',
       quality: (json['quality'] as num?)?.toDouble() ?? 1,
@@ -76,7 +72,7 @@ _$AreaPresetImpl _$$AreaPresetImplFromJson(Map json) => _$AreaPresetImpl(
           : Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
     );
 
-Map<String, dynamic> _$$AreaPresetImplToJson(_$AreaPresetImpl instance) =>
+Map<String, dynamic> _$AreaPresetToJson(_AreaPreset instance) =>
     <String, dynamic>{
       'page': instance.page,
       'name': instance.name,

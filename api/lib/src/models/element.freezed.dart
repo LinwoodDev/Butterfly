@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,94 +10,63 @@ part of 'element.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ElementConstraint _$ElementConstraintFromJson(Map<String, dynamic> json) {
-  return _ElementConstraint.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ElementConstraint {
-  double get size => throw _privateConstructorUsedError;
-  double get length => throw _privateConstructorUsedError;
-  bool get includeArea => throw _privateConstructorUsedError;
-
-  /// Serializes this ElementConstraint to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  double get size;
+  double get length;
+  bool get includeArea;
 
   /// Create a copy of ElementConstraint
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ElementConstraintCopyWith<ElementConstraint> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ElementConstraintCopyWith<$Res> {
-  factory $ElementConstraintCopyWith(
-          ElementConstraint value, $Res Function(ElementConstraint) then) =
-      _$ElementConstraintCopyWithImpl<$Res, ElementConstraint>;
-  @useResult
-  $Res call({double size, double length, bool includeArea});
-}
-
-/// @nodoc
-class _$ElementConstraintCopyWithImpl<$Res, $Val extends ElementConstraint>
-    implements $ElementConstraintCopyWith<$Res> {
-  _$ElementConstraintCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ElementConstraint
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ElementConstraintCopyWith<ElementConstraint> get copyWith =>
+      _$ElementConstraintCopyWithImpl<ElementConstraint>(
+          this as ElementConstraint, _$identity);
+
+  /// Serializes this ElementConstraint to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? size = null,
-    Object? length = null,
-    Object? includeArea = null,
-  }) {
-    return _then(_value.copyWith(
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as double,
-      length: null == length
-          ? _value.length
-          : length // ignore: cast_nullable_to_non_nullable
-              as double,
-      includeArea: null == includeArea
-          ? _value.includeArea
-          : includeArea // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ElementConstraint &&
+            (identical(other.size, size) || other.size == size) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.includeArea, includeArea) ||
+                other.includeArea == includeArea));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, size, length, includeArea);
+
+  @override
+  String toString() {
+    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
   }
 }
 
 /// @nodoc
-abstract class _$$ElementConstraintImplCopyWith<$Res>
-    implements $ElementConstraintCopyWith<$Res> {
-  factory _$$ElementConstraintImplCopyWith(_$ElementConstraintImpl value,
-          $Res Function(_$ElementConstraintImpl) then) =
-      __$$ElementConstraintImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ElementConstraintCopyWith<$Res> {
+  factory $ElementConstraintCopyWith(
+          ElementConstraint value, $Res Function(ElementConstraint) _then) =
+      _$ElementConstraintCopyWithImpl;
   @useResult
   $Res call({double size, double length, bool includeArea});
 }
 
 /// @nodoc
-class __$$ElementConstraintImplCopyWithImpl<$Res>
-    extends _$ElementConstraintCopyWithImpl<$Res, _$ElementConstraintImpl>
-    implements _$$ElementConstraintImplCopyWith<$Res> {
-  __$$ElementConstraintImplCopyWithImpl(_$ElementConstraintImpl _value,
-      $Res Function(_$ElementConstraintImpl) _then)
-      : super(_value, _then);
+class _$ElementConstraintCopyWithImpl<$Res>
+    implements $ElementConstraintCopyWith<$Res> {
+  _$ElementConstraintCopyWithImpl(this._self, this._then);
+
+  final ElementConstraint _self;
+  final $Res Function(ElementConstraint) _then;
 
   /// Create a copy of ElementConstraint
   /// with the given fields replaced by the non-null parameter values.
@@ -107,17 +77,17 @@ class __$$ElementConstraintImplCopyWithImpl<$Res>
     Object? length = null,
     Object? includeArea = null,
   }) {
-    return _then(_$ElementConstraintImpl(
+    return _then(_self.copyWith(
       size: null == size
-          ? _value.size
+          ? _self.size
           : size // ignore: cast_nullable_to_non_nullable
               as double,
       length: null == length
-          ? _value.length
+          ? _self.length
           : length // ignore: cast_nullable_to_non_nullable
               as double,
       includeArea: null == includeArea
-          ? _value.includeArea
+          ? _self.includeArea
           : includeArea // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
@@ -126,12 +96,11 @@ class __$$ElementConstraintImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementConstraintImpl implements _ElementConstraint {
-  const _$ElementConstraintImpl(
+class _ElementConstraint implements ElementConstraint {
+  const _ElementConstraint(
       {this.size = 0, this.length = 0, this.includeArea = true});
-
-  factory _$ElementConstraintImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementConstraintImplFromJson(json);
+  factory _ElementConstraint.fromJson(Map<String, dynamic> json) =>
+      _$ElementConstraintFromJson(json);
 
   @override
   @JsonKey()
@@ -143,16 +112,26 @@ class _$ElementConstraintImpl implements _ElementConstraint {
   @JsonKey()
   final bool includeArea;
 
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ElementConstraintCopyWith<_ElementConstraint> get copyWith =>
+      __$ElementConstraintCopyWithImpl<_ElementConstraint>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ElementConstraintToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementConstraintImpl &&
+            other is _ElementConstraint &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.length, length) || other.length == length) &&
             (identical(other.includeArea, includeArea) ||
@@ -163,45 +142,55 @@ class _$ElementConstraintImpl implements _ElementConstraint {
   @override
   int get hashCode => Object.hash(runtimeType, size, length, includeArea);
 
-  /// Create a copy of ElementConstraint
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
-      __$$ElementConstraintImplCopyWithImpl<_$ElementConstraintImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementConstraintImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ElementConstraint(size: $size, length: $length, includeArea: $includeArea)';
   }
 }
 
-abstract class _ElementConstraint implements ElementConstraint {
-  const factory _ElementConstraint(
-      {final double size,
-      final double length,
-      final bool includeArea}) = _$ElementConstraintImpl;
+/// @nodoc
+abstract mixin class _$ElementConstraintCopyWith<$Res>
+    implements $ElementConstraintCopyWith<$Res> {
+  factory _$ElementConstraintCopyWith(
+          _ElementConstraint value, $Res Function(_ElementConstraint) _then) =
+      __$ElementConstraintCopyWithImpl;
+  @override
+  @useResult
+  $Res call({double size, double length, bool includeArea});
+}
 
-  factory _ElementConstraint.fromJson(Map<String, dynamic> json) =
-      _$ElementConstraintImpl.fromJson;
+/// @nodoc
+class __$ElementConstraintCopyWithImpl<$Res>
+    implements _$ElementConstraintCopyWith<$Res> {
+  __$ElementConstraintCopyWithImpl(this._self, this._then);
 
-  @override
-  double get size;
-  @override
-  double get length;
-  @override
-  bool get includeArea;
+  final _ElementConstraint _self;
+  final $Res Function(_ElementConstraint) _then;
 
   /// Create a copy of ElementConstraint
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? size = null,
+    Object? length = null,
+    Object? includeArea = null,
+  }) {
+    return _then(_ElementConstraint(
+      size: null == size
+          ? _self.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as double,
+      length: null == length
+          ? _self.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as double,
+      includeArea: null == includeArea
+          ? _self.includeArea
+          : includeArea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
@@ -222,101 +211,67 @@ ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ElementConstraints {
   /// Serializes this ElementConstraints to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
+  Map<String, dynamic> toJson();
 
-/// @nodoc
-abstract class $ElementConstraintsCopyWith<$Res> {
-  factory $ElementConstraintsCopyWith(
-          ElementConstraints value, $Res Function(ElementConstraints) then) =
-      _$ElementConstraintsCopyWithImpl<$Res, ElementConstraints>;
-}
-
-/// @nodoc
-class _$ElementConstraintsCopyWithImpl<$Res, $Val extends ElementConstraints>
-    implements $ElementConstraintsCopyWith<$Res> {
-  _$ElementConstraintsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$ScaledElementConstraintsImplCopyWith<$Res> {
-  factory _$$ScaledElementConstraintsImplCopyWith(
-          _$ScaledElementConstraintsImpl value,
-          $Res Function(_$ScaledElementConstraintsImpl) then) =
-      __$$ScaledElementConstraintsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({double scaleX, double scaleY});
-}
-
-/// @nodoc
-class __$$ScaledElementConstraintsImplCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res,
-        _$ScaledElementConstraintsImpl>
-    implements _$$ScaledElementConstraintsImplCopyWith<$Res> {
-  __$$ScaledElementConstraintsImplCopyWithImpl(
-      _$ScaledElementConstraintsImpl _value,
-      $Res Function(_$ScaledElementConstraintsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? scaleX = null,
-    Object? scaleY = null,
-  }) {
-    return _then(_$ScaledElementConstraintsImpl(
-      scaleX: null == scaleX
-          ? _value.scaleX
-          : scaleX // ignore: cast_nullable_to_non_nullable
-              as double,
-      scaleY: null == scaleY
-          ? _value.scaleY
-          : scaleY // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ElementConstraints);
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'ElementConstraints()';
   }
 }
 
 /// @nodoc
+class $ElementConstraintsCopyWith<$Res> {
+  $ElementConstraintsCopyWith(
+      ElementConstraints _, $Res Function(ElementConstraints) __);
+}
+
+/// @nodoc
 @JsonSerializable()
-class _$ScaledElementConstraintsImpl implements ScaledElementConstraints {
-  const _$ScaledElementConstraintsImpl(
+class ScaledElementConstraints implements ElementConstraints {
+  const ScaledElementConstraints(
       {this.scaleX = 1, this.scaleY = 1, final String? $type})
       : $type = $type ?? 'scaled';
+  factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =>
+      _$ScaledElementConstraintsFromJson(json);
 
-  factory _$ScaledElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ScaledElementConstraintsImplFromJson(json);
-
-  @override
   @JsonKey()
   final double scaleX;
-  @override
   @JsonKey()
   final double scaleY;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ScaledElementConstraintsCopyWith<ScaledElementConstraints> get copyWith =>
+      _$ScaledElementConstraintsCopyWithImpl<ScaledElementConstraints>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'ElementConstraints.scaled(scaleX: $scaleX, scaleY: $scaleY)';
+  Map<String, dynamic> toJson() {
+    return _$ScaledElementConstraintsToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ScaledElementConstraintsImpl &&
+            other is ScaledElementConstraints &&
             (identical(other.scaleX, scaleX) || other.scaleX == scaleX) &&
             (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
   }
@@ -325,77 +280,45 @@ class _$ScaledElementConstraintsImpl implements ScaledElementConstraints {
   @override
   int get hashCode => Object.hash(runtimeType, scaleX, scaleY);
 
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
-      get copyWith => __$$ScaledElementConstraintsImplCopyWithImpl<
-          _$ScaledElementConstraintsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ScaledElementConstraintsImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ElementConstraints.scaled(scaleX: $scaleX, scaleY: $scaleY)';
   }
 }
 
-abstract class ScaledElementConstraints implements ElementConstraints {
-  const factory ScaledElementConstraints(
-      {final double scaleX,
-      final double scaleY}) = _$ScaledElementConstraintsImpl;
-
-  factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$ScaledElementConstraintsImpl.fromJson;
-
-  double get scaleX;
-  double get scaleY;
-
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$FixedElementConstraintsImplCopyWith<$Res> {
-  factory _$$FixedElementConstraintsImplCopyWith(
-          _$FixedElementConstraintsImpl value,
-          $Res Function(_$FixedElementConstraintsImpl) then) =
-      __$$FixedElementConstraintsImplCopyWithImpl<$Res>;
+abstract mixin class $ScaledElementConstraintsCopyWith<$Res>
+    implements $ElementConstraintsCopyWith<$Res> {
+  factory $ScaledElementConstraintsCopyWith(ScaledElementConstraints value,
+          $Res Function(ScaledElementConstraints) _then) =
+      _$ScaledElementConstraintsCopyWithImpl;
   @useResult
-  $Res call({double height, double width});
+  $Res call({double scaleX, double scaleY});
 }
 
 /// @nodoc
-class __$$FixedElementConstraintsImplCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res,
-        _$FixedElementConstraintsImpl>
-    implements _$$FixedElementConstraintsImplCopyWith<$Res> {
-  __$$FixedElementConstraintsImplCopyWithImpl(
-      _$FixedElementConstraintsImpl _value,
-      $Res Function(_$FixedElementConstraintsImpl) _then)
-      : super(_value, _then);
+class _$ScaledElementConstraintsCopyWithImpl<$Res>
+    implements $ScaledElementConstraintsCopyWith<$Res> {
+  _$ScaledElementConstraintsCopyWithImpl(this._self, this._then);
+
+  final ScaledElementConstraints _self;
+  final $Res Function(ScaledElementConstraints) _then;
 
   /// Create a copy of ElementConstraints
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? height = null,
-    Object? width = null,
+    Object? scaleX = null,
+    Object? scaleY = null,
   }) {
-    return _then(_$FixedElementConstraintsImpl(
-      null == height
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
+    return _then(ScaledElementConstraints(
+      scaleX: null == scaleX
+          ? _self.scaleX
+          : scaleX // ignore: cast_nullable_to_non_nullable
               as double,
-      null == width
-          ? _value.width
-          : width // ignore: cast_nullable_to_non_nullable
+      scaleY: null == scaleY
+          ? _self.scaleY
+          : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -403,32 +326,38 @@ class __$$FixedElementConstraintsImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FixedElementConstraintsImpl implements FixedElementConstraints {
-  const _$FixedElementConstraintsImpl(this.height, this.width,
-      {final String? $type})
+class FixedElementConstraints implements ElementConstraints {
+  const FixedElementConstraints(this.height, this.width, {final String? $type})
       : $type = $type ?? 'fixed';
+  factory FixedElementConstraints.fromJson(Map<String, dynamic> json) =>
+      _$FixedElementConstraintsFromJson(json);
 
-  factory _$FixedElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FixedElementConstraintsImplFromJson(json);
-
-  @override
   final double height;
-  @override
   final double width;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $FixedElementConstraintsCopyWith<FixedElementConstraints> get copyWith =>
+      _$FixedElementConstraintsCopyWithImpl<FixedElementConstraints>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'ElementConstraints.fixed(height: $height, width: $width)';
+  Map<String, dynamic> toJson() {
+    return _$FixedElementConstraintsToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FixedElementConstraintsImpl &&
+            other is FixedElementConstraints &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.width, width) || other.width == width));
   }
@@ -437,132 +366,95 @@ class _$FixedElementConstraintsImpl implements FixedElementConstraints {
   @override
   int get hashCode => Object.hash(runtimeType, height, width);
 
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
-      get copyWith => __$$FixedElementConstraintsImplCopyWithImpl<
-          _$FixedElementConstraintsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FixedElementConstraintsImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ElementConstraints.fixed(height: $height, width: $width)';
   }
 }
 
-abstract class FixedElementConstraints implements ElementConstraints {
-  const factory FixedElementConstraints(
-      final double height, final double width) = _$FixedElementConstraintsImpl;
-
-  factory FixedElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$FixedElementConstraintsImpl.fromJson;
-
-  double get height;
-  double get width;
-
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$DynamicElementConstraintsImplCopyWith<$Res> {
-  factory _$$DynamicElementConstraintsImplCopyWith(
-          _$DynamicElementConstraintsImpl value,
-          $Res Function(_$DynamicElementConstraintsImpl) then) =
-      __$$DynamicElementConstraintsImplCopyWithImpl<$Res>;
+abstract mixin class $FixedElementConstraintsCopyWith<$Res>
+    implements $ElementConstraintsCopyWith<$Res> {
+  factory $FixedElementConstraintsCopyWith(FixedElementConstraints value,
+          $Res Function(FixedElementConstraints) _then) =
+      _$FixedElementConstraintsCopyWithImpl;
   @useResult
-  $Res call(
-      {double height, double width, double aspectRatio, bool includeArea});
+  $Res call({double height, double width});
 }
 
 /// @nodoc
-class __$$DynamicElementConstraintsImplCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res,
-        _$DynamicElementConstraintsImpl>
-    implements _$$DynamicElementConstraintsImplCopyWith<$Res> {
-  __$$DynamicElementConstraintsImplCopyWithImpl(
-      _$DynamicElementConstraintsImpl _value,
-      $Res Function(_$DynamicElementConstraintsImpl) _then)
-      : super(_value, _then);
+class _$FixedElementConstraintsCopyWithImpl<$Res>
+    implements $FixedElementConstraintsCopyWith<$Res> {
+  _$FixedElementConstraintsCopyWithImpl(this._self, this._then);
+
+  final FixedElementConstraints _self;
+  final $Res Function(FixedElementConstraints) _then;
 
   /// Create a copy of ElementConstraints
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? height = null,
     Object? width = null,
-    Object? aspectRatio = null,
-    Object? includeArea = null,
   }) {
-    return _then(_$DynamicElementConstraintsImpl(
-      height: null == height
-          ? _value.height
+    return _then(FixedElementConstraints(
+      null == height
+          ? _self.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
-      width: null == width
-          ? _value.width
+      null == width
+          ? _self.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
-      aspectRatio: null == aspectRatio
-          ? _value.aspectRatio
-          : aspectRatio // ignore: cast_nullable_to_non_nullable
-              as double,
-      includeArea: null == includeArea
-          ? _value.includeArea
-          : includeArea // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DynamicElementConstraintsImpl implements DynamicElementConstraints {
-  const _$DynamicElementConstraintsImpl(
+class DynamicElementConstraints implements ElementConstraints {
+  const DynamicElementConstraints(
       {this.height = 0,
       this.width = 0,
       this.aspectRatio = 0,
       this.includeArea = true,
       final String? $type})
       : $type = $type ?? 'dynamic';
+  factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) =>
+      _$DynamicElementConstraintsFromJson(json);
 
-  factory _$DynamicElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DynamicElementConstraintsImplFromJson(json);
-
-  @override
   @JsonKey()
   final double height;
-  @override
   @JsonKey()
   final double width;
-  @override
   @JsonKey()
   final double aspectRatio;
-  @override
   @JsonKey()
   final bool includeArea;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DynamicElementConstraintsCopyWith<DynamicElementConstraints> get copyWith =>
+      _$DynamicElementConstraintsCopyWithImpl<DynamicElementConstraints>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'ElementConstraints.dynamic(height: $height, width: $width, aspectRatio: $aspectRatio, includeArea: $includeArea)';
+  Map<String, dynamic> toJson() {
+    return _$DynamicElementConstraintsToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DynamicElementConstraintsImpl &&
+            other is DynamicElementConstraints &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.width, width) || other.width == width) &&
             (identical(other.aspectRatio, aspectRatio) ||
@@ -576,43 +468,59 @@ class _$DynamicElementConstraintsImpl implements DynamicElementConstraints {
   int get hashCode =>
       Object.hash(runtimeType, height, width, aspectRatio, includeArea);
 
-  /// Create a copy of ElementConstraints
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
-      get copyWith => __$$DynamicElementConstraintsImplCopyWithImpl<
-          _$DynamicElementConstraintsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DynamicElementConstraintsImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ElementConstraints.dynamic(height: $height, width: $width, aspectRatio: $aspectRatio, includeArea: $includeArea)';
   }
 }
 
-abstract class DynamicElementConstraints implements ElementConstraints {
-  const factory DynamicElementConstraints(
-      {final double height,
-      final double width,
-      final double aspectRatio,
-      final bool includeArea}) = _$DynamicElementConstraintsImpl;
+/// @nodoc
+abstract mixin class $DynamicElementConstraintsCopyWith<$Res>
+    implements $ElementConstraintsCopyWith<$Res> {
+  factory $DynamicElementConstraintsCopyWith(DynamicElementConstraints value,
+          $Res Function(DynamicElementConstraints) _then) =
+      _$DynamicElementConstraintsCopyWithImpl;
+  @useResult
+  $Res call(
+      {double height, double width, double aspectRatio, bool includeArea});
+}
 
-  factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$DynamicElementConstraintsImpl.fromJson;
+/// @nodoc
+class _$DynamicElementConstraintsCopyWithImpl<$Res>
+    implements $DynamicElementConstraintsCopyWith<$Res> {
+  _$DynamicElementConstraintsCopyWithImpl(this._self, this._then);
 
-  double get height;
-  double get width;
-  double get aspectRatio;
-  bool get includeArea;
+  final DynamicElementConstraints _self;
+  final $Res Function(DynamicElementConstraints) _then;
 
   /// Create a copy of ElementConstraints
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? height = null,
+    Object? width = null,
+    Object? aspectRatio = null,
+    Object? includeArea = null,
+  }) {
+    return _then(DynamicElementConstraints(
+      height: null == height
+          ? _self.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      width: null == width
+          ? _self.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      aspectRatio: null == aspectRatio
+          ? _self.aspectRatio
+          : aspectRatio // ignore: cast_nullable_to_non_nullable
+              as double,
+      includeArea: null == includeArea
+          ? _self.includeArea
+          : includeArea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 PadElement _$PadElementFromJson(Map<String, dynamic> json) {
@@ -640,101 +548,47 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PadElement {
-  double get rotation => throw _privateConstructorUsedError;
-  String get collection => throw _privateConstructorUsedError;
+  double get rotation;
+  String get collection;
   @IdJsonConverter()
-  String? get id => throw _privateConstructorUsedError;
-  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
-
-  /// Serializes this PadElement to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get id;
+  Map<String, dynamic> get extra;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PadElementCopyWith<PadElement> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PadElementCopyWith<$Res> {
-  factory $PadElementCopyWith(
-          PadElement value, $Res Function(PadElement) then) =
-      _$PadElementCopyWithImpl<$Res, PadElement>;
-  @useResult
-  $Res call(
-      {double rotation,
-      String collection,
-      @IdJsonConverter() String? id,
-      Map<String, dynamic> extra});
-}
-
-/// @nodoc
-class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
-    implements $PadElementCopyWith<$Res> {
-  _$PadElementCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $PadElementCopyWith<PadElement> get copyWith =>
+      _$PadElementCopyWithImpl<PadElement>(this as PadElement, _$identity);
+
+  /// Serializes this PadElement to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? rotation = null,
-    Object? collection = null,
-    Object? id = freezed,
-    Object? extra = null,
-  }) {
-    return _then(_value.copyWith(
-      rotation: null == rotation
-          ? _value.rotation
-          : rotation // ignore: cast_nullable_to_non_nullable
-              as double,
-      collection: null == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extra: null == extra
-          ? _value.extra
-          : extra // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-    ) as $Val);
+  String toString() {
+    return 'PadElement(rotation: $rotation, collection: $collection, id: $id, extra: $extra)';
   }
 }
 
 /// @nodoc
-abstract class _$$PenElementImplCopyWith<$Res>
-    implements $PadElementCopyWith<$Res> {
-  factory _$$PenElementImplCopyWith(
-          _$PenElementImpl value, $Res Function(_$PenElementImpl) then) =
-      __$$PenElementImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PadElementCopyWith<$Res> {
+  factory $PadElementCopyWith(
+          PadElement value, $Res Function(PadElement) _then) =
+      _$PadElementCopyWithImpl;
   @useResult
   $Res call(
       {double rotation,
       String collection,
       @IdJsonConverter() String? id,
-      double? zoom,
-      List<PathPoint> points,
-      PenProperty property,
       Map<String, dynamic> extra});
 }
 
 /// @nodoc
-class __$$PenElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$PenElementImpl>
-    implements _$$PenElementImplCopyWith<$Res> {
-  __$$PenElementImplCopyWithImpl(
-      _$PenElementImpl _value, $Res Function(_$PenElementImpl) _then)
-      : super(_value, _then);
+class _$PadElementCopyWithImpl<$Res> implements $PadElementCopyWith<$Res> {
+  _$PadElementCopyWithImpl(this._self, this._then);
+
+  final PadElement _self;
+  final $Res Function(PadElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
@@ -744,38 +598,23 @@ class __$$PenElementImplCopyWithImpl<$Res>
     Object? rotation = null,
     Object? collection = null,
     Object? id = freezed,
-    Object? zoom = freezed,
-    Object? points = null,
-    Object? property = freezed,
     Object? extra = null,
   }) {
-    return _then(_$PenElementImpl(
+    return _then(_self.copyWith(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      zoom: freezed == zoom
-          ? _value.zoom
-          : zoom // ignore: cast_nullable_to_non_nullable
-              as double?,
-      points: null == points
-          ? _value._points
-          : points // ignore: cast_nullable_to_non_nullable
-              as List<PathPoint>,
-      property: freezed == property
-          ? _value.property
-          : property // ignore: cast_nullable_to_non_nullable
-              as PenProperty,
       extra: null == extra
-          ? _value._extra
+          ? _self.extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -784,8 +623,8 @@ class __$$PenElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenElementImpl extends PenElement {
-  _$PenElementImpl(
+class PenElement extends PadElement implements PathElement {
+  PenElement(
       {this.rotation = 0,
       this.collection = '',
       @IdJsonConverter() this.id,
@@ -798,9 +637,8 @@ class _$PenElementImpl extends PenElement {
         _extra = extra,
         $type = $type ?? 'pen',
         super._();
-
-  factory _$PenElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PenElementImplFromJson(json);
+  factory PenElement.fromJson(Map<String, dynamic> json) =>
+      _$PenElementFromJson(json);
 
   @override
   @JsonKey()
@@ -811,10 +649,8 @@ class _$PenElementImpl extends PenElement {
   @override
   @IdJsonConverter()
   final String? id;
-  @override
   final double? zoom;
   final List<PathPoint> _points;
-  @override
   @JsonKey()
   List<PathPoint> get points {
     if (_points is EqualUnmodifiableListView) return _points;
@@ -822,7 +658,6 @@ class _$PenElementImpl extends PenElement {
     return EqualUnmodifiableListView(_points);
   }
 
-  @override
   @JsonKey()
   final PenProperty property;
   final Map<String, dynamic> _extra;
@@ -837,68 +672,180 @@ class _$PenElementImpl extends PenElement {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PenElementCopyWith<PenElement> get copyWith =>
+      _$PenElementCopyWithImpl<PenElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PenElementToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'PadElement.pen(rotation: $rotation, collection: $collection, id: $id, zoom: $zoom, points: $points, property: $property, extra: $extra)';
   }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
-      __$$PenElementImplCopyWithImpl<_$PenElementImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PenElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class PenElement extends PadElement implements PathElement {
-  factory PenElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      final double? zoom,
-      final List<PathPoint> points,
-      final PenProperty property,
-      final Map<String, dynamic> extra}) = _$PenElementImpl;
-  PenElement._() : super._();
-
-  factory PenElement.fromJson(Map<String, dynamic> json) =
-      _$PenElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  double? get zoom;
-  List<PathPoint> get points;
-  PenProperty get property;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TextElementImplCopyWith<$Res>
+abstract mixin class $PenElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$TextElementImplCopyWith(
-          _$TextElementImpl value, $Res Function(_$TextElementImpl) then) =
-      __$$TextElementImplCopyWithImpl<$Res>;
+  factory $PenElementCopyWith(
+          PenElement value, $Res Function(PenElement) _then) =
+      _$PenElementCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {double rotation,
+      String collection,
+      @IdJsonConverter() String? id,
+      double? zoom,
+      List<PathPoint> points,
+      PenProperty property,
+      Map<String, dynamic> extra});
+}
+
+/// @nodoc
+class _$PenElementCopyWithImpl<$Res> implements $PenElementCopyWith<$Res> {
+  _$PenElementCopyWithImpl(this._self, this._then);
+
+  final PenElement _self;
+  final $Res Function(PenElement) _then;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? rotation = null,
+    Object? collection = null,
+    Object? id = freezed,
+    Object? zoom = freezed,
+    Object? points = null,
+    Object? property = freezed,
+    Object? extra = null,
+  }) {
+    return _then(PenElement(
+      rotation: null == rotation
+          ? _self.rotation
+          : rotation // ignore: cast_nullable_to_non_nullable
+              as double,
+      collection: null == collection
+          ? _self.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      zoom: freezed == zoom
+          ? _self.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as double?,
+      points: null == points
+          ? _self._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<PathPoint>,
+      property: freezed == property
+          ? _self.property
+          : property // ignore: cast_nullable_to_non_nullable
+              as PenProperty,
+      extra: null == extra
+          ? _self._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class TextElement extends PadElement with LabelElement {
+  TextElement(
+      {this.rotation = 0,
+      this.collection = '',
+      @IdJsonConverter() this.id,
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
+      this.scale = 1.0,
+      this.styleSheet = const PackAssetLocation(),
+      required this.area,
+      this.constraint = const ElementConstraint(size: 1000),
+      @ColorJsonConverter() this.foreground = SRGBColor.black,
+      final Map<String, dynamic> extra = const {},
+      final String? $type})
+      : _extra = extra,
+        $type = $type ?? 'text',
+        super._();
+  factory TextElement.fromJson(Map<String, dynamic> json) =>
+      _$TextElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final String collection;
+  @override
+  @IdJsonConverter()
+  final String? id;
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> position;
+  @JsonKey()
+  final double scale;
+  @JsonKey()
+  final PackAssetLocation styleSheet;
+  final TextArea area;
+  @JsonKey()
+  final ElementConstraint constraint;
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor foreground;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $TextElementCopyWith<TextElement> get copyWith =>
+      _$TextElementCopyWithImpl<TextElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$TextElementToJson(
+      this,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'PadElement.text(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $TextElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory $TextElementCopyWith(
+          TextElement value, $Res Function(TextElement) _then) =
+      _$TextElementCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -919,17 +866,16 @@ abstract class _$$TextElementImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TextElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$TextElementImpl>
-    implements _$$TextElementImplCopyWith<$Res> {
-  __$$TextElementImplCopyWithImpl(
-      _$TextElementImpl _value, $Res Function(_$TextElementImpl) _then)
-      : super(_value, _then);
+class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
+  _$TextElementCopyWithImpl(this._self, this._then);
+
+  final TextElement _self;
+  final $Res Function(TextElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? rotation = null,
     Object? collection = null,
@@ -942,45 +888,45 @@ class __$$TextElementImplCopyWithImpl<$Res>
     Object? foreground = null,
     Object? extra = null,
   }) {
-    return _then(_$TextElementImpl(
+    return _then(TextElement(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
       position: null == position
-          ? _value.position
+          ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       scale: null == scale
-          ? _value.scale
+          ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double,
       styleSheet: null == styleSheet
-          ? _value.styleSheet
+          ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
       area: null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as TextArea,
       constraint: null == constraint
-          ? _value.constraint
+          ? _self.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
       foreground: null == foreground
-          ? _value.foreground
+          ? _self.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -991,8 +937,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
-      return _then(_value.copyWith(styleSheet: value));
+    return $PackAssetLocationCopyWith<$Res>(_self.styleSheet, (value) {
+      return _then(_self.copyWith(styleSheet: value));
     });
   }
 
@@ -1001,8 +947,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $TextAreaCopyWith<$Res> get area {
-    return $TextAreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
+    return $TextAreaCopyWith<$Res>(_self.area, (value) {
+      return _then(_self.copyWith(area: value));
     });
   }
 
@@ -1011,33 +957,33 @@ class __$$TextElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintCopyWith<$Res> get constraint {
-    return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
-      return _then(_value.copyWith(constraint: value));
+    return $ElementConstraintCopyWith<$Res>(_self.constraint, (value) {
+      return _then(_self.copyWith(constraint: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$TextElementImpl extends TextElement with LabelElement {
-  _$TextElementImpl(
+class MarkdownElement extends PadElement with LabelElement {
+  MarkdownElement(
       {this.rotation = 0,
       this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
       this.styleSheet = const PackAssetLocation(),
-      required this.area,
+      this.areaProperty = const AreaProperty(),
+      required this.text,
       this.constraint = const ElementConstraint(size: 1000),
       @ColorJsonConverter() this.foreground = SRGBColor.black,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'text',
+        $type = $type ?? 'markdown',
         super._();
-
-  factory _$TextElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TextElementImplFromJson(json);
+  factory MarkdownElement.fromJson(Map<String, dynamic> json) =>
+      _$MarkdownElementFromJson(json);
 
   @override
   @JsonKey()
@@ -1048,22 +994,18 @@ class _$TextElementImpl extends TextElement with LabelElement {
   @override
   @IdJsonConverter()
   final String? id;
-  @override
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> position;
-  @override
   @JsonKey()
   final double scale;
-  @override
   @JsonKey()
   final PackAssetLocation styleSheet;
-  @override
-  final TextArea area;
-  @override
+  @JsonKey()
+  final AreaProperty areaProperty;
+  final String text;
   @JsonKey()
   final ElementConstraint constraint;
-  @override
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor foreground;
@@ -1079,76 +1021,33 @@ class _$TextElementImpl extends TextElement with LabelElement {
   @JsonKey(name: 'type')
   final String $type;
 
-  @override
-  String toString() {
-    return 'PadElement.text(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
-  }
-
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
-      __$$TextElementImplCopyWithImpl<_$TextElementImpl>(this, _$identity);
+  $MarkdownElementCopyWith<MarkdownElement> get copyWith =>
+      _$MarkdownElementCopyWithImpl<MarkdownElement>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TextElementImplToJson(
+    return _$MarkdownElementToJson(
       this,
     );
   }
-}
-
-abstract class TextElement extends PadElement implements LabelElement {
-  factory TextElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      @DoublePointJsonConverter() final Point<double> position,
-      final double scale,
-      final PackAssetLocation styleSheet,
-      required final TextArea area,
-      final ElementConstraint constraint,
-      @ColorJsonConverter() final SRGBColor foreground,
-      final Map<String, dynamic> extra}) = _$TextElementImpl;
-  TextElement._() : super._();
-
-  factory TextElement.fromJson(Map<String, dynamic> json) =
-      _$TextElementImpl.fromJson;
 
   @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  @DoublePointJsonConverter()
-  Point<double> get position;
-  double get scale;
-  PackAssetLocation get styleSheet;
-  TextArea get area;
-  ElementConstraint get constraint;
-  @ColorJsonConverter()
-  SRGBColor get foreground;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  String toString() {
+    return 'PadElement.markdown(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
+  }
 }
 
 /// @nodoc
-abstract class _$$MarkdownElementImplCopyWith<$Res>
+abstract mixin class $MarkdownElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$MarkdownElementImplCopyWith(_$MarkdownElementImpl value,
-          $Res Function(_$MarkdownElementImpl) then) =
-      __$$MarkdownElementImplCopyWithImpl<$Res>;
+  factory $MarkdownElementCopyWith(
+          MarkdownElement value, $Res Function(MarkdownElement) _then) =
+      _$MarkdownElementCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -1170,17 +1069,17 @@ abstract class _$$MarkdownElementImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MarkdownElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$MarkdownElementImpl>
-    implements _$$MarkdownElementImplCopyWith<$Res> {
-  __$$MarkdownElementImplCopyWithImpl(
-      _$MarkdownElementImpl _value, $Res Function(_$MarkdownElementImpl) _then)
-      : super(_value, _then);
+class _$MarkdownElementCopyWithImpl<$Res>
+    implements $MarkdownElementCopyWith<$Res> {
+  _$MarkdownElementCopyWithImpl(this._self, this._then);
+
+  final MarkdownElement _self;
+  final $Res Function(MarkdownElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? rotation = null,
     Object? collection = null,
@@ -1194,49 +1093,49 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
     Object? foreground = null,
     Object? extra = null,
   }) {
-    return _then(_$MarkdownElementImpl(
+    return _then(MarkdownElement(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
       position: null == position
-          ? _value.position
+          ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       scale: null == scale
-          ? _value.scale
+          ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double,
       styleSheet: null == styleSheet
-          ? _value.styleSheet
+          ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
       areaProperty: null == areaProperty
-          ? _value.areaProperty
+          ? _self.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
               as AreaProperty,
       text: null == text
-          ? _value.text
+          ? _self.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
       constraint: null == constraint
-          ? _value.constraint
+          ? _self.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
       foreground: null == foreground
-          ? _value.foreground
+          ? _self.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -1247,8 +1146,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
-      return _then(_value.copyWith(styleSheet: value));
+    return $PackAssetLocationCopyWith<$Res>(_self.styleSheet, (value) {
+      return _then(_self.copyWith(styleSheet: value));
     });
   }
 
@@ -1257,8 +1156,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $AreaPropertyCopyWith<$Res> get areaProperty {
-    return $AreaPropertyCopyWith<$Res>(_value.areaProperty, (value) {
-      return _then(_value.copyWith(areaProperty: value));
+    return $AreaPropertyCopyWith<$Res>(_self.areaProperty, (value) {
+      return _then(_self.copyWith(areaProperty: value));
     });
   }
 
@@ -1267,249 +1166,16 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintCopyWith<$Res> get constraint {
-    return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
-      return _then(_value.copyWith(constraint: value));
+    return $ElementConstraintCopyWith<$Res>(_self.constraint, (value) {
+      return _then(_self.copyWith(constraint: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
-  _$MarkdownElementImpl(
-      {this.rotation = 0,
-      this.collection = '',
-      @IdJsonConverter() this.id,
-      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
-      this.scale = 1.0,
-      this.styleSheet = const PackAssetLocation(),
-      this.areaProperty = const AreaProperty(),
-      required this.text,
-      this.constraint = const ElementConstraint(size: 1000),
-      @ColorJsonConverter() this.foreground = SRGBColor.black,
-      final Map<String, dynamic> extra = const {},
-      final String? $type})
-      : _extra = extra,
-        $type = $type ?? 'markdown',
-        super._();
-
-  factory _$MarkdownElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MarkdownElementImplFromJson(json);
-
-  @override
-  @JsonKey()
-  final double rotation;
-  @override
-  @JsonKey()
-  final String collection;
-  @override
-  @IdJsonConverter()
-  final String? id;
-  @override
-  @JsonKey()
-  @DoublePointJsonConverter()
-  final Point<double> position;
-  @override
-  @JsonKey()
-  final double scale;
-  @override
-  @JsonKey()
-  final PackAssetLocation styleSheet;
-  @override
-  @JsonKey()
-  final AreaProperty areaProperty;
-  @override
-  final String text;
-  @override
-  @JsonKey()
-  final ElementConstraint constraint;
-  @override
-  @JsonKey()
-  @ColorJsonConverter()
-  final SRGBColor foreground;
-  final Map<String, dynamic> _extra;
-  @override
-  @JsonKey()
-  Map<String, dynamic> get extra {
-    if (_extra is EqualUnmodifiableMapView) return _extra;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_extra);
-  }
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'PadElement.markdown(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
-  }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
-      __$$MarkdownElementImplCopyWithImpl<_$MarkdownElementImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MarkdownElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class MarkdownElement extends PadElement implements LabelElement {
-  factory MarkdownElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      @DoublePointJsonConverter() final Point<double> position,
-      final double scale,
-      final PackAssetLocation styleSheet,
-      final AreaProperty areaProperty,
-      required final String text,
-      final ElementConstraint constraint,
-      @ColorJsonConverter() final SRGBColor foreground,
-      final Map<String, dynamic> extra}) = _$MarkdownElementImpl;
-  MarkdownElement._() : super._();
-
-  factory MarkdownElement.fromJson(Map<String, dynamic> json) =
-      _$MarkdownElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  @DoublePointJsonConverter()
-  Point<double> get position;
-  double get scale;
-  PackAssetLocation get styleSheet;
-  AreaProperty get areaProperty;
-  String get text;
-  ElementConstraint get constraint;
-  @ColorJsonConverter()
-  SRGBColor get foreground;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ImageElementImplCopyWith<$Res>
-    implements $PadElementCopyWith<$Res> {
-  factory _$$ImageElementImplCopyWith(
-          _$ImageElementImpl value, $Res Function(_$ImageElementImpl) then) =
-      __$$ImageElementImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double rotation,
-      String collection,
-      @IdJsonConverter() String? id,
-      @DoublePointJsonConverter() Point<double> position,
-      ElementConstraints? constraints,
-      String source,
-      double width,
-      double height,
-      Map<String, dynamic> extra});
-
-  $ElementConstraintsCopyWith<$Res>? get constraints;
-}
-
-/// @nodoc
-class __$$ImageElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$ImageElementImpl>
-    implements _$$ImageElementImplCopyWith<$Res> {
-  __$$ImageElementImplCopyWithImpl(
-      _$ImageElementImpl _value, $Res Function(_$ImageElementImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? rotation = null,
-    Object? collection = null,
-    Object? id = freezed,
-    Object? position = null,
-    Object? constraints = freezed,
-    Object? source = null,
-    Object? width = null,
-    Object? height = null,
-    Object? extra = null,
-  }) {
-    return _then(_$ImageElementImpl(
-      rotation: null == rotation
-          ? _value.rotation
-          : rotation // ignore: cast_nullable_to_non_nullable
-              as double,
-      collection: null == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      position: null == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      constraints: freezed == constraints
-          ? _value.constraints
-          : constraints // ignore: cast_nullable_to_non_nullable
-              as ElementConstraints?,
-      source: null == source
-          ? _value.source
-          : source // ignore: cast_nullable_to_non_nullable
-              as String,
-      width: null == width
-          ? _value.width
-          : width // ignore: cast_nullable_to_non_nullable
-              as double,
-      height: null == height
-          ? _value.height
-          : height // ignore: cast_nullable_to_non_nullable
-              as double,
-      extra: null == extra
-          ? _value._extra
-          : extra // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-    ));
-  }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ElementConstraintsCopyWith<$Res>? get constraints {
-    if (_value.constraints == null) {
-      return null;
-    }
-
-    return $ElementConstraintsCopyWith<$Res>(_value.constraints!, (value) {
-      return _then(_value.copyWith(constraints: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ImageElementImpl extends ImageElement {
-  _$ImageElementImpl(
+class ImageElement extends PadElement implements SourcedElement {
+  ImageElement(
       {this.rotation = 0,
       this.collection = '',
       @IdJsonConverter() this.id,
@@ -1523,9 +1189,8 @@ class _$ImageElementImpl extends ImageElement {
       : _extra = extra,
         $type = $type ?? 'image',
         super._();
-
-  factory _$ImageElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ImageElementImplFromJson(json);
+  factory ImageElement.fromJson(Map<String, dynamic> json) =>
+      _$ImageElementFromJson(json);
 
   @override
   @JsonKey()
@@ -1536,18 +1201,13 @@ class _$ImageElementImpl extends ImageElement {
   @override
   @IdJsonConverter()
   final String? id;
-  @override
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> position;
-  @override
   @JsonKey()
   final ElementConstraints? constraints;
-  @override
   final String source;
-  @override
   final double width;
-  @override
   final double height;
   final Map<String, dynamic> _extra;
   @override
@@ -1561,73 +1221,33 @@ class _$ImageElementImpl extends ImageElement {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ImageElementCopyWith<ImageElement> get copyWith =>
+      _$ImageElementCopyWithImpl<ImageElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ImageElementToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'PadElement.image(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
-      __$$ImageElementImplCopyWithImpl<_$ImageElementImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ImageElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ImageElement extends PadElement implements SourcedElement {
-  factory ImageElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      @DoublePointJsonConverter() final Point<double> position,
-      final ElementConstraints? constraints,
-      required final String source,
-      required final double width,
-      required final double height,
-      final Map<String, dynamic> extra}) = _$ImageElementImpl;
-  ImageElement._() : super._();
-
-  factory ImageElement.fromJson(Map<String, dynamic> json) =
-      _$ImageElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  @DoublePointJsonConverter()
-  Point<double> get position;
-  ElementConstraints? get constraints;
-  String get source;
-  double get width;
-  double get height;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SvgElementImplCopyWith<$Res>
+abstract mixin class $ImageElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$SvgElementImplCopyWith(
-          _$SvgElementImpl value, $Res Function(_$SvgElementImpl) then) =
-      __$$SvgElementImplCopyWithImpl<$Res>;
+  factory $ImageElementCopyWith(
+          ImageElement value, $Res Function(ImageElement) _then) =
+      _$ImageElementCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -1645,17 +1265,16 @@ abstract class _$$SvgElementImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SvgElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$SvgElementImpl>
-    implements _$$SvgElementImplCopyWith<$Res> {
-  __$$SvgElementImplCopyWithImpl(
-      _$SvgElementImpl _value, $Res Function(_$SvgElementImpl) _then)
-      : super(_value, _then);
+class _$ImageElementCopyWithImpl<$Res> implements $ImageElementCopyWith<$Res> {
+  _$ImageElementCopyWithImpl(this._self, this._then);
+
+  final ImageElement _self;
+  final $Res Function(ImageElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? rotation = null,
     Object? collection = null,
@@ -1667,41 +1286,41 @@ class __$$SvgElementImplCopyWithImpl<$Res>
     Object? height = null,
     Object? extra = null,
   }) {
-    return _then(_$SvgElementImpl(
+    return _then(ImageElement(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
       position: null == position
-          ? _value.position
+          ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       constraints: freezed == constraints
-          ? _value.constraints
+          ? _self.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
               as ElementConstraints?,
       source: null == source
-          ? _value.source
+          ? _self.source
           : source // ignore: cast_nullable_to_non_nullable
               as String,
       width: null == width
-          ? _value.width
+          ? _self.width
           : width // ignore: cast_nullable_to_non_nullable
               as double,
       height: null == height
-          ? _value.height
+          ? _self.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -1712,20 +1331,20 @@ class __$$SvgElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintsCopyWith<$Res>? get constraints {
-    if (_value.constraints == null) {
+    if (_self.constraints == null) {
       return null;
     }
 
-    return $ElementConstraintsCopyWith<$Res>(_value.constraints!, (value) {
-      return _then(_value.copyWith(constraints: value));
+    return $ElementConstraintsCopyWith<$Res>(_self.constraints!, (value) {
+      return _then(_self.copyWith(constraints: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SvgElementImpl extends SvgElement {
-  _$SvgElementImpl(
+class SvgElement extends PadElement implements SourcedElement {
+  SvgElement(
       {this.rotation = 0,
       this.collection = '',
       @IdJsonConverter() this.id,
@@ -1739,9 +1358,8 @@ class _$SvgElementImpl extends SvgElement {
       : _extra = extra,
         $type = $type ?? 'svg',
         super._();
-
-  factory _$SvgElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SvgElementImplFromJson(json);
+  factory SvgElement.fromJson(Map<String, dynamic> json) =>
+      _$SvgElementFromJson(json);
 
   @override
   @JsonKey()
@@ -1752,18 +1370,13 @@ class _$SvgElementImpl extends SvgElement {
   @override
   @IdJsonConverter()
   final String? id;
-  @override
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> position;
-  @override
   @JsonKey()
   final ElementConstraints? constraints;
-  @override
   final String source;
-  @override
   final double width;
-  @override
   final double height;
   final Map<String, dynamic> _extra;
   @override
@@ -1777,143 +1390,130 @@ class _$SvgElementImpl extends SvgElement {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SvgElementCopyWith<SvgElement> get copyWith =>
+      _$SvgElementCopyWithImpl<SvgElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SvgElementToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'PadElement.svg(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
-      __$$SvgElementImplCopyWithImpl<_$SvgElementImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SvgElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class SvgElement extends PadElement implements SourcedElement {
-  factory SvgElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      @DoublePointJsonConverter() final Point<double> position,
-      final ElementConstraints? constraints,
-      required final String source,
-      required final double width,
-      required final double height,
-      final Map<String, dynamic> extra}) = _$SvgElementImpl;
-  SvgElement._() : super._();
-
-  factory SvgElement.fromJson(Map<String, dynamic> json) =
-      _$SvgElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  @DoublePointJsonConverter()
-  Point<double> get position;
-  ElementConstraints? get constraints;
-  String get source;
-  double get width;
-  double get height;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapeElementImplCopyWith<$Res>
+abstract mixin class $SvgElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$ShapeElementImplCopyWith(
-          _$ShapeElementImpl value, $Res Function(_$ShapeElementImpl) then) =
-      __$$ShapeElementImplCopyWithImpl<$Res>;
+  factory $SvgElementCopyWith(
+          SvgElement value, $Res Function(SvgElement) _then) =
+      _$SvgElementCopyWithImpl;
   @override
   @useResult
   $Res call(
       {double rotation,
       String collection,
       @IdJsonConverter() String? id,
-      @DoublePointJsonConverter() Point<double> firstPosition,
-      @DoublePointJsonConverter() Point<double> secondPosition,
-      ShapeProperty property,
+      @DoublePointJsonConverter() Point<double> position,
+      ElementConstraints? constraints,
+      String source,
+      double width,
+      double height,
       Map<String, dynamic> extra});
+
+  $ElementConstraintsCopyWith<$Res>? get constraints;
 }
 
 /// @nodoc
-class __$$ShapeElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$ShapeElementImpl>
-    implements _$$ShapeElementImplCopyWith<$Res> {
-  __$$ShapeElementImplCopyWithImpl(
-      _$ShapeElementImpl _value, $Res Function(_$ShapeElementImpl) _then)
-      : super(_value, _then);
+class _$SvgElementCopyWithImpl<$Res> implements $SvgElementCopyWith<$Res> {
+  _$SvgElementCopyWithImpl(this._self, this._then);
+
+  final SvgElement _self;
+  final $Res Function(SvgElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? rotation = null,
     Object? collection = null,
     Object? id = freezed,
-    Object? firstPosition = null,
-    Object? secondPosition = null,
-    Object? property = freezed,
+    Object? position = null,
+    Object? constraints = freezed,
+    Object? source = null,
+    Object? width = null,
+    Object? height = null,
     Object? extra = null,
   }) {
-    return _then(_$ShapeElementImpl(
+    return _then(SvgElement(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      firstPosition: null == firstPosition
-          ? _value.firstPosition
-          : firstPosition // ignore: cast_nullable_to_non_nullable
+      position: null == position
+          ? _self.position
+          : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
-      secondPosition: null == secondPosition
-          ? _value.secondPosition
-          : secondPosition // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      property: freezed == property
-          ? _value.property
-          : property // ignore: cast_nullable_to_non_nullable
-              as ShapeProperty,
+      constraints: freezed == constraints
+          ? _self.constraints
+          : constraints // ignore: cast_nullable_to_non_nullable
+              as ElementConstraints?,
+      source: null == source
+          ? _self.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: null == width
+          ? _self.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _self.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
+  }
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ElementConstraintsCopyWith<$Res>? get constraints {
+    if (_self.constraints == null) {
+      return null;
+    }
+
+    return $ElementConstraintsCopyWith<$Res>(_self.constraints!, (value) {
+      return _then(_self.copyWith(constraints: value));
+    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapeElementImpl extends ShapeElement {
-  _$ShapeElementImpl(
+class ShapeElement extends PadElement {
+  ShapeElement(
       {this.rotation = 0,
       this.collection = '',
       @IdJsonConverter() this.id,
@@ -1925,9 +1525,8 @@ class _$ShapeElementImpl extends ShapeElement {
       : _extra = extra,
         $type = $type ?? 'shape',
         super._();
-
-  factory _$ShapeElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ShapeElementImplFromJson(json);
+  factory ShapeElement.fromJson(Map<String, dynamic> json) =>
+      _$ShapeElementFromJson(json);
 
   @override
   @JsonKey()
@@ -1938,15 +1537,12 @@ class _$ShapeElementImpl extends ShapeElement {
   @override
   @IdJsonConverter()
   final String? id;
-  @override
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> firstPosition;
-  @override
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> secondPosition;
-  @override
   @JsonKey()
   final ShapeProperty property;
   final Map<String, dynamic> _extra;
@@ -1961,70 +1557,172 @@ class _$ShapeElementImpl extends ShapeElement {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ShapeElementCopyWith<ShapeElement> get copyWith =>
+      _$ShapeElementCopyWithImpl<ShapeElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ShapeElementToJson(
+      this,
+    );
+  }
+
   @override
   String toString() {
     return 'PadElement.shape(rotation: $rotation, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
   }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
-      __$$ShapeElementImplCopyWithImpl<_$ShapeElementImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ShapeElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ShapeElement extends PadElement {
-  factory ShapeElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      @DoublePointJsonConverter() final Point<double> firstPosition,
-      @DoublePointJsonConverter() final Point<double> secondPosition,
-      final ShapeProperty property,
-      final Map<String, dynamic> extra}) = _$ShapeElementImpl;
-  ShapeElement._() : super._();
-
-  factory ShapeElement.fromJson(Map<String, dynamic> json) =
-      _$ShapeElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  @DoublePointJsonConverter()
-  Point<double> get firstPosition;
-  @DoublePointJsonConverter()
-  Point<double> get secondPosition;
-  ShapeProperty get property;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TextureElementImplCopyWith<$Res>
+abstract mixin class $ShapeElementCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$TextureElementImplCopyWith(_$TextureElementImpl value,
-          $Res Function(_$TextureElementImpl) then) =
-      __$$TextureElementImplCopyWithImpl<$Res>;
+  factory $ShapeElementCopyWith(
+          ShapeElement value, $Res Function(ShapeElement) _then) =
+      _$ShapeElementCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {double rotation,
+      String collection,
+      @IdJsonConverter() String? id,
+      @DoublePointJsonConverter() Point<double> firstPosition,
+      @DoublePointJsonConverter() Point<double> secondPosition,
+      ShapeProperty property,
+      Map<String, dynamic> extra});
+}
+
+/// @nodoc
+class _$ShapeElementCopyWithImpl<$Res> implements $ShapeElementCopyWith<$Res> {
+  _$ShapeElementCopyWithImpl(this._self, this._then);
+
+  final ShapeElement _self;
+  final $Res Function(ShapeElement) _then;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? rotation = null,
+    Object? collection = null,
+    Object? id = freezed,
+    Object? firstPosition = null,
+    Object? secondPosition = null,
+    Object? property = freezed,
+    Object? extra = null,
+  }) {
+    return _then(ShapeElement(
+      rotation: null == rotation
+          ? _self.rotation
+          : rotation // ignore: cast_nullable_to_non_nullable
+              as double,
+      collection: null == collection
+          ? _self.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstPosition: null == firstPosition
+          ? _self.firstPosition
+          : firstPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      secondPosition: null == secondPosition
+          ? _self.secondPosition
+          : secondPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      property: freezed == property
+          ? _self.property
+          : property // ignore: cast_nullable_to_non_nullable
+              as ShapeProperty,
+      extra: null == extra
+          ? _self._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class TextureElement extends PadElement {
+  TextureElement(
+      {this.rotation = 0,
+      this.collection = '',
+      @IdJsonConverter() this.id,
+      this.texture = const SurfaceTexture.pattern(),
+      @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      final Map<String, dynamic> extra = const {},
+      final String? $type})
+      : _extra = extra,
+        $type = $type ?? 'texture',
+        super._();
+  factory TextureElement.fromJson(Map<String, dynamic> json) =>
+      _$TextureElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final String collection;
+  @override
+  @IdJsonConverter()
+  final String? id;
+  @JsonKey()
+  final SurfaceTexture texture;
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> firstPosition;
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> secondPosition;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $TextureElementCopyWith<TextureElement> get copyWith =>
+      _$TextureElementCopyWithImpl<TextureElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$TextureElementToJson(
+      this,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'PadElement.texture(rotation: $rotation, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $TextureElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory $TextureElementCopyWith(
+          TextureElement value, $Res Function(TextureElement) _then) =
+      _$TextureElementCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -2040,17 +1738,17 @@ abstract class _$$TextureElementImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TextureElementImplCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$TextureElementImpl>
-    implements _$$TextureElementImplCopyWith<$Res> {
-  __$$TextureElementImplCopyWithImpl(
-      _$TextureElementImpl _value, $Res Function(_$TextureElementImpl) _then)
-      : super(_value, _then);
+class _$TextureElementCopyWithImpl<$Res>
+    implements $TextureElementCopyWith<$Res> {
+  _$TextureElementCopyWithImpl(this._self, this._then);
+
+  final TextureElement _self;
+  final $Res Function(TextureElement) _then;
 
   /// Create a copy of PadElement
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
+  @pragma('vm:prefer-inline')
   $Res call({
     Object? rotation = null,
     Object? collection = null,
@@ -2060,33 +1758,33 @@ class __$$TextureElementImplCopyWithImpl<$Res>
     Object? secondPosition = null,
     Object? extra = null,
   }) {
-    return _then(_$TextureElementImpl(
+    return _then(TextureElement(
       rotation: null == rotation
-          ? _value.rotation
+          ? _self.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
       collection: null == collection
-          ? _value.collection
+          ? _self.collection
           : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
       texture: null == texture
-          ? _value.texture
+          ? _self.texture
           : texture // ignore: cast_nullable_to_non_nullable
               as SurfaceTexture,
       firstPosition: null == firstPosition
-          ? _value.firstPosition
+          ? _self.firstPosition
           : firstPosition // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       secondPosition: null == secondPosition
-          ? _value.secondPosition
+          ? _self.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       extra: null == extra
-          ? _value._extra
+          ? _self._extra
           : extra // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
     ));
@@ -2097,118 +1795,10 @@ class __$$TextureElementImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $SurfaceTextureCopyWith<$Res> get texture {
-    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
-      return _then(_value.copyWith(texture: value));
+    return $SurfaceTextureCopyWith<$Res>(_self.texture, (value) {
+      return _then(_self.copyWith(texture: value));
     });
   }
 }
 
-/// @nodoc
-@JsonSerializable()
-class _$TextureElementImpl extends TextureElement {
-  _$TextureElementImpl(
-      {this.rotation = 0,
-      this.collection = '',
-      @IdJsonConverter() this.id,
-      this.texture = const SurfaceTexture.pattern(),
-      @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
-      @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
-      final Map<String, dynamic> extra = const {},
-      final String? $type})
-      : _extra = extra,
-        $type = $type ?? 'texture',
-        super._();
-
-  factory _$TextureElementImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TextureElementImplFromJson(json);
-
-  @override
-  @JsonKey()
-  final double rotation;
-  @override
-  @JsonKey()
-  final String collection;
-  @override
-  @IdJsonConverter()
-  final String? id;
-  @override
-  @JsonKey()
-  final SurfaceTexture texture;
-  @override
-  @JsonKey()
-  @DoublePointJsonConverter()
-  final Point<double> firstPosition;
-  @override
-  @JsonKey()
-  @DoublePointJsonConverter()
-  final Point<double> secondPosition;
-  final Map<String, dynamic> _extra;
-  @override
-  @JsonKey()
-  Map<String, dynamic> get extra {
-    if (_extra is EqualUnmodifiableMapView) return _extra;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_extra);
-  }
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'PadElement.texture(rotation: $rotation, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
-  }
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
-      __$$TextureElementImplCopyWithImpl<_$TextureElementImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TextureElementImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class TextureElement extends PadElement {
-  factory TextureElement(
-      {final double rotation,
-      final String collection,
-      @IdJsonConverter() final String? id,
-      final SurfaceTexture texture,
-      @DoublePointJsonConverter() final Point<double> firstPosition,
-      @DoublePointJsonConverter() final Point<double> secondPosition,
-      final Map<String, dynamic> extra}) = _$TextureElementImpl;
-  TextureElement._() : super._();
-
-  factory TextureElement.fromJson(Map<String, dynamic> json) =
-      _$TextureElementImpl.fromJson;
-
-  @override
-  double get rotation;
-  @override
-  String get collection;
-  @override
-  @IdJsonConverter()
-  String? get id;
-  SurfaceTexture get texture;
-  @DoublePointJsonConverter()
-  Point<double> get firstPosition;
-  @DoublePointJsonConverter()
-  Point<double> get secondPosition;
-  @override
-  Map<String, dynamic> get extra;
-
-  /// Create a copy of PadElement
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

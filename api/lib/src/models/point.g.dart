@@ -6,13 +6,13 @@ part of 'point.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PathPointImpl _$$PathPointImplFromJson(Map json) => _$PathPointImpl(
+_PathPoint _$PathPointFromJson(Map json) => _PathPoint(
       (json['x'] as num).toDouble(),
       (json['y'] as num).toDouble(),
       (json['pressure'] as num?)?.toDouble() ?? 1,
     );
 
-Map<String, dynamic> _$$PathPointImplToJson(_$PathPointImpl instance) =>
+Map<String, dynamic> _$PathPointToJson(_PathPoint instance) =>
     <String, dynamic>{
       'x': instance.x,
       'y': instance.y,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,89 +10,61 @@ part of 'palette.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ColorPalette _$ColorPaletteFromJson(Map<String, dynamic> json) {
-  return _ColorPalette.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ColorPalette {
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @ColorJsonConverter()
-  List<SRGBColor> get colors => throw _privateConstructorUsedError;
-
-  /// Serializes this ColorPalette to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  List<SRGBColor> get colors;
 
   /// Create a copy of ColorPalette
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ColorPaletteCopyWith<ColorPalette> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ColorPaletteCopyWith<$Res> {
-  factory $ColorPaletteCopyWith(
-          ColorPalette value, $Res Function(ColorPalette) then) =
-      _$ColorPaletteCopyWithImpl<$Res, ColorPalette>;
-  @useResult
-  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
-}
-
-/// @nodoc
-class _$ColorPaletteCopyWithImpl<$Res, $Val extends ColorPalette>
-    implements $ColorPaletteCopyWith<$Res> {
-  _$ColorPaletteCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ColorPalette
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ColorPaletteCopyWith<ColorPalette> get copyWith =>
+      _$ColorPaletteCopyWithImpl<ColorPalette>(
+          this as ColorPalette, _$identity);
+
+  /// Serializes this ColorPalette to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? name = null,
-    Object? colors = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      colors: null == colors
-          ? _value.colors
-          : colors // ignore: cast_nullable_to_non_nullable
-              as List<SRGBColor>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ColorPalette &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.colors, colors));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(colors));
+
+  @override
+  String toString() {
+    return 'ColorPalette(name: $name, colors: $colors)';
   }
 }
 
 /// @nodoc
-abstract class _$$ColorPaletteImplCopyWith<$Res>
-    implements $ColorPaletteCopyWith<$Res> {
-  factory _$$ColorPaletteImplCopyWith(
-          _$ColorPaletteImpl value, $Res Function(_$ColorPaletteImpl) then) =
-      __$$ColorPaletteImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ColorPaletteCopyWith<$Res> {
+  factory $ColorPaletteCopyWith(
+          ColorPalette value, $Res Function(ColorPalette) _then) =
+      _$ColorPaletteCopyWithImpl;
   @useResult
   $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
 }
 
 /// @nodoc
-class __$$ColorPaletteImplCopyWithImpl<$Res>
-    extends _$ColorPaletteCopyWithImpl<$Res, _$ColorPaletteImpl>
-    implements _$$ColorPaletteImplCopyWith<$Res> {
-  __$$ColorPaletteImplCopyWithImpl(
-      _$ColorPaletteImpl _value, $Res Function(_$ColorPaletteImpl) _then)
-      : super(_value, _then);
+class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
+  _$ColorPaletteCopyWithImpl(this._self, this._then);
+
+  final ColorPalette _self;
+  final $Res Function(ColorPalette) _then;
 
   /// Create a copy of ColorPalette
   /// with the given fields replaced by the non-null parameter values.
@@ -101,13 +74,13 @@ class __$$ColorPaletteImplCopyWithImpl<$Res>
     Object? name = null,
     Object? colors = null,
   }) {
-    return _then(_$ColorPaletteImpl(
+    return _then(_self.copyWith(
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       colors: null == colors
-          ? _value._colors
+          ? _self.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<SRGBColor>,
     ));
@@ -116,14 +89,13 @@ class __$$ColorPaletteImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ColorPaletteImpl implements _ColorPalette {
-  const _$ColorPaletteImpl(
+class _ColorPalette implements ColorPalette {
+  const _ColorPalette(
       {required this.name,
       @ColorJsonConverter() final List<SRGBColor> colors = const []})
       : _colors = colors;
-
-  factory _$ColorPaletteImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ColorPaletteImplFromJson(json);
+  factory _ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
 
   @override
   final String name;
@@ -137,16 +109,26 @@ class _$ColorPaletteImpl implements _ColorPalette {
     return EqualUnmodifiableListView(_colors);
   }
 
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ColorPalette(name: $name, colors: $colors)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ColorPaletteCopyWith<_ColorPalette> get copyWith =>
+      __$ColorPaletteCopyWithImpl<_ColorPalette>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ColorPaletteToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ColorPaletteImpl &&
+            other is _ColorPalette &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
@@ -156,40 +138,50 @@ class _$ColorPaletteImpl implements _ColorPalette {
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_colors));
 
-  /// Create a copy of ColorPalette
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
-      __$$ColorPaletteImplCopyWithImpl<_$ColorPaletteImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ColorPaletteImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ColorPalette(name: $name, colors: $colors)';
   }
 }
 
-abstract class _ColorPalette implements ColorPalette {
-  const factory _ColorPalette(
-      {required final String name,
-      @ColorJsonConverter() final List<SRGBColor> colors}) = _$ColorPaletteImpl;
-
-  factory _ColorPalette.fromJson(Map<String, dynamic> json) =
-      _$ColorPaletteImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$ColorPaletteCopyWith<$Res>
+    implements $ColorPaletteCopyWith<$Res> {
+  factory _$ColorPaletteCopyWith(
+          _ColorPalette value, $Res Function(_ColorPalette) _then) =
+      __$ColorPaletteCopyWithImpl;
   @override
-  String get name;
-  @override
-  @ColorJsonConverter()
-  List<SRGBColor> get colors;
+  @useResult
+  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
+}
+
+/// @nodoc
+class __$ColorPaletteCopyWithImpl<$Res>
+    implements _$ColorPaletteCopyWith<$Res> {
+  __$ColorPaletteCopyWithImpl(this._self, this._then);
+
+  final _ColorPalette _self;
+  final $Res Function(_ColorPalette) _then;
 
   /// Create a copy of ColorPalette
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? colors = null,
+  }) {
+    return _then(_ColorPalette(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      colors: null == colors
+          ? _self._colors
+          : colors // ignore: cast_nullable_to_non_nullable
+              as List<SRGBColor>,
+    ));
+  }
 }
+
+// dart format on

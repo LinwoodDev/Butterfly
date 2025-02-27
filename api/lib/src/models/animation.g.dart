@@ -6,8 +6,7 @@ part of 'animation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AnimationTrackImpl _$$AnimationTrackImplFromJson(Map json) =>
-    _$AnimationTrackImpl(
+_AnimationTrack _$AnimationTrackFromJson(Map json) => _AnimationTrack(
       name: json['name'] as String? ?? '',
       keys: (json['keys'] as Map?)?.map(
             (k, e) => MapEntry(int.parse(k as String),
@@ -18,8 +17,7 @@ _$AnimationTrackImpl _$$AnimationTrackImplFromJson(Map json) =>
       fps: (json['fps'] as num?)?.toInt() ?? 24,
     );
 
-Map<String, dynamic> _$$AnimationTrackImplToJson(
-        _$AnimationTrackImpl instance) =>
+Map<String, dynamic> _$AnimationTrackToJson(_AnimationTrack instance) =>
     <String, dynamic>{
       'name': instance.name,
       'keys': instance.keys.map((k, e) => MapEntry(k.toString(), e.toJson())),
@@ -27,7 +25,7 @@ Map<String, dynamic> _$$AnimationTrackImplToJson(
       'fps': instance.fps,
     };
 
-_$AnimationKeyImpl _$$AnimationKeyImplFromJson(Map json) => _$AnimationKeyImpl(
+_AnimationKey _$AnimationKeyFromJson(Map json) => _AnimationKey(
       cameraPosition:
           _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(
               json['cameraPosition'],
@@ -36,7 +34,7 @@ _$AnimationKeyImpl _$$AnimationKeyImplFromJson(Map json) => _$AnimationKeyImpl(
       breakpoint: json['breakpoint'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$AnimationKeyImplToJson(_$AnimationKeyImpl instance) =>
+Map<String, dynamic> _$AnimationKeyToJson(_AnimationKey instance) =>
     <String, dynamic>{
       'cameraPosition':
           _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(

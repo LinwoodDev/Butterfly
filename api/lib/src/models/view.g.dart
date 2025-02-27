@@ -6,7 +6,7 @@ part of 'view.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ViewOptionImpl _$$ViewOptionImplFromJson(Map json) => _$ViewOptionImpl();
+ViewOption _$ViewOptionFromJson(Map json) => ViewOption();
 
-Map<String, dynamic> _$$ViewOptionImplToJson(_$ViewOptionImpl instance) =>
+Map<String, dynamic> _$ViewOptionToJson(ViewOption instance) =>
     <String, dynamic>{};

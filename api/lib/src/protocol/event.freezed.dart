@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,11 +10,8 @@ part of 'event.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'pageAdded':
@@ -134,35 +132,82 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DocumentEvent {
   /// Serializes this DocumentEvent to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DocumentEvent);
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'DocumentEvent()';
+  }
 }
 
 /// @nodoc
-abstract class $DocumentEventCopyWith<$Res> {
-  factory $DocumentEventCopyWith(
-          DocumentEvent value, $Res Function(DocumentEvent) then) =
-      _$DocumentEventCopyWithImpl<$Res, DocumentEvent>;
+class $DocumentEventCopyWith<$Res> {
+  $DocumentEventCopyWith(DocumentEvent _, $Res Function(DocumentEvent) __);
 }
 
 /// @nodoc
-class _$DocumentEventCopyWithImpl<$Res, $Val extends DocumentEvent>
-    implements $DocumentEventCopyWith<$Res> {
-  _$DocumentEventCopyWithImpl(this._value, this._then);
+@JsonSerializable()
+class PageAdded extends DocumentEvent {
+  const PageAdded([this.index, this.page, final String? $type])
+      : $type = $type ?? 'pageAdded',
+        super._();
+  factory PageAdded.fromJson(Map<String, dynamic> json) =>
+      _$PageAddedFromJson(json);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final int? index;
+  final DocumentPage? page;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PageAddedCopyWith<PageAdded> get copyWith =>
+      _$PageAddedCopyWithImpl<PageAdded>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PageAddedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PageAdded &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.page, page) || other.page == page));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, index, page);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageAdded(index: $index, page: $page)';
+  }
 }
 
 /// @nodoc
-abstract class _$$PageAddedImplCopyWith<$Res> {
-  factory _$$PageAddedImplCopyWith(
-          _$PageAddedImpl value, $Res Function(_$PageAddedImpl) then) =
-      __$$PageAddedImplCopyWithImpl<$Res>;
+abstract mixin class $PageAddedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PageAddedCopyWith(PageAdded value, $Res Function(PageAdded) _then) =
+      _$PageAddedCopyWithImpl;
   @useResult
   $Res call({int? index, DocumentPage? page});
 
@@ -170,28 +215,26 @@ abstract class _$$PageAddedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PageAddedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageAddedImpl>
-    implements _$$PageAddedImplCopyWith<$Res> {
-  __$$PageAddedImplCopyWithImpl(
-      _$PageAddedImpl _value, $Res Function(_$PageAddedImpl) _then)
-      : super(_value, _then);
+class _$PageAddedCopyWithImpl<$Res> implements $PageAddedCopyWith<$Res> {
+  _$PageAddedCopyWithImpl(this._self, this._then);
+
+  final PageAdded _self;
+  final $Res Function(PageAdded) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? index = freezed,
     Object? page = freezed,
   }) {
-    return _then(_$PageAddedImpl(
+    return _then(PageAdded(
       freezed == index
-          ? _value.index
+          ? _self.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
       freezed == page
-          ? _value.page
+          ? _self.page
           : page // ignore: cast_nullable_to_non_nullable
               as DocumentPage?,
     ));
@@ -202,145 +245,49 @@ class __$$PageAddedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $DocumentPageCopyWith<$Res>? get page {
-    if (_value.page == null) {
+    if (_self.page == null) {
       return null;
     }
 
-    return $DocumentPageCopyWith<$Res>(_value.page!, (value) {
-      return _then(_value.copyWith(page: value));
+    return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
+      return _then(_self.copyWith(page: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PageAddedImpl extends PageAdded {
-  const _$PageAddedImpl([this.index, this.page, final String? $type])
-      : $type = $type ?? 'pageAdded',
-        super._();
-
-  factory _$PageAddedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PageAddedImplFromJson(json);
-
-  @override
-  final int? index;
-  @override
-  final DocumentPage? page;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.pageAdded(index: $index, page: $page)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PageAddedImpl &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.page, page) || other.page == page));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, index, page);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
-      __$$PageAddedImplCopyWithImpl<_$PageAddedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PageAddedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class PageAdded extends DocumentEvent {
-  const factory PageAdded([final int? index, final DocumentPage? page]) =
-      _$PageAddedImpl;
-  const PageAdded._() : super._();
-
-  factory PageAdded.fromJson(Map<String, dynamic> json) =
-      _$PageAddedImpl.fromJson;
-
-  int? get index;
-  DocumentPage? get page;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PageChangedImplCopyWith<$Res> {
-  factory _$$PageChangedImplCopyWith(
-          _$PageChangedImpl value, $Res Function(_$PageChangedImpl) then) =
-      __$$PageChangedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String pageName});
-}
-
-/// @nodoc
-class __$$PageChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageChangedImpl>
-    implements _$$PageChangedImplCopyWith<$Res> {
-  __$$PageChangedImplCopyWithImpl(
-      _$PageChangedImpl _value, $Res Function(_$PageChangedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? pageName = null,
-  }) {
-    return _then(_$PageChangedImpl(
-      null == pageName
-          ? _value.pageName
-          : pageName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PageChangedImpl extends PageChanged {
-  const _$PageChangedImpl(this.pageName, {final String? $type})
+class PageChanged extends DocumentEvent {
+  const PageChanged(this.pageName, {final String? $type})
       : $type = $type ?? 'pageChanged',
         super._();
+  factory PageChanged.fromJson(Map<String, dynamic> json) =>
+      _$PageChangedFromJson(json);
 
-  factory _$PageChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PageChangedImplFromJson(json);
-
-  @override
   final String pageName;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PageChangedCopyWith<PageChanged> get copyWith =>
+      _$PageChangedCopyWithImpl<PageChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.pageChanged(pageName: $pageName)';
+  Map<String, dynamic> toJson() {
+    return _$PageChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageChangedImpl &&
+            other is PageChanged &&
             (identical(other.pageName, pageName) ||
                 other.pageName == pageName));
   }
@@ -349,104 +296,78 @@ class _$PageChangedImpl extends PageChanged {
   @override
   int get hashCode => Object.hash(runtimeType, pageName);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
-      __$$PageChangedImplCopyWithImpl<_$PageChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PageChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.pageChanged(pageName: $pageName)';
   }
 }
 
-abstract class PageChanged extends DocumentEvent {
-  const factory PageChanged(final String pageName) = _$PageChangedImpl;
-  const PageChanged._() : super._();
-
-  factory PageChanged.fromJson(Map<String, dynamic> json) =
-      _$PageChangedImpl.fromJson;
-
-  String get pageName;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$PageReorderedImplCopyWith<$Res> {
-  factory _$$PageReorderedImplCopyWith(
-          _$PageReorderedImpl value, $Res Function(_$PageReorderedImpl) then) =
-      __$$PageReorderedImplCopyWithImpl<$Res>;
+abstract mixin class $PageChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PageChangedCopyWith(
+          PageChanged value, $Res Function(PageChanged) _then) =
+      _$PageChangedCopyWithImpl;
   @useResult
-  $Res call({String page, int? newIndex});
+  $Res call({String pageName});
 }
 
 /// @nodoc
-class __$$PageReorderedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageReorderedImpl>
-    implements _$$PageReorderedImplCopyWith<$Res> {
-  __$$PageReorderedImplCopyWithImpl(
-      _$PageReorderedImpl _value, $Res Function(_$PageReorderedImpl) _then)
-      : super(_value, _then);
+class _$PageChangedCopyWithImpl<$Res> implements $PageChangedCopyWith<$Res> {
+  _$PageChangedCopyWithImpl(this._self, this._then);
+
+  final PageChanged _self;
+  final $Res Function(PageChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? page = null,
-    Object? newIndex = freezed,
+    Object? pageName = null,
   }) {
-    return _then(_$PageReorderedImpl(
-      null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
+    return _then(PageChanged(
+      null == pageName
+          ? _self.pageName
+          : pageName // ignore: cast_nullable_to_non_nullable
               as String,
-      freezed == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PageReorderedImpl extends PageReordered {
-  const _$PageReorderedImpl(this.page, [this.newIndex, final String? $type])
+class PageReordered extends DocumentEvent {
+  const PageReordered(this.page, [this.newIndex, final String? $type])
       : $type = $type ?? 'pageReordered',
         super._();
+  factory PageReordered.fromJson(Map<String, dynamic> json) =>
+      _$PageReorderedFromJson(json);
 
-  factory _$PageReorderedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PageReorderedImplFromJson(json);
-
-  @override
   final String page;
-  @override
   final int? newIndex;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PageReorderedCopyWith<PageReordered> get copyWith =>
+      _$PageReorderedCopyWithImpl<PageReordered>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.pageReordered(page: $page, newIndex: $newIndex)';
+  Map<String, dynamic> toJson() {
+    return _$PageReorderedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageReorderedImpl &&
+            other is PageReordered &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex));
@@ -456,106 +377,84 @@ class _$PageReorderedImpl extends PageReordered {
   @override
   int get hashCode => Object.hash(runtimeType, page, newIndex);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
-      __$$PageReorderedImplCopyWithImpl<_$PageReorderedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PageReorderedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.pageReordered(page: $page, newIndex: $newIndex)';
   }
 }
 
-abstract class PageReordered extends DocumentEvent {
-  const factory PageReordered(final String page, [final int? newIndex]) =
-      _$PageReorderedImpl;
-  const PageReordered._() : super._();
-
-  factory PageReordered.fromJson(Map<String, dynamic> json) =
-      _$PageReorderedImpl.fromJson;
-
-  String get page;
-  int? get newIndex;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$PageRenamedImplCopyWith<$Res> {
-  factory _$$PageRenamedImplCopyWith(
-          _$PageRenamedImpl value, $Res Function(_$PageRenamedImpl) then) =
-      __$$PageRenamedImplCopyWithImpl<$Res>;
+abstract mixin class $PageReorderedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PageReorderedCopyWith(
+          PageReordered value, $Res Function(PageReordered) _then) =
+      _$PageReorderedCopyWithImpl;
   @useResult
-  $Res call({String oldName, String newName});
+  $Res call({String page, int? newIndex});
 }
 
 /// @nodoc
-class __$$PageRenamedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageRenamedImpl>
-    implements _$$PageRenamedImplCopyWith<$Res> {
-  __$$PageRenamedImplCopyWithImpl(
-      _$PageRenamedImpl _value, $Res Function(_$PageRenamedImpl) _then)
-      : super(_value, _then);
+class _$PageReorderedCopyWithImpl<$Res>
+    implements $PageReorderedCopyWith<$Res> {
+  _$PageReorderedCopyWithImpl(this._self, this._then);
+
+  final PageReordered _self;
+  final $Res Function(PageReordered) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? oldName = null,
-    Object? newName = null,
+    Object? page = null,
+    Object? newIndex = freezed,
   }) {
-    return _then(_$PageRenamedImpl(
-      null == oldName
-          ? _value.oldName
-          : oldName // ignore: cast_nullable_to_non_nullable
+    return _then(PageReordered(
+      null == page
+          ? _self.page
+          : page // ignore: cast_nullable_to_non_nullable
               as String,
-      null == newName
-          ? _value.newName
-          : newName // ignore: cast_nullable_to_non_nullable
-              as String,
+      freezed == newIndex
+          ? _self.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PageRenamedImpl extends PageRenamed {
-  const _$PageRenamedImpl(this.oldName, this.newName, {final String? $type})
+class PageRenamed extends DocumentEvent {
+  const PageRenamed(this.oldName, this.newName, {final String? $type})
       : $type = $type ?? 'pageRenamed',
         super._();
+  factory PageRenamed.fromJson(Map<String, dynamic> json) =>
+      _$PageRenamedFromJson(json);
 
-  factory _$PageRenamedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PageRenamedImplFromJson(json);
-
-  @override
   final String oldName;
-  @override
   final String newName;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PageRenamedCopyWith<PageRenamed> get copyWith =>
+      _$PageRenamedCopyWithImpl<PageRenamed>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.pageRenamed(oldName: $oldName, newName: $newName)';
+  Map<String, dynamic> toJson() {
+    return _$PageRenamedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageRenamedImpl &&
+            other is PageRenamed &&
             (identical(other.oldName, oldName) || other.oldName == oldName) &&
             (identical(other.newName, newName) || other.newName == newName));
   }
@@ -564,67 +463,121 @@ class _$PageRenamedImpl extends PageRenamed {
   @override
   int get hashCode => Object.hash(runtimeType, oldName, newName);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
-      __$$PageRenamedImplCopyWithImpl<_$PageRenamedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PageRenamedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.pageRenamed(oldName: $oldName, newName: $newName)';
   }
 }
 
-abstract class PageRenamed extends DocumentEvent {
-  const factory PageRenamed(final String oldName, final String newName) =
-      _$PageRenamedImpl;
-  const PageRenamed._() : super._();
+/// @nodoc
+abstract mixin class $PageRenamedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PageRenamedCopyWith(
+          PageRenamed value, $Res Function(PageRenamed) _then) =
+      _$PageRenamedCopyWithImpl;
+  @useResult
+  $Res call({String oldName, String newName});
+}
 
-  factory PageRenamed.fromJson(Map<String, dynamic> json) =
-      _$PageRenamedImpl.fromJson;
+/// @nodoc
+class _$PageRenamedCopyWithImpl<$Res> implements $PageRenamedCopyWith<$Res> {
+  _$PageRenamedCopyWithImpl(this._self, this._then);
 
-  String get oldName;
-  String get newName;
+  final PageRenamed _self;
+  final $Res Function(PageRenamed) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? oldName = null,
+    Object? newName = null,
+  }) {
+    return _then(PageRenamed(
+      null == oldName
+          ? _self.oldName
+          : oldName // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == newName
+          ? _self.newName
+          : newName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class PageRemoved extends DocumentEvent {
+  const PageRemoved(this.page, {final String? $type})
+      : $type = $type ?? 'pageRemoved',
+        super._();
+  factory PageRemoved.fromJson(Map<String, dynamic> json) =>
+      _$PageRemovedFromJson(json);
+
+  final String page;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $PageRemovedCopyWith<PageRemoved> get copyWith =>
+      _$PageRemovedCopyWithImpl<PageRemoved>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PageRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PageRemoved &&
+            (identical(other.page, page) || other.page == page));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, page);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageRemoved(page: $page)';
+  }
 }
 
 /// @nodoc
-abstract class _$$PageRemovedImplCopyWith<$Res> {
-  factory _$$PageRemovedImplCopyWith(
-          _$PageRemovedImpl value, $Res Function(_$PageRemovedImpl) then) =
-      __$$PageRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $PageRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PageRemovedCopyWith(
+          PageRemoved value, $Res Function(PageRemoved) _then) =
+      _$PageRemovedCopyWithImpl;
   @useResult
   $Res call({String page});
 }
 
 /// @nodoc
-class __$$PageRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageRemovedImpl>
-    implements _$$PageRemovedImplCopyWith<$Res> {
-  __$$PageRemovedImplCopyWithImpl(
-      _$PageRemovedImpl _value, $Res Function(_$PageRemovedImpl) _then)
-      : super(_value, _then);
+class _$PageRemovedCopyWithImpl<$Res> implements $PageRemovedCopyWith<$Res> {
+  _$PageRemovedCopyWithImpl(this._self, this._then);
+
+  final PageRemoved _self;
+  final $Res Function(PageRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? page = null,
   }) {
-    return _then(_$PageRemovedImpl(
+    return _then(PageRemoved(
       null == page
-          ? _value.page
+          ? _self.page
           : page // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -633,130 +586,39 @@ class __$$PageRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageRemovedImpl extends PageRemoved {
-  const _$PageRemovedImpl(this.page, {final String? $type})
-      : $type = $type ?? 'pageRemoved',
-        super._();
-
-  factory _$PageRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PageRemovedImplFromJson(json);
-
-  @override
-  final String page;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.pageRemoved(page: $page)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PageRemovedImpl &&
-            (identical(other.page, page) || other.page == page));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, page);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
-      __$$PageRemovedImplCopyWithImpl<_$PageRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PageRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class PageRemoved extends DocumentEvent {
-  const factory PageRemoved(final String page) = _$PageRemovedImpl;
-  const PageRemoved._() : super._();
-
-  factory PageRemoved.fromJson(Map<String, dynamic> json) =
-      _$PageRemovedImpl.fromJson;
-
-  String get page;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ThumbnailCapturedImplCopyWith<$Res> {
-  factory _$$ThumbnailCapturedImplCopyWith(_$ThumbnailCapturedImpl value,
-          $Res Function(_$ThumbnailCapturedImpl) then) =
-      __$$ThumbnailCapturedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({@Uint8ListJsonConverter() Uint8List data});
-}
-
-/// @nodoc
-class __$$ThumbnailCapturedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ThumbnailCapturedImpl>
-    implements _$$ThumbnailCapturedImplCopyWith<$Res> {
-  __$$ThumbnailCapturedImplCopyWithImpl(_$ThumbnailCapturedImpl _value,
-      $Res Function(_$ThumbnailCapturedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$ThumbnailCapturedImpl(
-      null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
-  const _$ThumbnailCapturedImpl(@Uint8ListJsonConverter() this.data,
+class ThumbnailCaptured extends DocumentEvent {
+  const ThumbnailCaptured(@Uint8ListJsonConverter() this.data,
       {final String? $type})
       : $type = $type ?? 'thumbnailCaptured',
         super._();
+  factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) =>
+      _$ThumbnailCapturedFromJson(json);
 
-  factory _$ThumbnailCapturedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ThumbnailCapturedImplFromJson(json);
-
-  @override
   @Uint8ListJsonConverter()
   final Uint8List data;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ThumbnailCapturedCopyWith<ThumbnailCaptured> get copyWith =>
+      _$ThumbnailCapturedCopyWithImpl<ThumbnailCaptured>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.thumbnailCaptured(data: $data)';
+  Map<String, dynamic> toJson() {
+    return _$ThumbnailCapturedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ThumbnailCapturedImpl &&
+            other is ThumbnailCaptured &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -765,46 +627,97 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
-      __$$ThumbnailCapturedImplCopyWithImpl<_$ThumbnailCapturedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ThumbnailCapturedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.thumbnailCaptured(data: $data)';
   }
 }
 
-abstract class ThumbnailCaptured extends DocumentEvent {
-  const factory ThumbnailCaptured(
-      @Uint8ListJsonConverter() final Uint8List data) = _$ThumbnailCapturedImpl;
-  const ThumbnailCaptured._() : super._();
+/// @nodoc
+abstract mixin class $ThumbnailCapturedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ThumbnailCapturedCopyWith(
+          ThumbnailCaptured value, $Res Function(ThumbnailCaptured) _then) =
+      _$ThumbnailCapturedCopyWithImpl;
+  @useResult
+  $Res call({@Uint8ListJsonConverter() Uint8List data});
+}
 
-  factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) =
-      _$ThumbnailCapturedImpl.fromJson;
+/// @nodoc
+class _$ThumbnailCapturedCopyWithImpl<$Res>
+    implements $ThumbnailCapturedCopyWith<$Res> {
+  _$ThumbnailCapturedCopyWithImpl(this._self, this._then);
 
-  @Uint8ListJsonConverter()
-  Uint8List get data;
+  final ThumbnailCaptured _self;
+  final $Res Function(ThumbnailCaptured) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(ThumbnailCaptured(
+      null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class ViewChanged extends DocumentEvent {
+  const ViewChanged(this.view, {final String? $type})
+      : $type = $type ?? 'viewChanged',
+        super._();
+  factory ViewChanged.fromJson(Map<String, dynamic> json) =>
+      _$ViewChangedFromJson(json);
+
+  final ViewOption view;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $ViewChangedCopyWith<ViewChanged> get copyWith =>
+      _$ViewChangedCopyWithImpl<ViewChanged>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ViewChangedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ViewChanged &&
+            (identical(other.view, view) || other.view == view));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, view);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.viewChanged(view: $view)';
+  }
 }
 
 /// @nodoc
-abstract class _$$ViewChangedImplCopyWith<$Res> {
-  factory _$$ViewChangedImplCopyWith(
-          _$ViewChangedImpl value, $Res Function(_$ViewChangedImpl) then) =
-      __$$ViewChangedImplCopyWithImpl<$Res>;
+abstract mixin class $ViewChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ViewChangedCopyWith(
+          ViewChanged value, $Res Function(ViewChanged) _then) =
+      _$ViewChangedCopyWithImpl;
   @useResult
   $Res call({ViewOption view});
 
@@ -812,23 +725,21 @@ abstract class _$$ViewChangedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ViewChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ViewChangedImpl>
-    implements _$$ViewChangedImplCopyWith<$Res> {
-  __$$ViewChangedImplCopyWithImpl(
-      _$ViewChangedImpl _value, $Res Function(_$ViewChangedImpl) _then)
-      : super(_value, _then);
+class _$ViewChangedCopyWithImpl<$Res> implements $ViewChangedCopyWith<$Res> {
+  _$ViewChangedCopyWithImpl(this._self, this._then);
+
+  final ViewChanged _self;
+  final $Res Function(ViewChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? view = null,
   }) {
-    return _then(_$ViewChangedImpl(
+    return _then(ViewChanged(
       null == view
-          ? _value.view
+          ? _self.view
           : view // ignore: cast_nullable_to_non_nullable
               as ViewOption,
     ));
@@ -839,82 +750,64 @@ class __$$ViewChangedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get view {
-    return $ViewOptionCopyWith<$Res>(_value.view, (value) {
-      return _then(_value.copyWith(view: value));
+    return $ViewOptionCopyWith<$Res>(_self.view, (value) {
+      return _then(_self.copyWith(view: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ViewChangedImpl extends ViewChanged {
-  const _$ViewChangedImpl(this.view, {final String? $type})
-      : $type = $type ?? 'viewChanged',
+class UtilitiesChanged extends DocumentEvent {
+  const UtilitiesChanged(this.state, {final String? $type})
+      : $type = $type ?? 'utilitiesChanged',
         super._();
+  factory UtilitiesChanged.fromJson(Map<String, dynamic> json) =>
+      _$UtilitiesChangedFromJson(json);
 
-  factory _$ViewChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ViewChangedImplFromJson(json);
-
-  @override
-  final ViewOption view;
+  final UtilitiesState state;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $UtilitiesChangedCopyWith<UtilitiesChanged> get copyWith =>
+      _$UtilitiesChangedCopyWithImpl<UtilitiesChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.viewChanged(view: $view)';
+  Map<String, dynamic> toJson() {
+    return _$UtilitiesChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ViewChangedImpl &&
-            (identical(other.view, view) || other.view == view));
+            other is UtilitiesChanged &&
+            (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, view);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
-      __$$ViewChangedImplCopyWithImpl<_$ViewChangedImpl>(this, _$identity);
+  int get hashCode => Object.hash(runtimeType, state);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$$ViewChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.utilitiesChanged(state: $state)';
   }
-}
-
-abstract class ViewChanged extends DocumentEvent {
-  const factory ViewChanged(final ViewOption view) = _$ViewChangedImpl;
-  const ViewChanged._() : super._();
-
-  factory ViewChanged.fromJson(Map<String, dynamic> json) =
-      _$ViewChangedImpl.fromJson;
-
-  ViewOption get view;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UtilitiesChangedImplCopyWith<$Res> {
-  factory _$$UtilitiesChangedImplCopyWith(_$UtilitiesChangedImpl value,
-          $Res Function(_$UtilitiesChangedImpl) then) =
-      __$$UtilitiesChangedImplCopyWithImpl<$Res>;
+abstract mixin class $UtilitiesChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $UtilitiesChangedCopyWith(
+          UtilitiesChanged value, $Res Function(UtilitiesChanged) _then) =
+      _$UtilitiesChangedCopyWithImpl;
   @useResult
   $Res call({UtilitiesState state});
 
@@ -922,23 +815,22 @@ abstract class _$$UtilitiesChangedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UtilitiesChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$UtilitiesChangedImpl>
-    implements _$$UtilitiesChangedImplCopyWith<$Res> {
-  __$$UtilitiesChangedImplCopyWithImpl(_$UtilitiesChangedImpl _value,
-      $Res Function(_$UtilitiesChangedImpl) _then)
-      : super(_value, _then);
+class _$UtilitiesChangedCopyWithImpl<$Res>
+    implements $UtilitiesChangedCopyWith<$Res> {
+  _$UtilitiesChangedCopyWithImpl(this._self, this._then);
+
+  final UtilitiesChanged _self;
+  final $Res Function(UtilitiesChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? state = null,
   }) {
-    return _then(_$UtilitiesChangedImpl(
+    return _then(UtilitiesChanged(
       null == state
-          ? _value.state
+          ? _self.state
           : state // ignore: cast_nullable_to_non_nullable
               as UtilitiesState,
     ));
@@ -949,126 +841,23 @@ class __$$UtilitiesChangedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $UtilitiesStateCopyWith<$Res> get state {
-    return $UtilitiesStateCopyWith<$Res>(_value.state, (value) {
-      return _then(_value.copyWith(state: value));
+    return $UtilitiesStateCopyWith<$Res>(_self.state, (value) {
+      return _then(_self.copyWith(state: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UtilitiesChangedImpl extends UtilitiesChanged {
-  const _$UtilitiesChangedImpl(this.state, {final String? $type})
-      : $type = $type ?? 'utilitiesChanged',
-        super._();
-
-  factory _$UtilitiesChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UtilitiesChangedImplFromJson(json);
-
-  @override
-  final UtilitiesState state;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.utilitiesChanged(state: $state)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UtilitiesChangedImpl &&
-            (identical(other.state, state) || other.state == state));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, state);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
-      __$$UtilitiesChangedImplCopyWithImpl<_$UtilitiesChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UtilitiesChangedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class UtilitiesChanged extends DocumentEvent {
-  const factory UtilitiesChanged(final UtilitiesState state) =
-      _$UtilitiesChangedImpl;
-  const UtilitiesChanged._() : super._();
-
-  factory UtilitiesChanged.fromJson(Map<String, dynamic> json) =
-      _$UtilitiesChangedImpl.fromJson;
-
-  UtilitiesState get state;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ElementsCreatedImplCopyWith<$Res> {
-  factory _$$ElementsCreatedImplCopyWith(_$ElementsCreatedImpl value,
-          $Res Function(_$ElementsCreatedImpl) then) =
-      __$$ElementsCreatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<PadElement> elements});
-}
-
-/// @nodoc
-class __$$ElementsCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsCreatedImpl>
-    implements _$$ElementsCreatedImplCopyWith<$Res> {
-  __$$ElementsCreatedImplCopyWithImpl(
-      _$ElementsCreatedImpl _value, $Res Function(_$ElementsCreatedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? elements = null,
-  }) {
-    return _then(_$ElementsCreatedImpl(
-      null == elements
-          ? _value._elements
-          : elements // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ElementsCreatedImpl extends ElementsCreated {
-  const _$ElementsCreatedImpl(final List<PadElement> elements,
-      {final String? $type})
+class ElementsCreated extends DocumentEvent {
+  const ElementsCreated(final List<PadElement> elements, {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsCreated',
         super._();
-
-  factory _$ElementsCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsCreatedImplFromJson(json);
+  factory ElementsCreated.fromJson(Map<String, dynamic> json) =>
+      _$ElementsCreatedFromJson(json);
 
   final List<PadElement> _elements;
-  @override
   List<PadElement> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
@@ -1078,16 +867,25 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsCreatedCopyWith<ElementsCreated> get copyWith =>
+      _$ElementsCreatedCopyWithImpl<ElementsCreated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.elementsCreated(elements: $elements)';
+  Map<String, dynamic> toJson() {
+    return _$ElementsCreatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsCreatedImpl &&
+            other is ElementsCreated &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
@@ -1096,87 +894,57 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
-      __$$ElementsCreatedImplCopyWithImpl<_$ElementsCreatedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsCreatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.elementsCreated(elements: $elements)';
   }
 }
 
-abstract class ElementsCreated extends DocumentEvent {
-  const factory ElementsCreated(final List<PadElement> elements) =
-      _$ElementsCreatedImpl;
-  const ElementsCreated._() : super._();
-
-  factory ElementsCreated.fromJson(Map<String, dynamic> json) =
-      _$ElementsCreatedImpl.fromJson;
-
-  List<PadElement> get elements;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ElementsChangedImplCopyWith<$Res> {
-  factory _$$ElementsChangedImplCopyWith(_$ElementsChangedImpl value,
-          $Res Function(_$ElementsChangedImpl) then) =
-      __$$ElementsChangedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsCreatedCopyWith(
+          ElementsCreated value, $Res Function(ElementsCreated) _then) =
+      _$ElementsCreatedCopyWithImpl;
   @useResult
-  $Res call({Map<String, List<PadElement>> elements});
+  $Res call({List<PadElement> elements});
 }
 
 /// @nodoc
-class __$$ElementsChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsChangedImpl>
-    implements _$$ElementsChangedImplCopyWith<$Res> {
-  __$$ElementsChangedImplCopyWithImpl(
-      _$ElementsChangedImpl _value, $Res Function(_$ElementsChangedImpl) _then)
-      : super(_value, _then);
+class _$ElementsCreatedCopyWithImpl<$Res>
+    implements $ElementsCreatedCopyWith<$Res> {
+  _$ElementsCreatedCopyWithImpl(this._self, this._then);
+
+  final ElementsCreated _self;
+  final $Res Function(ElementsCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? elements = null,
   }) {
-    return _then(_$ElementsChangedImpl(
+    return _then(ElementsCreated(
       null == elements
-          ? _value._elements
+          ? _self._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<PadElement>>,
+              as List<PadElement>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsChangedImpl extends ElementsChanged {
-  const _$ElementsChangedImpl(final Map<String, List<PadElement>> elements,
+class ElementsChanged extends DocumentEvent {
+  const ElementsChanged(final Map<String, List<PadElement>> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsChanged',
         super._();
-
-  factory _$ElementsChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsChangedImplFromJson(json);
+  factory ElementsChanged.fromJson(Map<String, dynamic> json) =>
+      _$ElementsChangedFromJson(json);
 
   final Map<String, List<PadElement>> _elements;
-  @override
   Map<String, List<PadElement>> get elements {
     if (_elements is EqualUnmodifiableMapView) return _elements;
     // ignore: implicit_dynamic_type
@@ -1186,16 +954,25 @@ class _$ElementsChangedImpl extends ElementsChanged {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsChangedCopyWith<ElementsChanged> get copyWith =>
+      _$ElementsChangedCopyWithImpl<ElementsChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.elementsChanged(elements: $elements)';
+  Map<String, dynamic> toJson() {
+    return _$ElementsChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsChangedImpl &&
+            other is ElementsChanged &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
@@ -1204,87 +981,56 @@ class _$ElementsChangedImpl extends ElementsChanged {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
-      __$$ElementsChangedImplCopyWithImpl<_$ElementsChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.elementsChanged(elements: $elements)';
   }
 }
 
-abstract class ElementsChanged extends DocumentEvent {
-  const factory ElementsChanged(final Map<String, List<PadElement>> elements) =
-      _$ElementsChangedImpl;
-  const ElementsChanged._() : super._();
-
-  factory ElementsChanged.fromJson(Map<String, dynamic> json) =
-      _$ElementsChangedImpl.fromJson;
-
-  Map<String, List<PadElement>> get elements;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ElementsRemovedImplCopyWith<$Res> {
-  factory _$$ElementsRemovedImplCopyWith(_$ElementsRemovedImpl value,
-          $Res Function(_$ElementsRemovedImpl) then) =
-      __$$ElementsRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsChangedCopyWith(
+          ElementsChanged value, $Res Function(ElementsChanged) _then) =
+      _$ElementsChangedCopyWithImpl;
   @useResult
-  $Res call({List<String> elements});
+  $Res call({Map<String, List<PadElement>> elements});
 }
 
 /// @nodoc
-class __$$ElementsRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsRemovedImpl>
-    implements _$$ElementsRemovedImplCopyWith<$Res> {
-  __$$ElementsRemovedImplCopyWithImpl(
-      _$ElementsRemovedImpl _value, $Res Function(_$ElementsRemovedImpl) _then)
-      : super(_value, _then);
+class _$ElementsChangedCopyWithImpl<$Res>
+    implements $ElementsChangedCopyWith<$Res> {
+  _$ElementsChangedCopyWithImpl(this._self, this._then);
+
+  final ElementsChanged _self;
+  final $Res Function(ElementsChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? elements = null,
   }) {
-    return _then(_$ElementsRemovedImpl(
+    return _then(ElementsChanged(
       null == elements
-          ? _value._elements
+          ? _self._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as Map<String, List<PadElement>>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsRemovedImpl extends ElementsRemoved {
-  const _$ElementsRemovedImpl(final List<String> elements,
-      {final String? $type})
+class ElementsRemoved extends DocumentEvent {
+  const ElementsRemoved(final List<String> elements, {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsRemoved',
         super._();
-
-  factory _$ElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsRemovedImplFromJson(json);
+  factory ElementsRemoved.fromJson(Map<String, dynamic> json) =>
+      _$ElementsRemovedFromJson(json);
 
   final List<String> _elements;
-  @override
   List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
@@ -1293,91 +1039,67 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
 
   @JsonKey(name: 'type')
   final String $type;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsRemovedCopyWith<ElementsRemoved> get copyWith =>
+      _$ElementsRemovedCopyWithImpl<ElementsRemoved>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ElementsRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ElementsRemoved &&
+            const DeepCollectionEquality().equals(other._elements, _elements));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
   @override
   String toString() {
     return 'DocumentEvent.elementsRemoved(elements: $elements)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ElementsRemovedImpl &&
-            const DeepCollectionEquality().equals(other._elements, _elements));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
-      __$$ElementsRemovedImplCopyWithImpl<_$ElementsRemovedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ElementsRemoved extends DocumentEvent {
-  const factory ElementsRemoved(final List<String> elements) =
-      _$ElementsRemovedImpl;
-  const ElementsRemoved._() : super._();
-
-  factory ElementsRemoved.fromJson(Map<String, dynamic> json) =
-      _$ElementsRemovedImpl.fromJson;
-
-  List<String> get elements;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsArrangedImplCopyWith<$Res> {
-  factory _$$ElementsArrangedImplCopyWith(_$ElementsArrangedImpl value,
-          $Res Function(_$ElementsArrangedImpl) then) =
-      __$$ElementsArrangedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsRemovedCopyWith(
+          ElementsRemoved value, $Res Function(ElementsRemoved) _then) =
+      _$ElementsRemovedCopyWithImpl;
   @useResult
-  $Res call({Arrangement arrangement, List<String> elements});
+  $Res call({List<String> elements});
 }
 
 /// @nodoc
-class __$$ElementsArrangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsArrangedImpl>
-    implements _$$ElementsArrangedImplCopyWith<$Res> {
-  __$$ElementsArrangedImplCopyWithImpl(_$ElementsArrangedImpl _value,
-      $Res Function(_$ElementsArrangedImpl) _then)
-      : super(_value, _then);
+class _$ElementsRemovedCopyWithImpl<$Res>
+    implements $ElementsRemovedCopyWith<$Res> {
+  _$ElementsRemovedCopyWithImpl(this._self, this._then);
+
+  final ElementsRemoved _self;
+  final $Res Function(ElementsRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? arrangement = null,
     Object? elements = null,
   }) {
-    return _then(_$ElementsArrangedImpl(
-      null == arrangement
-          ? _value.arrangement
-          : arrangement // ignore: cast_nullable_to_non_nullable
-              as Arrangement,
+    return _then(ElementsRemoved(
       null == elements
-          ? _value._elements
+          ? _self._elements
           : elements // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
@@ -1386,20 +1108,17 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsArrangedImpl extends ElementsArranged {
-  const _$ElementsArrangedImpl(this.arrangement, final List<String> elements,
+class ElementsArranged extends DocumentEvent {
+  const ElementsArranged(this.arrangement, final List<String> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsArranged',
         super._();
+  factory ElementsArranged.fromJson(Map<String, dynamic> json) =>
+      _$ElementsArrangedFromJson(json);
 
-  factory _$ElementsArrangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsArrangedImplFromJson(json);
-
-  @override
   final Arrangement arrangement;
   final List<String> _elements;
-  @override
   List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
@@ -1409,16 +1128,25 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsArrangedCopyWith<ElementsArranged> get copyWith =>
+      _$ElementsArrangedCopyWithImpl<ElementsArranged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.elementsArranged(arrangement: $arrangement, elements: $elements)';
+  Map<String, dynamic> toJson() {
+    return _$ElementsArrangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsArrangedImpl &&
+            other is ElementsArranged &&
             (identical(other.arrangement, arrangement) ||
                 other.arrangement == arrangement) &&
             const DeepCollectionEquality().equals(other._elements, _elements));
@@ -1429,112 +1157,87 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   int get hashCode => Object.hash(
       runtimeType, arrangement, const DeepCollectionEquality().hash(_elements));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
-      __$$ElementsArrangedImplCopyWithImpl<_$ElementsArrangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsArrangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.elementsArranged(arrangement: $arrangement, elements: $elements)';
   }
 }
 
-abstract class ElementsArranged extends DocumentEvent {
-  const factory ElementsArranged(
-          final Arrangement arrangement, final List<String> elements) =
-      _$ElementsArrangedImpl;
-  const ElementsArranged._() : super._();
-
-  factory ElementsArranged.fromJson(Map<String, dynamic> json) =
-      _$ElementsArrangedImpl.fromJson;
-
-  Arrangement get arrangement;
-  List<String> get elements;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$DocumentDescriptionChangedImplCopyWith<$Res> {
-  factory _$$DocumentDescriptionChangedImplCopyWith(
-          _$DocumentDescriptionChangedImpl value,
-          $Res Function(_$DocumentDescriptionChangedImpl) then) =
-      __$$DocumentDescriptionChangedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsArrangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsArrangedCopyWith(
+          ElementsArranged value, $Res Function(ElementsArranged) _then) =
+      _$ElementsArrangedCopyWithImpl;
   @useResult
-  $Res call({String? name, String? description});
+  $Res call({Arrangement arrangement, List<String> elements});
 }
 
 /// @nodoc
-class __$$DocumentDescriptionChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentDescriptionChangedImpl>
-    implements _$$DocumentDescriptionChangedImplCopyWith<$Res> {
-  __$$DocumentDescriptionChangedImplCopyWithImpl(
-      _$DocumentDescriptionChangedImpl _value,
-      $Res Function(_$DocumentDescriptionChangedImpl) _then)
-      : super(_value, _then);
+class _$ElementsArrangedCopyWithImpl<$Res>
+    implements $ElementsArrangedCopyWith<$Res> {
+  _$ElementsArrangedCopyWithImpl(this._self, this._then);
+
+  final ElementsArranged _self;
+  final $Res Function(ElementsArranged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? name = freezed,
-    Object? description = freezed,
+    Object? arrangement = null,
+    Object? elements = null,
   }) {
-    return _then(_$DocumentDescriptionChangedImpl(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(ElementsArranged(
+      null == arrangement
+          ? _self.arrangement
+          : arrangement // ignore: cast_nullable_to_non_nullable
+              as Arrangement,
+      null == elements
+          ? _self._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
-  const _$DocumentDescriptionChangedImpl(
+class DocumentDescriptionChanged extends DocumentEvent {
+  const DocumentDescriptionChanged(
       {this.name, this.description, final String? $type})
       : $type = $type ?? 'documentDescriptionChanged',
         super._();
+  factory DocumentDescriptionChanged.fromJson(Map<String, dynamic> json) =>
+      _$DocumentDescriptionChangedFromJson(json);
 
-  factory _$DocumentDescriptionChangedImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$DocumentDescriptionChangedImplFromJson(json);
-
-  @override
   final String? name;
-  @override
   final String? description;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DocumentDescriptionChangedCopyWith<DocumentDescriptionChanged>
+      get copyWith =>
+          _$DocumentDescriptionChangedCopyWithImpl<DocumentDescriptionChanged>(
+              this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.documentDescriptionChanged(name: $name, description: $description)';
+  Map<String, dynamic> toJson() {
+    return _$DocumentDescriptionChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentDescriptionChangedImpl &&
+            other is DocumentDescriptionChanged &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
@@ -1544,109 +1247,88 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
-      get copyWith => __$$DocumentDescriptionChangedImplCopyWithImpl<
-          _$DocumentDescriptionChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentDescriptionChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.documentDescriptionChanged(name: $name, description: $description)';
   }
 }
 
-abstract class DocumentDescriptionChanged extends DocumentEvent {
-  const factory DocumentDescriptionChanged(
-      {final String? name,
-      final String? description}) = _$DocumentDescriptionChangedImpl;
-  const DocumentDescriptionChanged._() : super._();
-
-  factory DocumentDescriptionChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentDescriptionChangedImpl.fromJson;
-
-  String? get name;
-  String? get description;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$DocumentSavedImplCopyWith<$Res> {
-  factory _$$DocumentSavedImplCopyWith(
-          _$DocumentSavedImpl value, $Res Function(_$DocumentSavedImpl) then) =
-      __$$DocumentSavedImplCopyWithImpl<$Res>;
+abstract mixin class $DocumentDescriptionChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $DocumentDescriptionChangedCopyWith(DocumentDescriptionChanged value,
+          $Res Function(DocumentDescriptionChanged) _then) =
+      _$DocumentDescriptionChangedCopyWithImpl;
   @useResult
-  $Res call(
-      {@JsonKey(
-          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
-      AssetLocation? location});
+  $Res call({String? name, String? description});
 }
 
 /// @nodoc
-class __$$DocumentSavedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentSavedImpl>
-    implements _$$DocumentSavedImplCopyWith<$Res> {
-  __$$DocumentSavedImplCopyWithImpl(
-      _$DocumentSavedImpl _value, $Res Function(_$DocumentSavedImpl) _then)
-      : super(_value, _then);
+class _$DocumentDescriptionChangedCopyWithImpl<$Res>
+    implements $DocumentDescriptionChangedCopyWith<$Res> {
+  _$DocumentDescriptionChangedCopyWithImpl(this._self, this._then);
+
+  final DocumentDescriptionChanged _self;
+  final $Res Function(DocumentDescriptionChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? location = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
-    return _then(_$DocumentSavedImpl(
-      freezed == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as AssetLocation?,
+    return _then(DocumentDescriptionChanged(
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _self.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentSavedImpl extends DocumentSaved {
-  const _$DocumentSavedImpl(
+class DocumentSaved extends DocumentEvent {
+  const DocumentSaved(
       [@JsonKey(
           fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
       this.location,
       final String? $type])
       : $type = $type ?? 'documentSaved',
         super._();
+  factory DocumentSaved.fromJson(Map<String, dynamic> json) =>
+      _$DocumentSavedFromJson(json);
 
-  factory _$DocumentSavedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentSavedImplFromJson(json);
-
-  @override
   @JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
   final AssetLocation? location;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DocumentSavedCopyWith<DocumentSaved> get copyWith =>
+      _$DocumentSavedCopyWithImpl<DocumentSaved>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.documentSaved(location: $location)';
+  Map<String, dynamic> toJson() {
+    return _$DocumentSavedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentSavedImpl &&
+            other is DocumentSaved &&
             (identical(other.location, location) ||
                 other.location == location));
   }
@@ -1655,47 +1337,100 @@ class _$DocumentSavedImpl extends DocumentSaved {
   @override
   int get hashCode => Object.hash(runtimeType, location);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
-      __$$DocumentSavedImplCopyWithImpl<_$DocumentSavedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentSavedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.documentSaved(location: $location)';
   }
 }
 
-abstract class DocumentSaved extends DocumentEvent {
-  const factory DocumentSaved(
-      [@JsonKey(
+/// @nodoc
+abstract mixin class $DocumentSavedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $DocumentSavedCopyWith(
+          DocumentSaved value, $Res Function(DocumentSaved) _then) =
+      _$DocumentSavedCopyWithImpl;
+  @useResult
+  $Res call(
+      {@JsonKey(
           fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
-      final AssetLocation? location]) = _$DocumentSavedImpl;
-  const DocumentSaved._() : super._();
+      AssetLocation? location});
+}
 
-  factory DocumentSaved.fromJson(Map<String, dynamic> json) =
-      _$DocumentSavedImpl.fromJson;
+/// @nodoc
+class _$DocumentSavedCopyWithImpl<$Res>
+    implements $DocumentSavedCopyWith<$Res> {
+  _$DocumentSavedCopyWithImpl(this._self, this._then);
 
-  @JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
-  AssetLocation? get location;
+  final DocumentSaved _self;
+  final $Res Function(DocumentSaved) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? location = freezed,
+  }) {
+    return _then(DocumentSaved(
+      freezed == location
+          ? _self.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as AssetLocation?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class ToolCreated extends DocumentEvent {
+  const ToolCreated(this.tool, {final String? $type})
+      : $type = $type ?? 'toolCreated',
+        super._();
+  factory ToolCreated.fromJson(Map<String, dynamic> json) =>
+      _$ToolCreatedFromJson(json);
+
+  final Tool tool;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $ToolCreatedCopyWith<ToolCreated> get copyWith =>
+      _$ToolCreatedCopyWithImpl<ToolCreated>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ToolCreatedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ToolCreated &&
+            (identical(other.tool, tool) || other.tool == tool));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, tool);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.toolCreated(tool: $tool)';
+  }
 }
 
 /// @nodoc
-abstract class _$$ToolCreatedImplCopyWith<$Res> {
-  factory _$$ToolCreatedImplCopyWith(
-          _$ToolCreatedImpl value, $Res Function(_$ToolCreatedImpl) then) =
-      __$$ToolCreatedImplCopyWithImpl<$Res>;
+abstract mixin class $ToolCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ToolCreatedCopyWith(
+          ToolCreated value, $Res Function(ToolCreated) _then) =
+      _$ToolCreatedCopyWithImpl;
   @useResult
   $Res call({Tool tool});
 
@@ -1703,23 +1438,21 @@ abstract class _$$ToolCreatedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ToolCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolCreatedImpl>
-    implements _$$ToolCreatedImplCopyWith<$Res> {
-  __$$ToolCreatedImplCopyWithImpl(
-      _$ToolCreatedImpl _value, $Res Function(_$ToolCreatedImpl) _then)
-      : super(_value, _then);
+class _$ToolCreatedCopyWithImpl<$Res> implements $ToolCreatedCopyWith<$Res> {
+  _$ToolCreatedCopyWithImpl(this._self, this._then);
+
+  final ToolCreated _self;
+  final $Res Function(ToolCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? tool = null,
   }) {
-    return _then(_$ToolCreatedImpl(
+    return _then(ToolCreated(
       null == tool
-          ? _value.tool
+          ? _self.tool
           : tool // ignore: cast_nullable_to_non_nullable
               as Tool,
     ));
@@ -1730,123 +1463,23 @@ class __$$ToolCreatedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $ToolCopyWith<$Res> get tool {
-    return $ToolCopyWith<$Res>(_value.tool, (value) {
-      return _then(_value.copyWith(tool: value));
+    return $ToolCopyWith<$Res>(_self.tool, (value) {
+      return _then(_self.copyWith(tool: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolCreatedImpl extends ToolCreated {
-  const _$ToolCreatedImpl(this.tool, {final String? $type})
-      : $type = $type ?? 'toolCreated',
-        super._();
-
-  factory _$ToolCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ToolCreatedImplFromJson(json);
-
-  @override
-  final Tool tool;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.toolCreated(tool: $tool)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ToolCreatedImpl &&
-            (identical(other.tool, tool) || other.tool == tool));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, tool);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
-      __$$ToolCreatedImplCopyWithImpl<_$ToolCreatedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ToolCreatedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class ToolCreated extends DocumentEvent {
-  const factory ToolCreated(final Tool tool) = _$ToolCreatedImpl;
-  const ToolCreated._() : super._();
-
-  factory ToolCreated.fromJson(Map<String, dynamic> json) =
-      _$ToolCreatedImpl.fromJson;
-
-  Tool get tool;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ToolsChangedImplCopyWith<$Res> {
-  factory _$$ToolsChangedImplCopyWith(
-          _$ToolsChangedImpl value, $Res Function(_$ToolsChangedImpl) then) =
-      __$$ToolsChangedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Map<int, Tool> tools});
-}
-
-/// @nodoc
-class __$$ToolsChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsChangedImpl>
-    implements _$$ToolsChangedImplCopyWith<$Res> {
-  __$$ToolsChangedImplCopyWithImpl(
-      _$ToolsChangedImpl _value, $Res Function(_$ToolsChangedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? tools = null,
-  }) {
-    return _then(_$ToolsChangedImpl(
-      null == tools
-          ? _value._tools
-          : tools // ignore: cast_nullable_to_non_nullable
-              as Map<int, Tool>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ToolsChangedImpl extends ToolsChanged {
-  const _$ToolsChangedImpl(final Map<int, Tool> tools, {final String? $type})
+class ToolsChanged extends DocumentEvent {
+  const ToolsChanged(final Map<int, Tool> tools, {final String? $type})
       : _tools = tools,
         $type = $type ?? 'toolsChanged',
         super._();
-
-  factory _$ToolsChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ToolsChangedImplFromJson(json);
+  factory ToolsChanged.fromJson(Map<String, dynamic> json) =>
+      _$ToolsChangedFromJson(json);
 
   final Map<int, Tool> _tools;
-  @override
   Map<int, Tool> get tools {
     if (_tools is EqualUnmodifiableMapView) return _tools;
     // ignore: implicit_dynamic_type
@@ -1856,16 +1489,25 @@ class _$ToolsChangedImpl extends ToolsChanged {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ToolsChangedCopyWith<ToolsChanged> get copyWith =>
+      _$ToolsChangedCopyWithImpl<ToolsChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.toolsChanged(tools: $tools)';
+  Map<String, dynamic> toJson() {
+    return _$ToolsChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolsChangedImpl &&
+            other is ToolsChanged &&
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
@@ -1874,84 +1516,55 @@ class _$ToolsChangedImpl extends ToolsChanged {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
-      __$$ToolsChangedImplCopyWithImpl<_$ToolsChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ToolsChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.toolsChanged(tools: $tools)';
   }
 }
 
-abstract class ToolsChanged extends DocumentEvent {
-  const factory ToolsChanged(final Map<int, Tool> tools) = _$ToolsChangedImpl;
-  const ToolsChanged._() : super._();
-
-  factory ToolsChanged.fromJson(Map<String, dynamic> json) =
-      _$ToolsChangedImpl.fromJson;
-
-  Map<int, Tool> get tools;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ToolsRemovedImplCopyWith<$Res> {
-  factory _$$ToolsRemovedImplCopyWith(
-          _$ToolsRemovedImpl value, $Res Function(_$ToolsRemovedImpl) then) =
-      __$$ToolsRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $ToolsChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ToolsChangedCopyWith(
+          ToolsChanged value, $Res Function(ToolsChanged) _then) =
+      _$ToolsChangedCopyWithImpl;
   @useResult
-  $Res call({List<int> tools});
+  $Res call({Map<int, Tool> tools});
 }
 
 /// @nodoc
-class __$$ToolsRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsRemovedImpl>
-    implements _$$ToolsRemovedImplCopyWith<$Res> {
-  __$$ToolsRemovedImplCopyWithImpl(
-      _$ToolsRemovedImpl _value, $Res Function(_$ToolsRemovedImpl) _then)
-      : super(_value, _then);
+class _$ToolsChangedCopyWithImpl<$Res> implements $ToolsChangedCopyWith<$Res> {
+  _$ToolsChangedCopyWithImpl(this._self, this._then);
+
+  final ToolsChanged _self;
+  final $Res Function(ToolsChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? tools = null,
   }) {
-    return _then(_$ToolsRemovedImpl(
+    return _then(ToolsChanged(
       null == tools
-          ? _value._tools
+          ? _self._tools
           : tools // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as Map<int, Tool>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolsRemovedImpl extends ToolsRemoved {
-  const _$ToolsRemovedImpl(final List<int> tools, {final String? $type})
+class ToolsRemoved extends DocumentEvent {
+  const ToolsRemoved(final List<int> tools, {final String? $type})
       : _tools = tools,
         $type = $type ?? 'toolsRemoved',
         super._();
-
-  factory _$ToolsRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ToolsRemovedImplFromJson(json);
+  factory ToolsRemoved.fromJson(Map<String, dynamic> json) =>
+      _$ToolsRemovedFromJson(json);
 
   final List<int> _tools;
-  @override
   List<int> get tools {
     if (_tools is EqualUnmodifiableListView) return _tools;
     // ignore: implicit_dynamic_type
@@ -1961,16 +1574,25 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ToolsRemovedCopyWith<ToolsRemoved> get copyWith =>
+      _$ToolsRemovedCopyWithImpl<ToolsRemoved>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.toolsRemoved(tools: $tools)';
+  Map<String, dynamic> toJson() {
+    return _$ToolsRemovedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolsRemovedImpl &&
+            other is ToolsRemoved &&
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
@@ -1979,104 +1601,78 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
-      __$$ToolsRemovedImplCopyWithImpl<_$ToolsRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ToolsRemovedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.toolsRemoved(tools: $tools)';
   }
 }
 
-abstract class ToolsRemoved extends DocumentEvent {
-  const factory ToolsRemoved(final List<int> tools) = _$ToolsRemovedImpl;
-  const ToolsRemoved._() : super._();
-
-  factory ToolsRemoved.fromJson(Map<String, dynamic> json) =
-      _$ToolsRemovedImpl.fromJson;
-
-  List<int> get tools;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ToolReorderedImplCopyWith<$Res> {
-  factory _$$ToolReorderedImplCopyWith(
-          _$ToolReorderedImpl value, $Res Function(_$ToolReorderedImpl) then) =
-      __$$ToolReorderedImplCopyWithImpl<$Res>;
+abstract mixin class $ToolsRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ToolsRemovedCopyWith(
+          ToolsRemoved value, $Res Function(ToolsRemoved) _then) =
+      _$ToolsRemovedCopyWithImpl;
   @useResult
-  $Res call({int oldIndex, int newIndex});
+  $Res call({List<int> tools});
 }
 
 /// @nodoc
-class __$$ToolReorderedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolReorderedImpl>
-    implements _$$ToolReorderedImplCopyWith<$Res> {
-  __$$ToolReorderedImplCopyWithImpl(
-      _$ToolReorderedImpl _value, $Res Function(_$ToolReorderedImpl) _then)
-      : super(_value, _then);
+class _$ToolsRemovedCopyWithImpl<$Res> implements $ToolsRemovedCopyWith<$Res> {
+  _$ToolsRemovedCopyWithImpl(this._self, this._then);
+
+  final ToolsRemoved _self;
+  final $Res Function(ToolsRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? oldIndex = null,
-    Object? newIndex = null,
+    Object? tools = null,
   }) {
-    return _then(_$ToolReorderedImpl(
-      null == oldIndex
-          ? _value.oldIndex
-          : oldIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      null == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(ToolsRemoved(
+      null == tools
+          ? _self._tools
+          : tools // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolReorderedImpl extends ToolReordered {
-  const _$ToolReorderedImpl(this.oldIndex, this.newIndex, {final String? $type})
+class ToolReordered extends DocumentEvent {
+  const ToolReordered(this.oldIndex, this.newIndex, {final String? $type})
       : $type = $type ?? 'toolReordered',
         super._();
+  factory ToolReordered.fromJson(Map<String, dynamic> json) =>
+      _$ToolReorderedFromJson(json);
 
-  factory _$ToolReorderedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ToolReorderedImplFromJson(json);
-
-  @override
   final int oldIndex;
-  @override
   final int newIndex;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ToolReorderedCopyWith<ToolReordered> get copyWith =>
+      _$ToolReorderedCopyWithImpl<ToolReordered>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.toolReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
+  Map<String, dynamic> toJson() {
+    return _$ToolReorderedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolReorderedImpl &&
+            other is ToolReordered &&
             (identical(other.oldIndex, oldIndex) ||
                 other.oldIndex == oldIndex) &&
             (identical(other.newIndex, newIndex) ||
@@ -2087,90 +1683,62 @@ class _$ToolReorderedImpl extends ToolReordered {
   @override
   int get hashCode => Object.hash(runtimeType, oldIndex, newIndex);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
-      __$$ToolReorderedImplCopyWithImpl<_$ToolReorderedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ToolReorderedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.toolReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
   }
 }
 
-abstract class ToolReordered extends DocumentEvent {
-  const factory ToolReordered(final int oldIndex, final int newIndex) =
-      _$ToolReorderedImpl;
-  const ToolReordered._() : super._();
-
-  factory ToolReordered.fromJson(Map<String, dynamic> json) =
-      _$ToolReorderedImpl.fromJson;
-
-  int get oldIndex;
-  int get newIndex;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$DocumentBackgroundsChangedImplCopyWith<$Res> {
-  factory _$$DocumentBackgroundsChangedImplCopyWith(
-          _$DocumentBackgroundsChangedImpl value,
-          $Res Function(_$DocumentBackgroundsChangedImpl) then) =
-      __$$DocumentBackgroundsChangedImplCopyWithImpl<$Res>;
+abstract mixin class $ToolReorderedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ToolReorderedCopyWith(
+          ToolReordered value, $Res Function(ToolReordered) _then) =
+      _$ToolReorderedCopyWithImpl;
   @useResult
-  $Res call({List<Background> backgrounds});
+  $Res call({int oldIndex, int newIndex});
 }
 
 /// @nodoc
-class __$$DocumentBackgroundsChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentBackgroundsChangedImpl>
-    implements _$$DocumentBackgroundsChangedImplCopyWith<$Res> {
-  __$$DocumentBackgroundsChangedImplCopyWithImpl(
-      _$DocumentBackgroundsChangedImpl _value,
-      $Res Function(_$DocumentBackgroundsChangedImpl) _then)
-      : super(_value, _then);
+class _$ToolReorderedCopyWithImpl<$Res>
+    implements $ToolReorderedCopyWith<$Res> {
+  _$ToolReorderedCopyWithImpl(this._self, this._then);
+
+  final ToolReordered _self;
+  final $Res Function(ToolReordered) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? backgrounds = null,
+    Object? oldIndex = null,
+    Object? newIndex = null,
   }) {
-    return _then(_$DocumentBackgroundsChangedImpl(
-      null == backgrounds
-          ? _value._backgrounds
-          : backgrounds // ignore: cast_nullable_to_non_nullable
-              as List<Background>,
+    return _then(ToolReordered(
+      null == oldIndex
+          ? _self.oldIndex
+          : oldIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == newIndex
+          ? _self.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
-  const _$DocumentBackgroundsChangedImpl(final List<Background> backgrounds,
+class DocumentBackgroundsChanged extends DocumentEvent {
+  const DocumentBackgroundsChanged(final List<Background> backgrounds,
       {final String? $type})
       : _backgrounds = backgrounds,
         $type = $type ?? 'documentBackgroundsChanged',
         super._();
-
-  factory _$DocumentBackgroundsChangedImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$DocumentBackgroundsChangedImplFromJson(json);
+  factory DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =>
+      _$DocumentBackgroundsChangedFromJson(json);
 
   final List<Background> _backgrounds;
-  @override
   List<Background> get backgrounds {
     if (_backgrounds is EqualUnmodifiableListView) return _backgrounds;
     // ignore: implicit_dynamic_type
@@ -2180,16 +1748,27 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DocumentBackgroundsChangedCopyWith<DocumentBackgroundsChanged>
+      get copyWith =>
+          _$DocumentBackgroundsChangedCopyWithImpl<DocumentBackgroundsChanged>(
+              this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.documentBackgroundsChanged(backgrounds: $backgrounds)';
+  Map<String, dynamic> toJson() {
+    return _$DocumentBackgroundsChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentBackgroundsChangedImpl &&
+            other is DocumentBackgroundsChanged &&
             const DeepCollectionEquality()
                 .equals(other._backgrounds, _backgrounds));
   }
@@ -2199,111 +1778,78 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_backgrounds));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
-      get copyWith => __$$DocumentBackgroundsChangedImplCopyWithImpl<
-          _$DocumentBackgroundsChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentBackgroundsChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.documentBackgroundsChanged(backgrounds: $backgrounds)';
   }
 }
 
-abstract class DocumentBackgroundsChanged extends DocumentEvent {
-  const factory DocumentBackgroundsChanged(final List<Background> backgrounds) =
-      _$DocumentBackgroundsChangedImpl;
-  const DocumentBackgroundsChanged._() : super._();
-
-  factory DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentBackgroundsChangedImpl.fromJson;
-
-  List<Background> get backgrounds;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$WaypointCreatedImplCopyWith<$Res> {
-  factory _$$WaypointCreatedImplCopyWith(_$WaypointCreatedImpl value,
-          $Res Function(_$WaypointCreatedImpl) then) =
-      __$$WaypointCreatedImplCopyWithImpl<$Res>;
+abstract mixin class $DocumentBackgroundsChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $DocumentBackgroundsChangedCopyWith(DocumentBackgroundsChanged value,
+          $Res Function(DocumentBackgroundsChanged) _then) =
+      _$DocumentBackgroundsChangedCopyWithImpl;
   @useResult
-  $Res call({Waypoint waypoint});
-
-  $WaypointCopyWith<$Res> get waypoint;
+  $Res call({List<Background> backgrounds});
 }
 
 /// @nodoc
-class __$$WaypointCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointCreatedImpl>
-    implements _$$WaypointCreatedImplCopyWith<$Res> {
-  __$$WaypointCreatedImplCopyWithImpl(
-      _$WaypointCreatedImpl _value, $Res Function(_$WaypointCreatedImpl) _then)
-      : super(_value, _then);
+class _$DocumentBackgroundsChangedCopyWithImpl<$Res>
+    implements $DocumentBackgroundsChangedCopyWith<$Res> {
+  _$DocumentBackgroundsChangedCopyWithImpl(this._self, this._then);
+
+  final DocumentBackgroundsChanged _self;
+  final $Res Function(DocumentBackgroundsChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? waypoint = null,
+    Object? backgrounds = null,
   }) {
-    return _then(_$WaypointCreatedImpl(
-      null == waypoint
-          ? _value.waypoint
-          : waypoint // ignore: cast_nullable_to_non_nullable
-              as Waypoint,
+    return _then(DocumentBackgroundsChanged(
+      null == backgrounds
+          ? _self._backgrounds
+          : backgrounds // ignore: cast_nullable_to_non_nullable
+              as List<Background>,
     ));
-  }
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $WaypointCopyWith<$Res> get waypoint {
-    return $WaypointCopyWith<$Res>(_value.waypoint, (value) {
-      return _then(_value.copyWith(waypoint: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointCreatedImpl extends WaypointCreated {
-  const _$WaypointCreatedImpl(this.waypoint, {final String? $type})
+class WaypointCreated extends DocumentEvent {
+  const WaypointCreated(this.waypoint, {final String? $type})
       : $type = $type ?? 'waypointCreated',
         super._();
+  factory WaypointCreated.fromJson(Map<String, dynamic> json) =>
+      _$WaypointCreatedFromJson(json);
 
-  factory _$WaypointCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointCreatedImplFromJson(json);
-
-  @override
   final Waypoint waypoint;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $WaypointCreatedCopyWith<WaypointCreated> get copyWith =>
+      _$WaypointCreatedCopyWithImpl<WaypointCreated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.waypointCreated(waypoint: $waypoint)';
+  Map<String, dynamic> toJson() {
+    return _$WaypointCreatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointCreatedImpl &&
+            other is WaypointCreated &&
             (identical(other.waypoint, waypoint) ||
                 other.waypoint == waypoint));
   }
@@ -2312,74 +1858,41 @@ class _$WaypointCreatedImpl extends WaypointCreated {
   @override
   int get hashCode => Object.hash(runtimeType, waypoint);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
-      __$$WaypointCreatedImplCopyWithImpl<_$WaypointCreatedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointCreatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.waypointCreated(waypoint: $waypoint)';
   }
 }
 
-abstract class WaypointCreated extends DocumentEvent {
-  const factory WaypointCreated(final Waypoint waypoint) =
-      _$WaypointCreatedImpl;
-  const WaypointCreated._() : super._();
-
-  factory WaypointCreated.fromJson(Map<String, dynamic> json) =
-      _$WaypointCreatedImpl.fromJson;
-
-  Waypoint get waypoint;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$WaypointChangedImplCopyWith<$Res> {
-  factory _$$WaypointChangedImplCopyWith(_$WaypointChangedImpl value,
-          $Res Function(_$WaypointChangedImpl) then) =
-      __$$WaypointChangedImplCopyWithImpl<$Res>;
+abstract mixin class $WaypointCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $WaypointCreatedCopyWith(
+          WaypointCreated value, $Res Function(WaypointCreated) _then) =
+      _$WaypointCreatedCopyWithImpl;
   @useResult
-  $Res call({String name, Waypoint waypoint});
+  $Res call({Waypoint waypoint});
 
   $WaypointCopyWith<$Res> get waypoint;
 }
 
 /// @nodoc
-class __$$WaypointChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointChangedImpl>
-    implements _$$WaypointChangedImplCopyWith<$Res> {
-  __$$WaypointChangedImplCopyWithImpl(
-      _$WaypointChangedImpl _value, $Res Function(_$WaypointChangedImpl) _then)
-      : super(_value, _then);
+class _$WaypointCreatedCopyWithImpl<$Res>
+    implements $WaypointCreatedCopyWith<$Res> {
+  _$WaypointCreatedCopyWithImpl(this._self, this._then);
+
+  final WaypointCreated _self;
+  final $Res Function(WaypointCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? name = null,
     Object? waypoint = null,
   }) {
-    return _then(_$WaypointChangedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(WaypointCreated(
       null == waypoint
-          ? _value.waypoint
+          ? _self.waypoint
           : waypoint // ignore: cast_nullable_to_non_nullable
               as Waypoint,
     ));
@@ -2390,40 +1903,46 @@ class __$$WaypointChangedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $WaypointCopyWith<$Res> get waypoint {
-    return $WaypointCopyWith<$Res>(_value.waypoint, (value) {
-      return _then(_value.copyWith(waypoint: value));
+    return $WaypointCopyWith<$Res>(_self.waypoint, (value) {
+      return _then(_self.copyWith(waypoint: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointChangedImpl extends WaypointChanged {
-  const _$WaypointChangedImpl(this.name, this.waypoint, {final String? $type})
+class WaypointChanged extends DocumentEvent {
+  const WaypointChanged(this.name, this.waypoint, {final String? $type})
       : $type = $type ?? 'waypointChanged',
         super._();
+  factory WaypointChanged.fromJson(Map<String, dynamic> json) =>
+      _$WaypointChangedFromJson(json);
 
-  factory _$WaypointChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointChangedImplFromJson(json);
-
-  @override
   final String name;
-  @override
   final Waypoint waypoint;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $WaypointChangedCopyWith<WaypointChanged> get copyWith =>
+      _$WaypointChangedCopyWithImpl<WaypointChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.waypointChanged(name: $name, waypoint: $waypoint)';
+  Map<String, dynamic> toJson() {
+    return _$WaypointChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointChangedImpl &&
+            other is WaypointChanged &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.waypoint, waypoint) ||
                 other.waypoint == waypoint));
@@ -2433,100 +1952,95 @@ class _$WaypointChangedImpl extends WaypointChanged {
   @override
   int get hashCode => Object.hash(runtimeType, name, waypoint);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
-      __$$WaypointChangedImplCopyWithImpl<_$WaypointChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.waypointChanged(name: $name, waypoint: $waypoint)';
   }
 }
 
-abstract class WaypointChanged extends DocumentEvent {
-  const factory WaypointChanged(final String name, final Waypoint waypoint) =
-      _$WaypointChangedImpl;
-  const WaypointChanged._() : super._();
-
-  factory WaypointChanged.fromJson(Map<String, dynamic> json) =
-      _$WaypointChangedImpl.fromJson;
-
-  String get name;
-  Waypoint get waypoint;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$WaypointRemovedImplCopyWith<$Res> {
-  factory _$$WaypointRemovedImplCopyWith(_$WaypointRemovedImpl value,
-          $Res Function(_$WaypointRemovedImpl) then) =
-      __$$WaypointRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $WaypointChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $WaypointChangedCopyWith(
+          WaypointChanged value, $Res Function(WaypointChanged) _then) =
+      _$WaypointChangedCopyWithImpl;
   @useResult
-  $Res call({String name});
+  $Res call({String name, Waypoint waypoint});
+
+  $WaypointCopyWith<$Res> get waypoint;
 }
 
 /// @nodoc
-class __$$WaypointRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRemovedImpl>
-    implements _$$WaypointRemovedImplCopyWith<$Res> {
-  __$$WaypointRemovedImplCopyWithImpl(
-      _$WaypointRemovedImpl _value, $Res Function(_$WaypointRemovedImpl) _then)
-      : super(_value, _then);
+class _$WaypointChangedCopyWithImpl<$Res>
+    implements $WaypointChangedCopyWith<$Res> {
+  _$WaypointChangedCopyWithImpl(this._self, this._then);
+
+  final WaypointChanged _self;
+  final $Res Function(WaypointChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
+    Object? waypoint = null,
   }) {
-    return _then(_$WaypointRemovedImpl(
+    return _then(WaypointChanged(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      null == waypoint
+          ? _self.waypoint
+          : waypoint // ignore: cast_nullable_to_non_nullable
+              as Waypoint,
     ));
+  }
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WaypointCopyWith<$Res> get waypoint {
+    return $WaypointCopyWith<$Res>(_self.waypoint, (value) {
+      return _then(_self.copyWith(waypoint: value));
+    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointRemovedImpl extends WaypointRemoved {
-  const _$WaypointRemovedImpl(this.name, {final String? $type})
+class WaypointRemoved extends DocumentEvent {
+  const WaypointRemoved(this.name, {final String? $type})
       : $type = $type ?? 'waypointRemoved',
         super._();
+  factory WaypointRemoved.fromJson(Map<String, dynamic> json) =>
+      _$WaypointRemovedFromJson(json);
 
-  factory _$WaypointRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointRemovedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $WaypointRemovedCopyWith<WaypointRemoved> get copyWith =>
+      _$WaypointRemovedCopyWithImpl<WaypointRemoved>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.waypointRemoved(name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$WaypointRemovedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointRemovedImpl &&
+            other is WaypointRemoved &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -2534,105 +2048,79 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
-      __$$WaypointRemovedImplCopyWithImpl<_$WaypointRemovedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointRemovedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.waypointRemoved(name: $name)';
   }
 }
 
-abstract class WaypointRemoved extends DocumentEvent {
-  const factory WaypointRemoved(final String name) = _$WaypointRemovedImpl;
-  const WaypointRemoved._() : super._();
-
-  factory WaypointRemoved.fromJson(Map<String, dynamic> json) =
-      _$WaypointRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$WaypointReorderedImplCopyWith<$Res> {
-  factory _$$WaypointReorderedImplCopyWith(_$WaypointReorderedImpl value,
-          $Res Function(_$WaypointReorderedImpl) then) =
-      __$$WaypointReorderedImplCopyWithImpl<$Res>;
+abstract mixin class $WaypointRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $WaypointRemovedCopyWith(
+          WaypointRemoved value, $Res Function(WaypointRemoved) _then) =
+      _$WaypointRemovedCopyWithImpl;
   @useResult
-  $Res call({String name, int newIndex});
+  $Res call({String name});
 }
 
 /// @nodoc
-class __$$WaypointReorderedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointReorderedImpl>
-    implements _$$WaypointReorderedImplCopyWith<$Res> {
-  __$$WaypointReorderedImplCopyWithImpl(_$WaypointReorderedImpl _value,
-      $Res Function(_$WaypointReorderedImpl) _then)
-      : super(_value, _then);
+class _$WaypointRemovedCopyWithImpl<$Res>
+    implements $WaypointRemovedCopyWith<$Res> {
+  _$WaypointRemovedCopyWithImpl(this._self, this._then);
+
+  final WaypointRemoved _self;
+  final $Res Function(WaypointRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
-    Object? newIndex = null,
   }) {
-    return _then(_$WaypointReorderedImpl(
+    return _then(WaypointRemoved(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      null == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointReorderedImpl extends WaypointReordered {
-  const _$WaypointReorderedImpl(this.name, this.newIndex, {final String? $type})
+class WaypointReordered extends DocumentEvent {
+  const WaypointReordered(this.name, this.newIndex, {final String? $type})
       : $type = $type ?? 'waypointReordered',
         super._();
+  factory WaypointReordered.fromJson(Map<String, dynamic> json) =>
+      _$WaypointReorderedFromJson(json);
 
-  factory _$WaypointReorderedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointReorderedImplFromJson(json);
-
-  @override
   final String name;
-  @override
   final int newIndex;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $WaypointReorderedCopyWith<WaypointReordered> get copyWith =>
+      _$WaypointReorderedCopyWithImpl<WaypointReordered>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.waypointReordered(name: $name, newIndex: $newIndex)';
+  Map<String, dynamic> toJson() {
+    return _$WaypointReorderedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointReorderedImpl &&
+            other is WaypointReordered &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex));
@@ -2642,108 +2130,84 @@ class _$WaypointReorderedImpl extends WaypointReordered {
   @override
   int get hashCode => Object.hash(runtimeType, name, newIndex);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
-      __$$WaypointReorderedImplCopyWithImpl<_$WaypointReorderedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointReorderedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.waypointReordered(name: $name, newIndex: $newIndex)';
   }
 }
 
-abstract class WaypointReordered extends DocumentEvent {
-  const factory WaypointReordered(final String name, final int newIndex) =
-      _$WaypointReorderedImpl;
-  const WaypointReordered._() : super._();
-
-  factory WaypointReordered.fromJson(Map<String, dynamic> json) =
-      _$WaypointReorderedImpl.fromJson;
-
-  String get name;
-  int get newIndex;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$CollectionRenamedImplCopyWith<$Res> {
-  factory _$$CollectionRenamedImplCopyWith(_$CollectionRenamedImpl value,
-          $Res Function(_$CollectionRenamedImpl) then) =
-      __$$CollectionRenamedImplCopyWithImpl<$Res>;
+abstract mixin class $WaypointReorderedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $WaypointReorderedCopyWith(
+          WaypointReordered value, $Res Function(WaypointReordered) _then) =
+      _$WaypointReorderedCopyWithImpl;
   @useResult
-  $Res call({String oldName, String newName});
+  $Res call({String name, int newIndex});
 }
 
 /// @nodoc
-class __$$CollectionRenamedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CollectionRenamedImpl>
-    implements _$$CollectionRenamedImplCopyWith<$Res> {
-  __$$CollectionRenamedImplCopyWithImpl(_$CollectionRenamedImpl _value,
-      $Res Function(_$CollectionRenamedImpl) _then)
-      : super(_value, _then);
+class _$WaypointReorderedCopyWithImpl<$Res>
+    implements $WaypointReorderedCopyWith<$Res> {
+  _$WaypointReorderedCopyWithImpl(this._self, this._then);
+
+  final WaypointReordered _self;
+  final $Res Function(WaypointReordered) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? oldName = null,
-    Object? newName = null,
+    Object? name = null,
+    Object? newIndex = null,
   }) {
-    return _then(_$CollectionRenamedImpl(
-      null == oldName
-          ? _value.oldName
-          : oldName // ignore: cast_nullable_to_non_nullable
+    return _then(WaypointReordered(
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      null == newName
-          ? _value.newName
-          : newName // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == newIndex
+          ? _self.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CollectionRenamedImpl extends CollectionRenamed {
-  const _$CollectionRenamedImpl(this.oldName, this.newName,
-      {final String? $type})
+class CollectionRenamed extends DocumentEvent {
+  const CollectionRenamed(this.oldName, this.newName, {final String? $type})
       : $type = $type ?? 'collectionRenamed',
         super._();
+  factory CollectionRenamed.fromJson(Map<String, dynamic> json) =>
+      _$CollectionRenamedFromJson(json);
 
-  factory _$CollectionRenamedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CollectionRenamedImplFromJson(json);
-
-  @override
   final String oldName;
-  @override
   final String newName;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CollectionRenamedCopyWith<CollectionRenamed> get copyWith =>
+      _$CollectionRenamedCopyWithImpl<CollectionRenamed>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.collectionRenamed(oldName: $oldName, newName: $newName)';
+  Map<String, dynamic> toJson() {
+    return _$CollectionRenamedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CollectionRenamedImpl &&
+            other is CollectionRenamed &&
             (identical(other.oldName, oldName) || other.oldName == oldName) &&
             (identical(other.newName, newName) || other.newName == newName));
   }
@@ -2752,71 +2216,45 @@ class _$CollectionRenamedImpl extends CollectionRenamed {
   @override
   int get hashCode => Object.hash(runtimeType, oldName, newName);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CollectionRenamedImplCopyWith<_$CollectionRenamedImpl> get copyWith =>
-      __$$CollectionRenamedImplCopyWithImpl<_$CollectionRenamedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CollectionRenamedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.collectionRenamed(oldName: $oldName, newName: $newName)';
   }
 }
 
-abstract class CollectionRenamed extends DocumentEvent {
-  const factory CollectionRenamed(final String oldName, final String newName) =
-      _$CollectionRenamedImpl;
-  const CollectionRenamed._() : super._();
-
-  factory CollectionRenamed.fromJson(Map<String, dynamic> json) =
-      _$CollectionRenamedImpl.fromJson;
-
-  String get oldName;
-  String get newName;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CollectionRenamedImplCopyWith<_$CollectionRenamedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$CollectionElementsRemovedImplCopyWith<$Res> {
-  factory _$$CollectionElementsRemovedImplCopyWith(
-          _$CollectionElementsRemovedImpl value,
-          $Res Function(_$CollectionElementsRemovedImpl) then) =
-      __$$CollectionElementsRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $CollectionRenamedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $CollectionRenamedCopyWith(
+          CollectionRenamed value, $Res Function(CollectionRenamed) _then) =
+      _$CollectionRenamedCopyWithImpl;
   @useResult
-  $Res call({String name});
+  $Res call({String oldName, String newName});
 }
 
 /// @nodoc
-class __$$CollectionElementsRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CollectionElementsRemovedImpl>
-    implements _$$CollectionElementsRemovedImplCopyWith<$Res> {
-  __$$CollectionElementsRemovedImplCopyWithImpl(
-      _$CollectionElementsRemovedImpl _value,
-      $Res Function(_$CollectionElementsRemovedImpl) _then)
-      : super(_value, _then);
+class _$CollectionRenamedCopyWithImpl<$Res>
+    implements $CollectionRenamedCopyWith<$Res> {
+  _$CollectionRenamedCopyWithImpl(this._self, this._then);
+
+  final CollectionRenamed _self;
+  final $Res Function(CollectionRenamed) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? name = null,
+    Object? oldName = null,
+    Object? newName = null,
   }) {
-    return _then(_$CollectionElementsRemovedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+    return _then(CollectionRenamed(
+      null == oldName
+          ? _self.oldName
+          : oldName // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == newName
+          ? _self.newName
+          : newName // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -2824,100 +2262,78 @@ class __$$CollectionElementsRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CollectionElementsRemovedImpl extends CollectionElementsRemoved {
-  const _$CollectionElementsRemovedImpl(this.name, {final String? $type})
+class CollectionElementsRemoved extends DocumentEvent {
+  const CollectionElementsRemoved(this.name, {final String? $type})
       : $type = $type ?? 'collectionElementsRemoved',
         super._();
+  factory CollectionElementsRemoved.fromJson(Map<String, dynamic> json) =>
+      _$CollectionElementsRemovedFromJson(json);
 
-  factory _$CollectionElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CollectionElementsRemovedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CollectionElementsRemovedCopyWith<CollectionElementsRemoved> get copyWith =>
+      _$CollectionElementsRemovedCopyWithImpl<CollectionElementsRemoved>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CollectionElementsRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CollectionElementsRemoved &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
 
   @override
   String toString() {
     return 'DocumentEvent.collectionElementsRemoved(name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CollectionElementsRemovedImpl &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CollectionElementsRemovedImplCopyWith<_$CollectionElementsRemovedImpl>
-      get copyWith => __$$CollectionElementsRemovedImplCopyWithImpl<
-          _$CollectionElementsRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CollectionElementsRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class CollectionElementsRemoved extends DocumentEvent {
-  const factory CollectionElementsRemoved(final String name) =
-      _$CollectionElementsRemovedImpl;
-  const CollectionElementsRemoved._() : super._();
-
-  factory CollectionElementsRemoved.fromJson(Map<String, dynamic> json) =
-      _$CollectionElementsRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CollectionElementsRemovedImplCopyWith<_$CollectionElementsRemovedImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CurrentCollectionChangedImplCopyWith<$Res> {
-  factory _$$CurrentCollectionChangedImplCopyWith(
-          _$CurrentCollectionChangedImpl value,
-          $Res Function(_$CurrentCollectionChangedImpl) then) =
-      __$$CurrentCollectionChangedImplCopyWithImpl<$Res>;
+abstract mixin class $CollectionElementsRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $CollectionElementsRemovedCopyWith(CollectionElementsRemoved value,
+          $Res Function(CollectionElementsRemoved) _then) =
+      _$CollectionElementsRemovedCopyWithImpl;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$CurrentCollectionChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentCollectionChangedImpl>
-    implements _$$CurrentCollectionChangedImplCopyWith<$Res> {
-  __$$CurrentCollectionChangedImplCopyWithImpl(
-      _$CurrentCollectionChangedImpl _value,
-      $Res Function(_$CurrentCollectionChangedImpl) _then)
-      : super(_value, _then);
+class _$CollectionElementsRemovedCopyWithImpl<$Res>
+    implements $CollectionElementsRemovedCopyWith<$Res> {
+  _$CollectionElementsRemovedCopyWithImpl(this._self, this._then);
+
+  final CollectionElementsRemoved _self;
+  final $Res Function(CollectionElementsRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$CurrentCollectionChangedImpl(
+    return _then(CollectionElementsRemoved(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -2926,98 +2342,78 @@ class __$$CurrentCollectionChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CurrentCollectionChangedImpl extends CurrentCollectionChanged {
-  const _$CurrentCollectionChangedImpl(this.name, {final String? $type})
+class CurrentCollectionChanged extends DocumentEvent {
+  const CurrentCollectionChanged(this.name, {final String? $type})
       : $type = $type ?? 'currentCollectionChanged',
         super._();
+  factory CurrentCollectionChanged.fromJson(Map<String, dynamic> json) =>
+      _$CurrentCollectionChangedFromJson(json);
 
-  factory _$CurrentCollectionChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CurrentCollectionChangedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CurrentCollectionChangedCopyWith<CurrentCollectionChanged> get copyWith =>
+      _$CurrentCollectionChangedCopyWithImpl<CurrentCollectionChanged>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CurrentCollectionChangedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CurrentCollectionChanged &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
 
   @override
   String toString() {
     return 'DocumentEvent.currentCollectionChanged(name: $name)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CurrentCollectionChangedImpl &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CurrentCollectionChangedImplCopyWith<_$CurrentCollectionChangedImpl>
-      get copyWith => __$$CurrentCollectionChangedImplCopyWithImpl<
-          _$CurrentCollectionChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CurrentCollectionChangedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class CurrentCollectionChanged extends DocumentEvent {
-  const factory CurrentCollectionChanged(final String name) =
-      _$CurrentCollectionChangedImpl;
-  const CurrentCollectionChanged._() : super._();
-
-  factory CurrentCollectionChanged.fromJson(Map<String, dynamic> json) =
-      _$CurrentCollectionChangedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CurrentCollectionChangedImplCopyWith<_$CurrentCollectionChangedImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CurrentLayerChangedImplCopyWith<$Res> {
-  factory _$$CurrentLayerChangedImplCopyWith(_$CurrentLayerChangedImpl value,
-          $Res Function(_$CurrentLayerChangedImpl) then) =
-      __$$CurrentLayerChangedImplCopyWithImpl<$Res>;
+abstract mixin class $CurrentCollectionChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $CurrentCollectionChangedCopyWith(CurrentCollectionChanged value,
+          $Res Function(CurrentCollectionChanged) _then) =
+      _$CurrentCollectionChangedCopyWithImpl;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$CurrentLayerChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentLayerChangedImpl>
-    implements _$$CurrentLayerChangedImplCopyWith<$Res> {
-  __$$CurrentLayerChangedImplCopyWithImpl(_$CurrentLayerChangedImpl _value,
-      $Res Function(_$CurrentLayerChangedImpl) _then)
-      : super(_value, _then);
+class _$CurrentCollectionChangedCopyWithImpl<$Res>
+    implements $CurrentCollectionChangedCopyWith<$Res> {
+  _$CurrentCollectionChangedCopyWithImpl(this._self, this._then);
+
+  final CurrentCollectionChanged _self;
+  final $Res Function(CurrentCollectionChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$CurrentLayerChangedImpl(
+    return _then(CurrentCollectionChanged(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -3026,30 +2422,37 @@ class __$$CurrentLayerChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
-  const _$CurrentLayerChangedImpl(this.name, {final String? $type})
+class CurrentLayerChanged extends DocumentEvent {
+  const CurrentLayerChanged(this.name, {final String? $type})
       : $type = $type ?? 'currentLayerChanged',
         super._();
+  factory CurrentLayerChanged.fromJson(Map<String, dynamic> json) =>
+      _$CurrentLayerChangedFromJson(json);
 
-  factory _$CurrentLayerChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CurrentLayerChangedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CurrentLayerChangedCopyWith<CurrentLayerChanged> get copyWith =>
+      _$CurrentLayerChangedCopyWithImpl<CurrentLayerChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.currentLayerChanged(name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$CurrentLayerChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CurrentLayerChangedImpl &&
+            other is CurrentLayerChanged &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -3057,107 +2460,80 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
-      __$$CurrentLayerChangedImplCopyWithImpl<_$CurrentLayerChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CurrentLayerChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.currentLayerChanged(name: $name)';
   }
 }
 
-abstract class CurrentLayerChanged extends DocumentEvent {
-  const factory CurrentLayerChanged(final String name) =
-      _$CurrentLayerChangedImpl;
-  const CurrentLayerChanged._() : super._();
-
-  factory CurrentLayerChanged.fromJson(Map<String, dynamic> json) =
-      _$CurrentLayerChangedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$LayerCreatedImplCopyWith<$Res> {
-  factory _$$LayerCreatedImplCopyWith(
-          _$LayerCreatedImpl value, $Res Function(_$LayerCreatedImpl) then) =
-      __$$LayerCreatedImplCopyWithImpl<$Res>;
+abstract mixin class $CurrentLayerChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $CurrentLayerChangedCopyWith(
+          CurrentLayerChanged value, $Res Function(CurrentLayerChanged) _then) =
+      _$CurrentLayerChangedCopyWithImpl;
   @useResult
-  $Res call({String name, String? id});
+  $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerCreatedImpl>
-    implements _$$LayerCreatedImplCopyWith<$Res> {
-  __$$LayerCreatedImplCopyWithImpl(
-      _$LayerCreatedImpl _value, $Res Function(_$LayerCreatedImpl) _then)
-      : super(_value, _then);
+class _$CurrentLayerChangedCopyWithImpl<$Res>
+    implements $CurrentLayerChangedCopyWith<$Res> {
+  _$CurrentLayerChangedCopyWithImpl(this._self, this._then);
+
+  final CurrentLayerChanged _self;
+  final $Res Function(CurrentLayerChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
-    Object? id = freezed,
   }) {
-    return _then(_$LayerCreatedImpl(
-      name: null == name
-          ? _value.name
+    return _then(CurrentLayerChanged(
+      null == name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerCreatedImpl extends LayerCreated {
-  const _$LayerCreatedImpl({this.name = '', this.id, final String? $type})
+class LayerCreated extends DocumentEvent {
+  const LayerCreated({this.name = '', this.id, final String? $type})
       : $type = $type ?? 'layerCreated',
         super._();
+  factory LayerCreated.fromJson(Map<String, dynamic> json) =>
+      _$LayerCreatedFromJson(json);
 
-  factory _$LayerCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerCreatedImplFromJson(json);
-
-  @override
   @JsonKey()
   final String name;
-  @override
   final String? id;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LayerCreatedCopyWith<LayerCreated> get copyWith =>
+      _$LayerCreatedCopyWithImpl<LayerCreated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.layerCreated(name: $name, id: $id)';
+  Map<String, dynamic> toJson() {
+    return _$LayerCreatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerCreatedImpl &&
+            other is LayerCreated &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id));
   }
@@ -3166,73 +2542,44 @@ class _$LayerCreatedImpl extends LayerCreated {
   @override
   int get hashCode => Object.hash(runtimeType, name, id);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LayerCreatedImplCopyWith<_$LayerCreatedImpl> get copyWith =>
-      __$$LayerCreatedImplCopyWithImpl<_$LayerCreatedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerCreatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.layerCreated(name: $name, id: $id)';
   }
 }
 
-abstract class LayerCreated extends DocumentEvent {
-  const factory LayerCreated({final String name, final String? id}) =
-      _$LayerCreatedImpl;
-  const LayerCreated._() : super._();
-
-  factory LayerCreated.fromJson(Map<String, dynamic> json) =
-      _$LayerCreatedImpl.fromJson;
-
-  String get name;
-  String? get id;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerCreatedImplCopyWith<_$LayerCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$LayerChangedImplCopyWith<$Res> {
-  factory _$$LayerChangedImplCopyWith(
-          _$LayerChangedImpl value, $Res Function(_$LayerChangedImpl) then) =
-      __$$LayerChangedImplCopyWithImpl<$Res>;
+abstract mixin class $LayerCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayerCreatedCopyWith(
+          LayerCreated value, $Res Function(LayerCreated) _then) =
+      _$LayerCreatedCopyWithImpl;
   @useResult
-  $Res call({String id, String? name});
+  $Res call({String name, String? id});
 }
 
 /// @nodoc
-class __$$LayerChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerChangedImpl>
-    implements _$$LayerChangedImplCopyWith<$Res> {
-  __$$LayerChangedImplCopyWithImpl(
-      _$LayerChangedImpl _value, $Res Function(_$LayerChangedImpl) _then)
-      : super(_value, _then);
+class _$LayerCreatedCopyWithImpl<$Res> implements $LayerCreatedCopyWith<$Res> {
+  _$LayerCreatedCopyWithImpl(this._self, this._then);
+
+  final LayerCreated _self;
+  final $Res Function(LayerCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? id = null,
-    Object? name = freezed,
+    Object? name = null,
+    Object? id = freezed,
   }) {
-    return _then(_$LayerChangedImpl(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: freezed == name
-          ? _value.name
+    return _then(LayerCreated(
+      name: null == name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3240,32 +2587,38 @@ class __$$LayerChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerChangedImpl extends LayerChanged {
-  const _$LayerChangedImpl(this.id, {this.name, final String? $type})
+class LayerChanged extends DocumentEvent {
+  const LayerChanged(this.id, {this.name, final String? $type})
       : $type = $type ?? 'layerChanged',
         super._();
+  factory LayerChanged.fromJson(Map<String, dynamic> json) =>
+      _$LayerChangedFromJson(json);
 
-  factory _$LayerChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerChangedImplFromJson(json);
-
-  @override
   final String id;
-  @override
   final String? name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LayerChangedCopyWith<LayerChanged> get copyWith =>
+      _$LayerChangedCopyWithImpl<LayerChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.layerChanged(id: $id, name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$LayerChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerChangedImpl &&
+            other is LayerChanged &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -3274,67 +2627,121 @@ class _$LayerChangedImpl extends LayerChanged {
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LayerChangedImplCopyWith<_$LayerChangedImpl> get copyWith =>
-      __$$LayerChangedImplCopyWithImpl<_$LayerChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.layerChanged(id: $id, name: $name)';
   }
 }
 
-abstract class LayerChanged extends DocumentEvent {
-  const factory LayerChanged(final String id, {final String? name}) =
-      _$LayerChangedImpl;
-  const LayerChanged._() : super._();
+/// @nodoc
+abstract mixin class $LayerChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayerChangedCopyWith(
+          LayerChanged value, $Res Function(LayerChanged) _then) =
+      _$LayerChangedCopyWithImpl;
+  @useResult
+  $Res call({String id, String? name});
+}
 
-  factory LayerChanged.fromJson(Map<String, dynamic> json) =
-      _$LayerChangedImpl.fromJson;
+/// @nodoc
+class _$LayerChangedCopyWithImpl<$Res> implements $LayerChangedCopyWith<$Res> {
+  _$LayerChangedCopyWithImpl(this._self, this._then);
 
-  String get id;
-  String? get name;
+  final LayerChanged _self;
+  final $Res Function(LayerChanged) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? name = freezed,
+  }) {
+    return _then(LayerChanged(
+      null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class LayerRemoved extends DocumentEvent {
+  const LayerRemoved(this.id, {final String? $type})
+      : $type = $type ?? 'layerRemoved',
+        super._();
+  factory LayerRemoved.fromJson(Map<String, dynamic> json) =>
+      _$LayerRemovedFromJson(json);
+
+  final String id;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerChangedImplCopyWith<_$LayerChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $LayerRemovedCopyWith<LayerRemoved> get copyWith =>
+      _$LayerRemovedCopyWithImpl<LayerRemoved>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$LayerRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is LayerRemoved &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerRemoved(id: $id)';
+  }
 }
 
 /// @nodoc
-abstract class _$$LayerRemovedImplCopyWith<$Res> {
-  factory _$$LayerRemovedImplCopyWith(
-          _$LayerRemovedImpl value, $Res Function(_$LayerRemovedImpl) then) =
-      __$$LayerRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $LayerRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayerRemovedCopyWith(
+          LayerRemoved value, $Res Function(LayerRemoved) _then) =
+      _$LayerRemovedCopyWithImpl;
   @useResult
   $Res call({String id});
 }
 
 /// @nodoc
-class __$$LayerRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRemovedImpl>
-    implements _$$LayerRemovedImplCopyWith<$Res> {
-  __$$LayerRemovedImplCopyWithImpl(
-      _$LayerRemovedImpl _value, $Res Function(_$LayerRemovedImpl) _then)
-      : super(_value, _then);
+class _$LayerRemovedCopyWithImpl<$Res> implements $LayerRemovedCopyWith<$Res> {
+  _$LayerRemovedCopyWithImpl(this._self, this._then);
+
+  final LayerRemoved _self;
+  final $Res Function(LayerRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? id = null,
   }) {
-    return _then(_$LayerRemovedImpl(
+    return _then(LayerRemoved(
       null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -3343,144 +2750,47 @@ class __$$LayerRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerRemovedImpl extends LayerRemoved {
-  const _$LayerRemovedImpl(this.id, {final String? $type})
-      : $type = $type ?? 'layerRemoved',
-        super._();
-
-  factory _$LayerRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerRemovedImplFromJson(json);
-
-  @override
-  final String id;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.layerRemoved(id: $id)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LayerRemovedImpl &&
-            (identical(other.id, id) || other.id == id));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
-      __$$LayerRemovedImplCopyWithImpl<_$LayerRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class LayerRemoved extends DocumentEvent {
-  const factory LayerRemoved(final String id) = _$LayerRemovedImpl;
-  const LayerRemoved._() : super._();
-
-  factory LayerRemoved.fromJson(Map<String, dynamic> json) =
-      _$LayerRemovedImpl.fromJson;
-
-  String get id;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LayersMergedImplCopyWith<$Res> {
-  factory _$$LayersMergedImplCopyWith(
-          _$LayersMergedImpl value, $Res Function(_$LayersMergedImpl) then) =
-      __$$LayersMergedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<String> layers, bool duplicate});
-}
-
-/// @nodoc
-class __$$LayersMergedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayersMergedImpl>
-    implements _$$LayersMergedImplCopyWith<$Res> {
-  __$$LayersMergedImplCopyWithImpl(
-      _$LayersMergedImpl _value, $Res Function(_$LayersMergedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? layers = null,
-    Object? duplicate = null,
-  }) {
-    return _then(_$LayersMergedImpl(
-      null == layers
-          ? _value._layers
-          : layers // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      null == duplicate
-          ? _value.duplicate
-          : duplicate // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LayersMergedImpl extends LayersMerged {
-  const _$LayersMergedImpl(final List<String> layers,
+class LayersMerged extends DocumentEvent {
+  const LayersMerged(final List<String> layers,
       [this.duplicate = false, final String? $type])
       : _layers = layers,
         $type = $type ?? 'layersMerged',
         super._();
-
-  factory _$LayersMergedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayersMergedImplFromJson(json);
+  factory LayersMerged.fromJson(Map<String, dynamic> json) =>
+      _$LayersMergedFromJson(json);
 
   final List<String> _layers;
-  @override
   List<String> get layers {
     if (_layers is EqualUnmodifiableListView) return _layers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_layers);
   }
 
-  @override
   @JsonKey()
   final bool duplicate;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LayersMergedCopyWith<LayersMerged> get copyWith =>
+      _$LayersMergedCopyWithImpl<LayersMerged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.layersMerged(layers: $layers, duplicate: $duplicate)';
+  Map<String, dynamic> toJson() {
+    return _$LayersMergedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayersMergedImpl &&
+            other is LayersMerged &&
             const DeepCollectionEquality().equals(other._layers, _layers) &&
             (identical(other.duplicate, duplicate) ||
                 other.duplicate == duplicate));
@@ -3491,106 +2801,83 @@ class _$LayersMergedImpl extends LayersMerged {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_layers), duplicate);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LayersMergedImplCopyWith<_$LayersMergedImpl> get copyWith =>
-      __$$LayersMergedImplCopyWithImpl<_$LayersMergedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayersMergedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.layersMerged(layers: $layers, duplicate: $duplicate)';
   }
 }
 
-abstract class LayersMerged extends DocumentEvent {
-  const factory LayersMerged(final List<String> layers,
-      [final bool duplicate]) = _$LayersMergedImpl;
-  const LayersMerged._() : super._();
-
-  factory LayersMerged.fromJson(Map<String, dynamic> json) =
-      _$LayersMergedImpl.fromJson;
-
-  List<String> get layers;
-  bool get duplicate;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayersMergedImplCopyWith<_$LayersMergedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$LayerOrderChangedImplCopyWith<$Res> {
-  factory _$$LayerOrderChangedImplCopyWith(_$LayerOrderChangedImpl value,
-          $Res Function(_$LayerOrderChangedImpl) then) =
-      __$$LayerOrderChangedImplCopyWithImpl<$Res>;
+abstract mixin class $LayersMergedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayersMergedCopyWith(
+          LayersMerged value, $Res Function(LayersMerged) _then) =
+      _$LayersMergedCopyWithImpl;
   @useResult
-  $Res call({String id, int index});
+  $Res call({List<String> layers, bool duplicate});
 }
 
 /// @nodoc
-class __$$LayerOrderChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerOrderChangedImpl>
-    implements _$$LayerOrderChangedImplCopyWith<$Res> {
-  __$$LayerOrderChangedImplCopyWithImpl(_$LayerOrderChangedImpl _value,
-      $Res Function(_$LayerOrderChangedImpl) _then)
-      : super(_value, _then);
+class _$LayersMergedCopyWithImpl<$Res> implements $LayersMergedCopyWith<$Res> {
+  _$LayersMergedCopyWithImpl(this._self, this._then);
+
+  final LayersMerged _self;
+  final $Res Function(LayersMerged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? id = null,
-    Object? index = null,
+    Object? layers = null,
+    Object? duplicate = null,
   }) {
-    return _then(_$LayerOrderChangedImpl(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(LayersMerged(
+      null == layers
+          ? _self._layers
+          : layers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == duplicate
+          ? _self.duplicate
+          : duplicate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerOrderChangedImpl extends LayerOrderChanged {
-  const _$LayerOrderChangedImpl(this.id, this.index, {final String? $type})
+class LayerOrderChanged extends DocumentEvent {
+  const LayerOrderChanged(this.id, this.index, {final String? $type})
       : $type = $type ?? 'layerOrderChanged',
         super._();
+  factory LayerOrderChanged.fromJson(Map<String, dynamic> json) =>
+      _$LayerOrderChangedFromJson(json);
 
-  factory _$LayerOrderChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerOrderChangedImplFromJson(json);
-
-  @override
   final String id;
-  @override
   final int index;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LayerOrderChangedCopyWith<LayerOrderChanged> get copyWith =>
+      _$LayerOrderChangedCopyWithImpl<LayerOrderChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.layerOrderChanged(id: $id, index: $index)';
+  Map<String, dynamic> toJson() {
+    return _$LayerOrderChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerOrderChangedImpl &&
+            other is LayerOrderChanged &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.index, index) || other.index == index));
   }
@@ -3599,110 +2886,85 @@ class _$LayerOrderChangedImpl extends LayerOrderChanged {
   @override
   int get hashCode => Object.hash(runtimeType, id, index);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LayerOrderChangedImplCopyWith<_$LayerOrderChangedImpl> get copyWith =>
-      __$$LayerOrderChangedImplCopyWithImpl<_$LayerOrderChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerOrderChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.layerOrderChanged(id: $id, index: $index)';
   }
 }
 
-abstract class LayerOrderChanged extends DocumentEvent {
-  const factory LayerOrderChanged(final String id, final int index) =
-      _$LayerOrderChangedImpl;
-  const LayerOrderChanged._() : super._();
-
-  factory LayerOrderChanged.fromJson(Map<String, dynamic> json) =
-      _$LayerOrderChangedImpl.fromJson;
-
-  String get id;
-  int get index;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerOrderChangedImplCopyWith<_$LayerOrderChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$LayerVisibilityChangedImplCopyWith<$Res> {
-  factory _$$LayerVisibilityChangedImplCopyWith(
-          _$LayerVisibilityChangedImpl value,
-          $Res Function(_$LayerVisibilityChangedImpl) then) =
-      __$$LayerVisibilityChangedImplCopyWithImpl<$Res>;
+abstract mixin class $LayerOrderChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayerOrderChangedCopyWith(
+          LayerOrderChanged value, $Res Function(LayerOrderChanged) _then) =
+      _$LayerOrderChangedCopyWithImpl;
   @useResult
-  $Res call({String id, bool visible});
+  $Res call({String id, int index});
 }
 
 /// @nodoc
-class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerVisibilityChangedImpl>
-    implements _$$LayerVisibilityChangedImplCopyWith<$Res> {
-  __$$LayerVisibilityChangedImplCopyWithImpl(
-      _$LayerVisibilityChangedImpl _value,
-      $Res Function(_$LayerVisibilityChangedImpl) _then)
-      : super(_value, _then);
+class _$LayerOrderChangedCopyWithImpl<$Res>
+    implements $LayerOrderChangedCopyWith<$Res> {
+  _$LayerOrderChangedCopyWithImpl(this._self, this._then);
+
+  final LayerOrderChanged _self;
+  final $Res Function(LayerOrderChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? id = null,
-    Object? visible = null,
+    Object? index = null,
   }) {
-    return _then(_$LayerVisibilityChangedImpl(
+    return _then(LayerOrderChanged(
       null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      null == visible
-          ? _value.visible
-          : visible // ignore: cast_nullable_to_non_nullable
-              as bool,
+      null == index
+          ? _self.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
-  const _$LayerVisibilityChangedImpl(this.id, this.visible,
-      {final String? $type})
+class LayerVisibilityChanged extends DocumentEvent {
+  const LayerVisibilityChanged(this.id, this.visible, {final String? $type})
       : $type = $type ?? 'layerVisibilityChanged',
         super._();
+  factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =>
+      _$LayerVisibilityChangedFromJson(json);
 
-  factory _$LayerVisibilityChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerVisibilityChangedImplFromJson(json);
-
-  @override
   final String id;
-  @override
   final bool visible;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $LayerVisibilityChangedCopyWith<LayerVisibilityChanged> get copyWith =>
+      _$LayerVisibilityChangedCopyWithImpl<LayerVisibilityChanged>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.layerVisibilityChanged(id: $id, visible: $visible)';
+  Map<String, dynamic> toJson() {
+    return _$LayerVisibilityChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerVisibilityChangedImpl &&
+            other is LayerVisibilityChanged &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.visible, visible) || other.visible == visible));
   }
@@ -3711,118 +2973,93 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   @override
   int get hashCode => Object.hash(runtimeType, id, visible);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
-      get copyWith => __$$LayerVisibilityChangedImplCopyWithImpl<
-          _$LayerVisibilityChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerVisibilityChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.layerVisibilityChanged(id: $id, visible: $visible)';
   }
 }
 
-abstract class LayerVisibilityChanged extends DocumentEvent {
-  const factory LayerVisibilityChanged(final String id, final bool visible) =
-      _$LayerVisibilityChangedImpl;
-  const LayerVisibilityChanged._() : super._();
-
-  factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =
-      _$LayerVisibilityChangedImpl.fromJson;
-
-  String get id;
-  bool get visible;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ElementsCollectionChangedImplCopyWith<$Res> {
-  factory _$$ElementsCollectionChangedImplCopyWith(
-          _$ElementsCollectionChangedImpl value,
-          $Res Function(_$ElementsCollectionChangedImpl) then) =
-      __$$ElementsCollectionChangedImplCopyWithImpl<$Res>;
+abstract mixin class $LayerVisibilityChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $LayerVisibilityChangedCopyWith(LayerVisibilityChanged value,
+          $Res Function(LayerVisibilityChanged) _then) =
+      _$LayerVisibilityChangedCopyWithImpl;
   @useResult
-  $Res call({List<String> elements, String collection});
+  $Res call({String id, bool visible});
 }
 
 /// @nodoc
-class __$$ElementsCollectionChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsCollectionChangedImpl>
-    implements _$$ElementsCollectionChangedImplCopyWith<$Res> {
-  __$$ElementsCollectionChangedImplCopyWithImpl(
-      _$ElementsCollectionChangedImpl _value,
-      $Res Function(_$ElementsCollectionChangedImpl) _then)
-      : super(_value, _then);
+class _$LayerVisibilityChangedCopyWithImpl<$Res>
+    implements $LayerVisibilityChangedCopyWith<$Res> {
+  _$LayerVisibilityChangedCopyWithImpl(this._self, this._then);
+
+  final LayerVisibilityChanged _self;
+  final $Res Function(LayerVisibilityChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? elements = null,
-    Object? collection = null,
+    Object? id = null,
+    Object? visible = null,
   }) {
-    return _then(_$ElementsCollectionChangedImpl(
-      null == elements
-          ? _value._elements
-          : elements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      null == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
+    return _then(LayerVisibilityChanged(
+      null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
+      null == visible
+          ? _self.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsCollectionChangedImpl extends ElementsCollectionChanged {
-  const _$ElementsCollectionChangedImpl(
-      final List<String> elements, this.collection,
+class ElementsCollectionChanged extends DocumentEvent {
+  const ElementsCollectionChanged(final List<String> elements, this.collection,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsCollectionChanged',
         super._();
-
-  factory _$ElementsCollectionChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsCollectionChangedImplFromJson(json);
+  factory ElementsCollectionChanged.fromJson(Map<String, dynamic> json) =>
+      _$ElementsCollectionChangedFromJson(json);
 
   final List<String> _elements;
-  @override
   List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
   }
 
-  @override
   final String collection;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsCollectionChangedCopyWith<ElementsCollectionChanged> get copyWith =>
+      _$ElementsCollectionChangedCopyWithImpl<ElementsCollectionChanged>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.elementsCollectionChanged(elements: $elements, collection: $collection)';
+  Map<String, dynamic> toJson() {
+    return _$ElementsCollectionChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsCollectionChangedImpl &&
+            other is ElementsCollectionChanged &&
             const DeepCollectionEquality().equals(other._elements, _elements) &&
             (identical(other.collection, collection) ||
                 other.collection == collection));
@@ -3833,88 +3070,61 @@ class _$ElementsCollectionChangedImpl extends ElementsCollectionChanged {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_elements), collection);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsCollectionChangedImplCopyWith<_$ElementsCollectionChangedImpl>
-      get copyWith => __$$ElementsCollectionChangedImplCopyWithImpl<
-          _$ElementsCollectionChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsCollectionChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.elementsCollectionChanged(elements: $elements, collection: $collection)';
   }
 }
 
-abstract class ElementsCollectionChanged extends DocumentEvent {
-  const factory ElementsCollectionChanged(
-          final List<String> elements, final String collection) =
-      _$ElementsCollectionChangedImpl;
-  const ElementsCollectionChanged._() : super._();
-
-  factory ElementsCollectionChanged.fromJson(Map<String, dynamic> json) =
-      _$ElementsCollectionChangedImpl.fromJson;
-
-  List<String> get elements;
-  String get collection;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsCollectionChangedImplCopyWith<_$ElementsCollectionChangedImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$AreasCreatedImplCopyWith<$Res> {
-  factory _$$AreasCreatedImplCopyWith(
-          _$AreasCreatedImpl value, $Res Function(_$AreasCreatedImpl) then) =
-      __$$AreasCreatedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsCollectionChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsCollectionChangedCopyWith(ElementsCollectionChanged value,
+          $Res Function(ElementsCollectionChanged) _then) =
+      _$ElementsCollectionChangedCopyWithImpl;
   @useResult
-  $Res call({List<Area> areas});
+  $Res call({List<String> elements, String collection});
 }
 
 /// @nodoc
-class __$$AreasCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreasCreatedImpl>
-    implements _$$AreasCreatedImplCopyWith<$Res> {
-  __$$AreasCreatedImplCopyWithImpl(
-      _$AreasCreatedImpl _value, $Res Function(_$AreasCreatedImpl) _then)
-      : super(_value, _then);
+class _$ElementsCollectionChangedCopyWithImpl<$Res>
+    implements $ElementsCollectionChangedCopyWith<$Res> {
+  _$ElementsCollectionChangedCopyWithImpl(this._self, this._then);
+
+  final ElementsCollectionChanged _self;
+  final $Res Function(ElementsCollectionChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? areas = null,
+    Object? elements = null,
+    Object? collection = null,
   }) {
-    return _then(_$AreasCreatedImpl(
-      null == areas
-          ? _value._areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
+    return _then(ElementsCollectionChanged(
+      null == elements
+          ? _self._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == collection
+          ? _self.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AreasCreatedImpl extends AreasCreated {
-  const _$AreasCreatedImpl(final List<Area> areas, {final String? $type})
+class AreasCreated extends DocumentEvent {
+  const AreasCreated(final List<Area> areas, {final String? $type})
       : _areas = areas,
         $type = $type ?? 'areasCreated',
         super._();
-
-  factory _$AreasCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AreasCreatedImplFromJson(json);
+  factory AreasCreated.fromJson(Map<String, dynamic> json) =>
+      _$AreasCreatedFromJson(json);
 
   final List<Area> _areas;
-  @override
   List<Area> get areas {
     if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
@@ -3924,16 +3134,25 @@ class _$AreasCreatedImpl extends AreasCreated {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AreasCreatedCopyWith<AreasCreated> get copyWith =>
+      _$AreasCreatedCopyWithImpl<AreasCreated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.areasCreated(areas: $areas)';
+  Map<String, dynamic> toJson() {
+    return _$AreasCreatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreasCreatedImpl &&
+            other is AreasCreated &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
@@ -3942,84 +3161,55 @@ class _$AreasCreatedImpl extends AreasCreated {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_areas));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
-      __$$AreasCreatedImplCopyWithImpl<_$AreasCreatedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AreasCreatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.areasCreated(areas: $areas)';
   }
 }
 
-abstract class AreasCreated extends DocumentEvent {
-  const factory AreasCreated(final List<Area> areas) = _$AreasCreatedImpl;
-  const AreasCreated._() : super._();
-
-  factory AreasCreated.fromJson(Map<String, dynamic> json) =
-      _$AreasCreatedImpl.fromJson;
-
-  List<Area> get areas;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$AreasRemovedImplCopyWith<$Res> {
-  factory _$$AreasRemovedImplCopyWith(
-          _$AreasRemovedImpl value, $Res Function(_$AreasRemovedImpl) then) =
-      __$$AreasRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $AreasCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AreasCreatedCopyWith(
+          AreasCreated value, $Res Function(AreasCreated) _then) =
+      _$AreasCreatedCopyWithImpl;
   @useResult
-  $Res call({List<String> areas});
+  $Res call({List<Area> areas});
 }
 
 /// @nodoc
-class __$$AreasRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreasRemovedImpl>
-    implements _$$AreasRemovedImplCopyWith<$Res> {
-  __$$AreasRemovedImplCopyWithImpl(
-      _$AreasRemovedImpl _value, $Res Function(_$AreasRemovedImpl) _then)
-      : super(_value, _then);
+class _$AreasCreatedCopyWithImpl<$Res> implements $AreasCreatedCopyWith<$Res> {
+  _$AreasCreatedCopyWithImpl(this._self, this._then);
+
+  final AreasCreated _self;
+  final $Res Function(AreasCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? areas = null,
   }) {
-    return _then(_$AreasRemovedImpl(
+    return _then(AreasCreated(
       null == areas
-          ? _value._areas
+          ? _self._areas
           : areas // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Area>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AreasRemovedImpl extends AreasRemoved {
-  const _$AreasRemovedImpl(final List<String> areas, {final String? $type})
+class AreasRemoved extends DocumentEvent {
+  const AreasRemoved(final List<String> areas, {final String? $type})
       : _areas = areas,
         $type = $type ?? 'areasRemoved',
         super._();
-
-  factory _$AreasRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AreasRemovedImplFromJson(json);
+  factory AreasRemoved.fromJson(Map<String, dynamic> json) =>
+      _$AreasRemovedFromJson(json);
 
   final List<String> _areas;
-  @override
   List<String> get areas {
     if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
@@ -4029,16 +3219,25 @@ class _$AreasRemovedImpl extends AreasRemoved {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AreasRemovedCopyWith<AreasRemoved> get copyWith =>
+      _$AreasRemovedCopyWithImpl<AreasRemoved>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.areasRemoved(areas: $areas)';
+  Map<String, dynamic> toJson() {
+    return _$AreasRemovedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreasRemovedImpl &&
+            other is AreasRemoved &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
@@ -4047,43 +3246,98 @@ class _$AreasRemovedImpl extends AreasRemoved {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_areas));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
-      __$$AreasRemovedImplCopyWithImpl<_$AreasRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AreasRemovedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.areasRemoved(areas: $areas)';
   }
 }
 
-abstract class AreasRemoved extends DocumentEvent {
-  const factory AreasRemoved(final List<String> areas) = _$AreasRemovedImpl;
-  const AreasRemoved._() : super._();
+/// @nodoc
+abstract mixin class $AreasRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AreasRemovedCopyWith(
+          AreasRemoved value, $Res Function(AreasRemoved) _then) =
+      _$AreasRemovedCopyWithImpl;
+  @useResult
+  $Res call({List<String> areas});
+}
 
-  factory AreasRemoved.fromJson(Map<String, dynamic> json) =
-      _$AreasRemovedImpl.fromJson;
+/// @nodoc
+class _$AreasRemovedCopyWithImpl<$Res> implements $AreasRemovedCopyWith<$Res> {
+  _$AreasRemovedCopyWithImpl(this._self, this._then);
 
-  List<String> get areas;
+  final AreasRemoved _self;
+  final $Res Function(AreasRemoved) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? areas = null,
+  }) {
+    return _then(AreasRemoved(
+      null == areas
+          ? _self._areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class AreaChanged extends DocumentEvent {
+  const AreaChanged(this.name, this.area, {final String? $type})
+      : $type = $type ?? 'areaChanged',
+        super._();
+  factory AreaChanged.fromJson(Map<String, dynamic> json) =>
+      _$AreaChangedFromJson(json);
+
+  final String name;
+  final Area area;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $AreaChangedCopyWith<AreaChanged> get copyWith =>
+      _$AreaChangedCopyWithImpl<AreaChanged>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$AreaChangedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AreaChanged &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.area, area) || other.area == area));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, area);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.areaChanged(name: $name, area: $area)';
+  }
 }
 
 /// @nodoc
-abstract class _$$AreaChangedImplCopyWith<$Res> {
-  factory _$$AreaChangedImplCopyWith(
-          _$AreaChangedImpl value, $Res Function(_$AreaChangedImpl) then) =
-      __$$AreaChangedImplCopyWithImpl<$Res>;
+abstract mixin class $AreaChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AreaChangedCopyWith(
+          AreaChanged value, $Res Function(AreaChanged) _then) =
+      _$AreaChangedCopyWithImpl;
   @useResult
   $Res call({String name, Area area});
 
@@ -4091,28 +3345,26 @@ abstract class _$$AreaChangedImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AreaChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreaChangedImpl>
-    implements _$$AreaChangedImplCopyWith<$Res> {
-  __$$AreaChangedImplCopyWithImpl(
-      _$AreaChangedImpl _value, $Res Function(_$AreaChangedImpl) _then)
-      : super(_value, _then);
+class _$AreaChangedCopyWithImpl<$Res> implements $AreaChangedCopyWith<$Res> {
+  _$AreaChangedCopyWithImpl(this._self, this._then);
+
+  final AreaChanged _self;
+  final $Res Function(AreaChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
     Object? area = null,
   }) {
-    return _then(_$AreaChangedImpl(
+    return _then(AreaChanged(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       null == area
-          ? _value.area
+          ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
               as Area,
     ));
@@ -4123,148 +3375,46 @@ class __$$AreaChangedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res> get area {
-    return $AreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
+    return $AreaCopyWith<$Res>(_self.area, (value) {
+      return _then(_self.copyWith(area: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AreaChangedImpl extends AreaChanged {
-  const _$AreaChangedImpl(this.name, this.area, {final String? $type})
-      : $type = $type ?? 'areaChanged',
-        super._();
-
-  factory _$AreaChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AreaChangedImplFromJson(json);
-
-  @override
-  final String name;
-  @override
-  final Area area;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.areaChanged(name: $name, area: $area)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AreaChangedImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.area, area) || other.area == area));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name, area);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
-      __$$AreaChangedImplCopyWithImpl<_$AreaChangedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AreaChangedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class AreaChanged extends DocumentEvent {
-  const factory AreaChanged(final String name, final Area area) =
-      _$AreaChangedImpl;
-  const AreaChanged._() : super._();
-
-  factory AreaChanged.fromJson(Map<String, dynamic> json) =
-      _$AreaChangedImpl.fromJson;
-
-  String get name;
-  Area get area;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AreaReorderedImplCopyWith<$Res> {
-  factory _$$AreaReorderedImplCopyWith(
-          _$AreaReorderedImpl value, $Res Function(_$AreaReorderedImpl) then) =
-      __$$AreaReorderedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String name, int newIndex});
-}
-
-/// @nodoc
-class __$$AreaReorderedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreaReorderedImpl>
-    implements _$$AreaReorderedImplCopyWith<$Res> {
-  __$$AreaReorderedImplCopyWithImpl(
-      _$AreaReorderedImpl _value, $Res Function(_$AreaReorderedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? newIndex = null,
-  }) {
-    return _then(_$AreaReorderedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AreaReorderedImpl extends AreaReordered {
-  const _$AreaReorderedImpl(this.name, this.newIndex, {final String? $type})
+class AreaReordered extends DocumentEvent {
+  const AreaReordered(this.name, this.newIndex, {final String? $type})
       : $type = $type ?? 'areaReordered',
         super._();
+  factory AreaReordered.fromJson(Map<String, dynamic> json) =>
+      _$AreaReorderedFromJson(json);
 
-  factory _$AreaReorderedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AreaReorderedImplFromJson(json);
-
-  @override
   final String name;
-  @override
   final int newIndex;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AreaReorderedCopyWith<AreaReordered> get copyWith =>
+      _$AreaReorderedCopyWithImpl<AreaReordered>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.areaReordered(name: $name, newIndex: $newIndex)';
+  Map<String, dynamic> toJson() {
+    return _$AreaReorderedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreaReorderedImpl &&
+            other is AreaReordered &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex));
@@ -4274,99 +3424,83 @@ class _$AreaReorderedImpl extends AreaReordered {
   @override
   int get hashCode => Object.hash(runtimeType, name, newIndex);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AreaReorderedImplCopyWith<_$AreaReorderedImpl> get copyWith =>
-      __$$AreaReorderedImplCopyWithImpl<_$AreaReorderedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AreaReorderedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.areaReordered(name: $name, newIndex: $newIndex)';
   }
 }
 
-abstract class AreaReordered extends DocumentEvent {
-  const factory AreaReordered(final String name, final int newIndex) =
-      _$AreaReorderedImpl;
-  const AreaReordered._() : super._();
-
-  factory AreaReordered.fromJson(Map<String, dynamic> json) =
-      _$AreaReorderedImpl.fromJson;
-
-  String get name;
-  int get newIndex;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AreaReorderedImplCopyWith<_$AreaReorderedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$CurrentAreaChangedImplCopyWith<$Res> {
-  factory _$$CurrentAreaChangedImplCopyWith(_$CurrentAreaChangedImpl value,
-          $Res Function(_$CurrentAreaChangedImpl) then) =
-      __$$CurrentAreaChangedImplCopyWithImpl<$Res>;
+abstract mixin class $AreaReorderedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AreaReorderedCopyWith(
+          AreaReordered value, $Res Function(AreaReordered) _then) =
+      _$AreaReorderedCopyWithImpl;
   @useResult
-  $Res call({String name});
+  $Res call({String name, int newIndex});
 }
 
 /// @nodoc
-class __$$CurrentAreaChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentAreaChangedImpl>
-    implements _$$CurrentAreaChangedImplCopyWith<$Res> {
-  __$$CurrentAreaChangedImplCopyWithImpl(_$CurrentAreaChangedImpl _value,
-      $Res Function(_$CurrentAreaChangedImpl) _then)
-      : super(_value, _then);
+class _$AreaReorderedCopyWithImpl<$Res>
+    implements $AreaReorderedCopyWith<$Res> {
+  _$AreaReorderedCopyWithImpl(this._self, this._then);
+
+  final AreaReordered _self;
+  final $Res Function(AreaReordered) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
+    Object? newIndex = null,
   }) {
-    return _then(_$CurrentAreaChangedImpl(
+    return _then(AreaReordered(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      null == newIndex
+          ? _self.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
-  const _$CurrentAreaChangedImpl(this.name, {final String? $type})
+class CurrentAreaChanged extends DocumentEvent {
+  const CurrentAreaChanged(this.name, {final String? $type})
       : $type = $type ?? 'currentAreaChanged',
         super._();
+  factory CurrentAreaChanged.fromJson(Map<String, dynamic> json) =>
+      _$CurrentAreaChangedFromJson(json);
 
-  factory _$CurrentAreaChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CurrentAreaChangedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CurrentAreaChangedCopyWith<CurrentAreaChanged> get copyWith =>
+      _$CurrentAreaChangedCopyWithImpl<CurrentAreaChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.currentAreaChanged(name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$CurrentAreaChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CurrentAreaChangedImpl &&
+            other is CurrentAreaChanged &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -4374,94 +3508,58 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
-      __$$CurrentAreaChangedImplCopyWithImpl<_$CurrentAreaChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CurrentAreaChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.currentAreaChanged(name: $name)';
   }
 }
 
-abstract class CurrentAreaChanged extends DocumentEvent {
-  const factory CurrentAreaChanged(final String name) =
-      _$CurrentAreaChangedImpl;
-  const CurrentAreaChanged._() : super._();
-
-  factory CurrentAreaChanged.fromJson(Map<String, dynamic> json) =
-      _$CurrentAreaChangedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ExportPresetCreatedImplCopyWith<$Res> {
-  factory _$$ExportPresetCreatedImplCopyWith(_$ExportPresetCreatedImpl value,
-          $Res Function(_$ExportPresetCreatedImpl) then) =
-      __$$ExportPresetCreatedImplCopyWithImpl<$Res>;
+abstract mixin class $CurrentAreaChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $CurrentAreaChangedCopyWith(
+          CurrentAreaChanged value, $Res Function(CurrentAreaChanged) _then) =
+      _$CurrentAreaChangedCopyWithImpl;
   @useResult
-  $Res call({String name, List<AreaPreset> areas});
+  $Res call({String name});
 }
 
 /// @nodoc
-class __$$ExportPresetCreatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetCreatedImpl>
-    implements _$$ExportPresetCreatedImplCopyWith<$Res> {
-  __$$ExportPresetCreatedImplCopyWithImpl(_$ExportPresetCreatedImpl _value,
-      $Res Function(_$ExportPresetCreatedImpl) _then)
-      : super(_value, _then);
+class _$CurrentAreaChangedCopyWithImpl<$Res>
+    implements $CurrentAreaChangedCopyWith<$Res> {
+  _$CurrentAreaChangedCopyWithImpl(this._self, this._then);
+
+  final CurrentAreaChanged _self;
+  final $Res Function(CurrentAreaChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
-    Object? areas = null,
   }) {
-    return _then(_$ExportPresetCreatedImpl(
+    return _then(CurrentAreaChanged(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      null == areas
-          ? _value._areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<AreaPreset>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetCreatedImpl extends ExportPresetCreated {
-  const _$ExportPresetCreatedImpl(this.name,
+class ExportPresetCreated extends DocumentEvent {
+  const ExportPresetCreated(this.name,
       [final List<AreaPreset> areas = const [], final String? $type])
       : _areas = areas,
         $type = $type ?? 'exportPresetCreated',
         super._();
+  factory ExportPresetCreated.fromJson(Map<String, dynamic> json) =>
+      _$ExportPresetCreatedFromJson(json);
 
-  factory _$ExportPresetCreatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetCreatedImplFromJson(json);
-
-  @override
   final String name;
   final List<AreaPreset> _areas;
-  @override
   @JsonKey()
   List<AreaPreset> get areas {
     if (_areas is EqualUnmodifiableListView) return _areas;
@@ -4472,16 +3570,25 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ExportPresetCreatedCopyWith<ExportPresetCreated> get copyWith =>
+      _$ExportPresetCreatedCopyWithImpl<ExportPresetCreated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.exportPresetCreated(name: $name, areas: $areas)';
+  Map<String, dynamic> toJson() {
+    return _$ExportPresetCreatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetCreatedImpl &&
+            other is ExportPresetCreated &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
@@ -4491,73 +3598,44 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
-      __$$ExportPresetCreatedImplCopyWithImpl<_$ExportPresetCreatedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ExportPresetCreatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.exportPresetCreated(name: $name, areas: $areas)';
   }
 }
 
-abstract class ExportPresetCreated extends DocumentEvent {
-  const factory ExportPresetCreated(final String name,
-      [final List<AreaPreset> areas]) = _$ExportPresetCreatedImpl;
-  const ExportPresetCreated._() : super._();
-
-  factory ExportPresetCreated.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetCreatedImpl.fromJson;
-
-  String get name;
-  List<AreaPreset> get areas;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ExportPresetUpdatedImplCopyWith<$Res> {
-  factory _$$ExportPresetUpdatedImplCopyWith(_$ExportPresetUpdatedImpl value,
-          $Res Function(_$ExportPresetUpdatedImpl) then) =
-      __$$ExportPresetUpdatedImplCopyWithImpl<$Res>;
+abstract mixin class $ExportPresetCreatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ExportPresetCreatedCopyWith(
+          ExportPresetCreated value, $Res Function(ExportPresetCreated) _then) =
+      _$ExportPresetCreatedCopyWithImpl;
   @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class __$$ExportPresetUpdatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetUpdatedImpl>
-    implements _$$ExportPresetUpdatedImplCopyWith<$Res> {
-  __$$ExportPresetUpdatedImplCopyWithImpl(_$ExportPresetUpdatedImpl _value,
-      $Res Function(_$ExportPresetUpdatedImpl) _then)
-      : super(_value, _then);
+class _$ExportPresetCreatedCopyWithImpl<$Res>
+    implements $ExportPresetCreatedCopyWith<$Res> {
+  _$ExportPresetCreatedCopyWithImpl(this._self, this._then);
+
+  final ExportPresetCreated _self;
+  final $Res Function(ExportPresetCreated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
     Object? areas = null,
   }) {
-    return _then(_$ExportPresetUpdatedImpl(
+    return _then(ExportPresetCreated(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       null == areas
-          ? _value._areas
+          ? _self._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<AreaPreset>,
     ));
@@ -4566,20 +3644,17 @@ class __$$ExportPresetUpdatedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
-  const _$ExportPresetUpdatedImpl(this.name, final List<AreaPreset> areas,
+class ExportPresetUpdated extends DocumentEvent {
+  const ExportPresetUpdated(this.name, final List<AreaPreset> areas,
       {final String? $type})
       : _areas = areas,
         $type = $type ?? 'exportPresetUpdated',
         super._();
+  factory ExportPresetUpdated.fromJson(Map<String, dynamic> json) =>
+      _$ExportPresetUpdatedFromJson(json);
 
-  factory _$ExportPresetUpdatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetUpdatedImplFromJson(json);
-
-  @override
   final String name;
   final List<AreaPreset> _areas;
-  @override
   List<AreaPreset> get areas {
     if (_areas is EqualUnmodifiableListView) return _areas;
     // ignore: implicit_dynamic_type
@@ -4589,16 +3664,25 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ExportPresetUpdatedCopyWith<ExportPresetUpdated> get copyWith =>
+      _$ExportPresetUpdatedCopyWithImpl<ExportPresetUpdated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.exportPresetUpdated(name: $name, areas: $areas)';
+  Map<String, dynamic> toJson() {
+    return _$ExportPresetUpdatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetUpdatedImpl &&
+            other is ExportPresetUpdated &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
@@ -4608,101 +3692,83 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
-      __$$ExportPresetUpdatedImplCopyWithImpl<_$ExportPresetUpdatedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ExportPresetUpdatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.exportPresetUpdated(name: $name, areas: $areas)';
   }
 }
 
-abstract class ExportPresetUpdated extends DocumentEvent {
-  const factory ExportPresetUpdated(
-          final String name, final List<AreaPreset> areas) =
-      _$ExportPresetUpdatedImpl;
-  const ExportPresetUpdated._() : super._();
-
-  factory ExportPresetUpdated.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetUpdatedImpl.fromJson;
-
-  String get name;
-  List<AreaPreset> get areas;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ExportPresetRemovedImplCopyWith<$Res> {
-  factory _$$ExportPresetRemovedImplCopyWith(_$ExportPresetRemovedImpl value,
-          $Res Function(_$ExportPresetRemovedImpl) then) =
-      __$$ExportPresetRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $ExportPresetUpdatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ExportPresetUpdatedCopyWith(
+          ExportPresetUpdated value, $Res Function(ExportPresetUpdated) _then) =
+      _$ExportPresetUpdatedCopyWithImpl;
   @useResult
-  $Res call({String name});
+  $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class __$$ExportPresetRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetRemovedImpl>
-    implements _$$ExportPresetRemovedImplCopyWith<$Res> {
-  __$$ExportPresetRemovedImplCopyWithImpl(_$ExportPresetRemovedImpl _value,
-      $Res Function(_$ExportPresetRemovedImpl) _then)
-      : super(_value, _then);
+class _$ExportPresetUpdatedCopyWithImpl<$Res>
+    implements $ExportPresetUpdatedCopyWith<$Res> {
+  _$ExportPresetUpdatedCopyWithImpl(this._self, this._then);
+
+  final ExportPresetUpdated _self;
+  final $Res Function(ExportPresetUpdated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
+    Object? areas = null,
   }) {
-    return _then(_$ExportPresetRemovedImpl(
+    return _then(ExportPresetUpdated(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      null == areas
+          ? _self._areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<AreaPreset>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
-  const _$ExportPresetRemovedImpl(this.name, {final String? $type})
+class ExportPresetRemoved extends DocumentEvent {
+  const ExportPresetRemoved(this.name, {final String? $type})
       : $type = $type ?? 'exportPresetRemoved',
         super._();
+  factory ExportPresetRemoved.fromJson(Map<String, dynamic> json) =>
+      _$ExportPresetRemovedFromJson(json);
 
-  factory _$ExportPresetRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetRemovedImplFromJson(json);
-
-  @override
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ExportPresetRemovedCopyWith<ExportPresetRemoved> get copyWith =>
+      _$ExportPresetRemovedCopyWithImpl<ExportPresetRemoved>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.exportPresetRemoved(name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$ExportPresetRemovedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetRemovedImpl &&
+            other is ExportPresetRemoved &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -4710,99 +3776,78 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
-      __$$ExportPresetRemovedImplCopyWithImpl<_$ExportPresetRemovedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ExportPresetRemovedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.exportPresetRemoved(name: $name)';
   }
 }
 
-abstract class ExportPresetRemoved extends DocumentEvent {
-  const factory ExportPresetRemoved(final String name) =
-      _$ExportPresetRemovedImpl;
-  const ExportPresetRemoved._() : super._();
-
-  factory ExportPresetRemoved.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$PackAddedImplCopyWith<$Res> {
-  factory _$$PackAddedImplCopyWith(
-          _$PackAddedImpl value, $Res Function(_$PackAddedImpl) then) =
-      __$$PackAddedImplCopyWithImpl<$Res>;
+abstract mixin class $ExportPresetRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ExportPresetRemovedCopyWith(
+          ExportPresetRemoved value, $Res Function(ExportPresetRemoved) _then) =
+      _$ExportPresetRemovedCopyWithImpl;
   @useResult
-  $Res call({NoteData pack});
+  $Res call({String name});
 }
 
 /// @nodoc
-class __$$PackAddedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackAddedImpl>
-    implements _$$PackAddedImplCopyWith<$Res> {
-  __$$PackAddedImplCopyWithImpl(
-      _$PackAddedImpl _value, $Res Function(_$PackAddedImpl) _then)
-      : super(_value, _then);
+class _$ExportPresetRemovedCopyWithImpl<$Res>
+    implements $ExportPresetRemovedCopyWith<$Res> {
+  _$ExportPresetRemovedCopyWithImpl(this._self, this._then);
+
+  final ExportPresetRemoved _self;
+  final $Res Function(ExportPresetRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? pack = null,
+    Object? name = null,
   }) {
-    return _then(_$PackAddedImpl(
-      null == pack
-          ? _value.pack
-          : pack // ignore: cast_nullable_to_non_nullable
-              as NoteData,
+    return _then(ExportPresetRemoved(
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PackAddedImpl extends PackAdded {
-  const _$PackAddedImpl(this.pack, {final String? $type})
+class PackAdded extends DocumentEvent {
+  const PackAdded(this.pack, {final String? $type})
       : $type = $type ?? 'packAdded',
         super._();
+  factory PackAdded.fromJson(Map<String, dynamic> json) =>
+      _$PackAddedFromJson(json);
 
-  factory _$PackAddedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PackAddedImplFromJson(json);
-
-  @override
   final NoteData pack;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PackAddedCopyWith<PackAdded> get copyWith =>
+      _$PackAddedCopyWithImpl<PackAdded>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.packAdded(pack: $pack)';
+  Map<String, dynamic> toJson() {
+    return _$PackAddedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PackAddedImpl &&
+            other is PackAdded &&
             (identical(other.pack, pack) || other.pack == pack));
   }
 
@@ -4810,70 +3855,37 @@ class _$PackAddedImpl extends PackAdded {
   @override
   int get hashCode => Object.hash(runtimeType, pack);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
-      __$$PackAddedImplCopyWithImpl<_$PackAddedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PackAddedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.packAdded(pack: $pack)';
   }
 }
 
-abstract class PackAdded extends DocumentEvent {
-  const factory PackAdded(final NoteData pack) = _$PackAddedImpl;
-  const PackAdded._() : super._();
-
-  factory PackAdded.fromJson(Map<String, dynamic> json) =
-      _$PackAddedImpl.fromJson;
-
-  NoteData get pack;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$PackUpdatedImplCopyWith<$Res> {
-  factory _$$PackUpdatedImplCopyWith(
-          _$PackUpdatedImpl value, $Res Function(_$PackUpdatedImpl) then) =
-      __$$PackUpdatedImplCopyWithImpl<$Res>;
+abstract mixin class $PackAddedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PackAddedCopyWith(PackAdded value, $Res Function(PackAdded) _then) =
+      _$PackAddedCopyWithImpl;
   @useResult
-  $Res call({String name, NoteData pack});
+  $Res call({NoteData pack});
 }
 
 /// @nodoc
-class __$$PackUpdatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackUpdatedImpl>
-    implements _$$PackUpdatedImplCopyWith<$Res> {
-  __$$PackUpdatedImplCopyWithImpl(
-      _$PackUpdatedImpl _value, $Res Function(_$PackUpdatedImpl) _then)
-      : super(_value, _then);
+class _$PackAddedCopyWithImpl<$Res> implements $PackAddedCopyWith<$Res> {
+  _$PackAddedCopyWithImpl(this._self, this._then);
+
+  final PackAdded _self;
+  final $Res Function(PackAdded) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? name = null,
     Object? pack = null,
   }) {
-    return _then(_$PackUpdatedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(PackAdded(
       null == pack
-          ? _value.pack
+          ? _self.pack
           : pack // ignore: cast_nullable_to_non_nullable
               as NoteData,
     ));
@@ -4882,32 +3894,38 @@ class __$$PackUpdatedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackUpdatedImpl extends PackUpdated {
-  const _$PackUpdatedImpl(this.name, this.pack, {final String? $type})
+class PackUpdated extends DocumentEvent {
+  const PackUpdated(this.name, this.pack, {final String? $type})
       : $type = $type ?? 'packUpdated',
         super._();
+  factory PackUpdated.fromJson(Map<String, dynamic> json) =>
+      _$PackUpdatedFromJson(json);
 
-  factory _$PackUpdatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PackUpdatedImplFromJson(json);
-
-  @override
   final String name;
-  @override
   final NoteData pack;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PackUpdatedCopyWith<PackUpdated> get copyWith =>
+      _$PackUpdatedCopyWithImpl<PackUpdated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.packUpdated(name: $name, pack: $pack)';
+  Map<String, dynamic> toJson() {
+    return _$PackUpdatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PackUpdatedImpl &&
+            other is PackUpdated &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.pack, pack) || other.pack == pack));
   }
@@ -4916,67 +3934,121 @@ class _$PackUpdatedImpl extends PackUpdated {
   @override
   int get hashCode => Object.hash(runtimeType, name, pack);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
-      __$$PackUpdatedImplCopyWithImpl<_$PackUpdatedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PackUpdatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.packUpdated(name: $name, pack: $pack)';
   }
 }
 
-abstract class PackUpdated extends DocumentEvent {
-  const factory PackUpdated(final String name, final NoteData pack) =
-      _$PackUpdatedImpl;
-  const PackUpdated._() : super._();
+/// @nodoc
+abstract mixin class $PackUpdatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PackUpdatedCopyWith(
+          PackUpdated value, $Res Function(PackUpdated) _then) =
+      _$PackUpdatedCopyWithImpl;
+  @useResult
+  $Res call({String name, NoteData pack});
+}
 
-  factory PackUpdated.fromJson(Map<String, dynamic> json) =
-      _$PackUpdatedImpl.fromJson;
+/// @nodoc
+class _$PackUpdatedCopyWithImpl<$Res> implements $PackUpdatedCopyWith<$Res> {
+  _$PackUpdatedCopyWithImpl(this._self, this._then);
 
-  String get name;
-  NoteData get pack;
+  final PackUpdated _self;
+  final $Res Function(PackUpdated) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? pack = null,
+  }) {
+    return _then(PackUpdated(
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == pack
+          ? _self.pack
+          : pack // ignore: cast_nullable_to_non_nullable
+              as NoteData,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class PackRemoved extends DocumentEvent {
+  const PackRemoved(this.name, {final String? $type})
+      : $type = $type ?? 'packRemoved',
+        super._();
+  factory PackRemoved.fromJson(Map<String, dynamic> json) =>
+      _$PackRemovedFromJson(json);
+
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $PackRemovedCopyWith<PackRemoved> get copyWith =>
+      _$PackRemovedCopyWithImpl<PackRemoved>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PackRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PackRemoved &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.packRemoved(name: $name)';
+  }
 }
 
 /// @nodoc
-abstract class _$$PackRemovedImplCopyWith<$Res> {
-  factory _$$PackRemovedImplCopyWith(
-          _$PackRemovedImpl value, $Res Function(_$PackRemovedImpl) then) =
-      __$$PackRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $PackRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PackRemovedCopyWith(
+          PackRemoved value, $Res Function(PackRemoved) _then) =
+      _$PackRemovedCopyWithImpl;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$PackRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackRemovedImpl>
-    implements _$$PackRemovedImplCopyWith<$Res> {
-  __$$PackRemovedImplCopyWithImpl(
-      _$PackRemovedImpl _value, $Res Function(_$PackRemovedImpl) _then)
-      : super(_value, _then);
+class _$PackRemovedCopyWithImpl<$Res> implements $PackRemovedCopyWith<$Res> {
+  _$PackRemovedCopyWithImpl(this._self, this._then);
+
+  final PackRemoved _self;
+  final $Res Function(PackRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$PackRemovedImpl(
+    return _then(PackRemoved(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -4985,140 +4057,37 @@ class __$$PackRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackRemovedImpl extends PackRemoved {
-  const _$PackRemovedImpl(this.name, {final String? $type})
-      : $type = $type ?? 'packRemoved',
-        super._();
-
-  factory _$PackRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PackRemovedImplFromJson(json);
-
-  @override
-  final String name;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.packRemoved(name: $name)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PackRemovedImpl &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
-      __$$PackRemovedImplCopyWithImpl<_$PackRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PackRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class PackRemoved extends DocumentEvent {
-  const factory PackRemoved(final String name) = _$PackRemovedImpl;
-  const PackRemoved._() : super._();
-
-  factory PackRemoved.fromJson(Map<String, dynamic> json) =
-      _$PackRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AnimationAddedImplCopyWith<$Res> {
-  factory _$$AnimationAddedImplCopyWith(_$AnimationAddedImpl value,
-          $Res Function(_$AnimationAddedImpl) then) =
-      __$$AnimationAddedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({AnimationTrack animation});
-
-  $AnimationTrackCopyWith<$Res> get animation;
-}
-
-/// @nodoc
-class __$$AnimationAddedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationAddedImpl>
-    implements _$$AnimationAddedImplCopyWith<$Res> {
-  __$$AnimationAddedImplCopyWithImpl(
-      _$AnimationAddedImpl _value, $Res Function(_$AnimationAddedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? animation = null,
-  }) {
-    return _then(_$AnimationAddedImpl(
-      null == animation
-          ? _value.animation
-          : animation // ignore: cast_nullable_to_non_nullable
-              as AnimationTrack,
-    ));
-  }
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AnimationTrackCopyWith<$Res> get animation {
-    return $AnimationTrackCopyWith<$Res>(_value.animation, (value) {
-      return _then(_value.copyWith(animation: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AnimationAddedImpl extends AnimationAdded {
-  const _$AnimationAddedImpl(this.animation, {final String? $type})
+class AnimationAdded extends DocumentEvent {
+  const AnimationAdded(this.animation, {final String? $type})
       : $type = $type ?? 'animationAdded',
         super._();
+  factory AnimationAdded.fromJson(Map<String, dynamic> json) =>
+      _$AnimationAddedFromJson(json);
 
-  factory _$AnimationAddedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationAddedImplFromJson(json);
-
-  @override
   final AnimationTrack animation;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AnimationAddedCopyWith<AnimationAdded> get copyWith =>
+      _$AnimationAddedCopyWithImpl<AnimationAdded>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.animationAdded(animation: $animation)';
+  Map<String, dynamic> toJson() {
+    return _$AnimationAddedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationAddedImpl &&
+            other is AnimationAdded &&
             (identical(other.animation, animation) ||
                 other.animation == animation));
   }
@@ -5127,74 +4096,41 @@ class _$AnimationAddedImpl extends AnimationAdded {
   @override
   int get hashCode => Object.hash(runtimeType, animation);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
-      __$$AnimationAddedImplCopyWithImpl<_$AnimationAddedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AnimationAddedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.animationAdded(animation: $animation)';
   }
 }
 
-abstract class AnimationAdded extends DocumentEvent {
-  const factory AnimationAdded(final AnimationTrack animation) =
-      _$AnimationAddedImpl;
-  const AnimationAdded._() : super._();
-
-  factory AnimationAdded.fromJson(Map<String, dynamic> json) =
-      _$AnimationAddedImpl.fromJson;
-
-  AnimationTrack get animation;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$AnimationUpdatedImplCopyWith<$Res> {
-  factory _$$AnimationUpdatedImplCopyWith(_$AnimationUpdatedImpl value,
-          $Res Function(_$AnimationUpdatedImpl) then) =
-      __$$AnimationUpdatedImplCopyWithImpl<$Res>;
+abstract mixin class $AnimationAddedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AnimationAddedCopyWith(
+          AnimationAdded value, $Res Function(AnimationAdded) _then) =
+      _$AnimationAddedCopyWithImpl;
   @useResult
-  $Res call({String name, AnimationTrack animation});
+  $Res call({AnimationTrack animation});
 
   $AnimationTrackCopyWith<$Res> get animation;
 }
 
 /// @nodoc
-class __$$AnimationUpdatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationUpdatedImpl>
-    implements _$$AnimationUpdatedImplCopyWith<$Res> {
-  __$$AnimationUpdatedImplCopyWithImpl(_$AnimationUpdatedImpl _value,
-      $Res Function(_$AnimationUpdatedImpl) _then)
-      : super(_value, _then);
+class _$AnimationAddedCopyWithImpl<$Res>
+    implements $AnimationAddedCopyWith<$Res> {
+  _$AnimationAddedCopyWithImpl(this._self, this._then);
+
+  final AnimationAdded _self;
+  final $Res Function(AnimationAdded) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? name = null,
     Object? animation = null,
   }) {
-    return _then(_$AnimationUpdatedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(AnimationAdded(
       null == animation
-          ? _value.animation
+          ? _self.animation
           : animation // ignore: cast_nullable_to_non_nullable
               as AnimationTrack,
     ));
@@ -5205,40 +4141,46 @@ class __$$AnimationUpdatedImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $AnimationTrackCopyWith<$Res> get animation {
-    return $AnimationTrackCopyWith<$Res>(_value.animation, (value) {
-      return _then(_value.copyWith(animation: value));
+    return $AnimationTrackCopyWith<$Res>(_self.animation, (value) {
+      return _then(_self.copyWith(animation: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AnimationUpdatedImpl extends AnimationUpdated {
-  const _$AnimationUpdatedImpl(this.name, this.animation, {final String? $type})
+class AnimationUpdated extends DocumentEvent {
+  const AnimationUpdated(this.name, this.animation, {final String? $type})
       : $type = $type ?? 'animationUpdated',
         super._();
+  factory AnimationUpdated.fromJson(Map<String, dynamic> json) =>
+      _$AnimationUpdatedFromJson(json);
 
-  factory _$AnimationUpdatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationUpdatedImplFromJson(json);
-
-  @override
   final String name;
-  @override
   final AnimationTrack animation;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AnimationUpdatedCopyWith<AnimationUpdated> get copyWith =>
+      _$AnimationUpdatedCopyWithImpl<AnimationUpdated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.animationUpdated(name: $name, animation: $animation)';
+  Map<String, dynamic> toJson() {
+    return _$AnimationUpdatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationUpdatedImpl &&
+            other is AnimationUpdated &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.animation, animation) ||
                 other.animation == animation));
@@ -5248,69 +4190,135 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
   @override
   int get hashCode => Object.hash(runtimeType, name, animation);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
-      __$$AnimationUpdatedImplCopyWithImpl<_$AnimationUpdatedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AnimationUpdatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.animationUpdated(name: $name, animation: $animation)';
   }
 }
 
-abstract class AnimationUpdated extends DocumentEvent {
-  const factory AnimationUpdated(
-          final String name, final AnimationTrack animation) =
-      _$AnimationUpdatedImpl;
-  const AnimationUpdated._() : super._();
+/// @nodoc
+abstract mixin class $AnimationUpdatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AnimationUpdatedCopyWith(
+          AnimationUpdated value, $Res Function(AnimationUpdated) _then) =
+      _$AnimationUpdatedCopyWithImpl;
+  @useResult
+  $Res call({String name, AnimationTrack animation});
 
-  factory AnimationUpdated.fromJson(Map<String, dynamic> json) =
-      _$AnimationUpdatedImpl.fromJson;
+  $AnimationTrackCopyWith<$Res> get animation;
+}
 
-  String get name;
-  AnimationTrack get animation;
+/// @nodoc
+class _$AnimationUpdatedCopyWithImpl<$Res>
+    implements $AnimationUpdatedCopyWith<$Res> {
+  _$AnimationUpdatedCopyWithImpl(this._self, this._then);
+
+  final AnimationUpdated _self;
+  final $Res Function(AnimationUpdated) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? animation = null,
+  }) {
+    return _then(AnimationUpdated(
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == animation
+          ? _self.animation
+          : animation // ignore: cast_nullable_to_non_nullable
+              as AnimationTrack,
+    ));
+  }
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AnimationTrackCopyWith<$Res> get animation {
+    return $AnimationTrackCopyWith<$Res>(_self.animation, (value) {
+      return _then(_self.copyWith(animation: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class AnimationRemoved extends DocumentEvent {
+  const AnimationRemoved(this.name, {final String? $type})
+      : $type = $type ?? 'animationRemoved',
+        super._();
+  factory AnimationRemoved.fromJson(Map<String, dynamic> json) =>
+      _$AnimationRemovedFromJson(json);
+
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $AnimationRemovedCopyWith<AnimationRemoved> get copyWith =>
+      _$AnimationRemovedCopyWithImpl<AnimationRemoved>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$AnimationRemovedToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AnimationRemoved &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.animationRemoved(name: $name)';
+  }
 }
 
 /// @nodoc
-abstract class _$$AnimationRemovedImplCopyWith<$Res> {
-  factory _$$AnimationRemovedImplCopyWith(_$AnimationRemovedImpl value,
-          $Res Function(_$AnimationRemovedImpl) then) =
-      __$$AnimationRemovedImplCopyWithImpl<$Res>;
+abstract mixin class $AnimationRemovedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AnimationRemovedCopyWith(
+          AnimationRemoved value, $Res Function(AnimationRemoved) _then) =
+      _$AnimationRemovedCopyWithImpl;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$AnimationRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationRemovedImpl>
-    implements _$$AnimationRemovedImplCopyWith<$Res> {
-  __$$AnimationRemovedImplCopyWithImpl(_$AnimationRemovedImpl _value,
-      $Res Function(_$AnimationRemovedImpl) _then)
-      : super(_value, _then);
+class _$AnimationRemovedCopyWithImpl<$Res>
+    implements $AnimationRemovedCopyWith<$Res> {
+  _$AnimationRemovedCopyWithImpl(this._self, this._then);
+
+  final AnimationRemoved _self;
+  final $Res Function(AnimationRemoved) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$AnimationRemovedImpl(
+    return _then(AnimationRemoved(
       null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -5319,76 +4327,61 @@ class __$$AnimationRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AnimationRemovedImpl extends AnimationRemoved {
-  const _$AnimationRemovedImpl(this.name, {final String? $type})
-      : $type = $type ?? 'animationRemoved',
+class PresentationModeEntered extends DocumentEvent {
+  const PresentationModeEntered(this.track, this.fullScreen,
+      {final String? $type})
+      : $type = $type ?? 'presentationModeEntered',
         super._();
+  factory PresentationModeEntered.fromJson(Map<String, dynamic> json) =>
+      _$PresentationModeEnteredFromJson(json);
 
-  factory _$AnimationRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationRemovedImplFromJson(json);
-
-  @override
-  final String name;
+  final AnimationTrack track;
+  final bool fullScreen;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PresentationModeEnteredCopyWith<PresentationModeEntered> get copyWith =>
+      _$PresentationModeEnteredCopyWithImpl<PresentationModeEntered>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.animationRemoved(name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$PresentationModeEnteredToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationRemovedImpl &&
-            (identical(other.name, name) || other.name == name));
+            other is PresentationModeEntered &&
+            (identical(other.track, track) || other.track == track) &&
+            (identical(other.fullScreen, fullScreen) ||
+                other.fullScreen == fullScreen));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
-      __$$AnimationRemovedImplCopyWithImpl<_$AnimationRemovedImpl>(
-          this, _$identity);
+  int get hashCode => Object.hash(runtimeType, track, fullScreen);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$$AnimationRemovedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.presentationModeEntered(track: $track, fullScreen: $fullScreen)';
   }
-}
-
-abstract class AnimationRemoved extends DocumentEvent {
-  const factory AnimationRemoved(final String name) = _$AnimationRemovedImpl;
-  const AnimationRemoved._() : super._();
-
-  factory AnimationRemoved.fromJson(Map<String, dynamic> json) =
-      _$AnimationRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PresentationModeEnteredImplCopyWith<$Res> {
-  factory _$$PresentationModeEnteredImplCopyWith(
-          _$PresentationModeEnteredImpl value,
-          $Res Function(_$PresentationModeEnteredImpl) then) =
-      __$$PresentationModeEnteredImplCopyWithImpl<$Res>;
+abstract mixin class $PresentationModeEnteredCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PresentationModeEnteredCopyWith(PresentationModeEntered value,
+          $Res Function(PresentationModeEntered) _then) =
+      _$PresentationModeEnteredCopyWithImpl;
   @useResult
   $Res call({AnimationTrack track, bool fullScreen});
 
@@ -5396,29 +4389,27 @@ abstract class _$$PresentationModeEnteredImplCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PresentationModeEnteredImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeEnteredImpl>
-    implements _$$PresentationModeEnteredImplCopyWith<$Res> {
-  __$$PresentationModeEnteredImplCopyWithImpl(
-      _$PresentationModeEnteredImpl _value,
-      $Res Function(_$PresentationModeEnteredImpl) _then)
-      : super(_value, _then);
+class _$PresentationModeEnteredCopyWithImpl<$Res>
+    implements $PresentationModeEnteredCopyWith<$Res> {
+  _$PresentationModeEnteredCopyWithImpl(this._self, this._then);
+
+  final PresentationModeEntered _self;
+  final $Res Function(PresentationModeEntered) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? track = null,
     Object? fullScreen = null,
   }) {
-    return _then(_$PresentationModeEnteredImpl(
+    return _then(PresentationModeEntered(
       null == track
-          ? _value.track
+          ? _self.track
           : track // ignore: cast_nullable_to_non_nullable
               as AnimationTrack,
       null == fullScreen
-          ? _value.fullScreen
+          ? _self.fullScreen
           : fullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
@@ -5429,130 +4420,35 @@ class __$$PresentationModeEnteredImplCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $AnimationTrackCopyWith<$Res> get track {
-    return $AnimationTrackCopyWith<$Res>(_value.track, (value) {
-      return _then(_value.copyWith(track: value));
+    return $AnimationTrackCopyWith<$Res>(_self.track, (value) {
+      return _then(_self.copyWith(track: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationModeEnteredImpl extends PresentationModeEntered {
-  const _$PresentationModeEnteredImpl(this.track, this.fullScreen,
-      {final String? $type})
-      : $type = $type ?? 'presentationModeEntered',
+class PresentationModeExited extends DocumentEvent {
+  const PresentationModeExited({final String? $type})
+      : $type = $type ?? 'presentationModeExited',
         super._();
-
-  factory _$PresentationModeEnteredImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationModeEnteredImplFromJson(json);
-
-  @override
-  final AnimationTrack track;
-  @override
-  final bool fullScreen;
+  factory PresentationModeExited.fromJson(Map<String, dynamic> json) =>
+      _$PresentationModeExitedFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.presentationModeEntered(track: $track, fullScreen: $fullScreen)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PresentationModeEnteredImpl &&
-            (identical(other.track, track) || other.track == track) &&
-            (identical(other.fullScreen, fullScreen) ||
-                other.fullScreen == fullScreen));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, track, fullScreen);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
-      get copyWith => __$$PresentationModeEnteredImplCopyWithImpl<
-          _$PresentationModeEnteredImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationModeEnteredImplToJson(
+    return _$PresentationModeExitedToJson(
       this,
     );
-  }
-}
-
-abstract class PresentationModeEntered extends DocumentEvent {
-  const factory PresentationModeEntered(
-          final AnimationTrack track, final bool fullScreen) =
-      _$PresentationModeEnteredImpl;
-  const PresentationModeEntered._() : super._();
-
-  factory PresentationModeEntered.fromJson(Map<String, dynamic> json) =
-      _$PresentationModeEnteredImpl.fromJson;
-
-  AnimationTrack get track;
-  bool get fullScreen;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PresentationModeExitedImplCopyWith<$Res> {
-  factory _$$PresentationModeExitedImplCopyWith(
-          _$PresentationModeExitedImpl value,
-          $Res Function(_$PresentationModeExitedImpl) then) =
-      __$$PresentationModeExitedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$PresentationModeExitedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeExitedImpl>
-    implements _$$PresentationModeExitedImplCopyWith<$Res> {
-  __$$PresentationModeExitedImplCopyWithImpl(
-      _$PresentationModeExitedImpl _value,
-      $Res Function(_$PresentationModeExitedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PresentationModeExitedImpl extends PresentationModeExited {
-  const _$PresentationModeExitedImpl({final String? $type})
-      : $type = $type ?? 'presentationModeExited',
-        super._();
-
-  factory _$PresentationModeExitedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationModeExitedImplFromJson(json);
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.presentationModeExited()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PresentationModeExitedImpl);
+        (other.runtimeType == runtimeType && other is PresentationModeExited);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -5560,48 +4456,84 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$$PresentationModeExitedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.presentationModeExited()';
   }
 }
 
-abstract class PresentationModeExited extends DocumentEvent {
-  const factory PresentationModeExited() = _$PresentationModeExitedImpl;
-  const PresentationModeExited._() : super._();
+/// @nodoc
+@JsonSerializable()
+class PresentationTick extends DocumentEvent {
+  const PresentationTick(this.tick, {final String? $type})
+      : $type = $type ?? 'presentationTick',
+        super._();
+  factory PresentationTick.fromJson(Map<String, dynamic> json) =>
+      _$PresentationTickFromJson(json);
 
-  factory PresentationModeExited.fromJson(Map<String, dynamic> json) =
-      _$PresentationModeExitedImpl.fromJson;
+  final int tick;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PresentationTickCopyWith<PresentationTick> get copyWith =>
+      _$PresentationTickCopyWithImpl<PresentationTick>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PresentationTickToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PresentationTick &&
+            (identical(other.tick, tick) || other.tick == tick));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, tick);
+
+  @override
+  String toString() {
+    return 'DocumentEvent.presentationTick(tick: $tick)';
+  }
 }
 
 /// @nodoc
-abstract class _$$PresentationTickImplCopyWith<$Res> {
-  factory _$$PresentationTickImplCopyWith(_$PresentationTickImpl value,
-          $Res Function(_$PresentationTickImpl) then) =
-      __$$PresentationTickImplCopyWithImpl<$Res>;
+abstract mixin class $PresentationTickCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $PresentationTickCopyWith(
+          PresentationTick value, $Res Function(PresentationTick) _then) =
+      _$PresentationTickCopyWithImpl;
   @useResult
   $Res call({int tick});
 }
 
 /// @nodoc
-class __$$PresentationTickImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationTickImpl>
-    implements _$$PresentationTickImplCopyWith<$Res> {
-  __$$PresentationTickImplCopyWithImpl(_$PresentationTickImpl _value,
-      $Res Function(_$PresentationTickImpl) _then)
-      : super(_value, _then);
+class _$PresentationTickCopyWithImpl<$Res>
+    implements $PresentationTickCopyWith<$Res> {
+  _$PresentationTickCopyWithImpl(this._self, this._then);
+
+  final PresentationTick _self;
+  final $Res Function(PresentationTick) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? tick = null,
   }) {
-    return _then(_$PresentationTickImpl(
+    return _then(PresentationTick(
       null == tick
-          ? _value.tick
+          ? _self.tick
           : tick // ignore: cast_nullable_to_non_nullable
               as int,
     ));
@@ -5610,124 +4542,16 @@ class __$$PresentationTickImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationTickImpl extends PresentationTick {
-  const _$PresentationTickImpl(this.tick, {final String? $type})
-      : $type = $type ?? 'presentationTick',
-        super._();
-
-  factory _$PresentationTickImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationTickImplFromJson(json);
-
-  @override
-  final int tick;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.presentationTick(tick: $tick)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PresentationTickImpl &&
-            (identical(other.tick, tick) || other.tick == tick));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, tick);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
-      __$$PresentationTickImplCopyWithImpl<_$PresentationTickImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PresentationTickImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class PresentationTick extends DocumentEvent {
-  const factory PresentationTick(final int tick) = _$PresentationTickImpl;
-  const PresentationTick._() : super._();
-
-  factory PresentationTick.fromJson(Map<String, dynamic> json) =
-      _$PresentationTickImpl.fromJson;
-
-  int get tick;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AssetUpdatedImplCopyWith<$Res> {
-  factory _$$AssetUpdatedImplCopyWith(
-          _$AssetUpdatedImpl value, $Res Function(_$AssetUpdatedImpl) then) =
-      __$$AssetUpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String path, List<int> data});
-}
-
-/// @nodoc
-class __$$AssetUpdatedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AssetUpdatedImpl>
-    implements _$$AssetUpdatedImplCopyWith<$Res> {
-  __$$AssetUpdatedImplCopyWithImpl(
-      _$AssetUpdatedImpl _value, $Res Function(_$AssetUpdatedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? path = null,
-    Object? data = null,
-  }) {
-    return _then(_$AssetUpdatedImpl(
-      null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AssetUpdatedImpl extends AssetUpdated {
-  const _$AssetUpdatedImpl(this.path, final List<int> data,
-      {final String? $type})
+class AssetUpdated extends DocumentEvent {
+  const AssetUpdated(this.path, final List<int> data, {final String? $type})
       : _data = data,
         $type = $type ?? 'assetUpdated',
         super._();
+  factory AssetUpdated.fromJson(Map<String, dynamic> json) =>
+      _$AssetUpdatedFromJson(json);
 
-  factory _$AssetUpdatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AssetUpdatedImplFromJson(json);
-
-  @override
   final String path;
   final List<int> _data;
-  @override
   List<int> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
@@ -5737,16 +4561,25 @@ class _$AssetUpdatedImpl extends AssetUpdated {
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $AssetUpdatedCopyWith<AssetUpdated> get copyWith =>
+      _$AssetUpdatedCopyWithImpl<AssetUpdated>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.assetUpdated(path: $path, data: $data)';
+  Map<String, dynamic> toJson() {
+    return _$AssetUpdatedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AssetUpdatedImpl &&
+            other is AssetUpdated &&
             (identical(other.path, path) || other.path == path) &&
             const DeepCollectionEquality().equals(other._data, _data));
   }
@@ -5756,117 +4589,93 @@ class _$AssetUpdatedImpl extends AssetUpdated {
   int get hashCode => Object.hash(
       runtimeType, path, const DeepCollectionEquality().hash(_data));
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
-      __$$AssetUpdatedImplCopyWithImpl<_$AssetUpdatedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AssetUpdatedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.assetUpdated(path: $path, data: $data)';
   }
 }
 
-abstract class AssetUpdated extends DocumentEvent {
-  const factory AssetUpdated(final String path, final List<int> data) =
-      _$AssetUpdatedImpl;
-  const AssetUpdated._() : super._();
-
-  factory AssetUpdated.fromJson(Map<String, dynamic> json) =
-      _$AssetUpdatedImpl.fromJson;
-
-  String get path;
-  List<int> get data;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$ElementsLayerConvertedImplCopyWith<$Res> {
-  factory _$$ElementsLayerConvertedImplCopyWith(
-          _$ElementsLayerConvertedImpl value,
-          $Res Function(_$ElementsLayerConvertedImpl) then) =
-      __$$ElementsLayerConvertedImplCopyWithImpl<$Res>;
+abstract mixin class $AssetUpdatedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $AssetUpdatedCopyWith(
+          AssetUpdated value, $Res Function(AssetUpdated) _then) =
+      _$AssetUpdatedCopyWithImpl;
   @useResult
-  $Res call({List<String> elements, String name});
+  $Res call({String path, List<int> data});
 }
 
 /// @nodoc
-class __$$ElementsLayerConvertedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerConvertedImpl>
-    implements _$$ElementsLayerConvertedImplCopyWith<$Res> {
-  __$$ElementsLayerConvertedImplCopyWithImpl(
-      _$ElementsLayerConvertedImpl _value,
-      $Res Function(_$ElementsLayerConvertedImpl) _then)
-      : super(_value, _then);
+class _$AssetUpdatedCopyWithImpl<$Res> implements $AssetUpdatedCopyWith<$Res> {
+  _$AssetUpdatedCopyWithImpl(this._self, this._then);
+
+  final AssetUpdated _self;
+  final $Res Function(AssetUpdated) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? elements = null,
-    Object? name = null,
+    Object? path = null,
+    Object? data = null,
   }) {
-    return _then(_$ElementsLayerConvertedImpl(
-      null == elements
-          ? _value._elements
-          : elements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+    return _then(AssetUpdated(
+      null == path
+          ? _self.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
+      null == data
+          ? _self._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsLayerConvertedImpl extends ElementsLayerConverted {
-  const _$ElementsLayerConvertedImpl(final List<String> elements,
+class ElementsLayerConverted extends DocumentEvent {
+  const ElementsLayerConverted(final List<String> elements,
       [this.name = '', final String? $type])
       : _elements = elements,
         $type = $type ?? 'elementsLayerConverted',
         super._();
-
-  factory _$ElementsLayerConvertedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsLayerConvertedImplFromJson(json);
+  factory ElementsLayerConverted.fromJson(Map<String, dynamic> json) =>
+      _$ElementsLayerConvertedFromJson(json);
 
   final List<String> _elements;
-  @override
   List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
   }
 
-  @override
   @JsonKey()
   final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ElementsLayerConvertedCopyWith<ElementsLayerConverted> get copyWith =>
+      _$ElementsLayerConvertedCopyWithImpl<ElementsLayerConverted>(
+          this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.elementsLayerConverted(elements: $elements, name: $name)';
+  Map<String, dynamic> toJson() {
+    return _$ElementsLayerConvertedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsLayerConvertedImpl &&
+            other is ElementsLayerConverted &&
             const DeepCollectionEquality().equals(other._elements, _elements) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -5876,100 +4685,83 @@ class _$ElementsLayerConvertedImpl extends ElementsLayerConverted {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_elements), name);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ElementsLayerConvertedImplCopyWith<_$ElementsLayerConvertedImpl>
-      get copyWith => __$$ElementsLayerConvertedImplCopyWithImpl<
-          _$ElementsLayerConvertedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ElementsLayerConvertedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.elementsLayerConverted(elements: $elements, name: $name)';
   }
 }
 
-abstract class ElementsLayerConverted extends DocumentEvent {
-  const factory ElementsLayerConverted(final List<String> elements,
-      [final String name]) = _$ElementsLayerConvertedImpl;
-  const ElementsLayerConverted._() : super._();
-
-  factory ElementsLayerConverted.fromJson(Map<String, dynamic> json) =
-      _$ElementsLayerConvertedImpl.fromJson;
-
-  List<String> get elements;
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsLayerConvertedImplCopyWith<_$ElementsLayerConvertedImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
 /// @nodoc
-abstract class _$$EncryptionChangedImplCopyWith<$Res> {
-  factory _$$EncryptionChangedImplCopyWith(_$EncryptionChangedImpl value,
-          $Res Function(_$EncryptionChangedImpl) then) =
-      __$$EncryptionChangedImplCopyWithImpl<$Res>;
+abstract mixin class $ElementsLayerConvertedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsLayerConvertedCopyWith(ElementsLayerConverted value,
+          $Res Function(ElementsLayerConverted) _then) =
+      _$ElementsLayerConvertedCopyWithImpl;
   @useResult
-  $Res call({String? password});
+  $Res call({List<String> elements, String name});
 }
 
 /// @nodoc
-class __$$EncryptionChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$EncryptionChangedImpl>
-    implements _$$EncryptionChangedImplCopyWith<$Res> {
-  __$$EncryptionChangedImplCopyWithImpl(_$EncryptionChangedImpl _value,
-      $Res Function(_$EncryptionChangedImpl) _then)
-      : super(_value, _then);
+class _$ElementsLayerConvertedCopyWithImpl<$Res>
+    implements $ElementsLayerConvertedCopyWith<$Res> {
+  _$ElementsLayerConvertedCopyWithImpl(this._self, this._then);
+
+  final ElementsLayerConverted _self;
+  final $Res Function(ElementsLayerConverted) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
-    Object? password = freezed,
+    Object? elements = null,
+    Object? name = null,
   }) {
-    return _then(_$EncryptionChangedImpl(
-      freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(ElementsLayerConverted(
+      null == elements
+          ? _self._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$EncryptionChangedImpl extends EncryptionChanged {
-  const _$EncryptionChangedImpl(this.password, {final String? $type})
+class EncryptionChanged extends DocumentEvent {
+  const EncryptionChanged(this.password, {final String? $type})
       : $type = $type ?? 'encryptionChanged',
         super._();
+  factory EncryptionChanged.fromJson(Map<String, dynamic> json) =>
+      _$EncryptionChangedFromJson(json);
 
-  factory _$EncryptionChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EncryptionChangedImplFromJson(json);
-
-  @override
   final String? password;
 
   @JsonKey(name: 'type')
   final String $type;
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $EncryptionChangedCopyWith<EncryptionChanged> get copyWith =>
+      _$EncryptionChangedCopyWithImpl<EncryptionChanged>(this, _$identity);
+
   @override
-  String toString() {
-    return 'DocumentEvent.encryptionChanged(password: $password)';
+  Map<String, dynamic> toJson() {
+    return _$EncryptionChangedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EncryptionChangedImpl &&
+            other is EncryptionChanged &&
             (identical(other.password, password) ||
                 other.password == password));
   }
@@ -5978,36 +4770,43 @@ class _$EncryptionChangedImpl extends EncryptionChanged {
   @override
   int get hashCode => Object.hash(runtimeType, password);
 
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EncryptionChangedImplCopyWith<_$EncryptionChangedImpl> get copyWith =>
-      __$$EncryptionChangedImplCopyWithImpl<_$EncryptionChangedImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EncryptionChangedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'DocumentEvent.encryptionChanged(password: $password)';
   }
 }
 
-abstract class EncryptionChanged extends DocumentEvent {
-  const factory EncryptionChanged(final String? password) =
-      _$EncryptionChangedImpl;
-  const EncryptionChanged._() : super._();
+/// @nodoc
+abstract mixin class $EncryptionChangedCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $EncryptionChangedCopyWith(
+          EncryptionChanged value, $Res Function(EncryptionChanged) _then) =
+      _$EncryptionChangedCopyWithImpl;
+  @useResult
+  $Res call({String? password});
+}
 
-  factory EncryptionChanged.fromJson(Map<String, dynamic> json) =
-      _$EncryptionChangedImpl.fromJson;
+/// @nodoc
+class _$EncryptionChangedCopyWithImpl<$Res>
+    implements $EncryptionChangedCopyWith<$Res> {
+  _$EncryptionChangedCopyWithImpl(this._self, this._then);
 
-  String? get password;
+  final EncryptionChanged _self;
+  final $Res Function(EncryptionChanged) _then;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EncryptionChangedImplCopyWith<_$EncryptionChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? password = freezed,
+  }) {
+    return _then(EncryptionChanged(
+      freezed == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
+
+// dart format on

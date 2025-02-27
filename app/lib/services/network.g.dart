@@ -6,8 +6,7 @@ part of 'network.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NetworkingUserImpl _$$NetworkingUserImplFromJson(Map json) =>
-    _$NetworkingUserImpl(
+_NetworkingUser _$NetworkingUserFromJson(Map json) => _NetworkingUser(
       cursor: _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(
           json['cursor'], const DoublePointJsonConverter().fromJson),
       foreground: (json['foreground'] as List<dynamic>?)
@@ -15,8 +14,7 @@ _$NetworkingUserImpl _$$NetworkingUserImplFromJson(Map json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$NetworkingUserImplToJson(
-        _$NetworkingUserImpl instance) =>
+Map<String, dynamic> _$NetworkingUserToJson(_NetworkingUser instance) =>
     <String, dynamic>{
       'cursor': _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
           instance.cursor, const DoublePointJsonConverter().toJson),

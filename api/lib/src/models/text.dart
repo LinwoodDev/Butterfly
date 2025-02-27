@@ -5,8 +5,8 @@ import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'text.g.dart';
 part 'text.freezed.dart';
+part 'text.g.dart';
 
 @JsonEnum()
 enum HorizontalAlignment { left, center, right, justify }

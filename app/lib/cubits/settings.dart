@@ -93,7 +93,7 @@ enum SyncMode { always, noMobile, manual }
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 @freezed
-class InputConfiguration with _$InputConfiguration {
+sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
 
   const factory InputConfiguration({
@@ -183,7 +183,7 @@ enum ThemeDensity {
 }
 
 @freezed
-class ButterflySettings with _$ButterflySettings, LeapSettings {
+sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
     @Default(ThemeMode.system) ThemeMode theme,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,114 +10,78 @@ part of 'settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-InputConfiguration _$InputConfigurationFromJson(Map<String, dynamic> json) {
-  return _InputConfiguration.fromJson(json);
-}
-
 /// @nodoc
-mixin _$InputConfiguration {
-  int? get leftMouse => throw _privateConstructorUsedError;
-  int? get middleMouse => throw _privateConstructorUsedError;
-  int? get rightMouse => throw _privateConstructorUsedError;
-  int? get pen => throw _privateConstructorUsedError;
-  int? get firstPenButton => throw _privateConstructorUsedError;
-  int? get secondPenButton => throw _privateConstructorUsedError;
-  int? get touch => throw _privateConstructorUsedError;
-
-  /// Serializes this InputConfiguration to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+mixin _$InputConfiguration implements DiagnosticableTreeMixin {
+  int? get leftMouse;
+  int? get middleMouse;
+  int? get rightMouse;
+  int? get pen;
+  int? get firstPenButton;
+  int? get secondPenButton;
+  int? get touch;
 
   /// Create a copy of InputConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $InputConfigurationCopyWith<InputConfiguration> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $InputConfigurationCopyWith<$Res> {
-  factory $InputConfigurationCopyWith(
-          InputConfiguration value, $Res Function(InputConfiguration) then) =
-      _$InputConfigurationCopyWithImpl<$Res, InputConfiguration>;
-  @useResult
-  $Res call(
-      {int? leftMouse,
-      int? middleMouse,
-      int? rightMouse,
-      int? pen,
-      int? firstPenButton,
-      int? secondPenButton,
-      int? touch});
-}
-
-/// @nodoc
-class _$InputConfigurationCopyWithImpl<$Res, $Val extends InputConfiguration>
-    implements $InputConfigurationCopyWith<$Res> {
-  _$InputConfigurationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of InputConfiguration
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $InputConfigurationCopyWith<InputConfiguration> get copyWith =>
+      _$InputConfigurationCopyWithImpl<InputConfiguration>(
+          this as InputConfiguration, _$identity);
+
+  /// Serializes this InputConfiguration to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? leftMouse = freezed,
-    Object? middleMouse = freezed,
-    Object? rightMouse = freezed,
-    Object? pen = freezed,
-    Object? firstPenButton = freezed,
-    Object? secondPenButton = freezed,
-    Object? touch = freezed,
-  }) {
-    return _then(_value.copyWith(
-      leftMouse: freezed == leftMouse
-          ? _value.leftMouse
-          : leftMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      middleMouse: freezed == middleMouse
-          ? _value.middleMouse
-          : middleMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      rightMouse: freezed == rightMouse
-          ? _value.rightMouse
-          : rightMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      pen: freezed == pen
-          ? _value.pen
-          : pen // ignore: cast_nullable_to_non_nullable
-              as int?,
-      firstPenButton: freezed == firstPenButton
-          ? _value.firstPenButton
-          : firstPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
-      secondPenButton: freezed == secondPenButton
-          ? _value.secondPenButton
-          : secondPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
-      touch: freezed == touch
-          ? _value.touch
-          : touch // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'InputConfiguration'))
+      ..add(DiagnosticsProperty('leftMouse', leftMouse))
+      ..add(DiagnosticsProperty('middleMouse', middleMouse))
+      ..add(DiagnosticsProperty('rightMouse', rightMouse))
+      ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
+      ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
+      ..add(DiagnosticsProperty('touch', touch));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InputConfiguration &&
+            (identical(other.leftMouse, leftMouse) ||
+                other.leftMouse == leftMouse) &&
+            (identical(other.middleMouse, middleMouse) ||
+                other.middleMouse == middleMouse) &&
+            (identical(other.rightMouse, rightMouse) ||
+                other.rightMouse == rightMouse) &&
+            (identical(other.pen, pen) || other.pen == pen) &&
+            (identical(other.firstPenButton, firstPenButton) ||
+                other.firstPenButton == firstPenButton) &&
+            (identical(other.secondPenButton, secondPenButton) ||
+                other.secondPenButton == secondPenButton) &&
+            (identical(other.touch, touch) || other.touch == touch));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
+      rightMouse, pen, firstPenButton, secondPenButton, touch);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
   }
 }
 
 /// @nodoc
-abstract class _$$InputConfigurationImplCopyWith<$Res>
-    implements $InputConfigurationCopyWith<$Res> {
-  factory _$$InputConfigurationImplCopyWith(_$InputConfigurationImpl value,
-          $Res Function(_$InputConfigurationImpl) then) =
-      __$$InputConfigurationImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $InputConfigurationCopyWith<$Res> {
+  factory $InputConfigurationCopyWith(
+          InputConfiguration value, $Res Function(InputConfiguration) _then) =
+      _$InputConfigurationCopyWithImpl;
   @useResult
   $Res call(
       {int? leftMouse,
@@ -129,12 +94,12 @@ abstract class _$$InputConfigurationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$InputConfigurationImplCopyWithImpl<$Res>
-    extends _$InputConfigurationCopyWithImpl<$Res, _$InputConfigurationImpl>
-    implements _$$InputConfigurationImplCopyWith<$Res> {
-  __$$InputConfigurationImplCopyWithImpl(_$InputConfigurationImpl _value,
-      $Res Function(_$InputConfigurationImpl) _then)
-      : super(_value, _then);
+class _$InputConfigurationCopyWithImpl<$Res>
+    implements $InputConfigurationCopyWith<$Res> {
+  _$InputConfigurationCopyWithImpl(this._self, this._then);
+
+  final InputConfiguration _self;
+  final $Res Function(InputConfiguration) _then;
 
   /// Create a copy of InputConfiguration
   /// with the given fields replaced by the non-null parameter values.
@@ -149,33 +114,33 @@ class __$$InputConfigurationImplCopyWithImpl<$Res>
     Object? secondPenButton = freezed,
     Object? touch = freezed,
   }) {
-    return _then(_$InputConfigurationImpl(
+    return _then(_self.copyWith(
       leftMouse: freezed == leftMouse
-          ? _value.leftMouse
+          ? _self.leftMouse
           : leftMouse // ignore: cast_nullable_to_non_nullable
               as int?,
       middleMouse: freezed == middleMouse
-          ? _value.middleMouse
+          ? _self.middleMouse
           : middleMouse // ignore: cast_nullable_to_non_nullable
               as int?,
       rightMouse: freezed == rightMouse
-          ? _value.rightMouse
+          ? _self.rightMouse
           : rightMouse // ignore: cast_nullable_to_non_nullable
               as int?,
       pen: freezed == pen
-          ? _value.pen
+          ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
               as int?,
       firstPenButton: freezed == firstPenButton
-          ? _value.firstPenButton
+          ? _self.firstPenButton
           : firstPenButton // ignore: cast_nullable_to_non_nullable
               as int?,
       secondPenButton: freezed == secondPenButton
-          ? _value.secondPenButton
+          ? _self.secondPenButton
           : secondPenButton // ignore: cast_nullable_to_non_nullable
               as int?,
       touch: freezed == touch
-          ? _value.touch
+          ? _self.touch
           : touch // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -184,9 +149,9 @@ class __$$InputConfigurationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$InputConfigurationImpl extends _InputConfiguration
+class _InputConfiguration extends InputConfiguration
     with DiagnosticableTreeMixin {
-  const _$InputConfigurationImpl(
+  const _InputConfiguration(
       {this.leftMouse,
       this.middleMouse = -1,
       this.rightMouse = 1,
@@ -195,9 +160,8 @@ class _$InputConfigurationImpl extends _InputConfiguration
       this.secondPenButton = 1,
       this.touch})
       : super._();
-
-  factory _$InputConfigurationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InputConfigurationImplFromJson(json);
+  factory _InputConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$InputConfigurationFromJson(json);
 
   @override
   final int? leftMouse;
@@ -218,14 +182,23 @@ class _$InputConfigurationImpl extends _InputConfiguration
   @override
   final int? touch;
 
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InputConfigurationCopyWith<_InputConfiguration> get copyWith =>
+      __$InputConfigurationCopyWithImpl<_InputConfiguration>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$InputConfigurationToJson(
+      this,
+    );
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'InputConfiguration'))
       ..add(DiagnosticsProperty('leftMouse', leftMouse))
@@ -241,7 +214,7 @@ class _$InputConfigurationImpl extends _InputConfiguration
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InputConfigurationImpl &&
+            other is _InputConfiguration &&
             (identical(other.leftMouse, leftMouse) ||
                 other.leftMouse == leftMouse) &&
             (identical(other.middleMouse, middleMouse) ||
@@ -261,126 +234,363 @@ class _$InputConfigurationImpl extends _InputConfiguration
   int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
       rightMouse, pen, firstPenButton, secondPenButton, touch);
 
-  /// Create a copy of InputConfiguration
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
-      __$$InputConfigurationImplCopyWithImpl<_$InputConfigurationImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$InputConfigurationImplToJson(
-      this,
-    );
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
   }
 }
 
-abstract class _InputConfiguration extends InputConfiguration {
-  const factory _InputConfiguration(
-      {final int? leftMouse,
-      final int? middleMouse,
-      final int? rightMouse,
-      final int? pen,
-      final int? firstPenButton,
-      final int? secondPenButton,
-      final int? touch}) = _$InputConfigurationImpl;
-  const _InputConfiguration._() : super._();
+/// @nodoc
+abstract mixin class _$InputConfigurationCopyWith<$Res>
+    implements $InputConfigurationCopyWith<$Res> {
+  factory _$InputConfigurationCopyWith(
+          _InputConfiguration value, $Res Function(_InputConfiguration) _then) =
+      __$InputConfigurationCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int? leftMouse,
+      int? middleMouse,
+      int? rightMouse,
+      int? pen,
+      int? firstPenButton,
+      int? secondPenButton,
+      int? touch});
+}
 
-  factory _InputConfiguration.fromJson(Map<String, dynamic> json) =
-      _$InputConfigurationImpl.fromJson;
+/// @nodoc
+class __$InputConfigurationCopyWithImpl<$Res>
+    implements _$InputConfigurationCopyWith<$Res> {
+  __$InputConfigurationCopyWithImpl(this._self, this._then);
 
-  @override
-  int? get leftMouse;
-  @override
-  int? get middleMouse;
-  @override
-  int? get rightMouse;
-  @override
-  int? get pen;
-  @override
-  int? get firstPenButton;
-  @override
-  int? get secondPenButton;
-  @override
-  int? get touch;
+  final _InputConfiguration _self;
+  final $Res Function(_InputConfiguration) _then;
 
   /// Create a copy of InputConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? leftMouse = freezed,
+    Object? middleMouse = freezed,
+    Object? rightMouse = freezed,
+    Object? pen = freezed,
+    Object? firstPenButton = freezed,
+    Object? secondPenButton = freezed,
+    Object? touch = freezed,
+  }) {
+    return _then(_InputConfiguration(
+      leftMouse: freezed == leftMouse
+          ? _self.leftMouse
+          : leftMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      middleMouse: freezed == middleMouse
+          ? _self.middleMouse
+          : middleMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rightMouse: freezed == rightMouse
+          ? _self.rightMouse
+          : rightMouse // ignore: cast_nullable_to_non_nullable
+              as int?,
+      pen: freezed == pen
+          ? _self.pen
+          : pen // ignore: cast_nullable_to_non_nullable
+              as int?,
+      firstPenButton: freezed == firstPenButton
+          ? _self.firstPenButton
+          : firstPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      secondPenButton: freezed == secondPenButton
+          ? _self.secondPenButton
+          : secondPenButton // ignore: cast_nullable_to_non_nullable
+              as int?,
+      touch: freezed == touch
+          ? _self.touch
+          : touch // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
-mixin _$ButterflySettings {
-  ThemeMode get theme => throw _privateConstructorUsedError;
-  ThemeDensity get density => throw _privateConstructorUsedError;
-  String get localeTag => throw _privateConstructorUsedError;
-  String get documentPath => throw _privateConstructorUsedError;
-  double get gestureSensitivity => throw _privateConstructorUsedError;
-  double get touchSensitivity => throw _privateConstructorUsedError;
-  double get selectSensitivity => throw _privateConstructorUsedError;
-  double get scrollSensitivity => throw _privateConstructorUsedError;
-  bool get penOnlyInput => throw _privateConstructorUsedError;
-  bool get inputGestures => throw _privateConstructorUsedError;
-  String get design => throw _privateConstructorUsedError;
-  BannerVisibility get bannerVisibility => throw _privateConstructorUsedError;
-  List<AssetLocation> get history => throw _privateConstructorUsedError;
-  bool get navigatorEnabled => throw _privateConstructorUsedError;
-  bool get zoomEnabled => throw _privateConstructorUsedError;
-  String? get lastVersion => throw _privateConstructorUsedError;
-  List<ExternalStorage> get connections => throw _privateConstructorUsedError;
-  String get defaultRemote => throw _privateConstructorUsedError;
-  bool get nativeTitleBar => throw _privateConstructorUsedError;
-  bool get startInFullScreen => throw _privateConstructorUsedError;
-  bool get navigationRail => throw _privateConstructorUsedError;
-  SyncMode get syncMode => throw _privateConstructorUsedError;
-  InputConfiguration get inputConfiguration =>
-      throw _privateConstructorUsedError;
-  String get fallbackPack => throw _privateConstructorUsedError;
-  List<String> get starred => throw _privateConstructorUsedError;
-  String get defaultTemplate => throw _privateConstructorUsedError;
-  NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
-  NavigatorPosition get navigatorPosition => throw _privateConstructorUsedError;
-  ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
-  ToolbarSize get toolbarSize => throw _privateConstructorUsedError;
-  SortBy get sortBy => throw _privateConstructorUsedError;
-  SortOrder get sortOrder => throw _privateConstructorUsedError;
-  double get imageScale => throw _privateConstructorUsedError;
-  double get pdfQuality => throw _privateConstructorUsedError;
-  PlatformTheme get platformTheme => throw _privateConstructorUsedError;
-  List<SRGBColor> get recentColors => throw _privateConstructorUsedError;
-  List<String> get flags => throw _privateConstructorUsedError;
-  bool get spreadPages => throw _privateConstructorUsedError;
-  bool get highContrast => throw _privateConstructorUsedError;
-  bool get gridView => throw _privateConstructorUsedError;
-  bool get autosave => throw _privateConstructorUsedError;
-  bool get showSaveButton => throw _privateConstructorUsedError;
-  int get toolbarRows => throw _privateConstructorUsedError;
-  bool get hideCursorWhileDrawing => throw _privateConstructorUsedError;
-  UtilitiesState get utilities => throw _privateConstructorUsedError;
-  StartupBehavior get onStartup => throw _privateConstructorUsedError;
-  bool get colorToolbarEnabled => throw _privateConstructorUsedError;
-  OptionsPanelPosition get optionsPanelPosition =>
-      throw _privateConstructorUsedError;
-  RenderResolution get renderResolution => throw _privateConstructorUsedError;
+mixin _$ButterflySettings implements DiagnosticableTreeMixin {
+  ThemeMode get theme;
+  ThemeDensity get density;
+  String get localeTag;
+  String get documentPath;
+  double get gestureSensitivity;
+  double get touchSensitivity;
+  double get selectSensitivity;
+  double get scrollSensitivity;
+  bool get penOnlyInput;
+  bool get inputGestures;
+  String get design;
+  BannerVisibility get bannerVisibility;
+  List<AssetLocation> get history;
+  bool get navigatorEnabled;
+  bool get zoomEnabled;
+  String? get lastVersion;
+  List<ExternalStorage> get connections;
+  String get defaultRemote;
+  bool get nativeTitleBar;
+  bool get startInFullScreen;
+  bool get navigationRail;
+  SyncMode get syncMode;
+  InputConfiguration get inputConfiguration;
+  String get fallbackPack;
+  List<String> get starred;
+  String get defaultTemplate;
+  NavigatorPage get navigatorPage;
+  NavigatorPosition get navigatorPosition;
+  ToolbarPosition get toolbarPosition;
+  ToolbarSize get toolbarSize;
+  SortBy get sortBy;
+  SortOrder get sortOrder;
+  double get imageScale;
+  double get pdfQuality;
+  PlatformTheme get platformTheme;
+  List<SRGBColor> get recentColors;
+  List<String> get flags;
+  bool get spreadPages;
+  bool get highContrast;
+  bool get gridView;
+  bool get autosave;
+  bool get showSaveButton;
+  int get toolbarRows;
+  bool get hideCursorWhileDrawing;
+  UtilitiesState get utilities;
+  StartupBehavior get onStartup;
+  bool get colorToolbarEnabled;
+  OptionsPanelPosition get optionsPanelPosition;
+  RenderResolution get renderResolution;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$ButterflySettingsCopyWithImpl<ButterflySettings>(
+          this as ButterflySettings, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'ButterflySettings'))
+      ..add(DiagnosticsProperty('theme', theme))
+      ..add(DiagnosticsProperty('density', density))
+      ..add(DiagnosticsProperty('localeTag', localeTag))
+      ..add(DiagnosticsProperty('documentPath', documentPath))
+      ..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))
+      ..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))
+      ..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))
+      ..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))
+      ..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))
+      ..add(DiagnosticsProperty('inputGestures', inputGestures))
+      ..add(DiagnosticsProperty('design', design))
+      ..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))
+      ..add(DiagnosticsProperty('history', history))
+      ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
+      ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
+      ..add(DiagnosticsProperty('lastVersion', lastVersion))
+      ..add(DiagnosticsProperty('connections', connections))
+      ..add(DiagnosticsProperty('defaultRemote', defaultRemote))
+      ..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))
+      ..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))
+      ..add(DiagnosticsProperty('navigationRail', navigationRail))
+      ..add(DiagnosticsProperty('syncMode', syncMode))
+      ..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))
+      ..add(DiagnosticsProperty('fallbackPack', fallbackPack))
+      ..add(DiagnosticsProperty('starred', starred))
+      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
+      ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
+      ..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))
+      ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
+      ..add(DiagnosticsProperty('toolbarSize', toolbarSize))
+      ..add(DiagnosticsProperty('sortBy', sortBy))
+      ..add(DiagnosticsProperty('sortOrder', sortOrder))
+      ..add(DiagnosticsProperty('imageScale', imageScale))
+      ..add(DiagnosticsProperty('pdfQuality', pdfQuality))
+      ..add(DiagnosticsProperty('platformTheme', platformTheme))
+      ..add(DiagnosticsProperty('recentColors', recentColors))
+      ..add(DiagnosticsProperty('flags', flags))
+      ..add(DiagnosticsProperty('spreadPages', spreadPages))
+      ..add(DiagnosticsProperty('highContrast', highContrast))
+      ..add(DiagnosticsProperty('gridView', gridView))
+      ..add(DiagnosticsProperty('autosave', autosave))
+      ..add(DiagnosticsProperty('showSaveButton', showSaveButton))
+      ..add(DiagnosticsProperty('toolbarRows', toolbarRows))
+      ..add(
+          DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))
+      ..add(DiagnosticsProperty('utilities', utilities))
+      ..add(DiagnosticsProperty('onStartup', onStartup))
+      ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
+      ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))
+      ..add(DiagnosticsProperty('renderResolution', renderResolution));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ButterflySettings &&
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.density, density) || other.density == density) &&
+            (identical(other.localeTag, localeTag) ||
+                other.localeTag == localeTag) &&
+            (identical(other.documentPath, documentPath) ||
+                other.documentPath == documentPath) &&
+            (identical(other.gestureSensitivity, gestureSensitivity) ||
+                other.gestureSensitivity == gestureSensitivity) &&
+            (identical(other.touchSensitivity, touchSensitivity) ||
+                other.touchSensitivity == touchSensitivity) &&
+            (identical(other.selectSensitivity, selectSensitivity) ||
+                other.selectSensitivity == selectSensitivity) &&
+            (identical(other.scrollSensitivity, scrollSensitivity) ||
+                other.scrollSensitivity == scrollSensitivity) &&
+            (identical(other.penOnlyInput, penOnlyInput) ||
+                other.penOnlyInput == penOnlyInput) &&
+            (identical(other.inputGestures, inputGestures) ||
+                other.inputGestures == inputGestures) &&
+            (identical(other.design, design) || other.design == design) &&
+            (identical(other.bannerVisibility, bannerVisibility) ||
+                other.bannerVisibility == bannerVisibility) &&
+            const DeepCollectionEquality().equals(other.history, history) &&
+            (identical(other.navigatorEnabled, navigatorEnabled) ||
+                other.navigatorEnabled == navigatorEnabled) &&
+            (identical(other.zoomEnabled, zoomEnabled) ||
+                other.zoomEnabled == zoomEnabled) &&
+            (identical(other.lastVersion, lastVersion) ||
+                other.lastVersion == lastVersion) &&
+            const DeepCollectionEquality()
+                .equals(other.connections, connections) &&
+            (identical(other.defaultRemote, defaultRemote) ||
+                other.defaultRemote == defaultRemote) &&
+            (identical(other.nativeTitleBar, nativeTitleBar) ||
+                other.nativeTitleBar == nativeTitleBar) &&
+            (identical(other.startInFullScreen, startInFullScreen) ||
+                other.startInFullScreen == startInFullScreen) &&
+            (identical(other.navigationRail, navigationRail) ||
+                other.navigationRail == navigationRail) &&
+            (identical(other.syncMode, syncMode) ||
+                other.syncMode == syncMode) &&
+            (identical(other.inputConfiguration, inputConfiguration) ||
+                other.inputConfiguration == inputConfiguration) &&
+            (identical(other.fallbackPack, fallbackPack) ||
+                other.fallbackPack == fallbackPack) &&
+            const DeepCollectionEquality().equals(other.starred, starred) &&
+            (identical(other.defaultTemplate, defaultTemplate) ||
+                other.defaultTemplate == defaultTemplate) &&
+            (identical(other.navigatorPage, navigatorPage) ||
+                other.navigatorPage == navigatorPage) &&
+            (identical(other.navigatorPosition, navigatorPosition) ||
+                other.navigatorPosition == navigatorPosition) &&
+            (identical(other.toolbarPosition, toolbarPosition) ||
+                other.toolbarPosition == toolbarPosition) &&
+            (identical(other.toolbarSize, toolbarSize) ||
+                other.toolbarSize == toolbarSize) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder) &&
+            (identical(other.imageScale, imageScale) ||
+                other.imageScale == imageScale) &&
+            (identical(other.pdfQuality, pdfQuality) ||
+                other.pdfQuality == pdfQuality) &&
+            (identical(other.platformTheme, platformTheme) ||
+                other.platformTheme == platformTheme) &&
+            const DeepCollectionEquality()
+                .equals(other.recentColors, recentColors) &&
+            const DeepCollectionEquality().equals(other.flags, flags) &&
+            (identical(other.spreadPages, spreadPages) ||
+                other.spreadPages == spreadPages) &&
+            (identical(other.highContrast, highContrast) ||
+                other.highContrast == highContrast) &&
+            (identical(other.gridView, gridView) ||
+                other.gridView == gridView) &&
+            (identical(other.autosave, autosave) ||
+                other.autosave == autosave) &&
+            (identical(other.showSaveButton, showSaveButton) ||
+                other.showSaveButton == showSaveButton) &&
+            (identical(other.toolbarRows, toolbarRows) ||
+                other.toolbarRows == toolbarRows) &&
+            (identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) ||
+                other.hideCursorWhileDrawing == hideCursorWhileDrawing) &&
+            (identical(other.utilities, utilities) ||
+                other.utilities == utilities) &&
+            (identical(other.onStartup, onStartup) ||
+                other.onStartup == onStartup) &&
+            (identical(other.colorToolbarEnabled, colorToolbarEnabled) ||
+                other.colorToolbarEnabled == colorToolbarEnabled) &&
+            (identical(other.optionsPanelPosition, optionsPanelPosition) ||
+                other.optionsPanelPosition == optionsPanelPosition) &&
+            (identical(other.renderResolution, renderResolution) ||
+                other.renderResolution == renderResolution));
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        theme,
+        density,
+        localeTag,
+        documentPath,
+        gestureSensitivity,
+        touchSensitivity,
+        selectSensitivity,
+        scrollSensitivity,
+        penOnlyInput,
+        inputGestures,
+        design,
+        bannerVisibility,
+        const DeepCollectionEquality().hash(history),
+        navigatorEnabled,
+        zoomEnabled,
+        lastVersion,
+        const DeepCollectionEquality().hash(connections),
+        defaultRemote,
+        nativeTitleBar,
+        startInFullScreen,
+        navigationRail,
+        syncMode,
+        inputConfiguration,
+        fallbackPack,
+        const DeepCollectionEquality().hash(starred),
+        defaultTemplate,
+        navigatorPage,
+        navigatorPosition,
+        toolbarPosition,
+        toolbarSize,
+        sortBy,
+        sortOrder,
+        imageScale,
+        pdfQuality,
+        platformTheme,
+        const DeepCollectionEquality().hash(recentColors),
+        const DeepCollectionEquality().hash(flags),
+        spreadPages,
+        highContrast,
+        gridView,
+        autosave,
+        showSaveButton,
+        toolbarRows,
+        hideCursorWhileDrawing,
+        utilities,
+        onStartup,
+        colorToolbarEnabled,
+        optionsPanelPosition,
+        renderResolution
+      ]);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution)';
+  }
 }
 
 /// @nodoc
-abstract class $ButterflySettingsCopyWith<$Res> {
+abstract mixin class $ButterflySettingsCopyWith<$Res> {
   factory $ButterflySettingsCopyWith(
-          ButterflySettings value, $Res Function(ButterflySettings) then) =
-      _$ButterflySettingsCopyWithImpl<$Res, ButterflySettings>;
+          ButterflySettings value, $Res Function(ButterflySettings) _then) =
+      _$ButterflySettingsCopyWithImpl;
   @useResult
   $Res call(
       {ThemeMode theme,
@@ -438,14 +648,12 @@ abstract class $ButterflySettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
+class _$ButterflySettingsCopyWithImpl<$Res>
     implements $ButterflySettingsCopyWith<$Res> {
-  _$ButterflySettingsCopyWithImpl(this._value, this._then);
+  _$ButterflySettingsCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ButterflySettings _self;
+  final $Res Function(ButterflySettings) _then;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -502,204 +710,204 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? optionsPanelPosition = null,
     Object? renderResolution = null,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       theme: null == theme
-          ? _value.theme
+          ? _self.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
       density: null == density
-          ? _value.density
+          ? _self.density
           : density // ignore: cast_nullable_to_non_nullable
               as ThemeDensity,
       localeTag: null == localeTag
-          ? _value.localeTag
+          ? _self.localeTag
           : localeTag // ignore: cast_nullable_to_non_nullable
               as String,
       documentPath: null == documentPath
-          ? _value.documentPath
+          ? _self.documentPath
           : documentPath // ignore: cast_nullable_to_non_nullable
               as String,
       gestureSensitivity: null == gestureSensitivity
-          ? _value.gestureSensitivity
+          ? _self.gestureSensitivity
           : gestureSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       touchSensitivity: null == touchSensitivity
-          ? _value.touchSensitivity
+          ? _self.touchSensitivity
           : touchSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       selectSensitivity: null == selectSensitivity
-          ? _value.selectSensitivity
+          ? _self.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       scrollSensitivity: null == scrollSensitivity
-          ? _value.scrollSensitivity
+          ? _self.scrollSensitivity
           : scrollSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       penOnlyInput: null == penOnlyInput
-          ? _value.penOnlyInput
+          ? _self.penOnlyInput
           : penOnlyInput // ignore: cast_nullable_to_non_nullable
               as bool,
       inputGestures: null == inputGestures
-          ? _value.inputGestures
+          ? _self.inputGestures
           : inputGestures // ignore: cast_nullable_to_non_nullable
               as bool,
       design: null == design
-          ? _value.design
+          ? _self.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
       bannerVisibility: null == bannerVisibility
-          ? _value.bannerVisibility
+          ? _self.bannerVisibility
           : bannerVisibility // ignore: cast_nullable_to_non_nullable
               as BannerVisibility,
       history: null == history
-          ? _value.history
+          ? _self.history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
       navigatorEnabled: null == navigatorEnabled
-          ? _value.navigatorEnabled
+          ? _self.navigatorEnabled
           : navigatorEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       zoomEnabled: null == zoomEnabled
-          ? _value.zoomEnabled
+          ? _self.zoomEnabled
           : zoomEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       lastVersion: freezed == lastVersion
-          ? _value.lastVersion
+          ? _self.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
       connections: null == connections
-          ? _value.connections
+          ? _self.connections
           : connections // ignore: cast_nullable_to_non_nullable
               as List<ExternalStorage>,
       defaultRemote: null == defaultRemote
-          ? _value.defaultRemote
+          ? _self.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
               as String,
       nativeTitleBar: null == nativeTitleBar
-          ? _value.nativeTitleBar
+          ? _self.nativeTitleBar
           : nativeTitleBar // ignore: cast_nullable_to_non_nullable
               as bool,
       startInFullScreen: null == startInFullScreen
-          ? _value.startInFullScreen
+          ? _self.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
       navigationRail: null == navigationRail
-          ? _value.navigationRail
+          ? _self.navigationRail
           : navigationRail // ignore: cast_nullable_to_non_nullable
               as bool,
       syncMode: null == syncMode
-          ? _value.syncMode
+          ? _self.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
               as SyncMode,
       inputConfiguration: null == inputConfiguration
-          ? _value.inputConfiguration
+          ? _self.inputConfiguration
           : inputConfiguration // ignore: cast_nullable_to_non_nullable
               as InputConfiguration,
       fallbackPack: null == fallbackPack
-          ? _value.fallbackPack
+          ? _self.fallbackPack
           : fallbackPack // ignore: cast_nullable_to_non_nullable
               as String,
       starred: null == starred
-          ? _value.starred
+          ? _self.starred
           : starred // ignore: cast_nullable_to_non_nullable
               as List<String>,
       defaultTemplate: null == defaultTemplate
-          ? _value.defaultTemplate
+          ? _self.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
       navigatorPage: null == navigatorPage
-          ? _value.navigatorPage
+          ? _self.navigatorPage
           : navigatorPage // ignore: cast_nullable_to_non_nullable
               as NavigatorPage,
       navigatorPosition: null == navigatorPosition
-          ? _value.navigatorPosition
+          ? _self.navigatorPosition
           : navigatorPosition // ignore: cast_nullable_to_non_nullable
               as NavigatorPosition,
       toolbarPosition: null == toolbarPosition
-          ? _value.toolbarPosition
+          ? _self.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
               as ToolbarPosition,
       toolbarSize: null == toolbarSize
-          ? _value.toolbarSize
+          ? _self.toolbarSize
           : toolbarSize // ignore: cast_nullable_to_non_nullable
               as ToolbarSize,
       sortBy: null == sortBy
-          ? _value.sortBy
+          ? _self.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
               as SortBy,
       sortOrder: null == sortOrder
-          ? _value.sortOrder
+          ? _self.sortOrder
           : sortOrder // ignore: cast_nullable_to_non_nullable
               as SortOrder,
       imageScale: null == imageScale
-          ? _value.imageScale
+          ? _self.imageScale
           : imageScale // ignore: cast_nullable_to_non_nullable
               as double,
       pdfQuality: null == pdfQuality
-          ? _value.pdfQuality
+          ? _self.pdfQuality
           : pdfQuality // ignore: cast_nullable_to_non_nullable
               as double,
       platformTheme: null == platformTheme
-          ? _value.platformTheme
+          ? _self.platformTheme
           : platformTheme // ignore: cast_nullable_to_non_nullable
               as PlatformTheme,
       recentColors: null == recentColors
-          ? _value.recentColors
+          ? _self.recentColors
           : recentColors // ignore: cast_nullable_to_non_nullable
               as List<SRGBColor>,
       flags: null == flags
-          ? _value.flags
+          ? _self.flags
           : flags // ignore: cast_nullable_to_non_nullable
               as List<String>,
       spreadPages: null == spreadPages
-          ? _value.spreadPages
+          ? _self.spreadPages
           : spreadPages // ignore: cast_nullable_to_non_nullable
               as bool,
       highContrast: null == highContrast
-          ? _value.highContrast
+          ? _self.highContrast
           : highContrast // ignore: cast_nullable_to_non_nullable
               as bool,
       gridView: null == gridView
-          ? _value.gridView
+          ? _self.gridView
           : gridView // ignore: cast_nullable_to_non_nullable
               as bool,
       autosave: null == autosave
-          ? _value.autosave
+          ? _self.autosave
           : autosave // ignore: cast_nullable_to_non_nullable
               as bool,
       showSaveButton: null == showSaveButton
-          ? _value.showSaveButton
+          ? _self.showSaveButton
           : showSaveButton // ignore: cast_nullable_to_non_nullable
               as bool,
       toolbarRows: null == toolbarRows
-          ? _value.toolbarRows
+          ? _self.toolbarRows
           : toolbarRows // ignore: cast_nullable_to_non_nullable
               as int,
       hideCursorWhileDrawing: null == hideCursorWhileDrawing
-          ? _value.hideCursorWhileDrawing
+          ? _self.hideCursorWhileDrawing
           : hideCursorWhileDrawing // ignore: cast_nullable_to_non_nullable
               as bool,
       utilities: null == utilities
-          ? _value.utilities
+          ? _self.utilities
           : utilities // ignore: cast_nullable_to_non_nullable
               as UtilitiesState,
       onStartup: null == onStartup
-          ? _value.onStartup
+          ? _self.onStartup
           : onStartup // ignore: cast_nullable_to_non_nullable
               as StartupBehavior,
       colorToolbarEnabled: null == colorToolbarEnabled
-          ? _value.colorToolbarEnabled
+          ? _self.colorToolbarEnabled
           : colorToolbarEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       optionsPanelPosition: null == optionsPanelPosition
-          ? _value.optionsPanelPosition
+          ? _self.optionsPanelPosition
           : optionsPanelPosition // ignore: cast_nullable_to_non_nullable
               as OptionsPanelPosition,
       renderResolution: null == renderResolution
-          ? _value.renderResolution
+          ? _self.renderResolution
           : renderResolution // ignore: cast_nullable_to_non_nullable
               as RenderResolution,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of ButterflySettings
@@ -707,9 +915,8 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   @override
   @pragma('vm:prefer-inline')
   $InputConfigurationCopyWith<$Res> get inputConfiguration {
-    return $InputConfigurationCopyWith<$Res>(_value.inputConfiguration,
-        (value) {
-      return _then(_value.copyWith(inputConfiguration: value) as $Val);
+    return $InputConfigurationCopyWith<$Res>(_self.inputConfiguration, (value) {
+      return _then(_self.copyWith(inputConfiguration: value));
     });
   }
 
@@ -718,346 +925,17 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   @override
   @pragma('vm:prefer-inline')
   $UtilitiesStateCopyWith<$Res> get utilities {
-    return $UtilitiesStateCopyWith<$Res>(_value.utilities, (value) {
-      return _then(_value.copyWith(utilities: value) as $Val);
+    return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
+      return _then(_self.copyWith(utilities: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$ButterflySettingsImplCopyWith<$Res>
-    implements $ButterflySettingsCopyWith<$Res> {
-  factory _$$ButterflySettingsImplCopyWith(_$ButterflySettingsImpl value,
-          $Res Function(_$ButterflySettingsImpl) then) =
-      __$$ButterflySettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {ThemeMode theme,
-      ThemeDensity density,
-      String localeTag,
-      String documentPath,
-      double gestureSensitivity,
-      double touchSensitivity,
-      double selectSensitivity,
-      double scrollSensitivity,
-      bool penOnlyInput,
-      bool inputGestures,
-      String design,
-      BannerVisibility bannerVisibility,
-      List<AssetLocation> history,
-      bool navigatorEnabled,
-      bool zoomEnabled,
-      String? lastVersion,
-      List<ExternalStorage> connections,
-      String defaultRemote,
-      bool nativeTitleBar,
-      bool startInFullScreen,
-      bool navigationRail,
-      SyncMode syncMode,
-      InputConfiguration inputConfiguration,
-      String fallbackPack,
-      List<String> starred,
-      String defaultTemplate,
-      NavigatorPage navigatorPage,
-      NavigatorPosition navigatorPosition,
-      ToolbarPosition toolbarPosition,
-      ToolbarSize toolbarSize,
-      SortBy sortBy,
-      SortOrder sortOrder,
-      double imageScale,
-      double pdfQuality,
-      PlatformTheme platformTheme,
-      List<SRGBColor> recentColors,
-      List<String> flags,
-      bool spreadPages,
-      bool highContrast,
-      bool gridView,
-      bool autosave,
-      bool showSaveButton,
-      int toolbarRows,
-      bool hideCursorWhileDrawing,
-      UtilitiesState utilities,
-      StartupBehavior onStartup,
-      bool colorToolbarEnabled,
-      OptionsPanelPosition optionsPanelPosition,
-      RenderResolution renderResolution});
 
-  @override
-  $InputConfigurationCopyWith<$Res> get inputConfiguration;
-  @override
-  $UtilitiesStateCopyWith<$Res> get utilities;
-}
-
-/// @nodoc
-class __$$ButterflySettingsImplCopyWithImpl<$Res>
-    extends _$ButterflySettingsCopyWithImpl<$Res, _$ButterflySettingsImpl>
-    implements _$$ButterflySettingsImplCopyWith<$Res> {
-  __$$ButterflySettingsImplCopyWithImpl(_$ButterflySettingsImpl _value,
-      $Res Function(_$ButterflySettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ButterflySettings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? theme = null,
-    Object? density = null,
-    Object? localeTag = null,
-    Object? documentPath = null,
-    Object? gestureSensitivity = null,
-    Object? touchSensitivity = null,
-    Object? selectSensitivity = null,
-    Object? scrollSensitivity = null,
-    Object? penOnlyInput = null,
-    Object? inputGestures = null,
-    Object? design = null,
-    Object? bannerVisibility = null,
-    Object? history = null,
-    Object? navigatorEnabled = null,
-    Object? zoomEnabled = null,
-    Object? lastVersion = freezed,
-    Object? connections = null,
-    Object? defaultRemote = null,
-    Object? nativeTitleBar = null,
-    Object? startInFullScreen = null,
-    Object? navigationRail = null,
-    Object? syncMode = null,
-    Object? inputConfiguration = null,
-    Object? fallbackPack = null,
-    Object? starred = null,
-    Object? defaultTemplate = null,
-    Object? navigatorPage = null,
-    Object? navigatorPosition = null,
-    Object? toolbarPosition = null,
-    Object? toolbarSize = null,
-    Object? sortBy = null,
-    Object? sortOrder = null,
-    Object? imageScale = null,
-    Object? pdfQuality = null,
-    Object? platformTheme = null,
-    Object? recentColors = null,
-    Object? flags = null,
-    Object? spreadPages = null,
-    Object? highContrast = null,
-    Object? gridView = null,
-    Object? autosave = null,
-    Object? showSaveButton = null,
-    Object? toolbarRows = null,
-    Object? hideCursorWhileDrawing = null,
-    Object? utilities = null,
-    Object? onStartup = null,
-    Object? colorToolbarEnabled = null,
-    Object? optionsPanelPosition = null,
-    Object? renderResolution = null,
-  }) {
-    return _then(_$ButterflySettingsImpl(
-      theme: null == theme
-          ? _value.theme
-          : theme // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
-      density: null == density
-          ? _value.density
-          : density // ignore: cast_nullable_to_non_nullable
-              as ThemeDensity,
-      localeTag: null == localeTag
-          ? _value.localeTag
-          : localeTag // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentPath: null == documentPath
-          ? _value.documentPath
-          : documentPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      gestureSensitivity: null == gestureSensitivity
-          ? _value.gestureSensitivity
-          : gestureSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      touchSensitivity: null == touchSensitivity
-          ? _value.touchSensitivity
-          : touchSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      selectSensitivity: null == selectSensitivity
-          ? _value.selectSensitivity
-          : selectSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      scrollSensitivity: null == scrollSensitivity
-          ? _value.scrollSensitivity
-          : scrollSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      penOnlyInput: null == penOnlyInput
-          ? _value.penOnlyInput
-          : penOnlyInput // ignore: cast_nullable_to_non_nullable
-              as bool,
-      inputGestures: null == inputGestures
-          ? _value.inputGestures
-          : inputGestures // ignore: cast_nullable_to_non_nullable
-              as bool,
-      design: null == design
-          ? _value.design
-          : design // ignore: cast_nullable_to_non_nullable
-              as String,
-      bannerVisibility: null == bannerVisibility
-          ? _value.bannerVisibility
-          : bannerVisibility // ignore: cast_nullable_to_non_nullable
-              as BannerVisibility,
-      history: null == history
-          ? _value._history
-          : history // ignore: cast_nullable_to_non_nullable
-              as List<AssetLocation>,
-      navigatorEnabled: null == navigatorEnabled
-          ? _value.navigatorEnabled
-          : navigatorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      zoomEnabled: null == zoomEnabled
-          ? _value.zoomEnabled
-          : zoomEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      lastVersion: freezed == lastVersion
-          ? _value.lastVersion
-          : lastVersion // ignore: cast_nullable_to_non_nullable
-              as String?,
-      connections: null == connections
-          ? _value._connections
-          : connections // ignore: cast_nullable_to_non_nullable
-              as List<ExternalStorage>,
-      defaultRemote: null == defaultRemote
-          ? _value.defaultRemote
-          : defaultRemote // ignore: cast_nullable_to_non_nullable
-              as String,
-      nativeTitleBar: null == nativeTitleBar
-          ? _value.nativeTitleBar
-          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
-              as bool,
-      startInFullScreen: null == startInFullScreen
-          ? _value.startInFullScreen
-          : startInFullScreen // ignore: cast_nullable_to_non_nullable
-              as bool,
-      navigationRail: null == navigationRail
-          ? _value.navigationRail
-          : navigationRail // ignore: cast_nullable_to_non_nullable
-              as bool,
-      syncMode: null == syncMode
-          ? _value.syncMode
-          : syncMode // ignore: cast_nullable_to_non_nullable
-              as SyncMode,
-      inputConfiguration: null == inputConfiguration
-          ? _value.inputConfiguration
-          : inputConfiguration // ignore: cast_nullable_to_non_nullable
-              as InputConfiguration,
-      fallbackPack: null == fallbackPack
-          ? _value.fallbackPack
-          : fallbackPack // ignore: cast_nullable_to_non_nullable
-              as String,
-      starred: null == starred
-          ? _value._starred
-          : starred // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      defaultTemplate: null == defaultTemplate
-          ? _value.defaultTemplate
-          : defaultTemplate // ignore: cast_nullable_to_non_nullable
-              as String,
-      navigatorPage: null == navigatorPage
-          ? _value.navigatorPage
-          : navigatorPage // ignore: cast_nullable_to_non_nullable
-              as NavigatorPage,
-      navigatorPosition: null == navigatorPosition
-          ? _value.navigatorPosition
-          : navigatorPosition // ignore: cast_nullable_to_non_nullable
-              as NavigatorPosition,
-      toolbarPosition: null == toolbarPosition
-          ? _value.toolbarPosition
-          : toolbarPosition // ignore: cast_nullable_to_non_nullable
-              as ToolbarPosition,
-      toolbarSize: null == toolbarSize
-          ? _value.toolbarSize
-          : toolbarSize // ignore: cast_nullable_to_non_nullable
-              as ToolbarSize,
-      sortBy: null == sortBy
-          ? _value.sortBy
-          : sortBy // ignore: cast_nullable_to_non_nullable
-              as SortBy,
-      sortOrder: null == sortOrder
-          ? _value.sortOrder
-          : sortOrder // ignore: cast_nullable_to_non_nullable
-              as SortOrder,
-      imageScale: null == imageScale
-          ? _value.imageScale
-          : imageScale // ignore: cast_nullable_to_non_nullable
-              as double,
-      pdfQuality: null == pdfQuality
-          ? _value.pdfQuality
-          : pdfQuality // ignore: cast_nullable_to_non_nullable
-              as double,
-      platformTheme: null == platformTheme
-          ? _value.platformTheme
-          : platformTheme // ignore: cast_nullable_to_non_nullable
-              as PlatformTheme,
-      recentColors: null == recentColors
-          ? _value._recentColors
-          : recentColors // ignore: cast_nullable_to_non_nullable
-              as List<SRGBColor>,
-      flags: null == flags
-          ? _value._flags
-          : flags // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      spreadPages: null == spreadPages
-          ? _value.spreadPages
-          : spreadPages // ignore: cast_nullable_to_non_nullable
-              as bool,
-      highContrast: null == highContrast
-          ? _value.highContrast
-          : highContrast // ignore: cast_nullable_to_non_nullable
-              as bool,
-      gridView: null == gridView
-          ? _value.gridView
-          : gridView // ignore: cast_nullable_to_non_nullable
-              as bool,
-      autosave: null == autosave
-          ? _value.autosave
-          : autosave // ignore: cast_nullable_to_non_nullable
-              as bool,
-      showSaveButton: null == showSaveButton
-          ? _value.showSaveButton
-          : showSaveButton // ignore: cast_nullable_to_non_nullable
-              as bool,
-      toolbarRows: null == toolbarRows
-          ? _value.toolbarRows
-          : toolbarRows // ignore: cast_nullable_to_non_nullable
-              as int,
-      hideCursorWhileDrawing: null == hideCursorWhileDrawing
-          ? _value.hideCursorWhileDrawing
-          : hideCursorWhileDrawing // ignore: cast_nullable_to_non_nullable
-              as bool,
-      utilities: null == utilities
-          ? _value.utilities
-          : utilities // ignore: cast_nullable_to_non_nullable
-              as UtilitiesState,
-      onStartup: null == onStartup
-          ? _value.onStartup
-          : onStartup // ignore: cast_nullable_to_non_nullable
-              as StartupBehavior,
-      colorToolbarEnabled: null == colorToolbarEnabled
-          ? _value.colorToolbarEnabled
-          : colorToolbarEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      optionsPanelPosition: null == optionsPanelPosition
-          ? _value.optionsPanelPosition
-          : optionsPanelPosition // ignore: cast_nullable_to_non_nullable
-              as OptionsPanelPosition,
-      renderResolution: null == renderResolution
-          ? _value.renderResolution
-          : renderResolution // ignore: cast_nullable_to_non_nullable
-              as RenderResolution,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ButterflySettingsImpl extends _ButterflySettings
+class _ButterflySettings extends ButterflySettings
     with DiagnosticableTreeMixin {
-  const _$ButterflySettingsImpl(
+  const _ButterflySettings(
       {this.theme = ThemeMode.system,
       this.density = ThemeDensity.system,
       this.localeTag = '',
@@ -1291,14 +1169,16 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @JsonKey()
   final RenderResolution renderResolution;
 
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ButterflySettingsCopyWith<_ButterflySettings> get copyWith =>
+      __$ButterflySettingsCopyWithImpl<_ButterflySettings>(this, _$identity);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ButterflySettings'))
       ..add(DiagnosticsProperty('theme', theme))
@@ -1357,7 +1237,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ButterflySettingsImpl &&
+            other is _ButterflySettings &&
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.density, density) || other.density == density) &&
             (identical(other.localeTag, localeTag) ||
@@ -1505,172 +1385,359 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         renderResolution
       ]);
 
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ButterflySettingsCopyWith<$Res>
+    implements $ButterflySettingsCopyWith<$Res> {
+  factory _$ButterflySettingsCopyWith(
+          _ButterflySettings value, $Res Function(_ButterflySettings) _then) =
+      __$ButterflySettingsCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {ThemeMode theme,
+      ThemeDensity density,
+      String localeTag,
+      String documentPath,
+      double gestureSensitivity,
+      double touchSensitivity,
+      double selectSensitivity,
+      double scrollSensitivity,
+      bool penOnlyInput,
+      bool inputGestures,
+      String design,
+      BannerVisibility bannerVisibility,
+      List<AssetLocation> history,
+      bool navigatorEnabled,
+      bool zoomEnabled,
+      String? lastVersion,
+      List<ExternalStorage> connections,
+      String defaultRemote,
+      bool nativeTitleBar,
+      bool startInFullScreen,
+      bool navigationRail,
+      SyncMode syncMode,
+      InputConfiguration inputConfiguration,
+      String fallbackPack,
+      List<String> starred,
+      String defaultTemplate,
+      NavigatorPage navigatorPage,
+      NavigatorPosition navigatorPosition,
+      ToolbarPosition toolbarPosition,
+      ToolbarSize toolbarSize,
+      SortBy sortBy,
+      SortOrder sortOrder,
+      double imageScale,
+      double pdfQuality,
+      PlatformTheme platformTheme,
+      List<SRGBColor> recentColors,
+      List<String> flags,
+      bool spreadPages,
+      bool highContrast,
+      bool gridView,
+      bool autosave,
+      bool showSaveButton,
+      int toolbarRows,
+      bool hideCursorWhileDrawing,
+      UtilitiesState utilities,
+      StartupBehavior onStartup,
+      bool colorToolbarEnabled,
+      OptionsPanelPosition optionsPanelPosition,
+      RenderResolution renderResolution});
+
+  @override
+  $InputConfigurationCopyWith<$Res> get inputConfiguration;
+  @override
+  $UtilitiesStateCopyWith<$Res> get utilities;
+}
+
+/// @nodoc
+class __$ButterflySettingsCopyWithImpl<$Res>
+    implements _$ButterflySettingsCopyWith<$Res> {
+  __$ButterflySettingsCopyWithImpl(this._self, this._then);
+
+  final _ButterflySettings _self;
+  final $Res Function(_ButterflySettings) _then;
+
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
-      __$$ButterflySettingsImplCopyWithImpl<_$ButterflySettingsImpl>(
-          this, _$identity);
-}
-
-abstract class _ButterflySettings extends ButterflySettings {
-  const factory _ButterflySettings(
-      {final ThemeMode theme,
-      final ThemeDensity density,
-      final String localeTag,
-      final String documentPath,
-      final double gestureSensitivity,
-      final double touchSensitivity,
-      final double selectSensitivity,
-      final double scrollSensitivity,
-      final bool penOnlyInput,
-      final bool inputGestures,
-      final String design,
-      final BannerVisibility bannerVisibility,
-      final List<AssetLocation> history,
-      final bool navigatorEnabled,
-      final bool zoomEnabled,
-      final String? lastVersion,
-      final List<ExternalStorage> connections,
-      final String defaultRemote,
-      final bool nativeTitleBar,
-      final bool startInFullScreen,
-      final bool navigationRail,
-      final SyncMode syncMode,
-      final InputConfiguration inputConfiguration,
-      final String fallbackPack,
-      final List<String> starred,
-      final String defaultTemplate,
-      final NavigatorPage navigatorPage,
-      final NavigatorPosition navigatorPosition,
-      final ToolbarPosition toolbarPosition,
-      final ToolbarSize toolbarSize,
-      final SortBy sortBy,
-      final SortOrder sortOrder,
-      final double imageScale,
-      final double pdfQuality,
-      final PlatformTheme platformTheme,
-      final List<SRGBColor> recentColors,
-      final List<String> flags,
-      final bool spreadPages,
-      final bool highContrast,
-      final bool gridView,
-      final bool autosave,
-      final bool showSaveButton,
-      final int toolbarRows,
-      final bool hideCursorWhileDrawing,
-      final UtilitiesState utilities,
-      final StartupBehavior onStartup,
-      final bool colorToolbarEnabled,
-      final OptionsPanelPosition optionsPanelPosition,
-      final RenderResolution renderResolution}) = _$ButterflySettingsImpl;
-  const _ButterflySettings._() : super._();
-
-  @override
-  ThemeMode get theme;
-  @override
-  ThemeDensity get density;
-  @override
-  String get localeTag;
-  @override
-  String get documentPath;
-  @override
-  double get gestureSensitivity;
-  @override
-  double get touchSensitivity;
-  @override
-  double get selectSensitivity;
-  @override
-  double get scrollSensitivity;
-  @override
-  bool get penOnlyInput;
-  @override
-  bool get inputGestures;
-  @override
-  String get design;
-  @override
-  BannerVisibility get bannerVisibility;
-  @override
-  List<AssetLocation> get history;
-  @override
-  bool get navigatorEnabled;
-  @override
-  bool get zoomEnabled;
-  @override
-  String? get lastVersion;
-  @override
-  List<ExternalStorage> get connections;
-  @override
-  String get defaultRemote;
-  @override
-  bool get nativeTitleBar;
-  @override
-  bool get startInFullScreen;
-  @override
-  bool get navigationRail;
-  @override
-  SyncMode get syncMode;
-  @override
-  InputConfiguration get inputConfiguration;
-  @override
-  String get fallbackPack;
-  @override
-  List<String> get starred;
-  @override
-  String get defaultTemplate;
-  @override
-  NavigatorPage get navigatorPage;
-  @override
-  NavigatorPosition get navigatorPosition;
-  @override
-  ToolbarPosition get toolbarPosition;
-  @override
-  ToolbarSize get toolbarSize;
-  @override
-  SortBy get sortBy;
-  @override
-  SortOrder get sortOrder;
-  @override
-  double get imageScale;
-  @override
-  double get pdfQuality;
-  @override
-  PlatformTheme get platformTheme;
-  @override
-  List<SRGBColor> get recentColors;
-  @override
-  List<String> get flags;
-  @override
-  bool get spreadPages;
-  @override
-  bool get highContrast;
-  @override
-  bool get gridView;
-  @override
-  bool get autosave;
-  @override
-  bool get showSaveButton;
-  @override
-  int get toolbarRows;
-  @override
-  bool get hideCursorWhileDrawing;
-  @override
-  UtilitiesState get utilities;
-  @override
-  StartupBehavior get onStartup;
-  @override
-  bool get colorToolbarEnabled;
-  @override
-  OptionsPanelPosition get optionsPanelPosition;
-  @override
-  RenderResolution get renderResolution;
+  $Res call({
+    Object? theme = null,
+    Object? density = null,
+    Object? localeTag = null,
+    Object? documentPath = null,
+    Object? gestureSensitivity = null,
+    Object? touchSensitivity = null,
+    Object? selectSensitivity = null,
+    Object? scrollSensitivity = null,
+    Object? penOnlyInput = null,
+    Object? inputGestures = null,
+    Object? design = null,
+    Object? bannerVisibility = null,
+    Object? history = null,
+    Object? navigatorEnabled = null,
+    Object? zoomEnabled = null,
+    Object? lastVersion = freezed,
+    Object? connections = null,
+    Object? defaultRemote = null,
+    Object? nativeTitleBar = null,
+    Object? startInFullScreen = null,
+    Object? navigationRail = null,
+    Object? syncMode = null,
+    Object? inputConfiguration = null,
+    Object? fallbackPack = null,
+    Object? starred = null,
+    Object? defaultTemplate = null,
+    Object? navigatorPage = null,
+    Object? navigatorPosition = null,
+    Object? toolbarPosition = null,
+    Object? toolbarSize = null,
+    Object? sortBy = null,
+    Object? sortOrder = null,
+    Object? imageScale = null,
+    Object? pdfQuality = null,
+    Object? platformTheme = null,
+    Object? recentColors = null,
+    Object? flags = null,
+    Object? spreadPages = null,
+    Object? highContrast = null,
+    Object? gridView = null,
+    Object? autosave = null,
+    Object? showSaveButton = null,
+    Object? toolbarRows = null,
+    Object? hideCursorWhileDrawing = null,
+    Object? utilities = null,
+    Object? onStartup = null,
+    Object? colorToolbarEnabled = null,
+    Object? optionsPanelPosition = null,
+    Object? renderResolution = null,
+  }) {
+    return _then(_ButterflySettings(
+      theme: null == theme
+          ? _self.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
+      density: null == density
+          ? _self.density
+          : density // ignore: cast_nullable_to_non_nullable
+              as ThemeDensity,
+      localeTag: null == localeTag
+          ? _self.localeTag
+          : localeTag // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentPath: null == documentPath
+          ? _self.documentPath
+          : documentPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      gestureSensitivity: null == gestureSensitivity
+          ? _self.gestureSensitivity
+          : gestureSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      touchSensitivity: null == touchSensitivity
+          ? _self.touchSensitivity
+          : touchSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      selectSensitivity: null == selectSensitivity
+          ? _self.selectSensitivity
+          : selectSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      scrollSensitivity: null == scrollSensitivity
+          ? _self.scrollSensitivity
+          : scrollSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      penOnlyInput: null == penOnlyInput
+          ? _self.penOnlyInput
+          : penOnlyInput // ignore: cast_nullable_to_non_nullable
+              as bool,
+      inputGestures: null == inputGestures
+          ? _self.inputGestures
+          : inputGestures // ignore: cast_nullable_to_non_nullable
+              as bool,
+      design: null == design
+          ? _self.design
+          : design // ignore: cast_nullable_to_non_nullable
+              as String,
+      bannerVisibility: null == bannerVisibility
+          ? _self.bannerVisibility
+          : bannerVisibility // ignore: cast_nullable_to_non_nullable
+              as BannerVisibility,
+      history: null == history
+          ? _self._history
+          : history // ignore: cast_nullable_to_non_nullable
+              as List<AssetLocation>,
+      navigatorEnabled: null == navigatorEnabled
+          ? _self.navigatorEnabled
+          : navigatorEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      zoomEnabled: null == zoomEnabled
+          ? _self.zoomEnabled
+          : zoomEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lastVersion: freezed == lastVersion
+          ? _self.lastVersion
+          : lastVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      connections: null == connections
+          ? _self._connections
+          : connections // ignore: cast_nullable_to_non_nullable
+              as List<ExternalStorage>,
+      defaultRemote: null == defaultRemote
+          ? _self.defaultRemote
+          : defaultRemote // ignore: cast_nullable_to_non_nullable
+              as String,
+      nativeTitleBar: null == nativeTitleBar
+          ? _self.nativeTitleBar
+          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
+              as bool,
+      startInFullScreen: null == startInFullScreen
+          ? _self.startInFullScreen
+          : startInFullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      navigationRail: null == navigationRail
+          ? _self.navigationRail
+          : navigationRail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      syncMode: null == syncMode
+          ? _self.syncMode
+          : syncMode // ignore: cast_nullable_to_non_nullable
+              as SyncMode,
+      inputConfiguration: null == inputConfiguration
+          ? _self.inputConfiguration
+          : inputConfiguration // ignore: cast_nullable_to_non_nullable
+              as InputConfiguration,
+      fallbackPack: null == fallbackPack
+          ? _self.fallbackPack
+          : fallbackPack // ignore: cast_nullable_to_non_nullable
+              as String,
+      starred: null == starred
+          ? _self._starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      defaultTemplate: null == defaultTemplate
+          ? _self.defaultTemplate
+          : defaultTemplate // ignore: cast_nullable_to_non_nullable
+              as String,
+      navigatorPage: null == navigatorPage
+          ? _self.navigatorPage
+          : navigatorPage // ignore: cast_nullable_to_non_nullable
+              as NavigatorPage,
+      navigatorPosition: null == navigatorPosition
+          ? _self.navigatorPosition
+          : navigatorPosition // ignore: cast_nullable_to_non_nullable
+              as NavigatorPosition,
+      toolbarPosition: null == toolbarPosition
+          ? _self.toolbarPosition
+          : toolbarPosition // ignore: cast_nullable_to_non_nullable
+              as ToolbarPosition,
+      toolbarSize: null == toolbarSize
+          ? _self.toolbarSize
+          : toolbarSize // ignore: cast_nullable_to_non_nullable
+              as ToolbarSize,
+      sortBy: null == sortBy
+          ? _self.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      sortOrder: null == sortOrder
+          ? _self.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
+      imageScale: null == imageScale
+          ? _self.imageScale
+          : imageScale // ignore: cast_nullable_to_non_nullable
+              as double,
+      pdfQuality: null == pdfQuality
+          ? _self.pdfQuality
+          : pdfQuality // ignore: cast_nullable_to_non_nullable
+              as double,
+      platformTheme: null == platformTheme
+          ? _self.platformTheme
+          : platformTheme // ignore: cast_nullable_to_non_nullable
+              as PlatformTheme,
+      recentColors: null == recentColors
+          ? _self._recentColors
+          : recentColors // ignore: cast_nullable_to_non_nullable
+              as List<SRGBColor>,
+      flags: null == flags
+          ? _self._flags
+          : flags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      spreadPages: null == spreadPages
+          ? _self.spreadPages
+          : spreadPages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      highContrast: null == highContrast
+          ? _self.highContrast
+          : highContrast // ignore: cast_nullable_to_non_nullable
+              as bool,
+      gridView: null == gridView
+          ? _self.gridView
+          : gridView // ignore: cast_nullable_to_non_nullable
+              as bool,
+      autosave: null == autosave
+          ? _self.autosave
+          : autosave // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showSaveButton: null == showSaveButton
+          ? _self.showSaveButton
+          : showSaveButton // ignore: cast_nullable_to_non_nullable
+              as bool,
+      toolbarRows: null == toolbarRows
+          ? _self.toolbarRows
+          : toolbarRows // ignore: cast_nullable_to_non_nullable
+              as int,
+      hideCursorWhileDrawing: null == hideCursorWhileDrawing
+          ? _self.hideCursorWhileDrawing
+          : hideCursorWhileDrawing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      utilities: null == utilities
+          ? _self.utilities
+          : utilities // ignore: cast_nullable_to_non_nullable
+              as UtilitiesState,
+      onStartup: null == onStartup
+          ? _self.onStartup
+          : onStartup // ignore: cast_nullable_to_non_nullable
+              as StartupBehavior,
+      colorToolbarEnabled: null == colorToolbarEnabled
+          ? _self.colorToolbarEnabled
+          : colorToolbarEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      optionsPanelPosition: null == optionsPanelPosition
+          ? _self.optionsPanelPosition
+          : optionsPanelPosition // ignore: cast_nullable_to_non_nullable
+              as OptionsPanelPosition,
+      renderResolution: null == renderResolution
+          ? _self.renderResolution
+          : renderResolution // ignore: cast_nullable_to_non_nullable
+              as RenderResolution,
+    ));
+  }
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $InputConfigurationCopyWith<$Res> get inputConfiguration {
+    return $InputConfigurationCopyWith<$Res>(_self.inputConfiguration, (value) {
+      return _then(_self.copyWith(inputConfiguration: value));
+    });
+  }
+
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UtilitiesStateCopyWith<$Res> get utilities {
+    return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
+      return _then(_self.copyWith(utilities: value));
+    });
+  }
 }
+
+// dart format on

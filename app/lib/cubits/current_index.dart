@@ -40,7 +40,7 @@ enum RendererState { visible, temporary, hidden }
 enum TemporaryState { allowClick, removeAfterClick, removeAfterRelease }
 
 @Freezed(equal: false)
-class CurrentIndex with _$CurrentIndex {
+sealed class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
 
   const factory CurrentIndex(

@@ -6,8 +6,7 @@ part of 'background.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TextureBackgroundImpl _$$TextureBackgroundImplFromJson(Map json) =>
-    _$TextureBackgroundImpl(
+TextureBackground _$TextureBackgroundFromJson(Map json) => TextureBackground(
       texture: SurfaceTexture.fromJson(
           Map<String, dynamic>.from(json['texture'] as Map)),
       extra: (json['extra'] as Map?)?.map(
@@ -17,16 +16,14 @@ _$TextureBackgroundImpl _$$TextureBackgroundImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$TextureBackgroundImplToJson(
-        _$TextureBackgroundImpl instance) =>
+Map<String, dynamic> _$TextureBackgroundToJson(TextureBackground instance) =>
     <String, dynamic>{
       'texture': instance.texture.toJson(),
       'extra': instance.extra,
       'type': instance.$type,
     };
 
-_$ImageBackgroundImpl _$$ImageBackgroundImplFromJson(Map json) =>
-    _$ImageBackgroundImpl(
+ImageBackground _$ImageBackgroundFromJson(Map json) => ImageBackground(
       source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
@@ -39,8 +36,7 @@ _$ImageBackgroundImpl _$$ImageBackgroundImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ImageBackgroundImplToJson(
-        _$ImageBackgroundImpl instance) =>
+Map<String, dynamic> _$ImageBackgroundToJson(ImageBackground instance) =>
     <String, dynamic>{
       'source': instance.source,
       'width': instance.width,
@@ -51,8 +47,7 @@ Map<String, dynamic> _$$ImageBackgroundImplToJson(
       'type': instance.$type,
     };
 
-_$SvgBackgroundImpl _$$SvgBackgroundImplFromJson(Map json) =>
-    _$SvgBackgroundImpl(
+SvgBackground _$SvgBackgroundFromJson(Map json) => SvgBackground(
       source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
@@ -65,7 +60,7 @@ _$SvgBackgroundImpl _$$SvgBackgroundImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SvgBackgroundImplToJson(_$SvgBackgroundImpl instance) =>
+Map<String, dynamic> _$SvgBackgroundToJson(SvgBackground instance) =>
     <String, dynamic>{
       'source': instance.source,
       'width': instance.width,

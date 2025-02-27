@@ -59,7 +59,7 @@ final class ClientNetworkState extends NetworkState {
 }
 
 @freezed
-class NetworkingUser with _$NetworkingUser {
+sealed class NetworkingUser with _$NetworkingUser {
   const factory NetworkingUser({
     @DoublePointJsonConverter() Point<double>? cursor,
     List<PadElement>? foreground,

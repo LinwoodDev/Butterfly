@@ -17,7 +17,7 @@ Map<String, dynamic> _assetLocationToJson(AssetLocation? location) =>
     location?.toMap() ?? {};
 
 @freezed
-class DocumentEvent extends ReplayEvent with _$DocumentEvent {
+sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
 
   const factory DocumentEvent.pageAdded([int? index, DocumentPage? page]) =
