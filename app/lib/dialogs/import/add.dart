@@ -48,7 +48,7 @@ class _AddDialogState extends State<AddDialog> {
           return ResponsiveDialog(
             constraints: const BoxConstraints(
               maxWidth: 1000,
-              maxHeight: 800,
+              maxHeight: 840,
             ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -169,7 +169,6 @@ class _AddDialogState extends State<AddDialog> {
           tool.getLocalizedName(context),
           textAlign: TextAlign.center,
         ),
-        size: 120,
         subtitle: caption.isEmpty ? null : Text(caption),
         icon: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -257,7 +256,6 @@ class _AddDialogState extends State<AddDialog> {
                       children: imports
                           .map(
                             (e) => BoxTile(
-                              size: 120,
                               title: Text(
                                 e.getLocalizedName(context),
                                 textAlign: TextAlign.center,

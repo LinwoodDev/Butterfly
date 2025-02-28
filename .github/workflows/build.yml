@@ -194,6 +194,7 @@ jobs:
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
+          rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
           flutter clean
           flutter doctor -v
           flutter pub get

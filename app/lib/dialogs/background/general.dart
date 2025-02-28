@@ -31,7 +31,6 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   onTap: () {
                     onChanged(Background.texture(texture: created));
                   },
-                  size: 120,
                 );
               }).toList()),
         ),
@@ -63,7 +62,6 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   height: height,
                 ));
               },
-              size: 120,
             ),
             BoxTile(
               title: Text(AppLocalizations.of(context).svg),
@@ -90,7 +88,6 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   height: height,
                 ));
               },
-              size: 120,
             ),
           ],
         ),
