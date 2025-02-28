@@ -11,22 +11,22 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.2.0",
-    "@astrojs/starlight": "^0.32.0",
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/starlight": "^0.32.2",
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "astro": "^5.3.0",
+    "astro": "^5.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.5.1",
   "devDependencies": {
     "@vite-pwa/astro": "^0.5.0",
-    "sass": "^1.85.0",
+    "sass": "^1.85.1",
     "sharp": "^0.33.5",
     "vite-plugin-pwa": "^0.21.1",
     "workbox-window": "^7.3.0"

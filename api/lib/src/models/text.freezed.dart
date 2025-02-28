@@ -1097,10 +1097,6 @@ class __$IndexedModelCopyWithImpl<T, $Res>
   }
 }
 
-TextParagraph _$TextParagraphFromJson(Map<String, dynamic> json) {
-  return _ParagraphProperty.fromJson(json);
-}
-
 /// @nodoc
 mixin _$TextParagraph {
   ParagraphProperty get property;
@@ -1190,14 +1186,14 @@ class _$TextParagraphCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _ParagraphProperty extends TextParagraph {
-  const _ParagraphProperty(
+class _TextParagraph extends TextParagraph {
+  const _TextParagraph(
       {this.property = const ParagraphProperty.undefined(),
       final List<TextSpan> textSpans = const []})
       : _textSpans = textSpans,
         super._();
-  factory _ParagraphProperty.fromJson(Map<String, dynamic> json) =>
-      _$ParagraphPropertyFromJson(json);
+  factory _TextParagraph.fromJson(Map<String, dynamic> json) =>
+      _$TextParagraphFromJson(json);
 
   @override
   @JsonKey()
@@ -1216,12 +1212,12 @@ class _ParagraphProperty extends TextParagraph {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$ParagraphPropertyCopyWith<_ParagraphProperty> get copyWith =>
-      __$ParagraphPropertyCopyWithImpl<_ParagraphProperty>(this, _$identity);
+  _$TextParagraphCopyWith<_TextParagraph> get copyWith =>
+      __$TextParagraphCopyWithImpl<_TextParagraph>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$ParagraphPropertyToJson(
+    return _$TextParagraphToJson(
       this,
     );
   }
@@ -1230,7 +1226,7 @@ class _ParagraphProperty extends TextParagraph {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ParagraphProperty &&
+            other is _TextParagraph &&
             (identical(other.property, property) ||
                 other.property == property) &&
             const DeepCollectionEquality()
@@ -1244,16 +1240,16 @@ class _ParagraphProperty extends TextParagraph {
 
   @override
   String toString() {
-    return 'TextParagraph.text(property: $property, textSpans: $textSpans)';
+    return 'TextParagraph(property: $property, textSpans: $textSpans)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$ParagraphPropertyCopyWith<$Res>
+abstract mixin class _$TextParagraphCopyWith<$Res>
     implements $TextParagraphCopyWith<$Res> {
-  factory _$ParagraphPropertyCopyWith(
-          _ParagraphProperty value, $Res Function(_ParagraphProperty) _then) =
-      __$ParagraphPropertyCopyWithImpl;
+  factory _$TextParagraphCopyWith(
+          _TextParagraph value, $Res Function(_TextParagraph) _then) =
+      __$TextParagraphCopyWithImpl;
   @override
   @useResult
   $Res call({ParagraphProperty property, List<TextSpan> textSpans});
@@ -1263,12 +1259,12 @@ abstract mixin class _$ParagraphPropertyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$ParagraphPropertyCopyWithImpl<$Res>
-    implements _$ParagraphPropertyCopyWith<$Res> {
-  __$ParagraphPropertyCopyWithImpl(this._self, this._then);
+class __$TextParagraphCopyWithImpl<$Res>
+    implements _$TextParagraphCopyWith<$Res> {
+  __$TextParagraphCopyWithImpl(this._self, this._then);
 
-  final _ParagraphProperty _self;
-  final $Res Function(_ParagraphProperty) _then;
+  final _TextParagraph _self;
+  final $Res Function(_TextParagraph) _then;
 
   /// Create a copy of TextParagraph
   /// with the given fields replaced by the non-null parameter values.
@@ -1278,7 +1274,7 @@ class __$ParagraphPropertyCopyWithImpl<$Res>
     Object? property = null,
     Object? textSpans = null,
   }) {
-    return _then(_ParagraphProperty(
+    return _then(_TextParagraph(
       property: null == property
           ? _self.property
           : property // ignore: cast_nullable_to_non_nullable

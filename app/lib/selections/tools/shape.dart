@@ -11,6 +11,16 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         context, selected.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
+      CheckboxListTile(
+        value: tool.drawFromCenter,
+        title: Text(AppLocalizations.of(context).center),
+        onChanged: (value) => update(
+            context,
+            selected
+                .map((e) =>
+                    e.copyWith(drawFromCenter: value ?? tool.drawFromCenter))
+                .toList()),
+      ),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
           value: tool.constrainedWidth,
@@ -112,7 +122,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
           shape: property.shape,
           onChanged: (shape) =>
               updateProperty(property.copyWith(shape: shape))),
-      const SizedBox(height: 15),
+      const SizedBox(height: 16),
       CheckboxListTile(
           value: tool.zoomDependent,
           title: Text(AppLocalizations.of(context).zoomDependent),

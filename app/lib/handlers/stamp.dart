@@ -15,7 +15,8 @@ class StampHandler extends PastingHandler<StampTool> {
         ...super.createForegrounds(
             currentIndexCubit, document, page, info, currentArea),
         if (!currentlyPasting)
-          ...transformElements(Rect.fromPoints(_position, _position), '')
+          ...transformElements(
+                  Rect.fromPoints(_position, _position), '', currentIndexCubit)
               .map(Renderer.fromInstance),
       ];
 
@@ -75,7 +76,8 @@ class StampHandler extends PastingHandler<StampTool> {
   MouseCursor get cursor => SystemMouseCursors.click;
 
   @override
-  List<PadElement> transformElements(Rect rect, String collection) {
+  List<PadElement> transformElements(
+      Rect rect, String collection, CurrentIndexCubit cubit) {
     var scaleX = 1.0, scaleY = 1.0;
     if (!rect.isEmpty && !this.rect.isEmpty) {
       scaleX = rect.width / this.rect.width;

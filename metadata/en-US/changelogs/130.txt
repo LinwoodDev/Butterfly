@@ -9,6 +9,8 @@
 * Add subtitle to property view for tools
 * Add warning to experiments settings page and allow using them on stable
 * Grid and ruler will now influence shape, stamp, area and texture tool
+* Add setting in shape tool to draw from center ([#800](https://github.com/LinwoodDev/Butterfly/issues/800))
+* Improve ctrl and shift functionality on pasting tools
 * Improve ruler rotation handling
 * Improve selection change animation
 * Improve responsiveness of file list view
@@ -43,6 +45,7 @@
 * Fix hover in pattern texture view
 * Fix rectangle selection preview wrongly having a rotation handle line
 * Fix debian arm build ([#801](https://github.com/LinwoodDev/Butterfly/issues/801))
+* Fix zoom dependent not working on shape tool
 * Remove http sources
 * Upgrade to flutter 3.29
 

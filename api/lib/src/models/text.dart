@@ -119,10 +119,10 @@ sealed class IndexedModel<T> with _$IndexedModel<T> {
 @freezed
 sealed class TextParagraph with _$TextParagraph {
   const TextParagraph._();
-  const factory TextParagraph.text({
+  const factory TextParagraph({
     @Default(ParagraphProperty.undefined()) ParagraphProperty property,
     @Default([]) List<TextSpan> textSpans,
-  }) = _ParagraphProperty;
+  }) = _TextParagraph;
 
   factory TextParagraph.fromJson(Map<String, dynamic> json) =>
       _$TextParagraphFromJson(json);

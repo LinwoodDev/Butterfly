@@ -57,7 +57,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   text.TextParagraph _convertToParagraph(
       Iterable<md.Node> node, text.TextStyleSheet? styleSheet) {
     final style = styleSheet?.getParagraphProperty('p');
-    return text.TextParagraph.text(
+    return text.TextParagraph(
       textSpans: context != null
           ? [
               text.TextSpan.text(

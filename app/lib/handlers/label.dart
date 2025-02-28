@@ -28,7 +28,7 @@ class LabelHandler extends Handler<LabelTool>
                   : TextElement(
                       position: position,
                       area: text.TextArea(
-                        paragraph: text.TextParagraph.text(
+                        paragraph: text.TextParagraph(
                           property: forced ??
                               const text.ParagraphProperty.undefined(),
                         ),
@@ -473,7 +473,7 @@ class LabelHandler extends Handler<LabelTool>
           );
           element = old.copyWith(area: area);
         } else {
-          final paragraph = text.TextParagraph.text(
+          final paragraph = text.TextParagraph(
             textSpans: [text.TextSpan.text(text: value)],
             property:
                 e.forcedProperty ?? const text.ParagraphProperty.undefined(),

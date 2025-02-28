@@ -1375,6 +1375,7 @@ class ShapeTool extends Tool {
       this.constrainedHeight = 0,
       this.constrainedAspectRatio = 0,
       this.property = const ShapeProperty(shape: RectangleShape()),
+      this.drawFromCenter = false,
       final String? $type})
       : $type = $type ?? 'shape',
         super._();
@@ -1397,6 +1398,8 @@ class ShapeTool extends Tool {
   final double constrainedAspectRatio;
   @JsonKey()
   final ShapeProperty property;
+  @JsonKey()
+  final bool drawFromCenter;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -1418,7 +1421,7 @@ class ShapeTool extends Tool {
 
   @override
   String toString() {
-    return 'Tool.shape(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
+    return 'Tool.shape(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property, drawFromCenter: $drawFromCenter)';
   }
 }
 
@@ -1435,7 +1438,8 @@ abstract mixin class $ShapeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       double constrainedWidth,
       double constrainedHeight,
       double constrainedAspectRatio,
-      ShapeProperty property});
+      ShapeProperty property,
+      bool drawFromCenter});
 }
 
 /// @nodoc
@@ -1457,6 +1461,7 @@ class _$ShapeToolCopyWithImpl<$Res> implements $ShapeToolCopyWith<$Res> {
     Object? constrainedHeight = null,
     Object? constrainedAspectRatio = null,
     Object? property = freezed,
+    Object? drawFromCenter = null,
   }) {
     return _then(ShapeTool(
       name: null == name
@@ -1487,6 +1492,10 @@ class _$ShapeToolCopyWithImpl<$Res> implements $ShapeToolCopyWith<$Res> {
           ? _self.property
           : property // ignore: cast_nullable_to_non_nullable
               as ShapeProperty,
+      drawFromCenter: null == drawFromCenter
+          ? _self.drawFromCenter
+          : drawFromCenter // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

@@ -52,7 +52,7 @@ String _exportColor(SRGBColor value) {
       case 'text':
         return TextElement(
           area: text.TextArea(
-              paragraph: text.TextParagraph.text(
+              paragraph: text.TextParagraph(
             textSpans: [
               text.TextSpan.text(
                 text: element.innerText,

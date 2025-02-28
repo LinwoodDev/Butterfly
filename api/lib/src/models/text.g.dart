@@ -171,7 +171,7 @@ Map<String, dynamic> _$TextSpanToJson(_TextSpan instance) => <String, dynamic>{
       'property': instance.property.toJson(),
     };
 
-_ParagraphProperty _$ParagraphPropertyFromJson(Map json) => _ParagraphProperty(
+_TextParagraph _$TextParagraphFromJson(Map json) => _TextParagraph(
       property: json['property'] == null
           ? const ParagraphProperty.undefined()
           : ParagraphProperty.fromJson(
@@ -183,7 +183,7 @@ _ParagraphProperty _$ParagraphPropertyFromJson(Map json) => _ParagraphProperty(
           const [],
     );
 
-Map<String, dynamic> _$ParagraphPropertyToJson(_ParagraphProperty instance) =>
+Map<String, dynamic> _$TextParagraphToJson(_TextParagraph instance) =>
     <String, dynamic>{
       'property': instance.property.toJson(),
       'textSpans': instance.textSpans.map((e) => e.toJson()).toList(),

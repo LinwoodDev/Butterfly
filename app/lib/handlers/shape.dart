@@ -4,7 +4,8 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   ShapeHandler(super.data);
 
   @override
-  List<PadElement> transformElements(Rect rect, String collection) {
+  List<PadElement> transformElements(
+      Rect rect, String collection, CurrentIndexCubit cubit) {
     if (rect.top == 0 &&
         rect.left == 0 &&
         rect.right == 0 &&
@@ -16,7 +17,10 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
       ShapeElement(
         firstPosition: rect.topLeft.toPoint(),
         secondPosition: rect.bottomRight.toPoint(),
-        property: data.property,
+        property: data.property.copyWith(
+          strokeWidth: data.property.strokeWidth /
+              (data.zoomDependent ? cubit.state.cameraViewport.scale : 1),
+        ),
         collection: collection,
       ),
     ];
@@ -24,13 +28,14 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
   @override
   bool get shouldNormalize => data.property.shape is! LineShape;
-
   @override
   double get constraintedAspectRatio => data.constrainedAspectRatio;
   @override
   double get constraintedHeight => data.constrainedHeight;
   @override
   double get constraintedWidth => data.constrainedWidth;
+  @override
+  bool get drawFromCenter => data.drawFromCenter;
 
   @override
   SRGBColor getColor() => data.property.color;

@@ -4,7 +4,8 @@ class TextureHandler extends PastingHandler<TextureTool> {
   TextureHandler(super.data);
 
   @override
-  List<PadElement> transformElements(Rect rect, String collection) {
+  List<PadElement> transformElements(
+      Rect rect, String collection, CurrentIndexCubit cubit) {
     if (rect.isEmpty) return [];
 
     return [

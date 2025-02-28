@@ -257,6 +257,7 @@ ShapeTool _$ShapeToolFromJson(Map json) => ShapeTool(
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
+      drawFromCenter: json['drawFromCenter'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -268,6 +269,7 @@ Map<String, dynamic> _$ShapeToolToJson(ShapeTool instance) => <String, dynamic>{
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
       'property': instance.property.toJson(),
+      'drawFromCenter': instance.drawFromCenter,
       'type': instance.$type,
     };
 

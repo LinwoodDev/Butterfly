@@ -144,6 +144,7 @@ sealed class Tool with _$Tool {
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
+    @Default(false) bool drawFromCenter,
   }) = ShapeTool;
 
   factory Tool.stamp({
