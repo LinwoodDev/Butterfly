@@ -650,5 +650,6 @@
   "positionDependent": "Placering afhængig",
   "flipHorizontal": "Vend vandret",
   "flipVertical": "Vend lodret",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
