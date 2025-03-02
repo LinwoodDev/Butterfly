@@ -650,5 +650,6 @@
   "positionDependent": "Position dependent",
   "flipHorizontal": "Flip horizontal",
   "flipVertical": "Flip vertical",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
