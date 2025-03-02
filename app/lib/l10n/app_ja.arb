@@ -650,5 +650,6 @@
   "positionDependent": "依存する位置",
   "flipHorizontal": "水平方向に反転",
   "flipVertical": "垂直方向に反転",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
