@@ -650,5 +650,6 @@
   "positionDependent": "Залежність від позиції",
   "flipHorizontal": "Віддзеркалити горизонтально",
   "flipVertical": "Віддзеркалити вертикально",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
