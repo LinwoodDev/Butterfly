@@ -650,5 +650,6 @@
   "positionDependent": "Asema riippuu",
   "flipHorizontal": "Käännä vaakasuora",
   "flipVertical": "Käännä pystysuuntainen",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
