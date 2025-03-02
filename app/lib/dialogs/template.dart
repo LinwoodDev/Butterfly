@@ -494,8 +494,8 @@ class _TemplateItem extends StatelessWidget {
         ),
         if (bloc != null)
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-            child: Text(AppLocalizations.of(context).delete),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.toolbox),
+            child: Text(AppLocalizations.of(context).overrideTools),
             onPressed: () async {
               _overrideTools(fileSystem, bloc!, [template]);
             },

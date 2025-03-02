@@ -49,6 +49,7 @@
 * Fix debian arm build ([#801](https://github.com/LinwoodDev/Butterfly/issues/801))
 * Fix zoom dependent not working on shape tool
 * Fix pressure if os wrongly gives 0 as input
+* Fix template override menu item wrongly labeled as delete
 * Remove http sources
 * Upgrade to flutter 3.29
 
