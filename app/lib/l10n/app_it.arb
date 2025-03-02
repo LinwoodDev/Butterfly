@@ -650,5 +650,6 @@
   "positionDependent": "Dipendente dalla posizione",
   "flipHorizontal": "Capovolgi orizzontale",
   "flipVertical": "Capovolgi verticale",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
