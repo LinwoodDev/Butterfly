@@ -650,5 +650,6 @@
   "positionDependent": "Dependiendo de posición",
   "flipHorizontal": "Voltear horizontal",
   "flipVertical": "Voltear vertical",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
