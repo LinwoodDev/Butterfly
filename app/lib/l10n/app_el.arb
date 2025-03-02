@@ -650,5 +650,6 @@
   "positionDependent": "Εξάρτηση από τη θέση",
   "flipHorizontal": "Οριζόντια αναστροφή",
   "flipVertical": "Κάθετη αναστροφή",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
