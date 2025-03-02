@@ -650,5 +650,6 @@
   "positionDependent": "موقع معتمد",
   "flipHorizontal": "قلب أفقي",
   "flipVertical": "قلب عمودي",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
