@@ -650,5 +650,6 @@
   "positionDependent": "Зависит от позиции",
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
