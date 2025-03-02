@@ -63,8 +63,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
       body: FutureBuilder(
         future: _currentVersion,
         builder: (context, snapshot) {
-          final currentVersion =
-              '$applicationVersionName ${snapshot.data ?? '?'}';
+          final currentVersion = snapshot.data ?? '?';
+          final currentVersionName = '$applicationVersionName $currentVersion';
           return ListView(
             children: [
               Card(
@@ -83,7 +83,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                         title: Text(
                           AppLocalizations.of(context).currentVersion,
                         ),
-                        subtitle: Text(currentVersion),
+                        subtitle: Text(currentVersionName),
                         onTap: () => saveToClipboard(context, currentVersion),
                       ),
                       if (!kIsWeb)

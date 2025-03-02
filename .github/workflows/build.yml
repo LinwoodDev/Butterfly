@@ -320,7 +320,9 @@ jobs:
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
           cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
       - name: ✅ Enable platforms
-        run: flutter config --enable-linux-desktop
+        run: |
+          rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
+          flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
           flutter clean
