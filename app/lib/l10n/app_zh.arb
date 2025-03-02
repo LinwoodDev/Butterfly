@@ -650,5 +650,6 @@
   "positionDependent": "位置依赖关系",
   "flipHorizontal": "水平翻转",
   "flipVertical": "垂直翻转",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
