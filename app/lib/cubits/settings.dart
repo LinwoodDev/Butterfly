@@ -236,6 +236,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(OptionsPanelPosition.top)
     OptionsPanelPosition optionsPanelPosition,
     @Default(RenderResolution.normal) RenderResolution renderResolution,
+    @Default(true) bool moveOnGesture,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -342,6 +343,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? RenderResolution.values
               .byName(prefs.getString('render_resolution')!)
           : RenderResolution.normal,
+      moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
     );
   }
 
@@ -413,6 +415,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('show_save_button', showSaveButton);
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
     await prefs.setString('render_resolution', renderResolution.name);
+    await prefs.setBool('move_on_gesture', moveOnGesture);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -734,8 +737,6 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetNativeTitleBar() => changeNativeTitleBar(false);
-
   Future<void> changeSyncMode(SyncMode syncMode) {
     emit(state.copyWith(syncMode: syncMode));
     return save();
@@ -815,22 +816,15 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetImageScale() => changeImageScale(0.5);
-
   Future<void> changePdfQuality(double value) {
     emit(state.copyWith(pdfQuality: value));
     return save();
   }
 
-  Future<void> resetPdfQuality() => changePdfQuality(2);
-
   Future<void> changePlatformTheme(PlatformTheme locale) {
     emit(state.copyWith(platformTheme: locale));
     return save();
   }
-
-  Future<void> resetPlatformTheme() =>
-      changePlatformTheme(PlatformTheme.system);
 
   Future<void> addRecentColors(SRGBColor color) async {
     final recentColors = state.recentColors.toList();
@@ -847,11 +841,6 @@ class SettingsCubit extends Cubit<ButterflySettings>
     final recentColors = state.recentColors.toList();
     recentColors.remove(color);
     emit(state.copyWith(recentColors: recentColors));
-    return save();
-  }
-
-  Future<void> resetRecentColors() {
-    emit(state.copyWith(recentColors: []));
     return save();
   }
 
@@ -879,21 +868,15 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetSpreadPages() => changeSpreadPages(true);
-
   Future<void> changeHighContrast(bool value) {
     emit(state.copyWith(highContrast: value));
     return save();
   }
 
-  Future<void> resetHighContrast() => changeHighContrast(false);
-
   Future<void> changeGridView(bool value) {
     emit(state.copyWith(gridView: value));
     return save();
   }
-
-  Future<void> resetGridView() => changeGridView(false);
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
 
@@ -903,30 +886,20 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetAutosave() => changeAutosave(true);
-
   Future<void> changeToolbarRows(int value) {
     emit(state.copyWith(toolbarRows: value));
     return save();
   }
-
-  Future<void> resetToolbarRows() => changeToolbarRows(1);
 
   Future<void> changeHideCursorWhileDrawing(bool value) {
     emit(state.copyWith(hideCursorWhileDrawing: value));
     return save();
   }
 
-  Future<void> resetHideCursorWhileDrawing() =>
-      changeHideCursorWhileDrawing(false);
-
   Future<void> changeNavigatorPosition(NavigatorPosition value) {
     emit(state.copyWith(navigatorPosition: value));
     return save();
   }
-
-  Future<void> resetNavigatorPosition() =>
-      changeNavigatorPosition(NavigatorPosition.left);
 
   Future<void> changeUtilities(UtilitiesState utilities) {
     emit(state.copyWith(utilities: utilities));
@@ -943,13 +916,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetColorToolbarEnabled() => changeColorToolbarEnabled(true);
-
   Future<void> changeRenderResolution(RenderResolution value) {
     emit(state.copyWith(renderResolution: value));
     return save();
   }
 
-  Future<void> resetRenderResolution() =>
-      changeRenderResolution(RenderResolution.normal);
+  Future<void> changeMoveOnGesture(bool value) {
+    emit(state.copyWith(moveOnGesture: value));
+    return save();
+  }
 }

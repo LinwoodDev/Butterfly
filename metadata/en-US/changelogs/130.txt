@@ -8,6 +8,7 @@
 * Add element count to layer list
 * Add subtitle to property view for tools
 * Add warning to experiments settings page and allow using them on stable
+* Add move on gesture setting
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Add setting in shape tool to draw from center ([#800](https://github.com/LinwoodDev/Butterfly/issues/800))
 * Improve ctrl and shift functionality on pasting tools

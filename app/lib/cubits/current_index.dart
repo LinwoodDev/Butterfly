@@ -80,7 +80,8 @@ sealed class CurrentIndex with _$CurrentIndex {
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
-      settingsCubit.state.inputGestures && pointers.length > 1;
+      (settingsCubit.state.inputGestures && pointers.length > 1) &&
+      settingsCubit.state.moveOnGesture;
 
   bool get absolute => saved == SaveState.absoluteRead;
 

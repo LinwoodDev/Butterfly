@@ -363,6 +363,7 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
   bool get colorToolbarEnabled;
   OptionsPanelPosition get optionsPanelPosition;
   RenderResolution get renderResolution;
+  bool get moveOnGesture;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -425,7 +426,8 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('onStartup', onStartup))
       ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
       ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))
-      ..add(DiagnosticsProperty('renderResolution', renderResolution));
+      ..add(DiagnosticsProperty('renderResolution', renderResolution))
+      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture));
   }
 
   @override
@@ -523,7 +525,9 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
             (identical(other.optionsPanelPosition, optionsPanelPosition) ||
                 other.optionsPanelPosition == optionsPanelPosition) &&
             (identical(other.renderResolution, renderResolution) ||
-                other.renderResolution == renderResolution));
+                other.renderResolution == renderResolution) &&
+            (identical(other.moveOnGesture, moveOnGesture) ||
+                other.moveOnGesture == moveOnGesture));
   }
 
   @override
@@ -577,12 +581,13 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
         onStartup,
         colorToolbarEnabled,
         optionsPanelPosition,
-        renderResolution
+        renderResolution,
+        moveOnGesture
       ]);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
   }
 }
 
@@ -641,7 +646,8 @@ abstract mixin class $ButterflySettingsCopyWith<$Res> {
       StartupBehavior onStartup,
       bool colorToolbarEnabled,
       OptionsPanelPosition optionsPanelPosition,
-      RenderResolution renderResolution});
+      RenderResolution renderResolution,
+      bool moveOnGesture});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -709,6 +715,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? colorToolbarEnabled = null,
     Object? optionsPanelPosition = null,
     Object? renderResolution = null,
+    Object? moveOnGesture = null,
   }) {
     return _then(_self.copyWith(
       theme: null == theme
@@ -907,6 +914,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _self.renderResolution
           : renderResolution // ignore: cast_nullable_to_non_nullable
               as RenderResolution,
+      moveOnGesture: null == moveOnGesture
+          ? _self.moveOnGesture
+          : moveOnGesture // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -984,7 +995,8 @@ class _ButterflySettings extends ButterflySettings
       this.onStartup = StartupBehavior.openHomeScreen,
       this.colorToolbarEnabled = true,
       this.optionsPanelPosition = OptionsPanelPosition.top,
-      this.renderResolution = RenderResolution.normal})
+      this.renderResolution = RenderResolution.normal,
+      this.moveOnGesture = true})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -1168,6 +1180,9 @@ class _ButterflySettings extends ButterflySettings
   @override
   @JsonKey()
   final RenderResolution renderResolution;
+  @override
+  @JsonKey()
+  final bool moveOnGesture;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -1230,7 +1245,8 @@ class _ButterflySettings extends ButterflySettings
       ..add(DiagnosticsProperty('onStartup', onStartup))
       ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
       ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))
-      ..add(DiagnosticsProperty('renderResolution', renderResolution));
+      ..add(DiagnosticsProperty('renderResolution', renderResolution))
+      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture));
   }
 
   @override
@@ -1328,7 +1344,9 @@ class _ButterflySettings extends ButterflySettings
             (identical(other.optionsPanelPosition, optionsPanelPosition) ||
                 other.optionsPanelPosition == optionsPanelPosition) &&
             (identical(other.renderResolution, renderResolution) ||
-                other.renderResolution == renderResolution));
+                other.renderResolution == renderResolution) &&
+            (identical(other.moveOnGesture, moveOnGesture) ||
+                other.moveOnGesture == moveOnGesture));
   }
 
   @override
@@ -1382,12 +1400,13 @@ class _ButterflySettings extends ButterflySettings
         onStartup,
         colorToolbarEnabled,
         optionsPanelPosition,
-        renderResolution
+        renderResolution,
+        moveOnGesture
       ]);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
   }
 }
 
@@ -1448,7 +1467,8 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res>
       StartupBehavior onStartup,
       bool colorToolbarEnabled,
       OptionsPanelPosition optionsPanelPosition,
-      RenderResolution renderResolution});
+      RenderResolution renderResolution,
+      bool moveOnGesture});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1518,6 +1538,7 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? colorToolbarEnabled = null,
     Object? optionsPanelPosition = null,
     Object? renderResolution = null,
+    Object? moveOnGesture = null,
   }) {
     return _then(_ButterflySettings(
       theme: null == theme
@@ -1716,6 +1737,10 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           ? _self.renderResolution
           : renderResolution // ignore: cast_nullable_to_non_nullable
               as RenderResolution,
+      moveOnGesture: null == moveOnGesture
+          ? _self.moveOnGesture
+          : moveOnGesture // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 

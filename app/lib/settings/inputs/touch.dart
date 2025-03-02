@@ -37,9 +37,23 @@ class TouchInputSettings extends StatelessWidget {
                             title: Text(
                               AppLocalizations.of(context).inputGestures,
                             ),
+                            secondary:
+                                const PhosphorIcon(PhosphorIconsLight.handTap),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeInputGestures(value ?? true),
+                          ),
+                          CheckboxListTile(
+                            value: state.moveOnGesture,
+                            title: Text(
+                              AppLocalizations.of(context).moveOnGesture,
+                            ),
+                            secondary: const PhosphorIcon(
+                              PhosphorIconsLight.arrowsOutCardinal,
+                            ),
+                            onChanged: (value) => context
+                                .read<SettingsCubit>()
+                                .changeMoveOnGesture(value ?? true),
                           ),
                         ],
                       ),
