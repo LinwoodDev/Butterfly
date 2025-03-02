@@ -50,7 +50,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _positionCheckTimer?.cancel();
     _positionCheckTimer = null;
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, _getPressure(event), event.kind,
+        context.viewportSize, getPressureOfEvent(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
@@ -124,16 +124,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     }
     elements.remove(event.pointer);
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, _getPressure(event), event.kind,
+        context.viewportSize, getPressureOfEvent(event), event.kind,
         shouldCreate: true);
   }
-
-// This function calculates the pressure of the pointer.
-  double _getPressure(PointerEvent event) =>
-      event.kind == PointerDeviceKind.stylus
-          ? (event.pressure - event.pressureMin) /
-              (event.pressureMax - event.pressureMin)
-          : 0.5;
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
@@ -151,7 +144,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     });
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, _getPressure(event), event.kind);
+        context.viewportSize, getPressureOfEvent(event), event.kind);
     points.add(event.localPosition);
   }
 

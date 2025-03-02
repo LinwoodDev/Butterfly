@@ -46,6 +46,7 @@
 * Fix rectangle selection preview wrongly having a rotation handle line
 * Fix debian arm build ([#801](https://github.com/LinwoodDev/Butterfly/issues/801))
 * Fix zoom dependent not working on shape tool
+* Fix pressure if os wrongly gives 0 as input
 * Remove http sources
 * Upgrade to flutter 3.29
 

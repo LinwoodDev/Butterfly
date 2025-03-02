@@ -97,7 +97,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, event.pressure, event.kind);
+        context.viewportSize, getPressureOfEvent(event), event.kind);
     _submit(context.getDocumentBloc(), [event.pointer]);
   }
 

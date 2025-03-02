@@ -276,6 +276,15 @@ abstract class Handler<T> {
   MouseCursor? get cursor => null;
 }
 
+double getPressureOfEvent(PointerEvent event) {
+  final pressure = event.kind == PointerDeviceKind.stylus
+      ? (event.pressure - event.pressureMin) /
+          (event.pressureMax - event.pressureMin)
+      : 0.5;
+  if (pressure <= 0) return 0.5;
+  return pressure;
+}
+
 extension ToolHandler<T extends Tool> on Handler<T> {
   void changeTool(DocumentBloc bloc, T newTool) {
     final state = bloc.state;
