@@ -30,6 +30,29 @@ class MouseInputSettings extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(32),
                       child: Column(
+                        children: [
+                          SwitchListTile(
+                            value: state.hideCursorWhileDrawing,
+                            title: Text(
+                              AppLocalizations.of(context)
+                                  .hideCursorWhileDrawing,
+                            ),
+                            secondary: const PhosphorIcon(
+                              PhosphorIconsLight.cursorClick,
+                            ),
+                            onChanged: (value) => context
+                                .read<SettingsCubit>()
+                                .changeHideCursorWhileDrawing(value),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin: const EdgeInsets.all(8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(

@@ -80,18 +80,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         ),
                         onTap: () => _openAutosaveModal(context),
                       ),
-                      SwitchListTile(
-                        value: state.hideCursorWhileDrawing,
-                        title: Text(
-                          AppLocalizations.of(context).hideCursorWhileDrawing,
-                        ),
-                        secondary: const PhosphorIcon(
-                          PhosphorIconsLight.cursorClick,
-                        ),
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeHideCursorWhileDrawing(value),
-                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context).onStartup),
                         subtitle: Text(
