@@ -650,5 +650,6 @@
   "positionDependent": "dependente da posição",
   "flipHorizontal": "Inverter horizontalmente",
   "flipVertical": "Inverter verticalmente",
-  "grayscale": "Grayscale"
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }
