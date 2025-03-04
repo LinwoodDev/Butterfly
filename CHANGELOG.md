@@ -2,6 +2,65 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-beta.2 (2025-03-04)
+
+* Add indicator for scale proportion ([#616](https://github.com/LinwoodDev/Butterfly/issues/616))
+* Add release name to home page header, appbar and version (currently Adonis Blue)
+* Add multiple background support ([#778](https://github.com/LinwoodDev/Butterfly/issues/778))
+* Add transparent option for pattern texture
+* Add area property view
+* Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
+* Add svg background support
+* Add element count to layer list
+* Add subtitle to property view for tools
+* Add warning to experiments settings page and allow using them on stable
+* Add move on gesture setting
+* Grid and ruler will now influence shape, stamp, area and texture tool
+* Add setting in shape tool to draw from center ([#800](https://github.com/LinwoodDev/Butterfly/issues/800))
+* Improve ctrl and shift functionality on pasting tools
+* Improve ruler rotation handling
+* Improve selection change animation
+* Improve responsiveness of file list view
+* Improve grid tool
+  * Add stroke width
+  * Add option for position and zoom dependent
+  * Fix snap if size is 0
+* Improve add dialog with filters
+* Improve hit calculations in rectangle and polygon mode ([#799](https://github.com/LinwoodDev/Butterfly/issues/799))
+  * Circle
+  * Lines
+  * Rectangle
+  * Triangles
+* Improve template dialog
+  * Add select all and deselect button
+  * Change create button to floating action button
+* Use random colors for cursors in collaboration mode
+* Change texture tool icon since it was the same as the grid tool
+* Add switch animation in navigator drawer
+* Move hide cursor while drawing to mouse settings
+* Fix unnecessary saving
+* Fix offset list tile
+* Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
+* Fix saving issues
+* Fix background assets not removed on delete
+* Fix asset svg exports
+* Fix pattern background position
+* Fix conversion to hex color on svg export and color pick
+* Fix some special-characters not working for file names
+* Fix file name validator missing on file rename
+* Fix flipped title and subtitle in search results
+* Fix windows portable archive
+* Fix hover in pattern texture view
+* Fix rectangle selection preview wrongly having a rotation handle line
+* Fix debian arm build ([#801](https://github.com/LinwoodDev/Butterfly/issues/801))
+* Fix zoom dependent not working on shape tool
+* Fix pressure if os wrongly gives 0 as input
+* Fix template override menu item wrongly labeled as delete
+* Remove http sources
+* Upgrade to flutter 3.29
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.2
+
 ## 2.3.0-beta.1 (2025-01-20)
 
 * Add search bar for components navigator page
