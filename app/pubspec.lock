@@ -325,10 +325,10 @@ packages:
     dependency: transitive
     description:
       name: device_info_plus
-      sha256: "610739247975c2d0de43482afa13ec1018f63c9fddf97ef3d8dc895faa3b4543"
+      sha256: "306b78788d1bb569edb7c55d622953c2414ca12445b41c9117963e03afc5c513"
       url: "https://pub.dev"
     source: hosted
-    version: "11.3.2"
+    version: "11.3.3"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -508,10 +508,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "1c2b787f99bdca1f3718543f81d38aa1b124817dfeb9fb196201bea85b6134bf"
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.26"
+    version: "2.0.27"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -659,10 +659,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "2fe625a67b693ae9b7d02bc8f3ff7c5176ab6be5c9e4ac2cd11924fbb54b5a6c"
+      sha256: "57b08ee7adb01931a05de88e74e6a7f6fd91e84368f00a79ee6b3fdd07e7ac43"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.2"
+    version: "2.6.4+1"
   image:
     dependency: "direct main"
     description:
@@ -1184,10 +1184,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: f90377eb5ef66ac5a42d7afd72f4f900c436a2528d6b67b318fb2b9f5484bbe5
+      sha256: "06b0274ca48ea92aedeab62303fc9ade3272684c842e9447be3e9b040f935559"
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.4"
+    version: "3.8.4+1"
   share_plus:
     dependency: "direct main"
     description:
