@@ -195,7 +195,15 @@
   "currentArea": "当前区域",
   "design": "设计",
   "text": "文本",
-  "welcome": "嘿，它是 Linwood Butterflight",
+  "welcome": "",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "一个自由和开源的绘图空间！",
   "updated": "应用程序更新到版本 {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "眼睛投射器",
   "users": "用户",
   "experiments": "实验",
+  "experimentsWarning": "这些功能是实验性的，可能随时更改、中断或消失。 启用它们可能导致不稳定或数据丢失。请谨慎行事。请报告任何漏洞。",
   "address": "地址",
   "spreadToPages": "扩展到页面",
   "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
@@ -637,5 +646,10 @@
   "passwordMismatch": "密码不匹配",
   "action": "动作",
   "svgText": "SVG 文本",
-  "offset": "偏移量"
+  "offset": "偏移量",
+  "positionDependent": "位置依赖关系",
+  "flipHorizontal": "水平翻转",
+  "flipVertical": "垂直翻转",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "手势移动"
 }

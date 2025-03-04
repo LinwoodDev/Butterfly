@@ -7,7 +7,7 @@ Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Re
 
 ## Configuração
 
-| Propriedade | Default | Descrição                                                   |
+| Propriedade |  Padrão | Descrição                                                   |
 | ----------: | :-----: | :---------------------------------------------------------- |
 |      Pacote | Nenhuma | O pacote onde o componente está localizado. |
 |  Componente | Nenhuma | O componente que será adicionado à tela.    |

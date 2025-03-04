@@ -195,7 +195,15 @@
   "currentArea": "現在のエリア",
   "design": "デザイン",
   "text": "テキスト",
-  "welcome": "おい、これはLinwood Butterfly",
+  "welcome": "これはLinwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "スポイト",
   "users": "ユーザー",
   "experiments": "実験",
+  "experimentsWarning": "これらの機能は実験的であり、いつでも変更、中断、または消えることがあります。 それらを有効にすると不安定性やデータが失われる可能性があります。注意してください。バグを報告してください。",
   "address": "住所",
   "spreadToPages": "ページにスプレッド",
   "rootDirectorySpecifiedDescription": "ルートディレクトリが指定されています。すべての高度なディレクトリパスはこのディレクトリからの相対パスになります。このディレクトリタイプを無効にするには空のままにしてください。",
@@ -637,5 +646,10 @@
   "passwordMismatch": "パスワードが一致しません",
   "action": "アクション",
   "svgText": "SVGテキスト",
-  "offset": "オフセット"
+  "offset": "オフセット",
+  "positionDependent": "依存する位置",
+  "flipHorizontal": "水平方向に反転",
+  "flipVertical": "垂直方向に反転",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "ジェスチャー上に移動"
 }

@@ -195,7 +195,15 @@
   "currentArea": "Área atual",
   "design": "Projetar",
   "text": "texto",
-  "welcome": "Ei, esta é a Borboleta Linwood",
+  "welcome": "Ei, esta é a Borboleta Linwood {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Gota de olho",
   "users": "Utilizadores",
   "experiments": "Experimentos",
+  "experimentsWarning": "Esses recursos são experimentais e podem mudar, quebrar ou desaparecer a qualquer momento. Ativá-los pode causar instabilidade ou perda de dados. Prossiga com cautela. Por favor, reporte quaisquer erros.",
   "address": "Endereço",
   "spreadToPages": "Espalhar em páginas",
   "rootDirectorySpecifiedDescription": "O diretório raiz é especificado. Todos os caminhos avançados do diretório serão relativos a este diretório. Mantenha-o vazio para desativar este tipo de diretório.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "As senhas não coincidem",
   "action": "Acão",
   "svgText": "Texto SVG",
-  "offset": "Deslocamento"
+  "offset": "Deslocamento",
+  "positionDependent": "dependente da posição",
+  "flipHorizontal": "Inverter horizontalmente",
+  "flipVertical": "Inverter verticalmente",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Mover para gesto"
 }

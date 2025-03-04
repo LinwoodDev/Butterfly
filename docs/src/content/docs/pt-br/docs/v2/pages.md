@@ -4,7 +4,7 @@ title: Páginas
 
 :::note
 
-Esta página trata do sistema de páginas que gerencia diferentes anotações e notas em um único documento. Se você estiver procurando uma maneira de restringir a tela infinita, por favor [use a função área](../area).
+Esta página trata do sistema de páginas que gerencia diferentes anotações e notas em um único documento. If you search a way to restrict the infinite canvas, please [use the area feature](../areas).
 
 :::
 

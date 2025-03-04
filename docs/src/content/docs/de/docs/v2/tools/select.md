@@ -6,6 +6,6 @@ With this tool you can select elements.
 
 ## Konfiguration
 
-| Objekt |  Standard  | Beschreibung                                                     |
-| -----: | :--------: | :--------------------------------------------------------------- |
-|   mode | rechteckig | Mode of selection. Valid are rectangle and lasso |
+| Objekt | Standard | Beschreibung                                                     |
+| -----: | :------: | :--------------------------------------------------------------- |
+|   Mode | Rechteck | Mode of selection. Valid are Rectangle and Lasso |

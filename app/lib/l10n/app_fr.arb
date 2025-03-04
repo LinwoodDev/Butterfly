@@ -195,7 +195,15 @@
   "currentArea": "Zone actuelle",
   "design": "Conception",
   "text": "Texte du texte",
-  "welcome": "Hé, voici Linwood Butterfly",
+  "welcome": "Hé, c'est le Papillon de bois de Linwood {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un espace de dessin libre et open-source !",
   "updated": "Application mise à jour vers la version {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Goutteur d'yeux",
   "users": "Utilisateurs",
   "experiments": "Expériences",
+  "experimentsWarning": "Ces fonctionnalités sont expérimentales et peuvent changer, casser, ou disparaître à tout moment. Les activer peut causer des pertes d'instabilité ou de données. Continuez avec prudence. Veuillez signaler tout bogue.",
   "address": "Adresse",
   "spreadToPages": "Diffuser vers les pages",
   "rootDirectorySpecifiedDescription": "Le répertoire racine est spécifié. Tous les répertoires avancés seront relatifs à ce répertoire. Laissez vide pour désactiver ce type de répertoire.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Les mots de passe ne correspondent pas",
   "action": "Action",
   "svgText": "Texte SVG",
-  "offset": "Décalage"
+  "offset": "Décalage",
+  "positionDependent": "Dépendant de la position",
+  "flipHorizontal": "Retourner horizontale",
+  "flipVertical": "Retourner verticalement",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Geste de déplacement"
 }

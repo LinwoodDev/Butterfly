@@ -195,7 +195,15 @@
   "currentArea": "Current area",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "A free and open-source drawing space!",
   "updated": "App updated to version {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Eye dropper",
   "users": "Users",
   "experiments": "Experiments",
+  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Address",
   "spreadToPages": "Spread to pages",
   "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "The passwords do not match",
   "action": "Action",
   "svgText": "SVG Text",
-  "offset": "Offset"
+  "offset": "Offset",
+  "positionDependent": "Position dependent",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Move on gesture"
 }

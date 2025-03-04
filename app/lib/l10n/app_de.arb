@@ -195,7 +195,15 @@
   "currentArea": "Aktueller Bereich",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hey, das ist Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Ein freier und Open-Source-Zeichnungsraum!",
   "updated": "App aktualisiert auf Version {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Pipette",
   "users": "Benutzer",
   "experiments": "Experimente",
+  "experimentsWarning": "Diese Funktionen sind experimentell und können sich ändern, abbrechen oder verschwinden. Das Aktivieren kann zu Instabilität oder Datenverlust führen. Fahren Sie mit Vorsicht fort. Bitte melden Sie alle Fehler.",
   "address": "Adresse",
   "spreadToPages": "Auf Seiten verteilen",
   "rootDirectorySpecifiedDescription": "Das Wurzelverzeichnis ist spezifiziert. Alle erweiterten Verzeichnispfade sind relativ zu diesem Verzeichnis. Leer lassen um diesen Verzeichnistyp zu deaktivieren.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Passwörter stimmen nicht überein",
   "action": "Aktion",
   "svgText": "SVG-Text",
-  "offset": "Versatz"
+  "offset": "Versatz",
+  "positionDependent": "Positionsabhängig",
+  "flipHorizontal": "Horizontal spiegeln",
+  "flipVertical": "Vertikal spiegeln",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Geste verschieben"
 }

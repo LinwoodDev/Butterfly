@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 |   属性 | 默认设置 | 描述                                                               |
 | ---: | :--: | :--------------------------------------------------------------- |
-| mode |  矩形  | Mode of selection. Valid are rectangle and lasso |
+| Mode |  矩形  | Mode of selection. Valid are Rectangle and Lasso |

@@ -195,7 +195,15 @@
   "currentArea": "Aktuelt område",
   "design": "Design",
   "text": "Tekst",
-  "welcome": "Hey, dette er Linwood Butterfly",
+  "welcome": "Hey, dette er Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Et gratis og open source tegneplads!",
   "updated": "App opdateret til version {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Øjendråber",
   "users": "Brugere",
   "experiments": "Eksperimenter",
+  "experimentsWarning": "Disse funktioner er eksperimentelle og kan ændres, gå i stykker eller forsvinde når som helst. Aktivering af dem kan forårsage ustabilitet eller tab af data. Fortsæt med forsigtighed. Rapporter venligst eventuelle fejl.",
   "address": "Adresse",
   "spreadToPages": "Spred til sider",
   "rootDirectorySpecifiedDescription": "Rodmappen er angivet. Alle avancerede mappestier vil være relativt til denne mappe. Hold den tom for at deaktivere denne mappetype.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Adgangskoderne er ikke ens",
   "action": "Handling",
   "svgText": "SVG Tekst",
-  "offset": "Forskydning"
+  "offset": "Forskydning",
+  "positionDependent": "Placering afhængig",
+  "flipHorizontal": "Vend vandret",
+  "flipVertical": "Vend lodret",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Flyt på bevægelse"
 }

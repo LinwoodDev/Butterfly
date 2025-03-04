@@ -195,7 +195,15 @@
   "currentArea": "Área actual",
   "design": "Diseño",
   "text": "Texto",
-  "welcome": "Hola, esta es la mariposa de Linwood",
+  "welcome": "Hola, esta es la mariposa Linwood {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un espacio de dibujo libre y de código abierto!",
   "updated": "Aplicación actualizada a la versión {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Soltador de ojos",
   "users": "Usuarios",
   "experiments": "Experimentos",
+  "experimentsWarning": "Estas características son experimentales y pueden cambiar, romperse o desaparecer en cualquier momento. Habilitarlos puede causar inestabilidad o pérdida de datos. Proceda con precaución. Por favor, informe de cualquier error.",
   "address": "Dirección",
   "spreadToPages": "Difundir en páginas",
   "rootDirectorySpecifiedDescription": "Se ha especificado el directorio raíz. Todas las rutas de directorios avanzados serán relativas a este directorio. Manténgalo vacío para desactivar este tipo de directorio.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Las contraseñas no coinciden",
   "action": "Accin",
   "svgText": "Texto SVG",
-  "offset": "Desplazamiento"
+  "offset": "Desplazamiento",
+  "positionDependent": "Dependiendo de posición",
+  "flipHorizontal": "Voltear horizontal",
+  "flipVertical": "Voltear vertical",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Mover en gesto"
 }

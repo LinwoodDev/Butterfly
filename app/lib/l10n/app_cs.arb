@@ -195,7 +195,15 @@
   "currentArea": "Aktuální oblast",
   "design": "Vzhled",
   "text": "Text",
-  "welcome": "Hey, tohle je Linwood Butterfly",
+  "welcome": "Hej, toto je Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Volný a open-source prostor pro kreslení!",
   "updated": "Aplikace byla aktualizována na verzi {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Oční dropper",
   "users": "Uživatelé",
   "experiments": "Experimenty",
+  "experimentsWarning": "Tyto vlastnosti jsou experimentální a mohou kdykoliv změnit, rozbít nebo zmizet. Jejich povolení může způsobit nestabilitu nebo ztrátu dat. Buďte opatrní. Nahlaste prosím chyby.",
   "address": "Adresa",
   "spreadToPages": "Rozšiřte na stránky",
   "rootDirectorySpecifiedDescription": "Kořenový adresář je zadán. Všechny pokročilé cesty adresáře budou relativní k tomuto adresáři. Ponechte prázdné pro vypnutí tohoto typu adresáře.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Hesla se neshodují",
   "action": "Akce",
   "svgText": "SVG text",
-  "offset": "Odsazení"
+  "offset": "Odsazení",
+  "positionDependent": "Závislost na poloze",
+  "flipHorizontal": "Překlopit vodorovně",
+  "flipVertical": "Překlopit svisle",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Přesunout gestem"
 }

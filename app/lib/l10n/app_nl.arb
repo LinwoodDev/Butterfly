@@ -195,7 +195,15 @@
   "currentArea": "Huidig gebied",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "welcome": "Hé, dit is Linwood Vlinder",
+  "welcome": "Hé, dit is Linwood Vlinder {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Oog dropper",
   "users": "Gebruikers",
   "experiments": "Experimenten",
+  "experimentsWarning": "Deze functies zijn experimenteel en kunnen veranderen, vastlopen of op elk moment verdwijnen. Het inschakelen ervan kan leiden tot instabiliteit of gegevensverlies. Ga voorzichtig te werk. Rapporteer eventuele bugs.",
   "address": "Adres:",
   "spreadToPages": "Verspreid naar pagina's",
   "rootDirectorySpecifiedDescription": "De hoofdmap is opgegeven. Alle geavanceerde mappen zullen relatief zijn ten opzichte van deze map. Laat het leeg om dit maptype uit te schakelen.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "De wachtwoorden komen niet overeen",
   "action": "actie",
   "svgText": "SVG tekst",
-  "offset": "Verschuiving"
+  "offset": "Verschuiving",
+  "positionDependent": "Afhankelijke positie",
+  "flipHorizontal": "Horizontaal spiegelen",
+  "flipVertical": "Spiegel verticaal",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Verplaats naar gebaar"
 }

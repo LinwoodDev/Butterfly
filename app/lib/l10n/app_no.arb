@@ -195,7 +195,15 @@
   "currentArea": "Gjeldende område",
   "design": "Utforming",
   "text": "Tekst",
-  "welcome": "Hey, dette er Linwood Butterfly",
+  "welcome": "Hei, dette er Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "En gratis og åpen kildekode tegning plass!",
   "updated": "App oppdatert til versjon {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Øyedråper",
   "users": "Brukere",
   "experiments": "Eksperimenter",
+  "experimentsWarning": "Disse funksjonene er eksperimentelle og kan endre, bryte eller forsvinne når som helst. Aktivering av dem kan føre til ustabilitet eller tap av data. Fortsett med forsiktighet. Vennligst rapporter eventuelle feil.",
   "address": "Adresse",
   "spreadToPages": "Spre til sider",
   "rootDirectorySpecifiedDescription": "Rotmappen er angitt. Alle avanserte katalogbaner vil være relative til denne mappen. Behold den tom for å deaktivere denne mappen.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Passordene samsvarer ikke",
   "action": "Handling",
   "svgText": "SVG tekst",
-  "offset": "Forskyvning"
+  "offset": "Forskyvning",
+  "positionDependent": "Posisjon avhengig",
+  "flipHorizontal": "Vend horisontalt",
+  "flipVertical": "Vend vertikalt",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Flytt på bevegelse"
 }

@@ -195,7 +195,15 @@
   "currentArea": "Area attuale",
   "design": "Design",
   "text": "Testo",
-  "welcome": "Hey, questa è farfalla di linwood",
+  "welcome": "Hey, questo è Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Uno spazio di disegno libero e open-source!",
   "updated": "App aggiornata alla versione {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Selettore Colore",
   "users": "Utenti",
   "experiments": "Esperimenti",
+  "experimentsWarning": "Queste caratteristiche sono sperimentali e possono cambiare, rompersi o scomparire in qualsiasi momento. Abilitarli potrebbero causare instabilità o perdita di dati. Procedere con cautela. Si prega di segnalare eventuali bug.",
   "address": "Indirizzo",
   "spreadToPages": "Dividi in pagine",
   "rootDirectorySpecifiedDescription": "La directory radice è specificata. Tutti i percorsi di directory avanzati saranno relativi a questa directory. Tienila vuota per disabilitare questo tipo di directory.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Le password non corrispondono",
   "action": "Azione",
   "svgText": "Testo SVG",
-  "offset": "Scostamento"
+  "offset": "Scostamento",
+  "positionDependent": "Dipendente dalla posizione",
+  "flipHorizontal": "Capovolgi orizzontale",
+  "flipVertical": "Capovolgi verticale",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Sposta al gesto"
 }

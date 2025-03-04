@@ -195,7 +195,15 @@
   "currentArea": "Nykyinen alue",
   "design": "Ulkoasu",
   "text": "Teksti",
-  "welcome": "Hei, tämä on Linwood Butterfly",
+  "welcome": "Hei, tämä on Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Vapaa ja avoimen lähdekoodin piirtotila!",
   "updated": "Sovellus päivitetty versioon {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Silmien pipetillä",
   "users": "Käyttäjät",
   "experiments": "Kokeet",
+  "experimentsWarning": "Nämä ominaisuudet ovat kokeellisia ja voivat muuttua, katkaista tai kadota milloin tahansa. Niiden käyttöönotto voi aiheuttaa epävakautta tai tietojen menetystä. Jatka varovaisesti. Ilmoita kaikista vioista.",
   "address": "Osoite",
   "spreadToPages": "Levitä sivuille",
   "rootDirectorySpecifiedDescription": "Juurihakemisto on määritetty. Kaikki kehittyneet hakemistopolut ovat suhteellisia tähän hakemistoon. Pidä se tyhjänä, jos haluat poistaa tämän hakemiston tyypin.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Salasanat eivät täsmää",
   "action": "Toiminto",
   "svgText": "Svg- Teksti",
-  "offset": "Siirtymä"
+  "offset": "Siirtymä",
+  "positionDependent": "Asema riippuu",
+  "flipHorizontal": "Käännä vaakasuora",
+  "flipVertical": "Käännä pystysuuntainen",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Siirrä ele"
 }

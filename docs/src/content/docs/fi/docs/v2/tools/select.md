@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Ominaisuus |    Oletus   | Kuvaus                                                           |
 | ---------: | :---------: | :--------------------------------------------------------------- |
-|       mode | suorakulmio | Mode of selection. Valid are rectangle and lasso |
+|       Mode | Suorakulmio | Mode of selection. Valid are Rectangle and Lasso |

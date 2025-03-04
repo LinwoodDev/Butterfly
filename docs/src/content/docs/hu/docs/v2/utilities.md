@@ -14,7 +14,7 @@ Additionally you can capture a thumbnail from the current viewport to see it in 
 :::note
 
 This tab was removed in the nightly release.
-Please use the background menu item in the top left corner menu
+Please use the background menu item in the top left corner menu.
 :::
 
 Here are all page specific properties. Currently you can find the background setting here.

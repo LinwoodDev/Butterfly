@@ -195,7 +195,15 @@
   "currentArea": "Zona curentă",
   "design": "Proiectare",
   "text": "Text",
-  "welcome": "Hei, acesta este Linwood Butterfly",
+  "welcome": "Hei, acesta este Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un spaţiu de desenare gratuit şi open-source!",
   "updated": "Aplicație actualizată la versiunea {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "Picături oftalmice",
   "users": "Utilizatori",
   "experiments": "Experimente",
+  "experimentsWarning": "Aceste funcții sunt experimentale și pot să se schimbe, să se blocheze sau să dispară în orice moment. Activarea lor poate provoca instabilitate sau pierderi de date. Continuați cu prudență. Vă rugăm să raportați orice erori.",
   "address": "Adresa",
   "spreadToPages": "Răspândește la pagini",
   "rootDirectorySpecifiedDescription": "Directorul rădăcină este specificat. Toate directoarele avansate vor fi relative la acest director. Păstrați-l gol pentru a dezactiva acest tip de directoriu.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "Parolele nu se potrivesc",
   "action": "Acțiune",
   "svgText": "Text SVG",
-  "offset": "Decalaj"
+  "offset": "Decalaj",
+  "positionDependent": "Depinde de poziție",
+  "flipHorizontal": "Rotire orizontală",
+  "flipVertical": "Întoarce vertical",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "Mută la gest"
 }

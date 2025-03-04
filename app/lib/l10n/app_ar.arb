@@ -195,7 +195,15 @@
   "currentArea": "المجال الحالي",
   "design": "تصميم",
   "text": "نص",
-  "welcome": "مرحبا، هذه فراشة لينوود",
+  "welcome": "مرحبا، هذه فراشة لينوود {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "مساحة رسم مجانية ومفتوحة المصدر!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
   "@updated": {
@@ -547,6 +555,7 @@
   "eyeDropper": "إسقاط العين",
   "users": "المستخدمون",
   "experiments": "التجارب",
+  "experimentsWarning": "هذه الميزات تجريبية وقد تتغير أو تتقطع أو تختفي في أي وقت. تمكينهم قد يتسبب في عدم الاستقرار أو فقدان البيانات. المتابعة بحذر. الرجاء الإبلاغ عن أي أخطاء.",
   "address": "العنوان",
   "spreadToPages": "نشر إلى الصفحات",
   "rootDirectorySpecifiedDescription": "الدليل الجذر محدد. جميع مسارات الدليل المتقدمة ستكون مرتبطة بهذا الدليل. ابقه فارغاً لتعطيل هذا النوع من الدليل.",
@@ -637,5 +646,10 @@
   "passwordMismatch": "كلمات المرور غير متطابقة",
   "action": "اجراء",
   "svgText": "نص SVG",
-  "offset": "إزاحة"
+  "offset": "إزاحة",
+  "positionDependent": "موقع معتمد",
+  "flipHorizontal": "قلب أفقي",
+  "flipVertical": "قلب عمودي",
+  "grayscale": "Grayscale",
+  "moveOnGesture": "تحريك على الإيماءة"
 }
