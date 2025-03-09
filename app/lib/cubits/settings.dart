@@ -15,8 +15,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../views/navigator/view.dart';
-
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
@@ -182,6 +180,16 @@ enum ThemeDensity {
       };
 }
 
+class SRGBConverter extends JsonConverter<SRGBColor, int> {
+  const SRGBConverter();
+
+  @override
+  SRGBColor fromJson(int json) => SRGBColor(json);
+
+  @override
+  int toJson(SRGBColor object) => object.value;
+}
+
 @freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
@@ -198,11 +206,14 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
-    @Default([]) List<AssetLocation> history,
-    @Default(false) bool navigatorEnabled,
+    @Default([])
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
-    @Default([]) List<ExternalStorage> connections,
+    @Default([])
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    List<ExternalStorage> connections,
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
@@ -212,7 +223,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
-    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
     @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
@@ -221,7 +231,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(0.5) double imageScale,
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
-    @Default([]) List<SRGBColor> recentColors,
+    @Default([]) @SRGBConverter() List<SRGBColor> recentColors,
     @Default([]) List<String> flags,
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
@@ -238,6 +248,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(RenderResolution.normal) RenderResolution renderResolution,
     @Default(true) bool moveOnGesture,
   }) = _ButterflySettings;
+
+  factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
+      _$ButterflySettingsFromJson(json);
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final connections = prefs
@@ -782,18 +795,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changeNavigatorEnabled(bool value) {
-    emit(state.copyWith(navigatorEnabled: value));
-    return save();
-  }
-
   Future<void> changeDefaultTemplate(String name) {
     emit(state.copyWith(defaultTemplate: name));
     return save();
-  }
-
-  void setNavigatorPage(NavigatorPage page) {
-    emit(state.copyWith(navigatorPage: page));
   }
 
   Future<void> changeNavigationRail(bool value) {
@@ -924,5 +928,18 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> changeMoveOnGesture(bool value) {
     emit(state.copyWith(moveOnGesture: value));
     return save();
+  }
+
+  Future<void> importSettings(String data) {
+    final settings = ButterflySettings.fromJson(json.decode(data)).copyWith(
+      history: state.history,
+      connections: state.connections,
+    );
+    emit(settings);
+    return save();
+  }
+
+  Future<String> exportSettings() async {
+    return json.encode(state.toJson());
   }
 }

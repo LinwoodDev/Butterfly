@@ -10,6 +10,7 @@ import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,8 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(true) bool areaNavigatorCreate,
     @Default(true) bool areaNavigatorExact,
     @Default(false) bool areaNavigatorAsk,
+    @Default(false) bool navigatorEnabled,
+    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -1235,5 +1238,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       toggleableHandlers: newHandlers,
       toggleableForegrounds: newForegrounds,
     ));
+  }
+
+  void setNavigatorEnabled(bool value) {
+    emit(state.copyWith(navigatorEnabled: value));
+  }
+
+  void setNavigatorPage(NavigatorPage page) {
+    emit(state.copyWith(navigatorPage: page));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
@@ -88,70 +89,75 @@ class _NavigatorViewState extends State<NavigatorView>
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.navigatorEnabled != current.navigatorEnabled ||
-          previous.navigatorPage != current.navigatorPage ||
           previous.navigatorPosition != current.navigatorPosition,
-      builder: (context, settings) {
-        final selected = NavigatorPage.values.indexOf(settings.navigatorPage);
-        if (settings.navigatorEnabled) {
-          _animationController.forward();
-        } else {
-          _animationController.reverse();
-        }
-        return Row(
-          textDirection: settings.navigatorPosition == NavigatorPosition.left
-              ? TextDirection.rtl
-              : TextDirection.ltr,
-          mainAxisAlignment:
-              settings.navigatorPosition == NavigatorPosition.left
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-          children: [
-            SizeTransition(
-              sizeFactor: _animation,
-              axis: Axis.horizontal,
-              axisAlignment: 1,
-              child: AnimatedBuilder(
-                  animation: _animation,
-                  child: SizedBox(
-                    width: drawerWidth,
-                    child: Card(
-                      child: DocumentNavigator(asDrawer: false),
+      builder: (context, settings) =>
+          BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+        buildWhen: (previous, current) =>
+            previous.navigatorEnabled != current.navigatorEnabled ||
+            previous.navigatorPage != current.navigatorPage,
+        builder: (context, currentIndex) {
+          final selected =
+              NavigatorPage.values.indexOf(currentIndex.navigatorPage);
+          if (currentIndex.navigatorEnabled) {
+            _animationController.forward();
+          } else {
+            _animationController.reverse();
+          }
+          return Row(
+            textDirection: settings.navigatorPosition == NavigatorPosition.left
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+            mainAxisAlignment:
+                settings.navigatorPosition == NavigatorPosition.left
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.end,
+            children: [
+              SizeTransition(
+                sizeFactor: _animation,
+                axis: Axis.horizontal,
+                axisAlignment: 1,
+                child: AnimatedBuilder(
+                    animation: _animation,
+                    child: SizedBox(
+                      width: drawerWidth,
+                      child: Card(
+                        child: DocumentNavigator(asDrawer: false),
+                      ),
                     ),
-                  ),
-                  builder: (context, child) {
-                    if (_animation.value == 0) {
-                      return const SizedBox();
-                    }
-                    return child!;
-                  }),
-            ),
-            NavigationRail(
-              minWidth: 110,
-              destinations: NavigatorPage.values
-                  .map(
-                    (e) => NavigationRailDestination(
-                      icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                      label: Text(e.getLocalizedName(context)),
-                    ),
-                  )
-                  .toList(),
-              labelType: NavigationRailLabelType.none,
-              selectedIndex: settings.navigatorEnabled ? selected : null,
-              groupAlignment: 0,
-              onDestinationSelected: (index) {
-                final cubit = context.read<SettingsCubit>();
-                if (selected == index) {
-                  cubit.changeNavigatorEnabled(!settings.navigatorEnabled);
-                  return;
-                }
-                cubit.setNavigatorPage(NavigatorPage.values[index]);
-                cubit.changeNavigatorEnabled(true);
-              },
-            ),
-          ],
-        );
-      },
+                    builder: (context, child) {
+                      if (_animation.value == 0) {
+                        return const SizedBox();
+                      }
+                      return child!;
+                    }),
+              ),
+              NavigationRail(
+                minWidth: 110,
+                destinations: NavigatorPage.values
+                    .map(
+                      (e) => NavigationRailDestination(
+                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        label: Text(e.getLocalizedName(context)),
+                      ),
+                    )
+                    .toList(),
+                labelType: NavigationRailLabelType.none,
+                selectedIndex: currentIndex.navigatorEnabled ? selected : null,
+                groupAlignment: 0,
+                onDestinationSelected: (index) {
+                  final cubit = context.read<CurrentIndexCubit>();
+                  if (selected == index) {
+                    cubit.setNavigatorEnabled(!currentIndex.navigatorEnabled);
+                    return;
+                  }
+                  cubit.setNavigatorPage(NavigatorPage.values[index]);
+                  cubit.setNavigatorEnabled(true);
+                },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -176,11 +182,11 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
+    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
       buildWhen: (previous, current) =>
           previous.navigatorPage != current.navigatorPage,
-      builder: (context, settings) {
-        final page = settings.navigatorPage;
+      builder: (context, currentIndex) {
+        final page = currentIndex.navigatorPage;
         return BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
               (previous is DocumentLoadSuccess &&

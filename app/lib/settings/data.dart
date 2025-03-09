@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -146,6 +149,29 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   ),
                 ),
               ),
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ListTile(
+                        title:
+                            Text(AppLocalizations.of(context).importSettings),
+                        leading: Icon(PhosphorIconsLight.arrowSquareIn),
+                        onTap: () => _importSettings(context),
+                      ),
+                      ListTile(
+                        title:
+                            Text(AppLocalizations.of(context).exportSettings),
+                        leading: Icon(PhosphorIconsLight.arrowSquareOut),
+                        onTap: () => _exportSettings(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },
@@ -267,4 +293,30 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
           ];
         });
   } */
+
+  void _importSettings(BuildContext context) async {
+    final settingsCubit = context.read<SettingsCubit>();
+    final file = await openFile(acceptedTypeGroups: [
+      XTypeGroup(
+        label: 'Settings',
+        extensions: ['json'],
+      ),
+    ]);
+    if (file == null) return;
+    final data = await file.readAsString();
+    settingsCubit.importSettings(data);
+  }
+
+  void _exportSettings(BuildContext context) async {
+    final settingsCubit = context.read<SettingsCubit>();
+    await exportFile(
+      bytes: utf8.encode(await settingsCubit.exportSettings()),
+      context: context,
+      fileExtension: 'json',
+      fileName: 'settings',
+      label: AppLocalizations.of(context).exportSettings,
+      mimeType: 'application/json',
+      uniformTypeIdentifier: 'public.json',
+    );
+  }
 }

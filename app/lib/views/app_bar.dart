@@ -382,7 +382,7 @@ class _MainPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingsCubit = context.read<SettingsCubit>();
+    final cubit = context.read<CurrentIndexCubit>();
     final windowCubit = context.read<WindowCubit>();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
@@ -415,7 +415,7 @@ class _MainPopupMenu extends StatelessWidget {
                     leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
                     child: Text(e.getLocalizedName(context)),
                     onPressed: () {
-                      settingsCubit.setNavigatorPage(e);
+                      cubit.setNavigatorPage(e);
                       Scaffold.of(context).openDrawer();
                     },
                   ),

@@ -326,10 +326,11 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
   bool get inputGestures;
   String get design;
   BannerVisibility get bannerVisibility;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<AssetLocation> get history;
-  bool get navigatorEnabled;
   bool get zoomEnabled;
   String? get lastVersion;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<ExternalStorage> get connections;
   String get defaultRemote;
   bool get nativeTitleBar;
@@ -340,7 +341,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
   String get fallbackPack;
   List<String> get starred;
   String get defaultTemplate;
-  NavigatorPage get navigatorPage;
   NavigatorPosition get navigatorPosition;
   ToolbarPosition get toolbarPosition;
   ToolbarSize get toolbarSize;
@@ -349,6 +349,7 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
   double get imageScale;
   double get pdfQuality;
   PlatformTheme get platformTheme;
+  @SRGBConverter()
   List<SRGBColor> get recentColors;
   List<String> get flags;
   bool get spreadPages;
@@ -373,6 +374,9 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
       _$ButterflySettingsCopyWithImpl<ButterflySettings>(
           this as ButterflySettings, _$identity);
 
+  /// Serializes this ButterflySettings to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
@@ -390,7 +394,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('design', design))
       ..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))
       ..add(DiagnosticsProperty('history', history))
-      ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
       ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
       ..add(DiagnosticsProperty('lastVersion', lastVersion))
       ..add(DiagnosticsProperty('connections', connections))
@@ -403,7 +406,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('fallbackPack', fallbackPack))
       ..add(DiagnosticsProperty('starred', starred))
       ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
-      ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
       ..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))
       ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
       ..add(DiagnosticsProperty('toolbarSize', toolbarSize))
@@ -457,8 +459,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
             (identical(other.bannerVisibility, bannerVisibility) ||
                 other.bannerVisibility == bannerVisibility) &&
             const DeepCollectionEquality().equals(other.history, history) &&
-            (identical(other.navigatorEnabled, navigatorEnabled) ||
-                other.navigatorEnabled == navigatorEnabled) &&
             (identical(other.zoomEnabled, zoomEnabled) ||
                 other.zoomEnabled == zoomEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
@@ -482,8 +482,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.starred, starred) &&
             (identical(other.defaultTemplate, defaultTemplate) ||
                 other.defaultTemplate == defaultTemplate) &&
-            (identical(other.navigatorPage, navigatorPage) ||
-                other.navigatorPage == navigatorPage) &&
             (identical(other.navigatorPosition, navigatorPosition) ||
                 other.navigatorPosition == navigatorPosition) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
@@ -530,6 +528,7 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
                 other.moveOnGesture == moveOnGesture));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -546,7 +545,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
         design,
         bannerVisibility,
         const DeepCollectionEquality().hash(history),
-        navigatorEnabled,
         zoomEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(connections),
@@ -559,7 +557,6 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
         fallbackPack,
         const DeepCollectionEquality().hash(starred),
         defaultTemplate,
-        navigatorPage,
         navigatorPosition,
         toolbarPosition,
         toolbarSize,
@@ -587,7 +584,7 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
   }
 }
 
@@ -610,10 +607,11 @@ abstract mixin class $ButterflySettingsCopyWith<$Res> {
       bool inputGestures,
       String design,
       BannerVisibility bannerVisibility,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       List<AssetLocation> history,
-      bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       List<ExternalStorage> connections,
       String defaultRemote,
       bool nativeTitleBar,
@@ -624,7 +622,6 @@ abstract mixin class $ButterflySettingsCopyWith<$Res> {
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      NavigatorPage navigatorPage,
       NavigatorPosition navigatorPosition,
       ToolbarPosition toolbarPosition,
       ToolbarSize toolbarSize,
@@ -633,7 +630,7 @@ abstract mixin class $ButterflySettingsCopyWith<$Res> {
       double imageScale,
       double pdfQuality,
       PlatformTheme platformTheme,
-      List<SRGBColor> recentColors,
+      @SRGBConverter() List<SRGBColor> recentColors,
       List<String> flags,
       bool spreadPages,
       bool highContrast,
@@ -679,7 +676,6 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? bannerVisibility = null,
     Object? history = null,
-    Object? navigatorEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? connections = null,
@@ -692,7 +688,6 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorPage = null,
     Object? navigatorPosition = null,
     Object? toolbarPosition = null,
     Object? toolbarSize = null,
@@ -770,10 +765,6 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _self.history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
-      navigatorEnabled: null == navigatorEnabled
-          ? _self.navigatorEnabled
-          : navigatorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       zoomEnabled: null == zoomEnabled
           ? _self.zoomEnabled
           : zoomEnabled // ignore: cast_nullable_to_non_nullable
@@ -822,10 +813,6 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _self.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorPage: null == navigatorPage
-          ? _self.navigatorPage
-          : navigatorPage // ignore: cast_nullable_to_non_nullable
-              as NavigatorPage,
       navigatorPosition: null == navigatorPosition
           ? _self.navigatorPosition
           : navigatorPosition // ignore: cast_nullable_to_non_nullable
@@ -943,7 +930,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _ButterflySettings extends ButterflySettings
     with DiagnosticableTreeMixin {
   const _ButterflySettings(
@@ -959,10 +946,11 @@ class _ButterflySettings extends ButterflySettings
       this.inputGestures = true,
       this.design = '',
       this.bannerVisibility = BannerVisibility.always,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       final List<AssetLocation> history = const [],
-      this.navigatorEnabled = false,
       this.zoomEnabled = true,
       this.lastVersion,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       final List<ExternalStorage> connections = const [],
       this.defaultRemote = '',
       this.nativeTitleBar = false,
@@ -973,7 +961,6 @@ class _ButterflySettings extends ButterflySettings
       this.fallbackPack = '',
       final List<String> starred = const [],
       this.defaultTemplate = '',
-      this.navigatorPage = NavigatorPage.waypoints,
       this.navigatorPosition = NavigatorPosition.left,
       this.toolbarPosition = ToolbarPosition.inline,
       this.toolbarSize = ToolbarSize.normal,
@@ -982,7 +969,7 @@ class _ButterflySettings extends ButterflySettings
       this.imageScale = 0.5,
       this.pdfQuality = 2,
       this.platformTheme = PlatformTheme.system,
-      final List<SRGBColor> recentColors = const [],
+      @SRGBConverter() final List<SRGBColor> recentColors = const [],
       final List<String> flags = const [],
       this.spreadPages = false,
       this.highContrast = false,
@@ -1003,6 +990,8 @@ class _ButterflySettings extends ButterflySettings
         _recentColors = recentColors,
         _flags = flags,
         super._();
+  factory _ButterflySettings.fromJson(Map<String, dynamic> json) =>
+      _$ButterflySettingsFromJson(json);
 
   @override
   @JsonKey()
@@ -1042,7 +1031,7 @@ class _ButterflySettings extends ButterflySettings
   final BannerVisibility bannerVisibility;
   final List<AssetLocation> _history;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<AssetLocation> get history {
     if (_history is EqualUnmodifiableListView) return _history;
     // ignore: implicit_dynamic_type
@@ -1051,15 +1040,12 @@ class _ButterflySettings extends ButterflySettings
 
   @override
   @JsonKey()
-  final bool navigatorEnabled;
-  @override
-  @JsonKey()
   final bool zoomEnabled;
   @override
   final String? lastVersion;
   final List<ExternalStorage> _connections;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<ExternalStorage> get connections {
     if (_connections is EqualUnmodifiableListView) return _connections;
     // ignore: implicit_dynamic_type
@@ -1101,9 +1087,6 @@ class _ButterflySettings extends ButterflySettings
   final String defaultTemplate;
   @override
   @JsonKey()
-  final NavigatorPage navigatorPage;
-  @override
-  @JsonKey()
   final NavigatorPosition navigatorPosition;
   @override
   @JsonKey()
@@ -1129,6 +1112,7 @@ class _ButterflySettings extends ButterflySettings
   final List<SRGBColor> _recentColors;
   @override
   @JsonKey()
+  @SRGBConverter()
   List<SRGBColor> get recentColors {
     if (_recentColors is EqualUnmodifiableListView) return _recentColors;
     // ignore: implicit_dynamic_type
@@ -1193,6 +1177,13 @@ class _ButterflySettings extends ButterflySettings
       __$ButterflySettingsCopyWithImpl<_ButterflySettings>(this, _$identity);
 
   @override
+  Map<String, dynamic> toJson() {
+    return _$ButterflySettingsToJson(
+      this,
+    );
+  }
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
       ..add(DiagnosticsProperty('type', 'ButterflySettings'))
@@ -1209,7 +1200,6 @@ class _ButterflySettings extends ButterflySettings
       ..add(DiagnosticsProperty('design', design))
       ..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))
       ..add(DiagnosticsProperty('history', history))
-      ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
       ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
       ..add(DiagnosticsProperty('lastVersion', lastVersion))
       ..add(DiagnosticsProperty('connections', connections))
@@ -1222,7 +1212,6 @@ class _ButterflySettings extends ButterflySettings
       ..add(DiagnosticsProperty('fallbackPack', fallbackPack))
       ..add(DiagnosticsProperty('starred', starred))
       ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
-      ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
       ..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))
       ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
       ..add(DiagnosticsProperty('toolbarSize', toolbarSize))
@@ -1276,8 +1265,6 @@ class _ButterflySettings extends ButterflySettings
             (identical(other.bannerVisibility, bannerVisibility) ||
                 other.bannerVisibility == bannerVisibility) &&
             const DeepCollectionEquality().equals(other._history, _history) &&
-            (identical(other.navigatorEnabled, navigatorEnabled) ||
-                other.navigatorEnabled == navigatorEnabled) &&
             (identical(other.zoomEnabled, zoomEnabled) ||
                 other.zoomEnabled == zoomEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
@@ -1301,8 +1288,6 @@ class _ButterflySettings extends ButterflySettings
             const DeepCollectionEquality().equals(other._starred, _starred) &&
             (identical(other.defaultTemplate, defaultTemplate) ||
                 other.defaultTemplate == defaultTemplate) &&
-            (identical(other.navigatorPage, navigatorPage) ||
-                other.navigatorPage == navigatorPage) &&
             (identical(other.navigatorPosition, navigatorPosition) ||
                 other.navigatorPosition == navigatorPosition) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
@@ -1349,6 +1334,7 @@ class _ButterflySettings extends ButterflySettings
                 other.moveOnGesture == moveOnGesture));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -1365,7 +1351,6 @@ class _ButterflySettings extends ButterflySettings
         design,
         bannerVisibility,
         const DeepCollectionEquality().hash(_history),
-        navigatorEnabled,
         zoomEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(_connections),
@@ -1378,7 +1363,6 @@ class _ButterflySettings extends ButterflySettings
         fallbackPack,
         const DeepCollectionEquality().hash(_starred),
         defaultTemplate,
-        navigatorPage,
         navigatorPosition,
         toolbarPosition,
         toolbarSize,
@@ -1406,7 +1390,7 @@ class _ButterflySettings extends ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
   }
 }
 
@@ -1431,10 +1415,11 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res>
       bool inputGestures,
       String design,
       BannerVisibility bannerVisibility,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       List<AssetLocation> history,
-      bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
+      @JsonKey(includeFromJson: false, includeToJson: false)
       List<ExternalStorage> connections,
       String defaultRemote,
       bool nativeTitleBar,
@@ -1445,7 +1430,6 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res>
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      NavigatorPage navigatorPage,
       NavigatorPosition navigatorPosition,
       ToolbarPosition toolbarPosition,
       ToolbarSize toolbarSize,
@@ -1454,7 +1438,7 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res>
       double imageScale,
       double pdfQuality,
       PlatformTheme platformTheme,
-      List<SRGBColor> recentColors,
+      @SRGBConverter() List<SRGBColor> recentColors,
       List<String> flags,
       bool spreadPages,
       bool highContrast,
@@ -1502,7 +1486,6 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? bannerVisibility = null,
     Object? history = null,
-    Object? navigatorEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? connections = null,
@@ -1515,7 +1498,6 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorPage = null,
     Object? navigatorPosition = null,
     Object? toolbarPosition = null,
     Object? toolbarSize = null,
@@ -1593,10 +1575,6 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           ? _self._history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
-      navigatorEnabled: null == navigatorEnabled
-          ? _self.navigatorEnabled
-          : navigatorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       zoomEnabled: null == zoomEnabled
           ? _self.zoomEnabled
           : zoomEnabled // ignore: cast_nullable_to_non_nullable
@@ -1645,10 +1623,6 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           ? _self.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorPage: null == navigatorPage
-          ? _self.navigatorPage
-          : navigatorPage // ignore: cast_nullable_to_non_nullable
-              as NavigatorPage,
       navigatorPosition: null == navigatorPosition
           ? _self.navigatorPosition
           : navigatorPosition // ignore: cast_nullable_to_non_nullable
