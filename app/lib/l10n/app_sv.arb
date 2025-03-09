@@ -651,5 +651,7 @@
   "flipHorizontal": "Vänd horisontell",
   "flipVertical": "Vänd vertikalt",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Flytta på gest"
+  "moveOnGesture": "Flytta på gest",
+  "importSettings": "Import settings",
+  "exportSettings": "Export settings"
 }
