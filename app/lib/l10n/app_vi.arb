@@ -651,5 +651,7 @@
   "flipHorizontal": "Flip horizontal",
   "flipVertical": "Flip vertical",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Move on gesture"
+  "moveOnGesture": "Move on gesture",
+  "importSettings": "Import settings",
+  "exportSettings": "Export settings"
 }
