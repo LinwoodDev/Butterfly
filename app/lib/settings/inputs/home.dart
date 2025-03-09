@@ -15,10 +15,6 @@ class InputsSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PointerDeviceKind? kind;
-    int buttons = 0;
-    double? pressure;
-    Color? pressed;
     return Scaffold(
       backgroundColor: inView ? Colors.transparent : null,
       appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
@@ -134,81 +130,95 @@ class InputsSettingsPage extends StatelessWidget {
                 margin: const EdgeInsets.all(8),
                 child: Padding(
                   padding: const EdgeInsets.all(32),
-                  child: StatefulBuilder(
-                    builder: (context, setState) {
-                      changeInputTest(Color? color) => (PointerEvent event) {
-                            setState(() {
-                              kind = event.kind;
-                              buttons = event.buttons;
-                              pressure = event.pressure;
-                              pressed = color;
-                            });
-                          };
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).pointerTest,
-                            style: TextTheme.of(context).headlineSmall,
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            height: 150,
-                            child: Listener(
-                              onPointerMove: changeInputTest(Colors.blue),
-                              onPointerDown: changeInputTest(Colors.green),
-                              onPointerUp: changeInputTest(null),
-                              onPointerCancel: changeInputTest(Colors.red),
-                              onPointerPanZoomStart: changeInputTest(
-                                Colors.purple,
-                              ),
-                              onPointerPanZoomUpdate: changeInputTest(
-                                Colors.purple[700],
-                              ),
-                              onPointerPanZoomEnd: changeInputTest(
-                                Colors.purple[900],
-                              ),
-                              child: Material(color: pressed),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).type),
-                            subtitle: Text(switch (kind) {
-                              PointerDeviceKind.touch =>
-                                AppLocalizations.of(context).touch,
-                              PointerDeviceKind.mouse =>
-                                AppLocalizations.of(context).mouse,
-                              PointerDeviceKind.stylus =>
-                                AppLocalizations.of(context).pen,
-                              PointerDeviceKind.invertedStylus =>
-                                AppLocalizations.of(context).invert,
-                              PointerDeviceKind.unknown =>
-                                AppLocalizations.of(context).error,
-                              _ => AppLocalizations.of(context).none,
-                            }),
-                          ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).input),
-                            subtitle: Text(
-                              '$buttons (${buttons.toRadixString(2)})',
-                            ),
-                          ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).pressure),
-                            subtitle: Text(pressure.toString()),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                  child: _PointerTest(),
                 ),
               ),
             ],
           );
         },
       ),
+    );
+  }
+}
+
+class _PointerTest extends StatefulWidget {
+  const _PointerTest();
+
+  @override
+  State<_PointerTest> createState() => __PointerTestState();
+}
+
+class __PointerTestState extends State<_PointerTest> {
+  PointerDeviceKind? _kind;
+  int _buttons = 0;
+  double? _pressure, _pressureMin, _pressureMax;
+  Color? _pressed;
+
+  _changeInputTest(Color? color) => (PointerEvent event) {
+        setState(() {
+          _kind = event.kind;
+          _buttons = event.buttons;
+          _pressure = event.pressure;
+          _pressureMin = event.pressureMin;
+          _pressureMax = event.pressureMax;
+          _pressed = color;
+        });
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          AppLocalizations.of(context).pointerTest,
+          style: TextTheme.of(context).headlineSmall,
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 150,
+          child: Listener(
+            onPointerMove: _changeInputTest(Colors.blue),
+            onPointerDown: _changeInputTest(Colors.green),
+            onPointerUp: _changeInputTest(null),
+            onPointerCancel: _changeInputTest(Colors.red),
+            onPointerPanZoomStart: _changeInputTest(
+              Colors.purple,
+            ),
+            onPointerPanZoomUpdate: _changeInputTest(
+              Colors.purple[700],
+            ),
+            onPointerPanZoomEnd: _changeInputTest(
+              Colors.purple[900],
+            ),
+            child: Material(color: _pressed),
+          ),
+        ),
+        const SizedBox(height: 8),
+        ListTile(
+          title: Text(AppLocalizations.of(context).type),
+          subtitle: Text(switch (_kind) {
+            PointerDeviceKind.touch => AppLocalizations.of(context).touch,
+            PointerDeviceKind.mouse => AppLocalizations.of(context).mouse,
+            PointerDeviceKind.stylus => AppLocalizations.of(context).pen,
+            PointerDeviceKind.invertedStylus =>
+              AppLocalizations.of(context).invert,
+            PointerDeviceKind.unknown => AppLocalizations.of(context).error,
+            _ => AppLocalizations.of(context).none,
+          }),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context).input),
+          subtitle: Text(
+            '$_buttons (${_buttons.toRadixString(2)})',
+          ),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context).pressure),
+          subtitle: Text(
+              '${_pressure ?? '?'} (${_pressureMin ?? '?'} - ${_pressureMax ?? '?'})'),
+        ),
+      ],
     );
   }
 }
