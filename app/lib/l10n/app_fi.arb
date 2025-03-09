@@ -651,5 +651,7 @@
   "flipHorizontal": "Käännä vaakasuora",
   "flipVertical": "Käännä pystysuuntainen",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Siirrä ele"
+  "moveOnGesture": "Siirrä ele",
+  "importSettings": "Import settings",
+  "exportSettings": "Export settings"
 }

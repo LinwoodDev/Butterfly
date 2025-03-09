@@ -651,5 +651,7 @@
   "flipHorizontal": "Οριζόντια αναστροφή",
   "flipVertical": "Κάθετη αναστροφή",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Μετακίνηση στη χειρονομία"
+  "moveOnGesture": "Μετακίνηση στη χειρονομία",
+  "importSettings": "Import settings",
+  "exportSettings": "Export settings"
 }

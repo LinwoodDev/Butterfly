@@ -651,5 +651,7 @@
   "flipHorizontal": "Rotire orizontală",
   "flipVertical": "Întoarce vertical",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Mută la gest"
+  "moveOnGesture": "Mută la gest",
+  "importSettings": "Import settings",
+  "exportSettings": "Export settings"
 }
