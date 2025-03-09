@@ -20,20 +20,19 @@ class ToolSelection<T extends Tool> extends Selection<T> {
       } as ToolSelection<T>;
 
   @override
-  List<Widget> buildProperties(BuildContext context) {
-    var initialName = selected.first.name;
-    if (!selected.every((e) => e.name == initialName)) {
-      initialName = '';
+  bool isNameEditable(BuildContext context) => true;
+  @override
+  void setName(BuildContext context, String name) => update(
+      context, selected.map((e) => e.copyWith(name: name) as T).toList());
+
+  @override
+  String nameFormatter(BuildContext context, String name) {
+    if (name.isNotEmpty) return name;
+    final type = selected.first.runtimeType;
+    if (selected.every((e) => e.runtimeType == type)) {
+      return selected.first.getLocalizedName(context);
     }
-    return [
-      TextFormField(
-          decoration: InputDecoration(
-              filled: true, labelText: LeapLocalizations.of(context).name),
-          initialValue: initialName,
-          onChanged: (value) => update(context,
-              selected.map((e) => e.copyWith(name: value) as T).toList())),
-      const SizedBox(height: 4),
-    ];
+    return AppLocalizations.of(context).tool;
   }
 
   @override
@@ -79,11 +78,11 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   String getLocalizedName(BuildContext context) {
-    final type = selected.first.runtimeType;
-    if (selected.every((e) => e.runtimeType == type)) {
-      return selected.first.getLocalizedName(context);
+    var initialName = selected.first.name;
+    if (!selected.every((e) => e.name == initialName)) {
+      initialName = '';
     }
-    return AppLocalizations.of(context).tool;
+    return initialName;
   }
 
   @override

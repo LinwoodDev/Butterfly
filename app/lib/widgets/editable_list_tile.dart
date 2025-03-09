@@ -11,8 +11,10 @@ class EditableListTile extends StatefulWidget {
   final bool showEditIcon, selected;
   final List<Widget>? actions;
   final Widget? leading, subtitle;
+  final TextStyle? textStyle;
   final VoidCallback? onTap;
   final String Function(String)? textFormatter;
+  final EdgeInsetsGeometry? contentPadding;
 
   const EditableListTile({
     super.key,
@@ -25,8 +27,10 @@ class EditableListTile extends StatefulWidget {
     this.actions,
     this.leading,
     this.subtitle,
+    this.textStyle,
     this.onTap,
     this.textFormatter,
+    this.contentPadding,
   });
 
   @override
@@ -99,6 +103,7 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
+    final currentStyle = widget.textStyle ?? DefaultTextStyle.of(context).style;
     return GestureDetector(
       onDoubleTap: _edit,
       child: ListTile(
@@ -106,6 +111,7 @@ class _EditableListTileState extends State<EditableListTile> {
           selected: widget.selected,
           leading: widget.leading,
           subtitle: widget.subtitle,
+          contentPadding: widget.contentPadding,
           title: SizedBox(
             height: 48,
             child: Align(
@@ -119,7 +125,7 @@ class _EditableListTileState extends State<EditableListTile> {
                         autofocus: true,
                         onFieldSubmitted: _onSaved,
                         onTapOutside: (_) => _onSaved(),
-                        style: DefaultTextStyle.of(context).style,
+                        style: currentStyle,
                         decoration: InputDecoration(
                           filled: true,
                           border: const OutlineInputBorder(),
@@ -136,6 +142,7 @@ class _EditableListTileState extends State<EditableListTile> {
                       builder: (context, _) => Text(
                         widget.textFormatter?.call(_controller.text) ??
                             _controller.text,
+                        style: currentStyle,
                       ),
                     ),
             ),

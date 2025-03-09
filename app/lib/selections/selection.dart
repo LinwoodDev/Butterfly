@@ -83,6 +83,10 @@ abstract class Selection<T> {
 
   String getLocalizedName(BuildContext context);
 
+  bool isNameEditable(BuildContext context) => false;
+
+  void setName(BuildContext context, String name) {}
+
   String getLocalizedCaption(BuildContext context) => '';
 
   IconGetter get icon;
@@ -116,4 +120,6 @@ abstract class Selection<T> {
     }
     return selection;
   }
+
+  String nameFormatter(BuildContext context, String name) => name;
 }
