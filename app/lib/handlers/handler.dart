@@ -277,11 +277,12 @@ abstract class Handler<T> {
 }
 
 double getPressureOfEvent(PointerEvent event) {
+  var range = event.pressureMax - event.pressureMin;
+  if (range <= 0) range = 1;
   final pressure = event.kind == PointerDeviceKind.stylus
-      ? (event.pressure - event.pressureMin) /
-          (event.pressureMax - event.pressureMin)
+      ? (event.pressure - event.pressureMin) / range
       : 0.5;
-  if (pressure <= 0) return 0.5;
+  if (pressure.isNaN || pressure <= 0) return 0.5;
   return pressure;
 }
 

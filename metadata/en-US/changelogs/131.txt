@@ -1,0 +1,3 @@
+* Fix NaN values for pressure ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.3
