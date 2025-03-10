@@ -652,6 +652,6 @@
   "flipVertical": "Отразить вертикально",
   "grayscale": "Grayscale",
   "moveOnGesture": "Переместить жест",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Импорт настроек",
+  "exportSettings": "Настройки экспорта"
 }
