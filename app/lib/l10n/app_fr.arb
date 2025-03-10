@@ -652,6 +652,6 @@
   "flipVertical": "Retourner verticalement",
   "grayscale": "Grayscale",
   "moveOnGesture": "Geste de déplacement",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Importer les paramètres",
+  "exportSettings": "Exporter les paramètres"
 }
