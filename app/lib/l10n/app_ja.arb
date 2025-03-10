@@ -652,6 +652,6 @@
   "flipVertical": "垂直方向に反転",
   "grayscale": "Grayscale",
   "moveOnGesture": "ジェスチャー上に移動",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "設定をインポート",
+  "exportSettings": "設定をエクスポート"
 }
