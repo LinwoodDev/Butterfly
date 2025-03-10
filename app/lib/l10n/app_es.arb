@@ -652,6 +652,6 @@
   "flipVertical": "Voltear vertical",
   "grayscale": "Grayscale",
   "moveOnGesture": "Mover en gesto",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Importar ajustes",
+  "exportSettings": "Exportar ajustes"
 }
