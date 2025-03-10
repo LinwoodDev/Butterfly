@@ -652,6 +652,6 @@
   "flipVertical": "垂直翻转",
   "grayscale": "Grayscale",
   "moveOnGesture": "手势移动",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "导入设置",
+  "exportSettings": "导出设置"
 }
