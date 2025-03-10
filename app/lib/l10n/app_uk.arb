@@ -651,5 +651,7 @@
   "flipHorizontal": "Віддзеркалити горизонтально",
   "flipVertical": "Віддзеркалити вертикально",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Перемістити жест"
+  "moveOnGesture": "Перемістити жест",
+  "importSettings": "Імпортувати налаштування",
+  "exportSettings": "Експортувати налаштування"
 }
