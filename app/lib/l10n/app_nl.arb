@@ -652,6 +652,6 @@
   "flipVertical": "Spiegel verticaal",
   "grayscale": "Grayscale",
   "moveOnGesture": "Verplaats naar gebaar",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Instellingen importeren",
+  "exportSettings": "Exporteer instellingen"
 }
