@@ -652,6 +652,6 @@
   "flipVertical": "Κάθετη αναστροφή",
   "grayscale": "Grayscale",
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Εισαγωγή ρυθμίσεων",
+  "exportSettings": "Εξαγωγή ρυθμίσεων"
 }
