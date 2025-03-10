@@ -652,6 +652,6 @@
   "flipVertical": "قلب عمودي",
   "grayscale": "Grayscale",
   "moveOnGesture": "تحريك على الإيماءة",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "استيراد الإعدادات",
+  "exportSettings": "إعدادات التصدير"
 }
