@@ -652,6 +652,6 @@
   "flipVertical": "Vend vertikalt",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flytt på bevegelse",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Importer innstillinger",
+  "exportSettings": "Eksporter innstillingene"
 }
