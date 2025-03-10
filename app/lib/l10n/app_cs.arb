@@ -652,6 +652,6 @@
   "flipVertical": "Překlopit svisle",
   "grayscale": "Grayscale",
   "moveOnGesture": "Přesunout gestem",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Importovat nastavení",
+  "exportSettings": "Exportovat nastavení"
 }
