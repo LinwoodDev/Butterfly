@@ -652,6 +652,6 @@
   "flipVertical": "Vertikal spiegeln",
   "grayscale": "Grayscale",
   "moveOnGesture": "Geste verschieben",
-  "importSettings": "Import settings",
-  "exportSettings": "Export settings"
+  "importSettings": "Import-Einstellungen",
+  "exportSettings": "Export-Einstellungen"
 }
