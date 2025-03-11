@@ -652,6 +652,6 @@
   "flipVertical": "Odwróć w pionie",
   "grayscale": "Grayscale",
   "moveOnGesture": "Przesuń po gestach",
-  "importSettings": "Importuj ustawienia",
-  "exportSettings": "Eksportuj ustawienia"
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }
