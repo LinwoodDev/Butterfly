@@ -652,6 +652,6 @@
   "flipVertical": "Întoarce vertical",
   "grayscale": "Grayscale",
   "moveOnGesture": "Mută la gest",
-  "importSettings": "Importă setări",
-  "exportSettings": "Exportă setările"
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }
