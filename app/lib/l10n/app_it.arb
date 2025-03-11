@@ -652,6 +652,6 @@
   "flipVertical": "Capovolgi verticale",
   "grayscale": "Grayscale",
   "moveOnGesture": "Sposta al gesto",
-  "importSettings": "Importa impostazioni",
-  "exportSettings": "Esporta impostazioni"
+  "restoreSettingsFromFile": "Restore settings from file",
+  "exportSettingsToFile": "Export settings to file"
 }
