@@ -18,7 +18,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   bool shouldSimulatePressure() {
     final points = (element as PathElement).points.sublist(1);
-    return points.every((element) => element.pressure == 0);
+    var pressure = points.firstOrNull?.pressure ?? 0;
+    return points.every((element) => element.pressure == pressure);
   }
 
   Paint buildPaint([DocumentPage? page, bool foreground = false]) {

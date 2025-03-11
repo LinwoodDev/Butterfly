@@ -157,14 +157,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ListTile(
-                        title:
-                            Text(AppLocalizations.of(context).importSettings),
+                        title: Text(AppLocalizations.of(context)
+                            .restoreSettingsFromFile),
                         leading: Icon(PhosphorIconsLight.arrowSquareIn),
                         onTap: () => _importSettings(context),
                       ),
                       ListTile(
-                        title:
-                            Text(AppLocalizations.of(context).exportSettings),
+                        title: Text(
+                            AppLocalizations.of(context).exportSettingsToFile),
                         leading: Icon(PhosphorIconsLight.arrowSquareOut),
                         onTap: () => _exportSettings(context),
                       ),
@@ -314,7 +314,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
       context: context,
       fileExtension: 'json',
       fileName: 'settings',
-      label: AppLocalizations.of(context).exportSettings,
+      label: AppLocalizations.of(context).exportSettingsToFile,
       mimeType: 'application/json',
       uniformTypeIdentifier: 'public.json',
     );
