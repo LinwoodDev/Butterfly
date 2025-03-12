@@ -38,6 +38,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
       if (newPaths == null) return;
       state.currentIndexCubit.setSaveState(
         location: location.copyWith(path: newPaths.first),
+        isCreating: false,
       );
       state.save();
     }

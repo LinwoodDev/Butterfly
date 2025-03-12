@@ -1,6 +1,7 @@
 * Add min and max pressure info to pointer test
 * Add option to import and export settings
 * Add inline property name editing ([#797](https://github.com/LinwoodDev/Butterfly/issues/797))
+* Only change file path on creating document, show indicator for creating document
 * Improve pressure simulation
 * Fix NaN values for pressure ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))
 * Fix importing documents ([#807](https://github.com/LinwoodDev/Butterfly/issues/807))

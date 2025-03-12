@@ -112,7 +112,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
       buildWhen: (previous, current) =>
           previous.location != current.location ||
-          previous.saved != current.saved,
+          previous.saved != current.saved ||
+          previous.isCreating != current.isCreating,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) {
@@ -216,6 +217,19 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               builder: (context, snapshot) {
                 return StatefulBuilder(
                   builder: (context, setState) {
+                    String toFilePath(String name) {
+                      if (state is! DocumentLoaded) return name;
+                      final location = state.location;
+                      return state.fileSystem
+                          .buildDocumentSystem(
+                              settings.getRemote(location.remote))
+                          .convertNameToFileSystem(
+                            name: name,
+                            suffix: '.bfly',
+                            directory: location.parent,
+                          );
+                    }
+
                     Future<void> submit(String? value) async {
                       value ??= area == null
                           ? _nameController.text
@@ -233,15 +247,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             location,
                           );
                         }
-                        if (state is DocumentLoadSuccess) {
+                        if (state is DocumentLoadSuccess &&
+                            currentIndex.isCreating) {
                           await state.save(
-                            location.copyWith(
-                              path: documentSystem.convertNameToFileSystem(
-                                name: value,
-                                suffix: '.bfly',
-                                directory: location.parent,
-                              ),
-                            ),
+                            location.copyWith(path: toFilePath(value)),
                           );
                         }
                         bloc.add(DocumentDescriptionChanged(name: value));
@@ -274,20 +283,43 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             AppLocalizations.of(context).collaboration,
                             style: TextTheme.of(context).bodySmall,
                           ),
-                        ] else if (currentIndex.location.path != '' &&
-                            area == null)
-                          Tooltip(
-                            message: currentIndex.location.identifier,
-                            child: Text(
-                              ((currentIndex.absolute &&
-                                          currentIndex.location.path.isEmpty)
-                                      ? currentIndex.location.fileType
-                                          ?.getLocalizedName(context)
-                                      : currentIndex
-                                          .location.pathWithoutLeadingSlash) ??
-                                  AppLocalizations.of(context).document,
-                              style: TextTheme.of(context).bodySmall,
-                            ),
+                        ] else
+                          ListenableBuilder(
+                            listenable: _nameController,
+                            builder: (context, child) {
+                              final currentNameFilePath =
+                                  toFilePath(_nameController.text);
+                              var showCurrentNameFilePath =
+                                  currentIndex.isCreating &&
+                                      currentNameFilePath !=
+                                          currentIndex.location.path;
+                              if ((currentIndex.location.isEmpty ||
+                                      area == null) &&
+                                  !showCurrentNameFilePath) {
+                                return SizedBox();
+                              }
+                              return Tooltip(
+                                message: currentIndex.location.identifier,
+                                child: Text(
+                                  showCurrentNameFilePath
+                                      ? currentNameFilePath
+                                      : ((currentIndex.absolute &&
+                                                  currentIndex
+                                                      .location.path.isEmpty)
+                                              ? currentIndex.location.fileType
+                                                  ?.getLocalizedName(context)
+                                              : currentIndex.location
+                                                  .pathWithoutLeadingSlash) ??
+                                          AppLocalizations.of(context).document,
+                                  style:
+                                      TextTheme.of(context).bodySmall?.copyWith(
+                                            fontStyle: showCurrentNameFilePath
+                                                ? FontStyle.italic
+                                                : FontStyle.normal,
+                                          ),
+                                ),
+                              );
+                            },
                           ),
                       ],
                     );

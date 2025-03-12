@@ -80,6 +80,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(false) bool areaNavigatorAsk,
     @Default(false) bool navigatorEnabled,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
+    @Default(false) bool isCreating,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -902,9 +903,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void setSaveState(
-          {AssetLocation? location, SaveState? saved, bool absolute = false}) =>
+          {AssetLocation? location,
+          SaveState? saved,
+          bool absolute = false,
+          bool? isCreating}) =>
       emit(state.copyWith(
           location: location ?? state.location,
+          isCreating: isCreating ?? state.isCreating,
           saved: absolute ? SaveState.absoluteRead : saved ?? state.saved));
 
   Future<pw.Document> renderPDF(
