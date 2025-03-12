@@ -17,7 +17,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
 import '../../dialogs/file_system/sync.dart';
-import '../../services/import.dart';
 
 class FilesView extends StatefulWidget {
   final AssetLocation? activeAsset;
@@ -443,34 +442,16 @@ class FilesViewState extends State<FilesView> {
                                     ),
                                     onPressed: () async {
                                       final router = GoRouter.of(context);
-                                      final importService =
-                                          context.read<ImportService>();
                                       final (
                                         result,
                                         extension,
                                       ) = await importFile(context);
                                       if (result == null) return;
-                                      final model = await importService.import(
-                                        AssetFileTypeHelper.fromFileExtension(
-                                              extension,
-                                            ) ??
-                                            AssetFileType.note,
-                                        result,
-                                        advanced: false,
-                                        fileSystem: _documentSystem,
-                                        templateSystem: _templateSystem,
-                                        packSystem: _fileSystem
-                                            .buildPackSystem(_remote),
-                                      );
-                                      if (model == null) {
-                                        reloadFileSystem();
-                                        return;
-                                      }
                                       const route =
                                           '/native?name=document.bfly&type=note';
                                       router.go(
                                         route,
-                                        extra: model.exportAsBytes(),
+                                        extra: result,
                                       );
                                       if (!widget.collapsed) {
                                         reloadFileSystem();
