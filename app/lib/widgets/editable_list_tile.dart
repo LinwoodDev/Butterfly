@@ -53,7 +53,7 @@ class _EditableListTileState extends State<EditableListTile> {
   void dispose() {
     super.dispose();
     _focusNode.dispose();
-    _controller.dispose();
+    if (widget.controller == null) _controller.dispose();
   }
 
   @override
@@ -122,9 +122,10 @@ class _EditableListTileState extends State<EditableListTile> {
             selected: widget.selected,
             leading: widget.leading,
             subtitle: widget.subtitle,
+            minVerticalPadding: 0,
             contentPadding: widget.contentPadding,
             title: SizedBox(
-              height: 42,
+              height: 40,
               child: isEditing
                   ? TextFormField(
                       controller: _controller,
@@ -160,7 +161,7 @@ class _EditableListTileState extends State<EditableListTile> {
                     ),
             ),
             trailing: actionButton ??
-                (widget.onSaved == null
+                (widget.onSaved == null || !widget.showEditIcon
                     ? null
                     : IconButton(
                         icon: PhosphorIcon(

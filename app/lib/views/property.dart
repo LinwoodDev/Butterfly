@@ -177,7 +177,56 @@ class _PropertyCardState extends State<_PropertyCard> {
       _nameController.text = name;
     }
     final textStyle = TextTheme.of(context).headlineSmall;
-    Widget title = selection.isNameEditable(context)
+    final leading = SizedBox.square(
+      dimension: 60,
+      child: menuChildren.length <= 1
+          ? PhosphorIcon(
+              icon,
+              color: Theme.of(
+                context,
+              ).iconTheme.color,
+            )
+          : Center(
+              child: MenuAnchor(
+                controller: _menuController,
+                builder: defaultFilledMenuButton(
+                  iconBuilder: (
+                    context,
+                    controller,
+                    child,
+                  ) =>
+                      Row(
+                    children: [
+                      PhosphorIcon(
+                        icon,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      PhosphorIcon(
+                        controller.isOpen
+                            ? PhosphorIconsLight.caretUp
+                            : PhosphorIconsLight.caretDown,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
+                        size: 12,
+                      ),
+                    ],
+                  ),
+                  tooltip: AppLocalizations.of(
+                    context,
+                  ).icon,
+                ),
+                menuChildren: menuChildren,
+              ),
+            ),
+    );
+    final titleEditable = selection.isNameEditable(context);
+    final title = titleEditable
         ? EditableListTile(
             controller: _nameController,
             textStyle: textStyle,
@@ -185,6 +234,7 @@ class _PropertyCardState extends State<_PropertyCard> {
             subtitle: caption.isEmpty ? SizedBox() : Text(caption),
             onSaved: (value) => selection.setName(context, value),
             textFormatter: (value) => selection.nameFormatter(context, value),
+            showEditIcon: false,
           )
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -204,8 +254,8 @@ class _PropertyCardState extends State<_PropertyCard> {
       elevation: 6,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: 8,
+          vertical: 6,
+          horizontal: 6,
         ),
         child: AnimatedSize(
           alignment: Alignment.topCenter,
@@ -231,56 +281,13 @@ class _PropertyCardState extends State<_PropertyCard> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Header(
-                      centerTitle: false,
-                      leadingWidth: 60,
-                      title: title,
-                      toolbarHeight: 80,
-                      spacing: 0,
-                      leading: menuChildren.length <= 1
-                          ? PhosphorIcon(
-                              icon,
-                              color: Theme.of(
-                                context,
-                              ).iconTheme.color,
-                            )
-                          : MenuAnchor(
-                              controller: _menuController,
-                              builder: defaultFilledMenuButton(
-                                iconBuilder: (
-                                  context,
-                                  controller,
-                                  child,
-                                ) =>
-                                    Row(
-                                  children: [
-                                    PhosphorIcon(
-                                      icon,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimary,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    PhosphorIcon(
-                                      controller.isOpen
-                                          ? PhosphorIconsLight.caretUp
-                                          : PhosphorIconsLight.caretDown,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimary,
-                                      size: 12,
-                                    ),
-                                  ],
-                                ),
-                                tooltip: AppLocalizations.of(
-                                  context,
-                                ).icon,
-                              ),
-                              menuChildren: menuChildren,
-                            ),
-                      actions: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        leading,
+                        const SizedBox(width: 8),
+                        Expanded(child: title),
+                        const SizedBox(width: 4),
                         if (selection.showDeleteButton)
                           IconButton(
                             icon: const PhosphorIcon(
@@ -307,7 +314,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                             onPressed: () => openHelp(help),
                           ),
                         const SizedBox(
-                          height: 16,
+                          height: 24,
                           child: VerticalDivider(),
                         ),
                         if (!widget.isMobile)
