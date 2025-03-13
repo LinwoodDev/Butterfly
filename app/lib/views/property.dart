@@ -126,10 +126,12 @@ class _PropertyCard extends StatefulWidget {
 
 class _PropertyCardState extends State<_PropertyCard> {
   final MenuController _menuController = MenuController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   void dispose() {
     _menuController.close();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -171,14 +173,17 @@ class _PropertyCardState extends State<_PropertyCard> {
             )
             .toList();
     final name = selection.getLocalizedName(context);
+    if (_nameController.text != name) {
+      _nameController.text = name;
+    }
     final textStyle = TextTheme.of(context).headlineSmall;
     Widget title = selection.isNameEditable(context)
         ? EditableListTile(
-            initialValue: name,
+            controller: _nameController,
             textStyle: textStyle,
-            contentPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.only(left: 4),
             subtitle: caption.isEmpty ? null : Text(caption),
-            onSaved: (value) {},
+            onSaved: (value) => selection.setName(context, value),
             textFormatter: (value) => selection.nameFormatter(context, value),
           )
         : Column(
@@ -231,6 +236,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                       leadingWidth: 60,
                       title: title,
                       toolbarHeight: 80,
+                      spacing: 0,
                       leading: menuChildren.length <= 1
                           ? PhosphorIcon(
                               icon,

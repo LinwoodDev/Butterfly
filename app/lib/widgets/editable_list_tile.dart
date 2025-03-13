@@ -39,6 +39,7 @@ class EditableListTile extends StatefulWidget {
 
 class _EditableListTileState extends State<EditableListTile> {
   late final TextEditingController _controller;
+  final FocusNode _focusNode = FocusScopeNode(), _submitFocusNode = FocusNode();
   bool _isEditing = false;
 
   @override
@@ -51,20 +52,23 @@ class _EditableListTileState extends State<EditableListTile> {
   @override
   void dispose() {
     super.dispose();
+    _focusNode.dispose();
+    _submitFocusNode.dispose();
     _controller.dispose();
   }
 
   @override
   void didUpdateWidget(covariant EditableListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (widget.controller == oldWidget.controller) {
+      return;
+    }
     setState(() {
-      if (widget.controller != oldWidget.controller) {
-        _controller = widget.controller ?? TextEditingController();
-      }
-      final initialValue = widget.initialValue;
-      if (initialValue != oldWidget.initialValue && initialValue != null) {
-        _controller.text = initialValue;
-      }
+      _controller = widget.controller ??
+          TextEditingController(
+            text: widget.initialValue,
+          );
     });
   }
 
@@ -77,6 +81,7 @@ class _EditableListTileState extends State<EditableListTile> {
 
   void _edit() {
     if (widget.onSaved != null) {
+      _focusNode.requestFocus();
       setState(() {
         _isEditing = true;
       });
@@ -104,57 +109,79 @@ class _EditableListTileState extends State<EditableListTile> {
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
     final currentStyle = widget.textStyle ?? DefaultTextStyle.of(context).style;
+    final isEditing = _isEditing;
     return GestureDetector(
       onDoubleTap: _edit,
-      child: ListTile(
-          onTap: widget.onTap,
-          selected: widget.selected,
-          leading: widget.leading,
-          subtitle: widget.subtitle,
-          contentPadding: widget.contentPadding,
-          title: SizedBox(
-            height: 48,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: _isEditing
-                  ? Builder(
-                      builder: (context) => TextFormField(
-                        controller: _controller,
-                        onChanged: widget.onChanged,
-                        onSaved: _onSaved,
-                        autofocus: true,
-                        onFieldSubmitted: _onSaved,
-                        onTapOutside: (_) => _onSaved(),
-                        style: currentStyle,
-                        decoration: InputDecoration(
-                          filled: true,
-                          border: const OutlineInputBorder(),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 10,
-                          ),
-                          hintText: AppLocalizations.of(context).enterText,
+      child: FocusScope(
+        onFocusChange: (value) {
+          if (!value) {
+            _onSaved();
+          }
+        },
+        child: ListTile(
+            onTap: widget.onTap,
+            selected: widget.selected,
+            leading: widget.leading,
+            subtitle: widget.subtitle,
+            contentPadding: widget.contentPadding,
+            title: SizedBox(
+              height: 42,
+              child: isEditing
+                  ? TextFormField(
+                      controller: _controller,
+                      onChanged: widget.onChanged,
+                      onSaved: _onSaved,
+                      autofocus: true,
+                      onFieldSubmitted: _onSaved,
+                      style: currentStyle,
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 0,
                         ),
+                        hintText: AppLocalizations.of(context).enterText,
                       ),
                     )
-                  : ListenableBuilder(
-                      listenable: _controller,
-                      builder: (context, _) => Text(
-                        widget.textFormatter?.call(_controller.text) ??
-                            _controller.text,
-                        style: currentStyle,
+                  : Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: ListenableBuilder(
+                          listenable: _controller,
+                          builder: (context, _) => Text(
+                            widget.textFormatter?.call(_controller.text) ??
+                                _controller.text,
+                            style: currentStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ),
                     ),
             ),
-          ),
-          trailing: actionButton ??
-              (widget.onSaved == null
-                  ? null
-                  : IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.pencil),
-                      tooltip: AppLocalizations.of(context).rename,
-                      onPressed: _edit,
-                    ))),
+            trailing: actionButton ??
+                (widget.onSaved == null
+                    ? null
+                    : IconButton(
+                        icon: PhosphorIcon(
+                          _isEditing
+                              ? PhosphorIconsLight.check
+                              : PhosphorIconsLight.pencil,
+                        ),
+                        focusNode: _submitFocusNode,
+                        tooltip: _isEditing
+                            ? AppLocalizations.of(context).save
+                            : AppLocalizations.of(context).edit,
+                        onPressed: () {
+                          if (isEditing) {
+                            _onSaved();
+                          } else {
+                            _edit();
+                          }
+                        },
+                      ))),
+      ),
     );
   }
 }

@@ -26,7 +26,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
       context, selected.map((e) => e.copyWith(name: name) as T).toList());
 
   @override
-  String nameFormatter(BuildContext context, String name) {
+  String nameFormatter(BuildContext context, [String name = '']) {
     if (name.isNotEmpty) return name;
     final type = selected.first.runtimeType;
     if (selected.every((e) => e.runtimeType == type)) {
@@ -88,6 +88,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
   @override
   String getLocalizedCaption(BuildContext context) {
     final type = selected.first.runtimeType;
+    if (getLocalizedName(context).isNotEmpty) return nameFormatter(context);
     if (selected.every((e) => e.runtimeType == type)) {
       return selected.first.getLocalizedCaption(context);
     }
