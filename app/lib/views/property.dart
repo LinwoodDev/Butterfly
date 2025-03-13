@@ -182,7 +182,7 @@ class _PropertyCardState extends State<_PropertyCard> {
             controller: _nameController,
             textStyle: textStyle,
             contentPadding: EdgeInsets.only(left: 4),
-            subtitle: caption.isEmpty ? null : Text(caption),
+            subtitle: caption.isEmpty ? SizedBox() : Text(caption),
             onSaved: (value) => selection.setName(context, value),
             textFormatter: (value) => selection.nameFormatter(context, value),
           )

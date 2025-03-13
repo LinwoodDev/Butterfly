@@ -293,9 +293,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                   currentIndex.isCreating &&
                                       currentNameFilePath !=
                                           currentIndex.location.path;
-                              if ((currentIndex.location.isEmpty ||
-                                      area == null) &&
-                                  !showCurrentNameFilePath) {
+                              if (currentIndex.location.isEmpty &&
+                                  area == null) {
                                 return SizedBox();
                               }
                               return Tooltip(

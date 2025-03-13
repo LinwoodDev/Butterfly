@@ -39,7 +39,7 @@ class EditableListTile extends StatefulWidget {
 
 class _EditableListTileState extends State<EditableListTile> {
   late final TextEditingController _controller;
-  final FocusNode _focusNode = FocusScopeNode(), _submitFocusNode = FocusNode();
+  final FocusNode _focusNode = FocusScopeNode();
   bool _isEditing = false;
 
   @override
@@ -53,7 +53,6 @@ class _EditableListTileState extends State<EditableListTile> {
   void dispose() {
     super.dispose();
     _focusNode.dispose();
-    _submitFocusNode.dispose();
     _controller.dispose();
   }
 
@@ -169,7 +168,6 @@ class _EditableListTileState extends State<EditableListTile> {
                               ? PhosphorIconsLight.check
                               : PhosphorIconsLight.pencil,
                         ),
-                        focusNode: _submitFocusNode,
                         tooltip: _isEditing
                             ? AppLocalizations.of(context).save
                             : AppLocalizations.of(context).edit,
