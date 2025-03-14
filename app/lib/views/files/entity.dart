@@ -25,6 +25,7 @@ class FileEntityItem extends StatefulWidget {
   final bool active, collapsed, gridView;
   final bool? selected;
   final VoidCallback onTap, onReload;
+  final VoidCallback? onPreview;
   final ValueChanged<bool> onSelected;
   final bool isMobile;
 
@@ -39,6 +40,7 @@ class FileEntityItem extends StatefulWidget {
     required this.onTap,
     required this.onReload,
     required this.onSelected,
+    this.onPreview,
   });
 
   @override
@@ -183,6 +185,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
         onDelete: onDelete,
         onReload: widget.onReload,
         documentSystem: documentSystem,
+        onOpen: widget.onPreview != null ? widget.onTap : null,
         onSelect:
             widget.selected == null ? () => widget.onSelected(true) : null,
         builder: (context, button, controller) => widget.gridView
@@ -190,7 +193,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 modifiedText: modifiedText,
                 createdText: createdText,
                 icon: icon,
-                onTap: widget.onTap,
+                onTap: widget.onPreview ?? widget.onTap,
                 onDelete: onDelete,
                 onReload: widget.onReload,
                 onEdit: onEdit,
@@ -208,7 +211,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
                 modifiedText: modifiedText,
                 createdText: createdText,
                 icon: icon,
-                onTap: widget.onTap,
+                onTap: widget.onPreview ?? widget.onTap,
                 onDelete: onDelete,
                 onReload: widget.onReload,
                 onEdit: onEdit,
@@ -254,6 +257,7 @@ class ContextFileRegion extends StatelessWidget {
   final ValueChanged<bool> onEdit;
   final VoidCallback onReload, onDelete;
   final VoidCallback? onSelect;
+  final VoidCallback? onOpen;
   final TextEditingController nameController;
   final ContextRegionChildBuilder builder;
 
@@ -269,6 +273,7 @@ class ContextFileRegion extends StatelessWidget {
     required this.documentSystem,
     required this.onReload,
     required this.builder,
+    this.onOpen,
     this.onSelect,
   });
 
@@ -278,6 +283,12 @@ class ContextFileRegion extends StatelessWidget {
     return ContextRegion(
       tooltip: AppLocalizations.of(context).actions,
       menuChildren: [
+        if (onOpen != null)
+          MenuItemButton(
+            onPressed: onOpen,
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.eye),
+            child: Text(AppLocalizations.of(context).open),
+          ),
         if (remote is RemoteStorage)
           StreamBuilder<List<SyncFile>>(
             stream: syncService.getSync(remote!.identifier)?.filesStream,

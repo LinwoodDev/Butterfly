@@ -236,19 +236,22 @@ class _PropertyCardState extends State<_PropertyCard> {
             textFormatter: (value) => selection.nameFormatter(context, value),
             showEditIcon: false,
           )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Text(name),
-              ),
-              if (caption.isNotEmpty)
-                Text(
-                  caption,
-                  style: TextTheme.of(context).labelLarge,
+        : SizedBox(
+            height: 60,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(name, style: textStyle),
                 ),
-            ],
+                if (caption.isNotEmpty)
+                  Text(
+                    caption,
+                    style: TextTheme.of(context).labelLarge,
+                  ),
+              ],
+            ),
           );
     return Card(
       elevation: 6,

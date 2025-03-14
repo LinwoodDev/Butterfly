@@ -1,15 +1,13 @@
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
-import 'package:butterfly/views/files/view.dart';
+import 'package:butterfly/views/navigator/files.dart';
 import 'package:butterfly/views/navigator/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -172,14 +170,6 @@ class DocumentNavigator extends StatefulWidget {
 
 class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
-  ExternalStorage? _remote;
-
-  @override
-  void initState() {
-    super.initState();
-    _remote = context.read<SettingsCubit>().getRemote();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
@@ -187,83 +177,56 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           previous.navigatorPage != current.navigatorPage,
       builder: (context, currentIndex) {
         final page = currentIndex.navigatorPage;
-        return BlocBuilder<DocumentBloc, DocumentState>(
-          buildWhen: (previous, current) =>
-              (previous is DocumentLoadSuccess &&
-                  current is! DocumentLoadSuccess) ||
-              (previous is! DocumentLoadSuccess &&
-                  current is DocumentLoadSuccess) ||
-              (current is DocumentLoaded &&
-                  previous is DocumentLoaded &&
-                  current.location != previous.location),
-          builder: (context, state) {
-            AssetLocation? location;
-            if (state is DocumentLoaded) {
-              location = state.location;
-            }
-            final body = switch (page) {
-              NavigatorPage.waypoints => const WaypointsView(),
-              NavigatorPage.areas => const AreasView(),
-              NavigatorPage.layers => const LayersView(),
-              NavigatorPage.pages => const PagesView(),
-              NavigatorPage.files => SingleChildScrollView(
-                  child: FilesView(
-                    remote: _remote,
-                    activeAsset: location,
-                    onRemoteChanged: (remote) {
-                      setState(() {
-                        _remote = remote;
-                      });
+        final body = switch (page) {
+          NavigatorPage.waypoints => const WaypointsView(),
+          NavigatorPage.areas => const AreasView(),
+          NavigatorPage.layers => const LayersView(),
+          NavigatorPage.pages => const PagesView(),
+          NavigatorPage.files => const FilesNavigatorPage(),
+          NavigatorPage.components => const ComponentsView(),
+        };
+        final content = Padding(
+          padding: const EdgeInsets.all(12),
+          key: ValueKey(('navigator', page)),
+          child: Column(
+            children: [
+              Header(
+                leading: widget.asDrawer
+                    ? IconButton.outlined(
+                        icon: const PhosphorIcon(PhosphorIconsLight.x),
+                        onPressed: () => Navigator.of(context).pop(),
+                        tooltip: MaterialLocalizations.of(
+                          context,
+                        ).closeButtonLabel,
+                      )
+                    : null,
+                title: Text(page.getLocalizedName(context)),
+                actions: [
+                  IconButton(
+                    icon: const PhosphorIcon(
+                      PhosphorIconsLight.sealQuestion,
+                    ),
+                    onPressed: () {
+                      final help = page.getHelp();
+                      openHelp(help.$1, help.$2);
                     },
-                    collapsed: true,
+                    tooltip: AppLocalizations.of(context).help,
                   ),
-                ),
-              NavigatorPage.components => const ComponentsView(),
-            };
-            final content = Padding(
-              padding: const EdgeInsets.all(12),
-              key: ValueKey(('navigator', page)),
-              child: Column(
-                children: [
-                  Header(
-                    leading: widget.asDrawer
-                        ? IconButton.outlined(
-                            icon: const PhosphorIcon(PhosphorIconsLight.x),
-                            onPressed: () => Navigator.of(context).pop(),
-                            tooltip: MaterialLocalizations.of(
-                              context,
-                            ).closeButtonLabel,
-                          )
-                        : null,
-                    title: Text(page.getLocalizedName(context)),
-                    actions: [
-                      IconButton(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.sealQuestion,
-                        ),
-                        onPressed: () {
-                          final help = page.getHelp();
-                          openHelp(help.$1, help.$2);
-                        },
-                        tooltip: AppLocalizations.of(context).help,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(child: body),
                 ],
               ),
-            );
-            if (widget.asDrawer) {
-              return Drawer(width: 400, child: content);
-            } else {
-              return AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: content,
-              );
-            }
-          },
+              const SizedBox(height: 16),
+              Expanded(child: body),
+            ],
+          ),
         );
+        if (widget.asDrawer) {
+          return Drawer(width: 400, child: content);
+        } else {
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: content,
+          );
+        }
       },
     );
   }

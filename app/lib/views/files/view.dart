@@ -22,6 +22,7 @@ class FilesView extends StatefulWidget {
   final AssetLocation? activeAsset;
   final ExternalStorage? remote;
   final ValueChanged<ExternalStorage?>? onRemoteChanged;
+  final ValueChanged<FileSystemFile<NoteFile>>? onPreview;
   final bool collapsed;
   final bool isMobile, isPage;
 
@@ -30,6 +31,7 @@ class FilesView extends StatefulWidget {
     this.activeAsset,
     this.remote,
     this.onRemoteChanged,
+    this.onPreview,
     this.collapsed = false,
     this.isMobile = false,
     this.isPage = false,
@@ -314,7 +316,17 @@ class FilesViewState extends State<FilesView> {
                 },
               ),
               const SizedBox(height: 8),
-              RecentFilesView(replace: widget.collapsed),
+              RecentFilesView(
+                  replace: widget.collapsed,
+                  onFileTap: widget.onPreview == null
+                      ? _onFileTap
+                      : (e) {
+                          if (e is FileSystemFile<NoteFile>) {
+                            widget.onPreview!(e);
+                            return;
+                          }
+                          _onFileTap(e);
+                        }),
             ],
             const SizedBox(height: 16),
             LayoutBuilder(
@@ -734,6 +746,17 @@ class FilesViewState extends State<FilesView> {
                       child: Text(AppLocalizations.of(context).noElements),
                     );
                   }
+
+                  generateOnPreview(FileSystemEntity<NoteFile> e) =>
+                      widget.onPreview != null
+                          ? () {
+                              if (e is! FileSystemFile<NoteFile>) {
+                                _onFileTap(e);
+                                return;
+                              }
+                              widget.onPreview!(e);
+                            }
+                          : null;
                   if (state.gridView && !widget.collapsed) {
                     return Center(
                       child: Wrap(
@@ -748,6 +771,7 @@ class FilesViewState extends State<FilesView> {
                             active: active,
                             collapsed: widget.collapsed,
                             onTap: () => _onFileTap(e),
+                            onPreview: generateOnPreview(e),
                             selected: _selectedFiles.isEmpty
                                 ? null
                                 : _selectedFiles.contains(
@@ -774,6 +798,7 @@ class FilesViewState extends State<FilesView> {
                         entity: e,
                         active: active,
                         collapsed: widget.collapsed,
+                        onPreview: generateOnPreview(e),
                         selected: _selectedFiles.isEmpty
                             ? null
                             : _selectedFiles.contains(e.location.path),

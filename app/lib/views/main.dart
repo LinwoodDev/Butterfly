@@ -141,7 +141,6 @@ class _ProjectPageState extends State<ProjectPage> {
     final documentSystem = fileSystem.buildDocumentSystem(_remote);
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = DocumentDefaults.createDocument();
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -149,28 +148,6 @@ class _ProjectPageState extends State<ProjectPage> {
       if (language != 'user') {
         settingsCubit.changeLocaleTemporarily(language);
       }
-      setState(() {
-        _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(
-          settingsCubit,
-          _transformCubit!,
-          CameraViewport.unbaked(),
-          embedding,
-        );
-        _bloc = DocumentBloc(
-          fileSystem,
-          _currentIndexCubit!,
-          windowCubit,
-          document,
-          widget.location ?? const AssetLocation(path: ''),
-          [],
-        );
-        _bloc?.load();
-        embedding.handler.register(context, _bloc!);
-        _importService = ImportService(context, bloc: _bloc);
-        _exportService = ExportService(context, _bloc);
-      });
-      return;
     }
     final networkingService = NetworkingService();
     try {
@@ -273,7 +250,7 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           _transformCubit!,
           CameraViewport.unbaked(backgrounds),
-          null,
+          embedding,
           networkingService,
         );
         _bloc = DocumentBloc(
@@ -320,7 +297,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void dispose() {
     super.dispose();
-    widget.embedding?.handler.unregister();
+    widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
     _bloc?.dispose();
     _searchController.dispose();

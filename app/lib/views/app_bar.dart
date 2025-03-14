@@ -272,6 +272,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                 : _areaController,
                             onFieldSubmitted: submit,
                             onSaved: submit,
+                            readOnly: state.embedding?.editable == false,
                             decoration: InputDecoration(
                               filled: true,
                               hintText: AppLocalizations.of(context).untitled,
@@ -330,7 +331,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
           ),
           const SizedBox(width: 8),
           if (state is DocumentLoadSuccess) ...[
-            if (!state.hasAutosave() || settings.showSaveButton)
+            if ((!state.hasAutosave() || settings.showSaveButton) &&
+                state.embedding?.save != false)
               SizedBox(
                 width: 42,
                 child: Builder(
@@ -386,7 +388,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 tooltip: AppLocalizations.of(context).changeDocumentPath,
               ),
             ],
-            if (settings.hasFlag('collaboration') && !kIsWeb)
+            if (state.embedding == null &&
+                settings.hasFlag('collaboration') &&
+                !kIsWeb)
               StreamBuilder<NetworkState?>(
                 stream: state.networkingService.stream,
                 builder: (context, snapshot) => IconButton(
@@ -621,8 +625,6 @@ class _MainPopupMenu extends StatelessWidget {
                 onPressed: () => openSettings(context),
                 child: Text(AppLocalizations.of(context).settings),
               ),
-            ],
-            if (state.embedding == null) ...[
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.eyeSlash),
                 shortcut: const SingleActivator(LogicalKeyboardKey.f12),
@@ -653,6 +655,11 @@ class _MainPopupMenu extends StatelessWidget {
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
                 child: Text(AppLocalizations.of(context).exit),
                 onPressed: () {
+                  final embedding = state.embedding!;
+                  if (embedding.isInternal) {
+                    embedding.onExit?.call();
+                    return;
+                  }
                   sendEmbedMessage(
                     'exit',
                     context.read<DocumentBloc>().state.saveBytes(),

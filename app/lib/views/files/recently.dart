@@ -11,10 +11,13 @@ import 'package:lw_file_system/lw_file_system.dart';
 
 class RecentFilesView extends StatefulWidget {
   final bool replace, asGrid;
+  final void Function(FileSystemEntity<NoteFile> entity)? onFileTap;
+
   const RecentFilesView({
     super.key,
     required this.replace,
     this.asGrid = false,
+    this.onFileTap,
   });
 
   @override
@@ -56,7 +59,9 @@ class _RecentFilesViewState extends State<RecentFilesView> {
       thumbnail: thumbnail,
       name: entity.location.identifier,
       height: double.infinity,
-      onTap: () => openFile(context, widget.replace, entity.location),
+      onTap: () => widget.onFileTap == null
+          ? openFile(context, widget.replace, entity.location)
+          : widget.onFileTap!(entity),
     );
   }
 

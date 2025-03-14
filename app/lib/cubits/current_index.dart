@@ -121,6 +121,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       getThemeData(state.settingsCubit.state.design, dark, density, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
+    if (state.embedding?.editable == false) {
+      return HandHandler();
+    }
     if (disableTemporary) {
       return state.handler;
     } else {
