@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
@@ -17,7 +18,7 @@ class FilesNavigatorPage extends StatefulWidget {
 
 class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
   ExternalStorage? _remote;
-  NoteData? _opened;
+  (NoteData, AssetLocation)? _opened;
 
   @override
   void initState() {
@@ -47,11 +48,13 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
                 editable: false,
                 save: false,
                 internal: true,
+                location: _opened?.$2,
+                onOpen: () => openFile(context, true, _opened!.$2, _opened!.$1),
                 onExit: () => setState(() {
                   _opened = null;
                 }),
               ),
-              data: _opened,
+              data: _opened?.$1,
             );
           }
           return SingleChildScrollView(
@@ -60,8 +63,9 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
               activeAsset: location,
               onPreview: (value) {
                 final data = value.data!.load();
+                if (data == null) return;
                 setState(() {
-                  _opened = data;
+                  _opened = (data, value.location);
                 });
               },
               onRemoteChanged: (remote) {

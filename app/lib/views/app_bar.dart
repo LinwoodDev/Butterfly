@@ -650,6 +650,13 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ],
+            if (state.embedding?.onOpen != null) ...[
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
+                onPressed: state.embedding?.onOpen,
+                child: Text(AppLocalizations.of(context).open),
+              ),
+            ],
             if (state.embedding != null) ...[
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
