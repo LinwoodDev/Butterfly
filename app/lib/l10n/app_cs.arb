@@ -652,6 +652,6 @@
   "flipVertical": "Překlopit svisle",
   "grayscale": "Grayscale",
   "moveOnGesture": "Přesunout gestem",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
+  "exportSettingsToFile": "Exportovat nastavení do souboru"
 }
