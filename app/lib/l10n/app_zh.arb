@@ -652,6 +652,6 @@
   "flipVertical": "垂直翻转",
   "grayscale": "Grayscale",
   "moveOnGesture": "手势移动",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "从文件恢复设置",
+  "exportSettingsToFile": "导出设置到文件"
 }
