@@ -652,6 +652,6 @@
   "flipVertical": "Κάθετη αναστροφή",
   "grayscale": "Grayscale",
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
-  "restoreSettingsFromFile": "Restore settings from file",
-  "exportSettingsToFile": "Export settings to file"
+  "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
+  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο"
 }
