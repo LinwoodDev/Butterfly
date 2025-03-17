@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-beta.3 (2025-03-17)
+
+* Add file preview to files navigator ([#736](https://github.com/LinwoodDev/Butterfly/issues/736))
+* Add min and max pressure info to pointer test
+* Add option to import and export settings
+* Add inline property name editing ([#797](https://github.com/LinwoodDev/Butterfly/issues/797))
+* Only change file path on creating document, show indicator for creating document
+* Improve pressure simulation
+* Fix NaN values for pressure ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))
+* Fix importing documents ([#807](https://github.com/LinwoodDev/Butterfly/issues/807))
+* Fix editable text submit button making it editable again
+* Fix selection menu in template dialog not showing without opening a document
+* Add version name on desktop if banner was hidden
+* Update to agb 8.9
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.3
+
 ## 2.3.0-beta.2 (2025-03-04)
 
 * Add indicator for scale proportion ([#616](https://github.com/LinwoodDev/Butterfly/issues/616))
