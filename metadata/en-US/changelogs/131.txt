@@ -8,6 +8,7 @@
 * Fix importing documents ([#807](https://github.com/LinwoodDev/Butterfly/issues/807))
 * Fix editable text submit button making it editable again
 * Fix selection menu in template dialog not showing without opening a document
+* Add version name on desktop if banner was hidden
 * Update to agb 8.9
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.3

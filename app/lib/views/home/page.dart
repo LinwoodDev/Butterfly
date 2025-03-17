@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                               BannerVisibility.onlyOnUpdates &&
                           hasNewerVersion);
               final appBar = WindowTitleBar<SettingsCubit, ButterflySettings>(
-                title: isMobile
+                title: isMobile || !showBanner
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
