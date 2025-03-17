@@ -651,5 +651,7 @@
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Geste verschieben"
+  "moveOnGesture": "Geste verschieben",
+  "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
+  "exportSettingsToFile": "Einstellungen in Datei exportieren"
 }

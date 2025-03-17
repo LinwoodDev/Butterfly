@@ -651,5 +651,7 @@
   "flipHorizontal": "水平翻转",
   "flipVertical": "垂直翻转",
   "grayscale": "Grayscale",
-  "moveOnGesture": "手势移动"
+  "moveOnGesture": "手势移动",
+  "restoreSettingsFromFile": "从文件恢复设置",
+  "exportSettingsToFile": "导出设置到文件"
 }

@@ -651,5 +651,7 @@
   "flipHorizontal": "Retourner horizontale",
   "flipVertical": "Retourner verticalement",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Geste de déplacement"
+  "moveOnGesture": "Geste de déplacement",
+  "restoreSettingsFromFile": "Restaurer les paramètres à partir du fichier",
+  "exportSettingsToFile": "Exporter les paramètres vers un fichier"
 }

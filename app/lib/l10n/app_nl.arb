@@ -651,5 +651,7 @@
   "flipHorizontal": "Horizontaal spiegelen",
   "flipVertical": "Spiegel verticaal",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Verplaats naar gebaar"
+  "moveOnGesture": "Verplaats naar gebaar",
+  "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
+  "exportSettingsToFile": "Instellingen exporteren naar bestand"
 }

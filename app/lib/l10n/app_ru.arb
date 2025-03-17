@@ -651,5 +651,7 @@
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Переместить жест"
+  "moveOnGesture": "Переместить жест",
+  "restoreSettingsFromFile": "Восстановить настройки из файла",
+  "exportSettingsToFile": "Экспорт настроек в файл"
 }

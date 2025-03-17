@@ -651,5 +651,7 @@
   "flipHorizontal": "Odwróć poziomo",
   "flipVertical": "Odwróć w pionie",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Przesuń po gestach"
+  "moveOnGesture": "Przesuń po gestach",
+  "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
+  "exportSettingsToFile": "Eksportuj ustawienia do pliku"
 }

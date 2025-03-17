@@ -651,5 +651,7 @@
   "flipHorizontal": "Inverter horizontalmente",
   "flipVertical": "Inverter verticalmente",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Mover para gesto"
+  "moveOnGesture": "Mover para gesto",
+  "restoreSettingsFromFile": "Restaurar configurações do arquivo",
+  "exportSettingsToFile": "Exportar configurações para arquivo"
 }
