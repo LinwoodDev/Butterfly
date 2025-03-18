@@ -155,10 +155,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (nextPointerIndex <= 0) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(
-              context,
-              nextPointerIndex,
-            );
+            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
           }
         }
 
