@@ -1,3 +1,4 @@
+* Add tooltips to the close icon button
 * Fix temporary tool not being removed ([#809](https://github.com/LinwoodDev/Butterfly/issues/809))
 * Fix editable list tile subtitle not aligned with title
 

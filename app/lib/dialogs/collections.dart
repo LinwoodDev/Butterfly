@@ -185,6 +185,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
         onPressed: () {
           Navigator.pop(context);
         },
+        tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
       ),
     );
   }

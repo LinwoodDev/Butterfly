@@ -345,9 +345,8 @@ class _PropertyCardState extends State<_PropertyCard> {
                           ),
                         const SizedBox(width: 8),
                         IconButton.outlined(
-                          tooltip: MaterialLocalizations.of(
-                            context,
-                          ).closeButtonLabel,
+                          tooltip: MaterialLocalizations.of(context)
+                              .closeButtonTooltip,
                           icon: const PhosphorIcon(
                             PhosphorIconsLight.x,
                           ),

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:cryptography_plus/cryptography_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,6 +13,7 @@ import 'package:networker/networker.dart';
 import 'package:networker_socket/client.dart';
 import 'package:networker_socket/server.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:swamp_api/connection.dart';
 
 part 'network.freezed.dart';
 part 'network.g.dart';
@@ -30,7 +32,7 @@ const kTimeout = Duration(minutes: 5);
 
 sealed class NetworkState {
   NetworkerBase get connection;
-  final NamedRpcNetworkerPipe<NetworkEvent> pipe;
+  final NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> pipe;
 
   NetworkState({
     required this.pipe,
@@ -39,7 +41,7 @@ sealed class NetworkState {
 
 final class ServerNetworkState extends NetworkState {
   @override
-  final NetworkerServer connection;
+  final NetworkerBase connection;
   final bool queue;
   final String password;
 
@@ -111,7 +113,7 @@ class NetworkingService extends Cubit<NetworkState?> {
             ? InternetAddress(address, type: InternetAddressType.any)
             : InternetAddress.anyIPv4,
         port ?? kDefaultPort);
-    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent>();
+    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
     _setupRpc(rpc, server);
     void sendConnections() {
       final current = server.clientConnections;
@@ -146,7 +148,7 @@ class NetworkingService extends Cubit<NetworkState?> {
       uri = uri.replace(scheme: 'ws');
     }
     final client = NetworkerSocketClient(uri);
-    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent>();
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
     _setupRpc(rpc, client);
     final completer = Completer<Uint8List?>();
     rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
@@ -165,8 +167,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     _users.add({});
   }
 
-  void _setupRpc(
-      NamedRpcNetworkerPipe<NetworkEvent> rpc, NetworkerBase networker) {
+  void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
+      NetworkerBase networker) {
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
@@ -217,5 +219,21 @@ class NetworkingService extends Cubit<NetworkState?> {
     _externalEvent = true;
     _bloc?.add(event);
     _externalEvent = false;
+  }
+
+  Cipher _buildCipher() => AesGcm.with256bits();
+
+  Future<void> createSwampServer(String text) async {
+    var url = Uri.parse(text);
+    if (url.scheme.isEmpty) {
+      url = url.replace(scheme: 'wss');
+    }
+    final cipher = _buildCipher();
+    final server = await SwampConnection.buildSecure(url, cipher);
+    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
+    _setupRpc(rpc, server);
+    server.messagePipe.connect(rpc);
+    await server.init();
+    emit(ServerNetworkState(connection: server, pipe: rpc));
   }
 }

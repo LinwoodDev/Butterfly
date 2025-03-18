@@ -81,13 +81,18 @@ dependencies:
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0bdc62d3af7f31e19a694d9cd39fe020dced8754
+      ref: 213c6382f196ee93c4c43ca911cdb26a38317e39
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: fa036587c2a26db6455dd063701aef32b3531800
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       path: packages/networker/networker_socket
+  swamp_api:
+    git:
+      url: https://github.com/LinwoodDev/Swamp.git
+      ref: 636153aa4dfe53f97c6f760756f574ec716ab8e2
+      path: api
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
@@ -101,6 +106,7 @@ dependencies:
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.9.0-dev.4
   web: ^1.0.0
+  cryptography_plus: ^2.7.1
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^5.0.0

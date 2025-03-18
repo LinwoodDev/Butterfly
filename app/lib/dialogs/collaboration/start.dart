@@ -13,21 +13,36 @@ class StartCollaborationDialog extends StatefulWidget {
 class _StartCollaborationDialogState extends State<StartCollaborationDialog>
     with TickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final TextEditingController _addressController =
+  late final TabController _tabController;
+  final TextEditingController _webSocketAddressController =
           TextEditingController(text: '0.0.0.0'),
-      _portController = TextEditingController(text: kDefaultPort.toString());
+      _webSocketPortController =
+          TextEditingController(text: kDefaultPort.toString()),
+      _swampAddressController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   void _start() {
     if (kIsWeb) return;
-    widget.service.createSocketServer(
-        _addressController.text, int.tryParse(_portController.text));
+    if (_tabController.index == 0) {
+      widget.service.createSwampServer(_swampAddressController.text);
+      return;
+    }
+    widget.service.createSocketServer(_webSocketAddressController.text,
+        int.tryParse(_webSocketPortController.text));
   }
 
   @override
   void dispose() {
     super.dispose();
-    _addressController.dispose();
-    _portController.dispose();
+    _webSocketAddressController.dispose();
+    _webSocketPortController.dispose();
+    _swampAddressController.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -36,66 +51,112 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
       key: _formKey,
       child: DefaultTabController(
         length: 2,
-        child: AlertDialog(
+        child: ResponsiveAlertDialog(
           title: Text(AppLocalizations.of(context).collaboration),
-          scrollable: true,
-          content: kIsWeb
-              ? Text(AppLocalizations.of(context).webNotSupported)
-              : Column(
+          leading: IconButton.outlined(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(PhosphorIconsLight.x),
+            tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+          ),
+          constraints: BoxConstraints(maxWidth: 400, maxHeight: 400),
+          content: Column(
+            children: [
+              TabBar(
+                controller: _tabController,
+                tabs: [
+                  HorizontalTab(
+                    label: const Text('Swamp'),
+                    icon: Icon(PhosphorIconsLight.globe),
+                  ),
+                  HorizontalTab(
+                    label: Text(AppLocalizations.of(context).webSocket),
+                    icon: Icon(PhosphorIconsLight.wifiHigh),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).address,
-                        hintText: '0.0.0.0',
-                        filled: true,
-                      ),
-                      controller: _addressController,
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return LeapLocalizations.of(context).shouldNotEmpty;
-                        }
-                        final address = InternetAddress.tryParse(value!);
-                        if (address == null) {
-                          return AppLocalizations.of(context).urlNotValid;
-                        }
-                        return null;
-                      },
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context).address,
+                            hintText: 'example.com',
+                            filled: true,
+                          ),
+                          controller: _swampAddressController,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).port,
-                        hintText: kDefaultPort.toString(),
-                        filled: true,
-                      ),
-                      controller: _portController,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return LeapLocalizations.of(context).shouldNotEmpty;
-                        }
-                        final number = int.tryParse(value!);
-                        if (number == null) {
-                          return AppLocalizations.of(context).shouldANumber;
-                        }
-                        return null;
-                      },
-                    ),
+                    kIsWeb
+                        ? Text(AppLocalizations.of(context).webNotSupported)
+                        : Column(
+                            children: [
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText:
+                                      AppLocalizations.of(context).address,
+                                  hintText: '0.0.0.0',
+                                  filled: true,
+                                ),
+                                controller: _webSocketAddressController,
+                                validator: (value) {
+                                  if (value?.isEmpty ?? true) {
+                                    return LeapLocalizations.of(context)
+                                        .shouldNotEmpty;
+                                  }
+                                  final address =
+                                      InternetAddress.tryParse(value!);
+                                  if (address == null) {
+                                    return AppLocalizations.of(context)
+                                        .urlNotValid;
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: AppLocalizations.of(context).port,
+                                  hintText: kDefaultPort.toString(),
+                                  filled: true,
+                                ),
+                                controller: _webSocketPortController,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value?.isEmpty ?? true) {
+                                    return LeapLocalizations.of(context)
+                                        .shouldNotEmpty;
+                                  }
+                                  final number = int.tryParse(value!);
+                                  if (number == null) {
+                                    return AppLocalizations.of(context)
+                                        .shouldANumber;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
                   ],
                 ),
+              ),
+            ],
+          ),
           actions: [
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: kIsWeb
                   ? null
                   : () {
                       if (!(_formKey.currentState?.validate() ?? false)) return;
                       _start();
                     },
-              child: Text(AppLocalizations.of(context).start),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+              icon: Icon(PhosphorIconsLight.play),
+              label: Text(AppLocalizations.of(context).start),
             ),
           ],
         ),

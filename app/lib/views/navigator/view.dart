@@ -195,9 +195,8 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                     ? IconButton.outlined(
                         icon: const PhosphorIcon(PhosphorIconsLight.x),
                         onPressed: () => Navigator.of(context).pop(),
-                        tooltip: MaterialLocalizations.of(
-                          context,
-                        ).closeButtonLabel,
+                        tooltip: MaterialLocalizations.of(context)
+                            .closeButtonTooltip,
                       )
                     : null,
                 title: Text(page.getLocalizedName(context)),

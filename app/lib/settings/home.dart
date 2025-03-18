@@ -106,6 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
             leading: IconButton.outlined(
               icon: const PhosphorIcon(PhosphorIconsLight.x),
               onPressed: () => Navigator.of(context).pop(),
+              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
             ),
           ),
         Flexible(

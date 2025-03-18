@@ -288,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  cryptography_plus:
+    dependency: "direct main"
+    description:
+      name: cryptography_plus
+      sha256: "34db787df4f4740a39474b6fb0a610aa6dc13a5b5b68754b4787a79939ac0454"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.1"
   dart_leap:
     dependency: transitive
     description:
@@ -860,8 +868,17 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "0bdc62d3af7f31e19a694d9cd39fe020dced8754"
-      resolved-ref: "0bdc62d3af7f31e19a694d9cd39fe020dced8754"
+      ref: "213c6382f196ee93c4c43ca911cdb26a38317e39"
+      resolved-ref: "213c6382f196ee93c4c43ca911cdb26a38317e39"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "1.0.0"
+  networker_crypto:
+    dependency: transitive
+    description:
+      path: "packages/networker/networker_crypto"
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      resolved-ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -869,8 +886,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: fa036587c2a26db6455dd063701aef32b3531800
-      resolved-ref: fa036587c2a26db6455dd063701aef32b3531800
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      resolved-ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1361,6 +1378,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.0-dev.6"
+  swamp_api:
+    dependency: "direct main"
+    description:
+      path: api
+      ref: "636153aa4dfe53f97c6f760756f574ec716ab8e2"
+      resolved-ref: "636153aa4dfe53f97c6f760756f574ec716ab8e2"
+      url: "https://github.com/LinwoodDev/Swamp.git"
+    source: git
+    version: "1.0.0"
   sync_http:
     dependency: transitive
     description:

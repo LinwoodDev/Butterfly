@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 part 'start.dart';
 part 'view.dart';

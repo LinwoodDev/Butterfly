@@ -63,7 +63,7 @@ class _AddDialogState extends State<AddDialog> {
                             onPressed: () => Navigator.of(context).pop(),
                             icon: const PhosphorIcon(PhosphorIconsLight.x),
                             tooltip: MaterialLocalizations.of(context)
-                                .closeButtonLabel,
+                                .closeButtonTooltip,
                           ),
                           const SizedBox(width: 8),
                           Text(
