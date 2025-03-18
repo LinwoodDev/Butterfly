@@ -121,7 +121,12 @@ class _EditableListTileState extends State<EditableListTile> {
             onTap: widget.onTap,
             selected: widget.selected,
             leading: widget.leading,
-            subtitle: widget.subtitle,
+            subtitle: widget.subtitle == null
+                ? null
+                : Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: widget.subtitle,
+                  ),
             minVerticalPadding: 0,
             contentPadding: widget.contentPadding,
             title: SizedBox(
