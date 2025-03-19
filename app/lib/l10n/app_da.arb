@@ -652,7 +652,7 @@
   "flipVertical": "Vend lodret",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flyt på bevægelse",
-  "exportAllFiles": "Eksporter",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Gendan indstillinger fra fil",
   "exportSettingsToFile": "Eksporter indstillinger til fil"
 }
