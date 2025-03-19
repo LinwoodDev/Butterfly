@@ -652,7 +652,7 @@
   "flipVertical": "Întoarce vertical",
   "grayscale": "Grayscale",
   "moveOnGesture": "Mută la gest",
-  "exportAllFiles": "Exportă",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Restabilește setările din fișier",
   "exportSettingsToFile": "Exportă setările în fișier"
 }
