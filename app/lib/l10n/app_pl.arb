@@ -652,7 +652,7 @@
   "flipVertical": "Odwróć w pionie",
   "grayscale": "Grayscale",
   "moveOnGesture": "Przesuń po gestach",
-  "exportAllFiles": "Eksportuj",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
   "exportSettingsToFile": "Eksportuj ustawienia do pliku"
 }
