@@ -47,6 +47,18 @@ class FileEntityListTile extends StatelessWidget {
     required this.actionButton,
   });
 
+  String getDocumentName(BuildContext context) {
+    if (entity is FileSystemFile<NoteFile>) {
+      final noteFile = (entity as FileSystemFile<NoteFile>);
+      final NoteData? data = noteFile.data?.load();
+      final FileMetadata? metadata = data?.getMetadata();
+      if (metadata != null && metadata.name != '') {
+        return metadata.name;
+      }
+    }
+    return AppLocalizations.of(context).untitled;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
@@ -219,15 +231,25 @@ class FileEntityListTile extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
-                                            entity.fileName,
+                                            getDocumentName(context),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextTheme.of(
                                               context,
                                             ).labelLarge,
                                           ),
+                                          const SizedBox(height: 1.5),
+                                          Text(
+                                            entity.fileName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextTheme.of(context)
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    color: colorScheme.outline),
+                                          ),
                                           if (!isDesktop && !collapsed) ...[
-                                            const SizedBox(height: 6),
+                                            const SizedBox(height: 3),
                                             Wrap(spacing: 4, children: info),
                                           ],
                                         ],
