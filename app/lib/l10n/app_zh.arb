@@ -652,7 +652,7 @@
   "flipVertical": "垂直翻转",
   "grayscale": "Grayscale",
   "moveOnGesture": "手势移动",
-  "exportAllFiles": "导出",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "从文件恢复设置",
   "exportSettingsToFile": "导出设置到文件"
 }
