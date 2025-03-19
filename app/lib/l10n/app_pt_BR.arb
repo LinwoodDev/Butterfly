@@ -652,6 +652,7 @@
   "flipVertical": "Inverter verticalmente",
   "grayscale": "Grayscale",
   "moveOnGesture": "Mover para gesto",
+  "exportAllFiles": "Exportar",
   "restoreSettingsFromFile": "Restaurar configurações do arquivo",
   "exportSettingsToFile": "Exportar configurações para arquivo"
 }
