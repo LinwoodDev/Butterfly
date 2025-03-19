@@ -134,7 +134,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         ),
                       ),
                       ListTile(
-                        title: Text(AppLocalizations.of(context).exportAllFiles),
+                        title:
+                            Text(AppLocalizations.of(context).exportAllFiles),
                         leading: const PhosphorIcon(PhosphorIconsLight.export),
                         onTap: () async {
                           final directory = await _documentSystem.fileSystem
