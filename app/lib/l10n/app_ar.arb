@@ -652,6 +652,7 @@
   "flipVertical": "قلب عمودي",
   "grayscale": "Grayscale",
   "moveOnGesture": "تحريك على الإيماءة",
+  "exportAllFiles": "تصدير",
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف"
 }

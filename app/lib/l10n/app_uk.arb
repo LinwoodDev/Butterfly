@@ -652,6 +652,7 @@
   "flipVertical": "Віддзеркалити вертикально",
   "grayscale": "Grayscale",
   "moveOnGesture": "Перемістити жест",
+  "exportAllFiles": "Експорт",
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
   "exportSettingsToFile": "Експорт налаштувань у файл"
 }

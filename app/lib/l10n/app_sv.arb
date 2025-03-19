@@ -652,6 +652,7 @@
   "flipVertical": "Vänd vertikalt",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flytta på gest",
+  "exportAllFiles": "Exportera",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
   "exportSettingsToFile": "Exportera inställningar till fil"
 }

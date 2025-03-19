@@ -652,6 +652,7 @@
   "flipVertical": "Käännä pystysuuntainen",
   "grayscale": "Grayscale",
   "moveOnGesture": "Siirrä ele",
+  "exportAllFiles": "Vie",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
   "exportSettingsToFile": "Vie asetukset tiedostoon"
 }

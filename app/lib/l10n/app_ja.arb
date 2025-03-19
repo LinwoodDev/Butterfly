@@ -652,6 +652,7 @@
   "flipVertical": "垂直方向に反転",
   "grayscale": "Grayscale",
   "moveOnGesture": "ジェスチャー上に移動",
+  "exportAllFiles": "エクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
   "exportSettingsToFile": "設定をファイルにエクスポート"
 }
