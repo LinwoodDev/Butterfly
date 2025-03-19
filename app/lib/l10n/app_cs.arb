@@ -652,7 +652,7 @@
   "flipVertical": "Překlopit svisle",
   "grayscale": "Grayscale",
   "moveOnGesture": "Přesunout gestem",
-  "exportAllFiles": "Exportovat",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
   "exportSettingsToFile": "Exportovat nastavení do souboru"
 }
