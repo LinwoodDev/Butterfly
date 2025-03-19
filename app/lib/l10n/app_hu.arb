@@ -652,7 +652,7 @@
   "flipVertical": "Flip vertical",
   "grayscale": "Grayscale",
   "moveOnGesture": "Move on gesture",
-  "exportAllFiles": "Exportálás",
+  "exportAllFiles": "Export all files",
   "restoreSettingsFromFile": "Restore settings from file",
   "exportSettingsToFile": "Export settings to file"
 }
