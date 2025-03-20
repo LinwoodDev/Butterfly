@@ -38,6 +38,7 @@ import 'navigator/view.dart';
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
   final ToolbarSize size;
+  final bool showTools;
   final SearchController searchController;
 
   PadAppBar({
@@ -45,6 +46,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.viewportKey,
     required this.size,
     required this.searchController,
+    this.showTools = true,
   });
 
   late final windowTitleBar = _buildWindowTitleBar();
@@ -57,7 +59,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   WindowTitleBar _buildWindowTitleBar() =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
-        height: max(70, size.size + 20),
+        height: max(70, showTools ? size.size + 20 : 0),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(
@@ -177,9 +179,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                           children: [
                             const WindowFreeSpace<SettingsCubit,
                                 ButterflySettings>(),
-                            settings.toolbarPosition ==
-                                        ToolbarPosition.inline &&
-                                    settings.toolbarRows <= 1
+                            settings.isInline
                                 ? const Align(
                                     alignment: Alignment.centerRight,
                                     child: EditToolbar(

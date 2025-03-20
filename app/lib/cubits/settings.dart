@@ -370,6 +370,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     return Locale(localeTag);
   }
 
+  bool get isInline =>
+      toolbarPosition == ToolbarPosition.inline && toolbarRows <= 1;
+
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme_mode', theme.name);

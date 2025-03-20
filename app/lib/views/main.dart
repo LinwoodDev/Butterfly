@@ -316,7 +316,8 @@ class _ProjectPageState extends State<ProjectPage> {
       ],
       child: BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) =>
-            previous.runtimeType != current.runtimeType,
+            previous.runtimeType != current.runtimeType ||
+            previous.embedding?.editable != current.embedding?.editable,
         builder: (context, state) {
           if (state is DocumentLoadFailure) {
             return ErrorPage(
@@ -351,7 +352,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   ) =>
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                     buildWhen: (previous, current) =>
-                        previous.toolbarSize != current.toolbarSize,
+                        previous.toolbarSize != current.toolbarSize ||
+                        previous.isInline != current.isInline,
                     builder: (context, settings) {
                       return Actions(
                         actions: {
@@ -500,6 +502,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                         viewportKey: _viewportKey,
                                         size: settings.toolbarSize,
                                         searchController: _searchController,
+                                        showTools: settings.isInline &&
+                                            state.embedding?.editable != false,
                                       ),
                                 drawer: state is DocumentLoadSuccess
                                     ? const DocumentNavigator(
