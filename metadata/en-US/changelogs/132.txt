@@ -1,5 +1,6 @@
 * Add safe area around navigator
 * Add tooltips to the close icon button
+* Add swamp collaboration system in collaboration experiment
 * Fix spacing in file preview on android ([#814](https://github.com/LinwoodDev/Butterfly/issues/814))
 * Fix temporary tool not being removed ([#809](https://github.com/LinwoodDev/Butterfly/issues/809))
 * Fix editable list tile subtitle not aligned with title

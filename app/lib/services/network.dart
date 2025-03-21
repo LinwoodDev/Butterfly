@@ -41,7 +41,7 @@ sealed class NetworkState {
 
 final class ServerNetworkState extends NetworkState {
   @override
-  final NetworkerBase connection;
+  final NetworkerServerMixin connection;
   final bool queue;
   final String password;
 
@@ -55,7 +55,7 @@ final class ServerNetworkState extends NetworkState {
 
 final class ClientNetworkState extends NetworkState {
   @override
-  final NetworkerClient connection;
+  final NetworkerClientMixin connection;
 
   ClientNetworkState({required super.pipe, required this.connection});
 }
@@ -86,6 +86,11 @@ enum NetworkEvent with RpcFunctionName {
       {this.mode = RpcNetworkerMode.authority, this.canRunLocally = false});
 }
 
+enum ConnectionTechnology {
+  webSocket,
+  swamp,
+}
+
 class NetworkingService extends Cubit<NetworkState?> {
   DocumentBloc? _bloc;
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
@@ -114,7 +119,49 @@ class NetworkingService extends Cubit<NetworkState?> {
             : InternetAddress.anyIPv4,
         port ?? kDefaultPort);
     final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
-    _setupRpc(rpc, server);
+    _setupServer(rpc, server);
+    await server.init();
+    emit(ServerNetworkState(connection: server, pipe: rpc));
+  }
+
+  Future<Uint8List?> createSocketClient(Uri uri) async {
+    closeNetworking();
+    if (!uri.hasPort) {
+      uri = uri.replace(port: kDefaultPort);
+    }
+    if (!uri.hasScheme) {
+      uri = uri.replace(scheme: 'ws');
+    }
+    final client = NetworkerSocketClient(uri);
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
+    final data = _setupClient(rpc, client);
+    await client.init();
+    emit(ClientNetworkState(connection: client, pipe: rpc));
+    return data;
+  }
+
+  void closeNetworking() {
+    state?.connection.close();
+    emit(null);
+    _connections.add({});
+    _users.add({});
+  }
+
+  Future<Uint8List?> _setupClient(
+      NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
+      NetworkerClientMixin client) async {
+    _setupRpc(rpc, client);
+    final completer = Completer<Uint8List?>();
+    rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
+      completer.complete(message.data);
+    });
+    client.connect(rpc);
+    await client.init();
+    return completer.future.timeout(kTimeout);
+  }
+
+  void _setupServer(NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
+      NetworkerServerMixin server) {
     void sendConnections() {
       final current = server.clientConnections;
       _connections.add(current);
@@ -135,36 +182,6 @@ class NetworkingService extends Cubit<NetworkState?> {
       sendConnections();
     });
     server.connect(rpc);
-    await server.init();
-    emit(ServerNetworkState(connection: server, pipe: rpc));
-  }
-
-  Future<Uint8List?> createSocketClient(Uri uri) async {
-    closeNetworking();
-    if (!uri.hasPort) {
-      uri = uri.replace(port: kDefaultPort);
-    }
-    if (!uri.hasScheme) {
-      uri = uri.replace(scheme: 'ws');
-    }
-    final client = NetworkerSocketClient(uri);
-    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
-    _setupRpc(rpc, client);
-    final completer = Completer<Uint8List?>();
-    rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
-      completer.complete(message.data);
-    });
-    client.connect(rpc);
-    await client.init();
-    emit(ClientNetworkState(connection: client, pipe: rpc));
-    return completer.future.timeout(kTimeout);
-  }
-
-  void closeNetworking() {
-    state?.connection.close();
-    emit(null);
-    _connections.add({});
-    _users.add({});
   }
 
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
@@ -223,17 +240,35 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   Cipher _buildCipher() => AesGcm.with256bits();
 
-  Future<void> createSwampServer(String text) async {
-    var url = Uri.parse(text);
-    if (url.scheme.isEmpty) {
-      url = url.replace(scheme: 'wss');
+  Future<SwampConnection> _createSwamp(Uri uri) {
+    if (uri.scheme.isEmpty) {
+      uri = uri.replace(scheme: 'wss');
     }
     final cipher = _buildCipher();
-    final server = await SwampConnection.buildSecure(url, cipher);
-    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
-    _setupRpc(rpc, server);
-    server.messagePipe.connect(rpc);
-    await server.init();
-    emit(ServerNetworkState(connection: server, pipe: rpc));
+    return SwampConnection.buildSecure(uri, cipher);
   }
+
+  Future<Uint8List?> createSwampClient(Uri uri) async {
+    closeNetworking();
+    final connection = await _createSwamp(uri);
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
+    final data = _setupClient(rpc, connection);
+    emit(ClientNetworkState(connection: connection, pipe: rpc));
+    return data;
+  }
+
+  Future<void> createSwampServer(Uri uri) async {
+    closeNetworking();
+    final connection = await _createSwamp(uri);
+    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
+    _setupServer(rpc, connection);
+    emit(ServerNetworkState(connection: connection, pipe: rpc));
+  }
+
+  Future<Uint8List?> createClient(Uri uri,
+          [ConnectionTechnology technology = ConnectionTechnology.swamp]) =>
+      switch (technology) {
+        ConnectionTechnology.webSocket => createSocketClient(uri),
+        ConnectionTechnology.swamp => createSwampClient(uri)
+      };
 }

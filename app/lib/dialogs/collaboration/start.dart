@@ -29,7 +29,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
   void _start() {
     if (kIsWeb) return;
     if (_tabController.index == 0) {
-      widget.service.createSwampServer(_swampAddressController.text);
+      widget.service.createSwampServer(Uri.parse(_swampAddressController.text));
       return;
     }
     widget.service.createSocketServer(_webSocketAddressController.text,
