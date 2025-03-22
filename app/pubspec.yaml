@@ -88,10 +88,15 @@ dependencies:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: e901983295b103f2fe27738e8f2cbf35941d99ea
       path: packages/networker/networker_socket
+  networker_crypto:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      path: packages/networker/networker_crypto
+      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: 03a9375e73b377f5f52591927ae14e97c8d51022
+      ref: 8821d8e40ea32e0bf1872815d1d1efc3a4436b77
       path: api
   lw_file_system:
     git:

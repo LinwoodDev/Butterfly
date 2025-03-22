@@ -265,9 +265,9 @@ class NetworkingService extends Cubit<NetworkState?> {
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
     final data = _setupClient(rpc, connection);
-    emit(ClientNetworkState(connection: connection, pipe: rpc));
     connection.messagePipe.connect(rpc);
     await connection.init();
+    emit(ClientNetworkState(connection: connection, pipe: rpc));
     return data;
   }
 
