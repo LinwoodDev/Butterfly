@@ -37,13 +37,13 @@ class CollaborationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final service = context.read<CurrentIndexCubit>().state.networkingService;
-    return StreamBuilder<NetworkState?>(
-      stream: service.stream,
-      builder: (context, snapshot) {
-        final isActive = snapshot.data != null;
+    return BlocBuilder<NetworkingService, NetworkState?>(
+      bloc: service,
+      builder: (context, state) {
+        final isActive = state != null;
         if (isActive) {
           return ViewCollaborationDialog(
-            state: snapshot.data!,
+            state: state,
             service: service,
           );
         } else {

@@ -12,16 +12,21 @@ class ViewCollaborationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final address = state.connection.address.toString();
     return AlertDialog(
       title: Text(AppLocalizations.of(context).collaboration),
       scrollable: true,
       content: Column(
         children: [
-          ListTile(
-            title: Text(AppLocalizations.of(context).url),
-            subtitle: Text(address),
-            onTap: () => saveToClipboard(context, address),
+          FutureBuilder<String>(
+            future: Future.value(state.getShareAddress()),
+            builder: (context, snapshot) {
+              final address = snapshot.data ?? '?';
+              return ListTile(
+                title: Text(AppLocalizations.of(context).url),
+                subtitle: Text(address),
+                onTap: () => saveToClipboard(context, address),
+              );
+            },
           ),
           const Divider(),
           StreamBuilder<Set<Channel>>(

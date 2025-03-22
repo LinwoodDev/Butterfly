@@ -37,6 +37,10 @@ sealed class NetworkState {
   NetworkState({
     required this.pipe,
   });
+
+  FutureOr<String> getShareAddress() {
+    return connection.address.toString();
+  }
 }
 
 final class ServerNetworkState extends NetworkState {
@@ -51,6 +55,15 @@ final class ServerNetworkState extends NetworkState {
     this.queue = true,
     this.password = '',
   });
+
+  @override
+  Future<String> getShareAddress() async {
+    if (connection is SwampConnection) {
+      return (await (connection as SwampConnection).getSecureAddress())
+          .toString();
+    }
+    return super.getShareAddress();
+  }
 }
 
 final class ClientNetworkState extends NetworkState {
@@ -120,6 +133,7 @@ class NetworkingService extends Cubit<NetworkState?> {
         port ?? kDefaultPort);
     final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
     _setupServer(rpc, server);
+    server.connect(rpc);
     await server.init();
     emit(ServerNetworkState(connection: server, pipe: rpc));
   }
@@ -135,6 +149,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     final client = NetworkerSocketClient(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
     final data = _setupClient(rpc, client);
+    client.connect(rpc);
     await client.init();
     emit(ClientNetworkState(connection: client, pipe: rpc));
     return data;
@@ -155,8 +170,6 @@ class NetworkingService extends Cubit<NetworkState?> {
     rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
       completer.complete(message.data);
     });
-    client.connect(rpc);
-    await client.init();
     return completer.future.timeout(kTimeout);
   }
 
@@ -181,7 +194,6 @@ class NetworkingService extends Cubit<NetworkState?> {
     server.clientDisconnect.listen((event) {
       sendConnections();
     });
-    server.connect(rpc);
   }
 
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
@@ -254,6 +266,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
     final data = _setupClient(rpc, connection);
     emit(ClientNetworkState(connection: connection, pipe: rpc));
+    connection.messagePipe.connect(rpc);
+    await connection.init();
     return data;
   }
 
@@ -262,6 +276,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
     _setupServer(rpc, connection);
+    connection.messagePipe.connect(rpc);
+    await connection.init();
     emit(ServerNetworkState(connection: connection, pipe: rpc));
   }
 
