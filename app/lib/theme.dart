@@ -45,13 +45,15 @@ ThemeData getThemeData(String name, bool dark,
     );
   }
   return theme.copyWith(
-    tabBarTheme: const TabBarTheme(
-      tabAlignment: TabAlignment.center,
-    ),
-    dropdownMenuTheme: DropdownMenuThemeData(
-      inputDecorationTheme: defaultDropdownInputDecorationTheme(),
-    ),
-  );
+      tabBarTheme: const TabBarTheme(
+        tabAlignment: TabAlignment.center,
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+      ),
+      sliderTheme: theme.sliderTheme.copyWith(
+        year2023: false,
+      ));
 }
 
 InputDecorationTheme defaultDropdownInputDecorationTheme() {

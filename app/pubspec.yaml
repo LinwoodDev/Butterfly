@@ -91,7 +91,7 @@ dependencies:
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: eee55730332b63fef9632e66d01e01d08819ab24
+      ref: 03a9375e73b377f5f52591927ae14e97c8d51022
       path: api
   lw_file_system:
     git:
