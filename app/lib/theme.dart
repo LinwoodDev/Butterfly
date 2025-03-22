@@ -30,7 +30,7 @@ ThemeData getThemeData(String name, bool dark,
       fontFamily: 'Comfortaa',
       visualDensity: density,
       darkIsTrueBlack: highContrast,
-      fontFamilyFallback: ['Roboto'],variant: FlexSchemeVariant.rainbow
+      fontFamilyFallback: ['Roboto'],
     );
   } else {
     theme = FlexThemeData.light(
