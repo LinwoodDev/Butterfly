@@ -876,8 +876,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "213c6382f196ee93c4c43ca911cdb26a38317e39"
-      resolved-ref: "213c6382f196ee93c4c43ca911cdb26a38317e39"
+      ref: "2e0ab5b548cb8e2d64ca24e0d7b4a6cfcc6d57fe"
+      resolved-ref: "2e0ab5b548cb8e2d64ca24e0d7b4a6cfcc6d57fe"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -885,8 +885,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_crypto"
-      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
-      resolved-ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
+      resolved-ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -894,8 +894,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: e901983295b103f2fe27738e8f2cbf35941d99ea
-      resolved-ref: e901983295b103f2fe27738e8f2cbf35941d99ea
+      ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
+      resolved-ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1390,8 +1390,8 @@ packages:
     dependency: "direct main"
     description:
       path: api
-      ref: "8821d8e40ea32e0bf1872815d1d1efc3a4436b77"
-      resolved-ref: "8821d8e40ea32e0bf1872815d1d1efc3a4436b77"
+      ref: "90aee14b93ec269da50ad34ce89bff8256692969"
+      resolved-ref: "90aee14b93ec269da50ad34ce89bff8256692969"
       url: "https://github.com/LinwoodDev/Swamp.git"
     source: git
     version: "1.0.0"

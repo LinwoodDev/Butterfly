@@ -11,7 +11,7 @@ extension AssetFileTypeVisualizer on AssetFileType? {
         AssetFileType.markdown => AppLocalizations.of(context).markdown,
         AssetFileType.pdf => AppLocalizations.of(context).pdf,
         AssetFileType.svg => AppLocalizations.of(context).svg,
-        AssetFileType.xopp => 'Xopp',
+        AssetFileType.xopp => 'Xournal++',
         AssetFileType.page => AppLocalizations.of(context).page,
         AssetFileType.archive => AppLocalizations.of(context).data,
         null => AppLocalizations.of(context).unknownImportType,

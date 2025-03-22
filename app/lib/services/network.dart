@@ -163,7 +163,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> _setupClient(
-      NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
+      NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerClientMixin client) async {
     _setupRpc(rpc, client);
     final completer = Completer<Uint8List?>();
@@ -173,7 +173,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     return completer.future.timeout(kTimeout);
   }
 
-  void _setupServer(NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
+  void _setupServer(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerServerMixin server) {
     void sendConnections() {
       final current = server.clientConnections;
@@ -263,7 +263,8 @@ class NetworkingService extends Cubit<NetworkState?> {
   Future<Uint8List?> createSwampClient(Uri uri) async {
     closeNetworking();
     final connection = await _createSwamp(uri);
-    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>();
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
+        config: RpcConfig(channelField: false));
     final data = _setupClient(rpc, connection);
     connection.messagePipe.connect(rpc);
     await connection.init();
@@ -274,8 +275,10 @@ class NetworkingService extends Cubit<NetworkState?> {
   Future<void> createSwampServer(Uri uri) async {
     closeNetworking();
     final connection = await _createSwamp(uri);
-    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
+        config: RpcConfig(channelField: false));
     _setupServer(rpc, connection);
+    _setupRpc(rpc, connection);
     connection.messagePipe.connect(rpc);
     await connection.init();
     emit(ServerNetworkState(connection: connection, pipe: rpc));
