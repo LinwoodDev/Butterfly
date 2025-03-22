@@ -652,7 +652,7 @@
   "flipVertical": "Spiegel verticaal",
   "grayscale": "Grayscale",
   "moveOnGesture": "Verplaats naar gebaar",
-  "exportAllFiles": "Export all files",
+  "exportAllFiles": "Alle bestanden exporteren",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
   "exportSettingsToFile": "Instellingen exporteren naar bestand"
 }
