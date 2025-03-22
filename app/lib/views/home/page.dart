@@ -215,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                                           activeAsset: widget.selectedAsset,
                                           remote: _remote,
                                           isMobile: false,
+                                          key: _filesViewKey,
                                           onRemoteChanged: (value) =>
                                               updateRemote(value),
                                         ),
