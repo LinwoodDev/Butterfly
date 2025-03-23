@@ -64,6 +64,26 @@ class WaypointsView extends StatelessWidget {
                           },
                           child: Text(AppLocalizations.of(context).replace),
                         ),
+                        origin != Waypoint.defaultOrigin
+                            ? MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.clockClockwise,
+                                ),
+                                onPressed: () async {
+                                  final bloc = context.read<DocumentBloc>();
+                                  showDialog<void>(
+                                    builder: (context) => BlocProvider.value(
+                                        value: bloc,
+                                        child: WaypointResetDialog(
+                                          waypoint: origin,
+                                        )),
+                                    context: context,
+                                  );
+                                },
+                                child:
+                                    Text(LeapLocalizations.of(context).reset),
+                              )
+                            : Container(),
                       ],
                     ),
                     const Divider(),
@@ -319,6 +339,54 @@ class _WaypointReplaceDialogState extends State<WaypointReplaceDialog> {
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context).replace),
+        ),
+      ],
+    );
+  }
+}
+
+class WaypointResetDialog extends StatefulWidget {
+  final Waypoint waypoint;
+  const WaypointResetDialog({super.key, required this.waypoint});
+
+  @override
+  State<WaypointResetDialog> createState() => _WaypointResetDialogState();
+}
+
+class _WaypointResetDialogState extends State<WaypointResetDialog> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(LeapLocalizations.of(context).reset),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [Text(AppLocalizations.of(context).reallyReset)],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            final newWaypoint =
+                Waypoint.defaultOrigin.copyWith(name: widget.waypoint.name);
+            final bloc = context.read<DocumentBloc>();
+            bloc.add(
+              WaypointChanged(widget.waypoint.name, newWaypoint),
+            );
+            Navigator.of(context).pop();
+            final state = bloc.state;
+            if (state is! DocumentLoadSuccess) return;
+            state.currentIndexCubit.state.transformCubit
+                .teleportToWaypoint(newWaypoint);
+          },
+          child: Text(LeapLocalizations.of(context).reset),
         ),
       ],
     );
