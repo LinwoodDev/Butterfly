@@ -82,6 +82,15 @@ sealed class DocumentPage with _$DocumentPage {
       return copyWith(layers: newLayers.toList());
     });
   }
+
+  Waypoint getOriginWaypoint() {
+    int customOriginIndex = waypoints.indexWhere((waypoint) => waypoint.name == Waypoint.customOriginName);
+    if (customOriginIndex != -1) {
+      return waypoints[customOriginIndex];
+    } else {
+      return Waypoint.defaultOrigin;
+    }
+  }
 }
 
 @freezed
