@@ -74,7 +74,7 @@ class WaypointsView extends StatelessWidget {
                                   showDialog<void>(
                                     builder: (context) => BlocProvider.value(
                                         value: bloc,
-                                        child: WaypointResetDialog(
+                                        child: WaypointClearOriginDialog(
                                           waypoint: origin,
                                         )),
                                     context: context,
@@ -345,15 +345,16 @@ class _WaypointReplaceDialogState extends State<WaypointReplaceDialog> {
   }
 }
 
-class WaypointResetDialog extends StatefulWidget {
+class WaypointClearOriginDialog extends StatefulWidget {
   final Waypoint waypoint;
-  const WaypointResetDialog({super.key, required this.waypoint});
+  const WaypointClearOriginDialog({super.key, required this.waypoint});
 
   @override
-  State<WaypointResetDialog> createState() => _WaypointResetDialogState();
+  State<WaypointClearOriginDialog> createState() =>
+      _WaypointClearOriginDialogState();
 }
 
-class _WaypointResetDialogState extends State<WaypointResetDialog> {
+class _WaypointClearOriginDialogState extends State<WaypointClearOriginDialog> {
   @override
   void dispose() {
     super.dispose();
@@ -374,17 +375,15 @@ class _WaypointResetDialogState extends State<WaypointResetDialog> {
         ),
         ElevatedButton(
           onPressed: () {
-            final newWaypoint =
-                Waypoint.defaultOrigin.copyWith(name: widget.waypoint.name);
             final bloc = context.read<DocumentBloc>();
             bloc.add(
-              WaypointChanged(widget.waypoint.name, newWaypoint),
+              WaypointRemoved(Waypoint.customOriginName),
             );
             Navigator.of(context).pop();
             final state = bloc.state;
             if (state is! DocumentLoadSuccess) return;
             state.currentIndexCubit.state.transformCubit
-                .teleportToWaypoint(newWaypoint);
+                .teleportToWaypoint(Waypoint.defaultOrigin);
           },
           child: Text(LeapLocalizations.of(context).reset),
         ),
