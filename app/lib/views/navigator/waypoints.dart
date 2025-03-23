@@ -15,7 +15,6 @@ class WaypointsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const origin = Waypoint.origin;
     return BlocBuilder<TransformCubit, CameraTransform>(
       builder: (context, transform) {
         return BlocBuilder<DocumentBloc, DocumentState>(
@@ -24,19 +23,56 @@ class WaypointsView extends StatelessWidget {
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
             var waypoints = state.page.waypoints;
+            Waypoint origin;
+            int customOriginIndex = waypoints.indexWhere(
+                (waypoint) => waypoint.name == Waypoint.customOriginName);
+            bool hasCustomOrigin = customOriginIndex != -1;
+            if (hasCustomOrigin) {
+              origin = waypoints[customOriginIndex];
+              waypoints = List.from(waypoints);
+              waypoints.remove(origin);
+            } else {
+              origin = Waypoint.defaultOrigin;
+            }
             return Stack(
               children: [
                 ListView(
                   children: [
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).origin),
-                      selected: transform.position.toPoint() == origin.position,
-                      onTap: () {
-                        context.read<TransformCubit>().teleportToWaypoint(
-                              origin,
-                            );
-                        context.read<DocumentBloc>().bake();
+                    ContextRegion(
+                      tooltip: AppLocalizations.of(context).actions,
+                      builder: (context, button, controller) {
+                        return ListTile(
+                          title: Text(AppLocalizations.of(context).origin),
+                          selected:
+                              transform.position.toPoint() == origin.position,
+                          onTap: () {
+                            context.read<TransformCubit>().teleportToWaypoint(
+                                  origin,
+                                );
+                            context.read<DocumentBloc>().bake();
+                          },
+                          trailing: button,
+                        );
                       },
+                      menuChildren: [
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.mapPin,
+                          ),
+                          onPressed: () async {
+                            final bloc = context.read<DocumentBloc>();
+                            showDialog<void>(
+                              builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: WaypointReplaceDialog(
+                                    waypoint: origin,
+                                  )),
+                              context: context,
+                            );
+                          },
+                          child: Text(AppLocalizations.of(context).replace),
+                        ),
+                      ],
                     ),
                     const Divider(),
                     ReorderableListView.builder(
@@ -270,9 +306,24 @@ class _WaypointReplaceDialogState extends State<WaypointReplaceDialog> {
               scale: _saveScale ? transform.size : null,
             );
 
-            bloc.add(
-              WaypointChanged(widget.waypoint.name, newWaypoint),
-            );
+            if (widget.waypoint == Waypoint.defaultOrigin &&
+                widget.waypoint.name != Waypoint.customOriginName) {
+              // Setting custom origin waypoint for the first time
+              bloc.add(
+                WaypointCreated(
+                  Waypoint(
+                    Waypoint.customOriginName,
+                    newWaypoint.position,
+                    newWaypoint.scale,
+                  ),
+                ),
+              );
+            } else {
+              bloc.add(
+                WaypointChanged(widget.waypoint.name, newWaypoint),
+              );
+            }
+
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context).replace),
