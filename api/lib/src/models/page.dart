@@ -84,7 +84,8 @@ sealed class DocumentPage with _$DocumentPage {
   }
 
   Waypoint getOriginWaypoint() {
-    int customOriginIndex = waypoints.indexWhere((waypoint) => waypoint.name == Waypoint.customOriginName);
+    int customOriginIndex = waypoints
+        .indexWhere((waypoint) => waypoint.name == Waypoint.customOriginName);
     if (customOriginIndex != -1) {
       return waypoints[customOriginIndex];
     } else {
