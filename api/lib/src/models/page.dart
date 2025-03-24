@@ -89,7 +89,7 @@ sealed class DocumentPage with _$DocumentPage {
   }
 
   Waypoint getOriginWaypoint() {
-    return getWaypointByName(null) ?? Waypoint.defaultOrigin;
+    return getWaypointByName(Waypoint.originName) ?? Waypoint.defaultOrigin;
   }
 }
 

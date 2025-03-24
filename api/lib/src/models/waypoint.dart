@@ -8,7 +8,7 @@ part 'waypoint.freezed.dart';
 
 @freezed
 sealed class Waypoint with _$Waypoint {
-  static const Null originName = null;
+  static const String? originName = null;
   static const Waypoint defaultOrigin = Waypoint(originName, Point(0, 0), 1);
 
   const factory Waypoint(
