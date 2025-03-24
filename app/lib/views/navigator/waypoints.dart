@@ -56,7 +56,7 @@ class WaypointsView extends StatelessWidget {
                             showDialog<void>(
                               builder: (context) => BlocProvider.value(
                                   value: bloc,
-                                  child: WaypointReplaceDialog(
+                                  child: WaypointCreateDialog(
                                     waypoint: origin,
                                   )),
                               context: context,
@@ -125,7 +125,7 @@ class WaypointsView extends StatelessWidget {
                                 showDialog<void>(
                                   builder: (context) => BlocProvider.value(
                                       value: bloc,
-                                      child: WaypointReplaceDialog(
+                                      child: WaypointCreateDialog(
                                         waypoint: waypoint,
                                       )),
                                   context: context,
@@ -189,15 +189,24 @@ class WaypointsView extends StatelessWidget {
 }
 
 class WaypointCreateDialog extends StatefulWidget {
-  const WaypointCreateDialog({super.key});
+  final Waypoint? waypoint;
+  const WaypointCreateDialog({super.key, this.waypoint});
 
   @override
   State<WaypointCreateDialog> createState() => _WaypointCreateDialogState();
 }
 
 class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
+  bool _replacing = false;
   bool _saveScale = false;
   final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _replacing = widget.waypoint != null;
+    _saveScale = _replacing ? widget.waypoint!.scale != null : false;
+  }
 
   @override
   void dispose() {
@@ -208,19 +217,25 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(LeapLocalizations.of(context).create),
+      title: Text(_replacing
+          ? AppLocalizations.of(context).replace
+          : LeapLocalizations.of(context).create),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            controller: _nameController,
-            autofocus: true,
-            decoration: InputDecoration(
-              filled: true,
-              labelText: LeapLocalizations.of(context).name,
-            ),
-          ),
-          const SizedBox(height: 10),
+          ...!_replacing
+              ? [
+                  TextField(
+                    controller: _nameController,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      labelText: LeapLocalizations.of(context).name,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ]
+              : [],
           CheckboxListTile(
             title: Text(AppLocalizations.of(context).scale),
             value: _saveScale,
@@ -242,11 +257,14 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
             if (state is! DocumentLoadSuccess) return;
             final transform =
                 state.currentIndexCubit.state.transformCubit.state;
+            final String? name =
+                _replacing ? widget.waypoint!.name : _nameController.text;
 
             bloc.add(
-              WaypointCreated(
+              WaypointChanged(
+                name,
                 Waypoint(
-                  _nameController.text,
+                  name,
                   transform.position.toPoint(),
                   _saveScale ? transform.size : null,
                 ),
@@ -255,74 +273,6 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
             Navigator.of(context).pop();
           },
           child: Text(LeapLocalizations.of(context).create),
-        ),
-      ],
-    );
-  }
-}
-
-class WaypointReplaceDialog extends StatefulWidget {
-  final Waypoint waypoint;
-  const WaypointReplaceDialog({super.key, required this.waypoint});
-
-  @override
-  State<WaypointReplaceDialog> createState() => _WaypointReplaceDialogState();
-}
-
-class _WaypointReplaceDialogState extends State<WaypointReplaceDialog> {
-  bool _saveScale = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _saveScale = widget.waypoint.scale != null;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(AppLocalizations.of(context).replace),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CheckboxListTile(
-            title: Text(AppLocalizations.of(context).scale),
-            value: _saveScale,
-            controlAffinity: ListTileControlAffinity.leading,
-            onChanged: (value) =>
-                setState(() => _saveScale = value ?? _saveScale),
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final bloc = context.read<DocumentBloc>();
-            final state = bloc.state;
-            if (state is! DocumentLoadSuccess) return;
-            final transform =
-                state.currentIndexCubit.state.transformCubit.state;
-            final Waypoint newWaypoint = widget.waypoint.copyWith(
-              position: transform.position.toPoint(),
-              scale: _saveScale ? transform.size : null,
-            );
-
-            bloc.add(
-              WaypointChanged(widget.waypoint.name, newWaypoint),
-            );
-
-            Navigator.of(context).pop();
-          },
-          child: Text(AppLocalizations.of(context).replace),
         ),
       ],
     );
