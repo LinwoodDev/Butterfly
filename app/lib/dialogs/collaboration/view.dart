@@ -15,41 +15,45 @@ class ViewCollaborationDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(AppLocalizations.of(context).collaboration),
       scrollable: true,
-      content: Column(
-        children: [
-          FutureBuilder<String>(
-            future: Future.value(state.getShareAddress()),
-            builder: (context, snapshot) {
-              final address = snapshot.data ?? '?';
-              return ListTile(
-                title: Text(AppLocalizations.of(context).url),
-                subtitle: Text(address),
-                onTap: () => saveToClipboard(context, address),
-              );
-            },
-          ),
-          const Divider(),
-          StreamBuilder<Set<Channel>>(
-              stream: service.connectionsStream,
+      content: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 600),
+        child: Column(
+          children: [
+            FutureBuilder<String>(
+              future: Future.value(state.getShareAddress()),
               builder: (context, snapshot) {
-                final connections = snapshot.data ?? {};
-                if (connections.isEmpty) {
-                  return Text(AppLocalizations.of(context).noConnections);
-                }
-                return Column(
-                  children: [
-                    for (final connection in connections)
-                      ListTile(
-                        leading: ColorButton.srgb(
-                          color: getRandomColor(connection),
-                          size: 24,
-                        ),
-                        title: Text(connection.toString()),
-                      ),
-                  ],
+                final address = snapshot.data ?? '?';
+                return ListTile(
+                  title: Text(AppLocalizations.of(context).url),
+                  subtitle: Text(address),
+                  onTap: () => saveToClipboard(
+                      context, getConnectUri(address).toString()),
                 );
-              }),
-        ],
+              },
+            ),
+            const Divider(),
+            StreamBuilder<Set<Channel>>(
+                stream: service.connectionsStream,
+                builder: (context, snapshot) {
+                  final connections = snapshot.data ?? {};
+                  if (connections.isEmpty) {
+                    return Text(AppLocalizations.of(context).noConnections);
+                  }
+                  return Column(
+                    children: [
+                      for (final connection in connections)
+                        ListTile(
+                          leading: ColorButton.srgb(
+                            color: getRandomColor(connection),
+                            size: 24,
+                          ),
+                          title: Text(connection.toString()),
+                        ),
+                    ],
+                  );
+                }),
+          ],
+        ),
       ),
       actions: [
         OutlinedButton(

@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
-            final url = _urlConntroller.text;
+            final url = parseConnectUri(Uri.parse(_urlConntroller.text));
             if (url.isEmpty) return;
             GoRouter.of(context).pushNamed(
               'connect',
