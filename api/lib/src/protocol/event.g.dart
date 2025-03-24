@@ -267,7 +267,7 @@ Map<String, dynamic> _$WaypointCreatedToJson(WaypointCreated instance) =>
     };
 
 WaypointChanged _$WaypointChangedFromJson(Map json) => WaypointChanged(
-      json['name'] as String,
+      json['name'] as String?,
       Waypoint.fromJson(Map<String, dynamic>.from(json['waypoint'] as Map)),
       $type: json['type'] as String?,
     );
@@ -280,7 +280,7 @@ Map<String, dynamic> _$WaypointChangedToJson(WaypointChanged instance) =>
     };
 
 WaypointRemoved _$WaypointRemovedFromJson(Map json) => WaypointRemoved(
-      json['name'] as String,
+      json['name'] as String?,
       $type: json['type'] as String?,
     );
 
@@ -291,7 +291,7 @@ Map<String, dynamic> _$WaypointRemovedToJson(WaypointRemoved instance) =>
     };
 
 WaypointReordered _$WaypointReorderedFromJson(Map json) => WaypointReordered(
-      json['name'] as String,
+      json['name'] as String?,
       (json['newIndex'] as num).toInt(),
       $type: json['type'] as String?,
     );

@@ -97,16 +97,16 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   ) = WaypointCreated;
 
   const factory DocumentEvent.waypointChanged(
-    String name,
+    String? name,
     Waypoint waypoint,
   ) = WaypointChanged;
 
   const factory DocumentEvent.waypointRemoved(
-    String name,
+    String? name,
   ) = WaypointRemoved;
 
   const factory DocumentEvent.waypointReordered(
-    String name,
+    String? name,
     int newIndex,
   ) = WaypointReordered;
 

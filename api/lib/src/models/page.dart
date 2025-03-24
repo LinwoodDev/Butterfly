@@ -83,19 +83,13 @@ sealed class DocumentPage with _$DocumentPage {
     });
   }
 
-  Waypoint? getWaypointByName(String waypointName) {
-    int waypointIndex =
-        waypoints.indexWhere((waypoint) => waypoint.name == waypointName);
-    if (waypointIndex != -1) {
-      return waypoints[waypointIndex];
-    } else {
-      return null;
-    }
+  Waypoint? getWaypointByName(String? waypointName) {
+    return waypoints
+        .firstWhereOrNull((waypoint) => waypoint.name == waypointName);
   }
 
   Waypoint getOriginWaypoint() {
-    return getWaypointByName(Waypoint.customOriginName) ??
-        Waypoint.defaultOrigin;
+    return getWaypointByName(null) ?? Waypoint.defaultOrigin;
   }
 }
 

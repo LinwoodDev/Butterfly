@@ -7,7 +7,7 @@ part of 'waypoint.dart';
 // **************************************************************************
 
 _Waypoint _$WaypointFromJson(Map json) => _Waypoint(
-      json['name'] as String,
+      json['name'] as String?,
       const DoublePointJsonConverter().fromJson(json['position'] as Map),
       (json['scale'] as num?)?.toDouble(),
     );

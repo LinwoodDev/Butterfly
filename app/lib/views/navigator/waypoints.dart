@@ -25,7 +25,7 @@ class WaypointsView extends StatelessWidget {
             var waypoints = List<Waypoint>.from(state.page.waypoints);
             Waypoint origin = state.page.getOriginWaypoint();
             waypoints.removeWhere(
-                (waypoint) => waypoint.name == Waypoint.customOriginName);
+                (waypoint) => waypoint.name == Waypoint.originName);
             return Stack(
               children: [
                 ListView(
@@ -99,7 +99,7 @@ class WaypointsView extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final waypoint = waypoints[index];
                         return EditableListTile(
-                          key: ValueKey(waypoint.name),
+                          key: ValueKey(waypoint.name ?? ''),
                           initialValue: waypoint.name,
                           onTap: () {
                             context.read<TransformCubit>().teleportToWaypoint(
@@ -316,23 +316,9 @@ class _WaypointReplaceDialogState extends State<WaypointReplaceDialog> {
               scale: _saveScale ? transform.size : null,
             );
 
-            if (widget.waypoint == Waypoint.defaultOrigin &&
-                widget.waypoint.name != Waypoint.customOriginName) {
-              // Setting custom origin waypoint for the first time
-              bloc.add(
-                WaypointCreated(
-                  Waypoint(
-                    Waypoint.customOriginName,
-                    newWaypoint.position,
-                    newWaypoint.scale,
-                  ),
-                ),
-              );
-            } else {
-              bloc.add(
-                WaypointChanged(widget.waypoint.name, newWaypoint),
-              );
-            }
+            bloc.add(
+              WaypointChanged(widget.waypoint.name, newWaypoint),
+            );
 
             Navigator.of(context).pop();
           },
@@ -375,7 +361,7 @@ class _WaypointClearOriginDialogState extends State<WaypointClearOriginDialog> {
           onPressed: () {
             final bloc = context.read<DocumentBloc>();
             bloc.add(
-              WaypointRemoved(Waypoint.customOriginName),
+              WaypointChanged(widget.waypoint.name, Waypoint.defaultOrigin),
             );
             Navigator.of(context).pop();
             final state = bloc.state;

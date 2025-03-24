@@ -85,7 +85,7 @@ extension AreaSearchHelper on Area {
 
 extension WaypointSearchHelper on Waypoint {
   WaypointResult? matches(Pattern query) {
-    if (!name.contains(query)) return null;
+    if (name != null && name!.contains(query)) return null;
     return WaypointResult(
       this,
       '',
