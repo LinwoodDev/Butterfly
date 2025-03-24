@@ -368,6 +368,7 @@ class _WaypointClearOriginDialogState extends State<WaypointClearOriginDialog> {
             if (state is! DocumentLoadSuccess) return;
             state.currentIndexCubit.state.transformCubit
                 .teleportToWaypoint(Waypoint.defaultOrigin);
+            bloc.bake();
           },
           child: Text(LeapLocalizations.of(context).reset),
         ),
