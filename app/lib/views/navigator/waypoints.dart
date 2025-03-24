@@ -64,26 +64,24 @@ class WaypointsView extends StatelessWidget {
                           },
                           child: Text(AppLocalizations.of(context).replace),
                         ),
-                        origin != Waypoint.defaultOrigin
-                            ? MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.clockClockwise,
-                                ),
-                                onPressed: () async {
-                                  final bloc = context.read<DocumentBloc>();
-                                  showDialog<void>(
-                                    builder: (context) => BlocProvider.value(
-                                        value: bloc,
-                                        child: WaypointClearOriginDialog(
-                                          waypoint: origin,
-                                        )),
-                                    context: context,
-                                  );
-                                },
-                                child:
-                                    Text(LeapLocalizations.of(context).reset),
-                              )
-                            : Container(),
+                        if (origin != Waypoint.defaultOrigin)
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.clockClockwise,
+                            ),
+                            onPressed: () async {
+                              final bloc = context.read<DocumentBloc>();
+                              showDialog<void>(
+                                builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: WaypointClearOriginDialog(
+                                      waypoint: origin,
+                                    )),
+                                context: context,
+                              );
+                            },
+                            child: Text(LeapLocalizations.of(context).reset),
+                          ),
                       ],
                     ),
                     const Divider(),
