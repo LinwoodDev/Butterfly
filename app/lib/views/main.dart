@@ -166,8 +166,7 @@ class _ProjectPageState extends State<ProjectPage> {
       var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
       if (widget.uri != null && uri != null) {
         final connectionTechnology =
-            ConnectionTechnology.values.byNameOrNull(type) ??
-                ConnectionTechnology.swamp;
+            ConnectionTechnology.values.byNameOrNull(type);
         data = await networkingService.createClient(uri, connectionTechnology);
         type = '';
       }

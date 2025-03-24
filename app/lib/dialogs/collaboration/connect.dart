@@ -1,5 +1,4 @@
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/services/network.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,19 +15,16 @@ class ConnectCollaborationDialog extends StatefulWidget {
 class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
     with TickerProviderStateMixin {
   final TextEditingController _urlConntroller = TextEditingController();
-  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
     super.dispose();
     _urlConntroller.dispose();
-    _tabController.dispose();
   }
 
   @override
@@ -41,19 +37,6 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
       content: ListView(
         shrinkWrap: true,
         children: [
-          TabBar(
-            controller: _tabController,
-            tabAlignment: TabAlignment.fill,
-            tabs: [
-              Tab(
-                text: 'Swamp',
-              ),
-              Tab(
-                text: AppLocalizations.of(context).webSocket,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
           TextFormField(
             controller: _urlConntroller,
             autofocus: true,
@@ -80,11 +63,6 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
               'connect',
               queryParameters: {
                 'url': url,
-                'type': (switch (_tabController.index) {
-                  1 => ConnectionTechnology.webSocket,
-                  _ => ConnectionTechnology.swamp,
-                })
-                    .name,
               },
             );
           },

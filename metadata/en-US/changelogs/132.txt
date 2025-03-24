@@ -2,6 +2,7 @@
 * Add tooltips to the close icon button
 * Add swamp collaboration system in collaboration experiment
 * Add new material 3 slider
+* Add qr code for sharing collaboration link
 * Use launch url as share link for collaboration
 * Rename xopp to Xournal++
 * Change ZIP export button label for clarity ([#810](https://github.com/LinwoodDev/Butterfly/pull/810))

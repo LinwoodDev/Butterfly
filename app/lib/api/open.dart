@@ -34,7 +34,7 @@ Uri getConnectUri(String url, [String? type]) => getLaunchUri(
       pathSegments: ['connect'],
       queryParameters: {
         'url': url,
-        'type': type,
+        if (type != null) 'type': type,
       },
     );
 

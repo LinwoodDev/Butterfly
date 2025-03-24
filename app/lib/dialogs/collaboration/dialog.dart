@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/network.dart';
@@ -12,6 +13,8 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:barcode/barcode.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 part 'start.dart';
 part 'view.dart';

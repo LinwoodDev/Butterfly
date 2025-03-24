@@ -23,11 +23,41 @@ class ViewCollaborationDialog extends StatelessWidget {
               future: Future.value(state.getShareAddress()),
               builder: (context, snapshot) {
                 final address = snapshot.data ?? '?';
-                return ListTile(
-                  title: Text(AppLocalizations.of(context).url),
-                  subtitle: Text(address),
-                  onTap: () => saveToClipboard(
-                      context, getConnectUri(address).toString()),
+                final connect = getConnectUri(address).toString();
+                final qr = Barcode.qrCode();
+                final svg = qr.toSvg(connect, width: 256, height: 256);
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                        height: 208,
+                        width: 208,
+                        child: InkWell(
+                            borderRadius: BorderRadius.circular(8),
+                            radius: 12,
+                            onTap: () {
+                              exportSvg(context, svg, true);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Stack(
+                                  alignment: Alignment.center,
+                                  fit: StackFit.expand,
+                                  children: [
+                                    ColoredBox(color: Colors.white),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: SvgPicture.string(svg),
+                                    ),
+                                  ]),
+                            ))),
+                    const SizedBox(height: 8),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).url),
+                      subtitle: Text(address),
+                      onTap: () => saveToClipboard(context, connect),
+                    ),
+                  ],
                 );
               },
             ),

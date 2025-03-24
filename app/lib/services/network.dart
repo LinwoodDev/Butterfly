@@ -14,6 +14,7 @@ import 'package:networker_socket/client.dart';
 import 'package:networker_socket/server.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:swamp_api/connection.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 
 part 'network.freezed.dart';
 part 'network.g.dart';
@@ -62,6 +63,10 @@ final class ServerNetworkState extends NetworkState {
       return (await (connection as SwampConnection).getSecureAddress())
           .toString();
     }
+    if (connection is NetworkerSocketServer) {
+      final ip = await NetworkInfo().getWifiIP();
+      return 'ws://$ip:${connection.address.port}';
+    }
     return super.getShareAddress();
   }
 }
@@ -101,7 +106,12 @@ enum NetworkEvent with RpcFunctionName {
 
 enum ConnectionTechnology {
   webSocket,
-  swamp,
+  swamp;
+
+  static ConnectionTechnology fromScheme(String scheme) => switch (scheme) {
+        'ws' || 'wss' => ConnectionTechnology.webSocket,
+        _ => ConnectionTechnology.swamp,
+      };
 }
 
 class NetworkingService extends Cubit<NetworkState?> {
@@ -133,6 +143,7 @@ class NetworkingService extends Cubit<NetworkState?> {
         port ?? kDefaultPort);
     final rpc = NamedRpcServerNetworkerPipe<NetworkEvent, NetworkEvent>();
     _setupServer(rpc, server);
+    _setupRpc(rpc, server);
     server.connect(rpc);
     await server.init();
     emit(ServerNetworkState(connection: server, pipe: rpc));
@@ -291,8 +302,8 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> createClient(Uri uri,
-          [ConnectionTechnology technology = ConnectionTechnology.swamp]) =>
-      switch (technology) {
+          [ConnectionTechnology? technology]) =>
+      switch (technology ?? ConnectionTechnology.fromScheme(uri.scheme)) {
         ConnectionTechnology.webSocket => createSocketClient(uri),
         ConnectionTechnology.swamp => createSwampClient(uri)
       };
