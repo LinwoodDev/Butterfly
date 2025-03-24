@@ -213,13 +213,12 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
               Expanded(child: body),
             ],
           ),
         );
         if (widget.asDrawer) {
-          return Drawer(width: 400, child: content);
+          return Drawer(width: 400, child: SafeArea(child: content));
         } else {
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),

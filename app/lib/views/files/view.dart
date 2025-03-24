@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/entity.dart';
@@ -352,338 +353,7 @@ class FilesViewState extends State<FilesView> {
                     ),
                   ],
                 );
-                final locationBar = SizedBox(
-                  height: 64,
-                  child: _selectedFiles.isEmpty
-                      ? BlocBuilder<SettingsCubit, ButterflySettings>(
-                          buildWhen: (previous, current) =>
-                              previous.flags != current.flags,
-                          builder: (context, settings) => Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              MenuAnchor(
-                                menuChildren: [
-                                  MenuItemButton(
-                                    leadingIcon: const PhosphorIcon(
-                                      PhosphorIconsLight.folder,
-                                    ),
-                                    child: Text(
-                                      AppLocalizations.of(
-                                        context,
-                                      ).newFolder,
-                                    ),
-                                    onPressed: () async {
-                                      final name = await showDialog<String>(
-                                        context: context,
-                                        builder: (context) => NameDialog(
-                                          validator: defaultFileNameValidator(
-                                            context,
-                                          ),
-                                        ),
-                                      );
-                                      if (name == null) return;
-                                      final path = _locationController.text;
-                                      final newPath = '$path/$name';
-                                      await _documentSystem
-                                          .createDirectory(newPath);
-                                      reloadFileSystem();
-                                    },
-                                  ),
-                                  MenuItemButton(
-                                    onPressed: () async => _createFile(
-                                      await _templateSystem.getDefaultFile(
-                                        _templateSystem.storage
-                                                ?.defaults['template'] ??
-                                            _settingsCubit
-                                                .state.defaultTemplate,
-                                      ),
-                                    ),
-                                    leadingIcon: const PhosphorIcon(
-                                      PhosphorIconsLight.filePlus,
-                                    ),
-                                    child: Text(
-                                      AppLocalizations.of(
-                                        context,
-                                      ).newNote,
-                                    ),
-                                  ),
-                                  FutureBuilder<List<FileSystemFile<NoteData>>>(
-                                    future: _templatesFuture,
-                                    builder: (
-                                      context,
-                                      snapshot,
-                                    ) =>
-                                        SubmenuButton(
-                                      leadingIcon: const PhosphorIcon(
-                                        PhosphorIconsLight.file,
-                                      ),
-                                      menuChildren: snapshot.data?.map((e) {
-                                            final data = e.data!;
-                                            final metadata = data.getMetadata();
-                                            final thumbnail =
-                                                data.getThumbnail();
-                                            return MenuItemButton(
-                                              leadingIcon: thumbnail == null
-                                                  ? null
-                                                  : Image.memory(
-                                                      thumbnail,
-                                                      width: 32,
-                                                      height: 18,
-                                                      cacheWidth: 32,
-                                                      cacheHeight: 18,
-                                                    ),
-                                              child: Text(
-                                                metadata?.name ?? '',
-                                              ),
-                                              onPressed: () => _createFile(
-                                                data,
-                                              ),
-                                            );
-                                          }).toList() ??
-                                          [],
-                                      child: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        ).templates,
-                                      ),
-                                    ),
-                                  ),
-                                  MenuItemButton(
-                                    leadingIcon: const PhosphorIcon(
-                                      PhosphorIconsLight.arrowSquareIn,
-                                    ),
-                                    onPressed: () async {
-                                      final router = GoRouter.of(context);
-                                      final (
-                                        result,
-                                        extension,
-                                      ) = await importFile(context);
-                                      if (result == null) return;
-                                      const route =
-                                          '/native?name=document.bfly&type=note';
-                                      router.go(
-                                        route,
-                                        extra: result,
-                                      );
-                                      if (!widget.collapsed) {
-                                        reloadFileSystem();
-                                      }
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context).import,
-                                    ),
-                                  ),
-                                  if (settings.hasFlag('collaboration'))
-                                    MenuItemButton(
-                                      leadingIcon: const PhosphorIcon(
-                                        PhosphorIconsLight.shareNetwork,
-                                      ),
-                                      child: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        ).connect,
-                                      ),
-                                      onPressed: () async {
-                                        final url = await showDialog<String>(
-                                          builder: (context) => NameDialog(
-                                            title: AppLocalizations.of(
-                                              context,
-                                            ).enterUrl,
-                                            hint: AppLocalizations.of(
-                                              context,
-                                            ).url,
-                                            button: AppLocalizations.of(
-                                              context,
-                                            ).connect,
-                                          ),
-                                          context: context,
-                                        );
-                                        if (url == null) return;
-                                        GoRouter.of(context).pushNamed(
-                                          'connect',
-                                          queryParameters: {'url': url},
-                                        );
-                                      },
-                                    ),
-                                ],
-                                builder: (context, controller, child) =>
-                                    FloatingActionButton.small(
-                                  heroTag: null,
-                                  onPressed: controller.toggle,
-                                  tooltip: LeapLocalizations.of(
-                                    context,
-                                  ).create,
-                                  child: const PhosphorIcon(
-                                    PhosphorIconsLight.plus,
-                                  ),
-                                ),
-                              ),
-                              DragTarget<String>(
-                                builder: (
-                                  context,
-                                  candidateData,
-                                  rejectedData,
-                                ) =>
-                                    IconButton(
-                                  onPressed: _locationController.text.isEmpty
-                                      ? null
-                                      : () => setState(() {
-                                            _locationController.text = parent;
-                                            _setFilesStream();
-                                          }),
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowUp,
-                                  ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).goUp,
-                                ),
-                                onWillAcceptWithDetails: (data) => true,
-                                onAcceptWithDetails: (data) async {
-                                  await _documentSystem.moveAsset(
-                                    data.data,
-                                    '$parent/${data.data.split('/').last}',
-                                  );
-                                  reloadFileSystem();
-                                },
-                              ),
-                              const SizedBox(width: 8),
-                              Flexible(
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    hintText: AppLocalizations.of(
-                                      context,
-                                    ).location,
-                                    prefixIcon: const PhosphorIcon(
-                                      PhosphorIconsLight.folder,
-                                    ),
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.only(
-                                      left: 16,
-                                      right: 16,
-                                      bottom: 6,
-                                    ),
-                                  ),
-                                  textAlignVertical: TextAlignVertical.center,
-                                  controller: _locationController,
-                                  onFieldSubmitted: (value) =>
-                                      reloadFileSystem(),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Center(
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        icon: const PhosphorIcon(
-                                          PhosphorIconsLight.selectionSlash,
-                                        ),
-                                        tooltip: AppLocalizations.of(
-                                          context,
-                                        ).deselect,
-                                        onPressed: () => setState(
-                                          () => _selectedFiles.clear(),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        icon: const PhosphorIcon(
-                                          PhosphorIconsLight.selectionInverse,
-                                        ),
-                                        tooltip: AppLocalizations.of(
-                                          context,
-                                        ).invertSelection,
-                                        onPressed: () async {
-                                          final directory =
-                                              await _documentSystem.getAsset(
-                                            _locationController.text,
-                                            readData: false,
-                                          );
-                                          if (directory is! FileSystemDirectory<
-                                              NoteFile>) {
-                                            return;
-                                          }
-                                          setState(() {
-                                            final all = _selectedFiles.toSet();
-                                            _selectedFiles.clear();
-                                            _selectedFiles.addAll(
-                                              directory.assets
-                                                  .map((e) => e.path)
-                                                  .toSet()
-                                                  .difference(all),
-                                            );
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        icon: const PhosphorIcon(
-                                          PhosphorIconsLight.arrowsDownUp,
-                                        ),
-                                        tooltip:
-                                            AppLocalizations.of(context).move,
-                                        onPressed: () => showDialog(
-                                          context: context,
-                                          builder: (
-                                            context,
-                                          ) =>
-                                              FileSystemAssetMoveDialog(
-                                            assets: _selectedFiles
-                                                .map(
-                                                  (
-                                                    e,
-                                                  ) =>
-                                                      AssetLocation(
-                                                    path: e,
-                                                    remote:
-                                                        _remote?.identifier ??
-                                                            '',
-                                                  ),
-                                                )
-                                                .toList(),
-                                            fileSystem: _documentSystem,
-                                          ),
-                                        ).then((value) {
-                                          if (value == null) return;
-                                          reloadFileSystem();
-                                        }),
-                                      ),
-                                      Builder(
-                                        builder: (context) => IconButton(
-                                          icon: const PhosphorIcon(
-                                            PhosphorIconsLight.trash,
-                                          ),
-                                          tooltip: AppLocalizations.of(
-                                            context,
-                                          ).delete,
-                                          onPressed: () async => deleteEntities(
-                                            context: context,
-                                            entities: _selectedFiles,
-                                            documentSystem: _documentSystem,
-                                            isMobile: widget.isMobile,
-                                            onDelete: reloadFileSystem,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                );
+                final locationBar = _buildLocationBar(parent);
                 final isDesktop = constraints.maxWidth > 600;
                 if (isDesktop) {
                   return Row(
@@ -832,6 +502,311 @@ class FilesViewState extends State<FilesView> {
         }
         return content;
       },
+    );
+  }
+
+  SizedBox _buildLocationBar(String parent) {
+    return SizedBox(
+      height: 64,
+      child: _selectedFiles.isEmpty
+          ? BlocBuilder<SettingsCubit, ButterflySettings>(
+              buildWhen: (previous, current) => previous.flags != current.flags,
+              builder: (context, settings) => Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MenuAnchor(
+                    menuChildren: [
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.folder,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).newFolder,
+                        ),
+                        onPressed: () async {
+                          final name = await showDialog<String>(
+                            context: context,
+                            builder: (context) => NameDialog(
+                              validator: defaultFileNameValidator(
+                                context,
+                              ),
+                            ),
+                          );
+                          if (name == null) return;
+                          final path = _locationController.text;
+                          final newPath = '$path/$name';
+                          await _documentSystem.createDirectory(newPath);
+                          reloadFileSystem();
+                        },
+                      ),
+                      MenuItemButton(
+                        onPressed: () async => _createFile(
+                          await _templateSystem.getDefaultFile(
+                            _templateSystem.storage?.defaults['template'] ??
+                                _settingsCubit.state.defaultTemplate,
+                          ),
+                        ),
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.filePlus,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).newNote,
+                        ),
+                      ),
+                      FutureBuilder<List<FileSystemFile<NoteData>>>(
+                        future: _templatesFuture,
+                        builder: (
+                          context,
+                          snapshot,
+                        ) =>
+                            SubmenuButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.file,
+                          ),
+                          menuChildren: snapshot.data?.map((e) {
+                                final data = e.data!;
+                                final metadata = data.getMetadata();
+                                final thumbnail = data.getThumbnail();
+                                return MenuItemButton(
+                                  leadingIcon: thumbnail == null
+                                      ? null
+                                      : Image.memory(
+                                          thumbnail,
+                                          width: 32,
+                                          height: 18,
+                                          cacheWidth: 32,
+                                          cacheHeight: 18,
+                                        ),
+                                  child: Text(
+                                    metadata?.name ?? '',
+                                  ),
+                                  onPressed: () => _createFile(
+                                    data,
+                                  ),
+                                );
+                              }).toList() ??
+                              [],
+                          child: Text(
+                            AppLocalizations.of(
+                              context,
+                            ).templates,
+                          ),
+                        ),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.arrowSquareIn,
+                        ),
+                        onPressed: () async {
+                          final router = GoRouter.of(context);
+                          final (
+                            result,
+                            extension,
+                          ) = await importFile(context);
+                          if (result == null) return;
+                          const route = '/native?name=document.bfly&type=note';
+                          router.go(
+                            route,
+                            extra: result,
+                          );
+                          if (!widget.collapsed) {
+                            reloadFileSystem();
+                          }
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).import,
+                        ),
+                      ),
+                      if (settings.hasFlag('collaboration'))
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.shareNetwork,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(
+                              context,
+                            ).connect,
+                          ),
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  ConnectCollaborationDialog()),
+                        ),
+                    ],
+                    builder: (context, controller, child) =>
+                        FloatingActionButton.small(
+                      heroTag: null,
+                      onPressed: controller.toggle,
+                      tooltip: LeapLocalizations.of(
+                        context,
+                      ).create,
+                      child: const PhosphorIcon(
+                        PhosphorIconsLight.plus,
+                      ),
+                    ),
+                  ),
+                  DragTarget<String>(
+                    builder: (
+                      context,
+                      candidateData,
+                      rejectedData,
+                    ) =>
+                        IconButton(
+                      onPressed: _locationController.text.isEmpty
+                          ? null
+                          : () => setState(() {
+                                _locationController.text = parent;
+                                _setFilesStream();
+                              }),
+                      icon: const PhosphorIcon(
+                        PhosphorIconsLight.arrowUp,
+                      ),
+                      tooltip: AppLocalizations.of(
+                        context,
+                      ).goUp,
+                    ),
+                    onWillAcceptWithDetails: (data) => true,
+                    onAcceptWithDetails: (data) async {
+                      await _documentSystem.moveAsset(
+                        data.data,
+                        '$parent/${data.data.split('/').last}',
+                      );
+                      reloadFileSystem();
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(
+                          context,
+                        ).location,
+                        prefixIcon: const PhosphorIcon(
+                          PhosphorIconsLight.folder,
+                        ),
+                        filled: true,
+                        contentPadding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 6,
+                        ),
+                      ),
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: _locationController,
+                      onFieldSubmitted: (value) => reloadFileSystem(),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Center(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.selectionSlash,
+                            ),
+                            tooltip: AppLocalizations.of(
+                              context,
+                            ).deselect,
+                            onPressed: () => setState(
+                              () => _selectedFiles.clear(),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.selectionInverse,
+                            ),
+                            tooltip: AppLocalizations.of(
+                              context,
+                            ).invertSelection,
+                            onPressed: () async {
+                              final directory = await _documentSystem.getAsset(
+                                _locationController.text,
+                                readData: false,
+                              );
+                              if (directory is! FileSystemDirectory<NoteFile>) {
+                                return;
+                              }
+                              setState(() {
+                                final all = _selectedFiles.toSet();
+                                _selectedFiles.clear();
+                                _selectedFiles.addAll(
+                                  directory.assets
+                                      .map((e) => e.path)
+                                      .toSet()
+                                      .difference(all),
+                                );
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowsDownUp,
+                            ),
+                            tooltip: AppLocalizations.of(context).move,
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (
+                                context,
+                              ) =>
+                                  FileSystemAssetMoveDialog(
+                                assets: _selectedFiles
+                                    .map(
+                                      (
+                                        e,
+                                      ) =>
+                                          AssetLocation(
+                                        path: e,
+                                        remote: _remote?.identifier ?? '',
+                                      ),
+                                    )
+                                    .toList(),
+                                fileSystem: _documentSystem,
+                              ),
+                            ).then((value) {
+                              if (value == null) return;
+                              reloadFileSystem();
+                            }),
+                          ),
+                          Builder(
+                            builder: (context) => IconButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
+                              ),
+                              tooltip: AppLocalizations.of(
+                                context,
+                              ).delete,
+                              onPressed: () async => deleteEntities(
+                                context: context,
+                                entities: _selectedFiles,
+                                documentSystem: _documentSystem,
+                                isMobile: widget.isMobile,
+                                onDelete: reloadFileSystem,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
     );
   }
 

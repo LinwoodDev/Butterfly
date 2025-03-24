@@ -439,10 +439,10 @@ class ImportService {
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
-      String dataPath;
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      dataPath = Uri.dataFromBytes(newData, mimeType: 'image/png').toString();
+      final dataPath =
+          Uri.dataFromBytes(newData, mimeType: 'image/png').toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
