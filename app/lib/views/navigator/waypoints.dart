@@ -22,7 +22,7 @@ class WaypointsView extends StatelessWidget {
               previous.page?.waypoints != current.page?.waypoints,
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-            var waypoints = List.from(state.page.waypoints);
+            var waypoints = List<Waypoint>.from(state.page.waypoints);
             Waypoint origin = state.page.getOriginWaypoint();
             waypoints.removeWhere(
                 (waypoint) => waypoint.name == Waypoint.customOriginName);
