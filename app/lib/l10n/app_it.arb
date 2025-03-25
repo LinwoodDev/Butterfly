@@ -654,5 +654,6 @@
   "moveOnGesture": "Sposta al gesto",
   "exportAllFiles": "Esporta tutti i file",
   "restoreSettingsFromFile": "Ripristina le impostazioni dal file",
-  "exportSettingsToFile": "Esporta le impostazioni su file"
+  "exportSettingsToFile": "Esporta le impostazioni su file",
+  "barcode": "Barcode"
 }
