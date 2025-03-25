@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Waypoint {
-  String get name;
+  String? get name;
   @DoublePointJsonConverter()
   Point<double> get position;
   double? get scale;
@@ -57,7 +57,7 @@ abstract mixin class $WaypointCopyWith<$Res> {
       _$WaypointCopyWithImpl;
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       @DoublePointJsonConverter() Point<double> position,
       double? scale});
 }
@@ -74,15 +74,15 @@ class _$WaypointCopyWithImpl<$Res> implements $WaypointCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? position = null,
     Object? scale = freezed,
   }) {
     return _then(_self.copyWith(
-      name: null == name
+      name: freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       position: null == position
           ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ class _Waypoint implements Waypoint {
       _$WaypointFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
   @DoublePointJsonConverter()
   final Point<double> position;
@@ -155,7 +155,7 @@ abstract mixin class _$WaypointCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {String? name,
       @DoublePointJsonConverter() Point<double> position,
       double? scale});
 }
@@ -172,15 +172,15 @@ class __$WaypointCopyWithImpl<$Res> implements _$WaypointCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? position = null,
     Object? scale = freezed,
   }) {
     return _then(_Waypoint(
-      null == name
+      freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       null == position
           ? _self.position
           : position // ignore: cast_nullable_to_non_nullable

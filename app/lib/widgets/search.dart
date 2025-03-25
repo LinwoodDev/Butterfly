@@ -53,7 +53,7 @@ class SearchButton extends StatelessWidget {
         PageResult e => e.name,
         ElementResult e => e.text,
         AreaResult e => e.area.name,
-        WaypointResult e => e.waypoint.name,
+        WaypointResult e => e.waypoint.name ?? '',
         ToolResult e => e.tool.getDisplay(context),
       };
 

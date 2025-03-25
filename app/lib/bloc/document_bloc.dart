@@ -509,17 +509,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      return _saveState(
-        emit,
-        state: current.copyWith(
-            page: current.page.copyWith(
-                waypoints: current.page.waypoints.map((e) {
-          if (e.name == event.name) {
-            return event.waypoint;
-          }
-          return e;
-        }).toList())),
-      );
+      if (current.page.getWaypointByName(event.name) == null) {
+        // Waypoint doesn't exist yet, create it instead
+        _saveState(
+          emit,
+          state: current.copyWith(
+              page: current.page.copyWith(
+                  waypoints: List<Waypoint>.from(current.page.waypoints)
+                    ..add(event.waypoint))),
+        );
+      } else {
+        _saveState(
+          emit,
+          state: current.copyWith(
+              page: current.page.copyWith(
+                  waypoints: current.page.waypoints.map((e) {
+            if (e.name == event.name) {
+              return event.waypoint;
+            }
+            return e;
+          }).toList())),
+        );
+      }
     });
     on<WaypointRemoved>((event, emit) {
       final current = state;

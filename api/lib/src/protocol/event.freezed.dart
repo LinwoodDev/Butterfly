@@ -1918,7 +1918,7 @@ class WaypointChanged extends DocumentEvent {
   factory WaypointChanged.fromJson(Map<String, dynamic> json) =>
       _$WaypointChangedFromJson(json);
 
-  final String name;
+  final String? name;
   final Waypoint waypoint;
 
   @JsonKey(name: 'type')
@@ -1965,7 +1965,7 @@ abstract mixin class $WaypointChangedCopyWith<$Res>
           WaypointChanged value, $Res Function(WaypointChanged) _then) =
       _$WaypointChangedCopyWithImpl;
   @useResult
-  $Res call({String name, Waypoint waypoint});
+  $Res call({String? name, Waypoint waypoint});
 
   $WaypointCopyWith<$Res> get waypoint;
 }
@@ -1982,14 +1982,14 @@ class _$WaypointChangedCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? waypoint = null,
   }) {
     return _then(WaypointChanged(
-      null == name
+      freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       null == waypoint
           ? _self.waypoint
           : waypoint // ignore: cast_nullable_to_non_nullable
@@ -2017,7 +2017,7 @@ class WaypointRemoved extends DocumentEvent {
   factory WaypointRemoved.fromJson(Map<String, dynamic> json) =>
       _$WaypointRemovedFromJson(json);
 
-  final String name;
+  final String? name;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -2061,7 +2061,7 @@ abstract mixin class $WaypointRemovedCopyWith<$Res>
           WaypointRemoved value, $Res Function(WaypointRemoved) _then) =
       _$WaypointRemovedCopyWithImpl;
   @useResult
-  $Res call({String name});
+  $Res call({String? name});
 }
 
 /// @nodoc
@@ -2076,13 +2076,13 @@ class _$WaypointRemovedCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
   }) {
     return _then(WaypointRemoved(
-      null == name
+      freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -2096,7 +2096,7 @@ class WaypointReordered extends DocumentEvent {
   factory WaypointReordered.fromJson(Map<String, dynamic> json) =>
       _$WaypointReorderedFromJson(json);
 
-  final String name;
+  final String? name;
   final int newIndex;
 
   @JsonKey(name: 'type')
@@ -2143,7 +2143,7 @@ abstract mixin class $WaypointReorderedCopyWith<$Res>
           WaypointReordered value, $Res Function(WaypointReordered) _then) =
       _$WaypointReorderedCopyWithImpl;
   @useResult
-  $Res call({String name, int newIndex});
+  $Res call({String? name, int newIndex});
 }
 
 /// @nodoc
@@ -2158,14 +2158,14 @@ class _$WaypointReorderedCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? newIndex = null,
   }) {
     return _then(WaypointReordered(
-      null == name
+      freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       null == newIndex
           ? _self.newIndex
           : newIndex // ignore: cast_nullable_to_non_nullable

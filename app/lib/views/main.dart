@@ -248,6 +248,7 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       setState(() {
         _transformCubit = TransformCubit();
+        _transformCubit?.teleportToWaypoint(page.getOriginWaypoint());
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
