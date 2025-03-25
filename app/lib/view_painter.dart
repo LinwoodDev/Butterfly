@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +21,13 @@ class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
+  final NavigatorPosition navigatorPosition;
 
   ForegroundPainter(
       this.renderers, this.document, this.page, this.info, this.colorScheme,
-      [this.transform = const CameraTransform(), this.selection]);
+      [this.transform = const CameraTransform(),
+      this.selection,
+      this.navigatorPosition = NavigatorPosition.left]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -50,23 +55,24 @@ class ForegroundPainter extends CustomPainter {
     }
     final selection = this.selection;
     if (selection is ElementSelection) {
-      /*
-      final minX =
-          -transform.position.dx + 20 / ((transform.size - 1) / 1.5 + 1);
-      final maxX = minX + size.width / transform.size - 40 / transform.size;
-      final minY = -transform.position.dy + 20;
-      final maxY = minY + size.height / transform.size - 40 / transform.size;
-      */
-      _drawSelection(canvas, selection);
+      _drawSelection(canvas, size, selection);
     }
   }
 
-  void _drawSelection(Canvas canvas, ElementSelection selection) {
+  void _drawSelection(Canvas canvas, Size size, ElementSelection selection) {
     final rect = selection.expandedRect;
     if (rect == null) return;
+    // Don't allow drawing outside the bounds of the viewport.
+    var bounds = transform.position &
+        ((Size(size.width - kNavigationRailWidth, size.height)) /
+            transform.size);
+    if (navigatorPosition == NavigatorPosition.left) {
+      bounds = bounds.translate(kNavigationRailWidth / transform.size, 0);
+    }
+    final intersection = rect.intersect(bounds);
+    if (intersection.isEmpty) return;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(
-            rect.inflate(5 / transform.size), const Radius.circular(5)),
+        RRect.fromRectAndRadius(intersection, const Radius.circular(2)),
         Paint()
           ..style = PaintingStyle.stroke
           ..color = colorScheme.primary

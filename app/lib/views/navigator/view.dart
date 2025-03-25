@@ -59,6 +59,8 @@ class NavigatorView extends StatefulWidget {
   State<NavigatorView> createState() => _NavigatorViewState();
 }
 
+const kNavigationRailWidth = 110.0;
+
 class _NavigatorViewState extends State<NavigatorView>
     with TickerProviderStateMixin {
   late final AnimationController _animationController;
@@ -130,7 +132,7 @@ class _NavigatorViewState extends State<NavigatorView>
                     }),
               ),
               NavigationRail(
-                minWidth: 110,
+                minWidth: kNavigationRailWidth,
                 destinations: NavigatorPage.values
                     .map(
                       (e) => NavigationRailDestination(

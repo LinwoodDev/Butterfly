@@ -446,6 +446,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                   ColorScheme.of(context),
                   frictionTransform,
                   cubit.state.selection,
+                  state.settingsCubit.state.navigatorPosition,
                 ),
                 painter: ViewPainter(
                   state.data,
