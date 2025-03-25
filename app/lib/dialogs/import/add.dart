@@ -239,6 +239,7 @@ class _AddDialogState extends State<AddDialog> {
                 Tool.eyeDropper,
                 Tool.ruler,
                 Tool.grid,
+                Tool.barcode,
               ]
                   .map((e) => e())
                   .where((e) => _category == null || e.category == _category)

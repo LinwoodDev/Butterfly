@@ -481,3 +481,29 @@ Map<String, dynamic> _$EyeDropperToolToJson(EyeDropperTool instance) =>
       'displayIcon': instance.displayIcon,
       'type': instance.$type,
     };
+
+BarcodeTool _$BarcodeToolFromJson(Map json) => BarcodeTool(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      barcodeType:
+          $enumDecodeNullable(_$BarcodeTypeEnumMap, json['barcodeType']) ??
+              BarcodeType.qrCode,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$BarcodeToolToJson(BarcodeTool instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'barcodeType': _$BarcodeTypeEnumMap[instance.barcodeType]!,
+      'color': const ColorJsonConverter().toJson(instance.color),
+      'type': instance.$type,
+    };
+
+const _$BarcodeTypeEnumMap = {
+  BarcodeType.qrCode: 'qrCode',
+  BarcodeType.dataMatrix: 'dataMatrix',
+};

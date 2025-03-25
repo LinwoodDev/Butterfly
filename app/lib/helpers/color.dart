@@ -9,6 +9,7 @@ Tool updateToolDefaultColor(Tool tool, SRGBColor color) {
     ShapeTool e =>
       e.copyWith(property: e.property.copyWith(color: defaultColor)),
     LabelTool e => e.copyWith(foreground: defaultColor),
+    BarcodeTool e => e.copyWith(color: defaultColor),
     _ => tool,
   };
 }

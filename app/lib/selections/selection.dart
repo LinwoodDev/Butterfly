@@ -26,6 +26,7 @@ part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
+part 'tools/barcode.dart';
 part 'tools/tool.dart';
 part 'tools/hand.dart';
 part 'tools/area.dart';

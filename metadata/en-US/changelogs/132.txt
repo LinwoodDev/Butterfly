@@ -3,6 +3,7 @@
 * Add swamp collaboration system in collaboration experiment
 * Add new material 3 slider
 * Add qr code for sharing collaboration link
+* Add barcode tool ([#818](https://github.com/LinwoodDev/Butterfly/issues/818))
 * Draw selection rect at the bounds of the canvas if it's outside the canvas
 * Use launch url as share link for collaboration
 * Rename xopp to Xournal++

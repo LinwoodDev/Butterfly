@@ -62,6 +62,7 @@ extension ToolVisualizer on Tool {
       ExportTool() => loc.export,
       GridTool() => loc.grid,
       RulerTool() => loc.ruler,
+      BarcodeTool() => loc.barcode,
     };
   }
 
@@ -110,6 +111,7 @@ extension ToolVisualizer on Tool {
         ExportTool() => PhosphorIcons.export,
         GridTool() => PhosphorIcons.gridFour,
         RulerTool() => PhosphorIcons.ruler,
+        BarcodeTool() => PhosphorIcons.barcode,
       };
 
   List<String> get help {
@@ -137,6 +139,7 @@ extension ToolVisualizer on Tool {
       EyeDropperTool() => 'eye_dropper',
       GridTool() => 'grid',
       RulerTool() => 'ruler',
+      BarcodeTool() => 'barcode',
     };
     if (page == null) return [];
     return ['tools', page];

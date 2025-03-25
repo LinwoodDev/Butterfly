@@ -33,6 +33,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:image/image.dart' as img;
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:barcode/barcode.dart' hide BarcodeType;
 
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -60,6 +61,7 @@ part 'mixins.dart';
 
 part 'area.dart';
 part 'asset.dart';
+part 'barcode.dart';
 part 'eraser.dart';
 part 'export.dart';
 part 'full_screen.dart';
@@ -254,6 +256,7 @@ abstract class Handler<T> {
       ExportTool() => ExportHandler(tool),
       GridTool() => GridHandler(tool),
       RulerTool() => RulerHandler(tool),
+      BarcodeTool() => BarcodeHandler(tool),
     } as Handler<T>;
   }
 

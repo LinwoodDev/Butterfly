@@ -200,12 +200,6 @@ abstract class PastingHandler<T> extends Handler<T> {
   bool get drawFromCenter => false;
 
   bool get currentlyPasting => _firstPos != null && _secondPos != null;
-
-  @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
-    // TODO: implement getToolbar
-    return super.getToolbar(bloc);
-  }
 }
 
 mixin PointerManipulationHandler<T> on Handler<T> {

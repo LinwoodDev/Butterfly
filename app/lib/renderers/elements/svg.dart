@@ -51,15 +51,16 @@ class SvgRenderer extends Renderer<SvgElement> {
     super.setup(document, assetService, page);
     final data = element.getData(document);
     if (data != null) {
-      pictureInfo =
-          await vg.loadPicture(SvgStringLoader(utf8.decode(data)), null);
+      pictureInfo = await vg.loadPicture(
+          SvgStringLoader(utf8.decode(data)), null,
+          clipViewbox: false);
     }
   }
 
   @override
   Rect get rect {
     final constraints = element.constraints;
-    final size = pictureInfo?.size ?? Size(element.width, element.height);
+    final size = Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;

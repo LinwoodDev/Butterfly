@@ -604,7 +604,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  void resetReleaseHandler(DocumentBloc bloc) => resetTemporaryHandler(bloc);
+  void resetReleaseHandler(DocumentBloc bloc) {
+    if (state.temporaryState == TemporaryState.removeAfterRelease) {
+      resetTemporaryHandler(bloc, true);
+    } else if (state.temporaryState == TemporaryState.removeAfterClick) {
+      resetTemporaryHandler(bloc);
+    }
+  }
 
   void resetTemporaryHandler(DocumentBloc bloc, [bool force = false]) {
     if (state.temporaryHandler == null) {

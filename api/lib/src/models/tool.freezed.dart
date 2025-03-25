@@ -60,6 +60,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return GridTool.fromJson(json);
     case 'eyeDropper':
       return EyeDropperTool.fromJson(json);
+    case 'barcode':
+      return BarcodeTool.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -2517,6 +2519,108 @@ class _$EyeDropperToolCopyWithImpl<$Res>
           ? _self.displayIcon
           : displayIcon // ignore: cast_nullable_to_non_nullable
               as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class BarcodeTool extends Tool {
+  BarcodeTool(
+      {this.name = '',
+      this.displayIcon = '',
+      this.barcodeType = BarcodeType.qrCode,
+      @ColorJsonConverter() this.color = SRGBColor.black,
+      final String? $type})
+      : $type = $type ?? 'barcode',
+        super._();
+  factory BarcodeTool.fromJson(Map<String, dynamic> json) =>
+      _$BarcodeToolFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+  @JsonKey()
+  final BarcodeType barcodeType;
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor color;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $BarcodeToolCopyWith<BarcodeTool> get copyWith =>
+      _$BarcodeToolCopyWithImpl<BarcodeTool>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$BarcodeToolToJson(
+      this,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Tool.barcode(name: $name, displayIcon: $displayIcon, barcodeType: $barcodeType, color: $color)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $BarcodeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory $BarcodeToolCopyWith(
+          BarcodeTool value, $Res Function(BarcodeTool) _then) =
+      _$BarcodeToolCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      String displayIcon,
+      BarcodeType barcodeType,
+      @ColorJsonConverter() SRGBColor color});
+}
+
+/// @nodoc
+class _$BarcodeToolCopyWithImpl<$Res> implements $BarcodeToolCopyWith<$Res> {
+  _$BarcodeToolCopyWithImpl(this._self, this._then);
+
+  final BarcodeTool _self;
+  final $Res Function(BarcodeTool) _then;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+    Object? barcodeType = null,
+    Object? color = null,
+  }) {
+    return _then(BarcodeTool(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _self.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+      barcodeType: null == barcodeType
+          ? _self.barcodeType
+          : barcodeType // ignore: cast_nullable_to_non_nullable
+              as BarcodeType,
+      color: null == color
+          ? _self.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
     ));
   }
 }

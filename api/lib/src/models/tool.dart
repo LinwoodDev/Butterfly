@@ -45,6 +45,8 @@ enum LaserAnimation { fade, path }
 
 enum ToolCategory { import, normal, surface, action, view }
 
+enum BarcodeType { qrCode, dataMatrix }
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -218,6 +220,13 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
   }) = EyeDropperTool;
 
+  factory Tool.barcode({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @Default(BarcodeType.qrCode) BarcodeType barcodeType,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+  }) = BarcodeTool;
+
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
@@ -244,5 +253,6 @@ sealed class Tool with _$Tool {
         RulerTool() => ToolCategory.view,
         GridTool() => ToolCategory.view,
         EyeDropperTool() => ToolCategory.action,
+        BarcodeTool() => ToolCategory.surface,
       };
 }
