@@ -654,5 +654,6 @@
   "moveOnGesture": "Siirrä ele",
   "exportAllFiles": "Vie kaikki tiedostot",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
-  "exportSettingsToFile": "Vie asetukset tiedostoon"
+  "exportSettingsToFile": "Vie asetukset tiedostoon",
+  "barcode": "Barcode"
 }
