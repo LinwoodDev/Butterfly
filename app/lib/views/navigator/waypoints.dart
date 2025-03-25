@@ -273,19 +273,17 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ...!_replacing
-              ? [
-                  TextField(
-                    controller: _nameController,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      filled: true,
-                      labelText: LeapLocalizations.of(context).name,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ]
-              : [],
+          if (!_replacing) ...[
+            TextField(
+              controller: _nameController,
+              autofocus: true,
+              decoration: InputDecoration(
+                filled: true,
+                labelText: LeapLocalizations.of(context).name,
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
           CheckboxListTile(
             title: Text(AppLocalizations.of(context).scale),
             value: _saveScale,
