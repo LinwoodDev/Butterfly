@@ -654,5 +654,6 @@
   "moveOnGesture": "تحريك على الإيماءة",
   "exportAllFiles": "تصدير جميع الملفات",
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
-  "exportSettingsToFile": "تصدير الإعدادات إلى ملف"
+  "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
+  "barcode": "Barcode"
 }
