@@ -365,6 +365,7 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
   OptionsPanelPosition get optionsPanelPosition;
   RenderResolution get renderResolution;
   bool get moveOnGesture;
+  List<String> get swamps;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -429,7 +430,8 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
       ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))
       ..add(DiagnosticsProperty('renderResolution', renderResolution))
-      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture));
+      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))
+      ..add(DiagnosticsProperty('swamps', swamps));
   }
 
   @override
@@ -525,7 +527,8 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
             (identical(other.renderResolution, renderResolution) ||
                 other.renderResolution == renderResolution) &&
             (identical(other.moveOnGesture, moveOnGesture) ||
-                other.moveOnGesture == moveOnGesture));
+                other.moveOnGesture == moveOnGesture) &&
+            const DeepCollectionEquality().equals(other.swamps, swamps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -579,12 +582,13 @@ mixin _$ButterflySettings implements DiagnosticableTreeMixin {
         colorToolbarEnabled,
         optionsPanelPosition,
         renderResolution,
-        moveOnGesture
+        moveOnGesture,
+        const DeepCollectionEquality().hash(swamps)
       ]);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps)';
   }
 }
 
@@ -644,7 +648,8 @@ abstract mixin class $ButterflySettingsCopyWith<$Res> {
       bool colorToolbarEnabled,
       OptionsPanelPosition optionsPanelPosition,
       RenderResolution renderResolution,
-      bool moveOnGesture});
+      bool moveOnGesture,
+      List<String> swamps});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -711,6 +716,7 @@ class _$ButterflySettingsCopyWithImpl<$Res>
     Object? optionsPanelPosition = null,
     Object? renderResolution = null,
     Object? moveOnGesture = null,
+    Object? swamps = null,
   }) {
     return _then(_self.copyWith(
       theme: null == theme
@@ -905,6 +911,10 @@ class _$ButterflySettingsCopyWithImpl<$Res>
           ? _self.moveOnGesture
           : moveOnGesture // ignore: cast_nullable_to_non_nullable
               as bool,
+      swamps: null == swamps
+          ? _self.swamps
+          : swamps // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 
@@ -983,12 +993,14 @@ class _ButterflySettings extends ButterflySettings
       this.colorToolbarEnabled = true,
       this.optionsPanelPosition = OptionsPanelPosition.top,
       this.renderResolution = RenderResolution.normal,
-      this.moveOnGesture = true})
+      this.moveOnGesture = true,
+      final List<String> swamps = const []})
       : _history = history,
         _connections = connections,
         _starred = starred,
         _recentColors = recentColors,
         _flags = flags,
+        _swamps = swamps,
         super._();
   factory _ButterflySettings.fromJson(Map<String, dynamic> json) =>
       _$ButterflySettingsFromJson(json);
@@ -1167,6 +1179,14 @@ class _ButterflySettings extends ButterflySettings
   @override
   @JsonKey()
   final bool moveOnGesture;
+  final List<String> _swamps;
+  @override
+  @JsonKey()
+  List<String> get swamps {
+    if (_swamps is EqualUnmodifiableListView) return _swamps;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_swamps);
+  }
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -1235,7 +1255,8 @@ class _ButterflySettings extends ButterflySettings
       ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
       ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition))
       ..add(DiagnosticsProperty('renderResolution', renderResolution))
-      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture));
+      ..add(DiagnosticsProperty('moveOnGesture', moveOnGesture))
+      ..add(DiagnosticsProperty('swamps', swamps));
   }
 
   @override
@@ -1331,7 +1352,8 @@ class _ButterflySettings extends ButterflySettings
             (identical(other.renderResolution, renderResolution) ||
                 other.renderResolution == renderResolution) &&
             (identical(other.moveOnGesture, moveOnGesture) ||
-                other.moveOnGesture == moveOnGesture));
+                other.moveOnGesture == moveOnGesture) &&
+            const DeepCollectionEquality().equals(other._swamps, _swamps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1385,12 +1407,13 @@ class _ButterflySettings extends ButterflySettings
         colorToolbarEnabled,
         optionsPanelPosition,
         renderResolution,
-        moveOnGesture
+        moveOnGesture,
+        const DeepCollectionEquality().hash(_swamps)
       ]);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition, renderResolution: $renderResolution, moveOnGesture: $moveOnGesture, swamps: $swamps)';
   }
 }
 
@@ -1452,7 +1475,8 @@ abstract mixin class _$ButterflySettingsCopyWith<$Res>
       bool colorToolbarEnabled,
       OptionsPanelPosition optionsPanelPosition,
       RenderResolution renderResolution,
-      bool moveOnGesture});
+      bool moveOnGesture,
+      List<String> swamps});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1521,6 +1545,7 @@ class __$ButterflySettingsCopyWithImpl<$Res>
     Object? optionsPanelPosition = null,
     Object? renderResolution = null,
     Object? moveOnGesture = null,
+    Object? swamps = null,
   }) {
     return _then(_ButterflySettings(
       theme: null == theme
@@ -1715,6 +1740,10 @@ class __$ButterflySettingsCopyWithImpl<$Res>
           ? _self.moveOnGesture
           : moveOnGesture // ignore: cast_nullable_to_non_nullable
               as bool,
+      swamps: null == swamps
+          ? _self._swamps
+          : swamps // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 

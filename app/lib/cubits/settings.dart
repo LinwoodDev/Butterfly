@@ -18,8 +18,6 @@ import 'package:window_manager/window_manager.dart';
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
-const kDefaultIceServers = ['stunserver.stunprotocol.org:3478'];
-
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 
@@ -247,6 +245,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     OptionsPanelPosition optionsPanelPosition,
     @Default(RenderResolution.normal) RenderResolution renderResolution,
     @Default(true) bool moveOnGesture,
+    @Default([]) List<String> swamps,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -357,6 +356,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               .byName(prefs.getString('render_resolution')!)
           : RenderResolution.normal,
       moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
+      swamps: prefs.getStringList('swamps') ?? [],
     );
   }
 
@@ -432,6 +432,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
     await prefs.setString('render_resolution', renderResolution.name);
     await prefs.setBool('move_on_gesture', moveOnGesture);
+    await prefs.setStringList('swamps', swamps);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -930,6 +931,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeMoveOnGesture(bool value) {
     emit(state.copyWith(moveOnGesture: value));
+    return save();
+  }
+
+  Future<void> changeSwamp(String swamp) {
+    emit(state.copyWith(swamps: [swamp]));
     return save();
   }
 

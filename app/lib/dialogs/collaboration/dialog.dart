@@ -4,6 +4,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';

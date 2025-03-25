@@ -13,23 +13,32 @@ class StartCollaborationDialog extends StatefulWidget {
 class _StartCollaborationDialogState extends State<StartCollaborationDialog>
     with TickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  late final SettingsCubit _settingsCubit;
+  late String _defaultSwamp;
   late final TabController _tabController;
   final TextEditingController _webSocketAddressController =
           TextEditingController(text: '0.0.0.0'),
       _webSocketPortController =
-          TextEditingController(text: kDefaultPort.toString()),
-      _swampAddressController = TextEditingController();
+          TextEditingController(text: kDefaultPort.toString());
+  late final TextEditingController _swampAddressController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _settingsCubit = context.read<SettingsCubit>();
+    _defaultSwamp = _settingsCubit.state.swamps.firstOrNull ?? '';
+    _swampAddressController = TextEditingController(text: _defaultSwamp);
   }
 
   void _start() {
     if (kIsWeb) return;
     if (_tabController.index == 0) {
-      widget.service.createSwampServer(Uri.parse(_swampAddressController.text));
+      final swamp = _swampAddressController.text;
+      widget.service.createSwampServer(Uri.parse(swamp));
+      if (swamp != _defaultSwamp) {
+        _settingsCubit.changeSwamp(swamp);
+      }
       return;
     }
     widget.service.createSocketServer(_webSocketAddressController.text,
