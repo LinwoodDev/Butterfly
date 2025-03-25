@@ -654,5 +654,6 @@
   "moveOnGesture": "Verplaats naar gebaar",
   "exportAllFiles": "Alle bestanden exporteren",
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
-  "exportSettingsToFile": "Instellingen exporteren naar bestand"
+  "exportSettingsToFile": "Instellingen exporteren naar bestand",
+  "barcode": "Barcode"
 }
