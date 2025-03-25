@@ -77,13 +77,9 @@ class WaypointsView extends StatelessWidget {
                                         title: Text(
                                             LeapLocalizations.of(context)
                                                 .reset),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(AppLocalizations.of(context)
-                                                .reallyReset)
-                                          ],
-                                        ),
+                                        content: Text(
+                                            AppLocalizations.of(context)
+                                                .reallyReset),
                                         actions: [
                                           TextButton(
                                             onPressed: () =>
