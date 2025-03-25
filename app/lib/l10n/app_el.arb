@@ -654,5 +654,6 @@
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
   "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
-  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο"
+  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
+  "barcode": "Barcode"
 }
