@@ -654,5 +654,6 @@
   "moveOnGesture": "Flytta på gest",
   "exportAllFiles": "Exportera alla filer",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
-  "exportSettingsToFile": "Exportera inställningar till fil"
+  "exportSettingsToFile": "Exportera inställningar till fil",
+  "barcode": "Barcode"
 }
