@@ -72,12 +72,62 @@ class WaypointsView extends StatelessWidget {
                             onPressed: () async {
                               final bloc = context.read<DocumentBloc>();
                               showDialog<void>(
-                                builder: (context) => BlocProvider.value(
-                                    value: bloc,
-                                    child: WaypointClearOriginDialog(
-                                      waypoint: origin,
-                                    )),
                                 context: context,
+                                builder: (builderContext) => BlocProvider.value(
+                                    value: bloc,
+                                    child: Builder(
+                                      builder: (builderContext) {
+                                        return AlertDialog(
+                                          title: Text(LeapLocalizations.of(
+                                                  builderContext)
+                                              .reset),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(AppLocalizations.of(
+                                                      builderContext)
+                                                  .reallyReset)
+                                            ],
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(builderContext)
+                                                      .pop(),
+                                              child: Text(
+                                                  MaterialLocalizations.of(
+                                                          builderContext)
+                                                      .cancelButtonLabel),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                final bloc = builderContext
+                                                    .read<DocumentBloc>();
+                                                bloc.add(
+                                                  WaypointChanged(origin.name,
+                                                      Waypoint.defaultOrigin),
+                                                );
+                                                Navigator.of(builderContext)
+                                                    .pop();
+                                                final state = bloc.state;
+                                                if (state
+                                                    is! DocumentLoadSuccess) {
+                                                  return;
+                                                }
+                                                state.currentIndexCubit.state
+                                                    .transformCubit
+                                                    .teleportToWaypoint(
+                                                        Waypoint.defaultOrigin);
+                                                bloc.bake();
+                                              },
+                                              child: Text(LeapLocalizations.of(
+                                                      builderContext)
+                                                  .reset),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    )),
                               );
                             },
                             child: Text(LeapLocalizations.of(context).reset),
@@ -273,54 +323,6 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
             Navigator.of(context).pop();
           },
           child: Text(LeapLocalizations.of(context).create),
-        ),
-      ],
-    );
-  }
-}
-
-class WaypointClearOriginDialog extends StatefulWidget {
-  final Waypoint waypoint;
-  const WaypointClearOriginDialog({super.key, required this.waypoint});
-
-  @override
-  State<WaypointClearOriginDialog> createState() =>
-      _WaypointClearOriginDialogState();
-}
-
-class _WaypointClearOriginDialogState extends State<WaypointClearOriginDialog> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(LeapLocalizations.of(context).reset),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [Text(AppLocalizations.of(context).reallyReset)],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final bloc = context.read<DocumentBloc>();
-            bloc.add(
-              WaypointChanged(widget.waypoint.name, Waypoint.defaultOrigin),
-            );
-            Navigator.of(context).pop();
-            final state = bloc.state;
-            if (state is! DocumentLoadSuccess) return;
-            state.currentIndexCubit.state.transformCubit
-                .teleportToWaypoint(Waypoint.defaultOrigin);
-            bloc.bake();
-          },
-          child: Text(LeapLocalizations.of(context).reset),
         ),
       ],
     );
