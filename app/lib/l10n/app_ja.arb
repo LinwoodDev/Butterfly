@@ -654,5 +654,6 @@
   "moveOnGesture": "ジェスチャー上に移動",
   "exportAllFiles": "すべてのファイルをエクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
-  "exportSettingsToFile": "設定をファイルにエクスポート"
+  "exportSettingsToFile": "設定をファイルにエクスポート",
+  "barcode": "Barcode"
 }
