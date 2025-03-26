@@ -82,6 +82,7 @@ class ViewSettingsPage extends StatelessWidget {
                         max: 4,
                         fractionDigits: 0,
                         headerWidth: 250,
+                        divide: true,
                         onChangeEnd: (value) => context
                             .read<SettingsCubit>()
                             .changeToolbarRows(value.round()),

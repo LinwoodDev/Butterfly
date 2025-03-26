@@ -107,7 +107,7 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
-    final currentStyle = widget.textStyle ?? DefaultTextStyle.of(context).style;
+    final currentStyle = widget.textStyle;
     final isEditing = _isEditing;
     return GestureDetector(
       onDoubleTap: _edit,

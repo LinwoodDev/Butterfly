@@ -95,9 +95,9 @@ class _AddDialogState extends State<AddDialog> {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 8, right: 8, top: 8, bottom: 12),
+                            left: 8, right: 8, top: 2, bottom: 4),
                         child: SizedBox(
-                          height: 32,
+                          height: 48,
                           child: ListView(
                             controller: _filterScrollController,
                             scrollDirection: Axis.horizontal,
