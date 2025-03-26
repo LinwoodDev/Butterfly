@@ -1,3 +1,4 @@
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -71,6 +72,23 @@ class PenInputSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).pen,
+                            currentValueDescription: 'Active Tool',
+                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                          ),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).first,
+                            currentValueDescription: 'Tool on Toolbar: 2',
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleOne),
+                          ),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).second,
+                            currentValueDescription: 'Hand Tool',
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleTwo),
+                          ),
                           AdvancedTextField(
                             initialValue: config.pen?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).pen,

@@ -88,6 +88,25 @@ enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
+class InputMappingEntry {
+  int? value;
+
+  InputMappingEntry({
+    this.value,
+  });
+
+  String getValueDescription(BuildContext context) {
+    switch (value) {
+      case null:
+        return AppLocalizations.of(context).activeTool;
+      case -1:
+        return AppLocalizations.of(context).handTool;
+      default:
+        return '${AppLocalizations.of(context).toolOnToolbar}: ${(value! + 1).toString()}';
+    }
+  }
+}
+
 @freezed
 sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
