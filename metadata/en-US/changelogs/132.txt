@@ -14,5 +14,6 @@
 * Fix temporary tool not being removed ([#809](https://github.com/LinwoodDev/Butterfly/issues/809))
 * Fix editable list tile subtitle not aligned with title
 * Fix svg images doesn't use the correct size
+* Fix opening a note from a recent files tile loads an outdated note and saves it ([#816](https://github.com/LinwoodDev/Butterfly/issues/816))
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.4
