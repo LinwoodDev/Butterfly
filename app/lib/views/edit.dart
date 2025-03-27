@@ -276,11 +276,13 @@ class _EditToolbarState extends State<EditToolbar> {
                 if (tooltip.isEmpty) {
                   tooltip = tool.getLocalizedName(context);
                 }
-
-                final color = handler.getStatus(context.read<DocumentBloc>()) ==
-                        ToolStatus.disabled
-                    ? Theme.of(context).disabledColor
-                    : null;
+                final status = handler.getStatus(context.read<DocumentBloc>());
+                final theme = Theme.of(context);
+                final color = switch (status) {
+                  ToolStatus.normal => null,
+                  ToolStatus.disabled => theme.disabledColor,
+                  ToolStatus.selected => theme.colorScheme.secondary,
+                };
                 var handlerIcon = handler.getIcon(bloc);
                 final toolWidget = Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),

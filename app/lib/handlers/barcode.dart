@@ -8,8 +8,13 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
 
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
-    showDialog<String>(context: context, builder: (context) => NameDialog())
-        .then((value) {
+    final loc = AppLocalizations.of(context);
+    showDialog<String>(
+        context: context,
+        builder: (context) => NameDialog(
+              title: loc.enterText,
+              hint: loc.text,
+            )).then((value) {
       if (value == null) return;
       final barcode = switch (data.barcodeType) {
         BarcodeType.dataMatrix => Barcode.dataMatrix(),
@@ -46,4 +51,8 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
       ),
     ];
   }
+
+  @override
+  ToolStatus getStatus(DocumentBloc bloc) =>
+      _element == null ? ToolStatus.normal : ToolStatus.selected;
 }
