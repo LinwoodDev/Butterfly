@@ -16,7 +16,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
   InputMappingCategory? _category = InputMappingCategory.activeTool;
   int _toolbarToolDisplayIndex = 0;
   TextEditingController _toolbarToolIndexController = TextEditingController(
-    text: '1',
+    text: '1', // TODO
   );
 
   void _onCategoryChanged(InputMappingCategory? value) {
@@ -29,115 +29,113 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          title: Text(AppLocalizations.of(context).activeTool),
-          subtitle:
-              Text('Use the currently-selected tool on the toolbar'), // TODO
-          leading: Radio<InputMappingCategory>(
-            value: InputMappingCategory.activeTool,
-            groupValue: _category,
-            onChanged: _onCategoryChanged,
-          ),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).handTool),
-          subtitle: Text('Drag to move around the canvas'), // TODO
-          leading: Radio<InputMappingCategory>(
-            value: InputMappingCategory.handTool,
-            groupValue: _category,
-            onChanged: _onCategoryChanged,
-          ),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).toolOnToolbar),
-          subtitle: Text(
-              'Use the tool at the specified position on the toolbar (1 is the left-most tool)'), // TODO
-          leading: Radio<InputMappingCategory>(
-            value: InputMappingCategory.toolOnToolbar,
-            groupValue: _category,
-            onChanged: _onCategoryChanged,
-          ),
-          // trailing: SizedBox(
-          //   width: 100, // TODO
-          //   child: TextFormField(
-          //     controller: _toolbarToolIndexController,
-          //     onChanged: (String value) {
-          //       final int? intValue = int.tryParse(value);
-          //       if (intValue != null) {
-          //         setState(() {
-          //           _toolbarToolDisplayIndex = intValue;
-          //         });
-          //       }
-          //     },
-          //     decoration: InputDecoration(
-          //       labelText: 'Tool number', // TODO: Add translation
-          //     ),
-          //   ),
-          // ),
-        ),
-        Row(
-          children: [
-            const SizedBox(width: 80),
-            Text(
-              'Tool number', // TODO: Add translation
+        InkWell(
+          onTap: () {
+            setState(
+              () {
+                _category = InputMappingCategory.activeTool;
+              },
+            );
+          },
+          child: ListTile(
+            title: Text(AppLocalizations.of(context).activeTool),
+            subtitle:
+                Text('Use the currently-selected tool on the toolbar'), // TODO
+            leading: Radio<InputMappingCategory>(
+              value: InputMappingCategory.activeTool,
+              groupValue: _category,
+              onChanged: _onCategoryChanged,
             ),
-            const SizedBox(width: 20),
-            // Expanded(
-            //   child: Container(),
-            // ),
-            SizedBox(
-              width: 40, // TODO
-              child: TextFormField(
-                enabled: false,
-                controller: _toolbarToolIndexController,
-                onChanged: (String value) {
-                  final int? intValue = int.tryParse(value);
-                  if (intValue != null) {
-                    setState(() {
-                      _toolbarToolDisplayIndex = intValue;
-                    });
-                  }
-                },
-                textAlign: TextAlign.center,
-                // decoration: InputDecoration(
-                //   // labelText: 'Tool number', // TODO: Add translation
-                // ),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            setState(
+              () {
+                _category = InputMappingCategory.handTool;
+              },
+            );
+          },
+          child: ListTile(
+            title: Text(AppLocalizations.of(context).handTool),
+            subtitle: Text('Drag to move around the canvas'), // TODO
+            leading: Radio<InputMappingCategory>(
+              value: InputMappingCategory.handTool,
+              groupValue: _category,
+              onChanged: _onCategoryChanged,
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            setState(
+              () {
+                _category = InputMappingCategory.toolOnToolbar;
+              },
+            );
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                  title: Text(AppLocalizations.of(context).toolOnToolbar),
+                  subtitle: Text(
+                      'Use the tool at the specified position on the toolbar (1 is the left-most tool)'), // TODO
+                  leading: Radio<InputMappingCategory>(
+                    value: InputMappingCategory.toolOnToolbar,
+                    groupValue: _category,
+                    onChanged: _onCategoryChanged,
+                  ),
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: 30, // TODO
+                child: TextFormField(
+                  keyboardType: TextInputType.numberWithOptions(
+                    signed: false,
+                    decimal: false,
+                  ),
+                  enabled: _category == InputMappingCategory.toolOnToolbar,
+                  controller: _toolbarToolIndexController,
+                  onTap: () {
+                    _toolbarToolIndexController.selection = TextSelection(
+                        baseOffset: 0,
+                        extentOffset:
+                            _toolbarToolIndexController.value.text.length);
+                  },
+                  onEditingComplete: () {
+                    if (_toolbarToolIndexController.text == '') {
+                      _toolbarToolIndexController.text = '1';
+                    }
+                    FocusScope.of(context).unfocus();
+                  },
+                  onChanged: (String value) {
+                    int? intValue = int.tryParse(value);
+                    if (intValue != null) {
+                      setState(() {
+                        _toolbarToolIndexController.text =
+                            intValue.clamp(1, 99).toString();
+                      });
+                    } else if (value != '') {
+                      setState(() {
+                        _toolbarToolIndexController.text = '1';
+                      });
+                    }
+                  },
+                  textAlign: TextAlign.center,
+                  // decoration: InputDecoration(
+                  //   // labelText: 'Tool number', // TODO: Add translation
+                  // ),
+                ),
+              ),
+              const SizedBox(width: 35),
+            ],
+          ),
         ),
-        // Row(
-        //   children: [
-        //     Expanded(
-        //       child: ListTile(
-        //         title: Text(AppLocalizations.of(context).toolOnToolbar),
-        //         leading: Radio<InputMappingCategory>(
-        //           value: InputMappingCategory.toolOnToolbar,
-        //           groupValue: _category,
-        //           onChanged: _onCategoryChanged,
-        //         ),
-        //       ),
-        //     ),
-        //     Expanded(
-        //       child: TextFormField(
-        //         controller: _toolbarToolIndexController,
-        //         onChanged: (String value) {
-        //           final int? intValue = int.tryParse(value);
-        //           if (intValue != null) {
-        //             setState(() {
-        //               _toolbarToolDisplayIndex = intValue;
-        //             });
-        //           }
-        //         },
-        //         decoration: InputDecoration(
-        //           labelText: 'Tool number', // TODO: Add translation
-        //           icon: Container(),
-        //         ),
-        //       ),
-        //       // child: Text('hello!'),
-        //     ),
-        //   ],
-        // ),
+        SizedBox(
+          // This adds space at the bottom of the fly-out to account for the keyboard appearing
+          height: MediaQuery.of(context).viewInsets.bottom,
+        ),
       ],
     );
   }
