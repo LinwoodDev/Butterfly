@@ -74,73 +74,76 @@ class PenInputSettings extends StatelessWidget {
                           const SizedBox(height: 16),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).pen,
-                            currentValueDescription: 'Active Tool',
+                            currentValue: InputMapping(null),
                             icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                            setter: () {},
                           ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).first,
-                            currentValueDescription: 'Tool on Toolbar: 2',
+                            currentValue: InputMapping(1),
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.numberCircleOne),
+                            setter: () {},
                           ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).second,
-                            currentValueDescription: 'Hand Tool',
+                            currentValue: InputMapping(-1),
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.numberCircleTwo),
+                            setter: () {},
                           ),
-                          AdvancedTextField(
-                            initialValue: config.pen?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).pen,
-                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
-                            onChanged: (value) {
-                              final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  pen: int.tryParse(value)?.subtract(1),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.firstPenButton?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).first,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.numberCircleOne,
-                            ),
-                            onChanged: (value) {
-                              final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  firstPenButton: int.tryParse(
-                                    value,
-                                  )?.subtract(1),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.secondPenButton?.add(1)?.toString() ??
-                                    '',
-                            label: AppLocalizations.of(context).second,
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.numberCircleTwo,
-                            ),
-                            onChanged: (value) {
-                              final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  secondPenButton: int.tryParse(
-                                    value,
-                                  )?.subtract(1),
-                                ),
-                              );
-                            },
-                          ),
+                          // AdvancedTextField(
+                          //   initialValue: config.pen?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).pen,
+                          //   icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         pen: int.tryParse(value)?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          // const SizedBox(height: 8),
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.firstPenButton?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).first,
+                          //   icon: const PhosphorIcon(
+                          //     PhosphorIconsLight.numberCircleOne,
+                          //   ),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         firstPenButton: int.tryParse(
+                          //           value,
+                          //         )?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          // const SizedBox(height: 8),
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.secondPenButton?.add(1)?.toString() ??
+                          //           '',
+                          //   label: AppLocalizations.of(context).second,
+                          //   icon: const PhosphorIcon(
+                          //     PhosphorIconsLight.numberCircleTwo,
+                          //   ),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         secondPenButton: int.tryParse(
+                          //           value,
+                          //         )?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

@@ -88,14 +88,46 @@ enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
-class InputMappingEntry {
-  int? value;
+enum InputMappingCategory {
+  activeTool,
+  handTool,
+  toolOnToolbar,
+}
 
-  InputMappingEntry({
-    this.value,
-  });
+extension type const InputMapping(int? value) {
+  InputMappingCategory getCategory() {
+    switch (value) {
+      case null:
+        return InputMappingCategory.activeTool;
+      case -1:
+        return InputMappingCategory.handTool;
+      default:
+        return InputMappingCategory.toolOnToolbar;
+    }
+  }
 
-  String getValueDescription(BuildContext context) {
+  int getToolNumber() {
+    return value! + 1;
+  }
+
+  factory InputMapping.fromUIData(
+    InputMappingCategory category,
+    int? toolNumber, // 1-indexed
+  ) {
+    switch (category) {
+      case InputMappingCategory.activeTool:
+        return InputMapping(null);
+      case InputMappingCategory.handTool:
+        return InputMapping(-1);
+      case InputMappingCategory.toolOnToolbar:
+        if (toolNumber != null) {
+          return InputMapping(toolNumber - 1);
+        }
+    }
+    return InputMapping(null);
+  }
+
+  String getDescription(BuildContext context) {
     switch (value) {
       case null:
         return AppLocalizations.of(context).activeTool;
@@ -105,6 +137,23 @@ class InputMappingEntry {
         return '${AppLocalizations.of(context).toolOnToolbar}: ${(value! + 1).toString()}';
     }
   }
+
+  // TODO: Make sure this is actually saving, otherwise revert to versions below
+  factory InputMapping.fromJson(int? json) {
+    return InputMapping(json);
+  }
+
+  int? toJson() {
+    return value;
+  }
+
+  // factory InputMapping.fromJson(Map<String, int?> json) {
+  //   return InputMapping(json['value']);
+  // }
+
+  // Map<String, int?> toJson() {
+  //   return <String, int?>{'value': value};
+  // }
 }
 
 @freezed
@@ -112,19 +161,26 @@ sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
 
   const factory InputConfiguration({
-    int? leftMouse,
+    @Default(null) int? leftMouse,
     @Default(-1) int? middleMouse,
     @Default(1) int? rightMouse,
-    int? pen,
+    @Default(null) InputMapping? pen,
     @Default(2) int? firstPenButton,
     @Default(1) int? secondPenButton,
-    int? touch,
+    @Default(null) int? touch,
+    // @Default(InputMapping(-1)) int? middleMouse,
+    // @Default(InputMapping(1)) int? rightMouse,
+    // @Default(InputMapping(null)) InputMapping? pen,
+    // @Default(InputMapping(2)) int? firstPenButton,
+    // @Default(InputMapping(1)) int? secondPenButton,
+    // @Default(InputMapping(null)) int? touch,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
 
-  Set<int> getShortcuts() => {
+  Set<Object> getShortcuts() => {
+        // TODO: Change to Set<InputMapping>
         leftMouse,
         middleMouse,
         rightMouse,

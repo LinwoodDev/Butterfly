@@ -378,7 +378,7 @@
   "second": "Second",
   "activeTool": "Active Tool",
   "handTool": "Hand Tool",
-  "toolOnToolbar": "Tool on Toolbar",
+  "toolOnToolbar": "Specific Tool on Toolbar",
   "tools": "Tools",
   "showGrid": "Show grid",
   "grid": "Grid",

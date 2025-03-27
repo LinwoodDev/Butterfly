@@ -43,6 +43,8 @@ By default, the the pen is configured to function as the following:
 
 ## Configure {#configure}
 
+// TODO: Update this
+
 You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
 ![toolbar numbered](toolbar_numbered.png)

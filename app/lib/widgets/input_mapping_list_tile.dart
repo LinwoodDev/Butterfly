@@ -1,18 +1,21 @@
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class InputMappingListTile extends StatelessWidget {
   final String inputName;
-  final String currentValueDescription;
+  final InputMapping currentValue;
   final Icon icon;
-  // final VoidCallback setter;
+  final VoidCallback setter;
 
   const InputMappingListTile({
     super.key,
     required this.inputName,
-    required this.currentValueDescription,
+    required this.currentValue,
     required this.icon,
+    required this.setter,
   });
 
   @override
@@ -20,13 +23,14 @@ class InputMappingListTile extends StatelessWidget {
     return ListTile(
       title: Text(inputName),
       leading: icon,
-      subtitle: Text(currentValueDescription),
+      subtitle: Text(currentValue.getDescription(context)),
       trailing: IconButton(
         onPressed: () {},
         tooltip: LeapLocalizations.of(context).reset,
         icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
       ),
-      onTap: () => {},
+      onTap: () =>
+          {openInputMappingModal(context, inputName, currentValue, setter)},
     );
   }
 }
