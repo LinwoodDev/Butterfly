@@ -379,6 +379,7 @@
   "activeTool": "Active Tool",
   "handTool": "Hand Tool",
   "toolOnToolbar": "Specific Tool on Toolbar",
+  "toolOnToolbarShort": "Toolbar Position:",
   "tools": "Tools",
   "showGrid": "Show grid",
   "grid": "Grid",

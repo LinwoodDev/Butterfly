@@ -139,11 +139,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                 nextPointerIndex = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen!.value;
+              nextPointerIndex = config.pen?.value;
               if ((buttons & kSecondaryStylusButton) != 0) {
-                nextPointerIndex = config.secondPenButton;
+                nextPointerIndex = config.secondPenButton?.value;
               } else if ((buttons & kPrimaryStylusButton) != 0) {
-                nextPointerIndex = config.firstPenButton;
+                nextPointerIndex = config.firstPenButton?.value;
               }
             default:
               nextPointerIndex = null;

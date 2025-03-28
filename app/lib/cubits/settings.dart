@@ -95,6 +95,19 @@ enum InputMappingCategory {
 }
 
 extension type const InputMapping(int? value) {
+  factory InputMapping.fromUIData(InputMappingCategory category,
+      [int? toolNumber] // 1-indexed
+      ) {
+    switch (category) {
+      case InputMappingCategory.activeTool:
+        return InputMapping(null);
+      case InputMappingCategory.handTool:
+        return InputMapping(-1);
+      case InputMappingCategory.toolOnToolbar:
+        return InputMapping(toolNumber?.subtract(1) ?? 0);
+    }
+  }
+
   InputMappingCategory getCategory() {
     switch (value) {
       case null:
@@ -106,25 +119,12 @@ extension type const InputMapping(int? value) {
     }
   }
 
-  int getToolNumber() {
-    return value! + 1;
-  }
-
-  factory InputMapping.fromUIData(
-    InputMappingCategory category,
-    int? toolNumber, // 1-indexed
-  ) {
-    switch (category) {
-      case InputMappingCategory.activeTool:
-        return InputMapping(null);
-      case InputMappingCategory.handTool:
-        return InputMapping(-1);
-      case InputMappingCategory.toolOnToolbar:
-        if (toolNumber != null) {
-          return InputMapping(toolNumber - 1);
-        }
+  // 1-indexed, for displaying to the user
+  int? getToolDisplayPosition() {
+    if (value == null || value == -1) {
+      return null;
     }
-    return InputMapping(null);
+    return value! + 1;
   }
 
   String getDescription(BuildContext context) {
@@ -134,11 +134,11 @@ extension type const InputMapping(int? value) {
       case -1:
         return AppLocalizations.of(context).handTool;
       default:
-        return '${AppLocalizations.of(context).toolOnToolbar}: ${(value! + 1).toString()}';
+        return '${AppLocalizations.of(context).toolOnToolbarShort} ${(value! + 1).toString()}';
     }
   }
 
-  // TODO: Make sure this is actually saving, otherwise revert to versions below
+  // TODO: Make sure this is actually saving, especially for null values on non-null defaults
   factory InputMapping.fromJson(int? json) {
     return InputMapping(json);
   }
@@ -147,6 +147,7 @@ extension type const InputMapping(int? value) {
     return value;
   }
 
+  // TODO: Cleanup
   // factory InputMapping.fromJson(Map<String, int?> json) {
   //   return InputMapping(json['value']);
   // }
@@ -164,9 +165,9 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(null) int? leftMouse,
     @Default(-1) int? middleMouse,
     @Default(1) int? rightMouse,
-    @Default(null) InputMapping? pen,
-    @Default(2) int? firstPenButton,
-    @Default(1) int? secondPenButton,
+    @Default(InputMapping(null)) InputMapping? pen,
+    @Default(InputMapping(2)) InputMapping? firstPenButton,
+    @Default(InputMapping(1)) InputMapping? secondPenButton,
     @Default(null) int? touch,
     // @Default(InputMapping(-1)) int? middleMouse,
     // @Default(InputMapping(1)) int? rightMouse,

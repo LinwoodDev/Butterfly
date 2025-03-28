@@ -12,10 +12,14 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
       middleMouse: (json['middleMouse'] as num?)?.toInt() ?? -1,
       rightMouse: (json['rightMouse'] as num?)?.toInt() ?? 1,
       pen: json['pen'] == null
-          ? null
+          ? const InputMapping(null)
           : InputMapping.fromJson((json['pen'] as num?)?.toInt()),
-      firstPenButton: (json['firstPenButton'] as num?)?.toInt() ?? 2,
-      secondPenButton: (json['secondPenButton'] as num?)?.toInt() ?? 1,
+      firstPenButton: json['firstPenButton'] == null
+          ? const InputMapping(2)
+          : InputMapping.fromJson((json['firstPenButton'] as num?)?.toInt()),
+      secondPenButton: json['secondPenButton'] == null
+          ? const InputMapping(1)
+          : InputMapping.fromJson((json['secondPenButton'] as num?)?.toInt()),
       touch: (json['touch'] as num?)?.toInt() ?? null,
     );
 
@@ -25,8 +29,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'middleMouse': instance.middleMouse,
       'rightMouse': instance.rightMouse,
       'pen': instance.pen?.toJson(),
-      'firstPenButton': instance.firstPenButton,
-      'secondPenButton': instance.secondPenButton,
+      'firstPenButton': instance.firstPenButton?.toJson(),
+      'secondPenButton': instance.secondPenButton?.toJson(),
       'touch': instance.touch,
     };
 

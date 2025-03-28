@@ -6,23 +6,59 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class InputMappingOptions extends StatefulWidget {
   final InputMapping startingValue;
-  const InputMappingOptions({super.key, required this.startingValue});
+  final ValueChanged<InputMapping> onChanged;
+
+  const InputMappingOptions({
+    super.key,
+    required this.startingValue,
+    required this.onChanged,
+  });
 
   @override
   State<InputMappingOptions> createState() => _InputMappingOptionsState();
 }
 
 class _InputMappingOptionsState extends State<InputMappingOptions> {
-  InputMappingCategory? _category = InputMappingCategory.activeTool;
-  int _toolbarToolDisplayIndex = 0;
-  TextEditingController _toolbarToolIndexController = TextEditingController(
-    text: '1', // TODO
-  );
+  InputMappingCategory? _category;
+  final TextEditingController _toolbarToolPositionController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _category = widget.startingValue.getCategory();
+    _toolbarToolPositionController.text =
+        widget.startingValue.getToolDisplayPosition()?.toString() ?? '1';
+  }
 
   void _onCategoryChanged(InputMappingCategory? value) {
     setState(() {
       _category = value;
     });
+    _onChanged();
+  }
+
+  void _toolbarToolPositionChanged(String value) {
+    int? intValue = int.tryParse(value);
+    if (intValue != null) {
+      setState(() {
+        _toolbarToolPositionController.text = intValue.clamp(1, 99).toString();
+      });
+    } else if (value != '') {
+      setState(() {
+        _toolbarToolPositionController.text = '1';
+      });
+    }
+    _onChanged();
+  }
+
+  void _onChanged() {
+    widget.onChanged(
+      InputMapping.fromUIData(
+        _category!,
+        int.tryParse(_toolbarToolPositionController.text),
+      ),
+    );
   }
 
   @override
@@ -31,11 +67,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
       children: [
         InkWell(
           onTap: () {
-            setState(
-              () {
-                _category = InputMappingCategory.activeTool;
-              },
-            );
+            setState(() => _onCategoryChanged(InputMappingCategory.activeTool));
           },
           child: ListTile(
             title: Text(AppLocalizations.of(context).activeTool),
@@ -50,11 +82,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
         ),
         InkWell(
           onTap: () {
-            setState(
-              () {
-                _category = InputMappingCategory.handTool;
-              },
-            );
+            setState(() => _onCategoryChanged(InputMappingCategory.handTool));
           },
           child: ListTile(
             title: Text(AppLocalizations.of(context).handTool),
@@ -69,10 +97,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
         InkWell(
           onTap: () {
             setState(
-              () {
-                _category = InputMappingCategory.toolOnToolbar;
-              },
-            );
+                () => _onCategoryChanged(InputMappingCategory.toolOnToolbar));
           },
           child: Row(
             children: [
@@ -80,7 +105,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context).toolOnToolbar),
                   subtitle: Text(
-                      'Use the tool at the specified position on the toolbar (1 is the left-most tool)'), // TODO
+                      'Use the tool at the specified position on the toolbar\n(1 is the left-most tool)'), // TODO
                   leading: Radio<InputMappingCategory>(
                     value: InputMappingCategory.toolOnToolbar,
                     groupValue: _category,
@@ -96,32 +121,20 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                     decimal: false,
                   ),
                   enabled: _category == InputMappingCategory.toolOnToolbar,
-                  controller: _toolbarToolIndexController,
+                  controller: _toolbarToolPositionController,
                   onTap: () {
-                    _toolbarToolIndexController.selection = TextSelection(
+                    _toolbarToolPositionController.selection = TextSelection(
                         baseOffset: 0,
                         extentOffset:
-                            _toolbarToolIndexController.value.text.length);
+                            _toolbarToolPositionController.value.text.length);
                   },
                   onEditingComplete: () {
-                    if (_toolbarToolIndexController.text == '') {
-                      _toolbarToolIndexController.text = '1';
+                    if (_toolbarToolPositionController.text == '') {
+                      _toolbarToolPositionController.text = '1';
                     }
                     FocusScope.of(context).unfocus();
                   },
-                  onChanged: (String value) {
-                    int? intValue = int.tryParse(value);
-                    if (intValue != null) {
-                      setState(() {
-                        _toolbarToolIndexController.text =
-                            intValue.clamp(1, 99).toString();
-                      });
-                    } else if (value != '') {
-                      setState(() {
-                        _toolbarToolIndexController.text = '1';
-                      });
-                    }
-                  },
+                  onChanged: _toolbarToolPositionChanged,
                   textAlign: TextAlign.center,
                   // decoration: InputDecoration(
                   //   // labelText: 'Tool number', // TODO: Add translation
@@ -153,7 +166,7 @@ Future<void> openInputMappingModal(
   BuildContext context,
   String mappingName,
   InputMapping startingValue,
-  VoidCallback setter,
+  ValueChanged<InputMapping> onChanged,
 ) =>
     showLeapBottomSheet(
       context: context,
@@ -165,6 +178,11 @@ Future<void> openInputMappingModal(
         //   Navigator.of(context).pop();
         // }
 
-        return [InputMappingOptions(startingValue: startingValue)];
+        return [
+          InputMappingOptions(
+            startingValue: startingValue,
+            onChanged: onChanged,
+          )
+        ];
       },
     );

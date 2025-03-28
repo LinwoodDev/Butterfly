@@ -8,14 +8,14 @@ class InputMappingListTile extends StatelessWidget {
   final String inputName;
   final InputMapping currentValue;
   final Icon icon;
-  final VoidCallback setter;
+  final ValueChanged<InputMapping> onChanged;
 
   const InputMappingListTile({
     super.key,
     required this.inputName,
     required this.currentValue,
     required this.icon,
-    required this.setter,
+    required this.onChanged,
   });
 
   @override
@@ -24,13 +24,15 @@ class InputMappingListTile extends StatelessWidget {
       title: Text(inputName),
       leading: icon,
       subtitle: Text(currentValue.getDescription(context)),
-      trailing: IconButton(
-        onPressed: () {},
-        tooltip: LeapLocalizations.of(context).reset,
-        icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
-      ),
+      trailing: true // TODO: Check for non-default value, and reset it on tap
+          ? IconButton(
+              onPressed: () {},
+              tooltip: LeapLocalizations.of(context).reset,
+              icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
+            )
+          : null,
       onTap: () =>
-          {openInputMappingModal(context, inputName, currentValue, setter)},
+          {openInputMappingModal(context, inputName, currentValue, onChanged)},
     );
   }
 }

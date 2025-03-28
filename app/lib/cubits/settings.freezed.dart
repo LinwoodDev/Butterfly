@@ -19,8 +19,8 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
   int? get middleMouse;
   int? get rightMouse;
   InputMapping? get pen;
-  int? get firstPenButton;
-  int? get secondPenButton;
+  InputMapping? get firstPenButton;
+  InputMapping? get secondPenButton;
   int? get touch;
 
   /// Create a copy of InputConfiguration
@@ -88,8 +88,8 @@ abstract mixin class $InputConfigurationCopyWith<$Res> {
       int? middleMouse,
       int? rightMouse,
       InputMapping? pen,
-      int? firstPenButton,
-      int? secondPenButton,
+      InputMapping? firstPenButton,
+      InputMapping? secondPenButton,
       int? touch});
 }
 
@@ -134,11 +134,11 @@ class _$InputConfigurationCopyWithImpl<$Res>
       firstPenButton: freezed == firstPenButton
           ? _self.firstPenButton
           : firstPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping?,
       secondPenButton: freezed == secondPenButton
           ? _self.secondPenButton
           : secondPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping?,
       touch: freezed == touch
           ? _self.touch
           : touch // ignore: cast_nullable_to_non_nullable
@@ -155,9 +155,9 @@ class _InputConfiguration extends InputConfiguration
       {this.leftMouse = null,
       this.middleMouse = -1,
       this.rightMouse = 1,
-      this.pen = null,
-      this.firstPenButton = 2,
-      this.secondPenButton = 1,
+      this.pen = const InputMapping(null),
+      this.firstPenButton = const InputMapping(2),
+      this.secondPenButton = const InputMapping(1),
       this.touch = null})
       : super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) =>
@@ -177,10 +177,10 @@ class _InputConfiguration extends InputConfiguration
   final InputMapping? pen;
   @override
   @JsonKey()
-  final int? firstPenButton;
+  final InputMapping? firstPenButton;
   @override
   @JsonKey()
-  final int? secondPenButton;
+  final InputMapping? secondPenButton;
   @override
   @JsonKey()
   final int? touch;
@@ -256,8 +256,8 @@ abstract mixin class _$InputConfigurationCopyWith<$Res>
       int? middleMouse,
       int? rightMouse,
       InputMapping? pen,
-      int? firstPenButton,
-      int? secondPenButton,
+      InputMapping? firstPenButton,
+      InputMapping? secondPenButton,
       int? touch});
 }
 
@@ -302,11 +302,11 @@ class __$InputConfigurationCopyWithImpl<$Res>
       firstPenButton: freezed == firstPenButton
           ? _self.firstPenButton
           : firstPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping?,
       secondPenButton: freezed == secondPenButton
           ? _self.secondPenButton
           : secondPenButton // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping?,
       touch: freezed == touch
           ? _self.touch
           : touch // ignore: cast_nullable_to_non_nullable
