@@ -88,6 +88,7 @@ class TouchInputSettings extends StatelessWidget {
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).touch,
                             currentValue: config.touch,
+                            defaultValue: InputMappingDefault.touch,
                             icon: const PhosphorIcon(PhosphorIconsLight.hand),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();

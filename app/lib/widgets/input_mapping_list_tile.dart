@@ -7,6 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class InputMappingListTile extends StatelessWidget {
   final String inputName;
   final InputMapping currentValue;
+  final InputMapping defaultValue;
   final Icon icon;
   final ValueChanged<InputMapping> onChanged;
 
@@ -14,6 +15,7 @@ class InputMappingListTile extends StatelessWidget {
     super.key,
     required this.inputName,
     required this.currentValue,
+    required this.defaultValue,
     required this.icon,
     required this.onChanged,
   });
@@ -24,9 +26,9 @@ class InputMappingListTile extends StatelessWidget {
       title: Text(inputName),
       leading: icon,
       subtitle: Text(currentValue.getDescription(context)),
-      trailing: true // TODO: Check for non-default value, and reset it on tap
+      trailing: currentValue != defaultValue
           ? IconButton(
-              onPressed: () {},
+              onPressed: () => onChanged(defaultValue),
               tooltip: LeapLocalizations.of(context).reset,
               icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
             )
