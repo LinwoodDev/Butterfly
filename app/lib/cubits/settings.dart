@@ -157,7 +157,6 @@ extension type const InputMapping(int value) {
     }
   }
 
-  // TODO: Make sure this is actually saving, especially for null values on non-null defaults
   factory InputMapping.fromJson(int json) {
     return InputMapping(json);
   }
@@ -165,15 +164,6 @@ extension type const InputMapping(int value) {
   int toJson() {
     return value;
   }
-
-  // TODO: Cleanup
-  // factory InputMapping.fromJson(Map<String, int?> json) {
-  //   return InputMapping(json['value']);
-  // }
-
-  // Map<String, int?> toJson() {
-  //   return <String, int?>{'value': value};
-  // }
 }
 
 @freezed

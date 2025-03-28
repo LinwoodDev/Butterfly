@@ -114,7 +114,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 ),
               ),
               SizedBox(
-                width: 30, // TODO
+                width: 30,
                 child: TextFormField(
                   keyboardType: TextInputType.numberWithOptions(
                     signed: false,
@@ -136,9 +136,6 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                   },
                   onChanged: _toolbarToolPositionChanged,
                   textAlign: TextAlign.center,
-                  // decoration: InputDecoration(
-                  //   // labelText: 'Tool number', // TODO: Add translation
-                  // ),
                 ),
               ),
               const SizedBox(width: 35),
@@ -172,12 +169,6 @@ Future<void> openInputMappingModal(
       context: context,
       titleBuilder: (ctx) => Text(mappingName),
       childrenBuilder: (ctx) {
-        // final settingsCubit = context.read<SettingsCubit>();
-        // void changeSyncMode(SyncMode syncMode) {
-        //   settingsCubit.changeSyncMode(syncMode);
-        //   Navigator.of(context).pop();
-        // }
-
         return [
           InputMappingOptions(
             startingValue: startingValue,

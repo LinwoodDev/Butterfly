@@ -89,22 +89,6 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
-                          // AdvancedTextField(
-                          //   initialValue:
-                          //       config.leftMouse?.add(1)?.toString() ?? '',
-                          //   label: AppLocalizations.of(context).left,
-                          //   icon: const PhosphorIcon(
-                          //     PhosphorIconsLight.arrowLeft,
-                          //   ),
-                          //   onChanged: (value) {
-                          //     final cubit = context.read<SettingsCubit>();
-                          //     cubit.changeInputConfiguration(
-                          //       config.copyWith(
-                          //         leftMouse: int.tryParse(value)?.subtract(1),
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).middle,
                             currentValue: config.middleMouse,
@@ -120,23 +104,6 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
-                          // const SizedBox(height: 8),
-                          // AdvancedTextField(
-                          //   initialValue:
-                          //       config.middleMouse?.add(1)?.toString() ?? '',
-                          //   label: AppLocalizations.of(context).middle,
-                          //   icon: const PhosphorIcon(
-                          //     PhosphorIconsLight.arrowUp,
-                          //   ),
-                          //   onChanged: (value) {
-                          //     final cubit = context.read<SettingsCubit>();
-                          //     cubit.changeInputConfiguration(
-                          //       config.copyWith(
-                          //         middleMouse: int.tryParse(value)?.subtract(1),
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).right,
                             currentValue: config.rightMouse,
@@ -152,23 +119,6 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
-                          // const SizedBox(height: 8),
-                          // AdvancedTextField(
-                          //   initialValue:
-                          //       config.rightMouse?.add(1)?.toString() ?? '',
-                          //   label: AppLocalizations.of(context).right,
-                          //   icon: const PhosphorIcon(
-                          //     PhosphorIconsLight.arrowRight,
-                          //   ),
-                          //   onChanged: (value) {
-                          //     final cubit = context.read<SettingsCubit>();
-                          //     cubit.changeInputConfiguration(
-                          //       config.copyWith(
-                          //         rightMouse: int.tryParse(value)?.subtract(1),
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
                         ],
                       ),
                     ),
