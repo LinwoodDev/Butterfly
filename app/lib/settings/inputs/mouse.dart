@@ -1,4 +1,5 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -73,56 +74,101 @@ class MouseInputSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          AdvancedTextField(
-                            initialValue:
-                                config.leftMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).left,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).left,
+                            currentValue: config.leftMouse,
+                            defaultValue: InputMappingDefault.leftMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowLeft,
-                            ),
+                                PhosphorIconsLight.mouseLeftClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  leftMouse: int.tryParse(value)?.subtract(1),
+                                  leftMouse: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.middleMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).middle,
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.leftMouse?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).left,
+                          //   icon: const PhosphorIcon(
+                          //     PhosphorIconsLight.arrowLeft,
+                          //   ),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         leftMouse: int.tryParse(value)?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).middle,
+                            currentValue: config.middleMouse,
+                            defaultValue: InputMappingDefault.middleMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowUp,
-                            ),
+                                PhosphorIconsLight.mouseMiddleClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  middleMouse: int.tryParse(value)?.subtract(1),
+                                  middleMouse: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.rightMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).right,
+                          // const SizedBox(height: 8),
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.middleMouse?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).middle,
+                          //   icon: const PhosphorIcon(
+                          //     PhosphorIconsLight.arrowUp,
+                          //   ),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         middleMouse: int.tryParse(value)?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).right,
+                            currentValue: config.rightMouse,
+                            defaultValue: InputMappingDefault.rightMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowRight,
-                            ),
+                                PhosphorIconsLight.mouseRightClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  rightMouse: int.tryParse(value)?.subtract(1),
+                                  rightMouse: value,
                                 ),
                               );
                             },
                           ),
+                          // const SizedBox(height: 8),
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.rightMouse?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).right,
+                          //   icon: const PhosphorIcon(
+                          //     PhosphorIconsLight.arrowRight,
+                          //   ),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         rightMouse: int.tryParse(value)?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

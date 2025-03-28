@@ -99,20 +99,6 @@ class TouchInputSettings extends StatelessWidget {
                               );
                             },
                           ),
-                          // AdvancedTextField(
-                          //   initialValue:
-                          //       config.touch?.add(1)?.toString() ?? '',
-                          //   label: AppLocalizations.of(context).touch,
-                          //   icon: const PhosphorIcon(PhosphorIconsLight.hand),
-                          //   onChanged: (value) {
-                          //     final cubit = context.read<SettingsCubit>();
-                          //     cubit.changeInputConfiguration(
-                          //       config.copyWith(
-                          //         touch: int.tryParse(value)?.subtract(1),
-                          //       ),
-                          //     );
-                          //   },
-                          // ),
                         ],
                       ),
                     ),

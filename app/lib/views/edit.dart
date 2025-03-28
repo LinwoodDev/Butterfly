@@ -123,7 +123,7 @@ class _EditToolbarState extends State<EditToolbar> {
     CurrentIndex currentIndex,
     ButterflySettings settings,
     List<Tool> tools,
-    Set<Object> shortcuts, // TODO: Change to Set<InputMapping>
+    Set<InputMapping> shortcuts,
     double size,
   ) {
     final isMobile = widget.isMobile;

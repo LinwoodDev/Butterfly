@@ -95,6 +95,11 @@ enum InputMappingCategory {
 }
 
 class InputMappingDefault {
+  static const InputMapping leftMouse =
+      InputMapping(InputMapping.activeToolValue);
+  static const InputMapping middleMouse =
+      InputMapping(InputMapping.handToolValue);
+  static const InputMapping rightMouse = InputMapping(1);
   static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
   static const InputMapping firstPenButton = InputMapping(2);
   static const InputMapping secondPenButton = InputMapping(1);
@@ -105,7 +110,7 @@ extension type const InputMapping(int? value) {
   static const int activeToolValue = -2;
   static const int handToolValue = -1;
 
-  factory InputMapping.fromCategory(InputMappingCategory category,
+  factory InputMapping.fromUIData(InputMappingCategory category,
       [int? toolNumber] // 1-indexed
       ) {
     switch (category) {
@@ -129,12 +134,18 @@ extension type const InputMapping(int? value) {
     }
   }
 
+  // TODO: See if we can remove the null option on the extension, then remove this null check
+  // 0-indexed
+  int? getToolPositionIndex() {
+    return getCategory() == InputMappingCategory.toolOnToolbar ? value : null;
+  }
+
+  // TODO: See if we can remove the null option on the extension, then remove this null check
   // 1-indexed, for displaying to the user
   int? getToolDisplayPosition() {
-    if (value == activeToolValue || value == handToolValue) {
-      return null;
-    }
-    return value! + 1;
+    return getCategory() == InputMappingCategory.toolOnToolbar
+        ? value?.add(1)
+        : null;
   }
 
   String getDescription(BuildContext context) {
@@ -172,26 +183,19 @@ sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
 
   const factory InputConfiguration({
-    @Default(null) int? leftMouse,
-    @Default(-1) int? middleMouse,
-    @Default(1) int? rightMouse,
+    @Default(InputMappingDefault.leftMouse) InputMapping leftMouse,
+    @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
+    @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
-    // @Default(InputMapping(-1)) int? middleMouse,
-    // @Default(InputMapping(1)) int? rightMouse,
-    // @Default(InputMapping(null)) InputMapping? pen,
-    // @Default(InputMapping(2)) int? firstPenButton,
-    // @Default(InputMapping(1)) int? secondPenButton,
-    // @Default(InputMapping(null)) int? touch,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
 
-  Set<Object> getShortcuts() => {
-        // TODO: Change to Set<InputMapping>
+  Set<InputMapping> getShortcuts() => {
         leftMouse,
         middleMouse,
         rightMouse,
@@ -199,7 +203,7 @@ sealed class InputConfiguration with _$InputConfiguration {
         firstPenButton,
         secondPenButton,
         touch
-      }.nonNulls.toSet();
+      }.toSet();
 }
 
 enum SortBy { name, created, modified }

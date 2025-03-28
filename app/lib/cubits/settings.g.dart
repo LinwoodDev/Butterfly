@@ -8,9 +8,15 @@ part of 'settings.dart';
 
 _InputConfiguration _$InputConfigurationFromJson(Map json) =>
     _InputConfiguration(
-      leftMouse: (json['leftMouse'] as num?)?.toInt() ?? null,
-      middleMouse: (json['middleMouse'] as num?)?.toInt() ?? -1,
-      rightMouse: (json['rightMouse'] as num?)?.toInt() ?? 1,
+      leftMouse: json['leftMouse'] == null
+          ? InputMappingDefault.leftMouse
+          : InputMapping.fromJson((json['leftMouse'] as num?)?.toInt()),
+      middleMouse: json['middleMouse'] == null
+          ? InputMappingDefault.middleMouse
+          : InputMapping.fromJson((json['middleMouse'] as num?)?.toInt()),
+      rightMouse: json['rightMouse'] == null
+          ? InputMappingDefault.rightMouse
+          : InputMapping.fromJson((json['rightMouse'] as num?)?.toInt()),
       pen: json['pen'] == null
           ? InputMappingDefault.pen
           : InputMapping.fromJson((json['pen'] as num?)?.toInt()),
@@ -27,9 +33,9 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
     <String, dynamic>{
-      'leftMouse': instance.leftMouse,
-      'middleMouse': instance.middleMouse,
-      'rightMouse': instance.rightMouse,
+      'leftMouse': instance.leftMouse.toJson(),
+      'middleMouse': instance.middleMouse.toJson(),
+      'rightMouse': instance.rightMouse.toJson(),
       'pen': instance.pen.toJson(),
       'firstPenButton': instance.firstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),

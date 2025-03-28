@@ -124,40 +124,45 @@ class _MainViewViewportState extends State<MainViewViewport>
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
           // TODO Bug: This is not called when lasso tool is selected, so mappings are not respected. This might be intended for after something has been selected, but shouldn't be the behavior before a selection
-          int? nextPointerIndex;
+          InputMapping? nextPointerMapping;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
           // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
-              nextPointerIndex = config.touch.value;
+              nextPointerMapping = config.touch;
             case PointerDeviceKind.mouse:
               if ((buttons & kSecondaryMouseButton) != 0) {
-                nextPointerIndex = config.rightMouse;
+                nextPointerMapping = config.rightMouse;
               } else if ((buttons & kMiddleMouseButton) != 0) {
-                nextPointerIndex = config.middleMouse;
+                nextPointerMapping = config.middleMouse;
               } else if ((buttons & kPrimaryMouseButton) != 0) {
-                nextPointerIndex = config.leftMouse;
+                nextPointerMapping = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen.value;
+              nextPointerMapping = config.pen;
               if ((buttons & kSecondaryStylusButton) != 0) {
-                nextPointerIndex = config.secondPenButton.value;
+                nextPointerMapping = config.secondPenButton;
               } else if ((buttons & kPrimaryStylusButton) != 0) {
-                nextPointerIndex = config.firstPenButton.value;
+                nextPointerMapping = config.firstPenButton;
               }
             default:
-              nextPointerIndex = null;
+              nextPointerMapping = null;
           }
-          if (nextPointerIndex == null ||
-              nextPointerIndex == InputMapping.activeToolValue) {
+          if (nextPointerMapping == null ||
+              nextPointerMapping.getCategory() ==
+                  InputMappingCategory.activeTool) {
             cubit.resetTemporaryHandler(bloc);
             return;
           }
-          if (nextPointerIndex == InputMapping.handToolValue) {
+          if (nextPointerMapping.getCategory() ==
+              InputMappingCategory.handTool) {
             cubit.changeTemporaryHandlerMove();
-          } else if (nextPointerIndex >= 0) {
-            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
+          } else {
+            final int? index = nextPointerMapping.getToolPositionIndex();
+            if (index != null) {
+              await cubit.changeTemporaryHandlerIndex(context, index);
+            }
           }
         }
 

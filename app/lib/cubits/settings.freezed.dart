@@ -15,9 +15,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$InputConfiguration implements DiagnosticableTreeMixin {
-  int? get leftMouse;
-  int? get middleMouse;
-  int? get rightMouse;
+  InputMapping get leftMouse;
+  InputMapping get middleMouse;
+  InputMapping get rightMouse;
   InputMapping get pen;
   InputMapping get firstPenButton;
   InputMapping get secondPenButton;
@@ -84,9 +84,9 @@ abstract mixin class $InputConfigurationCopyWith<$Res> {
       _$InputConfigurationCopyWithImpl;
   @useResult
   $Res call(
-      {int? leftMouse,
-      int? middleMouse,
-      int? rightMouse,
+      {InputMapping leftMouse,
+      InputMapping middleMouse,
+      InputMapping rightMouse,
       InputMapping pen,
       InputMapping firstPenButton,
       InputMapping secondPenButton,
@@ -106,27 +106,27 @@ class _$InputConfigurationCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? leftMouse = freezed,
-    Object? middleMouse = freezed,
-    Object? rightMouse = freezed,
+    Object? leftMouse = null,
+    Object? middleMouse = null,
+    Object? rightMouse = null,
     Object? pen = null,
     Object? firstPenButton = null,
     Object? secondPenButton = null,
     Object? touch = null,
   }) {
     return _then(_self.copyWith(
-      leftMouse: freezed == leftMouse
+      leftMouse: null == leftMouse
           ? _self.leftMouse
           : leftMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      middleMouse: freezed == middleMouse
+              as InputMapping,
+      middleMouse: null == middleMouse
           ? _self.middleMouse
           : middleMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      rightMouse: freezed == rightMouse
+              as InputMapping,
+      rightMouse: null == rightMouse
           ? _self.rightMouse
           : rightMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping,
       pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
@@ -152,9 +152,9 @@ class _$InputConfigurationCopyWithImpl<$Res>
 class _InputConfiguration extends InputConfiguration
     with DiagnosticableTreeMixin {
   const _InputConfiguration(
-      {this.leftMouse = null,
-      this.middleMouse = -1,
-      this.rightMouse = 1,
+      {this.leftMouse = InputMappingDefault.leftMouse,
+      this.middleMouse = InputMappingDefault.middleMouse,
+      this.rightMouse = InputMappingDefault.rightMouse,
       this.pen = InputMappingDefault.pen,
       this.firstPenButton = InputMappingDefault.firstPenButton,
       this.secondPenButton = InputMappingDefault.secondPenButton,
@@ -165,13 +165,13 @@ class _InputConfiguration extends InputConfiguration
 
   @override
   @JsonKey()
-  final int? leftMouse;
+  final InputMapping leftMouse;
   @override
   @JsonKey()
-  final int? middleMouse;
+  final InputMapping middleMouse;
   @override
   @JsonKey()
-  final int? rightMouse;
+  final InputMapping rightMouse;
   @override
   @JsonKey()
   final InputMapping pen;
@@ -252,9 +252,9 @@ abstract mixin class _$InputConfigurationCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? leftMouse,
-      int? middleMouse,
-      int? rightMouse,
+      {InputMapping leftMouse,
+      InputMapping middleMouse,
+      InputMapping rightMouse,
       InputMapping pen,
       InputMapping firstPenButton,
       InputMapping secondPenButton,
@@ -274,27 +274,27 @@ class __$InputConfigurationCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? leftMouse = freezed,
-    Object? middleMouse = freezed,
-    Object? rightMouse = freezed,
+    Object? leftMouse = null,
+    Object? middleMouse = null,
+    Object? rightMouse = null,
     Object? pen = null,
     Object? firstPenButton = null,
     Object? secondPenButton = null,
     Object? touch = null,
   }) {
     return _then(_InputConfiguration(
-      leftMouse: freezed == leftMouse
+      leftMouse: null == leftMouse
           ? _self.leftMouse
           : leftMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      middleMouse: freezed == middleMouse
+              as InputMapping,
+      middleMouse: null == middleMouse
           ? _self.middleMouse
           : middleMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
-      rightMouse: freezed == rightMouse
+              as InputMapping,
+      rightMouse: null == rightMouse
           ? _self.rightMouse
           : rightMouse // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping,
       pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable

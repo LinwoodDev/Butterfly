@@ -58,7 +58,8 @@ class PenInputSettings extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context).shortcuts,
+                                AppLocalizations.of(context)
+                                    .shortcuts, // TODO: Change phrasing?
                                 style: TextTheme.of(context).headlineSmall,
                               ),
                               IconButton(
