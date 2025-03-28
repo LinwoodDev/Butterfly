@@ -106,7 +106,7 @@ class InputMappingDefault {
   static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
 }
 
-extension type const InputMapping(int? value) {
+extension type const InputMapping(int value) {
   static const int activeToolValue = -2;
   static const int handToolValue = -1;
 
@@ -134,17 +134,15 @@ extension type const InputMapping(int? value) {
     }
   }
 
-  // TODO: See if we can remove the null option on the extension, then remove this null check
   // 0-indexed
   int? getToolPositionIndex() {
     return getCategory() == InputMappingCategory.toolOnToolbar ? value : null;
   }
 
-  // TODO: See if we can remove the null option on the extension, then remove this null check
   // 1-indexed, for displaying to the user
   int? getToolDisplayPosition() {
     return getCategory() == InputMappingCategory.toolOnToolbar
-        ? value?.add(1)
+        ? value + 1
         : null;
   }
 
@@ -155,16 +153,16 @@ extension type const InputMapping(int? value) {
       case handToolValue:
         return AppLocalizations.of(context).handTool;
       default:
-        return '${AppLocalizations.of(context).toolOnToolbarShort} ${(value! + 1).toString()}';
+        return '${AppLocalizations.of(context).toolOnToolbarShort} ${(value + 1).toString()}';
     }
   }
 
   // TODO: Make sure this is actually saving, especially for null values on non-null defaults
-  factory InputMapping.fromJson(int? json) {
+  factory InputMapping.fromJson(int json) {
     return InputMapping(json);
   }
 
-  int? toJson() {
+  int toJson() {
     return value;
   }
 

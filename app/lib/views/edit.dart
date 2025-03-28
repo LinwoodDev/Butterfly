@@ -295,7 +295,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         context.read<CurrentIndexCubit>().changeSelection(
                               tool,
                             ),
-                    focussed: shortcuts.contains(i),
+                    focussed: shortcuts.contains(InputMapping(i)),
                     selected: selected ||
                         currentIndex.toggleableHandlers.containsKey(i),
                     showBottom: selected || tool.isAction(),

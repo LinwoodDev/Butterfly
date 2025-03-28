@@ -34,6 +34,7 @@ class TouchInputSettings extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           SwitchListTile(
+                            // TODO: Bug: This value doesn't persist after app restart
                             value: state.inputGestures,
                             title: Text(
                               AppLocalizations.of(context).inputGestures,

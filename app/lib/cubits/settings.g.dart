@@ -10,25 +10,25 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
     _InputConfiguration(
       leftMouse: json['leftMouse'] == null
           ? InputMappingDefault.leftMouse
-          : InputMapping.fromJson((json['leftMouse'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
       middleMouse: json['middleMouse'] == null
           ? InputMappingDefault.middleMouse
-          : InputMapping.fromJson((json['middleMouse'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
       rightMouse: json['rightMouse'] == null
           ? InputMappingDefault.rightMouse
-          : InputMapping.fromJson((json['rightMouse'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
       pen: json['pen'] == null
           ? InputMappingDefault.pen
-          : InputMapping.fromJson((json['pen'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['pen'] as num).toInt()),
       firstPenButton: json['firstPenButton'] == null
           ? InputMappingDefault.firstPenButton
-          : InputMapping.fromJson((json['firstPenButton'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
       secondPenButton: json['secondPenButton'] == null
           ? InputMappingDefault.secondPenButton
-          : InputMapping.fromJson((json['secondPenButton'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
       touch: json['touch'] == null
           ? InputMappingDefault.touch
-          : InputMapping.fromJson((json['touch'] as num?)?.toInt()),
+          : InputMapping.fromJson((json['touch'] as num).toInt()),
     );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>

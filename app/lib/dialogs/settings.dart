@@ -72,7 +72,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
           child: ListTile(
             title: Text(AppLocalizations.of(context).activeTool),
             subtitle:
-                Text('Use the currently-selected tool on the toolbar'), // TODO
+                Text('Use the currently selected tool on the toolbar'), // TODO
             leading: Radio<InputMappingCategory>(
               value: InputMappingCategory.activeTool,
               groupValue: _category,
@@ -105,7 +105,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context).toolOnToolbar),
                   subtitle: Text(
-                      'Use the tool at the specified position on the toolbar\n(1 is the left-most tool)'), // TODO
+                      'Use the tool at the specified position on the toolbar, starting from the left'), // TODO
                   leading: Radio<InputMappingCategory>(
                     value: InputMappingCategory.toolOnToolbar,
                     groupValue: _category,
