@@ -123,6 +123,7 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
+          // TODO Bug: This is not called when lasso tool is selected, so mappings are not respected. This might be intended for after something has been selected, but shouldn't be the behavior before a selection
           int? nextPointerIndex;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
@@ -155,7 +156,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           }
           if (nextPointerIndex == InputMapping.handToolValue) {
             cubit.changeTemporaryHandlerMove();
-          } else if (nextPointerIndex <= 0) {
+          } else if (nextPointerIndex >= 0) {
             await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
           }
         }
