@@ -94,25 +94,35 @@ enum InputMappingCategory {
   toolOnToolbar,
 }
 
+class InputMappingDefault {
+  static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping firstPenButton = InputMapping(2);
+  static const InputMapping secondPenButton = InputMapping(1);
+  static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
+}
+
 extension type const InputMapping(int? value) {
-  factory InputMapping.fromUIData(InputMappingCategory category,
+  static const int activeToolValue = -2;
+  static const int handToolValue = -1;
+
+  factory InputMapping.fromCategory(InputMappingCategory category,
       [int? toolNumber] // 1-indexed
       ) {
     switch (category) {
       case InputMappingCategory.activeTool:
-        return InputMapping(null);
+        return InputMapping(activeToolValue);
       case InputMappingCategory.handTool:
-        return InputMapping(-1);
+        return InputMapping(handToolValue);
       case InputMappingCategory.toolOnToolbar:
-        return InputMapping(toolNumber?.subtract(1) ?? 0);
+        return InputMapping(toolNumber?.clamp(1, 99).subtract(1) ?? 0);
     }
   }
 
   InputMappingCategory getCategory() {
     switch (value) {
-      case null:
+      case activeToolValue:
         return InputMappingCategory.activeTool;
-      case -1:
+      case handToolValue:
         return InputMappingCategory.handTool;
       default:
         return InputMappingCategory.toolOnToolbar;
@@ -121,7 +131,7 @@ extension type const InputMapping(int? value) {
 
   // 1-indexed, for displaying to the user
   int? getToolDisplayPosition() {
-    if (value == null || value == -1) {
+    if (value == activeToolValue || value == handToolValue) {
       return null;
     }
     return value! + 1;
@@ -129,9 +139,9 @@ extension type const InputMapping(int? value) {
 
   String getDescription(BuildContext context) {
     switch (value) {
-      case null:
+      case activeToolValue:
         return AppLocalizations.of(context).activeTool;
-      case -1:
+      case handToolValue:
         return AppLocalizations.of(context).handTool;
       default:
         return '${AppLocalizations.of(context).toolOnToolbarShort} ${(value! + 1).toString()}';
@@ -165,10 +175,10 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(null) int? leftMouse,
     @Default(-1) int? middleMouse,
     @Default(1) int? rightMouse,
-    @Default(InputMapping(null)) InputMapping? pen,
-    @Default(InputMapping(2)) InputMapping? firstPenButton,
-    @Default(InputMapping(1)) InputMapping? secondPenButton,
-    @Default(null) int? touch,
+    @Default(InputMappingDefault.pen) InputMapping pen,
+    @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
+    @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
+    @Default(InputMappingDefault.touch) InputMapping touch,
     // @Default(InputMapping(-1)) int? middleMouse,
     // @Default(InputMapping(1)) int? rightMouse,
     // @Default(InputMapping(null)) InputMapping? pen,

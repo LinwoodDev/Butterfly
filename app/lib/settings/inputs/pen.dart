@@ -74,7 +74,7 @@ class PenInputSettings extends StatelessWidget {
                           const SizedBox(height: 16),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).pen,
-                            currentValue: config.pen ?? InputMapping(null),
+                            currentValue: config.pen,
                             icon: const PhosphorIcon(PhosphorIconsLight.pen),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -87,8 +87,7 @@ class PenInputSettings extends StatelessWidget {
                           ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).first,
-                            currentValue:
-                                config.firstPenButton ?? InputMapping(null),
+                            currentValue: config.firstPenButton,
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.numberCircleOne),
                             onChanged: (value) {
@@ -102,8 +101,7 @@ class PenInputSettings extends StatelessWidget {
                           ),
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).second,
-                            currentValue:
-                                config.secondPenButton ?? InputMapping(null),
+                            currentValue: config.secondPenButton,
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.numberCircleTwo),
                             onChanged: (value) {

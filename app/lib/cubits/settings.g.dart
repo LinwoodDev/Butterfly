@@ -12,15 +12,17 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
       middleMouse: (json['middleMouse'] as num?)?.toInt() ?? -1,
       rightMouse: (json['rightMouse'] as num?)?.toInt() ?? 1,
       pen: json['pen'] == null
-          ? const InputMapping(null)
+          ? InputMappingDefault.pen
           : InputMapping.fromJson((json['pen'] as num?)?.toInt()),
       firstPenButton: json['firstPenButton'] == null
-          ? const InputMapping(2)
+          ? InputMappingDefault.firstPenButton
           : InputMapping.fromJson((json['firstPenButton'] as num?)?.toInt()),
       secondPenButton: json['secondPenButton'] == null
-          ? const InputMapping(1)
+          ? InputMappingDefault.secondPenButton
           : InputMapping.fromJson((json['secondPenButton'] as num?)?.toInt()),
-      touch: (json['touch'] as num?)?.toInt() ?? null,
+      touch: json['touch'] == null
+          ? InputMappingDefault.touch
+          : InputMapping.fromJson((json['touch'] as num?)?.toInt()),
     );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
@@ -28,10 +30,10 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'leftMouse': instance.leftMouse,
       'middleMouse': instance.middleMouse,
       'rightMouse': instance.rightMouse,
-      'pen': instance.pen?.toJson(),
-      'firstPenButton': instance.firstPenButton?.toJson(),
-      'secondPenButton': instance.secondPenButton?.toJson(),
-      'touch': instance.touch,
+      'pen': instance.pen.toJson(),
+      'firstPenButton': instance.firstPenButton.toJson(),
+      'secondPenButton': instance.secondPenButton.toJson(),
+      'touch': instance.touch.toJson(),
     };
 
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(

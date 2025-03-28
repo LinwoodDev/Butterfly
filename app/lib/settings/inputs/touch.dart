@@ -1,3 +1,4 @@
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -84,20 +85,33 @@ class TouchInputSettings extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          AdvancedTextField(
-                            initialValue:
-                                config.touch?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).touch,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).touch,
+                            currentValue: config.touch,
                             icon: const PhosphorIcon(PhosphorIconsLight.hand),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  touch: int.tryParse(value)?.subtract(1),
+                                  touch: value,
                                 ),
                               );
                             },
                           ),
+                          // AdvancedTextField(
+                          //   initialValue:
+                          //       config.touch?.add(1)?.toString() ?? '',
+                          //   label: AppLocalizations.of(context).touch,
+                          //   icon: const PhosphorIcon(PhosphorIconsLight.hand),
+                          //   onChanged: (value) {
+                          //     final cubit = context.read<SettingsCubit>();
+                          //     cubit.changeInputConfiguration(
+                          //       config.copyWith(
+                          //         touch: int.tryParse(value)?.subtract(1),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

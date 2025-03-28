@@ -129,7 +129,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
-              nextPointerIndex = config.touch;
+              nextPointerIndex = config.touch.value;
             case PointerDeviceKind.mouse:
               if ((buttons & kSecondaryMouseButton) != 0) {
                 nextPointerIndex = config.rightMouse;
@@ -139,22 +139,23 @@ class _MainViewViewportState extends State<MainViewViewport>
                 nextPointerIndex = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen?.value;
+              nextPointerIndex = config.pen.value;
               if ((buttons & kSecondaryStylusButton) != 0) {
-                nextPointerIndex = config.secondPenButton?.value;
+                nextPointerIndex = config.secondPenButton.value;
               } else if ((buttons & kPrimaryStylusButton) != 0) {
-                nextPointerIndex = config.firstPenButton?.value;
+                nextPointerIndex = config.firstPenButton.value;
               }
             default:
               nextPointerIndex = null;
           }
-          if (nextPointerIndex == null) {
+          if (nextPointerIndex == null ||
+              nextPointerIndex == InputMapping.activeToolValue) {
             cubit.resetTemporaryHandler(bloc);
             return;
           }
-          if (nextPointerIndex <= 0) {
+          if (nextPointerIndex == InputMapping.handToolValue) {
             cubit.changeTemporaryHandlerMove();
-          } else {
+          } else if (nextPointerIndex <= 0) {
             await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
           }
         }

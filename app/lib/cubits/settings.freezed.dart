@@ -18,10 +18,10 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
   int? get leftMouse;
   int? get middleMouse;
   int? get rightMouse;
-  InputMapping? get pen;
-  InputMapping? get firstPenButton;
-  InputMapping? get secondPenButton;
-  int? get touch;
+  InputMapping get pen;
+  InputMapping get firstPenButton;
+  InputMapping get secondPenButton;
+  InputMapping get touch;
 
   /// Create a copy of InputConfiguration
   /// with the given fields replaced by the non-null parameter values.
@@ -87,10 +87,10 @@ abstract mixin class $InputConfigurationCopyWith<$Res> {
       {int? leftMouse,
       int? middleMouse,
       int? rightMouse,
-      InputMapping? pen,
-      InputMapping? firstPenButton,
-      InputMapping? secondPenButton,
-      int? touch});
+      InputMapping pen,
+      InputMapping firstPenButton,
+      InputMapping secondPenButton,
+      InputMapping touch});
 }
 
 /// @nodoc
@@ -109,10 +109,10 @@ class _$InputConfigurationCopyWithImpl<$Res>
     Object? leftMouse = freezed,
     Object? middleMouse = freezed,
     Object? rightMouse = freezed,
-    Object? pen = freezed,
-    Object? firstPenButton = freezed,
-    Object? secondPenButton = freezed,
-    Object? touch = freezed,
+    Object? pen = null,
+    Object? firstPenButton = null,
+    Object? secondPenButton = null,
+    Object? touch = null,
   }) {
     return _then(_self.copyWith(
       leftMouse: freezed == leftMouse
@@ -127,22 +127,22 @@ class _$InputConfigurationCopyWithImpl<$Res>
           ? _self.rightMouse
           : rightMouse // ignore: cast_nullable_to_non_nullable
               as int?,
-      pen: freezed == pen
+      pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      firstPenButton: freezed == firstPenButton
+              as InputMapping,
+      firstPenButton: null == firstPenButton
           ? _self.firstPenButton
           : firstPenButton // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      secondPenButton: freezed == secondPenButton
+              as InputMapping,
+      secondPenButton: null == secondPenButton
           ? _self.secondPenButton
           : secondPenButton // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      touch: freezed == touch
+              as InputMapping,
+      touch: null == touch
           ? _self.touch
           : touch // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping,
     ));
   }
 }
@@ -155,10 +155,10 @@ class _InputConfiguration extends InputConfiguration
       {this.leftMouse = null,
       this.middleMouse = -1,
       this.rightMouse = 1,
-      this.pen = const InputMapping(null),
-      this.firstPenButton = const InputMapping(2),
-      this.secondPenButton = const InputMapping(1),
-      this.touch = null})
+      this.pen = InputMappingDefault.pen,
+      this.firstPenButton = InputMappingDefault.firstPenButton,
+      this.secondPenButton = InputMappingDefault.secondPenButton,
+      this.touch = InputMappingDefault.touch})
       : super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
@@ -174,16 +174,16 @@ class _InputConfiguration extends InputConfiguration
   final int? rightMouse;
   @override
   @JsonKey()
-  final InputMapping? pen;
+  final InputMapping pen;
   @override
   @JsonKey()
-  final InputMapping? firstPenButton;
+  final InputMapping firstPenButton;
   @override
   @JsonKey()
-  final InputMapping? secondPenButton;
+  final InputMapping secondPenButton;
   @override
   @JsonKey()
-  final int? touch;
+  final InputMapping touch;
 
   /// Create a copy of InputConfiguration
   /// with the given fields replaced by the non-null parameter values.
@@ -255,10 +255,10 @@ abstract mixin class _$InputConfigurationCopyWith<$Res>
       {int? leftMouse,
       int? middleMouse,
       int? rightMouse,
-      InputMapping? pen,
-      InputMapping? firstPenButton,
-      InputMapping? secondPenButton,
-      int? touch});
+      InputMapping pen,
+      InputMapping firstPenButton,
+      InputMapping secondPenButton,
+      InputMapping touch});
 }
 
 /// @nodoc
@@ -277,10 +277,10 @@ class __$InputConfigurationCopyWithImpl<$Res>
     Object? leftMouse = freezed,
     Object? middleMouse = freezed,
     Object? rightMouse = freezed,
-    Object? pen = freezed,
-    Object? firstPenButton = freezed,
-    Object? secondPenButton = freezed,
-    Object? touch = freezed,
+    Object? pen = null,
+    Object? firstPenButton = null,
+    Object? secondPenButton = null,
+    Object? touch = null,
   }) {
     return _then(_InputConfiguration(
       leftMouse: freezed == leftMouse
@@ -295,22 +295,22 @@ class __$InputConfigurationCopyWithImpl<$Res>
           ? _self.rightMouse
           : rightMouse // ignore: cast_nullable_to_non_nullable
               as int?,
-      pen: freezed == pen
+      pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      firstPenButton: freezed == firstPenButton
+              as InputMapping,
+      firstPenButton: null == firstPenButton
           ? _self.firstPenButton
           : firstPenButton // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      secondPenButton: freezed == secondPenButton
+              as InputMapping,
+      secondPenButton: null == secondPenButton
           ? _self.secondPenButton
           : secondPenButton // ignore: cast_nullable_to_non_nullable
-              as InputMapping?,
-      touch: freezed == touch
+              as InputMapping,
+      touch: null == touch
           ? _self.touch
           : touch // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as InputMapping,
     ));
   }
 }

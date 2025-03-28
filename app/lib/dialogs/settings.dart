@@ -54,7 +54,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
 
   void _onChanged() {
     widget.onChanged(
-      InputMapping.fromUIData(
+      InputMapping.fromCategory(
         _category!,
         int.tryParse(_toolbarToolPositionController.text),
       ),
