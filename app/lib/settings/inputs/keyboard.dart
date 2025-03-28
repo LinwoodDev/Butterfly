@@ -23,10 +23,18 @@ class KeyboardInputSettings extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) => ListView(
               children: [
-                ListTile(
-                  title: Text(AppLocalizations.of(context).shortcuts),
-                  leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
-                  onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                Card(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context).shortcuts),
+                      leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
+                      onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                      trailing:
+                          const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
+                    ),
+                  ),
                 ),
               ],
             ),
