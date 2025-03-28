@@ -29,19 +29,20 @@ class PenInputSettings extends StatelessWidget {
                   Card(
                     margin: const EdgeInsets.all(8),
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const SizedBox(height: 8),
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.penOnlyInput,
                             title: Text(
                               AppLocalizations.of(context).penOnlyInput,
                             ),
+                            secondary: const PhosphorIcon(
+                                PhosphorIconsLight.pencilSimpleLine),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changePenOnlyInput(value ?? false),
+                                .changePenOnlyInput(value),
                           ),
                         ],
                       ),
@@ -50,7 +51,7 @@ class PenInputSettings extends StatelessWidget {
                   Card(
                     margin: const EdgeInsets.all(8),
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -58,8 +59,7 @@ class PenInputSettings extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context)
-                                    .shortcuts, // TODO: Change phrasing?
+                                AppLocalizations.of(context).shortcuts,
                                 style: TextTheme.of(context).headlineSmall,
                               ),
                               IconButton(
@@ -88,7 +88,8 @@ class PenInputSettings extends StatelessWidget {
                             },
                           ),
                           InputMappingListTile(
-                            inputName: AppLocalizations.of(context).first,
+                            inputName: AppLocalizations.of(context)
+                                .first, // TODO: New phrasing?
                             currentValue: config.firstPenButton,
                             defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
@@ -103,7 +104,8 @@ class PenInputSettings extends StatelessWidget {
                             },
                           ),
                           InputMappingListTile(
-                            inputName: AppLocalizations.of(context).second,
+                            inputName: AppLocalizations.of(context)
+                                .second, // TODO: New phrasing?
                             currentValue: config.secondPenButton,
                             defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(

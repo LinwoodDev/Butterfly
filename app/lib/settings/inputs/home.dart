@@ -29,7 +29,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: const EdgeInsets.all(8),
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

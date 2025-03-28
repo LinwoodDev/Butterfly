@@ -29,11 +29,11 @@ class TouchInputSettings extends StatelessWidget {
                   Card(
                     margin: const EdgeInsets.all(8),
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.inputGestures,
                             title: Text(
                               AppLocalizations.of(context).inputGestures,
@@ -42,9 +42,9 @@ class TouchInputSettings extends StatelessWidget {
                                 const PhosphorIcon(PhosphorIconsLight.handTap),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeInputGestures(value ?? true),
+                                .changeInputGestures(value),
                           ),
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.moveOnGesture,
                             title: Text(
                               AppLocalizations.of(context).moveOnGesture,
@@ -54,7 +54,7 @@ class TouchInputSettings extends StatelessWidget {
                             ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeMoveOnGesture(value ?? true),
+                                .changeMoveOnGesture(value),
                           ),
                         ],
                       ),
@@ -63,7 +63,7 @@ class TouchInputSettings extends StatelessWidget {
                   Card(
                     margin: const EdgeInsets.all(8),
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -89,7 +89,8 @@ class TouchInputSettings extends StatelessWidget {
                             inputName: AppLocalizations.of(context).touch,
                             currentValue: config.touch,
                             defaultValue: InputMappingDefault.touch,
-                            icon: const PhosphorIcon(PhosphorIconsLight.hand),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.handPointing),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
