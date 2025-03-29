@@ -655,5 +655,9 @@
   "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "barcodeType": "Barcode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128"
 }
