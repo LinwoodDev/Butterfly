@@ -30,7 +30,7 @@ class PenInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithoutHeaderPadding,
+                      padding: settingsCardWithoutTitlePadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -52,7 +52,7 @@ class PenInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithHeaderPadding,
+                      padding: settingsCardWithTitlePadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

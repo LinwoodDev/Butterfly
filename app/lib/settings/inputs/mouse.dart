@@ -30,7 +30,7 @@ class MouseInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithoutHeaderPadding,
+                      padding: settingsCardWithoutTitlePadding,
                       child: Column(
                         children: [
                           SwitchListTile(
@@ -53,7 +53,7 @@ class MouseInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithHeaderPadding,
+                      padding: settingsCardWithTitlePadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

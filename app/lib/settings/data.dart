@@ -53,7 +53,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -154,7 +154,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

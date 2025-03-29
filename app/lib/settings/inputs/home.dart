@@ -30,7 +30,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -63,15 +63,24 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithHeaderPadding,
+                  padding: settingsCardWithTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).sensitivity,
-                        style: TextTheme.of(context).headlineSmall,
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Column(
+                          spacing: 8,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context).sensitivity,
+                              style: TextTheme.of(context).headlineSmall,
+                            ),
+                            Text(AppLocalizations.of(context).sensitivityHint),
+                          ],
+                        ),
                       ),
-                      Text(AppLocalizations.of(context).sensitivityHint),
                       const SizedBox(height: 16),
                       ExactSlider(
                         min: 10,
@@ -130,7 +139,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithHeaderPadding,
+                  padding: settingsCardWithTitlePadding,
                   child: _PointerTest(),
                 ),
               ),
@@ -171,9 +180,12 @@ class __PointerTestState extends State<_PointerTest> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          AppLocalizations.of(context).pointerTest,
-          style: TextTheme.of(context).headlineSmall,
+        Padding(
+          padding: settingsCardTitlePadding,
+          child: Text(
+            AppLocalizations.of(context).pointerTest,
+            style: TextTheme.of(context).headlineSmall,
+          ),
         ),
         const SizedBox(height: 16),
         SizedBox(

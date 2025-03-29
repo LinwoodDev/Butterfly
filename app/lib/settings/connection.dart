@@ -133,7 +133,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
             Card(
               margin: settingsCardMargin,
               child: Padding(
-                padding: settingsCardWithoutHeaderPadding,
+                padding: settingsCardWithoutTitlePadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

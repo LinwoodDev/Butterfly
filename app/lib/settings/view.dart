@@ -27,7 +27,7 @@ class ViewSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

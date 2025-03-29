@@ -71,13 +71,16 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithHeaderPadding,
+                  padding: settingsCardWithTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).update,
-                        style: TextTheme.of(context).headlineSmall,
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).update,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       ListTile(
@@ -209,7 +212,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -280,7 +283,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

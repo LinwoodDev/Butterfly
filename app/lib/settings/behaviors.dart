@@ -61,7 +61,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutHeaderPadding,
+                  padding: settingsCardWithoutTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -109,13 +109,16 @@ class BehaviorsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithHeaderPadding,
+                  padding: settingsCardWithTitlePadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).import,
-                        style: TextTheme.of(context).headlineSmall,
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).import,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       SwitchListTile(
