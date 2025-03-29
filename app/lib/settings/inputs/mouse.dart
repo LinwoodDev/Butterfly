@@ -1,4 +1,5 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +28,9 @@ class MouseInputSettings extends StatelessWidget {
               return ListView(
                 children: [
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: settingsCardWithoutHeaderPadding,
                       child: Column(
                         children: [
                           SwitchListTile(
@@ -50,9 +51,9 @@ class MouseInputSettings extends StatelessWidget {
                     ),
                   ),
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: settingsCardWithHeaderPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

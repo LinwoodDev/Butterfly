@@ -6,6 +6,7 @@ import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
@@ -50,9 +51,9 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
           return ListView(
             children: [
               Card(
-                margin: const EdgeInsets.all(8),
+                margin: settingsCardMargin,
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: settingsCardWithoutHeaderPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -151,9 +152,9 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.all(8),
+                margin: settingsCardMargin,
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: settingsCardWithoutHeaderPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

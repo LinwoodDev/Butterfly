@@ -1,4 +1,5 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -24,9 +25,9 @@ class KeyboardInputSettings extends StatelessWidget {
             builder: (context, state) => ListView(
               children: [
                 Card(
-                  margin: const EdgeInsets.all(8),
+                  margin: settingsCardMargin,
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: settingsCardWithoutHeaderPadding,
                     child: ListTile(
                       title: Text(AppLocalizations.of(context).shortcuts),
                       leading: const PhosphorIcon(PhosphorIconsLight.keyboard),

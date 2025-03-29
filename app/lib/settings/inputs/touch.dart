@@ -1,3 +1,4 @@
+import 'package:butterfly/theme.dart';
 import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +28,9 @@ class TouchInputSettings extends StatelessWidget {
               return ListView(
                 children: [
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: settingsCardWithoutHeaderPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -61,9 +62,9 @@ class TouchInputSettings extends StatelessWidget {
                     ),
                   ),
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: settingsCardWithHeaderPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

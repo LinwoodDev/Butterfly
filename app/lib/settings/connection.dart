@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,9 +131,9 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
         child: ListView(
           children: [
             Card(
-              margin: const EdgeInsets.all(8),
+              margin: settingsCardMargin,
               child: Padding(
-                padding: const EdgeInsets.all(32),
+                padding: settingsCardWithoutHeaderPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
