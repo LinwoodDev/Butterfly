@@ -655,5 +655,9 @@
   "exportAllFiles": "Експортувати всі файли",
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
   "exportSettingsToFile": "Експорт налаштувань у файл",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "barcodeType": "Barcode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128"
 }
