@@ -153,7 +153,7 @@ extension type const InputMapping(int value) {
       case handToolValue:
         return AppLocalizations.of(context).handTool;
       default:
-        return '${AppLocalizations.of(context).toolOnToolbarShort} ${(value + 1).toString()}';
+        return AppLocalizations.of(context).toolOnToolbarShort(value + 1);
     }
   }
 

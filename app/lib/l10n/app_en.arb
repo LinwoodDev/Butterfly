@@ -382,7 +382,15 @@
   "handToolDescription": "Drag to move around the canvas",
   "toolOnToolbar": "Specific Tool on Toolbar",
   "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position:",
+  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Tools",
   "showGrid": "Show grid",
   "grid": "Grid",
