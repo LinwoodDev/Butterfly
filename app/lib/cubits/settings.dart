@@ -456,8 +456,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setBool('input_pen_only', penOnlyInput);
-    await prefs.setBool('move_with_two_fingers', inputGestures);
+    await prefs.setBool('pen_only_input', penOnlyInput);
+    await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
     await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
