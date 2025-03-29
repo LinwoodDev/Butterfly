@@ -30,6 +30,12 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
         widget.startingValue.getToolDisplayPosition()?.toString() ?? '1';
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _toolbarToolPositionController.dispose();
+  }
+
   void _onCategoryChanged(InputMappingCategory? value) {
     setState(() {
       _category = value;
