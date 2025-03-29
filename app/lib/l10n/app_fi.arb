@@ -655,5 +655,9 @@
   "exportAllFiles": "Vie kaikki tiedostot",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
   "exportSettingsToFile": "Vie asetukset tiedostoon",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "barcodeType": "Barcode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128"
 }
