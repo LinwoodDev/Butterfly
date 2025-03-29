@@ -21,12 +21,15 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
         BarcodeType.qrCode => Barcode.qrCode(),
         BarcodeType.code128 => Barcode.code128(),
       };
+      final width = data.barcodeType.width;
+      final height = data.barcodeType.height;
       final svg = barcode.toSvg(value,
-          width: 500, height: 500, color: data.color.value);
+          width: width, height: height, color: data.color.value);
       _element = SvgElement(
-          source: Uri.dataFromString(svg, mimeType: 'image/svg+xml').toString(),
-          width: 500,
-          height: 500);
+        source: Uri.dataFromString(svg, mimeType: 'image/svg+xml').toString(),
+        width: width,
+        height: height,
+      );
     });
     return SelectState.normal;
   }
@@ -42,7 +45,16 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
       Rect rect, String collection, CurrentIndexCubit cubit) {
     final element = _element;
     if (element == null) return [];
-    if (rect.isEmpty) return [];
+    if (rect.isEmpty) {
+      return [
+        element.copyWith(
+            position: rect.topLeft.toPoint() -
+                Point(
+                  element.width / 2,
+                  element.height / 2,
+                ))
+      ];
+    }
 
     return [
       element.copyWith(
@@ -52,6 +64,10 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
       ),
     ];
   }
+
+  @override
+  double get constraintedAspectRatio =>
+      (_element?.width ?? 1) / (_element?.height ?? 1);
 
   @override
   ToolStatus getStatus(DocumentBloc bloc) =>

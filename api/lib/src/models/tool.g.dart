@@ -506,4 +506,5 @@ Map<String, dynamic> _$BarcodeToolToJson(BarcodeTool instance) =>
 const _$BarcodeTypeEnumMap = {
   BarcodeType.qrCode: 'qrCode',
   BarcodeType.dataMatrix: 'dataMatrix',
+  BarcodeType.code128: 'code128',
 };
