@@ -88,8 +88,7 @@ class PenInputSettings extends StatelessWidget {
                             },
                           ),
                           InputMappingListTile(
-                            inputName: AppLocalizations.of(context)
-                                .first, // TODO: New phrasing?
+                            inputName: AppLocalizations.of(context).first,
                             currentValue: config.firstPenButton,
                             defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
@@ -104,8 +103,7 @@ class PenInputSettings extends StatelessWidget {
                             },
                           ),
                           InputMappingListTile(
-                            inputName: AppLocalizations.of(context)
-                                .second, // TODO: New phrasing?
+                            inputName: AppLocalizations.of(context).second,
                             currentValue: config.secondPenButton,
                             defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(

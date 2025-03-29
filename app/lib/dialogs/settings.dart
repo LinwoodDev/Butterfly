@@ -71,8 +71,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
           },
           child: ListTile(
             title: Text(AppLocalizations.of(context).activeTool),
-            subtitle:
-                Text('Use the currently selected tool on the toolbar'), // TODO
+            subtitle: Text(AppLocalizations.of(context).activeToolDescription),
             leading: Radio<InputMappingCategory>(
               value: InputMappingCategory.activeTool,
               groupValue: _category,
@@ -86,7 +85,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
           },
           child: ListTile(
             title: Text(AppLocalizations.of(context).handTool),
-            subtitle: Text('Drag to move around the canvas'), // TODO
+            subtitle: Text(AppLocalizations.of(context).handToolDescription),
             leading: Radio<InputMappingCategory>(
               value: InputMappingCategory.handTool,
               groupValue: _category,
@@ -105,7 +104,7 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context).toolOnToolbar),
                   subtitle: Text(
-                      'Use the tool at the specified position on the toolbar, starting from the left'), // TODO
+                      AppLocalizations.of(context).toolOnToolbarDescription),
                   leading: Radio<InputMappingCategory>(
                     value: InputMappingCategory.toolOnToolbar,
                     groupValue: _category,
