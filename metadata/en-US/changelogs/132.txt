@@ -10,6 +10,7 @@
 * Rename xopp to Xournal++
 * Change ZIP export button label for clarity ([#810](https://github.com/LinwoodDev/Butterfly/pull/810))
 * Improve pattern background settings
+* Add search for term in caption in add dialog
 * Fix file list not refreshing when returning to home screen on desktop ([#813](https://github.com/LinwoodDev/Butterfly/issues/813))
 * Fix spacing in file preview on android ([#814](https://github.com/LinwoodDev/Butterfly/issues/814))
 * Fix temporary tool not being removed ([#809](https://github.com/LinwoodDev/Butterfly/issues/809))

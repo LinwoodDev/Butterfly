@@ -30,6 +30,19 @@ extension ToolCategoryVisualizer on ToolCategory {
       };
 }
 
+extension BarcodeTypeVisualizer on BarcodeType {
+  String getLocalizedName(BuildContext context) => switch (this) {
+        BarcodeType.qrCode => AppLocalizations.of(context).qrCode,
+        BarcodeType.dataMatrix => AppLocalizations.of(context).dataMatrix,
+        BarcodeType.code128 => AppLocalizations.of(context).code128,
+      };
+  IconGetter get icon => switch (this) {
+        BarcodeType.qrCode => PhosphorIcons.qrCode,
+        BarcodeType.dataMatrix => PhosphorIcons.scan,
+        BarcodeType.code128 => PhosphorIcons.barcode,
+      };
+}
+
 extension ToolVisualizer on Tool {
   String getDisplay(BuildContext context) {
     if (name.trim().isEmpty) return getLocalizedName(context);
@@ -77,6 +90,7 @@ extension ToolVisualizer on Tool {
           SvgExportOptions() => loc.svg,
         },
       ShapeTool e => e.property.shape.getLocalizedName(context),
+      BarcodeTool e => e.barcodeType.getLocalizedName(context),
       _ => '',
     };
   }
@@ -111,7 +125,7 @@ extension ToolVisualizer on Tool {
         ExportTool() => PhosphorIcons.export,
         GridTool() => PhosphorIcons.gridFour,
         RulerTool() => PhosphorIcons.ruler,
-        BarcodeTool() => PhosphorIcons.barcode,
+        BarcodeTool tool => tool.barcodeType.icon,
       };
 
   List<String> get help {

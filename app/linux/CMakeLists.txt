@@ -2,6 +2,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
+# Fix flutter_secure_storage_linux build error on newer versions of CMake.
+add_definitions(-Wno-error=deprecated-literal-operator)
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "butterfly")

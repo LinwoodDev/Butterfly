@@ -239,14 +239,20 @@ class _AddDialogState extends State<AddDialog> {
                 Tool.eyeDropper,
                 Tool.ruler,
                 Tool.grid,
-                Tool.barcode,
+                ...BarcodeType.values
+                    .map((e) => () => Tool.barcode(barcodeType: e)),
               ]
                   .map((e) => e())
                   .where((e) => _category == null || e.category == _category)
-                  .where((e) => e
-                      .getLocalizedName(context)
-                      .toLowerCase()
-                      .contains(search.toLowerCase()))
+                  .where((e) =>
+                      e
+                          .getLocalizedName(context)
+                          .toLowerCase()
+                          .contains(search.toLowerCase()) ||
+                      e
+                          .getLocalizedCaption(context)
+                          .toLowerCase()
+                          .contains(search.toLowerCase()))
                   .toList();
               return ListView(
                 children: [

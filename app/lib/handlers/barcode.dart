@@ -19,6 +19,7 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
       final barcode = switch (data.barcodeType) {
         BarcodeType.dataMatrix => Barcode.dataMatrix(),
         BarcodeType.qrCode => Barcode.qrCode(),
+        BarcodeType.code128 => Barcode.code128(),
       };
       final svg = barcode.toSvg(value,
           width: 500, height: 500, color: data.color.value);

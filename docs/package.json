@@ -17,15 +17,15 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.5.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.8.2"
   },
   "packageManager": "pnpm@10.7.0",
   "devDependencies": {
-    "@vite-pwa/astro": "^0.5.0",
+    "@vite-pwa/astro": "^0.5.1",
     "sass": "^1.86.0",
     "sharp": "^0.33.5",
     "vite-plugin-pwa": "^0.21.2",
