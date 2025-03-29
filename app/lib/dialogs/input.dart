@@ -150,14 +150,6 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
   }
 }
 
-IconButton resetButtonDecoration(BuildContext context, VoidCallback onPressed) {
-  return IconButton(
-    onPressed: onPressed,
-    tooltip: LeapLocalizations.of(context).reset,
-    icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
-  );
-}
-
 Future<void> openInputMappingModal(
   BuildContext context,
   String mappingName,

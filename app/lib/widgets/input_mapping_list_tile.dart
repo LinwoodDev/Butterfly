@@ -1,5 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/settings.dart';
+import 'package:butterfly/dialogs/input.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
