@@ -655,5 +655,9 @@
   "exportAllFiles": "すべてのファイルをエクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
   "exportSettingsToFile": "設定をファイルにエクスポート",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "barcodeType": "Barcode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128"
 }
