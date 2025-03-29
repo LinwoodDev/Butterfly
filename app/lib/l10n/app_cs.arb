@@ -655,5 +655,9 @@
   "exportAllFiles": "Exportovat všechny soubory",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "barcodeType": "Barcode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Code 128"
 }
