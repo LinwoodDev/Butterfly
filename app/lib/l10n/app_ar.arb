@@ -376,13 +376,13 @@
   "middle": "وسط",
   "first": "الأول",
   "second": "الثاني",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "أداة نشطة",
+  "activeToolDescription": "استخدام الأداة المحددة حاليًا على شريط الأدوات",
+  "handTool": "أداة اليد",
+  "handToolDescription": "اسحب للتحرك حول القماش",
+  "toolOnToolbar": "أداة محددة على شريط الأدوات",
+  "toolOnToolbarDescription": "استخدام الأداة في الموضع المحدد على شريط الأدوات، بدءاً من اليسار",
+  "toolOnToolbarShort": "موضع شريط الأدوات: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "نوع الباركود",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "مصفوفة البيانات",
+  "code128": "الكود 128"
 }
