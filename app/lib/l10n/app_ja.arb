@@ -376,13 +376,13 @@
   "middle": "中央",
   "first": "最初の",
   "second": "秒",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "アクティブツール",
+  "activeToolDescription": "ツールバーで現在選択されているツールを使用",
+  "handTool": "ハンドツール",
+  "handToolDescription": "ドラッグしてキャンバスの周りを移動",
+  "toolOnToolbar": "ツールバー上の特定のツール",
+  "toolOnToolbarDescription": "ツールバーの指定した位置のツールを左から始めて使用する",
+  "toolOnToolbarShort": "ツールバーの位置: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "設定をファイルから復元",
   "exportSettingsToFile": "設定をファイルにエクスポート",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "バーコードの種類",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "データマトリクス",
+  "code128": "コード 128"
 }
