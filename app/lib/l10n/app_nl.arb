@@ -376,13 +376,13 @@
   "middle": "Midden",
   "first": "Eerste",
   "second": "Tweede",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Actieve functie",
+  "activeToolDescription": "Gebruik de huidige geselecteerde tool op de werkbalk",
+  "handTool": "Handleiding Gereedschap",
+  "handToolDescription": "Sleep om rond het canvas te bewegen",
+  "toolOnToolbar": "Specifieke tool op werkbalk",
+  "toolOnToolbarDescription": "Gebruik de tool op de opgegeven positie in de werkbalk, vanaf links",
+  "toolOnToolbarShort": "Werkbalk positie: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,7 +671,7 @@
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Streepjescode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
   "code128": "Code 128"
