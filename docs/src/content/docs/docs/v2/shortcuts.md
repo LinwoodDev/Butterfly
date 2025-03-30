@@ -45,7 +45,7 @@ By default, the the pen is configured to function as the following:
 
 You can customize your controls by changing which tools your inputs map to.
 
-**Note:** While the Lasso Select tool is selected, input configurations will be ignored.
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
 
 To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
 
@@ -53,6 +53,6 @@ After selecting an input, you will have 3 options:
 
 - `Active Tool`: The input will act as the currently selected tool on the toolbar.
 - `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
-- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted:
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View: Important Notes](https://butterfly.linwood.dev/docs/v2/intro/#important-notes).
 
 ![toolbar numbered](toolbar_numbered.png)
