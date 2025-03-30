@@ -29,36 +29,15 @@ class _TextureViewState extends State<TextureView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Column(
         children: [
-          ColorField(
-            value: widget.value.boxColor.withValues(a: 255),
-            onChanged: (value) => widget.onChanged(
-              widget.value.copyWith(
-                boxColor: value.withValues(a: widget.value.boxColor.a),
-              ),
-            ),
-            title: Text(LeapLocalizations.of(context).color),
-          ),
-          ExactSlider(
-            value: widget.value.boxColor.a.toDouble(),
-            header: Text(AppLocalizations.of(context).alpha),
-            fractionDigits: 0,
-            max: 255,
-            min: 0,
-            defaultValue: 255,
-            onChanged: (value) => widget.onChanged(
-              widget.value.copyWith(
-                boxColor: widget.value.boxColor.withValues(
-                  a: value.toInt(),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
           TabBar.secondary(
             tabs: [
+              HorizontalTab(
+                label: Text(AppLocalizations.of(context).background),
+                icon: const PhosphorIcon(PhosphorIconsLight.rectangle),
+              ),
               HorizontalTab(
                 label: Text(AppLocalizations.of(context).horizontal),
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowsHorizontal),
@@ -74,6 +53,35 @@ class _TextureViewState extends State<TextureView> {
               type: MaterialType.transparency,
               child: TabBarView(
                 children: [
+                  ListView(
+                    children: [
+                      ColorField(
+                        value: widget.value.boxColor.withValues(a: 255),
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxColor:
+                                value.withValues(a: widget.value.boxColor.a),
+                          ),
+                        ),
+                        title: Text(LeapLocalizations.of(context).color),
+                      ),
+                      ExactSlider(
+                        value: widget.value.boxColor.a.toDouble(),
+                        header: Text(AppLocalizations.of(context).alpha),
+                        fractionDigits: 0,
+                        max: 255,
+                        min: 0,
+                        defaultValue: 255,
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxColor: widget.value.boxColor.withValues(
+                              a: value.toInt(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   ListView(
                     children: [
                       ColorField(

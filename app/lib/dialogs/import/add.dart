@@ -95,9 +95,9 @@ class _AddDialogState extends State<AddDialog> {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 8, right: 8, top: 8, bottom: 12),
+                            left: 8, right: 8, top: 2, bottom: 4),
                         child: SizedBox(
-                          height: 32,
+                          height: 48,
                           child: ListView(
                             controller: _filterScrollController,
                             scrollDirection: Axis.horizontal,
@@ -239,14 +239,20 @@ class _AddDialogState extends State<AddDialog> {
                 Tool.eyeDropper,
                 Tool.ruler,
                 Tool.grid,
-                Tool.barcode,
+                ...BarcodeType.values
+                    .map((e) => () => Tool.barcode(barcodeType: e)),
               ]
                   .map((e) => e())
                   .where((e) => _category == null || e.category == _category)
-                  .where((e) => e
-                      .getLocalizedName(context)
-                      .toLowerCase()
-                      .contains(search.toLowerCase()))
+                  .where((e) =>
+                      e
+                          .getLocalizedName(context)
+                          .toLowerCase()
+                          .contains(search.toLowerCase()) ||
+                      e
+                          .getLocalizedCaption(context)
+                          .toLowerCase()
+                          .contains(search.toLowerCase()))
                   .toList();
               return ListView(
                 children: [

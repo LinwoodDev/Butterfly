@@ -48,6 +48,7 @@ class FilesViewState extends State<FilesView> {
   late Future<List<FileSystemFile<NoteData>>> _templatesFuture;
   late DocumentFileSystem _documentSystem;
   late TemplateFileSystem _templateSystem;
+  final GlobalKey<RecentFilesViewState> _recentFilesKey = GlobalKey();
 
   SortBy _sortBy = SortBy.name;
   SortOrder _sortOrder = SortOrder.ascending;
@@ -107,6 +108,7 @@ class FilesViewState extends State<FilesView> {
   }
 
   void reloadFileSystem() {
+    _recentFilesKey.currentState?.reload();
     if (mounted) {
       setState(_setFilesStream);
     }
@@ -318,6 +320,7 @@ class FilesViewState extends State<FilesView> {
               ),
               const SizedBox(height: 8),
               RecentFilesView(
+                  key: _recentFilesKey,
                   replace: widget.collapsed,
                   onFileTap: widget.onPreview == null
                       ? _onFileTap

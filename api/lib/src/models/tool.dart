@@ -45,7 +45,15 @@ enum LaserAnimation { fade, path }
 
 enum ToolCategory { import, normal, surface, action, view }
 
-enum BarcodeType { qrCode, dataMatrix }
+enum BarcodeType {
+  qrCode,
+  dataMatrix,
+  code128(width: 400, height: 160);
+
+  final double width, height;
+
+  const BarcodeType({this.width = 300, this.height = 300});
+}
 
 @Freezed(equal: false)
 sealed class Tool with _$Tool {

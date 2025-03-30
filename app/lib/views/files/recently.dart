@@ -21,10 +21,10 @@ class RecentFilesView extends StatefulWidget {
   });
 
   @override
-  State<RecentFilesView> createState() => _RecentFilesViewState();
+  State<RecentFilesView> createState() => RecentFilesViewState();
 }
 
-class _RecentFilesViewState extends State<RecentFilesView> {
+class RecentFilesViewState extends State<RecentFilesView> {
   late Stream<List<FileSystemEntity<NoteFile>>> _stream;
   late final ButterflyFileSystem _fileSystem;
   final ScrollController _recentScrollController = ScrollController();
@@ -65,13 +65,14 @@ class _RecentFilesViewState extends State<RecentFilesView> {
     );
   }
 
+  void reload([ButterflySettings? settings]) => setState(
+      () => _setStream(settings ?? context.read<SettingsCubit>().state));
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingsCubit, ButterflySettings>(
       listenWhen: (previous, current) => previous.history != current.history,
-      listener: (_, state) => setState(() {
-        _setStream(state);
-      }),
+      listener: (_, state) => reload(state),
       child: StreamBuilder<List<FileSystemEntity<NoteFile>>>(
           stream: _stream,
           builder: (context, snapshot) {

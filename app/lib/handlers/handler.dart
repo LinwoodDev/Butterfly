@@ -158,7 +158,7 @@ class EventContext {
   DocumentInfo? getInfo() => getState()?.info;
 }
 
-enum ToolStatus { normal, disabled }
+enum ToolStatus { normal, disabled, selected }
 
 enum SelectState { normal, none, toggle }
 
