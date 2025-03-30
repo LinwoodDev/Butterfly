@@ -113,7 +113,7 @@
   "dataDirectory": "Diretório de dados",
   "defaultPath": "Caminho padrão",
   "dateFormat": "Formato da Data",
-  "updatedAt": "Atualizado em: {dateTime}",
+  "updatedAt": "Modificado em: {dateTime}",
   "@updatedAt": {
     "placeholders": {
       "dateTime": {
