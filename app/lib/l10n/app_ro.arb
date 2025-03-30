@@ -376,13 +376,13 @@
   "middle": "Mijloc",
   "first": "Primul",
   "second": "Al doilea",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Unealtă activă",
+  "activeToolDescription": "Folosește unealta selectată în prezent în bara de instrumente",
+  "handTool": "Unealta de maini",
+  "handToolDescription": "Trageţi pentru a vă mişca în jurul pânzei",
+  "toolOnToolbar": "Unelte specifice în bara de instrumente",
+  "toolOnToolbarDescription": "Utilizați unealta la poziția specificată pe bara de instrumente, începând cu stânga",
+  "toolOnToolbarShort": "Poziție Bară de instrumente: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Restabilește setările din fișier",
   "exportSettingsToFile": "Exportă setările în fișier",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Tip cod de bare",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Matricea datelor",
+  "code128": "Codul 128"
 }
