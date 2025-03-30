@@ -376,6 +376,21 @@
   "middle": "Orta",
   "first": "İlk",
   "second": "İkinci",
+  "activeTool": "Active Tool",
+  "activeToolDescription": "Use the currently selected tool on the toolbar",
+  "handTool": "Hand Tool",
+  "handToolDescription": "Drag to move around the canvas",
+  "toolOnToolbar": "Specific Tool on Toolbar",
+  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
+  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Aletler",
   "showGrid": "Izgarayı göster",
   "grid": "Izgara",
