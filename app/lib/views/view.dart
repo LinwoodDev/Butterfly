@@ -151,7 +151,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (nextPointerMapping == null ||
               nextPointerMapping.getCategory() ==
                   InputMappingCategory.activeTool) {
-            cubit.resetTemporaryHandler(bloc);
+            cubit.resetTemporaryHandler(bloc, true);
             return;
           }
           if (nextPointerMapping.getCategory() ==
