@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
+import 'package:butterfly/theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
@@ -68,15 +69,18 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
           return ListView(
             children: [
               Card(
-                margin: const EdgeInsets.all(8),
+                margin: settingsCardMargin,
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).update,
-                        style: TextTheme.of(context).headlineSmall,
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).update,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       ListTile(
@@ -206,9 +210,9 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.all(8),
+                margin: settingsCardMargin,
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -277,9 +281,9 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                 ),
               ),
               Card(
-                margin: const EdgeInsets.all(8),
+                margin: settingsCardMargin,
                 child: Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

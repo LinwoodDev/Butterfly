@@ -123,39 +123,45 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
-          int? nextPointerIndex;
+          InputMapping? nextPointerMapping;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
           // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
-              nextPointerIndex = config.touch;
+              nextPointerMapping = config.touch;
             case PointerDeviceKind.mouse:
               if ((buttons & kSecondaryMouseButton) != 0) {
-                nextPointerIndex = config.rightMouse;
+                nextPointerMapping = config.rightMouse;
               } else if ((buttons & kMiddleMouseButton) != 0) {
-                nextPointerIndex = config.middleMouse;
+                nextPointerMapping = config.middleMouse;
               } else if ((buttons & kPrimaryMouseButton) != 0) {
-                nextPointerIndex = config.leftMouse;
+                nextPointerMapping = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen;
+              nextPointerMapping = config.pen;
               if ((buttons & kSecondaryStylusButton) != 0) {
-                nextPointerIndex = config.secondPenButton;
+                nextPointerMapping = config.secondPenButton;
               } else if ((buttons & kPrimaryStylusButton) != 0) {
-                nextPointerIndex = config.firstPenButton;
+                nextPointerMapping = config.firstPenButton;
               }
             default:
-              nextPointerIndex = null;
+              nextPointerMapping = null;
           }
-          if (nextPointerIndex == null) {
+          if (nextPointerMapping == null ||
+              nextPointerMapping.getCategory() ==
+                  InputMappingCategory.activeTool) {
             cubit.resetTemporaryHandler(bloc, true);
             return;
           }
-          if (nextPointerIndex <= 0) {
+          if (nextPointerMapping.getCategory() ==
+              InputMappingCategory.handTool) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
+            final int? index = nextPointerMapping.getToolPositionIndex();
+            if (index != null) {
+              await cubit.changeTemporaryHandlerIndex(context, index);
+            }
           }
         }
 

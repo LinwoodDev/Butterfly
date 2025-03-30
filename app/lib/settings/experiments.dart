@@ -1,5 +1,6 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -53,55 +54,62 @@ class ExperimentsSettingsPage extends StatelessWidget {
           if (experiments.isEmpty) {
             return Center(child: Text(AppLocalizations.of(context).noElements));
           }
-          return ListView(
-            children: [
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 16,
-                        children: [
-                          Icon(PhosphorIconsLight.warning),
-                          Flexible(
-                            child: Text(AppLocalizations.of(context)
-                                .experimentsWarning),
+          return ListView(children: [
+            Card(
+              margin: settingsCardMargin,
+              child: Padding(
+                padding: settingsCardPadding,
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 16,
+                            children: [
+                              Icon(PhosphorIconsLight.warning),
+                              Flexible(
+                                child: Text(AppLocalizations.of(context)
+                                    .experimentsWarning),
+                              ),
+                            ]),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: experiments.length,
+                      itemBuilder: (context, index) {
+                        final experiment = experiments[index];
+                        final currentHelp = _featureHelps[experiment.name];
+                        final enabled = state.hasFlag(experiment.name);
+                        return AdvancedSwitchListTile(
+                          value: enabled,
+                          onChanged: (value) {
+                            final cubit = context.read<SettingsCubit>();
+                            if (value == true) {
+                              cubit.addFlag(experiment.name);
+                            } else {
+                              cubit.removeFlag(experiment.name);
+                            }
+                          },
+                          title: Text(experiment.description),
+                          leading: PhosphorIcon(
+                            experiment.icon(PhosphorIconsStyle.light),
                           ),
-                        ]),
-                  ),
+                          onTap: currentHelp == null
+                              ? null
+                              : () => openHelp([currentHelp]),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: experiments.length,
-                itemBuilder: (context, index) {
-                  final experiment = experiments[index];
-                  final currentHelp = _featureHelps[experiment.name];
-                  final enabled = state.hasFlag(experiment.name);
-                  return AdvancedSwitchListTile(
-                    value: enabled,
-                    onChanged: (value) {
-                      final cubit = context.read<SettingsCubit>();
-                      if (value == true) {
-                        cubit.addFlag(experiment.name);
-                      } else {
-                        cubit.removeFlag(experiment.name);
-                      }
-                    },
-                    title: Text(experiment.description),
-                    leading: PhosphorIcon(
-                      experiment.icon(PhosphorIconsStyle.light),
-                    ),
-                    onTap: currentHelp == null
-                        ? null
-                        : () => openHelp([currentHelp]),
-                  );
-                },
-              ),
-            ],
-          );
+            ),
+          ]);
         },
       ),
     );

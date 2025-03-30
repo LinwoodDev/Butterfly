@@ -14,6 +14,11 @@ const kClassicTheme = FlexSchemeColor(
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 
+const EdgeInsets settingsCardMargin = EdgeInsets.all(8);
+const EdgeInsets settingsCardPadding = EdgeInsets.all(16);
+const EdgeInsets settingsCardTitlePadding =
+    EdgeInsets.only(left: 12, top: 8, right: 12);
+
 ThemeData getThemeData(String name, bool dark,
     [VisualDensity? density,
     ColorScheme? overridden,

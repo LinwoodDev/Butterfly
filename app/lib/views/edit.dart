@@ -123,7 +123,7 @@ class _EditToolbarState extends State<EditToolbar> {
     CurrentIndex currentIndex,
     ButterflySettings settings,
     List<Tool> tools,
-    Set<int> shortcuts,
+    Set<InputMapping> shortcuts,
     double size,
   ) {
     final isMobile = widget.isMobile;
@@ -297,7 +297,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         context.read<CurrentIndexCubit>().changeSelection(
                               tool,
                             ),
-                    focussed: shortcuts.contains(i),
+                    focussed: shortcuts.contains(InputMapping(i)),
                     selected: selected ||
                         currentIndex.toggleableHandlers.containsKey(i),
                     showBottom: selected || tool.isAction(),
