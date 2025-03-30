@@ -61,7 +61,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutTitlePadding,
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -109,7 +109,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithTitlePadding,
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [

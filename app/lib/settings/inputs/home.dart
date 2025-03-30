@@ -30,7 +30,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithoutTitlePadding,
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -63,7 +63,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithTitlePadding,
+                  padding: settingsCardPadding,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -139,7 +139,7 @@ class InputsSettingsPage extends StatelessWidget {
               Card(
                 margin: settingsCardMargin,
                 child: Padding(
-                  padding: settingsCardWithTitlePadding,
+                  padding: settingsCardPadding,
                   child: _PointerTest(),
                 ),
               ),

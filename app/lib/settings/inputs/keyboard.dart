@@ -27,7 +27,7 @@ class KeyboardInputSettings extends StatelessWidget {
                 Card(
                   margin: settingsCardMargin,
                   child: Padding(
-                    padding: settingsCardWithoutTitlePadding,
+                    padding: settingsCardPadding,
                     child: ListTile(
                       title: Text(AppLocalizations.of(context).shortcuts),
                       leading: const PhosphorIcon(PhosphorIconsLight.keyboard),

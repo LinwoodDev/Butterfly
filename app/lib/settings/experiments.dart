@@ -58,7 +58,7 @@ class ExperimentsSettingsPage extends StatelessWidget {
             Card(
               margin: settingsCardMargin,
               child: Padding(
-                padding: settingsCardWithoutTitlePadding,
+                padding: settingsCardPadding,
                 child: Column(
                   children: [
                     Center(

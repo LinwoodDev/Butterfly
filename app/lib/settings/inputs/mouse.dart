@@ -30,7 +30,7 @@ class MouseInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithoutTitlePadding,
+                      padding: settingsCardPadding,
                       child: Column(
                         children: [
                           SwitchListTile(
@@ -53,26 +53,29 @@ class MouseInputSettings extends StatelessWidget {
                   Card(
                     margin: settingsCardMargin,
                     child: Padding(
-                      padding: settingsCardWithTitlePadding,
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).shortcuts,
-                                style: TextTheme.of(context).headlineSmall,
-                              ),
-                              IconButton(
-                                icon: const PhosphorIcon(
-                                  PhosphorIconsLight.sealQuestion,
+                          Padding(
+                            padding: settingsCardTitlePadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context).shortcuts,
+                                  style: TextTheme.of(context).headlineSmall,
                                 ),
-                                tooltip: AppLocalizations.of(context).help,
-                                onPressed: () =>
-                                    openHelp(['shortcuts'], 'configure'),
-                              ),
-                            ],
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion,
+                                  ),
+                                  tooltip: AppLocalizations.of(context).help,
+                                  onPressed: () =>
+                                      openHelp(['shortcuts'], 'configure'),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
                           InputMappingListTile(
