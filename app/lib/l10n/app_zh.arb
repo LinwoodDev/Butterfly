@@ -376,12 +376,12 @@
   "middle": "中",
   "first": "第一页",
   "second": "秒",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
+  "activeTool": "活动工具",
+  "activeToolDescription": "使用工具栏上当前选择的工具",
+  "handTool": "手持工具",
+  "handToolDescription": "拖动以在画布周围移动",
+  "toolOnToolbar": "工具栏上的特定工具",
+  "toolOnToolbarDescription": "使用工具栏上指定位置的工具，从左侧开始",
   "toolOnToolbarShort": "Toolbar Position: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "从文件恢复设置",
   "exportSettingsToFile": "导出设置到文件",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "条形码类型",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "数据矩阵表",
+  "code128": "代码 128"
 }
