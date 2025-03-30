@@ -376,12 +376,12 @@
   "middle": "Μεσαία",
   "first": "Πρώτη",
   "second": "Δευτερόλεπτο",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
+  "activeTool": "Ενεργό Εργαλείο",
+  "activeToolDescription": "Χρήση του τρέχοντος επιλεγμένου εργαλείου στη γραμμή εργαλείων",
+  "handTool": "Εργαλείο Χεριών",
+  "handToolDescription": "Σύρετε για να μετακινηθείτε στον καμβά",
+  "toolOnToolbar": "Συγκεκριμένο εργαλείο στη γραμμή εργαλείων",
+  "toolOnToolbarDescription": "Χρησιμοποιήστε το εργαλείο στην καθορισμένη θέση στη γραμμή εργαλείων, ξεκινώντας από τα αριστερά",
   "toolOnToolbarShort": "Toolbar Position: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Τύπος γραμμωτού κώδικα",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Πίνακας Δεδομένων",
+  "code128": "Κωδικός 128"
 }
