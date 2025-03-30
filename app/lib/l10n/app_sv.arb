@@ -376,13 +376,13 @@
   "middle": "Mitten",
   "first": "Första",
   "second": "Sekund",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Aktivt verktyg",
+  "activeToolDescription": "Använd det valda verktyget i verktygsfältet",
+  "handTool": "Handverktyg",
+  "handToolDescription": "Dra för att flytta runt i duken",
+  "toolOnToolbar": "Specifikt verktyg i verktygsfältet",
+  "toolOnToolbarDescription": "Använd verktyget på den angivna positionen i verktygsfältet, med början från vänster",
+  "toolOnToolbarShort": "Verktygsfältets position: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Återställ inställningar från fil",
   "exportSettingsToFile": "Exportera inställningar till fil",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Streckkodstyp",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Data matris",
+  "code128": "Kod 128"
 }
