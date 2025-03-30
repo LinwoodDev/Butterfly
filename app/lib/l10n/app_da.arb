@@ -376,13 +376,13 @@
   "middle": "Midterste",
   "first": "Første",
   "second": "Sekund",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Aktivt Værktøj",
+  "activeToolDescription": "Brug det valgte værktøj på værktøjslinjen",
+  "handTool": "Håndværktøj",
+  "handToolDescription": "Træk for at flytte rundt på lærredet",
+  "toolOnToolbar": "Specifikt værktøj på værktøjslinjen",
+  "toolOnToolbarDescription": "Brug værktøjet på den angivne position på værktøjslinjen, startende fra venstre",
+  "toolOnToolbarShort": "Værktøjslinjens Position: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Gendan indstillinger fra fil",
   "exportSettingsToFile": "Eksporter indstillinger til fil",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Stregkode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "code128": "Kode 128"
 }
