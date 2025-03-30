@@ -376,13 +376,13 @@
   "middle": "Средний",
   "first": "Первое",
   "second": "Секунда",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Активный инструмент",
+  "activeToolDescription": "Использовать выбранный инструмент на панели инструментов",
+  "handTool": "Ручной инструмент",
+  "handToolDescription": "Перетащите по холсту",
+  "toolOnToolbar": "Специфичный инструмент на панели инструментов",
+  "toolOnToolbarDescription": "Использовать инструмент в указанной позиции на панели инструментов, начиная с левой стороны",
+  "toolOnToolbarShort": "Положение панели инструментов: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Восстановить настройки из файла",
   "exportSettingsToFile": "Экспорт настроек в файл",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Тип штрих-кода",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Матрица данных",
+  "code128": "Код 128"
 }
