@@ -149,7 +149,7 @@ class _MainViewViewportState extends State<MainViewViewport>
               nextPointerIndex = null;
           }
           if (nextPointerIndex == null) {
-            cubit.resetTemporaryHandler(bloc);
+            cubit.resetTemporaryHandler(bloc, true);
             return;
           }
           if (nextPointerIndex <= 0) {
