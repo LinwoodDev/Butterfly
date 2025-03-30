@@ -376,13 +376,13 @@
   "middle": "Uprostřed",
   "first": "První",
   "second": "Sekunda",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Aktivní nástroj",
+  "activeToolDescription": "Použít aktuálně vybraný nástroj na panelu nástrojů",
+  "handTool": "Ruční nástroj",
+  "handToolDescription": "Přetažením pohybovat se kolem plátna",
+  "toolOnToolbar": "Specifický nástroj na panelu nástrojů",
+  "toolOnToolbarDescription": "Použít nástroj na určené pozici na nástrojové liště začínající vlevo",
+  "toolOnToolbarShort": "Pozice panelu nástrojů: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Typ čárového kódu",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Datová matice",
+  "code128": "Kód 128"
 }
