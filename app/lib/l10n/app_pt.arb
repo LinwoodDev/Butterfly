@@ -376,13 +376,13 @@
   "middle": "Meio",
   "first": "Primeiro",
   "second": "Segundo",
-  "activeTool": "Active Tool",
-  "activeToolDescription": "Use the currently selected tool on the toolbar",
-  "handTool": "Hand Tool",
-  "handToolDescription": "Drag to move around the canvas",
-  "toolOnToolbar": "Specific Tool on Toolbar",
-  "toolOnToolbarDescription": "Use the tool at the specified position on the toolbar, starting from the left",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "activeTool": "Ferramenta ativa",
+  "activeToolDescription": "Use a ferramenta atualmente selecionada na barra de ferramentas",
+  "handTool": "Ferramenta Mão",
+  "handToolDescription": "Arraste para mover pela tela",
+  "toolOnToolbar": "Ferramenta Específica na Barra de Ferramentas",
+  "toolOnToolbarDescription": "Use a ferramenta na posição especificada na barra de ferramentas, a partir da esquerda",
+  "toolOnToolbarShort": "Posição da barra de ferramentas: {display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -671,8 +671,8 @@
   "restoreSettingsFromFile": "Restaurar configurações do arquivo",
   "exportSettingsToFile": "Exportar configurações para arquivo",
   "barcode": "Barcode",
-  "barcodeType": "Barcode type",
+  "barcodeType": "Tipo de código de barras",
   "qrCode": "QR Code",
-  "dataMatrix": "Data Matrix",
-  "code128": "Code 128"
+  "dataMatrix": "Matriz de Dados",
+  "code128": "Código 128"
 }
