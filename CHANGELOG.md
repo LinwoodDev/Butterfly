@@ -2,6 +2,37 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-beta.4 (2025-03-31)
+
+* Add safe area around navigator
+* Add tooltips to the close icon button
+* Add swamp collaboration system in collaboration experiment
+* Add new material 3 slider
+* Add qr code for sharing collaboration link
+* Add barcode tool ([#818](https://github.com/LinwoodDev/Butterfly/issues/818))
+* Add ability to replace waypoints and customize origin ([#817](https://github.com/LinwoodDev/Butterfly/pull/817))
+* Rework settings cards ([#822](https://github.com/LinwoodDev/Butterfly/pull/822))
+* Rework input settings ui ([#822](https://github.com/LinwoodDev/Butterfly/pull/822))
+* Draw selection rect at the bounds of the canvas if it's outside the canvas
+* Use launch url as share link for collaboration
+* Rename xopp to Xournal++
+* Change ZIP export button label for clarity ([#810](https://github.com/LinwoodDev/Butterfly/pull/810))
+* Improve pattern background settings
+* Add search for term in caption in add dialog
+* Fix file list not refreshing when returning to home screen on desktop ([#813](https://github.com/LinwoodDev/Butterfly/issues/813))
+* Fix spacing in file preview on android ([#814](https://github.com/LinwoodDev/Butterfly/issues/814))
+* Fix temporary tool not being removed ([#809](https://github.com/LinwoodDev/Butterfly/issues/809))
+* Fix editable list tile subtitle not aligned with title
+* Fix svg images doesn't use the correct size
+* Fix opening a note from a recent files tile loads an outdated note and saves it ([#816](https://github.com/LinwoodDev/Butterfly/issues/816))
+* Fix filter chips in add dialog in comfortable ui
+* Fix editable list tile not having selected color
+* Fix setting the input mapping to a blank string would revert to the input's default setting after the app was restarted ([#822](https://github.com/LinwoodDev/Butterfly/pull/822))
+* Fix settings for "Pen only input" and "Input gestures" would be reverted after the app was restarted ([#822](https://github.com/LinwoodDev/Butterfly/pull/822))
+* Remove unsupported connections settings page on web
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.4
+
 ## 2.3.0-beta.3 (2025-03-17)
 
 * Add file preview to files navigator ([#736](https://github.com/LinwoodDev/Butterfly/issues/736))
