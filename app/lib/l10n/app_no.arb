@@ -376,6 +376,21 @@
   "middle": "Midten",
   "first": "Første",
   "second": "Sekund",
+  "activeTool": "Aktive verktøy",
+  "activeToolDescription": "Bruk det valgte verktøyet på verktøylinjen",
+  "handTool": "Håndverktøy",
+  "handToolDescription": "Dra for å flytte rundt lerretet",
+  "toolOnToolbar": "Spesifikke verktøy på verktøylinjen",
+  "toolOnToolbarDescription": "Bruk verktøyet ved den angitte posisjonen på verktøylinjen, fra venstre side",
+  "toolOnToolbarShort": "Verktøylinjens posisjon: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Verktøy",
   "showGrid": "Vis rutenett",
   "grid": "Rutenett",
@@ -652,7 +667,12 @@
   "flipVertical": "Vend vertikalt",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flytt på bevegelse",
-  "exportAllFiles": "Eksporter",
+  "exportAllFiles": "Eksporter alle filer",
   "restoreSettingsFromFile": "Gjenopprett innstillinger fra fil",
-  "exportSettingsToFile": "Eksporter innstillinger til fil"
+  "exportSettingsToFile": "Eksporter innstillinger til fil",
+  "barcode": "Barcode",
+  "barcodeType": "Strekkode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data matrise",
+  "code128": "Kode 128"
 }

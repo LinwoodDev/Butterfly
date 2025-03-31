@@ -376,6 +376,21 @@
   "middle": "وسط",
   "first": "الأول",
   "second": "الثاني",
+  "activeTool": "أداة نشطة",
+  "activeToolDescription": "استخدام الأداة المحددة حاليًا على شريط الأدوات",
+  "handTool": "أداة اليد",
+  "handToolDescription": "اسحب للتحرك حول القماش",
+  "toolOnToolbar": "أداة محددة على شريط الأدوات",
+  "toolOnToolbarDescription": "استخدام الأداة في الموضع المحدد على شريط الأدوات، بدءاً من اليسار",
+  "toolOnToolbarShort": "موضع شريط الأدوات: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "أدوات",
   "showGrid": "إظهار الشبكة",
   "grid": "الشبكة",
@@ -652,7 +667,12 @@
   "flipVertical": "قلب عمودي",
   "grayscale": "Grayscale",
   "moveOnGesture": "تحريك على الإيماءة",
-  "exportAllFiles": "تصدير",
+  "exportAllFiles": "تصدير جميع الملفات",
   "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
-  "exportSettingsToFile": "تصدير الإعدادات إلى ملف"
+  "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
+  "barcode": "Barcode",
+  "barcodeType": "نوع الباركود",
+  "qrCode": "QR Code",
+  "dataMatrix": "مصفوفة البيانات",
+  "code128": "الكود 128"
 }

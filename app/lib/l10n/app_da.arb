@@ -376,6 +376,21 @@
   "middle": "Midterste",
   "first": "Første",
   "second": "Sekund",
+  "activeTool": "Aktivt Værktøj",
+  "activeToolDescription": "Brug det valgte værktøj på værktøjslinjen",
+  "handTool": "Håndværktøj",
+  "handToolDescription": "Træk for at flytte rundt på lærredet",
+  "toolOnToolbar": "Specifikt værktøj på værktøjslinjen",
+  "toolOnToolbarDescription": "Brug værktøjet på den angivne position på værktøjslinjen, startende fra venstre",
+  "toolOnToolbarShort": "Værktøjslinjens Position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Værktøjer",
   "showGrid": "Vis gitter",
   "grid": "Gitter",
@@ -652,7 +667,12 @@
   "flipVertical": "Vend lodret",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flyt på bevægelse",
-  "exportAllFiles": "Eksporter",
+  "exportAllFiles": "Eksporter alle filer",
   "restoreSettingsFromFile": "Gendan indstillinger fra fil",
-  "exportSettingsToFile": "Eksporter indstillinger til fil"
+  "exportSettingsToFile": "Eksporter indstillinger til fil",
+  "barcode": "Barcode",
+  "barcodeType": "Stregkode type",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matrix",
+  "code128": "Kode 128"
 }

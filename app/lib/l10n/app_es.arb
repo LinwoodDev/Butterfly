@@ -376,6 +376,21 @@
   "middle": "Medio",
   "first": "Primero",
   "second": "Segundo",
+  "activeTool": "Herramienta activa",
+  "activeToolDescription": "Usar la herramienta seleccionada actualmente en la barra de herramientas",
+  "handTool": "Herramienta de mano",
+  "handToolDescription": "Arrastra para moverte alrededor del lienzo",
+  "toolOnToolbar": "Herramienta específica en la barra de herramientas",
+  "toolOnToolbarDescription": "Usa la herramienta en la posición especificada en la barra de herramientas, comenzando desde la izquierda",
+  "toolOnToolbarShort": "Posición de la barra de herramientas: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Herramientas",
   "showGrid": "Mostrar cuadrícula",
   "grid": "Rejilla",
@@ -652,7 +667,12 @@
   "flipVertical": "Voltear vertical",
   "grayscale": "Grayscale",
   "moveOnGesture": "Mover en gesto",
-  "exportAllFiles": "Exportar",
+  "exportAllFiles": "Exportar todos los archivos",
   "restoreSettingsFromFile": "Restaurar ajustes desde el archivo",
-  "exportSettingsToFile": "Exportar ajustes al archivo"
+  "exportSettingsToFile": "Exportar ajustes al archivo",
+  "barcode": "Barcode",
+  "barcodeType": "Tipo de código de barras",
+  "qrCode": "QR Code",
+  "dataMatrix": "Matríz de datos",
+  "code128": "Código 128"
 }

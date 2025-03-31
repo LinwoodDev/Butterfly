@@ -376,6 +376,21 @@
   "middle": "По центру",
   "first": "Перший",
   "second": "Секунда",
+  "activeTool": "Активний інструмент",
+  "activeToolDescription": "Використовувати зараз обраний інструмент на панелі інструментів",
+  "handTool": "Інструмент для рук",
+  "handToolDescription": "Перетягніть, щоб перемістити полотно",
+  "toolOnToolbar": "Специфічний інструмент на панелі інструментів",
+  "toolOnToolbarDescription": "Використовувати інструмент у зазначеній позиції на панелі інструментів, починаючи з зліва",
+  "toolOnToolbarShort": "Позиція панелі інструментів: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Інструменти",
   "showGrid": "Показати сітку",
   "grid": "Сітка",
@@ -652,7 +667,12 @@
   "flipVertical": "Віддзеркалити вертикально",
   "grayscale": "Grayscale",
   "moveOnGesture": "Перемістити жест",
-  "exportAllFiles": "Експорт",
+  "exportAllFiles": "Експортувати всі файли",
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
-  "exportSettingsToFile": "Експорт налаштувань у файл"
+  "exportSettingsToFile": "Експорт налаштувань у файл",
+  "barcode": "Barcode",
+  "barcodeType": "Тип штрихкоду",
+  "qrCode": "QR Code",
+  "dataMatrix": "Матриця даних",
+  "code128": "Код 128"
 }
