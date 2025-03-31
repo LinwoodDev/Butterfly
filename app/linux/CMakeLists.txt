@@ -5,6 +5,10 @@ project(runner LANGUAGES CXX)
 # Fix flutter_secure_storage_linux build error on newer versions of CMake.
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-Wno-error=deprecated-literal-operator" COMPILER_SUPPORTS_NO_ERROR_DEPRECATED_LITERAL_OPERATOR)
+if(COMPILER_SUPPORTS_NO_ERROR_DEPRECATED_LITERAL_OPERATOR)
+  message(STATUS "Disabling error for deprecated literal operator")
+  add_definitions(-Wno-error=deprecated-literal-operator)
+endif()
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
@@ -48,10 +52,6 @@ function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_options(${TARGET} PRIVATE -Wall -Werror)
   target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O3>")
   target_compile_definitions(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:NDEBUG>")
-  if(COMPILER_SUPPORTS_NO_ERROR_DEPRECATED_LITERAL_OPERATOR)
-    message(STATUS "Disabling error for deprecated literal operator")
-    target_compile_options(${BINARY_NAME} PRIVATE -Wno-error=deprecated-literal-operator)
-  endif()
 endfunction()
 
 # Flutter library and tool build rules.
