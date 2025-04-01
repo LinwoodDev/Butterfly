@@ -359,8 +359,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               ),
             if (state.currentAreaName.isNotEmpty)
               IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.door),
-                tooltip: AppLocalizations.of(context).exit,
+                icon: const PhosphorIcon(PhosphorIconsLight.signOut),
+                tooltip: AppLocalizations.of(context).exitArea,
                 onPressed: () {
                   context
                       .read<DocumentBloc>()
