@@ -51,6 +51,7 @@ mixin _$CurrentIndex {
   bool get navigatorEnabled;
   NavigatorPage get navigatorPage;
   bool get isCreating;
+  String get userName;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
@@ -62,7 +63,7 @@ mixin _$CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
   }
 }
 
@@ -108,7 +109,8 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       bool areaNavigatorAsk,
       bool navigatorEnabled,
       NavigatorPage navigatorPage,
-      bool isCreating});
+      bool isCreating,
+      String userName});
 
   $UtilitiesStateCopyWith<$Res> get utilities;
   $ViewOptionCopyWith<$Res> get viewOption;
@@ -162,6 +164,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? navigatorEnabled = null,
     Object? navigatorPage = null,
     Object? isCreating = null,
+    Object? userName = null,
   }) {
     return _then(_self.copyWith(
       index: freezed == index
@@ -308,6 +311,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _self.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      userName: null == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -366,7 +373,8 @@ class _CurrentIndex extends CurrentIndex {
       this.areaNavigatorAsk = false,
       this.navigatorEnabled = false,
       this.navigatorPage = NavigatorPage.waypoints,
-      this.isCreating = false})
+      this.isCreating = false,
+      this.userName = ''})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _toggleableHandlers = toggleableHandlers,
@@ -527,6 +535,9 @@ class _CurrentIndex extends CurrentIndex {
   @override
   @JsonKey()
   final bool isCreating;
+  @override
+  @JsonKey()
+  final String userName;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
@@ -538,7 +549,7 @@ class _CurrentIndex extends CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
   }
 }
 
@@ -586,7 +597,8 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       bool areaNavigatorAsk,
       bool navigatorEnabled,
       NavigatorPage navigatorPage,
-      bool isCreating});
+      bool isCreating,
+      String userName});
 
   @override
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -643,6 +655,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
     Object? navigatorEnabled = null,
     Object? navigatorPage = null,
     Object? isCreating = null,
+    Object? userName = null,
   }) {
     return _then(_CurrentIndex(
       freezed == index
@@ -789,6 +802,10 @@ class __$CurrentIndexCopyWithImpl<$Res>
           ? _self.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      userName: null == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 

@@ -1,0 +1,4 @@
+* Add option to add custom user name for collaboration
+* Redesign collaboration dialog
+
+Read more here: https://linwood.dev/butterfly/2.3.0-rc.0

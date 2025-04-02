@@ -83,6 +83,7 @@ sealed class NetworkingUser with _$NetworkingUser {
   const factory NetworkingUser({
     @DoublePointJsonConverter() Point<double>? cursor,
     List<PadElement>? foreground,
+    @Default('') String name,
   }) = _NetworkingUser;
 
   factory NetworkingUser.fromJson(Map<String, dynamic> json) =>
@@ -116,15 +117,18 @@ enum ConnectionTechnology {
 
 class NetworkingService extends Cubit<NetworkState?> {
   DocumentBloc? _bloc;
+  String _userName = '';
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
-  final BehaviorSubject<Map<Channel?, NetworkingUser>> _users =
+  final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
+
+  String get userName => _userName;
 
   Stream<Set<Channel>> get connectionsStream => _connections.stream;
   Set<Channel> get connections => _connections.value;
 
   Stream<Map<Channel?, NetworkingUser>> get usersStream => _users.stream;
-  Map<Channel?, NetworkingUser> get users => _users.value;
+  Map<Channel, NetworkingUser> get users => _users.value;
 
   NetworkingService() : super(null);
 
@@ -201,6 +205,13 @@ class NetworkingService extends Cubit<NetworkState?> {
       rpc.sendNamedFunction(NetworkEvent.init, await state.saveBytes(),
           channel: event.$1);
       sendConnections();
+      for (final user in users.entries) {
+        rpc.sendNamedFunction(
+          NetworkEvent.user,
+          Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+          channel: event.$1,
+        );
+      }
     });
     server.clientDisconnect.listen((event) {
       sendConnections();
@@ -209,6 +220,7 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerBase networker) {
+    _userName = '';
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
@@ -227,7 +239,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     rpc.getNamedFunction(NetworkEvent.user)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
         final user = NetworkingUser.fromJson(message.data);
-        final users = Map<Channel?, NetworkingUser>.from(_users.value)
+        final users = Map<Channel, NetworkingUser>.from(_users.value)
           ..[message.channel] = user;
         _users.add(users);
         _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
@@ -307,4 +319,12 @@ class NetworkingService extends Cubit<NetworkState?> {
         ConnectionTechnology.webSocket => createSocketClient(uri),
         ConnectionTechnology.swamp => createSwampClient(uri)
       };
+
+  NetworkingUser getUser(Channel channel) =>
+      users[channel] ?? const NetworkingUser();
+
+  void setName(String name) {
+    _userName = name;
+    sendUser(NetworkingUser(name: name));
+  }
 }
