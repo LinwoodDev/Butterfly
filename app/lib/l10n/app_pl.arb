@@ -674,5 +674,14 @@
   "barcodeType": "Typ kodu kreskowego",
   "qrCode": "QR Code",
   "dataMatrix": "Matryca danych",
-  "code128": "Kod 128"
+  "code128": "Kod 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
