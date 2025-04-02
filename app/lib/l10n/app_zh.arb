@@ -674,5 +674,14 @@
   "barcodeType": "条形码类型",
   "qrCode": "QR Code",
   "dataMatrix": "数据矩阵表",
-  "code128": "代码 128"
+  "code128": "代码 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
