@@ -674,5 +674,14 @@
   "barcodeType": "Тип штрихкоду",
   "qrCode": "QR Code",
   "dataMatrix": "Матриця даних",
-  "code128": "Код 128"
+  "code128": "Код 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
