@@ -2,12 +2,12 @@
 title: Atalhos
 ---
 
-## Keyboard
+## Teclado
 
 Existem alguns atalhos que você pode usar no editor.
 Alguns deles estão escritos abaixo dos botões.
 
-### Gerais
+### Geral
 
 - `Ctrl` + `N`: Novo arquivo
 - `Ctrl` + `Shift` + `N`: Novo arquivo do template
