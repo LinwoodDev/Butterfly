@@ -674,5 +674,14 @@
   "barcodeType": "Strekkode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data matrise",
-  "code128": "Kode 128"
+  "code128": "Kode 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
