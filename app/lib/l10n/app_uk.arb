@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Матриця даних",
   "code128": "Код 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Користувач {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
