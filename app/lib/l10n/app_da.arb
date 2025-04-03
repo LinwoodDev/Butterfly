@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
   "code128": "Kode 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Bruger {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
