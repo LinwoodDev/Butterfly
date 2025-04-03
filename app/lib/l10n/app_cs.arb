@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Datová matice",
   "code128": "Kód 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Uživatel {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
