@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Matrice de données",
   "code128": "Code 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Utilisateur {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
