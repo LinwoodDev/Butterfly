@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Data Matriisi",
   "code128": "Koodi 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Käyttäjä {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
