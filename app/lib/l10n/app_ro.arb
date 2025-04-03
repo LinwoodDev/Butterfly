@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Matricea datelor",
   "code128": "Codul 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Utilizator {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
