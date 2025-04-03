@@ -675,7 +675,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "مصفوفة البيانات",
   "code128": "الكود 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "المستخدم {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
