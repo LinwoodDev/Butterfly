@@ -118,11 +118,14 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 ),
               ),
               SizedBox(
-                width: 30,
+                width: 50,
                 child: TextFormField(
                   keyboardType: TextInputType.numberWithOptions(
                     signed: false,
                     decimal: false,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
                   ),
                   enabled: _category == InputMappingCategory.toolOnToolbar,
                   controller: _toolbarToolPositionController,
