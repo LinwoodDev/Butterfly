@@ -608,12 +608,15 @@ class FilesViewState extends State<FilesView> {
                           final router = GoRouter.of(context);
                           final (
                             result,
-                            extension,
+                            fileExtension,
                           ) = await importFile(context);
                           if (result == null) return;
-                          const route = '/native?name=document.bfly&type=note';
-                          router.go(
-                            route,
+                          router.goNamed(
+                            'native',
+                            queryParameters: {
+                              'name': 'document.bfly',
+                              'type': fileExtension ?? 'note',
+                            },
                             extra: result,
                           );
                           if (!widget.collapsed) {

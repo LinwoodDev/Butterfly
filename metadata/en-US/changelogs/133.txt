@@ -1,4 +1,5 @@
 * Add option to add custom user name for collaboration
 * Redesign collaboration dialog
+* Fix importing non butterfly files result in error ([#829](https://github.com/LinwoodDev/Butterfly/issues/829))
 
 Read more here: https://linwood.dev/butterfly/2.3.0-rc.0
