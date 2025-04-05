@@ -14,10 +14,10 @@ class ViewCollaborationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final info = FutureBuilder<String>(
+    final info = FutureBuilder<Uri>(
       future: Future.value(state.getShareAddress()),
       builder: (context, snapshot) {
-        final address = snapshot.data ?? '?';
+        final address = snapshot.data?.toString() ?? '?';
         final connect = getConnectUri(address).toString();
         final qr = Barcode.qrCode();
         final svg = qr.toSvg(connect, width: 256, height: 256);

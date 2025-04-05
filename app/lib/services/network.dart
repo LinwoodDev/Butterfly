@@ -39,8 +39,19 @@ sealed class NetworkState {
     required this.pipe,
   });
 
-  FutureOr<String> getShareAddress() {
-    return connection.address.toString();
+  Future<Uri> getShareAddress() async {
+    if (connection is SwampConnection) {
+      return await (connection as SwampConnection).getSecureAddress();
+    }
+    if (connection is NetworkerSocketServer) {
+      final ip = await NetworkInfo().getWifiIP();
+      return Uri(
+        scheme: 'ws',
+        host: ip ?? 'localhost',
+        port: (connection as NetworkerSocketServer).port,
+      );
+    }
+    return connection.address;
   }
 }
 
@@ -56,19 +67,6 @@ final class ServerNetworkState extends NetworkState {
     this.queue = true,
     this.password = '',
   });
-
-  @override
-  Future<String> getShareAddress() async {
-    if (connection is SwampConnection) {
-      return (await (connection as SwampConnection).getSecureAddress())
-          .toString();
-    }
-    if (connection is NetworkerSocketServer) {
-      final ip = await NetworkInfo().getWifiIP();
-      return 'ws://$ip:${connection.address.port}';
-    }
-    return super.getShareAddress();
-  }
 }
 
 final class ClientNetworkState extends NetworkState {
@@ -139,7 +137,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<void> createSocketServer([String? address, int? port]) async {
-    closeNetworking();
+    await closeNetworking();
     final server = NetworkerSocketServer(
         address != null
             ? InternetAddress(address, type: InternetAddressType.any)
@@ -154,7 +152,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> createSocketClient(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
@@ -170,8 +168,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     return data;
   }
 
-  void closeNetworking() {
-    state?.connection.close();
+  Future<void> closeNetworking() async {
+    await state?.connection.close();
     emit(null);
     _connections.add({});
     _users.add({});
@@ -284,7 +282,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> createSwampClient(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
         config: RpcConfig(channelField: false));
@@ -299,7 +297,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<void> createSwampServer(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
         config: RpcConfig(channelField: false));
