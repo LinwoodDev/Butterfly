@@ -67,6 +67,17 @@ class CameraViewport extends Equatable {
 
   ui.Size toRealSize() => toSize() / resolution.multiplier;
 
+  ui.Rect toRealRect() {
+    final rect = toRect();
+    final size = toRealSize();
+    return ui.Rect.fromLTWH(
+      rect.left + rect.width / 4,
+      rect.top + rect.height / 4,
+      size.width,
+      size.height,
+    );
+  }
+
   Area toArea() => Area(
         name: '',
         position: toPoint(),
