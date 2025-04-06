@@ -130,8 +130,8 @@ class TextContext extends LabelContext {
   @override
   @JsonKey()
   final TextSelection selection;
-  final txt.ParagraphProperty? forcedProperty;
-  final txt.SpanProperty? forcedSpanProperty;
+  final ParagraphProperty? forcedProperty;
+  final SpanProperty? forcedSpanProperty;
   final bool? forceParagraph;
 
   /// Create a copy of LabelContext
@@ -186,8 +186,8 @@ abstract mixin class $TextContextCopyWith<$Res>
       TextElement? element,
       double zoom,
       TextSelection selection,
-      txt.ParagraphProperty? forcedProperty,
-      txt.SpanProperty? forcedSpanProperty,
+      ParagraphProperty? forcedProperty,
+      SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
@@ -239,11 +239,11 @@ class _$TextContextCopyWithImpl<$Res> implements $TextContextCopyWith<$Res> {
       forcedProperty: freezed == forcedProperty
           ? _self.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as txt.ParagraphProperty?,
+              as ParagraphProperty?,
       forcedSpanProperty: freezed == forcedSpanProperty
           ? _self.forcedSpanProperty
           : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
-              as txt.SpanProperty?,
+              as SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _self.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable

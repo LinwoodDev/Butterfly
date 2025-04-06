@@ -75,7 +75,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
   @useResult
   $Res call(
       {int? index,
-      Handler<dynamic> handler,
+      Handler handler,
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
@@ -83,7 +83,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       UtilitiesState utilities,
       Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
-      Selection<dynamic>? selection,
+      Selection? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
       Map<int, Handler<Tool>> toggleableHandlers,
@@ -92,7 +92,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       TemporaryState temporaryState,
-      ui.Offset? lastPosition,
+      Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -172,9 +172,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
       handler: null == handler
-          ? _self.handler!
+          ? _self.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler,
       cameraViewport: null == cameraViewport
           ? _self.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
@@ -204,9 +204,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
       selection: freezed == selection
-          ? _self.selection!
+          ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as Selection<dynamic>?,
+              as Selection?,
       pinned: null == pinned
           ? _self.pinned
           : pinned // ignore: cast_nullable_to_non_nullable
@@ -240,9 +240,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : temporaryState // ignore: cast_nullable_to_non_nullable
               as TemporaryState,
       lastPosition: freezed == lastPosition
-          ? _self.lastPosition!
+          ? _self.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
-              as ui.Offset?,
+              as Offset?,
       pointers: null == pointers
           ? _self.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -388,7 +388,7 @@ class _CurrentIndex extends CurrentIndex {
   @override
   final int? index;
   @override
-  final Handler<dynamic> handler;
+  final Handler handler;
   @override
   final CameraViewport cameraViewport;
   @override
@@ -412,7 +412,7 @@ class _CurrentIndex extends CurrentIndex {
   }
 
   @override
-  final Selection<dynamic>? selection;
+  final Selection? selection;
   @override
   @JsonKey()
   final bool pinned;
@@ -466,7 +466,7 @@ class _CurrentIndex extends CurrentIndex {
   @JsonKey()
   final TemporaryState temporaryState;
   @override
-  final ui.Offset? lastPosition;
+  final Offset? lastPosition;
   final List<int> _pointers;
   @override
   @JsonKey()
@@ -563,7 +563,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
   @useResult
   $Res call(
       {int? index,
-      Handler<dynamic> handler,
+      Handler handler,
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
@@ -571,7 +571,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       UtilitiesState utilities,
       Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
-      Selection<dynamic>? selection,
+      Selection? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
       Map<int, Handler<Tool>> toggleableHandlers,
@@ -580,7 +580,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       TemporaryState temporaryState,
-      ui.Offset? lastPosition,
+      Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -665,7 +665,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       null == handler
           ? _self.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler,
       null == cameraViewport
           ? _self.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
@@ -697,7 +697,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       selection: freezed == selection
           ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as Selection<dynamic>?,
+              as Selection?,
       pinned: null == pinned
           ? _self.pinned
           : pinned // ignore: cast_nullable_to_non_nullable
@@ -733,7 +733,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       lastPosition: freezed == lastPosition
           ? _self.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
-              as ui.Offset?,
+              as Offset?,
       pointers: null == pointers
           ? _self._pointers
           : pointers // ignore: cast_nullable_to_non_nullable

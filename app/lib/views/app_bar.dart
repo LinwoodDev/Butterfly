@@ -388,22 +388,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 tooltip: AppLocalizations.of(context).changeDocumentPath,
               ),
             ],
-            if (state.embedding == null &&
-                settings.hasFlag('collaboration') &&
-                !kIsWeb)
-              StreamBuilder<NetworkState?>(
-                stream: state.networkingService.stream,
-                builder: (context, snapshot) => IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                  onPressed: () => showCollaborationDialog(context),
-                  tooltip: AppLocalizations.of(context).collaboration,
-                  isSelected: snapshot.data != null,
-                  selectedIcon: PhosphorIcon(
-                    PhosphorIconsFill.shareNetwork,
-                    color: ColorScheme.of(context).primary,
-                  ),
-                ),
-              ),
           ],
         ],
       );
@@ -650,6 +634,27 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ],
+            if (state.embedding == null &&
+                settings.hasFlag('collaboration') &&
+                !kIsWeb)
+              BlocBuilder<NetworkingService, NetworkState?>(
+                bloc: state.networkingService,
+                builder: (_, state) => MenuItemButton(
+                  leadingIcon: state != null
+                      ? Icon(PhosphorIconsFill.users,
+                          color: ColorScheme.of(context).primary)
+                      : Icon(PhosphorIconsLight.users),
+                  onPressed: () => showCollaborationDialog(context),
+                  child: Text(
+                    AppLocalizations.of(context).collaboration,
+                    style: TextStyle(
+                      color: state != null
+                          ? ColorScheme.of(context).primary
+                          : null,
+                    ),
+                  ),
+                ),
+              ),
             if (state.embedding?.onOpen != null) ...[
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
