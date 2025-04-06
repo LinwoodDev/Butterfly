@@ -683,5 +683,7 @@
         "example": "1"
       }
     }
-  }
+  },
+  "moveLeft": "Move left",
+  "moveRight": "Move right"
 }
