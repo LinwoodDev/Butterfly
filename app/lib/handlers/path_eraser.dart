@@ -71,8 +71,6 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_erased.isNotEmpty) {
       context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
-      // await Future.delayed(Duration(milliseconds: 5000));
-      // context.bake(reset: true);
     }
   }
 

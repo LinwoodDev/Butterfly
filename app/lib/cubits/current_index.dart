@@ -1179,17 +1179,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else if (backgrounds != null) {
       this.unbake(backgrounds: backgrounds);
     } else {
-      print('>>>>> UNBAKED ELEMENTS: ${elements.length}');
       withUnbaked(elements);
     }
 
     setSaveState(saved: SaveState.unsaved);
     if (current.embedding != null) {
       return;
-    }
-    AssetLocation? path = current.location;
-    if (current.hasAutosave()) {
-      path = await current.save(path);
     }
     if (reset) {
       loadElements(current);
@@ -1199,6 +1194,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     if (updateIndex) {
       this.updateIndex(bloc);
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(path);
     }
   }
 

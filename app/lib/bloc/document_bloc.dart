@@ -325,7 +325,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         unbake: true,
       );
     });
-    on<ElementsRemoved>((event, emit) {
+    on<ElementsRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -350,7 +350,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(page: newPage, data: data),
         reset: true,
       );
-      // bake();
+      Future.delayed(const Duration(milliseconds: 100), () {
+        bake();
+      });
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {
       final current = state;
@@ -1074,10 +1076,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final current = state;
     if (current is! DocumentLoaded) return;
-    print('>>>>> PASSED SIZE: $viewportSize');
     if (viewportSize == null && current is DocumentLoadSuccess) {
       viewportSize = current.cameraViewport.toRealSize();
-      print('>>>>> ACTUAL VIEWPORT SIZE: ${viewportSize}');
     }
     return current.bake(
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
