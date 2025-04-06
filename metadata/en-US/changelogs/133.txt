@@ -4,5 +4,6 @@
 * Fix importing non butterfly files result in error ([#829](https://github.com/LinwoodDev/Butterfly/issues/829))
 * Fix scroll sensitivty not changing move speed
 * Fix thumbnail capture not using the current viewport
+* Fix background dialog shows wrong content after deleting one layer
 
 Read more here: https://linwood.dev/butterfly/2.3.0-rc.0
