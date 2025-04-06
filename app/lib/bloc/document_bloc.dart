@@ -350,9 +350,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(page: newPage, data: data),
         reset: true,
       );
-      Future.delayed(const Duration(milliseconds: 100), () {
-        bake();
-      });
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {
       final current = state;
@@ -1081,6 +1078,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     return current.bake(
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
+  }
+
+  Future<void> delayedBake(
+      {Size? viewportSize, double? pixelRatio, bool reset = false}) {
+    return Future.delayed(const Duration(milliseconds: 100), () {
+      return bake(
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: reset,
+      );
+    });
   }
 
   Future<void> load() async {

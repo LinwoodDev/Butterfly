@@ -70,7 +70,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_erased.isNotEmpty) {
-      context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
+      final bloc = context.getDocumentBloc();
+      bloc.add(ElementsRemoved(_erased.toList()));
+      bloc.delayedBake();
     }
   }
 
