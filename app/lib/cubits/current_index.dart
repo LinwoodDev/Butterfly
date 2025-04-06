@@ -1179,6 +1179,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else if (backgrounds != null) {
       this.unbake(backgrounds: backgrounds);
     } else {
+      print('>>>>> UNBAKED ELEMENTS: ${elements.length}');
       withUnbaked(elements);
     }
 
