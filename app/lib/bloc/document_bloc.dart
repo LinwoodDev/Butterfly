@@ -325,7 +325,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         unbake: true,
       );
     });
-    on<ElementsRemoved>((event, emit) async {
+    on<ElementsRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
