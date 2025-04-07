@@ -684,6 +684,6 @@
       }
     }
   },
-  "moveLeft": "Move left",
-  "moveRight": "Move right"
+  "moveLeft": "Přesunout vlevo",
+  "moveRight": "Přesunout vpravo"
 }
