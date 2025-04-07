@@ -127,23 +127,22 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       onTap: () async {
                         final viewport =
                             state.currentIndexCubit.state.cameraViewport;
-                        final size = viewport.toRealSize();
+                        final rect = viewport.toRealRect();
                         final height =
-                            size.width * kThumbnailHeight / kThumbnailWidth;
-                        final heightOffset = (size.height - height) / 2;
-                        final quality = kThumbnailWidth / size.width;
+                            rect.width * kThumbnailHeight / kThumbnailWidth;
+                        final heightOffset = (rect.height - height) / 2;
+                        final quality = kThumbnailWidth / rect.width;
                         final thumbnail = await state.currentIndexCubit.render(
                           state.data,
                           state.page,
                           state.info,
                           ImageExportOptions(
-                            width: size.width,
+                            width: rect.width,
                             height: height,
                             quality: quality,
                             scale: viewport.scale,
-                            x: viewport.x + size.width / viewport.scale,
-                            y: viewport.y +
-                                (heightOffset + size.height) / viewport.scale,
+                            x: rect.left,
+                            y: rect.top + (heightOffset) / viewport.scale,
                           ),
                         );
                         if (thumbnail == null) return;

@@ -81,6 +81,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(false) bool navigatorEnabled,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(false) bool isCreating,
+    @Default('') String userName,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -205,7 +206,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
-        change.nextState.lastPosition != change.currentState.lastPosition) {
+        change.nextState.lastPosition != change.currentState.lastPosition ||
+        change.nextState.userName != change.currentState.userName) {
       _sendNetworkingState();
     }
   }
@@ -219,6 +221,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .map((e) => e.element)
           .whereType<PadElement>()
           .toList(),
+      name: state.networkingService.userName,
     ));
   }
 
@@ -1283,5 +1286,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         reset: reset,
       );
     });
+  }
+
+  void setUserName(String name) {
+    emit(state.copyWith(userName: name));
   }
 }

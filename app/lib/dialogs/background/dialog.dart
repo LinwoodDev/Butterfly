@@ -50,6 +50,14 @@ class _BackgroundDialogState extends State<BackgroundDialog>
       });
   }
 
+  void _setIndex(int index) {
+    if (index < 0 || index >= _backgrounds.length) return;
+    setState(() {
+      _index = index;
+      _tabController.index = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -123,18 +131,20 @@ class _BackgroundDialogState extends State<BackgroundDialog>
               const SizedBox(height: 4),
               IconButton(
                 icon: Icon(PhosphorIconsLight.trash),
+                tooltip: AppLocalizations.of(context).delete,
                 onPressed: _index >= 0 && _index < _backgrounds.length
                     ? () {
                         setState(() {
                           _backgrounds.removeAt(_index);
                         });
                         _updateController();
-                        _tabController.index = max(_index - 1, 0);
+                        _setIndex(max(_index - 1, 0));
                       }
                     : null,
               ),
               IconButton(
                 icon: Icon(PhosphorIconsLight.arrowLeft),
+                tooltip: AppLocalizations.of(context).moveLeft,
                 onPressed: _index > 0 && _index < _backgrounds.length
                     ? () => setState(() {
                           final background = _backgrounds.removeAt(_index);
@@ -145,6 +155,7 @@ class _BackgroundDialogState extends State<BackgroundDialog>
               ),
               IconButton(
                 icon: Icon(PhosphorIconsLight.arrowRight),
+                tooltip: AppLocalizations.of(context).moveRight,
                 onPressed: _index < (_backgrounds.length - 1)
                     ? () => setState(() {
                           final background = _backgrounds.removeAt(_index);

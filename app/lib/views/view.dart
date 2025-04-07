@@ -294,12 +294,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   .scrollSensitivity;
                               scale /= -sensitivity * 100;
                               scale += 1;
+                              dx /= sensitivity;
+                              dy /= sensitivity;
                               final cubit = context.read<CurrentIndexCubit>();
                               final transform =
                                   context.read<TransformCubit>().state;
                               if (_mouseState == _MouseState.scale) {
                                 // Calculate the new scale using dx and dy
-                                scale = -(dx + dy / 2) / sensitivity / 100 + 1;
+                                scale = -(dx + dy / 2) / 100 + 1;
                                 cubit.zoom(scale, pointerSignal.localPosition);
                               } else {
                                 cubit
