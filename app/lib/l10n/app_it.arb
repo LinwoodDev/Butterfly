@@ -684,6 +684,6 @@
       }
     }
   },
-  "moveLeft": "Move left",
-  "moveRight": "Move right"
+  "moveLeft": "Sposta a sinistra",
+  "moveRight": "Sposta a destra"
 }
