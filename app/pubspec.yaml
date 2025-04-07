@@ -71,7 +71,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 850deaee0b7771bda7fa212dda944dbcc6ef0234
+      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -101,7 +101,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec1b82c9fe4d1bf3bd18d7fed311b8ae1301b9d7
+      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
