@@ -6,5 +6,7 @@
 * Fix thumbnail capture not using the current viewport
 * Fix background dialog shows wrong content after deleting one layer
 * Fix local storage not using specified path ([#835](https://github.com/LinwoodDev/Butterfly/issues/835))
+* Fix performance drop after using path eraser or deleting elements ([#831](https://github.com/LinwoodDev/Butterfly/pull/831))
+* Fix resolution size not centered
 
 Read more here: https://linwood.dev/butterfly/2.3.0-rc.0
