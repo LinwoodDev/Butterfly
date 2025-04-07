@@ -130,6 +130,17 @@ abstract class DocumentLoaded extends DocumentState {
       currentIndexCubit.bake(this,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
+  Future<void> delayedBake(
+          {Size? viewportSize,
+          double? pixelRatio,
+          bool reset = false,
+          bool testTransform = false}) =>
+      currentIndexCubit.delayedBake(this,
+          viewportSize: viewportSize,
+          pixelRatio: pixelRatio,
+          reset: reset,
+          testTransform: testTransform);
+
   @override
   Future<Uint8List> saveBytes([NoteData? current]) =>
       saveData().then((e) => e.exportAsBytes());

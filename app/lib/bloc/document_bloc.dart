@@ -1073,22 +1073,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final current = state;
     if (current is! DocumentLoaded) return;
-    if (viewportSize == null && current is DocumentLoadSuccess) {
-      viewportSize = current.cameraViewport.toRealSize();
-    }
     return current.bake(
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
   }
 
   Future<void> delayedBake(
-      {Size? viewportSize, double? pixelRatio, bool reset = false}) {
-    return Future.delayed(const Duration(milliseconds: 100), () {
-      return bake(
+      {Size? viewportSize,
+      double? pixelRatio,
+      bool reset = false,
+      bool testTransform = false}) {
+    final current = state;
+    if (current is! DocumentLoaded) return Future.value();
+    return current.delayedBake(
         viewportSize: viewportSize,
         pixelRatio: pixelRatio,
         reset: reset,
-      );
-    });
+        testTransform: testTransform);
   }
 
   Future<void> load() async {

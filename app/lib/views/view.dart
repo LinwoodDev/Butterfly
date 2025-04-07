@@ -103,20 +103,9 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
 
         void delayBake() {
-          final transform = context.read<TransformCubit>().state;
-          final currentSize = transform.size;
-          final currentPosition = transform.position;
-          Future.delayed(const Duration(milliseconds: 100), () {
-            final state = context.read<DocumentBloc>().state;
-            if (state is! DocumentLoadSuccess) return;
-            final transform = context.read<TransformCubit>().state;
-            if (currentSize == transform.size &&
-                currentPosition == transform.position &&
-                (currentSize != state.cameraViewport.scale ||
-                    currentPosition != state.cameraViewport.toOffset())) {
-              bake();
-            }
-          });
+          context.read<DocumentBloc>().delayedBake(
+              viewportSize: constraints.biggest,
+              pixelRatio: MediaQuery.of(context).devicePixelRatio);
         }
 
         final bloc = context.read<DocumentBloc>();
