@@ -670,7 +670,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final friction = transform.friction;
-    rect = resolution.getRect(rect);
     if (friction != null) {
       final topLeft = Offset(
         min(transform.position.dx, friction.beginPosition.dx),
@@ -685,12 +684,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
+    final renderTransform = transform.improve(resolution, rect.size);
+    rect = resolution.getRect(rect);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
     final imageWidth = (size.width * ratio).ceil();
     final imageHeight = (size.height * ratio).ceil();
-    final renderTransform = transform.improve(resolution, rect.size);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
@@ -1189,10 +1189,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.embedding != null) {
       return;
     }
-    AssetLocation? path = current.location;
-    if (current.hasAutosave()) {
-      path = await current.save(path);
-    }
     if (reset) {
       loadElements(current);
     }
@@ -1201,6 +1197,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     if (updateIndex) {
       this.updateIndex(bloc);
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(path);
     }
   }
 
@@ -1260,6 +1260,32 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void setNavigatorPage(NavigatorPage page) {
     emit(state.copyWith(navigatorPage: page));
+  }
+
+  Future<void> delayedBake(DocumentLoaded blocState,
+      {ui.Size? viewportSize,
+      double? pixelRatio,
+      bool reset = false,
+      bool testTransform = false}) {
+    final transformCubit = state.transformCubit;
+    final oldTransform = transformCubit.state;
+    return Future.delayed(const Duration(milliseconds: 100), () {
+      final newTransform = transformCubit.state;
+      final viewport = state.cameraViewport;
+      if (testTransform &&
+          (oldTransform.size != newTransform.size ||
+              oldTransform.position != newTransform.position ||
+              (oldTransform.size == viewport.scale &&
+                  oldTransform.position == viewport.toOffset()))) {
+        return Future.value();
+      }
+      return bake(
+        blocState,
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: reset,
+      );
+    });
   }
 
   void setUserName(String name) {
