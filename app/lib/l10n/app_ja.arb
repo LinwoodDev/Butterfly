@@ -684,6 +684,6 @@
       }
     }
   },
-  "moveLeft": "Move left",
-  "moveRight": "Move right"
+  "moveLeft": "左に移動",
+  "moveRight": "右に移動"
 }
