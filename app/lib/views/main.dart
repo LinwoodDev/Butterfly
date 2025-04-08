@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -578,11 +579,17 @@ class _MainBody extends StatelessWidget {
               final optPos = settings.optionsPanelPosition;
               return LayoutBuilder(
                 builder: (context, constraints) {
-                  final isMobile =
+                  final Iterable<FlutterView> windowViews =
+                      PlatformDispatcher.instance.views;
+                  final double bottomInset = windowViews.isEmpty
+                      ? 0
+                      : windowViews.first.viewInsets.bottom /
+                          windowViews.first.devicePixelRatio;
+                  final bool isMobile =
                       constraints.maxWidth < LeapBreakpoints.compact;
-                  final isLarge =
+                  final bool isLarge =
                       constraints.maxWidth >= LeapBreakpoints.expanded &&
-                          constraints.maxHeight >= 400;
+                          (constraints.maxHeight + bottomInset) >= 400;
                   final toolbar = EditToolbar(
                     isMobile: isMobile,
                     centered: true,
