@@ -579,6 +579,7 @@ class _MainBody extends StatelessWidget {
               final optPos = settings.optionsPanelPosition;
               return LayoutBuilder(
                 builder: (context, constraints) {
+                  // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
                   final Iterable<FlutterView> windowViews =
                       PlatformDispatcher.instance.views;
                   final double bottomInset = windowViews.isEmpty
