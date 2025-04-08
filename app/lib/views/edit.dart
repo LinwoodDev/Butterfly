@@ -436,6 +436,14 @@ class _EditToolbarState extends State<EditToolbar> {
                           AppLocalizations.of(context).collection,
                         ),
                         buildButton(
+                          utilitiesState.lockLayer,
+                          () => utilitiesState.copyWith(
+                            lockLayer: !utilitiesState.lockLayer,
+                          ),
+                          PhosphorIconsLight.folder,
+                          AppLocalizations.of(context).layer,
+                        ),
+                        buildButton(
                           utilitiesState.lockZoom,
                           () => utilitiesState.copyWith(
                             lockZoom: !utilitiesState.lockZoom,
