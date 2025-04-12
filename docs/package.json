@@ -15,7 +15,7 @@
     "@astrojs/starlight": "^0.33.0",
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
     "astro": "^5.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@vite-pwa/astro": "^1.0.0",
     "sass": "^1.86.3",
-    "sharp": "^0.34.0",
+    "sharp": "^0.34.1",
     "vite-plugin-pwa": "^1.0.0",
     "workbox-window": "^7.3.0"
   },

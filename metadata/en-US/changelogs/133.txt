@@ -3,6 +3,7 @@
 * Redesign collaboration dialog
 * Move collaboration button to popup menu
 * Add scroll to navigator ([#836](https://github.com/LinwoodDev/Butterfly/pull/836))
+* Improve disconnect with collaboration
 * Fix issue with editing text in the navigation rail on tablet ([#836](https://github.com/LinwoodDev/Butterfly/pull/836))
 * Fix importing non butterfly files result in error ([#829](https://github.com/LinwoodDev/Butterfly/issues/829))
 * Fix scroll sensitivty not changing move speed

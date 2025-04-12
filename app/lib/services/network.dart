@@ -69,6 +69,16 @@ final class ServerNetworkState extends NetworkState {
   });
 }
 
+final class DisconnectedNetworkState extends NetworkState {
+  @override
+  final NetworkerClientMixin connection;
+
+  DisconnectedNetworkState({
+    required super.pipe,
+    required this.connection,
+  });
+}
+
 final class ClientNetworkState extends NetworkState {
   @override
   final NetworkerClientMixin connection;
@@ -179,6 +189,9 @@ class NetworkingService extends Cubit<NetworkState?> {
       NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerClientMixin client) async {
     _setupRpc(rpc, client);
+    client.onClosed.listen((event) {
+      emit(DisconnectedNetworkState(connection: client, pipe: rpc));
+    });
     final completer = Completer<Uint8List?>();
     rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
       completer.complete(message.data);

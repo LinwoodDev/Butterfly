@@ -639,21 +639,22 @@ class _MainPopupMenu extends StatelessWidget {
                 !kIsWeb)
               BlocBuilder<NetworkingService, NetworkState?>(
                 bloc: state.networkingService,
-                builder: (_, state) => MenuItemButton(
-                  leadingIcon: state != null
-                      ? Icon(PhosphorIconsFill.users,
-                          color: ColorScheme.of(context).primary)
-                      : Icon(PhosphorIconsLight.users),
-                  onPressed: () => showCollaborationDialog(context),
-                  child: Text(
-                    AppLocalizations.of(context).collaboration,
-                    style: TextStyle(
-                      color: state != null
-                          ? ColorScheme.of(context).primary
-                          : null,
+                builder: (_, state) {
+                  final isOpen = state?.connection.isOpen ?? false;
+                  return MenuItemButton(
+                    leadingIcon: isOpen
+                        ? Icon(PhosphorIconsFill.users,
+                            color: ColorScheme.of(context).primary)
+                        : Icon(PhosphorIconsLight.users),
+                    onPressed: () => showCollaborationDialog(context),
+                    child: Text(
+                      AppLocalizations.of(context).collaboration,
+                      style: TextStyle(
+                        color: isOpen ? ColorScheme.of(context).primary : null,
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             if (state.embedding?.onOpen != null) ...[
               MenuItemButton(

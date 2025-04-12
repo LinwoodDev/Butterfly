@@ -46,8 +46,8 @@ class CollaborationDialog extends StatelessWidget {
     return BlocBuilder<NetworkingService, NetworkState?>(
       bloc: service,
       builder: (context, state) {
-        final isActive = state != null;
-        if (isActive) {
+        final isOpen = state?.connection.isOpen ?? false;
+        if (isOpen && state != null) {
           return ViewCollaborationDialog(
             state: state,
             service: service,
