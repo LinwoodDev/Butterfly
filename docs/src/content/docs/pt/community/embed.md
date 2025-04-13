@@ -11,7 +11,7 @@ Adicione o seguinte código ao seu site:
 
 ## Opções
 
-| Alternativa | tipo                                                                                              | Padrão | Descrição:                                                                                                                                                     |
+| Alternativa | Tipo                                                                                              | Padrão | Descrição                                                                                                                                                                      |
 | ----------- | ------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | guardar     | Boolean (true, false)                                                          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
 | editable    | Boolean (true, false)                                                          | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |

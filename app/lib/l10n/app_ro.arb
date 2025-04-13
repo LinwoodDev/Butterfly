@@ -674,5 +674,16 @@
   "barcodeType": "Tip cod de bare",
   "qrCode": "QR Code",
   "dataMatrix": "Matricea datelor",
-  "code128": "Codul 128"
+  "code128": "Codul 128",
+  "defaultUserName": "Utilizator {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Mută în stânga",
+  "moveRight": "Mută în dreapta"
 }

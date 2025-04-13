@@ -674,5 +674,16 @@
   "barcodeType": "Viivakoodin tyyppi",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matriisi",
-  "code128": "Koodi 128"
+  "code128": "Koodi 128",
+  "defaultUserName": "Käyttäjä {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Siirrä vasemmalle",
+  "moveRight": "Siirrä oikealle"
 }

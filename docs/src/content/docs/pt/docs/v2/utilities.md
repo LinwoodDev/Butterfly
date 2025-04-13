@@ -31,7 +31,7 @@ Please visit the tools for more information:
 
 :::
 
-### Grade
+### Grelha
 
 A grade permite a você exatamente posicionar os elementos. Você pode usá-lo para mover elementos ou criar formas.
 
@@ -39,6 +39,6 @@ A grade permite a você exatamente posicionar os elementos. Você pode usá-lo p
 
 O régua permite que você meça a distância entre dois pontos. Além disso, você pode usá-lo para criar uma linha com a ferramenta de caneta.
 
-## Câmera
+## Câmara
 
 To jump to a specific position or zoom to a specific level you can use this tab.

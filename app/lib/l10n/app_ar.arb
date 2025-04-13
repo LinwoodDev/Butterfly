@@ -674,5 +674,16 @@
   "barcodeType": "نوع الباركود",
   "qrCode": "QR Code",
   "dataMatrix": "مصفوفة البيانات",
-  "code128": "الكود 128"
+  "code128": "الكود 128",
+  "defaultUserName": "المستخدم {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "تحريك لليسار",
+  "moveRight": "تحريك لليمين"
 }

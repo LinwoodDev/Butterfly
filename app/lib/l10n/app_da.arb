@@ -674,5 +674,16 @@
   "barcodeType": "Stregkode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
-  "code128": "Kode 128"
+  "code128": "Kode 128",
+  "defaultUserName": "Bruger {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Flyt til venstre",
+  "moveRight": "Flyt til højre"
 }

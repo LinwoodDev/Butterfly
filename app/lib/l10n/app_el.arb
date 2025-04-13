@@ -674,5 +674,16 @@
   "barcodeType": "Τύπος γραμμωτού κώδικα",
   "qrCode": "QR Code",
   "dataMatrix": "Πίνακας Δεδομένων",
-  "code128": "Κωδικός 128"
+  "code128": "Κωδικός 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Μετακίνηση αριστερά",
+  "moveRight": "Μετακίνηση δεξιά"
 }

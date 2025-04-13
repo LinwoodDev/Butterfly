@@ -674,5 +674,16 @@
   "barcodeType": "バーコードの種類",
   "qrCode": "QR Code",
   "dataMatrix": "データマトリクス",
-  "code128": "コード 128"
+  "code128": "コード 128",
+  "defaultUserName": "ユーザー {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "左に移動",
+  "moveRight": "右に移動"
 }

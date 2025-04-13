@@ -674,5 +674,16 @@
   "barcodeType": "Typ čárového kódu",
   "qrCode": "QR Code",
   "dataMatrix": "Datová matice",
-  "code128": "Kód 128"
+  "code128": "Kód 128",
+  "defaultUserName": "Uživatel {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Přesunout vlevo",
+  "moveRight": "Přesunout vpravo"
 }
