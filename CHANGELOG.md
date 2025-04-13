@@ -2,6 +2,27 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-rc.0 (2025-04-13)
+
+* Add option to add custom user name for collaboration
+* Add lock layer option to restrict editing to current layer
+* Redesign collaboration dialog
+* Move collaboration button to popup menu
+* Add scroll to navigator ([#836](https://github.com/LinwoodDev/Butterfly/pull/836))
+* Use opened document parent directory as initial path in file navigator
+* Improve disconnect with collaboration
+* Fix issue with editing text in the navigation rail on tablet ([#836](https://github.com/LinwoodDev/Butterfly/pull/836))
+* Fix importing non butterfly files result in error ([#829](https://github.com/LinwoodDev/Butterfly/issues/829))
+* Fix scroll sensitivity not changing move speed
+* Fix thumbnail capture not using the current viewport
+* Fix background dialog shows wrong content after deleting one layer
+* Fix local storage not using specified path ([#835](https://github.com/LinwoodDev/Butterfly/issues/835))
+* Fix performance drop after using path eraser or deleting elements ([#831](https://github.com/LinwoodDev/Butterfly/pull/831))
+* Fix resolution size not centered
+* Fix opened document not highlighted inside file navigator
+
+Read more here: https://linwood.dev/butterfly/2.3.0-rc.0
+
 ## 2.3.0-beta.4 (2025-03-31)
 
 * Add safe area around navigator
