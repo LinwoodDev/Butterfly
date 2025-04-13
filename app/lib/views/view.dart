@@ -105,7 +105,8 @@ class _MainViewViewportState extends State<MainViewViewport>
         void delayBake() {
           context.read<DocumentBloc>().delayedBake(
               viewportSize: constraints.biggest,
-              pixelRatio: MediaQuery.of(context).devicePixelRatio);
+              pixelRatio: MediaQuery.of(context).devicePixelRatio,
+              testTransform: true);
         }
 
         final bloc = context.read<DocumentBloc>();
