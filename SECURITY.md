@@ -4,7 +4,7 @@
 
 | Version | Supported          |                                                                                                                                    |
 |---------| ------------------ |------------------------------------------------------------------------------------------------------------------------------------|
-| 2.3-dev | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.0-beta.4) |
+| 2.3-dev | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.0-rc.0) |
 | 2.2.4   | :white_check_mark: | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)        |
 | 2.1.1   | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.1.1)        |
 | 2.0.3   | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.3)        |
