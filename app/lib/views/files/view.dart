@@ -26,9 +26,11 @@ class FilesView extends StatefulWidget {
   final ValueChanged<FileSystemFile<NoteFile>>? onPreview;
   final bool collapsed;
   final bool isMobile, isPage;
+  final String? initialPath;
 
   const FilesView({
     super.key,
+    this.initialPath,
     this.activeAsset,
     this.remote,
     this.onRemoteChanged,
@@ -66,6 +68,10 @@ class FilesViewState extends State<FilesView> {
     _sortBy = _settingsCubit.state.sortBy;
     _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
+    final initialPath = widget.initialPath;
+    if (initialPath != null) {
+      _locationController.text = initialPath;
+    }
     _setFilesStream();
   }
 
