@@ -33,6 +33,8 @@ The tags are:
 
 - `:latest` is the current main branch
 - `:dev` is the current develop branch
+- `:stable` is the latest stable release (like the git tag)
+- `:nightly` is the latest nightly release (like the git tag)
 - Tags starting with `:v` are releases
 
 Start the server using: `docker run -p 8080:80 -d linwooddev/butterfly`.
