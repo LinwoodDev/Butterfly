@@ -841,9 +841,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             belowLayerImage: belowLayerImage,
             aboveLayerImage: aboveLayerImage)));
     _isBaking = false;
-    if (_queuedBake != null) {
-      _queuedBake?.call();
-    }
+    _queuedBake?.call();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
