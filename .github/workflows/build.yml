@@ -489,8 +489,8 @@ jobs:
             echo "tag=latest" >> $GITHUB_ENV
           elif [[ "${GITHUB_REF}" == "refs/heads/develop" ]]; then
             echo "tag=dev" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            echo "tag=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == refs/tags/v* || "${GITHUB_REF}" == "refs/tags/stable" || "${GITHUB_REF}" == "refs/tags/nightly" ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
           else
             echo "tag=unknown" >> $GITHUB_ENV
           fi
