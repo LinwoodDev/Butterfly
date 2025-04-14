@@ -250,7 +250,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         if (state is DocumentLoadSuccess &&
                             currentIndex.isCreating) {
                           await state.save(
-                            location.copyWith(path: toFilePath(value)),
+                            location:
+                                location.copyWith(path: toFilePath(value)),
+                            force: true,
                           );
                         }
                         bloc.add(DocumentDescriptionChanged(name: value));

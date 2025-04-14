@@ -1120,7 +1120,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   bool _currentlySaving = false;
 
   Future<AssetLocation> save(DocumentState blocState,
-      [AssetLocation? location]) async {
+      {AssetLocation? location, bool force = false}) async {
+    if (!force && state.saved == SaveState.saved) {
+      return state.location;
+    }
     if (state.networkingService.isClient) {
       return AssetLocation.empty;
     }
@@ -1219,7 +1222,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
-      path = await current.save(path);
+      path = await current.save(location: path);
     }
   }
 

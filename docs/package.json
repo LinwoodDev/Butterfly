@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.2.4",
-    "@astrojs/starlight": "^0.33.1",
+    "@astrojs/starlight": "^0.33.2",
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
@@ -23,7 +23,7 @@
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.8.1",
   "devDependencies": {
     "@vite-pwa/astro": "^1.0.1",
     "sass": "^1.86.3",

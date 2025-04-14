@@ -252,8 +252,8 @@ class DocumentLoadSuccess extends DocumentLoaded {
                           ?.hasDocumentCached(location.path) ??
                       false))));
 
-  Future<AssetLocation> save([AssetLocation? location]) =>
-      currentIndexCubit.save(this, location);
+  Future<AssetLocation> save({AssetLocation? location, bool force = false}) =>
+      currentIndexCubit.save(this, location: location, force: force);
 
   ExternalStorage? getRemoteStorage() => currentIndexCubit.getRemoteStorage();
 
