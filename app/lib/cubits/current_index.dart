@@ -645,11 +645,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
+  bool _isBaking = false;
+  Function? _queuedBake;
   Future<void> bake(DocumentLoaded blocState,
       {Size? viewportSize,
       double? pixelRatio,
       bool reset = false,
       bool resetAllLayers = false}) async {
+    if (_isBaking) {
+      _queuedBake = () {
+        bake(
+          blocState,
+          viewportSize: viewportSize,
+          pixelRatio: pixelRatio,
+          reset: reset,
+          resetAllLayers: resetAllLayers,
+        );
+      };
+      return;
+    }
+    _queuedBake = null;
     var cameraViewport = state.cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
@@ -711,6 +726,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(renderers);
     }
     canvas.scale(ratio);
+
+    _isBaking = true;
 
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
@@ -823,6 +840,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             visibleElements: visibleElements,
             belowLayerImage: belowLayerImage,
             aboveLayerImage: aboveLayerImage)));
+    _isBaking = false;
+    _queuedBake?.call();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
