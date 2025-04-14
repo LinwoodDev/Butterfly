@@ -612,11 +612,15 @@ class FilesViewState extends State<FilesView> {
                         ),
                         onPressed: () async {
                           final router = GoRouter.of(context);
-                          final (
+                          var (
                             result,
                             fileExtension,
                           ) = await importFile(context);
                           if (result == null) return;
+                          if (fileExtension == 'bin') {
+                            // see https://github.com/LinwoodDev/Butterfly/issues/839
+                            fileExtension = null;
+                          }
                           router.goNamed(
                             'native',
                             queryParameters: {
