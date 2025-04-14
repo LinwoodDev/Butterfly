@@ -88,7 +88,17 @@ jobs:
           name: apk-x86_64-build
           path: app/linwood-butterfly-android-x86_64.apk
   build-windows:
-    runs-on: windows-2025
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - image: windows-2025
+            name: x86_64
+            dir: x64
+          - image: windows-11-arm
+            name: arm64
+            dir: arm64
+    runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
@@ -124,23 +134,22 @@ jobs:
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
-        # flutter pub run msix:create
       - name: Copy portable start script
         run: |
-          cp scripts/start.bat build/windows/x64/runner/Release/
-          cp build/windows/x64/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
+          cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
+          cp build/windows/${{ matrix.arch.dir }}/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
+          name: windows-${{ matrix.arch.name }}-build
           path: |
-            app/build/windows/x64/runner/Release/**
+            app/build/windows/${{ matrix.arch.dir }}/runner/Release/**
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
-          name: windows-setup
+          name: windows-${{ matrix.arch.name }}-setup
           path: |
-            app/linwood-butterfly-windows-setup-x86_64.exe
+            app/linwood-butterfly-windows-setup-${{ matrix.arch.name }}.exe
   build-linux:
     strategy:
       fail-fast: false
@@ -560,8 +569,12 @@ jobs:
           name: apk-x86_64-build
       - uses: actions/download-artifact@v4
         with:
-          name: windows-build
-          path: windows-build/
+          name: windows-arm64-build
+          path: windows-arm64-build/
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-x86_64-build
+          path: windows-x86_64-build/
       - uses: actions/download-artifact@v4
         with:
           name: linux-x86_64-build
@@ -595,7 +608,10 @@ jobs:
           path: linux-arm64-alternative-build/
       - uses: actions/download-artifact@v4
         with:
-          name: windows-setup
+          name: windows-x86_64-setup
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-arm64-setup
       - uses: actions/download-artifact@v4
         with:
           name: macos-build
@@ -607,8 +623,10 @@ jobs:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          cd windows-build
+          cd windows-x86_64-build
           zip -r ../linwood-butterfly-windows-x86_64.zip *
+          cd windows-arm64-build
+          zip -r ../linwood-butterfly-windows-arm64.zip *
           cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
@@ -648,6 +666,8 @@ jobs:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
@@ -677,6 +697,8 @@ jobs:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
@@ -704,6 +726,8 @@ jobs:
           files: |
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-windows-setup-arm64.exe
+            linwood-butterfly-windows-arm64.zip
             linwood-butterfly-linux-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
