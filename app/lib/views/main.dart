@@ -173,6 +173,9 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       if (data != null) {
         document ??= await globalImportService.load(type: type, data: data);
+        if (document == null) {
+          GoRouter.of(context).pop();
+        }
       }
       final name = absolute ? location!.fileName : '';
       NoteData? defaultDocument;
