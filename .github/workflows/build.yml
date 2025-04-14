@@ -111,7 +111,6 @@ jobs:
           choco install innosetup
       - uses: subosito/flutter-action@v2.19.0
         with:
-          flutter-version-file: app/pubspec.yaml
           channel: "master"
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
