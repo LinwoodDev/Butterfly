@@ -53,6 +53,6 @@ After selecting an input, you will have 3 options:
 
 - `Active Tool`: The input will act as the currently selected tool on the toolbar.
 - `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
-- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View: Important Notes](https://butterfly.linwood.dev/docs/v2/intro/#important-notes).
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View](../intro/#important-notes).
 
 ![toolbar numbered](toolbar_numbered.png)
