@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-rc.1 (2025-04-16)
+
+* Reduce crashes during canvas movement ([#838](https://github.com/LinwoodDev/Butterfly/pull/838))
+* Upload the butterfly image file on the Docker website ([#756](https://github.com/LinwoodDev/Butterfly/issues/756))
+* Improve android file association
+* Improve error display page
+* Fix opening files with intent not working on android
+* Fix document was saved regardless if the file is up to date
+* Fix error not appearing after failed import
+* Fix bfly imports not working ([#839](https://github.com/LinwoodDev/Butterfly/issues/839))
+
+Read more here: https://linwood.dev/butterfly/2.3.0-rc.1
+
 ## 2.3.0-rc.0 (2025-04-13)
 
 * Add option to add custom user name for collaboration
