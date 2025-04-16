@@ -1,3 +1,5 @@
+import 'package:butterfly/theme.dart';
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -26,99 +28,95 @@ class PenInputSettings extends StatelessWidget {
               return ListView(
                 children: [
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const SizedBox(height: 8),
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.penOnlyInput,
                             title: Text(
                               AppLocalizations.of(context).penOnlyInput,
                             ),
+                            secondary: const PhosphorIcon(
+                                PhosphorIconsLight.pencilSimpleLine),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changePenOnlyInput(value ?? false),
+                                .changePenOnlyInput(value),
                           ),
                         ],
                       ),
                     ),
                   ),
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).shortcuts,
-                                style: TextTheme.of(context).headlineSmall,
-                              ),
-                              IconButton(
-                                icon: const PhosphorIcon(
-                                  PhosphorIconsLight.sealQuestion,
+                          Padding(
+                            padding: settingsCardTitlePadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context).shortcuts,
+                                  style: TextTheme.of(context).headlineSmall,
                                 ),
-                                tooltip: AppLocalizations.of(context).help,
-                                onPressed: () =>
-                                    openHelp(['shortcuts'], 'configure'),
-                              ),
-                            ],
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion,
+                                  ),
+                                  tooltip: AppLocalizations.of(context).help,
+                                  onPressed: () =>
+                                      openHelp(['shortcuts'], 'configure'),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
-                          AdvancedTextField(
-                            initialValue: config.pen?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).pen,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).pen,
+                            currentValue: config.pen,
+                            defaultValue: InputMappingDefault.pen,
                             icon: const PhosphorIcon(PhosphorIconsLight.pen),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  pen: int.tryParse(value)?.subtract(1),
+                                  pen: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.firstPenButton?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).first,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).first,
+                            currentValue: config.firstPenButton,
+                            defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.numberCircleOne,
-                            ),
+                                PhosphorIconsLight.numberCircleOne),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  firstPenButton: int.tryParse(
-                                    value,
-                                  )?.subtract(1),
+                                  firstPenButton: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.secondPenButton?.add(1)?.toString() ??
-                                    '',
-                            label: AppLocalizations.of(context).second,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).second,
+                            currentValue: config.secondPenButton,
+                            defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.numberCircleTwo,
-                            ),
+                                PhosphorIconsLight.numberCircleTwo),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  secondPenButton: int.tryParse(
-                                    value,
-                                  )?.subtract(1),
+                                  secondPenButton: value,
                                 ),
                               );
                             },

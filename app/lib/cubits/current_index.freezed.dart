@@ -51,6 +51,7 @@ mixin _$CurrentIndex {
   bool get navigatorEnabled;
   NavigatorPage get navigatorPage;
   bool get isCreating;
+  String get userName;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
@@ -62,7 +63,7 @@ mixin _$CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
   }
 }
 
@@ -74,7 +75,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
   @useResult
   $Res call(
       {int? index,
-      Handler<dynamic> handler,
+      Handler handler,
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
@@ -82,7 +83,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       UtilitiesState utilities,
       Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
-      Selection<dynamic>? selection,
+      Selection? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
       Map<int, Handler<Tool>> toggleableHandlers,
@@ -91,7 +92,7 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       TemporaryState temporaryState,
-      ui.Offset? lastPosition,
+      Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -108,7 +109,8 @@ abstract mixin class $CurrentIndexCopyWith<$Res> {
       bool areaNavigatorAsk,
       bool navigatorEnabled,
       NavigatorPage navigatorPage,
-      bool isCreating});
+      bool isCreating,
+      String userName});
 
   $UtilitiesStateCopyWith<$Res> get utilities;
   $ViewOptionCopyWith<$Res> get viewOption;
@@ -162,6 +164,7 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
     Object? navigatorEnabled = null,
     Object? navigatorPage = null,
     Object? isCreating = null,
+    Object? userName = null,
   }) {
     return _then(_self.copyWith(
       index: freezed == index
@@ -169,9 +172,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
       handler: null == handler
-          ? _self.handler!
+          ? _self.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler,
       cameraViewport: null == cameraViewport
           ? _self.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
@@ -201,9 +204,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : foregrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
       selection: freezed == selection
-          ? _self.selection!
+          ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as Selection<dynamic>?,
+              as Selection?,
       pinned: null == pinned
           ? _self.pinned
           : pinned // ignore: cast_nullable_to_non_nullable
@@ -237,9 +240,9 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           : temporaryState // ignore: cast_nullable_to_non_nullable
               as TemporaryState,
       lastPosition: freezed == lastPosition
-          ? _self.lastPosition!
+          ? _self.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
-              as ui.Offset?,
+              as Offset?,
       pointers: null == pointers
           ? _self.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -308,6 +311,10 @@ class _$CurrentIndexCopyWithImpl<$Res> implements $CurrentIndexCopyWith<$Res> {
           ? _self.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      userName: null == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 
@@ -366,7 +373,8 @@ class _CurrentIndex extends CurrentIndex {
       this.areaNavigatorAsk = false,
       this.navigatorEnabled = false,
       this.navigatorPage = NavigatorPage.waypoints,
-      this.isCreating = false})
+      this.isCreating = false,
+      this.userName = ''})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _toggleableHandlers = toggleableHandlers,
@@ -380,7 +388,7 @@ class _CurrentIndex extends CurrentIndex {
   @override
   final int? index;
   @override
-  final Handler<dynamic> handler;
+  final Handler handler;
   @override
   final CameraViewport cameraViewport;
   @override
@@ -404,7 +412,7 @@ class _CurrentIndex extends CurrentIndex {
   }
 
   @override
-  final Selection<dynamic>? selection;
+  final Selection? selection;
   @override
   @JsonKey()
   final bool pinned;
@@ -458,7 +466,7 @@ class _CurrentIndex extends CurrentIndex {
   @JsonKey()
   final TemporaryState temporaryState;
   @override
-  final ui.Offset? lastPosition;
+  final Offset? lastPosition;
   final List<int> _pointers;
   @override
   @JsonKey()
@@ -527,6 +535,9 @@ class _CurrentIndex extends CurrentIndex {
   @override
   @JsonKey()
   final bool isCreating;
+  @override
+  @JsonKey()
+  final String userName;
 
   /// Create a copy of CurrentIndex
   /// with the given fields replaced by the non-null parameter values.
@@ -538,7 +549,7 @@ class _CurrentIndex extends CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
   }
 }
 
@@ -552,7 +563,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
   @useResult
   $Res call(
       {int? index,
-      Handler<dynamic> handler,
+      Handler handler,
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
@@ -560,7 +571,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       UtilitiesState utilities,
       Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
-      Selection<dynamic>? selection,
+      Selection? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
       Map<int, Handler<Tool>> toggleableHandlers,
@@ -569,7 +580,7 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       TemporaryState temporaryState,
-      ui.Offset? lastPosition,
+      Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -586,7 +597,8 @@ abstract mixin class _$CurrentIndexCopyWith<$Res>
       bool areaNavigatorAsk,
       bool navigatorEnabled,
       NavigatorPage navigatorPage,
-      bool isCreating});
+      bool isCreating,
+      String userName});
 
   @override
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -643,6 +655,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
     Object? navigatorEnabled = null,
     Object? navigatorPage = null,
     Object? isCreating = null,
+    Object? userName = null,
   }) {
     return _then(_CurrentIndex(
       freezed == index
@@ -652,7 +665,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       null == handler
           ? _self.handler
           : handler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>,
+              as Handler,
       null == cameraViewport
           ? _self.cameraViewport
           : cameraViewport // ignore: cast_nullable_to_non_nullable
@@ -684,7 +697,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       selection: freezed == selection
           ? _self.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as Selection<dynamic>?,
+              as Selection?,
       pinned: null == pinned
           ? _self.pinned
           : pinned // ignore: cast_nullable_to_non_nullable
@@ -720,7 +733,7 @@ class __$CurrentIndexCopyWithImpl<$Res>
       lastPosition: freezed == lastPosition
           ? _self.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
-              as ui.Offset?,
+              as Offset?,
       pointers: null == pointers
           ? _self._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -789,6 +802,10 @@ class __$CurrentIndexCopyWithImpl<$Res>
           ? _self.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      userName: null == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 

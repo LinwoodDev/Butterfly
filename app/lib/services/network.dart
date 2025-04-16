@@ -39,8 +39,19 @@ sealed class NetworkState {
     required this.pipe,
   });
 
-  FutureOr<String> getShareAddress() {
-    return connection.address.toString();
+  Future<Uri> getShareAddress() async {
+    if (connection is SwampConnection) {
+      return await (connection as SwampConnection).getSecureAddress();
+    }
+    if (connection is NetworkerSocketServer) {
+      final ip = await NetworkInfo().getWifiIP();
+      return Uri(
+        scheme: 'ws',
+        host: ip ?? 'localhost',
+        port: (connection as NetworkerSocketServer).port,
+      );
+    }
+    return connection.address;
   }
 }
 
@@ -56,19 +67,16 @@ final class ServerNetworkState extends NetworkState {
     this.queue = true,
     this.password = '',
   });
+}
 
+final class DisconnectedNetworkState extends NetworkState {
   @override
-  Future<String> getShareAddress() async {
-    if (connection is SwampConnection) {
-      return (await (connection as SwampConnection).getSecureAddress())
-          .toString();
-    }
-    if (connection is NetworkerSocketServer) {
-      final ip = await NetworkInfo().getWifiIP();
-      return 'ws://$ip:${connection.address.port}';
-    }
-    return super.getShareAddress();
-  }
+  final NetworkerClientMixin connection;
+
+  DisconnectedNetworkState({
+    required super.pipe,
+    required this.connection,
+  });
 }
 
 final class ClientNetworkState extends NetworkState {
@@ -83,6 +91,7 @@ sealed class NetworkingUser with _$NetworkingUser {
   const factory NetworkingUser({
     @DoublePointJsonConverter() Point<double>? cursor,
     List<PadElement>? foreground,
+    @Default('') String name,
   }) = _NetworkingUser;
 
   factory NetworkingUser.fromJson(Map<String, dynamic> json) =>
@@ -116,15 +125,18 @@ enum ConnectionTechnology {
 
 class NetworkingService extends Cubit<NetworkState?> {
   DocumentBloc? _bloc;
+  String _userName = '';
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
-  final BehaviorSubject<Map<Channel?, NetworkingUser>> _users =
+  final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
+
+  String get userName => _userName;
 
   Stream<Set<Channel>> get connectionsStream => _connections.stream;
   Set<Channel> get connections => _connections.value;
 
   Stream<Map<Channel?, NetworkingUser>> get usersStream => _users.stream;
-  Map<Channel?, NetworkingUser> get users => _users.value;
+  Map<Channel, NetworkingUser> get users => _users.value;
 
   NetworkingService() : super(null);
 
@@ -135,7 +147,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<void> createSocketServer([String? address, int? port]) async {
-    closeNetworking();
+    await closeNetworking();
     final server = NetworkerSocketServer(
         address != null
             ? InternetAddress(address, type: InternetAddressType.any)
@@ -150,7 +162,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> createSocketClient(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
@@ -166,8 +178,8 @@ class NetworkingService extends Cubit<NetworkState?> {
     return data;
   }
 
-  void closeNetworking() {
-    state?.connection.close();
+  Future<void> closeNetworking() async {
+    await state?.connection.close();
     emit(null);
     _connections.add({});
     _users.add({});
@@ -177,6 +189,9 @@ class NetworkingService extends Cubit<NetworkState?> {
       NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerClientMixin client) async {
     _setupRpc(rpc, client);
+    client.onClosed.listen((event) {
+      emit(DisconnectedNetworkState(connection: client, pipe: rpc));
+    });
     final completer = Completer<Uint8List?>();
     rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
       completer.complete(message.data);
@@ -201,6 +216,13 @@ class NetworkingService extends Cubit<NetworkState?> {
       rpc.sendNamedFunction(NetworkEvent.init, await state.saveBytes(),
           channel: event.$1);
       sendConnections();
+      for (final user in users.entries) {
+        rpc.sendNamedFunction(
+          NetworkEvent.user,
+          Uint8List.fromList(jsonEncode(user.value.toJson()).codeUnits),
+          channel: event.$1,
+        );
+      }
     });
     server.clientDisconnect.listen((event) {
       sendConnections();
@@ -209,6 +231,7 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerBase networker) {
+    _userName = '';
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
@@ -227,7 +250,7 @@ class NetworkingService extends Cubit<NetworkState?> {
     rpc.getNamedFunction(NetworkEvent.user)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
         final user = NetworkingUser.fromJson(message.data);
-        final users = Map<Channel?, NetworkingUser>.from(_users.value)
+        final users = Map<Channel, NetworkingUser>.from(_users.value)
           ..[message.channel] = user;
         _users.add(users);
         _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
@@ -272,7 +295,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<Uint8List?> createSwampClient(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
         config: RpcConfig(channelField: false));
@@ -287,7 +310,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   }
 
   Future<void> createSwampServer(Uri uri) async {
-    closeNetworking();
+    await closeNetworking();
     final connection = await _createSwamp(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent, NetworkEvent>(
         config: RpcConfig(channelField: false));
@@ -307,4 +330,12 @@ class NetworkingService extends Cubit<NetworkState?> {
         ConnectionTechnology.webSocket => createSocketClient(uri),
         ConnectionTechnology.swamp => createSwampClient(uri)
       };
+
+  NetworkingUser getUser(Channel channel) =>
+      users[channel] ?? const NetworkingUser();
+
+  void setName(String name) {
+    _userName = name;
+    sendUser(NetworkingUser(name: name));
+  }
 }

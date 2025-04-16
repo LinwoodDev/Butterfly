@@ -1,3 +1,5 @@
+import 'package:butterfly/theme.dart';
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -26,13 +28,13 @@ class TouchInputSettings extends StatelessWidget {
               return ListView(
                 children: [
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.inputGestures,
                             title: Text(
                               AppLocalizations.of(context).inputGestures,
@@ -41,9 +43,9 @@ class TouchInputSettings extends StatelessWidget {
                                 const PhosphorIcon(PhosphorIconsLight.handTap),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeInputGestures(value ?? true),
+                                .changeInputGestures(value),
                           ),
-                          CheckboxListTile(
+                          SwitchListTile(
                             value: state.moveOnGesture,
                             title: Text(
                               AppLocalizations.of(context).moveOnGesture,
@@ -53,47 +55,51 @@ class TouchInputSettings extends StatelessWidget {
                             ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeMoveOnGesture(value ?? true),
+                                .changeMoveOnGesture(value),
                           ),
                         ],
                       ),
                     ),
                   ),
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).shortcuts,
-                                style: TextTheme.of(context).headlineSmall,
-                              ),
-                              IconButton(
-                                icon: const PhosphorIcon(
-                                  PhosphorIconsLight.sealQuestion,
+                          Padding(
+                            padding: settingsCardTitlePadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context).shortcuts,
+                                  style: TextTheme.of(context).headlineSmall,
                                 ),
-                                tooltip: AppLocalizations.of(context).help,
-                                onPressed: () =>
-                                    openHelp(['shortcuts'], 'configure'),
-                              ),
-                            ],
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion,
+                                  ),
+                                  tooltip: AppLocalizations.of(context).help,
+                                  onPressed: () =>
+                                      openHelp(['shortcuts'], 'configure'),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
-                          AdvancedTextField(
-                            initialValue:
-                                config.touch?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).touch,
-                            icon: const PhosphorIcon(PhosphorIconsLight.hand),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).touch,
+                            currentValue: config.touch,
+                            defaultValue: InputMappingDefault.touch,
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.handPointing),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  touch: int.tryParse(value)?.subtract(1),
+                                  touch: value,
                                 ),
                               );
                             },

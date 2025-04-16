@@ -376,6 +376,21 @@
   "middle": "中央",
   "first": "最初の",
   "second": "秒",
+  "activeTool": "アクティブツール",
+  "activeToolDescription": "ツールバーで現在選択されているツールを使用",
+  "handTool": "ハンドツール",
+  "handToolDescription": "ドラッグしてキャンバスの周りを移動",
+  "toolOnToolbar": "ツールバー上の特定のツール",
+  "toolOnToolbarDescription": "ツールバーの指定した位置のツールを左から始めて使用する",
+  "toolOnToolbarShort": "ツールバーの位置: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "ツール",
   "showGrid": "グリッドを表示",
   "grid": "グリッド",
@@ -652,7 +667,23 @@
   "flipVertical": "垂直方向に反転",
   "grayscale": "Grayscale",
   "moveOnGesture": "ジェスチャー上に移動",
-  "exportAllFiles": "エクスポート",
+  "exportAllFiles": "すべてのファイルをエクスポート",
   "restoreSettingsFromFile": "設定をファイルから復元",
-  "exportSettingsToFile": "設定をファイルにエクスポート"
+  "exportSettingsToFile": "設定をファイルにエクスポート",
+  "barcode": "Barcode",
+  "barcodeType": "バーコードの種類",
+  "qrCode": "QR Code",
+  "dataMatrix": "データマトリクス",
+  "code128": "コード 128",
+  "defaultUserName": "ユーザー {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "左に移動",
+  "moveRight": "右に移動"
 }

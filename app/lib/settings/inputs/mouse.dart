@@ -1,4 +1,6 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/theme.dart';
+import 'package:butterfly/widgets/input_mapping_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -26,9 +28,9 @@ class MouseInputSettings extends StatelessWidget {
               return ListView(
                 children: [
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         children: [
                           SwitchListTile(
@@ -49,76 +51,74 @@ class MouseInputSettings extends StatelessWidget {
                     ),
                   ),
                   Card(
-                    margin: const EdgeInsets.all(8),
+                    margin: settingsCardMargin,
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: settingsCardPadding,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).shortcuts,
-                                style: TextTheme.of(context).headlineSmall,
-                              ),
-                              IconButton(
-                                icon: const PhosphorIcon(
-                                  PhosphorIconsLight.sealQuestion,
+                          Padding(
+                            padding: settingsCardTitlePadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context).shortcuts,
+                                  style: TextTheme.of(context).headlineSmall,
                                 ),
-                                tooltip: AppLocalizations.of(context).help,
-                                onPressed: () =>
-                                    openHelp(['shortcuts'], 'configure'),
-                              ),
-                            ],
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion,
+                                  ),
+                                  tooltip: AppLocalizations.of(context).help,
+                                  onPressed: () =>
+                                      openHelp(['shortcuts'], 'configure'),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
-                          AdvancedTextField(
-                            initialValue:
-                                config.leftMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).left,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).left,
+                            currentValue: config.leftMouse,
+                            defaultValue: InputMappingDefault.leftMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowLeft,
-                            ),
+                                PhosphorIconsLight.mouseLeftClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  leftMouse: int.tryParse(value)?.subtract(1),
+                                  leftMouse: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.middleMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).middle,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).middle,
+                            currentValue: config.middleMouse,
+                            defaultValue: InputMappingDefault.middleMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowUp,
-                            ),
+                                PhosphorIconsLight.mouseMiddleClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  middleMouse: int.tryParse(value)?.subtract(1),
+                                  middleMouse: value,
                                 ),
                               );
                             },
                           ),
-                          const SizedBox(height: 8),
-                          AdvancedTextField(
-                            initialValue:
-                                config.rightMouse?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context).right,
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).right,
+                            currentValue: config.rightMouse,
+                            defaultValue: InputMappingDefault.rightMouse,
                             icon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowRight,
-                            ),
+                                PhosphorIconsLight.mouseRightClick),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
                                 config.copyWith(
-                                  rightMouse: int.tryParse(value)?.subtract(1),
+                                  rightMouse: value,
                                 ),
                               );
                             },

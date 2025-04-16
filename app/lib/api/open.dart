@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -71,7 +72,8 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
         .where((e) => e.getFileExtensions().isNotEmpty)
         .map((e) => fs.XTypeGroup(
               label: e.getLocalizedName(context),
-              extensions: e.getFileExtensions(),
+              extensions:
+                  kIsWeb || !Platform.isAndroid ? e.getFileExtensions() : null,
               uniformTypeIdentifiers: e.getUniformTypeIdentifiers(),
               mimeTypes: e.getMimeTypes(),
             ))

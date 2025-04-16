@@ -4,9 +4,9 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
-## Ações.
+## Ações
 
-|                 Mouse                 |      Toque      |         Acão        |
+|                  Rato                 |      Toque      |         Acão        |
 | :-----------------------------------: | :-------------: | :-----------------: |
 | Clique com o botão esquerdo e arraste | Toque e arraste | Criar uma nova área |
 |             Clique do meio            |    Dois dedos   |      Mover tela     |
@@ -14,9 +14,9 @@ The area tool allows you to create, edit and remove areas.
 
 ## Configuração
 
-|         Propriedade | Padrão | Descrição:                                                                                                                                                                       |
+|         Propriedade | Padrão | Descrição                                                                                                                                                                                        |
 | ------------------: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|               Width |    0   | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                                            |
+|             Largura |    0   | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                                            |
 |              Altura |    0   | A altura fixa da área. Se definido como 0, a altura será calculada automaticamente.                                                                              |
 | Proporção da imagem |    0   | O rácio de aspecto fixo da área. Se definido para 0, a proporção será calculada automaticamente. Uma proporção é definida como largura / altura. |
 

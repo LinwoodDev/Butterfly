@@ -376,6 +376,21 @@
   "middle": "Μεσαία",
   "first": "Πρώτη",
   "second": "Δευτερόλεπτο",
+  "activeTool": "Ενεργό Εργαλείο",
+  "activeToolDescription": "Χρήση του τρέχοντος επιλεγμένου εργαλείου στη γραμμή εργαλείων",
+  "handTool": "Εργαλείο Χεριών",
+  "handToolDescription": "Σύρετε για να μετακινηθείτε στον καμβά",
+  "toolOnToolbar": "Συγκεκριμένο εργαλείο στη γραμμή εργαλείων",
+  "toolOnToolbarDescription": "Χρησιμοποιήστε το εργαλείο στην καθορισμένη θέση στη γραμμή εργαλείων, ξεκινώντας από τα αριστερά",
+  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Εργαλεία",
   "showGrid": "Εμφάνιση καννάβου",
   "grid": "Πλέγμα",
@@ -652,7 +667,23 @@
   "flipVertical": "Κάθετη αναστροφή",
   "grayscale": "Grayscale",
   "moveOnGesture": "Μετακίνηση στη χειρονομία",
-  "exportAllFiles": "Εξαγωγή",
+  "exportAllFiles": "Εξαγωγή όλων των αρχείων",
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
-  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο"
+  "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
+  "barcode": "Barcode",
+  "barcodeType": "Τύπος γραμμωτού κώδικα",
+  "qrCode": "QR Code",
+  "dataMatrix": "Πίνακας Δεδομένων",
+  "code128": "Κωδικός 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Μετακίνηση αριστερά",
+  "moveRight": "Μετακίνηση δεξιά"
 }

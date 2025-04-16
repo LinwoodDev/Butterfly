@@ -376,6 +376,21 @@
   "middle": "Keskellä",
   "first": "Ensimmäinen",
   "second": "Sekunti",
+  "activeTool": "Aktiivinen Työkalu",
+  "activeToolDescription": "Käytä tällä hetkellä valittua työkalua työkalurivillä",
+  "handTool": "Käsin Työkalu",
+  "handToolDescription": "Vedä liikkuaksesi kankaan ympärillä",
+  "toolOnToolbar": "Työkalurivin erityinen työkalu",
+  "toolOnToolbarDescription": "Käytä työkalua määritellyssä kohdassa työkalurivin kohdalla, vasemmalta alkaen",
+  "toolOnToolbarShort": "Työkalupalkin Asema: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Työkalut",
   "showGrid": "Näytä ruudukko",
   "grid": "Ruudukko",
@@ -652,7 +667,23 @@
   "flipVertical": "Käännä pystysuuntainen",
   "grayscale": "Grayscale",
   "moveOnGesture": "Siirrä ele",
-  "exportAllFiles": "Vie",
+  "exportAllFiles": "Vie kaikki tiedostot",
   "restoreSettingsFromFile": "Palauta asetukset tiedostosta",
-  "exportSettingsToFile": "Vie asetukset tiedostoon"
+  "exportSettingsToFile": "Vie asetukset tiedostoon",
+  "barcode": "Barcode",
+  "barcodeType": "Viivakoodin tyyppi",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data Matriisi",
+  "code128": "Koodi 128",
+  "defaultUserName": "Käyttäjä {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Siirrä vasemmalle",
+  "moveRight": "Siirrä oikealle"
 }

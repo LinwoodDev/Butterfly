@@ -81,6 +81,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(false) bool navigatorEnabled,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(false) bool isCreating,
+    @Default('') String userName,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -205,7 +206,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
-        change.nextState.lastPosition != change.currentState.lastPosition) {
+        change.nextState.lastPosition != change.currentState.lastPosition ||
+        change.nextState.userName != change.currentState.userName) {
       _sendNetworkingState();
     }
   }
@@ -219,6 +221,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .map((e) => e.element)
           .whereType<PadElement>()
           .toList(),
+      name: state.networkingService.userName,
     ));
   }
 
@@ -642,11 +645,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
+  bool _isBaking = false;
+  Function? _queuedBake;
   Future<void> bake(DocumentLoaded blocState,
       {Size? viewportSize,
       double? pixelRatio,
       bool reset = false,
       bool resetAllLayers = false}) async {
+    if (_isBaking) {
+      _queuedBake = () {
+        bake(
+          blocState,
+          viewportSize: viewportSize,
+          pixelRatio: pixelRatio,
+          reset: reset,
+          resetAllLayers: resetAllLayers,
+        );
+      };
+      return;
+    }
+    _queuedBake = null;
     var cameraViewport = state.cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
@@ -667,7 +685,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final friction = transform.friction;
-    rect = resolution.getRect(rect);
     if (friction != null) {
       final topLeft = Offset(
         min(transform.position.dx, friction.beginPosition.dx),
@@ -682,12 +699,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
+    final renderTransform = transform.improve(resolution, rect.size);
+    rect = resolution.getRect(rect);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
     final imageWidth = (size.width * ratio).ceil();
     final imageHeight = (size.height * ratio).ceil();
-    final renderTransform = transform.improve(resolution, rect.size);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
@@ -708,6 +726,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(renderers);
     }
     canvas.scale(ratio);
+
+    _isBaking = true;
 
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
@@ -820,6 +840,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             visibleElements: visibleElements,
             belowLayerImage: belowLayerImage,
             aboveLayerImage: aboveLayerImage)));
+    _isBaking = false;
+    _queuedBake?.call();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
@@ -1098,7 +1120,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   bool _currentlySaving = false;
 
   Future<AssetLocation> save(DocumentState blocState,
-      [AssetLocation? location]) async {
+      {AssetLocation? location, bool force = false}) async {
+    if (!force && state.saved == SaveState.saved) {
+      return state.location;
+    }
     if (state.networkingService.isClient) {
       return AssetLocation.empty;
     }
@@ -1186,10 +1211,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.embedding != null) {
       return;
     }
-    AssetLocation? path = current.location;
-    if (current.hasAutosave()) {
-      path = await current.save(path);
-    }
     if (reset) {
       loadElements(current);
     }
@@ -1198,6 +1219,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     if (updateIndex) {
       this.updateIndex(bloc);
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(location: path);
     }
   }
 
@@ -1257,5 +1282,35 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void setNavigatorPage(NavigatorPage page) {
     emit(state.copyWith(navigatorPage: page));
+  }
+
+  Future<void> delayedBake(DocumentLoaded blocState,
+      {ui.Size? viewportSize,
+      double? pixelRatio,
+      bool reset = false,
+      bool testTransform = false}) {
+    final transformCubit = state.transformCubit;
+    final oldTransform = transformCubit.state;
+    return Future.delayed(const Duration(milliseconds: 100), () {
+      final newTransform = transformCubit.state;
+      final viewport = state.cameraViewport;
+      if (testTransform &&
+          (oldTransform.size != newTransform.size ||
+              oldTransform.position != newTransform.position ||
+              (oldTransform.size == viewport.scale &&
+                  oldTransform.position == viewport.toOffset()))) {
+        return Future.value();
+      }
+      return bake(
+        blocState,
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: reset,
+      );
+    });
+  }
+
+  void setUserName(String name) {
+    emit(state.copyWith(userName: name));
   }
 }

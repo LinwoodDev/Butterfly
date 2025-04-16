@@ -132,6 +132,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     if (state is! DocumentLoadSuccess) return;
     final ids = selected.map((r) => r.element.id).nonNulls.toList();
     context.read<DocumentBloc>().add(ElementsRemoved(ids));
+    bloc.delayedBake();
   }
 
   @override

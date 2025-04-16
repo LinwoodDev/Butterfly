@@ -4,6 +4,7 @@ import 'package:butterfly/settings/inputs/home.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/personalization.dart';
 import 'package:butterfly/settings/view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ enum SettingsView {
   connections,
   experiments;
 
-  bool get isEnabled => true;
+  bool get isEnabled => this != SettingsView.connections || !kIsWeb;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         SettingsView.general => AppLocalizations.of(context).general,

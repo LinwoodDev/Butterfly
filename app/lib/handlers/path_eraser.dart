@@ -58,6 +58,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
               globalPos,
               size,
               useCollection: utilities.lockCollection,
+              useLayer: utilities.lockLayer,
             );
     final page = state?.page;
     if (page == null) return;
@@ -70,7 +71,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_erased.isNotEmpty) {
-      context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
+      final bloc = context.getDocumentBloc();
+      bloc.add(ElementsRemoved(_erased.toList()));
+      bloc.delayedBake();
     }
   }
 

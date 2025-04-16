@@ -24,14 +24,14 @@ export default defineConfig({
         src: "./public/img/docs.svg",
       },
       favicon: "./favicon.ico",
-      social: {
-        mastodon: "https://floss.social/@linwood",
-        matrix: "https://linwood.dev/matrix",
-        discord: "https://linwood.dev/discord",
-        github: "https://github.com/LinwoodDev/Butterfly",
-      },
+      social: [
+        {icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood"},
+        {icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix"},
+        {icon: "discord", label: "Discord", href: "https://linwood.dev/discord"},
+        {icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev"},
+        {icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Butterfly"},
+      ],
       components: {
-        SocialIcons: "./src/components/CustomSocialIcons.astro",
         Head: "./src/components/Head.astro",
         Footer: "./src/components/Footer.astro",
         ContentPanel: "./src/components/ContentPanel.astro",

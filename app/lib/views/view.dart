@@ -1,19 +1,14 @@
-import 'dart:io';
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../api/intent.dart';
-import '../services/import.dart';
 import '../view_painter.dart';
 
 const kSecondaryStylusButton = 0x20;
@@ -58,22 +53,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     final bloc = context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
-    if (state == AppLifecycleState.resumed) {
-      if (!kIsWeb && Platform.isAndroid) {
-        final intentType = await getIntentType();
-        final intentData = await getIntentData();
-        if (intentType != null && intentData != null) {
-          final assetType =
-              AssetFileTypeHelper.fromMime(intentType) ?? AssetFileType.note;
-          if (mounted) {
-            context
-                .read<ImportService>()
-                .import(assetType, intentData, document: blocState.data);
-          }
-        }
-      }
-      bloc.refresh();
-    } else {
+    if (state != AppLifecycleState.resumed) {
       context.read<CurrentIndexCubit>().resetInput(bloc);
     }
   }
@@ -103,59 +83,55 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
 
         void delayBake() {
-          final transform = context.read<TransformCubit>().state;
-          final currentSize = transform.size;
-          final currentPosition = transform.position;
-          Future.delayed(const Duration(milliseconds: 100), () {
-            final state = context.read<DocumentBloc>().state;
-            if (state is! DocumentLoadSuccess) return;
-            final transform = context.read<TransformCubit>().state;
-            if (currentSize == transform.size &&
-                currentPosition == transform.position &&
-                (currentSize != state.cameraViewport.scale ||
-                    currentPosition != state.cameraViewport.toOffset())) {
-              bake();
-            }
-          });
+          context.read<DocumentBloc>().delayedBake(
+              viewportSize: constraints.biggest,
+              pixelRatio: MediaQuery.of(context).devicePixelRatio,
+              testTransform: true);
         }
 
         final bloc = context.read<DocumentBloc>();
 
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
-          int? nextPointerIndex;
+          InputMapping? nextPointerMapping;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
           // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
-              nextPointerIndex = config.touch;
+              nextPointerMapping = config.touch;
             case PointerDeviceKind.mouse:
               if ((buttons & kSecondaryMouseButton) != 0) {
-                nextPointerIndex = config.rightMouse;
+                nextPointerMapping = config.rightMouse;
               } else if ((buttons & kMiddleMouseButton) != 0) {
-                nextPointerIndex = config.middleMouse;
+                nextPointerMapping = config.middleMouse;
               } else if ((buttons & kPrimaryMouseButton) != 0) {
-                nextPointerIndex = config.leftMouse;
+                nextPointerMapping = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen;
+              nextPointerMapping = config.pen;
               if ((buttons & kSecondaryStylusButton) != 0) {
-                nextPointerIndex = config.secondPenButton;
+                nextPointerMapping = config.secondPenButton;
               } else if ((buttons & kPrimaryStylusButton) != 0) {
-                nextPointerIndex = config.firstPenButton;
+                nextPointerMapping = config.firstPenButton;
               }
             default:
-              nextPointerIndex = null;
+              nextPointerMapping = null;
           }
-          if (nextPointerIndex == null) {
-            cubit.resetTemporaryHandler(bloc);
+          if (nextPointerMapping == null ||
+              nextPointerMapping.getCategory() ==
+                  InputMappingCategory.activeTool) {
+            cubit.resetTemporaryHandler(bloc, true);
             return;
           }
-          if (nextPointerIndex <= 0) {
+          if (nextPointerMapping.getCategory() ==
+              InputMappingCategory.handTool) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
+            final int? index = nextPointerMapping.getToolPositionIndex();
+            if (index != null) {
+              await cubit.changeTemporaryHandlerIndex(context, index);
+            }
           }
         }
 
@@ -299,12 +275,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   .scrollSensitivity;
                               scale /= -sensitivity * 100;
                               scale += 1;
+                              dx /= sensitivity;
+                              dy /= sensitivity;
                               final cubit = context.read<CurrentIndexCubit>();
                               final transform =
                                   context.read<TransformCubit>().state;
                               if (_mouseState == _MouseState.scale) {
                                 // Calculate the new scale using dx and dy
-                                scale = -(dx + dy / 2) / sensitivity / 100 + 1;
+                                scale = -(dx + dy / 2) / 100 + 1;
                                 cubit.zoom(scale, pointerSignal.localPosition);
                               } else {
                                 cubit

@@ -8,7 +8,7 @@ Este guia irá mostrar-lhe como migrar para a versão mais recente.
 
 **Versão: 2.0**
 
-### Quebrar alterações
+### Grandes alterações
 
 A camada da borracha será removida. Ao migrar, a camada da borracha será removida.
 

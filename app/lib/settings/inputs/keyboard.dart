@@ -1,4 +1,5 @@
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -23,10 +24,18 @@ class KeyboardInputSettings extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) => ListView(
               children: [
-                ListTile(
-                  title: Text(AppLocalizations.of(context).shortcuts),
-                  leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
-                  onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                Card(
+                  margin: settingsCardMargin,
+                  child: Padding(
+                    padding: settingsCardPadding,
+                    child: ListTile(
+                      title: Text(AppLocalizations.of(context).shortcuts),
+                      leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
+                      onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                      trailing:
+                          const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -376,6 +376,21 @@
   "middle": "Mitten",
   "first": "Första",
   "second": "Sekund",
+  "activeTool": "Aktivt verktyg",
+  "activeToolDescription": "Använd det valda verktyget i verktygsfältet",
+  "handTool": "Handverktyg",
+  "handToolDescription": "Dra för att flytta runt i duken",
+  "toolOnToolbar": "Specifikt verktyg i verktygsfältet",
+  "toolOnToolbarDescription": "Använd verktyget på den angivna positionen i verktygsfältet, med början från vänster",
+  "toolOnToolbarShort": "Verktygsfältets position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Verktyg",
   "showGrid": "Visa rutnät",
   "grid": "Rutnät",
@@ -652,7 +667,23 @@
   "flipVertical": "Vänd vertikalt",
   "grayscale": "Grayscale",
   "moveOnGesture": "Flytta på gest",
-  "exportAllFiles": "Exportera",
+  "exportAllFiles": "Exportera alla filer",
   "restoreSettingsFromFile": "Återställ inställningar från fil",
-  "exportSettingsToFile": "Exportera inställningar till fil"
+  "exportSettingsToFile": "Exportera inställningar till fil",
+  "barcode": "Barcode",
+  "barcodeType": "Streckkodstyp",
+  "qrCode": "QR Code",
+  "dataMatrix": "Data matris",
+  "code128": "Kod 128",
+  "defaultUserName": "Användare {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Flytta åt vänster",
+  "moveRight": "Flytta åt höger"
 }

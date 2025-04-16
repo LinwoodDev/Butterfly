@@ -16,6 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UtilitiesState {
   bool get lockCollection;
+  bool get lockLayer;
   bool get lockZoom;
   bool get lockHorizontal;
   bool get lockVertical;
@@ -36,6 +37,8 @@ mixin _$UtilitiesState {
             other is UtilitiesState &&
             (identical(other.lockCollection, lockCollection) ||
                 other.lockCollection == lockCollection) &&
+            (identical(other.lockLayer, lockLayer) ||
+                other.lockLayer == lockLayer) &&
             (identical(other.lockZoom, lockZoom) ||
                 other.lockZoom == lockZoom) &&
             (identical(other.lockHorizontal, lockHorizontal) ||
@@ -48,12 +51,12 @@ mixin _$UtilitiesState {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, lockCollection, lockZoom,
-      lockHorizontal, lockVertical, fullSelection);
+  int get hashCode => Object.hash(runtimeType, lockCollection, lockLayer,
+      lockZoom, lockHorizontal, lockVertical, fullSelection);
 
   @override
   String toString() {
-    return 'UtilitiesState(lockCollection: $lockCollection, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, fullSelection: $fullSelection)';
+    return 'UtilitiesState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, fullSelection: $fullSelection)';
   }
 }
 
@@ -65,6 +68,7 @@ abstract mixin class $UtilitiesStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool lockCollection,
+      bool lockLayer,
       bool lockZoom,
       bool lockHorizontal,
       bool lockVertical,
@@ -85,6 +89,7 @@ class _$UtilitiesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? lockCollection = null,
+    Object? lockLayer = null,
     Object? lockZoom = null,
     Object? lockHorizontal = null,
     Object? lockVertical = null,
@@ -94,6 +99,10 @@ class _$UtilitiesStateCopyWithImpl<$Res>
       lockCollection: null == lockCollection
           ? _self.lockCollection
           : lockCollection // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lockLayer: null == lockLayer
+          ? _self.lockLayer
+          : lockLayer // ignore: cast_nullable_to_non_nullable
               as bool,
       lockZoom: null == lockZoom
           ? _self.lockZoom

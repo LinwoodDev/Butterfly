@@ -88,24 +88,102 @@ enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
+enum InputMappingCategory {
+  activeTool,
+  handTool,
+  toolOnToolbar,
+}
+
+class InputMappingDefault {
+  static const InputMapping leftMouse =
+      InputMapping(InputMapping.activeToolValue);
+  static const InputMapping middleMouse =
+      InputMapping(InputMapping.handToolValue);
+  static const InputMapping rightMouse = InputMapping(1);
+  static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping firstPenButton = InputMapping(2);
+  static const InputMapping secondPenButton = InputMapping(1);
+  static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
+}
+
+extension type const InputMapping(int value) {
+  static const int activeToolValue = -2;
+  static const int handToolValue = -1;
+
+  factory InputMapping.fromUIData(InputMappingCategory category,
+      [int? toolNumber] // 1-indexed
+      ) {
+    switch (category) {
+      case InputMappingCategory.activeTool:
+        return InputMapping(activeToolValue);
+      case InputMappingCategory.handTool:
+        return InputMapping(handToolValue);
+      case InputMappingCategory.toolOnToolbar:
+        return InputMapping(toolNumber?.clamp(1, 99).subtract(1) ?? 0);
+    }
+  }
+
+  InputMappingCategory getCategory() {
+    switch (value) {
+      case activeToolValue:
+        return InputMappingCategory.activeTool;
+      case handToolValue:
+        return InputMappingCategory.handTool;
+      default:
+        return InputMappingCategory.toolOnToolbar;
+    }
+  }
+
+  // 0-indexed
+  int? getToolPositionIndex() {
+    return getCategory() == InputMappingCategory.toolOnToolbar ? value : null;
+  }
+
+  // 1-indexed, for displaying to the user
+  int? getToolDisplayPosition() {
+    return getCategory() == InputMappingCategory.toolOnToolbar
+        ? value + 1
+        : null;
+  }
+
+  String getDescription(BuildContext context) {
+    switch (value) {
+      case activeToolValue:
+        return AppLocalizations.of(context).activeTool;
+      case handToolValue:
+        return AppLocalizations.of(context).handTool;
+      default:
+        return AppLocalizations.of(context).toolOnToolbarShort(value + 1);
+    }
+  }
+
+  factory InputMapping.fromJson(int json) {
+    return InputMapping(json);
+  }
+
+  int toJson() {
+    return value;
+  }
+}
+
 @freezed
 sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
 
   const factory InputConfiguration({
-    int? leftMouse,
-    @Default(-1) int? middleMouse,
-    @Default(1) int? rightMouse,
-    int? pen,
-    @Default(2) int? firstPenButton,
-    @Default(1) int? secondPenButton,
-    int? touch,
+    @Default(InputMappingDefault.leftMouse) InputMapping leftMouse,
+    @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
+    @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
+    @Default(InputMappingDefault.pen) InputMapping pen,
+    @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
+    @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
+    @Default(InputMappingDefault.touch) InputMapping touch,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
 
-  Set<int> getShortcuts() => {
+  Set<InputMapping> getShortcuts() => {
         leftMouse,
         middleMouse,
         rightMouse,
@@ -113,7 +191,7 @@ sealed class InputConfiguration with _$InputConfiguration {
         firstPenButton,
         secondPenButton,
         touch
-      }.nonNulls.toSet();
+      }.toSet();
 }
 
 enum SortBy { name, created, modified }
@@ -378,8 +456,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setBool('input_pen_only', penOnlyInput);
-    await prefs.setBool('move_with_two_fingers', inputGestures);
+    await prefs.setBool('pen_only_input', penOnlyInput);
+    await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
     await prefs.setDouble('gesture_sensitivity', gestureSensitivity);

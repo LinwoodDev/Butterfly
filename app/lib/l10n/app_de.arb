@@ -376,6 +376,21 @@
   "middle": "Mitte",
   "first": "Erster",
   "second": "Zweiter",
+  "activeTool": "Aktives Werkzeug",
+  "activeToolDescription": "Aktuell ausgewähltes Werkzeug in der Symbolleiste verwenden",
+  "handTool": "Handwerkzeug",
+  "handToolDescription": "Ziehen, um die Leinwand zu bewegen",
+  "toolOnToolbar": "Spezifisches Werkzeug in der Symbolleiste",
+  "toolOnToolbarDescription": "Verwende das Werkzeug an der angegebenen Position in der Werkzeugleiste, beginnend von links",
+  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Werkzeuge",
   "showGrid": "Raster anzeigen",
   "grid": "Raster",
@@ -652,7 +667,23 @@
   "flipVertical": "Vertikal spiegeln",
   "grayscale": "Grayscale",
   "moveOnGesture": "Geste verschieben",
-  "exportAllFiles": "Exportieren",
+  "exportAllFiles": "Alle Dateien exportieren",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
-  "exportSettingsToFile": "Einstellungen in Datei exportieren"
+  "exportSettingsToFile": "Einstellungen in Datei exportieren",
+  "barcode": "Barcode",
+  "barcodeType": "Barcode-Typ",
+  "qrCode": "QR Code",
+  "dataMatrix": "Datenmatrix",
+  "code128": "Code 128",
+  "defaultUserName": "User {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Nach links",
+  "moveRight": "Nach rechts"
 }
