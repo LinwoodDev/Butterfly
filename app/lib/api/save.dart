@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -13,9 +15,9 @@ Future<void> exportSvg(
 ]) =>
     exportFile(
       context: context,
-      bytes: data.codeUnits,
+      bytes: utf8.encode(data),
       fileExtension: 'svg',
-      mimeType: 'image/svg',
+      mimeType: 'image/svg+xml',
       uniformTypeIdentifier: 'public.svg-image',
       share: share,
       fileName: 'output',

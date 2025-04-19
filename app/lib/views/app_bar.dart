@@ -407,7 +407,8 @@ class _MainPopupMenu extends StatelessWidget {
     final windowCubit = context.read<WindowCubit>();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.navigationRail != current.navigationRail,
+          previous.navigationRail != current.navigationRail ||
+          previous.flags != current.flags,
       builder: (context, settings) {
         final state = context.read<CurrentIndexCubit>().state;
 
