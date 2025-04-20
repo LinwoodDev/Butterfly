@@ -40,16 +40,18 @@ Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Konfiguriere {#configure}
+## Configuring {#configure}
 
-Sie können die Steuerelemente anpassen, indem Sie jeder Steuerung einen Werkzeugindex geben. Die Werkzeug-Indexierung beginnt links neben der Werkzeugleiste, wobei `1` der erste Index ist. Siehe Beispiel unten
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View](../intro/#important-notes).
 
 ![Toolbar nummeriert](toolbar_numbered.png)
-
-Hier bezieht sich 1 auf das Lasso-Werkzeug, 2, das Pfangenwerkzeug usw.
-
-Die Konfigurationsoptionen, die Sie haben, sind folgende:
-
-- Leer - das Werkzeug ist freigeschaltet.
-- 0 - das Werkzeug funktioniert als Bewegung (d.h. Hand) in diesem Mod.
-- Positive Nummer - Das Tool folgt der Indizierung wie oben beschrieben.
