@@ -40,16 +40,18 @@ Standaard is de pen geconfigureerd om als volgt te functioneren:
 - `Eer` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## {#configure} configureren
+## Configuring {#configure}
 
-U kunt de besturingselementen aanpassen door elke bediening een tool index te geven. Het indexeren van de tool begint vanaf de linkerkant van de werkbalk, waarbij '1' de eerste index is. Zie voorbeeld hieronder
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View](../intro/#important-notes).
 
 ![werkbalk nummerd](toolbar_numbered.png)
-
-Hier verwijst 1 naar de lasso tool, 2, naar de pan tool etc.
-
-De configuratie-opties die u heeft zijn de volgende:
-
-- Leeg - de tool is unchaged.
-- 0 - het gereedschap zal functioneren als bewegend (d.w.z. hand) in deze mod.
-- Positief nummer - De tool zal de indexering volgen zoals hierboven uitgelegd.
