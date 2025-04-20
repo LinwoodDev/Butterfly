@@ -40,16 +40,18 @@ Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
 - `Primero` (botón primario, si es soportado): Cambia a la herramienta de mano mientras se presiona.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Configurar {#configure}
+## Configuring {#configure}
 
-Puede personalizar los controles dando a cada control un índice de herramientas. La indexación de la herramienta comienza desde la izquierda de la barra de herramientas, siendo `1` el primer índice. Ver ejemplo a continuación
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View](../intro/#important-notes).
 
 ![barra de herramientas numerada](toolbar_numbered.png)
-
-Aquí, 1 se refiere a la herramienta lasso 2, a la herramienta pan etc.
-
-Las opciones de configuración son las siguientes:
-
-- Vaciar - la herramienta no está encajada.
-- 0 - la herramienta funcionará como moviendo (es decir, mano) en este mod.
-- Número positivo - La herramienta seguirá la indexación como explicamos arriba.
