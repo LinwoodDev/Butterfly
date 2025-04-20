@@ -40,16 +40,18 @@ title: 快捷键
 - `First` (主按钮，如果支持的话)：按住时更改为手工具。
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## 配置 {#configure}
+## Configuring {#configure}
 
-您可以通过给每个控制器一个工具索引来自定义控件。 工具索引从工具栏左侧开始，第一个索引是 `1` 。 查看下面的示例
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to customize your toolbar, see [The Document View](../intro/#important-notes).
 
 ![工具栏编号](toolbar_numbered.png)
-
-这里有一个是指激光工具、2个是指pan工具等。
-
-您拥有的配置选项如下：
-
-- 空-工具已解冻。
-- 0 - 工具将在这个模组中发挥移动作用(即手)。
-- 正数 - 该工具将遵循上面解释的索引。
