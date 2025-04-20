@@ -38,6 +38,7 @@
 		<screenshot>
 			<image type="source">https://raw.githubusercontent.com/LinwoodDev/Butterfly/a60131c05bd9b7691d022c25dda9cdd76670e003/docs/src/assets/img/home.png</image>
 			<caption>Home view</caption>
+		<release version="2.3.0" date="2025-04-20" />
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>

@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0 (2025-04-20)
+
+Happy Easter! 🐰
+
+Changes since 2.3.0-rc.1:
+* Fix exporting svg
+
+This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.3
+
 ## 2.3.0-rc.1 (2025-04-16)
 
 * Reduce crashes during canvas movement ([#838](https://github.com/LinwoodDev/Butterfly/pull/838))
