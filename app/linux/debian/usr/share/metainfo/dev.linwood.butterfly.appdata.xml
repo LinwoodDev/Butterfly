@@ -38,11 +38,11 @@
 		<screenshot>
 			<image type="source">https://raw.githubusercontent.com/LinwoodDev/Butterfly/a60131c05bd9b7691d022c25dda9cdd76670e003/docs/src/assets/img/home.png</image>
 			<caption>Home view</caption>
-		<release version="2.3.0" date="2025-04-20" />
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.3.0" date="2025-04-20" />
 		<release version="2.2.4" date="2025-01-13" />
 		<release version="2.2.3" date="2024-12-24" />
 		<release version="2.2.2" date="2024-11-11" />
