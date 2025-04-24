@@ -376,6 +376,21 @@
   "middle": "Uprostřed",
   "first": "První",
   "second": "Sekunda",
+  "activeTool": "Aktivní nástroj",
+  "activeToolDescription": "Použít aktuálně vybraný nástroj na panelu nástrojů",
+  "handTool": "Ruční nástroj",
+  "handToolDescription": "Přetažením pohybovat se kolem plátna",
+  "toolOnToolbar": "Specifický nástroj na panelu nástrojů",
+  "toolOnToolbarDescription": "Použít nástroj na určené pozici na nástrojové liště začínající vlevo",
+  "toolOnToolbarShort": "Pozice panelu nástrojů: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Nástroje a nářadí",
   "showGrid": "Zobrazit mřížku",
   "grid": "Mřížka",
@@ -652,7 +667,23 @@
   "flipVertical": "Překlopit svisle",
   "grayscale": "Grayscale",
   "moveOnGesture": "Přesunout gestem",
-  "exportAllFiles": "Exportovat",
+  "exportAllFiles": "Exportovat všechny soubory",
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
-  "exportSettingsToFile": "Exportovat nastavení do souboru"
+  "exportSettingsToFile": "Exportovat nastavení do souboru",
+  "barcode": "Barcode",
+  "barcodeType": "Typ čárového kódu",
+  "qrCode": "QR Code",
+  "dataMatrix": "Datová matice",
+  "code128": "Kód 128",
+  "defaultUserName": "Uživatel {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Přesunout vlevo",
+  "moveRight": "Přesunout vpravo"
 }

@@ -34,7 +34,7 @@ class InputMappingListTile extends StatelessWidget {
             )
           : null,
       onTap: () =>
-          {openInputMappingModal(context, inputName, currentValue, onChanged)},
+          openInputMappingModal(context, inputName, currentValue, onChanged),
     );
   }
 }

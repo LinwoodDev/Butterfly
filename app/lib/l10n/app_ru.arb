@@ -376,6 +376,21 @@
   "middle": "Средний",
   "first": "Первое",
   "second": "Секунда",
+  "activeTool": "Активный инструмент",
+  "activeToolDescription": "Использовать выбранный инструмент на панели инструментов",
+  "handTool": "Ручной инструмент",
+  "handToolDescription": "Перетащите по холсту",
+  "toolOnToolbar": "Специфичный инструмент на панели инструментов",
+  "toolOnToolbarDescription": "Использовать инструмент в указанной позиции на панели инструментов, начиная с левой стороны",
+  "toolOnToolbarShort": "Положение панели инструментов: {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Инструменты",
   "showGrid": "Показать сетку",
   "grid": "Сетка",
@@ -652,7 +667,23 @@
   "flipVertical": "Отразить вертикально",
   "grayscale": "Grayscale",
   "moveOnGesture": "Переместить жест",
-  "exportAllFiles": "Экспорт",
+  "exportAllFiles": "Экспортировать все файлы",
   "restoreSettingsFromFile": "Восстановить настройки из файла",
-  "exportSettingsToFile": "Экспорт настроек в файл"
+  "exportSettingsToFile": "Экспорт настроек в файл",
+  "barcode": "Barcode",
+  "barcodeType": "Тип штрих-кода",
+  "qrCode": "QR Code",
+  "dataMatrix": "Матрица данных",
+  "code128": "Код 128",
+  "defaultUserName": "Пользователь {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Влево",
+  "moveRight": "Двигаться вправо"
 }

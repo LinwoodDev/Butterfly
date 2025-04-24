@@ -39,10 +39,27 @@
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/x-butterfly" />
                 <data
                     android:mimeType="application/octet-stream"
-                    android:host="*"
                     android:pathPattern=".*\\.bfly" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\..*\\.bfly" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\..*\\..*\\.bfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.bfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.bfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.bfly" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -77,4 +94,5 @@
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 </manifest>

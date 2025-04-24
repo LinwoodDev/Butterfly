@@ -250,7 +250,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         if (state is DocumentLoadSuccess &&
                             currentIndex.isCreating) {
                           await state.save(
-                            location.copyWith(path: toFilePath(value)),
+                            location:
+                                location.copyWith(path: toFilePath(value)),
+                            force: true,
                           );
                         }
                         bloc.add(DocumentDescriptionChanged(name: value));
@@ -359,8 +361,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               ),
             if (state.currentAreaName.isNotEmpty)
               IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.door),
-                tooltip: AppLocalizations.of(context).exit,
+                icon: const PhosphorIcon(PhosphorIconsLight.signOut),
+                tooltip: AppLocalizations.of(context).exitArea,
                 onPressed: () {
                   context
                       .read<DocumentBloc>()
@@ -388,22 +390,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 tooltip: AppLocalizations.of(context).changeDocumentPath,
               ),
             ],
-            if (state.embedding == null &&
-                settings.hasFlag('collaboration') &&
-                !kIsWeb)
-              StreamBuilder<NetworkState?>(
-                stream: state.networkingService.stream,
-                builder: (context, snapshot) => IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                  onPressed: () => showCollaborationDialog(context),
-                  tooltip: AppLocalizations.of(context).collaboration,
-                  isSelected: snapshot.data != null,
-                  selectedIcon: PhosphorIcon(
-                    PhosphorIconsFill.shareNetwork,
-                    color: ColorScheme.of(context).primary,
-                  ),
-                ),
-              ),
           ],
         ],
       );
@@ -421,7 +407,8 @@ class _MainPopupMenu extends StatelessWidget {
     final windowCubit = context.read<WindowCubit>();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.navigationRail != current.navigationRail,
+          previous.navigationRail != current.navigationRail ||
+          previous.flags != current.flags,
       builder: (context, settings) {
         final state = context.read<CurrentIndexCubit>().state;
 
@@ -650,6 +637,28 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ],
+            if (state.embedding == null &&
+                settings.hasFlag('collaboration') &&
+                !kIsWeb)
+              BlocBuilder<NetworkingService, NetworkState?>(
+                bloc: state.networkingService,
+                builder: (_, state) {
+                  final isOpen = state?.connection.isOpen ?? false;
+                  return MenuItemButton(
+                    leadingIcon: isOpen
+                        ? Icon(PhosphorIconsFill.users,
+                            color: ColorScheme.of(context).primary)
+                        : Icon(PhosphorIconsLight.users),
+                    onPressed: () => showCollaborationDialog(context),
+                    child: Text(
+                      AppLocalizations.of(context).collaboration,
+                      style: TextStyle(
+                        color: isOpen ? ColorScheme.of(context).primary : null,
+                      ),
+                    ),
+                  );
+                },
+              ),
             if (state.embedding?.onOpen != null) ...[
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),

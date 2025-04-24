@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.3.0-beta.4+132
+version: 2.3.1-rc.0+136
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
-  flutter: 3.29.2
+  flutter: 3.29.3
 
 dependencies:
   flutter:
@@ -40,7 +40,7 @@ dependencies:
   share_plus: ^10.0.1
   package_info_plus: ^8.1.3
   idb_shim: ^2.4.1+1
-  go_router: ^14.1.0
+  go_router: ^15.0.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.3.0
@@ -71,7 +71,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 850deaee0b7771bda7fa212dda944dbcc6ef0234
+      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -86,7 +86,7 @@ dependencies:
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 1cc2988f680758fcb45c88b3905b0312d8c5a513
+      ref: 72c7cdd7a60d98c3a7f587122da83dc8b99b7ed0
       path: packages/networker/networker_socket
   networker_crypto:
     git:
@@ -101,7 +101,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec1b82c9fe4d1bf3bd18d7fed311b8ae1301b9d7
+      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4

@@ -376,6 +376,21 @@
   "middle": "Milieu",
   "first": "Premier",
   "second": "Seconde",
+  "activeTool": "Outil actif",
+  "activeToolDescription": "Utiliser l'outil actuellement sélectionné dans la barre d'outils",
+  "handTool": "Outil main",
+  "handToolDescription": "Faites glisser pour vous déplacer sur la toile",
+  "toolOnToolbar": "Outil spécifique sur la barre d'outils",
+  "toolOnToolbarDescription": "Utiliser l'outil à la position spécifiée sur la barre d'outils, à partir de la gauche",
+  "toolOnToolbarShort": "Position de la barre d'outils : {display_position}",
+  "@toolOnToolbarShort": {
+    "placeholders": {
+      "display_position": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
   "tools": "Outils",
   "showGrid": "Afficher la grille",
   "grid": "Grille",
@@ -652,7 +667,23 @@
   "flipVertical": "Retourner verticalement",
   "grayscale": "Grayscale",
   "moveOnGesture": "Geste de déplacement",
-  "exportAllFiles": "Exportation",
+  "exportAllFiles": "Exporter tous les fichiers",
   "restoreSettingsFromFile": "Restaurer les paramètres à partir du fichier",
-  "exportSettingsToFile": "Exporter les paramètres vers un fichier"
+  "exportSettingsToFile": "Exporter les paramètres vers un fichier",
+  "barcode": "Barcode",
+  "barcodeType": "Type de code-barres",
+  "qrCode": "QR Code",
+  "dataMatrix": "Matrice de données",
+  "code128": "Code 128",
+  "defaultUserName": "Utilisateur {index}",
+  "@defaultUserName": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "moveLeft": "Déplacer vers la gauche",
+  "moveRight": "Déplacer vers la droite"
 }

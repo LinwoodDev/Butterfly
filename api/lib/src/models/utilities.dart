@@ -8,6 +8,7 @@ part 'utilities.g.dart';
 final class UtilitiesState with _$UtilitiesState {
   @override
   final bool lockCollection,
+      lockLayer,
       lockZoom,
       lockHorizontal,
       lockVertical,
@@ -15,6 +16,7 @@ final class UtilitiesState with _$UtilitiesState {
 
   const UtilitiesState({
     this.lockCollection = false,
+    this.lockLayer = false,
     this.lockZoom = false,
     this.lockHorizontal = false,
     this.lockVertical = false,

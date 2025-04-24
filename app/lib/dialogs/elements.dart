@@ -103,6 +103,7 @@ ContextMenuBuilder buildElementsContextMenu(
                   renderers.map((r) => r.element.id).nonNulls.toList(),
                 ),
               );
+              bloc.delayedBake();
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,

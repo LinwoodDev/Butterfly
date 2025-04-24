@@ -45,8 +45,8 @@ ContextMenuBuilder buildAreaContextMenu(
         ),
         ContextMenuItem(
           icon: area.name == state.currentAreaName
-              ? const PhosphorIcon(PhosphorIconsLight.signIn)
-              : const PhosphorIcon(PhosphorIconsLight.signOut),
+              ? const PhosphorIcon(PhosphorIconsLight.signOut)
+              : const PhosphorIcon(PhosphorIconsLight.signIn),
           label: area.name == state.currentAreaName
               ? AppLocalizations.of(context).exitArea
               : AppLocalizations.of(context).enterArea,

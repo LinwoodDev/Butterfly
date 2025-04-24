@@ -6,7 +6,7 @@ With this tool you can draw on this paper temporarily. Depois de um tempo, o sor
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição:                                                  |
+|            Propriedade | Padrão | Descrição                                                                   |
 | ---------------------: | :----: | :-------------------------------------------------------------------------- |
 |                    Cor |  Preto | A cor que será desenhada                                                    |
 |       Largura do traço |    5   | A largura do traço                                                          |

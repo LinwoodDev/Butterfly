@@ -276,10 +276,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           } else {
             final rect = renderer?.rect;
             if (rect != null) {
-              final hits =
-                  (await rayCastRect(rect, useCollection: false, full: false))
-                      .map((e) => e.element)
-                      .toList();
+              final hits = (await rayCastRect(rect, full: false))
+                  .map((e) => e.element)
+                  .toList();
               final hitIndex = hits.indexOf(renderer!.element);
               if (hitIndex != -1) {
                 if (event.arrangement == Arrangement.backward &&
@@ -1077,6 +1076,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
   }
 
+  Future<void> delayedBake(
+      {Size? viewportSize,
+      double? pixelRatio,
+      bool reset = false,
+      bool testTransform = false}) {
+    final current = state;
+    if (current is! DocumentLoaded) return Future.value();
+    return current.delayedBake(
+        viewportSize: viewportSize,
+        pixelRatio: pixelRatio,
+        reset: reset,
+        testTransform: testTransform);
+  }
+
   Future<void> load() async {
     final current = state;
     if (current is! DocumentLoaded) return;
@@ -1139,19 +1152,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     Offset globalPosition,
     double radius, {
     CameraTransform? transform,
-    required bool useCollection,
+    bool useCollection = false,
+    bool useLayer = false,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
       useCollection: useCollection,
+      useLayer: useLayer,
     );
   }
 
   Future<Set<Renderer<PadElement>>> rayCastRect(
     Rect rect, {
     CameraTransform? transform,
-    required bool useCollection,
+    bool useCollection = false,
+    bool useLayer = false,
     bool? full,
   }) async {
     final state = this.state;
@@ -1167,6 +1183,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         rect,
         transform.size,
         useCollection ? state.currentCollection : null,
+        useLayer ? state.currentLayer : null,
         full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
@@ -1175,7 +1192,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
     List<Offset> points, {
     CameraTransform? transform,
-    required bool useCollection,
+    bool useCollection = false,
+    bool useLayer = false,
     bool? full,
   }) async {
     final state = this.state;
@@ -1191,6 +1209,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         points,
         transform.size,
         useCollection ? state.currentCollection : null,
+        useLayer ? state.currentLayer : null,
         full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
@@ -1214,7 +1233,7 @@ class _RayCastParams {
   final List<_SmallRenderer> renderers;
   final Rect rect;
   final double size;
-  final String? collection;
+  final String? collection, layer;
   final bool full;
 
   const _RayCastParams(
@@ -1223,6 +1242,7 @@ class _RayCastParams {
     this.rect,
     this.size,
     this.collection,
+    this.layer,
     this.full,
   );
 }
@@ -1236,7 +1256,8 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .where((e) =>
           e.value.hitCalc.hit(rect, full: params.full) &&
           (params.collection == null ||
-              e.value.element.collection == params.collection))
+              e.value.element.collection == params.collection) &&
+          (params.layer == null || e.value.layer == params.layer))
       .map((e) => e.key)
       .toSet();
 }
@@ -1246,11 +1267,11 @@ class _RayCastPolygonParams {
   final List<_SmallRenderer> renderers;
   final List<Offset> polygon;
   final double size;
-  final String? collection;
+  final String? collection, layer;
   final bool full;
 
   const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
-      this.polygon, this.size, this.collection, this.full);
+      this.polygon, this.size, this.collection, this.layer, this.full);
 }
 
 Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
@@ -1261,7 +1282,8 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
       .where((e) =>
           e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
           (params.collection == null ||
-              e.value.element.collection == params.collection))
+              e.value.element.collection == params.collection) &&
+          (params.layer == null || e.value.layer == params.layer))
       .map((e) => e.key)
       .toSet();
 }

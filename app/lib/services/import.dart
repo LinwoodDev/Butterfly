@@ -103,7 +103,7 @@ class ImportService {
           element.name == type,
     );
     if (fileType == null) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) => UnknownImportConfirmationDialog(
           message: AppLocalizations.of(context).unknownImportType,
@@ -219,7 +219,7 @@ class ImportService {
       try {
         type = AssetFileType.values.byName(content?.type ?? '');
       } catch (e) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (context) =>
               UnknownImportConfirmationDialog(message: e.toString()),
@@ -298,7 +298,7 @@ class ImportService {
           ).then((value) => null),
       };
     } catch (e) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
@@ -340,12 +340,13 @@ class ImportService {
     return document;
   }
 
-  NoteData? importPage(Uint8List bytes, NoteData document, {Offset? position}) {
+  Future<NoteData?> importPage(Uint8List bytes, NoteData document,
+      {Offset? position}) async {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
       return _importPage(page, document, position);
     } catch (e) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),

@@ -20,16 +20,16 @@ class CameraViewport extends Equatable {
   final double x, y;
   final RenderResolution resolution;
 
-  const CameraViewport.unbaked(
-      [this.backgrounds = const [],
-      this.unbakedElements = const [],
-      List<Renderer<PadElement>>? visibleElements])
-      : image = null,
+  const CameraViewport.unbaked([
+    this.backgrounds = const [],
+    this.unbakedElements = const [],
+    List<Renderer<PadElement>>? visibleElements,
+    this.width,
+    this.height,
+  ])  : image = null,
         belowLayerImage = null,
         aboveLayerImage = null,
         scale = 1,
-        width = null,
-        height = null,
         bakedElements = const [],
         pixelRatio = 1,
         x = 0,
@@ -66,6 +66,17 @@ class CameraViewport extends Equatable {
   ui.Rect toRect() => toOffset() & toSize(true);
 
   ui.Size toRealSize() => toSize() / resolution.multiplier;
+
+  ui.Rect toRealRect() {
+    final rect = toRect();
+    final size = toRealSize();
+    return ui.Rect.fromLTWH(
+      rect.left + rect.width / 4,
+      rect.top + rect.height / 4,
+      size.width,
+      size.height,
+    );
+  }
 
   Area toArea() => Area(
         name: '',
@@ -108,14 +119,17 @@ class CameraViewport extends Equatable {
     List<Renderer<PadElement>>? visibleElements,
   }) =>
       CameraViewport.unbaked(
-          backgrounds ?? this.backgrounds,
-          unbakedElements ??
-              (List<Renderer<PadElement>>.from(this.unbakedElements)
-                ..addAll(bakedElements)),
-          visibleElements ??
-              unbakedElements ??
-              (List<Renderer<PadElement>>.from(this.unbakedElements)
-                ..addAll(bakedElements)));
+        backgrounds ?? this.backgrounds,
+        unbakedElements ??
+            (List<Renderer<PadElement>>.from(this.unbakedElements)
+              ..addAll(bakedElements)),
+        visibleElements ??
+            unbakedElements ??
+            (List<Renderer<PadElement>>.from(this.unbakedElements)
+              ..addAll(bakedElements)),
+        width,
+        height,
+      );
 
   CameraViewport bake({
     required ui.Image image,

@@ -12,6 +12,7 @@ _NetworkingUser _$NetworkingUserFromJson(Map json) => _NetworkingUser(
       foreground: (json['foreground'] as List<dynamic>?)
           ?.map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
+      name: json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$NetworkingUserToJson(_NetworkingUser instance) =>
@@ -19,6 +20,7 @@ Map<String, dynamic> _$NetworkingUserToJson(_NetworkingUser instance) =>
       'cursor': _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
           instance.cursor, const DoublePointJsonConverter().toJson),
       'foreground': instance.foreground?.map((e) => e.toJson()).toList(),
+      'name': instance.name,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

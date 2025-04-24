@@ -41,6 +41,8 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
           AssetLocation? location;
           if (state is DocumentLoaded) {
             location = state.location;
+            location = AssetLocation(
+                remote: location.remote, path: '/${location.path}');
           }
           if (_opened != null) {
             return ProjectPage(
@@ -61,6 +63,7 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
             child: FilesView(
               remote: _remote,
               activeAsset: location,
+              initialPath: location?.parent,
               onPreview: (value) {
                 final data = value.data!.load();
                 if (data == null) return;

@@ -198,6 +198,7 @@ class SelectHandler extends Handler<SelectTool> {
           globalPos,
           radius,
           useCollection: utilities.lockCollection,
+          useLayer: utilities.lockLayer,
         );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
@@ -403,12 +404,14 @@ class SelectHandler extends Handler<SelectTool> {
       final hits = await context.getDocumentBloc().rayCastRect(
             rectangleSelection,
             useCollection: utilities.lockCollection,
+            useLayer: utilities.lockLayer,
           );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
             lassoSelection,
             useCollection: utilities.lockCollection,
+            useLayer: utilities.lockLayer,
           );
       _selected.addAll(hits);
     } else {

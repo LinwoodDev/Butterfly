@@ -296,6 +296,7 @@ class LabelHandler extends Handler<LabelTool>
       bloc.add(ElementsCreated([element]));
     } else if (!context.isCreating && isEmpty && id != null) {
       bloc.add(ElementsRemoved([id]));
+      bloc.delayedBake();
     }
   }
 
