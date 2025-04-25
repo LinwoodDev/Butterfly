@@ -1,3 +1,5 @@
 * Fix camera is required for android app
+* Fix newly created elements created with pen or label desyncs collaboration
+* Update branding color on linux in appdata
 
 Read more here: https://linwood.dev/butterfly/2.3.1-rc.0

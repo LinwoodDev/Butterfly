@@ -97,6 +97,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (createNew && !shouldCreate) return;
     final element = elements[pointer] ??
         PenElement(
+          id: createUniqueId(),
           zoom: transform.size,
           collection: state.currentCollection,
           property: data.property
@@ -177,6 +178,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (recognized == null || points.length > 600 || element == null) {
       return;
     }
+    PadElement? shapeElement;
     switch (recognized.name) {
       case DefaultUnistrokeNames.line:
         double startX = points.first.dx;
@@ -194,7 +196,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             transform.localToGlobal(secondPosition.toOffset());
 
         // Create new shape element
-        PadElement shapeElement = PadElement.shape(
+        shapeElement = PadElement.shape(
+          id: createUniqueId(),
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
@@ -206,13 +209,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).line);
-
-        // Add element on document
-        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-        elements.clear();
-        context.refresh();
-
       case DefaultUnistrokeNames.circle:
         // Calculate the center of the circle as the average of the points
         double centerX =
@@ -238,7 +234,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             transform.localToGlobal(secondPosition.toOffset());
 
         // Create new ShapeElement
-        PadElement shapeElement = PadElement.shape(
+        shapeElement = PadElement.shape(
+          id: createUniqueId(),
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
@@ -250,13 +247,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
         // Show dialog
         showMessage(context, AppLocalizations.of(context.buildContext).circle);
-
-        // Add element on document
-        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-        elements.clear();
-        context.refresh();
-
       case DefaultUnistrokeNames.rectangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
@@ -273,7 +263,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             transform.localToGlobal(secondPosition.toOffset());
 
         // Create new ShapeElement
-        PadElement shapeElement = PadElement.shape(
+        shapeElement = PadElement.shape(
+          id: createUniqueId(),
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
@@ -282,17 +273,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               strokeWidth: data.property.strokeWidth),
           collection: currentCollection,
         );
-
-        // Show dialog
-        showMessage(
-            context, AppLocalizations.of(context.buildContext).rectangle);
-
-        // Add element on document
-        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-        elements.clear();
-        context.refresh();
-
       case DefaultUnistrokeNames.triangle:
         double minX = points.map((p) => p.dx).reduce(min);
         double maxX = points.map((p) => p.dx).reduce(max);
@@ -309,7 +289,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             transform.localToGlobal(secondPosition.toOffset());
 
         // Create new ShapeElement
-        PadElement shapeElement = PadElement.shape(
+        shapeElement = PadElement.shape(
+          id: createUniqueId(),
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
@@ -318,18 +299,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               strokeWidth: data.property.strokeWidth),
           collection: currentCollection,
         );
+      default:
+    }
+    if (shapeElement != null) {
+      // Add element on document
+      context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-        // Show dialog
-        showMessage(
-            context, AppLocalizations.of(context.buildContext).triangle);
-
-        // Add element on document
-        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-        elements.clear();
-        context.refresh();
-
-      default: // Manage custom shapes here
+      elements.clear();
+      context.refresh();
     }
     // Reset the points list for the next shape detection
     points.clear();

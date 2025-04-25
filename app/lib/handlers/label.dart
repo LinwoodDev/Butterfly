@@ -36,6 +36,7 @@ class LabelHandler extends Handler<LabelTool>
                       styleSheet: styleSheet,
                       scale: scale,
                       foreground: data.foreground,
+                      id: createUniqueId(),
                     )),
           textPainter: TextPainter(),
           forcedProperty: forced,
@@ -482,7 +483,7 @@ class LabelHandler extends Handler<LabelTool>
           final area = text.TextArea(
             paragraph: paragraph,
           );
-          element = TextElement(area: area);
+          element = TextElement(area: area, id: createUniqueId());
         }
         _context = e.copyWith(
           element: element,

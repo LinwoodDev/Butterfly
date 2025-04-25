@@ -12,8 +12,8 @@
 		<control>touch</control>
 	</recommends>
 	<branding>
-		<color type="primary" scheme_preference="light">#d0d0d0</color>
-		<color type="primary" scheme_preference="dark">#2f2f2f</color>
+		<color type="primary" scheme_preference="light">#f4d890</color>
+		<color type="primary" scheme_preference="dark">#4b3807</color>
 	</branding>
 	<url type="homepage">https://butterfly.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Butterfly/issues</url>
