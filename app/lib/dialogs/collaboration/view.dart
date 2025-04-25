@@ -18,7 +18,8 @@ class ViewCollaborationDialog extends StatelessWidget {
       future: Future.value(state.getShareAddress()),
       builder: (context, snapshot) {
         final address = snapshot.data?.toString() ?? '?';
-        final connect = getConnectUri(address).toString();
+        final uri = getConnectUri(address);
+        final connect = uri.toString();
         final qr = Barcode.qrCode();
         final svg = qr.toSvg(connect, width: 256, height: 256);
         return Column(
@@ -27,25 +28,69 @@ class ViewCollaborationDialog extends StatelessWidget {
             SizedBox(
                 height: 208,
                 width: 208,
-                child: InkWell(
-                    borderRadius: BorderRadius.circular(8),
-                    radius: 12,
-                    onTap: () {
-                      exportSvg(context, svg, true);
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Stack(
-                          alignment: Alignment.center,
-                          fit: StackFit.expand,
-                          children: [
-                            ColoredBox(color: Colors.white),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: SvgPicture.string(svg),
-                            ),
-                          ]),
-                    ))),
+                child: Stack(
+                  children: [
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      radius: 12,
+                      onTap: () {
+                        exportSvg(context, svg, true);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Stack(
+                            alignment: Alignment.center,
+                            fit: StackFit.expand,
+                            children: [
+                              ColoredBox(color: Colors.white),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: SvgPicture.string(svg),
+                              ),
+                            ]),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton.filledTonal(
+                        icon: const Icon(PhosphorIconsLight.copy),
+                        onPressed: () async {
+                          final clipboard = SystemClipboard.instance;
+                          if (clipboard == null) {
+                            exportSvg(context, svg, false);
+                          } else {
+                            final item = DataWriterItem();
+                            item.add(Formats.svg.lazy(() => utf8.encode(svg)));
+                            item.add(Formats.png.lazy(() async {
+                              final PictureInfo pictureInfo = await vg
+                                  .loadPicture(SvgStringLoader(svg), null);
+                              final image =
+                                  await pictureInfo.picture.toImage(256, 256);
+                              final byteData = await image.toByteData(
+                                  format: ui.ImageByteFormat.png);
+                              pictureInfo.picture.dispose();
+                              image.dispose();
+                              return byteData!.buffer.asUint8List();
+                            }));
+                            item.add(Formats.uri(NamedUri(uri)));
+                            item.add(Formats.plainText(connect));
+                            await clipboard.write([item]);
+                          }
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    LeapLocalizations.of(context).copyMessage),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          }
+                        },
+                        tooltip: AppLocalizations.of(context).copy,
+                      ),
+                    ),
+                  ],
+                )),
             const SizedBox(height: 8),
             ListTile(
               title: Text(AppLocalizations.of(context).url),
@@ -134,7 +179,7 @@ class ViewCollaborationDialog extends StatelessWidget {
         tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
       ),
       constraints:
-          BoxConstraints(maxWidth: LeapBreakpoints.medium, maxHeight: 500),
+          BoxConstraints(maxWidth: LeapBreakpoints.medium, maxHeight: 550),
       content: isMobile
           ? ListView(
               children: [

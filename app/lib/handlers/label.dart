@@ -351,7 +351,8 @@ class LabelHandler extends Handler<LabelTool>
               onLookUp: null,
               onSearchWeb: null,
               onShare: () {
-                Share.share(_context?.text ?? '');
+                SharePlus.instance
+                    .share(ShareParams(text: _context?.text ?? ''));
               },
             ));
   }

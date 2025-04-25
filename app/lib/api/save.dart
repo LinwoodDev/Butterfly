@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -19,7 +20,7 @@ Future<void> exportSvg(
       fileExtension: 'svg',
       mimeType: 'image/svg+xml',
       uniformTypeIdentifier: 'public.svg-image',
-      share: share,
+      share: kIsWeb || !Platform.isWindows ? share : false,
       fileName: 'output',
       label: AppLocalizations.of(context).export,
     );

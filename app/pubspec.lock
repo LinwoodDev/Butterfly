@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "71e7f3ad13adbf76299da91b7d711932aaded2236c0ea02f653410436eb70350"
+      sha256: f0dcbce91623f75030840609de9b64d0d73f86df279c6e9588c1501245a05eb2
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.15+1"
+    version: "0.6.15+2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -792,8 +792,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
-      resolved-ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
+      ref: dfd97619f76579af1fe0c3e3c3e2c76f5589474d
+      resolved-ref: dfd97619f76579af1fe0c3e3c3e2c76f5589474d
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -810,8 +810,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: ebf47114a4d63fc06a6be0dbbfd5594ed82e7ee5
-      resolved-ref: ebf47114a4d63fc06a6be0dbbfd5594ed82e7ee5
+      ref: "82ef4b4f68a18e55226b3030293e26c28b4964c2"
+      resolved-ref: "82ef4b4f68a18e55226b3030293e26c28b4964c2"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1234,18 +1234,18 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: fce43200aa03ea87b91ce4c3ac79f0cecd52e2a7a56c7a4185023c271fbfa6da
+      sha256: b2961506569e28948d75ec346c28775bb111986bb69dc6a20754a457e3d97fa0
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.4"
+    version: "11.0.0"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: cc012a23fc2d479854e6c80150696c4a5f5bb62cb89af4de1c505cf78d0a5d0b
+      sha256: "1032d392bc5d2095a77447a805aa3f804d2ae6a4d5eef5e6ebb3bd94c1bc19ef"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.2"
+    version: "6.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
