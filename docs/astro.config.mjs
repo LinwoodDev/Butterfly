@@ -61,10 +61,6 @@ export default defineConfig({
               link: "/docs/v2/layers/",
             },
             {
-              ...getSidebarTranslatedLabel("Migrating"),
-              link: "/docs/v2/migrating/",
-            },
-            {
               ...getSidebarTranslatedLabel("Pack"),
               link: "/docs/v2/pack/",
             },
@@ -99,6 +95,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Arguments"),
               link: "/docs/v2/arguments/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Migrating"),
+              link: "/docs/v2/migrating/",
             },
             {
               ...getSidebarTranslatedLabel("Tools"),
