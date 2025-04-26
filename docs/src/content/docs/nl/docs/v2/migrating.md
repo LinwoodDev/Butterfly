@@ -2,17 +2,13 @@
 title: Migreren
 ---
 
-Deze handleiding laat je zien hoe je naar de laatste versie moet migreren.
+This page lists breaking changes that may affect you when updating to newer versions.
 
-## 7 (Breaking change) {#7}
+## Version 2.0 (File Version 7) {#7}
 
-**Versie: 2.0**
-
-### Wijzigingen breken
-
-De gum laag zal worden verwijderd. Bij migratie zal de guaserlaag worden opgeheven.
+The eraser layer has been removed. Upon updating to version 2.0, the eraser layer will be removed automatically.
 
 ## Oudere versies
 
-Alle migraties worden automatisch gedaan.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+All migrations for earlier versions will be done automatically.
+The migration code can be found [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
