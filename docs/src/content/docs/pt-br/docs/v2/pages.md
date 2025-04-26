@@ -2,13 +2,14 @@
 title: Páginas
 ---
 
+Pages are a way to organize your notes by allowing separate infinte canvases to be contained in a single document.
+
 :::note
 
-Esta página trata do sistema de páginas que gerencia diferentes anotações e notas em um único documento. If you search a way to restrict the infinite canvas, please [use the area feature](../areas).
+Pages are **not** used to create regions on the infinite canvas. To create canvas regions, use [Areas](../areas).
 
 :::
 
-Páginas são uma maneira de organizar suas anotações.
-Se você adicionar uma barra no título de uma página, é possível criar pastas.
+Use the page navigator to create and manage pages.
 
-Use o navegador de página para criar e gerenciar páginas.
+To create folders of pages, add a `/` in the name of a page.
