@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## アクション
 
 |     マウス     |    タッチ    |   アクション   |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## 設定
 
-|     属性 | デフォルト | 説明                                                                |
-| -----: | :---: | :---------------------------------------------------------------- |
-|  Width |   0   | 領域の固定幅。 0に設定すると、幅が自動的に計算されます。                                     |
-|     高さ |   0   | 領域の固定高さ。 0に設定すると、高さが自動的に計算されます。                                   |
-| アスペクト比 |   0   | 領域の固定アスペクト比。 0 に設定すると、アスペクト比は自動的に計算されます。 アスペクト比は、幅 / 高さとして定義されます。 |
+|     属性 | デフォルト | 説明                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -----: | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  Width |  `0`  | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|     高さ |  `0`  | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| アスペクト比 |  `0`  | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 アスペクト比のプリセットは3つあります:
 
