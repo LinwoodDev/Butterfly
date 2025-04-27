@@ -40,6 +40,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ToolbarSize size;
   final bool showTools;
   final SearchController searchController;
+  final EdgeInsets? padding;
 
   PadAppBar({
     super.key,
@@ -47,16 +48,17 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.size,
     required this.searchController,
     this.showTools = true,
+    this.padding,
   });
 
-  late final windowTitleBar = _buildWindowTitleBar();
+  late final windowTitleBar = _buildWindowTitleBar(padding);
 
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(child: windowTitleBar);
   }
 
-  WindowTitleBar _buildWindowTitleBar() =>
+  WindowTitleBar _buildWindowTitleBar(padding) =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),
@@ -66,7 +68,8 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
             builder: (context, constraints) {
               final isLarge =
                   MediaQuery.of(context).size.width < LeapBreakpoints.expanded;
-              return _MainPopupMenu(viewportKey: viewportKey, isLarge: isLarge);
+              return _MainPopupMenu(
+                  viewportKey: viewportKey, isLarge: isLarge, padding: padding);
             },
           ),
         ),
@@ -398,8 +401,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
 class _MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
+  final EdgeInsets? padding;
 
-  const _MainPopupMenu({required this.viewportKey, required this.isLarge});
+  const _MainPopupMenu(
+      {required this.viewportKey, required this.isLarge, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -411,7 +416,10 @@ class _MainPopupMenu extends StatelessWidget {
           previous.flags != current.flags,
       builder: (context, settings) {
         final state = context.read<CurrentIndexCubit>().state;
-
+        final size = MediaQuery.sizeOf(context);
+        final currentX = (context.findRenderObject() as RenderBox)
+            .localToGlobal(Offset.zero)
+            .dx;
         return MenuAnchor(
           menuChildren: [
             if (state.embedding == null) ...[
@@ -687,6 +695,12 @@ class _MainPopupMenu extends StatelessWidget {
           style: MenuStyle(
             shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            ),
+            maximumSize: WidgetStateProperty.all(
+              Size(
+                min(size.width - 32, 300),
+                size.height - 70 - (padding?.bottom ?? 0) * 1.5 - currentX * 2,
+              ),
             ),
           ),
           builder: (context, controller, child) => Align(
