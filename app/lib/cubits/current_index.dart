@@ -68,7 +68,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     int? buttons,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
-    @Default(SaveState.unsaved) SaveState saved,
+    @Default(SaveState.saved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default({}) Map<String, RendererState> rendererStates,

@@ -361,7 +361,7 @@ class _CurrentIndex extends CurrentIndex {
       this.buttons,
       this.location = const AssetLocation(path: ''),
       this.embedding,
-      this.saved = SaveState.unsaved,
+      this.saved = SaveState.saved,
       this.toolbar,
       this.temporaryToolbar,
       final Map<String, RendererState> rendererStates = const {},

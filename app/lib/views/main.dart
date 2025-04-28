@@ -30,7 +30,6 @@ import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/background.dart';
 import '../actions/change_tool.dart';
@@ -158,7 +157,6 @@ class _ProjectPageState extends State<ProjectPage> {
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final prefs = await SharedPreferences.getInstance();
       final fileType =
           AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
       NoteData? document;
@@ -179,10 +177,11 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       final name = absolute ? location!.fileName : '';
       NoteData? defaultDocument;
-      if (document == null && prefs.containsKey('default_template')) {
+      final defaultTemplate = settingsCubit.state.defaultTemplate;
+      if (document == null) {
         var template = await fileSystem
             .buildTemplateSystem(_remote)
-            .getDefaultFile(prefs.getString('default_template')!);
+            .getDefaultFile(defaultTemplate);
         if (template != null && mounted) {
           defaultDocument = template.createDocument(
             name: name,
