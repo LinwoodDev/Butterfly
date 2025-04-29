@@ -16,14 +16,14 @@
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "astro": "^5.7.5",
+    "astro": "^5.7.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.10.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.0.1",
     "sass": "^1.87.0",

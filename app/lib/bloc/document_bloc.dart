@@ -1214,6 +1214,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
+
+  void sendUndo() {
+    if (!(state.networkingService?.sendUndo() ?? false)) {
+      undo();
+    }
+  }
+
+  void sendRedo() {
+    if (!(state.networkingService?.sendRedo() ?? false)) {
+      redo();
+    }
+  }
 }
 
 typedef HitRequest = bool Function(Offset position, [double radius]);

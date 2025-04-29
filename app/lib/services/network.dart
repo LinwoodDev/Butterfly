@@ -102,7 +102,9 @@ enum NetworkEvent with RpcFunctionName {
   event(mode: RpcNetworkerMode.any, canRunLocally: false),
   init(mode: RpcNetworkerMode.authority, canRunLocally: false),
   connections(mode: RpcNetworkerMode.authority, canRunLocally: false),
-  user(mode: RpcNetworkerMode.any, canRunLocally: false);
+  user(mode: RpcNetworkerMode.any, canRunLocally: false),
+  undo(mode: RpcNetworkerMode.any, canRunLocally: false),
+  redo(mode: RpcNetworkerMode.any, canRunLocally: false);
 
   @override
   final RpcNetworkerMode mode;
@@ -232,6 +234,13 @@ class NetworkingService extends Cubit<NetworkState?> {
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerBase networker) {
     _userName = '';
+    Future<void> sendInit([Channel channel = kAnyChannel]) async {
+      final state = _bloc?.state;
+      if (state is! DocumentLoaded) return;
+      rpc.sendNamedFunction(NetworkEvent.init, await state.saveBytes(),
+          channel: channel);
+    }
+
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
       ..read.listen((message) {
@@ -255,6 +264,30 @@ class NetworkingService extends Cubit<NetworkState?> {
         _users.add(users);
         _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
       }));
+    rpc.getNamedFunction(NetworkEvent.undo)?.connect(RawJsonNetworkerPlugin()
+      ..read.listen((_) {
+        _bloc?.undo();
+        sendInit();
+      }));
+    rpc.getNamedFunction(NetworkEvent.redo)?.connect(RawJsonNetworkerPlugin()
+      ..read.listen((_) {
+        _bloc?.redo();
+        sendInit();
+      }));
+  }
+
+  bool sendUndo() {
+    final state = this.state;
+    if (state == null) return false;
+    state.pipe.sendNamedFunction(NetworkEvent.undo, Uint8List(0));
+    return true;
+  }
+
+  bool sendRedo() {
+    final state = this.state;
+    if (state == null) return false;
+    state.pipe.sendNamedFunction(NetworkEvent.redo, Uint8List(0));
+    return true;
   }
 
   void sendUser(NetworkingUser user) {
