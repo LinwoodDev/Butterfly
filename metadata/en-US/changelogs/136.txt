@@ -1,4 +1,5 @@
 * Add copy button to the collaboration dialog
+* Add process intent queries in android to fix internal flutter android processing
 * Improve sharing files
 * Improve default template when creating a new document ([#848](https://github.com/LinwoodDev/Butterfly/issues/848))
 * Fix camera is required for android app

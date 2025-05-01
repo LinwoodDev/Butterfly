@@ -260,7 +260,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                       ),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.code),
-                        title: Text(AppLocalizations.of(context).source),
+                        title: Text(AppLocalizations.of(context).sourceCode),
                         onTap: () => launchUrl(
                           Uri.https('go.linwood.dev', 'butterfly/source'),
                           mode: LaunchMode.externalApplication,
