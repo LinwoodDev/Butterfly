@@ -62,6 +62,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),
+        titleIgnorePointer: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(
