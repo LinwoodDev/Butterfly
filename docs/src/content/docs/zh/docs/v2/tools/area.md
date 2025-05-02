@@ -4,6 +4,8 @@ title: 区域工具
 
 区域工具用来创建，编辑和删除区域。
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## 动作
 
 |    鼠标   |   触控  |   动作  |
@@ -14,11 +16,11 @@ title: 区域工具
 
 ## 配置
 
-|  属性 | 默认值 | 描述                                      |
-| --: | :-: | :-------------------------------------- |
-|  宽度 |  0  | 区域的固定宽度。 如果设置为 0，宽度将自动计算。               |
-|  高度 |  0  | 区域的固定高度 区域的固定高度 如果设置为 0，高度将自动计算。        |
-| 宽高比 |  0  | 区域的固定宽高比。 如果设置为 0，宽高比将自动计算。 宽高比定义为宽度/高度 |
+|  属性 | 默认值 | 描述                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --: | :-: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  宽度 | `0` | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|  高度 | `0` | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| 宽高比 | `0` | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 三个宽高比预设如下：
 

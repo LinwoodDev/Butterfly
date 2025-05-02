@@ -2,17 +2,13 @@
 title: هجرة
 ---
 
-سيظهر لك هذا الدليل كيفية الانتقال إلى أحدث إصدار.
+This page lists breaking changes that may affect you when updating to newer versions.
 
-## 7 (Breaking change) {#7}
+## Version 2.0 (File Version 7) {#7}
 
-**الإصدار: 2.0**
-
-### كسر التغييرات
-
-سيتم إزالة طبقة الممحاة. وفيما يتعلق بالهجرة، سيتم إزالة طبقة الممحاة.
+The eraser layer has been removed. Upon updating to version 2.0, the eraser layer will be removed automatically.
 
 ## الإصدارات القديمة
 
-سيتم القيام بجميع الترجمات قبل ذلك تلقائيا.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+All migrations for earlier versions will be done automatically.
+The migration code can be found [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

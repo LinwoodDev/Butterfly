@@ -2,6 +2,14 @@
 title: Paketti
 ---
 
+:::caution[Upcoming changes]
+
+In-document packs will be deprecated soon. In the meantime, it is recommended to save your packs globally to ensure a smooth transition to future releases.
+
+See [this issue](https://github.com/LinwoodDev/Butterfly/issues/805) for details.
+
+:::
+
 A pack is a collection of components that can be used in the stamp tool. Voit luoda oman pakettisi tai tuoda olemassa olevan paketin. Tätä varten klikkaa vasemmassa yläkulmassa ja klikkaa "Pakkaukset".
 
 ## Ominaisuudet

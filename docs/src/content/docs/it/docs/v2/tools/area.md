@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Azioni
 
 |             Mouse             |       Tocco      |        Azione       |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Configurazione
 
-|           Proprietà | Predefinito | Descrizione                                                                                                                                                                                                           |
-| ------------------: | :---------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           Larghezza |      0      | La larghezza fissa dell'area. Se impostato a 0, la larghezza verrà calcolata automaticamente.                                                                                         |
-|             Altezza |      0      | L'altezza fissa dell'area. Se impostata a 0, l'altezza verrà calcolata automaticamente.                                                                                               |
-| Rapporto dimensioni |      0      | Il rapporto di aspetto fisso dell'area. Se impostato a 0, le proporzioni saranno calcolate automaticamente. Un rapporto di aspetto è definito come larghezza/altezza. |
+|           Proprietà | Predefinito | Descrizione                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------: | :---------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           Larghezza |     `0`     | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|             Altezza |     `0`     | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| Rapporto dimensioni |     `0`     | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 Ci sono tre preimpostazioni del rapporto di aspetto:
 

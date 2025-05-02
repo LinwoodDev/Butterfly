@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Toiminnot
 
 |          Hiiri          |     Kosketa     |     Toiminto    |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Asetukset
 
-| Ominaisuus | Oletus | Kuvaus                                                                                                                                                                                 |
-| ---------: | :----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|      Width |    0   | Alueen kiinteä leveys. Jos arvo on 0, leveys lasketaan automaattisesti.                                                                                |
-|    Korkeus |    0   | Alueen kiinteä korkeus. Jos arvo on 0, korkeus lasketaan automaattisesti.                                                                              |
-|  Kuvasuhde |    0   | Alueen kiinteä kuvasuhde on sama. Jos arvo on 0, kuvasuhde lasketaan automaattisesti. Kuvasuhde määritellään leveydeksi / korkeudeksi. |
+| Ominaisuus | Oletus | Kuvaus                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------: | :----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|      Width |   `0`  | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|    Korkeus |   `0`  | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+|  Kuvasuhde |   `0`  | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 On olemassa kolme kuvasuhteen esiasetuksia:
 
