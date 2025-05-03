@@ -122,6 +122,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return ElementsLayerConverted.fromJson(json);
     case 'encryptionChanged':
       return EncryptionChanged.fromJson(json);
+    case 'documentRebuilt':
+      return DocumentRebuilt.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'DocumentEvent',
@@ -4805,6 +4807,88 @@ class _$EncryptionChangedCopyWithImpl<$Res>
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
               as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class DocumentRebuilt extends DocumentEvent {
+  const DocumentRebuilt(@Uint8ListJsonConverter() this.data,
+      {final String? $type})
+      : $type = $type ?? 'documentRebuilt',
+        super._();
+  factory DocumentRebuilt.fromJson(Map<String, dynamic> json) =>
+      _$DocumentRebuiltFromJson(json);
+
+  @Uint8ListJsonConverter()
+  final Uint8List data;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $DocumentRebuiltCopyWith<DocumentRebuilt> get copyWith =>
+      _$DocumentRebuiltCopyWithImpl<DocumentRebuilt>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$DocumentRebuiltToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is DocumentRebuilt &&
+            const DeepCollectionEquality().equals(other.data, data));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+
+  @override
+  String toString() {
+    return 'DocumentEvent.documentRebuilt(data: $data)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DocumentRebuiltCopyWith<$Res>
+    implements $DocumentEventCopyWith<$Res> {
+  factory $DocumentRebuiltCopyWith(
+          DocumentRebuilt value, $Res Function(DocumentRebuilt) _then) =
+      _$DocumentRebuiltCopyWithImpl;
+  @useResult
+  $Res call({@Uint8ListJsonConverter() Uint8List data});
+}
+
+/// @nodoc
+class _$DocumentRebuiltCopyWithImpl<$Res>
+    implements $DocumentRebuiltCopyWith<$Res> {
+  _$DocumentRebuiltCopyWithImpl(this._self, this._then);
+
+  final DocumentRebuilt _self;
+  final $Res Function(DocumentRebuilt) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(DocumentRebuilt(
+      null == data
+          ? _self.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
     ));
   }
 }

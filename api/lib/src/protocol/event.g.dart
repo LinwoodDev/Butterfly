@@ -704,3 +704,14 @@ Map<String, dynamic> _$EncryptionChangedToJson(EncryptionChanged instance) =>
       'password': instance.password,
       'type': instance.$type,
     };
+
+DocumentRebuilt _$DocumentRebuiltFromJson(Map json) => DocumentRebuilt(
+      const Uint8ListJsonConverter().fromJson(json['data'] as String),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$DocumentRebuiltToJson(DocumentRebuilt instance) =>
+    <String, dynamic>{
+      'data': const Uint8ListJsonConverter().toJson(instance.data),
+      'type': instance.$type,
+    };

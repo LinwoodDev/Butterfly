@@ -237,6 +237,9 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.encryptionChanged(String? password) =
       EncryptionChanged;
 
+  const factory DocumentEvent.documentRebuilt(
+      @Uint8ListJsonConverter() Uint8List data) = DocumentRebuilt;
+
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 
@@ -249,6 +252,7 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         PresentationModeEntered _ => false,
         PresentationModeExited _ => false,
         PresentationTick _ => false,
+        DocumentRebuilt _ => false,
         _ => true,
       };
 

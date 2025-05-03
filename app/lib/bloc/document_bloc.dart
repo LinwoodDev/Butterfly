@@ -1019,6 +1019,31 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       data = data.changePassword(password);
       _saveState(emit, state: current.copyWith(data: data));
     });
+    on<DocumentRebuilt>((event, emit) {
+      var state = this.state;
+      if (state is! DocumentLoadSuccess) return;
+      final data = NoteData.fromData(event.data);
+      final page = data.getPage(state.pageName);
+      final metadata = data.getMetadata();
+      _saveState(
+        emit,
+        state: state.copyWith(
+          page: page,
+          data: data,
+          metadata: metadata,
+        ),
+        resetAll: true,
+      );
+    });
+  }
+
+  @override
+  void onTransition(
+      covariant Transition<ReplayEvent, DocumentState> transition) {
+    if (transition.event is! DocumentEvent) {
+      state.networkingService?.testForInits(transition.nextState);
+    }
+    super.onTransition(transition);
   }
 
   void _saveState(

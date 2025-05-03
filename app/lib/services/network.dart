@@ -140,12 +140,20 @@ class NetworkingService extends Cubit<NetworkState?> {
   Stream<Map<Channel?, NetworkingUser>> get usersStream => _users.stream;
   Map<Channel, NetworkingUser> get users => _users.value;
 
+  final StreamController<Uint8List> _resetController =
+      StreamController.broadcast();
+
+  Stream<Uint8List> get resetStream => _resetController.stream;
+
   NetworkingService() : super(null);
 
   bool get isActive => state != null;
 
   void setup(DocumentBloc bloc) {
     _bloc = bloc;
+    resetStream.listen((event) {
+      bloc.add(DocumentRebuilt(event));
+    });
   }
 
   Future<void> createSocketServer([String? address, int? port]) async {
@@ -187,6 +195,12 @@ class NetworkingService extends Cubit<NetworkState?> {
     _users.add({});
   }
 
+  void _setupReset(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc) {
+    rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
+      _resetController.add(message.data);
+    });
+  }
+
   Future<Uint8List?> _setupClient(
       NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerClientMixin client) async {
@@ -195,10 +209,18 @@ class NetworkingService extends Cubit<NetworkState?> {
       emit(DisconnectedNetworkState(connection: client, pipe: rpc));
     });
     final completer = Completer<Uint8List?>();
-    rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
+    final listener =
+        rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
       completer.complete(message.data);
     });
-    return completer.future.timeout(kTimeout);
+    return completer.future.timeout(kTimeout).then((e) {
+      listener.cancel();
+      _setupReset(rpc);
+      return e;
+    }).catchError((_) {
+      emit(DisconnectedNetworkState(connection: client, pipe: rpc));
+      return null;
+    });
   }
 
   void _setupServer(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
@@ -231,15 +253,19 @@ class NetworkingService extends Cubit<NetworkState?> {
     });
   }
 
+  Future<void> sendInit(
+      {Channel channel = kAnyChannel, DocumentState? docState}) async {
+    final blocState = docState ?? _bloc?.state;
+    if (blocState is! DocumentLoaded) return;
+    final state = this.state;
+    if (state == null) return;
+    state.pipe.sendNamedFunction(NetworkEvent.init, await blocState.saveBytes(),
+        channel: channel);
+  }
+
   void _setupRpc(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc,
       NetworkerBase networker) {
     _userName = '';
-    Future<void> sendInit([Channel channel = kAnyChannel]) async {
-      final state = _bloc?.state;
-      if (state is! DocumentLoaded) return;
-      rpc.sendNamedFunction(NetworkEvent.init, await state.saveBytes(),
-          channel: channel);
-    }
 
     rpc.registerNamedFunctions(NetworkEvent.values);
     rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
@@ -264,29 +290,45 @@ class NetworkingService extends Cubit<NetworkState?> {
         _users.add(users);
         _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
       }));
-    rpc.getNamedFunction(NetworkEvent.undo)?.connect(RawJsonNetworkerPlugin()
-      ..read.listen((_) {
-        _bloc?.undo();
-        sendInit();
-      }));
-    rpc.getNamedFunction(NetworkEvent.redo)?.connect(RawJsonNetworkerPlugin()
-      ..read.listen((_) {
-        _bloc?.redo();
-        sendInit();
-      }));
+    rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
+      _bloc?.undo();
+      _needsInit = true;
+      _bloc
+          ?.load()
+          .then((value) => _bloc?.bake().then((value) => _bloc?.save()));
+    });
+    rpc.getNamedFunction(NetworkEvent.redo)?.read.listen((_) {
+      _bloc?.redo();
+      _needsInit = true;
+      _bloc
+          ?.load()
+          .then((value) => _bloc?.bake().then((value) => _bloc?.save()));
+    });
   }
+
+  bool _needsInit = false;
 
   bool sendUndo() {
     final state = this.state;
     if (state == null) return false;
-    state.pipe.sendNamedFunction(NetworkEvent.undo, Uint8List(0));
+    if (state is ClientNetworkState) {
+      state.pipe.sendNamedFunction(NetworkEvent.undo, Uint8List(0));
+      return true;
+    }
+    _bloc?.undo();
+    _needsInit = true;
     return true;
   }
 
   bool sendRedo() {
     final state = this.state;
     if (state == null) return false;
-    state.pipe.sendNamedFunction(NetworkEvent.redo, Uint8List(0));
+    if (state is ClientNetworkState) {
+      state.pipe.sendNamedFunction(NetworkEvent.redo, Uint8List(0));
+      return true;
+    }
+    _bloc?.redo();
+    _needsInit = true;
     return true;
   }
 
@@ -299,6 +341,12 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   bool get isClient => state is ClientNetworkState;
   bool get isServer => state is ServerNetworkState;
+
+  void testForInits(DocumentState state) {
+    if (!_needsInit) return;
+    _needsInit = false;
+    sendInit(docState: state);
+  }
 
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync() || _externalEvent) return;
