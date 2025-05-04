@@ -315,9 +315,20 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
+  bool canChange(PointerDownEvent event, EventContext context) {
+    final cameraTransform = context.getCameraTransform();
+    final globalPos = cameraTransform.localToGlobal(event.localPosition);
+    final selectionRect = getSelectionRect();
+    final shouldTransform = _selectionManager.shouldTransform(globalPos,
+        cameraTransform.size, context.getSettings().touchSensitivity);
+    if (selectionRect != null && selectionRect.contains(globalPos)) {
+      return false;
+    }
+    if (shouldTransform) {
+      return false;
+    }
+    return true;
+  }
 
   RulerHandler? _ruler;
   Offset? _rulerRotationStart;
