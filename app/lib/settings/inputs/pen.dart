@@ -92,6 +92,20 @@ class PenInputSettings extends StatelessWidget {
                             },
                           ),
                           InputMappingListTile(
+                            inputName: AppLocalizations.of(context).invertedPen,
+                            currentValue: config.invertedPen,
+                            defaultValue: InputMappingDefault.invertedPen,
+                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                            onChanged: (value) {
+                              final cubit = context.read<SettingsCubit>();
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  invertedPen: value,
+                                ),
+                              );
+                            },
+                          ),
+                          InputMappingListTile(
                             inputName: AppLocalizations.of(context).first,
                             currentValue: config.firstPenButton,
                             defaultValue: InputMappingDefault.firstPenButton,

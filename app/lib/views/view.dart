@@ -115,6 +115,8 @@ class _MainViewViewportState extends State<MainViewViewport>
               } else if ((buttons & kPrimaryStylusButton) != 0) {
                 nextPointerMapping = config.firstPenButton;
               }
+            case PointerDeviceKind.invertedStylus:
+              nextPointerMapping = config.invertedPen;
             default:
               nextPointerMapping = null;
           }
