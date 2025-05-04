@@ -112,8 +112,9 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final penOnlyInput = settings.penOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
         currentIndexCubit.state, localPosition, viewportSize, transform);
-    if (penOnlyInput && (kind != PointerDeviceKind.stylus &&
-        kind != PointerDeviceKind.invertedStylus)) {
+    if (penOnlyInput &&
+        (kind != PointerDeviceKind.stylus &&
+            kind != PointerDeviceKind.invertedStylus)) {
       return;
     }
     if (!_elements.containsKey(pointer) && !forceCreate) {
