@@ -20,6 +20,9 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
       pen: json['pen'] == null
           ? InputMappingDefault.pen
           : InputMapping.fromJson((json['pen'] as num).toInt()),
+      invertedPen: json['invertedPen'] == null
+          ? InputMappingDefault.invertedPen
+          : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
       firstPenButton: json['firstPenButton'] == null
           ? InputMappingDefault.firstPenButton
           : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
@@ -37,6 +40,7 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'middleMouse': instance.middleMouse.toJson(),
       'rightMouse': instance.rightMouse.toJson(),
       'pen': instance.pen.toJson(),
+      'invertedPen': instance.invertedPen.toJson(),
       'firstPenButton': instance.firstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),
       'touch': instance.touch.toJson(),
