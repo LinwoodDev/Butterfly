@@ -165,10 +165,10 @@ packages:
     dependency: transitive
     description:
       name: coverage
-      sha256: "7436ae7fbbf8f09c70079ce132a0a8ca67e197d5b8da3e441bc89af708c5a13b"
+      sha256: "802bd084fb82e55df091ec8ad1553a7331b61c08251eef19a508b6f3f3a9858d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.13.0"
+    version: "1.13.1"
   crypto:
     dependency: transitive
     description:
