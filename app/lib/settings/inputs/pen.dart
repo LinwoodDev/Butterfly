@@ -95,7 +95,10 @@ class PenInputSettings extends StatelessWidget {
                             inputName: AppLocalizations.of(context).invertedPen,
                             currentValue: config.invertedPen,
                             defaultValue: InputMappingDefault.invertedPen,
-                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                            icon: Transform.flip(
+                                flipX: true,
+                                flipY: true,
+                                child: PhosphorIcon(PhosphorIconsLight.pen)),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
