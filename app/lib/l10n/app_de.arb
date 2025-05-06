@@ -18,6 +18,7 @@
   "includeEraser": "Löschvorrichtung einbeziehen?",
   "thinning": "Dünnheit",
   "pen": "Stift",
+  "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
   "pathEraser": "Pfadlöscher",
   "label": "Label",
