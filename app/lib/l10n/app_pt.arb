@@ -18,6 +18,7 @@
   "includeEraser": "Incluir borracha?",
   "thinning": "Espessura",
   "pen": "Caneta",
+  "invertedPen": "Inverted Pen",
   "eraser": "Borracha",
   "pathEraser": "Borracha de traços",
   "label": "Texto",
