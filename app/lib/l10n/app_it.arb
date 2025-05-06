@@ -18,6 +18,7 @@
   "includeEraser": "Includere la gomma?",
   "thinning": "Sottigliezza",
   "pen": "Penna",
+  "invertedPen": "Inverted Pen",
   "eraser": "Gomma",
   "pathEraser": "Cancella tratto",
   "label": "Etichetta",
