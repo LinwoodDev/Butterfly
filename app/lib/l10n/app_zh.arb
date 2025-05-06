@@ -18,6 +18,7 @@
   "includeEraser": "包括擦除器？",
   "thinning": "闪光灯",
   "pen": "笔",
+  "invertedPen": "Inverted Pen",
   "eraser": "橡皮擦",
   "pathEraser": "整笔擦除",
   "label": "标签",
