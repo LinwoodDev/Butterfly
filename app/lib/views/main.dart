@@ -509,11 +509,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                         showTools: settings.isInline &&
                                             state.embedding?.editable != false,
                                       ),
-                                drawer: state is DocumentLoadSuccess
-                                    ? const DocumentNavigator(
-                                        asDrawer: true,
-                                      )
-                                    : null,
                                 body: Actions(
                                   actions: _actions,
                                   child: const _MainBody(),

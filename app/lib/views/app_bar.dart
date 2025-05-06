@@ -448,7 +448,14 @@ class _MainPopupMenu extends StatelessWidget {
                     child: Text(e.getLocalizedName(context)),
                     onPressed: () {
                       cubit.setNavigatorPage(e);
-                      Scaffold.of(context).openDrawer();
+                      final bloc = context.read<DocumentBloc>();
+                      showDialog(
+                        context: context,
+                        builder: (context) => MultiBlocProvider(providers: [
+                          BlocProvider.value(value: bloc),
+                          BlocProvider.value(value: cubit),
+                        ], child: DocumentNavigator(asDialog: true)),
+                      );
                     },
                   ),
                 ),
