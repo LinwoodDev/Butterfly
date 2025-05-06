@@ -18,6 +18,7 @@
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "ปากกา",
+  "invertedPen": "Inverted Pen",
   "eraser": "ยางลบ",
   "pathEraser": "Path eraser",
   "label": "ป้ายกำกับ",
