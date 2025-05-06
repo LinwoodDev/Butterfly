@@ -18,6 +18,7 @@
   "includeEraser": "Inkludera suddgummi?",
   "thinning": "Gallring",
   "pen": "Penna",
+  "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
   "pathEraser": "Radering av sökväg",
   "label": "Etikett",
