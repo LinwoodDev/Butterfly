@@ -162,6 +162,9 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       _submitTransform(context.getDocumentBloc());
     }
+    if (_selected.isEmpty) {
+      _onSelectionContext(context, details.localPosition);
+    }
   }
 
   bool _startLongPress = false;
