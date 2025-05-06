@@ -18,6 +18,7 @@
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
+  "invertedPen": "Inverted Pen",
   "eraser": "Ластик",
   "pathEraser": "Контурный ластик",
   "label": "Подпись",
