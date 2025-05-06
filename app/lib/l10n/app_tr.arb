@@ -18,6 +18,7 @@
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
+  "invertedPen": "Inverted Pen",
   "eraser": "Silgi",
   "pathEraser": "Yol silici",
   "label": "Etiket",
