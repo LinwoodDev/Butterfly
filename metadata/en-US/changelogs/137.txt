@@ -1,0 +1,5 @@
+* Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
+* Respect Input mappings when lasso select tool is selected ([#821](https://github.com/LinwoodDev/Butterfly/issues/821))
+* Use modern material progress indicator
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
