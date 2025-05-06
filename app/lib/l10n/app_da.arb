@@ -18,6 +18,7 @@
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
+  "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
   "pathEraser": "Sti viskelæder",
   "label": "Etiket",
