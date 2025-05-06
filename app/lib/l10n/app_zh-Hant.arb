@@ -18,6 +18,7 @@
   "includeEraser": "包含橡皮擦？",
   "thinning": "稀薄化",
   "pen": "筆",
+  "invertedPen": "Inverted Pen",
   "eraser": "橡皮擦",
   "pathEraser": "路徑橡皮擦",
   "label": "標記",
