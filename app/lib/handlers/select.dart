@@ -162,7 +162,10 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       _submitTransform(context.getDocumentBloc());
     }
-    if (_selected.isEmpty) {
+    final cameraTransform = context.getCameraTransform();
+    final globalPos = cameraTransform.localToGlobal(details.localPosition);
+    final selectionRect = getSelectionRect();
+    if (selectionRect == null || !selectionRect.contains(globalPos)) {
       _onSelectionContext(context, details.localPosition);
     }
   }
