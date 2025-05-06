@@ -18,6 +18,7 @@
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "କଲମ",
+  "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
   "pathEraser": "Path eraser",
   "label": "Label",
