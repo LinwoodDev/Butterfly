@@ -18,6 +18,7 @@
   "includeEraser": "Inclure la gomme ?",
   "thinning": "Amincissement",
   "pen": "Stylo",
+  "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
   "pathEraser": "Effacer le chemin d'accès",
   "label": "Étiquette",
