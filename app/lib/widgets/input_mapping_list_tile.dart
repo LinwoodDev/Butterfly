@@ -8,7 +8,7 @@ class InputMappingListTile extends StatelessWidget {
   final String inputName;
   final InputMapping currentValue;
   final InputMapping defaultValue;
-  final Icon icon;
+  final Widget icon;
   final ValueChanged<InputMapping> onChanged;
 
   const InputMappingListTile({
