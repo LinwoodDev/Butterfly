@@ -177,7 +177,7 @@ Uint8List xoppExporter(NoteData document) {
                 });
                 break;
               case LabelElement e:
-                final styleSheet = e.styleSheet.resolveStyle(document);
+                final styleSheet = e.styleSheet;
                 final style = e is TextElement
                     ? styleSheet
                         ?.resolveParagraphProperty(e.area.paragraph.property)

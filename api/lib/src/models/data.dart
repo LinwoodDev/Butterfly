@@ -334,7 +334,7 @@ final class NoteData extends ArchiveData<NoteData> {
       getAsset('$kFontsArchiveDirectory/$fontName');
 
   @useResult
-  NoteData? getPack(String packName) {
+  NoteData? getBundledPack(String packName) {
     final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
     if (data == null) {
       return null;
@@ -347,7 +347,7 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPack(NoteData pack, [String? name]) {
+  NoteData setBundledPack(NoteData pack, [String? name]) {
     final data = pack.exportAsBytes();
     return setAsset(
         '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
@@ -355,11 +355,11 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData removePack(String name) =>
+  NoteData removeBundledPack(String name) =>
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getPacks() => getAssets('$kPacksArchiveDirectory/', true);
+  Iterable<String> getBundledPacks() => getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
@@ -419,16 +419,6 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
-
-  @useResult
-  PackAssetLocation findStyle() {
-    for (final pack in getPacks()) {
-      final styles = getPack(pack)?.getStyles();
-      if (styles?.isEmpty ?? true) continue;
-      return PackAssetLocation(pack, styles!.first);
-    }
-    return PackAssetLocation.empty;
-  }
 
   @useResult
   Iterable<String> getPalettes() =>

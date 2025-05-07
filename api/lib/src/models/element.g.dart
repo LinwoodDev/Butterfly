@@ -110,8 +110,8 @@ TextElement _$TextElementFromJson(Map json) => TextElement(
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
       scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
+          ? null
+          : TextStyleSheet.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
       area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
@@ -136,7 +136,7 @@ Map<String, dynamic> _$TextElementToJson(TextElement instance) =>
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
-      'styleSheet': instance.styleSheet.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'foreground': const ColorJsonConverter().toJson(instance.foreground),
@@ -153,8 +153,8 @@ MarkdownElement _$MarkdownElementFromJson(Map json) => MarkdownElement(
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
       scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
+          ? null
+          : TextStyleSheet.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
       areaProperty: json['areaProperty'] == null
           ? const AreaProperty()
@@ -183,7 +183,7 @@ Map<String, dynamic> _$MarkdownElementToJson(MarkdownElement instance) =>
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
-      'styleSheet': instance.styleSheet.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(),
       'areaProperty': instance.areaProperty.toJson(),
       'text': instance.text,
       'constraint': instance.constraint.toJson(),

@@ -98,14 +98,3 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
       'value': instance.value,
       'type': instance.$type,
     };
-
-_PackAssetLocation _$PackAssetLocationFromJson(Map json) => _PackAssetLocation(
-      json['pack'] as String? ?? '',
-      json['name'] as String? ?? '',
-    );
-
-Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
-    <String, dynamic>{
-      'pack': instance.pack,
-      'name': instance.name,
-    };

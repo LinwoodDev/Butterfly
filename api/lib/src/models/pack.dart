@@ -55,31 +55,3 @@ sealed class ButterflyParameter with _$ButterflyParameter {
   factory ButterflyParameter.fromJson(Map<String, dynamic> json) =>
       _$ButterflyParameterFromJson(json);
 }
-
-@freezed
-sealed class PackAssetLocation with _$PackAssetLocation {
-  const PackAssetLocation._();
-  const factory PackAssetLocation([
-    @Default('') String pack,
-    @Default('') String name,
-  ]) = _PackAssetLocation;
-
-  static const PackAssetLocation empty = PackAssetLocation('', '');
-
-  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$PackAssetLocationFromJson(json);
-
-  TextStyleSheet? resolveStyle(NoteData document) =>
-      document.getPack(pack)?.getStyle(name);
-
-  ColorPalette? resolvePalette(NoteData document) =>
-      document.getPack(pack)?.getPalette(name);
-
-  ButterflyComponent? resolveComponent(NoteData document) =>
-      document.getPack(pack)?.getComponent(name);
-
-  PackAssetLocation fixStyle(NoteData document) {
-    if (resolveStyle(document) != null) return this;
-    return document.findStyle();
-  }
-}
