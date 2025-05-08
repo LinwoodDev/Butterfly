@@ -1,9 +1,5 @@
-import 'data.dart';
 import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'palette.dart';
-import 'text.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
@@ -54,4 +50,11 @@ sealed class ButterflyParameter with _$ButterflyParameter {
 
   factory ButterflyParameter.fromJson(Map<String, dynamic> json) =>
       _$ButterflyParameterFromJson(json);
+}
+
+final class PackAssetLocation {
+  final String pack;
+  final String name;
+
+  const PackAssetLocation(this.pack, this.name);
 }

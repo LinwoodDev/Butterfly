@@ -8,9 +8,11 @@ class StampToolSelection extends ToolSelection<StampTool> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
-    final packs = state.data.getPacks();
-    final packName = selected.first.component.pack;
-    final currentPack = state.data.getPack(packName);
+    final value = selected.first.component;
+    final packSystem =
+        context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    final packs = packSystem.getFiles();
+    // TODO: Extra widget
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),

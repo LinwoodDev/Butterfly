@@ -7,7 +7,6 @@ import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/id.dart';
-import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
 import 'text.dart';

@@ -15,7 +15,7 @@ class LabelHandler extends Handler<LabelTool>
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
         : data.mode;
-    final styleSheet = data.styleSheet.fixStyle(document);
+    final styleSheet = data.styleSheet;
     switch (mode) {
       case LabelMode.text:
         final forced =

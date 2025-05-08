@@ -102,7 +102,6 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       _ => null,
     };
     final styleSheet = value.getStyleSheet(document);
-    final style = styleSheet.resolveStyle(document);
     _scaleController.text =
         (value.labelElement?.scale ?? value.tool.scale).toString();
     _sizeController.text = span?.getSize(paragraph).toString() ?? '';
@@ -111,7 +110,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       _ => null,
     };
     final paragraphSelections = [
-      ...style?.paragraphProperties.keys ?? <String>[],
+      ...styleSheet?.paragraphProperties.keys ?? <String>[],
       '',
     ];
     final lineIndex = value.previousLineIndex(

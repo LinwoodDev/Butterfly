@@ -17,8 +17,8 @@ class SelectPackAssetDialog extends StatelessWidget {
   const SelectPackAssetDialog({super.key, required this.type, this.selected});
 
   List<PackAssetLocation> _getAssets(NoteData document) => document
-      .getPacks()
-      .map((e) => document.getPack(e))
+      .getBundledPacks()
+      .map((e) => document.getBundledPack(e))
       .nonNulls
       .expand(
         (pack) => switch (type) {
@@ -65,7 +65,7 @@ class SelectPackAssetDialog extends StatelessWidget {
                     );
                     if (result == null) return;
                     if (context.mounted) {
-                      final pack = state.data.getPack(result.pack);
+                      final pack = state.data.getBundledPack(result.pack);
                       if (pack == null) return;
                       bloc.add(
                         PackUpdated(
