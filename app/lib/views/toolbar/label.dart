@@ -130,7 +130,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         },
       _ => null,
     };
-    final spanSelections = [...style?.spanProperties.keys ?? <String>[], ''];
+    final spanSelections = [
+      ...styleSheet?.spanProperties.keys ?? <String>[],
+      ''
+    ];
     if (!spanSelections.contains(spanSelection)) {
       spanSelection = '';
     }
@@ -153,7 +156,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         return;
       }
       if (value.isParagraph()) {
-        final currentParagraphProperty = style.resolveParagraphProperty(
+        final currentParagraphProperty = styleSheet.resolveParagraphProperty(
           element.area.paragraph.property,
         );
         element = element.copyWith(
@@ -172,7 +175,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
             paragraph: element.area.paragraph.updateSpans(
               (span) => span.copyWith(
                 property: update(
-                  style.resolveSpanProperty(span.property) ??
+                  styleSheet.resolveSpanProperty(span.property) ??
                       const text.DefinedSpanProperty(),
                 ),
               ),

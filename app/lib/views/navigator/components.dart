@@ -1,5 +1,6 @@
-import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/packs/components.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,6 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../helpers/element.dart';
 
 class ComponentsView extends StatefulWidget {
   const ComponentsView({super.key});
@@ -20,6 +19,38 @@ class ComponentsView extends StatefulWidget {
 class _ComponentsViewState extends State<ComponentsView> {
   final TextEditingController _searchController = TextEditingController();
   final List<String> selectedPacks = [];
+  late final PackFileSystem _packSystem;
+  Future<List<(String, NoteData, ButterflyComponent)>>? _componentsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _componentsFuture = _getComponents();
+    _searchController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  Future<List<(String, NoteData, ButterflyComponent)>> _getComponents() async {
+    final files = await _packSystem.getFiles();
+    final packComponents = <(String, NoteData, ButterflyComponent)>[];
+    for (final file in files) {
+      final pack = file.data!;
+      final components = pack
+          .getComponents()
+          .map((e) {
+            final component = file.data!.getComponent(e);
+            if (component == null) return null;
+            return component;
+          })
+          .nonNulls
+          .map((e) => (file.pathWithoutLeadingSlash, pack, e))
+          .toList();
+      packComponents.addAll(components);
+    }
+    return packComponents;
+  }
 
   @override
   void dispose() {
@@ -29,43 +60,22 @@ class _ComponentsViewState extends State<ComponentsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(
-      buildWhen: (previous, current) => previous.data != current.data,
-      builder: (context, state) {
-        if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
+    return FutureBuilder<List<(String, NoteData, ButterflyComponent)>>(
+      future: _componentsFuture,
+      builder: (context, snapshot) {
+        final allComponents =
+            snapshot.data ?? <(String, NoteData, ButterflyComponent)>[];
+        final packs = allComponents.map((e) => e.$1).toSet().toList();
+        final components = allComponents
+            .where(
+              (e) => selectedPacks.isEmpty || selectedPacks.contains(e.$1),
+            )
+            .toList();
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
               previous.temporaryHandler != current.temporaryHandler,
           builder: (context, currentIndex) {
-            final data = state.data;
             final handler = currentIndex.temporaryHandler;
-            final packs = data.getPacks();
-            final components = packs
-                .where(
-                  (e) => selectedPacks.isEmpty || selectedPacks.contains(e),
-                )
-                .expand((p) {
-                  final pack = data.getPack(p);
-                  if (pack == null) {
-                    return Iterable<
-                        (
-                          PackAssetLocation,
-                          NoteData,
-                          ButterflyComponent
-                        )>.empty();
-                  }
-                  return pack.getComponents().map((e) {
-                    final component = data.getComponent(e);
-                    if (component == null) return null;
-                    return (PackAssetLocation(p, e), pack, component);
-                  }).nonNulls;
-                })
-                .where(
-                  (e) => e.$1.name.toLowerCase().contains(
-                        _searchController.text.toLowerCase(),
-                      ),
-                )
-                .toList();
             return Column(
               children: [
                 const SizedBox(height: 8),
@@ -100,13 +110,18 @@ class _ComponentsViewState extends State<ComponentsView> {
                     type: MaterialType.transparency,
                     child: Wrap(
                       children: components.nonNulls.map((e) {
-                        return _ComponentCard(
+                        return ComponentCard(
                           component: e.$3,
                           pack: e.$2,
                           selected: handler is StampHandler &&
-                              handler.data.component == e.$1,
-                          location: e.$1,
+                              handler.data.component == e.$3,
                           key: ValueKey(e.$1),
+                          onTap: () => context
+                              .read<CurrentIndexCubit>()
+                              .changeTemporaryHandler(
+                                context,
+                                StampTool(component: e.$3),
+                              ),
                         );
                       }).toList(),
                     ),
@@ -117,77 +132,6 @@ class _ComponentsViewState extends State<ComponentsView> {
           },
         );
       },
-    );
-  }
-}
-
-class _ComponentCard extends StatelessWidget {
-  final ButterflyComponent component;
-  final NoteData? pack;
-  final PackAssetLocation location;
-  final bool selected;
-
-  const _ComponentCard({
-    required this.component,
-    required this.pack,
-    required this.location,
-    required this.selected,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final thumbnail = component.thumbnail == null || pack == null
-        ? null
-        : getDataFromSource(pack!, component.thumbnail!);
-    const fallbackWidget = AspectRatio(
-      aspectRatio: 1,
-      child: PhosphorIcon(PhosphorIconsLight.selection),
-    );
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => context.read<CurrentIndexCubit>().changeTemporaryHandler(
-              context,
-              StampTool(component: location),
-            ),
-        child: Container(
-          height: 150,
-          width: 150,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: selected
-                  ? ColorScheme.of(context).primary
-                  : Colors.transparent,
-              width: 4,
-            ),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: thumbnail == null
-                    ? fallbackWidget
-                    : Image.memory(
-                        thumbnail,
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) =>
-                            fallbackWidget,
-                      ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                component.name,
-                style: TextTheme.of(context).titleMedium,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

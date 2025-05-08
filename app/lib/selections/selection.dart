@@ -1,4 +1,3 @@
-import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
@@ -15,7 +14,6 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../actions/packs.dart';
 import '../cubits/transform.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';

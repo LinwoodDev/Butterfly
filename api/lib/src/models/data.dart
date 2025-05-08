@@ -14,7 +14,6 @@ import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
-import 'palette.dart';
 
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
@@ -359,7 +358,8 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getBundledPacks() => getAssets('$kPacksArchiveDirectory/', true);
+  Iterable<String> getBundledPacks() =>
+      getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
@@ -449,6 +449,31 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removePalette(String name) =>
       removeAsset('$kPalettesArchiveDirectory/$name.json');
+
+  @useResult
+  List<PackItem<T>> getPackItems<T extends PackAsset>([String? packName]) {
+    final name = this.name ?? '';
+    return switch (T) {
+      ButterflyComponent _ => getComponents().map((e) {
+          final component = getComponent(e);
+          if (component == null) return null;
+          return PackItem<T>.build(name, e, this, component as T);
+        }),
+      TextStyleSheet _ => getStyles().map((e) {
+          final style = getStyle(e);
+          if (style == null) return null;
+          return PackItem<T>.build(name, e, this, style as T);
+        }),
+      ColorPalette _ => getPalettes().map((e) {
+          final palette = getPalette(e);
+          if (palette == null) return null;
+          return PackItem<T>.build(name, e, this, palette as T);
+        }),
+      _ => throw Exception('Unsupported type $T'),
+    }
+        .nonNulls
+        .toList();
+  }
 
   @useResult
   String toJson() {

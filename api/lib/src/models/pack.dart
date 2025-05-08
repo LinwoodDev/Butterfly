@@ -1,11 +1,35 @@
-import 'element.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
-@Freezed(equal: false)
-sealed class ButterflyComponent with _$ButterflyComponent {
+@freezed
+abstract class PackAsset with _$PackAsset {
+  String get name;
+
+  const PackAsset();
+}
+
+@freezed
+sealed class ColorPalette extends PackAsset with _$ColorPalette {
+  const ColorPalette._();
+
+  const factory ColorPalette(
+          {required String name,
+          @Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
+      _ColorPalette;
+  factory ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
+}
+
+@freezed
+sealed class ButterflyComponent extends PackAsset with _$ButterflyComponent {
+  const ButterflyComponent._();
+
   const factory ButterflyComponent({
     required String name,
     String? thumbnail,
@@ -53,8 +77,23 @@ sealed class ButterflyParameter with _$ButterflyParameter {
 }
 
 final class PackAssetLocation {
-  final String pack;
-  final String name;
+  final String namespace;
+  final String key;
 
-  const PackAssetLocation(this.pack, this.name);
+  const PackAssetLocation(this.namespace, this.key);
+}
+
+final class PackItem<T extends PackAsset> implements PackAssetLocation {
+  final PackAssetLocation location;
+  final NoteData pack;
+  final T item;
+
+  const PackItem(this.location, this.pack, this.item);
+  PackItem.build(String namespace, String key, this.pack, this.item)
+      : location = PackAssetLocation(namespace, key);
+
+  @override
+  String get namespace => location.namespace;
+  @override
+  String get key => location.key;
 }
