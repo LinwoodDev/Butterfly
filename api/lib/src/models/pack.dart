@@ -1,15 +1,35 @@
-import 'data.dart';
-import 'element.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
 
-import 'palette.dart';
-import 'text.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
-@Freezed(equal: false)
-sealed class ButterflyComponent with _$ButterflyComponent {
+@freezed
+abstract class PackAsset with _$PackAsset {
+  String get name;
+
+  const PackAsset();
+}
+
+@freezed
+sealed class ColorPalette extends PackAsset with _$ColorPalette {
+  const ColorPalette._();
+
+  const factory ColorPalette(
+          {required String name,
+          @Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
+      _ColorPalette;
+  factory ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
+}
+
+@freezed
+sealed class ButterflyComponent extends PackAsset with _$ButterflyComponent {
+  const ButterflyComponent._();
+
   const factory ButterflyComponent({
     required String name,
     String? thumbnail,
@@ -56,30 +76,24 @@ sealed class ButterflyParameter with _$ButterflyParameter {
       _$ButterflyParameterFromJson(json);
 }
 
-@freezed
-sealed class PackAssetLocation with _$PackAssetLocation {
-  const PackAssetLocation._();
-  const factory PackAssetLocation([
-    @Default('') String pack,
-    @Default('') String name,
-  ]) = _PackAssetLocation;
+final class PackAssetLocation {
+  final String namespace;
+  final String key;
 
-  static const PackAssetLocation empty = PackAssetLocation('', '');
+  const PackAssetLocation(this.namespace, this.key);
+}
 
-  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$PackAssetLocationFromJson(json);
+final class PackItem<T extends PackAsset> implements PackAssetLocation {
+  final PackAssetLocation location;
+  final NoteData pack;
+  final T item;
 
-  TextStyleSheet? resolveStyle(NoteData document) =>
-      document.getPack(pack)?.getStyle(name);
+  const PackItem(this.location, this.pack, this.item);
+  PackItem.build(String namespace, String key, this.pack, this.item)
+      : location = PackAssetLocation(namespace, key);
 
-  ColorPalette? resolvePalette(NoteData document) =>
-      document.getPack(pack)?.getPalette(name);
-
-  ButterflyComponent? resolveComponent(NoteData document) =>
-      document.getPack(pack)?.getComponent(name);
-
-  PackAssetLocation fixStyle(NoteData document) {
-    if (resolveStyle(document) != null) return this;
-    return document.findStyle();
-  }
+  @override
+  String get namespace => location.namespace;
+  @override
+  String get key => location.key;
 }

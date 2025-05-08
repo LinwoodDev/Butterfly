@@ -17,7 +17,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaler = TextScaler.linear(scale);
     final paragraph = getParagraph(document);
-    final styleSheet = element.styleSheet.resolveStyle(document);
+    final styleSheet = element.styleSheet;
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
     _tp?.text = switch (paragraph) {
@@ -31,8 +31,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
 
-  text.TextStyleSheet? _getStyle(NoteData document) =>
-      element.styleSheet.resolveStyle(document);
+  text.TextStyleSheet? _getStyle(NoteData document) => element.styleSheet;
 
   InlineSpan _createSpan(NoteData document, text.TextSpan span,
       [text.DefinedParagraphProperty? parent]) {
@@ -96,7 +95,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     final paragraph = getParagraph(document);
 
     _tp?.layout(maxWidth: rect.width);
-    final styles = element.styleSheet.resolveStyle(document);
+    final styles = element.styleSheet;
     final textElement = svg.createElement('text', attributes: {
       'x': '${rect.left}px',
       'y': '${rect.top}px',

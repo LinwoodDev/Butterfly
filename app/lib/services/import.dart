@@ -313,7 +313,7 @@ class ImportService {
     bool advanced = true,
   }) async {
     var pages = data.getPages();
-    var packs = data.getPacks().toList();
+    var packs = data.getBundledPacks().toList();
     if (advanced) {
       final callback = await showDialog<NoteDialogCallback>(
         context: context,
@@ -333,8 +333,8 @@ class ImportService {
       }
       bloc?.add(PageAdded(null, page));
     }
-    for (final packs in packs.map((e) => data.getPack(e)).nonNulls) {
-      document = document.setPack(packs);
+    for (final packs in packs.map((e) => data.getBundledPack(e)).nonNulls) {
+      document = document.setBundledPack(packs);
       bloc?.add(PackAdded(packs));
     }
     return document;
@@ -418,7 +418,7 @@ class ImportService {
     if (result != true) return false;
     if (context.mounted) {
       if (document != null) {
-        document = document.setPack(pack);
+        document = document.setBundledPack(pack);
       } else {
         packSystem.createFile(pack.name ?? '', pack);
       }
@@ -574,7 +574,6 @@ class ImportService {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
-      final styleSheet = document.findStyle();
       final state = _getState();
       final background =
           state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
@@ -587,7 +586,6 @@ class ImportService {
           MarkdownElement(
             position: firstPos.toPoint(),
             text: contentString,
-            styleSheet: styleSheet,
             foreground: foreground,
           ),
         ],
@@ -862,7 +860,7 @@ class ImportService {
       (document, _) = document.addPage(page);
     }
     for (final pack in packs) {
-      document = document.setPack(pack);
+      document = document.setBundledPack(pack);
     }
     return document;
   }

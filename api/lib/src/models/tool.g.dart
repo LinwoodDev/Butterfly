@@ -95,8 +95,8 @@ LabelTool _$LabelToolFromJson(Map json) => LabelTool(
           : const ColorJsonConverter()
               .fromJson((json['foreground'] as num).toInt()),
       styleSheet: json['styleSheet'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
+          ? null
+          : TextStyleSheet.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
       scale: (json['scale'] as num?)?.toDouble() ?? 2.0,
       $type: json['type'] as String?,
@@ -108,7 +108,7 @@ Map<String, dynamic> _$LabelToolToJson(LabelTool instance) => <String, dynamic>{
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
       'foreground': const ColorJsonConverter().toJson(instance.foreground),
-      'styleSheet': instance.styleSheet.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(),
       'scale': instance.scale,
       'type': instance.$type,
     };
@@ -277,8 +277,8 @@ StampTool _$StampToolFromJson(Map json) => StampTool(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       component: json['component'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
+          ? null
+          : ButterflyComponent.fromJson(
               Map<String, dynamic>.from(json['component'] as Map)),
       $type: json['type'] as String?,
     );
@@ -286,7 +286,7 @@ StampTool _$StampToolFromJson(Map json) => StampTool(
 Map<String, dynamic> _$StampToolToJson(StampTool instance) => <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
-      'component': instance.component.toJson(),
+      'component': instance.component?.toJson(),
       'type': instance.$type,
     };
 

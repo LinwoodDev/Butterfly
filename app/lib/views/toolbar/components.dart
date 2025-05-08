@@ -12,8 +12,8 @@ import '../../helpers/element.dart';
 
 class ComponentsToolbarView extends StatefulWidget
     implements PreferredSizeWidget {
-  final PackAssetLocation component;
-  final ValueChanged<PackAssetLocation> onChanged;
+  final ButterflyComponent? component;
+  final ValueChanged<ButterflyComponent?> onChanged;
 
   const ComponentsToolbarView({
     super.key,

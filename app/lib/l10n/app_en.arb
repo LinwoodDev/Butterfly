@@ -687,5 +687,8 @@
     }
   },
   "moveLeft": "Move left",
-  "moveRight": "Move right"
+  "moveRight": "Move right",
+  "bundled": "Bundled",
+  "component": "Component",
+  "selectComponent": "Select component"
 }

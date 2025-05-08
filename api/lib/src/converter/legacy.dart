@@ -45,7 +45,7 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
               utf8.encode(jsonEncode({'type': 'pack', ...e})))))
           .toList();
       for (final pack in packs) {
-        reader = reader.setPack(pack);
+        reader = reader.setBundledPack(pack);
       }
       final thumbnail = data['thumbnail'] as String?;
       if (thumbnail?.isNotEmpty == true) {

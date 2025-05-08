@@ -76,12 +76,12 @@ class _PacksDialogState extends State<PacksDialog>
                         controller: _controller,
                         tabs: [
                           HorizontalTab(
-                            icon: const PhosphorIcon(PhosphorIconsLight.file),
-                            label: Text(AppLocalizations.of(context).document),
-                          ),
-                          HorizontalTab(
                             icon: const PhosphorIcon(PhosphorIconsLight.folder),
                             label: Text(AppLocalizations.of(context).installed),
+                          ),
+                          HorizontalTab(
+                            icon: const PhosphorIcon(PhosphorIconsLight.file),
+                            label: Text(AppLocalizations.of(context).bundled),
                           ),
                         ],
                       ),
@@ -89,144 +89,6 @@ class _PacksDialogState extends State<PacksDialog>
                       child: TabBarView(
                         controller: _controller,
                         children: [
-                          if (!widget.globalOnly)
-                            BlocBuilder<DocumentBloc, DocumentState>(
-                              builder: (context, state) {
-                                if (state is! DocumentLoadSuccess) {
-                                  return Container();
-                                }
-                                final packs = state.data.getPacks().toList();
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: packs.length,
-                                  itemBuilder: (context, index) {
-                                    final pack = state.data.getPack(
-                                      packs[index],
-                                    );
-                                    final metadata = pack?.getMetadata();
-                                    if (metadata == null) return Container();
-                                    return Dismissible(
-                                      key: ValueKey((
-                                        'localpack',
-                                        metadata.name,
-                                      )),
-                                      onDismissed: (direction) {
-                                        context.read<DocumentBloc>().add(
-                                              PackRemoved(metadata.name),
-                                            );
-                                      },
-                                      background: Container(color: Colors.red),
-                                      child: ContextRegion(
-                                        tooltip: AppLocalizations.of(
-                                          context,
-                                        ).actions,
-                                        menuChildren: [
-                                          MenuItemButton(
-                                            leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.appWindow,
-                                            ),
-                                            child: Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).local,
-                                            ),
-                                            onPressed: () async {
-                                              await _addPack(pack!, true);
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
-                                            },
-                                          ),
-                                          MenuItemButton(
-                                            leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.download,
-                                            ),
-                                            child: Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).export,
-                                            ),
-                                            onPressed: () async {
-                                              await _exportPack(pack!);
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
-                                            },
-                                          ),
-                                          MenuItemButton(
-                                            leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.trash,
-                                            ),
-                                            child: Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).delete,
-                                            ),
-                                            onPressed: () {
-                                              context.read<DocumentBloc>().add(
-                                                    PackRemoved(metadata.name),
-                                                  );
-                                              if (mounted) {
-                                                setState(() {});
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                        builder: (
-                                          context,
-                                          button,
-                                          controller,
-                                        ) =>
-                                            ListTile(
-                                          title: Text(metadata.name),
-                                          subtitle: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (metadata.author.isNotEmpty)
-                                                Text(
-                                                  AppLocalizations.of(
-                                                    context,
-                                                  ).byAuthor(
-                                                    metadata.author,
-                                                  ),
-                                                ),
-                                              if (metadata
-                                                  .description.isNotEmpty)
-                                                Text(metadata.description),
-                                            ],
-                                          ),
-                                          onTap: () async {
-                                            final bloc =
-                                                context.read<DocumentBloc>();
-                                            Navigator.of(context).pop();
-                                            final newPack =
-                                                await showDialog<NoteData>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  BlocProvider.value(
-                                                value: bloc,
-                                                child: PackDialog(
-                                                  pack: pack,
-                                                ),
-                                              ),
-                                            );
-                                            if (newPack == null) return;
-                                            bloc.add(
-                                              PackUpdated(
-                                                metadata.name,
-                                                newPack,
-                                              ),
-                                            );
-                                          },
-                                          trailing: button,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
                           FutureBuilder<List<FileSystemFile<NoteData>>>(
                             future: _packSystem.initialize().then(
                                   (value) => _packSystem.getFiles(),
@@ -392,6 +254,145 @@ class _PacksDialogState extends State<PacksDialog>
                               );
                             },
                           ),
+                          if (!widget.globalOnly)
+                            BlocBuilder<DocumentBloc, DocumentState>(
+                              builder: (context, state) {
+                                if (state is! DocumentLoadSuccess) {
+                                  return Container();
+                                }
+                                final packs =
+                                    state.data.getBundledPacks().toList();
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: packs.length,
+                                  itemBuilder: (context, index) {
+                                    final pack = state.data.getBundledPack(
+                                      packs[index],
+                                    );
+                                    final metadata = pack?.getMetadata();
+                                    if (metadata == null) return Container();
+                                    return Dismissible(
+                                      key: ValueKey((
+                                        'localpack',
+                                        metadata.name,
+                                      )),
+                                      onDismissed: (direction) {
+                                        context.read<DocumentBloc>().add(
+                                              PackRemoved(metadata.name),
+                                            );
+                                      },
+                                      background: Container(color: Colors.red),
+                                      child: ContextRegion(
+                                        tooltip: AppLocalizations.of(
+                                          context,
+                                        ).actions,
+                                        menuChildren: [
+                                          MenuItemButton(
+                                            leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.appWindow,
+                                            ),
+                                            child: Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).local,
+                                            ),
+                                            onPressed: () async {
+                                              await _addPack(pack!, true);
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                          MenuItemButton(
+                                            leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.download,
+                                            ),
+                                            child: Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).export,
+                                            ),
+                                            onPressed: () async {
+                                              await _exportPack(pack!);
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                          MenuItemButton(
+                                            leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.trash,
+                                            ),
+                                            child: Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).delete,
+                                            ),
+                                            onPressed: () {
+                                              context.read<DocumentBloc>().add(
+                                                    PackRemoved(metadata.name),
+                                                  );
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                        builder: (
+                                          context,
+                                          button,
+                                          controller,
+                                        ) =>
+                                            ListTile(
+                                          title: Text(metadata.name),
+                                          subtitle: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (metadata.author.isNotEmpty)
+                                                Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).byAuthor(
+                                                    metadata.author,
+                                                  ),
+                                                ),
+                                              if (metadata
+                                                  .description.isNotEmpty)
+                                                Text(metadata.description),
+                                            ],
+                                          ),
+                                          onTap: () async {
+                                            final bloc =
+                                                context.read<DocumentBloc>();
+                                            Navigator.of(context).pop();
+                                            final newPack =
+                                                await showDialog<NoteData>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  BlocProvider.value(
+                                                value: bloc,
+                                                child: PackDialog(
+                                                  pack: pack,
+                                                ),
+                                              ),
+                                            );
+                                            if (newPack == null) return;
+                                            bloc.add(
+                                              PackUpdated(
+                                                metadata.name,
+                                                newPack,
+                                              ),
+                                            );
+                                          },
+                                          trailing: button,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                         ],
                       ),
                     ),

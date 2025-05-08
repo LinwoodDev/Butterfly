@@ -14,7 +14,6 @@ import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
-import 'palette.dart';
 
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
@@ -334,7 +333,7 @@ final class NoteData extends ArchiveData<NoteData> {
       getAsset('$kFontsArchiveDirectory/$fontName');
 
   @useResult
-  NoteData? getPack(String packName) {
+  NoteData? getBundledPack(String packName) {
     final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
     if (data == null) {
       return null;
@@ -347,7 +346,7 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPack(NoteData pack, [String? name]) {
+  NoteData setBundledPack(NoteData pack, [String? name]) {
     final data = pack.exportAsBytes();
     return setAsset(
         '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
@@ -355,11 +354,12 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData removePack(String name) =>
+  NoteData removeBundledPack(String name) =>
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getPacks() => getAssets('$kPacksArchiveDirectory/', true);
+  Iterable<String> getBundledPacks() =>
+      getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
@@ -421,16 +421,6 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
   @useResult
-  PackAssetLocation findStyle() {
-    for (final pack in getPacks()) {
-      final styles = getPack(pack)?.getStyles();
-      if (styles?.isEmpty ?? true) continue;
-      return PackAssetLocation(pack, styles!.first);
-    }
-    return PackAssetLocation.empty;
-  }
-
-  @useResult
   Iterable<String> getPalettes() =>
       getAssets('$kPalettesArchiveDirectory/', true);
 
@@ -459,6 +449,31 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removePalette(String name) =>
       removeAsset('$kPalettesArchiveDirectory/$name.json');
+
+  @useResult
+  List<PackItem<T>> getPackItems<T extends PackAsset>([String? packName]) {
+    final name = this.name ?? '';
+    return switch (T) {
+      ButterflyComponent _ => getComponents().map((e) {
+          final component = getComponent(e);
+          if (component == null) return null;
+          return PackItem<T>.build(name, e, this, component as T);
+        }),
+      TextStyleSheet _ => getStyles().map((e) {
+          final style = getStyle(e);
+          if (style == null) return null;
+          return PackItem<T>.build(name, e, this, style as T);
+        }),
+      ColorPalette _ => getPalettes().map((e) {
+          final palette = getPalette(e);
+          if (palette == null) return null;
+          return PackItem<T>.build(name, e, this, palette as T);
+        }),
+      _ => throw Exception('Unsupported type $T'),
+    }
+        .nonNulls
+        .toList();
+  }
 
   @useResult
   String toJson() {

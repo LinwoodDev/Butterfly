@@ -6,6 +6,21 @@ part of 'pack.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_ColorPalette _$ColorPaletteFromJson(Map json) => _ColorPalette(
+      name: json['name'] as String,
+      colors: (json['colors'] as List<dynamic>?)
+              ?.map((e) =>
+                  const ColorJsonConverter().fromJson((e as num).toInt()))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$ColorPaletteToJson(_ColorPalette instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'colors': instance.colors.map(const ColorJsonConverter().toJson).toList(),
+    };
+
 _ButterflyComponent _$ButterflyComponentFromJson(Map json) =>
     _ButterflyComponent(
       name: json['name'] as String,
@@ -97,15 +112,4 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
       'name': instance.name,
       'value': instance.value,
       'type': instance.$type,
-    };
-
-_PackAssetLocation _$PackAssetLocationFromJson(Map json) => _PackAssetLocation(
-      json['pack'] as String? ?? '',
-      json['name'] as String? ?? '',
-    );
-
-Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
-    <String, dynamic>{
-      'pack': instance.pack,
-      'name': instance.name,
     };
