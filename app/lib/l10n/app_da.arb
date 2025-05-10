@@ -688,6 +688,6 @@
   },
   "moveLeft": "Flyt til venstre",
   "moveRight": "Flyt til højre",
-  "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
-  "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session."
+  "webSocketDescription": "Din enhed er vært for serveren, så samarbejdspartnere kan kun deltage over det samme netværk eller fra hvor som helst, hvis du videresender porten på din router.",
+  "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session."
 }
