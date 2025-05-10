@@ -688,6 +688,6 @@
   },
   "moveLeft": "Посунути ліворуч",
   "moveRight": "Рухатися праворуч",
-  "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
-  "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session."
+  "webSocketDescription": "Ваш пристрій хостить сервер, тому співробітники можуть приєднатися тільки до тієї ж мережі або з деінде, якщо переходити до порту на маршрутизаторі.",
+  "swampDescription": "Ваші повідомлення перенаправляються через безпечний сервер ретранслятора з обмеженим шифруванням. Для створення сеансу потрібна адреса болота."
 }
