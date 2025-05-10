@@ -688,6 +688,6 @@
   },
   "moveLeft": "Mută în stânga",
   "moveRight": "Mută în dreapta",
-  "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
-  "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session."
+  "webSocketDescription": "Dispozitivul tău găzduiește serverul, astfel încât colaboratorii se pot alătura doar prin aceeași rețea sau de oriunde ai înainta portul de pe router.",
+  "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune."
 }
