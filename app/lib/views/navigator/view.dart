@@ -148,7 +148,6 @@ class _NavigatorViewState extends State<NavigatorView>
                               ),
                             )
                             .toList(),
-                        labelType: NavigationRailLabelType.none,
                         selectedIndex:
                             currentIndex.navigatorEnabled ? selected : null,
                         groupAlignment: 0,
