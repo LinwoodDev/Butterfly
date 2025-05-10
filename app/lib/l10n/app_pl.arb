@@ -688,6 +688,6 @@
   },
   "moveLeft": "Przesuń w lewo",
   "moveRight": "Przesuń w prawo",
-  "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
-  "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session."
+  "webSocketDescription": "Twoje urządzenie hostuje serwer, więc współpracownicy mogą dołączyć tylko za pośrednictwem tej samej sieci lub z dowolnego miejsca, jeśli przekażesz port na routerze.",
+  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego."
 }
