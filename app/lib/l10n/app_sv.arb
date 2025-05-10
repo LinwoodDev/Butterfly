@@ -18,6 +18,7 @@
   "includeEraser": "Inkludera suddgummi?",
   "thinning": "Gallring",
   "pen": "Penna",
+  "invertedPen": "Inverterad penna",
   "eraser": "Eraser",
   "pathEraser": "Radering av sökväg",
   "label": "Etikett",
@@ -45,7 +46,7 @@
   "license": "Licens",
   "imprint": "Avtryck",
   "privacypolicy": "Integritetspolicy",
-  "sourceCode": "Source code",
+  "sourceCode": "Källkod",
   "documentation": "Dokumentation",
   "changelog": "Ändringslogg",
   "source": "Källa",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Flytta åt vänster",
-  "moveRight": "Flytta åt höger"
+  "moveRight": "Flytta åt höger",
+  "webSocketDescription": "Din enhet är värd för servern, så medarbetare kan bara gå med över samma nätverk eller från någonstans om du vidarebefordrar porten på din router.",
+  "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session."
 }

@@ -18,6 +18,7 @@
   "includeEraser": "Incluir borracha?",
   "thinning": "Diluição",
   "pen": "Caneta",
+  "invertedPen": "Caneta Invertida",
   "eraser": "Borracha",
   "pathEraser": "Apagador de linha",
   "label": "Descrição",
@@ -45,7 +46,7 @@
   "license": "Licença",
   "imprint": "Aviso legal",
   "privacypolicy": "Política de privacidade",
-  "sourceCode": "Source code",
+  "sourceCode": "Código fonte",
   "documentation": "Documentação",
   "changelog": "Mudanças",
   "source": "Fonte",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Mover para esquerda",
-  "moveRight": "Mover à direita"
+  "moveRight": "Mover à direita",
+  "webSocketDescription": "Seu dispositivo hospeda o servidor, então os colaboradores só podem entrar na mesma rede ou em qualquer lugar se você encaminhar a porta do seu roteador.",
+  "swampDescription": "Suas mensagens são encaminhadas através de um servidor de retransmissão seguro com criptografia de ponta a ponta. É necessário um endereço de servidor de swamp para criar uma sessão."
 }

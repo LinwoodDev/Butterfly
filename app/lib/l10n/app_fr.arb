@@ -18,6 +18,7 @@
   "includeEraser": "Inclure la gomme ?",
   "thinning": "Amincissement",
   "pen": "Stylo",
+  "invertedPen": "Stylo inversé",
   "eraser": "Eraser",
   "pathEraser": "Effacer le chemin d'accès",
   "label": "Étiquette",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Déplacer vers la gauche",
-  "moveRight": "Déplacer vers la droite"
+  "moveRight": "Déplacer vers la droite",
+  "webSocketDescription": "Votre périphérique héberge le serveur, de sorte que les collaborateurs ne peuvent se joindre que sur le même réseau ou depuis n'importe où si vous redirigez le port sur votre routeur.",
+  "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session."
 }

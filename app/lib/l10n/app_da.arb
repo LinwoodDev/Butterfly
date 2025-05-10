@@ -18,6 +18,7 @@
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
+  "invertedPen": "Inverteret Pen",
   "eraser": "Eraser",
   "pathEraser": "Sti viskelæder",
   "label": "Etiket",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Flyt til venstre",
-  "moveRight": "Flyt til højre"
+  "moveRight": "Flyt til højre",
+  "webSocketDescription": "Din enhed er vært for serveren, så samarbejdspartnere kan kun deltage over det samme netværk eller fra hvor som helst, hvis du videresender porten på din router.",
+  "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session."
 }

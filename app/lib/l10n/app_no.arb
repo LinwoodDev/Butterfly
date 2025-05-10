@@ -18,6 +18,7 @@
   "includeEraser": "Inkluder eraser?",
   "thinning": "Tynn",
   "pen": "Penn",
+  "invertedPen": "Omvendt penn",
   "eraser": "Eraser",
   "pathEraser": "Bane eraser",
   "label": "Etikett",
@@ -45,7 +46,7 @@
   "license": "Lisens",
   "imprint": "Avtrykk",
   "privacypolicy": "Retningslinjer for personvern",
-  "sourceCode": "Source code",
+  "sourceCode": "Kildekode",
   "documentation": "Dokumentasjon",
   "changelog": "Endringslogg",
   "source": "Kilde",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Gå til venstre",
-  "moveRight": "Gå til høyre"
+  "moveRight": "Gå til høyre",
+  "webSocketDescription": "Dine enheter støtter serveren, så samarbeidspartnere kan bare bli med på det samme nettverket eller fra hvor som helst hvis du videresender porten på din router.",
+  "swampDescription": "Meldingene dine er rutet gjennom en sikker relee-server med ende-til-ende kryptering. En swamp server adresse er nødvendig for å lage en økt."
 }
