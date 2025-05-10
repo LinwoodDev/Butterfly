@@ -688,6 +688,6 @@
   },
   "moveLeft": "左に移動",
   "moveRight": "右に移動",
-  "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
-  "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session."
+  "webSocketDescription": "デバイスはサーバーをホストしているため、コラボレーターは同じネットワーク上またはルーターのポートを転送する場合にのみ、どこからでも参加できます。",
+  "swampDescription": "メッセージは、エンドツーエンド暗号化されたセキュアなリレーサーバーを介してルーティングされます。セッションを作成するには、swampサーバーアドレスが必要です。"
 }
