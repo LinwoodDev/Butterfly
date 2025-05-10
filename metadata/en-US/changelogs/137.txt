@@ -2,6 +2,9 @@
 * Respect Input mappings when lasso select tool is selected ([#821](https://github.com/LinwoodDev/Butterfly/issues/821))
 * Redesign mobile navigator pages to improve usability ([#853](https://github.com/LinwoodDev/Butterfly/issues/853))
 * Redesign collaboration start dialog
+* Add support for starting collaboration server with swamp on web
 * Use modern material progress indicator
+* Fix layers not reoderable on mobile
+* Fix readonly files can change tool
 
 Read more here: https://linwood.dev/butterfly/2.3.1-rc.1

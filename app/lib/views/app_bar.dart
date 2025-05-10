@@ -7,6 +7,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
@@ -14,7 +15,6 @@ import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/widgets/search.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -449,11 +449,13 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () {
                       cubit.setNavigatorPage(e);
                       final bloc = context.read<DocumentBloc>();
+                      final transformCubit = context.read<TransformCubit>();
                       showDialog(
                         context: context,
                         builder: (context) => MultiBlocProvider(providers: [
                           BlocProvider.value(value: bloc),
                           BlocProvider.value(value: cubit),
+                          BlocProvider.value(value: transformCubit),
                         ], child: DocumentNavigator(asDialog: true)),
                       );
                     },
@@ -654,9 +656,7 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ],
-            if (state.embedding == null &&
-                settings.hasFlag('collaboration') &&
-                !kIsWeb)
+            if (state.embedding == null && settings.hasFlag('collaboration'))
               BlocBuilder<NetworkingService, NetworkState?>(
                 bloc: state.networkingService,
                 builder: (_, state) {
