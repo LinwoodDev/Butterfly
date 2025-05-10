@@ -6,5 +6,6 @@
 * Use modern material progress indicator
 * Fix layers not reoderable on mobile
 * Fix readonly files can change tool
+* Fix file preview has window handles on desktop
 
 Read more here: https://linwood.dev/butterfly/2.3.1-rc.1

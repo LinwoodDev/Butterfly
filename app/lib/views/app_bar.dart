@@ -41,6 +41,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showTools;
   final SearchController searchController;
   final EdgeInsets? padding;
+  final bool inView;
 
   PadAppBar({
     super.key,
@@ -48,6 +49,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.size,
     required this.searchController,
     this.showTools = true,
+    this.inView = false,
     this.padding,
   });
 
@@ -63,6 +65,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
+        inView: inView,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(
