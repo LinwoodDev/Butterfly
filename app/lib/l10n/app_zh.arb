@@ -18,6 +18,7 @@
   "includeEraser": "包括擦除器？",
   "thinning": "闪光灯",
   "pen": "笔",
+  "invertedPen": "反转笔数",
   "eraser": "橡皮擦",
   "pathEraser": "整笔擦除",
   "label": "标签",
@@ -45,7 +46,7 @@
   "license": "许可协议",
   "imprint": "图形",
   "privacypolicy": "隐私政策",
-  "sourceCode": "Source code",
+  "sourceCode": "源代码",
   "documentation": "文件",
   "changelog": "更新日志",
   "source": "源代码",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "向左移动",
-  "moveRight": "右移"
+  "moveRight": "右移",
+  "webSocketDescription": "您的设备是服务器的主机，所以合作者只能在同一网络上或在任何地方加入，如果您转发您的路由器上的端口。",
+  "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。"
 }

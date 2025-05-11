@@ -18,6 +18,7 @@
   "includeEraser": "消去を含めますか？",
   "thinning": "薄肉化",
   "pen": "ペン",
+  "invertedPen": "反転ペン",
   "eraser": "Eraser",
   "pathEraser": "パスの消去",
   "label": "ラベル",
@@ -45,7 +46,7 @@
   "license": "ライセンス",
   "imprint": "インプリント",
   "privacypolicy": "プライバシーポリシー",
-  "sourceCode": "Source code",
+  "sourceCode": "ソース コード",
   "documentation": "ドキュメント",
   "changelog": "更新履歴",
   "source": "ソース",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "左に移動",
-  "moveRight": "右に移動"
+  "moveRight": "右に移動",
+  "webSocketDescription": "デバイスはサーバーをホストしているため、コラボレーターは同じネットワーク上またはルーターのポートを転送する場合にのみ、どこからでも参加できます。",
+  "swampDescription": "メッセージは、エンドツーエンド暗号化されたセキュアなリレーサーバーを介してルーティングされます。セッションを作成するには、swampサーバーアドレスが必要です。"
 }

@@ -18,6 +18,7 @@
   "includeEraser": "Löschvorrichtung einbeziehen?",
   "thinning": "Dünnheit",
   "pen": "Stift",
+  "invertedPen": "Invertiertes Pen",
   "eraser": "Eraser",
   "pathEraser": "Pfadlöscher",
   "label": "Label",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Nach links",
-  "moveRight": "Nach rechts"
+  "moveRight": "Nach rechts",
+  "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
+  "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen."
 }

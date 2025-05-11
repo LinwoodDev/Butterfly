@@ -18,6 +18,7 @@
   "includeEraser": "Inclusief gum",
   "thinning": "Duiken",
   "pen": "pennen",
+  "invertedPen": "Omgekeerde Pen",
   "eraser": "Eraser",
   "pathEraser": "Pad gum",
   "label": "Omschrijving",
@@ -45,7 +46,7 @@
   "license": "Licentie",
   "imprint": "Impressum",
   "privacypolicy": "Privacy Beleid",
-  "sourceCode": "Source code",
+  "sourceCode": "Bron code",
   "documentation": "Documentatie",
   "changelog": "Wijzigingslogboek",
   "source": "Bron",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Verplaats naar links",
-  "moveRight": "Beweeg rechts"
+  "moveRight": "Beweeg rechts",
+  "webSocketDescription": "Uw apparaat organiseert de server, zodat collaborateurs zich alleen via hetzelfde netwerk of vanaf waar dan ook kunnen aanmelden als u de poort op uw router doorstuurt.",
+  "swampDescription": "Je berichten worden doorgestuurd via een beveiligde relaisserver met end-to-end versleuteling. Een wamp serveradres is vereist om een sessie te maken."
 }

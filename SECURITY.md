@@ -4,7 +4,7 @@
 
 | Version             | Supported          |                                                                                                                                  |
 | ------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| 2.3.1-dev           | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.1-rc.0) |
+| 2.3.1-dev           | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.1-rc.1) |
 | 2.3.0 (Adonis Blue) | :white_check_mark: | [Docs](https://butterfly.linwood.dev/docs/2.3/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.0)      |
 | 2.2.4               | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)      |
 | 2.1.1               | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.1.1)      |
