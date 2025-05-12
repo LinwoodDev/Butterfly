@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.1-rc.1 (2025-05-12)
+
+* Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
+* Respect Input mappings when lasso select tool is selected ([#821](https://github.com/LinwoodDev/Butterfly/issues/821))
+* Redesign mobile navigator pages to improve usability ([#853](https://github.com/LinwoodDev/Butterfly/issues/853))
+* Redesign collaboration start dialog
+* Add support for starting collaboration server with swamp on web
+* Use modern material progress indicator
+* Fix layers not reoderable on mobile
+* Fix readonly files can change tool
+* Fix file preview has window handles on desktop
+* Update to agb 8.10
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
+
 ## 2.3.1-rc.0 (2025-05-05)
 
 * Add copy button to the collaboration dialog
