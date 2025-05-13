@@ -81,6 +81,27 @@ final class PackAssetLocation {
   const PackAssetLocation(this.namespace, this.key);
 }
 
+@Freezed(genericArgumentFactories: true)
+sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
+  const NamedItem._();
+
+  const factory NamedItem({
+    required String name,
+    required T item,
+  }) = _NamedItem<T>;
+
+  factory NamedItem.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) =>
+      _$NamedItemFromJson(json, fromJsonT);
+
+  @override
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
+      throw UnimplementedError(
+          'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.');
+}
+
 final class PackItem<T extends PackAsset> implements PackAssetLocation {
   final PackAssetLocation location;
   final NoteData pack;

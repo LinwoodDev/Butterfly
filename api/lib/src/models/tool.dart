@@ -161,7 +161,7 @@ sealed class Tool with _$Tool {
   factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
-    ButterflyComponent? component,
+    NamedItem<ButterflyComponent>? component,
   }) = StampTool;
 
   factory Tool.presentation({

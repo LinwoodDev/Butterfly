@@ -10,8 +10,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ComponentsToolbarView extends StatefulWidget
     implements PreferredSizeWidget {
-  final ButterflyComponent? component;
-  final ValueChanged<ButterflyComponent?> onChanged;
+  final NamedItem<ButterflyComponent>? component;
+  final ValueChanged<NamedItem<ButterflyComponent>?> onChanged;
 
   const ComponentsToolbarView({
     super.key,
@@ -30,7 +30,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   late final PackFileSystem _packSystem;
   final ScrollController _scrollController = ScrollController();
   String? currentPack;
-  Future<List<(String, String, ButterflyComponent)>>? _componentsFuture;
+  Future<List<(String, NamedItem<ButterflyComponent>)>>? _componentsFuture;
 
   @override
   void initState() {
@@ -39,9 +39,9 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
     _componentsFuture = _getComponents();
   }
 
-  Future<List<(String, String, ButterflyComponent)>> _getComponents() async {
+  Future<List<(String, NamedItem<ButterflyComponent>)>> _getComponents() async {
     final files = await _packSystem.getFiles();
-    final packComponents = <(String, String, ButterflyComponent)>[];
+    final packComponents = <(String, NamedItem<ButterflyComponent>)>[];
     for (final file in files) {
       final pack = file.data!;
       final components = pack
@@ -49,7 +49,10 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
           .map((e) {
             final component = file.data!.getComponent(e);
             if (component == null) return null;
-            return (file.pathWithoutLeadingSlash, e, component);
+            return (
+              file.pathWithoutLeadingSlash,
+              NamedItem(name: e, item: component)
+            );
           })
           .nonNulls
           .toList();
@@ -66,7 +69,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<(String, String, ButterflyComponent)>>(
+    return FutureBuilder<List<(String, NamedItem<ButterflyComponent>)>>(
         future: _componentsFuture,
         builder: (context, snapshot) {
           final allComponents = snapshot.data ?? [];
@@ -82,7 +85,8 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
               if (value != null) ...[
                 _ComponentsButton(
                   onChanged: () {},
-                  value: value,
+                  value: value.item,
+                  name: value.name,
                 ),
                 const VerticalDivider(),
               ],
@@ -95,12 +99,13 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                     children: [
                       ...List.generate(components.length, (index) {
                         final current = components[index];
+                        final item = current.$2;
                         return _ComponentsButton(
-                          value: current.$3,
-                          name: current.$2,
-                          selected: current.$3 == value,
+                          value: item.item,
+                          name: item.name,
+                          selected: value == item,
                           onChanged: () {
-                            widget.onChanged(current.$3);
+                            widget.onChanged(item);
                           },
                         );
                       }),

@@ -1524,7 +1524,7 @@ class StampTool extends Tool {
   @override
   @JsonKey()
   final String displayIcon;
-  final ButterflyComponent? component;
+  final NamedItem<ButterflyComponent>? component;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -1556,9 +1556,12 @@ abstract mixin class $StampToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       _$StampToolCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, String displayIcon, ButterflyComponent? component});
+  $Res call(
+      {String name,
+      String displayIcon,
+      NamedItem<ButterflyComponent>? component});
 
-  $ButterflyComponentCopyWith<$Res>? get component;
+  $NamedItemCopyWith<ButterflyComponent, $Res>? get component;
 }
 
 /// @nodoc
@@ -1589,7 +1592,7 @@ class _$StampToolCopyWithImpl<$Res> implements $StampToolCopyWith<$Res> {
       component: freezed == component
           ? _self.component
           : component // ignore: cast_nullable_to_non_nullable
-              as ButterflyComponent?,
+              as NamedItem<ButterflyComponent>?,
     ));
   }
 
@@ -1597,12 +1600,13 @@ class _$StampToolCopyWithImpl<$Res> implements $StampToolCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ButterflyComponentCopyWith<$Res>? get component {
+  $NamedItemCopyWith<ButterflyComponent, $Res>? get component {
     if (_self.component == null) {
       return null;
     }
 
-    return $ButterflyComponentCopyWith<$Res>(_self.component!, (value) {
+    return $NamedItemCopyWith<ButterflyComponent, $Res>(_self.component!,
+        (value) {
       return _then(_self.copyWith(component: value));
     });
   }

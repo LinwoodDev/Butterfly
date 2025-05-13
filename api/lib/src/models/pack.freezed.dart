@@ -893,4 +893,164 @@ class _$DoubleParameterCopyWithImpl<$Res>
   }
 }
 
+/// @nodoc
+mixin _$NamedItem<T extends PackAsset> {
+  String get name;
+  T get item;
+
+  /// Create a copy of NamedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $NamedItemCopyWith<T, NamedItem<T>> get copyWith =>
+      _$NamedItemCopyWithImpl<T, NamedItem<T>>(
+          this as NamedItem<T>, _$identity);
+
+  /// Serializes this NamedItem to a JSON map.
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NamedItem<T> &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.item, item));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, const DeepCollectionEquality().hash(item));
+
+  @override
+  String toString() {
+    return 'NamedItem<$T>(name: $name, item: $item)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $NamedItemCopyWith<T extends PackAsset, $Res> {
+  factory $NamedItemCopyWith(
+          NamedItem<T> value, $Res Function(NamedItem<T>) _then) =
+      _$NamedItemCopyWithImpl;
+  @useResult
+  $Res call({String name, T item});
+}
+
+/// @nodoc
+class _$NamedItemCopyWithImpl<T extends PackAsset, $Res>
+    implements $NamedItemCopyWith<T, $Res> {
+  _$NamedItemCopyWithImpl(this._self, this._then);
+
+  final NamedItem<T> _self;
+  final $Res Function(NamedItem<T>) _then;
+
+  /// Create a copy of NamedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? item = null,
+  }) {
+    return _then(_self.copyWith(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      item: null == item
+          ? _self.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable(genericArgumentFactories: true)
+class _NamedItem<T extends PackAsset> extends NamedItem<T> {
+  const _NamedItem({required this.name, required this.item}) : super._();
+  factory _NamedItem.fromJson(
+          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
+      _$NamedItemFromJson(json, fromJsonT);
+
+  @override
+  final String name;
+  @override
+  final T item;
+
+  /// Create a copy of NamedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NamedItemCopyWith<T, _NamedItem<T>> get copyWith =>
+      __$NamedItemCopyWithImpl<T, _NamedItem<T>>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
+    return _$NamedItemToJson<T>(this, toJsonT);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _NamedItem<T> &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.item, item));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, const DeepCollectionEquality().hash(item));
+
+  @override
+  String toString() {
+    return 'NamedItem<$T>(name: $name, item: $item)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$NamedItemCopyWith<T extends PackAsset, $Res>
+    implements $NamedItemCopyWith<T, $Res> {
+  factory _$NamedItemCopyWith(
+          _NamedItem<T> value, $Res Function(_NamedItem<T>) _then) =
+      __$NamedItemCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String name, T item});
+}
+
+/// @nodoc
+class __$NamedItemCopyWithImpl<T extends PackAsset, $Res>
+    implements _$NamedItemCopyWith<T, $Res> {
+  __$NamedItemCopyWithImpl(this._self, this._then);
+
+  final _NamedItem<T> _self;
+  final $Res Function(_NamedItem<T>) _then;
+
+  /// Create a copy of NamedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? item = null,
+  }) {
+    return _then(_NamedItem<T>(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      item: null == item
+          ? _self.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
 // dart format on

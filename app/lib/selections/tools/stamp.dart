@@ -9,15 +9,17 @@ class StampToolSelection extends ToolSelection<StampTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
     final value = selected.first.component;
-    void updateComponent(ButterflyComponent? component) => update(context,
+    void updateComponent(NamedItem<ButterflyComponent>? component) => update(
+        context,
         selected.map((e) => e.copyWith(component: component)).toList());
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
       ListTile(
         title: Text(AppLocalizations.of(context).component),
-        subtitle:
-            value == null ? Text(AppLocalizations.of(context).notSet) : null,
+        subtitle: value == null
+            ? Text(AppLocalizations.of(context).notSet)
+            : Text(value.name),
         trailing: IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.trash),
           onPressed: () => updateComponent(null),

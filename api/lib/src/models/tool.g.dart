@@ -278,15 +278,19 @@ StampTool _$StampToolFromJson(Map json) => StampTool(
       displayIcon: json['displayIcon'] as String? ?? '',
       component: json['component'] == null
           ? null
-          : ButterflyComponent.fromJson(
-              Map<String, dynamic>.from(json['component'] as Map)),
+          : NamedItem<ButterflyComponent>.fromJson(
+              Map<String, dynamic>.from(json['component'] as Map),
+              (value) => ButterflyComponent.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$StampToolToJson(StampTool instance) => <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
-      'component': instance.component?.toJson(),
+      'component': instance.component?.toJson(
+        (value) => value.toJson(),
+      ),
       'type': instance.$type,
     };
 

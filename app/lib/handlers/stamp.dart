@@ -39,7 +39,7 @@ class StampHandler extends PastingHandler<StampTool> {
     super.onPointerDown(event, context);
   }
 
-  ButterflyComponent? getComponent() => data.component;
+  ButterflyComponent? getComponent() => data.component?.item;
 
   Future<void> _loadComponent(
       NoteData document, AssetService assetService, DocumentPage page,

@@ -20,7 +20,7 @@ class _ComponentsViewState extends State<ComponentsView> {
   final TextEditingController _searchController = TextEditingController();
   final List<String> selectedPacks = [];
   late final PackFileSystem _packSystem;
-  Future<List<(String, String, ButterflyComponent)>>? _componentsFuture;
+  Future<List<(String, NamedItem<ButterflyComponent>)>>? _componentsFuture;
 
   @override
   void initState() {
@@ -32,9 +32,9 @@ class _ComponentsViewState extends State<ComponentsView> {
     });
   }
 
-  Future<List<(String, String, ButterflyComponent)>> _getComponents() async {
+  Future<List<(String, NamedItem<ButterflyComponent>)>> _getComponents() async {
     final files = await _packSystem.getFiles();
-    final packComponents = <(String, String, ButterflyComponent)>[];
+    final packComponents = <(String, NamedItem<ButterflyComponent>)>[];
     for (final file in files) {
       final pack = file.data!;
       final components = pack
@@ -42,7 +42,10 @@ class _ComponentsViewState extends State<ComponentsView> {
           .map((e) {
             final component = file.data!.getComponent(e);
             if (component == null) return null;
-            return (file.pathWithoutLeadingSlash, e, component);
+            return (
+              file.pathWithoutLeadingSlash,
+              NamedItem(name: e, item: component)
+            );
           })
           .nonNulls
           .toList();
@@ -59,11 +62,11 @@ class _ComponentsViewState extends State<ComponentsView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<(String, String, ButterflyComponent)>>(
+    return FutureBuilder<List<(String, NamedItem<ButterflyComponent>)>>(
       future: _componentsFuture,
       builder: (context, snapshot) {
         final allComponents =
-            snapshot.data ?? <(String, String, ButterflyComponent)>[];
+            snapshot.data ?? <(String, NamedItem<ButterflyComponent>)>[];
         final packs = allComponents.map((e) => e.$1).toSet().toList();
         final components = allComponents
             .where(
@@ -109,17 +112,18 @@ class _ComponentsViewState extends State<ComponentsView> {
                     type: MaterialType.transparency,
                     child: Wrap(
                       children: components.nonNulls.map((e) {
+                        final item = e.$2;
                         return ComponentCard(
-                          component: e.$3,
-                          name: e.$2,
+                          component: item.item,
+                          name: item.name,
                           selected: handler is StampHandler &&
-                              handler.data.component == e.$3,
+                              handler.data.component == item,
                           key: ValueKey(e.$1),
                           onTap: () => context
                               .read<CurrentIndexCubit>()
                               .changeTemporaryHandler(
                                 context,
-                                StampTool(component: e.$3),
+                                StampTool(component: item),
                               ),
                         );
                       }).toList(),

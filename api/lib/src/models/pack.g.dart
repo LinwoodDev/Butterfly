@@ -123,3 +123,21 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
       'value': instance.value,
       'type': instance.$type,
     };
+
+_NamedItem<T> _$NamedItemFromJson<T extends PackAsset>(
+  Map json,
+  T Function(Object? json) fromJsonT,
+) =>
+    _NamedItem<T>(
+      name: json['name'] as String,
+      item: fromJsonT(json['item']),
+    );
+
+Map<String, dynamic> _$NamedItemToJson<T extends PackAsset>(
+  _NamedItem<T> instance,
+  Object? Function(T value) toJsonT,
+) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'item': toJsonT(instance.item),
+    };

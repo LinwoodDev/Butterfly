@@ -368,6 +368,14 @@ final class NoteData extends ArchiveData<NoteData> {
       getAssets('$kComponentsArchiveDirectory/', true);
 
   @useResult
+  Iterable<NamedItem<ButterflyComponent>> getNamedComponents() =>
+      getComponents().map((e) {
+        final component = getComponent(e);
+        if (component == null) return null;
+        return NamedItem<ButterflyComponent>(name: e, item: component);
+      }).nonNulls;
+
+  @useResult
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
     if (data == null) {
