@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
@@ -9,8 +11,6 @@ part 'pack.freezed.dart';
 
 @freezed
 abstract class PackAsset with _$PackAsset {
-  String get name;
-
   const PackAsset();
 }
 
@@ -19,8 +19,7 @@ sealed class ColorPalette extends PackAsset with _$ColorPalette {
   const ColorPalette._();
 
   const factory ColorPalette(
-          {required String name,
-          @Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
+          {@Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
       _ColorPalette;
   factory ColorPalette.fromJson(Map<String, dynamic> json) =>
       _$ColorPaletteFromJson(json);
@@ -31,8 +30,7 @@ sealed class ButterflyComponent extends PackAsset with _$ButterflyComponent {
   const ButterflyComponent._();
 
   const factory ButterflyComponent({
-    required String name,
-    String? thumbnail,
+    @Uint8ListJsonConverter() Uint8List? thumbnail,
     @Default(<PadElement>[]) List<PadElement> elements,
   }) = _ButterflyComponent;
 

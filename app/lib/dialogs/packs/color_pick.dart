@@ -60,7 +60,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
     });
   }
 
-  void _changePalette(ColorPalette palette) {
+  void _changePalette(ColorPalette palette, [String? name]) {
     if (widget.onChanged != null) {
       widget.onChanged!(palette);
     } else {
@@ -70,6 +70,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
       final location = _selected;
       if (location == null) return;
       final newPack = _pack?.setPalette(
+        name ?? location.key,
         palette,
       );
       if (newPack == null) return;
@@ -227,7 +228,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                             value: widget.bloc!,
                                             child: SelectPackAssetDialog<
                                                 ColorPalette>(
-                                              selected: _selected,
+                                              selectedObject: _selected?.item,
                                             ),
                                           ),
                                         );
@@ -246,7 +247,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                   ] else
                                     Expanded(
                                       child: TextFormField(
-                                        initialValue: _palette?.name,
+                                        initialValue: _selected?.key,
                                         decoration: InputDecoration(
                                           labelText: LeapLocalizations.of(
                                             context,
@@ -254,9 +255,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           filled: true,
                                         ),
                                         onChanged: (value) {
-                                          _changePalette(
-                                            _palette!.copyWith(name: value),
-                                          );
+                                          _changePalette(_palette!, value);
                                         },
                                       ),
                                     ),

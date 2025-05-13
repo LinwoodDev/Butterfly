@@ -1,5 +1,4 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -53,27 +52,25 @@ class ComponentsPackView extends StatelessWidget {
 
 class ComponentCard extends StatelessWidget {
   final ButterflyComponent component;
-  final NoteData? pack;
   final bool selected;
+  final String name;
   final VoidCallback onTap;
 
   const ComponentCard({
     required this.component,
-    required this.pack,
     required this.selected,
     required this.onTap,
+    required this.name,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final thumbnail = component.thumbnail == null || pack == null
-        ? null
-        : getDataFromSource(pack!, component.thumbnail!);
     const fallbackWidget = AspectRatio(
       aspectRatio: 1,
       child: PhosphorIcon(PhosphorIconsLight.selection),
     );
+    final thumbnail = component.thumbnail;
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -107,7 +104,7 @@ class ComponentCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                component.name,
+                name,
                 style: TextTheme.of(context).titleMedium,
                 textAlign: TextAlign.center,
               ),
@@ -128,7 +125,7 @@ class SelectComponentDialog extends StatefulWidget {
 
 class _SelectComponentDialogState extends State<SelectComponentDialog> {
   late final PackFileSystem _packSystem;
-  Future<List<(NoteData, ButterflyComponent)>>? _componentsFuture;
+  Future<List<(String, ButterflyComponent)>>? _componentsFuture;
 
   @override
   void initState() {
@@ -137,9 +134,9 @@ class _SelectComponentDialogState extends State<SelectComponentDialog> {
     _componentsFuture = _getComponents();
   }
 
-  Future<List<(NoteData, ButterflyComponent)>> _getComponents() async {
+  Future<List<(String, ButterflyComponent)>> _getComponents() async {
     final files = await _packSystem.getFiles();
-    final packComponents = <(NoteData, ButterflyComponent)>[];
+    final packComponents = <(String, ButterflyComponent)>[];
     for (final file in files) {
       final pack = file.data!;
       final components = pack
@@ -147,10 +144,9 @@ class _SelectComponentDialogState extends State<SelectComponentDialog> {
           .map((e) {
             final component = pack.getComponent(e);
             if (component == null) return null;
-            return component;
+            return (e, component);
           })
           .nonNulls
-          .map((e) => (pack, e))
           .toList();
       packComponents.addAll(components);
     }
@@ -161,18 +157,18 @@ class _SelectComponentDialogState extends State<SelectComponentDialog> {
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
         title: Text(AppLocalizations.of(context).selectComponent),
-        content: FutureBuilder<List<(NoteData, ButterflyComponent)>>(
+        content: FutureBuilder<List<(String, ButterflyComponent)>>(
           future: _componentsFuture,
           builder: (context, snapshot) {
             final allComponents =
-                snapshot.data ?? <(NoteData, ButterflyComponent)>[];
+                snapshot.data ?? <(String, ButterflyComponent)>[];
             return ListView(
               shrinkWrap: true,
               children: allComponents
                   .map(
                     (e) => ComponentCard(
                       component: e.$2,
-                      pack: e.$1,
+                      name: e.$1,
                       selected: false,
                       onTap: () {
                         Navigator.of(context).pop(e.$2);

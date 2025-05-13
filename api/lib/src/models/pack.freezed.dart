@@ -37,7 +37,6 @@ class $PackAssetCopyWith<$Res> {
 
 /// @nodoc
 mixin _$ColorPalette {
-  String get name;
   @ColorJsonConverter()
   List<SRGBColor> get colors;
 
@@ -57,18 +56,17 @@ mixin _$ColorPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ColorPalette &&
-            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other.colors, colors));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(colors));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(colors));
 
   @override
   String toString() {
-    return 'ColorPalette(name: $name, colors: $colors)';
+    return 'ColorPalette(colors: $colors)';
   }
 }
 
@@ -79,7 +77,7 @@ abstract mixin class $ColorPaletteCopyWith<$Res>
           ColorPalette value, $Res Function(ColorPalette) _then) =
       _$ColorPaletteCopyWithImpl;
   @useResult
-  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
+  $Res call({@ColorJsonConverter() List<SRGBColor> colors});
 }
 
 /// @nodoc
@@ -94,14 +92,9 @@ class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? colors = null,
   }) {
     return _then(_self.copyWith(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       colors: null == colors
           ? _self.colors
           : colors // ignore: cast_nullable_to_non_nullable
@@ -114,15 +107,12 @@ class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
 @JsonSerializable()
 class _ColorPalette extends ColorPalette {
   const _ColorPalette(
-      {required this.name,
-      @ColorJsonConverter() final List<SRGBColor> colors = const []})
+      {@ColorJsonConverter() final List<SRGBColor> colors = const []})
       : _colors = colors,
         super._();
   factory _ColorPalette.fromJson(Map<String, dynamic> json) =>
       _$ColorPaletteFromJson(json);
 
-  @override
-  final String name;
   final List<SRGBColor> _colors;
   @override
   @JsonKey()
@@ -153,18 +143,17 @@ class _ColorPalette extends ColorPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ColorPalette &&
-            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_colors));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_colors));
 
   @override
   String toString() {
-    return 'ColorPalette(name: $name, colors: $colors)';
+    return 'ColorPalette(colors: $colors)';
   }
 }
 
@@ -176,7 +165,7 @@ abstract mixin class _$ColorPaletteCopyWith<$Res>
       __$ColorPaletteCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
+  $Res call({@ColorJsonConverter() List<SRGBColor> colors});
 }
 
 /// @nodoc
@@ -192,14 +181,9 @@ class __$ColorPaletteCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
     Object? colors = null,
   }) {
     return _then(_ColorPalette(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       colors: null == colors
           ? _self._colors
           : colors // ignore: cast_nullable_to_non_nullable
@@ -210,8 +194,8 @@ class __$ColorPaletteCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$ButterflyComponent {
-  String get name;
-  String? get thumbnail;
+  @Uint8ListJsonConverter()
+  Uint8List? get thumbnail;
   List<PadElement> get elements;
 
   /// Create a copy of ButterflyComponent
@@ -230,20 +214,20 @@ mixin _$ButterflyComponent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ButterflyComponent &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
             const DeepCollectionEquality().equals(other.elements, elements));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, thumbnail,
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(thumbnail),
       const DeepCollectionEquality().hash(elements));
 
   @override
   String toString() {
-    return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
+    return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
   }
 }
 
@@ -254,7 +238,9 @@ abstract mixin class $ButterflyComponentCopyWith<$Res>
           ButterflyComponent value, $Res Function(ButterflyComponent) _then) =
       _$ButterflyComponentCopyWithImpl;
   @useResult
-  $Res call({String name, String? thumbnail, List<PadElement> elements});
+  $Res call(
+      {@Uint8ListJsonConverter() Uint8List? thumbnail,
+      List<PadElement> elements});
 }
 
 /// @nodoc
@@ -270,19 +256,14 @@ class _$ButterflyComponentCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_self.copyWith(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       thumbnail: freezed == thumbnail
           ? _self.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Uint8List?,
       elements: null == elements
           ? _self.elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -295,8 +276,7 @@ class _$ButterflyComponentCopyWithImpl<$Res>
 @JsonSerializable()
 class _ButterflyComponent extends ButterflyComponent {
   const _ButterflyComponent(
-      {required this.name,
-      this.thumbnail,
+      {@Uint8ListJsonConverter() this.thumbnail,
       final List<PadElement> elements = const <PadElement>[]})
       : _elements = elements,
         super._();
@@ -304,9 +284,8 @@ class _ButterflyComponent extends ButterflyComponent {
       _$ButterflyComponentFromJson(json);
 
   @override
-  final String name;
-  @override
-  final String? thumbnail;
+  @Uint8ListJsonConverter()
+  final Uint8List? thumbnail;
   final List<PadElement> _elements;
   @override
   @JsonKey()
@@ -336,20 +315,20 @@ class _ButterflyComponent extends ButterflyComponent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ButterflyComponent &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, thumbnail,
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(thumbnail),
       const DeepCollectionEquality().hash(_elements));
 
   @override
   String toString() {
-    return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
+    return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
   }
 }
 
@@ -361,7 +340,9 @@ abstract mixin class _$ButterflyComponentCopyWith<$Res>
       __$ButterflyComponentCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, String? thumbnail, List<PadElement> elements});
+  $Res call(
+      {@Uint8ListJsonConverter() Uint8List? thumbnail,
+      List<PadElement> elements});
 }
 
 /// @nodoc
@@ -377,19 +358,14 @@ class __$ButterflyComponentCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
     Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_ButterflyComponent(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       thumbnail: freezed == thumbnail
           ? _self.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Uint8List?,
       elements: null == elements
           ? _self._elements
           : elements // ignore: cast_nullable_to_non_nullable

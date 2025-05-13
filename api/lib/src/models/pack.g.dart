@@ -7,7 +7,6 @@ part of 'pack.dart';
 // **************************************************************************
 
 _ColorPalette _$ColorPaletteFromJson(Map json) => _ColorPalette(
-      name: json['name'] as String,
       colors: (json['colors'] as List<dynamic>?)
               ?.map((e) =>
                   const ColorJsonConverter().fromJson((e as num).toInt()))
@@ -17,14 +16,13 @@ _ColorPalette _$ColorPaletteFromJson(Map json) => _ColorPalette(
 
 Map<String, dynamic> _$ColorPaletteToJson(_ColorPalette instance) =>
     <String, dynamic>{
-      'name': instance.name,
       'colors': instance.colors.map(const ColorJsonConverter().toJson).toList(),
     };
 
 _ButterflyComponent _$ButterflyComponentFromJson(Map json) =>
     _ButterflyComponent(
-      name: json['name'] as String,
-      thumbnail: json['thumbnail'] as String?,
+      thumbnail: _$JsonConverterFromJson<String, Uint8List>(
+          json['thumbnail'], const Uint8ListJsonConverter().fromJson),
       elements: (json['elements'] as List<dynamic>?)
               ?.map((e) =>
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -34,10 +32,22 @@ _ButterflyComponent _$ButterflyComponentFromJson(Map json) =>
 
 Map<String, dynamic> _$ButterflyComponentToJson(_ButterflyComponent instance) =>
     <String, dynamic>{
-      'name': instance.name,
-      'thumbnail': instance.thumbnail,
+      'thumbnail': _$JsonConverterToJson<String, Uint8List>(
+          instance.thumbnail, const Uint8ListJsonConverter().toJson),
       'elements': instance.elements.map((e) => e.toJson()).toList(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 TextParameter _$TextParameterFromJson(Map json) => TextParameter(
       child: (json['child'] as num).toInt(),

@@ -6,8 +6,9 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 class SelectPackAssetDialog<T extends PackAsset> extends StatefulWidget {
   final PackAssetLocation? selected;
+  final T? selectedObject;
 
-  const SelectPackAssetDialog({super.key, this.selected});
+  const SelectPackAssetDialog({super.key, this.selected, this.selectedObject});
 
   @override
   State<SelectPackAssetDialog> createState() => _SelectPackAssetDialogState();
@@ -58,7 +59,8 @@ class _SelectPackAssetDialogState<T extends PackAsset>
                       title: Text(e.key),
                       subtitle: Text(e.namespace),
                       onTap: () => Navigator.of(context).pop(e),
-                      selected: e == widget.selected,
+                      selected: e.location == widget.selected ||
+                          e.item == widget.selectedObject,
                     ),
                   )
                   .toList(),

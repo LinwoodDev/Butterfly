@@ -16,9 +16,8 @@ class StampToolSelection extends ToolSelection<StampTool> {
       const SizedBox(height: 16),
       ListTile(
         title: Text(AppLocalizations.of(context).component),
-        subtitle: value == null
-            ? Text(AppLocalizations.of(context).notSet)
-            : Text(value.name),
+        subtitle:
+            value == null ? Text(AppLocalizations.of(context).notSet) : null,
         trailing: IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.trash),
           onPressed: () => updateComponent(null),

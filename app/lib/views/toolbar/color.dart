@@ -56,14 +56,16 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       final pack = await _packSystem.getFile(name);
       if (pack == null) continue;
       final palettes = pack.getPalettes();
-      final palette = palettes.map((e) => pack.getPalette(e)).firstOrNull;
-      if (palette == null) continue;
-      return PackItem<ColorPalette>.build(
-        name,
-        palette.name,
-        pack,
-        palette,
-      );
+      return palettes.map((e) {
+        final palette = pack.getPalette(e);
+        if (palette == null) return null;
+        return PackItem<ColorPalette>.build(
+          name,
+          e,
+          pack,
+          palette,
+        );
+      }).firstOrNull;
     }
     return null;
   }
@@ -71,7 +73,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   Future<void> _updatePalette(ColorPalette palette) async {
     var selected = _colorPalette;
     if (selected == null) return;
-    final newPack = selected.pack.setPalette(palette);
+    final newPack = selected.pack.setPalette(selected.key, palette);
     return _packSystem.updateFile(
       selected.namespace,
       newPack,
@@ -214,7 +216,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                 final result = await showDialog<PackItem<ColorPalette>>(
                   context: context,
                   builder: (context) => SelectPackAssetDialog<ColorPalette>(
-                    selected: _colorPalette,
+                    selectedObject: _colorPalette?.item,
                   ),
                 );
 

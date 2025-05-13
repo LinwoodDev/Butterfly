@@ -383,8 +383,8 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setComponent(ButterflyComponent component) => setAsset(
-      '$kComponentsArchiveDirectory/${component.name}.json',
+  NoteData setComponent(String name, ButterflyComponent component) => setAsset(
+      '$kComponentsArchiveDirectory/$name.json',
       utf8.encode(jsonEncode(component.toJson())));
 
   @useResult
@@ -440,10 +440,10 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPalette(ColorPalette palette) {
+  NoteData setPalette(String name, ColorPalette palette) {
     final content = jsonEncode(palette.toJson());
-    return setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
-        utf8.encode(content));
+    return setAsset(
+        '$kPalettesArchiveDirectory/$name.json', utf8.encode(content));
   }
 
   @useResult

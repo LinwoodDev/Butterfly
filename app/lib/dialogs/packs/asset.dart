@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -152,10 +154,9 @@ Future<void> addToPack(
       quality: kThumbnailWidth / rect.width,
     ),
   );
-  String? thumbnailUri;
+  Uint8List? thumbnail;
   if (screenshot != null) {
-    thumbnailUri =
-        Uri.dataFromBytes(screenshot.buffer.asUint8List()).toString();
+    thumbnail = screenshot.buffer.asUint8List();
   }
   final renderers = elements.map(Renderer.fromInstance).toList();
   await Future.wait(
@@ -171,10 +172,10 @@ Future<void> addToPack(
       )
       .toList();
   pack = pack.setComponent(
+    result.key,
     ButterflyComponent(
-      name: result.key,
       elements: transformed,
-      thumbnail: thumbnailUri,
+      thumbnail: thumbnail,
     ),
   );
   await packSystem.updateFile(result.namespace, pack);
