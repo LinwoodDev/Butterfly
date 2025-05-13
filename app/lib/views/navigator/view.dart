@@ -121,7 +121,7 @@ class _NavigatorViewState extends State<NavigatorView>
                     child: SizedBox(
                       width: drawerWidth,
                       child: Card(
-                        child: DocumentNavigator(asDrawer: false),
+                        child: DocumentNavigator(asDialog: false),
                       ),
                     ),
                     builder: (context, child) {
@@ -148,7 +148,6 @@ class _NavigatorViewState extends State<NavigatorView>
                               ),
                             )
                             .toList(),
-                        labelType: NavigationRailLabelType.none,
                         selectedIndex:
                             currentIndex.navigatorEnabled ? selected : null,
                         groupAlignment: 0,
@@ -176,8 +175,12 @@ class _NavigatorViewState extends State<NavigatorView>
 }
 
 class DocumentNavigator extends StatefulWidget {
-  final bool asDrawer;
-  const DocumentNavigator({super.key, this.asDrawer = false});
+  final bool asDialog;
+
+  const DocumentNavigator({
+    super.key,
+    this.asDialog = false,
+  });
 
   @override
   State<DocumentNavigator> createState() => _DocumentNavigatorState();
@@ -206,7 +209,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           child: Column(
             children: [
               Header(
-                leading: widget.asDrawer
+                leading: widget.asDialog
                     ? IconButton.outlined(
                         icon: const PhosphorIcon(PhosphorIconsLight.x),
                         onPressed: () => Navigator.of(context).pop(),
@@ -232,14 +235,13 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             ],
           ),
         );
-        if (widget.asDrawer) {
-          return Drawer(width: 400, child: SafeArea(child: content));
-        } else {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: content,
-          );
+        if (widget.asDialog) {
+          return Dialog.fullscreen(child: content);
         }
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: content,
+        );
       },
     );
   }

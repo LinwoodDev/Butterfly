@@ -50,15 +50,19 @@ ThemeData getThemeData(String name, bool dark,
     );
   }
   return theme.copyWith(
-      tabBarTheme: const TabBarTheme(
-        tabAlignment: TabAlignment.center,
-      ),
-      dropdownMenuTheme: DropdownMenuThemeData(
-        inputDecorationTheme: defaultDropdownInputDecorationTheme(),
-      ),
-      sliderTheme: theme.sliderTheme.copyWith(
-        year2023: false,
-      ));
+    tabBarTheme: const TabBarTheme(
+      tabAlignment: TabAlignment.center,
+    ),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+    ),
+    sliderTheme: theme.sliderTheme.copyWith(
+      year2023: false,
+    ),
+    progressIndicatorTheme: theme.progressIndicatorTheme.copyWith(
+      year2023: false,
+    ),
+  );
 }
 
 InputDecorationTheme defaultDropdownInputDecorationTheme() {

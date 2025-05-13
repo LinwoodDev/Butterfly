@@ -19,6 +19,7 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
   InputMapping get middleMouse;
   InputMapping get rightMouse;
   InputMapping get pen;
+  InputMapping get invertedPen;
   InputMapping get firstPenButton;
   InputMapping get secondPenButton;
   InputMapping get touch;
@@ -42,6 +43,7 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('middleMouse', middleMouse))
       ..add(DiagnosticsProperty('rightMouse', rightMouse))
       ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('invertedPen', invertedPen))
       ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
       ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
       ..add(DiagnosticsProperty('touch', touch));
@@ -59,6 +61,8 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
             (identical(other.rightMouse, rightMouse) ||
                 other.rightMouse == rightMouse) &&
             (identical(other.pen, pen) || other.pen == pen) &&
+            (identical(other.invertedPen, invertedPen) ||
+                other.invertedPen == invertedPen) &&
             (identical(other.firstPenButton, firstPenButton) ||
                 other.firstPenButton == firstPenButton) &&
             (identical(other.secondPenButton, secondPenButton) ||
@@ -69,11 +73,11 @@ mixin _$InputConfiguration implements DiagnosticableTreeMixin {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
-      rightMouse, pen, firstPenButton, secondPenButton, touch);
+      rightMouse, pen, invertedPen, firstPenButton, secondPenButton, touch);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
   }
 }
 
@@ -88,6 +92,7 @@ abstract mixin class $InputConfigurationCopyWith<$Res> {
       InputMapping middleMouse,
       InputMapping rightMouse,
       InputMapping pen,
+      InputMapping invertedPen,
       InputMapping firstPenButton,
       InputMapping secondPenButton,
       InputMapping touch});
@@ -110,6 +115,7 @@ class _$InputConfigurationCopyWithImpl<$Res>
     Object? middleMouse = null,
     Object? rightMouse = null,
     Object? pen = null,
+    Object? invertedPen = null,
     Object? firstPenButton = null,
     Object? secondPenButton = null,
     Object? touch = null,
@@ -130,6 +136,10 @@ class _$InputConfigurationCopyWithImpl<$Res>
       pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
+              as InputMapping,
+      invertedPen: null == invertedPen
+          ? _self.invertedPen
+          : invertedPen // ignore: cast_nullable_to_non_nullable
               as InputMapping,
       firstPenButton: null == firstPenButton
           ? _self.firstPenButton
@@ -156,6 +166,7 @@ class _InputConfiguration extends InputConfiguration
       this.middleMouse = InputMappingDefault.middleMouse,
       this.rightMouse = InputMappingDefault.rightMouse,
       this.pen = InputMappingDefault.pen,
+      this.invertedPen = InputMappingDefault.invertedPen,
       this.firstPenButton = InputMappingDefault.firstPenButton,
       this.secondPenButton = InputMappingDefault.secondPenButton,
       this.touch = InputMappingDefault.touch})
@@ -175,6 +186,9 @@ class _InputConfiguration extends InputConfiguration
   @override
   @JsonKey()
   final InputMapping pen;
+  @override
+  @JsonKey()
+  final InputMapping invertedPen;
   @override
   @JsonKey()
   final InputMapping firstPenButton;
@@ -208,6 +222,7 @@ class _InputConfiguration extends InputConfiguration
       ..add(DiagnosticsProperty('middleMouse', middleMouse))
       ..add(DiagnosticsProperty('rightMouse', rightMouse))
       ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('invertedPen', invertedPen))
       ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
       ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
       ..add(DiagnosticsProperty('touch', touch));
@@ -225,6 +240,8 @@ class _InputConfiguration extends InputConfiguration
             (identical(other.rightMouse, rightMouse) ||
                 other.rightMouse == rightMouse) &&
             (identical(other.pen, pen) || other.pen == pen) &&
+            (identical(other.invertedPen, invertedPen) ||
+                other.invertedPen == invertedPen) &&
             (identical(other.firstPenButton, firstPenButton) ||
                 other.firstPenButton == firstPenButton) &&
             (identical(other.secondPenButton, secondPenButton) ||
@@ -235,11 +252,11 @@ class _InputConfiguration extends InputConfiguration
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
-      rightMouse, pen, firstPenButton, secondPenButton, touch);
+      rightMouse, pen, invertedPen, firstPenButton, secondPenButton, touch);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
   }
 }
 
@@ -256,6 +273,7 @@ abstract mixin class _$InputConfigurationCopyWith<$Res>
       InputMapping middleMouse,
       InputMapping rightMouse,
       InputMapping pen,
+      InputMapping invertedPen,
       InputMapping firstPenButton,
       InputMapping secondPenButton,
       InputMapping touch});
@@ -278,6 +296,7 @@ class __$InputConfigurationCopyWithImpl<$Res>
     Object? middleMouse = null,
     Object? rightMouse = null,
     Object? pen = null,
+    Object? invertedPen = null,
     Object? firstPenButton = null,
     Object? secondPenButton = null,
     Object? touch = null,
@@ -298,6 +317,10 @@ class __$InputConfigurationCopyWithImpl<$Res>
       pen: null == pen
           ? _self.pen
           : pen // ignore: cast_nullable_to_non_nullable
+              as InputMapping,
+      invertedPen: null == invertedPen
+          ? _self.invertedPen
+          : invertedPen // ignore: cast_nullable_to_non_nullable
               as InputMapping,
       firstPenButton: null == firstPenButton
           ? _self.firstPenButton

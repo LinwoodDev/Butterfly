@@ -101,6 +101,7 @@ class InputMappingDefault {
       InputMapping(InputMapping.handToolValue);
   static const InputMapping rightMouse = InputMapping(1);
   static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping invertedPen = InputMapping(3);
   static const InputMapping firstPenButton = InputMapping(2);
   static const InputMapping secondPenButton = InputMapping(1);
   static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
@@ -175,6 +176,7 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
+    @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
@@ -188,6 +190,7 @@ sealed class InputConfiguration with _$InputConfiguration {
         middleMouse,
         rightMouse,
         pen,
+        invertedPen,
         firstPenButton,
         secondPenButton,
         touch

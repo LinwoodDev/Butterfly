@@ -506,14 +506,11 @@ class _ProjectPageState extends State<ProjectPage> {
                                         size: settings.toolbarSize,
                                         searchController: _searchController,
                                         padding: padding,
+                                        inView: state.embedding?.isInternal ??
+                                            false,
                                         showTools: settings.isInline &&
                                             state.embedding?.editable != false,
                                       ),
-                                drawer: state is DocumentLoadSuccess
-                                    ? const DocumentNavigator(
-                                        asDrawer: true,
-                                      )
-                                    : null,
                                 body: Actions(
                                   actions: _actions,
                                   child: const _MainBody(),

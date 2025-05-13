@@ -173,6 +173,15 @@ class ViewCollaborationDialog extends StatelessWidget {
           ),
         ],
       ),
+      headerActions: [
+        IconButton(
+          icon: const Icon(PhosphorIconsLight.sealQuestion),
+          onPressed: () {
+            openHelp(['collaboration']);
+          },
+          tooltip: AppLocalizations.of(context).help,
+        ),
+      ],
       leading: IconButton.outlined(
         icon: const Icon(PhosphorIconsLight.x),
         onPressed: () => Navigator.of(context).pop(),

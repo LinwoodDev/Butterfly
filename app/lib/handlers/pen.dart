@@ -89,7 +89,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final penOnlyInput = settings.penOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
-    if (penOnlyInput && kind != PointerDeviceKind.stylus) {
+    if (penOnlyInput &&
+        (kind != PointerDeviceKind.stylus &&
+            kind != PointerDeviceKind.invertedStylus)) {
       return;
     }
     double zoom = data.zoomDependent ? transform.size : 1;

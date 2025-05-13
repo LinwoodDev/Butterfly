@@ -2,6 +2,40 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.1-rc.1 (2025-05-12)
+
+* Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
+* Respect Input mappings when lasso select tool is selected ([#821](https://github.com/LinwoodDev/Butterfly/issues/821))
+* Redesign mobile navigator pages to improve usability ([#853](https://github.com/LinwoodDev/Butterfly/issues/853))
+* Redesign collaboration start dialog
+* Add support for starting collaboration server with swamp on web
+* Use modern material progress indicator
+* Fix layers not reoderable on mobile
+* Fix readonly files can change tool
+* Fix file preview has window handles on desktop
+* Update to agb 8.10
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
+
+## 2.3.1-rc.0 (2025-05-05)
+
+* Add copy button to the collaboration dialog
+* Add process intent queries in android to fix internal flutter android processing
+* Improve sharing files
+* Improve default template when creating a new document ([#848](https://github.com/LinwoodDev/Butterfly/issues/848))
+* Fix camera is required for android app
+* Fix newly created elements created with pen or label desyncs in collaboration
+* Fix undo/redo in collaboration
+* Fix collaboration dialog dialog constraints
+* Fix toolbar on mobile below the system ui ([#847](https://github.com/LinwoodDev/Butterfly/issues/847))
+* Fix appbar menu overlays with system ui
+* Fix initial save state to saved
+* Fix window can't be moved on the title text area
+* Fix window title bar height to be too big on some pages
+* Update branding color on linux in appdata
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.0
+
 ## 2.3.0 (2025-04-20)
 
 Happy Easter! 🐰

@@ -116,8 +116,8 @@ enum NetworkEvent with RpcFunctionName {
 }
 
 enum ConnectionTechnology {
-  webSocket,
-  swamp;
+  swamp,
+  webSocket;
 
   static ConnectionTechnology fromScheme(String scheme) => switch (scheme) {
         'ws' || 'wss' => ConnectionTechnology.webSocket,
