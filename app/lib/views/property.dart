@@ -317,7 +317,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                             onPressed: () => openHelp(help),
                           ),
                         const SizedBox(
-                          height: 24,
+                          height: 42,
                           child: VerticalDivider(),
                         ),
                         if (!widget.isMobile)
