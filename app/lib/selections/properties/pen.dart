@@ -36,7 +36,7 @@ class PenPropertySelection extends PropertySelection<PenProperty>
         ),
         ExactSlider(
           value: property.fill.a.toDouble(),
-          header: Text(AppLocalizations.of(context).alpha),
+          header: Text(AppLocalizations.of(context).fillAlpha),
           fractionDigits: 0,
           max: 255,
           min: 0,

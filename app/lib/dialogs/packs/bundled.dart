@@ -1,6 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -27,9 +28,10 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
         onPressed: () => Navigator.of(context).pop(),
         icon: const PhosphorIcon(PhosphorIconsLight.x),
       ),
-      constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      constraints: const BoxConstraints(
+          maxWidth: LeapBreakpoints.compact, maxHeight: 700),
+      content: ListView(
+        shrinkWrap: true,
         children: [
           Card(
             child: Padding(
@@ -62,62 +64,79 @@ class _BundledPacksDialogState extends State<BundledPacksDialog> {
             ),
           ),
           const SizedBox(height: 8),
-          Flexible(
-            child: BlocBuilder<DocumentBloc, DocumentState>(
-                buildWhen: (previous, current) => ListEquality().equals(
-                    previous.data?.getBundledPacks().toList() ?? [],
-                    current.data?.getBundledPacks().toList() ?? []),
-                builder: (context, state) {
-                  final packs = state.data?.getBundledPacks().toList() ?? [];
-                  if (packs.isEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        AppLocalizations.of(context).noPacks,
-                        style: TextTheme.of(context).bodyMedium,
+          BlocBuilder<DocumentBloc, DocumentState>(
+              buildWhen: (previous, current) => !ListEquality().equals(
+                  previous.data?.getBundledPacks().toList() ?? [],
+                  current.data?.getBundledPacks().toList() ?? []),
+              builder: (context, state) {
+                final packs = state.data?.getBundledPacks().toList() ?? [];
+                if (packs.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      AppLocalizations.of(context).noPacks,
+                      style: TextTheme.of(context).bodyMedium,
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: packs.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final name = packs[index];
+                    final pack = state.data?.getBundledPack(name);
+                    final metadata = pack?.getMetadata() ??
+                        DocumentDefaults.createMetadata();
+                    return ListTile(
+                      title: Text(name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (metadata.author.isNotEmpty)
+                            Text(
+                              AppLocalizations.of(
+                                context,
+                              ).byAuthor(
+                                metadata.author,
+                              ),
+                            ),
+                          if (metadata.description.isNotEmpty)
+                            Text(
+                              metadata.description,
+                            ),
+                        ],
+                      ),
+                      onTap: () async {
+                        final packSystem = context
+                            .read<ButterflyFileSystem>()
+                            .buildDefaultPackSystem();
+                        final metadata = pack?.getMetadata();
+                        if (pack == null || metadata == null) return;
+                        final result = await showDialog(
+                          context: context,
+                          builder: (context) => PackImportConfirmationDialog(
+                            pack: metadata,
+                          ),
+                        );
+                        if (result != true) return;
+                        await packSystem.createFileWithName(
+                          pack,
+                          name: name,
+                          suffix: '.bfly',
+                        );
+                        widget.onRefresh?.call();
+                      },
+                      trailing: IconButton(
+                        icon: const Icon(PhosphorIconsLight.trash),
+                        onPressed: () {
+                          context.read<DocumentBloc>().add(PackRemoved(name));
+                        },
                       ),
                     );
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: packs.length,
-                    itemBuilder: (context, index) {
-                      final name = packs[index];
-                      final pack = state.data?.getBundledPack(name);
-                      return ListTile(
-                        title: Text(name),
-                        subtitle: Text(pack?.getMetadata()?.description ?? ''),
-                        onTap: () async {
-                          final packSystem = context
-                              .read<ButterflyFileSystem>()
-                              .buildDefaultPackSystem();
-                          final metadata = pack?.getMetadata();
-                          if (pack == null || metadata == null) return;
-                          final result = await showDialog(
-                            context: context,
-                            builder: (context) => PackImportConfirmationDialog(
-                              pack: metadata,
-                            ),
-                          );
-                          if (result != true) return;
-                          await packSystem.createFileWithName(
-                            pack,
-                            name: name,
-                            suffix: '.bfly',
-                          );
-                          widget.onRefresh?.call();
-                        },
-                        trailing: IconButton(
-                          icon: const Icon(PhosphorIconsLight.trash),
-                          onPressed: () {
-                            context.read<DocumentBloc>().add(PackRemoved(name));
-                          },
-                        ),
-                      );
-                    },
-                  );
-                }),
-          ),
+                  },
+                );
+              }),
         ],
       ),
     );

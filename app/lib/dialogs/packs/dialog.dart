@@ -119,8 +119,8 @@ class _PacksDialogState extends State<PacksDialog>
                               itemBuilder: (context, index) {
                                 final file = globalPacks[index];
                                 final pack = file.data!;
-                                final metadata = pack.getMetadata();
-                                if (metadata == null) return Container();
+                                final metadata = pack.getMetadata() ??
+                                    DocumentDefaults.createMetadata();
                                 return Dismissible(
                                   key: ValueKey((
                                     'globalpack',
