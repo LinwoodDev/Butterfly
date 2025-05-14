@@ -94,7 +94,7 @@ sealed class Tool with _$Tool {
     @Default(LabelMode.text) LabelMode mode,
     @Default(false) bool zoomDependent,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
-    TextStyleSheet? styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     @Default(2.0) double scale,
   }) = LabelTool;
 

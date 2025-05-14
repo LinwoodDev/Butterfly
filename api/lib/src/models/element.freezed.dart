@@ -799,7 +799,7 @@ class TextElement extends PadElement with LabelElement {
   final Point<double> position;
   @JsonKey()
   final double scale;
-  final TextStyleSheet? styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   final TextArea area;
   @JsonKey()
   final ElementConstraint constraint;
@@ -853,13 +853,13 @@ abstract mixin class $TextElementCopyWith<$Res>
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
-      TextStyleSheet? styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       TextArea area,
       ElementConstraint constraint,
       @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
-  $TextStyleSheetCopyWith<$Res>? get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
   $TextAreaCopyWith<$Res> get area;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
@@ -911,7 +911,7 @@ class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
       styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as TextStyleSheet?,
+              as NamedItem<TextStyleSheet>?,
       area: null == area
           ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -935,12 +935,12 @@ class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TextStyleSheetCopyWith<$Res>? get styleSheet {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
     if (_self.styleSheet == null) {
       return null;
     }
 
-    return $TextStyleSheetCopyWith<$Res>(_self.styleSheet!, (value) {
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }
@@ -1002,7 +1002,7 @@ class MarkdownElement extends PadElement with LabelElement {
   final Point<double> position;
   @JsonKey()
   final double scale;
-  final TextStyleSheet? styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   @JsonKey()
   final AreaProperty areaProperty;
   final String text;
@@ -1058,14 +1058,14 @@ abstract mixin class $MarkdownElementCopyWith<$Res>
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
-      TextStyleSheet? styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       AreaProperty areaProperty,
       String text,
       ElementConstraint constraint,
       @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
-  $TextStyleSheetCopyWith<$Res>? get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
   $AreaPropertyCopyWith<$Res> get areaProperty;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
@@ -1119,7 +1119,7 @@ class _$MarkdownElementCopyWithImpl<$Res>
       styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as TextStyleSheet?,
+              as NamedItem<TextStyleSheet>?,
       areaProperty: null == areaProperty
           ? _self.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
@@ -1147,12 +1147,12 @@ class _$MarkdownElementCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TextStyleSheetCopyWith<$Res>? get styleSheet {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
     if (_self.styleSheet == null) {
       return null;
     }
 
-    return $TextStyleSheetCopyWith<$Res>(_self.styleSheet!, (value) {
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }

@@ -37,7 +37,7 @@ sealed class LabelContext with _$LabelContext {
   LabelElement? get labelElement => element as LabelElement?;
 
   TextStyleSheet? getStyleSheet(NoteData document) =>
-      labelElement?.styleSheet ?? tool.styleSheet;
+      labelElement?.styleSheet?.item ?? tool.styleSheet?.item;
 
   int get length =>
       switch (this) {

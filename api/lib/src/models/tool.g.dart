@@ -96,8 +96,10 @@ LabelTool _$LabelToolFromJson(Map json) => LabelTool(
               .fromJson((json['foreground'] as num).toInt()),
       styleSheet: json['styleSheet'] == null
           ? null
-          : TextStyleSheet.fromJson(
-              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+          : NamedItem<TextStyleSheet>.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map),
+              (value) => TextStyleSheet.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       scale: (json['scale'] as num?)?.toDouble() ?? 2.0,
       $type: json['type'] as String?,
     );
@@ -108,7 +110,9 @@ Map<String, dynamic> _$LabelToolToJson(LabelTool instance) => <String, dynamic>{
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
       'foreground': const ColorJsonConverter().toJson(instance.foreground),
-      'styleSheet': instance.styleSheet?.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(
+        (value) => value.toJson(),
+      ),
       'scale': instance.scale,
       'type': instance.$type,
     };

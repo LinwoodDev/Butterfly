@@ -115,4 +115,6 @@ final class PackItem<T extends PackAsset> implements PackAssetLocation {
   String get namespace => location.namespace;
   @override
   String get key => location.key;
+
+  NamedItem<T> toNamed() => NamedItem(name: key, item: item);
 }

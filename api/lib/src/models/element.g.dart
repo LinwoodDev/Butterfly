@@ -111,8 +111,10 @@ TextElement _$TextElementFromJson(Map json) => TextElement(
       scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
           ? null
-          : TextStyleSheet.fromJson(
-              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+          : NamedItem<TextStyleSheet>.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map),
+              (value) => TextStyleSheet.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
@@ -136,7 +138,9 @@ Map<String, dynamic> _$TextElementToJson(TextElement instance) =>
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
-      'styleSheet': instance.styleSheet?.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(
+        (value) => value.toJson(),
+      ),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'foreground': const ColorJsonConverter().toJson(instance.foreground),
@@ -154,8 +158,10 @@ MarkdownElement _$MarkdownElementFromJson(Map json) => MarkdownElement(
       scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
           ? null
-          : TextStyleSheet.fromJson(
-              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+          : NamedItem<TextStyleSheet>.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map),
+              (value) => TextStyleSheet.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       areaProperty: json['areaProperty'] == null
           ? const AreaProperty()
           : AreaProperty.fromJson(
@@ -183,7 +189,9 @@ Map<String, dynamic> _$MarkdownElementToJson(MarkdownElement instance) =>
       'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
-      'styleSheet': instance.styleSheet?.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(
+        (value) => value.toJson(),
+      ),
       'areaProperty': instance.areaProperty.toJson(),
       'text': instance.text,
       'constraint': instance.constraint.toJson(),

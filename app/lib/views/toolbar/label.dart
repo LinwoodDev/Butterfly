@@ -231,24 +231,25 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             widget.onChanged(
                               value.copyWith(
                                 tool: value.tool.copyWith(
-                                  styleSheet: result.item,
+                                  styleSheet: result.toNamed(),
                                 ),
                               ),
                             );
                             return;
                           }
+                          final named = result.toNamed();
                           var newValue = value.copyWith(
-                            tool: value.tool.copyWith(styleSheet: result.item),
+                            tool: value.tool.copyWith(styleSheet: named),
                           );
                           newValue = switch (value) {
                             TextContext e => e.copyWith(
                                 element: e.element?.copyWith(
-                                  styleSheet: result.item,
+                                  styleSheet: named,
                                 ),
                               ),
                             MarkdownContext e => e.copyWith(
                                 element: e.element?.copyWith(
-                                  styleSheet: result.item,
+                                  styleSheet: named,
                                 ),
                               ),
                           };

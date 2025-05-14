@@ -588,7 +588,7 @@ class LabelTool extends Tool {
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor foreground;
-  final TextStyleSheet? styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   @JsonKey()
   final double scale;
 
@@ -628,10 +628,10 @@ abstract mixin class $LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       LabelMode mode,
       bool zoomDependent,
       @ColorJsonConverter() SRGBColor foreground,
-      TextStyleSheet? styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       double scale});
 
-  $TextStyleSheetCopyWith<$Res>? get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
 }
 
 /// @nodoc
@@ -678,7 +678,7 @@ class _$LabelToolCopyWithImpl<$Res> implements $LabelToolCopyWith<$Res> {
       styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as TextStyleSheet?,
+              as NamedItem<TextStyleSheet>?,
       scale: null == scale
           ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
@@ -690,12 +690,12 @@ class _$LabelToolCopyWithImpl<$Res> implements $LabelToolCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TextStyleSheetCopyWith<$Res>? get styleSheet {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
     if (_self.styleSheet == null) {
       return null;
     }
 
-    return $TextStyleSheetCopyWith<$Res>(_self.styleSheet!, (value) {
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }
