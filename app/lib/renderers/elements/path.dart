@@ -1,6 +1,6 @@
 part of '../renderer.dart';
 
-typedef PathVisual = ({SRGBColor color, bool fill});
+typedef PathVisual = ({SRGBColor color, SRGBColor fill});
 
 abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
@@ -20,14 +20,6 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final points = (element as PathElement).points.sublist(1);
     var pressure = points.firstOrNull?.pressure ?? 0;
     return points.every((element) => element.pressure == pressure);
-  }
-
-  Paint buildPaint([DocumentPage? page, bool foreground = false]) {
-    final visual = buildPathVisual(page, foreground);
-    return Paint()
-      ..color = visual.color.toColor()
-      ..style = visual.fill ? PaintingStyle.fill : PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
   }
 
   @override
@@ -71,8 +63,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final current = element as PathElement;
     final points = current.points;
     if (points.isEmpty) return;
-    final paint = buildPaint(page, foreground);
-    if (paint.style == PaintingStyle.fill) {
+    final visual = buildPathVisual(page, foreground);
+    if (visual.fill.a > 0) {
+      final paint = Paint()
+        ..color = visual.fill.toColor()
+        ..style = PaintingStyle.fill
+        ..strokeCap = StrokeCap.round;
       final path = Path();
       final first = points.first;
       path.moveTo(first.x, first.y);
@@ -80,6 +76,10 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       canvas.drawPath(path, paint);
       return;
     }
+    final paint = Paint()
+      ..color = visual.color.toColor()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
     final outlinePoints = _getOutlinePoints();
 
     // 2. Render the points as a path
@@ -141,13 +141,19 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final current = element as PathElement;
     final points = current.points;
     final visual = buildPathVisual(page);
-    var path = '';
     if (points.isEmpty) return;
-    if (visual.fill) {
+    if (visual.fill.a > 0) {
       final first = points.first;
-      path = 'M ${first.x} ${first.y}';
+      var path = 'M ${first.x} ${first.y}';
       points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
+      xml.getElement('svg')?.createElement('path')
+        ?..setAttribute('d', path)
+        ..setAttribute('fill', visual.fill.toHexString())
+        ..setAttribute('stroke', 'none')
+        ..setAttribute('stroke-linecap', 'round')
+        ..setAttribute('stroke-linejoin', 'round');
     }
+    var path = '';
 
     // 1. Get the outline points from the input points
     var outlinePoints = _getOutlinePoints();
