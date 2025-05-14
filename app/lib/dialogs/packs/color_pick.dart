@@ -52,7 +52,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
     final pack = await _packSystem.getDefaultFile(_selected?.namespace ?? '');
     if (pack == null) return;
     final palette = pack.getPalette(_selected?.key ?? '') ??
-        pack.getPalette(pack.getPalettes().firstOrNull ?? '');
+        pack.getNamedPalettes().firstOrNull?.item;
     if (palette == null) return;
     setState(() {
       _pack = pack;
@@ -226,9 +226,11 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           builder: (context) =>
                                               BlocProvider.value(
                                             value: widget.bloc!,
-                                            child: SelectPackAssetDialog<
-                                                ColorPalette>(
-                                              selectedObject: _selected?.item,
+                                            child: SelectPackAssetDialog(
+                                              selectedItem:
+                                                  _selected?.toNamed(),
+                                              getItems: (pack) =>
+                                                  pack.getNamedPalettes(),
                                             ),
                                           ),
                                         );

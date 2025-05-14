@@ -894,6 +894,30 @@ class _$DoubleParameterCopyWithImpl<$Res>
 }
 
 /// @nodoc
+mixin _$PackAssetLocation {
+  String get namespace;
+  String get key;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PackAssetLocation &&
+            (identical(other.namespace, namespace) ||
+                other.namespace == namespace) &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, namespace, key);
+
+  @override
+  String toString() {
+    return 'PackAssetLocation(namespace: $namespace, key: $key)';
+  }
+}
+
+/// @nodoc
 mixin _$NamedItem<T extends PackAsset> {
   String get name;
   T get item;

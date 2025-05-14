@@ -30,7 +30,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   late final PackFileSystem _packSystem;
   final ScrollController _scrollController = ScrollController();
   String? currentPack;
-  Future<List<(String, NamedItem<ButterflyComponent>)>>? _componentsFuture;
+  Future<List<PackItem<ButterflyComponent>>>? _componentsFuture;
 
   @override
   void initState() {
@@ -39,21 +39,14 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
     _componentsFuture = _getComponents();
   }
 
-  Future<List<(String, NamedItem<ButterflyComponent>)>> _getComponents() async {
+  Future<List<PackItem<ButterflyComponent>>> _getComponents() async {
     final files = await _packSystem.getFiles();
-    final packComponents = <(String, NamedItem<ButterflyComponent>)>[];
+    final packComponents = <PackItem<ButterflyComponent>>[];
     for (final file in files) {
       final pack = file.data!;
       final components = pack
-          .getComponents()
-          .map((e) {
-            final component = file.data!.getComponent(e);
-            if (component == null) return null;
-            return (
-              file.pathWithoutLeadingSlash,
-              NamedItem(name: e, item: component)
-            );
-          })
+          .getNamedComponents()
+          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
           .nonNulls
           .toList();
       packComponents.addAll(components);
@@ -69,14 +62,15 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<(String, NamedItem<ButterflyComponent>)>>(
+    return FutureBuilder<List<PackItem<ButterflyComponent>>>(
         future: _componentsFuture,
         builder: (context, snapshot) {
           final allComponents = snapshot.data ?? [];
-          final packs = allComponents.map((e) => e.$1).toSet().toList()
+          final packs = allComponents.map((e) => e.namespace).toSet().toList()
             ..sort((a, b) => a.compareTo(b));
-          var pack = currentPack ?? allComponents.firstOrNull?.$1;
-          final components = allComponents.where((e) => e.$1 == pack).toList();
+          var pack = currentPack ?? allComponents.firstOrNull?.namespace;
+          final components =
+              allComponents.where((e) => e.namespace == pack).toList();
           final value = widget.component;
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,13 +93,13 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                     children: [
                       ...List.generate(components.length, (index) {
                         final current = components[index];
-                        final item = current.$2;
+                        final named = current.toNamed();
                         return _ComponentsButton(
-                          value: item.item,
-                          name: item.name,
-                          selected: value == item,
+                          value: current.item,
+                          name: current.key,
+                          selected: value == named,
                           onChanged: () {
-                            widget.onChanged(item);
+                            widget.onChanged(named);
                           },
                         );
                       }),

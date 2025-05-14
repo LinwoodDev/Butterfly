@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
-class SelectPackAssetDialog<T extends PackAsset> extends StatefulWidget {
+class SelectPackAssetDialog extends StatefulWidget {
   final PackAssetLocation? selected;
-  final T? selectedObject;
+  final NamedItem? selectedItem;
+  final Iterable<NamedItem> Function(NoteData) getItems;
 
-  const SelectPackAssetDialog({super.key, this.selected, this.selectedObject});
+  const SelectPackAssetDialog(
+      {super.key, this.selected, this.selectedItem, required this.getItems});
 
   @override
   State<SelectPackAssetDialog> createState() => _SelectPackAssetDialogState();
 }
 
-class _SelectPackAssetDialogState<T extends PackAsset>
-    extends State<SelectPackAssetDialog<T>> {
+class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
   late final PackFileSystem _packSystem;
   Future<List<(String, NoteData)>>? _packsFuture;
 
@@ -36,8 +37,9 @@ class _SelectPackAssetDialogState<T extends PackAsset>
     return packs;
   }
 
-  List<PackItem<T>> _getAssets(List<(String, NoteData)> packs) => packs.nonNulls
-      .expand((pack) => pack.$2.getPackItems<T>(pack.$1))
+  List<PackItem> _getAssets(List<(String, NoteData)> packs) => packs.nonNulls
+      .expand((pack) =>
+          widget.getItems(pack.$2).map((e) => e.toPack(pack.$2, pack.$1)))
       .toList();
 
   @override
@@ -60,7 +62,7 @@ class _SelectPackAssetDialogState<T extends PackAsset>
                       subtitle: Text(e.namespace),
                       onTap: () => Navigator.of(context).pop(e),
                       selected: e.location == widget.selected ||
-                          e.item == widget.selectedObject,
+                          e.toNamed() == widget.selectedItem,
                     ),
                   )
                   .toList(),

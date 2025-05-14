@@ -688,7 +688,9 @@
   },
   "moveLeft": "Move left",
   "moveRight": "Move right",
-  "bundled": "Bundled",
+  "bundledPacks": "Bundled packs",
   "component": "Component",
-  "selectComponent": "Select component"
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them."
 }

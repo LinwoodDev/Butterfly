@@ -403,6 +403,13 @@ final class NoteData extends ArchiveData<NoteData> {
   Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
 
   @useResult
+  Iterable<NamedItem<TextStyleSheet>> getNamedStyles() => getStyles().map((e) {
+        final style = getStyle(e);
+        if (style == null) return null;
+        return NamedItem<TextStyleSheet>(name: e, item: style);
+      }).nonNulls;
+
+  @useResult
   TextStyleSheet? getStyle(String styleName) {
     final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
     if (data == null) {
@@ -433,6 +440,14 @@ final class NoteData extends ArchiveData<NoteData> {
       getAssets('$kPalettesArchiveDirectory/', true);
 
   @useResult
+  Iterable<NamedItem<ColorPalette>> getNamedPalettes() =>
+      getPalettes().map((e) {
+        final palette = getPalette(e);
+        if (palette == null) return null;
+        return NamedItem<ColorPalette>(name: e, item: palette);
+      }).nonNulls;
+
+  @useResult
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');
     if (data == null) {
@@ -457,31 +472,6 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removePalette(String name) =>
       removeAsset('$kPalettesArchiveDirectory/$name.json');
-
-  @useResult
-  List<PackItem<T>> getPackItems<T extends PackAsset>([String? packName]) {
-    final name = this.name ?? '';
-    return switch (T) {
-      ButterflyComponent _ => getComponents().map((e) {
-          final component = getComponent(e);
-          if (component == null) return null;
-          return PackItem<T>.build(name, e, this, component as T);
-        }),
-      TextStyleSheet _ => getStyles().map((e) {
-          final style = getStyle(e);
-          if (style == null) return null;
-          return PackItem<T>.build(name, e, this, style as T);
-        }),
-      ColorPalette _ => getPalettes().map((e) {
-          final palette = getPalette(e);
-          if (palette == null) return null;
-          return PackItem<T>.build(name, e, this, palette as T);
-        }),
-      _ => throw Exception('Unsupported type $T'),
-    }
-        .nonNulls
-        .toList();
-  }
 
   @useResult
   String toJson() {

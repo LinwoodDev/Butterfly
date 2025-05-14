@@ -74,8 +74,11 @@ sealed class ButterflyParameter with _$ButterflyParameter {
       _$ButterflyParameterFromJson(json);
 }
 
-final class PackAssetLocation {
+@Freezed(equal: true, fromJson: false, toJson: false, copyWith: false)
+final class PackAssetLocation with _$PackAssetLocation {
+  @override
   final String namespace;
+  @override
   final String key;
 
   const PackAssetLocation(this.namespace, this.key);
@@ -100,6 +103,9 @@ sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
       throw UnimplementedError(
           'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.');
+
+  PackItem<T> toPack(NoteData pack, String namespace) =>
+      PackItem<T>(PackAssetLocation(namespace, name), pack, item);
 }
 
 final class PackItem<T extends PackAsset> implements PackAssetLocation {
