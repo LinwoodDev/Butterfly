@@ -203,36 +203,37 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           NavigatorPage.files => const FilesNavigatorPage(),
           NavigatorPage.components => const ComponentsView(),
         };
-        final content = Padding(
-          padding: const EdgeInsets.all(12),
+        final content = Scaffold(
           key: ValueKey(('navigator', page)),
-          child: Column(
-            children: [
-              Header(
-                leading: widget.asDialog
-                    ? IconButton.outlined(
-                        icon: const PhosphorIcon(PhosphorIconsLight.x),
-                        onPressed: () => Navigator.of(context).pop(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .closeButtonTooltip,
-                      )
-                    : null,
-                title: Text(page.getLocalizedName(context)),
-                actions: [
-                  IconButton(
-                    icon: const PhosphorIcon(
-                      PhosphorIconsLight.sealQuestion,
-                    ),
-                    onPressed: () {
-                      final help = page.getHelp();
-                      openHelp(help.$1, help.$2);
-                    },
-                    tooltip: AppLocalizations.of(context).help,
-                  ),
-                ],
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            centerTitle: true,
+            leading: widget.asDialog
+                ? IconButton.outlined(
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
+                    onPressed: () => Navigator.of(context).pop(),
+                    tooltip:
+                        MaterialLocalizations.of(context).closeButtonTooltip,
+                  )
+                : null,
+            automaticallyImplyLeading: false,
+            title: Text(page.getLocalizedName(context)),
+            actions: [
+              IconButton(
+                icon: const PhosphorIcon(
+                  PhosphorIconsLight.sealQuestion,
+                ),
+                onPressed: () {
+                  final help = page.getHelp();
+                  openHelp(help.$1, help.$2);
+                },
+                tooltip: AppLocalizations.of(context).help,
               ),
-              Expanded(child: body),
             ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: body),
           ),
         );
         if (widget.asDialog) {

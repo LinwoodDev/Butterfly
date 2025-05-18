@@ -114,11 +114,7 @@ dependencies:
   web: ^1.0.0
   cryptography_plus: ^2.7.1
   barcode: ^2.2.9
-  network_info_plus:
-    git:
-      url: https://github.com/CodeDoctorDE/plus_plugins.git
-      ref: 9bd0c023f2dc209576dc66bf989048ba218127b6
-      path: packages/network_info_plus/network_info_plus
+  network_info_plus: ^6.1.4
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^5.0.0

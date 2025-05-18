@@ -67,6 +67,7 @@ class _ComponentsViewState extends State<ComponentsView> {
                 )
                 .toList();
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 8),
                 SearchBar(
