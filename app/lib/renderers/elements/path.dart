@@ -76,36 +76,39 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       canvas.drawPath(path, paint);
       return;
     }
-    final paint = Paint()
-      ..color = visual.color.toColor()
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-    final outlinePoints = _getOutlinePoints();
+    if (visual.color.a > 0) {
+      final paint = Paint()
+        ..color = visual.color.toColor()
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+      final outlinePoints = _getOutlinePoints();
 
-    // 2. Render the points as a path
-    final path = Path();
+      // 2. Render the points as a path
+      final path = Path();
 
-    if (outlinePoints.isEmpty) {
-      // If the list is empty, don't do anything.
-      return;
-    } else if (outlinePoints.length < 2) {
-      // If the list only has one point, draw a dot.
-      path.addOval(Rect.fromCircle(
-          center: Offset(outlinePoints[0].dx, outlinePoints[0].dy), radius: 1));
-    } else {
-      // Otherwise, draw a line that connects each point with a bezier curve segment.
-      path.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
+      if (outlinePoints.isEmpty) {
+        // If the list is empty, don't do anything.
+        return;
+      } else if (outlinePoints.length < 2) {
+        // If the list only has one point, draw a dot.
+        path.addOval(Rect.fromCircle(
+            center: Offset(outlinePoints[0].dx, outlinePoints[0].dy),
+            radius: 1));
+      } else {
+        // Otherwise, draw a line that connects each point with a bezier curve segment.
+        path.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
 
-      for (int i = 1; i < outlinePoints.length - 1; ++i) {
-        final p0 = outlinePoints[i];
-        final p1 = outlinePoints[i + 1];
-        path.quadraticBezierTo(
-            p0.dx, p0.dy, (p0.dx + p1.dx) / 2, (p0.dy + p1.dy) / 2);
+        for (int i = 1; i < outlinePoints.length - 1; ++i) {
+          final p0 = outlinePoints[i];
+          final p1 = outlinePoints[i + 1];
+          path.quadraticBezierTo(
+              p0.dx, p0.dy, (p0.dx + p1.dx) / 2, (p0.dy + p1.dy) / 2);
+        }
       }
-    }
 
-    // 3. Draw the path to the canvas
-    canvas.drawPath(path, paint..style = PaintingStyle.fill);
+      // 3. Draw the path to the canvas
+      canvas.drawPath(path, paint..style = PaintingStyle.fill);
+    }
   }
 
   List<Offset> _getOutlinePoints() {
@@ -153,32 +156,34 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
     }
-    var path = '';
+    if (visual.color.a > 0) {
+      var path = '';
 
-    // 1. Get the outline points from the input points
-    var outlinePoints = _getOutlinePoints();
+      // 1. Get the outline points from the input points
+      var outlinePoints = _getOutlinePoints();
 
-    // 2. Render the points as a path
-    if (outlinePoints.isEmpty) {
-      // If the list is empty, don't do anything.
-      return;
+      // 2. Render the points as a path
+      if (outlinePoints.isEmpty) {
+        // If the list is empty, don't do anything.
+        return;
+      }
+
+      final first = outlinePoints.first;
+      path += 'M ${first.roundedX()} ${first.roundedY()}';
+      for (int i = 1; i < outlinePoints.length - 1; ++i) {
+        final p0 = outlinePoints[i];
+        final p1 = outlinePoints[i + 1];
+        path +=
+            ' Q ${p0.roundedX()} ${p0.roundedY()} ${p0.roundedBetweenX(p1)} ${p0.roundedBetweenY(p1)}';
+      }
+
+      xml.getElement('svg')?.createElement('path')
+        ?..setAttribute('d', path)
+        ..setAttribute('fill', visual.color.toHexString())
+        ..setAttribute('stroke', 'none')
+        ..setAttribute('stroke-linecap', 'round')
+        ..setAttribute('stroke-linejoin', 'round');
     }
-
-    final first = outlinePoints.first;
-    path += 'M ${first.roundedX()} ${first.roundedY()}';
-    for (int i = 1; i < outlinePoints.length - 1; ++i) {
-      final p0 = outlinePoints[i];
-      final p1 = outlinePoints[i + 1];
-      path +=
-          ' Q ${p0.roundedX()} ${p0.roundedY()} ${p0.roundedBetweenX(p1)} ${p0.roundedBetweenY(p1)}';
-    }
-
-    xml.getElement('svg')?.createElement('path')
-      ?..setAttribute('d', path)
-      ..setAttribute('fill', visual.color.toHexString())
-      ..setAttribute('stroke', 'none')
-      ..setAttribute('stroke-linecap', 'round')
-      ..setAttribute('stroke-linejoin', 'round');
   }
 
   List<PathPoint> movePoints(
