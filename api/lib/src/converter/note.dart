@@ -11,7 +11,7 @@ NoteData noteDataMigrator(Uint8List data, {String? password}) {
   Archive archive;
   if (data.isNotEmpty && data[0] != kArchiveSignature) {
     final map = json.decode(utf8.decode(data)) as Map<String, dynamic>;
-    archive = convertLegacyDataToArchive(map);
+    archive = convertTextDataToArchive(map);
   } else {
     archive = ZipDecoder().decodeBytes(data, password: password);
   }

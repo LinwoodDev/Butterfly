@@ -1,59 +1,105 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/models/page.dart';
 
 import '../models/archive.dart';
 import '../models/data.dart';
-import '../models/meta.dart';
 
-Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
+Archive convertTextDataToArchive(Map<String, dynamic> data) {
   data = {
     'fileVersion': 8,
     ...legacyNoteDataJsonMigrator(data),
   };
   var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
-  NoteFileType type = NoteFileType.document;
-  try {
-    type = NoteFileType.values.byName(data['type'] as String);
-  } catch (_) {}
-  switch (type) {
-    case NoteFileType.pack:
-      for (final palette in data['palettes'] ?? []) {
-        reader = reader.setAsset(
-            '$kPalettesArchiveDirectory/${palette.name}.json',
-            utf8.encode((palette)));
-      }
-      for (final style in data['styles'] ?? []) {
-        reader = reader.setAsset('$kStylesArchiveDirectory/${style.name}.json',
-            utf8.encode((style)));
-      }
-      for (final component in data['components'] ?? []) {
-        reader = reader.setAsset(
-            '$kComponentsArchiveDirectory/${component.name}.json',
-            utf8.encode((component)));
-      }
-    case NoteFileType.template:
-    case NoteFileType.document:
-      reader = reader.setAsset(
-          '$kPagesArchiveDirectory/default.json',
-          utf8.encode(jsonEncode(
-              type == NoteFileType.document ? data : data['document'])));
-      final packs = (data['packs'] ?? [])
-          .map((e) => NoteData.fromData(Uint8List.fromList(
-              utf8.encode(jsonEncode({'type': 'pack', ...e})))))
-          .toList();
-      for (final pack in packs) {
-        reader = reader.setBundledPack(pack);
-      }
-      final thumbnail = data['thumbnail'] as String?;
-      if (thumbnail?.isNotEmpty == true) {
-        final data = UriData.parse(thumbnail!).contentAsBytes();
-        reader = reader.setThumbnail(data);
-      }
+  for (final palette in data['palettes'] ?? []) {
+    reader = reader.setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
+        utf8.encode((palette)));
+  }
+  for (final style in data['styles'] ?? []) {
+    reader = reader.setAsset(
+        '$kStylesArchiveDirectory/${style.name}.json', utf8.encode((style)));
+  }
+  for (final component in data['components'] ?? []) {
+    reader = reader.setAsset(
+        '$kComponentsArchiveDirectory/${component.name}.json',
+        utf8.encode((component)));
+  }
+  for (final page in (data['pages'] as Map<String, dynamic>?)?.entries ??
+      <MapEntry<String, dynamic>>[]) {
+    reader = reader.setPage(DocumentPage.fromJson(page.value), page.key);
+  }
+  final packs = (data['packs'] ?? []).map((e) => NoteData.fromData(e)).toList();
+  for (final pack in packs) {
+    reader = reader.setBundledPack(pack);
+  }
+  final assets = (data['assets'] as Map<String, dynamic>?)?.entries ??
+      <MapEntry<String, dynamic>>[];
+  for (final asset in assets) {
+    reader = reader.setAsset(asset.key, base64Decode(asset.value));
+  }
+  final thumbnail = data['thumbnail'] as String?;
+  if (thumbnail != null) {
+    reader = reader.setThumbnail(base64Decode(thumbnail));
   }
   return reader.export();
+}
+
+Map<String, dynamic> convertDocumentToText(NoteData data) {
+  final output = <String, dynamic>{};
+  void addMap(String name, Map list) {
+    if (list.isEmpty) return;
+    output[name] = list;
+  }
+
+  output.addAll(data.getMetadata()?.toJson() ?? {});
+  final assets = <String, String>{};
+  for (final asset in data.getValidAssets()) {
+    final bytes = data.getAsset(asset);
+    if (bytes == null) continue;
+    assets[asset] = base64Encode(bytes);
+  }
+  addMap('assets', assets);
+
+  final packs = <String, String>{};
+  for (final pack in data.getBundledPacks()) {
+    final bytes = data.getBundledPackData(pack);
+    if (bytes == null) continue;
+    assets[pack] = base64Encode(bytes);
+  }
+  addMap('packs', packs);
+
+  final palettes = <String, Map<String, dynamic>>{};
+  for (final palette in data.getNamedPalettes()) {
+    palettes[palette.name] = palette.item.toJson();
+  }
+  addMap('styles', palettes);
+
+  final styles = <String, Map<String, dynamic>>{};
+  for (final style in data.getNamedStyles()) {
+    styles[style.name] = style.item.toJson();
+  }
+  addMap('styles', styles);
+
+  final components = <String, Map<String, dynamic>>{};
+  for (final component in data.getNamedComponents()) {
+    components[component.name] = component.item.toJson();
+  }
+  addMap('components', components);
+
+  final pages = <String, Map<String, dynamic>>{};
+  for (final name in data.getPages(true)) {
+    final page = data.getPage(name);
+    if (page == null) continue;
+    pages[name] = page.toJson();
+  }
+  addMap('pages', pages);
+
+  final thumbnail = data.getThumbnail();
+  if (thumbnail != null) output['thumbnail'] = base64Encode(thumbnail);
+
+  return output;
 }
 
 Map<String, dynamic> legacyNoteDataJsonMigrator(Map<String, dynamic> data) {
@@ -183,6 +229,11 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
         }
         return e;
       }).toList();
+      data['pages'] = {
+        'default': data['type'] == 'document' ? data : data['document']
+      };
+      data['thumbnail'] =
+          base64Encode(UriData.parse(data['thumbnail']).contentAsBytes());
     }
   }
   return data;

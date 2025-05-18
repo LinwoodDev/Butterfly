@@ -9,6 +9,7 @@ import 'package:lw_file_system_api/archive.dart';
 
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
+import '../converter/text.dart';
 import 'archive.dart';
 import 'info.dart';
 import 'meta.dart';
@@ -325,6 +326,9 @@ final class NoteData extends ArchiveData<NoteData> {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
+  Iterable<String> getValidAssets() =>
+      validAssetPaths.expand((e) => getAssets(e)).toList();
+
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
 
@@ -333,8 +337,12 @@ final class NoteData extends ArchiveData<NoteData> {
       getAsset('$kFontsArchiveDirectory/$fontName');
 
   @useResult
+  Uint8List? getBundledPackData(String packName) =>
+      getAsset('$kPacksArchiveDirectory/$packName.bfly');
+
+  @useResult
   NoteData? getBundledPack(String packName) {
-    final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
+    final data = getBundledPackData(packName);
     if (data == null) {
       return null;
     }
@@ -493,4 +501,6 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   NoteFile toFile() => NoteFile(exportAsBytes());
+
+  Map<String, dynamic> toText() => convertDocumentToText(this);
 }

@@ -1,5 +1,5 @@
 export 'src/converter/core.dart';
-export 'src/converter/legacy.dart';
+export 'src/converter/text.dart';
 export 'src/converter/note.dart';
 export 'src/converter/xopp.dart';
 export 'src/models/animation.dart';
