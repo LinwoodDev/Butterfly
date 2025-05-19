@@ -233,7 +233,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(child: body),
+            child: Align(alignment: Alignment.topCenter, child: body),
           ),
         );
         if (widget.asDialog) {
