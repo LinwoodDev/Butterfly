@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/models/pack.dart';
 import 'package:butterfly_api/src/models/page.dart';
 
 import '../models/archive.dart';
@@ -53,9 +54,20 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
     output[name] = list;
   }
 
+  List<T> sorted<T>(Iterable<T> iterable, [String Function(T)? key]) {
+    final func = key ?? (T item) => item.toString();
+    final list = iterable.toList();
+    list.sort((a, b) => func(a).compareTo(func(b)));
+    return list;
+  }
+
+  List<T> sortedItem<T extends NamedItem>(Iterable<T> iterable) {
+    return sorted(iterable, (item) => item.name);
+  }
+
   output.addAll(data.getMetadata()?.toJson() ?? {});
   final assets = <String, String>{};
-  for (final asset in data.getValidAssets()) {
+  for (final asset in sorted(data.getValidAssets())) {
     final bytes = data.getAsset(asset);
     if (bytes == null) continue;
     assets[asset] = base64Encode(bytes);
@@ -63,7 +75,7 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
   addMap('assets', assets);
 
   final packs = <String, String>{};
-  for (final pack in data.getBundledPacks()) {
+  for (final pack in sorted(data.getBundledPacks())) {
     final bytes = data.getBundledPackData(pack);
     if (bytes == null) continue;
     packs[pack] = base64Encode(bytes);
@@ -71,25 +83,25 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
   addMap('packs', packs);
 
   final palettes = <String, Map<String, dynamic>>{};
-  for (final palette in data.getNamedPalettes()) {
+  for (final palette in sortedItem(data.getNamedPalettes())) {
     palettes[palette.name] = palette.item.toJson();
   }
   addMap('palettes', palettes);
 
   final styles = <String, Map<String, dynamic>>{};
-  for (final style in data.getNamedStyles()) {
+  for (final style in sortedItem(data.getNamedStyles())) {
     styles[style.name] = style.item.toJson();
   }
   addMap('styles', styles);
 
   final components = <String, Map<String, dynamic>>{};
-  for (final component in data.getNamedComponents()) {
+  for (final component in sortedItem(data.getNamedComponents())) {
     components[component.name] = component.item.toJson();
   }
   addMap('components', components);
 
   final pages = <String, Map<String, dynamic>>{};
-  for (final name in data.getPages(true)) {
+  for (final name in sorted(data.getPages(true))) {
     final page = data.getPage(name);
     if (page == null) continue;
     pages[name] = page.toJson();
