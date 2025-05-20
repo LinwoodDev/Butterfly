@@ -41,8 +41,9 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
     reader = reader.setAsset(asset.key, base64Decode(asset.value));
   }
   final thumbnail = data['thumbnail'] as String?;
-  if (thumbnail != null) {
-    reader = reader.setThumbnail(base64Decode(thumbnail));
+  if (thumbnail?.isNotEmpty == true) {
+    final data = UriData.parse(thumbnail!).contentAsBytes();
+    reader = reader.setThumbnail(data);
   }
   return reader.export();
 }
@@ -109,7 +110,10 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
   addMap('pages', pages);
 
   final thumbnail = data.getThumbnail();
-  if (thumbnail != null) output['thumbnail'] = base64Encode(thumbnail);
+  if (thumbnail != null) {
+    output['thumbnail'] =
+        UriData.fromBytes(thumbnail, mimeType: 'image/png').toString();
+  }
 
   return output;
 }
@@ -244,8 +248,6 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
       data['pages'] = {
         'default': data['type'] == 'document' ? data : data['document']
       };
-      data['thumbnail'] =
-          base64Encode(UriData.parse(data['thumbnail']).contentAsBytes());
     }
   }
   return data;
