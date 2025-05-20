@@ -502,5 +502,5 @@ final class NoteData extends ArchiveData<NoteData> {
 
   NoteFile toFile() => NoteFile(exportAsBytes());
 
-  Map<String, dynamic> toText() => convertDocumentToText(this);
+  Map<String, dynamic> exportAsText() => convertDocumentToText(this);
 }

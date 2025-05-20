@@ -477,7 +477,7 @@ class _MainPopupMenu extends StatelessWidget {
               SubmenuButton(
                 menuChildren: [
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyE,
                       control: true,
@@ -488,7 +488,22 @@ class _MainPopupMenu extends StatelessWidget {
                         ExportIntent(context),
                       );
                     },
-                    child: Text(AppLocalizations.of(context).document),
+                    child: Text(AppLocalizations.of(context).packagedDocument),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    shortcut: const SingleActivator(
+                      LogicalKeyboardKey.keyE,
+                      control: true,
+                      shift: true,
+                    ),
+                    onPressed: () async {
+                      Actions.maybeInvoke<ExportIntent>(
+                        context,
+                        ExportIntent(context, isText: true),
+                      );
+                    },
+                    child: Text(AppLocalizations.of(context).rawDocument),
                   ),
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
@@ -511,8 +526,9 @@ class _MainPopupMenu extends StatelessWidget {
                     ),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyE,
-                      shift: true,
+                      alt: true,
                       control: true,
+                      shift: true,
                     ),
                     onPressed: () {
                       Actions.maybeInvoke<ImageExportIntent>(
@@ -525,9 +541,8 @@ class _MainPopupMenu extends StatelessWidget {
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePdf),
                     shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
+                      LogicalKeyboardKey.keyP,
                       shift: true,
-                      alt: true,
                       control: true,
                     ),
                     onPressed: () {

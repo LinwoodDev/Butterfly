@@ -66,7 +66,7 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
   for (final pack in data.getBundledPacks()) {
     final bytes = data.getBundledPackData(pack);
     if (bytes == null) continue;
-    assets[pack] = base64Encode(bytes);
+    packs[pack] = base64Encode(bytes);
   }
   addMap('packs', packs);
 
@@ -74,7 +74,7 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
   for (final palette in data.getNamedPalettes()) {
     palettes[palette.name] = palette.item.toJson();
   }
-  addMap('styles', palettes);
+  addMap('palettes', palettes);
 
   final styles = <String, Map<String, dynamic>>{};
   for (final style in data.getNamedStyles()) {
