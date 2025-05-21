@@ -688,6 +688,14 @@
   },
   "moveLeft": "Sposta a sinistra",
   "moveRight": "Sposta a destra",
+  "bundledPacks": "Bundled packs",
+  "component": "Componente",
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
+  "fillAlpha": "Fill alpha",
+  "packagedDocument": "Packaged document",
+  "rawDocument": "Raw document",
   "webSocketDescription": "Il tuo dispositivo ospita il server, in modo che i collaboratori possano entrare nella stessa rete o da qualsiasi luogo inoltrando la porta sul router.",
   "swampDescription": "I messaggi vengono instradati attraverso un server relè sicuro con crittografia end-to-end. Per creare una sessione è necessario un indirizzo del server swamp."
 }
