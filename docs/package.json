@@ -27,7 +27,7 @@
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.0",
     "sass": "^1.89.0",
-    "sharp": "^0.34.1",
+    "sharp": "^0.34.2",
     "vite-plugin-pwa": "^1.0.0",
     "workbox-window": "^7.3.0"
   },
