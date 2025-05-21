@@ -688,6 +688,14 @@
   },
   "moveLeft": "Siirrä vasemmalle",
   "moveRight": "Siirrä oikealle",
+  "bundledPacks": "Bundled packs",
+  "component": "Komponentti",
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
+  "fillAlpha": "Fill alpha",
+  "packagedDocument": "Packaged document",
+  "rawDocument": "Raw document",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
   "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi."
 }
