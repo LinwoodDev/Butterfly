@@ -14,9 +14,188 @@ part of 'pack.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+mixin _$PackAsset {
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is PackAsset);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'PackAsset()';
+  }
+}
+
+/// @nodoc
+class $PackAssetCopyWith<$Res> {
+  $PackAssetCopyWith(PackAsset _, $Res Function(PackAsset) __);
+}
+
+/// @nodoc
+mixin _$ColorPalette {
+  @ColorJsonConverter()
+  List<SRGBColor> get colors;
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ColorPaletteCopyWith<ColorPalette> get copyWith =>
+      _$ColorPaletteCopyWithImpl<ColorPalette>(
+          this as ColorPalette, _$identity);
+
+  /// Serializes this ColorPalette to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ColorPalette &&
+            const DeepCollectionEquality().equals(other.colors, colors));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(colors));
+
+  @override
+  String toString() {
+    return 'ColorPalette(colors: $colors)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ColorPaletteCopyWith<$Res>
+    implements $PackAssetCopyWith<$Res> {
+  factory $ColorPaletteCopyWith(
+          ColorPalette value, $Res Function(ColorPalette) _then) =
+      _$ColorPaletteCopyWithImpl;
+  @useResult
+  $Res call({@ColorJsonConverter() List<SRGBColor> colors});
+}
+
+/// @nodoc
+class _$ColorPaletteCopyWithImpl<$Res> implements $ColorPaletteCopyWith<$Res> {
+  _$ColorPaletteCopyWithImpl(this._self, this._then);
+
+  final ColorPalette _self;
+  final $Res Function(ColorPalette) _then;
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? colors = null,
+  }) {
+    return _then(_self.copyWith(
+      colors: null == colors
+          ? _self.colors
+          : colors // ignore: cast_nullable_to_non_nullable
+              as List<SRGBColor>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _ColorPalette extends ColorPalette {
+  const _ColorPalette(
+      {@ColorJsonConverter() final List<SRGBColor> colors = const []})
+      : _colors = colors,
+        super._();
+  factory _ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
+
+  final List<SRGBColor> _colors;
+  @override
+  @JsonKey()
+  @ColorJsonConverter()
+  List<SRGBColor> get colors {
+    if (_colors is EqualUnmodifiableListView) return _colors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_colors);
+  }
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ColorPaletteCopyWith<_ColorPalette> get copyWith =>
+      __$ColorPaletteCopyWithImpl<_ColorPalette>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ColorPaletteToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ColorPalette &&
+            const DeepCollectionEquality().equals(other._colors, _colors));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_colors));
+
+  @override
+  String toString() {
+    return 'ColorPalette(colors: $colors)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ColorPaletteCopyWith<$Res>
+    implements $ColorPaletteCopyWith<$Res> {
+  factory _$ColorPaletteCopyWith(
+          _ColorPalette value, $Res Function(_ColorPalette) _then) =
+      __$ColorPaletteCopyWithImpl;
+  @override
+  @useResult
+  $Res call({@ColorJsonConverter() List<SRGBColor> colors});
+}
+
+/// @nodoc
+class __$ColorPaletteCopyWithImpl<$Res>
+    implements _$ColorPaletteCopyWith<$Res> {
+  __$ColorPaletteCopyWithImpl(this._self, this._then);
+
+  final _ColorPalette _self;
+  final $Res Function(_ColorPalette) _then;
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? colors = null,
+  }) {
+    return _then(_ColorPalette(
+      colors: null == colors
+          ? _self._colors
+          : colors // ignore: cast_nullable_to_non_nullable
+              as List<SRGBColor>,
+    ));
+  }
+}
+
+/// @nodoc
 mixin _$ButterflyComponent {
-  String get name;
-  String? get thumbnail;
+  @Uint8ListJsonConverter()
+  Uint8List? get thumbnail;
   List<PadElement> get elements;
 
   /// Create a copy of ButterflyComponent
@@ -31,18 +210,37 @@ mixin _$ButterflyComponent {
   Map<String, dynamic> toJson();
 
   @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ButterflyComponent &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            const DeepCollectionEquality().equals(other.elements, elements));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(thumbnail),
+      const DeepCollectionEquality().hash(elements));
+
+  @override
   String toString() {
-    return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
+    return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
   }
 }
 
 /// @nodoc
-abstract mixin class $ButterflyComponentCopyWith<$Res> {
+abstract mixin class $ButterflyComponentCopyWith<$Res>
+    implements $PackAssetCopyWith<$Res> {
   factory $ButterflyComponentCopyWith(
           ButterflyComponent value, $Res Function(ButterflyComponent) _then) =
       _$ButterflyComponentCopyWithImpl;
   @useResult
-  $Res call({String name, String? thumbnail, List<PadElement> elements});
+  $Res call(
+      {@Uint8ListJsonConverter() Uint8List? thumbnail,
+      List<PadElement> elements});
 }
 
 /// @nodoc
@@ -58,19 +256,14 @@ class _$ButterflyComponentCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_self.copyWith(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       thumbnail: freezed == thumbnail
           ? _self.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Uint8List?,
       elements: null == elements
           ? _self.elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -81,19 +274,18 @@ class _$ButterflyComponentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _ButterflyComponent implements ButterflyComponent {
+class _ButterflyComponent extends ButterflyComponent {
   const _ButterflyComponent(
-      {required this.name,
-      this.thumbnail,
+      {@Uint8ListJsonConverter() this.thumbnail,
       final List<PadElement> elements = const <PadElement>[]})
-      : _elements = elements;
+      : _elements = elements,
+        super._();
   factory _ButterflyComponent.fromJson(Map<String, dynamic> json) =>
       _$ButterflyComponentFromJson(json);
 
   @override
-  final String name;
-  @override
-  final String? thumbnail;
+  @Uint8ListJsonConverter()
+  final Uint8List? thumbnail;
   final List<PadElement> _elements;
   @override
   @JsonKey()
@@ -119,8 +311,24 @@ class _ButterflyComponent implements ButterflyComponent {
   }
 
   @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ButterflyComponent &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail) &&
+            const DeepCollectionEquality().equals(other._elements, _elements));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(thumbnail),
+      const DeepCollectionEquality().hash(_elements));
+
+  @override
   String toString() {
-    return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
+    return 'ButterflyComponent(thumbnail: $thumbnail, elements: $elements)';
   }
 }
 
@@ -132,7 +340,9 @@ abstract mixin class _$ButterflyComponentCopyWith<$Res>
       __$ButterflyComponentCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, String? thumbnail, List<PadElement> elements});
+  $Res call(
+      {@Uint8ListJsonConverter() Uint8List? thumbnail,
+      List<PadElement> elements});
 }
 
 /// @nodoc
@@ -148,19 +358,14 @@ class __$ButterflyComponentCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
     Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_ButterflyComponent(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       thumbnail: freezed == thumbnail
           ? _self.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Uint8List?,
       elements: null == elements
           ? _self._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -690,161 +895,184 @@ class _$DoubleParameterCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$PackAssetLocation {
-  String get pack;
-  String get name;
-
-  /// Create a copy of PackAssetLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<PackAssetLocation> get copyWith =>
-      _$PackAssetLocationCopyWithImpl<PackAssetLocation>(
-          this as PackAssetLocation, _$identity);
-
-  /// Serializes this PackAssetLocation to a JSON map.
-  Map<String, dynamic> toJson();
+  String get namespace;
+  String get key;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is PackAssetLocation &&
-            (identical(other.pack, pack) || other.pack == pack) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.namespace, namespace) ||
+                other.namespace == namespace) &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, namespace, key);
+
+  @override
+  String toString() {
+    return 'PackAssetLocation(namespace: $namespace, key: $key)';
+  }
+}
+
+/// @nodoc
+mixin _$NamedItem<T extends PackAsset> {
+  String get name;
+  T get item;
+
+  /// Create a copy of NamedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $NamedItemCopyWith<T, NamedItem<T>> get copyWith =>
+      _$NamedItemCopyWithImpl<T, NamedItem<T>>(
+          this as NamedItem<T>, _$identity);
+
+  /// Serializes this NamedItem to a JSON map.
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NamedItem<T> &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.item, item));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, pack, name);
+  int get hashCode =>
+      Object.hash(runtimeType, name, const DeepCollectionEquality().hash(item));
 
   @override
   String toString() {
-    return 'PackAssetLocation(pack: $pack, name: $name)';
+    return 'NamedItem<$T>(name: $name, item: $item)';
   }
 }
 
 /// @nodoc
-abstract mixin class $PackAssetLocationCopyWith<$Res> {
-  factory $PackAssetLocationCopyWith(
-          PackAssetLocation value, $Res Function(PackAssetLocation) _then) =
-      _$PackAssetLocationCopyWithImpl;
+abstract mixin class $NamedItemCopyWith<T extends PackAsset, $Res> {
+  factory $NamedItemCopyWith(
+          NamedItem<T> value, $Res Function(NamedItem<T>) _then) =
+      _$NamedItemCopyWithImpl;
   @useResult
-  $Res call({String pack, String name});
+  $Res call({String name, T item});
 }
 
 /// @nodoc
-class _$PackAssetLocationCopyWithImpl<$Res>
-    implements $PackAssetLocationCopyWith<$Res> {
-  _$PackAssetLocationCopyWithImpl(this._self, this._then);
+class _$NamedItemCopyWithImpl<T extends PackAsset, $Res>
+    implements $NamedItemCopyWith<T, $Res> {
+  _$NamedItemCopyWithImpl(this._self, this._then);
 
-  final PackAssetLocation _self;
-  final $Res Function(PackAssetLocation) _then;
+  final NamedItem<T> _self;
+  final $Res Function(NamedItem<T>) _then;
 
-  /// Create a copy of PackAssetLocation
+  /// Create a copy of NamedItem
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? pack = null,
     Object? name = null,
+    Object? item = null,
   }) {
     return _then(_self.copyWith(
-      pack: null == pack
-          ? _self.pack
-          : pack // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      item: null == item
+          ? _self.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as T,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _PackAssetLocation extends PackAssetLocation {
-  const _PackAssetLocation([this.pack = '', this.name = '']) : super._();
-  factory _PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$PackAssetLocationFromJson(json);
+@JsonSerializable(genericArgumentFactories: true)
+class _NamedItem<T extends PackAsset> extends NamedItem<T> {
+  const _NamedItem({required this.name, required this.item}) : super._();
+  factory _NamedItem.fromJson(
+          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
+      _$NamedItemFromJson(json, fromJsonT);
 
   @override
-  @JsonKey()
-  final String pack;
-  @override
-  @JsonKey()
   final String name;
+  @override
+  final T item;
 
-  /// Create a copy of PackAssetLocation
+  /// Create a copy of NamedItem
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PackAssetLocationCopyWith<_PackAssetLocation> get copyWith =>
-      __$PackAssetLocationCopyWithImpl<_PackAssetLocation>(this, _$identity);
+  _$NamedItemCopyWith<T, _NamedItem<T>> get copyWith =>
+      __$NamedItemCopyWithImpl<T, _NamedItem<T>>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$PackAssetLocationToJson(
-      this,
-    );
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
+    return _$NamedItemToJson<T>(this, toJsonT);
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PackAssetLocation &&
-            (identical(other.pack, pack) || other.pack == pack) &&
-            (identical(other.name, name) || other.name == name));
+            other is _NamedItem<T> &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other.item, item));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, pack, name);
+  int get hashCode =>
+      Object.hash(runtimeType, name, const DeepCollectionEquality().hash(item));
 
   @override
   String toString() {
-    return 'PackAssetLocation(pack: $pack, name: $name)';
+    return 'NamedItem<$T>(name: $name, item: $item)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$PackAssetLocationCopyWith<$Res>
-    implements $PackAssetLocationCopyWith<$Res> {
-  factory _$PackAssetLocationCopyWith(
-          _PackAssetLocation value, $Res Function(_PackAssetLocation) _then) =
-      __$PackAssetLocationCopyWithImpl;
+abstract mixin class _$NamedItemCopyWith<T extends PackAsset, $Res>
+    implements $NamedItemCopyWith<T, $Res> {
+  factory _$NamedItemCopyWith(
+          _NamedItem<T> value, $Res Function(_NamedItem<T>) _then) =
+      __$NamedItemCopyWithImpl;
   @override
   @useResult
-  $Res call({String pack, String name});
+  $Res call({String name, T item});
 }
 
 /// @nodoc
-class __$PackAssetLocationCopyWithImpl<$Res>
-    implements _$PackAssetLocationCopyWith<$Res> {
-  __$PackAssetLocationCopyWithImpl(this._self, this._then);
+class __$NamedItemCopyWithImpl<T extends PackAsset, $Res>
+    implements _$NamedItemCopyWith<T, $Res> {
+  __$NamedItemCopyWithImpl(this._self, this._then);
 
-  final _PackAssetLocation _self;
-  final $Res Function(_PackAssetLocation) _then;
+  final _NamedItem<T> _self;
+  final $Res Function(_NamedItem<T>) _then;
 
-  /// Create a copy of PackAssetLocation
+  /// Create a copy of NamedItem
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? pack = null,
     Object? name = null,
+    Object? item = null,
   }) {
-    return _then(_PackAssetLocation(
-      null == pack
-          ? _self.pack
-          : pack // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == name
+    return _then(_NamedItem<T>(
+      name: null == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      item: null == item
+          ? _self.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as T,
     ));
   }
 }

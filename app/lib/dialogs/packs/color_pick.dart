@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -32,45 +33,51 @@ class ColorPalettePickerDialog extends StatefulWidget {
 }
 
 class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
-  PackAssetLocation? _selected;
+  late final PackFileSystem _packSystem;
+  NoteData? _pack;
+  PackItem<ColorPalette>? _selected;
   ColorPalette? _palette;
 
   @override
   void initState() {
     super.initState();
     _palette = widget.palette;
-    if (widget.bloc != null && _palette == null) {
-      final state = widget.bloc?.state;
-      final packName = state?.data?.getPacks().firstOrNull;
-      final pack = packName == null ? null : state?.data?.getPack(packName);
-      final paletteName = pack?.getPalettes().firstOrNull;
-      if (paletteName == null) return;
-      _selected = PackAssetLocation(packName!, paletteName);
-      _palette = pack?.getPalette(paletteName);
-    }
+    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadPalette();
+    });
   }
 
-  void _loadPalette() {
-    if (widget.bloc == null) return;
-    final state = widget.bloc!.state;
-    if (state is! DocumentLoaded) return;
-    _palette = _selected?.resolvePalette(state.data);
-    if (_palette != null) return;
+  Future<void> _loadPalette() async {
+    final pack = await _packSystem.getDefaultFile(_selected?.namespace ?? '');
+    if (pack == null) return;
+    final palette = pack.getPalette(_selected?.key ?? '') ??
+        pack.getNamedPalettes().firstOrNull?.item;
+    if (palette == null) return;
+    setState(() {
+      _pack = pack;
+      _palette = palette;
+    });
   }
 
-  void _changePalette(ColorPalette palette) {
+  void _changePalette(ColorPalette palette, [String? name]) {
     if (widget.onChanged != null) {
       widget.onChanged!(palette);
     } else {
-      final state = widget.bloc?.state;
-      if (state is! DocumentLoaded) return;
-      var pack = _selected == null ? null : state.data.getPack(_selected!.pack);
-      if (pack == null) return;
-      pack = pack.setPalette(palette);
-      widget.bloc?.add(PackUpdated(pack.name!, pack));
       setState(() {
         _palette = palette;
       });
+      final location = _selected;
+      if (location == null) return;
+      final newPack = _pack?.setPalette(
+        name ?? location.key,
+        palette,
+      );
+      if (newPack == null) return;
+      _packSystem.updateFile(
+        location.namespace,
+        newPack,
+      );
     }
   }
 
@@ -193,13 +200,13 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                             CrossAxisAlignment.stretch,
                                         children: [
                                           Text(
-                                            _selected?.name ?? '',
+                                            _selected?.key ?? '',
                                             style: TextTheme.of(
                                               context,
                                             ).headlineSmall,
                                           ),
                                           Text(
-                                            _selected?.pack ?? '',
+                                            _selected?.namespace ?? '',
                                             style: TextTheme.of(
                                               context,
                                             ).labelLarge,
@@ -214,14 +221,16 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           return;
                                         }
                                         final result = await showDialog<
-                                            PackAssetLocation?>(
+                                            PackItem<ColorPalette>>(
                                           context: context,
                                           builder: (context) =>
                                               BlocProvider.value(
                                             value: widget.bloc!,
                                             child: SelectPackAssetDialog(
-                                              selected: _selected,
-                                              type: PackAssetType.palette,
+                                              selectedItem:
+                                                  _selected?.toNamed(),
+                                              getItems: (pack) =>
+                                                  pack.getNamedPalettes(),
                                             ),
                                           ),
                                         );
@@ -240,7 +249,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                   ] else
                                     Expanded(
                                       child: TextFormField(
-                                        initialValue: _palette?.name,
+                                        initialValue: _selected?.key,
                                         decoration: InputDecoration(
                                           labelText: LeapLocalizations.of(
                                             context,
@@ -248,9 +257,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           filled: true,
                                         ),
                                         onChanged: (value) {
-                                          _changePalette(
-                                            _palette!.copyWith(name: value),
-                                          );
+                                          _changePalette(_palette!, value);
                                         },
                                       ),
                                     ),

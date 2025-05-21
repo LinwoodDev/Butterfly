@@ -60,7 +60,7 @@ mixin LabelElement {
   String get collection;
   Point<double> get position;
   double get scale;
-  PackAssetLocation get styleSheet;
+  NamedItem<TextStyleSheet>? get styleSheet;
   ElementConstraint get constraint;
   SRGBColor get foreground;
 
@@ -101,7 +101,7 @@ sealed class PadElement with _$PadElement {
     @Default(Point(0.0, 0.0))
     Point<double> position,
     @Default(1.0) double scale,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
@@ -117,7 +117,7 @@ sealed class PadElement with _$PadElement {
     @Default(Point(0.0, 0.0))
     Point<double> position,
     @Default(1.0) double scale,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     @Default(AreaProperty()) AreaProperty areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,

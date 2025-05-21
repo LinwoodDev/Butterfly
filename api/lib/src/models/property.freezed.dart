@@ -104,7 +104,7 @@ class PenProperty implements Property, PathProperty {
       {this.strokeWidth = 5,
       this.thinning = 0.4,
       @ColorJsonConverter() this.color = SRGBColor.black,
-      this.fill = false,
+      @ColorJsonConverter() this.fill = SRGBColor.transparent,
       this.smoothing = 0.5,
       this.streamline = 0.3,
       final String? $type})
@@ -122,7 +122,8 @@ class PenProperty implements Property, PathProperty {
   @ColorJsonConverter()
   final SRGBColor color;
   @JsonKey()
-  final bool fill;
+  @ColorJsonConverter()
+  final SRGBColor fill;
   @JsonKey()
   final double smoothing;
   @JsonKey()
@@ -186,7 +187,7 @@ abstract mixin class $PenPropertyCopyWith<$Res>
       {double strokeWidth,
       double thinning,
       @ColorJsonConverter() SRGBColor color,
-      bool fill,
+      @ColorJsonConverter() SRGBColor fill,
       double smoothing,
       double streamline});
 }
@@ -226,7 +227,7 @@ class _$PenPropertyCopyWithImpl<$Res> implements $PenPropertyCopyWith<$Res> {
       fill: null == fill
           ? _self.fill
           : fill // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SRGBColor,
       smoothing: null == smoothing
           ? _self.smoothing
           : smoothing // ignore: cast_nullable_to_non_nullable

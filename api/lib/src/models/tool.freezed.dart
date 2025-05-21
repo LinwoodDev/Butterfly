@@ -567,7 +567,7 @@ class LabelTool extends Tool {
       this.mode = LabelMode.text,
       this.zoomDependent = false,
       @ColorJsonConverter() this.foreground = SRGBColor.black,
-      this.styleSheet = const PackAssetLocation(),
+      this.styleSheet,
       this.scale = 2.0,
       final String? $type})
       : $type = $type ?? 'label',
@@ -588,8 +588,7 @@ class LabelTool extends Tool {
   @JsonKey()
   @ColorJsonConverter()
   final SRGBColor foreground;
-  @JsonKey()
-  final PackAssetLocation styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   @JsonKey()
   final double scale;
 
@@ -629,10 +628,10 @@ abstract mixin class $LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       LabelMode mode,
       bool zoomDependent,
       @ColorJsonConverter() SRGBColor foreground,
-      PackAssetLocation styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       double scale});
 
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
 }
 
 /// @nodoc
@@ -652,7 +651,7 @@ class _$LabelToolCopyWithImpl<$Res> implements $LabelToolCopyWith<$Res> {
     Object? mode = null,
     Object? zoomDependent = null,
     Object? foreground = null,
-    Object? styleSheet = null,
+    Object? styleSheet = freezed,
     Object? scale = null,
   }) {
     return _then(LabelTool(
@@ -676,10 +675,10 @@ class _$LabelToolCopyWithImpl<$Res> implements $LabelToolCopyWith<$Res> {
           ? _self.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as SRGBColor,
-      styleSheet: null == styleSheet
+      styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+              as NamedItem<TextStyleSheet>?,
       scale: null == scale
           ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
@@ -691,8 +690,12 @@ class _$LabelToolCopyWithImpl<$Res> implements $LabelToolCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_self.styleSheet, (value) {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
+    if (_self.styleSheet == null) {
+      return null;
+    }
+
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }
@@ -1508,7 +1511,7 @@ class StampTool extends Tool {
   StampTool(
       {this.name = '',
       this.displayIcon = '',
-      this.component = const PackAssetLocation(),
+      this.component,
       final String? $type})
       : $type = $type ?? 'stamp',
         super._();
@@ -1521,8 +1524,7 @@ class StampTool extends Tool {
   @override
   @JsonKey()
   final String displayIcon;
-  @JsonKey()
-  final PackAssetLocation component;
+  final NamedItem<ButterflyComponent>? component;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -1554,9 +1556,12 @@ abstract mixin class $StampToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       _$StampToolCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, String displayIcon, PackAssetLocation component});
+  $Res call(
+      {String name,
+      String displayIcon,
+      NamedItem<ButterflyComponent>? component});
 
-  $PackAssetLocationCopyWith<$Res> get component;
+  $NamedItemCopyWith<ButterflyComponent, $Res>? get component;
 }
 
 /// @nodoc
@@ -1573,7 +1578,7 @@ class _$StampToolCopyWithImpl<$Res> implements $StampToolCopyWith<$Res> {
   $Res call({
     Object? name = null,
     Object? displayIcon = null,
-    Object? component = null,
+    Object? component = freezed,
   }) {
     return _then(StampTool(
       name: null == name
@@ -1584,10 +1589,10 @@ class _$StampToolCopyWithImpl<$Res> implements $StampToolCopyWith<$Res> {
           ? _self.displayIcon
           : displayIcon // ignore: cast_nullable_to_non_nullable
               as String,
-      component: null == component
+      component: freezed == component
           ? _self.component
           : component // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+              as NamedItem<ButterflyComponent>?,
     ));
   }
 
@@ -1595,8 +1600,13 @@ class _$StampToolCopyWithImpl<$Res> implements $StampToolCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get component {
-    return $PackAssetLocationCopyWith<$Res>(_self.component, (value) {
+  $NamedItemCopyWith<ButterflyComponent, $Res>? get component {
+    if (_self.component == null) {
+      return null;
+    }
+
+    return $NamedItemCopyWith<ButterflyComponent, $Res>(_self.component!,
+        (value) {
       return _then(_self.copyWith(component: value));
     });
   }

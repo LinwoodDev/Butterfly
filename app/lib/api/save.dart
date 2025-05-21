@@ -89,6 +89,24 @@ Future<void> exportData(
       label: AppLocalizations.of(context).export,
     );
 
+Future<void> exportTextData(
+  BuildContext context,
+  Map<String, dynamic> bytes, [
+  bool share = false,
+]) =>
+    exportFile(
+      context: context,
+      bytes: utf8.encode(JsonEncoder.withIndent(
+        '\t',
+      ).convert(bytes)),
+      fileExtension: 'tbfly',
+      mimeType: 'application/json',
+      uniformTypeIdentifier: 'dev.linwood.butterfly.textnote',
+      share: share,
+      fileName: 'output',
+      label: AppLocalizations.of(context).export,
+    );
+
 Future<void> writeClipboardData(
   ClipboardManager clipboardManager,
   AssetFileType type,

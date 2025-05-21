@@ -141,8 +141,7 @@ class DocumentDefaults {
     var data = NoteData(Archive())
         .setMetadata(metadata)
         .setInfo(createInfo(backgrounds.firstOrNull?.defaultColor))
-        .setPage(page)
-        .setPack(await getCorePack());
+        .setPage(page);
     if (thumbnail != null) data = data.setThumbnail(thumbnail);
     return data;
   }

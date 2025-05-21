@@ -36,8 +36,11 @@ sealed class LabelContext with _$LabelContext {
 
   LabelElement? get labelElement => element as LabelElement?;
 
-  PackAssetLocation getStyleSheet(NoteData document) =>
-      labelElement?.styleSheet ?? tool.styleSheet.fixStyle(document);
+  NamedItem<TextStyleSheet>? getNamedStyleSheet(NoteData document) =>
+      labelElement?.styleSheet ?? tool.styleSheet;
+
+  TextStyleSheet? getStyleSheet(NoteData document) =>
+      getNamedStyleSheet(document)?.item;
 
   int get length =>
       switch (this) {
@@ -113,9 +116,7 @@ extension TextContextHelper on TextContext {
     if (property is DefinedParagraphProperty) {
       return property;
     }
-    return getStyleSheet(document)
-            .resolveStyle(document)
-            ?.resolveParagraphProperty(property) ??
+    return getStyleSheet(document)?.resolveParagraphProperty(property) ??
         DefinedParagraphProperty();
   }
 
@@ -131,9 +132,8 @@ extension TextContextHelper on TextContext {
   DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
     return switch (getSpanProperty(document)) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveSpanProperty(e),
+          NamedSpanProperty e =>
+            getStyleSheet(document)?.resolveSpanProperty(e),
           _ => null,
         } ??
         const DefinedSpanProperty();
@@ -142,9 +142,8 @@ extension TextContextHelper on TextContext {
   DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
     return switch (forcedProperty) {
           DefinedParagraphProperty e => e,
-          NamedParagraphProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveParagraphProperty(e),
+          NamedParagraphProperty e =>
+            getStyleSheet(document)?.resolveParagraphProperty(e),
           _ => null,
         } ??
         const DefinedParagraphProperty();
@@ -154,9 +153,8 @@ extension TextContextHelper on TextContext {
       [bool fallback = true]) {
     return switch (forcedSpanProperty) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveSpanProperty(e),
+          NamedSpanProperty e =>
+            getStyleSheet(document)?.resolveSpanProperty(e),
           _ => null,
         } ??
         (fallback

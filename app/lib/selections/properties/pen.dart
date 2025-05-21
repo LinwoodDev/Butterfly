@@ -28,10 +28,21 @@ class PenPropertySelection extends PropertySelection<PenProperty>
           onChangeEnd: (value) => onChanged(property.copyWith(
               color: property.color.withValues(a: value.toInt()))),
         ),
-        CheckboxListTile(
-            value: property.fill,
-            title: Text(AppLocalizations.of(context).fill),
-            onChanged: (value) =>
-                onChanged(property.copyWith(fill: value ?? property.fill))),
+        ColorField(
+          value: property.fill.withValues(a: 255),
+          onChanged: (value) => onChanged(
+              property.copyWith(fill: value.withValues(a: property.fill.a))),
+          title: Text(AppLocalizations.of(context).fill),
+        ),
+        ExactSlider(
+          value: property.fill.a.toDouble(),
+          header: Text(AppLocalizations.of(context).fillAlpha),
+          fractionDigits: 0,
+          max: 255,
+          min: 0,
+          defaultValue: 255,
+          onChangeEnd: (value) => onChanged(property.copyWith(
+              color: property.fill.withValues(a: value.toInt()))),
+        ),
       ];
 }

@@ -11,7 +11,7 @@ NoteData noteDataMigrator(Uint8List data, {String? password}) {
   Archive archive;
   if (data.isNotEmpty && data[0] != kArchiveSignature) {
     final map = json.decode(utf8.decode(data)) as Map<String, dynamic>;
-    archive = convertLegacyDataToArchive(map);
+    archive = convertTextDataToArchive(map);
   } else {
     archive = ZipDecoder().decodeBytes(data, password: password);
   }
@@ -117,6 +117,66 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
         }
         return e;
       }).toList();
+      noteData = noteData.setAsset(
+          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+    }
+  }
+  if (version < 12) {
+    Map? resolvePackAssetLocation(Map location, String kind) {
+      final pack = location['pack'] as String?;
+      final name = location['name'] as String?;
+      if ((pack?.isEmpty ?? true) || (name?.isEmpty ?? true)) {
+        return null;
+      }
+      final packData = noteData.getAsset('$kPacksArchiveDirectory/$pack.bfly');
+      if (packData == null) return null;
+      final data = NoteData.fromData(packData);
+      final item = data.getAsset('$kind/$name');
+      if (item == null) return null;
+      return {
+        'name': name,
+        'item': item,
+      };
+    }
+
+    void updatePenProperty(Map property) {
+      if (property['fill'] != true) return;
+      property['fill'] = property['color'];
+      property['color'] = null;
+    }
+
+    for (final page in noteData.getAssets('$kPagesArchiveDirectory/')) {
+      final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
+      if (data == null) continue;
+      final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
+      final layers = pageData['layers'] as List?;
+      for (final layer in layers ?? []) {
+        final content = layer['content'] as List?;
+        for (final item in content ?? []) {
+          if ((const ['text', 'markdown'].contains(item['type']))) {
+            item['stylesheet'] = resolvePackAssetLocation(
+                item['stylesheet'], kStylesArchiveDirectory);
+          } else if (item['type'] == 'pen') {
+            updatePenProperty(item['property']);
+          }
+        }
+      }
+    }
+    final info = noteData.getAsset(kInfoArchiveFile);
+    if (info != null) {
+      final infoData = json.decode(utf8.decode(info)) as Map<String, dynamic>;
+      final tools = infoData['tools'] as List?;
+      for (final item in tools ?? []) {
+        if ((const ['text', 'markdown'].contains(item['type']))) {
+          item['stylesheet'] = resolvePackAssetLocation(
+              item['stylesheet'], kStylesArchiveDirectory);
+        } else if (item['type'] == 'stamp') {
+          item['component'] = resolvePackAssetLocation(
+              item['component'], kComponentsArchiveDirectory);
+        } else if (item['type'] == 'pen') {
+          updatePenProperty(item['property']);
+        }
+      }
       noteData = noteData.setAsset(
           kInfoArchiveFile, utf8.encode(json.encode(infoData)));
     }

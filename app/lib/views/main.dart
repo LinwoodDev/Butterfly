@@ -427,12 +427,17 @@ class _ProjectPageState extends State<ProjectPage> {
                                 LogicalKeyboardKey.control,
                                 LogicalKeyboardKey.shift,
                                 LogicalKeyboardKey.keyE,
-                              ): ImageExportIntent(context),
+                              ): ExportIntent(context, isText: true),
                               LogicalKeySet(
                                 LogicalKeyboardKey.control,
                                 LogicalKeyboardKey.alt,
                                 LogicalKeyboardKey.shift,
                                 LogicalKeyboardKey.keyE,
+                              ): ImageExportIntent(context),
+                              LogicalKeySet(
+                                LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.shift,
+                                LogicalKeyboardKey.keyP,
                               ): PdfExportIntent(context),
                               LogicalKeySet(
                                 LogicalKeyboardKey.control,

@@ -773,7 +773,7 @@ class TextElement extends PadElement with LabelElement {
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
-      this.styleSheet = const PackAssetLocation(),
+      this.styleSheet,
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
       @ColorJsonConverter() this.foreground = SRGBColor.black,
@@ -799,8 +799,7 @@ class TextElement extends PadElement with LabelElement {
   final Point<double> position;
   @JsonKey()
   final double scale;
-  @JsonKey()
-  final PackAssetLocation styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   final TextArea area;
   @JsonKey()
   final ElementConstraint constraint;
@@ -854,13 +853,13 @@ abstract mixin class $TextElementCopyWith<$Res>
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
-      PackAssetLocation styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       TextArea area,
       ElementConstraint constraint,
       @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
   $TextAreaCopyWith<$Res> get area;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
@@ -882,7 +881,7 @@ class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
     Object? id = freezed,
     Object? position = null,
     Object? scale = null,
-    Object? styleSheet = null,
+    Object? styleSheet = freezed,
     Object? area = null,
     Object? constraint = null,
     Object? foreground = null,
@@ -909,10 +908,10 @@ class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
           ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double,
-      styleSheet: null == styleSheet
+      styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+              as NamedItem<TextStyleSheet>?,
       area: null == area
           ? _self.area
           : area // ignore: cast_nullable_to_non_nullable
@@ -936,8 +935,12 @@ class _$TextElementCopyWithImpl<$Res> implements $TextElementCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_self.styleSheet, (value) {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
+    if (_self.styleSheet == null) {
+      return null;
+    }
+
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }
@@ -972,7 +975,7 @@ class MarkdownElement extends PadElement with LabelElement {
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
-      this.styleSheet = const PackAssetLocation(),
+      this.styleSheet,
       this.areaProperty = const AreaProperty(),
       required this.text,
       this.constraint = const ElementConstraint(size: 1000),
@@ -999,8 +1002,7 @@ class MarkdownElement extends PadElement with LabelElement {
   final Point<double> position;
   @JsonKey()
   final double scale;
-  @JsonKey()
-  final PackAssetLocation styleSheet;
+  final NamedItem<TextStyleSheet>? styleSheet;
   @JsonKey()
   final AreaProperty areaProperty;
   final String text;
@@ -1056,14 +1058,14 @@ abstract mixin class $MarkdownElementCopyWith<$Res>
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
-      PackAssetLocation styleSheet,
+      NamedItem<TextStyleSheet>? styleSheet,
       AreaProperty areaProperty,
       String text,
       ElementConstraint constraint,
       @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet;
   $AreaPropertyCopyWith<$Res> get areaProperty;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
@@ -1086,7 +1088,7 @@ class _$MarkdownElementCopyWithImpl<$Res>
     Object? id = freezed,
     Object? position = null,
     Object? scale = null,
-    Object? styleSheet = null,
+    Object? styleSheet = freezed,
     Object? areaProperty = null,
     Object? text = null,
     Object? constraint = null,
@@ -1114,10 +1116,10 @@ class _$MarkdownElementCopyWithImpl<$Res>
           ? _self.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double,
-      styleSheet: null == styleSheet
+      styleSheet: freezed == styleSheet
           ? _self.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
-              as PackAssetLocation,
+              as NamedItem<TextStyleSheet>?,
       areaProperty: null == areaProperty
           ? _self.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
@@ -1145,8 +1147,12 @@ class _$MarkdownElementCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_self.styleSheet, (value) {
+  $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
+    if (_self.styleSheet == null) {
+      return null;
+    }
+
+    return $NamedItemCopyWith<TextStyleSheet, $Res>(_self.styleSheet!, (value) {
       return _then(_self.copyWith(styleSheet: value));
     });
   }

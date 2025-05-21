@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -17,93 +20,99 @@ class AssetDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? pack = value?.pack;
-    String name = value?.name ?? '';
+    String? pack = value?.namespace;
+    String name = value?.key ?? '';
     final bloc = context.read<DocumentBloc>();
-    return BlocBuilder<DocumentBloc, DocumentState>(
-      buildWhen: (previous, current) => previous.data != current.data,
-      builder: (context, state) {
-        if (state is! DocumentLoaded) return const SizedBox();
-        final document = state.data;
-        final packs = document.getPacks();
-        pack ??= packs.firstOrNull;
-        return AlertDialog(
-          title: Text(
-            value == null
-                ? AppLocalizations.of(context).addAsset
-                : AppLocalizations.of(context).editAsset,
-          ),
-          scrollable: true,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  Flexible(
-                    child: DropdownMenu<String>(
-                      label: Text(AppLocalizations.of(context).pack),
-                      key: UniqueKey(),
-                      dropdownMenuEntries: packs
-                          .map(
-                            (e) => DropdownMenuEntry<String>(
-                              value: e,
-                              label: e,
-                            ),
-                          )
-                          .toList(),
-                      onSelected: (value) {
-                        pack = value;
-                      },
-                      initialSelection: pack,
-                      expandedInsets: const EdgeInsets.all(0),
+    return FutureBuilder<List<String>>(
+      future: context
+          .read<ButterflyFileSystem>()
+          .buildDefaultPackSystem()
+          .getKeys(),
+      builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
+        buildWhen: (previous, current) => previous.data != current.data,
+        builder: (context, state) {
+          if (state is! DocumentLoaded) return const SizedBox();
+          final packs = snapshot.data ?? <String>[];
+          pack ??= packs.firstOrNull;
+          return AlertDialog(
+            title: Text(
+              value == null
+                  ? AppLocalizations.of(context).addAsset
+                  : AppLocalizations.of(context).editAsset,
+            ),
+            scrollable: true,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Flexible(
+                      child: DropdownMenu<String>(
+                        label: Text(AppLocalizations.of(context).pack),
+                        key: UniqueKey(),
+                        dropdownMenuEntries: packs
+                            .map(
+                              (e) => DropdownMenuEntry<String>(
+                                value: e,
+                                label: e,
+                              ),
+                            )
+                            .toList(),
+                        onSelected: (value) {
+                          pack = value;
+                        },
+                        initialSelection: pack,
+                        expandedInsets: const EdgeInsets.all(0),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-                    onPressed: () async {
-                      final pack = await showDialog<NoteData>(
-                        context: context,
-                        builder: (context) => const PackDialog(),
-                      );
-                      if (pack == null) return;
-                      bloc.add(PackAdded(pack));
-                    },
-                    tooltip: AppLocalizations.of(context).createPack,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: LeapLocalizations.of(context).name,
-                  filled: true,
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+                      onPressed: () async {
+                        final pack = await showDialog<NoteData>(
+                          context: context,
+                          builder: (context) => const PackDialog(),
+                        );
+                        if (pack == null) return;
+                        bloc.add(PackAdded(pack));
+                      },
+                      tooltip: AppLocalizations.of(context).createPack,
+                    ),
+                  ],
                 ),
-                initialValue: name,
-                onChanged: (value) {
-                  name = value;
+                const SizedBox(height: 8),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: LeapLocalizations.of(context).name,
+                    filled: true,
+                  ),
+                  initialValue: name,
+                  onChanged: (value) {
+                    name = value;
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (pack == null) return;
+                  Navigator.of(context).pop(PackAssetLocation(pack!, name));
+                },
+                child: Text(MaterialLocalizations.of(context).okButtonLabel),
               ),
             ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (pack == null) return;
-                Navigator.of(context).pop(PackAssetLocation(pack!, name));
-              },
-              child: Text(MaterialLocalizations.of(context).okButtonLabel),
-            ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -117,7 +126,6 @@ Future<void> addToPack(
 ) async {
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
-  final document = state.data;
   final result = await showDialog<PackAssetLocation>(
     context: context,
     builder: (context) => MultiBlocProvider(
@@ -129,7 +137,9 @@ Future<void> addToPack(
     ),
   );
   if (result == null) return;
-  var pack = document.getPack(result.pack);
+  final packSystem =
+      context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+  var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
   final screenshot = await state.currentIndexCubit.render(
     state.data,
@@ -144,10 +154,9 @@ Future<void> addToPack(
       quality: kThumbnailWidth / rect.width,
     ),
   );
-  String? thumbnailUri;
+  Uint8List? thumbnail;
   if (screenshot != null) {
-    thumbnailUri =
-        Uri.dataFromBytes(screenshot.buffer.asUint8List()).toString();
+    thumbnail = screenshot.buffer.asUint8List();
   }
   final renderers = elements.map(Renderer.fromInstance).toList();
   await Future.wait(
@@ -163,11 +172,11 @@ Future<void> addToPack(
       )
       .toList();
   pack = pack.setComponent(
+    result.key,
     ButterflyComponent(
-      name: result.name,
       elements: transformed,
-      thumbnail: thumbnailUri,
+      thumbnail: thumbnail,
     ),
   );
-  bloc.add(PackUpdated(result.pack, pack));
+  await packSystem.updateFile(result.namespace, pack);
 }

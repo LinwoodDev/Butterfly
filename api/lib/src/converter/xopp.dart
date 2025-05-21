@@ -177,12 +177,12 @@ Uint8List xoppExporter(NoteData document) {
                 });
                 break;
               case LabelElement e:
-                final styleSheet = e.styleSheet.resolveStyle(document);
+                final styleSheet = e.styleSheet;
                 final style = e is TextElement
-                    ? styleSheet
-                        ?.resolveParagraphProperty(e.area.paragraph.property)
+                    ? styleSheet?.item
+                        .resolveParagraphProperty(e.area.paragraph.property)
                         ?.span
-                    : styleSheet?.getParagraphProperty('p')?.span;
+                    : styleSheet?.item.getParagraphProperty('p')?.span;
                 builder.element('text', attributes: {
                   'color': _exportColor(style?.color ?? SRGBColor.black),
                   'size': (style?.size ?? 12).toString(),

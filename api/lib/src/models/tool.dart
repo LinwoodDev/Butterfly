@@ -10,6 +10,7 @@ import 'element.dart';
 import 'export.dart';
 import 'pack.dart';
 import 'property.dart';
+import 'text.dart';
 import 'texture.dart';
 
 part 'tool.freezed.dart';
@@ -93,7 +94,7 @@ sealed class Tool with _$Tool {
     @Default(LabelMode.text) LabelMode mode,
     @Default(false) bool zoomDependent,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     @Default(2.0) double scale,
   }) = LabelTool;
 
@@ -160,7 +161,7 @@ sealed class Tool with _$Tool {
   factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
-    @Default(PackAssetLocation()) PackAssetLocation component,
+    NamedItem<ButterflyComponent>? component,
   }) = StampTool;
 
   factory Tool.presentation({

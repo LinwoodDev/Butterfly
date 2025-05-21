@@ -39,14 +39,13 @@ class StampHandler extends PastingHandler<StampTool> {
     super.onPointerDown(event, context);
   }
 
-  ButterflyComponent? getComponent(NoteData document) =>
-      document.getPack(data.component.pack)?.getComponent(data.component.name);
+  ButterflyComponent? getComponent() => data.component?.item;
 
   Future<void> _loadComponent(
       NoteData document, AssetService assetService, DocumentPage page,
       [bool force = false]) async {
     _position = Offset.zero;
-    _component = getComponent(document);
+    _component = getComponent();
     if ((!force && _elements != null) || _component == null) return;
     final elements = _elements = await Future.wait(
         _component?.elements.map(Renderer.fromInstance).map((e) async {

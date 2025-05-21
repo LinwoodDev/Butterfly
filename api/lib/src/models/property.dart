@@ -25,7 +25,7 @@ sealed class Property with _$Property {
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
-    @Default(false) bool fill,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor fill,
     @Default(0.5) double smoothing,
     @Default(0.3) double streamline,
   }) = PenProperty;

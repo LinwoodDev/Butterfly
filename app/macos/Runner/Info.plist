@@ -49,6 +49,23 @@
       </dict>
       <dict>
           <key>UTTypeIdentifier</key>
+          <string>dev.linwood.butterfly.textnote</string>
+          <key>UTTypeConformsTo</key>
+          <array>
+              <string>public.json</string>
+          </array>
+          <key>UTTypeDescription</key>
+          <string>Linwood Butterfly Text Note</string>
+          <key>UTTypeTagSpecification</key>
+          <dict>
+              <key>public.filename-extension</key>
+              <array>
+                  <string>tbfly</string>
+              </array>
+          </dict>
+      </dict>
+      <dict>
+          <key>UTTypeIdentifier</key>
           <string>dev.linwood.butterfly.xopp</string>
           <key>UTTypeConformsTo</key>
           <array>

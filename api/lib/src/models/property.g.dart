@@ -12,7 +12,9 @@ PenProperty _$PenPropertyFromJson(Map json) => PenProperty(
       color: json['color'] == null
           ? SRGBColor.black
           : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
-      fill: json['fill'] as bool? ?? false,
+      fill: json['fill'] == null
+          ? SRGBColor.transparent
+          : const ColorJsonConverter().fromJson((json['fill'] as num).toInt()),
       smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
       streamline: (json['streamline'] as num?)?.toDouble() ?? 0.3,
       $type: json['type'] as String?,
@@ -23,7 +25,7 @@ Map<String, dynamic> _$PenPropertyToJson(PenProperty instance) =>
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
       'color': const ColorJsonConverter().toJson(instance.color),
-      'fill': instance.fill,
+      'fill': const ColorJsonConverter().toJson(instance.fill),
       'smoothing': instance.smoothing,
       'streamline': instance.streamline,
       'type': instance.$type,

@@ -1,18 +1,36 @@
-import 'data.dart';
-import 'element.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'dart:typed_data';
 
-import 'palette.dart';
-import 'text.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
-@Freezed(equal: false)
-sealed class ButterflyComponent with _$ButterflyComponent {
+@freezed
+abstract class PackAsset with _$PackAsset {
+  const PackAsset();
+}
+
+@freezed
+sealed class ColorPalette extends PackAsset with _$ColorPalette {
+  const ColorPalette._();
+
+  const factory ColorPalette(
+          {@Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
+      _ColorPalette;
+  factory ColorPalette.fromJson(Map<String, dynamic> json) =>
+      _$ColorPaletteFromJson(json);
+}
+
+@freezed
+sealed class ButterflyComponent extends PackAsset with _$ButterflyComponent {
+  const ButterflyComponent._();
+
   const factory ButterflyComponent({
-    required String name,
-    String? thumbnail,
+    @Uint8ListJsonConverter() Uint8List? thumbnail,
     @Default(<PadElement>[]) List<PadElement> elements,
   }) = _ButterflyComponent;
 
@@ -56,30 +74,53 @@ sealed class ButterflyParameter with _$ButterflyParameter {
       _$ButterflyParameterFromJson(json);
 }
 
-@freezed
-sealed class PackAssetLocation with _$PackAssetLocation {
-  const PackAssetLocation._();
-  const factory PackAssetLocation([
-    @Default('') String pack,
-    @Default('') String name,
-  ]) = _PackAssetLocation;
+@Freezed(equal: true, fromJson: false, toJson: false, copyWith: false)
+final class PackAssetLocation with _$PackAssetLocation {
+  @override
+  final String namespace;
+  @override
+  final String key;
 
-  static const PackAssetLocation empty = PackAssetLocation('', '');
+  const PackAssetLocation(this.namespace, this.key);
+}
 
-  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$PackAssetLocationFromJson(json);
+@Freezed(genericArgumentFactories: true)
+sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
+  const NamedItem._();
 
-  TextStyleSheet? resolveStyle(NoteData document) =>
-      document.getPack(pack)?.getStyle(name);
+  const factory NamedItem({
+    required String name,
+    required T item,
+  }) = _NamedItem<T>;
 
-  ColorPalette? resolvePalette(NoteData document) =>
-      document.getPack(pack)?.getPalette(name);
+  factory NamedItem.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) =>
+      _$NamedItemFromJson(json, fromJsonT);
 
-  ButterflyComponent? resolveComponent(NoteData document) =>
-      document.getPack(pack)?.getComponent(name);
+  @override
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
+      throw UnimplementedError(
+          'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.');
 
-  PackAssetLocation fixStyle(NoteData document) {
-    if (resolveStyle(document) != null) return this;
-    return document.findStyle();
-  }
+  PackItem<T> toPack(NoteData pack, String namespace) =>
+      PackItem<T>(PackAssetLocation(namespace, name), pack, item);
+}
+
+final class PackItem<T extends PackAsset> implements PackAssetLocation {
+  final PackAssetLocation location;
+  final NoteData pack;
+  final T item;
+
+  const PackItem(this.location, this.pack, this.item);
+  PackItem.build(String namespace, String key, this.pack, this.item)
+      : location = PackAssetLocation(namespace, key);
+
+  @override
+  String get namespace => location.namespace;
+  @override
+  String get key => location.key;
+
+  NamedItem<T> toNamed() => NamedItem(name: key, item: item);
 }

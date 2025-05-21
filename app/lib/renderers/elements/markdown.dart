@@ -92,7 +92,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   @override
   text.TextParagraph getParagraph(NoteData document) {
     final parsed = _parse();
-    final styleSheet = element.styleSheet.resolveStyle(document);
+    final styleSheet = element.styleSheet?.item;
     return _convertToParagraph(parsed, styleSheet);
   }
 }

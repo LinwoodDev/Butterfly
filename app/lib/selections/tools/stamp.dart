@@ -8,62 +8,24 @@ class StampToolSelection extends ToolSelection<StampTool> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
-    final packs = state.data.getPacks();
-    final packName = selected.first.component.pack;
-    final currentPack = state.data.getPack(packName);
+    final value = selected.first.component;
+    void updateComponent(NamedItem<ButterflyComponent>? component) => update(
+        context,
+        selected.map((e) => e.copyWith(component: component)).toList());
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
-      DropdownMenu<String>(
-        expandedInsets: const EdgeInsets.all(4),
-        dropdownMenuEntries: packs
-            .map((e) => DropdownMenuEntry<String>(value: e, label: e))
-            .toList(),
-        label: Text(AppLocalizations.of(context).pack),
-        helperText: packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
-        trailingIcon: IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.package),
-          tooltip: AppLocalizations.of(context).packs,
-          onPressed: () {
-            Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
-          },
+      ListTile(
+        title: Text(AppLocalizations.of(context).component),
+        subtitle: value == null
+            ? Text(AppLocalizations.of(context).notSet)
+            : Text(value.name),
+        trailing: IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+          onPressed: () => updateComponent(null),
+          tooltip: AppLocalizations.of(context).delete,
         ),
-        initialSelection: currentPack?.name,
-        onSelected: (pack) {
-          if (pack == null) return;
-          update(
-              context,
-              selected
-                  .map((e) => e.copyWith(component: PackAssetLocation(pack)))
-                  .toList());
-        },
       ),
-      const SizedBox(height: 8),
-      const Divider(),
-      const SizedBox(height: 8),
-      Column(
-          children: currentPack
-                  ?.getComponents()
-                  .map((component) => Dismissible(
-                      key: ValueKey(component),
-                      background: Container(color: Colors.red),
-                      onDismissed: (direction) {
-                        bloc.add(PackUpdated(
-                            packName, currentPack.removeComponent(component)));
-                      },
-                      child: ListTile(
-                        title: Text(component),
-                        selected: component == selected.first.component.name,
-                        onTap: () => update(
-                            context,
-                            selected
-                                .map((e) => e.copyWith(
-                                    component:
-                                        PackAssetLocation(packName, component)))
-                                .toList()),
-                      )))
-                  .toList() ??
-              []),
     ];
   }
 

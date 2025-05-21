@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/select.dart';
 import 'package:butterfly/views/toolbar/view.dart';
@@ -33,26 +34,39 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
+  late final PackFileSystem _packSystem;
   final ScrollController _scrollController = ScrollController();
-  PackAssetLocation? colorPalette;
+  Future<PackItem<ColorPalette>?>? _colorPalette;
 
   @override
   void initState() {
     super.initState();
-    final state = context.read<DocumentBloc>().state;
-    if (state is DocumentLoadSuccess) {
-      try {
-        final packName = state.data.getPacks().firstOrNull;
-        if (packName == null) return;
-        final pack = state.data.getPack(packName);
-        final palettes = pack?.getPalettes();
-        if (palettes?.isEmpty ?? true) return;
-        final palette = pack?.getPalette(palettes!.first);
-        if (palette != null) {
-          colorPalette = PackAssetLocation(packName, palette.name);
-        }
-      } catch (_) {}
+    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _colorPalette = _findPalette();
+  }
+
+  Future<PackItem<ColorPalette>?> _findPalette() async {
+    final files = await _packSystem.getFiles();
+    for (final file in files) {
+      final pack = file.data!;
+      final palette = pack.getNamedPalettes().firstOrNull;
+      if (palette == null) continue;
+      final name = file.pathWithoutLeadingSlash;
+      return palette.toPack(
+        pack,
+        name,
+      );
     }
+    return null;
+  }
+
+  Future<void> _updatePalette(
+      PackItem<ColorPalette> selected, ColorPalette palette) async {
+    final newPack = selected.pack.setPalette(selected.key, palette);
+    return _packSystem.updateFile(
+      selected.namespace,
+      newPack,
+    );
   }
 
   @override
@@ -61,175 +75,163 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.dispose();
   }
 
+  void _addColor() async {
+    final settingsCubit = context.read<SettingsCubit>();
+    final response =
+        await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
+      context: context,
+      builder: (context) => ColorPicker<ColorPickerToolbarAction>(
+        value: widget.color,
+        suggested: settingsCubit.state.recentColors,
+        secondaryActions: widget.onEyeDropper == null
+            ? null
+            : (close) => [
+                  OutlinedButton(
+                    onPressed: () => close(ColorPickerToolbarAction.eyeDropper),
+                    child: Text(AppLocalizations.of(context).eyeDropper),
+                  ),
+                ],
+        primaryActions: _colorPalette == null
+            ? null
+            : (close) => [
+                  OutlinedButton(
+                    onPressed: () => close(ColorPickerToolbarAction.pin),
+                    child: Text(AppLocalizations.of(context).pin),
+                  ),
+                ],
+      ),
+    );
+    if (response == null) return;
+    final srgb = response.toSRGB();
+    widget.onChanged(srgb);
+    if (response.action == ColorPickerToolbarAction.eyeDropper) {
+      widget.onEyeDropper?.call(context);
+      return;
+    }
+    if (response.action != ColorPickerToolbarAction.pin) {
+      settingsCubit.addRecentColors(srgb);
+      return;
+    }
+  }
+
+  void _changeColor(
+      PackItem<ColorPalette> palette, int index, SRGBColor value) async {
+    final settingsCubit = context.read<SettingsCubit>();
+    final response =
+        await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
+      context: context,
+      builder: (context) => ColorPicker<ColorPickerToolbarAction>(
+        value: value,
+        suggested: settingsCubit.state.recentColors,
+        secondaryActions: (close) => [
+          OutlinedButton(
+            onPressed: () => close(
+              ColorPickerToolbarAction.delete,
+            ),
+            child: Text(
+              AppLocalizations.of(context).delete,
+            ),
+          ),
+        ],
+      ),
+    );
+    if (response == null) return;
+    if (response.action == ColorPickerToolbarAction.delete) {
+      _updatePalette(
+          palette,
+          palette.item.copyWith(
+            colors: List<SRGBColor>.from(palette.item.colors)..removeAt(index),
+          ));
+    } else {
+      _updatePalette(
+          palette,
+          palette.item.copyWith(
+            colors: List<SRGBColor>.from(palette.item.colors)
+              ..add(response.toSRGB()),
+          ));
+    }
+    widget.onChanged(response.toSRGB());
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-    final bloc = context.read<DocumentBloc>();
-    final document = state.data;
-    ColorPalette? palette;
-    NoteData? pack;
     SRGBColor color = widget.color.withValues(a: 255);
 
-    void addColor() async {
-      final settingsCubit = context.read<SettingsCubit>();
-      final response =
-          await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
-        context: context,
-        builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-          value: widget.color,
-          suggested: settingsCubit.state.recentColors,
-          secondaryActions: widget.onEyeDropper == null
-              ? null
-              : (close) => [
-                    OutlinedButton(
-                      onPressed: () =>
-                          close(ColorPickerToolbarAction.eyeDropper),
-                      child: Text(AppLocalizations.of(context).eyeDropper),
-                    ),
-                  ],
-          primaryActions: palette == null
-              ? null
-              : (close) => [
-                    OutlinedButton(
-                      onPressed: () => close(ColorPickerToolbarAction.pin),
-                      child: Text(AppLocalizations.of(context).pin),
-                    ),
-                  ],
-        ),
-      );
-      if (response == null) return;
-      final srgb = response.toSRGB();
-      widget.onChanged(srgb);
-      if (response.action == ColorPickerToolbarAction.eyeDropper) {
-        widget.onEyeDropper?.call(context);
-        return;
-      }
-      if (response.action != ColorPickerToolbarAction.pin) {
-        settingsCubit.addRecentColors(srgb);
-        return;
-      }
-      var currentPalette = pack?.getPalette(colorPalette!.name);
-      currentPalette = currentPalette?.copyWith(
-        colors: [...currentPalette.colors, srgb],
-      );
-      bloc.add(
-        PackUpdated(colorPalette!.pack, pack!.setPalette(currentPalette!)),
-      );
-    }
-
-    try {
-      if (colorPalette != null) {
-        pack = document.getPack(colorPalette!.pack);
-        palette = pack?.getPalette(colorPalette!.name);
-      }
-      return Scrollbar(
-        controller: _scrollController,
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          controller: _scrollController,
-          children: [
-            if (!(palette?.colors.contains(color) ?? false)) ...[
-              ColorButton.srgb(
-                color: widget.color,
-                selected: true,
-                onTap: addColor,
-              ),
-              if (palette != null) const VerticalDivider(),
-            ],
-            if (palette != null) ...[
-              ...List.generate(palette.colors.length, (index) {
-                final value = palette!.colors[index];
-                void changeColor() async {
-                  var palette = pack?.getPalette(colorPalette!.name);
-                  final settingsCubit = context.read<SettingsCubit>();
-                  final response = await showDialog<
-                      ColorPickerResponse<ColorPickerToolbarAction>>(
-                    context: context,
-                    builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-                      value: value,
-                      suggested: settingsCubit.state.recentColors,
-                      secondaryActions: (close) => [
-                        OutlinedButton(
-                          onPressed: () => close(
-                            ColorPickerToolbarAction.delete,
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context).delete,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                  if (response == null) return;
-                  if (response.action == ColorPickerToolbarAction.delete) {
-                    palette = palette?.copyWith(
-                      colors: List<SRGBColor>.from(palette.colors)
-                        ..removeAt(index),
-                    );
-                  } else {
-                    palette = palette?.copyWith(
-                      colors: List<SRGBColor>.from(palette.colors)
-                        ..[index] = response.toSRGB(),
-                    );
-                  }
-                  bloc.add(
-                    PackUpdated(colorPalette!.pack, pack!.setPalette(palette!)),
-                  );
-                  widget.onChanged(response.toSRGB());
-                  setState(() {});
-                }
-
-                return ColorButton.srgb(
-                  color: value,
-                  selected: value == color,
-                  onTap: () => widget.onChanged(value),
-                  onSecondaryTap: changeColor,
-                  onLongPress: changeColor,
-                );
-              }),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: addColor,
-                  borderRadius: BorderRadius.circular(12),
-                  child: const AspectRatio(
-                    aspectRatio: 1,
-                    child: PhosphorIcon(PhosphorIconsLight.plus),
+    return FutureBuilder<PackItem<ColorPalette>?>(
+        future: _colorPalette,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SizedBox.shrink();
+          }
+          final selected = snapshot.data;
+          final palette = selected?.item ?? ColorPalette();
+          return Scrollbar(
+            controller: _scrollController,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              children: [
+                if (!palette.colors.contains(color)) ...[
+                  ColorButton.srgb(
+                    color: widget.color,
+                    selected: true,
+                    onTap: _addColor,
                   ),
-                ),
-              ),
-            ],
-            AspectRatio(
-              aspectRatio: 1,
-              child: IconButton(
-                onPressed: () async {
-                  final result = await showDialog<PackAssetLocation>(
-                    context: context,
-                    builder: (context) => BlocProvider.value(
-                      value: bloc,
-                      child: SelectPackAssetDialog(
-                        type: PackAssetType.palette,
-                        selected: colorPalette,
+                  const VerticalDivider(),
+                ],
+                if (selected != null) ...[
+                  ...List.generate(palette.colors.length, (index) {
+                    final value = palette.colors[index];
+
+                    return ColorButton.srgb(
+                      color: value,
+                      selected: value == color,
+                      onTap: () => widget.onChanged(value),
+                      onSecondaryTap: () =>
+                          _changeColor(selected, index, value),
+                      onLongPress: () => _changeColor(selected, index, value),
+                    );
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: _addColor,
+                      borderRadius: BorderRadius.circular(12),
+                      child: const AspectRatio(
+                        aspectRatio: 1,
+                        child: PhosphorIcon(PhosphorIconsLight.plus),
                       ),
                     ),
-                  );
+                  ),
+                ],
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: IconButton(
+                    onPressed: () async {
+                      final result = await showDialog<PackItem<ColorPalette>>(
+                        context: context,
+                        builder: (context) => SelectPackAssetDialog(
+                          selected: selected?.location,
+                          getItems: (pack) => pack.getNamedPalettes(),
+                        ),
+                      );
 
-                  if (result == null) return;
-                  setState(() {
-                    colorPalette = result;
-                  });
-                },
-                icon: const PhosphorIcon(PhosphorIconsLight.package),
-                tooltip: AppLocalizations.of(context).selectAsset,
-              ),
+                      if (result == null) return;
+                      setState(() {
+                        _colorPalette = Future.value(result);
+                      });
+                    },
+                    icon: const PhosphorIcon(PhosphorIconsLight.package),
+                    tooltip: AppLocalizations.of(context).selectAsset,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    } catch (e) {
-      return Container();
-    }
+          );
+        });
   }
 }

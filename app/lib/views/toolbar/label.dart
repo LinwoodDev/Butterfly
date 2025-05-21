@@ -101,8 +101,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       TextContext e => e.getDefinedForcedSpanProperty(document),
       _ => null,
     };
-    final styleSheet = value.getStyleSheet(document);
-    final style = styleSheet.resolveStyle(document);
+    final named = value.getNamedStyleSheet(document);
+    final styleSheet = named?.item;
     _scaleController.text =
         (value.labelElement?.scale ?? value.tool.scale).toString();
     _sizeController.text = span?.getSize(paragraph).toString() ?? '';
@@ -111,7 +111,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       _ => null,
     };
     final paragraphSelections = [
-      ...style?.paragraphProperties.keys ?? <String>[],
+      ...styleSheet?.paragraphProperties.keys ?? <String>[],
       '',
     ];
     final lineIndex = value.previousLineIndex(
@@ -131,7 +131,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         },
       _ => null,
     };
-    final spanSelections = [...style?.spanProperties.keys ?? <String>[], ''];
+    final spanSelections = [
+      ...styleSheet?.spanProperties.keys ?? <String>[],
+      ''
+    ];
     if (!spanSelections.contains(spanSelection)) {
       spanSelection = '';
     }
@@ -154,7 +157,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         return;
       }
       if (value.isParagraph()) {
-        final currentParagraphProperty = style.resolveParagraphProperty(
+        final currentParagraphProperty = styleSheet.resolveParagraphProperty(
           element.area.paragraph.property,
         );
         element = element.copyWith(
@@ -173,7 +176,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
             paragraph: element.area.paragraph.updateSpans(
               (span) => span.copyWith(
                 property: update(
-                  style.resolveSpanProperty(span.property) ??
+                  styleSheet.resolveSpanProperty(span.property) ??
                       const text.DefinedSpanProperty(),
                 ),
               ),
@@ -214,13 +217,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         tooltip: AppLocalizations.of(context).selectAsset,
                         onPressed: () async {
                           final bloc = context.read<DocumentBloc>();
-                          final result = await showDialog<PackAssetLocation>(
+                          final result =
+                              await showDialog<PackItem<text.TextStyleSheet>>(
                             context: context,
                             builder: (context) => BlocProvider.value(
                               value: bloc,
                               child: SelectPackAssetDialog(
-                                type: PackAssetType.style,
-                                selected: styleSheet,
+                                selectedItem: named,
+                                getItems: (pack) => pack.getNamedStyles(),
                               ),
                             ),
                           );
@@ -229,24 +233,25 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             widget.onChanged(
                               value.copyWith(
                                 tool: value.tool.copyWith(
-                                  styleSheet: result,
+                                  styleSheet: result.toNamed(),
                                 ),
                               ),
                             );
                             return;
                           }
+                          final resultNamed = result.toNamed();
                           var newValue = value.copyWith(
-                            tool: value.tool.copyWith(styleSheet: result),
+                            tool: value.tool.copyWith(styleSheet: resultNamed),
                           );
                           newValue = switch (value) {
                             TextContext e => e.copyWith(
                                 element: e.element?.copyWith(
-                                  styleSheet: result,
+                                  styleSheet: resultNamed,
                                 ),
                               ),
                             MarkdownContext e => e.copyWith(
                                 element: e.element?.copyWith(
-                                  styleSheet: result,
+                                  styleSheet: resultNamed,
                                 ),
                               ),
                           };

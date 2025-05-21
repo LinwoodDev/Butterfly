@@ -873,14 +873,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       var name = event.pack.name ?? '';
       var i = 1;
-      while (current.data.getPack(name) != null) {
+      while (current.data.getBundledPack(name) != null) {
         name = '${event.pack.name} ($i)';
         i++;
       }
       final pack = event.pack.setName(name);
       _saveState(
         emit,
-        state: current.copyWith(data: current.data.setPack(pack)),
+        state: current.copyWith(data: current.data.setBundledPack(pack)),
       );
     });
     on<PackUpdated>((event, emit) {
@@ -889,7 +889,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       _saveState(
         emit,
-        state: current.copyWith(data: current.data.setPack(event.pack)),
+        state: current.copyWith(data: current.data.setBundledPack(event.pack)),
       );
     });
     on<PackRemoved>((event, emit) {
@@ -898,7 +898,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       _saveState(
         emit,
-        state: current.copyWith(data: current.data.removePack(event.name)),
+        state:
+            current.copyWith(data: current.data.removeBundledPack(event.name)),
       );
     });
     on<AnimationAdded>((event, emit) {

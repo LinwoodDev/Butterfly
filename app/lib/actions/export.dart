@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExportIntent extends Intent {
   final BuildContext context;
+  final bool isText;
 
-  const ExportIntent(this.context);
+  const ExportIntent(this.context, {this.isText = false});
 }
 
 class ExportAction extends Action<ExportIntent> {
@@ -17,6 +18,11 @@ class ExportAction extends Action<ExportIntent> {
     final bloc = intent.context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    exportData(intent.context, (await state.saveData()).exportAsBytes());
+    final data = (await state.saveData());
+    if (intent.isText) {
+      exportTextData(intent.context, data.exportAsText());
+    } else {
+      exportData(intent.context, data.exportAsBytes());
+    }
   }
 }

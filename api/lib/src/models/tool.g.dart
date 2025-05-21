@@ -95,9 +95,11 @@ LabelTool _$LabelToolFromJson(Map json) => LabelTool(
           : const ColorJsonConverter()
               .fromJson((json['foreground'] as num).toInt()),
       styleSheet: json['styleSheet'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
-              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+          ? null
+          : NamedItem<TextStyleSheet>.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map),
+              (value) => TextStyleSheet.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       scale: (json['scale'] as num?)?.toDouble() ?? 2.0,
       $type: json['type'] as String?,
     );
@@ -108,7 +110,9 @@ Map<String, dynamic> _$LabelToolToJson(LabelTool instance) => <String, dynamic>{
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
       'foreground': const ColorJsonConverter().toJson(instance.foreground),
-      'styleSheet': instance.styleSheet.toJson(),
+      'styleSheet': instance.styleSheet?.toJson(
+        (value) => value.toJson(),
+      ),
       'scale': instance.scale,
       'type': instance.$type,
     };
@@ -277,16 +281,20 @@ StampTool _$StampToolFromJson(Map json) => StampTool(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       component: json['component'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
-              Map<String, dynamic>.from(json['component'] as Map)),
+          ? null
+          : NamedItem<ButterflyComponent>.fromJson(
+              Map<String, dynamic>.from(json['component'] as Map),
+              (value) => ButterflyComponent.fromJson(
+                  Map<String, dynamic>.from(value as Map))),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$StampToolToJson(StampTool instance) => <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
-      'component': instance.component.toJson(),
+      'component': instance.component?.toJson(
+        (value) => value.toJson(),
+      ),
       'type': instance.$type,
     };
 

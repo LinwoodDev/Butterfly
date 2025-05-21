@@ -9,12 +9,12 @@ import 'package:lw_file_system_api/archive.dart';
 
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
+import '../converter/text.dart';
 import 'archive.dart';
 import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
-import 'palette.dart';
 
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
@@ -326,6 +326,9 @@ final class NoteData extends ArchiveData<NoteData> {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
+  Iterable<String> getValidAssets() =>
+      validAssetPaths.expand((e) => getAssets(e)).toList();
+
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
 
@@ -334,8 +337,12 @@ final class NoteData extends ArchiveData<NoteData> {
       getAsset('$kFontsArchiveDirectory/$fontName');
 
   @useResult
-  NoteData? getPack(String packName) {
-    final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
+  Uint8List? getBundledPackData(String packName) =>
+      getAsset('$kPacksArchiveDirectory/$packName.bfly');
+
+  @useResult
+  NoteData? getBundledPack(String packName) {
+    final data = getBundledPackData(packName);
     if (data == null) {
       return null;
     }
@@ -347,7 +354,7 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPack(NoteData pack, [String? name]) {
+  NoteData setBundledPack(NoteData pack, [String? name]) {
     final data = pack.exportAsBytes();
     return setAsset(
         '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
@@ -355,17 +362,26 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData removePack(String name) =>
+  NoteData removeBundledPack(String name) =>
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getPacks() => getAssets('$kPacksArchiveDirectory/', true);
+  Iterable<String> getBundledPacks() =>
+      getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
   @useResult
   Iterable<String> getComponents() =>
       getAssets('$kComponentsArchiveDirectory/', true);
+
+  @useResult
+  Iterable<NamedItem<ButterflyComponent>> getNamedComponents() =>
+      getComponents().map((e) {
+        final component = getComponent(e);
+        if (component == null) return null;
+        return NamedItem<ButterflyComponent>(name: e, item: component);
+      }).nonNulls;
 
   @useResult
   ButterflyComponent? getComponent(String componentName) {
@@ -383,8 +399,8 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setComponent(ButterflyComponent component) => setAsset(
-      '$kComponentsArchiveDirectory/${component.name}.json',
+  NoteData setComponent(String name, ButterflyComponent component) => setAsset(
+      '$kComponentsArchiveDirectory/$name.json',
       utf8.encode(jsonEncode(component.toJson())));
 
   @useResult
@@ -393,6 +409,13 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @useResult
   Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
+
+  @useResult
+  Iterable<NamedItem<TextStyleSheet>> getNamedStyles() => getStyles().map((e) {
+        final style = getStyle(e);
+        if (style == null) return null;
+        return NamedItem<TextStyleSheet>(name: e, item: style);
+      }).nonNulls;
 
   @useResult
   TextStyleSheet? getStyle(String styleName) {
@@ -421,18 +444,16 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
   @useResult
-  PackAssetLocation findStyle() {
-    for (final pack in getPacks()) {
-      final styles = getPack(pack)?.getStyles();
-      if (styles?.isEmpty ?? true) continue;
-      return PackAssetLocation(pack, styles!.first);
-    }
-    return PackAssetLocation.empty;
-  }
-
-  @useResult
   Iterable<String> getPalettes() =>
       getAssets('$kPalettesArchiveDirectory/', true);
+
+  @useResult
+  Iterable<NamedItem<ColorPalette>> getNamedPalettes() =>
+      getPalettes().map((e) {
+        final palette = getPalette(e);
+        if (palette == null) return null;
+        return NamedItem<ColorPalette>(name: e, item: palette);
+      }).nonNulls;
 
   @useResult
   ColorPalette? getPalette(String paletteName) {
@@ -450,10 +471,10 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPalette(ColorPalette palette) {
+  NoteData setPalette(String name, ColorPalette palette) {
     final content = jsonEncode(palette.toJson());
-    return setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
-        utf8.encode(content));
+    return setAsset(
+        '$kPalettesArchiveDirectory/$name.json', utf8.encode(content));
   }
 
   @useResult
@@ -480,4 +501,6 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   NoteFile toFile() => NoteFile(exportAsBytes());
+
+  Map<String, dynamic> exportAsText() => convertDocumentToText(this);
 }

@@ -1,5 +1,5 @@
 export 'src/converter/core.dart';
-export 'src/converter/legacy.dart';
+export 'src/converter/text.dart';
 export 'src/converter/note.dart';
 export 'src/converter/xopp.dart';
 export 'src/models/animation.dart';
@@ -18,7 +18,6 @@ export 'src/models/page.dart';
 export 'src/models/texture.dart';
 export 'src/models/tool.dart';
 export 'src/models/utilities.dart';
-export 'src/models/palette.dart';
 export 'src/models/point.dart';
 export 'src/models/property.dart';
 export 'src/models/view.dart';
