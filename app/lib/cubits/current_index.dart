@@ -141,6 +141,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
+    if (blocState.embedding?.editable == false) {
+      return null;
+    }
     final document = blocState.data;
     final info = blocState.info;
     index ??= state.index ?? 0;

@@ -18,6 +18,7 @@
   "includeEraser": "Zahrnout vymazání?",
   "thinning": "Probíhá",
   "pen": "Pec",
+  "invertedPen": "Invertovaný Pen",
   "eraser": "Eraser",
   "pathEraser": "Vymazání trasy",
   "label": "Popisek",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Přesunout vlevo",
-  "moveRight": "Přesunout vpravo"
+  "moveRight": "Přesunout vpravo",
+  "webSocketDescription": "Vaše zařízení hostí server, takže se spolupracovníci mohou připojit přes stejnou síť nebo odkudkoliv pouze tehdy, pokud přeposíláte port na váš router.",
+  "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s end-to-end šifrováním. Pro vytvoření relace je nutná adresa serveru swamp."
 }

@@ -58,17 +58,18 @@
 	<screenshots>
 		<screenshot type="default">
 			<image type="source">
-				https://raw.githubusercontent.com/LinwoodDev/Butterfly/6ef60df743398c2aeb64495a83406983122be2f6/docs/src/assets/img/main.png</image>
+				https://raw.githubusercontent.com/LinwoodDev/Butterfly/36cf8d82907ef721f775544d0c83418bca3d229c/docs/src/assets/img/main.png</image>
 			<caption>Main draw view</caption>
 		</screenshot>
 		<screenshot>
 			<image type="source">
-				https://raw.githubusercontent.com/LinwoodDev/Butterfly/a60131c05bd9b7691d022c25dda9cdd76670e003/docs/src/assets/img/home.png</image>
+				https://raw.githubusercontent.com/LinwoodDev/Butterfly/36cf8d82907ef721f775544d0c83418bca3d229c/docs/src/assets/img/home.png</image>
 			<caption>Home view</caption>
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.3.1" date="2025-05-21" />
 		<release version="2.3.0" date="2025-04-20" />
 		<release version="2.2.4" date="2025-01-13" />
 		<release version="2.2.3" date="2024-12-24" />

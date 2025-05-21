@@ -18,6 +18,7 @@
   "includeEraser": "Sisällytä tyhjennys?",
   "thinning": "Hehkuminen",
   "pen": "Kynä",
+  "invertedPen": "Käänteinen Kynä",
   "eraser": "Eraser",
   "pathEraser": "Polun poistaminen",
   "label": "Tunniste",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Siirrä vasemmalle",
-  "moveRight": "Siirrä oikealle"
+  "moveRight": "Siirrä oikealle",
+  "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
+  "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi."
 }

@@ -18,6 +18,7 @@
   "includeEraser": "¿Incluye borrador?",
   "thinning": "Lanzamiento",
   "pen": "Pen",
+  "invertedPen": "Pen invertido",
   "eraser": "Eraser",
   "pathEraser": "Borrador de ruta",
   "label": "Etiqueta",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Mover izquierda",
-  "moveRight": "Mover a la derecha"
+  "moveRight": "Mover a la derecha",
+  "webSocketDescription": "Su dispositivo aloja el servidor, por lo que los colaboradores sólo pueden unirse a través de la misma red o desde cualquier lugar si reenvía el puerto en su router.",
+  "swampDescription": "Sus mensajes son enrutados a través de un servidor repetidor seguro con cifrado de extremo a extremo. Se requiere una dirección de servidor pantano para crear una sesión."
 }

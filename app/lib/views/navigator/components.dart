@@ -72,6 +72,7 @@ class _ComponentsViewState extends State<ComponentsView> {
           builder: (context, currentIndex) {
             final handler = currentIndex.temporaryHandler;
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 8),
                 SearchBar(

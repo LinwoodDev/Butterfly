@@ -521,7 +521,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         listenable: _directoryController,
                         builder: (context, _) => Card(
                           child: Padding(
-                            padding: const EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(8),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

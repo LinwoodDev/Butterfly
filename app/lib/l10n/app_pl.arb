@@ -18,6 +18,7 @@
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
+  "invertedPen": "Odwrócony wstrzykiwacz",
   "eraser": "Eraser",
   "pathEraser": "Wymaż linię",
   "label": "Etykieta",
@@ -45,7 +46,7 @@
   "license": "Licencja",
   "imprint": "Nadruk",
   "privacypolicy": "Polityka prywatności",
-  "sourceCode": "Source code",
+  "sourceCode": "Kod źródłowy",
   "documentation": "Dokumentacja",
   "changelog": "Lista zmian",
   "source": "Źródło",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Przesuń w lewo",
-  "moveRight": "Przesuń w prawo"
+  "moveRight": "Przesuń w prawo",
+  "webSocketDescription": "Twoje urządzenie hostuje serwer, więc współpracownicy mogą dołączyć tylko za pośrednictwem tej samej sieci lub z dowolnego miejsca, jeśli przekażesz port na routerze.",
+  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego."
 }

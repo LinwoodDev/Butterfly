@@ -13,10 +13,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "13c1e6c6fd460522ea840abec3f677cc226f5fec7872c04ad7b425517ccf54f7"
+      sha256: "904ae5bb474d32c38fb9482e2d925d5454cda04ddd0e55d2e6826bc72f6ba8c0"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.4"
+    version: "7.4.5"
   animations:
     dependency: "direct main"
     description:
@@ -159,7 +159,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.3.1-rc.1"
+    version: "2.4.0-beta.0"
   camera:
     dependency: "direct main"
     description:
@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: f0dcbce91623f75030840609de9b64d0d73f86df279c6e9588c1501245a05eb2
+      sha256: "9fb44e73e0fea3647a904dc26d38db24055e5b74fc68fd2b6d3abfa1bd20f536"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.15+2"
+    version: "0.6.17"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -325,10 +325,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "27eb0ae77836989a3bc541ce55595e8ceee0992807f14511552a898ddd0d88ac"
+      sha256: "5b236382b47ee411741447c1f1e111459c941ea1b3f2b540dde54c210a3662af"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   dbus:
     dependency: transitive
     description:
@@ -635,10 +635,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2b9ba6d4c247457c35a6622f1dee6aab6694a4e15237ff7c32320345044112b6"
+      sha256: "0b1e06223bee260dee31a171fb1153e306907563a0b0225e8c1733211911429a"
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.1"
+    version: "15.1.2"
   graphs:
     dependency: transitive
     description:
@@ -843,8 +843,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: c9a9a51c8621b75e9b38605378f7d11216025c08
-      resolved-ref: c9a9a51c8621b75e9b38605378f7d11216025c08
+      ref: "792044f51747d7d078203904e460d4ef504a9db9"
+      resolved-ref: "792044f51747d7d078203904e460d4ef504a9db9"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -875,12 +875,11 @@ packages:
   network_info_plus:
     dependency: "direct main"
     description:
-      path: "packages/network_info_plus/network_info_plus"
-      ref: "9bd0c023f2dc209576dc66bf989048ba218127b6"
-      resolved-ref: "9bd0c023f2dc209576dc66bf989048ba218127b6"
-      url: "https://github.com/CodeDoctorDE/plus_plugins.git"
-    source: git
-    version: "6.1.3"
+      name: network_info_plus
+      sha256: f926b2ba86aa0086a0dfbb9e5072089bc213d854135c1712f1d29fc89ba3c877
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.4"
   network_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -1624,10 +1623,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: dc6ecaa00a7c708e5b4d10ee7bec8c270e9276dfcab1783f57e9962d7884305f
+      sha256: "329edf97fdd893e0f1e3b9e88d6a0e627128cc17cc316a8d67fda8f1451178ba"
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0"
   win32_registry:
     dependency: transitive
     description:

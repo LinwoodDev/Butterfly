@@ -511,6 +511,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                         size: settings.toolbarSize,
                                         searchController: _searchController,
                                         padding: padding,
+                                        inView: state.embedding?.isInternal ??
+                                            false,
                                         showTools: settings.isInline &&
                                             state.embedding?.editable != false,
                                       ),

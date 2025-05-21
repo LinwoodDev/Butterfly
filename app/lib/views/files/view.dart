@@ -324,19 +324,21 @@ class FilesViewState extends State<FilesView> {
                   );
                 },
               ),
-              const SizedBox(height: 8),
-              RecentFilesView(
-                  key: _recentFilesKey,
-                  replace: widget.collapsed,
-                  onFileTap: widget.onPreview == null
-                      ? _onFileTap
-                      : (e) {
-                          if (e is FileSystemFile<NoteFile>) {
-                            widget.onPreview!(e);
-                            return;
-                          }
-                          _onFileTap(e);
-                        }),
+              if (!widget.collapsed) ...[
+                const SizedBox(height: 8),
+                RecentFilesView(
+                    key: _recentFilesKey,
+                    replace: widget.collapsed,
+                    onFileTap: widget.onPreview == null
+                        ? _onFileTap
+                        : (e) {
+                            if (e is FileSystemFile<NoteFile>) {
+                              widget.onPreview!(e);
+                              return;
+                            }
+                            _onFileTap(e);
+                          }),
+              ],
             ],
             const SizedBox(height: 16),
             LayoutBuilder(

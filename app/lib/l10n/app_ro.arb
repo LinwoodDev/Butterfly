@@ -18,6 +18,7 @@
   "includeEraser": "Includeți ștergerea?",
   "thinning": "Thinning",
   "pen": "Stiloul",
+  "invertedPen": "Stiloul injector",
   "eraser": "Eraser",
   "pathEraser": "Ștergere cale",
   "label": "Etichetă",
@@ -45,7 +46,7 @@
   "license": "Licenta",
   "imprint": "Amprentă",
   "privacypolicy": "Politica de confidenţialitate",
-  "sourceCode": "Source code",
+  "sourceCode": "Cod sursă",
   "documentation": "Documentație",
   "changelog": "Jurnal modificări",
   "source": "Sursa",
@@ -686,5 +687,7 @@
     }
   },
   "moveLeft": "Mută în stânga",
-  "moveRight": "Mută în dreapta"
+  "moveRight": "Mută în dreapta",
+  "webSocketDescription": "Dispozitivul tău găzduiește serverul, astfel încât colaboratorii se pot alătura doar prin aceeași rețea sau de oriunde ai înainta portul de pe router.",
+  "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune."
 }

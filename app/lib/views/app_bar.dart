@@ -7,6 +7,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
@@ -14,7 +15,6 @@ import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/widgets/search.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +41,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showTools;
   final SearchController searchController;
   final EdgeInsets? padding;
+  final bool inView;
 
   PadAppBar({
     super.key,
@@ -48,6 +49,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.size,
     required this.searchController,
     this.showTools = true,
+    this.inView = false,
     this.padding,
   });
 
@@ -63,6 +65,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
+        inView: inView,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(
@@ -449,11 +452,13 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () {
                       cubit.setNavigatorPage(e);
                       final bloc = context.read<DocumentBloc>();
+                      final transformCubit = context.read<TransformCubit>();
                       showDialog(
                         context: context,
                         builder: (context) => MultiBlocProvider(providers: [
                           BlocProvider.value(value: bloc),
                           BlocProvider.value(value: cubit),
+                          BlocProvider.value(value: transformCubit),
                         ], child: DocumentNavigator(asDialog: true)),
                       );
                     },
@@ -669,9 +674,7 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ],
-            if (state.embedding == null &&
-                settings.hasFlag('collaboration') &&
-                !kIsWeb)
+            if (state.embedding == null && settings.hasFlag('collaboration'))
               BlocBuilder<NetworkingService, NetworkState?>(
                 bloc: state.networkingService,
                 builder: (_, state) {
