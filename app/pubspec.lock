@@ -675,10 +675,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: d3dae2085f2dcc9d05b851331fddb66d57d3447ff800de9676b396795436e135
+      sha256: "39907a0cf7c5e9e55552e1957b33fa1c68fd3a086c9c6bb4d88e896df4e2142c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.5+1"
+    version: "2.6.6"
   image:
     dependency: "direct main"
     description:
