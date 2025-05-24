@@ -433,7 +433,7 @@ class ButterflyApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Adonis Blue';
+const applicationVersionName = 'Black Hairstreak';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
 const applicationMinorVersion = '2.3';
