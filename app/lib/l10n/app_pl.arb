@@ -688,6 +688,14 @@
   },
   "moveLeft": "Przesuń w lewo",
   "moveRight": "Przesuń w prawo",
+  "bundledPacks": "Bundled packs",
+  "component": "Komponent",
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
+  "fillAlpha": "Fill alpha",
+  "packagedDocument": "Packaged document",
+  "rawDocument": "Raw document",
   "webSocketDescription": "Twoje urządzenie hostuje serwer, więc współpracownicy mogą dołączyć tylko za pośrednictwem tej samej sieci lub z dowolnego miejsca, jeśli przekażesz port na routerze.",
   "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego."
 }
