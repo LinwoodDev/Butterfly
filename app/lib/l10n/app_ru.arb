@@ -341,7 +341,7 @@
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
-  "inputGestures": "Input gestures",
+  "inputGestures": "Жесты ввода",
   "nativeTitleBar": "Родной заголовок",
   "syncMode": "Режим синхронизации",
   "connection": "Подключение",
@@ -691,11 +691,11 @@
   "bundledPacks": "Bundled packs",
   "component": "Компонент",
   "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
+  "bundlePackInDocument": "Включить пакет в документ",
   "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
   "fillAlpha": "Fill alpha",
-  "packagedDocument": "Packaged document",
-  "rawDocument": "Raw document",
+  "packagedDocument": "Упакованный документ",
+  "rawDocument": "Сырой документ",
   "webSocketDescription": "Ваше устройство содержит сервер, поэтому соавторы могут подключаться только по той же сети или откуда угодно, если вы перенаправляете порт на маршрутизатор.",
   "swampDescription": "Ваши сообщения направляются через безопасный сервер ретрансляции с сквозным шифрованием. Для создания сеанса требуется адрес сервера swamp."
 }
