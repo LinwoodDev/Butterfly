@@ -9,3 +9,7 @@ files:
     ignore:
       - '%two_letters_code%/**/*'
     translation: /docs/src/content/docs/%two_letters_code%/**/%original_file_name%
+  - source: /metadata/en-US/full_description.txt
+    translation: /metadata/%locale%/full_description.txt
+  - source: /metadata/en-US/short_description.txt
+    translation: /metadata/%locale%/short_description.txt
