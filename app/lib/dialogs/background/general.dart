@@ -3,9 +3,7 @@ part of 'dialog.dart';
 class _GeneralBackgroundPropertiesView extends StatelessWidget {
   final ValueChanged<Background> onChanged;
 
-  const _GeneralBackgroundPropertiesView({
-    required this.onChanged,
-  });
+  const _GeneralBackgroundPropertiesView({required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +14,21 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
           PatternTemplate.values.where((element) => element.dark),
         ].map(
           (e) => Wrap(
-              alignment: WrapAlignment.center,
-              children: e.map((template) {
-                var created = template.create();
-                return BoxTile(
-                  title: Text(
-                    template.getLocalizedName(context),
-                    textAlign: TextAlign.center,
-                  ),
-                  icon: Image.asset(
-                    template.asset,
-                    width: 64,
-                  ),
-                  onTap: () {
-                    onChanged(Background.texture(texture: created));
-                  },
-                );
-              }).toList()),
+            alignment: WrapAlignment.center,
+            children: e.map((template) {
+              var created = template.create();
+              return BoxTile(
+                title: Text(
+                  template.getLocalizedName(context),
+                  textAlign: TextAlign.center,
+                ),
+                icon: Image.asset(template.asset, width: 64),
+                onTap: () {
+                  onChanged(Background.texture(texture: created));
+                },
+              );
+            }).toList(),
+          ),
         ),
         const SizedBox(height: 8),
         Wrap(
@@ -44,10 +40,9 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
               onTap: () async {
                 final state = context.read<DocumentBloc>().state;
                 if (state is! DocumentLoaded) return;
-                final (result, _) = await importFile(
-                  context,
-                  [AssetFileType.image],
-                );
+                final (result, _) = await importFile(context, [
+                  AssetFileType.image,
+                ]);
                 if (result == null) return;
                 final dataPath = Uri.dataFromBytes(result).toString();
                 final codec = await ui.instantiateImageCodec(result);
@@ -56,11 +51,13 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                 final width = image.width.toDouble(),
                     height = image.height.toDouble();
                 image.dispose();
-                onChanged(ImageBackground(
-                  source: dataPath,
-                  width: width,
-                  height: height,
-                ));
+                onChanged(
+                  ImageBackground(
+                    source: dataPath,
+                    width: width,
+                    height: height,
+                  ),
+                );
               },
             ),
             BoxTile(
@@ -69,24 +66,23 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
               onTap: () async {
                 final state = context.read<DocumentBloc>().state;
                 if (state is! DocumentLoaded) return;
-                final (result, _) = await importFile(
-                  context,
-                  [AssetFileType.svg],
-                );
+                final (result, _) = await importFile(context, [
+                  AssetFileType.svg,
+                ]);
                 if (result == null) return;
                 final dataPath = Uri.dataFromBytes(result).toString();
                 final contentString = String.fromCharCodes(result);
-                var info =
-                    await vg.loadPicture(SvgStringLoader(contentString), null);
+                var info = await vg.loadPicture(
+                  SvgStringLoader(contentString),
+                  null,
+                );
                 final size = info.size;
                 var height = size.height, width = size.width;
                 if (!height.isFinite) height = 0;
                 if (!width.isFinite) width = 0;
-                onChanged(SvgBackground(
-                  source: dataPath,
-                  width: width,
-                  height: height,
-                ));
+                onChanged(
+                  SvgBackground(source: dataPath, width: width, height: height),
+                );
               },
             ),
           ],

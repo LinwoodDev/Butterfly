@@ -310,6 +310,7 @@ class LabelHandler extends Handler<LabelTool>
   void dispose(DocumentBloc bloc) {
     _connection?.close();
     _connection = null;
+    _context = null;
     _submit(bloc);
   }
 

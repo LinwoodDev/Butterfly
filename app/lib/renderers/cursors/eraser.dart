@@ -12,32 +12,39 @@ class EraserInfo {
   EraserInfo(this.strokeWidth);
   EraserInfo.fromEraser(EraserTool tool) : strokeWidth = tool.strokeWidth;
   EraserInfo.fromPathEraser(PathEraserTool tool)
-      : strokeWidth = tool.strokeWidth;
+    : strokeWidth = tool.strokeWidth;
 }
 
 class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
   EraserCursor(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final radius = element.tool.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);
     final background = page.backgrounds.firstOrNull;
     canvas.drawCircle(
-        position,
-        radius,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..color = switch (background) {
-            TextureBackground e => e.texture.boxColor,
-            _ => SRGBColor.white,
-          }
-              .toColor()
-          ..strokeCap = StrokeCap.round
-          ..invertColors = true
-          ..strokeWidth = radius / transform.size
-          ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);
+      position,
+      radius,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..color = switch (background) {
+          TextureBackground e => e.texture.boxColor,
+          _ => SRGBColor.white,
+        }.toColor()
+        ..strokeCap = StrokeCap.round
+        ..invertColors = true
+        ..strokeWidth = radius / transform.size
+        ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear,
+    );
   }
 }

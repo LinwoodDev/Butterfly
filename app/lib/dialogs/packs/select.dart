@@ -9,8 +9,12 @@ class SelectPackAssetDialog extends StatefulWidget {
   final NamedItem? selectedItem;
   final Iterable<NamedItem> Function(NoteData) getItems;
 
-  const SelectPackAssetDialog(
-      {super.key, this.selected, this.selectedItem, required this.getItems});
+  const SelectPackAssetDialog({
+    super.key,
+    this.selected,
+    this.selectedItem,
+    required this.getItems,
+  });
 
   @override
   State<SelectPackAssetDialog> createState() => _SelectPackAssetDialogState();
@@ -38,8 +42,10 @@ class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
   }
 
   List<PackItem> _getAssets(List<(String, NoteData)> packs) => packs.nonNulls
-      .expand((pack) =>
-          widget.getItems(pack.$2).map((e) => e.toPack(pack.$2, pack.$1)))
+      .expand(
+        (pack) =>
+            widget.getItems(pack.$2).map((e) => e.toPack(pack.$2, pack.$1)),
+      )
       .toList();
 
   @override
@@ -61,7 +67,8 @@ class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
                       title: Text(e.key),
                       subtitle: Text(e.namespace),
                       onTap: () => Navigator.of(context).pop(e),
-                      selected: e.location == widget.selected ||
+                      selected:
+                          e.location == widget.selected ||
                           e.toNamed() == widget.selectedItem,
                     ),
                   )

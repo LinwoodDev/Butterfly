@@ -12,12 +12,17 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
         title: Text(LeapLocalizations.of(context).color),
         value: element.property.color.withValues(a: 255),
         onChanged: (color) => updateElements(
-            context,
-            elements
-                .map((e) => e.copyWith(
-                    property: e.property.copyWith(
-                        color: color.withValues(a: element.property.color.a))))
-                .toList()),
+          context,
+          elements
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(
+                    color: color.withValues(a: element.property.color.a),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
       ExactSlider(
         value: element.property.color.a.toDouble(),
@@ -27,21 +32,28 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => updateElements(
-            context,
-            elements
-                .map((e) => e.copyWith(
-                    property: e.property.copyWith(
-                        color: e.property.color.withValues(a: value.toInt()))))
-                .toList()),
+          context,
+          elements
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(
+                    color: e.property.color.withValues(a: value.toInt()),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
       ShapeView(
         shape: element.property.shape,
         onChanged: (value) => updateElements(
-            context,
-            elements
-                .map((e) =>
-                    e.copyWith(property: e.property.copyWith(shape: value)))
-                .toList()),
+          context,
+          elements
+              .map(
+                (e) => e.copyWith(property: e.property.copyWith(shape: value)),
+              )
+              .toList(),
+        ),
       ),
     ];
   }

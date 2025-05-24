@@ -19,7 +19,10 @@ Uint8List? getDataFromSource(NoteData document, String source) {
 }
 
 UriData? getUriDataFromSource(
-    NoteData document, String source, String mimeType) {
+  NoteData document,
+  String source,
+  String mimeType,
+) {
   final data = getDataFromSource(document, source);
   if (data == null) {
     return null;
@@ -36,19 +39,15 @@ extension ImageElementDataExtension on SourcedElement {
 extension PadElementDataExtension on PadElement {
   Map<String, dynamic> toDataJson(NoteData document) {
     String getUriData(String source, String mimeType) => UriData.fromBytes(
-          getDataFromSource(document, source) ?? [],
-          mimeType: mimeType,
-        ).toString();
+      getDataFromSource(document, source) ?? [],
+      mimeType: mimeType,
+    ).toString();
 
     return {
       ...toJson(),
       ...switch (this) {
-        ImageElement e => {
-            'source': getUriData(e.source, 'image/png'),
-          },
-        SvgElement e => {
-            'source': getUriData(e.source, 'image/svg+xml'),
-          },
+        ImageElement e => {'source': getUriData(e.source, 'image/png')},
+        SvgElement e => {'source': getUriData(e.source, 'image/svg+xml')},
         _ => {},
       },
     };
@@ -57,7 +56,7 @@ extension PadElementDataExtension on PadElement {
 
 extension DocumentPageDataExtension on DocumentPage {
   Map<String, dynamic> toDataJson(NoteData document) => {
-        ...toJson(),
-        'content': content.map((e) => e.toDataJson(document)),
-      };
+    ...toJson(),
+    'content': content.map((e) => e.toDataJson(document)),
+  };
 }

@@ -17,8 +17,9 @@ class BackgroundAction extends Action<BackgroundIntent> {
     return showDialog<void>(
       context: intent.context,
       builder: (context) => BlocProvider.value(
-          value: intent.context.read<DocumentBloc>(),
-          child: const BackgroundDialog()),
+        value: intent.context.read<DocumentBloc>(),
+        child: const BackgroundDialog(),
+      ),
     );
   }
 }

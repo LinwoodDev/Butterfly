@@ -13,12 +13,15 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
       ColorField(
         value: selected.first.foreground.withValues(a: 255),
         onChanged: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    foreground:
-                        value.withValues(a: selected.first.foreground.a)))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  foreground: value.withValues(a: selected.first.foreground.a),
+                ),
+              )
+              .toList(),
+        ),
         title: Text(AppLocalizations.of(context).foreground),
       ),
       ExactSlider(
@@ -29,11 +32,15 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
         max: 255,
         fractionDigits: 0,
         onChangeEnd: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    foreground: e.foreground.withValues(a: value.toInt())))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  foreground: e.foreground.withValues(a: value.toInt()),
+                ),
+              )
+              .toList(),
+        ),
       ),
     ];
   }

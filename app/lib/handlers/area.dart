@@ -1,8 +1,9 @@
 part of 'handler.dart';
 
 class AreaHandler extends Handler<AreaTool> {
-  final _selectionManager =
-      RectSelectionForegroundManager(enableRotation: false);
+  final _selectionManager = RectSelectionForegroundManager(
+    enableRotation: false,
+  );
   Offset? _start, _end;
   Area? _currentArea;
 
@@ -39,21 +40,28 @@ class AreaHandler extends Handler<AreaTool> {
       event.buttons != kSecondaryMouseButton;
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) {
     final rect = currentRect;
     return [
       if (currentArea == null) ...[
         if (rect != null)
-          AreaForegroundRenderer(Area(
+          AreaForegroundRenderer(
+            Area(
               width: rect.width,
               height: rect.height,
-              position: rect.topLeft.toPoint())),
+              position: rect.topLeft.toPoint(),
+            ),
+          ),
         ...[
           _currentArea,
-          ...page.areas.where((element) => element.name != _currentArea?.name)
-        ].nonNulls.map((e) => AreaForegroundRenderer(e))
+          ...page.areas.where((element) => element.name != _currentArea?.name),
+        ].nonNulls.map((e) => AreaForegroundRenderer(e)),
       ],
       _selectionManager.renderer,
     ];
@@ -65,10 +73,13 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     final transform = context.getCameraTransform();
-    _selectionManager
-        .updateCurrentPosition(transform.localToGlobal(event.localPosition));
+    _selectionManager.updateCurrentPosition(
+      transform.localToGlobal(event.localPosition),
+    );
     _selectionManager.updateCursor(
-        transform.size, context.getSettings().touchSensitivity);
+      transform.size,
+      context.getSettings().touchSensitivity,
+    );
     context.refresh();
   }
 
@@ -88,11 +99,18 @@ class AreaHandler extends Handler<AreaTool> {
     final transform = context.getCameraTransform();
     var localPos = details.localFocalPoint;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndex, localPos, context.viewportSize, transform);
+      currentIndex,
+      localPos,
+      context.viewportSize,
+      transform,
+    );
     final globalPos = transform.localToGlobal(localPos);
     if (_selectionManager.isValid) {
       _selectionManager.startTransform(
-          globalPos, transform.size, context.getSettings().touchSensitivity);
+        globalPos,
+        transform.size,
+        context.getSettings().touchSensitivity,
+      );
       context.refresh();
       return true;
     }
@@ -107,7 +125,11 @@ class AreaHandler extends Handler<AreaTool> {
     final currentIndex = context.getCurrentIndex();
     var localPos = details.localFocalPoint;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndex, localPos, context.viewportSize, transform);
+      currentIndex,
+      localPos,
+      context.viewportSize,
+      transform,
+    );
     var globalPos = transform.localToGlobal(localPos);
     if (_selectionManager.isValid) {
       _selectionManager.updateCurrentPosition(globalPos);
@@ -155,18 +177,23 @@ class AreaHandler extends Handler<AreaTool> {
     final state = context.getState();
     if (state == null || rect == null) return;
     context.refresh();
-    final name =
-        await createAreaName(context.buildContext, state.page, data.askForName);
+    final name = await createAreaName(
+      context.buildContext,
+      state.page,
+      data.askForName,
+    );
     if (name == null) return;
     currentRect = null;
-    context.getDocumentBloc().add(AreasCreated([
-          Area(
-            width: rect.width,
-            height: rect.height,
-            position: rect.topLeft.toPoint(),
-            name: name,
-          )
-        ]));
+    context.getDocumentBloc().add(
+      AreasCreated([
+        Area(
+          width: rect.width,
+          height: rect.height,
+          position: rect.topLeft.toPoint(),
+          name: name,
+        ),
+      ]),
+    );
     context.refresh();
   }
 
@@ -186,7 +213,8 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
     _currentArea = context.getPage()?.getArea(
-        context.getCameraTransform().localToGlobal(details.localPosition));
+      context.getCameraTransform().localToGlobal(details.localPosition),
+    );
     _updateSelectionRect();
     context.refresh();
   }
@@ -200,8 +228,9 @@ class AreaHandler extends Handler<AreaTool> {
     if (state == null) return;
     final zoom = context.getCameraTransform().size;
     final distance = context.getSettings().selectSensitivity / zoom;
-    final globalPosition =
-        context.getCameraTransform().localToGlobal(localPosition);
+    final globalPosition = context.getCameraTransform().localToGlobal(
+      localPosition,
+    );
     final areas = state.page.getAreas(globalPosition, distance);
     var area = areas.firstOrNull ?? state.currentArea;
     if (_selectionManager.isValid) {
@@ -220,10 +249,12 @@ class AreaHandler extends Handler<AreaTool> {
           scrollable: true,
           content: Column(
             children: areas
-                .map((e) => ListTile(
-                      title: Text(e.name),
-                      onTap: () => Navigator.of(context).pop(e),
-                    ))
+                .map(
+                  (e) => ListTile(
+                    title: Text(e.name),
+                    onTap: () => Navigator.of(context).pop(e),
+                  ),
+                )
                 .toList(),
           ),
           actions: [
@@ -244,7 +275,10 @@ class AreaHandler extends Handler<AreaTool> {
   }
 
   Future<void> _openAreaContextMenu(
-      BuildContext context, Offset localPosition, Area area) async {
+    BuildContext context,
+    Offset localPosition,
+    Area area,
+  ) async {
     final bloc = context.read<DocumentBloc>();
     final settingsCubit = context.read<SettingsCubit>();
     final state = bloc.state;
@@ -260,17 +294,20 @@ class AreaHandler extends Handler<AreaTool> {
   MouseCursor? get cursor => _selectionManager.cursor;
 }
 
-Future<String?> createAreaName(BuildContext context, DocumentPage page,
-    [bool askForName = true]) async {
+Future<String?> createAreaName(
+  BuildContext context,
+  DocumentPage page, [
+  bool askForName = true,
+]) async {
   String? name = page.createAreaName(context);
   if (askForName) {
     name = await showDialog<String>(
-        context: context,
-        builder: (_) => NameDialog(
-              value: name,
-              validator:
-                  defaultNameValidator(context, page.getAreaNames().toList()),
-            ));
+      context: context,
+      builder: (_) => NameDialog(
+        value: name,
+        validator: defaultNameValidator(context, page.getAreaNames().toList()),
+      ),
+    );
   }
   return name;
 }

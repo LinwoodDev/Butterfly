@@ -8,99 +8,120 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
     final tool = selected.first;
     final property = tool.property;
     void updateProperty(ShapeProperty property) => update(
-        context, selected.map((e) => e.copyWith(property: property)).toList());
+      context,
+      selected.map((e) => e.copyWith(property: property)).toList(),
+    );
     return [
       ...super.buildProperties(context),
       CheckboxListTile(
         value: tool.drawFromCenter,
         title: Text(AppLocalizations.of(context).center),
         onChanged: (value) => update(
-            context,
-            selected
-                .map((e) =>
-                    e.copyWith(drawFromCenter: value ?? tool.drawFromCenter))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(drawFromCenter: value ?? tool.drawFromCenter),
+              )
+              .toList(),
+        ),
       ),
       ExactSlider(
-          header: Text(AppLocalizations.of(context).width),
-          value: tool.constrainedWidth,
-          min: 0,
-          max: 500,
-          defaultValue: 0,
-          onChangeEnd: (value) => update(
-              context,
-              selected
-                  .map((e) => e.copyWith(constrainedWidth: value))
-                  .toList())),
+        header: Text(AppLocalizations.of(context).width),
+        value: tool.constrainedWidth,
+        min: 0,
+        max: 500,
+        defaultValue: 0,
+        onChangeEnd: (value) => update(
+          context,
+          selected.map((e) => e.copyWith(constrainedWidth: value)).toList(),
+        ),
+      ),
       ExactSlider(
-          header: Text(AppLocalizations.of(context).height),
-          value: tool.constrainedHeight,
-          min: 0,
-          max: 500,
-          defaultValue: 0,
-          onChangeEnd: (value) => update(
-              context,
-              selected
-                  .map((e) => e.copyWith(constrainedHeight: value))
-                  .toList())),
+        header: Text(AppLocalizations.of(context).height),
+        value: tool.constrainedHeight,
+        min: 0,
+        max: 500,
+        defaultValue: 0,
+        onChangeEnd: (value) => update(
+          context,
+          selected.map((e) => e.copyWith(constrainedHeight: value)).toList(),
+        ),
+      ),
       ExactSlider(
-          header: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppLocalizations.of(context).aspectRatio,
-                  textAlign: TextAlign.center,
-                ),
+        header: Row(
+          children: [
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context).aspectRatio,
+                textAlign: TextAlign.center,
               ),
-              MenuAnchor(
-                builder: defaultMenuButton(
-                  tooltip: AppLocalizations.of(context).aspectRatio,
-                ),
-                menuChildren: AspectRatioPreset.values
-                    .map((e) => MenuItemButton(
-                          child: Text(e.getLocalizedName(context)),
-                          onPressed: () => update(
-                              context,
-                              selected
-                                  .map((c) => c.copyWith(
-                                      constrainedAspectRatio: e.ratio))
-                                  .toList()),
-                        ))
-                    .toList(),
+            ),
+            MenuAnchor(
+              builder: defaultMenuButton(
+                tooltip: AppLocalizations.of(context).aspectRatio,
               ),
-              const SizedBox(width: 4),
-            ],
-          ),
-          value: tool.constrainedAspectRatio,
-          min: 0,
-          max: 10,
-          defaultValue: 0,
-          onChangeEnd: (value) => update(
-              context,
-              selected
-                  .map((e) => e.copyWith(constrainedAspectRatio: value))
-                  .toList())),
+              menuChildren: AspectRatioPreset.values
+                  .map(
+                    (e) => MenuItemButton(
+                      child: Text(e.getLocalizedName(context)),
+                      onPressed: () => update(
+                        context,
+                        selected
+                            .map(
+                              (c) =>
+                                  c.copyWith(constrainedAspectRatio: e.ratio),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SizedBox(width: 4),
+          ],
+        ),
+        value: tool.constrainedAspectRatio,
+        min: 0,
+        max: 10,
+        defaultValue: 0,
+        onChangeEnd: (value) => update(
+          context,
+          selected
+              .map((e) => e.copyWith(constrainedAspectRatio: value))
+              .toList(),
+        ),
+      ),
       ExactSlider(
-          header: Text(AppLocalizations.of(context).strokeWidth),
-          value: property.strokeWidth,
-          min: 0,
-          max: 70,
-          defaultValue: 5,
-          onChangeEnd: (value) => update(
-              context,
-              selected
-                  .map((e) => e.copyWith(
-                      property: e.property.copyWith(strokeWidth: value)))
-                  .toList())),
+        header: Text(AppLocalizations.of(context).strokeWidth),
+        value: property.strokeWidth,
+        min: 0,
+        max: 70,
+        defaultValue: 5,
+        onChangeEnd: (value) => update(
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(strokeWidth: value),
+                ),
+              )
+              .toList(),
+        ),
+      ),
       ColorField(
         value: property.color.withValues(a: 255),
         onChanged: (color) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    property: e.property.copyWith(
-                        color: color.withValues(a: property.color.a))))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(
+                    color: color.withValues(a: property.color.a),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
         title: Text(LeapLocalizations.of(context).color),
       ),
       ExactSlider(
@@ -111,27 +132,35 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    property: e.property.copyWith(
-                        color: property.color.withValues(a: value.toInt()))))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(
+                    color: property.color.withValues(a: value.toInt()),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
       ShapeView(
-          shape: property.shape,
-          onChanged: (shape) =>
-              updateProperty(property.copyWith(shape: shape))),
+        shape: property.shape,
+        onChanged: (shape) => updateProperty(property.copyWith(shape: shape)),
+      ),
       const SizedBox(height: 16),
       CheckboxListTile(
-          value: tool.zoomDependent,
-          title: Text(AppLocalizations.of(context).zoomDependent),
-          onChanged: (value) => update(
-              context,
-              selected
-                  .map((e) =>
-                      e.copyWith(zoomDependent: value ?? tool.zoomDependent))
-                  .toList())),
+        value: tool.zoomDependent,
+        title: Text(AppLocalizations.of(context).zoomDependent),
+        onChanged: (value) => update(
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(zoomDependent: value ?? tool.zoomDependent),
+              )
+              .toList(),
+        ),
+      ),
     ];
   }
 
@@ -192,12 +221,14 @@ class _ShapeViewState extends State<ShapeView> {
   Widget build(BuildContext context) {
     Widget shapeView = _buildShapeView();
 
-    final shapes = Map.fromEntries([
-      PathShape.circle,
-      PathShape.rectangle,
-      PathShape.line,
-      PathShape.triangle
-    ].map((e) => e()).map((e) => MapEntry(e.getLocalizedName(context), e)));
+    final shapes = Map.fromEntries(
+      [
+        PathShape.circle,
+        PathShape.rectangle,
+        PathShape.line,
+        PathShape.triangle,
+      ].map((e) => e()).map((e) => MapEntry(e.getLocalizedName(context), e)),
+    );
 
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {
@@ -214,12 +245,13 @@ class _ShapeViewState extends State<ShapeView> {
             trailing: DropdownMenu<String>(
               initialSelection: _currentShape.getLocalizedName(context),
               dropdownMenuEntries: shapes.entries
-                  .map((e) => DropdownMenuEntry(
-                        label: e.key,
-                        value: e.key,
-                        leadingIcon:
-                            Icon(e.value.icon(PhosphorIconsStyle.light)),
-                      ))
+                  .map(
+                    (e) => DropdownMenuEntry(
+                      label: e.key,
+                      value: e.key,
+                      leadingIcon: Icon(e.value.icon(PhosphorIconsStyle.light)),
+                    ),
+                  )
                   .toList(),
               onSelected: (value) {
                 final shape = shapes[value];
@@ -230,7 +262,7 @@ class _ShapeViewState extends State<ShapeView> {
             ),
           ),
           body: shapeView,
-        )
+        ),
       ],
     );
   }
@@ -243,26 +275,32 @@ class _CircleShapeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ColorField(
-        value: shape.fillColor.withValues(a: 255),
-        title: Text(AppLocalizations.of(context).fill),
-        leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        defaultColor: SRGBColor.transparent,
-        onChanged: (color) => onChanged(
-            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a))),
-      ),
-      ExactSlider(
-        value: shape.fillColor.a.toDouble(),
-        header: Text(AppLocalizations.of(context).alpha),
-        fractionDigits: 0,
-        max: 255,
-        min: 0,
-        defaultValue: 255,
-        onChangeEnd: (value) => onChanged(shape.copyWith(
-            fillColor: shape.fillColor.withValues(a: value.toInt()))),
-      )
-    ]);
+    return Column(
+      children: [
+        ColorField(
+          value: shape.fillColor.withValues(a: 255),
+          title: Text(AppLocalizations.of(context).fill),
+          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
+          defaultColor: SRGBColor.transparent,
+          onChanged: (color) => onChanged(
+            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a)),
+          ),
+        ),
+        ExactSlider(
+          value: shape.fillColor.a.toDouble(),
+          header: Text(AppLocalizations.of(context).alpha),
+          fractionDigits: 0,
+          max: 255,
+          min: 0,
+          defaultValue: 255,
+          onChangeEnd: (value) => onChanged(
+            shape.copyWith(
+              fillColor: shape.fillColor.withValues(a: value.toInt()),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -273,26 +311,32 @@ class _TriangleShapeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ColorField(
-        value: shape.fillColor.withValues(a: 255),
-        title: Text(AppLocalizations.of(context).fill),
-        leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        defaultColor: SRGBColor.transparent,
-        onChanged: (color) => onChanged(
-            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a))),
-      ),
-      ExactSlider(
-        value: shape.fillColor.a.toDouble(),
-        header: Text(AppLocalizations.of(context).alpha),
-        fractionDigits: 0,
-        max: 255,
-        min: 0,
-        defaultValue: 255,
-        onChangeEnd: (value) => onChanged(shape.copyWith(
-            fillColor: shape.fillColor.withValues(a: value.toInt()))),
-      )
-    ]);
+    return Column(
+      children: [
+        ColorField(
+          value: shape.fillColor.withValues(a: 255),
+          title: Text(AppLocalizations.of(context).fill),
+          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
+          defaultColor: SRGBColor.transparent,
+          onChanged: (color) => onChanged(
+            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a)),
+          ),
+        ),
+        ExactSlider(
+          value: shape.fillColor.a.toDouble(),
+          header: Text(AppLocalizations.of(context).alpha),
+          fractionDigits: 0,
+          max: 255,
+          min: 0,
+          defaultValue: 255,
+          onChangeEnd: (value) => onChanged(
+            shape.copyWith(
+              fillColor: shape.fillColor.withValues(a: value.toInt()),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -310,79 +354,93 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ColorField(
-        title: Text(AppLocalizations.of(context).fill),
-        leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        value: widget.shape.fillColor.withValues(a: 255),
-        defaultColor: SRGBColor.transparent,
-        onChanged: (color) => widget.onChanged(widget.shape.copyWith(
-            fillColor: color.withValues(a: widget.shape.fillColor.a))),
-      ),
-      ExactSlider(
-        value: widget.shape.fillColor.a.toDouble(),
-        header: Text(AppLocalizations.of(context).alpha),
-        fractionDigits: 0,
-        max: 255,
-        min: 0,
-        defaultValue: 255,
-        onChangeEnd: (value) => widget.onChanged(widget.shape.copyWith(
-            fillColor: widget.shape.fillColor.withValues(a: value.toInt()))),
-      ),
-      ExpansionPanelList(
-        expansionCallback: (index, isExpanded) {
-          setState(() {
-            _cornerExpanded = isExpanded;
-          });
-        },
-        children: [
-          ExpansionPanel(
-            headerBuilder: (context, isExpanded) => ListTile(
-              title: Text(AppLocalizations.of(context).cornerRadius),
+    return Column(
+      children: [
+        ColorField(
+          title: Text(AppLocalizations.of(context).fill),
+          leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
+          value: widget.shape.fillColor.withValues(a: 255),
+          defaultColor: SRGBColor.transparent,
+          onChanged: (color) => widget.onChanged(
+            widget.shape.copyWith(
+              fillColor: color.withValues(a: widget.shape.fillColor.a),
             ),
-            canTapOnHeader: true,
-            isExpanded: _cornerExpanded,
-            body: Column(children: [
-              ExactSlider(
-                defaultValue: 0,
-                min: 0,
-                max: 100,
-                value: widget.shape.topLeftCornerRadius,
-                header: Text(AppLocalizations.of(context).topLeft),
-                onChangeEnd: (value) => widget.onChanged(
-                    widget.shape.copyWith(topLeftCornerRadius: value)),
-              ),
-              ExactSlider(
-                defaultValue: 0,
-                min: 0,
-                max: 100,
-                value: widget.shape.topRightCornerRadius,
-                header: Text(AppLocalizations.of(context).topRight),
-                onChangeEnd: (value) => widget.onChanged(
-                    widget.shape.copyWith(topRightCornerRadius: value)),
-              ),
-              ExactSlider(
-                defaultValue: 0,
-                min: 0,
-                max: 100,
-                value: widget.shape.bottomLeftCornerRadius,
-                header: Text(AppLocalizations.of(context).bottomLeft),
-                onChangeEnd: (value) => widget.onChanged(
-                    widget.shape.copyWith(bottomLeftCornerRadius: value)),
-              ),
-              ExactSlider(
-                defaultValue: 0,
-                min: 0,
-                max: 100,
-                value: widget.shape.bottomRightCornerRadius,
-                header: Text(AppLocalizations.of(context).bottomRight),
-                onChangeEnd: (value) => widget.onChanged(
-                    widget.shape.copyWith(bottomRightCornerRadius: value)),
-              ),
-            ]),
           ),
-        ],
-      ),
-    ]);
+        ),
+        ExactSlider(
+          value: widget.shape.fillColor.a.toDouble(),
+          header: Text(AppLocalizations.of(context).alpha),
+          fractionDigits: 0,
+          max: 255,
+          min: 0,
+          defaultValue: 255,
+          onChangeEnd: (value) => widget.onChanged(
+            widget.shape.copyWith(
+              fillColor: widget.shape.fillColor.withValues(a: value.toInt()),
+            ),
+          ),
+        ),
+        ExpansionPanelList(
+          expansionCallback: (index, isExpanded) {
+            setState(() {
+              _cornerExpanded = isExpanded;
+            });
+          },
+          children: [
+            ExpansionPanel(
+              headerBuilder: (context, isExpanded) => ListTile(
+                title: Text(AppLocalizations.of(context).cornerRadius),
+              ),
+              canTapOnHeader: true,
+              isExpanded: _cornerExpanded,
+              body: Column(
+                children: [
+                  ExactSlider(
+                    defaultValue: 0,
+                    min: 0,
+                    max: 100,
+                    value: widget.shape.topLeftCornerRadius,
+                    header: Text(AppLocalizations.of(context).topLeft),
+                    onChangeEnd: (value) => widget.onChanged(
+                      widget.shape.copyWith(topLeftCornerRadius: value),
+                    ),
+                  ),
+                  ExactSlider(
+                    defaultValue: 0,
+                    min: 0,
+                    max: 100,
+                    value: widget.shape.topRightCornerRadius,
+                    header: Text(AppLocalizations.of(context).topRight),
+                    onChangeEnd: (value) => widget.onChanged(
+                      widget.shape.copyWith(topRightCornerRadius: value),
+                    ),
+                  ),
+                  ExactSlider(
+                    defaultValue: 0,
+                    min: 0,
+                    max: 100,
+                    value: widget.shape.bottomLeftCornerRadius,
+                    header: Text(AppLocalizations.of(context).bottomLeft),
+                    onChangeEnd: (value) => widget.onChanged(
+                      widget.shape.copyWith(bottomLeftCornerRadius: value),
+                    ),
+                  ),
+                  ExactSlider(
+                    defaultValue: 0,
+                    min: 0,
+                    max: 100,
+                    value: widget.shape.bottomRightCornerRadius,
+                    header: Text(AppLocalizations.of(context).bottomRight),
+                    onChangeEnd: (value) => widget.onChanged(
+                      widget.shape.copyWith(bottomRightCornerRadius: value),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

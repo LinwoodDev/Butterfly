@@ -164,7 +164,7 @@ abstract class HitCalculator {
     // Get the axes from both polygons.
     final List<Offset> axes = [
       ...getAxesOfPolygon(poly1),
-      ...getAxesOfPolygon(poly2)
+      ...getAxesOfPolygon(poly2),
     ];
 
     // For each axis, project both polygons.
@@ -200,16 +200,16 @@ enum RendererOperation {
   }
 
   IconGetter get icon => switch (this) {
-        RendererOperation.invert => PhosphorIcons.circleHalf,
-        RendererOperation.background => PhosphorIcons.paintBucket,
-        RendererOperation.grayscale => PhosphorIcons.palette,
-        RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
-        RendererOperation.flipVertical => PhosphorIcons.flipVertical,
-      };
+    RendererOperation.invert => PhosphorIcons.circleHalf,
+    RendererOperation.background => PhosphorIcons.paintBucket,
+    RendererOperation.grayscale => PhosphorIcons.palette,
+    RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
+    RendererOperation.flipVertical => PhosphorIcons.flipVertical,
+  };
 }
 
-typedef RendererOperationCallback = void Function(
-    DocumentBloc bloc, BuildContext context);
+typedef RendererOperationCallback =
+    void Function(DocumentBloc bloc, BuildContext context);
 
 abstract class Renderer<T> {
   final T element;
@@ -222,23 +222,25 @@ abstract class Renderer<T> {
     // Elements
     if (element is PadElement) {
       return switch (element) {
-        PenElement() => PenRenderer(element, layer),
-        TextElement() => TextRenderer(element, layer),
-        ImageElement() => ImageRenderer(element, layer),
-        SvgElement() => SvgRenderer(element, layer),
-        ShapeElement() => ShapeRenderer(element, layer),
-        MarkdownElement() => MarkdownRenderer(element, layer),
-        TextureElement() => TextureRenderer(element, layer),
-      } as Renderer<T>;
+            PenElement() => PenRenderer(element, layer),
+            TextElement() => TextRenderer(element, layer),
+            ImageElement() => ImageRenderer(element, layer),
+            SvgElement() => SvgRenderer(element, layer),
+            ShapeElement() => ShapeRenderer(element, layer),
+            MarkdownElement() => MarkdownRenderer(element, layer),
+            TextureElement() => TextureRenderer(element, layer),
+          }
+          as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
       return switch (element) {
-        TextureBackground() => TextureBackgroundRenderer(element),
-        ImageBackground() => ImageBackgroundRenderer(element),
-        SvgBackground() => SvgBackgroundRenderer(element),
-      } as Renderer<T>;
+            TextureBackground() => TextureBackgroundRenderer(element),
+            ImageBackground() => ImageBackgroundRenderer(element),
+            SvgBackground() => SvgBackgroundRenderer(element),
+          }
+          as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');
@@ -256,16 +258,13 @@ abstract class Renderer<T> {
     NoteData document,
     AssetService assetService,
     DocumentPage page,
-  ) async =>
-      _updateArea(page);
+  ) async => _updateArea(page);
 
   void dispose() {}
 
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
-      : page.areas.firstWhereOrNull(
-          (area) => area.rect.overlaps(rect!),
-        );
+      : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
@@ -278,8 +277,7 @@ abstract class Renderer<T> {
     AssetService assetService,
     DocumentPage page,
     String path,
-  ) =>
-      false;
+  ) => false;
 
   Rect? get rect => null;
 
@@ -380,8 +378,7 @@ abstract class Renderer<T> {
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) =>
-      null;
+  }) => null;
 
   Map<RendererOperation, RendererOperationCallback> getOperations() => {};
 }

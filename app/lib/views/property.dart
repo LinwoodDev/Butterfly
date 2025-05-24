@@ -148,30 +148,31 @@ class _PropertyCardState extends State<_PropertyCard> {
     final menuChildren = multi
         ? <Widget>[]
         : DisplayIcons.recommended(selected)
-            .map(
-              (e) => IconButton(
-                icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                iconSize: 26,
-                onPressed: selected is! Tool
-                    ? null
-                    : () {
-                        final bloc = context.read<DocumentBloc>();
-                        final state = bloc.state;
-                        if (state is! DocumentLoadSuccess) {
-                          return;
-                        }
-                        final painters = state.info.tools;
-                        bloc.add(
-                          ToolsChanged({
-                            painters.indexOf(selected):
-                                selected.copyWith(displayIcon: e.name),
-                          }),
-                        );
-                        _menuController.close();
-                      },
-              ),
-            )
-            .toList();
+              .map(
+                (e) => IconButton(
+                  icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  iconSize: 26,
+                  onPressed: selected is! Tool
+                      ? null
+                      : () {
+                          final bloc = context.read<DocumentBloc>();
+                          final state = bloc.state;
+                          if (state is! DocumentLoadSuccess) {
+                            return;
+                          }
+                          final painters = state.info.tools;
+                          bloc.add(
+                            ToolsChanged({
+                              painters.indexOf(selected): selected.copyWith(
+                                displayIcon: e.name,
+                              ),
+                            }),
+                          );
+                          _menuController.close();
+                        },
+                ),
+              )
+              .toList();
     final name = selection.getLocalizedName(context);
     if (_nameController.text != name) {
       _nameController.text = name;
@@ -180,46 +181,28 @@ class _PropertyCardState extends State<_PropertyCard> {
     final leading = SizedBox.square(
       dimension: 60,
       child: menuChildren.length <= 1
-          ? PhosphorIcon(
-              icon,
-              color: Theme.of(
-                context,
-              ).iconTheme.color,
-            )
+          ? PhosphorIcon(icon, color: Theme.of(context).iconTheme.color)
           : Center(
               child: MenuAnchor(
                 controller: _menuController,
                 builder: defaultFilledMenuButton(
-                  iconBuilder: (
-                    context,
-                    controller,
-                    child,
-                  ) =>
-                      Row(
+                  iconBuilder: (context, controller, child) => Row(
                     children: [
                       PhosphorIcon(
                         icon,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
+                      const SizedBox(width: 8),
                       PhosphorIcon(
                         controller.isOpen
                             ? PhosphorIconsLight.caretUp
                             : PhosphorIconsLight.caretDown,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         size: 12,
                       ),
                     ],
                   ),
-                  tooltip: AppLocalizations.of(
-                    context,
-                  ).icon,
+                  tooltip: AppLocalizations.of(context).icon,
                 ),
                 menuChildren: menuChildren,
               ),
@@ -242,24 +225,16 @@ class _PropertyCardState extends State<_PropertyCard> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
-                  child: Text(name, style: textStyle),
-                ),
+                Flexible(child: Text(name, style: textStyle)),
                 if (caption.isNotEmpty)
-                  Text(
-                    caption,
-                    style: TextTheme.of(context).labelLarge,
-                  ),
+                  Text(caption, style: TextTheme.of(context).labelLarge),
               ],
             ),
           );
     return Card(
       elevation: 6,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 6,
-          horizontal: 6,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
         child: AnimatedSize(
           alignment: Alignment.topCenter,
           curve: Curves.easeInOut,
@@ -293,45 +268,32 @@ class _PropertyCardState extends State<_PropertyCard> {
                         const SizedBox(width: 4),
                         if (selection.showDeleteButton)
                           IconButton(
-                            icon: const PhosphorIcon(
-                              PhosphorIconsLight.trash,
-                            ),
-                            tooltip: AppLocalizations.of(
-                              context,
-                            ).delete,
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).delete,
                             onPressed: () {
                               selection.onDelete(context);
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .resetSelection(force: true);
+                              context.read<CurrentIndexCubit>().resetSelection(
+                                force: true,
+                              );
                             },
                           ),
                         if (help.isNotEmpty)
                           IconButton(
-                            tooltip: AppLocalizations.of(
-                              context,
-                            ).help,
+                            tooltip: AppLocalizations.of(context).help,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.sealQuestion,
                             ),
                             onPressed: () => openHelp(help),
                           ),
-                        const SizedBox(
-                          height: 42,
-                          child: VerticalDivider(),
-                        ),
+                        const SizedBox(height: 42, child: VerticalDivider()),
                         if (!widget.isMobile)
                           BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                             buildWhen: (previous, current) =>
                                 previous.pinned != current.pinned,
                             builder: (context, state) => IconButton(
                               tooltip: state.pinned
-                                  ? AppLocalizations.of(
-                                      context,
-                                    ).unpin
-                                  : AppLocalizations.of(
-                                      context,
-                                    ).pin,
+                                  ? AppLocalizations.of(context).unpin
+                                  : AppLocalizations.of(context).pin,
                               icon: state.pinned
                                   ? const PhosphorIcon(
                                       PhosphorIconsFill.pushPin,
@@ -345,11 +307,10 @@ class _PropertyCardState extends State<_PropertyCard> {
                           ),
                         const SizedBox(width: 8),
                         IconButton.outlined(
-                          tooltip: MaterialLocalizations.of(context)
-                              .closeButtonTooltip,
-                          icon: const PhosphorIcon(
-                            PhosphorIconsLight.x,
-                          ),
+                          tooltip: MaterialLocalizations.of(
+                            context,
+                          ).closeButtonTooltip,
+                          icon: const PhosphorIcon(PhosphorIconsLight.x),
                           onPressed: widget.closeView,
                         ),
                       ],
@@ -363,9 +324,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                         child: ListView(
                           shrinkWrap: true,
                           primary: true,
-                          children: selection.buildProperties(
-                            context,
-                          ),
+                          children: selection.buildProperties(context),
                         ),
                       ),
                     ),

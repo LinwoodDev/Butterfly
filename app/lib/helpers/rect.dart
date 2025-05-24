@@ -4,16 +4,19 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 
 bool lineIntersectsLine(Offset l1p1, Offset l1p2, Offset l2p1, Offset l2p2) {
-  final demon = (l2p2.dy - l2p1.dy) * (l1p2.dx - l1p1.dx) -
+  final demon =
+      (l2p2.dy - l2p1.dy) * (l1p2.dx - l1p1.dx) -
       (l2p2.dx - l2p1.dx) * (l1p2.dy - l1p1.dy);
   if (demon == 0) {
     return false;
   }
-  final ua = ((l2p2.dx - l2p1.dx) * (l1p1.dy - l2p1.dy) -
+  final ua =
+      ((l2p2.dx - l2p1.dx) * (l1p1.dy - l2p1.dy) -
               (l2p2.dy - l2p1.dy) * (l1p1.dx - l2p1.dx))
           .toDouble() /
       demon;
-  final ub = ((l1p2.dx - l1p1.dx) * (l1p1.dy - l2p1.dy) -
+  final ub =
+      ((l1p2.dx - l1p1.dx) * (l1p1.dy - l2p1.dy) -
               (l1p2.dy - l1p1.dy) * (l1p1.dx - l2p1.dx))
           .toDouble() /
       demon;

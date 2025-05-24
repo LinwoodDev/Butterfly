@@ -23,12 +23,12 @@ class Embedding {
     this.location,
   }) : handler = internal ? null : EmbedHandler();
   Embedding.fromQuery(Map<String, String> query)
-      : save = query['save'] != 'false',
-        editable = query['editable'] != 'false',
-        language = query['language'] ?? 'user',
-        theme = query['theme'] ?? '',
-        handler = EmbedHandler(),
-        onExit = null,
-        location = null,
-        onOpen = null;
+    : save = query['save'] != 'false',
+      editable = query['editable'] != 'false',
+      language = query['language'] ?? 'user',
+      theme = query['theme'] ?? '',
+      handler = EmbedHandler(),
+      onExit = null,
+      location = null,
+      onOpen = null;
 }

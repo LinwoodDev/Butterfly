@@ -21,10 +21,13 @@ class PacksAction extends Action<PacksIntent> {
     var transformCubit = intent.context.read<TransformCubit>();
     return showDialog(
       context: intent.context,
-      builder: (context) => MultiBlocProvider(providers: [
-        BlocProvider.value(value: transformCubit),
-        BlocProvider.value(value: bloc),
-      ], child: PacksDialog(globalOnly: !intent.showDocument)),
+      builder: (context) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: transformCubit),
+          BlocProvider.value(value: bloc),
+        ],
+        child: PacksDialog(globalOnly: !intent.showDocument),
+      ),
     );
   }
 }

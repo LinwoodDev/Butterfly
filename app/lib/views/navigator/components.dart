@@ -110,7 +110,8 @@ class _ComponentsViewState extends State<ComponentsView> {
                         return ComponentCard(
                           component: e.item,
                           name: e.key,
-                          selected: handler is StampHandler &&
+                          selected:
+                              handler is StampHandler &&
                               handler.data.component == named,
                           key: ValueKey((e.namespace, e.key)),
                           onTap: () => context
