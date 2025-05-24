@@ -4,7 +4,10 @@ import '../models/asset.dart';
 
 extension AssetFileTypeHelper on AssetFileType {
   List<String> getUniformTypeIdentifiers() => switch (this) {
-        AssetFileType.note => ['dev.linwood.butterfly.note'],
+        AssetFileType.note => [
+            'dev.linwood.butterfly.note',
+            'dev.linwood.butterfly.textnote'
+          ],
         AssetFileType.image => ['public.image'],
         AssetFileType.pdf => ['com.adobe.pdf'],
         AssetFileType.svg => ['public.svg-image'],
@@ -15,7 +18,7 @@ extension AssetFileTypeHelper on AssetFileType {
       };
 
   List<String> getFileExtensions() => switch (this) {
-        AssetFileType.note => ['bfly'],
+        AssetFileType.note => ['bfly', 'tbfly'],
         AssetFileType.image => ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico'],
         AssetFileType.pdf => ['pdf'],
         AssetFileType.svg => ['svg'],
@@ -29,7 +32,8 @@ extension AssetFileTypeHelper on AssetFileType {
         AssetFileType.note => [
             'application/x-butterfly',
             'application/octet-stream',
-            'application/zip'
+            'application/zip',
+            'application/json',
           ],
         AssetFileType.image => ['image/*'],
         AssetFileType.markdown => ['text/markdown'],

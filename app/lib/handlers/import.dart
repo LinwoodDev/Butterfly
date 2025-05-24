@@ -22,8 +22,7 @@ class ImportHandler extends Handler<ImportTool> {
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
-    _offset = event.localPosition;
-    context.refresh();
+    _updatePosition(event.localPosition, context);
   }
 
   @override

@@ -132,7 +132,7 @@ class _MainViewViewportState extends State<MainViewViewport>
               if (nextPointerMapping == null ||
                   nextPointerMapping.getCategory() ==
                       InputMappingCategory.activeTool) {
-                cubit.resetTemporaryHandler(bloc, true);
+                cubit.resetDownHandler(bloc);
                 return;
               }
               if (nextPointerMapping.getCategory() ==
@@ -141,7 +141,11 @@ class _MainViewViewportState extends State<MainViewViewport>
               } else {
                 final int? index = nextPointerMapping.getToolPositionIndex();
                 if (index != null) {
-                  await cubit.changeTemporaryHandlerIndex(context, index);
+                  await cubit.changeTemporaryHandlerIndex(
+                    context,
+                    index,
+                    temporaryState: TemporaryState.removeAfterClick,
+                  );
                 }
               }
             }
@@ -207,10 +211,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
 
                               return GestureDetector(
-                                onTapUp: (details) => getHandler().onTapUp(
-                                  details,
-                                  getEventContext(),
-                                ),
+                                onTapUp: (details) async {
+                                  getHandler().onTapUp(
+                                    details,
+                                    getEventContext(),
+                                  );
+                                  cubit.removeButtons();
+                                  cubit.resetReleaseHandler(bloc);
+                                },
                                 onTapDown: (details) => getHandler().onTapDown(
                                   details,
                                   getEventContext(),
@@ -281,6 +289,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     delayBake();
                                   }
+                                  cubit.removeButtons();
+                                  cubit.resetReleaseHandler(bloc);
                                 },
                                 onScaleStart: (details) {
                                   _isScalingDisabled ??=
@@ -403,8 +413,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       );
                                     }
                                     cubit.removePointer(event.pointer);
-                                    cubit.removeButtons();
-                                    cubit.resetReleaseHandler(bloc);
                                   },
                                   behavior: HitTestBehavior.translucent,
                                   onPointerHover: (event) {
