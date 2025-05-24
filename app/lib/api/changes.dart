@@ -23,8 +23,11 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(AppLocalizations.of(context)
-                  .breakingChangesMessage(version, kFileVersion)),
+              Text(
+                AppLocalizations.of(
+                  context,
+                ).breakingChangesMessage(version, kFileVersion),
+              ),
               const SizedBox(height: 8),
               OutlinedButton.icon(
                 label: Text(AppLocalizations.of(context).documentation),
@@ -36,11 +39,13 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(MaterialLocalizations.of(context).cancelButtonLabel)),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
           TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(MaterialLocalizations.of(context).okButtonLabel)),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+          ),
         ],
       ),
     );

@@ -10,11 +10,9 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final loc = AppLocalizations.of(context);
     showDialog<String>(
-        context: context,
-        builder: (context) => NameDialog(
-              title: loc.enterText,
-              hint: loc.text,
-            )).then((value) {
+      context: context,
+      builder: (context) => NameDialog(title: loc.enterText, hint: loc.text),
+    ).then((value) {
       if (value == null) return;
       final barcode = switch (data.barcodeType) {
         BarcodeType.dataMatrix => Barcode.dataMatrix(),
@@ -23,8 +21,12 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
       };
       final width = data.barcodeType.width;
       final height = data.barcodeType.height;
-      final svg = barcode.toSvg(value,
-          width: width, height: height, color: data.color.value);
+      final svg = barcode.toSvg(
+        value,
+        width: width,
+        height: height,
+        color: data.color.value,
+      );
       _element = SvgElement(
         source: Uri.dataFromString(svg, mimeType: 'image/svg+xml').toString(),
         width: width,
@@ -42,17 +44,19 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
 
   @override
   List<PadElement> transformElements(
-      Rect rect, String collection, CurrentIndexCubit cubit) {
+    Rect rect,
+    String collection,
+    CurrentIndexCubit cubit,
+  ) {
     final element = _element;
     if (element == null) return [];
     if (rect.isEmpty) {
       return [
         element.copyWith(
-            position: rect.topLeft.toPoint() -
-                Point(
-                  element.width / 2,
-                  element.height / 2,
-                ))
+          position:
+              rect.topLeft.toPoint() -
+              Point(element.width / 2, element.height / 2),
+        ),
       ];
     }
 

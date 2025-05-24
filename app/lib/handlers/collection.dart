@@ -8,10 +8,8 @@ class CollectionHandler extends Handler<CollectionTool> {
     final bloc = context.read<DocumentBloc>();
     showDialog(
       context: context,
-      builder: (context) => BlocProvider.value(
-        value: bloc,
-        child: const CollectionsDialog(),
-      ),
+      builder: (context) =>
+          BlocProvider.value(value: bloc, child: const CollectionsDialog()),
     );
     return SelectState.normal;
   }

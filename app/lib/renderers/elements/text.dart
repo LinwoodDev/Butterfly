@@ -2,11 +2,16 @@ part of '../renderer.dart';
 
 abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
   TextPainter? _tp;
   LabelContext? get context;
 
-  GenericTextRenderer(super.element, [super.layer]);
+  GenericTextRenderer(super.element, [super.layer])
+    : rect = Rect.fromCenter(
+        center: element.position.toOffset(),
+        width: 0,
+        height: 0,
+      );
 
   double get scale => element.scale;
 
@@ -18,14 +23,16 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     _tp?.textScaler = TextScaler.linear(scale);
     final paragraph = getParagraph(document);
     final styleSheet = _getStyle();
-    final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
+    final style =
+        styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
     _tp?.text = switch (paragraph) {
       text.TextParagraph p => TextSpan(
-          children:
-              p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-          style: style.span.toFlutter(null, element.foreground),
-        ),
+        children: p.textSpans
+            .map((e) => _createSpan(document, e, style))
+            .toList(),
+        style: style.span.toFlutter(null, element.foreground),
+      ),
     };
     _tp?.textAlign = style.alignment.toFlutter();
     _tp?.layout(maxWidth: element.getMaxWidth(area));
@@ -33,8 +40,11 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   text.TextStyleSheet? _getStyle() => element.styleSheet?.item;
 
-  InlineSpan _createSpan(NoteData document, text.TextSpan span,
-      [text.DefinedParagraphProperty? parent]) {
+  InlineSpan _createSpan(
+    NoteData document,
+    text.TextSpan span, [
+    text.DefinedParagraphProperty? parent,
+  ]) {
     final styleSheet = _getStyle();
     final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
@@ -45,7 +55,10 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   @override
   FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
     _createTool(document, page);
     await super.setup(document, assetService, page);
     _updateRect(document);
@@ -60,14 +73,25 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   void _updateRect(NoteData document) {
     _tp?.layout(maxWidth: element.getMaxWidth(area));
-    rect = Rect.fromLTWH(element.position.x, element.position.y,
-        _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
+    rect = Rect.fromLTWH(
+      element.position.x,
+      element.position.y,
+      _tp?.width ?? 0,
+      element.getHeight(_tp?.height ?? 0),
+    );
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  FutureOr<void> build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     if (_tp?.plainText.isNotEmpty ?? false) {
       _tp?.layout(maxWidth: rect.width);
       _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
@@ -88,25 +112,29 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
     final svg = xml.getElement('svg');
     if (!rect.overlaps(rect) || svg == null) return;
     final paragraph = getParagraph(document);
 
     _tp?.layout(maxWidth: rect.width);
     final styles = element.styleSheet?.item;
-    final textElement = svg.createElement('text', attributes: {
-      'x': '${rect.left}px',
-      'y': '${rect.top}px',
-      'width': '${rect.width}px',
-      'height': '${rect.height}px',
-    });
-    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
-    textElement.setAttribute(
-      'text-anchor',
-      paragraphStyle?.alignment.name,
+    final textElement = svg.createElement(
+      'text',
+      attributes: {
+        'x': '${rect.left}px',
+        'y': '${rect.top}px',
+        'width': '${rect.width}px',
+        'height': '${rect.height}px',
+      },
     );
+    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
+    textElement.setAttribute('text-anchor', paragraphStyle?.alignment.name);
     // Add spans as html elements
     for (final span in paragraph.textSpans) {
       final style = styles.resolveSpanProperty(span.property);
@@ -136,15 +164,15 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) =>
-      TextRenderer(
-          element.copyWith(
-            position: position.toPoint(),
-            rotation: rotation,
-            scale: element.scale * max(scaleX, scaleY),
-          ),
-          layer,
-          context);
+  }) => TextRenderer(
+    element.copyWith(
+      position: position.toPoint(),
+      rotation: rotation,
+      scale: element.scale * max(scaleX, scaleY),
+    ),
+    layer,
+    context,
+  );
 
   @override
   void dispose() {

@@ -40,17 +40,17 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
             .clamp(0, 1);
     if (data.animation == LaserAnimation.path) {
       final points = element.points;
-      final subPoints =
-          points.sublist((points.length * delta).round(), points.length);
+      final subPoints = points.sublist(
+        (points.length * delta).round(),
+        points.length,
+      );
       return element.copyWith(points: subPoints);
     }
     var color = data.color;
     final toolOpacity = color.a;
     final opacity = (1 - delta) * toolOpacity;
     color = color.withValues(a: opacity.clamp(0, 1).round());
-    return element.copyWith(
-      property: element.property.copyWith(color: color),
-    );
+    return element.copyWith(property: element.property.copyWith(color: color));
   }
 
   List<PenElement> _getSubmitted() {
@@ -68,16 +68,19 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   }
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        ..._elements.values.map((e) {
-          if (e.points.length > 1) return PenRenderer(e);
-          return null;
-        }).nonNulls,
-        ..._getSubmitted().map((e) => PenRenderer(e))
-      ];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [
+    ..._elements.values.map((e) {
+      if (e.points.length > 1) return PenRenderer(e);
+      return null;
+    }).nonNulls,
+    ..._getSubmitted().map((e) => PenRenderer(e)),
+  ];
 
   @override
   void resetInput(DocumentBloc bloc) {
@@ -96,14 +99,26 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, getPressureOfEvent(event), event.kind);
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      getPressureOfEvent(event),
+      event.kind,
+    );
     _submit(context.getDocumentBloc(), [event.pointer]);
   }
 
-  void addPoint(BuildContext context, int pointer, Offset localPosition,
-      Size viewportSize, double pressure, PointerDeviceKind kind,
-      {bool forceCreate = false}) {
+  void addPoint(
+    BuildContext context,
+    int pointer,
+    Offset localPosition,
+    Size viewportSize,
+    double pressure,
+    PointerDeviceKind kind, {
+    bool forceCreate = false,
+  }) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final transform = context.read<TransformCubit>().state;
@@ -111,7 +126,11 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
-        currentIndexCubit.state, localPosition, viewportSize, transform);
+      currentIndexCubit.state,
+      localPosition,
+      viewportSize,
+      transform,
+    );
     if (penOnlyInput &&
         (kind != PointerDeviceKind.stylus &&
             kind != PointerDeviceKind.invertedStylus)) {
@@ -120,19 +139,26 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     if (!_elements.containsKey(pointer) && !forceCreate) {
       return;
     }
-    final element = _elements[pointer] ??
+    final element =
+        _elements[pointer] ??
         PenElement(
           collection: state.currentCollection,
           property: PenProperty(
-              strokeWidth: data.strokeWidth / transform.size,
-              thinning: data.thinning,
-              color: data.color),
+            strokeWidth: data.strokeWidth / transform.size,
+            thinning: data.thinning,
+            color: data.color,
+          ),
         );
 
     _elements[pointer] = element.copyWith(
-        points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromPoint(
-              transform.localToGlobal(localPosition).toPoint(), pressure)));
+      points: List<PathPoint>.from(element.points)
+        ..add(
+          PathPoint.fromPoint(
+            transform.localToGlobal(localPosition).toPoint(),
+            pressure,
+          ),
+        ),
+    );
     bloc.refresh();
     _startTimer(bloc);
   }
@@ -146,16 +172,30 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       _elements.clear();
       return;
     }
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, event.pressure, event.kind,
-        forceCreate: true);
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      event.pressure,
+      event.kind,
+      forceCreate: true,
+    );
   }
 
   @override
   Future<void> onPointerMove(
-      PointerMoveEvent event, EventContext context) async {
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, event.pressure, event.kind);
+    PointerMoveEvent event,
+    EventContext context,
+  ) async {
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      event.pressure,
+      event.kind,
+    );
   }
 
   @override

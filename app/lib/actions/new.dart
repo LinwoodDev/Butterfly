@@ -31,8 +31,9 @@ class NewAction extends Action<NewIntent> {
       );
       return;
     }
-    final templateSystem =
-        context.read<ButterflyFileSystem>().buildDefaultTemplateSystem();
+    final templateSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDefaultTemplateSystem();
     final template = await templateSystem.getDefaultFile(
       templateSystem.storage?.defaults['template'] ?? settings.defaultTemplate,
     );
@@ -40,8 +41,12 @@ class NewAction extends Action<NewIntent> {
   }
 }
 
-Future<void> openNewDocument(BuildContext context, bool replace,
-    [NoteData? template, String? remote]) {
+Future<void> openNewDocument(
+  BuildContext context,
+  bool replace, [
+  NoteData? template,
+  String? remote,
+]) {
   NoteData? document;
   String? path;
   if (template != null) {
@@ -53,10 +58,14 @@ Future<void> openNewDocument(BuildContext context, bool replace,
   }
   final queryParams = {'path': path, 'remote': remote};
   if (replace) {
-    return GoRouter.of(context).pushReplacementNamed('new',
-        queryParameters: queryParams, extra: document);
+    return GoRouter.of(context).pushReplacementNamed(
+      'new',
+      queryParameters: queryParams,
+      extra: document,
+    );
   } else {
-    return GoRouter.of(context)
-        .pushNamed('new', queryParameters: queryParams, extra: document);
+    return GoRouter.of(
+      context,
+    ).pushNamed('new', queryParameters: queryParams, extra: document);
   }
 }

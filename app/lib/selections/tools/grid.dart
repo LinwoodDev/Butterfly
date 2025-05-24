@@ -33,10 +33,11 @@ class GridToolSelection extends ToolSelection<GridTool> {
         value: selected.first.color.withValues(a: 255),
         defaultColor: SRGBColor.transparent,
         onChanged: (color) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(color: color.withValues(a: e.color.a)))
-                .toList()),
+          context,
+          selected
+              .map((e) => e.copyWith(color: color.withValues(a: e.color.a)))
+              .toList(),
+        ),
       ),
       ExactSlider(
         value: selected.first.color.a.toDouble(),
@@ -48,8 +49,9 @@ class GridToolSelection extends ToolSelection<GridTool> {
         onChangeEnd: (value) => update(
           context,
           selected
-              .map((e) =>
-                  e.copyWith(color: e.color.withValues(a: value.toInt())))
+              .map(
+                (e) => e.copyWith(color: e.color.withValues(a: value.toInt())),
+              )
               .toList(),
         ),
       ),
@@ -67,22 +69,29 @@ class GridToolSelection extends ToolSelection<GridTool> {
         value: selected.first.positionDependent,
         title: Text(AppLocalizations.of(context).positionDependent),
         onChanged: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    positionDependent:
-                        value ?? selected.first.positionDependent))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  positionDependent: value ?? selected.first.positionDependent,
+                ),
+              )
+              .toList(),
+        ),
       ),
       CheckboxListTile(
         value: selected.first.zoomDependent,
         title: Text(AppLocalizations.of(context).zoomDependent),
         onChanged: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(
-                    zoomDependent: value ?? selected.first.zoomDependent))
-                .toList()),
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  zoomDependent: value ?? selected.first.zoomDependent,
+                ),
+              )
+              .toList(),
+        ),
       ),
     ];
   }

@@ -22,11 +22,14 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
 
   @override
   void initState() {
-    _templateSystem =
-        context.read<ButterflyFileSystem>().buildTemplateSystem(widget.remote);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          _templatesFuture = _fetchTemplates();
-        }));
+    _templateSystem = context.read<ButterflyFileSystem>().buildTemplateSystem(
+      widget.remote,
+    );
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setState(() {
+        _templatesFuture = _fetchTemplates();
+      }),
+    );
     super.initState();
   }
 
@@ -46,48 +49,48 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     super.dispose();
   }
 
-  Future<List<NoteData>> _fetchTemplates() =>
-      _templateSystem.initialize().then((value) => _templateSystem
-          .getFiles()
-          .then((value) => value.map((e) => e.data!).toList()));
+  Future<List<NoteData>> _fetchTemplates() => _templateSystem.initialize().then(
+    (value) => _templateSystem.getFiles().then(
+      (value) => value.map((e) => e.data!).toList(),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
         padding: EdgeInsets.all(widget.isMobile ? 12 : 32),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppLocalizations.of(context).quickstart,
-                  style: TextTheme.of(context).headlineMedium,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context).quickstart,
+                    style: TextTheme.of(context).headlineMedium,
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-                tooltip: AppLocalizations.of(context).advanced,
-                onPressed: () => showDialog(
-                  context: context,
-                  builder: (ctx) => const TemplateDialog(),
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+                  tooltip: AppLocalizations.of(context).advanced,
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (ctx) => const TemplateDialog(),
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
-                tooltip: AppLocalizations.of(context).refresh,
-                onPressed: () => setState(() {
-                  _templatesFuture = _fetchTemplates();
-                }),
-              ),
-            ],
-          ),
-          SizedBox(height: widget.isMobile ? 8 : 16),
-          FutureBuilder<List<NoteData>>(
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+                  tooltip: AppLocalizations.of(context).refresh,
+                  onPressed: () => setState(() {
+                    _templatesFuture = _fetchTemplates();
+                  }),
+                ),
+              ],
+            ),
+            SizedBox(height: widget.isMobile ? 8 : 16),
+            FutureBuilder<List<NoteData>>(
               future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -133,21 +136,23 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     ],
                   );
                 }
-                final children = templates.map(
-                  (e) {
-                    final thumbnail = e.getThumbnail();
-                    final metadata = e.getMetadata()!;
-                    return AssetCard(
-                      metadata: metadata,
-                      thumbnail: thumbnail,
-                      onTap: () async {
-                        await openNewDocument(
-                            context, false, e, widget.remote?.identifier);
-                        widget.onReload();
-                      },
-                    );
-                  },
-                ).toList();
+                final children = templates.map((e) {
+                  final thumbnail = e.getThumbnail();
+                  final metadata = e.getMetadata()!;
+                  return AssetCard(
+                    metadata: metadata,
+                    thumbnail: thumbnail,
+                    onTap: () async {
+                      await openNewDocument(
+                        context,
+                        false,
+                        e,
+                        widget.remote?.identifier,
+                      );
+                      widget.onReload();
+                    },
+                  );
+                }).toList();
                 if (widget.isMobile) {
                   return SizedBox(
                     height: 150,
@@ -161,11 +166,11 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     ),
                   );
                 }
-                return Column(
-                  children: children,
-                );
-              }),
-        ]),
+                return Column(children: children);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

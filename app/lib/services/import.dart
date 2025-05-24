@@ -128,36 +128,36 @@ class ImportService {
     final realDocument = document ?? DocumentDefaults.createDocument();
     return switch (type) {
       AssetFileType.note => importBfly(
-          bytes,
-          document: document,
-          position: position,
-          advanced: advanced,
-          templateSystem: templateSystem,
-          packSystem: packSystem,
-        ),
+        bytes,
+        document: document,
+        position: position,
+        advanced: advanced,
+        templateSystem: templateSystem,
+        packSystem: packSystem,
+      ),
       AssetFileType.image => importImage(
-          bytes,
-          realDocument,
-          position: position,
-        ),
+        bytes,
+        realDocument,
+        position: position,
+      ),
       AssetFileType.svg => importSvg(bytes, realDocument, position: position),
       AssetFileType.markdown => importMarkdown(
-          bytes,
-          realDocument,
-          position: position,
-        ),
+        bytes,
+        realDocument,
+        position: position,
+      ),
       AssetFileType.pdf => importPdf(
-          bytes,
-          realDocument,
-          position: position,
-          advanced: advanced,
-        ),
+        bytes,
+        realDocument,
+        position: position,
+        advanced: advanced,
+      ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
       AssetFileType.archive => importArchive(
-          bytes,
-          fileSystem: fileSystem,
-        ).then((value) => null),
+        bytes,
+        fileSystem: fileSystem,
+      ).then((value) => null),
     };
   }
 
@@ -199,8 +199,8 @@ class ImportService {
       final result = AssetFileType.values
           .map((e) {
             final format = e.getClipboardFormats().firstWhereOrNull(
-                  (f) => reader.canProvide(f),
-                );
+              (f) => reader.canProvide(f),
+            );
             return format == null ? null : (e, format);
           })
           .nonNulls
@@ -277,25 +277,25 @@ class ImportService {
       final type = data.getMetadata()?.type;
       return switch (type) {
         NoteFileType.document => _importDocument(
-            data,
-            realDocument,
-            advanced: advanced,
-          ),
+          data,
+          realDocument,
+          advanced: advanced,
+        ),
         NoteFileType.template when documentOpened => _importTemplate(
-            data,
-            templateSystem,
-          ),
+          data,
+          templateSystem,
+        ),
         NoteFileType.pack when documentOpened => _importPack(
-            data,
-            document,
-            packSystem,
-          ).then((value) => null),
+          data,
+          document,
+          packSystem,
+        ).then((value) => null),
         _ => showDialog(
-            context: context,
-            builder: (context) => UnknownImportConfirmationDialog(
-              message: AppLocalizations.of(context).unknownImportType,
-            ),
-          ).then((value) => null),
+          context: context,
+          builder: (context) => UnknownImportConfirmationDialog(
+            message: AppLocalizations.of(context).unknownImportType,
+          ),
+        ).then((value) => null),
       };
     } catch (e) {
       await showDialog(
@@ -340,8 +340,11 @@ class ImportService {
     return document;
   }
 
-  Future<NoteData?> importPage(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  Future<NoteData?> importPage(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
       return _importPage(page, document, position);
@@ -442,14 +445,17 @@ class ImportService {
       final state = _getState();
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      final dataPath =
-          Uri.dataFromBytes(newData, mimeType: 'image/png').toString();
+      final dataPath = Uri.dataFromBytes(
+        newData,
+        mimeType: 'image/png',
+      ).toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
       if (position == null && currentIndexCubit != null && settingsScale > 0) {
-        final scale = min(
+        final scale =
+            min(
               (screen.width * settingsScale) / width,
               (screen.height * settingsScale) / height,
             ) /
@@ -517,18 +523,23 @@ class ImportService {
         final state = _getState();
         String dataPath;
         if (state != null) {
-          dataPath =
-              Uri.dataFromBytes(bytes, mimeType: 'image/svg+xml').toString();
+          dataPath = Uri.dataFromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
         } else {
-          dataPath =
-              UriData.fromBytes(bytes, mimeType: 'image/svg+xml').toString();
+          dataPath = UriData.fromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
         }
         final settingsScale = getSettingsCubit().state.imageScale;
         ElementConstraints? constraints;
         if (position == null &&
             currentIndexCubit != null &&
             settingsScale > 0) {
-          final scale = min(
+          final scale =
+              min(
                 (screen.width * settingsScale) / width,
                 (screen.height * settingsScale) / height,
               ) /
@@ -577,8 +588,9 @@ class ImportService {
       final state = _getState();
       final background =
           state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
-      final foreground =
-          background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
+      final foreground = background.toColor().isDark()
+          ? SRGBColor.white
+          : SRGBColor.black;
       return _submit(
         context,
         document,

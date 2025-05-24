@@ -157,7 +157,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         Expanded(
                           child: LayoutBuilder(
                             builder: (context, constraints) {
-                              var isMobile = constraints.maxWidth <
+                              var isMobile =
+                                  constraints.maxWidth <
                                   LeapBreakpoints.compact;
                               if (isMobile) {
                                 return ListView(
@@ -220,153 +221,154 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   Widget _buildPreview() => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      children: [
+        Wrap(
+          spacing: 4,
           children: [
-            Wrap(
-              spacing: 4,
-              children: [
-                IconButton.filledTonal(
-                  onPressed: () {
-                    final transform = context
-                        .read<DocumentBloc>()
-                        .state
-                        .currentIndexCubit
-                        ?.state
-                        .transformCubit
-                        .state;
+            IconButton.filledTonal(
+              onPressed: () {
+                final transform = context
+                    .read<DocumentBloc>()
+                    .state
+                    .currentIndexCubit
+                    ?.state
+                    .transformCubit
+                    .state;
 
-                    setState(() {
-                      _preset = ExportTransformPreset.view;
-                      _options = (switch (_options) {
-                        ImageExportOptions _ => getDefaultImageExportOptions(
-                            context,
-                            transform: transform,
-                          ),
-                        SvgExportOptions _ => getDefaultSvgExportOptions(
-                            context,
-                            transform: transform,
-                          ),
-                      });
-                    });
-                    _regeneratePreviewImage();
-                  },
-                  icon: const PhosphorIcon(PhosphorIconsLight.userRectangle),
-                  tooltip: AppLocalizations.of(context).view,
-                  selectedIcon:
-                      const PhosphorIcon(PhosphorIconsFill.userRectangle),
-                  isSelected: _preset == ExportTransformPreset.view,
-                ),
-                IconButton.filledTonal(
-                  onPressed: () {
-                    final cubit =
-                        context.read<DocumentBloc>().state.currentIndexCubit;
-                    if (cubit == null) return;
-                    final rect = cubit.getPageRect();
-                    setState(() {
-                      _preset = ExportTransformPreset.page;
-                      _options = (switch (_options) {
-                        ImageExportOptions e => e.copyWith(
-                            width: rect.width,
-                            height: rect.height,
-                            x: rect.left,
-                            y: rect.top,
-                            scale: 1,
-                          ),
-                        SvgExportOptions e => e.copyWith(
-                            width: rect.width,
-                            height: rect.height,
-                            x: rect.left,
-                            y: rect.top,
-                          ),
-                      });
-                    });
-                    _regeneratePreviewImage();
-                  },
-                  icon: const PhosphorIcon(PhosphorIconsLight.file),
-                  tooltip: AppLocalizations.of(context).page,
-                  selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
-                  isSelected: _preset == ExportTransformPreset.page,
-                ),
-              ],
+                setState(() {
+                  _preset = ExportTransformPreset.view;
+                  _options = (switch (_options) {
+                    ImageExportOptions _ => getDefaultImageExportOptions(
+                      context,
+                      transform: transform,
+                    ),
+                    SvgExportOptions _ => getDefaultSvgExportOptions(
+                      context,
+                      transform: transform,
+                    ),
+                  });
+                });
+                _regeneratePreviewImage();
+              },
+              icon: const PhosphorIcon(PhosphorIconsLight.userRectangle),
+              tooltip: AppLocalizations.of(context).view,
+              selectedIcon: const PhosphorIcon(PhosphorIconsFill.userRectangle),
+              isSelected: _preset == ExportTransformPreset.view,
             ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  if (_previewImage == null) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return Image(
-                    fit: BoxFit.contain,
-                    image: MemoryImage(_previewImage!.buffer.asUint8List()),
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+            IconButton.filledTonal(
+              onPressed: () {
+                final cubit = context
+                    .read<DocumentBloc>()
+                    .state
+                    .currentIndexCubit;
+                if (cubit == null) return;
+                final rect = cubit.getPageRect();
+                setState(() {
+                  _preset = ExportTransformPreset.page;
+                  _options = (switch (_options) {
+                    ImageExportOptions e => e.copyWith(
+                      width: rect.width,
+                      height: rect.height,
+                      x: rect.left,
+                      y: rect.top,
+                      scale: 1,
+                    ),
+                    SvgExportOptions e => e.copyWith(
+                      width: rect.width,
+                      height: rect.height,
+                      x: rect.left,
+                      y: rect.top,
+                    ),
+                  });
+                });
+                _regeneratePreviewImage();
+              },
+              icon: const PhosphorIcon(PhosphorIconsLight.file),
+              tooltip: AppLocalizations.of(context).page,
+              selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
+              isSelected: _preset == ExportTransformPreset.page,
             ),
           ],
         ),
-      );
+        const SizedBox(height: 16),
+        Expanded(
+          child: Builder(
+            builder: (context) {
+              if (_previewImage == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return Image(
+                fit: BoxFit.contain,
+                image: MemoryImage(_previewImage!.buffer.asUint8List()),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget _buildProperties() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          OffsetListTile(
-            value: Offset(_options.x, _options.y),
-            title: Text(AppLocalizations.of(context).position),
-            onChanged: (value) {
-              setState(
-                () => _options = _options.copyWith(x: value.dx, y: value.dy),
-              );
-              setState(() => _preset = null);
-              _regeneratePreviewImage();
-            },
-          ),
-          const SizedBox(height: 8),
-          OffsetListTile(
-            value: Offset(_options.width, _options.height),
-            title: Text(AppLocalizations.of(context).size),
-            xLabel: AppLocalizations.of(context).width,
-            yLabel: AppLocalizations.of(context).height,
-            onChanged: (value) {
-              setState(
-                () => _options =
-                    _options.copyWith(width: value.dx, height: value.dy),
-              );
-              setState(() => _preset = null);
-              _regeneratePreviewImage();
-            },
-          ),
-          if (_options is ImageExportOptions)
-            ..._getImageOptions(_options as ImageExportOptions),
-          const SizedBox(height: 8),
-          CheckboxListTile(
-            value: _options.renderBackground,
-            title: Text(AppLocalizations.of(context).background),
-            onChanged: (value) {
-              setState(
-                () => _options = _options.copyWith(
-                  renderBackground: value ?? !_options.renderBackground,
-                ),
-              );
-              _regeneratePreviewImage();
-            },
-          ),
-        ],
-      );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      OffsetListTile(
+        value: Offset(_options.x, _options.y),
+        title: Text(AppLocalizations.of(context).position),
+        onChanged: (value) {
+          setState(
+            () => _options = _options.copyWith(x: value.dx, y: value.dy),
+          );
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
+      const SizedBox(height: 8),
+      OffsetListTile(
+        value: Offset(_options.width, _options.height),
+        title: Text(AppLocalizations.of(context).size),
+        xLabel: AppLocalizations.of(context).width,
+        yLabel: AppLocalizations.of(context).height,
+        onChanged: (value) {
+          setState(
+            () =>
+                _options = _options.copyWith(width: value.dx, height: value.dy),
+          );
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
+      if (_options is ImageExportOptions)
+        ..._getImageOptions(_options as ImageExportOptions),
+      const SizedBox(height: 8),
+      CheckboxListTile(
+        value: _options.renderBackground,
+        title: Text(AppLocalizations.of(context).background),
+        onChanged: (value) {
+          setState(
+            () => _options = _options.copyWith(
+              renderBackground: value ?? !_options.renderBackground,
+            ),
+          );
+          _regeneratePreviewImage();
+        },
+      ),
+    ],
+  );
 
   List<Widget> _getImageOptions(ImageExportOptions options) {
     return [

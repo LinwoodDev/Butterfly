@@ -19,26 +19,25 @@ Future<List<SearchResult>> _searchIsolate(
   String currentPage,
   DocumentPage page,
   String query,
-) =>
-    compute(
-      (e) => e.$1
-          .search(RegExp(e.$2, caseSensitive: false), e.$3, e.$4)
-          .take(10)
-          .toList(),
-      (noteData, query, currentPage, page),
-    );
+) => compute(
+  (e) => e.$1
+      .search(RegExp(e.$2, caseSensitive: false), e.$3, e.$4)
+      .take(10)
+      .toList(),
+  (noteData, query, currentPage, page),
+);
 
 class SearchButton extends StatelessWidget {
   final SearchController controller;
   const SearchButton({super.key, required this.controller});
 
   IconGetter _getIcon(SearchResult item) => switch (item) {
-        ElementResult e => e.element.icon,
-        WaypointResult _ => PhosphorIcons.mapPin,
-        AreaResult _ => PhosphorIcons.selection,
-        PageResult _ => PhosphorIcons.book,
-        ToolResult e => e.tool.icon,
-      };
+    ElementResult e => e.element.icon,
+    WaypointResult _ => PhosphorIcons.mapPin,
+    AreaResult _ => PhosphorIcons.selection,
+    PageResult _ => PhosphorIcons.book,
+    ToolResult e => e.tool.icon,
+  };
 
   String _getLocalizedName(SearchResult item, BuildContext context) =>
       switch (item) {
@@ -50,12 +49,12 @@ class SearchButton extends StatelessWidget {
       };
 
   String _getDisplay(SearchResult item, BuildContext context) => switch (item) {
-        PageResult e => e.name,
-        ElementResult e => e.text,
-        AreaResult e => e.area.name,
-        WaypointResult e => e.waypoint.name ?? '',
-        ToolResult e => e.tool.getDisplay(context),
-      };
+    PageResult e => e.name,
+    ElementResult e => e.text,
+    AreaResult e => e.area.name,
+    WaypointResult e => e.waypoint.name ?? '',
+    ToolResult e => e.tool.getDisplay(context),
+  };
 
   @override
   Widget build(BuildContext context) {

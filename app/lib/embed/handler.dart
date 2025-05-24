@@ -63,7 +63,9 @@ class EmbedHandler {
           ),
         );
         sendEmbedMessage(
-            'render', base64.encode(data?.buffer.asUint8List() ?? []));
+          'render',
+          base64.encode(data?.buffer.asUint8List() ?? []),
+        );
       }
     });
     renderSVGListener ??= onEmbedMessage('renderSVG', (message) async {

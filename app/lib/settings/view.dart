@@ -118,10 +118,9 @@ class ViewSettingsPage extends StatelessWidget {
                                 Text(AppLocalizations.of(context).position),
                             childrenBuilder: (context) => [
                               ListTile(
-                                title: Text(
-                                  AppLocalizations.of(context).left,
-                                ),
-                                selected: state.navigatorPosition ==
+                                title: Text(AppLocalizations.of(context).left),
+                                selected:
+                                    state.navigatorPosition ==
                                     NavigatorPosition.left,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineLeft,
@@ -131,10 +130,9 @@ class ViewSettingsPage extends StatelessWidget {
                                 ).pop(NavigatorPosition.left),
                               ),
                               ListTile(
-                                title: Text(
-                                  AppLocalizations.of(context).right,
-                                ),
-                                selected: state.navigatorPosition ==
+                                title: Text(AppLocalizations.of(context).right),
+                                selected:
+                                    state.navigatorPosition ==
                                     NavigatorPosition.right,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineRight,

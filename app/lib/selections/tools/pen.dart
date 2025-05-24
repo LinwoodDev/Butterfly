@@ -14,10 +14,9 @@ class __ShapeDetectionViewState extends State<_ShapeDetectionView> {
   bool _isPanelOpen = false;
 
   void _updateShapeDetectionTime(double value) {
-    widget.update(
-      context,
-      [widget.selected.first.copyWith(shapeDetectionTime: value)],
-    );
+    widget.update(context, [
+      widget.selected.first.copyWith(shapeDetectionTime: value),
+    ]);
   }
 
   void _updateShapeDetectionEnabled(bool? value) {
@@ -88,25 +87,29 @@ class PenToolSelection extends ToolSelection<PenTool> {
   List<Widget> buildProperties(BuildContext context) {
     final property = selected.first.property;
     void updateProperty(PenProperty property) => update(
-        context, selected.map((e) => e.copyWith(property: property)).toList());
+      context,
+      selected.map((e) => e.copyWith(property: property)).toList(),
+    );
     return [
       ...super.buildProperties(context),
       CheckboxListTile(
-          value: selected.first.zoomDependent,
-          title: Text(AppLocalizations.of(context).zoomDependent),
-          onChanged: (value) => update(
-              context,
-              selected
-                  .map((e) => e.copyWith(
-                      zoomDependent: value ?? selected.first.zoomDependent))
-                  .toList())),
-      const SizedBox(height: 16),
-      _ShapeDetectionView(
-        selected: selected,
-        update: update,
+        value: selected.first.zoomDependent,
+        title: Text(AppLocalizations.of(context).zoomDependent),
+        onChanged: (value) => update(
+          context,
+          selected
+              .map(
+                (e) => e.copyWith(
+                  zoomDependent: value ?? selected.first.zoomDependent,
+                ),
+              )
+              .toList(),
+        ),
       ),
       const SizedBox(height: 16),
-      ..._propertySelection.build(context, property, updateProperty)
+      _ShapeDetectionView(selected: selected, update: update),
+      const SizedBox(height: 16),
+      ..._propertySelection.build(context, property, updateProperty),
     ];
   }
 

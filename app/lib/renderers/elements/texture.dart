@@ -3,22 +3,44 @@ part of '../renderer.dart';
 class TextureRenderer extends Renderer<TextureElement> {
   @override
   Rect get rect => Rect.fromPoints(
-      element.firstPosition.toOffset(), element.secondPosition.toOffset());
+    element.firstPosition.toOffset(),
+    element.secondPosition.toOffset(),
+  );
 
   TextureRenderer(super.element, [super.layer]);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-          DocumentInfo info, CameraTransform transform,
-          [ColorScheme? colorScheme, bool foreground = false]) =>
-      drawSurfaceTextureOnCanvas(
-          element.texture, canvas, 1, Offset.zero, rect.size, rect.topLeft);
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) => drawSurfaceTextureOnCanvas(
+    element.texture,
+    canvas,
+    1,
+    Offset.zero,
+    rect.size,
+    rect.topLeft,
+  );
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-          Rect viewportRect) =>
-      drawSurfaceTextureOnSvg(
-          element.texture, xml, Offset.zero, rect.size, rect.topLeft);
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) => drawSurfaceTextureOnSvg(
+    element.texture,
+    xml,
+    Offset.zero,
+    rect.size,
+    rect.topLeft,
+  );
 
   @override
   TextureRenderer _transform({

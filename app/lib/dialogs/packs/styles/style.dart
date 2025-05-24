@@ -49,27 +49,28 @@ class _StyleDialogState extends State<StyleDialog> {
           children: [
             TabBar(
               isScrollable: true,
-              tabs: [
-                (
-                  PhosphorIconsLight.gear,
-                  AppLocalizations.of(context).general,
-                ),
-                (
-                  PhosphorIconsLight.article,
-                  AppLocalizations.of(context).paragraph,
-                ),
-                (
-                  PhosphorIconsLight.textT,
-                  AppLocalizations.of(context).text,
-                ),
-              ]
-                  .map(
-                    (e) => HorizontalTab(
-                      icon: PhosphorIcon(e.$1),
-                      label: Text(e.$2),
-                    ),
-                  )
-                  .toList(),
+              tabs:
+                  [
+                        (
+                          PhosphorIconsLight.gear,
+                          AppLocalizations.of(context).general,
+                        ),
+                        (
+                          PhosphorIconsLight.article,
+                          AppLocalizations.of(context).paragraph,
+                        ),
+                        (
+                          PhosphorIconsLight.textT,
+                          AppLocalizations.of(context).text,
+                        ),
+                      ]
+                      .map(
+                        (e) => HorizontalTab(
+                          icon: PhosphorIcon(e.$1),
+                          label: Text(e.$2),
+                        ),
+                      )
+                      .toList(),
             ),
             const SizedBox(height: 8),
             Expanded(

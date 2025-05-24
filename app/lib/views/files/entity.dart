@@ -153,12 +153,12 @@ class _FileEntityItemState extends State<FileEntityItem> {
     } catch (_) {}
     void onEdit(bool value) => setState(() => _editable = value);
     void onDelete() => deleteEntities(
-          context: context,
-          isMobile: widget.isMobile,
-          documentSystem: documentSystem,
-          entities: {widget.entity.location.path},
-          onDelete: widget.onReload,
-        );
+      context: context,
+      isMobile: widget.isMobile,
+      documentSystem: documentSystem,
+      entities: {widget.entity.location.path},
+      onDelete: widget.onReload,
+    );
 
     final draggable = LongPressDraggable<String>(
       data: widget.entity.path,
@@ -186,8 +186,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
         onReload: widget.onReload,
         documentSystem: documentSystem,
         onOpen: widget.onPreview != null ? widget.onTap : null,
-        onSelect:
-            widget.selected == null ? () => widget.onSelected(true) : null,
+        onSelect: widget.selected == null
+            ? () => widget.onSelected(true)
+            : null,
         builder: (context, button, controller) => widget.gridView
             ? FileEntityGridItem(
                 modifiedText: modifiedText,
@@ -295,9 +296,8 @@ class ContextFileRegion extends StatelessWidget {
             builder: (context, snapshot) {
               final currentStatus = snapshot.data
                   ?.lastWhereOrNull(
-                    (element) => entity.location.path.startsWith(
-                      element.location.path,
-                    ),
+                    (element) =>
+                        entity.location.path.startsWith(element.location.path),
                   )
                   ?.status;
               return MenuItemButton(
@@ -337,15 +337,16 @@ class ContextFileRegion extends StatelessWidget {
             child: Text(AppLocalizations.of(context).select),
           ),
         MenuItemButton(
-          onPressed: () => showDialog(
-            context: context,
-            builder: (context) => FileSystemAssetMoveDialog(
-              assets: [entity.location],
-              fileSystem: documentSystem,
-            ),
-          ).then((value) {
-            if (value != null) onReload();
-          }),
+          onPressed: () =>
+              showDialog(
+                context: context,
+                builder: (context) => FileSystemAssetMoveDialog(
+                  assets: [entity.location],
+                  fileSystem: documentSystem,
+                ),
+              ).then((value) {
+                if (value != null) onReload();
+              }),
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
           child: Text(AppLocalizations.of(context).move),
         ),

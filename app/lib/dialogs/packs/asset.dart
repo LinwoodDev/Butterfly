@@ -53,10 +53,8 @@ class AssetDialog extends StatelessWidget {
                         key: UniqueKey(),
                         dropdownMenuEntries: packs
                             .map(
-                              (e) => DropdownMenuEntry<String>(
-                                value: e,
-                                label: e,
-                              ),
+                              (e) =>
+                                  DropdownMenuEntry<String>(value: e, label: e),
                             )
                             .toList(),
                         onSelected: (value) {
@@ -99,8 +97,9 @@ class AssetDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child:
-                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                child: Text(
+                  MaterialLocalizations.of(context).cancelButtonLabel,
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -137,8 +136,9 @@ Future<void> addToPack(
     ),
   );
   if (result == null) return;
-  final packSystem =
-      context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+  final packSystem = context
+      .read<ButterflyFileSystem>()
+      .buildDefaultPackSystem();
   var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
   final screenshot = await state.currentIndexCubit.render(
@@ -173,10 +173,7 @@ Future<void> addToPack(
       .toList();
   pack = pack.setComponent(
     result.key,
-    ButterflyComponent(
-      elements: transformed,
-      thumbnail: thumbnail,
-    ),
+    ButterflyComponent(elements: transformed, thumbnail: thumbnail),
   );
   await packSystem.updateFile(result.namespace, pack);
 }

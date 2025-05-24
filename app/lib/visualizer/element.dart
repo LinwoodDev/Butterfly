@@ -20,24 +20,23 @@ extension ElementVisualizer on PadElement {
   }
 
   IconGetter get icon => switch (this) {
-        PenElement _ => PhosphorIcons.pen,
-        TextElement _ => PhosphorIcons.textT,
-        ImageElement _ => PhosphorIcons.image,
-        ShapeElement element => element.property.shape.icon,
-        SvgElement _ => PhosphorIcons.fileSvg,
-        MarkdownElement _ => PhosphorIcons.textbox,
-        TextureElement e => e.texture.icon,
-      };
+    PenElement _ => PhosphorIcons.pen,
+    TextElement _ => PhosphorIcons.textT,
+    ImageElement _ => PhosphorIcons.image,
+    ShapeElement element => element.property.shape.icon,
+    SvgElement _ => PhosphorIcons.fileSvg,
+    MarkdownElement _ => PhosphorIcons.textbox,
+    TextureElement e => e.texture.icon,
+  };
 }
 
 extension ElementConstraintsVisualizer on ElementConstraints? {
   String getLocalizedName(BuildContext context) => switch (this) {
-        FixedElementConstraints _ => AppLocalizations.of(context).fixed,
-        ScaledElementConstraints _ => AppLocalizations.of(context).scaled,
-        DynamicElementConstraints _ =>
-          AppLocalizations.of(context).dynamicContent,
-        null => AppLocalizations.of(context).none,
-      };
+    FixedElementConstraints _ => AppLocalizations.of(context).fixed,
+    ScaledElementConstraints _ => AppLocalizations.of(context).scaled,
+    DynamicElementConstraints _ => AppLocalizations.of(context).dynamicContent,
+    null => AppLocalizations.of(context).none,
+  };
 
   ElementConstraints scale(double scaleX, double scaleY) {
     final constraints = this;
@@ -71,22 +70,22 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
 
 extension LabelModeVisualizer on LabelMode {
   String getLocalizedName(BuildContext context) => switch (this) {
-        LabelMode.markdown => AppLocalizations.of(context).markdown,
-        LabelMode.text => AppLocalizations.of(context).text,
-      };
+    LabelMode.markdown => AppLocalizations.of(context).markdown,
+    LabelMode.text => AppLocalizations.of(context).text,
+  };
 
   IconGetter get icon => switch (this) {
-        LabelMode.markdown => PhosphorIcons.textbox,
-        LabelMode.text => PhosphorIcons.textT,
-      };
+    LabelMode.markdown => PhosphorIcons.textbox,
+    LabelMode.text => PhosphorIcons.textT,
+  };
 }
 
 extension SurfaceTextureVisualizer on SurfaceTexture {
   String getLocalizedName(BuildContext context) => switch (this) {
-        PatternTexture() => AppLocalizations.of(context).pattern,
-      };
+    PatternTexture() => AppLocalizations.of(context).pattern,
+  };
 
   IconGetter get icon => switch (this) {
-        PatternTexture() => PhosphorIcons.blueprint,
-      };
+    PatternTexture() => PhosphorIcons.blueprint,
+  };
 }

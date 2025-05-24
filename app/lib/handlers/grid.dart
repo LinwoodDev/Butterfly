@@ -4,10 +4,13 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
   GridHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [GridRenderer(data)];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [GridRenderer(data)];
 
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
@@ -15,8 +18,11 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
   }
 
   @override
-  Offset getPointerPosition(Offset position, Size viewportSize,
-      [CameraTransform transform = const CameraTransform()]) {
+  Offset getPointerPosition(
+    Offset position,
+    Size viewportSize, [
+    CameraTransform transform = const CameraTransform(),
+  ]) {
     var xSize = data.xSize;
     var ySize = data.ySize;
     var xOffset = data.xOffset;
@@ -49,9 +55,16 @@ class GridRenderer extends Renderer<GridTool> {
   GridRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     if (element.xSize > 0) {
       double x = -element.xSize + element.xOffset % element.xSize;
       var cap = size.width;
@@ -73,8 +86,10 @@ class GridRenderer extends Renderer<GridTool> {
         }
         canvas.drawLine(
           Offset(localX + transform.position.dx, transform.position.dy),
-          Offset(localX + transform.position.dx,
-              size.height / transform.size + transform.position.dy),
+          Offset(
+            localX + transform.position.dx,
+            size.height / transform.size + transform.position.dy,
+          ),
           Paint()
             ..strokeWidth = element.stroke / transform.size
             ..color = element.color.toColor(),
@@ -103,8 +118,10 @@ class GridRenderer extends Renderer<GridTool> {
         }
         canvas.drawLine(
           Offset(transform.position.dx, transform.position.dy + localY),
-          Offset(transform.position.dx + size.width / transform.size,
-              transform.position.dy + localY),
+          Offset(
+            transform.position.dx + size.width / transform.size,
+            transform.position.dy + localY,
+          ),
           Paint()
             ..strokeWidth = element.stroke / transform.size
             ..color = element.color.toColor(),

@@ -79,9 +79,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           context: context,
                           builder: (_) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
-                            child: _AreaSelectionDialog(
-                              document: state.data,
-                            ),
+                            child: _AreaSelectionDialog(document: state.data),
                           ),
                         );
                         if (result != null) {
@@ -148,13 +146,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                             final areas = state.page.areas;
                                             setState(() {
                                               this.areas.addAll(
-                                                    areas.map(
-                                                      (e) => AreaPreset(
-                                                        name: e.name,
-                                                        page: state.pageName,
-                                                      ),
-                                                    ),
-                                                  );
+                                                areas.map(
+                                                  (e) => AreaPreset(
+                                                    name: e.name,
+                                                    page: state.pageName,
+                                                  ),
+                                                ),
+                                              );
                                             });
                                           },
                                         ),
@@ -175,18 +173,15 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                                       (state.pageName == e
                                                               ? state.page
                                                               : state.data
-                                                                  .getPage(
-                                                                  e,
-                                                                ))
+                                                                    .getPage(e))
                                                           ?.areas
                                                           .map(
-                                                            (
-                                                              area,
-                                                            ) =>
+                                                            (area) =>
                                                                 AreaPreset(
-                                                              name: area.name,
-                                                              page: e,
-                                                            ),
+                                                                  name:
+                                                                      area.name,
+                                                                  page: e,
+                                                                ),
                                                           )
                                                           .toList() ??
                                                       <AreaPreset>[],
@@ -207,11 +202,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                     crossAxisAlignment:
                                         WrapCrossAlignment.center,
                                     children: areas.mapIndexed((i, e) {
-                                      final page = (e.page == state.pageName
+                                      final page =
+                                          (e.page == state.pageName
                                               ? null
-                                              : state.data.getPage(
-                                                  e.page,
-                                                )) ??
+                                              : state.data.getPage(e.page)) ??
                                           state.page;
                                       final area =
                                           e.area ?? page.getAreaByName(e.name);
@@ -231,47 +225,46 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                             y: area.position.y,
                                           ),
                                         ),
-                                        builder: (
-                                          context,
-                                          snapshot,
-                                        ) =>
+                                        builder: (context, snapshot) =>
                                             _AreaPreview(
-                                          area: area,
-                                          page: e.page,
-                                          quality: e.quality,
-                                          onRemove: () {
-                                            setState(() {
-                                              areas.removeAt(i);
-                                            });
-                                          },
-                                          onQualityChanged: (value) {
-                                            setState(() {
-                                              areas[i] = e.copyWith(
-                                                quality: value,
-                                              );
-                                            });
-                                          },
-                                          onMoveLeft: i == 0
-                                              ? null
-                                              : () {
-                                                  setState(() {
-                                                    final temp = areas[i - 1];
-                                                    areas[i - 1] = areas[i];
-                                                    areas[i] = temp;
-                                                  });
-                                                },
-                                          onMoveRight: i >= areas.length - 1
-                                              ? null
-                                              : () {
-                                                  setState(() {
-                                                    final temp = areas[i + 1];
-                                                    areas[i + 1] = areas[i];
-                                                    areas[i] = temp;
-                                                  });
-                                                },
-                                          image: snapshot.data?.buffer
-                                              .asUint8List(),
-                                        ),
+                                              area: area,
+                                              page: e.page,
+                                              quality: e.quality,
+                                              onRemove: () {
+                                                setState(() {
+                                                  areas.removeAt(i);
+                                                });
+                                              },
+                                              onQualityChanged: (value) {
+                                                setState(() {
+                                                  areas[i] = e.copyWith(
+                                                    quality: value,
+                                                  );
+                                                });
+                                              },
+                                              onMoveLeft: i == 0
+                                                  ? null
+                                                  : () {
+                                                      setState(() {
+                                                        final temp =
+                                                            areas[i - 1];
+                                                        areas[i - 1] = areas[i];
+                                                        areas[i] = temp;
+                                                      });
+                                                    },
+                                              onMoveRight: i >= areas.length - 1
+                                                  ? null
+                                                  : () {
+                                                      setState(() {
+                                                        final temp =
+                                                            areas[i + 1];
+                                                        areas[i + 1] = areas[i];
+                                                        areas[i] = temp;
+                                                      });
+                                                    },
+                                              image: snapshot.data?.buffer
+                                                  .asUint8List(),
+                                            ),
                                       );
                                     }).toList(),
                                   ),
@@ -300,12 +293,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                   await Printing.layoutPdf(
                                     onLayout: (_) async =>
                                         (await currentIndex.renderPDF(
-                                      state.data,
-                                      state.info,
-                                      areas: areas,
-                                      state: state,
-                                    ))
-                                            .save(),
+                                          state.data,
+                                          state.info,
+                                          areas: areas,
+                                          state: state,
+                                        )).save(),
                                   );
                                   Navigator.of(context).pop();
                                 },
@@ -324,8 +316,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                         state.info,
                                         areas: areas,
                                         state: state,
-                                      ))
-                                          .save(),
+                                      )).save(),
                                       true,
                                     );
                                     Navigator.of(context).pop();
@@ -343,8 +334,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                       state.info,
                                       areas: areas,
                                       state: state,
-                                    ))
-                                        .save(),
+                                    )).save(),
                                   );
                                   Navigator.of(context).pop();
                                 },
@@ -496,33 +486,34 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                       previous.pageName != current.pageName,
                   builder: (context, state) => ListView(
                     shrinkWrap: true,
-                    children: (_onlyCurrentPage
-                            ? [state.pageName ?? 'default']
-                            : widget.document.getPages())
-                        .expand(
-                          (page) =>
-                              (page == state.pageName
-                                      ? state.page
-                                      : widget.document.getPage(page))
-                                  ?.areas
-                                  .where(
-                                    (element) => element.name.contains(
-                                      _searchQuery,
-                                    ),
-                                  )
-                                  .map((e) {
-                                return ListTile(
-                                  title: Text(e.name),
-                                  subtitle: Text(page),
-                                  key: ObjectKey(e.name),
-                                  onTap: () => Navigator.of(
-                                    context,
-                                  ).pop((page, e)),
-                                );
-                              }).toList() ??
-                              <Widget>[],
-                        )
-                        .toList(),
+                    children:
+                        (_onlyCurrentPage
+                                ? [state.pageName ?? 'default']
+                                : widget.document.getPages())
+                            .expand(
+                              (page) =>
+                                  (page == state.pageName
+                                          ? state.page
+                                          : widget.document.getPage(page))
+                                      ?.areas
+                                      .where(
+                                        (element) =>
+                                            element.name.contains(_searchQuery),
+                                      )
+                                      .map((e) {
+                                        return ListTile(
+                                          title: Text(e.name),
+                                          subtitle: Text(page),
+                                          key: ObjectKey(e.name),
+                                          onTap: () => Navigator.of(
+                                            context,
+                                          ).pop((page, e)),
+                                        );
+                                      })
+                                      .toList() ??
+                                  <Widget>[],
+                            )
+                            .toList(),
                   ),
                 ),
               ),
@@ -626,8 +617,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                 key: ObjectKey(e.name),
                                 onDismissed: (direction) {
                                   context.read<DocumentBloc>().add(
-                                        ExportPresetRemoved(e.name),
-                                      );
+                                    ExportPresetRemoved(e.name),
+                                  );
                                 },
                                 child: ListTile(
                                   title: Text(e.name),
@@ -641,9 +632,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                             title: Text(
                               AppLocalizations.of(context).newContent,
                             ),
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pop(const ExportPreset()),
+                            onTap: () =>
+                                Navigator.of(context).pop(const ExportPreset()),
                           ),
                         ],
                       ],

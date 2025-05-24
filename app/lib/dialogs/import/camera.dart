@@ -77,34 +77,35 @@ class _CameraDialogState extends State<CameraDialog>
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children:
-              cameras.map((camera) => _buildCameraToggle(camera)).toList(),
+          children: cameras
+              .map((camera) => _buildCameraToggle(camera))
+              .toList(),
         ),
       );
   Widget _buildCameraToggle(CameraDescription camera) => IconButton(
-        icon: PhosphorIcon(
-          camera.lensDirection == CameraLensDirection.front
-              ? PhosphorIconsLight.userFocus
-              : PhosphorIconsLight.image,
-          // Test if camera is selected
-          color: _controller?.description == camera
-              ? ColorScheme.of(context).primary
-              : null,
-        ),
-        tooltip: camera.name,
-        onPressed: () async {
-          _controller?.dispose();
-          _controller = CameraController(camera, ResolutionPreset.high);
-          await _controller!.initialize();
-          if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-            await _controller!.startImageStream((image) {
-              setState(() {});
-            });
-          } else {
-            setState(() {});
-          }
-        },
-      );
+    icon: PhosphorIcon(
+      camera.lensDirection == CameraLensDirection.front
+          ? PhosphorIconsLight.userFocus
+          : PhosphorIconsLight.image,
+      // Test if camera is selected
+      color: _controller?.description == camera
+          ? ColorScheme.of(context).primary
+          : null,
+    ),
+    tooltip: camera.name,
+    onPressed: () async {
+      _controller?.dispose();
+      _controller = CameraController(camera, ResolutionPreset.high);
+      await _controller!.initialize();
+      if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+        await _controller!.startImageStream((image) {
+          setState(() {});
+        });
+      } else {
+        setState(() {});
+      }
+    },
+  );
   Widget _buildCameraPreview() => _controller != null
       ? Builder(
           builder: (context) {
@@ -186,8 +187,8 @@ class _CameraDialogState extends State<CameraDialog>
                               // Capture image on button press.
                               onPressed: () async {
                                 final navigator = Navigator.of(context);
-                                final imageFile =
-                                    await _controller?.takePicture();
+                                final imageFile = await _controller
+                                    ?.takePicture();
                                 if (imageFile != null) {
                                   var content = await imageFile.readAsBytes();
                                   return navigator.pop(content);

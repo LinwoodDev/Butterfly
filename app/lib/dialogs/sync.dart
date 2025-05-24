@@ -60,29 +60,25 @@ class _SyncDialogState extends State<SyncDialog> {
                     },
                     children: [
                       ...service.syncs.asMap().entries.map(
-                            (entry) => ExpansionPanel(
-                              canTapOnHeader: true,
-                              isExpanded: _openedPanels.contains(entry.key),
-                              headerBuilder: (context, isExpanded) => ListTile(
-                                title: Text(
-                                  entry.value.remoteStorage.identifier,
+                        (entry) => ExpansionPanel(
+                          canTapOnHeader: true,
+                          isExpanded: _openedPanels.contains(entry.key),
+                          headerBuilder: (context, isExpanded) => ListTile(
+                            title: Text(entry.value.remoteStorage.identifier),
+                            leading: StreamBuilder<SyncStatus>(
+                              stream: entry.value.statusStream,
+                              builder: (context, snapshot) => IconButton(
+                                tooltip: snapshot.data.getLocalizedName(
+                                  context,
                                 ),
-                                leading: StreamBuilder<SyncStatus>(
-                                  stream: entry.value.statusStream,
-                                  builder: (context, snapshot) => IconButton(
-                                    tooltip: snapshot.data.getLocalizedName(
-                                      context,
-                                    ),
-                                    icon: PhosphorIcon(
-                                      snapshot.data.getIcon(),
-                                    ),
-                                    onPressed: () => service.sync(),
-                                  ),
-                                ),
+                                icon: PhosphorIcon(snapshot.data.getIcon()),
+                                onPressed: () => service.sync(),
                               ),
-                              body: _RemoteSyncView(sync: entry.value),
                             ),
                           ),
+                          body: _RemoteSyncView(sync: entry.value),
+                        ),
+                      ),
                     ],
                   ),
                 ),

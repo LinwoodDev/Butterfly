@@ -65,14 +65,15 @@ class _TemplateDialogState extends State<TemplateDialog> {
   void load() {
     setState(() {
       _templatesFuture = _templateSystem.initialize().then((value) async {
-        var templates =
-            (await _templateSystem.getFiles()).map((e) => e.data!).toList();
+        var templates = (await _templateSystem.getFiles())
+            .map((e) => e.data!)
+            .toList();
         templates = templates
             .where(
               (element) =>
                   element.name?.toLowerCase().contains(
-                        _searchController.text.toLowerCase(),
-                      ) ??
+                    _searchController.text.toLowerCase(),
+                  ) ??
                   true,
             )
             .toList();
@@ -229,13 +230,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 duration: const Duration(milliseconds: 100),
                 child: _selectedTemplates.isEmpty
                     ? widget.bloc == null
-                        ? SizedBox()
-                        : FloatingActionButton.extended(
-                            onPressed: () => _showCreateDialog(widget.bloc!),
-                            label: Text(LeapLocalizations.of(context).create),
-                            icon: const PhosphorIcon(
-                                PhosphorIconsLight.floppyDisk),
-                          )
+                          ? SizedBox()
+                          : FloatingActionButton.extended(
+                              onPressed: () => _showCreateDialog(widget.bloc!),
+                              label: Text(LeapLocalizations.of(context).create),
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.floppyDisk,
+                              ),
+                            )
                     : Card(
                         child: Padding(
                           padding: const EdgeInsets.all(8),
@@ -248,15 +250,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.selectionInverse,
                                     ),
-                                    tooltip: AppLocalizations.of(context)
-                                        .invertSelection,
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).invertSelection,
                                     onPressed: () {
                                       setState(() {
                                         final inverted = templates
                                             .map((e) => e.name!)
                                             .toSet()
                                             .difference(
-                                                _selectedTemplates.toSet());
+                                              _selectedTemplates.toSet(),
+                                            );
                                         _selectedTemplates.clear();
                                         _selectedTemplates.addAll(inverted);
                                       });
@@ -270,14 +274,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     ),
                                     tooltip: everythingSelected
                                         ? AppLocalizations.of(context).deselect
-                                        : AppLocalizations.of(context)
-                                            .selectAll,
+                                        : AppLocalizations.of(
+                                            context,
+                                          ).selectAll,
                                     onPressed: () {
                                       setState(() {
                                         _selectedTemplates.clear();
                                         if (!everythingSelected) {
                                           _selectedTemplates.addAll(
-                                              templates.map((e) => e.name!));
+                                            templates.map((e) => e.name!),
+                                          );
                                         }
                                       });
                                     },
@@ -291,28 +297,35 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.wrench,
                                       ),
-                                      tooltip: AppLocalizations.of(context)
-                                          .overrideTools,
-                                      onPressed: () => _overrideTools(
-                                        _templateSystem,
-                                        widget.bloc!,
-                                        templates
-                                            .where(
-                                              (element) => _selectedTemplates
-                                                  .contains(element.name),
-                                            )
-                                            .toList(),
-                                      ).then(
-                                        (value) => setState(
-                                          () => _selectedTemplates.clear(),
-                                        ),
-                                      ),
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).overrideTools,
+                                      onPressed: () =>
+                                          _overrideTools(
+                                            _templateSystem,
+                                            widget.bloc!,
+                                            templates
+                                                .where(
+                                                  (element) =>
+                                                      _selectedTemplates
+                                                          .contains(
+                                                            element.name,
+                                                          ),
+                                                )
+                                                .toList(),
+                                          ).then(
+                                            (value) => setState(
+                                              () => _selectedTemplates.clear(),
+                                            ),
+                                          ),
                                     ),
                                   IconButton(
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.trash),
-                                    tooltip:
-                                        AppLocalizations.of(context).delete,
+                                      PhosphorIconsLight.trash,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).delete,
                                     onPressed: () async {
                                       final result = await showDialog<bool>(
                                         context: context,
@@ -321,8 +334,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       if (result != true) return;
                                       for (final template
                                           in _selectedTemplates) {
-                                        await _templateSystem
-                                            .deleteFile(template);
+                                        await _templateSystem.deleteFile(
+                                          template,
+                                        );
                                       }
                                       _selectedTemplates.clear();
                                       load();

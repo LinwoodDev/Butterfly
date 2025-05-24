@@ -40,7 +40,8 @@ class PenInputSettings extends StatelessWidget {
                               AppLocalizations.of(context).penOnlyInput,
                             ),
                             secondary: const PhosphorIcon(
-                                PhosphorIconsLight.pencilSimpleLine),
+                              PhosphorIconsLight.pencilSimpleLine,
+                            ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changePenOnlyInput(value),
@@ -85,9 +86,7 @@ class PenInputSettings extends StatelessWidget {
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  pen: value,
-                                ),
+                                config.copyWith(pen: value),
                               );
                             },
                           ),
@@ -96,15 +95,14 @@ class PenInputSettings extends StatelessWidget {
                             currentValue: config.invertedPen,
                             defaultValue: InputMappingDefault.invertedPen,
                             icon: Transform.flip(
-                                flipX: true,
-                                flipY: true,
-                                child: PhosphorIcon(PhosphorIconsLight.pen)),
+                              flipX: true,
+                              flipY: true,
+                              child: PhosphorIcon(PhosphorIconsLight.pen),
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  invertedPen: value,
-                                ),
+                                config.copyWith(invertedPen: value),
                               );
                             },
                           ),
@@ -113,13 +111,12 @@ class PenInputSettings extends StatelessWidget {
                             currentValue: config.firstPenButton,
                             defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleOne),
+                              PhosphorIconsLight.numberCircleOne,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  firstPenButton: value,
-                                ),
+                                config.copyWith(firstPenButton: value),
                               );
                             },
                           ),
@@ -128,13 +125,12 @@ class PenInputSettings extends StatelessWidget {
                             currentValue: config.secondPenButton,
                             defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleTwo),
+                              PhosphorIconsLight.numberCircleTwo,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  secondPenButton: value,
-                                ),
+                                config.copyWith(secondPenButton: value),
                               );
                             },
                           ),

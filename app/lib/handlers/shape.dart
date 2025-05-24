@@ -5,7 +5,10 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
   @override
   List<PadElement> transformElements(
-      Rect rect, String collection, CurrentIndexCubit cubit) {
+    Rect rect,
+    String collection,
+    CurrentIndexCubit cubit,
+  ) {
     if (rect.top == 0 &&
         rect.left == 0 &&
         rect.right == 0 &&
@@ -18,7 +21,8 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
         firstPosition: rect.topLeft.toPoint(),
         secondPosition: rect.bottomRight.toPoint(),
         property: data.property.copyWith(
-          strokeWidth: data.property.strokeWidth /
+          strokeWidth:
+              data.property.strokeWidth /
               (data.zoomDependent ? cubit.state.cameraViewport.scale : 1),
         ),
         collection: collection,

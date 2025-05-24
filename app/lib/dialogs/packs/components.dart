@@ -156,28 +156,29 @@ class _SelectComponentDialogState extends State<SelectComponentDialog> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
-        title: Text(AppLocalizations.of(context).selectComponent),
-        content: FutureBuilder<List<(String, ButterflyComponent)>>(
-          future: _componentsFuture,
-          builder: (context, snapshot) {
-            final allComponents =
-                snapshot.data ?? <(String, ButterflyComponent)>[];
-            return ListView(
-              shrinkWrap: true,
-              children: allComponents
-                  .map(
-                    (e) => ComponentCard(
-                      component: e.$2,
-                      name: e.$1,
-                      selected: false,
-                      onTap: () {
-                        Navigator.of(context).pop(e.$2);
-                      },
-                    ),
-                  )
-                  .toList(),
-            );
-          },
-        ));
+      title: Text(AppLocalizations.of(context).selectComponent),
+      content: FutureBuilder<List<(String, ButterflyComponent)>>(
+        future: _componentsFuture,
+        builder: (context, snapshot) {
+          final allComponents =
+              snapshot.data ?? <(String, ButterflyComponent)>[];
+          return ListView(
+            shrinkWrap: true,
+            children: allComponents
+                .map(
+                  (e) => ComponentCard(
+                    component: e.$2,
+                    name: e.$1,
+                    selected: false,
+                    onTap: () {
+                      Navigator.of(context).pop(e.$2);
+                    },
+                  ),
+                )
+                .toList(),
+          );
+        },
+      ),
+    );
   }
 }

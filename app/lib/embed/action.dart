@@ -1,4 +1,5 @@
-import 'action_stub.dart' if (dart.library.js_interop) 'action_web.dart'
+import 'action_stub.dart'
+    if (dart.library.js_interop) 'action_web.dart'
     as embed;
 
 typedef EmbedMessageHandler = void Function(Object? message);

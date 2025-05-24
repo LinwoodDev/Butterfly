@@ -54,9 +54,8 @@ class _TextsStyleViewState extends State<TextsStyleView> {
 
   @override
   Widget build(BuildContext context) {
-    final translations = DocumentDefaults.getSpanTranslations(
-      context,
-    ).entries.where(
+    final translations = DocumentDefaults.getSpanTranslations(context).entries
+        .where(
           (element) => !widget.value.spanProperties.containsKey(element.key),
         );
     return Column(
@@ -157,8 +156,8 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                     widget.value.copyWith(
                       spanProperties:
                           Map<String, text.DefinedSpanProperty>.from(
-                        widget.value.spanProperties,
-                      )
+                              widget.value.spanProperties,
+                            )
                             ..remove(lastStyle)
                             ..[name] = widget.value.spanProperties[lastStyle]!,
                     ),
@@ -181,8 +180,8 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                       widget.value.copyWith(
                         spanProperties:
                             Map<String, text.DefinedSpanProperty>.from(
-                          widget.value.spanProperties,
-                        )..remove(lastStyle),
+                              widget.value.spanProperties,
+                            )..remove(lastStyle),
                       ),
                     );
                   }

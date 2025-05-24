@@ -42,17 +42,17 @@ class _ConstraintsViewState extends State<ConstraintsView> {
   Widget build(BuildContext context) {
     Widget? content = switch (constraints) {
       ScaledElementConstraints e => _ScaledConstraintsContent(
-          constraints: e,
-          onChanged: _onChanged,
-        ),
+        constraints: e,
+        onChanged: _onChanged,
+      ),
       FixedElementConstraints e => _FixedConstraintsContent(
-          constraints: e,
-          onChanged: _onChanged,
-        ),
+        constraints: e,
+        onChanged: _onChanged,
+      ),
       DynamicElementConstraints e => _DynamicConstraintsContent(
-          constraints: e,
-          onChanged: _onChanged,
-        ),
+        constraints: e,
+        onChanged: _onChanged,
+      ),
       _ => null,
     };
     final all = Map.fromEntries(
@@ -77,12 +77,7 @@ class _ConstraintsViewState extends State<ConstraintsView> {
                 leading: const PhosphorIcon(PhosphorIconsLight.selection),
                 trailing: DropdownMenu<String>(
                   dropdownMenuEntries: all.entries
-                      .map(
-                        (e) => DropdownMenuEntry(
-                          value: e.key,
-                          label: e.key,
-                        ),
-                      )
+                      .map((e) => DropdownMenuEntry(value: e.key, label: e.key))
                       .toList(),
                   initialSelection: constraints.getLocalizedName(context),
                   onSelected: (value) {

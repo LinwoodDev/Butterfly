@@ -47,9 +47,7 @@ class PalettesPackView extends StatelessWidget {
                           );
                         },
                         trailing: IconButton(
-                          icon: const PhosphorIcon(
-                            PhosphorIconsLight.trash,
-                          ),
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
                           onPressed: () async {
                             onChanged(value.removePalette(e));
                           },

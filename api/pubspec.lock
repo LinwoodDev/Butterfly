@@ -631,10 +631,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: ddfa8d30d89985b96407efce8acbdd124701f96741f2d981ca860662f1c0dc02
+      sha256: "6f82e9ee8e7339f5d8b699317f6f3afc17c80a68ebef1bc0d6f52a678c14b1e6"
       url: "https://pub.dev"
     source: hosted
-    version: "15.0.0"
+    version: "15.0.1"
   watcher:
     dependency: transitive
     description:

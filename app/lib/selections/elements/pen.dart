@@ -9,14 +9,12 @@ class PenElementSelection extends ElementSelection<PenElement> {
   List<Widget> buildProperties(BuildContext context) {
     final element = selected.first.element;
     void updateProperty(PenProperty property) => updateElements(
-        context, elements.map((e) => e.copyWith(property: property)).toList());
+      context,
+      elements.map((e) => e.copyWith(property: property)).toList(),
+    );
     return [
       ...super.buildProperties(context),
-      ..._propertySelection.build(
-        context,
-        element.property,
-        updateProperty,
-      ),
+      ..._propertySelection.build(context, element.property, updateProperty),
     ];
   }
 

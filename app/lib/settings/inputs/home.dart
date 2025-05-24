@@ -165,15 +165,15 @@ class __PointerTestState extends State<_PointerTest> {
   Color? _pressed;
 
   _changeInputTest(Color? color) => (PointerEvent event) {
-        setState(() {
-          _kind = event.kind;
-          _buttons = event.buttons;
-          _pressure = event.pressure;
-          _pressureMin = event.pressureMin;
-          _pressureMax = event.pressureMax;
-          _pressed = color;
-        });
-      };
+    setState(() {
+      _kind = event.kind;
+      _buttons = event.buttons;
+      _pressure = event.pressure;
+      _pressureMin = event.pressureMin;
+      _pressureMax = event.pressureMax;
+      _pressed = color;
+    });
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -195,15 +195,9 @@ class __PointerTestState extends State<_PointerTest> {
             onPointerDown: _changeInputTest(Colors.green),
             onPointerUp: _changeInputTest(null),
             onPointerCancel: _changeInputTest(Colors.red),
-            onPointerPanZoomStart: _changeInputTest(
-              Colors.purple,
-            ),
-            onPointerPanZoomUpdate: _changeInputTest(
-              Colors.purple[700],
-            ),
-            onPointerPanZoomEnd: _changeInputTest(
-              Colors.purple[900],
-            ),
+            onPointerPanZoomStart: _changeInputTest(Colors.purple),
+            onPointerPanZoomUpdate: _changeInputTest(Colors.purple[700]),
+            onPointerPanZoomEnd: _changeInputTest(Colors.purple[900]),
             child: Material(color: _pressed),
           ),
         ),
@@ -214,22 +208,22 @@ class __PointerTestState extends State<_PointerTest> {
             PointerDeviceKind.touch => AppLocalizations.of(context).touch,
             PointerDeviceKind.mouse => AppLocalizations.of(context).mouse,
             PointerDeviceKind.stylus => AppLocalizations.of(context).pen,
-            PointerDeviceKind.invertedStylus =>
-              AppLocalizations.of(context).invert,
+            PointerDeviceKind.invertedStylus => AppLocalizations.of(
+              context,
+            ).invert,
             PointerDeviceKind.unknown => AppLocalizations.of(context).error,
             _ => AppLocalizations.of(context).none,
           }),
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).input),
-          subtitle: Text(
-            '$_buttons (${_buttons.toRadixString(2)})',
-          ),
+          subtitle: Text('$_buttons (${_buttons.toRadixString(2)})'),
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).pressure),
           subtitle: Text(
-              '${_pressure ?? '?'} (${_pressureMin ?? '?'} - ${_pressureMax ?? '?'})'),
+            '${_pressure ?? '?'} (${_pressureMin ?? '?'} - ${_pressureMax ?? '?'})',
+          ),
         ),
       ],
     );

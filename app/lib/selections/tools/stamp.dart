@@ -10,8 +10,9 @@ class StampToolSelection extends ToolSelection<StampTool> {
     if (state is! DocumentLoadSuccess) return [];
     final value = selected.first.component;
     void updateComponent(NamedItem<ButterflyComponent>? component) => update(
-        context,
-        selected.map((e) => e.copyWith(component: component)).toList());
+      context,
+      selected.map((e) => e.copyWith(component: component)).toList(),
+    );
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),

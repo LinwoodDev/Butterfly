@@ -8,28 +8,30 @@ class SpacerHandler extends Handler<SpacerTool> {
   SpacerHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        if (_startPosition != null)
-          SpacerRenderer(
-            _startPosition!,
-            _spacing,
-            data.axis,
-          ),
-        ...?_renderers?.map((e) =>
-            e.transform(
-              position: (data.axis == Axis2D.horizontal
-                  ? Offset(_spacing, 0)
-                  : Offset(0, _spacing)),
-            ) ??
-            e),
-      ];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [
+    if (_startPosition != null)
+      SpacerRenderer(_startPosition!, _spacing, data.axis),
+    ...?_renderers?.map(
+      (e) =>
+          e.transform(
+            position: (data.axis == Axis2D.horizontal
+                ? Offset(_spacing, 0)
+                : Offset(0, _spacing)),
+          ) ??
+          e,
+    ),
+  ];
 
   @override
   Map<String, RendererState> get rendererStates => Map.fromEntries(
-      _renderers?.map((e) => MapEntry(e.id, RendererState.hidden)) ?? []);
+    _renderers?.map((e) => MapEntry(e.id, RendererState.hidden)) ?? [],
+  );
 
   Rect? _lastRect;
 
@@ -38,9 +40,9 @@ class SpacerHandler extends Handler<SpacerTool> {
     if (rect == _lastRect) return;
     _lastRect = rect;
     final renderers = await context.getDocumentBloc().rayCastRect(
-          rect,
-          useCollection: true,
-        );
+      rect,
+      useCollection: true,
+    );
     if (rect != _lastRect) return;
     _renderers = renderers;
   }
@@ -71,28 +73,26 @@ class SpacerHandler extends Handler<SpacerTool> {
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     await _refreshRenderers(_startPosition!, context);
 
-    final elements = Map<String, List<PadElement>>.fromEntries(_renderers
-            ?.map(
-              (e) {
+    final elements = Map<String, List<PadElement>>.fromEntries(
+      _renderers
+              ?.map((e) {
                 final id = e.element.id;
                 if (id == null) return null;
-                return MapEntry(
-                  id,
-                  [
-                    e
-                            .transform(
-                                position: (data.axis == Axis2D.horizontal
-                                    ? Offset(_spacing, 0)
-                                    : Offset(0, _spacing)))
-                            ?.element ??
-                        e.element
-                  ],
-                );
-              },
-            )
-            .nonNulls
-            .toList() ??
-        []);
+                return MapEntry(id, [
+                  e
+                          .transform(
+                            position: (data.axis == Axis2D.horizontal
+                                ? Offset(_spacing, 0)
+                                : Offset(0, _spacing)),
+                          )
+                          ?.element ??
+                      e.element,
+                ]);
+              })
+              .nonNulls
+              .toList() ??
+          [],
+    );
     _startPosition = null;
     _spacing = 0.0;
     _renderers = null;
@@ -131,9 +131,16 @@ class SpacerRenderer extends Renderer {
   SpacerRenderer(this.startPosition, this.spacing, this.axis) : super(null);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final paint = Paint()
       ..color = colorScheme?.primary ?? Colors.black
       ..strokeWidth = 4 / transform.size

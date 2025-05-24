@@ -11,8 +11,10 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
       ConstraintsView(
         enableScaled: true,
         initialConstraints: element.constraints,
-        onChanged: (constraints) => updateElements(context,
-            elements.map((e) => e.copyWith(constraints: constraints)).toList()),
+        onChanged: (constraints) => updateElements(
+          context,
+          elements.map((e) => e.copyWith(constraints: constraints)).toList(),
+        ),
       ),
     ];
   }

@@ -139,19 +139,16 @@ class _AreasViewState extends State<AreasView> {
                         final areas = state.page.areas
                             .where(
                               (area) => area.name.toLowerCase().contains(
-                                    _searchController.text.toLowerCase(),
-                                  ),
+                                _searchController.text.toLowerCase(),
+                              ),
                             )
                             .toList();
                         return ReorderableListView.builder(
                           itemCount: areas.length,
                           onReorder: (oldIndex, newIndex) =>
                               context.read<DocumentBloc>().add(
-                                    AreaReordered(
-                                      areas[oldIndex].name,
-                                      newIndex,
-                                    ),
-                                  ),
+                                AreaReordered(areas[oldIndex].name, newIndex),
+                              ),
                           itemBuilder: (BuildContext context, int index) {
                             final area = areas[index];
                             final selected = current?.name == area.name;
@@ -173,9 +170,7 @@ class _AreasViewState extends State<AreasView> {
                                 },
                                 tooltip: selected
                                     ? AppLocalizations.of(context).exitArea
-                                    : AppLocalizations.of(
-                                        context,
-                                      ).enterArea,
+                                    : AppLocalizations.of(context).enterArea,
                               ),
                               onTap: () {
                                 final screen = context
@@ -184,9 +179,9 @@ class _AreasViewState extends State<AreasView> {
                                     .cameraViewport
                                     .toSize();
                                 context.read<TransformCubit>().teleportToArea(
-                                      area,
-                                      screen,
-                                    );
+                                  area,
+                                  screen,
+                                );
                                 if (current != null) {
                                   bloc.add(CurrentAreaChanged(area.name));
                                 } else {
@@ -195,11 +190,11 @@ class _AreasViewState extends State<AreasView> {
                               },
                               onSaved: (value) =>
                                   context.read<DocumentBloc>().add(
-                                        AreaChanged(
-                                          area.name,
-                                          area.copyWith(name: value),
-                                        ),
-                                      ),
+                                    AreaChanged(
+                                      area.name,
+                                      area.copyWith(name: value),
+                                    ),
+                                  ),
                               selected: current == null
                                   ? area.rect.overlaps(viewportRect)
                                   : current.name == area.name,
@@ -220,8 +215,7 @@ class _AreasViewState extends State<AreasView> {
                                       .nonNulls
                                       .toList(),
                                   pop: false,
-                                )(context)
-                                    .map(
+                                )(context).map(
                                   (e) =>
                                       buildMenuItem(context, e, false, false),
                                 ),
@@ -315,53 +309,53 @@ class _AreasViewState extends State<AreasView> {
                             ),
                             Wrap(
                               spacing: 8,
-                              children: [
-                                (
-                                  (-1, 0),
-                                  AppLocalizations.of(context).left,
-                                  PhosphorIcons.arrowLeft,
-                                ),
-                                (
-                                  (0, -1),
-                                  AppLocalizations.of(context).top,
-                                  PhosphorIcons.arrowUp,
-                                ),
-                                (
-                                  (0, 1),
-                                  AppLocalizations.of(context).bottom,
-                                  PhosphorIcons.arrowDown,
-                                ),
-                                (
-                                  (1, 0),
-                                  AppLocalizations.of(context).right,
-                                  PhosphorIcons.arrowRight,
-                                ),
-                              ]
-                                  .map(
-                                    (data) => IconButton.filledTonal(
-                                      icon: PhosphorIcon(
-                                        data.$3(PhosphorIconsStyle.light),
-                                      ),
-                                      tooltip: data.$2,
-                                      onPressed: enableButton(
-                                        data.$1.$1,
-                                        data.$1.$2,
-                                      )
-                                          ? () => move(
+                              children:
+                                  [
+                                        (
+                                          (-1, 0),
+                                          AppLocalizations.of(context).left,
+                                          PhosphorIcons.arrowLeft,
+                                        ),
+                                        (
+                                          (0, -1),
+                                          AppLocalizations.of(context).top,
+                                          PhosphorIcons.arrowUp,
+                                        ),
+                                        (
+                                          (0, 1),
+                                          AppLocalizations.of(context).bottom,
+                                          PhosphorIcons.arrowDown,
+                                        ),
+                                        (
+                                          (1, 0),
+                                          AppLocalizations.of(context).right,
+                                          PhosphorIcons.arrowRight,
+                                        ),
+                                      ]
+                                      .map(
+                                        (data) => IconButton.filledTonal(
+                                          icon: PhosphorIcon(
+                                            data.$3(PhosphorIconsStyle.light),
+                                          ),
+                                          tooltip: data.$2,
+                                          onPressed:
+                                              enableButton(
                                                 data.$1.$1,
                                                 data.$1.$2,
                                               )
-                                          : null,
-                                      selectedIcon: PhosphorIcon(
-                                        data.$3(PhosphorIconsStyle.light),
-                                      ),
-                                      isSelected: selectedButton(
-                                        data.$1.$1,
-                                        data.$1.$2,
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
+                                              ? () =>
+                                                    move(data.$1.$1, data.$1.$2)
+                                              : null,
+                                          selectedIcon: PhosphorIcon(
+                                            data.$3(PhosphorIconsStyle.light),
+                                          ),
+                                          isSelected: selectedButton(
+                                            data.$1.$1,
+                                            data.$1.$2,
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ],
                         ),

@@ -39,8 +39,9 @@ class TouchInputSettings extends StatelessWidget {
                             title: Text(
                               AppLocalizations.of(context).inputGestures,
                             ),
-                            secondary:
-                                const PhosphorIcon(PhosphorIconsLight.handTap),
+                            secondary: const PhosphorIcon(
+                              PhosphorIconsLight.handTap,
+                            ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeInputGestures(value),
@@ -94,13 +95,12 @@ class TouchInputSettings extends StatelessWidget {
                             currentValue: config.touch,
                             defaultValue: InputMappingDefault.touch,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.handPointing),
+                              PhosphorIconsLight.handPointing,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  touch: value,
-                                ),
+                                config.copyWith(touch: value),
                               );
                             },
                           ),

@@ -19,16 +19,14 @@ class SvgExportAction extends Action<SvgExportIntent> {
     final bloc = intent.context.read<DocumentBloc>();
     final transform = intent.context.read<TransformCubit>().state;
     showDialog<void>(
-        builder: (context) => BlocProvider.value(
-              value: bloc,
-              child: GeneralExportDialog(
-                preset: ExportTransformPreset.view,
-                options: getDefaultSvgExportOptions(
-                  context,
-                  transform: transform,
-                ),
-              ),
-            ),
-        context: intent.context);
+      builder: (context) => BlocProvider.value(
+        value: bloc,
+        child: GeneralExportDialog(
+          preset: ExportTransformPreset.view,
+          options: getDefaultSvgExportOptions(context, transform: transform),
+        ),
+      ),
+      context: intent.context,
+    );
   }
 }

@@ -55,33 +55,32 @@ class ConnectionsSettingsPage extends StatelessWidget {
       floatingActionButton: kIsWeb
           ? null
           : FloatingActionButton.extended(
-              onPressed: () => showLeapBottomSheet<ExternalStorage>(
-                context: context,
-                titleBuilder: (context) =>
-                    Text(AppLocalizations.of(context).addConnection),
-                childrenBuilder: (context) => getSupportedStorages()
-                    .whereNot(
-                      (e) => e is LocalStorage && Platform.isAndroid,
-                    )
-                    .map(
-                      (e) => ListTile(
-                        title: Text(
-                          e.getLocalizedTypeName(context),
-                        ),
-                        leading: PhosphorIcon(
-                          e.typeIcon(PhosphorIconsStyle.light),
-                        ),
-                        onTap: () => Navigator.pop(context, e),
-                      ),
-                    )
-                    .toList(),
-              ).then((value) {
-                if (value == null) return;
-                showDialog<void>(
-                  context: context,
-                  builder: (context) => _AddRemoteDialog(storage: value),
-                );
-              }),
+              onPressed: () =>
+                  showLeapBottomSheet<ExternalStorage>(
+                    context: context,
+                    titleBuilder: (context) =>
+                        Text(AppLocalizations.of(context).addConnection),
+                    childrenBuilder: (context) => getSupportedStorages()
+                        .whereNot(
+                          (e) => e is LocalStorage && Platform.isAndroid,
+                        )
+                        .map(
+                          (e) => ListTile(
+                            title: Text(e.getLocalizedTypeName(context)),
+                            leading: PhosphorIcon(
+                              e.typeIcon(PhosphorIconsStyle.light),
+                            ),
+                            onTap: () => Navigator.pop(context, e),
+                          ),
+                        )
+                        .toList(),
+                  ).then((value) {
+                    if (value == null) return;
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => _AddRemoteDialog(storage: value),
+                    );
+                  }),
               label: Text(AppLocalizations.of(context).addConnection),
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
             ),
@@ -126,13 +125,9 @@ class ConnectionsSettingsPage extends StatelessWidget {
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote
                               ? const PhosphorIcon(PhosphorIconsFill.cloud)
-                              : const PhosphorIcon(
-                                  PhosphorIconsLight.cloud,
-                                ),
+                              : const PhosphorIcon(PhosphorIconsLight.cloud),
                           tooltip: remote.identifier == state.defaultRemote
-                              ? AppLocalizations.of(
-                                  context,
-                                ).defaultConnection
+                              ? AppLocalizations.of(context).defaultConnection
                               : AppLocalizations.of(
                                   context,
                                 ).notDefaultConnection,
@@ -246,9 +241,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(
-                MaterialLocalizations.of(context).cancelButtonLabel,
-              ),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             ),
           ],
         ),
@@ -309,9 +302,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         final image = await decodeImageFromList(response.bodyBytes);
         final imageBytes = (await image.toByteData(
           format: ImageByteFormat.png,
-        ))
-            ?.buffer
-            .asUint8List();
+        ))?.buffer.asUint8List();
         if (imageBytes?.isNotEmpty ?? false) {
           return imageBytes!;
         }
@@ -335,31 +326,31 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final icon = await _getIcon();
     final remoteStorage = switch (widget.storage) {
       DavRemoteStorage() => DavRemoteStorage(
-          name: _nameController.text,
-          username: _usernameController.text,
-          url: _urlController.text,
-          paths: {
-            '': _directoryController.text,
-            'documents': _documentsDirectoryController.text,
-            'templates': _templatesDirectoryController.text,
-            'packs': _packsDirectoryController.text,
-          },
-          certificateSha1: _certificateSha1,
-          icon: icon,
-          cachedDocuments: {
-            '': [if (_syncRootDirectory) '/'],
-          },
-        ),
+        name: _nameController.text,
+        username: _usernameController.text,
+        url: _urlController.text,
+        paths: {
+          '': _directoryController.text,
+          'documents': _documentsDirectoryController.text,
+          'templates': _templatesDirectoryController.text,
+          'packs': _packsDirectoryController.text,
+        },
+        certificateSha1: _certificateSha1,
+        icon: icon,
+        cachedDocuments: {
+          '': [if (_syncRootDirectory) '/'],
+        },
+      ),
       LocalStorage() => LocalStorage(
-          name: _nameController.text,
-          paths: {
-            '': _directoryController.text,
-            'documents': _documentsDirectoryController.text,
-            'templates': _templatesDirectoryController.text,
-            'packs': _packsDirectoryController.text,
-          },
-          icon: icon,
-        ),
+        name: _nameController.text,
+        paths: {
+          '': _directoryController.text,
+          'documents': _documentsDirectoryController.text,
+          'templates': _templatesDirectoryController.text,
+          'packs': _packsDirectoryController.text,
+        },
+        icon: icon,
+      ),
     };
     await settingsCubit.addRemote(
       remoteStorage,
@@ -372,9 +363,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     return showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(
-          AppLocalizations.of(context).errorWhileCreatingConnection,
-        ),
+        title: Text(AppLocalizations.of(context).errorWhileCreatingConnection),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -458,9 +447,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             tooltip: _showPassword
                                 ? AppLocalizations.of(context).hide
                                 : AppLocalizations.of(context).show,
-                            onPressed: () => setState(
-                              () => _showPassword = !_showPassword,
-                            ),
+                            onPressed: () =>
+                                setState(() => _showPassword = !_showPassword),
                           ),
                           icon: const PhosphorIcon(PhosphorIconsLight.lock),
                         ),
@@ -491,7 +479,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                           _packsDirectoryController,
                         ]),
                         builder: (context, _) {
-                          final shouldShowPicker = !_isRemote &&
+                          final shouldShowPicker =
+                              !_isRemote &&
                               (!Directory(
                                     _documentsDirectoryController.text,
                                   ).isAbsolute ||
@@ -527,18 +516,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               children: [
                                 Row(
                                   children: [
-                                    const PhosphorIcon(
-                                      PhosphorIconsLight.info,
-                                    ),
+                                    const PhosphorIcon(PhosphorIconsLight.info),
                                     const SizedBox(width: 8),
                                     Flexible(
                                       child: Text(
                                         AppLocalizations.of(
                                           context,
                                         ).information,
-                                        style: TextTheme.of(
-                                          context,
-                                        ).bodyMedium,
+                                        style: TextTheme.of(context).bodyMedium,
                                       ),
                                     ),
                                   ],
@@ -588,7 +573,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                                 await getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
-                                                  .text = result;
+                                                      .text =
+                                                  result;
                                             }
                                           }
                                         : null,
@@ -608,7 +594,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                                 await getDirectoryPath();
                                             if (result != null) {
                                               _templatesDirectoryController
-                                                  .text = result;
+                                                      .text =
+                                                  result;
                                             }
                                           }
                                         : null,
@@ -628,7 +615,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                                 await getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
-                                                  .text = result;
+                                                      .text =
+                                                  result;
                                             }
                                           }
                                         : null,
@@ -672,11 +660,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         _packsDirectoryController,
                       ]),
                       builder: (context, _) => ElevatedButton(
-                        onPressed: _nameController.text.isEmpty &&
+                        onPressed:
+                            _nameController.text.isEmpty &&
                                     _directoryController.text.isEmpty ||
                                 _documentsDirectoryController.text.isEmpty &&
                                     _templatesDirectoryController
-                                        .text.isEmpty &&
+                                        .text
+                                        .isEmpty &&
                                     _packsDirectoryController.text.isEmpty
                             ? null
                             : _create,

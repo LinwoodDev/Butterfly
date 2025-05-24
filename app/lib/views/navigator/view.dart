@@ -25,31 +25,31 @@ enum NavigatorPage {
   files;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
-        NavigatorPage.areas => AppLocalizations.of(context).areas,
-        NavigatorPage.layers => AppLocalizations.of(context).layers,
-        NavigatorPage.pages => AppLocalizations.of(context).pages,
-        NavigatorPage.files => AppLocalizations.of(context).files,
-        NavigatorPage.components => AppLocalizations.of(context).components,
-      };
+    NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
+    NavigatorPage.areas => AppLocalizations.of(context).areas,
+    NavigatorPage.layers => AppLocalizations.of(context).layers,
+    NavigatorPage.pages => AppLocalizations.of(context).pages,
+    NavigatorPage.files => AppLocalizations.of(context).files,
+    NavigatorPage.components => AppLocalizations.of(context).components,
+  };
 
   (List<String>, String?) getHelp() => switch (this) {
-        NavigatorPage.waypoints => (['waypoints'], null),
-        NavigatorPage.areas => (['areas'], null),
-        NavigatorPage.layers => (['layers'], null),
-        NavigatorPage.pages => (['pages'], null),
-        NavigatorPage.files => (['storage'], null),
-        NavigatorPage.components => (['pack'], 'components'),
-      };
+    NavigatorPage.waypoints => (['waypoints'], null),
+    NavigatorPage.areas => (['areas'], null),
+    NavigatorPage.layers => (['layers'], null),
+    NavigatorPage.pages => (['pages'], null),
+    NavigatorPage.files => (['storage'], null),
+    NavigatorPage.components => (['pack'], 'components'),
+  };
 
   IconGetter get icon => switch (this) {
-        NavigatorPage.waypoints => PhosphorIcons.mapPin,
-        NavigatorPage.areas => PhosphorIcons.monitor,
-        NavigatorPage.layers => PhosphorIcons.stack,
-        NavigatorPage.pages => PhosphorIcons.book,
-        NavigatorPage.files => PhosphorIcons.file,
-        NavigatorPage.components => PhosphorIcons.cube,
-      };
+    NavigatorPage.waypoints => PhosphorIcons.mapPin,
+    NavigatorPage.areas => PhosphorIcons.monitor,
+    NavigatorPage.layers => PhosphorIcons.stack,
+    NavigatorPage.pages => PhosphorIcons.book,
+    NavigatorPage.files => PhosphorIcons.file,
+    NavigatorPage.components => PhosphorIcons.cube,
+  };
 }
 
 class NavigatorView extends StatefulWidget {
@@ -92,84 +92,91 @@ class _NavigatorViewState extends State<NavigatorView>
           previous.navigatorPosition != current.navigatorPosition,
       builder: (context, settings) =>
           BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-        buildWhen: (previous, current) =>
-            previous.navigatorEnabled != current.navigatorEnabled ||
-            previous.navigatorPage != current.navigatorPage,
-        builder: (context, currentIndex) {
-          final selected =
-              NavigatorPage.values.indexOf(currentIndex.navigatorPage);
-          if (currentIndex.navigatorEnabled) {
-            _animationController.forward();
-          } else {
-            _animationController.reverse();
-          }
-          return Row(
-            textDirection: settings.navigatorPosition == NavigatorPosition.left
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            mainAxisAlignment:
-                settings.navigatorPosition == NavigatorPosition.left
+            buildWhen: (previous, current) =>
+                previous.navigatorEnabled != current.navigatorEnabled ||
+                previous.navigatorPage != current.navigatorPage,
+            builder: (context, currentIndex) {
+              final selected = NavigatorPage.values.indexOf(
+                currentIndex.navigatorPage,
+              );
+              if (currentIndex.navigatorEnabled) {
+                _animationController.forward();
+              } else {
+                _animationController.reverse();
+              }
+              return Row(
+                textDirection:
+                    settings.navigatorPosition == NavigatorPosition.left
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
+                mainAxisAlignment:
+                    settings.navigatorPosition == NavigatorPosition.left
                     ? MainAxisAlignment.start
                     : MainAxisAlignment.end,
-            children: [
-              SizeTransition(
-                sizeFactor: _animation,
-                axis: Axis.horizontal,
-                axisAlignment: 1,
-                child: AnimatedBuilder(
-                    animation: _animation,
-                    child: SizedBox(
-                      width: drawerWidth,
-                      child: Card(
-                        child: DocumentNavigator(asDialog: false),
+                children: [
+                  SizeTransition(
+                    sizeFactor: _animation,
+                    axis: Axis.horizontal,
+                    axisAlignment: 1,
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      child: SizedBox(
+                        width: drawerWidth,
+                        child: Card(child: DocumentNavigator(asDialog: false)),
                       ),
+                      builder: (context, child) {
+                        if (_animation.value == 0) {
+                          return const SizedBox();
+                        }
+                        return child!;
+                      },
                     ),
-                    builder: (context, child) {
-                      if (_animation.value == 0) {
-                        return const SizedBox();
-                      }
-                      return child!;
-                    }),
-              ),
-              LayoutBuilder(
-                builder: (context, constraint) => SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        minWidth: kNavigationRailWidth,
-                        destinations: NavigatorPage.values
-                            .map(
-                              (e) => NavigationRailDestination(
-                                icon: PhosphorIcon(
-                                    e.icon(PhosphorIconsStyle.light)),
-                                label: Text(e.getLocalizedName(context)),
-                              ),
-                            )
-                            .toList(),
-                        selectedIndex:
-                            currentIndex.navigatorEnabled ? selected : null,
-                        groupAlignment: 0,
-                        onDestinationSelected: (index) {
-                          final cubit = context.read<CurrentIndexCubit>();
-                          if (selected == index) {
-                            cubit.setNavigatorEnabled(
-                                !currentIndex.navigatorEnabled);
-                            return;
-                          }
-                          cubit.setNavigatorPage(NavigatorPage.values[index]);
-                          cubit.setNavigatorEnabled(true);
-                        },
+                  ),
+                  LayoutBuilder(
+                    builder: (context, constraint) => SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constraint.maxHeight,
+                        ),
+                        child: IntrinsicHeight(
+                          child: NavigationRail(
+                            minWidth: kNavigationRailWidth,
+                            destinations: NavigatorPage.values
+                                .map(
+                                  (e) => NavigationRailDestination(
+                                    icon: PhosphorIcon(
+                                      e.icon(PhosphorIconsStyle.light),
+                                    ),
+                                    label: Text(e.getLocalizedName(context)),
+                                  ),
+                                )
+                                .toList(),
+                            selectedIndex: currentIndex.navigatorEnabled
+                                ? selected
+                                : null,
+                            groupAlignment: 0,
+                            onDestinationSelected: (index) {
+                              final cubit = context.read<CurrentIndexCubit>();
+                              if (selected == index) {
+                                cubit.setNavigatorEnabled(
+                                  !currentIndex.navigatorEnabled,
+                                );
+                                return;
+                              }
+                              cubit.setNavigatorPage(
+                                NavigatorPage.values[index],
+                              );
+                              cubit.setNavigatorEnabled(true);
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                ],
+              );
+            },
+          ),
     );
   }
 }
@@ -177,10 +184,7 @@ class _NavigatorViewState extends State<NavigatorView>
 class DocumentNavigator extends StatefulWidget {
   final bool asDialog;
 
-  const DocumentNavigator({
-    super.key,
-    this.asDialog = false,
-  });
+  const DocumentNavigator({super.key, this.asDialog = false});
 
   @override
   State<DocumentNavigator> createState() => _DocumentNavigatorState();
@@ -212,17 +216,16 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                 ? IconButton.outlined(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
-                    tooltip:
-                        MaterialLocalizations.of(context).closeButtonTooltip,
+                    tooltip: MaterialLocalizations.of(
+                      context,
+                    ).closeButtonTooltip,
                   )
                 : null,
             automaticallyImplyLeading: false,
             title: Text(page.getLocalizedName(context)),
             actions: [
               IconButton(
-                icon: const PhosphorIcon(
-                  PhosphorIconsLight.sealQuestion,
-                ),
+                icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
                 onPressed: () {
                   final help = page.getHelp();
                   openHelp(help.$1, help.$2);

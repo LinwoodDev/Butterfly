@@ -20,15 +20,23 @@ class LabelCursor extends Renderer<LabelCursorData> {
   LabelCursor(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     const icon = PhosphorIconsLight.cursorText;
     final property = switch (element.context) {
       TextContext e => e.getDefinedProperty(document),
       _ => const text.DefinedParagraphProperty(),
     };
-    final iconSize = property.span.getSize() *
+    final iconSize =
+        property.span.getSize() *
         (element.context?.labelElement?.scale ??
             (element.tool.scale *
                 (element.tool.zoomDependent ? 1 / transform.size : 1)));
@@ -43,8 +51,9 @@ class LabelCursor extends Renderer<LabelCursorData> {
           package: icon.fontPackage,
           fontSize: iconSize,
           color: iconColor.toColor(),
-          fontStyle:
-              property.span.getItalic() ? FontStyle.italic : FontStyle.normal,
+          fontStyle: property.span.getItalic()
+              ? FontStyle.italic
+              : FontStyle.normal,
         ),
       ),
       textAlign: TextAlign.center,
@@ -62,9 +71,16 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
   LabelSelectionCursor(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line
     final selection = element.selection;
@@ -73,19 +89,20 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
     final boxes = element.textPainter.getBoxesForSelection(selection);
     for (final box in boxes) {
       final rect = box.toRect().translate(
-            labelElement.position.x,
-            labelElement.position.y,
-          );
-      canvas.drawRect(
-        rect,
-        Paint()..color = color.withValues(alpha: 0.5),
+        labelElement.position.x,
+        labelElement.position.y,
       );
+      canvas.drawRect(rect, Paint()..color = color.withValues(alpha: 0.5));
     }
     // Paint cursor
-    final cursorBox =
-        element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
-    final height =
-        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero);
+    final cursorBox = element.textPainter.getOffsetForCaret(
+      selection.base,
+      Rect.zero,
+    );
+    final height = element.textPainter.getFullHeightForCaret(
+      selection.base,
+      Rect.zero,
+    );
     canvas.drawRect(
       Rect.fromLTWH(
         labelElement.position.x + cursorBox.dx - 1 / transform.size,

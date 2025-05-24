@@ -31,14 +31,15 @@ class DocumentDefaults {
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Tool> createTools([SRGBColor? background]) => [
-        SelectTool(mode: SelectMode.lasso),
-        PenTool(),
-        PathEraserTool(),
-        UndoTool(),
-        RedoTool(),
-        HandTool(),
-      ]
+  static List<Tool> createTools([SRGBColor? background]) =>
+      [
+            SelectTool(mode: SelectMode.lasso),
+            PenTool(),
+            PathEraserTool(),
+            UndoTool(),
+            RedoTool(),
+            HandTool(),
+          ]
           .map(
             (e) =>
                 background == null ? e : updateToolDefaultColor(e, background),
@@ -77,29 +78,29 @@ class DocumentDefaults {
   }
 
   static Map<String, String> getParagraphTranslations(BuildContext context) => {
-        'h1': AppLocalizations.of(context).headline(1),
-        'h2': AppLocalizations.of(context).headline(2),
-        'h3': AppLocalizations.of(context).headline(3),
-        'h4': AppLocalizations.of(context).headline(4),
-        'h5': AppLocalizations.of(context).headline(5),
-        'h6': AppLocalizations.of(context).headline(6),
-        'p': AppLocalizations.of(context).paragraph,
-        'blockquote': AppLocalizations.of(context).quote,
-      };
+    'h1': AppLocalizations.of(context).headline(1),
+    'h2': AppLocalizations.of(context).headline(2),
+    'h3': AppLocalizations.of(context).headline(3),
+    'h4': AppLocalizations.of(context).headline(4),
+    'h5': AppLocalizations.of(context).headline(5),
+    'h6': AppLocalizations.of(context).headline(6),
+    'p': AppLocalizations.of(context).paragraph,
+    'blockquote': AppLocalizations.of(context).quote,
+  };
 
   static String translateParagraph(String key, BuildContext context) =>
       translate(key, getParagraphTranslations(context));
 
   static Map<String, String> getSpanTranslations(BuildContext context) => {
-        'a': AppLocalizations.of(context).link,
-        'checkbox': AppLocalizations.of(context).checkbox,
-        'del': AppLocalizations.of(context).deleted,
-        'em': AppLocalizations.of(context).emphasis,
-        'img': AppLocalizations.of(context).image,
-        'listBullet': AppLocalizations.of(context).listBullet,
-        'strong': AppLocalizations.of(context).strong,
-        'code': AppLocalizations.of(context).code,
-      };
+    'a': AppLocalizations.of(context).link,
+    'checkbox': AppLocalizations.of(context).checkbox,
+    'del': AppLocalizations.of(context).deleted,
+    'em': AppLocalizations.of(context).emphasis,
+    'img': AppLocalizations.of(context).image,
+    'listBullet': AppLocalizations.of(context).listBullet,
+    'strong': AppLocalizations.of(context).strong,
+    'code': AppLocalizations.of(context).code,
+  };
 
   static String translateBlock(String key, BuildContext context) =>
       translate(key, getSpanTranslations(context));
@@ -149,12 +150,11 @@ class DocumentDefaults {
   static createMetadata({
     NoteFileType type = NoteFileType.document,
     String name = '',
-  }) =>
-      FileMetadata(
-        name: name,
-        createdAt: DateTime.now().toUtc(),
-        type: type,
-        fileVersion: kFileVersion,
-        updatedAt: DateTime.now().toUtc(),
-      );
+  }) => FileMetadata(
+    name: name,
+    createdAt: DateTime.now().toUtc(),
+    type: type,
+    fileVersion: kFileVersion,
+    updatedAt: DateTime.now().toUtc(),
+  );
 }

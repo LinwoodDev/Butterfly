@@ -102,8 +102,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 2),
                                   Text(
                                     modifiedText!,
-                                    style: TextTheme.of(context)
-                                        .bodySmall
+                                    style: TextTheme.of(context).bodySmall
                                         ?.copyWith(color: colorScheme.outline),
                                   ),
                                 ],
@@ -123,8 +122,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 2),
                                   Text(
                                     createdText!,
-                                    style: TextTheme.of(context)
-                                        .bodySmall
+                                    style: TextTheme.of(context).bodySmall
                                         ?.copyWith(color: colorScheme.outline),
                                   ),
                                 ],
@@ -145,9 +143,7 @@ class FileEntityListTile extends StatelessWidget {
                                   ? AspectRatio(
                                       aspectRatio: kThumbnailRatio,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          8,
-                                        ),
+                                        borderRadius: BorderRadius.circular(8),
                                         child: Image.memory(
                                           thumbnail!,
                                           fit: BoxFit.cover,
@@ -249,8 +245,9 @@ class FileEntityListTile extends StatelessWidget {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.pencil,
                                     ),
-                                    tooltip:
-                                        AppLocalizations.of(context).rename,
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).rename,
                                   ),
                                 ],
                               );
@@ -266,10 +263,8 @@ class FileEntityListTile extends StatelessWidget {
                                 builder: (context, snapshot) {
                                   final currentStatus = snapshot.data
                                       ?.lastWhereOrNull(
-                                        (element) =>
-                                            entity.location.path.startsWith(
-                                          element.location.path,
-                                        ),
+                                        (element) => entity.location.path
+                                            .startsWith(element.location.path),
                                       )
                                       ?.status;
                                   return IconButton(
@@ -315,15 +310,17 @@ class FileEntityListTile extends StatelessWidget {
                               },
                             ),
                             IconButton(
-                              onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => FileSystemAssetMoveDialog(
-                                  assets: [entity.location],
-                                  fileSystem: documentSystem,
-                                ),
-                              ).then((value) {
-                                if (value != null) onReload();
-                              }),
+                              onPressed: () =>
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        FileSystemAssetMoveDialog(
+                                          assets: [entity.location],
+                                          fileSystem: documentSystem,
+                                        ),
+                                  ).then((value) {
+                                    if (value != null) onReload();
+                                  }),
                               tooltip: AppLocalizations.of(context).move,
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.arrowsDownUp,

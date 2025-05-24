@@ -49,7 +49,11 @@ mixin GeneralPresentationHandler {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     _applyAnimation(
-        animation, bloc, state.currentIndexCubit, state.transformCubit);
+      animation,
+      bloc,
+      state.currentIndexCubit,
+      state.transformCubit,
+    );
 
     var frame = currentFrame;
     switch (_state) {
@@ -86,8 +90,12 @@ mixin GeneralPresentationHandler {
     _onStateChange(bloc);
   }
 
-  void _applyAnimation(AnimationTrack animation, DocumentBloc bloc,
-      CurrentIndexCubit cubit, TransformCubit transformCubit) {
+  void _applyAnimation(
+    AnimationTrack animation,
+    DocumentBloc bloc,
+    CurrentIndexCubit cubit,
+    TransformCubit transformCubit,
+  ) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     final position = animation.interpolateCameraPosition(currentFrame);
@@ -104,7 +112,11 @@ mixin GeneralPresentationHandler {
     final animation = getAnimation(bloc);
     if (animation == null) return;
     _applyAnimation(
-        animation, bloc, state.currentIndexCubit, state.transformCubit);
+      animation,
+      bloc,
+      state.currentIndexCubit,
+      state.transformCubit,
+    );
   }
 }
 
@@ -117,33 +129,33 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
 
   @override
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => PresentationToolbarView(
-        animation: _currentAnimation,
-        frame: _currentFrame,
-        onAnimationChanged: (animation) {
-          _currentAnimation = animation;
-          _refreshToolbar(bloc);
-          _applyAnimationFromBloc(bloc);
-        },
-        onFrameChanged: (frame) {
-          _currentFrame = frame;
-          _refreshToolbar(bloc);
-          _applyAnimationFromBloc(bloc);
-        },
-        runningState: _state,
-        onRunningStateChanged: (value) {
-          switch (value) {
-            case PresentationRunningState.running:
-              play(bloc);
-              break;
-            case PresentationRunningState.reversed:
-              playReverse(bloc);
-              break;
-            case PresentationRunningState.paused:
-              pause(bloc);
-              break;
-          }
-        },
-      );
+    animation: _currentAnimation,
+    frame: _currentFrame,
+    onAnimationChanged: (animation) {
+      _currentAnimation = animation;
+      _refreshToolbar(bloc);
+      _applyAnimationFromBloc(bloc);
+    },
+    onFrameChanged: (frame) {
+      _currentFrame = frame;
+      _refreshToolbar(bloc);
+      _applyAnimationFromBloc(bloc);
+    },
+    runningState: _state,
+    onRunningStateChanged: (value) {
+      switch (value) {
+        case PresentationRunningState.running:
+          play(bloc);
+          break;
+        case PresentationRunningState.reversed:
+          playReverse(bloc);
+          break;
+        case PresentationRunningState.paused:
+          pause(bloc);
+          break;
+      }
+    },
+  );
 
   @override
   void dispose(DocumentBloc bloc) {

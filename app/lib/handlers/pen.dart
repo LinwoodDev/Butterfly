@@ -23,16 +23,19 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   // Create foregrounds for rendering the PenRendere
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      elements.values
-          .map((e) {
-            if (e.points.length > 1) return PenRenderer(e);
-            return null;
-          })
-          .whereType<Renderer>()
-          .toList();
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => elements.values
+      .map((e) {
+        if (e.points.length > 1) return PenRenderer(e);
+        return null;
+      })
+      .whereType<Renderer>()
+      .toList();
 
   // Reset the input for the handler.
   @override
@@ -49,20 +52,28 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Cancel the timer when the pointer is lifted, preventing shape detection
     _positionCheckTimer?.cancel();
     _positionCheckTimer = null;
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, getPressureOfEvent(event), event.kind,
-        refresh: false);
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      getPressureOfEvent(event),
+      event.kind,
+      refresh: false,
+    );
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
   }
 
-// Flag to check if elements are being submitted.
+  // Flag to check if elements are being submitted.
   bool _currentlyBaking = false;
 
   // Submit elements for processing and rendering.
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
-    final elements =
-        indexes.map((e) => this.elements.remove(e)).nonNulls.toList();
+    final elements = indexes
+        .map((e) => this.elements.remove(e))
+        .nonNulls
+        .toList();
     if (elements.isEmpty) return;
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));
@@ -73,15 +84,26 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     bloc.refresh();
   }
 
-// Add a point to the element.
-  void addPoint(BuildContext context, int pointer, Offset localPos,
-      Size viewportSize, double pressure, PointerDeviceKind kind,
-      {bool refresh = true, bool shouldCreate = false}) {
+  // Add a point to the element.
+  void addPoint(
+    BuildContext context,
+    int pointer,
+    Offset localPos,
+    Size viewportSize,
+    double pressure,
+    PointerDeviceKind kind, {
+    bool refresh = true,
+    bool shouldCreate = false,
+  }) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final transform = context.read<TransformCubit>().state;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndexCubit.state, localPos, viewportSize, transform);
+      currentIndexCubit.state,
+      localPos,
+      viewportSize,
+      transform,
+    );
     final globalPos = transform.localToGlobal(localPos);
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
@@ -97,22 +119,29 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     double zoom = data.zoomDependent ? transform.size : 1;
     final createNew = !elements.containsKey(pointer);
     if (createNew && !shouldCreate) return;
-    final element = elements[pointer] ??
+    final element =
+        elements[pointer] ??
         PenElement(
           id: createUniqueId(),
           zoom: transform.size,
           collection: state.currentCollection,
-          property: data.property
-              .copyWith(strokeWidth: data.property.strokeWidth / zoom),
+          property: data.property.copyWith(
+            strokeWidth: data.property.strokeWidth / zoom,
+          ),
         );
     elements[pointer] = element.copyWith(
-        points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromPoint(
-              globalPos.toPoint(), (createNew ? 0.5 : pressure))));
+      points: List<PathPoint>.from(element.points)
+        ..add(
+          PathPoint.fromPoint(
+            globalPos.toPoint(),
+            (createNew ? 0.5 : pressure),
+          ),
+        ),
+    );
     if (refresh) bloc.refresh();
   }
 
-// This function is called when the pointer is pressed down.
+  // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
     isDrawing = true;
@@ -126,9 +155,15 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       return;
     }
     elements.remove(event.pointer);
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, getPressureOfEvent(event), event.kind,
-        shouldCreate: true);
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      getPressureOfEvent(event),
+      event.kind,
+      shouldCreate: true,
+    );
   }
 
   @override
@@ -142,12 +177,20 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _positionCheckTimer?.cancel();
     // Start a new timer that will call the shape detection after a delay by data.shapeDetectionTime
     _positionCheckTimer = Timer(
-        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()), () {
-      _tickShapeDetection(event.pointer, context, event.localPosition);
-    });
+      Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
+      () {
+        _tickShapeDetection(event.pointer, context, event.localPosition);
+      },
+    );
     // Call the addPoint function to add a point to the current brush stroke.
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        context.viewportSize, getPressureOfEvent(event), event.kind);
+    addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      context.viewportSize,
+      getPressureOfEvent(event),
+      event.kind,
+    );
     points.add(event.localPosition);
   }
 
@@ -157,10 +200,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       SnackBar(
         width: MediaQuery.of(context.buildContext).size.width * 0.1,
         behavior: SnackBarBehavior.floating,
-        content: Text(
-          textAlign: TextAlign.center,
-          recognizedShape,
-        ),
+        content: Text(textAlign: TextAlign.center, recognizedShape),
         duration: const Duration(milliseconds: 300),
       ),
     );
@@ -168,7 +208,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   // Detects shapes and draws them
   void _tickShapeDetection(
-      int pointer, EventContext context, Offset localPosition) {
+    int pointer,
+    EventContext context,
+    Offset localPosition,
+  ) {
     if (!data.shapeDetectionEnabled) return;
     final transform = context.getCameraTransform();
     // Create recognizeUnistroke
@@ -192,10 +235,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(endX, endY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView =
-            transform.localToGlobal(firstPosition.toOffset());
-        Offset secondPositionInView =
-            transform.localToGlobal(secondPosition.toOffset());
+        Offset firstPositionInView = transform.localToGlobal(
+          firstPosition.toOffset(),
+        );
+        Offset secondPositionInView = transform.localToGlobal(
+          secondPosition.toOffset(),
+        );
 
         // Create new shape element
         shapeElement = PadElement.shape(
@@ -203,9 +248,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
-              shape: const LineShape(),
-              color: data.property.color,
-              strokeWidth: data.property.strokeWidth),
+            shape: const LineShape(),
+            color: data.property.color,
+            strokeWidth: data.property.strokeWidth,
+          ),
           collection: currentCollection,
         );
 
@@ -222,18 +268,24 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         // Calculate the radius as the average of the distances of the points from the center
         double radius =
             points.map((p) => (p - center).distance).reduce((a, b) => a + b) /
-                points.length;
+            points.length;
 
-        Point<double> firstPosition =
-            Point<double>(center.dx - radius, center.dy - radius);
-        Point<double> secondPosition =
-            Point<double>(center.dx + radius, center.dy + radius);
+        Point<double> firstPosition = Point<double>(
+          center.dx - radius,
+          center.dy - radius,
+        );
+        Point<double> secondPosition = Point<double>(
+          center.dx + radius,
+          center.dy + radius,
+        );
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView =
-            transform.localToGlobal(firstPosition.toOffset());
-        Offset secondPositionInView =
-            transform.localToGlobal(secondPosition.toOffset());
+        Offset firstPositionInView = transform.localToGlobal(
+          firstPosition.toOffset(),
+        );
+        Offset secondPositionInView = transform.localToGlobal(
+          secondPosition.toOffset(),
+        );
 
         // Create new ShapeElement
         shapeElement = PadElement.shape(
@@ -241,9 +293,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
-              shape: const CircleShape(),
-              color: data.property.color,
-              strokeWidth: data.property.strokeWidth),
+            shape: const CircleShape(),
+            color: data.property.color,
+            strokeWidth: data.property.strokeWidth,
+          ),
           collection: currentCollection,
         );
 
@@ -259,10 +312,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(maxX, maxY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView =
-            transform.localToGlobal(firstPosition.toOffset());
-        Offset secondPositionInView =
-            transform.localToGlobal(secondPosition.toOffset());
+        Offset firstPositionInView = transform.localToGlobal(
+          firstPosition.toOffset(),
+        );
+        Offset secondPositionInView = transform.localToGlobal(
+          secondPosition.toOffset(),
+        );
 
         // Create new ShapeElement
         shapeElement = PadElement.shape(
@@ -270,9 +325,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
-              shape: const RectangleShape(),
-              color: data.property.color,
-              strokeWidth: data.property.strokeWidth),
+            shape: const RectangleShape(),
+            color: data.property.color,
+            strokeWidth: data.property.strokeWidth,
+          ),
           collection: currentCollection,
         );
       case DefaultUnistrokeNames.triangle:
@@ -285,10 +341,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         Point<double> secondPosition = Point(maxX, maxY);
 
         // Convert coordinates from the document coordinate system to the view coordinate system
-        Offset firstPositionInView =
-            transform.localToGlobal(firstPosition.toOffset());
-        Offset secondPositionInView =
-            transform.localToGlobal(secondPosition.toOffset());
+        Offset firstPositionInView = transform.localToGlobal(
+          firstPosition.toOffset(),
+        );
+        Offset secondPositionInView = transform.localToGlobal(
+          secondPosition.toOffset(),
+        );
 
         // Create new ShapeElement
         shapeElement = PadElement.shape(
@@ -296,9 +354,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           firstPosition: firstPositionInView.toPoint(),
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
-              shape: const TriangleShape(),
-              color: data.property.color,
-              strokeWidth: data.property.strokeWidth),
+            shape: const TriangleShape(),
+            color: data.property.color,
+            strokeWidth: data.property.strokeWidth,
+          ),
           collection: currentCollection,
         );
       default:
@@ -325,8 +384,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   PenTool setColor(SRGBColor color) => data.copyWith(
-      property: data.property
-          .copyWith(color: color.withValues(a: data.property.color.a)));
+    property: data.property.copyWith(
+      color: color.withValues(a: data.property.color.a),
+    ),
+  );
 
   @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)

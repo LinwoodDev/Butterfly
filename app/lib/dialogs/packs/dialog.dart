@@ -40,9 +40,7 @@ class _PacksDialogState extends State<PacksDialog>
   }
 
   Future<List<FileSystemFile<NoteData>>> _getPacks() {
-    return _packSystem.initialize().then(
-          (value) => _packSystem.getFiles(),
-        );
+    return _packSystem.initialize().then((value) => _packSystem.getFiles());
   }
 
   void _refresh() {
@@ -56,7 +54,9 @@ class _PacksDialogState extends State<PacksDialog>
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
       constraints: const BoxConstraints(
-          maxWidth: LeapBreakpoints.medium, maxHeight: 800),
+        maxWidth: LeapBreakpoints.medium,
+        maxHeight: 800,
+      ),
       title: Text(AppLocalizations.of(context).packs),
       headerActions: [
         if (!widget.globalOnly)
@@ -68,10 +68,9 @@ class _PacksDialogState extends State<PacksDialog>
               await showDialog(
                 context: context,
                 builder: (context) => BlocProvider.value(
-                    value: bloc,
-                    child: BundledPacksDialog(
-                      onRefresh: _refresh,
-                    )),
+                  value: bloc,
+                  child: BundledPacksDialog(onRefresh: _refresh),
+                ),
               );
             },
           ),
@@ -119,25 +118,19 @@ class _PacksDialogState extends State<PacksDialog>
                               itemBuilder: (context, index) {
                                 final file = globalPacks[index];
                                 final pack = file.data!;
-                                final metadata = pack.getMetadata() ??
+                                final metadata =
+                                    pack.getMetadata() ??
                                     DocumentDefaults.createMetadata();
                                 return Dismissible(
-                                  key: ValueKey((
-                                    'globalpack',
-                                    metadata.name,
-                                  )),
+                                  key: ValueKey(('globalpack', metadata.name)),
                                   onDismissed: (direction) async {
                                     setInnerState(
                                       () => globalPacks.removeAt(index),
                                     );
-                                    await _packSystem.deleteFile(
-                                      file.path,
-                                    );
+                                    await _packSystem.deleteFile(file.path);
                                     _refresh();
                                   },
-                                  background: Container(
-                                    color: Colors.red,
-                                  ),
+                                  background: Container(color: Colors.red),
                                   child: ContextRegion(
                                     tooltip: AppLocalizations.of(
                                       context,
@@ -155,10 +148,8 @@ class _PacksDialogState extends State<PacksDialog>
                                           ),
                                           onPressed: () {
                                             context.read<DocumentBloc>().add(
-                                                  PackAdded(
-                                                    pack,
-                                                  ),
-                                                );
+                                              PackAdded(pack),
+                                            );
                                           },
                                         ),
                                       MenuItemButton(
@@ -166,9 +157,7 @@ class _PacksDialogState extends State<PacksDialog>
                                           PhosphorIconsLight.download,
                                         ),
                                         child: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).export,
+                                          AppLocalizations.of(context).export,
                                         ),
                                         onPressed: () async {
                                           await _exportPack(pack);
@@ -179,9 +168,7 @@ class _PacksDialogState extends State<PacksDialog>
                                           PhosphorIconsLight.trash,
                                         ),
                                         child: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).delete,
+                                          AppLocalizations.of(context).delete,
                                         ),
                                         onPressed: () async {
                                           await _packSystem.deleteFile(
@@ -191,59 +178,54 @@ class _PacksDialogState extends State<PacksDialog>
                                         },
                                       ),
                                     ],
-                                    builder: (
-                                      context,
-                                      button,
-                                      controller,
-                                    ) =>
+                                    builder: (context, button, controller) =>
                                         ListTile(
-                                      title: Text(metadata.name),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (metadata.author.isNotEmpty)
-                                            Text(
-                                              AppLocalizations.of(
-                                                context,
-                                              ).byAuthor(
-                                                metadata.author,
-                                              ),
-                                            ),
-                                          if (metadata.description.isNotEmpty)
-                                            Text(
-                                              metadata.description,
-                                            ),
-                                        ],
-                                      ),
-                                      onTap: () async {
-                                        final bloc =
-                                            context.read<DocumentBloc>();
-                                        final newPack =
-                                            await showDialog<NoteData>(
-                                          context: context,
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: bloc,
-                                            child: PackDialog(
-                                              pack: pack,
-                                            ),
+                                          title: Text(metadata.name),
+                                          subtitle: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (metadata.author.isNotEmpty)
+                                                Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).byAuthor(metadata.author),
+                                                ),
+                                              if (metadata
+                                                  .description
+                                                  .isNotEmpty)
+                                                Text(metadata.description),
+                                            ],
                                           ),
-                                        );
-                                        if (newPack == null) return;
-                                        final name = newPack.name ?? '';
-                                        if (pack.name != name) {
-                                          await _packSystem
-                                              .deleteFile(file.path);
-                                        }
-                                        await _packSystem.updateFile(
-                                          '$name.bfly',
-                                          newPack,
-                                        );
-                                        _refresh();
-                                      },
-                                      trailing: button,
-                                    ),
+                                          onTap: () async {
+                                            final bloc = context
+                                                .read<DocumentBloc>();
+                                            final newPack =
+                                                await showDialog<NoteData>(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      BlocProvider.value(
+                                                        value: bloc,
+                                                        child: PackDialog(
+                                                          pack: pack,
+                                                        ),
+                                                      ),
+                                                );
+                                            if (newPack == null) return;
+                                            final name = newPack.name ?? '';
+                                            if (pack.name != name) {
+                                              await _packSystem.deleteFile(
+                                                file.path,
+                                              );
+                                            }
+                                            await _packSystem.updateFile(
+                                              '$name.bfly',
+                                              newPack,
+                                            );
+                                            _refresh();
+                                          },
+                                          trailing: button,
+                                        ),
                                   ),
                                 );
                               },
@@ -274,10 +256,9 @@ class _PacksDialogState extends State<PacksDialog>
                               ),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final (data, _) = await importFile(
-                                  context,
-                                  [AssetFileType.note],
-                                );
+                                final (data, _) = await importFile(context, [
+                                  AssetFileType.note,
+                                ]);
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
                                 final metadata = pack.getMetadata();
@@ -285,11 +266,14 @@ class _PacksDialogState extends State<PacksDialog>
                                   return;
                                 }
                                 if (!mounted) return;
-                                final success = await showDialog<bool>(
-                                        context: context,
-                                        builder: (context) =>
-                                            PackImportConfirmationDialog(
-                                                pack: metadata!)) ??
+                                final success =
+                                    await showDialog<bool>(
+                                      context: context,
+                                      builder: (context) =>
+                                          PackImportConfirmationDialog(
+                                            pack: metadata!,
+                                          ),
+                                    ) ??
                                     false;
                                 if (!success) return;
                                 await _addPack(pack);

@@ -1,3 +1,6 @@
+* Add ctrl + enter to create new text element below current text element ([#858](https://github.com/LinwoodDev/Butterfly/issues/858))
+* Fix temporary handler not working correctly
+* Fix text elements not correctly movable on pasting
 * Upgrade to flutter 3.32
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.0

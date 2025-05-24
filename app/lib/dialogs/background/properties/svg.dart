@@ -17,7 +17,8 @@ class _SvgBackgroundPropertiesView extends StatelessWidget {
           title: Text(AppLocalizations.of(context).scale),
           value: Offset(value.scaleX, value.scaleY),
           onChanged: (value) => onChanged(
-              this.value.copyWith(scaleX: value.dx, scaleY: value.dy)),
+            this.value.copyWith(scaleX: value.dx, scaleY: value.dy),
+          ),
         ),
       ],
     );

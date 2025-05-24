@@ -16,10 +16,12 @@ class PenRenderer extends PathRenderer<PenElement> {
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) =>
-      PenRenderer(
-          element.copyWith(
-              rotation: rotation, points: movePoints(position, scaleX, scaleY)),
-          layer,
-          moveRect(position, scaleX, scaleY));
+  }) => PenRenderer(
+    element.copyWith(
+      rotation: rotation,
+      points: movePoints(position, scaleX, scaleY),
+    ),
+    layer,
+    moveRect(position, scaleX, scaleY),
+  );
 }

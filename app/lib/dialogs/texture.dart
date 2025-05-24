@@ -59,8 +59,9 @@ class _TextureViewState extends State<TextureView> {
                         value: widget.value.boxColor.withValues(a: 255),
                         onChanged: (value) => widget.onChanged(
                           widget.value.copyWith(
-                            boxColor:
-                                value.withValues(a: widget.value.boxColor.a),
+                            boxColor: value.withValues(
+                              a: widget.value.boxColor.a,
+                            ),
                           ),
                         ),
                         title: Text(LeapLocalizations.of(context).color),

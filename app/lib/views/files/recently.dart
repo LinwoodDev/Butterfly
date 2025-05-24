@@ -44,7 +44,9 @@ class RecentFilesViewState extends State<RecentFilesView> {
 
   void _setStream(ButterflySettings settings) =>
       _stream = GeneralDirectoryFileSystem.fetchAssetsGlobalSync(
-          settings.history, _fileSystem.buildAllDocumentSystems());
+        settings.history,
+        _fileSystem.buildAllDocumentSystems(),
+      );
 
   Widget _getItem(FileSystemEntity<NoteFile> entity) {
     FileMetadata? metadata;
@@ -66,7 +68,8 @@ class RecentFilesViewState extends State<RecentFilesView> {
   }
 
   void reload([ButterflySettings? settings]) => setState(
-      () => _setStream(settings ?? context.read<SettingsCubit>().state));
+    () => _setStream(settings ?? context.read<SettingsCubit>().state),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -74,36 +77,37 @@ class RecentFilesViewState extends State<RecentFilesView> {
       listenWhen: (previous, current) => previous.history != current.history,
       listener: (_, state) => reload(state),
       child: StreamBuilder<List<FileSystemEntity<NoteFile>>>(
-          stream: _stream,
-          builder: (context, snapshot) {
-            final files = snapshot.data ?? [];
-            if (files.isEmpty) {
-              return Container();
-            }
-            return widget.asGrid
-                ? GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: kThumbnailRatio,
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: files.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => _getItem(files[index]),
-                  )
-                : SizedBox(
-                    height: 128,
-                    child: Scrollbar(
+        stream: _stream,
+        builder: (context, snapshot) {
+          final files = snapshot.data ?? [];
+          if (files.isEmpty) {
+            return Container();
+          }
+          return widget.asGrid
+              ? GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: kThumbnailRatio,
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: files.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => _getItem(files[index]),
+                )
+              : SizedBox(
+                  height: 128,
+                  child: Scrollbar(
+                    controller: _recentScrollController,
+                    child: ListView.builder(
                       controller: _recentScrollController,
-                      child: ListView.builder(
-                        controller: _recentScrollController,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: files.length,
-                        itemBuilder: (context, index) => _getItem(files[index]),
-                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: files.length,
+                      itemBuilder: (context, index) => _getItem(files[index]),
                     ),
-                  );
-          }),
+                  ),
+                );
+        },
+      ),
     );
   }
 }
