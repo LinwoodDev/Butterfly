@@ -36,8 +36,9 @@ class MouseInputSettings extends StatelessWidget {
                           SwitchListTile(
                             value: state.hideCursorWhileDrawing,
                             title: Text(
-                              AppLocalizations.of(context)
-                                  .hideCursorWhileDrawing,
+                              AppLocalizations.of(
+                                context,
+                              ).hideCursorWhileDrawing,
                             ),
                             secondary: const PhosphorIcon(
                               PhosphorIconsLight.cursorClick,
@@ -83,13 +84,12 @@ class MouseInputSettings extends StatelessWidget {
                             currentValue: config.leftMouse,
                             defaultValue: InputMappingDefault.leftMouse,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.mouseLeftClick),
+                              PhosphorIconsLight.mouseLeftClick,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  leftMouse: value,
-                                ),
+                                config.copyWith(leftMouse: value),
                               );
                             },
                           ),
@@ -98,13 +98,12 @@ class MouseInputSettings extends StatelessWidget {
                             currentValue: config.middleMouse,
                             defaultValue: InputMappingDefault.middleMouse,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.mouseMiddleClick),
+                              PhosphorIconsLight.mouseMiddleClick,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  middleMouse: value,
-                                ),
+                                config.copyWith(middleMouse: value),
                               );
                             },
                           ),
@@ -113,13 +112,12 @@ class MouseInputSettings extends StatelessWidget {
                             currentValue: config.rightMouse,
                             defaultValue: InputMappingDefault.rightMouse,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.mouseRightClick),
+                              PhosphorIconsLight.mouseRightClick,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  rightMouse: value,
-                                ),
+                                config.copyWith(rightMouse: value),
                               );
                             },
                           ),

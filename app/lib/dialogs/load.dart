@@ -31,8 +31,8 @@ class _LoadingDialogState extends State<LoadingDialog> {
   double _progress = 0.0;
 
   void setProgress(double progress) => setState(() {
-        _progress = progress;
-      });
+    _progress = progress;
+  });
 
   void close() => Navigator.of(context).pop();
 

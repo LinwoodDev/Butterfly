@@ -51,7 +51,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   Future<void> _loadPalette() async {
     final pack = await _packSystem.getDefaultFile(_selected?.namespace ?? '');
     if (pack == null) return;
-    final palette = pack.getPalette(_selected?.key ?? '') ??
+    final palette =
+        pack.getPalette(_selected?.key ?? '') ??
         pack.getNamedPalettes().firstOrNull?.item;
     if (palette == null) return;
     setState(() {
@@ -69,15 +70,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
       });
       final location = _selected;
       if (location == null) return;
-      final newPack = _pack?.setPalette(
-        name ?? location.key,
-        palette,
-      );
+      final newPack = _pack?.setPalette(name ?? location.key, palette);
       if (newPack == null) return;
-      _packSystem.updateFile(
-        location.namespace,
-        newPack,
-      );
+      _packSystem.updateFile(location.namespace, newPack);
     }
   }
 
@@ -220,28 +215,31 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                         if (state is! DocumentLoaded) {
                                           return;
                                         }
-                                        final result = await showDialog<
-                                            PackItem<ColorPalette>>(
-                                          context: context,
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: widget.bloc!,
-                                            child: SelectPackAssetDialog(
-                                              selectedItem:
-                                                  _selected?.toNamed(),
-                                              getItems: (pack) =>
-                                                  pack.getNamedPalettes(),
-                                            ),
-                                          ),
-                                        );
+                                        final result =
+                                            await showDialog<
+                                              PackItem<ColorPalette>
+                                            >(
+                                              context: context,
+                                              builder: (context) =>
+                                                  BlocProvider.value(
+                                                    value: widget.bloc!,
+                                                    child: SelectPackAssetDialog(
+                                                      selectedItem: _selected
+                                                          ?.toNamed(),
+                                                      getItems: (pack) => pack
+                                                          .getNamedPalettes(),
+                                                    ),
+                                                  ),
+                                            );
                                         if (result == null) return;
                                         setState(() {
                                           _selected = result;
                                           _loadPalette();
                                         });
                                       },
-                                      tooltip:
-                                          AppLocalizations.of(context).select,
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).select,
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.package,
                                       ),
@@ -333,11 +331,10 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 onTap: () async {
                                   final value =
                                       await showDialog<ColorPickerResponse>(
-                                    context: context,
-                                    builder: (context) => ColorPicker(
-                                      value: widget.value,
-                                    ),
-                                  );
+                                        context: context,
+                                        builder: (context) =>
+                                            ColorPicker(value: widget.value),
+                                      );
                                   if (value == null) return;
                                   _changePalette(
                                     _palette!.copyWith(

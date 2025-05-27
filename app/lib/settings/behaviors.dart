@@ -11,13 +11,11 @@ class BehaviorsSettingsPage extends StatelessWidget {
 
   const BehaviorsSettingsPage({super.key, this.inView = false});
 
-  String _getStartupBehaviorName(
-    BuildContext context,
-    StartupBehavior value,
-  ) =>
+  String _getStartupBehaviorName(BuildContext context, StartupBehavior value) =>
       switch (value) {
-        StartupBehavior.openHomeScreen =>
-          AppLocalizations.of(context).homeScreen,
+        StartupBehavior.openHomeScreen => AppLocalizations.of(
+          context,
+        ).homeScreen,
         StartupBehavior.openLastNote => AppLocalizations.of(context).lastNote,
         StartupBehavior.openNewNote => AppLocalizations.of(context).newNote,
       };
@@ -25,25 +23,22 @@ class BehaviorsSettingsPage extends StatelessWidget {
   String _getRenderResolutionName(
     BuildContext context,
     RenderResolution value,
-  ) =>
-      switch (value) {
-        RenderResolution.performance =>
-          AppLocalizations.of(context).performance,
-        RenderResolution.normal => AppLocalizations.of(context).normal,
-        RenderResolution.high => AppLocalizations.of(context).high,
-      };
+  ) => switch (value) {
+    RenderResolution.performance => AppLocalizations.of(context).performance,
+    RenderResolution.normal => AppLocalizations.of(context).normal,
+    RenderResolution.high => AppLocalizations.of(context).high,
+  };
 
   String _getRenderResolutionDescription(
     BuildContext context,
     RenderResolution value,
-  ) =>
-      switch (value) {
-        RenderResolution.performance =>
-          AppLocalizations.of(context).performanceDescription,
-        RenderResolution.normal =>
-          AppLocalizations.of(context).normalDescription,
-        RenderResolution.high => AppLocalizations.of(context).highDescription,
-      };
+  ) => switch (value) {
+    RenderResolution.performance => AppLocalizations.of(
+      context,
+    ).performanceDescription,
+    RenderResolution.normal => AppLocalizations.of(context).normalDescription,
+    RenderResolution.high => AppLocalizations.of(context).highDescription,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +68,10 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         subtitle: Text(
                           state.autosave
                               ? state.showSaveButton
-                                  ? AppLocalizations.of(
-                                      context,
-                                    ).yesButShowButtons
-                                  : AppLocalizations.of(context).yes
+                                    ? AppLocalizations.of(
+                                        context,
+                                      ).yesButShowButtons
+                                    : AppLocalizations.of(context).yes
                               : AppLocalizations.of(context).no,
                         ),
                         onTap: () => _openAutosaveModal(context),

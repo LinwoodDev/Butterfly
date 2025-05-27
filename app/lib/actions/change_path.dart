@@ -23,18 +23,19 @@ class ChangePathAction extends Action<ChangePathIntent> {
     if (state is! DocumentLoadSuccess || state.location.path == '') return;
     final location = state.location;
     final settings = context.read<SettingsCubit>().state;
-    final fileSystem = context
-        .read<ButterflyFileSystem>()
-        .buildDocumentSystem(settings.getRemote(location.remote));
+    final fileSystem = context.read<ButterflyFileSystem>().buildDocumentSystem(
+      settings.getRemote(location.remote),
+    );
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {
       var newPaths = await showDialog<List<String>>(
-          context: context,
-          builder: (context) => FileSystemAssetMoveDialog(
-                assets: [asset.location],
-                fileSystem: fileSystem,
-              ));
+        context: context,
+        builder: (context) => FileSystemAssetMoveDialog(
+          assets: [asset.location],
+          fileSystem: fileSystem,
+        ),
+      );
       if (newPaths == null) return;
       state.currentIndexCubit.setSaveState(
         location: location.copyWith(path: newPaths.first),

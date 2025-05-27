@@ -101,7 +101,8 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
         InkWell(
           onTap: () {
             setState(
-                () => _onCategoryChanged(InputMappingCategory.toolOnToolbar));
+              () => _onCategoryChanged(InputMappingCategory.toolOnToolbar),
+            );
           },
           child: Row(
             children: [
@@ -109,7 +110,8 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context).toolOnToolbar),
                   subtitle: Text(
-                      AppLocalizations.of(context).toolOnToolbarDescription),
+                    AppLocalizations.of(context).toolOnToolbarDescription,
+                  ),
                   leading: Radio<InputMappingCategory>(
                     value: InputMappingCategory.toolOnToolbar,
                     groupValue: _category,
@@ -124,16 +126,15 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
                     signed: false,
                     decimal: false,
                   ),
-                  decoration: InputDecoration(
-                    filled: true,
-                  ),
+                  decoration: InputDecoration(filled: true),
                   enabled: _category == InputMappingCategory.toolOnToolbar,
                   controller: _toolbarToolPositionController,
                   onTap: () {
                     _toolbarToolPositionController.selection = TextSelection(
-                        baseOffset: 0,
-                        extentOffset:
-                            _toolbarToolPositionController.value.text.length);
+                      baseOffset: 0,
+                      extentOffset:
+                          _toolbarToolPositionController.value.text.length,
+                    );
                   },
                   onEditingComplete: () {
                     if (_toolbarToolPositionController.text == '') {
@@ -163,16 +164,12 @@ Future<void> openInputMappingModal(
   String mappingName,
   InputMapping startingValue,
   ValueChanged<InputMapping> onChanged,
-) =>
-    showLeapBottomSheet(
-      context: context,
-      titleBuilder: (ctx) => Text(mappingName),
-      childrenBuilder: (ctx) {
-        return [
-          InputMappingOptions(
-            startingValue: startingValue,
-            onChanged: onChanged,
-          )
-        ];
-      },
-    );
+) => showLeapBottomSheet(
+  context: context,
+  titleBuilder: (ctx) => Text(mappingName),
+  childrenBuilder: (ctx) {
+    return [
+      InputMappingOptions(startingValue: startingValue, onChanged: onChanged),
+    ];
+  },
+);

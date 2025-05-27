@@ -7,14 +7,18 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   PathEraserHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        if (_currentPos != null)
-          EraserCursor(
-              ToolCursorData(EraserInfo.fromPathEraser(data), _currentPos!))
-      ];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [
+    if (_currentPos != null)
+      EraserCursor(
+        ToolCursorData(EraserInfo.fromPathEraser(data), _currentPos!),
+      ),
+  ];
 
   @override
   Map<String, RendererState> get rendererStates =>
@@ -39,7 +43,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
 
   @override
   Future<void> onPointerMove(
-      PointerMoveEvent event, EventContext context) async {
+    PointerMoveEvent event,
+    EventContext context,
+  ) async {
     _currentPos = event.localPosition;
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
@@ -53,13 +59,14 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     if (_currentlyErasing || !shouldErase) return;
     _currentlyErasing = true;
     _lastErased = globalPos;
-    Iterable<Renderer<PadElement>> ray =
-        await context.getDocumentBloc().rayCast(
-              globalPos,
-              size,
-              useCollection: utilities.lockCollection,
-              useLayer: utilities.lockLayer,
-            );
+    Iterable<Renderer<PadElement>> ray = await context
+        .getDocumentBloc()
+        .rayCast(
+          globalPos,
+          size,
+          useCollection: utilities.lockCollection,
+          useLayer: utilities.lockLayer,
+        );
     final page = state?.page;
     if (page == null) return;
     if (!data.eraseElements) ray = ray.where((e) => e.element.isStroke());

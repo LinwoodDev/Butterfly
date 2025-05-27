@@ -17,8 +17,9 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
   late String _defaultSwamp;
   final TextEditingController _webSocketAddressController =
           TextEditingController(text: '0.0.0.0'),
-      _webSocketPortController =
-          TextEditingController(text: kDefaultPort.toString());
+      _webSocketPortController = TextEditingController(
+        text: kDefaultPort.toString(),
+      );
   late final TextEditingController _swampAddressController;
 
   @override
@@ -40,8 +41,10 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
         }
       case ConnectionTechnology.webSocket:
         if (kIsWeb) return;
-        widget.service.createSocketServer(_webSocketAddressController.text,
-            int.tryParse(_webSocketPortController.text));
+        widget.service.createSocketServer(
+          _webSocketAddressController.text,
+          int.tryParse(_webSocketPortController.text),
+        );
     }
   }
 
@@ -79,8 +82,10 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
           content: ListView(
             children: [
               DropdownMenu<ConnectionTechnology>(
-                expandedInsets:
-                    const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                expandedInsets: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 2,
+                ),
                 label: Text(AppLocalizations.of(context).collaboration),
                 initialSelection: _connectionTechnology,
                 onSelected: (value) {
@@ -90,22 +95,23 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                   });
                 },
                 dropdownMenuEntries: ConnectionTechnology.values
-                    .map((e) => DropdownMenuEntry(
-                          label: switch (e) {
-                            ConnectionTechnology.swamp => 'Swamp',
-                            ConnectionTechnology.webSocket =>
-                              AppLocalizations.of(context).webSocket,
-                          },
-                          value: e,
-                          leadingIcon: Icon(
-                            switch (e) {
-                              ConnectionTechnology.swamp =>
-                                PhosphorIconsLight.globe,
-                              ConnectionTechnology.webSocket =>
-                                PhosphorIconsLight.wifiHigh,
-                            },
-                          ),
-                        ))
+                    .map(
+                      (e) => DropdownMenuEntry(
+                        label: switch (e) {
+                          ConnectionTechnology.swamp => 'Swamp',
+                          ConnectionTechnology.webSocket => AppLocalizations.of(
+                            context,
+                          ).webSocket,
+                        },
+                        value: e,
+                        leadingIcon: Icon(switch (e) {
+                          ConnectionTechnology.swamp =>
+                            PhosphorIconsLight.globe,
+                          ConnectionTechnology.webSocket =>
+                            PhosphorIconsLight.wifiHigh,
+                        }),
+                      ),
+                    )
                     .toList(),
               ),
               const SizedBox(height: 8),
@@ -117,31 +123,25 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                     children: [
                       Row(
                         children: [
-                          const PhosphorIcon(
-                            PhosphorIconsLight.info,
-                          ),
+                          const PhosphorIcon(PhosphorIconsLight.info),
                           const SizedBox(width: 8),
                           Flexible(
                             child: Text(
-                              AppLocalizations.of(
-                                context,
-                              ).information,
-                              style: TextTheme.of(
-                                context,
-                              ).bodyMedium,
+                              AppLocalizations.of(context).information,
+                              style: TextTheme.of(context).bodyMedium,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        switch (_connectionTechnology) {
-                          ConnectionTechnology.swamp =>
-                            AppLocalizations.of(context).swampDescription,
-                          ConnectionTechnology.webSocket =>
-                            AppLocalizations.of(context).webSocketDescription,
-                        },
-                      ),
+                      Text(switch (_connectionTechnology) {
+                        ConnectionTechnology.swamp => AppLocalizations.of(
+                          context,
+                        ).swampDescription,
+                        ConnectionTechnology.webSocket => AppLocalizations.of(
+                          context,
+                        ).webSocketDescription,
+                      }),
                     ],
                   ),
                 ),
@@ -186,70 +186,79 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
                             },
                             body: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Column(children: [
-                                kIsWeb
-                                    ? Text(AppLocalizations.of(context)
-                                        .webNotSupported)
-                                    : Column(
-                                        children: [
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText:
-                                                  AppLocalizations.of(context)
-                                                      .address,
-                                              hintText: '0.0.0.0',
-                                              filled: true,
+                              child: Column(
+                                children: [
+                                  kIsWeb
+                                      ? Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          ).webNotSupported,
+                                        )
+                                      : Column(
+                                          children: [
+                                            TextFormField(
+                                              decoration: InputDecoration(
+                                                labelText: AppLocalizations.of(
+                                                  context,
+                                                ).address,
+                                                hintText: '0.0.0.0',
+                                                filled: true,
+                                              ),
+                                              controller:
+                                                  _webSocketAddressController,
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return LeapLocalizations.of(
+                                                    context,
+                                                  ).shouldNotEmpty;
+                                                }
+                                                final address =
+                                                    InternetAddress.tryParse(
+                                                      value!,
+                                                    );
+                                                if (address == null) {
+                                                  return AppLocalizations.of(
+                                                    context,
+                                                  ).urlNotValid;
+                                                }
+                                                return null;
+                                              },
                                             ),
-                                            controller:
-                                                _webSocketAddressController,
-                                            validator: (value) {
-                                              if (value?.isEmpty ?? true) {
-                                                return LeapLocalizations.of(
-                                                        context)
-                                                    .shouldNotEmpty;
-                                              }
-                                              final address =
-                                                  InternetAddress.tryParse(
-                                                      value!);
-                                              if (address == null) {
-                                                return AppLocalizations.of(
-                                                        context)
-                                                    .urlNotValid;
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          const SizedBox(height: 8),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                              labelText:
-                                                  AppLocalizations.of(context)
-                                                      .port,
-                                              hintText: kDefaultPort.toString(),
-                                              filled: true,
+                                            const SizedBox(height: 8),
+                                            TextFormField(
+                                              decoration: InputDecoration(
+                                                labelText: AppLocalizations.of(
+                                                  context,
+                                                ).port,
+                                                hintText: kDefaultPort
+                                                    .toString(),
+                                                filled: true,
+                                              ),
+                                              controller:
+                                                  _webSocketPortController,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              validator: (value) {
+                                                if (value?.isEmpty ?? true) {
+                                                  return LeapLocalizations.of(
+                                                    context,
+                                                  ).shouldNotEmpty;
+                                                }
+                                                final number = int.tryParse(
+                                                  value!,
+                                                );
+                                                if (number == null) {
+                                                  return AppLocalizations.of(
+                                                    context,
+                                                  ).shouldANumber;
+                                                }
+                                                return null;
+                                              },
                                             ),
-                                            controller:
-                                                _webSocketPortController,
-                                            keyboardType: TextInputType.number,
-                                            validator: (value) {
-                                              if (value?.isEmpty ?? true) {
-                                                return LeapLocalizations.of(
-                                                        context)
-                                                    .shouldNotEmpty;
-                                              }
-                                              final number =
-                                                  int.tryParse(value!);
-                                              if (number == null) {
-                                                return AppLocalizations.of(
-                                                        context)
-                                                    .shouldANumber;
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                              ]),
+                                          ],
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -258,7 +267,8 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog> {
           ),
           actions: [
             ElevatedButton.icon(
-              onPressed: kIsWeb &&
+              onPressed:
+                  kIsWeb &&
                       _connectionTechnology == ConnectionTechnology.webSocket
                   ? null
                   : () {

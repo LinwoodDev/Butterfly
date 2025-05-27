@@ -91,16 +91,16 @@ class FilesViewState extends State<FilesView> {
   }
 
   String getLocalizedNameOfSortBy(SortBy sortBy) => switch (sortBy) {
-        SortBy.name => LeapLocalizations.of(context).name,
-        SortBy.created => AppLocalizations.of(context).created,
-        SortBy.modified => AppLocalizations.of(context).modified,
-      };
+    SortBy.name => LeapLocalizations.of(context).name,
+    SortBy.created => AppLocalizations.of(context).created,
+    SortBy.modified => AppLocalizations.of(context).modified,
+  };
 
   IconGetter getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
-        SortBy.name => PhosphorIcons.file,
-        SortBy.created => PhosphorIcons.calendar,
-        SortBy.modified => PhosphorIcons.clock,
-      };
+    SortBy.name => PhosphorIcons.file,
+    SortBy.created => PhosphorIcons.calendar,
+    SortBy.modified => PhosphorIcons.clock,
+  };
 
   void _setFilesStream() {
     _templateSystem = _fileSystem.buildTemplateSystem(_remote);
@@ -109,8 +109,8 @@ class FilesViewState extends State<FilesView> {
       _documentSystem.fetchAsset(_locationController.text),
     ).autoConnect();
     _templatesFuture = _templateSystem.initialize().then(
-          (_) => _templateSystem.getFiles(),
-        );
+      (_) => _templateSystem.getFiles(),
+    );
   }
 
   void reloadFileSystem() {
@@ -145,14 +145,14 @@ class FilesViewState extends State<FilesView> {
   }
 
   void Function(bool) _updateSelection(String path) => (bool value) {
-        setState(() {
-          if (value) {
-            _selectedFiles.add(path);
-          } else {
-            _selectedFiles.remove(path);
-          }
-        });
-      };
+    setState(() {
+      if (value) {
+        _selectedFiles.add(path);
+      } else {
+        _selectedFiles.remove(path);
+      }
+    });
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -327,17 +327,18 @@ class FilesViewState extends State<FilesView> {
               if (!widget.collapsed) ...[
                 const SizedBox(height: 8),
                 RecentFilesView(
-                    key: _recentFilesKey,
-                    replace: widget.collapsed,
-                    onFileTap: widget.onPreview == null
-                        ? _onFileTap
-                        : (e) {
-                            if (e is FileSystemFile<NoteFile>) {
-                              widget.onPreview!(e);
-                              return;
-                            }
-                            _onFileTap(e);
-                          }),
+                  key: _recentFilesKey,
+                  replace: widget.collapsed,
+                  onFileTap: widget.onPreview == null
+                      ? _onFileTap
+                      : (e) {
+                          if (e is FileSystemFile<NoteFile>) {
+                            widget.onPreview!(e);
+                            return;
+                          }
+                          _onFileTap(e);
+                        },
+                ),
               ],
             ],
             const SizedBox(height: 16),
@@ -391,45 +392,41 @@ class FilesViewState extends State<FilesView> {
             BlocBuilder<SettingsCubit, ButterflySettings>(
               buildWhen: (previous, current) =>
                   previous.starred != current.starred,
-              builder: (
-                context,
-                settings,
-              ) =>
+              builder: (context, settings) =>
                   StreamBuilder<FileSystemEntity<NoteFile>?>(
-                stream: _filesStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: Text(AppLocalizations.of(context).noElements),
-                    );
-                  }
-                  final entity = snapshot.data;
-                  if (entity is! FileSystemDirectory<NoteFile>) {
-                    return Container();
-                  }
-                  final assets = entity.assets.where((e) {
-                    if (_search.isNotEmpty) {
-                      return e.fileName.toLowerCase().contains(
+                    stream: _filesStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: Text(AppLocalizations.of(context).noElements),
+                        );
+                      }
+                      final entity = snapshot.data;
+                      if (entity is! FileSystemDirectory<NoteFile>) {
+                        return Container();
+                      }
+                      final assets = entity.assets.where((e) {
+                        if (_search.isNotEmpty) {
+                          return e.fileName.toLowerCase().contains(
                             _search.toLowerCase(),
                           );
-                    }
-                    return true;
-                  }).toList()
-                    ..sort(_sortAssets);
-                  if (assets.isEmpty) {
-                    return Center(
-                      child: Text(AppLocalizations.of(context).noElements),
-                    );
-                  }
+                        }
+                        return true;
+                      }).toList()..sort(_sortAssets);
+                      if (assets.isEmpty) {
+                        return Center(
+                          child: Text(AppLocalizations.of(context).noElements),
+                        );
+                      }
 
-                  generateOnPreview(FileSystemEntity<NoteFile> e) =>
-                      widget.onPreview != null
+                      generateOnPreview(FileSystemEntity<NoteFile> e) =>
+                          widget.onPreview != null
                           ? () {
                               if (e is! FileSystemFile<NoteFile>) {
                                 _onFileTap(e);
@@ -438,61 +435,57 @@ class FilesViewState extends State<FilesView> {
                               widget.onPreview!(e);
                             }
                           : null;
-                  if (state.gridView && !widget.collapsed) {
-                    return Center(
-                      child: Wrap(
-                        spacing: 4,
-                        runSpacing: 4,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        children: assets.map((e) {
+                      if (state.gridView && !widget.collapsed) {
+                        return Center(
+                          child: Wrap(
+                            spacing: 4,
+                            runSpacing: 4,
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: assets.map((e) {
+                              final active = widget.activeAsset == e.location;
+                              return FileEntityItem(
+                                entity: e,
+                                isMobile: widget.isMobile,
+                                active: active,
+                                collapsed: widget.collapsed,
+                                onTap: () => _onFileTap(e),
+                                onPreview: generateOnPreview(e),
+                                selected: _selectedFiles.isEmpty
+                                    ? null
+                                    : _selectedFiles.contains(e.location.path),
+                                onSelected: _updateSelection(e.location.path),
+                                onReload: reloadFileSystem,
+                                gridView: true,
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: assets.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final e = assets[index];
                           final active = widget.activeAsset == e.location;
                           return FileEntityItem(
                             entity: e,
-                            isMobile: widget.isMobile,
                             active: active,
                             collapsed: widget.collapsed,
-                            onTap: () => _onFileTap(e),
                             onPreview: generateOnPreview(e),
                             selected: _selectedFiles.isEmpty
                                 ? null
-                                : _selectedFiles.contains(
-                                    e.location.path,
-                                  ),
-                            onSelected: _updateSelection(
-                              e.location.path,
-                            ),
+                                : _selectedFiles.contains(e.location.path),
+                            onTap: () => _onFileTap(e),
+                            onSelected: _updateSelection(e.location.path),
                             onReload: reloadFileSystem,
-                            gridView: true,
+                            gridView: false,
+                            isMobile: widget.isMobile,
                           );
-                        }).toList(),
-                      ),
-                    );
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: assets.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final e = assets[index];
-                      final active = widget.activeAsset == e.location;
-                      return FileEntityItem(
-                        entity: e,
-                        active: active,
-                        collapsed: widget.collapsed,
-                        onPreview: generateOnPreview(e),
-                        selected: _selectedFiles.isEmpty
-                            ? null
-                            : _selectedFiles.contains(e.location.path),
-                        onTap: () => _onFileTap(e),
-                        onSelected: _updateSelection(e.location.path),
-                        onReload: reloadFileSystem,
-                        gridView: false,
-                        isMobile: widget.isMobile,
+                        },
                       );
                     },
-                  );
-                },
-              ),
+                  ),
             ),
             const SizedBox(height: 32),
           ],
@@ -531,18 +524,12 @@ class FilesViewState extends State<FilesView> {
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.folder,
                         ),
-                        child: Text(
-                          AppLocalizations.of(
-                            context,
-                          ).newFolder,
-                        ),
+                        child: Text(AppLocalizations.of(context).newFolder),
                         onPressed: () async {
                           final name = await showDialog<String>(
                             context: context,
                             builder: (context) => NameDialog(
-                              validator: defaultFileNameValidator(
-                                context,
-                              ),
+                              validator: defaultFileNameValidator(context),
                             ),
                           );
                           if (name == null) return;
@@ -562,23 +549,16 @@ class FilesViewState extends State<FilesView> {
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.filePlus,
                         ),
-                        child: Text(
-                          AppLocalizations.of(
-                            context,
-                          ).newNote,
-                        ),
+                        child: Text(AppLocalizations.of(context).newNote),
                       ),
                       FutureBuilder<List<FileSystemFile<NoteData>>>(
                         future: _templatesFuture,
-                        builder: (
-                          context,
-                          snapshot,
-                        ) =>
-                            SubmenuButton(
+                        builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.file,
                           ),
-                          menuChildren: snapshot.data?.map((e) {
+                          menuChildren:
+                              snapshot.data?.map((e) {
                                 final data = e.data!;
                                 final metadata = data.getMetadata();
                                 final thumbnail = data.getThumbnail();
@@ -592,20 +572,12 @@ class FilesViewState extends State<FilesView> {
                                           cacheWidth: 32,
                                           cacheHeight: 18,
                                         ),
-                                  child: Text(
-                                    metadata?.name ?? '',
-                                  ),
-                                  onPressed: () => _createFile(
-                                    data,
-                                  ),
+                                  child: Text(metadata?.name ?? ''),
+                                  onPressed: () => _createFile(data),
                                 );
                               }).toList() ??
                               [],
-                          child: Text(
-                            AppLocalizations.of(
-                              context,
-                            ).templates,
-                          ),
+                          child: Text(AppLocalizations.of(context).templates),
                         ),
                       ),
                       MenuItemButton(
@@ -614,10 +586,9 @@ class FilesViewState extends State<FilesView> {
                         ),
                         onPressed: () async {
                           final router = GoRouter.of(context);
-                          var (
-                            result,
-                            fileExtension,
-                          ) = await importFile(context);
+                          var (result, fileExtension) = await importFile(
+                            context,
+                          );
                           if (result == null) return;
                           if (fileExtension == 'bin') {
                             // see https://github.com/LinwoodDev/Butterfly/issues/839
@@ -635,58 +606,40 @@ class FilesViewState extends State<FilesView> {
                             reloadFileSystem();
                           }
                         },
-                        child: Text(
-                          AppLocalizations.of(context).import,
-                        ),
+                        child: Text(AppLocalizations.of(context).import),
                       ),
                       if (settings.hasFlag('collaboration'))
                         MenuItemButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.shareNetwork,
                           ),
-                          child: Text(
-                            AppLocalizations.of(
-                              context,
-                            ).connect,
-                          ),
+                          child: Text(AppLocalizations.of(context).connect),
                           onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  ConnectCollaborationDialog()),
+                            context: context,
+                            builder: (context) => ConnectCollaborationDialog(),
+                          ),
                         ),
                     ],
                     builder: (context, controller, child) =>
                         FloatingActionButton.small(
-                      heroTag: null,
-                      onPressed: controller.toggle,
-                      tooltip: LeapLocalizations.of(
-                        context,
-                      ).create,
-                      child: const PhosphorIcon(
-                        PhosphorIconsLight.plus,
-                      ),
-                    ),
+                          heroTag: null,
+                          onPressed: controller.toggle,
+                          tooltip: LeapLocalizations.of(context).create,
+                          child: const PhosphorIcon(PhosphorIconsLight.plus),
+                        ),
                   ),
                   DragTarget<String>(
-                    builder: (
-                      context,
-                      candidateData,
-                      rejectedData,
-                    ) =>
+                    builder: (context, candidateData, rejectedData) =>
                         IconButton(
-                      onPressed: _locationController.text.isEmpty
-                          ? null
-                          : () => setState(() {
-                                _locationController.text = parent;
-                                _setFilesStream();
-                              }),
-                      icon: const PhosphorIcon(
-                        PhosphorIconsLight.arrowUp,
-                      ),
-                      tooltip: AppLocalizations.of(
-                        context,
-                      ).goUp,
-                    ),
+                          onPressed: _locationController.text.isEmpty
+                              ? null
+                              : () => setState(() {
+                                  _locationController.text = parent;
+                                  _setFilesStream();
+                                }),
+                          icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                          tooltip: AppLocalizations.of(context).goUp,
+                        ),
                     onWillAcceptWithDetails: (data) => true,
                     onAcceptWithDetails: (data) async {
                       await _documentSystem.moveAsset(
@@ -700,9 +653,7 @@ class FilesViewState extends State<FilesView> {
                   Flexible(
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: AppLocalizations.of(
-                          context,
-                        ).location,
+                        hintText: AppLocalizations.of(context).location,
                         prefixIcon: const PhosphorIcon(
                           PhosphorIconsLight.folder,
                         ),
@@ -734,12 +685,9 @@ class FilesViewState extends State<FilesView> {
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.selectionSlash,
                             ),
-                            tooltip: AppLocalizations.of(
-                              context,
-                            ).deselect,
-                            onPressed: () => setState(
-                              () => _selectedFiles.clear(),
-                            ),
+                            tooltip: AppLocalizations.of(context).deselect,
+                            onPressed: () =>
+                                setState(() => _selectedFiles.clear()),
                           ),
                           IconButton(
                             icon: const PhosphorIcon(
@@ -777,38 +725,33 @@ class FilesViewState extends State<FilesView> {
                               PhosphorIconsLight.arrowsDownUp,
                             ),
                             tooltip: AppLocalizations.of(context).move,
-                            onPressed: () => showDialog(
-                              context: context,
-                              builder: (
-                                context,
-                              ) =>
-                                  FileSystemAssetMoveDialog(
-                                assets: _selectedFiles
-                                    .map(
-                                      (
-                                        e,
-                                      ) =>
-                                          AssetLocation(
-                                        path: e,
-                                        remote: _remote?.identifier ?? '',
+                            onPressed: () =>
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      FileSystemAssetMoveDialog(
+                                        assets: _selectedFiles
+                                            .map(
+                                              (e) => AssetLocation(
+                                                path: e,
+                                                remote:
+                                                    _remote?.identifier ?? '',
+                                              ),
+                                            )
+                                            .toList(),
+                                        fileSystem: _documentSystem,
                                       ),
-                                    )
-                                    .toList(),
-                                fileSystem: _documentSystem,
-                              ),
-                            ).then((value) {
-                              if (value == null) return;
-                              reloadFileSystem();
-                            }),
+                                ).then((value) {
+                                  if (value == null) return;
+                                  reloadFileSystem();
+                                }),
                           ),
                           Builder(
                             builder: (context) => IconButton(
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.trash,
                               ),
-                              tooltip: AppLocalizations.of(
-                                context,
-                              ).delete,
+                              tooltip: AppLocalizations.of(context).delete,
                               onPressed: () async => deleteEntities(
                                 context: context,
                                 entities: _selectedFiles,

@@ -32,8 +32,9 @@ class KeyboardInputSettings extends StatelessWidget {
                       title: Text(AppLocalizations.of(context).shortcuts),
                       leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
                       onTap: () => openHelp(['shortcuts'], 'keyboard'),
-                      trailing:
-                          const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
+                      trailing: const PhosphorIcon(
+                        PhosphorIconsLight.arrowSquareOut,
+                      ),
                     ),
                   ),
                 ),

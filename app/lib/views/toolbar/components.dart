@@ -63,72 +63,74 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<PackItem<ButterflyComponent>>>(
-        future: _componentsFuture,
-        builder: (context, snapshot) {
-          final allComponents = snapshot.data ?? [];
-          final packs = allComponents.map((e) => e.namespace).toSet().toList()
-            ..sort((a, b) => a.compareTo(b));
-          var pack = currentPack ?? allComponents.firstOrNull?.namespace;
-          final components =
-              allComponents.where((e) => e.namespace == pack).toList();
-          final value = widget.component;
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (value != null) ...[
-                _ComponentsButton(
-                  onChanged: () {},
-                  value: value.item,
-                  name: value.name,
-                ),
-                const VerticalDivider(),
-              ],
-              Expanded(
-                child: Scrollbar(
-                  controller: _scrollController,
-                  child: ListView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...List.generate(components.length, (index) {
-                        final current = components[index];
-                        final named = current.toNamed();
-                        return _ComponentsButton(
-                          value: current.item,
-                          name: current.key,
-                          selected: value == named,
-                          onChanged: () {
-                            widget.onChanged(named);
-                          },
-                        );
-                      }),
-                    ],
-                  ),
-                ),
+      future: _componentsFuture,
+      builder: (context, snapshot) {
+        final allComponents = snapshot.data ?? [];
+        final packs = allComponents.map((e) => e.namespace).toSet().toList()
+          ..sort((a, b) => a.compareTo(b));
+        var pack = currentPack ?? allComponents.firstOrNull?.namespace;
+        final components = allComponents
+            .where((e) => e.namespace == pack)
+            .toList();
+        final value = widget.component;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (value != null) ...[
+              _ComponentsButton(
+                onChanged: () {},
+                value: value.item,
+                name: value.name,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MenuAnchor(
-                  builder: defaultMenuButton(
-                    tooltip: AppLocalizations.of(context).pack,
-                  ),
-                  menuChildren: packs
-                      .map(
-                        (e) => RadioMenuButton(
-                          value: e,
-                          groupValue: currentPack,
-                          onChanged: (value) =>
-                              setState(() => currentPack = value ?? e),
-                          child: Text(e),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
+              const VerticalDivider(),
             ],
-          );
-        });
+            Expanded(
+              child: Scrollbar(
+                controller: _scrollController,
+                child: ListView(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...List.generate(components.length, (index) {
+                      final current = components[index];
+                      final named = current.toNamed();
+                      return _ComponentsButton(
+                        value: current.item,
+                        name: current.key,
+                        selected: value == named,
+                        onChanged: () {
+                          widget.onChanged(named);
+                        },
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MenuAnchor(
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).pack,
+                ),
+                menuChildren: packs
+                    .map(
+                      (e) => RadioMenuButton(
+                        value: e,
+                        groupValue: currentPack,
+                        onChanged: (value) =>
+                            setState(() => currentPack = value ?? e),
+                        child: Text(e),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

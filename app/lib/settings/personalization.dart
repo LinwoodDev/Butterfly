@@ -14,10 +14,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
   const PersonalizationSettingsPage({super.key, this.inView = false});
 
   String _getThemeName(BuildContext context, ThemeMode mode) => switch (mode) {
-        ThemeMode.system => AppLocalizations.of(context).systemTheme,
-        ThemeMode.light => AppLocalizations.of(context).lightTheme,
-        ThemeMode.dark => AppLocalizations.of(context).darkTheme,
-      };
+    ThemeMode.system => AppLocalizations.of(context).systemTheme,
+    ThemeMode.light => AppLocalizations.of(context).lightTheme,
+    ThemeMode.dark => AppLocalizations.of(context).darkTheme,
+  };
 
   String _getPlatformThemeName(BuildContext context, PlatformTheme theme) =>
       switch (theme) {
@@ -26,8 +26,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
         PlatformTheme.mobile => AppLocalizations.of(context).mobile,
       };
 
-  String _getLocaleName(BuildContext context, String locale) => locale
-          .isNotEmpty
+  String _getLocaleName(BuildContext context, String locale) =>
+      locale.isNotEmpty
       ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
       : AppLocalizations.of(context).systemLocale;
 

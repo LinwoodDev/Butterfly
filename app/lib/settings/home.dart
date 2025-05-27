@@ -28,27 +28,28 @@ enum SettingsView {
   bool get isEnabled => this != SettingsView.connections || !kIsWeb;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        SettingsView.general => AppLocalizations.of(context).general,
-        SettingsView.data => AppLocalizations.of(context).data,
-        SettingsView.behaviors => AppLocalizations.of(context).behaviors,
-        SettingsView.inputs => AppLocalizations.of(context).inputs,
-        SettingsView.personalization =>
-          AppLocalizations.of(context).personalization,
-        SettingsView.view => AppLocalizations.of(context).view,
-        SettingsView.connections => AppLocalizations.of(context).connections,
-        SettingsView.experiments => AppLocalizations.of(context).experiments,
-      };
+    SettingsView.general => AppLocalizations.of(context).general,
+    SettingsView.data => AppLocalizations.of(context).data,
+    SettingsView.behaviors => AppLocalizations.of(context).behaviors,
+    SettingsView.inputs => AppLocalizations.of(context).inputs,
+    SettingsView.personalization => AppLocalizations.of(
+      context,
+    ).personalization,
+    SettingsView.view => AppLocalizations.of(context).view,
+    SettingsView.connections => AppLocalizations.of(context).connections,
+    SettingsView.experiments => AppLocalizations.of(context).experiments,
+  };
 
   IconGetter get icon => switch (this) {
-        SettingsView.general => PhosphorIcons.gear,
-        SettingsView.data => PhosphorIcons.database,
-        SettingsView.behaviors => PhosphorIcons.faders,
-        SettingsView.inputs => PhosphorIcons.keyboard,
-        SettingsView.personalization => PhosphorIcons.monitor,
-        SettingsView.view => PhosphorIcons.eye,
-        SettingsView.connections => PhosphorIcons.cloud,
-        SettingsView.experiments => PhosphorIcons.flask,
-      };
+    SettingsView.general => PhosphorIcons.gear,
+    SettingsView.data => PhosphorIcons.database,
+    SettingsView.behaviors => PhosphorIcons.faders,
+    SettingsView.inputs => PhosphorIcons.keyboard,
+    SettingsView.personalization => PhosphorIcons.monitor,
+    SettingsView.view => PhosphorIcons.eye,
+    SettingsView.connections => PhosphorIcons.cloud,
+    SettingsView.experiments => PhosphorIcons.flask,
+  };
   String get path => '/settings/$name';
 }
 
@@ -147,8 +148,8 @@ class _SettingsPageState extends State<SettingsPage> {
       SettingsView.behaviors => const BehaviorsSettingsPage(inView: true),
       SettingsView.inputs => const InputsSettingsPage(inView: true),
       SettingsView.personalization => const PersonalizationSettingsPage(
-          inView: true,
-        ),
+        inView: true,
+      ),
       SettingsView.view => const ViewSettingsPage(inView: true),
       SettingsView.connections => const ConnectionsSettingsPage(inView: true),
       SettingsView.experiments => const ExperimentsSettingsPage(inView: true),

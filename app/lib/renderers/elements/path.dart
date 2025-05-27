@@ -6,8 +6,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
   Rect rect = Rect.zero;
 
-  PathRenderer(super.element,
-      [super.layer, this.rect = Rect.zero, this.expandedRect = Rect.zero]);
+  PathRenderer(
+    super.element, [
+    super.layer,
+    this.rect = Rect.zero,
+    this.expandedRect = Rect.zero,
+  ]);
 
   double? get zoom => null;
 
@@ -24,7 +28,10 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   @override
   FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) {
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) {
     final current = element as PathElement;
     final points = current.points;
     if (points.isEmpty) return null;
@@ -33,33 +40,57 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     var bottomRightCorner = points.first.toOffset();
     for (final element in points) {
       topLeftCorner = Offset(
-          min(topLeftCorner.dx, element.x), min(topLeftCorner.dy, element.y));
-      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x),
-          max(bottomRightCorner.dy, element.y));
+        min(topLeftCorner.dx, element.x),
+        min(topLeftCorner.dy, element.y),
+      );
+      bottomRightCorner = Offset(
+        max(bottomRightCorner.dx, element.x),
+        max(bottomRightCorner.dy, element.y),
+      );
     }
-    rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
-        bottomRightCorner.dx, bottomRightCorner.dy);
+    rect = Rect.fromLTRB(
+      topLeftCorner.dx,
+      topLeftCorner.dy,
+      bottomRightCorner.dx,
+      bottomRightCorner.dy,
+    );
     final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
-    final rotatedPoints =
-        points.map((e) => e.rotate(center, rotation / 180 * pi)).toList();
+    final rotatedPoints = points
+        .map((e) => e.rotate(center, rotation / 180 * pi))
+        .toList();
     topLeftCorner = rotatedPoints.first.toOffset();
     bottomRightCorner = rotatedPoints.first.toOffset();
     for (final element in rotatedPoints) {
       final width = property.strokeWidth + element.pressure * property.thinning;
-      topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
-          min(topLeftCorner.dy, element.y - width));
-      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x + width),
-          max(bottomRightCorner.dy, element.y + width));
+      topLeftCorner = Offset(
+        min(topLeftCorner.dx, element.x - width),
+        min(topLeftCorner.dy, element.y - width),
+      );
+      bottomRightCorner = Offset(
+        max(bottomRightCorner.dx, element.x + width),
+        max(bottomRightCorner.dy, element.y + width),
+      );
     }
-    expandedRect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
-        bottomRightCorner.dx, bottomRightCorner.dy);
+    expandedRect = Rect.fromLTRB(
+      topLeftCorner.dx,
+      topLeftCorner.dy,
+      bottomRightCorner.dx,
+      bottomRightCorner.dy,
+    );
     super.setup(document, assetService, page);
   }
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final current = element as PathElement;
     final points = current.points;
     if (points.isEmpty) return;
@@ -91,9 +122,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         return;
       } else if (outlinePoints.length < 2) {
         // If the list only has one point, draw a dot.
-        path.addOval(Rect.fromCircle(
+        path.addOval(
+          Rect.fromCircle(
             center: Offset(outlinePoints[0].dx, outlinePoints[0].dy),
-            radius: 1));
+            radius: 1,
+          ),
+        );
       } else {
         // Otherwise, draw a line that connects each point with a bezier curve segment.
         path.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
@@ -102,7 +136,11 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
           final p0 = outlinePoints[i];
           final p1 = outlinePoints[i + 1];
           path.quadraticBezierTo(
-              p0.dx, p0.dy, (p0.dx + p1.dx) / 2, (p0.dy + p1.dy) / 2);
+            p0.dx,
+            p0.dy,
+            (p0.dx + p1.dx) / 2,
+            (p0.dy + p1.dy) / 2,
+          );
         }
       }
 
@@ -139,8 +177,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
     final current = element as PathElement;
     final points = current.points;
     final visual = buildPathVisual(page);
@@ -186,11 +228,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
   }
 
-  List<PathPoint> movePoints(
-    Offset position,
-    double scaleX,
-    double scaleY,
-  ) {
+  List<PathPoint> movePoints(Offset position, double scaleX, double scaleY) {
     var current = element as PathElement;
     final topLeft = expandedRect.topLeft;
     final points = current.points.map((element) {
@@ -209,7 +247,10 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   @override
   PathHitCalculator getHitCalculator() => PathHitCalculator(
-      rect, (element as PathElement).points, rotation * pi / 180);
+    rect,
+    (element as PathElement).points,
+    rotation * pi / 180,
+  );
 }
 
 class PathHitCalculator extends HitCalculator {
@@ -229,12 +270,12 @@ class PathHitCalculator extends HitCalculator {
     result.add(a.rotate(elementRect.center, rotation));
 
     for (int i = 1; i <= distance; i++) {
-      result.add(PathPoint(a.x + (distanceX / distance * i).floor(),
-              a.y + (distanceY / distance * i).floor())
-          .rotate(
-        elementRect.center,
-        rotation,
-      ));
+      result.add(
+        PathPoint(
+          a.x + (distanceX / distance * i).floor(),
+          a.y + (distanceY / distance * i).floor(),
+        ).rotate(elementRect.center, rotation),
+      );
     }
 
     result.add(b.rotate(elementRect.center, rotation));
@@ -273,10 +314,12 @@ class PathHitCalculator extends HitCalculator {
   bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     final interpolated = _getInterpolatedPoints(points);
     if (full) {
-      return interpolated
-          .every((point) => isPointInPolygon(polygon, point.toOffset()));
+      return interpolated.every(
+        (point) => isPointInPolygon(polygon, point.toOffset()),
+      );
     }
-    return interpolated
-        .any((point) => isPointInPolygon(polygon, point.toOffset()));
+    return interpolated.any(
+      (point) => isPointInPolygon(polygon, point.toOffset()),
+    );
   }
 }

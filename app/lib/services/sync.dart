@@ -27,8 +27,9 @@ class SyncService {
 
   RemoteSync? getSync(String remote) {
     if (kIsWeb) return null;
-    var current = _syncs
-        .firstWhereOrNull((sync) => sync.remoteStorage.identifier == remote);
+    var current = _syncs.firstWhereOrNull(
+      (sync) => sync.remoteStorage.identifier == remote,
+    );
     current ??= _createSync(remote);
     return current;
   }
@@ -124,8 +125,9 @@ class RemoteSync {
       return;
     }
     if (syncMode == SyncMode.noMobile &&
-        !(await Connectivity().checkConnectivity())
-            .contains(ConnectivityResult.mobile)) {
+        !(await Connectivity().checkConnectivity()).contains(
+          ConnectivityResult.mobile,
+        )) {
       return;
     }
     await sync();
@@ -196,8 +198,9 @@ class RemoteSync {
     // Get current files from stream or sync
     var currentFiles = await filesStream.first;
     if (status != null) {
-      currentFiles =
-          currentFiles.where((file) => file.status == status).toList();
+      currentFiles = currentFiles
+          .where((file) => file.status == status)
+          .toList();
     }
     return currentFiles;
   }

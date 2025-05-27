@@ -17,8 +17,10 @@ class ChangeToolAction extends Action<ChangeToolIntent> {
   @override
   Future<void> invoke(ChangeToolIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
-    intent.context
-        .read<CurrentIndexCubit>()
-        .changeTool(bloc, context: intent.context, index: intent.index);
+    intent.context.read<CurrentIndexCubit>().changeTool(
+      bloc,
+      context: intent.context,
+      index: intent.index,
+    );
   }
 }

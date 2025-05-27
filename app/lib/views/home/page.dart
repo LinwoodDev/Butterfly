@@ -76,9 +76,9 @@ class _HomePageState extends State<HomePage> {
               final hasNewerVersion = snapshot.data ?? false;
               final showBanner =
                   settings.bannerVisibility == BannerVisibility.always ||
-                      (settings.bannerVisibility ==
-                              BannerVisibility.onlyOnUpdates &&
-                          hasNewerVersion);
+                  (settings.bannerVisibility ==
+                          BannerVisibility.onlyOnUpdates &&
+                      hasNewerVersion);
               final appBar = WindowTitleBar<SettingsCubit, ButterflySettings>(
                 title: isMobile || !showBanner
                     ? Column(
@@ -138,9 +138,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           NavigationDestination(
                             icon: const Icon(PhosphorIconsLight.folder),
-                            selectedIcon: const Icon(
-                              PhosphorIconsFill.folder,
-                            ),
+                            selectedIcon: const Icon(PhosphorIconsFill.folder),
                             label: AppLocalizations.of(context).files,
                           ),
                           NavigationDestination(
@@ -162,29 +160,29 @@ class _HomePageState extends State<HomePage> {
                         length: 1,
                         child: switch (_tab) {
                           _MobileTab.home => Scaffold(
-                              appBar: appBar,
-                              body: ListView(
-                                children: [
-                                  _QuickstartHomeView(
-                                    remote: _remote,
-                                    isMobile: true,
-                                    onReload: () => setState(
-                                      () => _filesViewKey.currentState
-                                          ?.reloadFileSystem(),
-                                    ),
+                            appBar: appBar,
+                            body: ListView(
+                              children: [
+                                _QuickstartHomeView(
+                                  remote: _remote,
+                                  isMobile: true,
+                                  onReload: () => setState(
+                                    () => _filesViewKey.currentState
+                                        ?.reloadFileSystem(),
                                   ),
-                                  RecentFilesView(replace: false, asGrid: true),
-                                ],
-                              ),
+                                ),
+                                RecentFilesView(replace: false, asGrid: true),
+                              ],
                             ),
+                          ),
                           _MobileTab.files => FilesView(
-                              activeAsset: widget.selectedAsset,
-                              remote: _remote,
-                              isMobile: true,
-                              isPage: true,
-                              key: _filesViewKey,
-                              onRemoteChanged: (value) => updateRemote(value),
-                            ),
+                            activeAsset: widget.selectedAsset,
+                            remote: _remote,
+                            isMobile: true,
+                            isPage: true,
+                            key: _filesViewKey,
+                            onRemoteChanged: (value) => updateRemote(value),
+                          ),
                           _MobileTab.settings => SettingsPage(),
                         },
                       )
@@ -192,9 +190,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
                             constraints: const BoxConstraints(maxWidth: 1400),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

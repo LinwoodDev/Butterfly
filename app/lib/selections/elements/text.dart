@@ -15,26 +15,32 @@ class LabelElementSelection extends ElementSelection<PadElement> {
         value: element.scale,
         defaultValue: 5,
         onChangeEnd: (value) => updateElements(
-            context,
-            elements
-                .map((e) => switch (e) {
-                      TextElement e => e.copyWith(scale: value),
-                      MarkdownElement e => e.copyWith(scale: value),
-                      _ => e
-                    })
-                .toList()),
+          context,
+          elements
+              .map(
+                (e) => switch (e) {
+                  TextElement e => e.copyWith(scale: value),
+                  MarkdownElement e => e.copyWith(scale: value),
+                  _ => e,
+                },
+              )
+              .toList(),
+        ),
       ),
       ConstraintView(
         initialConstraint: element.constraint,
         onChanged: (constraint) => updateElements(
-            context,
-            elements
-                .map((e) => switch (e) {
-                      TextElement e => e.copyWith(constraint: constraint),
-                      MarkdownElement e => e.copyWith(constraint: constraint),
-                      _ => e
-                    })
-                .toList()),
+          context,
+          elements
+              .map(
+                (e) => switch (e) {
+                  TextElement e => e.copyWith(constraint: constraint),
+                  MarkdownElement e => e.copyWith(constraint: constraint),
+                  _ => e,
+                },
+              )
+              .toList(),
+        ),
       ),
     ];
   }
@@ -42,8 +48,10 @@ class LabelElementSelection extends ElementSelection<PadElement> {
   @override
   Selection insert(element) {
     if (element is Renderer<LabelElement>) {
-      return LabelElementSelection(
-          [...selected, element as Renderer<PadElement>]);
+      return LabelElementSelection([
+        ...selected,
+        element as Renderer<PadElement>,
+      ]);
     }
     return super.insert(element);
   }

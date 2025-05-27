@@ -54,9 +54,9 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
 
   @override
   Widget build(BuildContext context) {
-    final translations = DocumentDefaults.getParagraphTranslations(
-      context,
-    ).entries.where(
+    final translations = DocumentDefaults.getParagraphTranslations(context)
+        .entries
+        .where(
           (element) =>
               !widget.value.paragraphProperties.containsKey(element.key),
         );
@@ -163,8 +163,8 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                     widget.value.copyWith(
                       paragraphProperties:
                           Map<String, text.DefinedParagraphProperty>.from(
-                        widget.value.paragraphProperties,
-                      )
+                              widget.value.paragraphProperties,
+                            )
                             ..remove(lastStyle)
                             ..[name] =
                                 widget.value.paragraphProperties[lastStyle]!,
@@ -188,8 +188,8 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       widget.value.copyWith(
                         paragraphProperties:
                             Map<String, text.DefinedParagraphProperty>.from(
-                          widget.value.paragraphProperties,
-                        )..remove(lastStyle),
+                              widget.value.paragraphProperties,
+                            )..remove(lastStyle),
                       ),
                     );
                   }

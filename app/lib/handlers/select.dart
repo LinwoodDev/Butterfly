@@ -10,15 +10,20 @@ class SelectHandler extends Handler<SelectTool> {
 
   SelectHandler(super.data);
 
-  void transform(DocumentBloc bloc, SelectionTransformCorner? corner,
-      {List<Renderer<PadElement>>? next,
-      bool duplicate = false,
-      Offset? position}) {
+  void transform(
+    DocumentBloc bloc,
+    SelectionTransformCorner? corner, {
+    List<Renderer<PadElement>>? next,
+    bool duplicate = false,
+    Offset? position,
+  }) {
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect();
     _selectionManager.startTransformWithCorner(
-        corner, position ?? _selectionManager.selection.center);
+      corner,
+      position ?? _selectionManager.selection.center,
+    );
     _duplicate = duplicate;
     bloc.refresh();
   }
@@ -26,9 +31,10 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Map<String, RendererState> get rendererStates =>
       _selectionManager.isTransforming && !_duplicate
-          ? Map.fromEntries(
-              _selected.map((e) => MapEntry(e.id, RendererState.hidden)))
-          : {};
+      ? Map.fromEntries(
+          _selected.map((e) => MapEntry(e.id, RendererState.hidden)),
+        )
+      : {};
 
   @override
   Future<void> resetInput(DocumentBloc bloc) async {
@@ -44,8 +50,9 @@ class SelectHandler extends Handler<SelectTool> {
     var changed = false;
     _selected = _selected
         .map((e) {
-          final renderer = renderers
-              .firstWhereOrNull((element) => element.element == e.element);
+          final renderer = renderers.firstWhereOrNull(
+            (element) => element.element == e.element,
+          );
           if (renderer is! Renderer<PadElement>) return e;
           changed = true;
           return renderer;
@@ -58,7 +65,10 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   bool onRendererUpdated(
-      DocumentPage page, Renderer old, List<Renderer> updated) {
+    DocumentPage page,
+    Renderer old,
+    List<Renderer> updated,
+  ) {
     bool changed = false;
     if (old is Renderer<PadElement> &&
         _selected.any((e) => e.id == old.id) &&
@@ -93,8 +103,11 @@ class SelectHandler extends Handler<SelectTool> {
       var oldPos = e.expandedRect?.topLeft ?? Offset.zero;
       var diff = oldPos - rect.topLeft;
       // Scale and calculate relative position based on transformRect
-      var newPos = Offset(diff.dx * (transform.scaleX - 1),
-              diff.dy * (transform.scaleY - 1)) +
+      var newPos =
+          Offset(
+            diff.dx * (transform.scaleX - 1),
+            diff.dy * (transform.scaleY - 1),
+          ) +
           transform.position;
       // Rotate around center
       if (transform.rotation != 0) {
@@ -102,20 +115,25 @@ class SelectHandler extends Handler<SelectTool> {
         newPos += center.rotate(pivot, transform.rotation / 180 * pi) - center;
       }
       return e.transform(
-              position: newPos,
-              scaleX: transform.scaleX,
-              scaleY: transform.scaleY,
-              rotation: transform.rotation,
-              rotatePosition: transform.rotation != 0,
-              relative: true) ??
+            position: newPos,
+            scaleX: transform.scaleX,
+            scaleY: transform.scaleY,
+            rotation: transform.rotation,
+            rotatePosition: transform.rotation != 0,
+            relative: true,
+          ) ??
           e;
     }).toList();
   }
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) {
     final foregrounds = <Renderer>[];
     foregrounds.addAll(_getTransformed() ?? []);
     final selectionRect = getSelectionRect();
@@ -124,12 +142,14 @@ class SelectHandler extends Handler<SelectTool> {
       foregrounds.add(_selectionManager.renderer);
     }
     if (_rectangleFreeSelection != null) {
-      foregrounds
-          .add(RectSelectionForegroundRenderer(_rectangleFreeSelection!));
+      foregrounds.add(
+        RectSelectionForegroundRenderer(_rectangleFreeSelection!),
+      );
     }
     if (_lassoFreeSelection != null) {
-      foregrounds
-          .add(LassoSelectionForegroundRenderer(_lassoFreeSelection!, scheme));
+      foregrounds.add(
+        LassoSelectionForegroundRenderer(_lassoFreeSelection!, scheme),
+      );
     }
     return foregrounds;
   }
@@ -141,15 +161,23 @@ class SelectHandler extends Handler<SelectTool> {
     final current = _getTransformed();
     _selectionManager.deselect();
     if (current == null) return null;
-    bloc.add(_duplicate
-        ? ElementsCreated(current
-            .map((e) => e.element.copyWith(id: createUniqueId()))
-            .toList())
-        : ElementsChanged(Map.fromEntries(current.mapIndexed((i, e) {
-            final id = _selected[i].element.id;
-            if (id == null) return null;
-            return MapEntry(id, [e.element]);
-          }).nonNulls)));
+    bloc.add(
+      _duplicate
+          ? ElementsCreated(
+              current
+                  .map((e) => e.element.copyWith(id: createUniqueId()))
+                  .toList(),
+            )
+          : ElementsChanged(
+              Map.fromEntries(
+                current.mapIndexed((i, e) {
+                  final id = _selected[i].element.id;
+                  if (id == null) return null;
+                  return MapEntry(id, [e.element]);
+                }).nonNulls,
+              ),
+            ),
+    );
     if (_duplicate) {
       return _selected;
     }
@@ -183,8 +211,11 @@ class SelectHandler extends Handler<SelectTool> {
     _onSelectionAdd(context, details.localPosition, true);
   }
 
-  Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
-      [bool forceAdd = false]) async {
+  Future<void> _onSelectionAdd(
+    EventContext context,
+    Offset localPosition, [
+    bool forceAdd = false,
+  ]) async {
     if (_selectionManager.isTransforming) {
       return;
     }
@@ -201,11 +232,11 @@ class SelectHandler extends Handler<SelectTool> {
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
     final hits = await context.getDocumentBloc().rayCast(
-          globalPos,
-          radius,
-          useCollection: utilities.lockCollection,
-          useLayer: utilities.lockLayer,
-        );
+      globalPos,
+      radius,
+      useCollection: utilities.lockCollection,
+      useLayer: utilities.lockLayer,
+    );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         _selected.clear();
@@ -236,8 +267,9 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset =
-        details.kind != PointerDeviceKind.mouse ? details.localPosition : null;
+    _contextMenuOffset = details.kind != PointerDeviceKind.mouse
+        ? details.localPosition
+        : null;
   }
 
   @override
@@ -247,7 +279,9 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   Future<void> _onSelectionContext(
-      EventContext context, Offset localPosition) async {
+    EventContext context,
+    Offset localPosition,
+  ) async {
     if (_selectionManager.isTransforming) {
       return;
     }
@@ -255,11 +289,7 @@ class SelectHandler extends Handler<SelectTool> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final hits = await bloc.rayCast(
-      position,
-      0.0,
-      useCollection: true,
-    );
+    final hits = await bloc.rayCast(position, 0.0, useCollection: true);
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
     final selectionRect = getSelectionRect();
@@ -295,8 +325,11 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    _ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
-        details.localFocalPoint, context.viewportSize);
+    _ruler = RulerHandler.getFirstRuler(
+      context.getCurrentIndex(),
+      details.localFocalPoint,
+      context.viewportSize,
+    );
     _rulerRotationStart = details.localFocalPoint;
     _lastRulerRotation = _ruler?.rotation ?? 0;
     if (_ruler != null) return true;
@@ -306,14 +339,21 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
-    final shouldTransform = _selectionManager.shouldTransform(globalPos,
-        cameraTransform.size, context.getSettings().touchSensitivity);
+    final shouldTransform = _selectionManager.shouldTransform(
+      globalPos,
+      cameraTransform.size,
+      context.getSettings().touchSensitivity,
+    );
     if (shouldTransform) {
       transform(
-          context.getDocumentBloc(),
-          _selectionManager.getCornerHit(globalPos, cameraTransform.size,
-              context.getSettings().touchSensitivity),
-          position: globalPos);
+        context.getDocumentBloc(),
+        _selectionManager.getCornerHit(
+          globalPos,
+          cameraTransform.size,
+          context.getSettings().touchSensitivity,
+        ),
+        position: globalPos,
+      );
       return true;
     }
     context.refresh();
@@ -325,8 +365,11 @@ class SelectHandler extends Handler<SelectTool> {
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(event.localPosition);
     final selectionRect = getSelectionRect();
-    final shouldTransform = _selectionManager.shouldTransform(globalPos,
-        cameraTransform.size, context.getSettings().touchSensitivity);
+    final shouldTransform = _selectionManager.shouldTransform(
+      globalPos,
+      cameraTransform.size,
+      context.getSettings().touchSensitivity,
+    );
     if (selectionRect != null && selectionRect.contains(globalPos)) {
       return false;
     }
@@ -354,7 +397,8 @@ class SelectHandler extends Handler<SelectTool> {
       var start = _rulerRotationStart ?? rulerCenter;
       final startDelta = (start - rulerCenter).direction;
       final currentDelta = (details.localFocalPoint - rulerCenter).direction;
-      angle = (currentDelta - startDelta) * 180 / pi -
+      angle =
+          (currentDelta - startDelta) * 180 / pi -
           ruler.rotation +
           _lastRulerRotation;
     } else {
@@ -370,8 +414,9 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final globalPos = context.getCameraTransform().localToGlobal(
+      details.localFocalPoint,
+    );
     if (_handleRuler(details, context)) {
       return;
     }
@@ -419,17 +464,17 @@ class SelectHandler extends Handler<SelectTool> {
     }
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
-            rectangleSelection,
-            useCollection: utilities.lockCollection,
-            useLayer: utilities.lockLayer,
-          );
+        rectangleSelection,
+        useCollection: utilities.lockCollection,
+        useLayer: utilities.lockLayer,
+      );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
-            lassoSelection,
-            useCollection: utilities.lockCollection,
-            useLayer: utilities.lockLayer,
-          );
+        lassoSelection,
+        useCollection: utilities.lockCollection,
+        useLayer: utilities.lockLayer,
+      );
       _selected.addAll(hits);
     } else {
       _updateSelectionRect();
@@ -458,13 +503,16 @@ class SelectHandler extends Handler<SelectTool> {
   MouseCursor? get cursor => _selectionManager.cursor;
 
   Future<void> copySelection(
-      DocumentBloc bloc, ClipboardManager clipboardManager,
-      [bool cut = false]) async {
+    DocumentBloc bloc,
+    ClipboardManager clipboardManager, [
+    bool cut = false,
+  ]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
-      bloc.add(ElementsRemoved(
-          _selected.map((r) => r.element.id).nonNulls.toList()));
+      bloc.add(
+        ElementsRemoved(_selected.map((r) => r.element.id).nonNulls.toList()),
+      );
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
@@ -473,18 +521,22 @@ class SelectHandler extends Handler<SelectTool> {
       AssetFileType.page,
       Uint8List.fromList(
         utf8.encode(
-          json.encode(DocumentPage(layers: [
-            DocumentLayer(
-                id: createUniqueId(),
-                content: _selected
-                    .map((e) => (e.transform(
-                              position: -point,
-                              relative: true,
-                            ) ??
-                            e)
-                        .element)
-                    .toList())
-          ]).toDataJson(state.data)),
+          json.encode(
+            DocumentPage(
+              layers: [
+                DocumentLayer(
+                  id: createUniqueId(),
+                  content: _selected
+                      .map(
+                        (e) =>
+                            (e.transform(position: -point, relative: true) ?? e)
+                                .element,
+                      )
+                      .toList(),
+                ),
+              ],
+            ).toDataJson(state.data),
+          ),
         ),
       ),
     );
@@ -492,8 +544,10 @@ class SelectHandler extends Handler<SelectTool> {
     bloc.refresh();
   }
 
-  void selectAll(DocumentBloc bloc,
-      [bool Function(Renderer<PadElement>)? filter]) {
+  void selectAll(
+    DocumentBloc bloc, [
+    bool Function(Renderer<PadElement>)? filter,
+  ]) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     _selected.clear();
@@ -510,22 +564,28 @@ class SelectHandler extends Handler<SelectTool> {
     return {
       ...super.getActions(context),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-          onInvoke: (intent) => selectAll(bloc)),
-      DeleteCharacterIntent:
-          CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
-        final state = bloc.state;
-        if (state is! DocumentLoadSuccess) return null;
-        context.read<DocumentBloc>().add(ElementsRemoved(
-            _selected.map((r) => r.element.id).nonNulls.toList()));
-        _selected.clear();
-        bloc.refresh();
-        return null;
-      }),
-      CopySelectionTextIntent:
-          CallbackAction<CopySelectionTextIntent>(onInvoke: (intent) {
-        copySelection(bloc, clipboardManager, intent.collapseSelection);
-        return null;
-      }),
+        onInvoke: (intent) => selectAll(bloc),
+      ),
+      DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
+        onInvoke: (intent) {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return null;
+          context.read<DocumentBloc>().add(
+            ElementsRemoved(
+              _selected.map((r) => r.element.id).nonNulls.toList(),
+            ),
+          );
+          _selected.clear();
+          bloc.refresh();
+          return null;
+        },
+      ),
+      CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
+        onInvoke: (intent) {
+          copySelection(bloc, clipboardManager, intent.collapseSelection);
+          return null;
+        },
+      ),
     };
   }
 }
