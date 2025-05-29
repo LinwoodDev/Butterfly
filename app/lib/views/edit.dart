@@ -205,7 +205,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         final importService = context.read<ImportService>();
                         showGeneralDialog(
                           context: context,
-                          pageBuilder: (ctx, _, __) => MultiBlocProvider(
+                          pageBuilder: (ctx, _, _) => MultiBlocProvider(
                             providers: [
                               BlocProvider.value(value: bloc),
                               BlocProvider.value(value: cubit),

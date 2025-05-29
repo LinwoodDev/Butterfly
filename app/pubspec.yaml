@@ -46,7 +46,7 @@ dependencies:
   bloc_concurrency: ^0.3.0
   camera: ^0.11.0
   camera_windows: ^0.2.1+9
-  window_manager: ^0.4.0
+  window_manager: ^0.5.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
   printing: ^5.14.2
@@ -117,7 +117,7 @@ dependencies:
   network_info_plus: ^6.1.4
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   flutter_driver:

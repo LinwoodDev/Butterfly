@@ -54,8 +54,6 @@ class CameraViewport extends Equatable {
     this.y = 0,
   });
 
-  get center => null;
-
   ui.Offset toOffset() => ui.Offset(x, y);
 
   Point<double> toPoint() => Point(x, y);
