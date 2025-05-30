@@ -697,5 +697,6 @@
   "packagedDocument": "Packaged document",
   "rawDocument": "Raw document",
   "webSocketDescription": "Votre périphérique héberge le serveur, de sorte que les collaborateurs ne peuvent se joindre que sur le même réseau ou depuis n'importe où si vous redirigez le port sur votre routeur.",
-  "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session."
+  "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session.",
+  "createRawNote": "Create raw note"
 }
