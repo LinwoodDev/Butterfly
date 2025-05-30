@@ -65,6 +65,32 @@
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/x-text-butterfly" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.tbfly" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\..*\\.tbfly" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\..*\\..*\\.tbfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.tbfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\.tbfly" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\..*\\..*\\.tbfly" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/zip" />
             </intent-filter>
             <intent-filter>

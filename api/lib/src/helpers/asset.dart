@@ -6,8 +6,8 @@ extension AssetFileTypeHelper on AssetFileType {
   List<String> getUniformTypeIdentifiers() => switch (this) {
         AssetFileType.note => [
             'dev.linwood.butterfly.note',
-            'dev.linwood.butterfly.textnote'
           ],
+        AssetFileType.textNote => ['dev.linwood.butterfly.textnote'],
         AssetFileType.image => ['public.image'],
         AssetFileType.pdf => ['com.adobe.pdf'],
         AssetFileType.svg => ['public.svg-image'],
@@ -18,7 +18,8 @@ extension AssetFileTypeHelper on AssetFileType {
       };
 
   List<String> getFileExtensions() => switch (this) {
-        AssetFileType.note => ['bfly', 'tbfly'],
+        AssetFileType.note => ['bfly'],
+        AssetFileType.textNote => ['tbfly'],
         AssetFileType.image => ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico'],
         AssetFileType.pdf => ['pdf'],
         AssetFileType.svg => ['svg'],
@@ -33,7 +34,10 @@ extension AssetFileTypeHelper on AssetFileType {
             'application/x-butterfly',
             'application/octet-stream',
             'application/zip',
-            'application/json',
+          ],
+        AssetFileType.textNote => [
+            'application/x-text-butterfly',
+            'application/json'
           ],
         AssetFileType.image => ['image/*'],
         AssetFileType.markdown => ['text/markdown'],
@@ -56,6 +60,8 @@ extension AssetFileTypeHelper on AssetFileType {
       return RegExp(m).hasMatch(mimeType);
     });
   }
+
+  bool isNote() => this == AssetFileType.note || this == AssetFileType.textNote;
 
   static AssetFileType? fromFileExtension(String? ext) {
     if (ext?.startsWith('.') ?? false) {

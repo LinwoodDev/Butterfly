@@ -31,9 +31,10 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
       <MapEntry<String, dynamic>>[]) {
     reader = reader.setPage(DocumentPage.fromJson(page.value), page.key);
   }
-  final packs = (data['packs'] ?? []).map((e) => NoteData.fromData(e)).toList();
-  for (final pack in packs) {
-    reader = reader.setBundledPack(pack);
+  final packs = (data['packs'] as Map<String, dynamic>?)
+      ?.map((k, v) => MapEntry(k, NoteData.fromData(base64Decode(v))));
+  for (final pack in packs?.entries ?? <MapEntry<String, NoteData>>[]) {
+    reader = reader.setBundledPack(pack.value, pack.key);
   }
   final assets = (data['assets'] as Map<String, dynamic>?)?.entries ??
       <MapEntry<String, dynamic>>[];

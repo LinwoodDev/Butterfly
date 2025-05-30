@@ -71,29 +71,17 @@ Future<void> exportZip(
 
 Future<void> exportData(
   BuildContext context,
-  List<int> bytes, [
+  NoteData data, {
   bool share = false,
-]) => exportFile(
+  bool isTextBased = false,
+}) => exportFile(
   context: context,
-  bytes: bytes,
-  fileExtension: 'bfly',
-  mimeType: 'application/octet-stream',
-  uniformTypeIdentifier: 'dev.linwood.butterfly.note',
-  share: share,
-  fileName: 'output',
-  label: AppLocalizations.of(context).export,
-);
-
-Future<void> exportTextData(
-  BuildContext context,
-  Map<String, dynamic> bytes, [
-  bool share = false,
-]) => exportFile(
-  context: context,
-  bytes: utf8.encode(JsonEncoder.withIndent('\t').convert(bytes)),
-  fileExtension: 'tbfly',
-  mimeType: 'application/json',
-  uniformTypeIdentifier: 'dev.linwood.butterfly.textnote',
+  bytes: isTextBased ? data.exportAsTextBytes() : data.exportAsBytes(),
+  fileExtension: isTextBased ? 'tbfly' : 'bfly',
+  mimeType: isTextBased ? 'application/json' : 'application/octet-stream',
+  uniformTypeIdentifier: isTextBased
+      ? 'dev.linwood.butterfly.textnote'
+      : 'dev.linwood.butterfly.note',
   share: share,
   fileName: 'output',
   label: AppLocalizations.of(context).export,

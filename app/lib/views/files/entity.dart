@@ -363,8 +363,14 @@ class ContextFileRegion extends StatelessWidget {
           MenuItemButton(
             onPressed: () {
               try {
-                final data = (entity as FileSystemFile<NoteFile>).data;
-                exportData(context, data?.data ?? []);
+                final data = (entity as FileSystemFile<NoteFile>).data?.load();
+                if (data == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(AppLocalizations.of(context).error)),
+                  );
+                  return;
+                }
+                exportData(context, data);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(AppLocalizations.of(context).error)),

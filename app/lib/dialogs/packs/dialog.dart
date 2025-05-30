@@ -258,6 +258,7 @@ class _PacksDialogState extends State<PacksDialog>
                                 Navigator.of(ctx).pop();
                                 final (data, _) = await importFile(context, [
                                   AssetFileType.note,
+                                  AssetFileType.textNote,
                                 ]);
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
@@ -343,6 +344,6 @@ class _PacksDialogState extends State<PacksDialog>
   }
 
   Future<void> _exportPack(NoteData pack) async {
-    return exportData(context, pack.exportAsBytes());
+    return exportData(context, pack);
   }
 }

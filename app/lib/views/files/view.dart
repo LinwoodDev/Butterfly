@@ -120,7 +120,10 @@ class FilesViewState extends State<FilesView> {
     }
   }
 
-  Future<void> _createFile(NoteData? template) async {
+  Future<void> _createFile(
+    NoteData? template, {
+    bool isTextBased = false,
+  }) async {
     template ??= await DocumentDefaults.createTemplate();
     final name = await showDialog<String>(
       context: context,
@@ -132,8 +135,8 @@ class FilesViewState extends State<FilesView> {
     await _documentSystem.createFileWithName(
       directory: path,
       name: name,
-      suffix: '.bfly',
-      template.createDocument(name: name).toFile(),
+      suffix: isTextBased ? '.tbfly' : '.bfly',
+      template.createDocument(name: name).toFile(isTextBased: isTextBased),
     );
     reloadFileSystem();
   }
@@ -578,6 +581,38 @@ class FilesViewState extends State<FilesView> {
                               }).toList() ??
                               [],
                           child: Text(AppLocalizations.of(context).templates),
+                        ),
+                      ),
+                      FutureBuilder<List<FileSystemFile<NoteData>>>(
+                        future: _templatesFuture,
+                        builder: (context, snapshot) => SubmenuButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.fileTxt,
+                          ),
+                          menuChildren:
+                              snapshot.data?.map((e) {
+                                final data = e.data!;
+                                final metadata = data.getMetadata();
+                                final thumbnail = data.getThumbnail();
+                                return MenuItemButton(
+                                  leadingIcon: thumbnail == null
+                                      ? null
+                                      : Image.memory(
+                                          thumbnail,
+                                          width: 32,
+                                          height: 18,
+                                          cacheWidth: 32,
+                                          cacheHeight: 18,
+                                        ),
+                                  child: Text(metadata?.name ?? ''),
+                                  onPressed: () =>
+                                      _createFile(data, isTextBased: true),
+                                );
+                              }).toList() ??
+                              [],
+                          child: Text(
+                            AppLocalizations.of(context).createRawNote,
+                          ),
                         ),
                       ),
                       MenuItemButton(

@@ -500,7 +500,10 @@ final class NoteData extends ArchiveData<NoteData> {
     return updateState(state.copyWith(removed: removed));
   }
 
-  NoteFile toFile() => NoteFile(exportAsBytes());
+  NoteFile toFile({bool isTextBased = false}) =>
+      NoteFile(isTextBased ? exportAsTextBytes() : exportAsBytes());
 
   Map<String, dynamic> exportAsText() => convertDocumentToText(this);
+  Uint8List exportAsTextBytes() =>
+      utf8.encode(JsonEncoder.withIndent('\t').convert(exportAsText()));
 }

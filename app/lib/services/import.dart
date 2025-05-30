@@ -127,7 +127,7 @@ class ImportService {
   }) async {
     final realDocument = document ?? DocumentDefaults.createDocument();
     return switch (type) {
-      AssetFileType.note => importBfly(
+      AssetFileType.note || AssetFileType.textNote => importBfly(
         bytes,
         document: document,
         position: position,
@@ -774,10 +774,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        exportData(
-          context,
-          Uint8List.fromList((await state.saveData()).exportAsBytes()),
-        );
+        exportData(context, await state.saveData());
         break;
       case AssetFileType.image:
         return showDialog<void>(

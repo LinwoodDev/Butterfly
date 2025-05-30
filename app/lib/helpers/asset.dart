@@ -9,6 +9,9 @@ const formatPage = CustomValueFormat<Uint8List>(
 const formatNote = CustomValueFormat<Uint8List>(
   applicationId: 'dev.linwood.butterfly.note',
 );
+const formatTextNote = CustomValueFormat<Uint8List>(
+  applicationId: 'dev.linwood.butterfly.textnote',
+);
 final formatXopp = SimpleFileFormat(
   uniformTypeIdentifiers: AssetFileType.xopp.getUniformTypeIdentifiers(),
 );
@@ -16,6 +19,7 @@ final formatXopp = SimpleFileFormat(
 extension AssetFileTypeClipboardHelper on AssetFileType {
   List<DataFormat> getClipboardFormats() => switch (this) {
     AssetFileType.note => [formatNote],
+    AssetFileType.textNote => [formatTextNote],
     AssetFileType.image => [Formats.png, Formats.jpeg, Formats.tiff],
     AssetFileType.pdf => [Formats.pdf],
     AssetFileType.svg => [Formats.svg],

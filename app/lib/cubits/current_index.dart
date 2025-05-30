@@ -1350,9 +1350,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _currentlySaving = false;
       return AssetLocation.empty;
     }
-    if (!location.path.endsWith('.bfly') ||
-        state.absolute ||
-        location.fileType != AssetFileType.note) {
+    if (state.absolute || !(location.fileType?.isNote() ?? false)) {
       final document = await fileSystem.createFileWithName(
         name: currentData.name,
         suffix: '.bfly',
@@ -1360,7 +1358,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       location = document.location;
     } else {
-      await fileSystem.updateFile(location.path, currentData.toFile());
+      await fileSystem.updateFile(
+        location.path,
+        currentData.toFile(
+          isTextBased: location.fileType == AssetFileType.textNote,
+        ),
+      );
     }
     state.settingsCubit.addRecentHistory(location);
     emit(state.copyWith(location: location, saved: SaveState.saved));
