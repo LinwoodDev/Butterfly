@@ -12,10 +12,11 @@ title: ショートカット
 - `Ctrl` + `N`: 新しいファイル
 - `Ctrl` + `Shift` + `N`: テンプレートから新しいファイル
 - `Ctrl` + `E`: ファイルをエクスポート
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: ファイルを印刷
-- `Ctrl` + `Shift` + `E`: ファイルを画像としてエクスポート
+- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: ファイルを svg としてエクスポート
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `P`: パックを開く
 - `Ctrl` + `Alt` + `S`: 設定を開く
 

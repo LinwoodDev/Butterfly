@@ -12,10 +12,11 @@ Sommige ervan worden onder de knoppen geschreven.
 - `Ctrl` + `N`: Nieuw bestand
 - `Ctrl` + `Shift` + `N`: Nieuw bestand van template
 - `Ctrl` + `E`: Bestand exporteren
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: bestand afdrukken
-- `Ctrl` + `Shift` + `E`: Exporteer bestand als afbeelding
+- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: Exporteer bestand als svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `P`: Open pakketjes
 - `Ctrl` + `Alt` + `S`: Instellingen openen
 
