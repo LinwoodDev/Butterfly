@@ -697,5 +697,6 @@
   "packagedDocument": "Packaged document",
   "rawDocument": "Raw document",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
-  "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi."
+  "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi.",
+  "createRawNote": "Create raw note"
 }
