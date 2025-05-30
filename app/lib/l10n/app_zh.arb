@@ -697,5 +697,6 @@
   "packagedDocument": "Packaged document",
   "rawDocument": "Raw document",
   "webSocketDescription": "您的设备是服务器的主机，所以合作者只能在同一网络上或在任何地方加入，如果您转发您的路由器上的端口。",
-  "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。"
+  "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。",
+  "createRawNote": "Create raw note"
 }
