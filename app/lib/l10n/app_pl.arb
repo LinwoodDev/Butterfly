@@ -697,5 +697,6 @@
   "packagedDocument": "Packaged document",
   "rawDocument": "Raw document",
   "webSocketDescription": "Twoje urządzenie hostuje serwer, więc współpracownicy mogą dołączyć tylko za pośrednictwem tej samej sieci lub z dowolnego miejsca, jeśli przekażesz port na routerze.",
-  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego."
+  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego.",
+  "createRawNote": "Create raw note"
 }
