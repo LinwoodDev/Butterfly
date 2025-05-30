@@ -697,5 +697,6 @@
   "packagedDocument": "Packaged document",
   "rawDocument": "Raw document",
   "webSocketDescription": "Su dispositivo aloja el servidor, por lo que los colaboradores sólo pueden unirse a través de la misma red o desde cualquier lugar si reenvía el puerto en su router.",
-  "swampDescription": "Sus mensajes son enrutados a través de un servidor repetidor seguro con cifrado de extremo a extremo. Se requiere una dirección de servidor pantano para crear una sesión."
+  "swampDescription": "Sus mensajes son enrutados a través de un servidor repetidor seguro con cifrado de extremo a extremo. Se requiere una dirección de servidor pantano para crear una sesión.",
+  "createRawNote": "Create raw note"
 }
