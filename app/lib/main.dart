@@ -436,7 +436,7 @@ const isNightly =
 const applicationVersionName = 'Black Hairstreak';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.3';
+const applicationMinorVersion = '2.4';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');
