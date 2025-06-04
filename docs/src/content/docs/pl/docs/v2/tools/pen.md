@@ -9,6 +9,6 @@ With this tool you can draw on this paper.
 |                Własność | Domyślny | Opis                                                                                |
 | ----------------------: | :------: | :---------------------------------------------------------------------------------- |
 |                   Kolor |  Czarny  | Kolor który zostanie narysowany                                                     |
-|        Szerokość obrysu |     5    | Szerokość skoku                                                                     |
+|         Szerokość skoku |     5    | Szerokość obrysu                                                                    |
 |         Mnożnik uderzeń |     1    | Jeśli masz styl, to jest mnożnik, który zostanie dodany do nacisku                  |
 | Zależny od powiększenia | fałszywy | To zmieni szerokość uderzenia w zależności od poziomu powiększenia. |
