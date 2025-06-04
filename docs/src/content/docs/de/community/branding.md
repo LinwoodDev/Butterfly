@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-Diese Assets sind unter der [CC-BY-SA-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE) lizenziert.
+Diese Assets sind unter der [CC-BY-SA-4.0]lizenziert (https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -35,12 +35,12 @@ Diese Assets sind unter der [CC-BY-SA-4.0](https://github.com/LinwoodDev/Butterf
 
 ## Schriftarten
 
-- Website: `Barlow`
+- Website: "Barlow"
 - App: `Comfortaa`
 
 ## Screenshots
 
-> Wird im Firefox Responsive Design Modus verwendet
+> Wird im firefox Responsive Design Modus verwendet
 
 - Telefon: Galaxy S20 Ultra
 - 7-Zoll-Tablet: Nexus 7
