@@ -12,13 +12,13 @@ title: Ярлыки
 - `Ctrl` + `N`: Новый файл
 - `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 - `Ctrl` + `E`: Экспорт файла
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `P`: Печать файла
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
+- `Ctrl` + `P`: Печать файла
+- `Ctrl` + `Shift` + `E`: Экспортировать файл как изображение
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
-- `Ctrl` + `Alt` + `P`: Открытые пакеты
 - `Ctrl` + `Alt` + `S`: Открыть настройки
+- `Ctrl` + `Alt` + `P`: Открытые пакеты
 
 ### Проект
 
