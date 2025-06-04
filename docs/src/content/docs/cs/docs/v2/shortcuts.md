@@ -12,12 +12,12 @@ Některé z nich jsou zapsány pod tlačítky.
 - `Ctrl` + `N`: Nový soubor
 - `Ctrl` + `Shift` + `N`: Nový soubor ze šablony
 - `Ctrl` + `E`: Exportovat soubor
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Tisknout soubor
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
+- `Ctrl` + `Shift` + `E`: Exportovat soubor jako obrázek
 - `Ctrl` + `Alt` + `E`: Exportovat soubor jako svg
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Otevřené balíčky
+- `Ctrl` + `Alt` + `S`: Otevřít nastavení
 - `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
 ### Projekt
