@@ -10,7 +10,7 @@ See [this issue](https://github.com/LinwoodDev/Butterfly/issues/805) for details
 
 :::
 
-A pack is a collection of components that can be used in the stamp tool. 您可以创建您自己的包或导入现有包。 点击左上角，然后点击"包"。
+A pack is a collection of components that can be used in the stamp tool. 您可以创建您自己的包或导入现有包。 点击左上角，然后点击"包"。 点击左上角，然后点击"包"。
 
 ## 属性
 
