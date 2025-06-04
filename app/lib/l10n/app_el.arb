@@ -694,8 +694,8 @@
   "bundlePackInDocument": "Bundle pack in document",
   "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
   "fillAlpha": "Fill alpha",
-  "packagedDocument": "Packaged document",
-  "rawDocument": "Raw document",
+  "packagedFile": "Packaged file",
+  "rawFile": "Raw file",
   "webSocketDescription": "Η συσκευή σας φιλοξενεί το διακομιστή, έτσι ώστε οι συνεργάτες να μπορούν να συμμετέχουν στο ίδιο δίκτυο ή οπουδήποτε αν προωθείτε τη θύρα στον δρομολογητή σας.",
   "swampDescription": "Τα μηνύματά σας δρομολογούνται μέσω ενός ασφαλούς διακομιστή ρελέ με κρυπτογράφηση από άκρο σε άκρο. Απαιτείται μια διεύθυνση διακομιστή swamp για τη δημιουργία μιας συνεδρίας.",
   "createRawNote": "Create raw note"
