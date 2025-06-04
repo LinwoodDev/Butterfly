@@ -10,7 +10,7 @@ See [this issue](https://github.com/LinwoodDev/Butterfly/issues/805) for details
 
 :::
 
-A pack is a collection of components that can be used in the stamp tool. 独自のパックを作成したり、既存のパックをインポートすることができます。 このためには、左上隅をクリックし、をクリックします "Packs".
+A pack is a collection of components that can be used in the stamp tool. 独自のパックを作成したり、既存のパックをインポートすることができます。 このためには、左上隅をクリックし、をクリックします "Packs". このためには、左上隅をクリックし、をクリックします "Packs".
 
 ## プロパティー
 
