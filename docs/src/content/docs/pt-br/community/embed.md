@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parâmetros:
 
-- `data` (Tipo `List<int>`): Os dados do documento.
+- `dados` (Tipo `List<int>`): Os dados do documento.
 
 ### exit
 
@@ -52,7 +52,7 @@ Parâmetros:
 
 Parâmetros:
 
-- `data` (Tipo  `List<int>`): Os dados do documento.
+- `data` (Tipo `List<int>`): Os dados do documento.
 
 ## Métodos
 
@@ -81,7 +81,7 @@ Retorna: `List<int>`
 
 Parâmetros:
 
-- `dados` (Tipo `List<int>`): Os dados do documento.
+- `data` (Tipo  `List<int>`): Os dados do documento.
 
 ### render
 
@@ -89,10 +89,10 @@ Parâmetros:
 
 Parâmetros:
 
-- `width` (Tipo  `Number`): A largura da imagem.
+- `width` (Tipo `Number`): A largura da imagem.
 - `height` (Tipo `Number`): A altura da imagem.
 - `scale` (Tipo `Number`): A escala da imagem.
-- `renderBackground` (Tipo `Boolean`): Se `true`, o plano de fundo será renderizado.
+- `renderBackground` (Tipo `Boolean`): Se `true`, o fundo será renderizado.
 
 Retorna: `String` (imagem codificada em Base64)
 
@@ -102,8 +102,8 @@ Retorna: `String` (imagem codificada em Base64)
 
 Parâmetros:
 
-- `width` (Tipo `Number`): A largura da imagem.
+- `width` (Tipo  `Number`): A largura da imagem.
 - `height` (Tipo `Number`): A altura da imagem.
-- `renderBackground` (Tipo `Boolean`): Se `true`, o fundo será renderizado.
+- `renderBackground` (Tipo `Boolean`): Se `true`, o plano de fundo será renderizado.
 
 Retorna: `String` (SVG)
