@@ -58,6 +58,6 @@ extension PadElementDataExtension on PadElement {
 extension DocumentPageDataExtension on DocumentPage {
   Map<String, dynamic> toDataJson(NoteData document) => {
         ...toJson(),
-        'content': content.map((e) => e.toDataJson(document)),
+        'content': content.map((e) => e.toDataJson(document)).toList(),
       };
 }

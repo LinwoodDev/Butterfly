@@ -2,11 +2,16 @@ part of '../renderer.dart';
 
 abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
   TextPainter? _tp;
   LabelContext? get context;
 
-  GenericTextRenderer(super.element, [super.layer]);
+  GenericTextRenderer(super.element, [super.layer])
+      : rect = Rect.fromCenter(
+          center: element.position.toOffset(),
+          width: 0,
+          height: 0,
+        );
 
   double get scale => element.scale;
 
