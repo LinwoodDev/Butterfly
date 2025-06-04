@@ -2,7 +2,7 @@
 title: Laser tool
 ---
 
-With this tool you can draw on this paper temporarily. しばらくすると、絵は薄れていきます。 キャンセルするために、新しい図面を紙に追加します。
+With this tool you can draw on this paper temporarily. しばらくすると、絵は薄れていきます。 しばらくすると、絵は薄れていきます。 キャンセルするために、新しい図面を紙に追加します。
 
 ## 設定
 
