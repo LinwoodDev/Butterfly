@@ -12,12 +12,12 @@ Några av dem är skrivna under knapparna.
 - `Ctrl` + `N`: Ny fil
 - `Ctrl` + `Shift` + `N`: Ny fil från mallen
 - `Ctrl` + `E`: Exportera fil
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Skriv ut fil
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
+- `Ctrl` + `Shift` + `E`: Exportera fil som bild
 - `Ctrl` + `Alt` + `E`: Exportera fil som svg
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Öppna paket
+- `Ctrl` + `Alt` + `S`: Öppna inställningar
 - `Ctrl` + `Alt` + `S`: Öppna inställningar
 
 ### Projekt
