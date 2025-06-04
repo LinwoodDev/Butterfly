@@ -12,13 +12,13 @@ Alguns deles estão escritos abaixo dos botões.
 - `Ctrl` + `N`: Novo arquivo
 - `Ctrl` + `Shift` + `N`: Novo arquivo do template
 - `Ctrl` + `E`: Exportar arquivo
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Shift` + `E`: Exportar arquivo como imagem
 - `Ctrl` + `P`: Imprimir arquivo
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: Exportar arquivo como svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
-- `Ctrl` + `Alt` + `P`: Abrir pacotes
 - `Ctrl` + `Alt` + `S`: Abra as configurações
+- `Ctrl` + `Alt` + `P`: Abrir pacotes
 
 ### Projecto
 
