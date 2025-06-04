@@ -694,8 +694,8 @@
   "bundlePackInDocument": "Включить пакет в документ",
   "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
   "fillAlpha": "Fill alpha",
-  "packagedDocument": "Упакованный документ",
-  "rawDocument": "Сырой документ",
+  "packagedFile": "Packaged file",
+  "rawFile": "Raw file",
   "webSocketDescription": "Ваше устройство содержит сервер, поэтому соавторы могут подключаться только по той же сети или откуда угодно, если вы перенаправляете порт на маршрутизатор.",
   "swampDescription": "Ваши сообщения направляются через безопасный сервер ретрансляции с сквозным шифрованием. Для создания сеанса требуется адрес сервера swamp.",
   "createRawNote": "Create raw note"
