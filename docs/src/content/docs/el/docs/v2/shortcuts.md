@@ -12,12 +12,12 @@ title: Συντομεύσεις
 - `Ctrl` + `N`: Νέο αρχείο
 - `Ctrl` + `Shift` + `N`: Νέο αρχείο από πρότυπο
 - `Ctrl` + `E`: Εξαγωγή αρχείου
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Αρχείο εκτύπωσης
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
+- `Ctrl` + `Shift` + `E`: Εξαγωγή αρχείου ως εικόνα
 - `Ctrl` + `Alt` + `E`: Εξαγωγή αρχείου ως svg
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Ανοίξτε πακέτα
+- `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 - `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 
 ### Έργο
