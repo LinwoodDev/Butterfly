@@ -497,7 +497,7 @@ class _MainPopupMenu extends StatelessWidget {
                         ExportIntent(context),
                       );
                     },
-                    child: Text(AppLocalizations.of(context).packagedDocument),
+                    child: Text(AppLocalizations.of(context).packagedFile),
                   ),
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
@@ -512,7 +512,7 @@ class _MainPopupMenu extends StatelessWidget {
                         ExportIntent(context, isText: true),
                       );
                     },
-                    child: Text(AppLocalizations.of(context).rawDocument),
+                    child: Text(AppLocalizations.of(context).rawFile),
                   ),
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),

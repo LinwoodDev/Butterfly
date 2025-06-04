@@ -110,127 +110,9 @@ class _PacksDialogState extends State<PacksDialog>
                           );
                         }
                         final globalPacks = snapshot.data ?? [];
-                        return StatefulBuilder(
-                          builder: (context, setInnerState) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: globalPacks.length,
-                              itemBuilder: (context, index) {
-                                final file = globalPacks[index];
-                                final pack = file.data!;
-                                final metadata =
-                                    pack.getMetadata() ??
-                                    DocumentDefaults.createMetadata();
-                                return Dismissible(
-                                  key: ValueKey(('globalpack', metadata.name)),
-                                  onDismissed: (direction) async {
-                                    setInnerState(
-                                      () => globalPacks.removeAt(index),
-                                    );
-                                    await _packSystem.deleteFile(file.path);
-                                    _refresh();
-                                  },
-                                  background: Container(color: Colors.red),
-                                  child: ContextRegion(
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).actions,
-                                    menuChildren: [
-                                      if (!widget.globalOnly)
-                                        MenuItemButton(
-                                          leadingIcon: const PhosphorIcon(
-                                            PhosphorIconsLight.cube,
-                                          ),
-                                          child: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            ).bundlePackInDocument,
-                                          ),
-                                          onPressed: () {
-                                            context.read<DocumentBloc>().add(
-                                              PackAdded(pack),
-                                            );
-                                          },
-                                        ),
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                          PhosphorIconsLight.download,
-                                        ),
-                                        child: Text(
-                                          AppLocalizations.of(context).export,
-                                        ),
-                                        onPressed: () async {
-                                          await _exportPack(pack);
-                                        },
-                                      ),
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                          PhosphorIconsLight.trash,
-                                        ),
-                                        child: Text(
-                                          AppLocalizations.of(context).delete,
-                                        ),
-                                        onPressed: () async {
-                                          await _packSystem.deleteFile(
-                                            file.path,
-                                          );
-                                          _refresh();
-                                        },
-                                      ),
-                                    ],
-                                    builder: (context, button, controller) =>
-                                        ListTile(
-                                          title: Text(metadata.name),
-                                          subtitle: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (metadata.author.isNotEmpty)
-                                                Text(
-                                                  AppLocalizations.of(
-                                                    context,
-                                                  ).byAuthor(metadata.author),
-                                                ),
-                                              if (metadata
-                                                  .description
-                                                  .isNotEmpty)
-                                                Text(metadata.description),
-                                            ],
-                                          ),
-                                          onTap: () async {
-                                            final bloc = context
-                                                .read<DocumentBloc>();
-                                            final newPack =
-                                                await showDialog<NoteData>(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      BlocProvider.value(
-                                                        value: bloc,
-                                                        child: PackDialog(
-                                                          pack: pack,
-                                                        ),
-                                                      ),
-                                                );
-                                            if (newPack == null) return;
-                                            final name = newPack.name ?? '';
-                                            if (pack.name != name) {
-                                              await _packSystem.deleteFile(
-                                                file.path,
-                                              );
-                                            }
-                                            await _packSystem.updateFile(
-                                              '$name.bfly',
-                                              newPack,
-                                            );
-                                            _refresh();
-                                          },
-                                          trailing: button,
-                                        ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                        return _PacksList(
+                          globalPacks: globalPacks,
+                          globalOnly: widget.globalOnly,
                         );
                       },
                     ),
@@ -342,8 +224,146 @@ class _PacksDialogState extends State<PacksDialog>
     );
     _refresh();
   }
+}
 
-  Future<void> _exportPack(NoteData pack) async {
-    return exportData(context, pack);
+class _PacksList extends StatefulWidget {
+  final List<FileSystemFile<NoteData>> globalPacks;
+  final bool globalOnly;
+
+  const _PacksList({required this.globalPacks, this.globalOnly = false});
+
+  @override
+  State<_PacksList> createState() => __PacksListState();
+}
+
+class __PacksListState extends State<_PacksList> {
+  late final List<FileSystemFile<NoteData>> _globalPacks;
+  late final PackFileSystem _packSystem;
+
+  @override
+  void initState() {
+    super.initState();
+    _globalPacks = widget.globalPacks;
+    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+  }
+
+  @override
+  void didUpdateWidget(covariant _PacksList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.globalPacks != widget.globalPacks) {
+      setState(() {
+        _globalPacks.clear();
+        _globalPacks.addAll(widget.globalPacks);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: _globalPacks.length,
+      itemBuilder: (context, index) {
+        final file = _globalPacks[index];
+        final pack = file.data!;
+        final metadata =
+            pack.getMetadata() ?? DocumentDefaults.createMetadata();
+        return Dismissible(
+          key: ValueKey(('globalpack', metadata.name)),
+          onDismissed: (direction) async {
+            setState(() => _globalPacks.removeAt(index));
+            await _packSystem.deleteFile(file.path);
+          },
+          background: Container(color: Colors.red),
+          child: ContextRegion(
+            tooltip: AppLocalizations.of(context).actions,
+            menuChildren: [
+              if (!widget.globalOnly)
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.cube),
+                  child: Text(
+                    AppLocalizations.of(context).bundlePackInDocument,
+                  ),
+                  onPressed: () {
+                    context.read<DocumentBloc>().add(PackAdded(pack));
+                  },
+                ),
+
+              SubmenuButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
+                menuChildren: [
+                  MenuItemButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+                    child: Text(AppLocalizations.of(context).packagedFile),
+                    onPressed: () async {
+                      await _exportPack(pack);
+                    },
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    child: Text(AppLocalizations.of(context).rawFile),
+                    onPressed: () async {
+                      await _exportPack(pack, isTextBased: true);
+                    },
+                  ),
+                ],
+                child: Text(AppLocalizations.of(context).export),
+              ),
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+                child: Text(AppLocalizations.of(context).delete),
+                onPressed: () async {
+                  await _packSystem.deleteFile(file.path);
+                  setState(() {
+                    _globalPacks.removeAt(index);
+                  });
+                },
+              ),
+            ],
+            builder: (context, button, controller) => ListTile(
+              title: Text(metadata.name),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (metadata.author.isNotEmpty)
+                    Text(
+                      AppLocalizations.of(context).byAuthor(metadata.author),
+                    ),
+                  if (metadata.description.isNotEmpty)
+                    Text(metadata.description),
+                ],
+              ),
+              onTap: () async {
+                final bloc = context.read<DocumentBloc>();
+                final newPack = await showDialog<NoteData>(
+                  context: context,
+                  builder: (context) => BlocProvider.value(
+                    value: bloc,
+                    child: PackDialog(pack: pack),
+                  ),
+                );
+                if (newPack == null) return;
+                final name = newPack.name ?? '';
+                if (pack.name != name) {
+                  await _packSystem.deleteFile(file.path);
+                }
+                await _packSystem.updateFile('$name.bfly', newPack);
+                setState(() {
+                  _globalPacks[index] = FileSystemFile(
+                    file.location,
+                    data: newPack,
+                  );
+                });
+              },
+              trailing: button,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _exportPack(NoteData pack, {bool isTextBased = false}) async {
+    return exportData(context, pack, isTextBased: isTextBased);
   }
 }
