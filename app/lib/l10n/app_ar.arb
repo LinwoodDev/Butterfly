@@ -40,7 +40,7 @@
   "space": "المساحة",
   "background": "الخلفية",
   "box": "صندوق",
-  "locale": "محلي",
+  "locale": "المكان",
   "systemLocale": "محلي النظام",
   "information": "معلومات",
   "license": "الترخيص",
@@ -136,7 +136,7 @@
     }
   },
   "rename": "إعادة تسمية",
-  "duplicate": "Duplicate",
+  "duplicate": "استنساخ",
   "hand": "اليد",
   "folder": "مجلد",
   "move": "نقل",
