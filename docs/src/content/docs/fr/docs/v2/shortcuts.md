@@ -14,11 +14,11 @@ Certaines d'entre elles sont écrites sous les boutons.
 - `Ctrl` + `E` : Exporter le fichier
 - Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P` : Imprimer le fichier
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
-- `Ctrl` + `Alt` + `E` : Exporter le fichier en svg
+- `Ctrl` + `Shift` + `E` : Exporter le fichier en tant qu'image
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
-- `Ctrl` + `Alt` + `P` : Ouvrir les packs
 - `Ctrl` + `Alt` + `S` : Ouvrir les paramètres
+- `Ctrl` + `Alt` + `P` : Ouvrir les packs
 
 ### Projet
 
