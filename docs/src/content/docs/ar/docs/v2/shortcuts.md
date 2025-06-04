@@ -14,11 +14,11 @@ title: الاختصارات
 - `Ctrl` + `E`: تصدير الملف
 - Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: طباعة الملف
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
-- `Ctrl` + `Alt` + `P`: فتح الحزم
 - `Ctrl` + `Alt` + `S`: فتح الإعدادات
+- `Ctrl` + `Alt` + `P`: فتح الحزم
 
 ### مشروع
 
@@ -38,7 +38,7 @@ title: الاختصارات
 بشكل افتراضي، يتم تكوين القلم ليعمل كالتالي:
 
 - `القضية`: تم تكوينها كقلم.
-- 'أولا\` (الزر الأساسي، إذا كان مدعوماً): قم بتغيير الأداة اليدوية أثناء الضغط عليها.
+- 'أولا\\` (الزر الأساسي، إذا كان مدعوماً): قم بتغيير الأداة اليدوية أثناء الضغط عليها.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configuring {#configure}
