@@ -16,4 +16,4 @@ Be aware that [Collections](../tools/collection) are not the same as layers. Col
 
 Open the layer dialog by clicking on the Butterfly button and selecting Layers, or by selecting the Layers icon in the Navigation Rail if it is enabled.
 
-ここでは、プロジェクト内のすべてのレイヤーを見ることができます。 To create a new layer, use the Create button. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.
+ここでは、プロジェクト内のすべてのレイヤーを見ることができます。 ここでは、プロジェクト内のすべてのレイヤーを見ることができます。 To create a new layer, use the Create button. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.
