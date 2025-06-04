@@ -6,7 +6,6 @@ title: 快捷键
 
 您可以在编辑器中使用一些快捷方式。
 其中一些是在按钮下面写的。
-其中一些是在按钮下面写的。
 
 ### 常规
 
@@ -15,11 +14,11 @@ title: 快捷键
 - `Ctrl` + `E`：导出文件
 - Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`：打印文件
-- `Ctrl` + `Shift` + `E`: 导出文件为图像
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
+- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
+- `Ctrl` + `Alt` + `E`: 导出文件为 svg
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
-- `Ctrl` + `Alt` + `S`: 打开设置
 - `Ctrl` + `Alt` + `P`: 打开包
+- `Ctrl` + `Alt` + `S`: 打开设置
 
 ### 项目
 
@@ -38,7 +37,7 @@ title: 快捷键
 
 默认情况下，钢笔配置为如下功能：
 
-- “Pen\\`：被配置为笔”。
+- “Pen\`：被配置为笔”。
 - `First` (主按钮，如果支持的话)：按住时更改为手工具。
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
