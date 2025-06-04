@@ -13,7 +13,7 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 | -------: | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |       顏色 |  Black  | The color that will be drawn                                                                                                                                                                     |
 |     筆劃寬度 |    5    | The width of the stroke                                                                                                                                                                          |
-|      長寬比 |  false  | This will change the stroke width based on the zoom level.                                                                                                                       |
+|     隨應縮放 |  false  | This will change the stroke width based on the zoom level.                                                                                                                       |
 |       形狀 |    矩形   | The shape that will be drawn                                                                                                                                                                     |
 |       寬度 |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
 |       高度 |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
