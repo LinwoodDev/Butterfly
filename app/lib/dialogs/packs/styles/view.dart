@@ -3,7 +3,7 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/l10n/leap_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../bloc/document_bloc.dart';
@@ -56,7 +56,7 @@ class StylesPackView extends StatelessWidget {
                               ),
                             );
                             if (result != true) return;
-                            onChanged(value.setStyle(styleSheet!));
+                            onChanged(value.setStyle(e, styleSheet!));
                           },
                           trailing: IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -77,17 +77,17 @@ class StylesPackView extends StatelessWidget {
             child: FloatingActionButton.extended(
               onPressed: () async {
                 var styleSheet = const text.TextStyleSheet();
-                final result = await showDialog<bool>(
+                final result = await showDialog<String>(
                   context: context,
-                  builder: (context) => StyleDialog(
-                    value: styleSheet,
-                    onChanged: (value) {
-                      styleSheet = value;
-                    },
+                  builder: (ctx) => NameDialog(
+                    validator: defaultFileNameValidator(
+                      context,
+                      value.getStyles().toList(),
+                    ),
                   ),
                 );
-                if (result != true) return;
-                onChanged(value.setStyle(styleSheet));
+                if (result == null) return;
+                onChanged(value.setStyle(result, styleSheet));
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               label: Text(LeapLocalizations.of(context).create),

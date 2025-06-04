@@ -204,7 +204,6 @@ Map<String, dynamic> _$TextAreaToJson(_TextArea instance) => <String, dynamic>{
     };
 
 _TextStyleSheet _$TextStyleSheetFromJson(Map json) => _TextStyleSheet(
-      name: json['name'] as String? ?? '',
       spanProperties: (json['spanProperties'] as Map?)?.map(
             (k, e) => MapEntry(
                 k as String,
@@ -223,7 +222,6 @@ _TextStyleSheet _$TextStyleSheetFromJson(Map json) => _TextStyleSheet(
 
 Map<String, dynamic> _$TextStyleSheetToJson(_TextStyleSheet instance) =>
     <String, dynamic>{
-      'name': instance.name,
       'spanProperties':
           instance.spanProperties.map((k, e) => MapEntry(k, e.toJson())),
       'paragraphProperties':

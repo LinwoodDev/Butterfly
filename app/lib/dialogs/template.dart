@@ -519,7 +519,10 @@ class _TemplateItem extends StatelessWidget {
           onPressed: () async {
             final result = await showDialog<String>(
               context: context,
-              builder: (ctx) => NameDialog(value: template.name),
+              builder: (ctx) => NameDialog(
+                value: template.name,
+                validator: defaultFileNameValidator(context),
+              ),
             );
             if (result == null) return;
             if (context.mounted) {

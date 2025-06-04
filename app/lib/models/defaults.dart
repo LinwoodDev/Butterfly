@@ -65,7 +65,7 @@ class DocumentDefaults {
 
   static Future<NoteData> getCorePack() async {
     _corePack ??= NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')),
+      Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
     );
     return _corePack!;
   }

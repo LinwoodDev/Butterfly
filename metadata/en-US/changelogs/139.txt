@@ -5,6 +5,7 @@
 * Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
+* Remove duplicated name property in pack items
 * Upgrade to flutter 3.32
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.0

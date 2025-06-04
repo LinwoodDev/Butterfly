@@ -433,10 +433,10 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setStyle(TextStyleSheet style) {
+  NoteData setStyle(String name, TextStyleSheet style) {
     final content = jsonEncode(style.toJson());
     return setAsset(
-        '$kStylesArchiveDirectory/${style.name}.json', utf8.encode(content));
+        '$kStylesArchiveDirectory/$name.json', utf8.encode(content));
   }
 
   @useResult

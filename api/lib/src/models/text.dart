@@ -317,7 +317,6 @@ sealed class TextStyleSheet extends PackAsset with _$TextStyleSheet {
   const TextStyleSheet._();
 
   const factory TextStyleSheet({
-    @Default('') String name,
     @Default({}) Map<String, DefinedSpanProperty> spanProperties,
     @Default({}) Map<String, DefinedParagraphProperty> paragraphProperties,
   }) = _TextStyleSheet;

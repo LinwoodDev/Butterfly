@@ -1508,7 +1508,6 @@ class __$TextAreaCopyWithImpl<$Res> implements _$TextAreaCopyWith<$Res> {
 
 /// @nodoc
 mixin _$TextStyleSheet {
-  String get name;
   Map<String, DefinedSpanProperty> get spanProperties;
   Map<String, DefinedParagraphProperty> get paragraphProperties;
 
@@ -1528,7 +1527,6 @@ mixin _$TextStyleSheet {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is TextStyleSheet &&
-            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other.spanProperties, spanProperties) &&
             const DeepCollectionEquality()
@@ -1539,13 +1537,12 @@ mixin _$TextStyleSheet {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
       const DeepCollectionEquality().hash(spanProperties),
       const DeepCollectionEquality().hash(paragraphProperties));
 
   @override
   String toString() {
-    return 'TextStyleSheet(name: $name, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+    return 'TextStyleSheet(spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
   }
 }
 
@@ -1556,8 +1553,7 @@ abstract mixin class $TextStyleSheetCopyWith<$Res> {
       _$TextStyleSheetCopyWithImpl;
   @useResult
   $Res call(
-      {String name,
-      Map<String, DefinedSpanProperty> spanProperties,
+      {Map<String, DefinedSpanProperty> spanProperties,
       Map<String, DefinedParagraphProperty> paragraphProperties});
 }
 
@@ -1574,15 +1570,10 @@ class _$TextStyleSheetCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? spanProperties = null,
     Object? paragraphProperties = null,
   }) {
     return _then(_self.copyWith(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       spanProperties: null == spanProperties
           ? _self.spanProperties
           : spanProperties // ignore: cast_nullable_to_non_nullable
@@ -1599,8 +1590,7 @@ class _$TextStyleSheetCopyWithImpl<$Res>
 @JsonSerializable()
 class _TextStyleSheet extends TextStyleSheet {
   const _TextStyleSheet(
-      {this.name = '',
-      final Map<String, DefinedSpanProperty> spanProperties = const {},
+      {final Map<String, DefinedSpanProperty> spanProperties = const {},
       final Map<String, DefinedParagraphProperty> paragraphProperties =
           const {}})
       : _spanProperties = spanProperties,
@@ -1609,9 +1599,6 @@ class _TextStyleSheet extends TextStyleSheet {
   factory _TextStyleSheet.fromJson(Map<String, dynamic> json) =>
       _$TextStyleSheetFromJson(json);
 
-  @override
-  @JsonKey()
-  final String name;
   final Map<String, DefinedSpanProperty> _spanProperties;
   @override
   @JsonKey()
@@ -1651,7 +1638,6 @@ class _TextStyleSheet extends TextStyleSheet {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TextStyleSheet &&
-            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._spanProperties, _spanProperties) &&
             const DeepCollectionEquality()
@@ -1662,13 +1648,12 @@ class _TextStyleSheet extends TextStyleSheet {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
       const DeepCollectionEquality().hash(_spanProperties),
       const DeepCollectionEquality().hash(_paragraphProperties));
 
   @override
   String toString() {
-    return 'TextStyleSheet(name: $name, spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
+    return 'TextStyleSheet(spanProperties: $spanProperties, paragraphProperties: $paragraphProperties)';
   }
 }
 
@@ -1681,8 +1666,7 @@ abstract mixin class _$TextStyleSheetCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
-      Map<String, DefinedSpanProperty> spanProperties,
+      {Map<String, DefinedSpanProperty> spanProperties,
       Map<String, DefinedParagraphProperty> paragraphProperties});
 }
 
@@ -1699,15 +1683,10 @@ class __$TextStyleSheetCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? name = null,
     Object? spanProperties = null,
     Object? paragraphProperties = null,
   }) {
     return _then(_TextStyleSheet(
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       spanProperties: null == spanProperties
           ? _self._spanProperties
           : spanProperties // ignore: cast_nullable_to_non_nullable
