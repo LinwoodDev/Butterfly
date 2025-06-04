@@ -11,15 +11,15 @@ title: Embed
 
 ## オプション
 
-| Option   | タイプ                                                                                    | デフォルト  | 説明                                                                                           |
-| -------- | -------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| 保存       | Boolean (true, false)                                               | true   | Enable save. If disabled, only an exit button will be shown                  |
-| editable | Boolean (true, false)                                               | true   | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                    |
-| 言語       | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
+| Option   | タイプ                                                                                    | デフォルト  | 説明                                                                                                                     |
+| -------- | -------------------------------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
+| 保存       | Boolean (true, false)                                               | true   | 埋め込みはあなたのウェブサイトにアプリを含める簡単な方法です。&#xA;次のコードをウェブサイトに追加します。 If disabled, only an exit button will be shown                 |
+| editable | Boolean (true, false)                                               | true   | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                                              |
+| 言語       | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます ユーザーの場合、言語はユーザーの好みに設定されます |
 
 ## イベント
 
-使用例:
+使い方の例
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -56,7 +56,7 @@ embedElement.addEventListener('message', (data) => {
 
 ## メソッド
 
-使い方の例
+使用例:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -72,6 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > The `getData` method returns the data of the document.
 
+パラメータはありません。
 パラメータはありません。
 Returns: `List<int>`
 
