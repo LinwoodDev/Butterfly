@@ -43,49 +43,42 @@ To start working on the app, you have two options:
 
 ## The Home View
 
-</TabItem>
-  <TabItem label="Mobile">
-  At the top of the screen, you have the file bar:\
-     ![file_bar](document_view_file_bar.png)
+<Tabs syncKey="platform">
+  <TabItem label="Computadores">
+    ![Welcome screen](welcome_screen_desktop.png)
+    The top of the screen holds the update banner, a link to this documentation, and the <Gear className="inline-icon" /> Settings button. Finally, to the right of the <Gear className="inline-icon" /> Settings button, you have a drop-down menu for controlling when the update banner will appear (always/never/on updates).
 
-```
-![Welcome screen](welcome_screen_desktop.png)
-The top of the screen holds the update banner, a link to this documentation, and the <Gear className="inline-icon"/> Settings button. Finally, to the right of the <Gear className="inline-icon"/> Settings button, you have a drop-down menu for controlling when the update banner will appear (always/never/on updates).
+    The Files section is the main area to the left. Here, you can do the following operations:
 
-The Files section is the main area to the left. Here, you can do the following operations:
-- Select the display type (<GridFour className="inline-icon"/> Grid or <List className="inline-icon"/> List)
-- Select the [source storage](../storage) of the files
-- Sort the display order of the files
-- Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-- Switch to a different directory by typing in the <Folder className="inline-icon"/> Location field
-- Search for files
+    * Select the display type (<GridFour className="inline-icon" /> Grid or <List className="inline-icon" /> List)
+    * Select the [source storage](../storage) of the files
+    * Sort the display order of the files
+    * Add a folder, file, template, or import files by clicking the <Plus className="inline-icon" /> plus sign
+    * Switch to a different directory by typing in the <Folder className="inline-icon" /> Location field
+    * Search for files
 
-Finally, to the right, you have the Quickstart display with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
-```
+    Finally, to the right, you have the Quickstart display with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
+  </TabItem>
 
-</TabItem>
-  <TabItem label="Mobile">
+  <TabItem label="Celular">
+    When opening Butterfly on a mobile device, you will be presented with a screen like this:
+    ![Welcome screen first part](welcome_screen_mobile_1.png)
+    The top of the screen holds the update banner. Below it, you can find a link to this documentation, the <Gear className="inline-icon" /> Settings button, and a drop-down menu for controlling when the update banner will appear (always/never/on updates).
 
-```
-When opening Butterfly on a mobile device, you will be presented with a screen like this:
-![Welcome screen first part](welcome_screen_mobile_1.png)
-The top of the screen holds the update banner. Below it, you can find a link to this documentation, the <Gear className="inline-icon"/> Settings button, and a drop-down menu for controlling when the update banner will appear (always/never/on updates).
+    Below those, you can find the Quickstart section with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
 
-Below those, you can find the Quickstart section with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
+    Scrolling down, you will see the Files section:
+    \
+    ![Welcome screen second part](welcome_screen_mobile_2.png)
+    Here, you can do the following operations:
 
-Scrolling down, you will see the Files section:
-\
-![Welcome screen second part](welcome_screen_mobile_2.png)
-Here, you can do the following operations:
-- Select the display type (<GridFour className="inline-icon"/> Grid or <List className="inline-icon"/> List)
-- Select the [source storage](../storage) of the files
-- Sort the display order of the files
-- Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-- Switch to a different directory by typing in the <Folder className="inline-icon"/> Location field
-- Search for files
-```
-
-</TabItem>
+    * Select the display type (<GridFour className="inline-icon" /> Grid or <List className="inline-icon" /> List)
+    * Select the [source storage](../storage) of the files
+    * Sort the display order of the files
+    * Add a folder, file, template, or import files by clicking the <Plus className="inline-icon" /> plus sign
+    * Switch to a different directory by typing in the <Folder className="inline-icon" /> Location field
+    * Search for files
+  </TabItem>
 </Tabs>
 
 Once you open a document by selecting a template or an existing file, you will get to the **Document View**.
@@ -96,108 +89,82 @@ Once you open a document by selecting a template or an existing file, you will g
 
 You can return from the document view to the document list with the back action of your device. As with the home view, the document display changes based on your device.
 
-</TabItem>
-  <TabItem label="Mobile">
-  At the top of the screen, you have the file bar:\
-     ![file_bar](document_view_file_bar.png)
+<Tabs syncKey="platform">
+  <TabItem label="Computadores">
+    In the top-left of the screen, you have the file bar:\
+    ![file_bar](document_view_file_bar.png)
 
-```
-In the top-left of the screen, you have the file bar:\
-![file_bar](document_view_file_bar.png)
+    This holds, from left to right:
 
-This holds, from left to right:
+    * The <img alt="logo" src={logo.src} className="inline-icon" width="16" /> Butterfly button, which opens the menu.
+    * The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
+    * The <FloppyDisk className="inline-icon" /> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
+    * The <MagnifyingGlass className="inline-icon" /> Search button, which allow you to search for elements within the note.
+  </TabItem>
 
-- The <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly button, which opens the menu.
-- The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
-- The <FloppyDisk className="inline-icon"/> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
-- The <MagnifyingGlass className="inline-icon"/> Search button, which allow you to search for elements within the note.
-```
+  <TabItem label="Celular">
+    At the top of the screen, you have the file bar:\
+    ![file_bar](document_view_file_bar.png)
 
-</TabItem>
-  <TabItem label="Mobile">
+    This holds, from left to right:
 
-```
-At the top of the screen, you have the file bar:\
-![file_bar](document_view_file_bar.png)
-
-This holds, from left to right:
-
-- The <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly button, which opens the menu.
-- The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
-- The <FloppyDisk className="inline-icon"/> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
-- The <MagnifyingGlass className="inline-icon"/> Search button, which allow you to search for elements within the note.
-```
-
-</TabItem>
+    * The <img alt="logo" src={logo.src} className="inline-icon" width="16" /> Butterfly button, which opens the menu.
+    * The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
+    * The <FloppyDisk className="inline-icon" /> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
+    * The <MagnifyingGlass className="inline-icon" /> Search button, which allow you to search for elements within the note.
+  </TabItem>
 </Tabs>
 
 ### The Toolbar
 
-</TabItem>
-  <TabItem label="Mobile">
-  At the top of the screen, you have the file bar:\
-     ![file_bar](document_view_file_bar.png)
+<Tabs syncKey="platform">
+  <TabItem label="Computadores">
+    In the top-right of the screen, you have the toolbar:\
+    ![toolbar](document_view_toolbar.png)
 
-```
-In the top-right of the screen, you have the toolbar:\
-![toolbar](document_view_toolbar.png)
+    By default, this bar has:
 
-By default, this bar has:
+    * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
+    * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
+    * The [<Path className="inline-icon" /> Path Erase tool](tools/path_eraser)
+    * The [<ArrowCounterClockwise className="inline-icon" /> Undo](tools/undo) and [<ArrowClockwise className="inline-icon" /> Redo](tools/redo) buttons
+    * The [<Hand className="inline-icon" /> Hand tool](tools/hand).
 
-- The [<ScribbleLoop className="inline-icon"/> Lasso Select tool](tools/select)
-- The [<Pen className="inline-icon"/> Pen tool](tools/pen)
-- The [<Path className="inline-icon"/> Path Erase tool](tools/path_eraser)
-- The [<ArrowCounterClockwise className="inline-icon"/> Undo](tools/undo) and [<ArrowClockwise className="inline-icon"/> Redo](tools/redo) buttons
-- The [<Hand className="inline-icon"/> Hand tool](tools/hand).
+    Then you have the <Plus className="inline-icon" /> button to add elements to the tool bar, the <Wrench className="inline-icon" /> button to configure the document, and finally the <Lock className="inline-icon" /> tool to lock the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, click and drag (or swipe) left or right to reveal further tools.
+  </TabItem>
 
-Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to lock the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, click and drag (or swipe) left or right to reveal further tools.
-```
+  <TabItem label="Celular">
+    At the bottom of the screen, you have the toolbar:\
+    ![toolbar](document_view_toolbar.png)
 
-</TabItem>
-  <TabItem label="Mobile">
+    By default, this bar has:
 
-```
-At the bottom of the screen, you have the toolbar:\
-![toolbar](document_view_toolbar.png)
+    * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
+    * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
+    * The [<Path className="inline-icon" /> Path Erase tool](tools/path_eraser)
+    * The [<ArrowCounterClockwise className="inline-icon" /> Undo](tools/undo) and [<ArrowClockwise className="inline-icon" /> Redo](tools/redo) buttons
+    * The [<Hand className="inline-icon" /> Hand tool](tools/hand).
 
-By default, this bar has:
-
-- The [<ScribbleLoop className="inline-icon"/> Lasso Select tool](tools/select)
-- The [<Pen className="inline-icon"/> Pen tool](tools/pen)
-- The [<Path className="inline-icon"/> Path Erase tool](tools/path_eraser)
-- The [<ArrowCounterClockwise className="inline-icon"/> Undo](tools/undo) and [<ArrowClockwise className="inline-icon"/> Redo](tools/redo) buttons
-- The [<Hand className="inline-icon"/> Hand tool](tools/hand).
-
-Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, swipe left or right to reveal further tools.
-```
-
-</TabItem>
+    Then you have the <Plus className="inline-icon" /> button to add elements to the tool bar, the <Wrench className="inline-icon" /> button to configure the document, and finally the <Lock className="inline-icon" /> tool to look the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, swipe left or right to reveal further tools.
+  </TabItem>
 </Tabs>
 
 #### Customizing the Toolbar
 
-</TabItem>
-  <TabItem label="Mobile">
-  At the top of the screen, you have the file bar:\
-     ![file_bar](document_view_file_bar.png)
+<Tabs syncKey="platform">
+  <TabItem label="Computadores">
+    To add more tools to the toolbar, click the <Plus className="inline-icon" /> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
 
-```
-To add more tools to the toolbar, click the <Plus className="inline-icon"/> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
+    To reorder the tools on your toolbar, first select a tool and then click-and-drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
 
-To reorder the tools on your toolbar, first select a tool and then click-and-drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
+    Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then click it again.
+  </TabItem>
 
-Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then click it again.
-```
+  <TabItem label="Celular">
+    To add more tools to the toolbar, tap the <Plus className="inline-icon" /> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
 
-</TabItem>
-  <TabItem label="Mobile">
-  To add more tools to the toolbar, tap the <Plus className="inline-icon"/> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
+    To reorder the tools on your toolbar, first select a tool and then long-tap and drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
 
-```
-To reorder the tools on your toolbar, first select a tool and then long-tap and drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
-
-Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then tap it again.
-```
-
-</TabItem>
+    Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then tap it again.
+  </TabItem>
 </Tabs>
