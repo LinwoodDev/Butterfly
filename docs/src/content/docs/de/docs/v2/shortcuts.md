@@ -12,12 +12,13 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `N`: Neue Datei
 - `Ctrl` + `Shift` + `N`: Neue Datei aus Vorlage
 - `Strg` + `E`: Datei exportieren
+- `Strg` + `Alt` + `E`: Datei als svg exportieren
 - `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
-- `Strg` + `Alt` + `E`: Datei als svg exportieren
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Strg` + `Alt` + `P`: Open Packs
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
+- `Strg` + `Alt` + `P`: Open Packs
 
 ### Projekt
 
