@@ -688,15 +688,15 @@
   },
   "moveLeft": "تحريك لليسار",
   "moveRight": "تحريك لليمين",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "حزم الحزم",
   "component": "المكون",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "حدد المكون",
+  "bundlePackInDocument": "حزمة في المستند",
+  "bundledPacksDescription": "والحزم المجمعة مدرجة في الوثيقة ولا تستخدم إلا للمشاركة مع الوثيقة. لا يمكن استخدام الأصول إلا في المستند إذا تم تثبيت الحزمة. يمكن تثبيت الحزم مع النقر عليها.",
+  "fillAlpha": "ملء ألفا",
+  "packagedFile": "ملف معبأ",
+  "rawFile": "ملف خام",
   "webSocketDescription": "جهازك يستضيف الخادم، لذلك يمكن للمتعاونين الانضمام على نفس الشبكة فقط أو من أي مكان إذا قمت بإعادة توجيه المنفذ على جهاز التوجيه الخاص بك.",
   "swampDescription": "يتم توجيه رسائلك من خلال خادم نقل آمن مع تشفير من النهاية إلى النهاية. مطلوب عنوان خادم المستنقعات لإنشاء جلسة.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "إنشاء ملاحظة خام"
 }
