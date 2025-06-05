@@ -18,6 +18,7 @@ title: Συντομεύσεις
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Ανοίξτε πακέτα
 - `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
+- `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 
 ### Έργο
 
