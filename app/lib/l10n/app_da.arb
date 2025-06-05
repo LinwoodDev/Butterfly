@@ -688,15 +688,15 @@
   },
   "moveLeft": "Flyt til venstre",
   "moveRight": "Flyt til højre",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Medfølgende pakker",
   "component": "Komponent",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "Vælg komponent",
+  "bundlePackInDocument": "Pakke i dokument",
+  "bundledPacksDescription": "Medfølgende pakker er inkluderet i dokumentet og bruges kun til at dele med dokumentet. Aktiver kan kun bruges i dokumentet hvis pakken er installeret. Packs kan installeres ved at klikke på dem.",
+  "fillAlpha": "Udfyld alfa",
+  "packagedFile": "Pakket fil",
+  "rawFile": "Rå fil",
   "webSocketDescription": "Din enhed er vært for serveren, så samarbejdspartnere kan kun deltage over det samme netværk eller fra hvor som helst, hvis du videresender porten på din router.",
   "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Opret rå note"
 }
