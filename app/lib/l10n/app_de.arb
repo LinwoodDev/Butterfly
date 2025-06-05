@@ -688,15 +688,15 @@
   },
   "moveLeft": "Nach links",
   "moveRight": "Nach rechts",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Gebündelte Pakete",
   "component": "Komponente",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "Komponente auswählen",
+  "bundlePackInDocument": "Paketpaket im Dokument",
+  "bundledPacksDescription": "Gebündelte Pakete sind im Dokument enthalten und werden nur verwendet, um sie mit dem Dokument zu teilen. Assets können nur im Dokument verwendet werden, wenn das Paket installiert ist. Pakete können mit einem Klick installiert werden.",
+  "fillAlpha": "Alpha füllen",
+  "packagedFile": "Gepackte Datei",
+  "rawFile": "Rohdatei",
   "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
   "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Erstelle Rohnotiz"
 }
