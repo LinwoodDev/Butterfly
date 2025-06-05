@@ -688,6 +688,15 @@
   },
   "moveLeft": "Flytta åt vänster",
   "moveRight": "Flytta åt höger",
+  "bundledPacks": "Bundled packs",
+  "component": "Komponent",
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
+  "fillAlpha": "Fill alpha",
+  "packagedFile": "Packaged file",
+  "rawFile": "Raw file",
   "webSocketDescription": "Din enhet är värd för servern, så medarbetare kan bara gå med över samma nätverk eller från någonstans om du vidarebefordrar porten på din router.",
-  "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session."
+  "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session.",
+  "createRawNote": "Create raw note"
 }
