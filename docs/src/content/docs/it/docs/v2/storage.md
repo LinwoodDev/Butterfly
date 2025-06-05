@@ -5,7 +5,7 @@ sidebar_position: 2
 
 ## Cartella dati
 
-La directory dei dati è la directory in cui vengono memorizzati documenti, modelli e pacchetti.
+Cartella dati
 Sul desktop potete trovarlo in `~/Documents/Linwood/Butterfly`.
 Sul cellulare è in `getExternalFilesDir(null)/Linwood/Butterfly`.
 Puoi anche modificarlo nelle impostazioni in `Dati`.

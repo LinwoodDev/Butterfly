@@ -15,7 +15,7 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 |  Espessura do traço |     5     | A largura do traço                                                                                                                                                                               |
 |  Dependendo do zoom |   Falso   | Isto mudará a largura do traço com base no nível de zoom.                                                                                                                        |
 |               Forma | retângulo | A forma que será desenhada                                                                                                                                                                       |
-|             Largura |     0     | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                                            |
+|             Largura |     0     | Raio das bordas Se definido como 0, a largura será calculada automaticamente.                                                                                                    |
 |              Altura |     0     | A altura fixa da área. Se definido como 0, a altura será calculada automaticamente.                                                                              |
 | Proporção da imagem |     0     | O rácio de aspecto fixo da área. Se definido para 0, a proporção será calculada automaticamente. Uma proporção é definida como largura / altura. |
 
@@ -23,10 +23,10 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 #### Retângulo
 
-|     Propriedade |    Padrão    | Descrição                                    |
-| --------------: | :----------: | :------------------------------------------- |
-|       Preencher | Transparente | A cor que será desenhada dentro do retângulo |
-| Raio das bordas |  0, 0, 0, 0  | O raio dos cantos do retângulo               |
+| Propriedade |    Padrão    | Descrição                                    |
+| ----------: | :----------: | :------------------------------------------- |
+|   Preencher | Transparente | A cor que será desenhada dentro do retângulo |
+|   Preencher |  0, 0, 0, 0  | O raio dos cantos do retângulo               |
 
 #### Círculo
 

@@ -18,6 +18,7 @@ Některé z nich jsou zapsány pod tlačítky.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Otevřené balíčky
 - `Ctrl` + `Alt` + `S`: Otevřít nastavení
+- `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
 ### Projekt
 

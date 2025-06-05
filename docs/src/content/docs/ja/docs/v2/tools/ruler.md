@@ -14,7 +14,7 @@ Inputs get snapped to the ruler.
 
 ## 設定
 
-|  属性 |   デフォルト   | 説明                                                                                           |
-| --: | :-------: | :------------------------------------------------------------------------------------------- |
-| サイズ |    100    | The size of the ruler                                                                        |
-|   色 | _Not set_ | The color of the ruler. If not set, it uses the theme color. |
+|  属性 | デフォルト | 説明                                                                                           |
+| --: | :---: | :------------------------------------------------------------------------------------------- |
+| サイズ |  100  | The size of the ruler                                                                        |
+|   色 | _未設定_ | The color of the ruler. If not set, it uses the theme color. |

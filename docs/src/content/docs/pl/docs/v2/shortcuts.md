@@ -12,12 +12,13 @@ Niektóre z nich są napisane pod przyciskami.
 - `Ctrl` + `N`: Nowy plik
 - `Ctrl` + `Shift` + `N`: Nowy plik z szablonu
 - `Ctrl` + `E`: Eksportuj plik
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Drukuj plik
-- `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
 - `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Otwarte paczki
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `S`: Otwórz ustawienia
+- `Ctrl` + `Alt` + `P`: Otwarte paczki
 
 ### Projekt
 

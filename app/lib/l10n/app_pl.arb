@@ -688,6 +688,15 @@
   },
   "moveLeft": "Przesuń w lewo",
   "moveRight": "Przesuń w prawo",
+  "bundledPacks": "Pakiety wiązane",
+  "component": "Komponent",
+  "selectComponent": "Wybierz komponent",
+  "bundlePackInDocument": "Pakiet pakietów w dokumencie",
+  "bundledPacksDescription": "Pakiety zbiorcze znajdują się w dokumencie i są wykorzystywane wyłącznie do udostępniania dokumentu. Zasoby mogą być użyte w dokumencie tylko wtedy, gdy pakiet jest zainstalowany. Pakiety mogą być zainstalowane klikając na nie.",
+  "fillAlpha": "Wypełnij alfa",
+  "packagedFile": "Zapakowany plik",
+  "rawFile": "Plik Raw",
   "webSocketDescription": "Twoje urządzenie hostuje serwer, więc współpracownicy mogą dołączyć tylko za pośrednictwem tej samej sieci lub z dowolnego miejsca, jeśli przekażesz port na routerze.",
-  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego."
+  "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego.",
+  "createRawNote": "Utwórz surową notatkę"
 }

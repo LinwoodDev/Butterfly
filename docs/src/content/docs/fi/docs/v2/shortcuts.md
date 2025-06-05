@@ -18,6 +18,7 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Avaa paketit
 - `Ctrl` + `Alt` + `S`: Avaa asetukset
+- `Ctrl` + `Alt` + `S`: Avaa asetukset
 
 ### Projekti
 

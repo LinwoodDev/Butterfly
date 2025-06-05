@@ -688,6 +688,15 @@
   },
   "moveLeft": "Siirrä vasemmalle",
   "moveRight": "Siirrä oikealle",
+  "bundledPacks": "Yhdistetyt paketit",
+  "component": "Komponentti",
+  "selectComponent": "Valitse komponentti",
+  "bundlePackInDocument": "Paketti asiakirjassa",
+  "bundledPacksDescription": "Dokumentissa on mukana useita pakkauksia, ja niitä voidaan käyttää vain asiakirjan jakamiseen. Assetteja voidaan käyttää dokumentissa vain, jos paketti on asennettu. Paketteja voidaan asentaa klikkaamalla niitä.",
+  "fillAlpha": "Täytä alfa",
+  "packagedFile": "Pakattu tiedosto",
+  "rawFile": "Raaka tiedosto",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
-  "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi."
+  "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi.",
+  "createRawNote": "Luo raaka merkintä"
 }
