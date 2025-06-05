@@ -8,7 +8,7 @@ hero:
     file: /public/img/logo.svg
   actions:
     - text: Download
-      link: /nedlastinger/
+      link: /downloads/
       icon: download
       variant: primary
     - text: Komme i gang
@@ -24,38 +24,41 @@ import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
 ## Principles
 
 <CardGrid stagger>
-	<Card title="Cross platform" icon="laptop">
-		You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.
-	</Card>
-	<Card title="Simple and intuitive" icon="puzzle">
-		Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
-	</Card>
-	<Card title="Customizable" icon="pencil">
-		Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
-	</Card>
-	<Card title="Choose where your data is stored" icon="open-book">
-		You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
-	</Card>
+  <Card title="Cross platform" icon="laptop">
+    You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.
+  </Card>
+
+  <Card title="Simple and intuitive" icon="puzzle">
+    Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
+  </Card>
+
+  <Card title="Customizable" icon="pencil">
+    Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+  </Card>
+
+  <Card title="Choose where your data is stored" icon="open-book">
+    You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
+  </Card>
 </CardGrid>
 
-## Funksjoner
+## Features
 
 <div class="dark:sl-hidden">
-![Main view](@assets/img/main.png)
+  ![Main view](@assets/img/main.png)
 </div>
+
 <div class="light:sl-hidden">
-![Main view](@assets/img/main_dark.png)
+  ![Main view](@assets/img/main_dark.png)
 </div>
 
 <CardGrid stagger>
-	<Card title="Let your ideas flow on an infinite canvas">
-	</Card>
-	<Card title="Use your pen, markdown or rich text to let your ideas flow">
-	</Card>
-	<Card title="Load PDF, SVG, PNG and more files into your notes or take pictures from the camera">
-	</Card>
-	<Card title="Structure your notes by adding areas and waypoints or use multiple pages">
-	</Card>
+  <Card title="Let your ideas flow on an infinite canvas" />
+
+  <Card title="Use your pen, markdown or rich text to let your ideas flow" />
+
+  <Card title="Load PDF, SVG, PNG and more files into your notes or take pictures from the camera" />
+
+  <Card title="Structure your notes by adding areas and waypoints or use multiple pages" />
 </CardGrid>
 
 <LinkCard title="Download today" href="/downloads/" />
