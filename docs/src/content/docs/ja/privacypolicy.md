@@ -4,6 +4,7 @@ tableOfContents: false
 ---
 
 これはアプリのプライバシーポリシーです。 よく読んでください。
+これはアプリのプライバシーポリシーです。 よく読んでください。
 Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
 CodeDoctorは、オープンソースアプリとしてバタフライアプリを構築しました。 本サービスはCodeDoctorが無償で提供し、そのまま使用することを意図しています。
