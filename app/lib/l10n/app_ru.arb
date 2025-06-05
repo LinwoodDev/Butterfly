@@ -688,15 +688,15 @@
   },
   "moveLeft": "Влево",
   "moveRight": "Двигаться вправо",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Пакеты",
   "component": "Компонент",
-  "selectComponent": "Select component",
+  "selectComponent": "Выберите компонент",
   "bundlePackInDocument": "Включить пакет в документ",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "bundledPacksDescription": "Пакеты включены в документ и используются только для обмена с документом. Активы могут использоваться только в документе, если пакет установлен. Пакеты могут быть установлены щелчком по ним.",
+  "fillAlpha": "Заполнить альфа",
+  "packagedFile": "Упакованный файл",
+  "rawFile": "Файл сырых данных",
   "webSocketDescription": "Ваше устройство содержит сервер, поэтому соавторы могут подключаться только по той же сети или откуда угодно, если вы перенаправляете порт на маршрутизатор.",
   "swampDescription": "Ваши сообщения направляются через безопасный сервер ретрансляции с сквозным шифрованием. Для создания сеанса требуется адрес сервера swamp.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Создать заметку"
 }
