@@ -18,6 +18,7 @@ Noen av dem er skrevet under knappene.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Åpne pakker
 - `Ctrl` + `Alt` + `S`: Åpne innstillinger
+- `Ctrl` + `Alt` + `S`: Åpne innstillinger
 
 ### Prosjekt
 
