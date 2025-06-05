@@ -688,15 +688,15 @@
   },
   "moveLeft": "Посунути ліворуч",
   "moveRight": "Рухатися праворуч",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Зібрані пакети",
   "component": "Компонент",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "Компонент",
+  "bundlePackInDocument": "Комплектний пакет в документі",
+  "bundledPacksDescription": "Комплектні пакети включені в документ і використовуються тільки для спільного використання з документом. Активи можуть бути використані тільки в документі, якщо пакет встановлений. Пакунки можуть бути встановлені за допомогою натискання на них.",
+  "fillAlpha": "Заповнити альфа",
+  "packagedFile": "Упакований файл",
+  "rawFile": "Raw файл",
   "webSocketDescription": "Ваш пристрій хостить сервер, тому співробітники можуть приєднатися тільки до тієї ж мережі або з деінде, якщо переходити до порту на маршрутизаторі.",
   "swampDescription": "Ваші повідомлення перенаправляються через безпечний сервер ретранслятора з обмеженим шифруванням. Для створення сеансу потрібна адреса болота.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Створити сиру нотатку"
 }
