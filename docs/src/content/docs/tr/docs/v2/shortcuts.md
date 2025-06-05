@@ -12,6 +12,7 @@ Bazıları düğmelerin altında yazılmıştır.
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
 - `Ctrl` + `E`: Export file
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Print file
 - `Ctrl` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `E`: Export file as svg
