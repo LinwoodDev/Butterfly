@@ -12,10 +12,11 @@ title: 快捷键
 - `Ctrl` + `N`: 新建文件
 - `Ctrl` + `Shift` + `N`: 模板中的新文件
 - `Ctrl` + `E`：导出文件
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`：打印文件
-- `Ctrl` + `Shift` + `E`: 导出文件为图像
+- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
 - `Ctrl` + `Alt` + `E`: 导出文件为 svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `P`: 打开包
 - `Ctrl` + `Alt` + `S`: 打开设置
 
