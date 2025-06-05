@@ -688,15 +688,15 @@
   },
   "moveLeft": "Verplaats naar links",
   "moveRight": "Beweeg rechts",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Gebundelde pakketten",
   "component": "Onderdeel",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "Selecteer component",
+  "bundlePackInDocument": "Bundelpakket in document",
+  "bundledPacksDescription": "Gebundelde pakketten zijn opgenomen in het document en worden alleen gebruikt om met het document te delen. Assets kunnen alleen in het document worden gebruikt als het pakket is geïnstalleerd. Pakketten kunnen worden geïnstalleerd door erop te klikken.",
+  "fillAlpha": "Vul alpha",
+  "packagedFile": "Verpakt bestand",
+  "rawFile": "Raw bestand",
   "webSocketDescription": "Uw apparaat organiseert de server, zodat collaborateurs zich alleen via hetzelfde netwerk of vanaf waar dan ook kunnen aanmelden als u de poort op uw router doorstuurt.",
   "swampDescription": "Je berichten worden doorgestuurd via een beveiligde relaisserver met end-to-end versleuteling. Een wamp serveradres is vereist om een sessie te maken.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Ruw notitie maken"
 }
