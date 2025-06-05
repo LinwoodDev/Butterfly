@@ -18,6 +18,7 @@ Unele dintre ele sunt scrise sub butoane.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Deschide pachete
 - `Ctrl` + `Alt` + `S`: Deschideți setările
+- `Ctrl` + `Alt` + `S`: Deschideți setările
 
 ### Proiect
 
