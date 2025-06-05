@@ -688,6 +688,15 @@
   },
   "moveLeft": "Déplacer vers la gauche",
   "moveRight": "Déplacer vers la droite",
+  "bundledPacks": "Bundled packs",
+  "component": "Composant",
+  "selectComponent": "Select component",
+  "bundlePackInDocument": "Bundle pack in document",
+  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
+  "fillAlpha": "Fill alpha",
+  "packagedFile": "Packaged file",
+  "rawFile": "Raw file",
   "webSocketDescription": "Votre périphérique héberge le serveur, de sorte que les collaborateurs ne peuvent se joindre que sur le même réseau ou depuis n'importe où si vous redirigez le port sur votre routeur.",
-  "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session."
+  "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session.",
+  "createRawNote": "Create raw note"
 }
