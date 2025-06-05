@@ -688,15 +688,15 @@
   },
   "moveLeft": "Přesunout vlevo",
   "moveRight": "Přesunout vpravo",
-  "bundledPacks": "Bundled packs",
+  "bundledPacks": "Balíčky",
   "component": "Komponenty",
-  "selectComponent": "Select component",
-  "bundlePackInDocument": "Bundle pack in document",
-  "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
-  "fillAlpha": "Fill alpha",
-  "packagedFile": "Packaged file",
-  "rawFile": "Raw file",
+  "selectComponent": "Vybrat komponentu",
+  "bundlePackInDocument": "Balíček balíků v dokumentu",
+  "bundledPacksDescription": "Balené balíčky jsou v dokumentu obsaženy a používají se pouze ke sdílení s dokumentem. Majetky mohou být použity v dokumentu pouze v případě, že je balíček nainstalován. Balíčky lze nainstalovat kliknutím na něj.",
+  "fillAlpha": "Vyplnit alfa",
+  "packagedFile": "Balený soubor",
+  "rawFile": "Surový soubor",
   "webSocketDescription": "Vaše zařízení hostí server, takže se spolupracovníci mohou připojit přes stejnou síť nebo odkudkoliv pouze tehdy, pokud přeposíláte port na váš router.",
   "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s end-to-end šifrováním. Pro vytvoření relace je nutná adresa serveru swamp.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Vytvořit surovou poznámku"
 }
