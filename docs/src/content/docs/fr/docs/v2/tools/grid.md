@@ -1,10 +1,10 @@
 ---
-title: Grid tool
+title: Outil grille
 ---
 
 :::note[🔘 Toggleable tool]
 
-This is a special tool.
+C'est un outil spécial.
 You can't select it and it gets toggled if you click on it.
 
 :::
