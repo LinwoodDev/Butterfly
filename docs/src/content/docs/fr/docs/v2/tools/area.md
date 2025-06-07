@@ -2,9 +2,9 @@
 title: Zone
 ---
 
-The area tool allows you to create, edit and remove areas.
+Les outils de zone permettent de créer, d'éditer et de supprimer des zones.
 
-For an overview of how areas work, see [Areas](../areas).
+Pour un aperçu dont les zones fonctionnent, voir [Zones](../areas).
 
 ## Actions
 
@@ -16,11 +16,11 @@ For an overview of how areas work, see [Areas](../areas).
 
 ## Configuration
 
-|      Propriété | Par défaut | Libellé                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| -------------: | :--------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        Largeur |     `0`    | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                                       |
-|        Hauteur |     `0`    | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                                      |
-| Ratio d'aspect |     `0`    | The fixed aspect ratio for new areas. Appuyer sur le bouton <DotsThreeVertical className="inline-icon"/> pour accéder aux paramètres communs. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
+|      Propriété | Par défaut | Libellé                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| -------------: | :--------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|        Largeur |     '0'    | La largeur fixe d'une nouvelle zone. Si définie à '0', cette option sera ignorée.                                                                                                                                                                                                                                                                                                                                                                                  |
+|        Hauteur |     '0'    | La hauteur fixe d'une nouvelle zone. Si définie à '0', cette option sera ignorée.                                                                                                                                                                                                                                                                                                                                                                                  |
+| Ratio d'aspect |     '0'    | Le ratio fixe pour la nouvelle zone. Appuyer sur le bouton <DotsThreeVertical className="inline-icon"/> pour accéder aux paramètres communs. Un ratio d'aspect est défini comme la largeur divisée par la hauteur. Donc les valeurs de ratio inférieures à '1' seront plus hautes que larges, et les valeurs de ratio supérieures à '1' seront plus large que hautes. Si définie à '0', cette option sera ignorée. |
 
 Il y a trois préréglages de ratio :
 
