@@ -2,7 +2,7 @@
 title: Pen tool
 ---
 
-With this tool you can draw on this paper.
+Avec cet outil vous pouvez dessiner sur le document.
 
 ## Configuration
 

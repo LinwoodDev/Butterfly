@@ -1,8 +1,8 @@
 ---
-title: Eraser tool
+title: Outil effaceur
 ---
 
-With this tool you can erase the elements on the paper.
+Avec cet outil vous pouvez effacer des éléments du document.
 
 ## Configuration
 
