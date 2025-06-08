@@ -197,7 +197,7 @@
   "currentArea": "Aktueller Bereich",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hey, das ist Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
@@ -266,7 +266,7 @@
   "showDetails": "Details anzeigen",
   "hideDetails": "Details ausblenden",
   "error": "Fehler",
-  "stackTrace": "Stapelverfolgung",
+  "stackTrace": "Stack-Trace",
   "laser": "Laser",
   "duration": "Dauer",
   "quality": "Qualität",
