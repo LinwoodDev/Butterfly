@@ -1,5 +1,5 @@
 ---
-title: Outil effaceur
+title: Outil gomme
 ---
 
 Avec cet outil vous pouvez effacer des éléments du document.
