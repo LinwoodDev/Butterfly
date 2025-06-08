@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:dart_leap/dart_leap.dart';
 
 import '../../butterfly_api.dart';
 
@@ -140,9 +141,12 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
     }
 
     void updatePenProperty(Map property) {
-      if (property['fill'] != true) return;
-      property['fill'] = property['color'];
-      property['color'] = null;
+      if (property['fill'] != true) {
+        property['fill'] = SRGBColor.transparent.value;
+      } else {
+        property['fill'] = property['color'];
+        property['color'] = null;
+      }
     }
 
     for (final page in noteData.getAssets('$kPagesArchiveDirectory/')) {

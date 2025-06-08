@@ -172,18 +172,18 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "0bd3d1645df00af2540a22df13ba466ac5fb2838a09bce4089cecdb1712a9e94"
+      sha256: "68d7ec97439108ac22cfba34bb74d0ab53adbc017175116d2cbc5a3d8fc8ea5e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.18"
+    version: "0.6.18+2"
   camera_avfoundation:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: fdc0e668f65c8ddfb3be6c10ef4737fb6274cd04d8053a9525d410642f7989c0
+      sha256: ca244564876d5a76f2126bca501aec25243cad23ba1784819242aea2fd25cf70
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.19+1"
+    version: "0.9.19+2"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -220,10 +220,10 @@ packages:
     dependency: transitive
     description:
       name: checked_yaml
-      sha256: feb6bed21949061731a7a75fc5d2aa727cf160b91af9a3e464c5e3a32e28b5ff
+      sha256: "959525d3162f249993882720d52b7e0c833978df229be20702b33d48d91de70f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   clock:
     dependency: transitive
     description:
@@ -635,10 +635,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "0b1e06223bee260dee31a171fb1153e306907563a0b0225e8c1733211911429a"
+      sha256: b453934c36e289cef06525734d1e676c1f91da9e22e2017d9dcab6ce0f999175
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.2"
+    version: "15.1.3"
   graphs:
     dependency: transitive
     description:
@@ -892,8 +892,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "2e0ab5b548cb8e2d64ca24e0d7b4a6cfcc6d57fe"
-      resolved-ref: "2e0ab5b548cb8e2d64ca24e0d7b4a6cfcc6d57fe"
+      ref: "4f221c5943ceb786eb7bd427eb71a8cc1346b9b8"
+      resolved-ref: "4f221c5943ceb786eb7bd427eb71a8cc1346b9b8"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -901,8 +901,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_crypto"
-      ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
-      resolved-ref: "1cc2988f680758fcb45c88b3905b0312d8c5a513"
+      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      resolved-ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -910,8 +910,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: "72c7cdd7a60d98c3a7f587122da83dc8b99b7ed0"
-      resolved-ref: "72c7cdd7a60d98c3a7f587122da83dc8b99b7ed0"
+      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      resolved-ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1406,8 +1406,8 @@ packages:
     dependency: "direct main"
     description:
       path: api
-      ref: e3731236887b11685aa9c7c94d453babf726b46c
-      resolved-ref: e3731236887b11685aa9c7c94d453babf726b46c
+      ref: "1c15259fc8c5e043997ffcaafbf45348a77e3003"
+      resolved-ref: "1c15259fc8c5e043997ffcaafbf45348a77e3003"
       url: "https://github.com/LinwoodDev/Swamp.git"
     source: git
     version: "1.0.0"
@@ -1668,5 +1668,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.8.0 <4.0.0"
+  dart: ">=3.8.1 <4.0.0"
   flutter: ">=3.32.1"
