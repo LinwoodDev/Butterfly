@@ -6,7 +6,7 @@ If you have any questions, please contact me at [contact@linwood.dev](mailto:con
 
 There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
-Please follow the [Code of Conduct](https://butterfly.linwood.dev/code-of-conduct).
+Please follow the [Code of Conduct](https://butterfly.linwood.dev/community/code-of-conduct).
 
 ## Give feedback
 
