@@ -105,7 +105,6 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       path.moveTo(first.x, first.y);
       points.sublist(1).forEach((point) => path.lineTo(point.x, point.y));
       canvas.drawPath(path, paint);
-      return;
     }
     if (visual.color.a > 0) {
       final paint = Paint()

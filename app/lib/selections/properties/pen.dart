@@ -44,7 +44,7 @@ class PenPropertySelection extends PropertySelection<PenProperty>
       min: 0,
       defaultValue: 255,
       onChangeEnd: (value) => onChanged(
-        property.copyWith(color: property.fill.withValues(a: value.toInt())),
+        property.copyWith(fill: property.fill.withValues(a: value.toInt())),
       ),
     ),
   ];

@@ -1390,18 +1390,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "5203c881d24033c3e6154c2ae01afd94e7f0a3201280373f28e540f1defa3f40"
+      sha256: "561d49f845c75638fde034add6a785c36f1077e912663dabd08231b22adb6570"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0-dev.6"
+    version: "0.9.0"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "09ccc40c475e6f91770eaeb2553bf4803812d7beadc3759aa57d643370619c86"
+      sha256: "8613401d387a7ca321eb4a4535873749bd881421b7ccdcab6c44ebe0163cdd47"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0-dev.6"
+    version: "0.9.0"
   swamp_api:
     dependency: "direct main"
     description:
