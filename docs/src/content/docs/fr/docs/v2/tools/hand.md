@@ -2,4 +2,4 @@
 title: Hand tool
 ---
 
-With this tool you can move on the page.
+Avec cet outil vous pouvez bouger la page.
