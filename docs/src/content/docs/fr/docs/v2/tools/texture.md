@@ -16,4 +16,4 @@ The texture tool allows you to add the background to a small area of the canvas.
 
 Valid types for texture are:
 
-- [Pattern](../../background#pattern)
+- [Motif](../../background#pattern)
