@@ -9,8 +9,12 @@ class LabelHandler extends Handler<LabelTool>
 
   LabelHandler(super.data);
 
-  LabelContext _createContext(NoteData document,
-      {Point<double>? position, double zoom = 1, LabelElement? element}) {
+  LabelContext _createContext(
+    NoteData document, {
+    Point<double>? position,
+    double zoom = 1,
+    LabelElement? element,
+  }) {
     final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
@@ -18,8 +22,10 @@ class LabelHandler extends Handler<LabelTool>
     final styleSheet = data.styleSheet.fixStyle(document);
     switch (mode) {
       case LabelMode.text:
-        final forced =
-            switch (_context) { TextContext e => e.forcedProperty, _ => null };
+        final forced = switch (_context) {
+          TextContext e => e.forcedProperty,
+          _ => null,
+        };
         return TextContext(
           tool: data,
           element: (element as TextElement?) ??
@@ -60,20 +66,29 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) =>
       [
         ...super.createForegrounds(
-            currentIndexCubit, document, page, info, currentArea),
+          currentIndexCubit,
+          document,
+          page,
+          info,
+          currentArea,
+        ),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
             switch (_context!) {
               TextContext e =>
                 TextRenderer(e.element!, null, e) as GenericTextRenderer,
-              MarkdownContext e => MarkdownRenderer(e.element!, null, e)
+              MarkdownContext e => MarkdownRenderer(e.element!, null, e),
             },
-          LabelSelectionCursor(_context!)
+          LabelSelectionCursor(_context!),
         ],
       ];
 
@@ -82,15 +97,14 @@ class LabelHandler extends Handler<LabelTool>
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final hitRect = _context?.getRect();
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final globalPos = context.getCameraTransform().localToGlobal(
+          details.localFocalPoint,
+        );
     final hit = hitRect?.contains(globalPos) ?? false;
     if (hit) {
-      final position = _context!.textPainter.getPositionForOffset(globalPos -
-          Offset(
-            hitRect!.left,
-            hitRect.top,
-          ));
+      final position = _context!.textPainter.getPositionForOffset(
+        globalPos - Offset(hitRect!.left, hitRect.top),
+      );
       _context = _context!.copyWith(
         selection: TextSelection.collapsed(offset: position.offset),
       );
@@ -102,15 +116,14 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final hitRect = _context?.getRect();
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final globalPos = context.getCameraTransform().localToGlobal(
+          details.localFocalPoint,
+        );
     final hit = hitRect?.contains(globalPos) ?? false;
     if (hit) {
-      final position = _context!.textPainter.getPositionForOffset(globalPos -
-          Offset(
-            hitRect!.left,
-            hitRect.top,
-          ));
+      final position = _context!.textPainter.getPositionForOffset(
+        globalPos - Offset(hitRect!.left, hitRect.top),
+      );
       _context = _context!.copyWith(
         selection: TextSelection(
           baseOffset: _context!.selection.baseOffset,
@@ -141,8 +154,11 @@ class LabelHandler extends Handler<LabelTool>
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
-  Future<void> create(EventContext context, Offset localPosition,
-      [bool forceCreate = false]) async {
+  Future<void> create(
+    EventContext context,
+    Offset localPosition, [
+    bool forceCreate = false,
+  ]) async {
     final pixelRatio = context.devicePixelRatio;
     final state = context.getState();
     final document = state?.data;
@@ -164,9 +180,11 @@ class LabelHandler extends Handler<LabelTool>
           );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
-        _context = _createContext(document,
-            position: globalPos.toPoint(),
-            zoom: context.getCameraTransform().size);
+        _context = _createContext(
+          document,
+          position: globalPos.toPoint(),
+          zoom: context.getCameraTransform().size,
+        );
       } else {
         final page = context.getPage();
         if (page == null) return;
@@ -177,30 +195,27 @@ class LabelHandler extends Handler<LabelTool>
       }
     }
     if (hit) {
-      final position = _context!.textPainter.getPositionForOffset(globalPos -
-          Offset(
-            hitRect!.left,
-            hitRect.top,
-          ));
+      final position = _context!.textPainter.getPositionForOffset(
+        globalPos - Offset(hitRect!.left, hitRect.top),
+      );
       _context = _context!.copyWith(
-        selection: TextSelection.collapsed(
-          offset: position.offset,
-        ),
+        selection: TextSelection.collapsed(offset: position.offset),
       );
     }
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
-          this,
-          TextInputConfiguration(
-            inputType: TextInputType.text,
-            obscureText: false,
-            autocorrect: false,
-            inputAction: TextInputAction.newline,
-            keyboardAppearance: theme.brightness,
-            enableDeltaModel: false,
-            enableSuggestions: false,
-            enableInteractiveSelection: true,
-          ))
+        this,
+        TextInputConfiguration(
+          inputType: TextInputType.multiline,
+          obscureText: false,
+          autocorrect: false,
+          inputAction: TextInputAction.newline,
+          keyboardAppearance: theme.brightness,
+          enableDeltaModel: false,
+          enableSuggestions: false,
+          enableInteractiveSelection: true,
+        ),
+      )
         ..setEditingState(currentTextEditingValue)
         ..setStyle(
           fontFamily: style.fontFamily,
@@ -219,7 +234,9 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   Future<TextElement?> openDialog(
-      EventContext context, Offset localPosition) async {
+    EventContext context,
+    Offset localPosition,
+  ) async {
     return null;
 
     /*final bloc = context.getDocumentBloc();
@@ -261,9 +278,11 @@ class LabelHandler extends Handler<LabelTool>
 
     if (context.element != null && value.element != null && id != null) {
       if (!value.isCreating) {
-        bloc.add(ElementsChanged({
-          id: [value.element!],
-        }));
+        bloc.add(
+          ElementsChanged({
+            id: [value.element!],
+          }),
+        );
       }
     }
     if (context.tool != value.tool) {
@@ -318,43 +337,43 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   Future<void> _onContextMenu(
-      Offset localPosition, EventContext context) async {
+    Offset localPosition,
+    EventContext context,
+  ) async {
     if (_context == null) return;
     showModal(
-        context: context.buildContext,
-        useRootNavigator: true,
-        builder: (context) => AdaptiveTextSelectionToolbar.editable(
-              clipboardStatus: ClipboardStatus.pasteable,
-              onLiveTextInput: () {
-                _connection?.show();
-                Navigator.of(context).pop();
-              },
-              onCopy: () {
-                _copyText(false);
-                Navigator.of(context).pop();
-              },
-              onCut: () {
-                _copyText(true);
-                Navigator.of(context).pop();
-              },
-              onPaste: () {
-                _pasteText();
-                Navigator.of(context).pop();
-              },
-              onSelectAll: () {
-                _selectAllText();
-                Navigator.of(context).pop();
-              },
-              anchors: TextSelectionToolbarAnchors(
-                primaryAnchor: localPosition,
-              ),
-              onLookUp: null,
-              onSearchWeb: null,
-              onShare: () {
-                SharePlus.instance
-                    .share(ShareParams(text: _context?.text ?? ''));
-              },
-            ));
+      context: context.buildContext,
+      useRootNavigator: true,
+      builder: (context) => AdaptiveTextSelectionToolbar.editable(
+        clipboardStatus: ClipboardStatus.pasteable,
+        onLiveTextInput: () {
+          _connection?.show();
+          Navigator.of(context).pop();
+        },
+        onCopy: () {
+          _copyText(false);
+          Navigator.of(context).pop();
+        },
+        onCut: () {
+          _copyText(true);
+          Navigator.of(context).pop();
+        },
+        onPaste: () {
+          _pasteText();
+          Navigator.of(context).pop();
+        },
+        onSelectAll: () {
+          _selectAllText();
+          Navigator.of(context).pop();
+        },
+        anchors: TextSelectionToolbarAnchors(primaryAnchor: localPosition),
+        onLookUp: null,
+        onSearchWeb: null,
+        onShare: () {
+          SharePlus.instance.share(ShareParams(text: _context?.text ?? ''));
+        },
+      ),
+    );
   }
 
   @override
@@ -376,8 +395,10 @@ class LabelHandler extends Handler<LabelTool>
     final text = context.text;
     if (element == null || text == null) return const TextEditingValue();
     (int, int) getTextProperty(TextElement e) {
-      final indexed =
-          e.area.paragraph.getIndexedSpan(context.selection.start, false);
+      final indexed = e.area.paragraph.getIndexedSpan(
+        context.selection.start,
+        false,
+      );
       if (indexed == null) return (0, text.length);
       return (indexed.index, indexed.model.length);
     }
@@ -388,7 +409,7 @@ class LabelHandler extends Handler<LabelTool>
     };
     if (switch (context) {
       TextContext e => e.shouldNewSpan(state.data),
-      _ => false
+      _ => false,
     }) {
       indexed = min(context.selection.start, text.length);
       length = 0;
@@ -419,7 +440,6 @@ class LabelHandler extends Handler<LabelTool>
     switch (action) {
       case TextInputAction.newline:
       case TextInputAction.done:
-        _updateText('\n', false);
         break;
       default:
     }
@@ -451,8 +471,10 @@ class LabelHandler extends Handler<LabelTool>
         ? lastValue.selection.end - lastValue.text.length + value.length
         : start + value.length;
     final currentText = replace
-        ? value.substring(start,
-            value.length - lastValue.text.length + lastValue.composing.end)
+        ? value.substring(
+            start,
+            value.length - lastValue.text.length + lastValue.composing.end,
+          )
         : value;
     if (_context == null) return;
     switch (_context!) {
@@ -468,12 +490,15 @@ class LabelHandler extends Handler<LabelTool>
                         const text.SpanProperty.undefined(),
                   ),
                   start,
-                  length)
-              : old.area.paragraph
-                  .replaceText(currentText, start, length, replace);
-          final area = old.area.copyWith(
-            paragraph: paragraph,
-          );
+                  length,
+                )
+              : old.area.paragraph.replaceText(
+                  currentText,
+                  start,
+                  length,
+                  replace,
+                );
+          final area = old.area.copyWith(paragraph: paragraph);
           element = old.copyWith(area: area);
         } else {
           final paragraph = text.TextParagraph(
@@ -481,9 +506,7 @@ class LabelHandler extends Handler<LabelTool>
             property:
                 e.forcedProperty ?? const text.ParagraphProperty.undefined(),
           );
-          final area = text.TextArea(
-            paragraph: paragraph,
-          );
+          final area = text.TextArea(paragraph: paragraph);
           element = TextElement(area: area, id: createUniqueId());
         }
         _context = e.copyWith(
@@ -495,11 +518,12 @@ class LabelHandler extends Handler<LabelTool>
         text = replace
             ? value
             : text.replaceRange(
-                start, lastValue.selection.end.clamp(0, text.length), value);
+                start,
+                lastValue.selection.end.clamp(0, text.length),
+                value,
+              );
         _context = e.copyWith(
-          element: e.element?.copyWith(
-            text: text,
-          ),
+          element: e.element?.copyWith(text: text),
           selection: TextSelection.collapsed(offset: newIndex),
         );
     }
@@ -513,7 +537,9 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   void didChangeInputControl(
-      TextInputControl? oldControl, TextInputControl? newControl) {
+    TextInputControl? oldControl,
+    TextInputControl? newControl,
+  ) {
     if (isCurrentlyEditing) {
       oldControl?.hide();
       newControl?.show();
@@ -535,8 +561,10 @@ class LabelHandler extends Handler<LabelTool>
     var nextLineLength = nextNextLine - nextLine + 1;
     final previousLine = context.previousLineIndex(max(currentLine, 0));
     var previousLineLength = max(currentLine - previousLine, 0);
-    final lineSelection = min(max(selection - currentLine, 1),
-        forward ? nextLineLength : previousLineLength);
+    final lineSelection = min(
+      max(selection - currentLine, 1),
+      forward ? nextLineLength : previousLineLength,
+    );
     return (forward ? nextLine + lineSelection : previousLine + lineSelection)
         .clamp(0, context.length);
   }
@@ -565,10 +593,7 @@ class LabelHandler extends Handler<LabelTool>
               var element = e.element;
               if (element == null) return e;
               var area = element.area;
-              final paragraph = area.paragraph.remove(
-                start,
-                length,
-              );
+              final paragraph = area.paragraph.remove(start, length);
               area = area.copyWith(paragraph: paragraph);
               final newElement = element.copyWith(area: area);
 
@@ -580,7 +605,8 @@ class LabelHandler extends Handler<LabelTool>
               var element = e.element;
               if (element == null) return e;
               element = element.copyWith(
-                  text: element.text.replaceRange(start, selection.end, ''));
+                text: element.text.replaceRange(start, selection.end, ''),
+              );
               _context = e.copyWith(
                 element: element,
                 selection: TextSelection.collapsed(offset: start),
@@ -634,9 +660,7 @@ class LabelHandler extends Handler<LabelTool>
               extentOffset: selection.extentOffset,
             );
           }
-          _context = _context?.copyWith(
-            selection: selection,
-          );
+          _context = _context?.copyWith(selection: selection);
           _context = switch (_context) {
             TextContext e => e.copyWith(
                 forcedSpanProperty: e.element?.area.paragraph
@@ -688,10 +712,7 @@ class LabelHandler extends Handler<LabelTool>
               if (element == null) return e;
               var area = element.area;
               var paragraph = area.paragraph;
-              paragraph = paragraph.remove(
-                wordIndex,
-                length.abs(),
-              );
+              paragraph = paragraph.remove(wordIndex, length.abs());
               area = area.copyWith(paragraph: paragraph);
               final newElement = element.copyWith(area: area);
 
@@ -703,8 +724,11 @@ class LabelHandler extends Handler<LabelTool>
             case MarkdownContext e:
               final element = e.element;
               if (element == null) return e;
-              final text =
-                  element.text.replaceRange(wordIndex, length.abs(), '');
+              final text = element.text.replaceRange(
+                wordIndex,
+                length.abs(),
+                '',
+              );
 
               _context = e.copyWith(
                 element: element.copyWith(text: text),
@@ -735,7 +759,8 @@ class LabelHandler extends Handler<LabelTool>
     final text = _context?.text;
     if (text == null) return;
     Clipboard.setData(
-        ClipboardData(text: text.substring(selection.start, selection.end)));
+      ClipboardData(text: text.substring(selection.start, selection.end)),
+    );
     if (cut) {
       _updateText('');
     }
@@ -753,10 +778,7 @@ class LabelHandler extends Handler<LabelTool>
   void _selectAllText() {
     final length = _context?.length ?? 0;
     _context = _context?.copyWith(
-      selection: TextSelection(
-        baseOffset: length,
-        extentOffset: 0,
-      ),
+      selection: TextSelection(baseOffset: length, extentOffset: 0),
     );
     _context = switch (_context) {
       TextContext e => e.copyWith(
@@ -765,7 +787,7 @@ class LabelHandler extends Handler<LabelTool>
                   e.forcedSpanProperty,
           forceParagraph: null,
         ),
-      _ => _context
+      _ => _context,
     };
     _bloc?.refresh();
     _updateEditingState();
