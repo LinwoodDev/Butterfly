@@ -197,7 +197,7 @@
   "currentArea": "Aktueller Bereich",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hey, das ist Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
@@ -266,7 +266,7 @@
   "showDetails": "Details anzeigen",
   "hideDetails": "Details ausblenden",
   "error": "Fehler",
-  "stackTrace": "Stapelverfolgung",
+  "stackTrace": "Stack-Trace",
   "laser": "Laser",
   "duration": "Dauer",
   "quality": "Qualität",
@@ -341,7 +341,7 @@
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
   "penOnlyInput": "Nur-Pen-Eingabe",
-  "inputGestures": "Input gestures",
+  "inputGestures": "Eingabegesten",
   "nativeTitleBar": "Native Titelleiste",
   "syncMode": "Sync-Modus",
   "connection": "Verbindung",
@@ -360,7 +360,7 @@
   "pack": "Paket",
   "more": "Mehr",
   "askForName": "Nach Namen fragen",
-  "areaIndex": "Fläche {index}",
+  "areaIndex": "Bereich {index}",
   "@areaIndex": {
     "placeholders": {
       "index": {
@@ -424,7 +424,7 @@
   "waypoint": "Wegpunkt",
   "actions": "Aktionen",
   "painters": "Maler",
-  "breakingChangesTitle": "Änderungen brechen",
+  "breakingChangesTitle": "Wichtige Änderungen",
   "breakingChangesMessage": "Es gibt ungültige Änderungen in dieser Version. Bitte lesen Sie das Changelog vor der Aktualisierung. Die aktuelle Dateiversion ist {version}, die neue Version ist {newVersion}.",
   "@breakingChangesMessage": {
     "placeholders": {
@@ -438,7 +438,7 @@
       }
     }
   },
-  "styles": "Styles",
+  "styles": "Stile",
   "paragraph": "Absatz",
   "fontFamily": "Schriftfamilie",
   "smoothing": "Glättung",
@@ -522,9 +522,9 @@
   "navigationRail": "Navigationsschiene",
   "cut": "Ausschneiden",
   "insertBefore": "Vorher einfügen",
-  "insertAfter": "Einfügen nach",
-  "insertFirst": "Zuerst einfügen",
-  "insertLast": "Insert last",
+  "insertAfter": "Danach einfügen",
+  "insertFirst": "Am Anfang einfügen",
+  "insertLast": "Am Ende einfügen",
   "paste": "Einfügen",
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
@@ -607,7 +607,7 @@
   "pointerTest": "Zeigertest",
   "pressure": "Druck",
   "small": "Klein",
-  "tiny": "Klein",
+  "tiny": "Winzig",
   "selectAll": "Alles auswählen",
   "overrideTools": "Werkzeuge überschreiben",
   "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden",
@@ -628,7 +628,7 @@
   "convertToLayer": "In Ebene konvertieren",
   "merge": "Zusammenführen",
   "up": "Hoch",
-  "down": "Unten",
+  "down": "Runter",
   "other": "Andere",
   "countElements": "{count,plural, =0{Keine Elemente} =1{1 Element} other{{count} Elemente}}",
   "@countElements": {
@@ -649,13 +649,13 @@
   "normalDescription": "Balanciert Qualität und Performance. Bietet ein Bild, das das 1,5 Mal so viel wie der sichtbare Bereich abdeckt, und sorgt beim Scrollen für glattere Übergänge.",
   "high": "Hoch",
   "highDescription": "Beschreibung: Maximizes quality at the cost of performance. Bietet ein 2-fachen sichtbares Bild ab und garantiert eine nahtlose Darstellung auch beim schnellen Scrollen oder Zoomen.",
-  "renderResolution": "Auflösung anzeigen",
+  "renderResolution": "Render-Auflösung",
   "translate": "Übersetzen",
   "unencrypted": "Unverschlüsselt",
   "encrypted": "Verschlüsselt",
   "encryptDocumentMessage": "Klicken, um das Dokument zu verschlüsseln",
   "unencryptDocumentMessage": "Zum Entschlüsseln des Dokuments klicken",
-  "unencrypt": "Unverschlüsselt",
+  "unencrypt": "Unverschlüsseln",
   "encrypt": "Verschlüsseln",
   "encryptWarning": "Dies verschlüsselt das Dokument. Sie müssen das Passwort speichern, um es zu entschlüsseln.",
   "unencryptWarning": "Dies wird das Dokument unverschlüsseln. Das Passwort wird entfernt und jeder mit Zugriff kann es öffnen.",
@@ -668,7 +668,7 @@
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
   "grayscale": "Grayscale",
-  "moveOnGesture": "Geste verschieben",
+  "moveOnGesture": "Verschieben bei Geste",
   "exportAllFiles": "Alle Dateien exportieren",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
   "exportSettingsToFile": "Einstellungen in Datei exportieren",
@@ -677,7 +677,7 @@
   "qrCode": "QR Code",
   "dataMatrix": "Datenmatrix",
   "code128": "Code 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "Benutzer {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
@@ -688,6 +688,15 @@
   },
   "moveLeft": "Nach links",
   "moveRight": "Nach rechts",
+  "bundledPacks": "Gebündelte Pakete",
+  "component": "Komponente",
+  "selectComponent": "Komponente auswählen",
+  "bundlePackInDocument": "Paket in Dokument bündeln",
+  "bundledPacksDescription": "Gebündelte Pakete sind im Dokument enthalten und werden nur verwendet, um sie mit dem Dokument zu teilen. Assets können nur im Dokument verwendet werden, wenn das Paket installiert ist. Pakete können mit einem Klick installiert werden.",
+  "fillAlpha": "Alpha füllen",
+  "packagedFile": "Gepackte Datei",
+  "rawFile": "Rohdatei",
   "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
-  "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen."
+  "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
+  "createRawNote": "Erstelle Rohnotiz"
 }

@@ -688,6 +688,15 @@
   },
   "moveLeft": "Mută în stânga",
   "moveRight": "Mută în dreapta",
+  "bundledPacks": "Pachete pachet",
+  "component": "Componentă",
+  "selectComponent": "Selectaţi componenta",
+  "bundlePackInDocument": "Pachet pachet în document",
+  "bundledPacksDescription": "Pachetele combinate sunt incluse în document și sunt utilizate numai pentru a partaja documentul. Activele pot fi utilizate în document numai dacă pachetul este instalat. Pachetele pot fi instalate cu click pe ele.",
+  "fillAlpha": "Completează alfa",
+  "packagedFile": "Fișier împachetat",
+  "rawFile": "Fișier brut",
   "webSocketDescription": "Dispozitivul tău găzduiește serverul, astfel încât colaboratorii se pot alătura doar prin aceeași rețea sau de oriunde ai înainta portul de pe router.",
-  "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune."
+  "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune.",
+  "createRawNote": "Creați o notă brută"
 }

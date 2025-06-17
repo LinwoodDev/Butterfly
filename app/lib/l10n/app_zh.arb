@@ -688,6 +688,15 @@
   },
   "moveLeft": "向左移动",
   "moveRight": "右移",
+  "bundledPacks": "捆绑包",
+  "component": "组件",
+  "selectComponent": "选择组件",
+  "bundlePackInDocument": "文档中的捆包包",
+  "bundledPacksDescription": "捆绑包包含在文档中，仅用于与文档共享。 资源只有在包安装后才能在文档中使用。可以通过单击它们来安装包。",
+  "fillAlpha": "填充透明度",
+  "packagedFile": "封装文件",
+  "rawFile": "原始文件",
   "webSocketDescription": "您的设备是服务器的主机，所以合作者只能在同一网络上或在任何地方加入，如果您转发您的路由器上的端口。",
-  "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。"
+  "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。",
+  "createRawNote": "创建原始笔记"
 }

@@ -688,6 +688,15 @@
   },
   "moveLeft": "Gå til venstre",
   "moveRight": "Gå til høyre",
+  "bundledPacks": "Inkluderte pakker",
+  "component": "Komponent",
+  "selectComponent": "Velg komponent",
+  "bundlePackInDocument": "Pakke i dokument",
+  "bundledPacksDescription": "Inkluderte pakker er inkludert i dokumentet og brukes bare til å dele med dokumentet. Eiendeler kan bare brukes i dokumentet hvis pakken er installert. Pakker kan installeres ved å klikke på dem.",
+  "fillAlpha": "Fyll alfa",
+  "packagedFile": "Pakket fil",
+  "rawFile": "Rå fil",
   "webSocketDescription": "Dine enheter støtter serveren, så samarbeidspartnere kan bare bli med på det samme nettverket eller fra hvor som helst hvis du videresender porten på din router.",
-  "swampDescription": "Meldingene dine er rutet gjennom en sikker relee-server med ende-til-ende kryptering. En swamp server adresse er nødvendig for å lage en økt."
+  "swampDescription": "Meldingene dine er rutet gjennom en sikker relee-server med ende-til-ende kryptering. En swamp server adresse er nødvendig for å lage en økt.",
+  "createRawNote": "Opprett rå notat"
 }
