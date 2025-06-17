@@ -5,6 +5,7 @@
 * Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
+* Fix new line not working in label tool
 * Remove duplicated name property in pack items
 * Fix server crash when invalid request is made
 * Upgrade to flutter 3.32

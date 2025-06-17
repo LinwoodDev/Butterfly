@@ -216,7 +216,7 @@ class LabelHandler extends Handler<LabelTool>
           TextInput.attach(
               this,
               TextInputConfiguration(
-                inputType: TextInputType.text,
+                inputType: TextInputType.multiline,
                 obscureText: false,
                 autocorrect: false,
                 inputAction: TextInputAction.newline,
@@ -453,8 +453,6 @@ class LabelHandler extends Handler<LabelTool>
       case TextInputAction.done:
         if (HardwareKeyboard.instance.isControlPressed) {
           _newElement();
-        } else {
-          _updateText('\n', false);
         }
         break;
       default:
