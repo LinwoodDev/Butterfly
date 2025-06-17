@@ -165,6 +165,8 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
           }
         }
       }
+      noteData = noteData.setAsset(
+          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {
