@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.0-beta.0 (2025-06-18)
+
+* Add ctrl + enter to create new text element below current text element ([#858](https://github.com/LinwoodDev/Butterfly/issues/858))
+* Add text based file format ([#823](https://github.com/LinwoodDev/Butterfly/issues/823))
+* Add specific fill color ([#802](https://github.com/LinwoodDev/Butterfly/issues/802))
+* Redesign pack system ([#805](https://github.com/LinwoodDev/Butterfly/issues/805))
+* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Fix temporary handler not working correctly
+* Fix text elements not correctly movable on pasting
+* Fix new line not working in label tool
+* Remove duplicated name property in pack items
+* Fix server crash when invalid request is made
+* Upgrade to flutter 3.32
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
+
 ## 2.3.1 (2025-05-21)
 
 Changes since 2.3.1-rc.1:
