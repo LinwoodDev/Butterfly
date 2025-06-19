@@ -26,14 +26,16 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     final style =
         styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
+    final dimensions = <PlaceholderDimensions>[];
     _tp?.text = switch (paragraph) {
       text.TextParagraph p => TextSpan(
         children: p.textSpans
-            .map((e) => _createSpan(document, e, style))
+            .map((e) => _createSpan(document, dimensions, e, style))
             .toList(),
         style: style.span.toFlutter(null, element.foreground),
       ),
     };
+    _tp?.setPlaceholderDimensions(dimensions);
     _tp?.textAlign = style.alignment.toFlutter();
     _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
@@ -42,15 +44,31 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   InlineSpan _createSpan(
     NoteData document,
-    text.TextSpan span, [
+    List<PlaceholderDimensions> dimensions,
+    text.InlineSpan span, [
     text.DefinedParagraphProperty? parent,
   ]) {
     final styleSheet = _getStyle();
-    final style = styleSheet.resolveSpanProperty(span.property);
-    return TextSpan(
-      text: span.text,
-      style: style?.toFlutter(parent, element.foreground),
-    );
+    final style = styleSheet
+        .resolveSpanProperty(span.property)
+        ?.toFlutter(parent, element.foreground);
+    switch (span) {
+      case text.TextSpan():
+        return TextSpan(text: span.text, style: style);
+      case text.LatexTextSpan():
+        final widget = Math.tex(
+          span.text,
+          textStyle: style,
+          mathStyle: MathStyle.text,
+        );
+        dimensions.add(
+          PlaceholderDimensions(
+            size: Size(120, 50),
+            alignment: PlaceholderAlignment.middle,
+          ),
+        );
+        return WidgetSpan(child: widget, style: style);
+    }
   }
 
   @override

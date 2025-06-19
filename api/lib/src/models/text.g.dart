@@ -158,17 +158,35 @@ const _$VerticalAlignmentEnumMap = {
   VerticalAlignment.bottom: 'bottom',
 };
 
-_TextSpan _$TextSpanFromJson(Map json) => _TextSpan(
+TextSpan _$TextSpanFromJson(Map json) => TextSpan(
       text: json['text'] as String? ?? '',
       property: json['property'] == null
           ? const SpanProperty.undefined()
           : SpanProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
+      $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$TextSpanToJson(_TextSpan instance) => <String, dynamic>{
+Map<String, dynamic> _$TextSpanToJson(TextSpan instance) => <String, dynamic>{
       'text': instance.text,
       'property': instance.property.toJson(),
+      'type': instance.$type,
+    };
+
+LatexTextSpan _$LatexTextSpanFromJson(Map json) => LatexTextSpan(
+      text: json['text'] as String? ?? '',
+      property: json['property'] == null
+          ? const SpanProperty.undefined()
+          : SpanProperty.fromJson(
+              Map<String, dynamic>.from(json['property'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$LatexTextSpanToJson(LatexTextSpan instance) =>
+    <String, dynamic>{
+      'text': instance.text,
+      'property': instance.property.toJson(),
+      'type': instance.$type,
     };
 
 _TextParagraph _$TextParagraphFromJson(Map json) => _TextParagraph(
@@ -177,8 +195,8 @@ _TextParagraph _$TextParagraphFromJson(Map json) => _TextParagraph(
           : ParagraphProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
       textSpans: (json['textSpans'] as List<dynamic>?)
-              ?.map(
-                  (e) => TextSpan.fromJson(Map<String, dynamic>.from(e as Map)))
+              ?.map((e) =>
+                  InlineSpan.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
     );
