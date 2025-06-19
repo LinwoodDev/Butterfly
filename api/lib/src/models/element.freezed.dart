@@ -539,6 +539,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return ShapeElement.fromJson(json);
     case 'texture':
       return TextureElement.fromJson(json);
+    case 'polygon':
+      return PolygonElement.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -1804,6 +1806,143 @@ class _$TextureElementCopyWithImpl<$Res>
     return $SurfaceTextureCopyWith<$Res>(_self.texture, (value) {
       return _then(_self.copyWith(texture: value));
     });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class PolygonElement extends PadElement {
+  PolygonElement(
+      {this.rotation = 0,
+      this.collection = '',
+      @IdJsonConverter() this.id,
+      final List<PolygonPoint> points = const [],
+      final Map<String, dynamic> extra = const {},
+      this.property = const PolygonProperty(),
+      final String? $type})
+      : _points = points,
+        _extra = extra,
+        $type = $type ?? 'polygon',
+        super._();
+  factory PolygonElement.fromJson(Map<String, dynamic> json) =>
+      _$PolygonElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final String collection;
+  @override
+  @IdJsonConverter()
+  final String? id;
+  final List<PolygonPoint> _points;
+  @JsonKey()
+  List<PolygonPoint> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
+
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
+
+  @JsonKey()
+  final PolygonProperty property;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PolygonElementCopyWith<PolygonElement> get copyWith =>
+      _$PolygonElementCopyWithImpl<PolygonElement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PolygonElementToJson(
+      this,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'PadElement.polygon(rotation: $rotation, collection: $collection, id: $id, points: $points, extra: $extra, property: $property)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $PolygonElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory $PolygonElementCopyWith(
+          PolygonElement value, $Res Function(PolygonElement) _then) =
+      _$PolygonElementCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {double rotation,
+      String collection,
+      @IdJsonConverter() String? id,
+      List<PolygonPoint> points,
+      Map<String, dynamic> extra,
+      PolygonProperty property});
+}
+
+/// @nodoc
+class _$PolygonElementCopyWithImpl<$Res>
+    implements $PolygonElementCopyWith<$Res> {
+  _$PolygonElementCopyWithImpl(this._self, this._then);
+
+  final PolygonElement _self;
+  final $Res Function(PolygonElement) _then;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? rotation = null,
+    Object? collection = null,
+    Object? id = freezed,
+    Object? points = null,
+    Object? extra = null,
+    Object? property = freezed,
+  }) {
+    return _then(PolygonElement(
+      rotation: null == rotation
+          ? _self.rotation
+          : rotation // ignore: cast_nullable_to_non_nullable
+              as double,
+      collection: null == collection
+          ? _self.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      points: null == points
+          ? _self._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<PolygonPoint>,
+      extra: null == extra
+          ? _self._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      property: freezed == property
+          ? _self.property
+          : property // ignore: cast_nullable_to_non_nullable
+              as PolygonProperty,
+    ));
   }
 }
 

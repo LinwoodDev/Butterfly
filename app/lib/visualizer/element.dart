@@ -16,6 +16,7 @@ extension ElementVisualizer on PadElement {
       SvgElement _ => loc.svg,
       MarkdownElement _ => loc.markdown,
       TextureElement _ => loc.texture,
+      PolygonElement _ => loc.polygon,
     };
   }
 
@@ -27,6 +28,7 @@ extension ElementVisualizer on PadElement {
     SvgElement _ => PhosphorIcons.fileSvg,
     MarkdownElement _ => PhosphorIcons.textbox,
     TextureElement e => e.texture.icon,
+    PolygonElement _ => PhosphorIcons.polygon,
   };
 }
 

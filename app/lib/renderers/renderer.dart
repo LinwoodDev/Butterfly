@@ -36,8 +36,8 @@ part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
 part 'elements/texture.dart';
-part 'elements/path.dart';
 part 'elements/pen.dart';
+part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
@@ -229,6 +229,7 @@ abstract class Renderer<T> {
             ShapeElement() => ShapeRenderer(element, layer),
             MarkdownElement() => MarkdownRenderer(element, layer),
             TextureElement() => TextureRenderer(element, layer),
+            PolygonElement() => PolygonRenderer(element, layer),
           }
           as Renderer<T>;
     }

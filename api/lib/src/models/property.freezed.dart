@@ -18,6 +18,8 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
       return PenProperty.fromJson(json);
     case 'shape':
       return ShapeProperty.fromJson(json);
+    case 'polygon':
+      return PolygonProperty.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -357,6 +359,116 @@ class _$ShapePropertyCopyWithImpl<$Res>
     return $PathShapeCopyWith<$Res>(_self.shape, (value) {
       return _then(_self.copyWith(shape: value));
     });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class PolygonProperty implements Property {
+  const PolygonProperty(
+      {this.strokeWidth = 5,
+      @ColorJsonConverter() this.color = SRGBColor.black,
+      @ColorJsonConverter() this.fill = SRGBColor.transparent,
+      final String? $type})
+      : $type = $type ?? 'polygon';
+  factory PolygonProperty.fromJson(Map<String, dynamic> json) =>
+      _$PolygonPropertyFromJson(json);
+
+  @override
+  @JsonKey()
+  final double strokeWidth;
+  @override
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor color;
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor fill;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $PolygonPropertyCopyWith<PolygonProperty> get copyWith =>
+      _$PolygonPropertyCopyWithImpl<PolygonProperty>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PolygonPropertyToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is PolygonProperty &&
+            (identical(other.strokeWidth, strokeWidth) ||
+                other.strokeWidth == strokeWidth) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.fill, fill) || other.fill == fill));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, strokeWidth, color, fill);
+
+  @override
+  String toString() {
+    return 'Property.polygon(strokeWidth: $strokeWidth, color: $color, fill: $fill)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $PolygonPropertyCopyWith<$Res>
+    implements $PropertyCopyWith<$Res> {
+  factory $PolygonPropertyCopyWith(
+          PolygonProperty value, $Res Function(PolygonProperty) _then) =
+      _$PolygonPropertyCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {double strokeWidth,
+      @ColorJsonConverter() SRGBColor color,
+      @ColorJsonConverter() SRGBColor fill});
+}
+
+/// @nodoc
+class _$PolygonPropertyCopyWithImpl<$Res>
+    implements $PolygonPropertyCopyWith<$Res> {
+  _$PolygonPropertyCopyWithImpl(this._self, this._then);
+
+  final PolygonProperty _self;
+  final $Res Function(PolygonProperty) _then;
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? strokeWidth = null,
+    Object? color = null,
+    Object? fill = null,
+  }) {
+    return _then(PolygonProperty(
+      strokeWidth: null == strokeWidth
+          ? _self.strokeWidth
+          : strokeWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      color: null == color
+          ? _self.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+      fill: null == fill
+          ? _self.fill
+          : fill // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+    ));
   }
 }
 
