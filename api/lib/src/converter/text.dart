@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/src/models/pack.dart';
-import 'package:butterfly_api/src/models/page.dart';
 
 import '../models/archive.dart';
 import '../models/data.dart';
@@ -15,8 +14,9 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
   var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
   for (final palette in data['palettes'] ?? []) {
-    reader = reader.setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
-        utf8.encode((palette)));
+    reader = reader.setAsset(
+        '$kPalettesArchiveDirectory/${palette['name']}.json',
+        utf8.encode((jsonEncode(palette))));
   }
   for (final style in data['styles'] ?? []) {
     reader = reader.setAsset(
@@ -29,10 +29,13 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
   }
   for (final page in (data['pages'] as Map<String, dynamic>?)?.entries ??
       <MapEntry<String, dynamic>>[]) {
-    reader = reader.setPage(DocumentPage.fromJson(page.value), page.key);
+    reader = reader.setAsset('$kPagesArchiveDirectory/${page.key}.json',
+        utf8.encode(jsonEncode(page.value)));
   }
-  final packs = (data['packs'] as Map<String, dynamic>?)
-      ?.map((k, v) => MapEntry(k, NoteData.fromData(base64Decode(v))));
+  final packData = data['pack'];
+  final packs = packData is! Map<String, dynamic>
+      ? null
+      : packData.map((k, v) => MapEntry(k, NoteData.fromData(base64Decode(v))));
   for (final pack in packs?.entries ?? <MapEntry<String, NoteData>>[]) {
     reader = reader.setBundledPack(pack.value, pack.key);
   }
@@ -247,7 +250,9 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
         return e;
       }).toList();
       data['pages'] = {
-        'default': data['type'] == 'document' ? data : data['document']
+        'default': data['type'] == 'document'
+            ? Map<String, dynamic>.from(data)
+            : data['document']
       };
     }
   }

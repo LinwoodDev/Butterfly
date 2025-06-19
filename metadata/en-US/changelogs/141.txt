@@ -1,0 +1,3 @@
+* Fix migration issues with new text based file format
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
