@@ -1,7 +1,41 @@
 part of '../renderer.dart';
 
 class PolygonRenderer extends Renderer<PolygonElement> {
+  @override
+  Rect rect = Rect.zero;
+
   PolygonRenderer(super.element, [super.layer]);
+
+  @override
+  FutureOr<void> setup(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    if (element.points.isNotEmpty) {
+      final points = element.points;
+      var topLeftCorner = points.first.toPoint().toOffset();
+      var bottomRightCorner = points.first.toPoint().toOffset();
+      for (final point in points.skip(1)) {
+        topLeftCorner = Offset(
+          point.x < topLeftCorner.dx ? point.x : topLeftCorner.dx,
+          point.y < topLeftCorner.dy ? point.y : topLeftCorner.dy,
+        );
+        bottomRightCorner = Offset(
+          point.x > bottomRightCorner.dx ? point.x : bottomRightCorner.dx,
+          point.y > bottomRightCorner.dy ? point.y : bottomRightCorner.dy,
+        );
+      }
+      rect = Rect.fromLTRB(
+        topLeftCorner.dx,
+        topLeftCorner.dy,
+        bottomRightCorner.dx,
+        bottomRightCorner.dy,
+      );
+    }
+
+    super.setup(document, assetService, page);
+  }
 
   @override
   void build(
