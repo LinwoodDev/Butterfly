@@ -36,6 +36,12 @@ sealed class Property with _$Property {
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
   }) = ShapeProperty;
 
+  const factory Property.polygon({
+    @Default(5) double strokeWidth,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor fill,
+  }) = PolygonProperty;
+
   factory Property.fromJson(Map<String, dynamic> json) =>
       _$PropertyFromJson(json);
 }

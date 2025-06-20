@@ -46,7 +46,7 @@ class _AddDialogState extends State<AddDialog> {
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
           return ResponsiveDialog(
-            constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 840),
+            constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 980),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -233,6 +233,7 @@ class _AddDialogState extends State<AddDialog> {
                       Tool.eraser,
                       Tool.area,
                       Tool.presentation,
+                      Tool.polygon,
                       () => Tool.spacer(axis: Axis2D.vertical),
                       () => Tool.spacer(axis: Axis2D.horizontal),
                       Tool.stamp,

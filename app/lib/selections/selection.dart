@@ -22,6 +22,7 @@ part 'elements/element.dart';
 part 'elements/image.dart';
 part 'elements/text.dart';
 part 'elements/pen.dart';
+part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
@@ -35,14 +36,15 @@ part 'tools/label.dart';
 part 'tools/laser.dart';
 part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
+part 'tools/polygon.dart';
 part 'tools/ruler.dart';
 part 'tools/shape.dart';
 part 'tools/stamp.dart';
 part 'tools/texture.dart';
 
 part 'properties/property.dart';
-part 'properties/path.dart';
 part 'properties/pen.dart';
+part 'properties/polygon.dart';
 
 part 'area.dart';
 part 'document.dart';

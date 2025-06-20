@@ -27,6 +27,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return SvgElementSelection([selected as Renderer<SvgElement>])
           as ElementSelection<T>;
     }
+    if (selected is Renderer<PolygonElement>) {
+      return PolygonElementSelection([selected as Renderer<PolygonElement>])
+          as ElementSelection<T>;
+    }
     return ElementSelection([selected]);
   }
 
