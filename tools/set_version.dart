@@ -5,12 +5,18 @@ import 'package:intl/intl.dart';
 
 Future<void> main(List<String> args) async {
   var parser = ArgParser()
-    ..addOption('build-number',
-        abbr: 'b',
-        valueHelp: "Number, 'keep' or 'increment'",
-        defaultsTo: 'keep')
-    ..addFlag('changelog',
-        abbr: 'c', defaultsTo: true, help: 'Generate changelog');
+    ..addOption(
+      'build-number',
+      abbr: 'b',
+      valueHelp: "Number, 'keep' or 'increment'",
+      defaultsTo: 'keep',
+    )
+    ..addFlag(
+      'changelog',
+      abbr: 'c',
+      defaultsTo: true,
+      help: 'Generate changelog',
+    );
 
   var results = parser.parse(args);
 
@@ -19,7 +25,8 @@ Future<void> main(List<String> args) async {
       buildNumber != 'keep' &&
       int.tryParse(buildNumber) == null) {
     print(
-        "Please provide a valid build number or 'increment' as the build-number argument");
+      "Please provide a valid build number or 'increment' as the build-number argument",
+    );
     return;
   }
   var version = results.rest.isEmpty ? null : results.rest[0];
@@ -49,16 +56,20 @@ Future<void> main(List<String> args) async {
 
   await pubspec.writeAsString(content);
   print(
-      'Updating the version in the pubspec.yaml from $lastVersion to $newVersion');
+    'Updating the version in the pubspec.yaml from $lastVersion to $newVersion',
+  );
 
   // Update api
   final apiPubspec = File('api/pubspec.yaml');
   var apiContent = await apiPubspec.readAsString();
-  apiContent =
-      apiContent.replaceAll(RegExp(r'version: .+'), 'version: $version');
+  apiContent = apiContent.replaceAll(
+    RegExp(r'version: .+'),
+    'version: $version',
+  );
   await apiPubspec.writeAsString(apiContent);
   print(
-      'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
+    'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion',
+  );
 
   await updateAppImageVersion(version);
   await updateDebianVersion(version);
@@ -70,8 +81,12 @@ Future<void> main(List<String> args) async {
   }
 
   // Run flutter pub get in app directory
-  await Process.run('flutter', ['pub', 'get'],
-      workingDirectory: 'app', runInShell: true);
+  await Process.run(
+    'flutter',
+    ['pub', 'get'],
+    workingDirectory: 'app',
+    runInShell: true,
+  );
 
   print('Successfully updated!');
 }
@@ -100,7 +115,8 @@ bool isPreRelease(String version) {
 
 Future<void> updateAppData(String version) async {
   var file = File(
-      'app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml');
+    'app/linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml',
+  );
   if (isPreRelease(version)) {
     return;
   }
@@ -119,8 +135,10 @@ Future<void> updateChangelog(String version, String changelog) async {
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
   var file = File('CHANGELOG.md');
   var content = await file.readAsString();
-  content = content.replaceAll(changelogRegex,
-      '<!--ENTER CHANGELOG HERE-->\r\n\r\n## $version ($dateString)\r\n\r\n$changelog');
+  content = content.replaceAll(
+    changelogRegex,
+    '<!--ENTER CHANGELOG HERE-->\r\n\r\n## $version ($dateString)\r\n\r\n$changelog',
+  );
   await file.writeAsString(content);
   print('Successfully updated docs for version $version');
 }

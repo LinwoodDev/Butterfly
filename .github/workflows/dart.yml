@@ -40,6 +40,9 @@ jobs:
       - name: Run build_runner
         if: matrix.projects != 'tools'
         run: dart run build_runner build --delete-conflicting-outputs
+      - name: Run format for generated files
+        if: matrix.projects != 'tools'
+        run: dart format .
       - name: Test for git changes
         run: git diff --exit-code
       # Your project will need to have tests in test/ and a dependency on

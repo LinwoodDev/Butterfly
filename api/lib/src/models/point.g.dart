@@ -7,10 +7,10 @@ part of 'point.dart';
 // **************************************************************************
 
 _PathPoint _$PathPointFromJson(Map json) => _PathPoint(
-      (json['x'] as num).toDouble(),
-      (json['y'] as num).toDouble(),
-      (json['pressure'] as num?)?.toDouble() ?? 1,
-    );
+  (json['x'] as num).toDouble(),
+  (json['y'] as num).toDouble(),
+  (json['pressure'] as num?)?.toDouble() ?? 1,
+);
 
 Map<String, dynamic> _$PathPointToJson(_PathPoint instance) =>
     <String, dynamic>{

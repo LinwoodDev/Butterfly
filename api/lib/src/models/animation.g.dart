@@ -7,15 +7,18 @@ part of 'animation.dart';
 // **************************************************************************
 
 _AnimationTrack _$AnimationTrackFromJson(Map json) => _AnimationTrack(
-      name: json['name'] as String? ?? '',
-      keys: (json['keys'] as Map?)?.map(
-            (k, e) => MapEntry(int.parse(k as String),
-                AnimationKey.fromJson(Map<String, dynamic>.from(e as Map))),
-          ) ??
-          const <int, AnimationKey>{},
-      duration: (json['duration'] as num?)?.toInt() ?? 250,
-      fps: (json['fps'] as num?)?.toInt() ?? 24,
-    );
+  name: json['name'] as String? ?? '',
+  keys:
+      (json['keys'] as Map?)?.map(
+        (k, e) => MapEntry(
+          int.parse(k as String),
+          AnimationKey.fromJson(Map<String, dynamic>.from(e as Map)),
+        ),
+      ) ??
+      const <int, AnimationKey>{},
+  duration: (json['duration'] as num?)?.toInt() ?? 250,
+  fps: (json['fps'] as num?)?.toInt() ?? 24,
+);
 
 Map<String, dynamic> _$AnimationTrackToJson(_AnimationTrack instance) =>
     <String, dynamic>{
@@ -26,31 +29,31 @@ Map<String, dynamic> _$AnimationTrackToJson(_AnimationTrack instance) =>
     };
 
 _AnimationKey _$AnimationKeyFromJson(Map json) => _AnimationKey(
-      cameraPosition:
-          _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(
-              json['cameraPosition'],
-              const DoublePointJsonConverter().fromJson),
-      cameraZoom: (json['cameraZoom'] as num?)?.toDouble(),
-      breakpoint: json['breakpoint'] as bool? ?? false,
-    );
+  cameraPosition: _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(
+    json['cameraPosition'],
+    const DoublePointJsonConverter().fromJson,
+  ),
+  cameraZoom: (json['cameraZoom'] as num?)?.toDouble(),
+  breakpoint: json['breakpoint'] as bool? ?? false,
+);
 
-Map<String, dynamic> _$AnimationKeyToJson(_AnimationKey instance) =>
-    <String, dynamic>{
-      'cameraPosition':
-          _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
-              instance.cameraPosition, const DoublePointJsonConverter().toJson),
-      'cameraZoom': instance.cameraZoom,
-      'breakpoint': instance.breakpoint,
-    };
+Map<String, dynamic> _$AnimationKeyToJson(
+  _AnimationKey instance,
+) => <String, dynamic>{
+  'cameraPosition': _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
+    instance.cameraPosition,
+    const DoublePointJsonConverter().toJson,
+  ),
+  'cameraZoom': instance.cameraZoom,
+  'breakpoint': instance.breakpoint,
+};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
   Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+) => json == null ? null : fromJson(json as Json);
 
 Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
   Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+) => value == null ? null : toJson(value);

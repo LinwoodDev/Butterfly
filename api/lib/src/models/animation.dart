@@ -15,7 +15,11 @@ class _InterpolationResult {
   int get delta => secondFrame - firstFrame;
 
   const _InterpolationResult(
-      this.first, this.second, this.firstFrame, this.secondFrame);
+    this.first,
+    this.second,
+    this.firstFrame,
+    this.secondFrame,
+  );
 }
 
 @freezed
@@ -32,7 +36,9 @@ sealed class AnimationTrack with _$AnimationTrack {
       _$AnimationTrackFromJson(json);
 
   _InterpolationResult? _interpolate(
-      int frame, bool Function(AnimationKey) where) {
+    int frame,
+    bool Function(AnimationKey) where,
+  ) {
     final entries = keys.entries
         .where((entry) => where(entry.value))
         .sorted((a, b) => a.key.compareTo(b.key));
@@ -54,10 +60,18 @@ sealed class AnimationTrack with _$AnimationTrack {
     final second = entries.firstWhereOrNull((entry) => entry.key >= frame);
     if (second == null) {
       return _InterpolationResult(
-          first.value, first.value, first.key, first.key);
+        first.value,
+        first.value,
+        first.key,
+        first.key,
+      );
     }
     return _InterpolationResult(
-        first.value, second.value, first.key, second.key);
+      first.value,
+      second.value,
+      first.key,
+      second.key,
+    );
   }
 
   Point<double>? interpolateCameraPosition(int frame) {

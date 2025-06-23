@@ -7,35 +7,39 @@ part of 'page.dart';
 // **************************************************************************
 
 _DocumentPage _$DocumentPageFromJson(Map json) => _DocumentPage(
-      animations: (json['animations'] as List<dynamic>?)
-              ?.map((e) =>
-                  AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      layers: (json['layers'] as List<dynamic>?)
-              ?.map((e) =>
-                  DocumentLayer.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      backgrounds: (json['backgrounds'] as List<dynamic>?)
-              ?.map((e) =>
-                  Background.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      waypoints: (json['waypoints'] as List<dynamic>?)
-              ?.map(
-                  (e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      areas: (json['areas'] as List<dynamic>?)
-              ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      extra: (json['extra'] as Map?)?.map(
-            (k, e) => MapEntry(k as String, e),
-          ) ??
-          const {},
-    );
+  animations:
+      (json['animations'] as List<dynamic>?)
+          ?.map(
+            (e) => AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  layers:
+      (json['layers'] as List<dynamic>?)
+          ?.map(
+            (e) => DocumentLayer.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  backgrounds:
+      (json['backgrounds'] as List<dynamic>?)
+          ?.map((e) => Background.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+  waypoints:
+      (json['waypoints'] as List<dynamic>?)
+          ?.map((e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+  areas:
+      (json['areas'] as List<dynamic>?)
+          ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+  extra:
+      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
+      const {},
+);
 
 Map<String, dynamic> _$DocumentPageToJson(_DocumentPage instance) =>
     <String, dynamic>{
@@ -48,14 +52,14 @@ Map<String, dynamic> _$DocumentPageToJson(_DocumentPage instance) =>
     };
 
 _DocumentLayer _$DocumentLayerFromJson(Map json) => _DocumentLayer(
-      id: json['id'] as String?,
-      name: json['name'] as String? ?? '',
-      content: (json['content'] as List<dynamic>?)
-              ?.map((e) =>
-                  PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-    );
+  id: json['id'] as String?,
+  name: json['name'] as String? ?? '',
+  content:
+      (json['content'] as List<dynamic>?)
+          ?.map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+);
 
 Map<String, dynamic> _$DocumentLayerToJson(_DocumentLayer instance) =>
     <String, dynamic>{

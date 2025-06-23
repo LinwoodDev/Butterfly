@@ -43,23 +43,24 @@ sealed class DocumentPage with _$DocumentPage {
   }
 
   bool usesSource(String source) {
-    return backgrounds
-            .whereType<SourcedElement>()
-            .any((e) => e.source == source) ||
-        layers.any((e) => e.content
-            .whereType<SourcedElement>()
-            .any((e) => e.source == source));
-  }
-
-  DocumentLayer getLayer(String id) {
-    return layers.where((e) => e.id == id).firstOrNull ??
-        DocumentLayer(
-          id: id,
+    return backgrounds.whereType<SourcedElement>().any(
+          (e) => e.source == source,
+        ) ||
+        layers.any(
+          (e) => e.content.whereType<SourcedElement>().any(
+            (e) => e.source == source,
+          ),
         );
   }
 
+  DocumentLayer getLayer(String id) {
+    return layers.where((e) => e.id == id).firstOrNull ?? DocumentLayer(id: id);
+  }
+
   DocumentPage mapLayer(
-      String id, DocumentLayer Function(DocumentLayer) mapper) {
+    String id,
+    DocumentLayer Function(DocumentLayer) mapper,
+  ) {
     var newLayers = layers.toList();
     if (!newLayers.any((e) => e.id == id)) {
       newLayers.add(mapper(DocumentLayer(id: id)));
@@ -76,16 +77,19 @@ sealed class DocumentPage with _$DocumentPage {
   }
 
   Future<DocumentPage> mapLayersAsync(
-      FutureOr<DocumentLayer> Function(DocumentLayer) mapper) {
-    return Future.wait(layers.map((e) => Future.value(mapper(e))))
-        .then((newLayers) {
+    FutureOr<DocumentLayer> Function(DocumentLayer) mapper,
+  ) {
+    return Future.wait(layers.map((e) => Future.value(mapper(e)))).then((
+      newLayers,
+    ) {
       return copyWith(layers: newLayers.toList());
     });
   }
 
   Waypoint? getWaypointByName(String? waypointName) {
-    return waypoints
-        .firstWhereOrNull((waypoint) => waypoint.name == waypointName);
+    return waypoints.firstWhereOrNull(
+      (waypoint) => waypoint.name == waypointName,
+    );
   }
 
   Waypoint getOriginWaypoint() {
