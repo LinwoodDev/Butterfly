@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - uses: subosito/flutter-action@v2.20.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: Setup git
@@ -65,7 +65,7 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
           fetch-depth: 0
-      - uses: subosito/flutter-action@v2.20.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: Setup git
@@ -127,7 +127,7 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - uses: subosito/flutter-action@v2.20.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: Setup git
@@ -190,7 +190,7 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - uses: subosito/flutter-action@v2.20.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: Bump version
