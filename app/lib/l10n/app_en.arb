@@ -699,5 +699,7 @@
   "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
   "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session.",
   "createRawNote": "Create raw note",
-  "polygon": "Polygon"
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }

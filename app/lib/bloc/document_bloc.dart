@@ -1152,6 +1152,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return current.currentIndexCubit.refresh(current);
   }
 
+  Future<void> refreshToolbar() =>
+      state.currentIndexCubit?.refreshToolbar(this) ?? Future.value();
+
   Future<void> bake({
     Size? viewportSize,
     double? pixelRatio,

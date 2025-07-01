@@ -70,6 +70,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   PolygonElement? _element;
   String? _elementId;
   int? _selectedPointIndex;
+  bool _editing = false;
 
   PolygonHandler(super.data);
 
@@ -113,6 +114,13 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   PolygonTool setColor(SRGBColor color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 
+  void _resetTool() {
+    _elementId = null;
+    _element = null;
+    _selectedPointIndex = null;
+    _editing = false;
+  }
+
   void addPoint(EventContext context, Offset localPos) {
     final globalPos = context.getCameraTransform().localToGlobal(localPos);
     var element =
@@ -128,11 +136,16 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     _element = element;
     _selectedPointIndex = element.points.length - 1;
     context.refresh();
+    context.getDocumentBloc().refreshToolbar();
   }
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
     final localPos = details.localPosition;
+    if (_editing) {
+      _editPoint(localPos, context);
+      return;
+    }
     addPoint(context, localPos);
   }
 
@@ -146,35 +159,26 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final localPos = details.localPosition;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPos);
-    final element = _element;
-    if (element == null) {
-      final casted = (await context.getDocumentBloc().rayCast(
-        globalPos,
-        0.0,
-        transform: transform,
-      )).firstOrNull;
-      if (casted == null) return;
-      if (casted is! PolygonRenderer) return;
-      _element = casted.element;
-      _selectedPointIndex = casted.element.points.isEmpty
-          ? null
-          : casted.element.points.length - 1;
-      context.refresh();
-      return;
-    }
-    if (element.points.isEmpty) return;
-    if (!getSelectionRect().contains(globalPos)) {
+    if (!getSelectionRect()
+        .inflate(2 * data.property.strokeWidth)
+        .contains(globalPos)) {
       _submitElement(context.getDocumentBloc());
       return;
     }
+    _editPoint(globalPos, context);
+  }
+
+  bool _editPoint(Offset globalPos, EventContext context) {
+    final element = _element;
+    if (element == null || element.points.isEmpty) return false;
     final points = element.points;
     final closestIndex = points.indexWhere(
       (point) => (point.toPoint().toOffset() - globalPos).distance < 10.0,
     );
-    if (closestIndex != -1) {
-      _selectedPointIndex = closestIndex;
-      context.refresh();
-    }
+    if (closestIndex == -1) return false;
+    _selectedPointIndex = closestIndex;
+    context.refresh();
+    return true;
   }
 
   @override
@@ -206,7 +210,10 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   void _submitElement(DocumentBloc bloc) {
     final element = _element;
-    if (element == null || element.points.isEmpty) return;
+    if (element == null || element.points.isEmpty) {
+      _resetTool();
+      return;
+    }
     final id = _elementId;
     if (id != null) {
       bloc.add(
@@ -217,9 +224,56 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     } else {
       bloc.add(ElementsCreated([element]));
     }
-    _element = null;
-    _selectedPointIndex = null;
-    _elementId = null;
+    _resetTool();
     bloc.refresh();
+    bloc.refreshToolbar();
+  }
+
+  void _deleteCurrentPoint(DocumentBloc bloc) {
+    final element = _element;
+    if (element == null || element.points.isEmpty) return;
+    final selectedIndex = _selectedPointIndex;
+    if (selectedIndex == null || selectedIndex >= element.points.length) return;
+    final updatedPoints = List<PolygonPoint>.from(element.points)
+      ..removeAt(selectedIndex);
+    _element = element.copyWith(points: updatedPoints);
+    if (_element?.points.isEmpty ?? true) {
+      _elementId = null;
+      _element = null;
+      _selectedPointIndex = null;
+    } else {
+      _selectedPointIndex = max(0, selectedIndex - 1);
+    }
+    bloc.refresh();
+    bloc.refreshToolbar();
+  }
+
+  @override
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+    return PolygonToolbarView(
+      tool: data,
+      editing: _editing,
+      onToggleEdit: () {
+        _editing = !_editing;
+        bloc.refreshToolbar();
+      },
+      onToolChanged: (tool) => changeTool(bloc, tool),
+      onFinishShape: _element == null
+          ? null
+          : () {
+              _element = _element?.copyWith(
+                points: [...?_element?.points, ?_element?.points.firstOrNull],
+              );
+              _submitElement(bloc);
+            },
+      onSubmit: _element == null
+          ? null
+          : () {
+              _submitElement(bloc);
+            },
+      onDelete: () {
+        _deleteCurrentPoint(bloc);
+      },
+    );
   }
 }
