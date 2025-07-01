@@ -14,9 +14,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.20.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - uses: actions/checkout@v4
       - name: Print Dart SDK version
         run: |
