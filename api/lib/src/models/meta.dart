@@ -26,8 +26,4 @@ sealed class FileMetadata with _$FileMetadata {
       _$FileMetadataFromJson(json);
 }
 
-enum NoteFileType {
-  document,
-  template,
-  pack,
-}
+enum NoteFileType { document, template, pack }

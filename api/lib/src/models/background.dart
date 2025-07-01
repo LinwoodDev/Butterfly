@@ -40,7 +40,7 @@ sealed class Background with _$Background {
       _$BackgroundFromJson(json);
 
   SRGBColor get defaultColor => switch (this) {
-        TextureBackground e => e.texture.boxColor,
-        _ => SRGBColor.white
-      };
+    TextureBackground e => e.texture.boxColor,
+    _ => SRGBColor.white,
+  };
 }

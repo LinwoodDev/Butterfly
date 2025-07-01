@@ -35,9 +35,7 @@ void main() {
         SharedPreferences.setMockInitialValues({});
         final prefs = await SharedPreferences.getInstance();
         final settingsCubit = SettingsCubit(prefs);
-        await tester.pumpWidget(ButterflyApp(
-          settingsCubit: settingsCubit,
-        ));
+        await tester.pumpWidget(ButterflyApp(settingsCubit: settingsCubit));
         await tester.pumpAndSettle();
 
         await takeScreenShot(tester, 'main');

@@ -35,9 +35,10 @@ abstract class SourcedElement {
 @freezed
 @immutable
 sealed class ElementConstraints with _$ElementConstraints {
-  const factory ElementConstraints.scaled(
-      {@Default(1) double scaleX,
-      @Default(1) double scaleY}) = ScaledElementConstraints;
+  const factory ElementConstraints.scaled({
+    @Default(1) double scaleX,
+    @Default(1) double scaleY,
+  }) = ScaledElementConstraints;
   const factory ElementConstraints.fixed(double height, double width) =
       FixedElementConstraints;
   const factory ElementConstraints.dynamic({
@@ -65,16 +66,16 @@ mixin LabelElement {
   SRGBColor get foreground;
 
   AreaProperty get areaProperty => switch (this) {
-        MarkdownElement e => e.areaProperty,
-        TextElement e => e.area.areaProperty,
-        _ => throw UnimplementedError(),
-      };
+    MarkdownElement e => e.areaProperty,
+    TextElement e => e.area.areaProperty,
+    _ => throw UnimplementedError(),
+  };
 
   String get text => switch (this) {
-        MarkdownElement e => e.text,
-        TextElement e => e.area.paragraph.text,
-        _ => throw UnimplementedError(),
-      };
+    MarkdownElement e => e.text,
+    TextElement e => e.area.paragraph.text,
+    _ => throw UnimplementedError(),
+  };
 }
 
 @Freezed(equal: false)
@@ -198,8 +199,8 @@ sealed class PadElement with _$PadElement {
       _$PadElementFromJson(json);
 
   bool isStroke() => switch (this) {
-        PenElement _ => true,
-        ShapeElement _ => true,
-        _ => false,
-      };
+    PenElement _ => true,
+    ShapeElement _ => true,
+    _ => false,
+  };
 }

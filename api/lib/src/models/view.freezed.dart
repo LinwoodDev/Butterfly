@@ -15,25 +15,32 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ViewOption {
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ViewOption);
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  String toString() {
-    return 'ViewOption()';
-  }
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ViewOption);
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ViewOption()';
+}
+
+
 }
 
 /// @nodoc
-class $ViewOptionCopyWith<$Res> {
-  $ViewOptionCopyWith(ViewOption _, $Res Function(ViewOption) __);
+class $ViewOptionCopyWith<$Res>  {
+$ViewOptionCopyWith(ViewOption _, $Res Function(ViewOption) __);
 }
+
 
 // dart format on

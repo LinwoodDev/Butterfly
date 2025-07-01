@@ -20,6 +20,9 @@ export default defineConfig({
         // Relative path to your custom CSS file
         "./src/styles/custom.css",
       ],
+      editLink: {
+        baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',
+      },
       logo: {
         src: "./public/img/docs.svg",
       },
