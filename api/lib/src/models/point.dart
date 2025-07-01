@@ -17,6 +17,13 @@ abstract class SimplePoint with _$SimplePoint {
       _$SimplePointFromJson(json);
 
   Point<double> toPoint() => Point(x, y);
+
+  SimplePoint move(
+    double dx,
+    double dy, [
+    double scaleX = 1,
+    double scaleY = 1,
+  ]) => SimplePoint(x * scaleX + dx, y * scaleY + dy);
 }
 
 @freezed

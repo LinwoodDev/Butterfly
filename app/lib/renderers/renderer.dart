@@ -5,11 +5,13 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/text.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -382,4 +384,9 @@ abstract class Renderer<T> {
   }) => null;
 
   Map<RendererOperation, RendererOperationCallback> getOperations() => {};
+
+  ContextMenuItem? getContextMenuItem(
+    DocumentBloc bloc,
+    BuildContext context,
+  ) => null;
 }

@@ -2,9 +2,9 @@ part of '../renderer.dart';
 
 class PolygonRenderer extends Renderer<PolygonElement> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
 
-  PolygonRenderer(super.element, [super.layer]);
+  PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
 
   @override
   FutureOr<void> setup(
@@ -88,4 +88,76 @@ class PolygonRenderer extends Renderer<PolygonElement> {
       canvas.drawPath(path, fillPaint);
     }
   }
+
+  @override
+  ContextMenuItem? getContextMenuItem(DocumentBloc bloc, BuildContext context) {
+    return ContextMenuItem(
+      onPressed: () async {
+        final polygon =
+            await bloc.state.currentIndexCubit?.changeTemporaryHandler(
+                  context,
+                  PolygonTool(property: element.property),
+                  bloc: bloc,
+                )
+                as PolygonHandler;
+        polygon.editElement(element);
+        Navigator.of(context).pop();
+      },
+      icon: const PhosphorIcon(PhosphorIconsLight.polygon),
+      label: AppLocalizations.of(context).edit,
+    );
+  }
+
+  List<PolygonPoint> movePoints(Offset position, double scaleX, double scaleY) {
+    final topLeft = rect.topLeft;
+    final points = element.points.map((element) {
+      final old = element.toPoint() - topLeft.toPoint();
+      final x = old.x * scaleX + position.dx;
+      final y = old.y * scaleY + position.dy;
+      SimplePoint? handleIn, handleOut;
+      final elementHandleIn = element.handleIn;
+      final elementHandleOut = element.handleOut;
+      if (elementHandleIn != null) {
+        final oldHandleIn = elementHandleIn.toPoint() - topLeft.toPoint();
+        handleIn = SimplePoint(
+          oldHandleIn.x * scaleX + position.dx,
+          oldHandleIn.y * scaleY + position.dy,
+        );
+      }
+      if (elementHandleOut != null) {
+        final oldHandleOut = elementHandleOut.toPoint() - topLeft.toPoint();
+        handleOut = SimplePoint(
+          oldHandleOut.x * scaleX + position.dx,
+          oldHandleOut.y * scaleY + position.dy,
+        );
+      }
+      return element.copyWith(
+        x: x,
+        y: y,
+        handleIn: handleIn,
+        handleOut: handleOut,
+      );
+    }).toList();
+    return points;
+  }
+
+  Rect moveRect(Offset position, double scaleX, double scaleY) {
+    final size = Size(rect.width * scaleX, rect.height * scaleY);
+    return position & size;
+  }
+
+  @override
+  PolygonRenderer _transform({
+    required Offset position,
+    required double rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) => PolygonRenderer(
+    element.copyWith(
+      rotation: rotation,
+      points: movePoints(position, scaleX, scaleY),
+    ),
+    layer,
+    moveRect(position, scaleX, scaleY),
+  );
 }

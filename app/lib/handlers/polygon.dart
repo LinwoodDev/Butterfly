@@ -227,6 +227,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     _resetTool();
     bloc.refresh();
     bloc.refreshToolbar();
+    bloc.state.currentIndexCubit?.resetTemporaryHandler(bloc, true);
   }
 
   void _deleteCurrentPoint(DocumentBloc bloc) {
@@ -275,5 +276,17 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         _deleteCurrentPoint(bloc);
       },
     );
+  }
+
+  @override
+  Map<String, RendererState> get rendererStates => {
+    ?_element?.id: RendererState.hidden,
+  };
+
+  void editElement(PolygonElement element) {
+    _resetTool();
+    _element = element;
+    _elementId = element.id;
+    _selectedPointIndex = max(0, element.points.length - 1);
   }
 }
