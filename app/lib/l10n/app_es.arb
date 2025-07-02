@@ -698,5 +698,8 @@
   "rawFile": "Archivo Raw",
   "webSocketDescription": "Su dispositivo aloja el servidor, por lo que los colaboradores sólo pueden unirse a través de la misma red o desde cualquier lugar si reenvía el puerto en su router.",
   "swampDescription": "Sus mensajes son enrutados a través de un servidor repetidor seguro con cifrado de extremo a extremo. Se requiere una dirección de servidor pantano para crear una sesión.",
-  "createRawNote": "Crear nota cruda"
+  "createRawNote": "Crear nota cruda",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
