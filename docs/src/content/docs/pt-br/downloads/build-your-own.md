@@ -1,5 +1,5 @@
 ---
-title: Construa seu próprio
+title: "Construa seu próprio"
 ---
 
 1. Instale o git e o flutter (beta)
