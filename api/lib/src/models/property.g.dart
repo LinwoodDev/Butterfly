@@ -48,6 +48,25 @@ Map<String, dynamic> _$ShapePropertyToJson(ShapeProperty instance) =>
       'type': instance.$type,
     };
 
+PolygonProperty _$PolygonPropertyFromJson(Map json) => PolygonProperty(
+  strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+  color: json['color'] == null
+      ? SRGBColor.black
+      : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+  fill: json['fill'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson((json['fill'] as num).toInt()),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$PolygonPropertyToJson(PolygonProperty instance) =>
+    <String, dynamic>{
+      'strokeWidth': instance.strokeWidth,
+      'color': const ColorJsonConverter().toJson(instance.color),
+      'fill': const ColorJsonConverter().toJson(instance.fill),
+      'type': instance.$type,
+    };
+
 CircleShape _$CircleShapeFromJson(Map json) => CircleShape(
   fillColor: json['fillColor'] == null
       ? SRGBColor.transparent

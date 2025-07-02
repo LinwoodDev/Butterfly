@@ -112,6 +112,10 @@ Tool _$ToolFromJson(
           return BarcodeTool.fromJson(
             json
           );
+                case 'polygon':
+          return PolygonTool.fromJson(
+            json
+          );
         
           default:
             throw CheckedFromJsonException(
@@ -1971,6 +1975,78 @@ as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // 
 as String,barcodeType: null == barcodeType ? _self.barcodeType : barcodeType // ignore: cast_nullable_to_non_nullable
 as BarcodeType,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as SRGBColor,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class PolygonTool extends Tool {
+   PolygonTool({this.name = '', this.displayIcon = '', this.zoomDependent = false, this.property = const PolygonProperty(), final  String? $type}): $type = $type ?? 'polygon',super._();
+  factory PolygonTool.fromJson(Map<String, dynamic> json) => _$PolygonToolFromJson(json);
+
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String displayIcon;
+@JsonKey() final  bool zoomDependent;
+@JsonKey() final  PolygonProperty property;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PolygonToolCopyWith<PolygonTool> get copyWith => _$PolygonToolCopyWithImpl<PolygonTool>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PolygonToolToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'Tool.polygon(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, property: $property)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PolygonToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory $PolygonToolCopyWith(PolygonTool value, $Res Function(PolygonTool) _then) = _$PolygonToolCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String displayIcon, bool zoomDependent, PolygonProperty property
+});
+
+
+
+
+}
+/// @nodoc
+class _$PolygonToolCopyWithImpl<$Res>
+    implements $PolygonToolCopyWith<$Res> {
+  _$PolygonToolCopyWithImpl(this._self, this._then);
+
+  final PolygonTool _self;
+  final $Res Function(PolygonTool) _then;
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? zoomDependent = null,Object? property = freezed,}) {
+  return _then(PolygonTool(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
+as String,zoomDependent: null == zoomDependent ? _self.zoomDependent : zoomDependent // ignore: cast_nullable_to_non_nullable
+as bool,property: freezed == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
+as PolygonProperty,
   ));
 }
 

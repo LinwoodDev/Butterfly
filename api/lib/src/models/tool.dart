@@ -232,6 +232,13 @@ sealed class Tool with _$Tool {
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
   }) = BarcodeTool;
 
+  factory Tool.polygon({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @Default(false) bool zoomDependent,
+    @Default(PolygonProperty()) PolygonProperty property,
+  }) = PolygonTool;
+
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
@@ -259,5 +266,6 @@ sealed class Tool with _$Tool {
     GridTool() => ToolCategory.view,
     EyeDropperTool() => ToolCategory.action,
     BarcodeTool() => ToolCategory.surface,
+    PolygonTool() => ToolCategory.surface,
   };
 }

@@ -520,3 +520,24 @@ const _$BarcodeTypeEnumMap = {
   BarcodeType.dataMatrix: 'dataMatrix',
   BarcodeType.code128: 'code128',
 };
+
+PolygonTool _$PolygonToolFromJson(Map json) => PolygonTool(
+  name: json['name'] as String? ?? '',
+  displayIcon: json['displayIcon'] as String? ?? '',
+  zoomDependent: json['zoomDependent'] as bool? ?? false,
+  property: json['property'] == null
+      ? const PolygonProperty()
+      : PolygonProperty.fromJson(
+          Map<String, dynamic>.from(json['property'] as Map),
+        ),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$PolygonToolToJson(PolygonTool instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'zoomDependent': instance.zoomDependent,
+      'property': instance.property.toJson(),
+      'type': instance.$type,
+    };

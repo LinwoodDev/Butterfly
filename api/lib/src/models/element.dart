@@ -186,6 +186,15 @@ sealed class PadElement with _$PadElement {
     @Default({}) Map<String, dynamic> extra,
   }) = TextureElement;
 
+  factory PadElement.polygon({
+    @Default(0) double rotation,
+    @Default('') String collection,
+    @IdJsonConverter() String? id,
+    @Default([]) List<PolygonPoint> points,
+    @Default({}) Map<String, dynamic> extra,
+    @Default(PolygonProperty()) PolygonProperty property,
+  }) = PolygonElement;
+
   factory PadElement.fromJson(Map<String, dynamic> json) =>
       _$PadElementFromJson(json);
 

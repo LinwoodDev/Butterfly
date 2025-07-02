@@ -348,3 +348,36 @@ Map<String, dynamic> _$TextureElementToJson(TextureElement instance) =>
       'extra': instance.extra,
       'type': instance.$type,
     };
+
+PolygonElement _$PolygonElementFromJson(Map json) => PolygonElement(
+  rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  collection: json['collection'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  points:
+      (json['points'] as List<dynamic>?)
+          ?.map(
+            (e) => PolygonPoint.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  extra:
+      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
+      const {},
+  property: json['property'] == null
+      ? const PolygonProperty()
+      : PolygonProperty.fromJson(
+          Map<String, dynamic>.from(json['property'] as Map),
+        ),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$PolygonElementToJson(PolygonElement instance) =>
+    <String, dynamic>{
+      'rotation': instance.rotation,
+      'collection': instance.collection,
+      'id': const IdJsonConverter().toJson(instance.id),
+      'points': instance.points.map((e) => e.toJson()).toList(),
+      'extra': instance.extra,
+      'property': instance.property.toJson(),
+      'type': instance.$type,
+    };

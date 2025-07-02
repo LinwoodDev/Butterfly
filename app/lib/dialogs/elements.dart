@@ -32,156 +32,162 @@ ContextMenuBuilder buildElementsContextMenu(
         Map<RendererOperation, RendererOperationCallback>
       >.fromIterable(renderers, value: (e) => e.getOperations());
   final operationKeys = operations.values.expand((e) => e.keys).toList();
-  return (context) => [
-    if (rect == null) ...[
-      ContextMenuItem(
-        onPressed: () {
-          Navigator.of(context).pop(true);
-          try {
-            importService.importClipboard(
-              state.data,
-              position: state.transformCubit.state.localToGlobal(position),
+  return (context) {
+    final rendererContextMenuItem = renderers.length == 1
+        ? renderers.first.getContextMenuItem(bloc, context)
+        : null;
+    return [
+      if (rect == null) ...[
+        ContextMenuItem(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            try {
+              importService.importClipboard(
+                state.data,
+                position: state.transformCubit.state.localToGlobal(position),
+              );
+            } catch (_) {}
+          },
+          icon: const PhosphorIcon(PhosphorIconsLight.clipboard),
+          label: AppLocalizations.of(context).paste,
+        ),
+      ] else ...[
+        ContextMenuItem(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            cubit.fetchHandler<SelectHandler>()?.copySelection(
+              bloc,
+              clipboardManager,
+              true,
             );
-          } catch (_) {}
-        },
-        icon: const PhosphorIcon(PhosphorIconsLight.clipboard),
-        label: AppLocalizations.of(context).paste,
-      ),
-    ] else ...[
-      ContextMenuItem(
-        onPressed: () {
-          Navigator.of(context).pop(true);
-          cubit.fetchHandler<SelectHandler>()?.copySelection(
-            bloc,
-            clipboardManager,
-            true,
-          );
-        },
-        icon: const PhosphorIcon(PhosphorIconsLight.scissors),
-        label: AppLocalizations.of(context).cut,
-      ),
-      ContextMenuItem(
-        onPressed: () {
-          Navigator.of(context).pop(true);
-          cubit.fetchHandler<SelectHandler>()?.copySelection(
-            bloc,
-            clipboardManager,
-            false,
-          );
-        },
-        icon: const PhosphorIcon(PhosphorIconsLight.copy),
-        label: AppLocalizations.of(context).copy,
-      ),
-      ContextMenuItem(
-        icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
-        onPressed: () async {
-          Navigator.of(context).pop(true);
-          final document = state.data;
-          final assetService = state.assetService;
-          final page = state.page;
-          final transforms = renderers
-              .map((e) => Renderer.fromInstance(e.element))
-              .toList();
-          for (final renderer in transforms) {
-            await renderer.setup(document, assetService, page);
-          }
-          cubit.fetchHandler<SelectHandler>()?.transform(
-            bloc,
-            null,
-            next: transforms,
-            duplicate: true,
-          );
-        },
-        label: AppLocalizations.of(context).duplicate,
-      ),
-      ContextMenuItem(
-        onPressed: () {
-          Navigator.of(context).pop(true);
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          bloc.add(
-            ElementsRemoved(
-              renderers.map((r) => r.element.id).nonNulls.toList(),
-            ),
-          );
-          bloc.delayedBake();
-        },
-        icon: const PhosphorIcon(PhosphorIconsLight.trash),
-        label: AppLocalizations.of(context).delete,
-      ),
-      ContextMenuGroup(
-        icon: const Icon(PhosphorIconsLight.layout),
-        children: Arrangement.values
-            .map(
-              (e) => MenuItemButton(
-                leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
-                child: Text(e.getLocalizedName(context)),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                  final state = bloc.state;
-                  if (state is! DocumentLoadSuccess) return;
-                  bloc.add(
-                    ElementsArranged(
-                      e,
-                      renderers.map((r) => r.element.id).nonNulls.toList(),
-                    ),
-                  );
-                },
+          },
+          icon: const PhosphorIcon(PhosphorIconsLight.scissors),
+          label: AppLocalizations.of(context).cut,
+        ),
+        ContextMenuItem(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            cubit.fetchHandler<SelectHandler>()?.copySelection(
+              bloc,
+              clipboardManager,
+              false,
+            );
+          },
+          icon: const PhosphorIcon(PhosphorIconsLight.copy),
+          label: AppLocalizations.of(context).copy,
+        ),
+        ContextMenuItem(
+          icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
+          onPressed: () async {
+            Navigator.of(context).pop(true);
+            final document = state.data;
+            final assetService = state.assetService;
+            final page = state.page;
+            final transforms = renderers
+                .map((e) => Renderer.fromInstance(e.element))
+                .toList();
+            for (final renderer in transforms) {
+              await renderer.setup(document, assetService, page);
+            }
+            cubit.fetchHandler<SelectHandler>()?.transform(
+              bloc,
+              null,
+              next: transforms,
+              duplicate: true,
+            );
+          },
+          label: AppLocalizations.of(context).duplicate,
+        ),
+        ContextMenuItem(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            final state = bloc.state;
+            if (state is! DocumentLoadSuccess) return;
+            bloc.add(
+              ElementsRemoved(
+                renderers.map((r) => r.element.id).nonNulls.toList(),
               ),
-            )
-            .toList(),
-        label: AppLocalizations.of(context).arrange,
-      ),
-      if (operationKeys.isNotEmpty)
+            );
+            bloc.delayedBake();
+          },
+          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+          label: AppLocalizations.of(context).delete,
+        ),
         ContextMenuGroup(
-          label: AppLocalizations.of(context).operations,
-          icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-          children: operationKeys
+          icon: const Icon(PhosphorIconsLight.layout),
+          children: Arrangement.values
               .map(
                 (e) => MenuItemButton(
-                  leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
                   child: Text(e.getLocalizedName(context)),
                   onPressed: () {
-                    operations.values
-                        .map((v) => v[e])
-                        .nonNulls
-                        .forEach((e) => e(bloc, context));
-                    if (context.mounted) Navigator.of(context).pop(true);
+                    Navigator.of(context).pop(true);
+                    final state = bloc.state;
+                    if (state is! DocumentLoadSuccess) return;
+                    bloc.add(
+                      ElementsArranged(
+                        e,
+                        renderers.map((r) => r.element.id).nonNulls.toList(),
+                      ),
+                    );
                   },
                 ),
               )
               .toList(),
+          label: AppLocalizations.of(context).arrange,
         ),
-      if (renderers.length == 1 &&
-          exportService.isExportable(renderers.first.element))
+        if (operationKeys.isNotEmpty)
+          ContextMenuGroup(
+            label: AppLocalizations.of(context).operations,
+            icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+            children: operationKeys
+                .map(
+                  (e) => MenuItemButton(
+                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                    child: Text(e.getLocalizedName(context)),
+                    onPressed: () {
+                      operations.values
+                          .map((v) => v[e])
+                          .nonNulls
+                          .forEach((e) => e(bloc, context));
+                      if (context.mounted) Navigator.of(context).pop(true);
+                    },
+                  ),
+                )
+                .toList(),
+          ),
+        ?rendererContextMenuItem,
+        if (renderers.length == 1 &&
+            exportService.isExportable(renderers.first.element))
+          ContextMenuItem(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              exportService.export(renderers.first.element);
+            },
+            icon: const PhosphorIcon(PhosphorIconsLight.export),
+            label: AppLocalizations.of(context).export,
+          ),
         ContextMenuItem(
           onPressed: () {
             Navigator.of(context).pop(true);
-            exportService.export(renderers.first.element);
+            if (renderers.isEmpty) return;
+            cubit.changeSelection(renderers.first);
+            renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
           },
-          icon: const PhosphorIcon(PhosphorIconsLight.export),
-          label: AppLocalizations.of(context).export,
+          icon: const PhosphorIcon(PhosphorIconsLight.faders),
+          label: AppLocalizations.of(context).properties,
         ),
-      ContextMenuItem(
-        onPressed: () {
-          Navigator.of(context).pop(true);
-          if (renderers.isEmpty) return;
-          cubit.changeSelection(renderers.first);
-          renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
-        },
-        icon: const PhosphorIcon(PhosphorIconsLight.faders),
-        label: AppLocalizations.of(context).properties,
-      ),
-      ...buildGeneralAreaContextMenu(
-        bloc,
-        Area(
-          width: rect.width,
-          height: rect.height,
-          position: rect.topLeft.toPoint(),
-        ),
-        settingsCubit,
-        renderers.map((e) => e.element).toList(),
-      )(context),
-    ],
-  ];
+        ...buildGeneralAreaContextMenu(
+          bloc,
+          Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
+          ),
+          settingsCubit,
+          renderers.map((e) => e.element).toList(),
+        )(context),
+      ],
+    ];
+  };
 }

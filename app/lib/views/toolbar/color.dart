@@ -16,6 +16,7 @@ enum ColorPickerToolbarAction { delete, pin, eyeDropper }
 
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final SRGBColor color;
+  final List<Widget> actions;
   final ValueChanged<SRGBColor> onChanged;
   final void Function(BuildContext)? onEyeDropper;
 
@@ -24,6 +25,7 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
     required this.color,
     required this.onChanged,
     this.onEyeDropper,
+    this.actions = const [],
   });
 
   @override
@@ -43,6 +45,16 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.initState();
     _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
     _colorPalette = _findPalette();
+  }
+
+  @override
+  void didUpdateWidget(covariant ColorToolbarView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.color != widget.color ||
+        oldWidget.onEyeDropper != widget.onEyeDropper ||
+        oldWidget.actions != widget.actions) {
+      setState(() {});
+    }
   }
 
   Future<PackItem<ColorPalette>?> _findPalette() async {
@@ -173,6 +185,10 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
             scrollDirection: Axis.horizontal,
             controller: _scrollController,
             children: [
+              if (widget.actions.isNotEmpty) ...[
+                ...widget.actions,
+                const VerticalDivider(),
+              ],
               if (!palette.colors.contains(color)) ...[
                 ColorButton.srgb(
                   color: widget.color,
