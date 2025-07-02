@@ -698,5 +698,8 @@
   "rawFile": "Rå fil",
   "webSocketDescription": "Din enhet är värd för servern, så medarbetare kan bara gå med över samma nätverk eller från någonstans om du vidarebefordrar porten på din router.",
   "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session.",
-  "createRawNote": "Skapa rå anteckning"
+  "createRawNote": "Skapa rå anteckning",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
