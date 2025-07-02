@@ -698,5 +698,8 @@
   "rawFile": "Arquivo Raw",
   "webSocketDescription": "Seu dispositivo hospeda o servidor, então os colaboradores só podem entrar na mesma rede ou em qualquer lugar se você encaminhar a porta do seu roteador.",
   "swampDescription": "Suas mensagens são encaminhadas através de um servidor de retransmissão seguro com criptografia de ponta a ponta. É necessário um endereço de servidor de swamp para criar uma sessão.",
-  "createRawNote": "Criar nota bruta"
+  "createRawNote": "Criar nota bruta",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
