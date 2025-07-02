@@ -698,5 +698,8 @@
   "rawFile": "File grezzo",
   "webSocketDescription": "Il tuo dispositivo ospita il server, in modo che i collaboratori possano entrare nella stessa rete o da qualsiasi luogo inoltrando la porta sul router.",
   "swampDescription": "I messaggi vengono instradati attraverso un server relè sicuro con crittografia end-to-end. Per creare una sessione è necessario un indirizzo del server swamp.",
-  "createRawNote": "Crea nota grezza"
+  "createRawNote": "Crea nota grezza",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
