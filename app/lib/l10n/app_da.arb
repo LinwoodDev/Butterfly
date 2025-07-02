@@ -698,5 +698,8 @@
   "rawFile": "Rå fil",
   "webSocketDescription": "Din enhed er vært for serveren, så samarbejdspartnere kan kun deltage over det samme netværk eller fra hvor som helst, hvis du videresender porten på din router.",
   "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session.",
-  "createRawNote": "Opret rå note"
+  "createRawNote": "Opret rå note",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
