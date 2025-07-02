@@ -698,5 +698,8 @@
   "rawFile": "Rohdatei",
   "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
   "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
-  "createRawNote": "Erstelle Rohnotiz"
+  "createRawNote": "Erstelle Rohnotiz",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
