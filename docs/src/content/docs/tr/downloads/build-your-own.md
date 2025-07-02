@@ -1,5 +1,5 @@
 ---
-title: Kendiniz Geliştirin
+title: "Kendiniz Geliştirin"
 ---
 
 1. Git ve flutter (beta)'yı yükleyin
