@@ -1,5 +1,5 @@
 ---
-title: Vytvořte si vlastní
+title: "Vytvořte si vlastní"
 ---
 
 1. Instalovat git a flutter (beta)
