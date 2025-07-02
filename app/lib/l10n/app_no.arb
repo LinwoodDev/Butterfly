@@ -698,5 +698,8 @@
   "rawFile": "Rå fil",
   "webSocketDescription": "Dine enheter støtter serveren, så samarbeidspartnere kan bare bli med på det samme nettverket eller fra hvor som helst hvis du videresender porten på din router.",
   "swampDescription": "Meldingene dine er rutet gjennom en sikker relee-server med ende-til-ende kryptering. En swamp server adresse er nødvendig for å lage en økt.",
-  "createRawNote": "Opprett rå notat"
+  "createRawNote": "Opprett rå notat",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
