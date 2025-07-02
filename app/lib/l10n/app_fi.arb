@@ -698,5 +698,8 @@
   "rawFile": "Raaka tiedosto",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
   "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi.",
-  "createRawNote": "Luo raaka merkintä"
+  "createRawNote": "Luo raaka merkintä",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit"
 }
