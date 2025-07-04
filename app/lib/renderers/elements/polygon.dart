@@ -1,5 +1,30 @@
 part of '../renderer.dart';
 
+Rect calculatePolygonRect(List<PolygonPoint> points) {
+  if (points.isEmpty) return Rect.zero;
+  Rect rect = Rect.fromPoints(
+    Offset(points.first.x, points.first.y),
+    Offset(points.first.x, points.first.y),
+  );
+  for (final point in points) {
+    final offset = Offset(point.x, point.y);
+    rect = rect.expandToInclude(Rect.fromPoints(offset, offset));
+    if (point.handleIn != null) {
+      final handleInOffset = Offset(point.handleIn!.x, point.handleIn!.y);
+      rect = rect.expandToInclude(
+        Rect.fromPoints(handleInOffset, handleInOffset),
+      );
+    }
+    if (point.handleOut != null) {
+      final handleOutOffset = Offset(point.handleOut!.x, point.handleOut!.y);
+      rect = rect.expandToInclude(
+        Rect.fromPoints(handleOutOffset, handleOutOffset),
+      );
+    }
+  }
+  return rect;
+}
+
 class PolygonRenderer extends Renderer<PolygonElement> {
   @override
   Rect rect;
@@ -12,27 +37,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     AssetService assetService,
     DocumentPage page,
   ) async {
-    if (element.points.isNotEmpty) {
-      final points = element.points;
-      var topLeftCorner = points.first.toPoint().toOffset();
-      var bottomRightCorner = points.first.toPoint().toOffset();
-      for (final point in points.skip(1)) {
-        topLeftCorner = Offset(
-          point.x < topLeftCorner.dx ? point.x : topLeftCorner.dx,
-          point.y < topLeftCorner.dy ? point.y : topLeftCorner.dy,
-        );
-        bottomRightCorner = Offset(
-          point.x > bottomRightCorner.dx ? point.x : bottomRightCorner.dx,
-          point.y > bottomRightCorner.dy ? point.y : bottomRightCorner.dy,
-        );
-      }
-      rect = Rect.fromLTRB(
-        topLeftCorner.dx,
-        topLeftCorner.dy,
-        bottomRightCorner.dx,
-        bottomRightCorner.dy,
-      );
-    }
+    rect = calculatePolygonRect(element.points);
 
     super.setup(document, assetService, page);
   }
