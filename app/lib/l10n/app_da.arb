@@ -700,6 +700,6 @@
   "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session.",
   "createRawNote": "Opret rå note",
   "polygon": "Polygon",
-  "finishShape": "Finish shape",
-  "submit": "Submit"
+  "finishShape": "Afslut form",
+  "submit": "Indsend"
 }
