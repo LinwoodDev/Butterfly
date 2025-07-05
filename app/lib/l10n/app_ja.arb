@@ -699,7 +699,7 @@
   "webSocketDescription": "デバイスはサーバーをホストしているため、コラボレーターは同じネットワーク上またはルーターのポートを転送する場合にのみ、どこからでも参加できます。",
   "swampDescription": "メッセージは、エンドツーエンド暗号化されたセキュアなリレーサーバーを介してルーティングされます。セッションを作成するには、swampサーバーアドレスが必要です。",
   "createRawNote": "未加工のノートを作成",
-  "polygon": "Polygon",
-  "finishShape": "Finish shape",
-  "submit": "Submit"
+  "polygon": "多角形（多角形）",
+  "finishShape": "形状を終了する",
+  "submit": "送信"
 }
