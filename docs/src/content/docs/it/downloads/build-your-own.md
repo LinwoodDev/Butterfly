@@ -1,5 +1,5 @@
 ---
-title: Compilazione
+title: "Compilazione"
 ---
 
 1. Installare git e flutter (beta)
