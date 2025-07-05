@@ -700,6 +700,6 @@
   "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session.",
   "createRawNote": "Skapa rå anteckning",
   "polygon": "Polygon",
-  "finishShape": "Finish shape",
-  "submit": "Submit"
+  "finishShape": "Slutför form",
+  "submit": "Skicka"
 }
