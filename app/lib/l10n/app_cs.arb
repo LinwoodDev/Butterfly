@@ -700,6 +700,6 @@
   "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s end-to-end šifrováním. Pro vytvoření relace je nutná adresa serveru swamp.",
   "createRawNote": "Vytvořit surovou poznámku",
   "polygon": "Polygon",
-  "finishShape": "Finish shape",
-  "submit": "Submit"
+  "finishShape": "Dokončit tvar",
+  "submit": "Odeslat"
 }
