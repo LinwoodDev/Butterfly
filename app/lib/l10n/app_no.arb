@@ -700,6 +700,6 @@
   "swampDescription": "Meldingene dine er rutet gjennom en sikker relee-server med ende-til-ende kryptering. En swamp server adresse er nødvendig for å lage en økt.",
   "createRawNote": "Opprett rå notat",
   "polygon": "Polygon",
-  "finishShape": "Finish shape",
-  "submit": "Submit"
+  "finishShape": "Fullfør figur",
+  "submit": "Send"
 }
