@@ -10,22 +10,26 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
   data = {'fileVersion': 8, ...legacyNoteDataJsonMigrator(data)};
   var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
-  for (final palette in data['palettes'] ?? []) {
+  for (final palette in Map<String, dynamic>.from(
+    data['palettes'] ?? {},
+  ).entries) {
     reader = reader.setAsset(
-      '$kPalettesArchiveDirectory/${palette['name']}.json',
-      utf8.encode((jsonEncode(palette))),
+      '$kPalettesArchiveDirectory/${palette.key}.json',
+      utf8.encode(jsonEncode(palette.value)),
     );
   }
-  for (final style in data['styles'] ?? []) {
+  for (final style in Map<String, dynamic>.from(data['styles'] ?? {}).entries) {
     reader = reader.setAsset(
-      '$kStylesArchiveDirectory/${style.name}.json',
-      utf8.encode((style)),
+      '$kStylesArchiveDirectory/${style.key}.json',
+      utf8.encode(jsonEncode(style.value)),
     );
   }
-  for (final component in data['components'] ?? []) {
+  for (final component in Map<String, dynamic>.from(
+    data['components'] ?? {},
+  ).entries) {
     reader = reader.setAsset(
-      '$kComponentsArchiveDirectory/${component.name}.json',
-      utf8.encode((component)),
+      '$kComponentsArchiveDirectory/${component.key}.json',
+      utf8.encode(jsonEncode(component.value)),
     );
   }
   for (final page

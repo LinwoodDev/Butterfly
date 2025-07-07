@@ -3,9 +3,9 @@ part of 'handler.dart';
 class PolygonSelectionRenderer extends Renderer<PolygonElement> {
   @override
   final Rect rect;
-  final PolygonPoint? point;
+  final int? selectedPointIndex;
 
-  PolygonSelectionRenderer(super.element, this.rect, this.point);
+  PolygonSelectionRenderer(super.element, this.rect, this.selectedPointIndex);
 
   @override
   void build(
@@ -34,11 +34,13 @@ class PolygonSelectionRenderer extends Renderer<PolygonElement> {
       outlinePaint,
     );
 
-    final point = this.point;
-    if (point != null) {
+    for (var i = 0; i < element.points.length; i++) {
+      final point = element.points[i];
+      final isSelected = selectedPointIndex == i;
       final paint = Paint()
         ..color = colorScheme?.primary ?? Colors.blue
-        ..style = PaintingStyle.fill;
+        ..style = isSelected ? PaintingStyle.fill : PaintingStyle.stroke
+        ..strokeWidth = strokeWidth / 2 / transform.size;
       final handlePaint = Paint()
         ..color = colorScheme?.secondary ?? Colors.green
         ..style = PaintingStyle.fill;
@@ -49,19 +51,29 @@ class PolygonSelectionRenderer extends Renderer<PolygonElement> {
       final handleIn = point.handleIn?.toPoint().toOffset();
       final handleOut = point.handleOut?.toPoint().toOffset();
 
-      if (handleIn != null && handleOut != null) {
-        canvas.drawLine(handleIn, handleOut, linePaint);
-      }
+      if (isSelected) {
+        if (handleIn != null && handleOut != null) {
+          canvas.drawLine(handleIn, handleOut, linePaint);
+        }
 
-      if (handleIn != null) {
-        canvas.drawCircle(handleIn, strokeWidth / transform.size, handlePaint);
-      }
-      if (handleOut != null) {
-        canvas.drawCircle(handleOut, strokeWidth / transform.size, handlePaint);
+        if (handleIn != null) {
+          canvas.drawCircle(
+            handleIn,
+            strokeWidth / transform.size,
+            handlePaint,
+          );
+        }
+        if (handleOut != null) {
+          canvas.drawCircle(
+            handleOut,
+            strokeWidth / transform.size,
+            handlePaint,
+          );
+        }
       }
 
       final position = point.toPoint().toOffset();
-      canvas.drawCircle(position, strokeWidth + 2 / transform.size, paint);
+      canvas.drawCircle(position, strokeWidth + 1.5 / transform.size, paint);
     }
   }
 }
@@ -88,23 +100,15 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         PolygonSelectionRenderer(
           _element!,
           getSelectionRect(),
-          _element!.points[_selectedPointIndex!],
+          _selectedPointIndex,
         ),
     ],
   ];
 
   Rect getSelectionRect() {
-    final element = _element;
-    if (element == null || element.points.isEmpty) return Rect.zero;
-    Rect rect = Rect.fromPoints(
-      Offset(element.points.first.x, element.points.first.y),
-      Offset(element.points.first.x, element.points.first.y),
-    );
-    for (final point in element.points) {
-      final offset = Offset(point.x, point.y);
-      rect = rect.expandToInclude(Rect.fromPoints(offset, offset));
-    }
-    return rect;
+    return _element?.points.isEmpty ?? true
+        ? Rect.zero
+        : calculatePolygonRect(_element!.points);
   }
 
   @override
@@ -143,7 +147,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   void onTapUp(TapUpDetails details, EventContext context) {
     final localPos = details.localPosition;
     if (_editing) {
-      _editPoint(localPos, context);
+      _editPoint(context.getCameraTransform().localToGlobal(localPos), context);
       return;
     }
     addPoint(context, localPos);
@@ -172,9 +176,13 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final element = _element;
     if (element == null || element.points.isEmpty) return false;
     final points = element.points;
-    final closestIndex = points.indexWhere(
-      (point) => (point.toPoint().toOffset() - globalPos).distance < 10.0,
-    );
+    final zoomedStrokeWidth =
+        data.property.strokeWidth / context.getCameraTransform().size;
+    final closestIndex = points.indexWhere((point) {
+      final offset = point.toPoint().toOffset();
+      final distance = (offset - globalPos).distance;
+      return distance <= zoomedStrokeWidth * 2;
+    });
     if (closestIndex == -1) return false;
     _selectedPointIndex = closestIndex;
     context.refresh();
@@ -200,6 +208,20 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       ..[selectedIndex] = updatedPoint;
     _element = element.copyWith(points: updatedPoints);
     context.refresh();
+  }
+
+  @override
+  void onDoubleTapDown(TapDownDetails details, EventContext context) {
+    final selectedIndex = _selectedPointIndex;
+    final element = _element;
+    if (selectedIndex == null || element == null) return;
+    final point = element.points[selectedIndex];
+    final updatedPoint = point.copyWith(handleIn: null, handleOut: null);
+    final updatedPoints = List<PolygonPoint>.from(element.points)
+      ..[selectedIndex] = updatedPoint;
+    _element = element.copyWith(points: updatedPoints);
+    context.refresh();
+    context.getDocumentBloc().refreshToolbar();
   }
 
   @override

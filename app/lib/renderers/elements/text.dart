@@ -92,7 +92,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (_tp?.plainText.isNotEmpty ?? false) {
+    if (_tp?.text != null) {
       _tp?.layout(maxWidth: rect.width);
       _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
     }
