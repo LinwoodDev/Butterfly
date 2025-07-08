@@ -147,7 +147,7 @@ class DocumentDefaults {
     return data;
   }
 
-  static createMetadata({
+  static FileMetadata createMetadata({
     NoteFileType type = NoteFileType.document,
     String name = '',
   }) =>

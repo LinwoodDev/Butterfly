@@ -53,7 +53,7 @@ class CameraViewport extends Equatable {
       required this.resolution,
       this.y = 0});
 
-  get center => null;
+  Null get center => null;
 
   ui.Offset toOffset() => ui.Offset(x, y);
 
