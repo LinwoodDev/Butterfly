@@ -1354,6 +1354,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final document = await fileSystem.createFileWithName(
         name: currentData.name,
         suffix: '.bfly',
+        directory: state.location.path,
         currentData.toFile(),
       );
       location = document.location;

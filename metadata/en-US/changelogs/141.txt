@@ -1,5 +1,6 @@
 * Add polygon tool and element
 * Fix migration issues with new text based file format
 * Fix loading of text based files (tbfly)
+* Fix directory not respected when creating a document from a template
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
