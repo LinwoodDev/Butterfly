@@ -123,6 +123,9 @@ Future<void> addToPack(
   List<PadElement> elements,
   Rect rect,
 ) async {
+  final packSystem = context
+      .read<ButterflyFileSystem>()
+      .buildDefaultPackSystem();
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return;
   final result = await showDialog<PackAssetLocation>(
@@ -136,9 +139,6 @@ Future<void> addToPack(
     ),
   );
   if (result == null) return;
-  final packSystem = context
-      .read<ButterflyFileSystem>()
-      .buildDefaultPackSystem();
   var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
   final screenshot = await state.currentIndexCubit.render(
