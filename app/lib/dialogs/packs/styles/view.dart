@@ -31,38 +31,47 @@ class StylesPackView extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: value
-                    .getStyles()
+                    .getNamedStyles()
                     .map(
                       (e) => Dismissible(
                         key: ValueKey(e),
                         onDismissed: (direction) {
-                          onChanged(value.removeStyle(e));
+                          onChanged(value.removeStyle(e.name));
                         },
                         child: ListTile(
-                          title: Text(e),
+                          title: Text(e.name),
                           onTap: () async {
-                            var styleSheet = value.getStyle(e);
                             final bloc = context.read<DocumentBloc>();
+                            var newName = e.name;
+                            var styleSheet = e.item;
                             final result = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => BlocProvider.value(
                                 value: bloc,
                                 child: StyleDialog(
-                                  value: styleSheet!,
+                                  value: e.item,
                                   onChanged: (value) {
                                     styleSheet = value;
+                                  },
+                                  name: newName,
+                                  onNameChanged: (name) {
+                                    newName = name;
                                   },
                                 ),
                               ),
                             );
                             if (result != true) return;
-                            onChanged(value.setStyle(e, styleSheet!));
+                            onChanged(
+                              value
+                                  .removeStyle(e.name)
+                                  .setStyle(newName, styleSheet),
+                            );
                           },
                           trailing: IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),
                             tooltip: AppLocalizations.of(context).delete,
                             onPressed: () async {
-                              onChanged(value.removeStyle(e));
+                              onChanged(value.removeStyle(e.name));
                             },
                           ),
                         ),

@@ -1,5 +1,6 @@
 * Add polygon tool and element
 * Add stroke width to toolbar ([#797](https://github.com/LinwoodDev/Butterfly/issues/797))
+* Reimplement renaming of styles and palettes in pack dialog
 * Fix migration issues with new text based file format
 * Fix loading of text based files (tbfly)
 * Fix directory not respected when creating a document from a template
