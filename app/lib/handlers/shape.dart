@@ -47,4 +47,11 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   @override
   ShapeTool setColor(SRGBColor color) =>
       data.copyWith(property: data.property.copyWith(color: color));
+
+  @override
+  double getStrokeWidth() => data.property.strokeWidth;
+
+  @override
+  ShapeTool setStrokeWidth(double width) =>
+      data.copyWith(property: data.property.copyWith(strokeWidth: width));
 }

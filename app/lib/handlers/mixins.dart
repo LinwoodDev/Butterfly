@@ -3,6 +3,8 @@ part of 'handler.dart';
 mixin ColoredHandler<T extends Tool> on Handler<T> {
   SRGBColor getColor();
   T setColor(SRGBColor color);
+  double? getStrokeWidth() => null;
+  T setStrokeWidth(double width) => data;
 
   @override
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) =>
@@ -19,11 +21,16 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
               temporaryState: TemporaryState.removeAfterRelease,
             );
           },
+          strokeWidth: getStrokeWidth(),
+          onStrokeWidthChanged: (value) => changeToolStrokeWidth(bloc, value),
         )
       : null;
 
   void changeToolColor(DocumentBloc bloc, SRGBColor value) =>
       changeTool(bloc, setColor(value));
+
+  void changeToolStrokeWidth(DocumentBloc bloc, double value) =>
+      changeTool(bloc, setStrokeWidth(value));
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
