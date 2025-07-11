@@ -5,5 +5,7 @@
 * Fix migration issues with new text based file format
 * Fix loading of text based files (tbfly)
 * Fix directory not respected when creating a document from a template
+* Fix add to pack dialog not saving the component
+* Fix navigator page dialogs not rounded
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
