@@ -7,6 +7,7 @@ enum AssetFileType {
   page,
   image,
   markdown,
+  rawText,
   pdf,
   svg,
   xopp,
