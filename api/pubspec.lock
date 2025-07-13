@@ -13,10 +13,10 @@ packages:
     dependency: "direct dev"
     description:
       name: analyzer
-      sha256: de617bfdc64f3d8b00835ec2957441ceca0a29cdf7881f7ab231bc14f71159c0
+      sha256: abf63d42450c7ad6d8188887d16eeba2f1ff92ea8d8dc673213e99fb3c02b194
       url: "https://pub.dev"
     source: hosted
-    version: "7.5.6"
+    version: "7.5.7"
   archive:
     dependency: "direct main"
     description:

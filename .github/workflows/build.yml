@@ -401,7 +401,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "24.3.0"
       - name: Install appdmg
         run: |
           python3 -m pip install setuptools

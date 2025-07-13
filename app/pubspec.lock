@@ -13,10 +13,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: de617bfdc64f3d8b00835ec2957441ceca0a29cdf7881f7ab231bc14f71159c0
+      sha256: abf63d42450c7ad6d8188887d16eeba2f1ff92ea8d8dc673213e99fb3c02b194
       url: "https://pub.dev"
     source: hosted
-    version: "7.5.6"
+    version: "7.5.7"
   animations:
     dependency: "direct main"
     description:
@@ -1639,10 +1639,10 @@ packages:
     dependency: "direct main"
     description:
       name: window_manager
-      sha256: "51d50168ab267d344b975b15390426b1243600d436770d3f13de67e55b05ec16"
+      sha256: "7eb6d6c4164ec08e1bf978d6e733f3cebe792e2a23fb07cbca25c2872bfdbdcd"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.5.1"
   xdg_directories:
     dependency: transitive
     description:
