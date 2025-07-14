@@ -4,7 +4,7 @@
 
 | Version               | Supported          |                                                                                                                                    |
 | --------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 2.4-dev (Black Hairstreak) | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.0-beta.0) |
+| 2.4-dev (Black Hairstreak) | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.0-beta.1) |
 | 2.3.2 (Adonis Blue)   | :white_check_mark: | [Docs](https://butterfly.linwood.dev/docs/2.3/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.2)        |
 | 2.2.4                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)        |
 | 2.1.1                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.1.1)        |
