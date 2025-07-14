@@ -164,7 +164,8 @@ class __PointerTestState extends State<_PointerTest> {
   double? _pressure, _pressureMin, _pressureMax;
   Color? _pressed;
 
-  _changeInputTest(Color? color) => (PointerEvent event) {
+  void Function(PointerEvent event) _changeInputTest(Color? color) =>
+      (PointerEvent event) {
         setState(() {
           _kind = event.kind;
           _buttons = event.buttons;

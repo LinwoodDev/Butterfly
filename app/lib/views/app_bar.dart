@@ -60,7 +60,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     return RepaintBoundary(child: windowTitleBar);
   }
 
-  WindowTitleBar _buildWindowTitleBar(padding) =>
+  WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
       WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
         height: max(70, showTools ? size.size + 20 : 0),

@@ -50,7 +50,7 @@ ThemeData getThemeData(String name, bool dark,
     );
   }
   return theme.copyWith(
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       tabAlignment: TabAlignment.center,
     ),
     dropdownMenuTheme: DropdownMenuThemeData(
