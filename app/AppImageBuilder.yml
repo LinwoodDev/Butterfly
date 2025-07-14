@@ -14,7 +14,7 @@ AppDir:
     id: dev.linwood.butterfly
     name: Linwood Butterfly
     icon: dev.linwood.butterfly
-    version: 2.4.0-beta.1
+    version: 2.4.0-beta.2
     exec: butterfly
     exec_args: $@
   apt:
