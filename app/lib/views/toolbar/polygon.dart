@@ -8,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class PolygonToolbarView extends StatelessWidget
     implements PreferredSizeWidget {
   final PolygonTool tool;
-  final void Function(PolygonTool tool) onToolChanged;
+  final ValueChanged<PolygonTool> onToolChanged;
   final bool editing;
   final VoidCallback? onFinishShape, onSubmit, onDelete, onToggleEdit;
 
@@ -29,6 +29,10 @@ class PolygonToolbarView extends StatelessWidget
       color: tool.property.color,
       onChanged: (value) => onToolChanged.call(
         tool.copyWith(property: tool.property.copyWith(color: value)),
+      ),
+      strokeWidth: tool.property.strokeWidth,
+      onStrokeWidthChanged: (value) => onToolChanged.call(
+        tool.copyWith(property: tool.property.copyWith(strokeWidth: value)),
       ),
       actions: [
         IconButton(

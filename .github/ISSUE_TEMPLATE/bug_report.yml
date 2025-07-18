@@ -29,13 +29,14 @@ body:
     id: platform
     attributes:
       label: Platform
-      description: What type is your server running on?
+      description: On which platform did you encounter this bug?
       options:
         - Android
         - Windows
         - MacOS
         - Linux
         - Web
+      multiple: true
     validations:
       required: true
   - type: textarea

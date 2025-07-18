@@ -17,7 +17,7 @@ version: 2.4.0-beta.2+142
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.32.6
+  flutter: 3.32.7
 
 dependencies:
   flutter:
@@ -122,7 +122,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  build_runner: ^2.4.9
+  build_runner: ^2.6.0
   json_serializable: ^6.7.1
   freezed: ^3.0.2
 # For information on the generic Dart part of this file, see the
