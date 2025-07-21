@@ -47,9 +47,8 @@ class _TextStyleViewState extends State<TextStyleView> {
               : IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                   tooltip: AppLocalizations.of(context).remove,
-                  onPressed: () => widget.onChanged(
-                    widget.value.copyWith(color: null),
-                  ),
+                  onPressed: () =>
+                      widget.onChanged(widget.value.copyWith(color: null)),
                 ),
           defaultColor: null,
           onChanged: (color) =>
@@ -72,9 +71,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                   ),
                 ),
           defaultColor: null,
-          onChanged: (color) => widget.onChanged(
-            widget.value.copyWith(backgroundColor: color),
-          ),
+          onChanged: (color) =>
+              widget.onChanged(widget.value.copyWith(backgroundColor: color)),
         ),
         ExactSlider(
           header: Text(AppLocalizations.of(context).size),
@@ -114,9 +112,8 @@ class _TextStyleViewState extends State<TextStyleView> {
           defaultValue: 0,
           min: 0,
           max: 20,
-          onChangeEnd: (spacing) => widget.onChanged(
-            widget.value.copyWith(letterSpacing: spacing),
-          ),
+          onChangeEnd: (spacing) =>
+              widget.onChanged(widget.value.copyWith(letterSpacing: spacing)),
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).fontWeight),
@@ -156,126 +153,119 @@ class _TextStyleViewState extends State<TextStyleView> {
         ),
         StatefulBuilder(
           builder: ((context, setState) => ExpansionPanelList(
-                expansionCallback: (panelIndex, isExpanded) => setState(
-                  () => _decorationExpanded = !_decorationExpanded,
+            expansionCallback: (panelIndex, isExpanded) =>
+                setState(() => _decorationExpanded = !_decorationExpanded),
+            children: [
+              ExpansionPanel(
+                canTapOnHeader: true,
+                isExpanded: _decorationExpanded,
+                headerBuilder: (context, isExpanded) => ListTile(
+                  title: Text(AppLocalizations.of(context).decoration),
                 ),
-                children: [
-                  ExpansionPanel(
-                    canTapOnHeader: true,
-                    isExpanded: _decorationExpanded,
-                    headerBuilder: (context, isExpanded) => ListTile(
-                      title: Text(AppLocalizations.of(context).decoration),
+                body: Column(
+                  children: [
+                    CheckboxListTile(
+                      title: Text(AppLocalizations.of(context).strikethrough),
+                      value: widget.value.lineThrough,
+                      tristate: true,
+                      onChanged: (lineThrough) => widget.onChanged(
+                        widget.value.copyWith(lineThrough: lineThrough),
+                      ),
                     ),
-                    body: Column(
-                      children: [
-                        CheckboxListTile(
-                          title: Text(
-                            AppLocalizations.of(context).strikethrough,
-                          ),
-                          value: widget.value.lineThrough,
-                          tristate: true,
-                          onChanged: (lineThrough) => widget.onChanged(
-                            widget.value.copyWith(lineThrough: lineThrough),
-                          ),
-                        ),
-                        CheckboxListTile(
-                          title: Text(AppLocalizations.of(context).underline),
-                          value: widget.value.underline,
-                          tristate: true,
-                          onChanged: (underline) => widget.onChanged(
-                            widget.value.copyWith(underline: underline),
-                          ),
-                        ),
-                        CheckboxListTile(
-                          title: Text(AppLocalizations.of(context).overline),
-                          value: widget.value.overline,
-                          tristate: true,
-                          onChanged: (overline) => widget.onChanged(
-                            widget.value.copyWith(overline: overline),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).style),
-                          trailing: DropdownMenu<text.TextDecorationStyle?>(
-                            initialSelection: widget.value.decorationStyle,
-                            dropdownMenuEntries: [
-                              ...text.TextDecorationStyle.values.map(
-                                (style) => DropdownMenuEntry(
-                                  value: style,
-                                  label: style.getLocalizedName(context),
-                                ),
-                              ),
-                              DropdownMenuEntry(
-                                value: null,
-                                label: AppLocalizations.of(context).notSet,
-                              ),
-                            ],
-                            onSelected: (decorationStyle) => widget.onChanged(
-                              widget.value.copyWith(
-                                decorationStyle: decorationStyle,
-                              ),
+                    CheckboxListTile(
+                      title: Text(AppLocalizations.of(context).underline),
+                      value: widget.value.underline,
+                      tristate: true,
+                      onChanged: (underline) => widget.onChanged(
+                        widget.value.copyWith(underline: underline),
+                      ),
+                    ),
+                    CheckboxListTile(
+                      title: Text(AppLocalizations.of(context).overline),
+                      value: widget.value.overline,
+                      tristate: true,
+                      onChanged: (overline) => widget.onChanged(
+                        widget.value.copyWith(overline: overline),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).style),
+                      trailing: DropdownMenu<text.TextDecorationStyle?>(
+                        initialSelection: widget.value.decorationStyle,
+                        dropdownMenuEntries: [
+                          ...text.TextDecorationStyle.values.map(
+                            (style) => DropdownMenuEntry(
+                              value: style,
+                              label: style.getLocalizedName(context),
                             ),
                           ),
-                        ),
-                        ColorField(
-                          title: Text(LeapLocalizations.of(context).color),
-                          custom: true,
-                          subtitle: widget.value.decorationColor == null
-                              ? Text(AppLocalizations.of(context).notSet)
-                              : null,
-                          value: widget.value.decorationColor ??
-                              SRGBColor.transparent,
-                          leading: widget.value.decorationColor == null
-                              ? null
-                              : IconButton(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.eraser,
-                                  ),
-                                  tooltip: AppLocalizations.of(context).remove,
-                                  onPressed: () => widget.onChanged(
-                                    widget.value.copyWith(
-                                      decorationColor: null,
-                                    ),
-                                  ),
-                                ),
-                          defaultColor: null,
-                          onChanged: (color) => widget.onChanged(
-                            widget.value.copyWith(decorationColor: color),
+                          DropdownMenuEntry(
+                            value: null,
+                            label: AppLocalizations.of(context).notSet,
+                          ),
+                        ],
+                        onSelected: (decorationStyle) => widget.onChanged(
+                          widget.value.copyWith(
+                            decorationStyle: decorationStyle,
                           ),
                         ),
-                        ExactSlider(
-                          header: Text(AppLocalizations.of(context).thickness),
-                          defaultValue: 1,
-                          value: widget.value.decorationThickness,
-                          bottom: widget.value.decorationThickness == null
-                              ? Text(AppLocalizations.of(context).notSet)
-                              : null,
-                          leading: widget.value.decorationThickness == null
-                              ? null
-                              : IconButton(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.eraser,
-                                  ),
-                                  tooltip: AppLocalizations.of(context).remove,
-                                  onPressed: () => widget.onChanged(
-                                    widget.value.copyWith(
-                                      decorationThickness: null,
-                                    ),
-                                  ),
-                                ),
-                          min: 0.1,
-                          max: 4,
-                          onChangeEnd: (thickness) => widget.onChanged(
-                            widget.value.copyWith(
-                              decorationThickness: thickness,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                    ColorField(
+                      title: Text(LeapLocalizations.of(context).color),
+                      custom: true,
+                      subtitle: widget.value.decorationColor == null
+                          ? Text(AppLocalizations.of(context).notSet)
+                          : null,
+                      value:
+                          widget.value.decorationColor ?? SRGBColor.transparent,
+                      leading: widget.value.decorationColor == null
+                          ? null
+                          : IconButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.eraser,
+                              ),
+                              tooltip: AppLocalizations.of(context).remove,
+                              onPressed: () => widget.onChanged(
+                                widget.value.copyWith(decorationColor: null),
+                              ),
+                            ),
+                      defaultColor: null,
+                      onChanged: (color) => widget.onChanged(
+                        widget.value.copyWith(decorationColor: color),
+                      ),
+                    ),
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).thickness),
+                      defaultValue: 1,
+                      value: widget.value.decorationThickness,
+                      bottom: widget.value.decorationThickness == null
+                          ? Text(AppLocalizations.of(context).notSet)
+                          : null,
+                      leading: widget.value.decorationThickness == null
+                          ? null
+                          : IconButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.eraser,
+                              ),
+                              tooltip: AppLocalizations.of(context).remove,
+                              onPressed: () => widget.onChanged(
+                                widget.value.copyWith(
+                                  decorationThickness: null,
+                                ),
+                              ),
+                            ),
+                      min: 0.1,
+                      max: 4,
+                      onChangeEnd: (thickness) => widget.onChanged(
+                        widget.value.copyWith(decorationThickness: thickness),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
         ),
       ],
     );

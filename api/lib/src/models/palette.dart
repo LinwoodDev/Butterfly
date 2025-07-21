@@ -7,10 +7,10 @@ part 'palette.freezed.dart';
 
 @freezed
 sealed class ColorPalette with _$ColorPalette {
-  const factory ColorPalette(
-          {required String name,
-          @Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
-      _ColorPalette;
+  const factory ColorPalette({
+    required String name,
+    @Default([]) @ColorJsonConverter() List<SRGBColor> colors,
+  }) = _ColorPalette;
   factory ColorPalette.fromJson(Map<String, dynamic> json) =>
       _$ColorPaletteFromJson(json);
 }

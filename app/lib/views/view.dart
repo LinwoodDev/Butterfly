@@ -80,17 +80,17 @@ class _MainViewViewportState extends State<MainViewViewport>
           builder: (context, constraints) {
             void bake() {
               context.read<DocumentBloc>().bake(
-                    viewportSize: constraints.biggest,
-                    pixelRatio: MediaQuery.of(context).devicePixelRatio,
-                  );
+                viewportSize: constraints.biggest,
+                pixelRatio: MediaQuery.of(context).devicePixelRatio,
+              );
             }
 
             void delayBake() {
               context.read<DocumentBloc>().delayedBake(
-                    viewportSize: constraints.biggest,
-                    pixelRatio: MediaQuery.of(context).devicePixelRatio,
-                    testTransform: true,
-                  );
+                viewportSize: constraints.biggest,
+                pixelRatio: MediaQuery.of(context).devicePixelRatio,
+                testTransform: true,
+              );
             }
 
             final bloc = context.read<DocumentBloc>();
@@ -100,8 +100,10 @@ class _MainViewViewportState extends State<MainViewViewport>
               int buttons,
             ) async {
               InputMapping? nextPointerMapping;
-              final config =
-                  context.read<SettingsCubit>().state.inputConfiguration;
+              final config = context
+                  .read<SettingsCubit>()
+                  .state
+                  .inputConfiguration;
               final cubit = context.read<CurrentIndexCubit>();
               // Mapped to the priority of the buttons
               switch (kind) {
@@ -165,8 +167,8 @@ class _MainViewViewportState extends State<MainViewViewport>
 
                 var openView = false;
                 var point = Offset.zero;
-                final CurrentIndexCubit cubit =
-                    context.read<CurrentIndexCubit>();
+                final CurrentIndexCubit cubit = context
+                    .read<CurrentIndexCubit>();
 
                 Handler getHandler() {
                   if (state is DocumentPresentationState) return state.handler;
@@ -223,9 +225,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 ),
                                 onSecondaryTapUp: (details) =>
                                     getHandler().onSecondaryTapUp(
-                                  details,
-                                  getEventContext(),
-                                ),
+                                      details,
+                                      getEventContext(),
+                                    ),
                                 onScaleUpdate: (details) {
                                   final handler = getHandler();
                                   if (_isScalingDisabled ?? true) {
@@ -235,11 +237,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     return;
                                   }
-                                  final cubit =
-                                      context.read<CurrentIndexCubit>();
+                                  final cubit = context
+                                      .read<CurrentIndexCubit>();
                                   if (openView) openView = details.scale == 1;
-                                  final settings =
-                                      context.read<SettingsCubit>().state;
+                                  final settings = context
+                                      .read<SettingsCubit>()
+                                      .state;
                                   if (cubit.fetchHandler<SelectHandler>() ==
                                           null &&
                                       !settings.inputGestures) {
@@ -293,37 +296,38 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   _isScalingDisabled ??=
                                       !cubit.state.moveEnabled;
                                   if (_isScalingDisabled != false) {
-                                    _isScalingDisabled =
-                                        cubit.getHandler().onScaleStart(
-                                              details,
-                                              getEventContext(),
-                                            );
-                                  } else {
-                                    cubit.getHandler().onScaleStartAbort(
+                                    _isScalingDisabled = cubit
+                                        .getHandler()
+                                        .onScaleStart(
                                           details,
                                           getEventContext(),
                                         );
+                                  } else {
+                                    cubit.getHandler().onScaleStartAbort(
+                                      details,
+                                      getEventContext(),
+                                    );
                                   }
                                   point = details.localFocalPoint;
                                   size = 1;
                                 },
                                 onDoubleTapDown: (details) =>
                                     getHandler().onDoubleTapDown(
-                                  details,
-                                  getEventContext(),
-                                ),
+                                      details,
+                                      getEventContext(),
+                                    ),
                                 onDoubleTap: () =>
                                     getHandler().onDoubleTap(getEventContext()),
                                 onLongPressStart: (details) =>
                                     getHandler().onLongPressStart(
-                                  details,
-                                  getEventContext(),
-                                ),
+                                      details,
+                                      getEventContext(),
+                                    ),
                                 onLongPressDown: (details) =>
                                     getHandler().onLongPressDown(
-                                  details,
-                                  getEventContext(),
-                                ),
+                                      details,
+                                      getEventContext(),
+                                    ),
                                 child: Listener(
                                   onPointerSignal: (pointerSignal) {
                                     if (state is! DocumentLoadSuccess) return;
@@ -341,10 +345,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       scale += 1;
                                       dx /= sensitivity;
                                       dy /= sensitivity;
-                                      final cubit =
-                                          context.read<CurrentIndexCubit>();
-                                      final transform =
-                                          context.read<TransformCubit>().state;
+                                      final cubit = context
+                                          .read<CurrentIndexCubit>();
+                                      final transform = context
+                                          .read<TransformCubit>()
+                                          .state;
                                       if (_mouseState == _MouseState.scale) {
                                         // Calculate the new scale using dx and dy
                                         scale = -(dx + dy / 2) / 100 + 1;
@@ -373,29 +378,30 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   },
                                   onPointerDown:
                                       (PointerDownEvent event) async {
-                                    _isScalingDisabled =
-                                        event.kind == PointerDeviceKind.trackpad
+                                        _isScalingDisabled =
+                                            event.kind ==
+                                                PointerDeviceKind.trackpad
                                             ? false
                                             : null;
-                                    cubit.addPointer(event.pointer);
-                                    cubit.setButtons(event.buttons);
-                                    final handler = getHandler();
-                                    if (handler.canChange(
-                                      event,
-                                      getEventContext(),
-                                    )) {
-                                      await changeTemporaryTool(
-                                        event.kind,
-                                        event.buttons,
-                                      );
-                                    }
-                                    if (_isScalingDisabled ?? true) {
-                                      getHandler().onPointerDown(
-                                        event,
-                                        getEventContext(),
-                                      );
-                                    }
-                                  },
+                                        cubit.addPointer(event.pointer);
+                                        cubit.setButtons(event.buttons);
+                                        final handler = getHandler();
+                                        if (handler.canChange(
+                                          event,
+                                          getEventContext(),
+                                        )) {
+                                          await changeTemporaryTool(
+                                            event.kind,
+                                            event.buttons,
+                                          );
+                                        }
+                                        if (_isScalingDisabled ?? true) {
+                                          getHandler().onPointerDown(
+                                            event,
+                                            getEventContext(),
+                                          );
+                                        }
+                                      },
                                   onPointerUp: (PointerUpEvent event) async {
                                     cubit.updateLastPosition(
                                       event.localPosition,
@@ -420,41 +426,41 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   },
                                   onPointerMove:
                                       (PointerMoveEvent event) async {
-                                    RenderObject? box =
-                                        context.findRenderObject();
-                                    if (!box!.paintBounds.contains(
+                                        RenderObject? box = context
+                                            .findRenderObject();
+                                        if (!box!.paintBounds.contains(
+                                              event.localPosition,
+                                            ) &&
+                                            kIsWeb) {
+                                          return;
+                                        }
+                                        cubit.updateLastPosition(
                                           event.localPosition,
-                                        ) &&
-                                        kIsWeb) {
-                                      return;
-                                    }
-                                    cubit.updateLastPosition(
-                                      event.localPosition,
-                                    );
-                                    if (cubit.state.moveEnabled &&
-                                        event.kind !=
-                                            PointerDeviceKind.stylus) {
-                                      if (event.pointer ==
-                                          cubit.state.pointers.first) {
-                                        final transform = context
-                                            .read<TransformCubit>()
-                                            .state;
-                                        final cubit =
-                                            context.read<CurrentIndexCubit>();
-                                        cubit.move(
-                                          -event.delta / transform.size,
                                         );
-                                        delayBake();
-                                      }
-                                      return;
-                                    }
-                                    if (_isScalingDisabled ?? true) {
-                                      getHandler().onPointerMove(
-                                        event,
-                                        getEventContext(),
-                                      );
-                                    }
-                                  },
+                                        if (cubit.state.moveEnabled &&
+                                            event.kind !=
+                                                PointerDeviceKind.stylus) {
+                                          if (event.pointer ==
+                                              cubit.state.pointers.first) {
+                                            final transform = context
+                                                .read<TransformCubit>()
+                                                .state;
+                                            final cubit = context
+                                                .read<CurrentIndexCubit>();
+                                            cubit.move(
+                                              -event.delta / transform.size,
+                                            );
+                                            delayBake();
+                                          }
+                                          return;
+                                        }
+                                        if (_isScalingDisabled ?? true) {
+                                          getHandler().onPointerMove(
+                                            event,
+                                            getEventContext(),
+                                          );
+                                        }
+                                      },
                                   onPointerCancel: (event) {
                                     cubit.removePointer(event.pointer);
                                     cubit.removeButtons();
@@ -500,7 +506,8 @@ class _MainViewViewportState extends State<MainViewViewport>
           return;
         }
         _positionAnimation = Tween<Offset>(
-          begin: friction.beginPosition -
+          begin:
+              friction.beginPosition -
               (_positionAnimation?.value ?? Offset.zero),
           end: Offset.zero,
         ).animate(_animationController);

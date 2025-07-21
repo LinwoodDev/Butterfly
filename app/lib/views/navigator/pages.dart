@@ -87,11 +87,12 @@ class _PagesViewState extends State<PagesView> {
                       .where((element) => element.name.contains('/'))
                       .map((e) => e.name.split('/').first)
                       .map((e) {
-                    var path = value.text;
-                    if (path.isNotEmpty) path += '/';
-                    path += e;
-                    return (path: path, name: e, isFile: false);
-                  }).toSet();
+                        var path = value.text;
+                        if (path.isNotEmpty) path += '/';
+                        path += e;
+                        return (path: path, name: e, isFile: false);
+                      })
+                      .toSet();
                   final all = [...folders, ...files];
                   return Material(
                     type: MaterialType.transparency,
@@ -114,8 +115,8 @@ class _PagesViewState extends State<PagesView> {
                         }
                         if (!next.isFile || nextIndex == null) return;
                         context.read<DocumentBloc>().add(
-                              PageReordered(name, nextIndex),
-                            );
+                          PageReordered(name, nextIndex),
+                        );
                       },
                       itemBuilder: (BuildContext context, int index) {
                         final entity = all[index];
@@ -218,8 +219,8 @@ class _PageEntityListTile extends StatelessWidget {
       },
       onSaved: editable
           ? (value) => context.read<DocumentBloc>().add(
-                PageRenamed(entity.path, value),
-              )
+              PageRenamed(entity.path, value),
+            )
           : null,
       actions: editable
           ? [
@@ -236,8 +237,8 @@ class _PageEntityListTile extends StatelessWidget {
                           return;
                         }
                         context.read<DocumentBloc>().add(
-                              PageRemoved(entity.path),
-                            );
+                          PageRemoved(entity.path),
+                        );
                       },
                 child: Text(AppLocalizations.of(context).delete),
               ),

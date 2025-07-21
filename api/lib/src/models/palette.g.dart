@@ -7,13 +7,13 @@ part of 'palette.dart';
 // **************************************************************************
 
 _ColorPalette _$ColorPaletteFromJson(Map json) => _ColorPalette(
-      name: json['name'] as String,
-      colors: (json['colors'] as List<dynamic>?)
-              ?.map((e) =>
-                  const ColorJsonConverter().fromJson((e as num).toInt()))
-              .toList() ??
-          const [],
-    );
+  name: json['name'] as String,
+  colors:
+      (json['colors'] as List<dynamic>?)
+          ?.map((e) => const ColorJsonConverter().fromJson((e as num).toInt()))
+          .toList() ??
+      const [],
+);
 
 Map<String, dynamic> _$ColorPaletteToJson(_ColorPalette instance) =>
     <String, dynamic>{

@@ -19,11 +19,14 @@ sealed class Area with _$Area {
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
   // Aspect ratio is the ratio between width and height.
-  factory Area.fromPoints(Point<double> first, Point<double> second,
-      {double width = 0,
-      double height = 0,
-      double aspectRatio = 0,
-      String name = ''}) {
+  factory Area.fromPoints(
+    Point<double> first,
+    Point<double> second, {
+    double width = 0,
+    double height = 0,
+    double aspectRatio = 0,
+    String name = '',
+  }) {
     double realWidth = width;
     double realHeight = height;
     if (realWidth == 0) {
@@ -43,7 +46,11 @@ sealed class Area with _$Area {
       first.y > second.y ? second.y : first.y,
     );
     return Area(
-        width: realWidth, height: realHeight, position: position, name: name);
+      width: realWidth,
+      height: realHeight,
+      position: position,
+      name: name,
+    );
   }
 
   Point get second => Point(position.x + width, position.y + height);

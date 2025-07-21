@@ -64,10 +64,8 @@ class _EditableListTileState extends State<EditableListTile> {
       return;
     }
     setState(() {
-      _controller = widget.controller ??
-          TextEditingController(
-            text: widget.initialValue,
-          );
+      _controller =
+          widget.controller ?? TextEditingController(text: widget.initialValue);
     });
   }
 
@@ -118,73 +116,75 @@ class _EditableListTileState extends State<EditableListTile> {
           }
         },
         child: ListTile(
-            onTap: widget.onTap,
-            selected: widget.selected,
-            leading: widget.leading,
-            subtitle: widget.subtitle == null
-                ? null
-                : Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: widget.subtitle,
-                  ),
-            minVerticalPadding: 0,
-            contentPadding: widget.contentPadding,
-            title: SizedBox(
-              height: 40,
-              child: isEditing
-                  ? TextFormField(
-                      controller: _controller,
-                      onChanged: widget.onChanged,
-                      onSaved: _onSaved,
-                      autofocus: true,
-                      onFieldSubmitted: _onSaved,
-                      style: currentStyle,
-                      decoration: InputDecoration(
-                        filled: true,
-                        border: const OutlineInputBorder(),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 4,
-                          vertical: 0,
-                        ),
-                        hintText: AppLocalizations.of(context).enterText,
+          onTap: widget.onTap,
+          selected: widget.selected,
+          leading: widget.leading,
+          subtitle: widget.subtitle == null
+              ? null
+              : Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: widget.subtitle,
+                ),
+          minVerticalPadding: 0,
+          contentPadding: widget.contentPadding,
+          title: SizedBox(
+            height: 40,
+            child: isEditing
+                ? TextFormField(
+                    controller: _controller,
+                    onChanged: widget.onChanged,
+                    onSaved: _onSaved,
+                    autofocus: true,
+                    onFieldSubmitted: _onSaved,
+                    style: currentStyle,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: const OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 0,
                       ),
-                    )
-                  : Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 4),
-                        child: ListenableBuilder(
-                          listenable: _controller,
-                          builder: (context, _) => Text(
-                            widget.textFormatter?.call(_controller.text) ??
-                                _controller.text,
-                            style: currentStyle,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      hintText: AppLocalizations.of(context).enterText,
+                    ),
+                  )
+                : Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: ListenableBuilder(
+                        listenable: _controller,
+                        builder: (context, _) => Text(
+                          widget.textFormatter?.call(_controller.text) ??
+                              _controller.text,
+                          style: currentStyle,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
-            ),
-            trailing: actionButton ??
-                (widget.onSaved == null || !widget.showEditIcon
-                    ? null
-                    : IconButton(
-                        icon: PhosphorIcon(
-                          _isEditing
-                              ? PhosphorIconsLight.check
-                              : PhosphorIconsLight.pencil,
-                        ),
-                        tooltip: _isEditing
-                            ? AppLocalizations.of(context).save
-                            : AppLocalizations.of(context).edit,
-                        onPressed: () {
-                          if (isEditing) {
-                            _onSaved();
-                          } else {
-                            _edit();
-                          }
-                        },
-                      ))),
+                  ),
+          ),
+          trailing:
+              actionButton ??
+              (widget.onSaved == null || !widget.showEditIcon
+                  ? null
+                  : IconButton(
+                      icon: PhosphorIcon(
+                        _isEditing
+                            ? PhosphorIconsLight.check
+                            : PhosphorIconsLight.pencil,
+                      ),
+                      tooltip: _isEditing
+                          ? AppLocalizations.of(context).save
+                          : AppLocalizations.of(context).edit,
+                      onPressed: () {
+                        if (isEditing) {
+                          _onSaved();
+                        } else {
+                          _edit();
+                        }
+                      },
+                    )),
+        ),
       ),
     );
   }

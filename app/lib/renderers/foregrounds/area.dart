@@ -7,26 +7,40 @@ class AreaForegroundRenderer extends Renderer<Area> {
   AreaForegroundRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage? page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage? page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5 / transform.size
       ..color = colorScheme?.primary ?? Colors.blue;
     final backgroundPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = (colorScheme?.primaryContainer ?? Colors.lightBlue)
-          .withValues(alpha: 0.2);
+      ..color = (colorScheme?.primaryContainer ?? Colors.lightBlue).withValues(
+        alpha: 0.2,
+      );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
-        paint);
+      RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
+      paint,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
-        backgroundPaint);
+      RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
+      backgroundPaint,
+    );
   }
 
   @override
   Rect get rect => Rect.fromLTWH(
-      element.position.x, element.position.y, element.width, element.height);
+    element.position.x,
+    element.position.y,
+    element.width,
+    element.height,
+  );
 }

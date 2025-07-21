@@ -14,9 +14,16 @@ class UserCursor extends Renderer<NetworkingUser> {
   UserCursor(super.element, this.userId);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final position = element.cursor?.toOffset();
     if (position == null) {
       return;

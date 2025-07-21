@@ -28,14 +28,16 @@ class LabelHandler extends Handler<LabelTool>
         };
         return TextContext(
           tool: data,
-          element: (element as TextElement?) ??
+          element:
+              (element as TextElement?) ??
               (position == null
                   ? null
                   : TextElement(
                       position: position,
                       area: text.TextArea(
                         paragraph: text.TextParagraph(
-                          property: forced ??
+                          property:
+                              forced ??
                               const text.ParagraphProperty.undefined(),
                         ),
                       ),
@@ -50,7 +52,8 @@ class LabelHandler extends Handler<LabelTool>
       case LabelMode.markdown:
         return MarkdownContext(
           tool: data,
-          element: (element as MarkdownElement?) ??
+          element:
+              (element as MarkdownElement?) ??
               (position == null
                   ? null
                   : MarkdownElement(
@@ -72,25 +75,24 @@ class LabelHandler extends Handler<LabelTool>
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
-  ]) =>
-      [
-        ...super.createForegrounds(
-          currentIndexCubit,
-          document,
-          page,
-          info,
-          currentArea,
-        ),
-        if (_context?.element != null) ...[
-          if (_context?.isCreating ?? false)
-            switch (_context!) {
-              TextContext e =>
-                TextRenderer(e.element!, null, e) as GenericTextRenderer,
-              MarkdownContext e => MarkdownRenderer(e.element!, null, e),
-            },
-          LabelSelectionCursor(_context!),
-        ],
-      ];
+  ]) => [
+    ...super.createForegrounds(
+      currentIndexCubit,
+      document,
+      page,
+      info,
+      currentArea,
+    ),
+    if (_context?.element != null) ...[
+      if (_context?.isCreating ?? false)
+        switch (_context!) {
+          TextContext e =>
+            TextRenderer(e.element!, null, e) as GenericTextRenderer,
+          MarkdownContext e => MarkdownRenderer(e.element!, null, e),
+        },
+      LabelSelectionCursor(_context!),
+    ],
+  ];
 
   TextInputConnection? _connection;
 
@@ -98,8 +100,8 @@ class LabelHandler extends Handler<LabelTool>
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final hitRect = _context?.getRect();
     final globalPos = context.getCameraTransform().localToGlobal(
-          details.localFocalPoint,
-        );
+      details.localFocalPoint,
+    );
     final hit = hitRect?.contains(globalPos) ?? false;
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(
@@ -117,8 +119,8 @@ class LabelHandler extends Handler<LabelTool>
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final hitRect = _context?.getRect();
     final globalPos = context.getCameraTransform().localToGlobal(
-          details.localFocalPoint,
-        );
+      details.localFocalPoint,
+    );
     final hit = hitRect?.contains(globalPos) ?? false;
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(
@@ -174,10 +176,10 @@ class LabelHandler extends Handler<LabelTool>
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
       final hit = await context.getDocumentBloc().rayCast(
-            globalPos,
-            0.0,
-            useCollection: true,
-          );
+        globalPos,
+        0.0,
+        useCollection: true,
+      );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
         _context = _createContext(
@@ -203,27 +205,28 @@ class LabelHandler extends Handler<LabelTool>
       );
     }
     if (!(_connection?.attached ?? false)) {
-      _connection = TextInput.attach(
-        this,
-        TextInputConfiguration(
-          inputType: TextInputType.multiline,
-          obscureText: false,
-          autocorrect: false,
-          inputAction: TextInputAction.newline,
-          keyboardAppearance: theme.brightness,
-          enableDeltaModel: false,
-          enableSuggestions: false,
-          enableInteractiveSelection: true,
-        ),
-      )
-        ..setEditingState(currentTextEditingValue)
-        ..setStyle(
-          fontFamily: style.fontFamily,
-          fontSize: style.fontSize! * pixelRatio,
-          fontWeight: style.fontWeight,
-          textDirection: TextDirection.ltr,
-          textAlign: TextAlign.left,
-        );
+      _connection =
+          TextInput.attach(
+              this,
+              TextInputConfiguration(
+                inputType: TextInputType.multiline,
+                obscureText: false,
+                autocorrect: false,
+                inputAction: TextInputAction.newline,
+                keyboardAppearance: theme.brightness,
+                enableDeltaModel: false,
+                enableSuggestions: false,
+                enableInteractiveSelection: true,
+              ),
+            )
+            ..setEditingState(currentTextEditingValue)
+            ..setStyle(
+              fontFamily: style.fontFamily,
+              fontSize: style.fontSize! * pixelRatio,
+              fontWeight: style.fontWeight,
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.left,
+            );
     } else {
       _updateEditingState();
     }
@@ -464,8 +467,9 @@ class LabelHandler extends Handler<LabelTool>
     final data = state.data;
 
     final lastValue = currentTextEditingValue;
-    final start =
-        replace ? lastValue.composing.start : lastValue.selection.start;
+    final start = replace
+        ? lastValue.composing.start
+        : lastValue.selection.start;
     final length = replace ? null : lastValue.selection.end - start;
     final newIndex = replace
         ? lastValue.selection.end - lastValue.text.length + value.length
@@ -486,7 +490,8 @@ class LabelHandler extends Handler<LabelTool>
               ? old.area.paragraph.replace(
                   text.TextSpan.text(
                     text: currentText,
-                    property: e.forcedSpanProperty ??
+                    property:
+                        e.forcedSpanProperty ??
                         const text.SpanProperty.undefined(),
                   ),
                   start,
@@ -622,128 +627,130 @@ class LabelHandler extends Handler<LabelTool>
       ),
       ExtendSelectionVerticallyToAdjacentLineIntent:
           CallbackAction<ExtendSelectionVerticallyToAdjacentLineIntent>(
-        onInvoke: (intent) {
-          _context = _context?.copyWith(
-            selection: intent.collapseSelection
-                ? TextSelection.collapsed(
-                    offset: _getVerticalNewSelection(intent.forward),
-                  )
-                : TextSelection(
-                    baseOffset: _getVerticalNewSelection(intent.forward),
-                    extentOffset: _context?.selection.extentOffset ?? 0,
-                  ),
-          );
-          bloc.refresh();
-          _updateEditingState();
-          _refreshToolbar(bloc);
-          return null;
-        },
-      ),
+            onInvoke: (intent) {
+              _context = _context?.copyWith(
+                selection: intent.collapseSelection
+                    ? TextSelection.collapsed(
+                        offset: _getVerticalNewSelection(intent.forward),
+                      )
+                    : TextSelection(
+                        baseOffset: _getVerticalNewSelection(intent.forward),
+                        extentOffset: _context?.selection.extentOffset ?? 0,
+                      ),
+              );
+              bloc.refresh();
+              _updateEditingState();
+              _refreshToolbar(bloc);
+              return null;
+            },
+          ),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
         onInvoke: (intent) => _selectAllText(),
       ),
       ExtendSelectionByCharacterIntent:
           CallbackAction<ExtendSelectionByCharacterIntent>(
-        onInvoke: (intent) {
-          final maxLength = _context?.length ?? 0;
-          var selection =
-              _context?.selection ?? const TextSelection.collapsed(offset: 0);
-          if (intent.collapseSelection) {
-            selection = TextSelection.collapsed(
-              offset: (selection.baseOffset + (intent.forward ? 1 : -1))
-                  .clamp(0, maxLength),
-            );
-          } else {
-            selection = TextSelection(
-              baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
-                  .clamp(0, maxLength),
-              extentOffset: selection.extentOffset,
-            );
-          }
-          _context = _context?.copyWith(selection: selection);
-          _context = switch (_context) {
-            TextContext e => e.copyWith(
-                forcedSpanProperty: e.element?.area.paragraph
-                        .getSpan(selection.baseOffset)
-                        ?.property ??
-                    e.forcedSpanProperty,
-                forceParagraph: null,
-              ),
-            _ => _context,
-          };
-          bloc.refresh();
-          _refreshToolbar(bloc);
-          _updateEditingState();
-          return null;
-        },
-      ),
+            onInvoke: (intent) {
+              final maxLength = _context?.length ?? 0;
+              var selection =
+                  _context?.selection ??
+                  const TextSelection.collapsed(offset: 0);
+              if (intent.collapseSelection) {
+                selection = TextSelection.collapsed(
+                  offset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                      .clamp(0, maxLength),
+                );
+              } else {
+                selection = TextSelection(
+                  baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                      .clamp(0, maxLength),
+                  extentOffset: selection.extentOffset,
+                );
+              }
+              _context = _context?.copyWith(selection: selection);
+              _context = switch (_context) {
+                TextContext e => e.copyWith(
+                  forcedSpanProperty:
+                      e.element?.area.paragraph
+                          .getSpan(selection.baseOffset)
+                          ?.property ??
+                      e.forcedSpanProperty,
+                  forceParagraph: null,
+                ),
+                _ => _context,
+              };
+              bloc.refresh();
+              _refreshToolbar(bloc);
+              _updateEditingState();
+              return null;
+            },
+          ),
       ExtendSelectionToLineBreakIntent:
           CallbackAction<ExtendSelectionToLineBreakIntent>(
-        onInvoke: (intent) {
-          final newSelection = _getVerticalNewSelection(intent.forward);
-          final selection = _context?.selection;
-          if (selection == null) return null;
-          _context = _context?.copyWith(
-            selection: TextSelection(
-              baseOffset: selection.baseOffset,
-              extentOffset: newSelection,
-            ),
-          );
-          _updateEditingState();
-          _refreshToolbar(bloc);
-          return null;
-        },
-      ),
+            onInvoke: (intent) {
+              final newSelection = _getVerticalNewSelection(intent.forward);
+              final selection = _context?.selection;
+              if (selection == null) return null;
+              _context = _context?.copyWith(
+                selection: TextSelection(
+                  baseOffset: selection.baseOffset,
+                  extentOffset: newSelection,
+                ),
+              );
+              _updateEditingState();
+              _refreshToolbar(bloc);
+              return null;
+            },
+          ),
       DeleteToNextWordBoundaryIntent:
           CallbackAction<DeleteToNextWordBoundaryIntent>(
-        onInvoke: (intent) {
-          final selection = _context?.selection;
-          if (selection == null) return null;
-          var index = selection.baseOffset;
-          var wordIndex = _context?.previousWordIndex(index) ?? 0;
-          if (wordIndex > 0) wordIndex--;
-          if (wordIndex < 0) {
-            index = wordIndex;
-          }
-          final length = selection.end - wordIndex;
-          switch (_context) {
-            case TextContext e:
-              final element = e.element;
-              if (element == null) return e;
-              var area = element.area;
-              var paragraph = area.paragraph;
-              paragraph = paragraph.remove(wordIndex, length.abs());
-              area = area.copyWith(paragraph: paragraph);
-              final newElement = element.copyWith(area: area);
+            onInvoke: (intent) {
+              final selection = _context?.selection;
+              if (selection == null) return null;
+              var index = selection.baseOffset;
+              var wordIndex = _context?.previousWordIndex(index) ?? 0;
+              if (wordIndex > 0) wordIndex--;
+              if (wordIndex < 0) {
+                index = wordIndex;
+              }
+              final length = selection.end - wordIndex;
+              switch (_context) {
+                case TextContext e:
+                  final element = e.element;
+                  if (element == null) return e;
+                  var area = element.area;
+                  var paragraph = area.paragraph;
+                  paragraph = paragraph.remove(wordIndex, length.abs());
+                  area = area.copyWith(paragraph: paragraph);
+                  final newElement = element.copyWith(area: area);
 
-              _context = e.copyWith(
-                element: newElement,
-                selection: TextSelection.collapsed(offset: wordIndex),
-              );
-              break;
-            case MarkdownContext e:
-              final element = e.element;
-              if (element == null) return e;
-              final text = element.text.replaceRange(
-                wordIndex,
-                length.abs(),
-                '',
-              );
+                  _context = e.copyWith(
+                    element: newElement,
+                    selection: TextSelection.collapsed(offset: wordIndex),
+                  );
+                  break;
+                case MarkdownContext e:
+                  final element = e.element;
+                  if (element == null) return e;
+                  final text = element.text.replaceRange(
+                    wordIndex,
+                    length.abs(),
+                    '',
+                  );
 
-              _context = e.copyWith(
-                element: element.copyWith(text: text),
-                selection: TextSelection.collapsed(offset: wordIndex),
-              );
-            default:
+                  _context = e.copyWith(
+                    element: element.copyWith(text: text),
+                    selection: TextSelection.collapsed(offset: wordIndex),
+                  );
+                default:
+                  return null;
+              }
+
+              bloc.refresh();
+              _refreshToolbar(bloc);
+              _updateEditingState();
               return null;
-          }
-
-          bloc.refresh();
-          _refreshToolbar(bloc);
-          _updateEditingState();
-          return null;
-        },
-      ),
+            },
+          ),
       CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
         onInvoke: (intent) => _copyText(intent.collapseSelection),
       ),
@@ -782,11 +789,11 @@ class LabelHandler extends Handler<LabelTool>
     );
     _context = switch (_context) {
       TextContext e => e.copyWith(
-          forcedSpanProperty:
-              e.element?.area.paragraph.getSpan(length)?.property ??
-                  e.forcedSpanProperty,
-          forceParagraph: null,
-        ),
+        forcedSpanProperty:
+            e.element?.area.paragraph.getSpan(length)?.property ??
+            e.forcedSpanProperty,
+        forceParagraph: null,
+      ),
       _ => _context,
     };
     _bloc?.refresh();

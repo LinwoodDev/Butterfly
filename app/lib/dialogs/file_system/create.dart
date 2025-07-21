@@ -8,11 +8,12 @@ class FileSystemAssetCreateDialog extends StatefulWidget {
   final String path;
   final DocumentFileSystem fileSystem;
 
-  const FileSystemAssetCreateDialog(
-      {super.key,
-      this.isFolder = false,
-      this.path = '',
-      required this.fileSystem});
+  const FileSystemAssetCreateDialog({
+    super.key,
+    this.isFolder = false,
+    this.path = '',
+    required this.fileSystem,
+  });
 
   @override
   State<FileSystemAssetCreateDialog> createState() =>
@@ -40,7 +41,9 @@ class _FileSystemAssetCreateDialogState
         title: Text(LeapLocalizations.of(context).create),
         content: TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: LeapLocalizations.of(context).name),
+            filled: true,
+            labelText: LeapLocalizations.of(context).name,
+          ),
           validator: (value) {
             if (value?.isEmpty ?? true) {
               return LeapLocalizations.of(context).shouldNotEmpty;
@@ -63,7 +66,9 @@ class _FileSystemAssetCreateDialogState
                 final newPath = '${widget.path}/${_nameController.text}';
                 if (!widget.isFolder) {
                   await widget.fileSystem.createFile(
-                      newPath, DocumentDefaults.createDocument().toFile());
+                    newPath,
+                    DocumentDefaults.createDocument().toFile(),
+                  );
                 } else {
                   await widget.fileSystem.createDirectory(newPath);
                 }

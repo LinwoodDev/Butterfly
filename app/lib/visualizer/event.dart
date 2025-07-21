@@ -16,9 +16,9 @@ extension ArangementVisualizer on Arrangement {
   }
 
   IconGetter get icon => switch (this) {
-        Arrangement.back => PhosphorIcons.arrowDown,
-        Arrangement.front => PhosphorIcons.arrowUp,
-        Arrangement.backward => PhosphorIcons.arrowDownLeft,
-        Arrangement.forward => PhosphorIcons.arrowUpRight,
-      };
+    Arrangement.back => PhosphorIcons.arrowDown,
+    Arrangement.front => PhosphorIcons.arrowUp,
+    Arrangement.backward => PhosphorIcons.arrowDownLeft,
+    Arrangement.forward => PhosphorIcons.arrowUpRight,
+  };
 }

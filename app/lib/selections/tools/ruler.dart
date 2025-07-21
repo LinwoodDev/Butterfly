@@ -39,7 +39,7 @@ class RulerToolSelection extends ToolSelection<RulerTool> {
           context,
           selected.map((e) => e.copyWith(size: value.toInt())).toList(),
         ),
-      )
+      ),
     ];
   }
 

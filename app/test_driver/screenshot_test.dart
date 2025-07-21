@@ -6,8 +6,8 @@ Future<void> main() async {
     await integrationDriver(
       onScreenshot: (screenshotName, screenshotBytes, [args]) async {
         final File image = await File(
-                '../metadata/en-US/images/screenshots/$screenshotName.png')
-            .create(recursive: true);
+          '../metadata/en-US/images/screenshots/$screenshotName.png',
+        ).create(recursive: true);
         image.writeAsBytesSync(screenshotBytes);
         return true;
       },

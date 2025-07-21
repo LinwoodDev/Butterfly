@@ -58,7 +58,8 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
 
     final component = widget.component.resolveComponent(document);
     final pack = document.getPack(currentPack);
-    final components = pack
+    final components =
+        pack
             ?.getComponents()
             .map((e) {
               final component = pack.getComponent(e);

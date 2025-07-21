@@ -6,11 +6,11 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
   IconGetter get icon => switch (this) {
-        CircleShape _ => PhosphorIcons.circle,
-        RectangleShape _ => PhosphorIcons.square,
-        LineShape _ => PhosphorIcons.lineSegment,
-        TriangleShape _ => PhosphorIcons.triangle,
-      };
+    CircleShape _ => PhosphorIcons.circle,
+    RectangleShape _ => PhosphorIcons.square,
+    LineShape _ => PhosphorIcons.lineSegment,
+    TriangleShape _ => PhosphorIcons.triangle,
+  };
 
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);

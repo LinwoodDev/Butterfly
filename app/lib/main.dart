@@ -89,10 +89,7 @@ Future<void> main([List<String> args = const []]) async {
         if (lastNote == null) break;
         initialLocation = Uri(
           path: '/new',
-          queryParameters: {
-            'remote': lastNote.remote,
-            'path': lastNote.path,
-          },
+          queryParameters: {'remote': lastNote.remote, 'path': lastNote.path},
         ).toString();
       case StartupBehavior.openNewNote:
         initialLocation = '/new';
@@ -233,8 +230,10 @@ class ButterflyApp extends StatelessWidget {
             name: 'new',
             path: 'new',
             builder: (context, state) {
-              final defaultRemote =
-                  context.read<SettingsCubit>().state.defaultRemote;
+              final defaultRemote = context
+                  .read<SettingsCubit>()
+                  .state
+                  .defaultRemote;
               return ProjectPage(
                 data: state.extra,
                 location: AssetLocation(
@@ -299,9 +298,7 @@ class ButterflyApp extends StatelessWidget {
             name: 'native-path',
             builder: (context, state) {
               final path = state.pathParameters['path'] ?? '';
-              return ProjectPage(
-                location: AssetLocation.local(path, true),
-              );
+              return ProjectPage(location: AssetLocation.local(path, true));
             },
           ),
         ],
@@ -316,34 +313,36 @@ class ButterflyApp extends StatelessWidget {
         },
       ),
       GoRoute(
-          path: '/intent',
-          builder: (context, state) {
-            Future<(String, Object)?>? intent;
-            if (!kIsWeb && Platform.isAndroid) {
-              intent = () async {
-                final type = await getIntentType();
-                final data = await getIntentData();
-                if (type == null || data == null) return null;
-                return (type, data);
-              }();
-            }
-            return FutureBuilder<(String, Object)?>(
-              future: intent,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  final type = snapshot.data?.$1;
-                  final data = snapshot.data?.$2;
-                  return ProjectPage(
-                    location:
-                        AssetLocation.local(state.pathParameters['path'] ?? ''),
-                    type: type ?? '',
-                    data: data,
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            );
-          }),
+        path: '/intent',
+        builder: (context, state) {
+          Future<(String, Object)?>? intent;
+          if (!kIsWeb && Platform.isAndroid) {
+            intent = () async {
+              final type = await getIntentType();
+              final data = await getIntentData();
+              if (type == null || data == null) return null;
+              return (type, data);
+            }();
+          }
+          return FutureBuilder<(String, Object)?>(
+            future: intent,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final type = snapshot.data?.$1;
+                final data = snapshot.data?.$2;
+                return ProjectPage(
+                  location: AssetLocation.local(
+                    state.pathParameters['path'] ?? '',
+                  ),
+                  type: type ?? '',
+                  data: data,
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          );
+        },
+      ),
     ],
     redirect: (context, state) =>
         (state.uri.scheme == 'content') ? '/intent' : null,
@@ -403,10 +402,8 @@ class ButterflyApp extends StatelessWidget {
           return RepositoryProvider(
             create: ButterflyFileSystem.build,
             child: RepositoryProvider(
-              create: (context) => SyncService(
-                context,
-                context.read<ButterflyFileSystem>(),
-              ),
+              create: (context) =>
+                  SyncService(context, context.read<ButterflyFileSystem>()),
               lazy: false,
               child: child ?? Container(),
             ),

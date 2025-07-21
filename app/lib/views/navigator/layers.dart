@@ -46,11 +46,13 @@ class LayersView extends StatelessWidget {
                       initialValue: layer.name,
                       selected: id == state.currentLayer,
                       onTap: () => context.read<DocumentBloc>().add(
-                            CurrentLayerChanged(id),
-                          ),
-                      subtitle: Text(AppLocalizations.of(
-                        context,
-                      ).countElements(layer.content.length)),
+                        CurrentLayerChanged(id),
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).countElements(layer.content.length),
+                      ),
                       leading: IconButton(
                         icon: PhosphorIcon(
                           visible
@@ -62,15 +64,15 @@ class LayersView extends StatelessWidget {
                             : AppLocalizations.of(context).show,
                         onPressed: () {
                           context.read<DocumentBloc>().add(
-                                LayerVisibilityChanged(id, !visible),
-                              );
+                            LayerVisibilityChanged(id, !visible),
+                          );
                         },
                       ),
                       textFormatter: (e) =>
                           e.isEmpty ? AppLocalizations.of(context).layer : e,
                       onSaved: (value) => context.read<DocumentBloc>().add(
-                            LayerChanged(id, name: value),
-                          ),
+                        LayerChanged(id, name: value),
+                      ),
                       actions: [
                         if (layers.length > 1)
                           SubmenuButton(
@@ -85,13 +87,13 @@ class LayersView extends StatelessWidget {
                                 onPressed: index <= 0
                                     ? null
                                     : () => context.read<DocumentBloc>().add(
-                                          LayersMerged(
-                                            [
-                                              layers[index - 1].id,
-                                              id,
-                                            ].nonNulls.toList(),
-                                          ),
+                                        LayersMerged(
+                                          [
+                                            layers[index - 1].id,
+                                            id,
+                                          ].nonNulls.toList(),
                                         ),
+                                      ),
                                 child: Text(AppLocalizations.of(context).up),
                               ),
                               MenuItemButton(
@@ -101,13 +103,13 @@ class LayersView extends StatelessWidget {
                                 onPressed: index >= layers.length - 1
                                     ? null
                                     : () => context.read<DocumentBloc>().add(
-                                          LayersMerged(
-                                            [
-                                              id,
-                                              layers[index + 1].id,
-                                            ].nonNulls.toList(),
-                                          ),
+                                        LayersMerged(
+                                          [
+                                            id,
+                                            layers[index + 1].id,
+                                          ].nonNulls.toList(),
                                         ),
+                                      ),
                                 child: Text(AppLocalizations.of(context).down),
                               ),
                               MenuItemButton(
@@ -134,13 +136,14 @@ class LayersView extends StatelessWidget {
                             PhosphorIconsLight.copySimple,
                           ),
                           onPressed: () => context.read<DocumentBloc>().add(
-                                LayersMerged([id], true),
-                              ),
+                            LayersMerged([id], true),
+                          ),
                           child: Text(AppLocalizations.of(context).duplicate),
                         ),
                         MenuItemButton(
-                          leadingIcon:
-                              const PhosphorIcon(PhosphorIconsLight.trash),
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.trash,
+                          ),
                           onPressed: currentLayer == layer
                               ? null
                               : () async {
@@ -150,16 +153,14 @@ class LayersView extends StatelessWidget {
                                   );
                                   if (result != true) return;
                                   context.read<DocumentBloc>().add(
-                                        LayerRemoved(id),
-                                      );
+                                    LayerRemoved(id),
+                                  );
                                 },
                           child: Text(AppLocalizations.of(context).delete),
                         ),
                       ],
                       contentPadding: contentPadding.add(
-                        const EdgeInsets.only(
-                          right: 32,
-                        ),
+                        const EdgeInsets.only(right: 32),
                       ),
                     ),
                     Positioned(
@@ -170,9 +171,7 @@ class LayersView extends StatelessWidget {
                         index: index,
                         child: MouseRegion(
                           cursor: SystemMouseCursors.grab,
-                          child: const Icon(
-                            PhosphorIconsLight.dotsSix,
-                          ),
+                          child: const Icon(PhosphorIconsLight.dotsSix),
                         ),
                       ),
                     ),
@@ -186,8 +185,8 @@ class LayersView extends StatelessWidget {
                 }
                 newIndex = layers.length - 1 - newIndex;
                 context.read<DocumentBloc>().add(
-                      LayerOrderChanged(layer.id ?? '', newIndex),
-                    );
+                  LayerOrderChanged(layer.id ?? '', newIndex),
+                );
               },
             ),
             Align(
@@ -238,8 +237,9 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
           final layers = state.page.layers;
-          final mainLayer =
-              widget.main == null ? null : state.page.getLayer(widget.main!);
+          final mainLayer = widget.main == null
+              ? null
+              : state.page.getLayer(widget.main!);
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -258,7 +258,9 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                 ),
                 const Divider(),
               ],
-              ...layers.where((e) => e.id != widget.main).map(
+              ...layers
+                  .where((e) => e.id != widget.main)
+                  .map(
                     (e) => CheckboxListTile(
                       value: _selected.contains(e.id),
                       onChanged: (value) {
@@ -294,11 +296,11 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
         ElevatedButton(
           onPressed: () {
             context.read<DocumentBloc>().add(
-                  LayersMerged([
-                    if (widget.main != null) widget.main!,
-                    ..._selected,
-                  ]),
-                );
+              LayersMerged([
+                if (widget.main != null) widget.main!,
+                ..._selected,
+              ]),
+            );
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context).merge),

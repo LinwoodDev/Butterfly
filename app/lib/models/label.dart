@@ -12,15 +12,16 @@ part 'label.freezed.dart';
 @freezed
 sealed class LabelContext with _$LabelContext {
   const LabelContext._();
-  const factory LabelContext.text(
-      {required LabelTool tool,
-      required TextPainter textPainter,
-      TextElement? element,
-      @Default(1.0) double zoom,
-      @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
-      ParagraphProperty? forcedProperty,
-      SpanProperty? forcedSpanProperty,
-      bool? forceParagraph}) = TextContext;
+  const factory LabelContext.text({
+    required LabelTool tool,
+    required TextPainter textPainter,
+    TextElement? element,
+    @Default(1.0) double zoom,
+    @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
+    ParagraphProperty? forcedProperty,
+    SpanProperty? forcedSpanProperty,
+    bool? forceParagraph,
+  }) = TextContext;
 
   const factory LabelContext.markdown({
     required LabelTool tool,
@@ -48,8 +49,10 @@ sealed class LabelContext with _$LabelContext {
 
   bool isParagraph() {
     if (element == null) return true;
-    final force =
-        switch (this) { TextContext e => e.forceParagraph, _ => false };
+    final force = switch (this) {
+      TextContext e => e.forceParagraph,
+      _ => false,
+    };
     if (force != null) return force;
     return selection.start <= 0 && selection.end >= length;
   }
@@ -59,8 +62,12 @@ sealed class LabelContext with _$LabelContext {
   Rect? getRect() {
     final current = labelElement;
     if (current == null) return null;
-    return Rect.fromLTWH(current.position.x, current.position.y,
-        textPainter.width, labelElement!.getHeight(textPainter.height));
+    return Rect.fromLTWH(
+      current.position.x,
+      current.position.y,
+      textPainter.width,
+      labelElement!.getHeight(textPainter.height),
+    );
   }
 
   int nextWordIndex(int index) {
@@ -113,9 +120,9 @@ extension TextContextHelper on TextContext {
     if (property is DefinedParagraphProperty) {
       return property;
     }
-    return getStyleSheet(document)
-            .resolveStyle(document)
-            ?.resolveParagraphProperty(property) ??
+    return getStyleSheet(
+          document,
+        ).resolveStyle(document)?.resolveParagraphProperty(property) ??
         DefinedParagraphProperty();
   }
 
@@ -131,9 +138,9 @@ extension TextContextHelper on TextContext {
   DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
     return switch (getSpanProperty(document)) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveSpanProperty(e),
+          NamedSpanProperty e => getStyleSheet(
+            document,
+          ).resolveStyle(document)?.resolveSpanProperty(e),
           _ => null,
         } ??
         const DefinedSpanProperty();
@@ -142,21 +149,23 @@ extension TextContextHelper on TextContext {
   DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
     return switch (forcedProperty) {
           DefinedParagraphProperty e => e,
-          NamedParagraphProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveParagraphProperty(e),
+          NamedParagraphProperty e => getStyleSheet(
+            document,
+          ).resolveStyle(document)?.resolveParagraphProperty(e),
           _ => null,
         } ??
         const DefinedParagraphProperty();
   }
 
-  DefinedSpanProperty getDefinedForcedSpanProperty(NoteData document,
-      [bool fallback = true]) {
+  DefinedSpanProperty getDefinedForcedSpanProperty(
+    NoteData document, [
+    bool fallback = true,
+  ]) {
     return switch (forcedSpanProperty) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e => getStyleSheet(document)
-              .resolveStyle(document)
-              ?.resolveSpanProperty(e),
+          NamedSpanProperty e => getStyleSheet(
+            document,
+          ).resolveStyle(document)?.resolveSpanProperty(e),
           _ => null,
         } ??
         (fallback
@@ -169,14 +178,14 @@ extension TextContextHelper on TextContext {
       getDefinedForcedSpanProperty(document);
 
   bool paragraphModified() => switch (getProperty()) {
-        NamedParagraphProperty _ => false,
-        _ => true,
-      };
+    NamedParagraphProperty _ => false,
+    _ => true,
+  };
 
   bool spanModified(NoteData document) => switch (getSpanProperty(document)) {
-        NamedParagraphProperty _ => false,
-        _ => true,
-      };
+    NamedParagraphProperty _ => false,
+    _ => true,
+  };
 
   bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);

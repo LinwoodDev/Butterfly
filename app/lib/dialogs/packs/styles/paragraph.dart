@@ -18,35 +18,32 @@ class ParagraphStyleView extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         ToggleButtons(
-            isSelected: [
-              value.alignment == HorizontalAlignment.left,
-              value.alignment == HorizontalAlignment.center,
-              value.alignment == HorizontalAlignment.right,
-              value.alignment == HorizontalAlignment.justify,
-            ],
-            onPressed: (index) {
-              var alignments = [
-                HorizontalAlignment.left,
-                HorizontalAlignment.center,
-                HorizontalAlignment.right,
-                HorizontalAlignment.justify,
-              ];
-              onChanged(
-                value.copyWith(alignment: alignments[index]),
-              );
-            },
-            children: const [
-              PhosphorIcon(PhosphorIconsLight.textAlignLeft),
-              PhosphorIcon(PhosphorIconsLight.textAlignCenter),
-              PhosphorIcon(PhosphorIconsLight.textAlignRight),
-              PhosphorIcon(PhosphorIconsLight.textAlignJustify),
-            ]),
+          isSelected: [
+            value.alignment == HorizontalAlignment.left,
+            value.alignment == HorizontalAlignment.center,
+            value.alignment == HorizontalAlignment.right,
+            value.alignment == HorizontalAlignment.justify,
+          ],
+          onPressed: (index) {
+            var alignments = [
+              HorizontalAlignment.left,
+              HorizontalAlignment.center,
+              HorizontalAlignment.right,
+              HorizontalAlignment.justify,
+            ];
+            onChanged(value.copyWith(alignment: alignments[index]));
+          },
+          children: const [
+            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
+            PhosphorIcon(PhosphorIconsLight.textAlignCenter),
+            PhosphorIcon(PhosphorIconsLight.textAlignRight),
+            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
+          ],
+        ),
         const SizedBox(height: 16),
         TextStyleView(
           value: value.span,
-          onChanged: (span) => onChanged(
-            value.copyWith(span: span),
-          ),
+          onChanged: (span) => onChanged(value.copyWith(span: span)),
         ),
       ],
     );

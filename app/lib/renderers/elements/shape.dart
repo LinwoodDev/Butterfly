@@ -3,14 +3,23 @@ part of '../renderer.dart';
 class ShapeRenderer extends Renderer<ShapeElement> {
   @override
   Rect get rect => Rect.fromPoints(
-      element.firstPosition.toOffset(), element.secondPosition.toOffset());
+    element.firstPosition.toOffset(),
+    element.secondPosition.toOffset(),
+  );
 
   ShapeRenderer(super.element, [super.layer]);
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  FutureOr<void> build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final paint = _buildPaint();
@@ -18,13 +27,17 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     if (shape is RectangleShape) {
       // Percentage-based radius
       final topLeftCornerRadius = Radius.circular(
-          shape.topLeftCornerRadius / 100 * drawRect.shortestSide);
+        shape.topLeftCornerRadius / 100 * drawRect.shortestSide,
+      );
       final topRightCornerRadius = Radius.circular(
-          shape.topRightCornerRadius / 100 * drawRect.shortestSide);
+        shape.topRightCornerRadius / 100 * drawRect.shortestSide,
+      );
       final bottomLeftCornerRadius = Radius.circular(
-          shape.bottomLeftCornerRadius / 100 * drawRect.shortestSide);
+        shape.bottomLeftCornerRadius / 100 * drawRect.shortestSide,
+      );
       final bottomRightCornerRadius = Radius.circular(
-          shape.bottomRightCornerRadius / 100 * drawRect.shortestSide);
+        shape.bottomRightCornerRadius / 100 * drawRect.shortestSide,
+      );
       canvas.drawRRect(
         RRect.fromRectAndCorners(
           drawRect,
@@ -34,7 +47,9 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           bottomRight: bottomRightCornerRadius,
         ),
         _buildPaint(
-            color: shape.fillColor.toColor(), style: PaintingStyle.fill),
+          color: shape.fillColor.toColor(),
+          style: PaintingStyle.fill,
+        ),
       );
       if (strokeWidth > 0) {
         canvas.drawRRect(
@@ -50,15 +65,21 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       }
     } else if (shape is CircleShape) {
       canvas.drawOval(
-          drawRect,
-          _buildPaint(
-              color: shape.fillColor.toColor(), style: PaintingStyle.fill));
+        drawRect,
+        _buildPaint(
+          color: shape.fillColor.toColor(),
+          style: PaintingStyle.fill,
+        ),
+      );
       if (strokeWidth > 0) {
         canvas.drawOval(rect, paint);
       }
     } else if (shape is LineShape) {
-      canvas.drawLine(element.firstPosition.toOffset(),
-          element.secondPosition.toOffset(), paint);
+      canvas.drawLine(
+        element.firstPosition.toOffset(),
+        element.secondPosition.toOffset(),
+        paint,
+      );
     } else if (shape is TriangleShape) {
       final topCenter = drawRect.topCenter;
       final path = Path()
@@ -67,9 +88,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ..lineTo(drawRect.left, drawRect.bottom)
         ..close();
       canvas.drawPath(
-          path,
-          _buildPaint(
-              color: shape.fillColor.toColor(), style: PaintingStyle.fill));
+        path,
+        _buildPaint(
+          color: shape.fillColor.toColor(),
+          style: PaintingStyle.fill,
+        ),
+      );
       if (strokeWidth > 0) {
         canvas.drawPath(path, paint);
       }
@@ -84,8 +108,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
@@ -118,41 +146,47 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
       d += '${drawRect.left + topLeftRadius} ${drawRect.top} ';
       d += 'Z';
-      xml.getElement('svg')?.createElement(
-        'path',
-        attributes: {
-          'd': d,
-          'fill': shape.fillColor.toHexString(),
-          'stroke': element.property.color.toHexString(),
-          'stroke-width': '${element.property.strokeWidth}px',
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'path',
+            attributes: {
+              'd': d,
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+            },
+          );
     } else if (shape is CircleShape) {
-      xml.getElement('svg')?.createElement(
-        'ellipse',
-        attributes: {
-          'cx': '${drawRect.center.dx}',
-          'cy': '${drawRect.center.dy}',
-          'rx': '${(drawRect.width / 2).abs()}',
-          'ry': '${(drawRect.height / 2).abs()}',
-          'fill': shape.fillColor.toHexString(),
-          'stroke': element.property.color.toHexString(),
-          'stroke-width': '${element.property.strokeWidth}px',
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'ellipse',
+            attributes: {
+              'cx': '${drawRect.center.dx}',
+              'cy': '${drawRect.center.dy}',
+              'rx': '${(drawRect.width / 2).abs()}',
+              'ry': '${(drawRect.height / 2).abs()}',
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+            },
+          );
     } else if (shape is LineShape) {
-      xml.getElement('svg')?.createElement(
-        'line',
-        attributes: {
-          'x1': '${element.firstPosition.x}px',
-          'y1': '${element.firstPosition.y}px',
-          'x2': '${element.secondPosition.x}px',
-          'y2': '${element.secondPosition.y}px',
-          'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHexString(),
-          'fill': 'none',
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'line',
+            attributes: {
+              'x1': '${element.firstPosition.x}px',
+              'y1': '${element.firstPosition.y}px',
+              'x2': '${element.secondPosition.x}px',
+              'y2': '${element.secondPosition.y}px',
+              'stroke-width': '${element.property.strokeWidth}px',
+              'stroke': element.property.color.toHexString(),
+              'fill': 'none',
+            },
+          );
     }
   }
 
@@ -170,8 +204,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     return ShapeRenderer(
       element.copyWith(
         firstPosition: (localFirst.scale(scaleX, scaleY) + position).toPoint(),
-        secondPosition:
-            (localSecond.scale(scaleX, scaleY) + position).toPoint(),
+        secondPosition: (localSecond.scale(scaleX, scaleY) + position)
+            .toPoint(),
         rotation: rotation,
       ),
       layer,
@@ -210,7 +244,8 @@ class ShapeHitCalculator extends HitCalculator {
       if (full) {
         return dx + radius <= halfWidth && dy + radius <= halfHeight;
       } else {
-        final cornerDistanceSq = (dx - halfWidth).clamp(0, radius) *
+        final cornerDistanceSq =
+            (dx - halfWidth).clamp(0, radius) *
                 (dx - halfWidth).clamp(0, radius) +
             (dy - halfHeight).clamp(0, radius) *
                 (dy - halfHeight).clamp(0, radius);
@@ -224,28 +259,41 @@ class ShapeHitCalculator extends HitCalculator {
       final bottomLeft = rect.bottomLeft.rotate(center, rotation);
       final bottomRight = rect.bottomRight.rotate(center, rotation);
       if (full) {
-        final isTopLeft = isPointInPolygon(
-            [topLeft, topRight, bottomRight, bottomLeft], this.rect.topLeft);
-        final isTopRight = isPointInPolygon(
-            [topLeft, topRight, bottomRight, bottomLeft], this.rect.topRight);
-        final isBottomLeft = isPointInPolygon(
-            [topLeft, topRight, bottomRight, bottomLeft], this.rect.bottomLeft);
-        final isBottomRight = isPointInPolygon(
-            [topLeft, topRight, bottomRight, bottomLeft],
-            this.rect.bottomRight);
+        final isTopLeft = isPointInPolygon([
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ], this.rect.topLeft);
+        final isTopRight = isPointInPolygon([
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ], this.rect.topRight);
+        final isBottomLeft = isPointInPolygon([
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ], this.rect.bottomLeft);
+        final isBottomRight = isPointInPolygon([
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ], this.rect.bottomRight);
         return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
       }
-      return isPolygonInPolygon([
-        topLeft,
-        topRight,
-        bottomRight,
-        bottomLeft
-      ], [
-        this.rect.topLeft,
-        this.rect.topRight,
-        this.rect.bottomRight,
-        this.rect.bottomLeft
-      ]);
+      return isPolygonInPolygon(
+        [topLeft, topRight, bottomRight, bottomLeft],
+        [
+          this.rect.topLeft,
+          this.rect.topRight,
+          this.rect.bottomRight,
+          this.rect.bottomLeft,
+        ],
+      );
     }
 
     bool hitLine() {
@@ -256,8 +304,10 @@ class ShapeHitCalculator extends HitCalculator {
       final firstPos = Offset(firstX, firstY);
       final secondPos = Offset(secondX, secondY);
       return rect.containsLine(
-          firstPos.rotate(center, rotation), secondPos.rotate(center, rotation),
-          full: full);
+        firstPos.rotate(center, rotation),
+        secondPos.rotate(center, rotation),
+        full: full,
+      );
     }
 
     bool hitTriangle() {
@@ -265,17 +315,27 @@ class ShapeHitCalculator extends HitCalculator {
       final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
       final bottomRight = this.rect.bottomRight.rotate(center, rotation);
       if (full) {
-        final isTopCenter = isPointInPolygon(
-            [topCenter, bottomLeft, bottomRight], this.rect.topCenter);
-        final isBottomLeft = isPointInPolygon(
-            [topCenter, bottomLeft, bottomRight], this.rect.bottomLeft);
-        final isBottomRight = isPointInPolygon(
-            [topCenter, bottomLeft, bottomRight], this.rect.bottomRight);
+        final isTopCenter = isPointInPolygon([
+          topCenter,
+          bottomLeft,
+          bottomRight,
+        ], this.rect.topCenter);
+        final isBottomLeft = isPointInPolygon([
+          topCenter,
+          bottomLeft,
+          bottomRight,
+        ], this.rect.bottomLeft);
+        final isBottomRight = isPointInPolygon([
+          topCenter,
+          bottomLeft,
+          bottomRight,
+        ], this.rect.bottomRight);
         return isTopCenter && isBottomLeft && isBottomRight;
       }
       return isPolygonInPolygon(
-          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-          [topCenter, bottomLeft, bottomRight]);
+        [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
+        [topCenter, bottomLeft, bottomRight],
+      );
     }
 
     return switch (shape) {
@@ -292,10 +352,14 @@ class ShapeHitCalculator extends HitCalculator {
     // use isPointInPolygon
     switch (element.property.shape) {
       case LineShape():
-        final firstPosition =
-            element.firstPosition.toOffset().rotate(center, rotation);
-        final secondPosition =
-            element.secondPosition.toOffset().rotate(center, rotation);
+        final firstPosition = element.firstPosition.toOffset().rotate(
+          center,
+          rotation,
+        );
+        final secondPosition = element.secondPosition.toOffset().rotate(
+          center,
+          rotation,
+        );
         if (full) {
           return isPolygonInPolygon(polygon, [firstPosition, secondPosition]) &&
               isPointInPolygon(polygon, center) &&
@@ -323,8 +387,12 @@ class ShapeHitCalculator extends HitCalculator {
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        final polygonInPolygon = isPolygonInPolygon(
-            polygon, [topLeft, topRight, bottomRight, bottomLeft]);
+        final polygonInPolygon = isPolygonInPolygon(polygon, [
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ]);
         if (full) {
           return polygonInPolygon &&
               isPointInPolygon(polygon, rect.topLeft) &&
@@ -337,8 +405,11 @@ class ShapeHitCalculator extends HitCalculator {
         final topCenter = rect.topCenter.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        final polygonInPolygon =
-            isPolygonInPolygon(polygon, [topCenter, bottomLeft, bottomRight]);
+        final polygonInPolygon = isPolygonInPolygon(polygon, [
+          topCenter,
+          bottomLeft,
+          bottomRight,
+        ]);
         if (full) {
           return polygonInPolygon &&
               isPointInPolygon(polygon, rect.topCenter) &&

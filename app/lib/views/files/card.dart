@@ -22,68 +22,67 @@ class AssetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
-    final textStyle = TextTheme.of(context).bodyLarge?.copyWith(
-          color: colorScheme.onSurface,
-        );
+    final textStyle = TextTheme.of(
+      context,
+    ).bodyLarge?.copyWith(color: colorScheme.onSurface);
     return ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: height),
-        child: AspectRatio(
-          aspectRatio: kThumbnailRatio,
-          child: Card(
-            elevation: 5,
-            clipBehavior: Clip.hardEdge,
-            child: Stack(
-              children: [
-                if (thumbnail?.isNotEmpty ?? false)
-                  Align(
-                    child: Image.memory(
-                      thumbnail!,
-                      fit: BoxFit.cover,
-                      width: 640,
-                      alignment: Alignment.center,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: Icon(
-                            PhosphorIconsLight.warningCircle,
-                            color: colorScheme.onSurface,
-                          ),
-                        );
-                      },
-                    ),
+      constraints: BoxConstraints(maxHeight: height),
+      child: AspectRatio(
+        aspectRatio: kThumbnailRatio,
+        child: Card(
+          elevation: 5,
+          clipBehavior: Clip.hardEdge,
+          child: Stack(
+            children: [
+              if (thumbnail?.isNotEmpty ?? false)
+                Align(
+                  child: Image.memory(
+                    thumbnail!,
+                    fit: BoxFit.cover,
+                    width: 640,
+                    alignment: Alignment.center,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Icon(
+                          PhosphorIconsLight.warningCircle,
+                          color: colorScheme.onSurface,
+                        ),
+                      );
+                    },
                   ),
-                if ((metadata?.name.isNotEmpty ?? false) ||
-                    (name?.isNotEmpty ?? false))
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Tooltip(
-                      message: name ?? metadata!.name,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: colorScheme.primaryContainer.withAlpha(200),
-                        ),
-                        child: Text(
-                          (metadata?.name.isNotEmpty ?? false)
-                              ? metadata!.name
-                              : name!,
-                          style: textStyle,
-                        ),
+                ),
+              if ((metadata?.name.isNotEmpty ?? false) ||
+                  (name?.isNotEmpty ?? false))
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Tooltip(
+                    message: name ?? metadata!.name,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: colorScheme.primaryContainer.withAlpha(200),
+                      ),
+                      child: Text(
+                        (metadata?.name.isNotEmpty ?? false)
+                            ? metadata!.name
+                            : name!,
+                        style: textStyle,
                       ),
                     ),
                   ),
-                Positioned.fill(
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: InkWell(
-                      onTap: onTap,
-                    ),
-                  ),
                 ),
-              ],
-            ),
+              Positioned.fill(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: InkWell(onTap: onTap),
+                ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -110,9 +110,9 @@ class _NoteImportDialogState extends State<NoteImportDialog> {
                       child: Text(
                         MaterialLocalizations.of(context).okButtonLabel,
                       ),
-                      onPressed: () => Navigator.of(context).pop(
-                        NoteDialogCallback(_selectedPages, _selectedPacks),
-                      ),
+                      onPressed: () => Navigator.of(
+                        context,
+                      ).pop(NoteDialogCallback(_selectedPages, _selectedPacks)),
                     ),
                   ],
                 ),

@@ -31,9 +31,7 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
-      title: Text(
-        AppLocalizations.of(context).collaboration,
-      ),
+      title: Text(AppLocalizations.of(context).collaboration),
       headerActions: [
         IconButton(
           icon: const Icon(PhosphorIconsLight.sealQuestion),
@@ -69,12 +67,9 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
             Navigator.of(context).pop();
             final url = parseConnectUri(Uri.parse(_urlConntroller.text));
             if (url.isEmpty) return;
-            GoRouter.of(context).pushNamed(
-              'connect',
-              queryParameters: {
-                'url': url,
-              },
-            );
+            GoRouter.of(
+              context,
+            ).pushNamed('connect', queryParameters: {'url': url});
           },
           child: Text(AppLocalizations.of(context).connect),
         ),

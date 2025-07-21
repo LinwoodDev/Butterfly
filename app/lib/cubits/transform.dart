@@ -37,8 +37,11 @@ class CameraTransform extends Equatable {
   final double size;
   final FrictionState? friction;
 
-  const CameraTransform(
-      [this.position = Offset.zero, this.size = 1, this.friction]);
+  const CameraTransform([
+    this.position = Offset.zero,
+    this.size = 1,
+    this.friction,
+  ]);
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
@@ -52,10 +55,7 @@ class CameraTransform extends Equatable {
     var mx = localToGlobal(cursor);
     mx = (mx - position) * newSize;
 
-    return CameraTransform(
-      position + (mx - cursor) / newSize,
-      newSize,
-    );
+    return CameraTransform(position + (mx - cursor) / newSize, newSize);
   }
 
   Offset localToGlobal(Offset local) => local / size + position;
@@ -64,38 +64,35 @@ class CameraTransform extends Equatable {
   @override
   List<Object?> get props => [position, size];
 
-  double _getFinalTime(double velocity, double drag,
-          {double effectivelyMotionless = 10}) =>
-      log(effectivelyMotionless / velocity) / log(drag / 100);
+  double _getFinalTime(
+    double velocity,
+    double drag, {
+    double effectivelyMotionless = 10,
+  }) => log(effectivelyMotionless / velocity) / log(drag / 100);
 
-  FrictionSimulation _getSimulation(double velocity) => FrictionSimulation(
-        kDrag,
-        0,
-        velocity,
-      );
+  FrictionSimulation _getSimulation(double velocity) =>
+      FrictionSimulation(kDrag, 0, velocity);
   CameraTransform withFriction(Offset velocityPosition, double velocitySize) {
     final simX = _getSimulation(velocityPosition.dx);
     final finalX = simX.finalX;
     final simY = _getSimulation(velocityPosition.dy);
     final finalY = simY.finalX;
-    final durationPosition = _getFinalTime(
-      velocityPosition.distance,
-      kDrag,
-    );
+    final durationPosition = _getFinalTime(velocityPosition.distance, kDrag);
     final finalPos = Offset(finalX, finalY);
     final simScale = _getSimulation(velocitySize);
     final finalSize = simScale.finalX;
-    final durationSize = _getFinalTime(
-      velocitySize,
-      kDrag,
-    );
+    final durationSize = _getFinalTime(velocitySize, kDrag);
     final duration = max(durationPosition, durationSize);
     if (!duration.isFinite) {
       return this;
     }
 
-    final frictionState =
-        FrictionState(-finalPos, 1 / velocitySize, DateTime.now(), duration);
+    final frictionState = FrictionState(
+      -finalPos,
+      1 / velocitySize,
+      DateTime.now(),
+      duration,
+    );
 
     return CameraTransform(
       position - finalPos,
@@ -142,15 +139,14 @@ class TransformCubit extends Cubit<CameraTransform> {
       final width = screen.width / area.width;
       final height = screen.height / area.height;
       size = min(width, height).clamp(kMinZoom, kMaxZoom);
-      position += Offset((area.width - screen.width / size) / 2,
-          (area.height - screen.height / size) / 2);
+      position += Offset(
+        (area.width - screen.width / size) / 2,
+        (area.height - screen.height / size) / 2,
+      );
     }
     teleport(position, size);
   }
 
   void slide(Offset velocityPosition, double velocitySize) =>
-      emit(state.withFriction(
-        velocityPosition,
-        velocitySize,
-      ));
+      emit(state.withFriction(velocityPosition, velocitySize));
 }

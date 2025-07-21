@@ -7,7 +7,10 @@ class ImportHandler extends Handler<ImportTool> {
   ImportHandler(super.data);
 
   Future<List<Renderer<PadElement>>> _load(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
     if (_renderers != null) return _renderers!;
     final renderers = data.elements
         .map((e) => Renderer.fromInstance(e))
@@ -31,7 +34,9 @@ class ImportHandler extends Handler<ImportTool> {
       _updatePosition(event.localPosition, context);
 
   Future<void> _updatePosition(
-      Offset localPosition, EventContext context) async {
+    Offset localPosition,
+    EventContext context,
+  ) async {
     final transform = context.getCameraTransform();
     _offset = transform.localToGlobal(localPosition);
     final state = context.getState();
@@ -44,30 +49,38 @@ class ImportHandler extends Handler<ImportTool> {
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
-    context.addDocumentEvent(AreasCreated(data.areas
-        .map((e) => e.copyWith(
-              position: e.position + _offset.toPoint(),
-            ))
-        .toList()));
-    context.addDocumentEvent(ElementsCreated((await _load(
-      state.data,
-      state.assetService,
-      state.page,
-    ))
-        .map((e) => e
-            .transform(position: _offset, relative: true)
-            ?.element
-            .copyWith(id: createUniqueId()))
-        .nonNulls
-        .toList()));
+    context.addDocumentEvent(
+      AreasCreated(
+        data.areas
+            .map((e) => e.copyWith(position: e.position + _offset.toPoint()))
+            .toList(),
+      ),
+    );
+    context.addDocumentEvent(
+      ElementsCreated(
+        (await _load(state.data, state.assetService, state.page))
+            .map(
+              (e) => e
+                  .transform(position: _offset, relative: true)
+                  ?.element
+                  .copyWith(id: createUniqueId()),
+            )
+            .nonNulls
+            .toList(),
+      ),
+    );
     await context.refresh();
     await context.bake();
   }
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) =>
       _renderers
           ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
           .toList() ??

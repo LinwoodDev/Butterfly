@@ -213,26 +213,31 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                         if (state is! DocumentLoaded) {
                                           return;
                                         }
-                                        final result = await showDialog<
-                                            PackAssetLocation?>(
-                                          context: context,
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: widget.bloc!,
-                                            child: SelectPackAssetDialog(
-                                              selected: _selected,
-                                              type: PackAssetType.palette,
-                                            ),
-                                          ),
-                                        );
+                                        final result =
+                                            await showDialog<
+                                              PackAssetLocation?
+                                            >(
+                                              context: context,
+                                              builder: (context) =>
+                                                  BlocProvider.value(
+                                                    value: widget.bloc!,
+                                                    child:
+                                                        SelectPackAssetDialog(
+                                                          selected: _selected,
+                                                          type: PackAssetType
+                                                              .palette,
+                                                        ),
+                                                  ),
+                                            );
                                         if (result == null) return;
                                         setState(() {
                                           _selected = result;
                                           _loadPalette();
                                         });
                                       },
-                                      tooltip:
-                                          AppLocalizations.of(context).select,
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).select,
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.package,
                                       ),
@@ -326,11 +331,10 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 onTap: () async {
                                   final value =
                                       await showDialog<ColorPickerResponse>(
-                                    context: context,
-                                    builder: (context) => ColorPicker(
-                                      value: widget.value,
-                                    ),
-                                  );
+                                        context: context,
+                                        builder: (context) =>
+                                            ColorPicker(value: widget.value),
+                                      );
                                   if (value == null) return;
                                   _changePalette(
                                     _palette!.copyWith(

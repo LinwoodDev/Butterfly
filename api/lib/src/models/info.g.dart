@@ -7,23 +7,25 @@ part of 'info.dart';
 // **************************************************************************
 
 _DocumentInfo _$DocumentInfoFromJson(Map json) => _DocumentInfo(
-      tools: (json['tools'] as List<dynamic>?)
-              ?.map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      exportPresets: (json['exportPresets'] as List<dynamic>?)
-              ?.map((e) =>
-                  ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      view: json['view'] == null
-          ? const ViewOption()
-          : ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
-      extra: (json['extra'] as Map?)?.map(
-            (k, e) => MapEntry(k as String, e),
-          ) ??
-          const {},
-    );
+  tools:
+      (json['tools'] as List<dynamic>?)
+          ?.map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+  exportPresets:
+      (json['exportPresets'] as List<dynamic>?)
+          ?.map(
+            (e) => ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  view: json['view'] == null
+      ? const ViewOption()
+      : ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
+  extra:
+      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
+      const {},
+);
 
 Map<String, dynamic> _$DocumentInfoToJson(_DocumentInfo instance) =>
     <String, dynamic>{

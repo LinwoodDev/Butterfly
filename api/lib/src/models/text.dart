@@ -102,9 +102,7 @@ sealed class TextSpan with _$TextSpan {
     start = max(start, 0);
     length = length.clamp(0, this.length - start);
     final end = start + length;
-    return copyWith(
-      text: text.substring(start, end),
-    );
+    return copyWith(text: text.substring(start, end));
   }
 
   bool get isEmpty => text.isEmpty;
@@ -143,7 +141,9 @@ sealed class TextParagraph with _$TextParagraph {
     for (var span in textSpans) {
       if (currentLength + span.length > index) {
         return IndexedModel(
-            currentLength, cut ? span.subSpan(index - currentLength) : span);
+          currentLength,
+          cut ? span.subSpan(index - currentLength) : span,
+        );
       }
       currentLength += span.length;
     }
@@ -153,8 +153,11 @@ sealed class TextParagraph with _$TextParagraph {
   List<TextSpan> getSpans([int start = 0, int? length, bool cut = false]) =>
       getIndexedSpans(start, length, cut).model;
 
-  IndexedModel<List<TextSpan>> getIndexedSpans(
-      [int start = 0, int? length, bool cut = false]) {
+  IndexedModel<List<TextSpan>> getIndexedSpans([
+    int start = 0,
+    int? length,
+    bool cut = false,
+  ]) {
     length ??= this.length;
     var spans = <TextSpan>[];
     var currentLength = 0;
@@ -166,9 +169,11 @@ sealed class TextParagraph with _$TextParagraph {
           break;
         }
         firstIndex ??= currentLength;
-        spans.add(cut
-            ? span.subSpan(start - currentLength, length - currentLength)
-            : span);
+        spans.add(
+          cut
+              ? span.subSpan(start - currentLength, length - currentLength)
+              : span,
+        );
       }
       currentLength += span.length;
     }
@@ -244,16 +249,21 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph replaceText(String text,
-      [int start = 0, int? length, bool replaceWholeSpan = false]) {
+  TextParagraph replaceText(
+    String text, [
+    int start = 0,
+    int? length,
+    bool replaceWholeSpan = false,
+  ]) {
     final indexed = getIndexedSpan(start);
     length ??= replaceWholeSpan ? indexed?.model.length : 0;
     return replace(
-        indexed != null
-            ? indexed.model.copyWith(text: text)
-            : TextSpan.text(text: text),
-        (replaceWholeSpan ? indexed?.index : null) ?? start,
-        length);
+      indexed != null
+          ? indexed.model.copyWith(text: text)
+          : TextSpan.text(text: text),
+      (replaceWholeSpan ? indexed?.index : null) ?? start,
+      length,
+    );
   }
 
   TextParagraph remove([int start = 0, int length = 0]) {
@@ -261,11 +271,12 @@ sealed class TextParagraph with _$TextParagraph {
 
     final beforeSpans = getSpans(0, start, true);
     final afterSpans = getSpans(end, null, true);
-// Test if beforeSpans and afterSpans can be merged
+    // Test if beforeSpans and afterSpans can be merged
     if (beforeSpans.isNotEmpty &&
         beforeSpans.lastOrNull?.property == afterSpans.firstOrNull?.property) {
       final merged = beforeSpans.lastOrNull!.copyWith(
-          text: beforeSpans.lastOrNull!.text + afterSpans.firstOrNull!.text);
+        text: beforeSpans.lastOrNull!.text + afterSpans.firstOrNull!.text,
+      );
       afterSpans.removeAt(0);
       beforeSpans.removeLast();
       beforeSpans.add(merged);
@@ -273,20 +284,26 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: [...beforeSpans, ...afterSpans]);
   }
 
-  TextParagraph updateSpans(TextSpan Function(TextSpan) update,
-      [int start = 0, int length = 0]) {
+  TextParagraph updateSpans(
+    TextSpan Function(TextSpan) update, [
+    int start = 0,
+    int length = 0,
+  ]) {
     final spans = getSpans(start, length, true);
     if (spans.isEmpty) {
       return this;
     }
-    final updated = update(spans.first.copyWith(
-      text: spans.map((e) => e.text).join(),
-    ));
+    final updated = update(
+      spans.first.copyWith(text: spans.map((e) => e.text).join()),
+    );
     return replace(updated, start, length);
   }
 
-  TextParagraph applyStyle(SpanProperty property,
-      [int start = 0, int length = 0]) {
+  TextParagraph applyStyle(
+    SpanProperty property, [
+    int start = 0,
+    int length = 0,
+  ]) {
     return updateSpans(
       (span) => span.copyWith(property: property),
       start,
@@ -322,14 +339,7 @@ sealed class TextStyleSheet with _$TextStyleSheet {
       _$TextStyleSheetFromJson(json);
 
   static List<String> getMarkdownSpanPropertyNames() {
-    return [
-      'em',
-      'strong',
-      'codeSpan',
-      'del',
-      'a',
-      'img',
-    ];
+    return ['em', 'strong', 'codeSpan', 'del', 'a', 'img'];
   }
 
   static List<String> getMarkdownParagraphPropertyNames() {
@@ -374,20 +384,21 @@ extension ResolveProperty on TextStyleSheet? {
       };
 
   DefinedParagraphProperty? resolveParagraphProperty(
-          ParagraphProperty? property) =>
-      switch (property) {
-        DefinedParagraphProperty e => e,
-        NamedParagraphProperty e => this?.paragraphProperties[e.name],
-        _ => null,
-      };
+    ParagraphProperty? property,
+  ) => switch (property) {
+    DefinedParagraphProperty e => e,
+    NamedParagraphProperty e => this?.paragraphProperties[e.name],
+    _ => null,
+  };
 }
 
 extension SpanPropertyGetter on DefinedSpanProperty {
   double getSize([DefinedParagraphProperty? paragraphProperty]) =>
       size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
-  SRGBColor getColor(
-          [DefinedParagraphProperty? paragraphProperty,
-          SRGBColor? foreground]) =>
+  SRGBColor getColor([
+    DefinedParagraphProperty? paragraphProperty,
+    SRGBColor? foreground,
+  ]) =>
       color ??
       paragraphProperty?.span.color ??
       foreground ??
@@ -418,13 +429,15 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       decorationColor ??
       paragraphProperty?.span.decorationColor ??
       SpanProperty.kDefault.decorationColor!;
-  TextDecorationStyle getDecorationStyle(
-          [DefinedParagraphProperty? paragraphProperty]) =>
+  TextDecorationStyle getDecorationStyle([
+    DefinedParagraphProperty? paragraphProperty,
+  ]) =>
       decorationStyle ??
       paragraphProperty?.span.decorationStyle ??
       SpanProperty.kDefault.decorationStyle!;
-  double getDecorationThickness(
-          [DefinedParagraphProperty? paragraphProperty]) =>
+  double getDecorationThickness([
+    DefinedParagraphProperty? paragraphProperty,
+  ]) =>
       decorationThickness ??
       paragraphProperty?.span.decorationThickness ??
       SpanProperty.kDefault.decorationThickness!;

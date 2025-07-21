@@ -75,29 +75,29 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       final settingsCubit = context.read<SettingsCubit>();
       final response =
           await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
-        context: context,
-        builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-          value: widget.color,
-          suggested: settingsCubit.state.recentColors,
-          secondaryActions: widget.onEyeDropper == null
-              ? null
-              : (close) => [
-                    OutlinedButton(
-                      onPressed: () =>
-                          close(ColorPickerToolbarAction.eyeDropper),
-                      child: Text(AppLocalizations.of(context).eyeDropper),
-                    ),
-                  ],
-          primaryActions: palette == null
-              ? null
-              : (close) => [
-                    OutlinedButton(
-                      onPressed: () => close(ColorPickerToolbarAction.pin),
-                      child: Text(AppLocalizations.of(context).pin),
-                    ),
-                  ],
-        ),
-      );
+            context: context,
+            builder: (context) => ColorPicker<ColorPickerToolbarAction>(
+              value: widget.color,
+              suggested: settingsCubit.state.recentColors,
+              secondaryActions: widget.onEyeDropper == null
+                  ? null
+                  : (close) => [
+                      OutlinedButton(
+                        onPressed: () =>
+                            close(ColorPickerToolbarAction.eyeDropper),
+                        child: Text(AppLocalizations.of(context).eyeDropper),
+                      ),
+                    ],
+              primaryActions: palette == null
+                  ? null
+                  : (close) => [
+                      OutlinedButton(
+                        onPressed: () => close(ColorPickerToolbarAction.pin),
+                        child: Text(AppLocalizations.of(context).pin),
+                      ),
+                    ],
+            ),
+          );
       if (response == null) return;
       final srgb = response.toSRGB();
       widget.onChanged(srgb);
@@ -144,24 +144,26 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                 void changeColor() async {
                   var palette = pack?.getPalette(colorPalette!.name);
                   final settingsCubit = context.read<SettingsCubit>();
-                  final response = await showDialog<
-                      ColorPickerResponse<ColorPickerToolbarAction>>(
-                    context: context,
-                    builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-                      value: value,
-                      suggested: settingsCubit.state.recentColors,
-                      secondaryActions: (close) => [
-                        OutlinedButton(
-                          onPressed: () => close(
-                            ColorPickerToolbarAction.delete,
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context).delete,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  final response =
+                      await showDialog<
+                        ColorPickerResponse<ColorPickerToolbarAction>
+                      >(
+                        context: context,
+                        builder: (context) =>
+                            ColorPicker<ColorPickerToolbarAction>(
+                              value: value,
+                              suggested: settingsCubit.state.recentColors,
+                              secondaryActions: (close) => [
+                                OutlinedButton(
+                                  onPressed: () =>
+                                      close(ColorPickerToolbarAction.delete),
+                                  child: Text(
+                                    AppLocalizations.of(context).delete,
+                                  ),
+                                ),
+                              ],
+                            ),
+                      );
                   if (response == null) return;
                   if (response.action == ColorPickerToolbarAction.delete) {
                     palette = palette?.copyWith(
