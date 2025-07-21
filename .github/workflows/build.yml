@@ -25,9 +25,10 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -99,9 +100,10 @@ jobs:
         run: |
           choco install yq
           choco install innosetup
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -149,9 +151,11 @@ jobs:
           - image: ubuntu-24.04
             name: x86_64
             dir: x64
+            appimage: x86_64
           - image: ubuntu-24.04-arm
             name: arm64
             dir: arm64
+            appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
@@ -183,7 +187,7 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
           channel: "master"
@@ -225,22 +229,29 @@ jobs:
         run: |
           bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }}
       - name: Build .AppImage executable
-        if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          wget -O appimage-builder.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
-          chmod +x appimage-builder.AppImage
-          sudo mv appimage-builder.AppImage /usr/local/bin/appimage-builder
-          appimage-builder --recipe AppImageBuilder.yml --skip-test
+          wget -O appimagetool.AppImage https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.arch.appimage }}.AppImage
+          chmod +x appimagetool.AppImage
+          # Build AppDir
+          mkdir -p AppDir/usr/bin
+          # move bundle folder to AppDir
+          cp build/linux/${{ matrix.arch.dir }}/release/bundle/* AppDir/usr/bin/ -r
+          mkdir -p AppDir/usr/share/icons/hicolor
+          cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/ -r
+          mkdir -p AppDir/usr/share/metainfo/
+          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml AppDir/usr/share/metainfo/
+          mkdir -p AppDir/usr/share/applications/
+          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop AppDir/usr/share/applications/
+          ln -s usr/share/applications/dev.linwood.butterfly.desktop AppDir/dev.linwood.butterfly.desktop
+          ln -s usr/bin/butterfly AppDir/AppRun
+          ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png AppDir/dev.linwood.butterfly.png
+          # Build AppImage
+          ./appimagetool.AppImage AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
           mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
           cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
-      - name: Rename AppImage
-        if: ${{ matrix.arch.name == 'x86_64' }}
-        run: |
-          ls
-          mv ./*.AppImage linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
@@ -265,11 +276,10 @@ jobs:
             app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v4
-        if: ${{ matrix.arch.name == 'x86_64' }}
         with:
-          name: linux-x86_64-appimage
+          name: linux-${{ matrix.arch.name }}-appimage
           path: |
-            app/linwood-butterfly-linux-x86_64.AppImage
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
   build-flatpak:
     name: build-flatpak
     defaults:
@@ -312,7 +322,7 @@ jobs:
             alien \
             libsecret-1-dev \
             libjsoncpp-dev
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
           channel: "master"
@@ -377,7 +387,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v5
@@ -399,7 +409,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24.3.0"
       - name: Install appdmg
         run: |
           python3 -m pip install setuptools
@@ -429,9 +439,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -591,6 +602,9 @@ jobs:
           name: linux-arm64-rpm
       - uses: actions/download-artifact@v4
         with:
+          name: linux-arm64-appimage
+      - uses: actions/download-artifact@v4
+        with:
           name: linux-arm64-alternative-build
           path: linux-arm64-alternative-build/
       - uses: actions/download-artifact@v4
@@ -657,6 +671,7 @@ jobs:
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -686,6 +701,7 @@ jobs:
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -713,6 +729,7 @@ jobs:
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -756,16 +773,17 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.19.0
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
+          cache: true
       - name: 📦 Get dependencies
         run: |
           flutter pub get
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.2"
+          ruby-version: "3.4.5"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
