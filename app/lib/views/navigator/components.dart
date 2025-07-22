@@ -48,11 +48,8 @@ class _ComponentsViewState extends State<ComponentsView> {
                   final pack = data.getPack(p);
                   if (pack == null) {
                     return Iterable<
-                        (
-                          PackAssetLocation,
-                          NoteData,
-                          ButterflyComponent
-                        )>.empty();
+                      (PackAssetLocation, NoteData, ButterflyComponent)
+                    >.empty();
                   }
                   return pack.getComponents().map((e) {
                     final component = data.getComponent(e);
@@ -62,8 +59,8 @@ class _ComponentsViewState extends State<ComponentsView> {
                 })
                 .where(
                   (e) => e.$1.name.toLowerCase().contains(
-                        _searchController.text.toLowerCase(),
-                      ),
+                    _searchController.text.toLowerCase(),
+                  ),
                 )
                 .toList();
             return Column(
@@ -104,7 +101,8 @@ class _ComponentsViewState extends State<ComponentsView> {
                         return _ComponentCard(
                           component: e.$3,
                           pack: e.$2,
-                          selected: handler is StampHandler &&
+                          selected:
+                              handler is StampHandler &&
                               handler.data.component == e.$1,
                           location: e.$1,
                           key: ValueKey(e.$1),
@@ -149,9 +147,9 @@ class _ComponentCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => context.read<CurrentIndexCubit>().changeTemporaryHandler(
-              context,
-              StampTool(component: location),
-            ),
+          context,
+          StampTool(component: location),
+        ),
         child: Container(
           height: 150,
           width: 150,

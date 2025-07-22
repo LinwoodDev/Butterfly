@@ -6,28 +6,27 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension PatternTemplateHelper on PatternTemplate {
   String getLocalizedName(BuildContext context) => switch (this) {
-        PatternTemplate.plain => AppLocalizations.of(context).plain,
-        PatternTemplate.ruled => AppLocalizations.of(context).ruled,
-        PatternTemplate.quad => AppLocalizations.of(context).quad,
-        PatternTemplate.music => AppLocalizations.of(context).music,
-        PatternTemplate.plainDark => AppLocalizations.of(context).plainDark,
-        PatternTemplate.ruledDark => AppLocalizations.of(context).ruledDark,
-        PatternTemplate.quadDark => AppLocalizations.of(context).quadDark,
-        PatternTemplate.musicDark => AppLocalizations.of(context).musicDark,
-      };
+    PatternTemplate.plain => AppLocalizations.of(context).plain,
+    PatternTemplate.ruled => AppLocalizations.of(context).ruled,
+    PatternTemplate.quad => AppLocalizations.of(context).quad,
+    PatternTemplate.music => AppLocalizations.of(context).music,
+    PatternTemplate.plainDark => AppLocalizations.of(context).plainDark,
+    PatternTemplate.ruledDark => AppLocalizations.of(context).ruledDark,
+    PatternTemplate.quadDark => AppLocalizations.of(context).quadDark,
+    PatternTemplate.musicDark => AppLocalizations.of(context).musicDark,
+  };
 }
 
 extension AspectRatioPresetVisualizer on AspectRatioPreset {
   String getLocalizedName(BuildContext context) => switch (this) {
-        AspectRatioPreset.square => AppLocalizations.of(context).square,
-        AspectRatioPreset.portrait => AppLocalizations.of(context).pagePortrait,
-        AspectRatioPreset.landscape =>
-          AppLocalizations.of(context).pageLandscape,
-      };
+    AspectRatioPreset.square => AppLocalizations.of(context).square,
+    AspectRatioPreset.portrait => AppLocalizations.of(context).pagePortrait,
+    AspectRatioPreset.landscape => AppLocalizations.of(context).pageLandscape,
+  };
 
   IconGetter get icon => switch (this) {
-        AspectRatioPreset.square => PhosphorIcons.square,
-        AspectRatioPreset.portrait => PhosphorIcons.userFocus,
-        AspectRatioPreset.landscape => PhosphorIcons.image,
-      };
+    AspectRatioPreset.square => PhosphorIcons.square,
+    AspectRatioPreset.portrait => PhosphorIcons.userFocus,
+    AspectRatioPreset.landscape => PhosphorIcons.image,
+  };
 }

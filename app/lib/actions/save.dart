@@ -25,8 +25,9 @@ class SaveAction extends Action<SaveIntent> {
       state.currentIndexCubit.setSaveState(saved: SaveState.saved);
     } else {
       final path = await state.save(force: true);
-      await state.currentIndexCubit.stream
-          .firstWhere((state) => state.saved == SaveState.saved);
+      await state.currentIndexCubit.stream.firstWhere(
+        (state) => state.saved == SaveState.saved,
+      );
       bloc.add(DocumentSaved(path));
     }
   }

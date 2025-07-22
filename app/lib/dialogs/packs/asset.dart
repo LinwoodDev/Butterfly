@@ -46,10 +46,8 @@ class AssetDialog extends StatelessWidget {
                       key: UniqueKey(),
                       dropdownMenuEntries: packs
                           .map(
-                            (e) => DropdownMenuEntry<String>(
-                              value: e,
-                              label: e,
-                            ),
+                            (e) =>
+                                DropdownMenuEntry<String>(value: e, label: e),
                           )
                           .toList(),
                       onSelected: (value) {
@@ -146,8 +144,9 @@ Future<void> addToPack(
   );
   String? thumbnailUri;
   if (screenshot != null) {
-    thumbnailUri =
-        Uri.dataFromBytes(screenshot.buffer.asUint8List()).toString();
+    thumbnailUri = Uri.dataFromBytes(
+      screenshot.buffer.asUint8List(),
+    ).toString();
   }
   final renderers = elements.map(Renderer.fromInstance).toList();
   await Future.wait(

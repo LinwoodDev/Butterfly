@@ -37,13 +37,13 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
   }
 
   List<FloatingActionButton?> _createFab() => [
-        null,
-        FloatingActionButton.extended(
-          onPressed: _showCreateDialog,
-          label: Text(AppLocalizations.of(context).createCache),
-          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-        ),
-      ];
+    null,
+    FloatingActionButton.extended(
+      onPressed: _showCreateDialog,
+      label: Text(AppLocalizations.of(context).createCache),
+      icon: const PhosphorIcon(PhosphorIconsLight.plus),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +86,8 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
   Future<void> _showCreateDialog() async {
     final settingsCubit = context.read<SettingsCubit>();
     final pathController = TextEditingController();
-    final success = await showDialog<bool>(
+    final success =
+        await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
             title: Text(AppLocalizations.of(context).createCache),
@@ -151,20 +152,20 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                           return CheckboxListTile(
                             value:
                                 storage?.cachedDocuments['']?.contains('/') ??
-                                    false,
+                                false,
                             onChanged: (value) {
                               if (storage == null) return;
                               if (storage.cachedDocuments['']?.contains('/') ??
                                   false) {
                                 context.read<SettingsCubit>().removeCache(
-                                      storage.identifier,
-                                      '/',
-                                    );
+                                  storage.identifier,
+                                  '/',
+                                );
                               } else {
                                 context.read<SettingsCubit>().addCache(
-                                      storage.identifier,
-                                      '/',
-                                    );
+                                  storage.identifier,
+                                  '/',
+                                );
                               }
                             },
                             title: Text(
@@ -189,8 +190,8 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                       leading: const PhosphorIcon(PhosphorIconsLight.trash),
                       onTap: () {
                         context.read<SettingsCubit>().deleteRemote(
-                              storage.identifier,
-                            );
+                          storage.identifier,
+                        );
                         GoRouter.of(context).pop();
                       },
                     ),
@@ -227,9 +228,9 @@ class _CachesConnectionSettingsView extends StatelessWidget {
                   key: Key(current),
                   onDismissed: (_) {
                     context.read<SettingsCubit>().removeCache(
-                          storage.identifier,
-                          current,
-                        );
+                      storage.identifier,
+                      current,
+                    );
                   },
                   child: ListTile(title: Text(current)),
                 );

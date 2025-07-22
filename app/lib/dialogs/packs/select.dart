@@ -25,18 +25,17 @@ class SelectPackAssetDialog extends StatelessWidget {
           PackAssetType.component => pack.getComponents(),
           PackAssetType.style => pack.getStyles(),
           PackAssetType.palette => pack.getPalettes(),
-        }
-            .map((e) => PackAssetLocation(pack.name!, e)),
+        }.map((e) => PackAssetLocation(pack.name!, e)),
       )
       .toList();
 
   NoteData _createAsset(NoteData pack, String name) => switch (type) {
-        PackAssetType.component => pack.setComponent(
-            ButterflyComponent(name: name),
-          ),
-        PackAssetType.style => pack.setStyle(text.TextStyleSheet(name: name)),
-        PackAssetType.palette => pack.setPalette(ColorPalette(name: name)),
-      };
+    PackAssetType.component => pack.setComponent(
+      ButterflyComponent(name: name),
+    ),
+    PackAssetType.style => pack.setStyle(text.TextStyleSheet(name: name)),
+    PackAssetType.palette => pack.setPalette(ColorPalette(name: name)),
+  };
 
   @override
   Widget build(BuildContext context) {

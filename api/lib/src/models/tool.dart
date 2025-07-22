@@ -19,18 +19,14 @@ const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
 const double _kLandscapeRatio = sqrt2;
 
-enum AspectRatioPreset {
-  square,
-  portrait,
-  landscape,
-}
+enum AspectRatioPreset { square, portrait, landscape }
 
 extension RatioPresetExtension on AspectRatioPreset {
   double get ratio => switch (this) {
-        AspectRatioPreset.square => _kSquareRatio,
-        AspectRatioPreset.portrait => _kAPortraitRatio,
-        AspectRatioPreset.landscape => _kLandscapeRatio,
-      };
+    AspectRatioPreset.square => _kSquareRatio,
+    AspectRatioPreset.portrait => _kAPortraitRatio,
+    AspectRatioPreset.landscape => _kLandscapeRatio,
+  };
 }
 
 enum LabelMode { markdown, text }
@@ -238,29 +234,29 @@ sealed class Tool with _$Tool {
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
-        SelectTool() => ToolCategory.normal,
-        HandTool() => ToolCategory.normal,
-        ImportTool() => ToolCategory.import,
-        UndoTool() => ToolCategory.action,
-        RedoTool() => ToolCategory.action,
-        LabelTool() => ToolCategory.normal,
-        PenTool() => ToolCategory.normal,
-        EraserTool() => ToolCategory.normal,
-        PathEraserTool() => ToolCategory.normal,
-        CollectionTool() => ToolCategory.normal,
-        AreaTool() => ToolCategory.normal,
-        LaserTool() => ToolCategory.normal,
-        ShapeTool() => ToolCategory.surface,
-        StampTool() => ToolCategory.surface,
-        PresentationTool() => ToolCategory.normal,
-        SpacerTool() => ToolCategory.normal,
-        FullScreenTool() => ToolCategory.action,
-        AssetTool() => ToolCategory.import,
-        ExportTool() => ToolCategory.action,
-        TextureTool() => ToolCategory.surface,
-        RulerTool() => ToolCategory.view,
-        GridTool() => ToolCategory.view,
-        EyeDropperTool() => ToolCategory.action,
-        BarcodeTool() => ToolCategory.surface,
-      };
+    SelectTool() => ToolCategory.normal,
+    HandTool() => ToolCategory.normal,
+    ImportTool() => ToolCategory.import,
+    UndoTool() => ToolCategory.action,
+    RedoTool() => ToolCategory.action,
+    LabelTool() => ToolCategory.normal,
+    PenTool() => ToolCategory.normal,
+    EraserTool() => ToolCategory.normal,
+    PathEraserTool() => ToolCategory.normal,
+    CollectionTool() => ToolCategory.normal,
+    AreaTool() => ToolCategory.normal,
+    LaserTool() => ToolCategory.normal,
+    ShapeTool() => ToolCategory.surface,
+    StampTool() => ToolCategory.surface,
+    PresentationTool() => ToolCategory.normal,
+    SpacerTool() => ToolCategory.normal,
+    FullScreenTool() => ToolCategory.action,
+    AssetTool() => ToolCategory.import,
+    ExportTool() => ToolCategory.action,
+    TextureTool() => ToolCategory.surface,
+    RulerTool() => ToolCategory.view,
+    GridTool() => ToolCategory.view,
+    EyeDropperTool() => ToolCategory.action,
+    BarcodeTool() => ToolCategory.surface,
+  };
 }

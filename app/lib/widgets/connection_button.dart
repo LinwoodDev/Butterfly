@@ -33,9 +33,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
 
   void _updateConnection() => _currentConnection = (widget.currentRemote == null
       ? null
-      : context.read<SettingsCubit>().state.getRemote(
-            widget.currentRemote,
-          ));
+      : context.read<SettingsCubit>().state.getRemote(widget.currentRemote));
 
   @override
   void didUpdateWidget(covariant ConnectionButton oldWidget) {
@@ -70,10 +68,10 @@ class _ConnectionButtonState extends State<ConnectionButton> {
             icon: _currentConnection == null
                 ? const PhosphorIcon(PhosphorIconsLight.house)
                 : _currentConnection!.icon?.isEmpty ?? true
-                    ? PhosphorIcon(
-                        _currentConnection!.typeIcon(PhosphorIconsStyle.light),
-                      )
-                    : Image.memory(_currentConnection!.icon!, width: 24),
+                ? PhosphorIcon(
+                    _currentConnection!.typeIcon(PhosphorIconsStyle.light),
+                  )
+                : Image.memory(_currentConnection!.icon!, width: 24),
           ),
           menuChildren: [
             MenuItemButton(
@@ -88,9 +86,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
               (remote) => MenuItemButton(
                 onPressed: () => _onChange(remote),
                 leadingIcon: remote.icon?.isEmpty ?? true
-                    ? PhosphorIcon(
-                        remote.typeIcon(PhosphorIconsStyle.light),
-                      )
+                    ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
                     : Image.memory(remote.icon!, width: 24),
                 child: Text(
                   remote.identifier,

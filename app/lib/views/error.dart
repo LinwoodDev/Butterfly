@@ -74,10 +74,7 @@ class ErrorPage extends StatelessWidget {
                       children: [
                         OutlinedButton(
                           onPressed: () => launchUrl(
-                            Uri.https(
-                              'go.linwood.dev',
-                              '/butterfly/report',
-                            ),
+                            Uri.https('go.linwood.dev', '/butterfly/report'),
                           ),
                           child: Text(AppLocalizations.of(context).report),
                         ),

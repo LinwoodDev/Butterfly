@@ -10,9 +10,11 @@ _ButterflyComponent _$ButterflyComponentFromJson(Map json) =>
     _ButterflyComponent(
       name: json['name'] as String,
       thumbnail: json['thumbnail'] as String?,
-      elements: (json['elements'] as List<dynamic>?)
-              ?.map((e) =>
-                  PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+      elements:
+          (json['elements'] as List<dynamic>?)
+              ?.map(
+                (e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
               .toList() ??
           const <PadElement>[],
     );
@@ -25,11 +27,11 @@ Map<String, dynamic> _$ButterflyComponentToJson(_ButterflyComponent instance) =>
     };
 
 TextParameter _$TextParameterFromJson(Map json) => TextParameter(
-      child: (json['child'] as num).toInt(),
-      name: json['name'] as String,
-      value: json['value'] as String,
-      $type: json['type'] as String?,
-    );
+  child: (json['child'] as num).toInt(),
+  name: json['name'] as String,
+  value: json['value'] as String,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$TextParameterToJson(TextParameter instance) =>
     <String, dynamic>{
@@ -40,11 +42,11 @@ Map<String, dynamic> _$TextParameterToJson(TextParameter instance) =>
     };
 
 ColorParameter _$ColorParameterFromJson(Map json) => ColorParameter(
-      child: (json['child'] as num).toInt(),
-      name: json['name'] as String,
-      value: (json['value'] as num).toInt(),
-      $type: json['type'] as String?,
-    );
+  child: (json['child'] as num).toInt(),
+  name: json['name'] as String,
+  value: (json['value'] as num).toInt(),
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$ColorParameterToJson(ColorParameter instance) =>
     <String, dynamic>{
@@ -55,11 +57,11 @@ Map<String, dynamic> _$ColorParameterToJson(ColorParameter instance) =>
     };
 
 BoolParameter _$BoolParameterFromJson(Map json) => BoolParameter(
-      child: (json['child'] as num).toInt(),
-      name: json['name'] as String,
-      value: json['value'] as bool,
-      $type: json['type'] as String?,
-    );
+  child: (json['child'] as num).toInt(),
+  name: json['name'] as String,
+  value: json['value'] as bool,
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$BoolParameterToJson(BoolParameter instance) =>
     <String, dynamic>{
@@ -70,11 +72,11 @@ Map<String, dynamic> _$BoolParameterToJson(BoolParameter instance) =>
     };
 
 IntParameter _$IntParameterFromJson(Map json) => IntParameter(
-      child: (json['child'] as num).toInt(),
-      name: json['name'] as String,
-      value: (json['value'] as num).toInt(),
-      $type: json['type'] as String?,
-    );
+  child: (json['child'] as num).toInt(),
+  name: json['name'] as String,
+  value: (json['value'] as num).toInt(),
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$IntParameterToJson(IntParameter instance) =>
     <String, dynamic>{
@@ -85,11 +87,11 @@ Map<String, dynamic> _$IntParameterToJson(IntParameter instance) =>
     };
 
 DoubleParameter _$DoubleParameterFromJson(Map json) => DoubleParameter(
-      child: (json['child'] as num).toInt(),
-      name: json['name'] as String,
-      value: (json['value'] as num).toDouble(),
-      $type: json['type'] as String?,
-    );
+  child: (json['child'] as num).toInt(),
+  name: json['name'] as String,
+  value: (json['value'] as num).toDouble(),
+  $type: json['type'] as String?,
+);
 
 Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
     <String, dynamic>{
@@ -100,12 +102,9 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
     };
 
 _PackAssetLocation _$PackAssetLocationFromJson(Map json) => _PackAssetLocation(
-      json['pack'] as String? ?? '',
-      json['name'] as String? ?? '',
-    );
+  json['pack'] as String? ?? '',
+  json['name'] as String? ?? '',
+);
 
 Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
-    <String, dynamic>{
-      'pack': instance.pack,
-      'name': instance.name,
-    };
+    <String, dynamic>{'pack': instance.pack, 'name': instance.name};

@@ -139,9 +139,8 @@ class FileEntityGridItem extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       modifiedText!,
-                                      style: TextTheme.of(
-                                        context,
-                                      ).bodySmall?.copyWith(
+                                      style: TextTheme.of(context).bodySmall
+                                          ?.copyWith(
                                             color: colorScheme.outline,
                                           ),
                                     ),
@@ -165,9 +164,8 @@ class FileEntityGridItem extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       createdText!,
-                                      style: TextTheme.of(
-                                        context,
-                                      ).bodySmall?.copyWith(
+                                      style: TextTheme.of(context).bodySmall
+                                          ?.copyWith(
                                             color: colorScheme.outline,
                                           ),
                                     ),
@@ -213,8 +211,9 @@ class FileEntityGridItem extends StatelessWidget {
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.check,
                                       ),
-                                      tooltip:
-                                          AppLocalizations.of(context).save,
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).save,
                                     ),
                                   ),
                                 ),

@@ -29,56 +29,59 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
-        buildWhen: (previous, current) =>
-            (previous is DocumentLoadSuccess &&
-                current is! DocumentLoadSuccess) ||
-            (previous is! DocumentLoadSuccess &&
-                current is DocumentLoadSuccess) ||
-            (current is DocumentLoaded &&
-                previous is DocumentLoaded &&
-                current.location != previous.location),
-        builder: (context, state) {
-          AssetLocation? location;
-          if (state is DocumentLoaded) {
-            location = state.location;
-            location = AssetLocation(
-                remote: location.remote, path: '/${location.path}');
-          }
-          if (_opened != null) {
-            return ProjectPage(
-              embedding: Embedding(
-                editable: false,
-                save: false,
-                internal: true,
-                location: _opened?.$2,
-                onOpen: () => openFile(context, true, _opened!.$2, _opened!.$1),
-                onExit: () => setState(() {
-                  _opened = null;
-                }),
-              ),
-              data: _opened?.$1,
-            );
-          }
-          return SingleChildScrollView(
-            child: FilesView(
-              remote: _remote,
-              activeAsset: location,
-              initialPath: location?.parent,
-              onPreview: (value) {
-                final data = value.data!.load();
-                if (data == null) return;
-                setState(() {
-                  _opened = (data, value.location);
-                });
-              },
-              onRemoteChanged: (remote) {
-                setState(() {
-                  _remote = remote;
-                });
-              },
-              collapsed: true,
-            ),
+      buildWhen: (previous, current) =>
+          (previous is DocumentLoadSuccess &&
+              current is! DocumentLoadSuccess) ||
+          (previous is! DocumentLoadSuccess &&
+              current is DocumentLoadSuccess) ||
+          (current is DocumentLoaded &&
+              previous is DocumentLoaded &&
+              current.location != previous.location),
+      builder: (context, state) {
+        AssetLocation? location;
+        if (state is DocumentLoaded) {
+          location = state.location;
+          location = AssetLocation(
+            remote: location.remote,
+            path: '/${location.path}',
           );
-        });
+        }
+        if (_opened != null) {
+          return ProjectPage(
+            embedding: Embedding(
+              editable: false,
+              save: false,
+              internal: true,
+              location: _opened?.$2,
+              onOpen: () => openFile(context, true, _opened!.$2, _opened!.$1),
+              onExit: () => setState(() {
+                _opened = null;
+              }),
+            ),
+            data: _opened?.$1,
+          );
+        }
+        return SingleChildScrollView(
+          child: FilesView(
+            remote: _remote,
+            activeAsset: location,
+            initialPath: location?.parent,
+            onPreview: (value) {
+              final data = value.data!.load();
+              if (data == null) return;
+              setState(() {
+                _opened = (data, value.location);
+              });
+            },
+            onRemoteChanged: (remote) {
+              setState(() {
+                _remote = remote;
+              });
+            },
+            collapsed: true,
+          ),
+        );
+      },
+    );
   }
 }

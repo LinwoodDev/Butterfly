@@ -27,29 +27,31 @@ class _ToolbarViewState extends State<ToolbarView> {
           child: SafeArea(
             child: Card(
               child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  buildWhen: (previous, current) =>
-                      previous.temporaryToolbar != current.temporaryToolbar ||
-                      previous.toolbar != current.toolbar,
-                  builder: (context, currentIndex) {
-                    Widget? child;
-                    var height = 0.0;
-                    final toolbar =
-                        currentIndex.temporaryToolbar ?? currentIndex.toolbar;
-                    if (toolbar != null) {
-                      height = toolbar.preferredSize.height;
-                      child = toolbar;
-                    }
-                    return AnimatedContainer(
-                      height: height,
-                      key: _animatedKey,
+                buildWhen: (previous, current) =>
+                    previous.temporaryToolbar != current.temporaryToolbar ||
+                    previous.toolbar != current.toolbar,
+                builder: (context, currentIndex) {
+                  Widget? child;
+                  var height = 0.0;
+                  final toolbar =
+                      currentIndex.temporaryToolbar ?? currentIndex.toolbar;
+                  if (toolbar != null) {
+                    height = toolbar.preferredSize.height;
+                    child = toolbar;
+                  }
+                  return AnimatedContainer(
+                    height: height,
+                    key: _animatedKey,
+                    curve: Curves.fastOutSlowIn,
+                    duration: const Duration(milliseconds: 200),
+                    child: AnimatedSize(
+                      duration: const Duration(milliseconds: 100),
                       curve: Curves.fastOutSlowIn,
-                      duration: const Duration(milliseconds: 200),
-                      child: AnimatedSize(
-                          duration: const Duration(milliseconds: 100),
-                          curve: Curves.fastOutSlowIn,
-                          child: child),
-                    );
-                  }),
+                      child: child,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );

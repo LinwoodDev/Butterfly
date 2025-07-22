@@ -16,17 +16,18 @@ class ColorField extends StatelessWidget {
   final ValueChanged<SRGBColor>? onChanged;
   final VoidCallback? onOpen;
 
-  const ColorField(
-      {super.key,
-      this.value = SRGBColor.white,
-      this.defaultColor,
-      this.custom = false,
-      this.enabled = true,
-      this.leading,
-      this.title,
-      this.subtitle,
-      this.onOpen,
-      this.onChanged});
+  const ColorField({
+    super.key,
+    this.value = SRGBColor.white,
+    this.defaultColor,
+    this.custom = false,
+    this.enabled = true,
+    this.leading,
+    this.title,
+    this.subtitle,
+    this.onOpen,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +38,7 @@ class ColorField extends StatelessWidget {
         if (custom) {
           final response = await showDialog<ColorPickerResponse>(
             context: context,
-            builder: (ctx) => ColorPicker(
-              value: value,
-            ),
+            builder: (ctx) => ColorPicker(value: value),
           );
           nextColor = response?.toSRGB();
         } else {
@@ -65,22 +64,26 @@ class ColorField extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-                color: value.toColor(),
-                border:
-                    Border.all(color: Theme.of(context).primaryColor, width: 2),
-                borderRadius: const BorderRadius.all(Radius.circular(32))),
+              color: value.toColor(),
+              border: Border.all(
+                color: Theme.of(context).primaryColor,
+                width: 2,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(32)),
+            ),
           ),
           if (defaultColor != null) ...[
             const SizedBox(width: 8),
             IconButton(
-              icon:
-                  const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.clockCounterClockwise,
+              ),
               tooltip: LeapLocalizations.of(context).reset,
               onPressed: () async {
                 onChanged?.call(defaultColor!);
               },
             ),
-          ]
+          ],
         ],
       ),
     );

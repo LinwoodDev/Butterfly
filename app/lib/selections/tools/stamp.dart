@@ -32,38 +32,54 @@ class StampToolSelection extends ToolSelection<StampTool> {
         onSelected: (pack) {
           if (pack == null) return;
           update(
-              context,
-              selected
-                  .map((e) => e.copyWith(component: PackAssetLocation(pack)))
-                  .toList());
+            context,
+            selected
+                .map((e) => e.copyWith(component: PackAssetLocation(pack)))
+                .toList(),
+          );
         },
       ),
       const SizedBox(height: 8),
       const Divider(),
       const SizedBox(height: 8),
       Column(
-          children: currentPack
-                  ?.getComponents()
-                  .map((component) => Dismissible(
-                      key: ValueKey(component),
-                      background: Container(color: Colors.red),
-                      onDismissed: (direction) {
-                        bloc.add(PackUpdated(
-                            packName, currentPack.removeComponent(component)));
-                      },
-                      child: ListTile(
-                        title: Text(component),
-                        selected: component == selected.first.component.name,
-                        onTap: () => update(
-                            context,
-                            selected
-                                .map((e) => e.copyWith(
-                                    component:
-                                        PackAssetLocation(packName, component)))
-                                .toList()),
-                      )))
-                  .toList() ??
-              []),
+        children:
+            currentPack
+                ?.getComponents()
+                .map(
+                  (component) => Dismissible(
+                    key: ValueKey(component),
+                    background: Container(color: Colors.red),
+                    onDismissed: (direction) {
+                      bloc.add(
+                        PackUpdated(
+                          packName,
+                          currentPack.removeComponent(component),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(component),
+                      selected: component == selected.first.component.name,
+                      onTap: () => update(
+                        context,
+                        selected
+                            .map(
+                              (e) => e.copyWith(
+                                component: PackAssetLocation(
+                                  packName,
+                                  component,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                )
+                .toList() ??
+            [],
+      ),
     ];
   }
 

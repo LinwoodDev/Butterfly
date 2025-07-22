@@ -13,15 +13,23 @@ void setup() {
 }
 
 void pushMessage(JSString type, [JSObject? message]) {
-  html.window.dispatchEvent(html.MessageEvent(
+  html.window.dispatchEvent(
+    html.MessageEvent(
       'receive',
       html.MessageEventInit(
-          data: {'type': type.toDart, 'message': message}.toJSBox)));
+        data: {'type': type.toDart, 'message': message}.toJSBox,
+      ),
+    ),
+  );
 }
 
 void sendEmbedMessage(String type, [Object? message]) {
-  html.window.dispatchEvent(html.MessageEvent('message',
-      html.MessageEventInit(data: {'type': type, 'message': message}.toJSBox)));
+  html.window.dispatchEvent(
+    html.MessageEvent(
+      'message',
+      html.MessageEventInit(data: {'type': type, 'message': message}.toJSBox),
+    ),
+  );
 }
 
 EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {

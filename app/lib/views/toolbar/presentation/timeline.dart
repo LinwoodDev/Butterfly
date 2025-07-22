@@ -39,9 +39,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: colorScheme.onSurface.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: colorScheme.onSurface.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(4),
       ),
       padding: const EdgeInsets.all(2),
@@ -117,20 +115,28 @@ class PresentationTimelinePainter extends CustomPainter {
       ..strokeWidth = 1 / zoom
       ..style = PaintingStyle.fill;
     canvas.drawRect(
-        Offset.zero & Size(duration.toDouble(), size.height), backgroundPaint);
+      Offset.zero & Size(duration.toDouble(), size.height),
+      backgroundPaint,
+    );
     final cursorPaint = Paint()
       ..color = cursorColor
       ..strokeWidth = 1 / zoom
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(currentFrame.toDouble(), 0),
-        Offset(currentFrame.toDouble(), size.height), cursorPaint);
+    canvas.drawLine(
+      Offset(currentFrame.toDouble(), 0),
+      Offset(currentFrame.toDouble(), size.height),
+      cursorPaint,
+    );
     final keyPaint = Paint()
       ..color = keyColor
       ..strokeWidth = 1 / zoom
       ..style = PaintingStyle.fill;
     for (final key in animationKeys) {
-      canvas.drawLine(Offset(key.toDouble(), 0),
-          Offset(key.toDouble(), size.height * 0.5), keyPaint);
+      canvas.drawLine(
+        Offset(key.toDouble(), 0),
+        Offset(key.toDouble(), size.height * 0.5),
+        keyPaint,
+      );
     }
   }
 

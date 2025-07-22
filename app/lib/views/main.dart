@@ -157,15 +157,17 @@ class _ProjectPageState extends State<ProjectPage> {
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final fileType =
-          AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
+      final fileType = AssetFileTypeHelper.fromFileExtension(
+        location?.fileExtension,
+      )?.name;
       NoteData? document;
       var data = widget.data;
       final uri = Uri.tryParse(widget.uri ?? '');
       var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
       if (widget.uri != null && uri != null) {
-        final connectionTechnology =
-            ConnectionTechnology.values.byNameOrNull(type);
+        final connectionTechnology = ConnectionTechnology.values.byNameOrNull(
+          type,
+        );
         data = await networkingService.createClient(uri, connectionTechnology);
         type = '';
       }
@@ -198,8 +200,9 @@ class _ProjectPageState extends State<ProjectPage> {
               location.fileType == AssetFileType.note) {
             final noteData = await globalImportService.load(
               document: defaultDocument,
-              type:
-                  widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
+              type: widget.type.isEmpty
+                  ? (fileType ?? widget.type)
+                  : widget.type,
               data: asset.data,
             );
             if (noteData != null) {
@@ -211,8 +214,9 @@ class _ProjectPageState extends State<ProjectPage> {
           if (data != null) {
             document = await globalImportService.load(
               document: defaultDocument,
-              type:
-                  widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
+              type: widget.type.isEmpty
+                  ? (fileType ?? widget.type)
+                  : widget.type,
               data: data,
             );
           }
@@ -229,8 +233,9 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= defaultDocument;
       final pageName = document.getPages().firstOrNull ?? 'default';
       final page = document.getPage(pageName) ?? DocumentDefaults.createPage();
-      final renderers =
-          page.content.map((e) => Renderer.fromInstance(e)).toList();
+      final renderers = page.content
+          .map((e) => Renderer.fromInstance(e))
+          .toList();
       final assetService = AssetService(document);
       await Future.wait(
         renderers.map(
@@ -342,187 +347,226 @@ class _ProjectPageState extends State<ProjectPage> {
                 }
               },
               child: BlocBuilder<WindowCubit, WindowState>(
-                builder: (
-                  context,
-                  windowState,
-                ) =>
+                builder: (context, windowState) =>
                     BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  buildWhen: (previous, current) =>
-                      previous.hideUi != current.hideUi,
-                  builder: (
-                    context,
-                    currentIndex,
-                  ) =>
-                      BlocBuilder<SettingsCubit, ButterflySettings>(
-                    buildWhen: (previous, current) =>
-                        previous.toolbarSize != current.toolbarSize ||
-                        previous.isInline != current.isInline,
-                    builder: (context, settings) {
-                      return Actions(
-                        actions: {
-                          ..._actions,
-                          SearchIntent: CallbackAction<SearchIntent>(
-                            onInvoke: (_) {
-                              if (_searchController.isOpen) {
-                                _searchController.closeView(null);
-                                return null;
-                              }
-                              _searchController.openView();
-                              return null;
-                            },
-                          ),
-                        },
-                        child: Shortcuts(
-                          shortcuts: {
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyZ,
-                            ): UndoIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyY,
-                            ): RedoIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyN,
-                            ): NewIntent(context, fromTemplate: false),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.shift,
-                              LogicalKeyboardKey.keyN,
-                            ): NewIntent(context, fromTemplate: true),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyB,
-                            ): BackgroundIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.escape,
-                            ): ExitIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.f11,
-                            ): FullScreenIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.f12,
-                            ): HideUIIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.arrowRight,
-                            ): NextIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.arrowLeft,
-                            ): PreviousIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyA,
-                            ): SelectAllIntent(context),
-                            LogicalKeySet(
-                              LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyK,
-                            ): SearchIntent(),
-                            if (widget.embedding == null) ...{
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.keyE,
-                              ): ExportIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.shift,
-                                LogicalKeyboardKey.keyE,
-                              ): ImageExportIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.alt,
-                                LogicalKeyboardKey.shift,
-                                LogicalKeyboardKey.keyE,
-                              ): PdfExportIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.keyP,
-                              ): PdfExportIntent(context, true),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.alt,
-                                LogicalKeyboardKey.keyE,
-                              ): SvgExportIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.alt,
-                                LogicalKeyboardKey.keyS,
-                              ): SettingsIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.alt,
-                                LogicalKeyboardKey.keyS,
-                              ): ChangePathIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.keyS,
-                              ): SaveIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.alt,
-                                LogicalKeyboardKey.keyP,
-                              ): PacksIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.add,
-                              ): ZoomIntent(context),
-                              LogicalKeySet(
-                                LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.minus,
-                              ): ZoomIntent(context, true),
-                              ...[
-                                LogicalKeyboardKey.digit1,
-                                LogicalKeyboardKey.digit2,
-                                LogicalKeyboardKey.digit3,
-                                LogicalKeyboardKey.digit4,
-                                LogicalKeyboardKey.digit5,
-                                LogicalKeyboardKey.digit6,
-                                LogicalKeyboardKey.digit7,
-                                LogicalKeyboardKey.digit8,
-                                LogicalKeyboardKey.digit9,
-                                LogicalKeyboardKey.digit0,
-                              ].asMap().map(
-                                    (k, v) => MapEntry(
+                      buildWhen: (previous, current) =>
+                          previous.hideUi != current.hideUi,
+                      builder: (context, currentIndex) =>
+                          BlocBuilder<SettingsCubit, ButterflySettings>(
+                            buildWhen: (previous, current) =>
+                                previous.toolbarSize != current.toolbarSize ||
+                                previous.isInline != current.isInline,
+                            builder: (context, settings) {
+                              return Actions(
+                                actions: {
+                                  ..._actions,
+                                  SearchIntent: CallbackAction<SearchIntent>(
+                                    onInvoke: (_) {
+                                      if (_searchController.isOpen) {
+                                        _searchController.closeView(null);
+                                        return null;
+                                      }
+                                      _searchController.openView();
+                                      return null;
+                                    },
+                                  ),
+                                },
+                                child: Shortcuts(
+                                  shortcuts: {
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyZ,
+                                    ): UndoIntent(
+                                      context,
+                                    ),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyY,
+                                    ): RedoIntent(
+                                      context,
+                                    ),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyN,
+                                    ): NewIntent(
+                                      context,
+                                      fromTemplate: false,
+                                    ),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.shift,
+                                      LogicalKeyboardKey.keyN,
+                                    ): NewIntent(
+                                      context,
+                                      fromTemplate: true,
+                                    ),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyB,
+                                    ): BackgroundIntent(
+                                      context,
+                                    ),
+                                    LogicalKeySet(LogicalKeyboardKey.escape):
+                                        ExitIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.f11):
+                                        FullScreenIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.f12):
+                                        HideUIIntent(context),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.arrowRight,
+                                    ): NextIntent(
+                                      context,
+                                    ),
+                                    LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                                        PreviousIntent(context),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyA,
+                                    ): SelectAllIntent(
+                                      context,
+                                    ),
+                                    LogicalKeySet(
+                                      LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyK,
+                                    ): SearchIntent(),
+                                    if (widget.embedding == null) ...{
                                       LogicalKeySet(
                                         LogicalKeyboardKey.control,
-                                        v,
+                                        LogicalKeyboardKey.keyE,
+                                      ): ExportIntent(
+                                        context,
                                       ),
-                                      ChangeToolIntent(context, k),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.shift,
+                                        LogicalKeyboardKey.keyE,
+                                      ): ImageExportIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.alt,
+                                        LogicalKeyboardKey.shift,
+                                        LogicalKeyboardKey.keyE,
+                                      ): PdfExportIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.keyP,
+                                      ): PdfExportIntent(
+                                        context,
+                                        true,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.alt,
+                                        LogicalKeyboardKey.keyE,
+                                      ): SvgExportIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.alt,
+                                        LogicalKeyboardKey.keyS,
+                                      ): SettingsIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.alt,
+                                        LogicalKeyboardKey.keyS,
+                                      ): ChangePathIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.keyS,
+                                      ): SaveIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.alt,
+                                        LogicalKeyboardKey.keyP,
+                                      ): PacksIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.add,
+                                      ): ZoomIntent(
+                                        context,
+                                      ),
+                                      LogicalKeySet(
+                                        LogicalKeyboardKey.control,
+                                        LogicalKeyboardKey.minus,
+                                      ): ZoomIntent(
+                                        context,
+                                        true,
+                                      ),
+                                      ...[
+                                        LogicalKeyboardKey.digit1,
+                                        LogicalKeyboardKey.digit2,
+                                        LogicalKeyboardKey.digit3,
+                                        LogicalKeyboardKey.digit4,
+                                        LogicalKeyboardKey.digit5,
+                                        LogicalKeyboardKey.digit6,
+                                        LogicalKeyboardKey.digit7,
+                                        LogicalKeyboardKey.digit8,
+                                        LogicalKeyboardKey.digit9,
+                                        LogicalKeyboardKey.digit0,
+                                      ].asMap().map(
+                                        (k, v) => MapEntry(
+                                          LogicalKeySet(
+                                            LogicalKeyboardKey.control,
+                                            v,
+                                          ),
+                                          ChangeToolIntent(context, k),
+                                        ),
+                                      ),
+                                    },
+                                  },
+                                  child: ClipRect(
+                                    child: Focus(
+                                      autofocus: true,
+                                      skipTraversal: true,
+                                      onFocusChange: (_) => false,
+                                      child: Scaffold(
+                                        appBar:
+                                            state
+                                                    is DocumentPresentationState ||
+                                                windowState.fullScreen ||
+                                                currentIndex.hideUi !=
+                                                    HideState.visible
+                                            ? null
+                                            : PadAppBar(
+                                                viewportKey: _viewportKey,
+                                                size: settings.toolbarSize,
+                                                searchController:
+                                                    _searchController,
+                                                padding: padding,
+                                                inView:
+                                                    state
+                                                        .embedding
+                                                        ?.isInternal ??
+                                                    false,
+                                                showTools:
+                                                    settings.isInline &&
+                                                    state.embedding?.editable !=
+                                                        false,
+                                              ),
+                                        body: Actions(
+                                          actions: _actions,
+                                          child: const _MainBody(),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                            },
-                          },
-                          child: ClipRect(
-                            child: Focus(
-                              autofocus: true,
-                              skipTraversal: true,
-                              onFocusChange: (_) => false,
-                              child: Scaffold(
-                                appBar: state is DocumentPresentationState ||
-                                        windowState.fullScreen ||
-                                        currentIndex.hideUi != HideState.visible
-                                    ? null
-                                    : PadAppBar(
-                                        viewportKey: _viewportKey,
-                                        size: settings.toolbarSize,
-                                        searchController: _searchController,
-                                        padding: padding,
-                                        inView: state.embedding?.isInternal ??
-                                            false,
-                                        showTools: settings.isInline &&
-                                            state.embedding?.editable != false,
-                                      ),
-                                body: Actions(
-                                  actions: _actions,
-                                  child: const _MainBody(),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                    ),
               ),
             ),
           );
@@ -554,157 +598,161 @@ class _MainBody extends StatelessWidget {
             previous.pinned != current.pinned ||
             previous.selection != current.selection ||
             previous.hideUi != current.hideUi,
-        builder: (
-          context,
-          currentIndex,
-        ) =>
-            BlocBuilder<WindowCubit, WindowState>(
-          builder: (
-            context,
-            windowState,
-          ) =>
+        builder: (context, currentIndex) => BlocBuilder<WindowCubit, WindowState>(
+          builder: (context, windowState) =>
               BlocBuilder<SettingsCubit, ButterflySettings>(
-            buildWhen: (previous, current) =>
-                previous.toolbarPosition != current.toolbarPosition ||
-                previous.toolbarSize != current.toolbarSize ||
-                previous.toolbarRows != current.toolbarRows ||
-                previous.navigationRail != current.navigationRail ||
-                previous.navigatorPosition != current.navigatorPosition ||
-                previous.optionsPanelPosition != current.optionsPanelPosition,
-            builder: (context, settings) {
-              final pos = settings.toolbarPosition;
-              final optPos = settings.optionsPanelPosition;
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
-                  final Iterable<FlutterView> windowViews =
-                      PlatformDispatcher.instance.views;
-                  final double bottomInset = windowViews.isEmpty
-                      ? 0
-                      : windowViews.first.viewInsets.bottom /
-                          windowViews.first.devicePixelRatio;
-                  final bool isMobile =
-                      constraints.maxWidth < LeapBreakpoints.compact;
-                  final bool isLarge =
-                      constraints.maxWidth >= LeapBreakpoints.expanded &&
+                buildWhen: (previous, current) =>
+                    previous.toolbarPosition != current.toolbarPosition ||
+                    previous.toolbarSize != current.toolbarSize ||
+                    previous.toolbarRows != current.toolbarRows ||
+                    previous.navigationRail != current.navigationRail ||
+                    previous.navigatorPosition != current.navigatorPosition ||
+                    previous.optionsPanelPosition !=
+                        current.optionsPanelPosition,
+                builder: (context, settings) {
+                  final pos = settings.toolbarPosition;
+                  final optPos = settings.optionsPanelPosition;
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
+                      final Iterable<FlutterView> windowViews =
+                          PlatformDispatcher.instance.views;
+                      final double bottomInset = windowViews.isEmpty
+                          ? 0
+                          : windowViews.first.viewInsets.bottom /
+                                windowViews.first.devicePixelRatio;
+                      final bool isMobile =
+                          constraints.maxWidth < LeapBreakpoints.compact;
+                      final bool isLarge =
+                          constraints.maxWidth >= LeapBreakpoints.expanded &&
                           (constraints.maxHeight + bottomInset) >= 400;
-                  final toolbar = EditToolbar(
-                    isMobile: isMobile,
-                    centered: true,
-                    direction: pos.axis,
-                  );
-                  final showNavigator = isLarge &&
-                      settings.navigationRail &&
-                      !windowState.fullScreen &&
-                      state is DocumentLoadSuccess &&
-                      currentIndex.hideUi == HideState.visible;
-                  return Stack(
-                    children: [
-                      const MainViewViewport(),
-                      Listener(
-                        behavior: currentIndex.pinned ||
-                                currentIndex.selection == null
-                            ? HitTestBehavior.translucent
-                            : HitTestBehavior.opaque,
-                        onPointerUp: (details) {
-                          if (currentIndex.pinned) return;
-                          context.read<CurrentIndexCubit>().resetSelection();
-                        },
-                      ),
-                      SafeArea(
-                        child: Row(
-                          children: [
-                            if (showNavigator &&
-                                settings.navigatorPosition ==
-                                    NavigatorPosition.left)
-                              const NavigatorView(),
-                            if (pos == ToolbarPosition.left &&
-                                !isMobile &&
-                                currentIndex.hideUi == HideState.visible)
-                              toolbar,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  if ((((windowState.fullScreen ||
-                                                      settings.toolbarRows >
-                                                          1) &&
-                                                  pos ==
-                                                      ToolbarPosition.inline ||
-                                              pos == ToolbarPosition.top) &&
-                                          !isMobile) &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    toolbar,
-                                  if (optPos == OptionsPanelPosition.top &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    const ToolbarView(),
-                                  const Expanded(
-                                    child: Align(
-                                      alignment: Alignment.topRight,
-                                      child: PropertyView(),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(
-                                      8.0,
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: SizedBox(
-                                        width: isMobile ? 100 : 400,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            ZoomView(
-                                              isMobile: isMobile,
-                                            ),
-                                            if (currentIndex.hideUi ==
-                                                HideState.touch)
-                                              FloatingActionButton.small(
-                                                tooltip: AppLocalizations.of(
-                                                  context,
-                                                ).exit,
-                                                child: const Icon(
-                                                  PhosphorIconsLight.door,
-                                                ),
-                                                onPressed: () {
-                                                  context
-                                                      .read<CurrentIndexCubit>()
-                                                      .exitHideUI();
-                                                },
-                                              ),
-                                          ],
+                      final toolbar = EditToolbar(
+                        isMobile: isMobile,
+                        centered: true,
+                        direction: pos.axis,
+                      );
+                      final showNavigator =
+                          isLarge &&
+                          settings.navigationRail &&
+                          !windowState.fullScreen &&
+                          state is DocumentLoadSuccess &&
+                          currentIndex.hideUi == HideState.visible;
+                      return Stack(
+                        children: [
+                          const MainViewViewport(),
+                          Listener(
+                            behavior:
+                                currentIndex.pinned ||
+                                    currentIndex.selection == null
+                                ? HitTestBehavior.translucent
+                                : HitTestBehavior.opaque,
+                            onPointerUp: (details) {
+                              if (currentIndex.pinned) return;
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
+                            },
+                          ),
+                          SafeArea(
+                            child: Row(
+                              children: [
+                                if (showNavigator &&
+                                    settings.navigatorPosition ==
+                                        NavigatorPosition.left)
+                                  const NavigatorView(),
+                                if (pos == ToolbarPosition.left &&
+                                    !isMobile &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  toolbar,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      if ((((windowState.fullScreen ||
+                                                          settings.toolbarRows >
+                                                              1) &&
+                                                      pos ==
+                                                          ToolbarPosition
+                                                              .inline ||
+                                                  pos == ToolbarPosition.top) &&
+                                              !isMobile) &&
+                                          currentIndex.hideUi ==
+                                              HideState.visible)
+                                        toolbar,
+                                      if (optPos == OptionsPanelPosition.top &&
+                                          currentIndex.hideUi ==
+                                              HideState.visible)
+                                        const ToolbarView(),
+                                      const Expanded(
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: PropertyView(),
                                         ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: SizedBox(
+                                            width: isMobile ? 100 : 400,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                ZoomView(isMobile: isMobile),
+                                                if (currentIndex.hideUi ==
+                                                    HideState.touch)
+                                                  FloatingActionButton.small(
+                                                    tooltip:
+                                                        AppLocalizations.of(
+                                                          context,
+                                                        ).exit,
+                                                    child: const Icon(
+                                                      PhosphorIconsLight.door,
+                                                    ),
+                                                    onPressed: () {
+                                                      context
+                                                          .read<
+                                                            CurrentIndexCubit
+                                                          >()
+                                                          .exitHideUI();
+                                                    },
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      if (optPos ==
+                                              OptionsPanelPosition.bottom &&
+                                          currentIndex.hideUi ==
+                                              HideState.visible)
+                                        const ToolbarView(),
+                                      if ((isMobile ||
+                                              pos == ToolbarPosition.bottom) &&
+                                          currentIndex.hideUi ==
+                                              HideState.visible)
+                                        toolbar,
+                                    ],
                                   ),
-                                  if (optPos == OptionsPanelPosition.bottom &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    const ToolbarView(),
-                                  if ((isMobile ||
-                                          pos == ToolbarPosition.bottom) &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    toolbar,
-                                ],
-                              ),
+                                ),
+                                if (pos == ToolbarPosition.right &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  toolbar,
+                                if (showNavigator &&
+                                    settings.navigatorPosition ==
+                                        NavigatorPosition.right)
+                                  const NavigatorView(),
+                              ],
                             ),
-                            if (pos == ToolbarPosition.right &&
-                                currentIndex.hideUi == HideState.visible)
-                              toolbar,
-                            if (showNavigator &&
-                                settings.navigatorPosition ==
-                                    NavigatorPosition.right)
-                              const NavigatorView(),
-                          ],
-                        ),
-                      ),
-                    ],
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
-              );
-            },
-          ),
+              ),
         ),
       ),
     );

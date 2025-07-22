@@ -13,19 +13,18 @@ class ExperimentsSettingsPage extends StatelessWidget {
 
   List<({String name, String description, IconGetter icon})> _getExperiments(
     BuildContext context,
-  ) =>
-      [
-        (
-          name: 'collaboration',
-          description: AppLocalizations.of(context).collaboration,
-          icon: PhosphorIcons.chatTeardrop,
-        ),
-        (
-          name: 'smoothNavigation',
-          description: AppLocalizations.of(context).smoothNavigation,
-          icon: PhosphorIcons.caretCircleDoubleDown,
-        ),
-      ];
+  ) => [
+    (
+      name: 'collaboration',
+      description: AppLocalizations.of(context).collaboration,
+      icon: PhosphorIcons.chatTeardrop,
+    ),
+    (
+      name: 'smoothNavigation',
+      description: AppLocalizations.of(context).smoothNavigation,
+      icon: PhosphorIcons.caretCircleDoubleDown,
+    ),
+  ];
 
   static const Map<String, String> _featureHelps = {
     'collaboration': 'collaboration',
@@ -54,62 +53,68 @@ class ExperimentsSettingsPage extends StatelessWidget {
           if (experiments.isEmpty) {
             return Center(child: Text(AppLocalizations.of(context).noElements));
           }
-          return ListView(children: [
-            Card(
-              margin: settingsCardMargin,
-              child: Padding(
-                padding: settingsCardPadding,
-                child: Column(
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
+          return ListView(
+            children: [
+              Card(
+                margin: settingsCardMargin,
+                child: Padding(
+                  padding: settingsCardPadding,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             spacing: 16,
                             children: [
                               Icon(PhosphorIconsLight.warning),
                               Flexible(
-                                child: Text(AppLocalizations.of(context)
-                                    .experimentsWarning),
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  ).experimentsWarning,
+                                ),
                               ),
-                            ]),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: experiments.length,
-                      itemBuilder: (context, index) {
-                        final experiment = experiments[index];
-                        final currentHelp = _featureHelps[experiment.name];
-                        final enabled = state.hasFlag(experiment.name);
-                        return AdvancedSwitchListTile(
-                          value: enabled,
-                          onChanged: (value) {
-                            final cubit = context.read<SettingsCubit>();
-                            if (value == true) {
-                              cubit.addFlag(experiment.name);
-                            } else {
-                              cubit.removeFlag(experiment.name);
-                            }
-                          },
-                          title: Text(experiment.description),
-                          leading: PhosphorIcon(
-                            experiment.icon(PhosphorIconsStyle.light),
+                            ],
                           ),
-                          onTap: currentHelp == null
-                              ? null
-                              : () => openHelp([currentHelp]),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: experiments.length,
+                        itemBuilder: (context, index) {
+                          final experiment = experiments[index];
+                          final currentHelp = _featureHelps[experiment.name];
+                          final enabled = state.hasFlag(experiment.name);
+                          return AdvancedSwitchListTile(
+                            value: enabled,
+                            onChanged: (value) {
+                              final cubit = context.read<SettingsCubit>();
+                              if (value == true) {
+                                cubit.addFlag(experiment.name);
+                              } else {
+                                cubit.removeFlag(experiment.name);
+                              }
+                            },
+                            title: Text(experiment.description),
+                            leading: PhosphorIcon(
+                              experiment.icon(PhosphorIconsStyle.light),
+                            ),
+                            onTap: currentHelp == null
+                                ? null
+                                : () => openHelp([currentHelp]),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ]);
+            ],
+          );
         },
       ),
     );

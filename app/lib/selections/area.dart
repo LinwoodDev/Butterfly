@@ -18,10 +18,12 @@ class AreaSelection extends Selection<Area> {
         value: selected.first.position.toOffset(),
         title: Text(AppLocalizations.of(context).position),
         onChanged: (value) {
-          context.read<DocumentBloc>().add(AreaChanged(
-                selected.first.name,
-                selected.first.copyWith(position: value.toPoint()),
-              ));
+          context.read<DocumentBloc>().add(
+            AreaChanged(
+              selected.first.name,
+              selected.first.copyWith(position: value.toPoint()),
+            ),
+          );
         },
       ),
       const SizedBox(height: 8),
@@ -29,13 +31,12 @@ class AreaSelection extends Selection<Area> {
         value: Offset(selected.first.width, selected.first.height),
         title: Text(AppLocalizations.of(context).size),
         onChanged: (value) {
-          context.read<DocumentBloc>().add(AreaChanged(
-                selected.first.name,
-                selected.first.copyWith(
-                  width: value.dx,
-                  height: value.dy,
-                ),
-              ));
+          context.read<DocumentBloc>().add(
+            AreaChanged(
+              selected.first.name,
+              selected.first.copyWith(width: value.dx, height: value.dy),
+            ),
+          );
         },
       ),
     ];
@@ -46,8 +47,8 @@ class AreaSelection extends Selection<Area> {
 
   @override
   void onDelete(BuildContext context) {
-    context
-        .read<DocumentBloc>()
-        .add(AreasRemoved(super.selected.map((e) => e.name).toList()));
+    context.read<DocumentBloc>().add(
+      AreasRemoved(super.selected.map((e) => e.name).toList()),
+    );
   }
 }

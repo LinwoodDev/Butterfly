@@ -87,9 +87,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                     );
                                   },
                                 )
-                              : Text(
-                                  AppLocalizations.of(context).defaultPath,
-                                ),
+                              : Text(AppLocalizations.of(context).defaultPath),
                           onTap: _changeDataDirectory,
                           trailing: state.documentPath.isNotEmpty
                               ? IconButton(
@@ -135,8 +133,9 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         ),
                       ),
                       ListTile(
-                        title:
-                            Text(AppLocalizations.of(context).exportAllFiles),
+                        title: Text(
+                          AppLocalizations.of(context).exportAllFiles,
+                        ),
                         leading: const PhosphorIcon(PhosphorIconsLight.export),
                         onTap: () async {
                           final directory = await _documentSystem.fileSystem
@@ -159,14 +158,16 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ListTile(
-                        title: Text(AppLocalizations.of(context)
-                            .restoreSettingsFromFile),
+                        title: Text(
+                          AppLocalizations.of(context).restoreSettingsFromFile,
+                        ),
                         leading: Icon(PhosphorIconsLight.arrowSquareIn),
                         onTap: () => _importSettings(context),
                       ),
                       ListTile(
                         title: Text(
-                            AppLocalizations.of(context).exportSettingsToFile),
+                          AppLocalizations.of(context).exportSettingsToFile,
+                        ),
                         leading: Icon(PhosphorIconsLight.arrowSquareOut),
                         onTap: () => _exportSettings(context),
                       ),
@@ -217,28 +218,28 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   }
 
   Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
-        context: context,
-        titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
-        childrenBuilder: (ctx) {
-          final settingsCubit = context.read<SettingsCubit>();
-          void changeSyncMode(SyncMode syncMode) {
-            settingsCubit.changeSyncMode(syncMode);
-            Navigator.of(context).pop();
-          }
+    context: context,
+    titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
+    childrenBuilder: (ctx) {
+      final settingsCubit = context.read<SettingsCubit>();
+      void changeSyncMode(SyncMode syncMode) {
+        settingsCubit.changeSyncMode(syncMode);
+        Navigator.of(context).pop();
+      }
 
-          return [
-            ...SyncMode.values.map((syncMode) {
-              return ListTile(
-                title: Text(syncMode.getLocalizedName(context)),
-                leading: PhosphorIcon(syncMode.getIcon()),
-                selected: syncMode == settingsCubit.state.syncMode,
-                onTap: () => changeSyncMode(syncMode),
-              );
-            }),
-            const SizedBox(height: 32),
-          ];
-        },
-      );
+      return [
+        ...SyncMode.values.map((syncMode) {
+          return ListTile(
+            title: Text(syncMode.getLocalizedName(context)),
+            leading: PhosphorIcon(syncMode.getIcon()),
+            selected: syncMode == settingsCubit.state.syncMode,
+            onTap: () => changeSyncMode(syncMode),
+          );
+        }),
+        const SizedBox(height: 32),
+      ];
+    },
+  );
 
   /* 
   Future<void> _openIceServersModal(BuildContext context) {
@@ -298,12 +299,11 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final file = await openFile(acceptedTypeGroups: [
-      XTypeGroup(
-        label: 'Settings',
-        extensions: ['json'],
-      ),
-    ]);
+    final file = await openFile(
+      acceptedTypeGroups: [
+        XTypeGroup(label: 'Settings', extensions: ['json']),
+      ],
+    );
     if (file == null) return;
     final data = await file.readAsString();
     settingsCubit.importSettings(data);

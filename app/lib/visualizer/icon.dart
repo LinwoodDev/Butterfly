@@ -26,13 +26,13 @@ enum DisplayIcons {
   static List<DisplayIcons> recommended(Object? tool) {
     return switch (tool) {
       PenTool _ => [
-          DisplayIcons.pen,
-          DisplayIcons.pencil,
-          DisplayIcons.pencilSimple,
-          DisplayIcons.penNib,
-          DisplayIcons.highlighterCircle,
-        ],
-      _ => const []
+        DisplayIcons.pen,
+        DisplayIcons.pencil,
+        DisplayIcons.pencilSimple,
+        DisplayIcons.penNib,
+        DisplayIcons.highlighterCircle,
+      ],
+      _ => const [],
     };
   }
 }

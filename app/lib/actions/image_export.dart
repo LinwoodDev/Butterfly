@@ -18,16 +18,14 @@ class ImageExportAction extends Action<ImageExportIntent> {
     var bloc = intent.context.read<DocumentBloc>();
     var transform = intent.context.read<TransformCubit>().state;
     return showDialog<void>(
-        builder: (context) => BlocProvider.value(
-              value: bloc,
-              child: GeneralExportDialog(
-                preset: ExportTransformPreset.view,
-                options: getDefaultImageExportOptions(
-                  context,
-                  transform: transform,
-                ),
-              ),
-            ),
-        context: intent.context);
+      builder: (context) => BlocProvider.value(
+        value: bloc,
+        child: GeneralExportDialog(
+          preset: ExportTransformPreset.view,
+          options: getDefaultImageExportOptions(context, transform: transform),
+        ),
+      ),
+      context: intent.context,
+    );
   }
 }
