@@ -143,6 +143,32 @@ jobs:
           name: windows-setup
           path: |
             app/linwood-butterfly-windows-setup-x86_64.exe
+  build-msix:
+    name: build-msix
+    runs-on: windows-2025
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2.21.0
+        with:
+          flutter-version-file: app/pubspec.yaml
+          cache: true
+      - name: 📦 Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build MSIX
+        run: |
+          dart run msix:create
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: msix-build
+          path: app/build/windows/x64/runner/Release/butterfly.msix
   build-linux:
     strategy:
       fail-fast: false

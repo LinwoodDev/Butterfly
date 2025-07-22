@@ -125,6 +125,7 @@ dev_dependencies:
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
   freezed: ^3.0.2
+  msix: ^3.16.9
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -212,3 +213,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Butterfly
+  publisher_display_name: Company Name
+  identity_name: LinwoodDev.Butterfly
+  msix_version: 2.3.3.0
+  logo_path: images/logo.png
+  capabilities: internetClientServer, webcam, documentsLibrary
+  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  install_certificate: false
