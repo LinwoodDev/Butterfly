@@ -215,7 +215,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 msix_config:
   display_name: Butterfly
-  publisher_display_name: Company Name
+  publisher_display_name: Linwood
   identity_name: LinwoodDev.Butterfly
   msix_version: 2.3.3.0
   logo_path: images/logo.png
