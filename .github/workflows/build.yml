@@ -322,6 +322,8 @@ jobs:
             appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
     steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
       - uses: snapcore/action-build@v1
         id: build
         with:
@@ -334,6 +336,10 @@ jobs:
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch.name }}-snap
+          path: ${{ steps.snapcraft.outputs.snap }}
   build-flatpak:
     name: build-flatpak
     defaults:
@@ -520,27 +526,6 @@ jobs:
           name: ipa-build
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
           compression-level: 0 #ipa is already compressed
-
-  # build-snap:
-  #   name: Build Snap
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       architecture:
-  #         - amd64
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: docker/setup-qemu-action@v2
-  #       with:
-  #         image: tonistiigi/binfmt@sha256:df15403e06a03c2f461c1f7938b171fda34a5849eb63a70e2a2109ed5a778bde
-  #     - uses: diddlesnaps/snapcraft-multiarch-action@v1
-  #       id: build
-  #       with:
-  #         architecture: ${{ matrix.architecture }}
-  #     - uses: actions/upload-artifact@v4
-  #       with:
-  #         name: butterfly-snap
-  #         path: ${{ steps.build.outputs.snap }}
   build-docker:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'
