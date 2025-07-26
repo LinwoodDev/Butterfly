@@ -54,7 +54,7 @@ parts:
     after: [ flutter-git ]
     plugin: nil
     #plugin: flutter
-    source: .
+    source: ..
     build-snaps:
       - cmake
     build-packages:
@@ -65,6 +65,7 @@ parts:
       craftctl default
       set -eux
       cd $CRAFT_PART_SRC_WORK
+      cd app
       flutter pub get || true
       flutter build linux --release --verbose --target lib/main.dart
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
@@ -75,7 +76,7 @@ parts:
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25
-    parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]
+    parse-info: [ app/metainfo/dev.linwood.butterfly.appdata.xml ]
   cleanup:
     after:  # Make this part run last; list all your other parts here
       - butterfly
