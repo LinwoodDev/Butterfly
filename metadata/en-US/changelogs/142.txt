@@ -2,6 +2,8 @@ This is a hotfix update, cherry picking some important fixes from the last 2.4.0
 
 * Upgrade to flutter 3.32
 * Add support for arm AppImage builds
+* Publish app to microsoft store
+* Fix snap builds
 
 Cherry picks:
 * Fix navigator page dialogs not rounded
