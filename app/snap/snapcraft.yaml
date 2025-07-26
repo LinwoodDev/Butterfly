@@ -32,7 +32,7 @@ parts:
     override-pull: |
       set -eux
       # Extract the Flutter version from pubspec.yaml
-      FLUTTER_VERSION=$(grep -E '^  flutter:' pubspec.yaml | awk '{print $2}')
+      FLUTTER_VERSION=$(grep -E '^  flutter:' "$CRAFT_PROJECT_DIR/pubspec.yaml" | awk '{print $2}')
       echo "Using Flutter version: $FLUTTER_VERSION"
       git clone --recursive --branch "$FLUTTER_VERSION" https://github.com/flutter/flutter.git "$CRAFT_PART_SRC"
     override-build: |
