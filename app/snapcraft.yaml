@@ -32,7 +32,7 @@ parts:
     override-pull: |
       set -eux
       # Extract the Flutter version from pubspec.yaml
-      FLUTTER_VERSION=$(grep -E '^  flutter:' "$CRAFT_PROJECT_DIR/pubspec.yaml" | awk '{print $2}')
+      FLUTTER_VERSION=$(grep -E '^  flutter:' "$CRAFT_PROJECT_DIR/app/pubspec.yaml" | awk '{print $2}')
       echo "Using Flutter version: $FLUTTER_VERSION"
       git clone --recursive --branch "$FLUTTER_VERSION" https://github.com/flutter/flutter.git "$CRAFT_PART_SRC"
     override-build: |
@@ -73,22 +73,10 @@ parts:
       cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml $CRAFT_PART_INSTALL/metainfo/
       mkdir -p $CRAFT_PART_INSTALL/meta/gui
       mv linux/debian/usr/share/applications/dev.linwood.butterfly.desktop $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
+      mkdir -p $CRAFT_PART_INSTALL/usr/share/icons/hicolor
+      cp linux/debian/usr/share/icons/hicolor $CRAFT_PART_INSTALL/usr/share/icons/ -r
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25
     parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]
-  cleanup:
-    after:  # Make this part run last; list all your other parts here
-      - butterfly
-      - flutter-git
-    plugin: nil
-    build-snaps:  # List all content-snaps and base snaps you're using here
-      - core22
-      - gnome-42-2204
-      - gtk-common-themes
-    override-prime: |
-      set -eux
-      for snap in "core22" "gnome-42-2204" "gtk-common-themes" ; do  # List all content-snaps and base snaps you're using here
-        cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
-      done
-      rm -rf $CRAFT_PRIME/usr/share/doc
+  
