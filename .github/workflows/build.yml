@@ -324,10 +324,9 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
+      - run: cp app/snap . -r
       - uses: snapcore/action-build@v1
         id: build
-        with:
-          path: app
       - uses: snapcore/action-publish@v1
         name: Publish Snap to Store
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
