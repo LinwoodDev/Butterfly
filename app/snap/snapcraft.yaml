@@ -65,7 +65,6 @@ parts:
       craftctl default
       set -eux
       cd $CRAFT_PART_SRC_WORK
-      cd app
       flutter pub get || true
       flutter build linux --release --verbose --target lib/main.dart
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
