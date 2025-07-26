@@ -1,19 +1,17 @@
 name: butterfly
 grade: stable
 adopt-info: butterfly
-icon: app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
-base: core22
+icon: linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
+base: core24
 confinement: strict
 compression: lzo
 title: 'Linwood Butterfly' #For future, if changes needed, it can be easily done from here
 issues: https://github.com/LinwoodDev/Butterfly/issues #for metadata
 website: https://github.com/LinwoodDev/Butterfly #for metadata in gnome-software, kde-discover
 license: AGPL-3.0 #for metadata
-architectures:
-  - build-on: amd64
-  #- build-on: arm64 # try to build on arm64, as per https://github.com/flutter/flutter/issues/56992
-  # cannot build for arm64, check this action for more details
-  # https://github.com/soumyaDghosh/Butterfly/actions/runs/5017887799/jobs/8996588822
+platforms:
+  amd64:
+  arm64:
 apps:
   butterfly:
     command: butterfly
@@ -32,7 +30,11 @@ parts:
     #source-tag: $(curl https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/FLUTTER_VERSION)
     plugin: nil
     override-pull: |
-      git clone --recursive --branch $(curl https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/FLUTTER_VERSION) https://github.com/flutter/flutter.git $CRAFT_PART_SRC
+      set -eux
+      # Extract the Flutter version from pubspec.yaml
+      FLUTTER_VERSION=$(grep -E '^  flutter:' "$CRAFT_PROJECT_DIR/app/pubspec.yaml" | awk '{print $2}')
+      echo "Using Flutter version: $FLUTTER_VERSION"
+      git clone --recursive --branch "$FLUTTER_VERSION" https://github.com/flutter/flutter.git "$CRAFT_PART_SRC"
     override-build: |
       set -eux
       mkdir -p $CRAFT_PART_INSTALL/usr/bin
@@ -52,23 +54,18 @@ parts:
     after: [ flutter-git ]
     plugin: nil
     #plugin: flutter
-    source: https://github.com/LinwoodDev/Butterfly.git
-    source-tag: nightly
-    source-subdir: app
+    source: .
     build-snaps:
       - cmake
     build-packages:
       - curl
       - libsecret-1-dev
       - libjsoncpp-dev
-    override-pull: |
-      craftctl default
-      git fetch --tags
-      craftctl set version=$(git tag --sort=-creatordate --list 'v*' --sort=-v:refname | head -n 1 | cut -c 2-)
     override-build: |
       craftctl default
       set -eux
       cd $CRAFT_PART_SRC_WORK
+      cd app
       flutter pub get || true
       flutter build linux --release --verbose --target lib/main.dart
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
@@ -76,22 +73,10 @@ parts:
       cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml $CRAFT_PART_INSTALL/metainfo/
       mkdir -p $CRAFT_PART_INSTALL/meta/gui
       mv linux/debian/usr/share/applications/dev.linwood.butterfly.desktop $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
+      mkdir -p $CRAFT_PART_INSTALL/usr/share/icons/hicolor
+      cp linux/debian/usr/share/icons/hicolor $CRAFT_PART_INSTALL/usr/share/icons/ -r
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25
     parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]
-  cleanup:
-    after:  # Make this part run last; list all your other parts here
-      - butterfly
-      - flutter-git
-    plugin: nil
-    build-snaps:  # List all content-snaps and base snaps you're using here
-      - core22
-      - gnome-42-2204
-      - gtk-common-themes
-    override-prime: |
-      set -eux
-      for snap in "core22" "gnome-42-2204" "gtk-common-themes" ; do  # List all content-snaps and base snaps you're using here
-        cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
-      done
-      rm -rf $CRAFT_PRIME/usr/share/doc
+  
