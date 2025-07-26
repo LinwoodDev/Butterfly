@@ -381,7 +381,19 @@ jobs:
           cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
       - name: Compress Flutter build
         run: tar -C build/linux/${{ matrix.arch.dir }}/release/bundle -czf linwood-butterfly-linux-portable-${{ matrix.arch.name }}.tar.gz .
-      #    - name: Install flatpak
+      - uses: snapcore/action-build@v1
+        id: build
+        with:
+          path: app
+      - uses: snapcore/action-publish@v1
+        name: Publish Snap to Store
+        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_CREDENTIALS }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
+        #    - name: Install flatpak
       #      run: |
       #        sudo apt-get update
       #        sudo apt-get install -y flatpak

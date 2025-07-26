@@ -1,7 +1,7 @@
 name: butterfly
 grade: stable
 adopt-info: butterfly
-icon: app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
+icon: linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
 base: core22
 confinement: strict
 compression: lzo
@@ -11,9 +11,7 @@ website: https://github.com/LinwoodDev/Butterfly #for metadata in gnome-software
 license: AGPL-3.0 #for metadata
 architectures:
   - build-on: amd64
-  #- build-on: arm64 # try to build on arm64, as per https://github.com/flutter/flutter/issues/56992
-  # cannot build for arm64, check this action for more details
-  # https://github.com/soumyaDghosh/Butterfly/actions/runs/5017887799/jobs/8996588822
+  - build-on: arm64
 apps:
   butterfly:
     command: butterfly
@@ -52,19 +50,13 @@ parts:
     after: [ flutter-git ]
     plugin: nil
     #plugin: flutter
-    source: https://github.com/LinwoodDev/Butterfly.git
-    source-tag: nightly
-    source-subdir: app
+    source: .
     build-snaps:
       - cmake
     build-packages:
       - curl
       - libsecret-1-dev
       - libjsoncpp-dev
-    override-pull: |
-      craftctl default
-      git fetch --tags
-      craftctl set version=$(git tag --sort=-creatordate --list 'v*' --sort=-v:refname | head -n 1 | cut -c 2-)
     override-build: |
       craftctl default
       set -eux
