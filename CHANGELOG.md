@@ -14,6 +14,16 @@ Cherry picks:
 
 Read more here: https://linwood.dev/butterfly/2.3.2
 
+## 2.3.1 (2025-05-21)
+
+Changes since 2.3.1-rc.1:
+* Fix property view divider height
+* Fix navigator appbar
+* Remove recently files in file navigator
+
+This is a stable release, it includes all the changes from the 2.3.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.3.1
+
 ## 2.3.1-rc.1 (2025-05-12)
 
 * Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
