@@ -16,12 +16,14 @@ while getopts "d:b:" opt; do
       ;;
   esac
 done
-RPM_ARCH=$BINARY_ARCH
 
-# Normalize architecture names for RPM
-if [ "$RPM_ARCH" == "arm64" ]; then
+RPM_ARCH="$DIRECTORY_ARCH"  # Set RPM architecture based on directory architecture
+if [ "$RPM_ARCH" = "x64" ]; then
+  RPM_ARCH="x86_64"
+elif [ "$RPM_ARCH" = "arm64" ]; then
   RPM_ARCH="aarch64"
 fi
+
 # Read version from pubspec
 BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
 [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
