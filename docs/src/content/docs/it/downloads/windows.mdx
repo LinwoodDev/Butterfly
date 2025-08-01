@@ -7,10 +7,63 @@ title: Windows
 
 import {CardGrid, TabItem, Tabs} from '@astrojs/starlight/components';
 import DownloadButton from '/src/components/DownloadButton.astro';
+import MicrosoftLight from '@assets/img/store/microsoft.svg';
+import MicrosoftDark from '@assets/img/store/microsoft_dark.svg';
 
 ## Requisiti minimi di sistema
 
 - Windows 10 o superiore.
+
+## Store
+
+The recommended way to install Butterfly on Windows is through the Microsoft Store. This ensures that you always have the latest version and updates automatically.
+
+<div class="dark:sl-hidden">
+<a href="https://apps.microsoft.com/detail/9nb8293gbsnn?referrer=appbadge&launch=true&mode=full">
+	<img src={MicrosoftLight.src} width="200"/>
+</a>
+</div>
+<div class="light:sl-hidden">
+<a href="https://apps.microsoft.com/detail/9nb8293gbsnn?referrer=appbadge&launch=true&mode=full">
+	<img src={MicrosoftDark.src} width="200"/>
+</a>
+</div>
+
+### Installa usando winget
+
+```powershell
+winget install LinwoodCloud.Butterfly
+```
+
+Per aggiornare il pacchetto winget, esegui:
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly
+```
+
+Per disinstallare il pacchetto winget, esegui:
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly
+```
+
+#### Versione nightly
+
+```powershell
+winget install LinwoodCloud.Butterfly.Nightly
+```
+
+Per aggiornare il pacchetto winget, esegui:
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly.Nightly
+```
+
+Per disinstallare il pacchetto winget, esegui:
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly.Nightly
+```
 
 ## Binari
 
@@ -30,39 +83,3 @@ import DownloadButton from '/src/components/DownloadButton.astro';
 </Tabs>
 
 Per saperne di più sulla versione notturna di Butterfly [here](/community/nightly).
-
-## Installa usando winget
-
-```powershell
-winget install LinwoodCloud.Butterfly
-```
-
-Per aggiornare il pacchetto winget, esegui:
-
-```powershell
-winget upgrade LinwoodCloud.Butterfly
-```
-
-Per disinstallare il pacchetto winget, esegui:
-
-```powershell
-winget uninstall LinwoodCloud.Butterfly
-```
-
-### Versione nightly
-
-```powershell
-winget install LinwoodCloud.Butterfly.Nightly
-```
-
-Per aggiornare il pacchetto winget, esegui:
-
-```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
-```
-
-Per disinstallare il pacchetto winget, esegui:
-
-```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
-```
