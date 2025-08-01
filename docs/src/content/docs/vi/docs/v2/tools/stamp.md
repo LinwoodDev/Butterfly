@@ -7,7 +7,7 @@ Use an existing pack, create your own or import a pack to use it. Read more [her
 
 ## Configuration
 
-|  Property | Default | Mô tả                                                           |
-| --------: | :-----: | :-------------------------------------------------------------- |
-|      Pack |   None  | The pack where the component is located.        |
-| Component |   None  | The component that will be added to the canvas. |
+|  Property |  Default | Mô tả                                                           |
+| --------: | :------: | :-------------------------------------------------------------- |
+|       Gói | Không có | The pack where the component is located.        |
+| Component | Không có | The component that will be added to the canvas. |
