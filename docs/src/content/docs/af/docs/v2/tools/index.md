@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "Gereedskap"
 ---
 
 Tools can edit the paper.
