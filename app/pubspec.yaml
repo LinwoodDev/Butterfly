@@ -217,7 +217,6 @@ msix_config:
   display_name: Linwood Butterfly
   publisher_display_name: Linwood Development
   identity_name: LinwoodDevelopment.linwood-butterfly
-  msix_version: 2.3.3.0
   logo_path: images/logo.png
   capabilities: internetClientServer, webcam, documentsLibrary
   languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
