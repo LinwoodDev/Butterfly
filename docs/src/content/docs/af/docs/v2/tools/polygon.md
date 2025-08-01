@@ -28,8 +28,8 @@ The toolbar contains the following buttons:
 
 ## Configuration
 
-|     Property |   Default   | Description                                                      |
-| -----------: | :---------: | :--------------------------------------------------------------- |
-| Stroke width |      5      | The width of the stroke                                          |
-|        Color |    Black    | The color that will be drawn                                     |
-|         Fill | Transparent | The color that will be drawn inside the polygon. |
+| Property |   Default   | Beskrywing                                                       |
+| -------: | :---------: | :--------------------------------------------------------------- |
+| Lynwydte |      5      | The width of the stroke                                          |
+|    Color |    Black    | The color that will be drawn                                     |
+|      Vul | Transparent | The color that will be drawn inside the polygon. |
