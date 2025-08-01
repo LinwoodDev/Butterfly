@@ -1,5 +1,5 @@
 ---
-title: Construiți-vă propriul
+title: "Construiți-vă propriul"
 ---
 
 1. Instalează git și flutter (beta)

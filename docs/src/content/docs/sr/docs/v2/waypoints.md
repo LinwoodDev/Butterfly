@@ -1,5 +1,5 @@
 ---
-title: Waypoints
+title: Tačke putanje
 ---
 
 With waypoints, you can save important locations in your notes and quickly navigate between them.

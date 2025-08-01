@@ -1,8 +1,8 @@
 ---
-title: Shortcuts
+title: คีย์ลัด
 ---
 
-## Keyboard
+## คีย์บอร์ด
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.

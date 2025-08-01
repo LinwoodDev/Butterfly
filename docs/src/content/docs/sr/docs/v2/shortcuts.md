@@ -1,13 +1,13 @@
 ---
-title: Shortcuts
+title: Prečice
 ---
 
-## Keyboard
+## Tastatura
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
 
-### General
+### Opšte
 
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
@@ -33,7 +33,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Pen
+## Olovka
 
 By default, the the pen is configured to function as the following:
 

@@ -11,7 +11,7 @@ Add the following code to your website:
 
 ## Options
 
-| Option   | Type                                                                                          | Default | Leírás                                                                                                                                                                      |
+| Option   | Típus                                                                                         | Default | Leírás                                                                                                                                                                      |
 | -------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | mentés   | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |

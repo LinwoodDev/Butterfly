@@ -14,11 +14,11 @@ Some features have recently moved to different locations. Please visit their pag
 
 :::
 
-## File
+## 파일
 
 Here are all globally properties that you can set like description and encryption settings.
 Additionally, you can capture a thumbnail from the current viewport to see it in the home page.
 
-## Camera
+## 카메라
 
 To jump to a specific position or zoom to a specific level you can use this tab.

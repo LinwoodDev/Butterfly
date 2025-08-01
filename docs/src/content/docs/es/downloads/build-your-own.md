@@ -1,5 +1,5 @@
 ---
-title: Construye tu propio
+title: "Construye tu propio"
 ---
 
 1. Instalar git y flujido (beta)

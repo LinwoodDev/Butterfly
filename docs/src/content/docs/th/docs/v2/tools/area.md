@@ -6,9 +6,9 @@ The area tool allows you to create, edit and remove areas.
 
 For an overview of how areas work, see [Areas](../areas).
 
-## Actions
+## การกระทำ
 
-|        Mouse        |     Touch    |       Action      |
+|        เมาส์        |    สัมผัส    |       Action      |
 | :-----------------: | :----------: | :---------------: |
 | Left click and drag | Tap and drag | Create a new area |
 |     Middle click    |  Two fingers |    Move canvas    |
@@ -16,11 +16,11 @@ For an overview of how areas work, see [Areas](../areas).
 
 ## Configuration
 
-|     Property | Default | คำอธิบาย                                                                                                                                                                                                                                                                                                                                                                                                               |
-| -----------: | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|    ความกว้าง |   `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
-|      ความสูง |   `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
-| Aspect ratio |   `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
+|  Property | Default | คำอธิบาย                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------: | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ความกว้าง |   `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|   ความสูง |   `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| อัตราส่วน |   `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 There are three aspect ratio presets:
 

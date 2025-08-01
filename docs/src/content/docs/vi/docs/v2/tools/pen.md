@@ -6,9 +6,14 @@ With this tool you can draw on this paper.
 
 ## Configuration
 
-|          Property | Default | Mô tả                                                                            |
-| ----------------: | :-----: | :------------------------------------------------------------------------------- |
-|           Màu sắc |  Black  | The color that will be drawn                                                     |
-|        Độ dày nét |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|    Zoom dependent |  false  | This will change the stroke width based on the zoom level.       |
+|            Property |                                 Default                                | Mô tả                                                                                                                                   |
+| ------------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|             Màu sắc |                                  Black                                 | The color that will be drawn                                                                                                            |
+|          Độ dày nét |                                    5                                   | The width of the stroke                                                                                                                 |
+| Phụ thuộc thu phóng |                                  false                                 | This will change the stroke width based on the zoom level.                                                              |
+| Phát hiện hình dạng | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+|            Làm mảnh |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
+|            Làm mượt |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
+|           Làm thẳng |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
+|             Màu sắc |                                  Black                                 | The color that will be drawn                                                                                                            |
+|                  Tô |                               Transparent                              | The color that will be drawn inside the shape                                                                                           |

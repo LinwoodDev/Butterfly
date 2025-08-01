@@ -14,8 +14,8 @@ Inputs get snapped to the grid.
 
 ## Configuration
 
-| Property |           Default           | Description            |
+| Property |           Default           | Descripció             |
 | -------: | :-------------------------: | :--------------------- |
-|     Size | (20, 20) | The size of grid cells |
+|     Mida | (20, 20) | The size of grid cells |
 |   Offset |  (0, 0)  | The offset of the grid |
 |    Color |            Black            | The color of the grid  |

@@ -9,5 +9,5 @@ Use an existing pack, create your own or import a pack to use it. Read more [her
 
 |  Property | Default | คำอธิบาย                                                        |
 | --------: | :-----: | :-------------------------------------------------------------- |
-|      Pack |  ไม่มี  | The pack where the component is located.        |
+|      แพ็ก |  ไม่มี  | The pack where the component is located.        |
 | Component |  ไม่มี  | The component that will be added to the canvas. |

@@ -1,5 +1,5 @@
 ---
-title: Outils
+title: "Outils"
 ---
 
 Outils pouvant éditer le document.

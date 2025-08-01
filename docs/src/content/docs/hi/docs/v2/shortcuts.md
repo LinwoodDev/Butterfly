@@ -1,13 +1,13 @@
 ---
-title: Shortcuts
+title: शॉर्टकट
 ---
 
-## Keyboard
+## कीबोर्ड
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
 
-### General
+### सामान्य
 
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
@@ -33,7 +33,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Pen
+## पेन
 
 By default, the the pen is configured to function as the following:
 

@@ -17,7 +17,7 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 Click on the shield icon in the address bar to change the setting.
 Try updating your browser to the latest version.
 
-## Mobile
+## ମୋବାଇଲ୍
 
 ### S-Pen won't be recognized
 
@@ -32,7 +32,7 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 
 Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
-## Desktop
+## ଡେସ୍କଟପ୍
 
 ### Stylus input are not recognized
 

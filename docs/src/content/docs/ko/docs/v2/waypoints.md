@@ -1,5 +1,5 @@
 ---
-title: Waypoints
+title: 경유지
 ---
 
 With waypoints, you can save important locations in your notes and quickly navigate between them.

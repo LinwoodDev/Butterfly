@@ -6,6 +6,6 @@ Amb aquesta eina pot seleccionar elements.
 
 ## Configuration
 
-| Property |  Default  | Description                                                     |
+| Property |  Default  | Descripció                                                      |
 | -------: | :-------: | :-------------------------------------------------------------- |
 |     Mode | Rectangle | Mode de selecció. Valid are Rectangle and Lasso |

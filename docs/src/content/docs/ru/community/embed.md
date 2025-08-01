@@ -83,7 +83,7 @@ Returns: `List<int>`
 
 - `data` (Type `List<int>`): The data of the document.
 
-### render
+### рендер
 
 > The `render` method renders the document to a png image.
 

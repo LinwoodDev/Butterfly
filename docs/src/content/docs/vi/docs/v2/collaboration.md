@@ -1,5 +1,5 @@
 ---
-title: Collaboration
+title: Cộng tác
 ---
 
 :::caution[🧪 Experiment]

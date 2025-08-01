@@ -11,7 +11,7 @@ Add the following code to your website:
 
 ## Options
 
-| Option   | Type                                                                                          | Default | Description                                                                                                                                                                 |
+| Option   | Tipe                                                                                          | Default | Beskrywing                                                                                                                                                                  |
 | -------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | save     | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |

@@ -1,5 +1,5 @@
 ---
-title: Layers
+title: ସ୍ତରଗୁଡିକ
 ---
 
 Layers allow you to separate elements from each other and choose which layers are rendered on top of others.
