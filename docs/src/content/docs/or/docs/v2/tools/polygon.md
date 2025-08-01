@@ -28,8 +28,8 @@ The toolbar contains the following buttons:
 
 ## Configuration
 
-|     Property |   Default   | ଵର୍ଣ୍ଣନା                                                         |
+|     Property |   Default   | ବିବରଣୀ                                                           |
 | -----------: | :---------: | :--------------------------------------------------------------- |
-| Stroke width |      5      | The width of the stroke                                          |
+| ଲାଇନ୍ ପ୍ରସ୍ଥ |      5      | The width of the stroke                                          |
 |         ରଙ୍ଗ |    Black    | The color that will be drawn                                     |
-|         Fill | Transparent | The color that will be drawn inside the polygon. |
+|         ପୂରଣ | Transparent | The color that will be drawn inside the polygon. |
