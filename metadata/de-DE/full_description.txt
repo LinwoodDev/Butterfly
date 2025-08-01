@@ -1,16 +1,16 @@
-Butterfly ist eine Notiz–App, bei der deine Ideen an erster Stelle stehen. Du kannst zeichnen, Texte hinzufügen und deine Notizen auf jedem Gerät ganz einfach exportieren. Die App läuft auf Android, Windows, Linux und im Web.
+Butterfly ist eine Notiz-App, bei der deine Ideen an erster Stelle stehen. Du kannst zeichnen, Texte hinzufügen und deine Notizen auf jedem Gerät ganz einfach exportieren. Die App läuft auf Android, Windows, Linux und im Web.
 
-* **Einfach und intuitiv:** Jedes Werkzeug ist genau dort, wo du es erwartest. Öffne die App und starten Sie. Ändern Sie Ihre Werkzeuge, indem Sie darauf klicken.
-* Anpassbar: Ändern Sie alles an Ihre Bedürfnisse. Wähle eine individuelle Farbe, erstelle deine eigene Farbpalette und füge Sie diese auf die Seiten. The paper has an infinite size, perfect for your ideas and notes.
-* **Unterstützt deine Lieblingsformate:** Import und Export von Bildern, PDF- und SVG-Dateien werden unterstützt. Registriere die App als Standardanwendung, um solche Dateien direkt zum Bearbeiten zu öffnen.
-* **Auf jedem Gerät verfügbar:** Ob Android, Windows, Linux oder im Browser – du kannst Butterfly auf Smartphone, Tablet und Computer nutzen. You can use it on your phone, tablet, or computer.
-* **Wähle, wo deine Daten gespeichert werden:** Entscheide selbst, ob deine Daten lokal oder in deiner bevorzugten Cloud (WebDAV) abgelegt werden. Alternativ kannst du sie in eine Datei exportieren und später wieder importieren.
-* **In vielen Sprachen verfügbar:** Die App ist mehrsprachig. Help us to translate this app to your language.
+* Einfach und intuitiv: Jedes Werkzeug ist genau dort, wo du es erwartest. Öffne die App und starte. Ändern Sie Ihre Werkzeuge, indem du darauf klickst.
+* Anpassbar: Ändern Sie alles an deine Bedürfnisse. Wähle eine individuelle Farbe, erstelle deine eigene Farbpalette und füge Sie diese auf die Seiten. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.
+* Unterstützt deine Lieblingsformate: Import und Export von Bildern, Pdf- und Svg-Dateien werden unterstützt. Registriere die App als Standardanwendung, um solche Dateien direkt zum Bearbeiten zu öffnen.
+* Auf jedem Gerät verfügbar: Ob Android, Windows, Linux oder im Browser – du kannst Butterfly auf Smartphone, Tablet und Computer nutzen. Du kannst es auf deinem Handy, Tablet oder Computer verwenden.
+* Wähle, wo deine Daten gespeichert werden: Entscheide selbst, ob deine Daten lokal oder in deiner bevorzugten Cloud (WebDAV) abgelegt werden. Alternativ kannst du sie in eine Datei exportieren und später wieder importieren.
+* **In vielen Sprachen verfügbar:** Die App ist mehrsprachig. Hilf uns, diese App in deine Sprache zu übersetzen.
 * **FOSS (Open Source & kostenlos):** Der Quellcode ist offen, und die Nutzung ist gratis. Du kannst aktiv zum Projekt beitragen und es weiter verbessern.
 * **Offline nutzbar:** Du kannst die App offline benutzen. Auch ohne Internetverbindung kannst du zeichnen, malen und deine Notizen exportieren.
-* **Unterstützt Stylus & Touch:** Egal ob mit dem Finger oder deinem Lieblings-Stylus – Butterfly funktioniert auf allen Touch-Geräten. You can draw and paint with your favorite stylus.
-* **Texte schreiben:** Füge Texte ein und passe Schriftart, Größe und Farbe nach Belieben an. You can change the font, size, and color.
-* **Fotos aufnehmen:** Erstelle direkt Fotos und füge sie deinen Notizen hinzu oder importiere Bilder aus deiner Galerie. You can also import photos from your gallery.
+* **Unterstützt Stylus & Touch:** Egal ob mit dem Finger oder deinem Lieblings-Stylus – Butterfly funktioniert auf allen Touch-Geräten. Du kannst mit deinem bevorzugten Stil zeichnen und malen.
+* **Texte schreiben:** Füge Texte ein und passe Schriftart, Größe und Farbe nach Belieben an. Du kannst Schriftart, Größe und Farbe ändern.
+* **Fotos aufnehmen:** Erstelle direkt Fotos und füge sie deinen Notizen hinzu oder importiere Bilder aus deiner Galerie. Du kannst auch Fotos aus deiner Galerie importieren.
 * **Voll bearbeitbar:** Nachträgliche Änderungen an Größe, Farbe und Position jedes Elements sind jederzeit möglich.
-* **Formen hinzufügen:** Wähle zwischen Rechtecken, Kreisen und Linien, um deine Notizen visuell zu strukturieren. You can choose between a rectangle, circle and line.
+* **Formen hinzufügen:** Wähle zwischen Rechtecken, Kreisen und Linien, um deine Notizen visuell zu strukturieren. Du kannst zwischen Rechteck, Kreis und Linie wählen.
 * **Notizen strukturieren:** Lege Bereiche und Wegpunkte an, um deine Inhalte übersichtlich zu organisieren.
