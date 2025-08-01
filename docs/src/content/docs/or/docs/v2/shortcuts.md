@@ -1,8 +1,8 @@
 ---
-title: Shortcuts
+title: ଶଧାନ୍ତ୍ର
 ---
 
-## Keyboard
+## କୀବୋର୍ଡ୍
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
