@@ -15,7 +15,7 @@ Nightly derlemeleri, size en son sürümü test etme, en yeni özellikleri görm
 Platformunuzun indirme sayfalarına gidin.
 Tüm nightly derlemeleri, ayrıca github'da ön sürüm olarak yayınlanır.
 
-## Experiments
+## Deneyler
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.
