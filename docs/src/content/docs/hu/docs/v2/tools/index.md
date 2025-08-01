@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "Eszközök"
 ---
 
 Tools can edit the paper.
