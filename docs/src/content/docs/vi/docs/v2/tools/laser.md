@@ -11,4 +11,4 @@ With this tool you can draw on this paper temporarily. After a while, the drawin
 |           Màu sắc |  Black  | The color that will be drawn                                                     |
 |        Độ dày nét |    5    | The width of the stroke                                                          |
 | Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|        Thời lượng |    5    | The duration in seconds that the drawing will be visible                         |
