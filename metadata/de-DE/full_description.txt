@@ -1,6 +1,6 @@
 Butterfly ist eine Notiz-App, bei der deine Ideen an erster Stelle stehen. Du kannst zeichnen, Texte hinzufügen und deine Notizen auf jedem Gerät ganz einfach exportieren. Die App läuft auf Android, Windows, Linux und im Web.
 
-* Einfach und intuitiv: Jedes Werkzeug ist genau dort, wo du es erwartest. Öffne die App und starte. Ändern Sie Ihre Werkzeuge, indem du darauf klickst.
+* Simple and intuitive: Every tool is in the right place. Öffne die App und starte. Ändern Sie Ihre Werkzeuge, indem du darauf klickst.
 * Anpassbar: Ändern Sie alles an deine Bedürfnisse. Wähle eine individuelle Farbe, erstelle deine eigene Farbpalette und füge Sie diese auf die Seiten. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.
 * Unterstützt deine Lieblingsformate: Import und Export von Bildern, Pdf- und Svg-Dateien werden unterstützt. Registriere die App als Standardanwendung, um solche Dateien direkt zum Bearbeiten zu öffnen.
 * Auf jedem Gerät verfügbar: Ob Android, Windows, Linux oder im Browser – du kannst Butterfly auf Smartphone, Tablet und Computer nutzen. Du kannst es auf deinem Handy, Tablet oder Computer verwenden.
