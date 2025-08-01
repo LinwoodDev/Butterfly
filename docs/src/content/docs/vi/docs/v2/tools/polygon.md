@@ -32,4 +32,4 @@ The toolbar contains the following buttons:
 | ---------: | :---------: | :--------------------------------------------------------------- |
 | Độ dày nét |      5      | The width of the stroke                                          |
 |    Màu sắc |    Black    | The color that will be drawn                                     |
-|       Fill | Transparent | The color that will be drawn inside the polygon. |
+|         Tô | Transparent | The color that will be drawn inside the polygon. |
