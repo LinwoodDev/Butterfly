@@ -666,15 +666,21 @@ jobs:
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
             linwood-butterfly-linux-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.deb
+            linwood-butterfly-linux-alternative-x86_64.rpm
+            linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.deb
+            linwood-butterfly-linux-alternative-arm64.rpm
+            linwood-butterfly-linux-alternative-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -694,15 +700,21 @@ jobs:
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
             linwood-butterfly-linux-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.deb
+            linwood-butterfly-linux-alternative-x86_64.rpm
+            linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.deb
+            linwood-butterfly-linux-alternative-arm64.rpm
+            linwood-butterfly-linux-alternative-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
