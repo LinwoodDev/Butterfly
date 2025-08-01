@@ -28,8 +28,8 @@ The toolbar contains the following buttons:
 
 ## Configuration
 
-|            Property |   Default   | คำอธิบาย                                                         |
-| ------------------: | :---------: | :--------------------------------------------------------------- |
-| ความกว้างของเส้นขีด |      5      | The width of the stroke                                          |
-|                  สี |    Black    | The color that will be drawn                                     |
-|                เติม | Transparent | The color that will be drawn inside the polygon. |
+|         Property |   Default   | คำอธิบาย                                                         |
+| ---------------: | :---------: | :--------------------------------------------------------------- |
+| ความกว้างของเส้น |      5      | The width of the stroke                                          |
+|               สี |    Black    | The color that will be drawn                                     |
+|             เติม | Transparent | The color that will be drawn inside the polygon. |
