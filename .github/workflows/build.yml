@@ -143,6 +143,32 @@ jobs:
           name: windows-setup
           path: |
             app/linwood-butterfly-windows-setup-x86_64.exe
+  build-msix:
+    name: build-msix
+    runs-on: windows-2025
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2.21.0
+        with:
+          flutter-version-file: app/pubspec.yaml
+          cache: true
+      - name: 📦 Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build MSIX
+        run: |
+          dart run msix:create
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: msix-build
+          path: app/build/windows/x64/runner/Release/butterfly.msix
   build-linux:
     strategy:
       fail-fast: false
@@ -151,9 +177,19 @@ jobs:
           - image: ubuntu-24.04
             name: x86_64
             dir: x64
+            appimage: x86_64
           - image: ubuntu-24.04-arm
             name: arm64
             dir: arm64
+            appimage: aarch64
+          - image: ubuntu-22.04
+            name: alternative-x86_64
+            dir: x64
+            appimage: x86_64
+          - image: ubuntu-22.04-arm
+            name: alternative-arm64
+            dir: arm64
+            appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
@@ -215,7 +251,7 @@ jobs:
         run: |
           chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/butterfly
       - name: Update files to arm64
-        if: ${{ matrix.arch.name == 'arm64' }}
+        if: ${{ matrix.arch.dir == 'arm64' }}
         run: |
           sed -i 's/^Architecture: amd64/Architecture: arm64/' linux/debian/DEBIAN/control
       - name: Build .deb executable
@@ -227,22 +263,29 @@ jobs:
         run: |
           bash scripts/build-rpm.sh -d ${{ matrix.arch.dir }} -b ${{ matrix.arch.name }}
       - name: Build .AppImage executable
-        if: ${{ matrix.arch.name == 'x86_64' }}
         run: |
-          wget -O appimage-builder.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
-          chmod +x appimage-builder.AppImage
-          sudo mv appimage-builder.AppImage /usr/local/bin/appimage-builder
-          appimage-builder --recipe AppImageBuilder.yml --skip-test
+          wget -O appimagetool.AppImage https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.arch.appimage }}.AppImage
+          chmod +x appimagetool.AppImage
+          # Build AppDir
+          mkdir -p AppDir/usr/bin
+          # move bundle folder to AppDir
+          cp build/linux/${{ matrix.arch.dir }}/release/bundle/* AppDir/usr/bin/ -r
+          mkdir -p AppDir/usr/share/icons/hicolor
+          cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/ -r
+          mkdir -p AppDir/usr/share/metainfo/
+          cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml AppDir/usr/share/metainfo/
+          mkdir -p AppDir/usr/share/applications/
+          cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop AppDir/usr/share/applications/
+          ln -s usr/share/applications/dev.linwood.butterfly.desktop AppDir/dev.linwood.butterfly.desktop
+          ln -s usr/bin/butterfly AppDir/AppRun
+          ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png AppDir/dev.linwood.butterfly.png
+          # Build AppImage
+          ./appimagetool.AppImage AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
           mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
           cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
-      - name: Rename AppImage
-        if: ${{ matrix.arch.name == 'x86_64' }}
-        run: |
-          ls
-          mv ./*.AppImage linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
@@ -267,110 +310,46 @@ jobs:
             app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v4
-        if: ${{ matrix.arch.name == 'x86_64' }}
         with:
-          name: linux-x86_64-appimage
+          name: linux-${{ matrix.arch.name }}-appimage
           path: |
-            app/linwood-butterfly-linux-x86_64.AppImage
-  build-flatpak:
-    name: build-flatpak
-    defaults:
-      run:
-        working-directory: app
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
+  build-snap:
+    name: build-snap
     strategy:
       fail-fast: false
       matrix:
         arch:
-          - image: ubuntu-22.04
+          - image: ubuntu-24.04
             name: x86_64
             dir: x64
-          - image: ubuntu-22.04-arm
+            appimage: x86_64
+          - image: ubuntu-24.04-arm
             name: arm64
             dir: arm64
+            appimage: aarch64
     runs-on: ${{ matrix.arch.image }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - name: Get dependencies
+      - name: Add snapcraft directory
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip \
-            python3-setuptools \
-            desktop-file-utils \
-            libgdk-pixbuf2.0-dev \
-            fakeroot \
-            strace \
-            fuse \
-            libgtk-3-dev \
-            libx11-dev \
-            pkg-config \
-            cmake \
-            ninja-build \
-            libblkid-dev \
-            liblzma-dev \
-            clang \
-            dpkg-dev \
-            patchelf \
-            alien \
-            libsecret-1-dev \
-            libjsoncpp-dev
-      - uses: subosito/flutter-action@v2.21.0
+          mkdir -p snap
+          cp app/snapcraft.yaml snap/snapcraft.yaml
+      - uses: snapcore/action-build@v1
+        id: build
+      - uses: snapcore/action-publish@v1
+        name: Publish Snap to Store
+        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_CREDENTIALS }}
         with:
-          flutter-version-file: app/pubspec.yaml
-          channel: "master"
-          cache: true
-          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
-          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
-      - name: ✅ Enable platforms
-        run: |
-          rm -f "$(dirname "$(dirname "$(command -v flutter)")")/engine/src/.gn"
-          flutter config --enable-linux-desktop
-      - name: 📦 Get dependencies
-        run: |
-          flutter clean
-          flutter pub get
-          flutter doctor -v
-      - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
-        run: |
-          flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=nightly
-      - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
-        run: |
-          flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=production
-      - name: Copy nessessary files
-        run: |
-          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
-          mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
-      - name: Compress Flutter build
-        run: tar -C build/linux/${{ matrix.arch.dir }}/release/bundle -czf linwood-butterfly-linux-portable-${{ matrix.arch.name }}.tar.gz .
-      #    - name: Install flatpak
-      #      run: |
-      #        sudo apt-get update
-      #        sudo apt-get install -y flatpak
-      #    - name: Install dependencies
-      #      run: |
-      #        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo --user
-      #        flatpak install flathub org.flatpak.Builder --user -y --arch=x86_64
-      #    - name: Build .flatpak
-      #      timeout-minutes: 15
-      #      run: |
-      #        flatpak run org.flatpak.Builder -v --force-clean --sandbox --delete-build-dirs --user --install-deps-from=flathub --arch=x86_64 flatpak_app flatpak.json --bundle-sources
-      #        flatpak build-export export flatpak_app -v
-      #        flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
-      #    - name: Upload .flatpak artifact to workflow
-      #      uses: actions/upload-artifact@v4
-      #      with:
-      #        name: linux-flatpak
-      #        path: app/linwood-butterfly-linux.flatpak
-      - name: Archive old portable
-        uses: actions/upload-artifact@v4
+          snap: ${{ steps.build.outputs.snap }}
+          release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
+      - uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.arch.name }}-alternative-build
-          path: app/build/linux/${{ matrix.arch.dir }}/release/bundle
+          name: linux-${{ matrix.arch.name }}-snap
+          path: ${{ steps.build.outputs.snap }}
   build-macos:
     runs-on: macos-latest
     defaults:
@@ -458,27 +437,6 @@ jobs:
           name: ipa-build
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
           compression-level: 0 #ipa is already compressed
-
-  # build-snap:
-  #   name: Build Snap
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       architecture:
-  #         - amd64
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: docker/setup-qemu-action@v2
-  #       with:
-  #         image: tonistiigi/binfmt@sha256:df15403e06a03c2f461c1f7938b171fda34a5849eb63a70e2a2109ed5a778bde
-  #     - uses: diddlesnaps/snapcraft-multiarch-action@v1
-  #       id: build
-  #       with:
-  #         architecture: ${{ matrix.architecture }}
-  #     - uses: actions/upload-artifact@v4
-  #       with:
-  #         name: butterfly-snap
-  #         path: ${{ steps.build.outputs.snap }}
   build-docker:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'
@@ -526,7 +484,6 @@ jobs:
       - build-apk
       - build-windows
       - build-linux
-      - build-flatpak
       - build-macos
       - build-ipa
     steps:
@@ -580,10 +537,6 @@ jobs:
           name: linux-x86_64-appimage
       - uses: actions/download-artifact@v4
         with:
-          name: linux-x86_64-alternative-build
-          path: linux-x86_64-alternative-build/
-      - uses: actions/download-artifact@v4
-        with:
           name: linux-arm64-build
           path: linux-arm64-build/
       - uses: actions/download-artifact@v4
@@ -594,8 +547,33 @@ jobs:
           name: linux-arm64-rpm
       - uses: actions/download-artifact@v4
         with:
-          name: linux-arm64-alternative-build
-          path: linux-arm64-alternative-build/
+          name: linux-arm64-appimage
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-x86_64-build
+          path: linux-alternative-x86_64-build/
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-x86_64-deb
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-x86_64-rpm
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-x86_64-appimage
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-arm64-build
+          path: linux-alternative-arm64-build/
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-arm64-deb
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-arm64-rpm
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-alternative-arm64-appimage
       - uses: actions/download-artifact@v4
         with:
           name: windows-setup
@@ -615,8 +593,8 @@ jobs:
           cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
-          tar -C linux-x86_64-alternative-build -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
-          tar -C linux-arm64-alternative-build -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
+          tar -C linux-alternative-x86_64-build -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
+          tar -C linux-alternative-arm64-build -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -652,14 +630,21 @@ jobs:
             linwood-butterfly-windows-setup-x86_64.exe
             linwood-butterfly-windows-x86_64.zip
             linwood-butterfly-linux-x86_64.tar.gz
-            linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
-            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.deb
+            linwood-butterfly-linux-alternative-x86_64.rpm
+            linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.deb
+            linwood-butterfly-linux-alternative-arm64.rpm
+            linwood-butterfly-linux-alternative-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -689,6 +674,7 @@ jobs:
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -716,6 +702,7 @@ jobs:
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -769,7 +756,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.4"
+          ruby-version: "3.4.5"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
