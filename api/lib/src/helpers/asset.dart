@@ -12,6 +12,7 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['public.plain-text'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['dev.linwood.butterfly.xopp'],
+    AssetFileType.rawText => ['public.plain-text'],
     AssetFileType.archive => ['public.archive'],
   };
 
@@ -24,6 +25,7 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['md', 'markdown'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['xopp'],
+    AssetFileType.rawText => ['txt'],
     AssetFileType.archive => ['zip'],
   };
 
@@ -50,6 +52,7 @@ extension AssetFileTypeHelper on AssetFileType {
       'application/x-bzip2',
       'application/x-7z-compressed',
     ],
+    AssetFileType.rawText => ['text/plain'],
   };
 
   bool isMimeType(String mimeType) {

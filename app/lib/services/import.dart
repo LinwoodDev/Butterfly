@@ -7,6 +7,7 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -64,6 +65,16 @@ class ImportService {
   PackFileSystem getPackFileSystem() => useDefaultStorage
       ? getFileSystem().buildDefaultPackSystem()
       : getFileSystem().buildPackSystem(storage);
+  Future<NamedItem<text.TextStyleSheet>?> findStyleSheet() async {
+    final fileSystem = getPackFileSystem();
+    for (final pack in await fileSystem.getFiles()) {
+      final styleSheet = pack.data!.getNamedStyles().firstOrNull;
+      if (styleSheet != null) {
+        return styleSheet;
+      }
+    }
+    return null;
+  }
 
   Future<NoteData?> load({
     String type = '',
@@ -141,10 +152,11 @@ class ImportService {
         position: position,
       ),
       AssetFileType.svg => importSvg(bytes, realDocument, position: position),
-      AssetFileType.markdown => importMarkdown(
+      AssetFileType.markdown => importText(
         bytes,
         realDocument,
         position: position,
+        isMarkdown: true,
       ),
       AssetFileType.pdf => importPdf(
         bytes,
@@ -158,6 +170,12 @@ class ImportService {
         bytes,
         fileSystem: fileSystem,
       ).then((value) => null),
+      AssetFileType.rawText => importText(
+        bytes,
+        realDocument,
+        position: position,
+        isMarkdown: false,
+      ),
     };
   }
 
@@ -577,10 +595,11 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importMarkdown(
+  Future<NoteData?> importText(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
+    required bool isMarkdown,
   }) async {
     try {
       final firstPos = position ?? Offset.zero;
@@ -591,15 +610,27 @@ class ImportService {
       final foreground = background.toColor().isDark()
           ? SRGBColor.white
           : SRGBColor.black;
+      final styleSheet = await findStyleSheet();
       return _submit(
         context,
         document,
         elements: [
-          MarkdownElement(
-            position: firstPos.toPoint(),
-            text: contentString,
-            foreground: foreground,
-          ),
+          isMarkdown
+              ? MarkdownElement(
+                  position: firstPos.toPoint(),
+                  text: contentString,
+                  foreground: foreground,
+                  styleSheet: styleSheet,
+                )
+              : TextElement(
+                  area: text.TextArea(
+                    paragraph: text.TextParagraph(
+                      textSpans: [text.TextSpan.text(text: contentString)],
+                    ),
+                  ),
+                  styleSheet: styleSheet,
+                  foreground: foreground,
+                ),
         ],
         choosePosition: position == null,
       );

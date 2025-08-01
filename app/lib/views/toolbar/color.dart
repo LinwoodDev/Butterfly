@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'dart:async';
 
 import '../../bloc/document_bloc.dart';
 
@@ -19,6 +20,8 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget> actions;
   final ValueChanged<SRGBColor> onChanged;
   final void Function(BuildContext)? onEyeDropper;
+  final double? strokeWidth;
+  final void Function(double)? onStrokeWidthChanged;
 
   const ColorToolbarView({
     super.key,
@@ -26,6 +29,8 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
     required this.onChanged,
     this.onEyeDropper,
     this.actions = const [],
+    this.strokeWidth,
+    this.onStrokeWidthChanged,
   });
 
   @override
@@ -39,6 +44,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   late final PackFileSystem _packSystem;
   final ScrollController _scrollController = ScrollController();
   Future<PackItem<ColorPalette>?>? _colorPalette;
+  Timer? _stepTimer;
 
   @override
   void initState() {
@@ -77,8 +83,21 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     return _packSystem.updateFile(selected.namespace, newPack);
   }
 
+  void _startChanging(double delta) {
+    _stepTimer?.cancel();
+    _stepTimer = Timer.periodic(const Duration(milliseconds: 200), (_) {
+      final newVal = (widget.strokeWidth ?? 0) + delta;
+      widget.onStrokeWidthChanged?.call(newVal);
+    });
+  }
+
+  void _stopChanging() {
+    _stepTimer?.cancel();
+  }
+
   @override
   void dispose() {
+    _stepTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -187,6 +206,53 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
             children: [
               if (widget.actions.isNotEmpty) ...[
                 ...widget.actions,
+                const VerticalDivider(),
+              ],
+              if (widget.strokeWidth != null &&
+                  widget.onStrokeWidthChanged != null) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: SizedBox(
+                    width: 120,
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onLongPress: () => _startChanging(-1),
+                          onLongPressUp: _stopChanging,
+                          child: IconButton(
+                            icon: const Icon(PhosphorIconsLight.minus),
+                            onPressed: () => widget.onStrokeWidthChanged!(
+                              widget.strokeWidth! - 0.1,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: TextEditingController(
+                              text: widget.strokeWidth!.toStringAsFixed(1),
+                            ),
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            onSubmitted: (val) {
+                              final v = double.tryParse(val);
+                              if (v != null) widget.onStrokeWidthChanged!(v);
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onLongPress: () => _startChanging(1),
+                          onLongPressUp: _stopChanging,
+                          child: IconButton(
+                            icon: const Icon(PhosphorIconsLight.plus),
+                            onPressed: () => widget.onStrokeWidthChanged!(
+                              widget.strokeWidth! + 0.1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const VerticalDivider(),
               ],
               if (!palette.colors.contains(color)) ...[

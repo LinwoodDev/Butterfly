@@ -212,6 +212,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             centerTitle: true,
+            backgroundColor: Colors.transparent,
             leading: widget.asDialog
                 ? IconButton.outlined(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),

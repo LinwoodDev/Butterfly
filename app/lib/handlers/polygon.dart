@@ -118,6 +118,13 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   PolygonTool setColor(SRGBColor color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 
+  @override
+  double getStrokeWidth() => data.property.strokeWidth;
+
+  @override
+  PolygonTool setStrokeWidth(double width) =>
+      data.copyWith(property: data.property.copyWith(strokeWidth: width));
+
   void _resetTool() {
     _elementId = null;
     _element = null;

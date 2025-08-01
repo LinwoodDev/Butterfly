@@ -15,6 +15,7 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     AssetFileType.xopp => 'Xournal++',
     AssetFileType.page => AppLocalizations.of(context).page,
     AssetFileType.archive => AppLocalizations.of(context).data,
+    AssetFileType.rawText => AppLocalizations.of(context).text,
     null => AppLocalizations.of(context).unknownImportType,
   };
 

@@ -390,6 +390,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   );
 
   @override
+  double getStrokeWidth() => data.property.strokeWidth;
+
+  @override
+  PenTool setStrokeWidth(double width) =>
+      data.copyWith(property: data.property.copyWith(strokeWidth: width));
+
+  @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)
       ? SystemMouseCursors.none
       : SystemMouseCursors.precise;

@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.0-beta.1+141
+version: 2.4.0-beta.2+143
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.32.5
+  flutter: 3.32.8
 
 dependencies:
   flutter:
@@ -122,9 +122,10 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  build_runner: ^2.4.9
+  build_runner: ^2.6.0
   json_serializable: ^6.7.1
   freezed: ^3.0.2
+  msix: ^3.16.9
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -212,3 +213,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Linwood Butterfly
+  publisher_display_name: Linwood Development
+  identity_name: LinwoodDevelopment.linwood-butterfly
+  msix_version: 2.3.3.0
+  logo_path: images/logo.png
+  capabilities: internetClientServer, webcam, documentsLibrary
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  install_certificate: false

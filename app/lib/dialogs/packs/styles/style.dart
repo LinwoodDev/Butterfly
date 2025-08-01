@@ -10,8 +10,16 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class StyleDialog extends StatefulWidget {
   final text.TextStyleSheet value;
   final ValueChanged<text.TextStyleSheet> onChanged;
+  final String name;
+  final void Function(String) onNameChanged;
 
-  const StyleDialog({super.key, required this.value, required this.onChanged});
+  const StyleDialog({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    required this.name,
+    required this.onNameChanged,
+  });
 
   @override
   State<StyleDialog> createState() => _StyleDialogState();
@@ -76,7 +84,12 @@ class _StyleDialogState extends State<StyleDialog> {
             Expanded(
               child: TabBarView(
                 children: [
-                  GeneralStyleView(value: _style, onChanged: _onChanged),
+                  GeneralStyleView(
+                    value: _style,
+                    onChanged: _onChanged,
+                    name: widget.name,
+                    onNameChanged: widget.onNameChanged,
+                  ),
                   ParagraphsStyleView(value: _style, onChanged: _onChanged),
                   TextsStyleView(value: _style, onChanged: _onChanged),
                 ],

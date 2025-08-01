@@ -33,6 +33,22 @@ class ComponentsPackView extends StatelessWidget {
                   },
                   child: ListTile(
                     title: Text(e),
+                    onTap: () async {
+                      final component = value.getComponent(e);
+                      if (component == null) return;
+                      final result = await showDialog<String>(
+                        context: context,
+                        builder: (ctx) => NameDialog(value: e),
+                      );
+                      if (result == null || result.isEmpty || result == e) {
+                        return;
+                      }
+                      onChanged(
+                        value
+                            .removeComponent(e)
+                            .setComponent(result, component),
+                      );
+                    },
                     trailing: IconButton(
                       icon: const PhosphorIcon(PhosphorIconsLight.trash),
                       onPressed: () async {

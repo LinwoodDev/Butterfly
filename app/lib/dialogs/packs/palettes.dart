@@ -40,8 +40,14 @@ class PalettesPackView extends StatelessWidget {
                             builder: (context) => ColorPalettePickerDialog(
                               palette: value.getPalette(e),
                               viewMode: true,
-                              onChanged: (palette) {
-                                onChanged(value.setPalette(e, palette));
+                              name: e,
+                              onChanged: (palette, name) {
+                                var pack = value;
+                                if (name != null) {
+                                  pack = pack.removePalette(e);
+                                }
+                                pack = pack.setPalette(name ?? e, palette);
+                                onChanged(pack);
                               },
                             ),
                           );
