@@ -1,5 +1,5 @@
 ---
-title: Pages
+title: Oldalak
 ---
 
 Pages are a way to organize your notes by allowing separate infinte canvases to be contained in a single document.
