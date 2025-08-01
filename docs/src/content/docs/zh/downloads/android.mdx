@@ -7,10 +7,36 @@ title: Android
 
 import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
 import DownloadButton from '/src/components/DownloadButton.astro';
+import Playstore from '@assets/img/store/playstore.png';
+import Fdroid from '@assets/img/store/fdroid.svg';
 
 ## 最低制度要求
 
 - Android 6.0 (API 23级) 或更高版本
+
+## Store
+
+The recommended way to install Butterfly on Android is through the store. This ensures that you always have the latest version and updates automatically.
+
+<div class="row">
+<a href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+	<img src={Playstore.src} width="200"/>
+</a>
+<a href="https://f-droid.org/de/packages/dev.linwood.butterfly">
+	<img src={Fdroid.src} width="200" />
+</a>
+</div>
+
+The nightly version is also available on the stores. 请注意，这个版本可能有漏洞。
+
+<div class="row">
+<a href="https://play.google.com/apps/testing/dev.linwood.butterfly">
+	<img src={Playstore.src} width="200"/>
+</a>
+<a href="https://f-droid.org/de/packages/dev.linwood.butterfly.nightly">
+	<img src={Fdroid.src} width="200" />
+</a>
+</div>
 
 ## 二进制文件
 
@@ -40,14 +66,3 @@ import DownloadButton from '/src/components/DownloadButton.astro';
 **Universal** should work on all devices. If you want a smaller apk, use the one that matches your device's architecture.
 
 :::
-
-## 商店
-
-<CardGrid>
-<LinkCard href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly" title="Play Store" />
-<LinkCard href="https://f-droid.org/de/packages/dev.linwood.butterfly" title="F-Droid" />
-</CardGrid>
-
-## Play Store 上的 beta 程序
-
-Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/community/nightly) version of the app. 请注意，这个版本可能有漏洞。 当发布新的夜间版本时，播放商店版本将自动更新。
