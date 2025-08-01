@@ -6,6 +6,6 @@ With this tool you can select elements.
 
 ## Configuration
 
-| Property |  Default  | Description                                                      |
-| -------: | :-------: | :--------------------------------------------------------------- |
-|     Mode | Rectangle | Mode of selection. Valid are Rectangle and Lasso |
+| Property | Default | 설명                                                               |
+| -------: | :-----: | :--------------------------------------------------------------- |
+|     Mode |   사각형   | Mode of selection. Valid are Rectangle and Lasso |
