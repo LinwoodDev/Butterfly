@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.3 (2025-08-01)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
+
+* Upgrade to flutter 3.32
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Publish app to microsoft store
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Cherry picks:
+* Fix navigator page dialogs not rounded
+* Fix directory not respected when creating a document from a template
+
+Read more here: https://linwood.dev/butterfly/2.3.3
+
 ## 2.4.0-beta.1 (2025-07-14)
 
 * Add polygon tool and element
