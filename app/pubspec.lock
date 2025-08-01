@@ -159,7 +159,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.3.3"
+    version: "2.3.4"
   camera:
     dependency: "direct main"
     description:
