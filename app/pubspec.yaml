@@ -220,6 +220,6 @@ msix_config:
   msix_version: 2.3.3.0
   logo_path: images/logo.png
   capabilities: internetClientServer, webcam, documentsLibrary
-  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
   file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
   install_certificate: false
