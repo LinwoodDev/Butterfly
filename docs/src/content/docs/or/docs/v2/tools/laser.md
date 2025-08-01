@@ -6,9 +6,9 @@ With this tool you can draw on this paper temporarily. After a while, the drawin
 
 ## Configuration
 
-|          Property | Default | ଵର୍ଣ୍ଣନା                                                                         |
+|          Property | Default | ବିବରଣୀ                                                                           |
 | ----------------: | :-----: | :------------------------------------------------------------------------------- |
 |              ରଙ୍ଗ |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
+|      ଲାଇନ୍ ପ୍ରସ୍ଥ |    5    | The width of the stroke                                                          |
 | Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|           ଦୀର୍ଘତା |    5    | The duration in seconds that the drawing will be visible                         |
