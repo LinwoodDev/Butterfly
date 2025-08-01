@@ -1,8 +1,8 @@
 ---
-title: Shortcuts
+title: Dreceres
 ---
 
-## Keyboard
+## Teclat
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
