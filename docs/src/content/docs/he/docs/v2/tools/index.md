@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "כלים"
 ---
 
 Tools can edit the paper.
