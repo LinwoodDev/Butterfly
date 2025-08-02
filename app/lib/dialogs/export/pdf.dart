@@ -296,7 +296,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                           state.data,
                                           state.info,
                                           areas: areas,
-                                          state: state,
+                                          docState: state,
                                         )).save(),
                                   );
                                   Navigator.of(context).pop();
@@ -315,7 +315,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                         state.data,
                                         state.info,
                                         areas: areas,
-                                        state: state,
+                                        docState: state,
                                       )).save(),
                                       true,
                                     );
@@ -333,7 +333,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                       state.data,
                                       state.info,
                                       areas: areas,
-                                      state: state,
+                                      docState: state,
                                     )).save(),
                                   );
                                   Navigator.of(context).pop();

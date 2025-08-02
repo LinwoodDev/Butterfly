@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,24 @@ class CameraViewport extends Equatable {
     this.y = 0,
   });
 
-  Null get center => null;
+  static Future<CameraViewport> build(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    final backgrounds = page.backgrounds
+        .map((b) => Renderer<Background>.fromInstance(b))
+        .toList();
+    final renderers = page.content
+        .map((e) => Renderer<PadElement>.fromInstance(e))
+        .toList();
+
+    for (final renderer in [...backgrounds, ...renderers]) {
+      await renderer.setup(document, assetService, page);
+    }
+
+    return CameraViewport.unbaked(backgrounds, renderers);
+  }
 
   ui.Offset toOffset() => ui.Offset(x, y);
 
