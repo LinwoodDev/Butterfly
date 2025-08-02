@@ -304,7 +304,7 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   Future<void> _refreshToolbar(DocumentBloc bloc) async =>
-      bloc.state.currentIndexCubit?.refreshToolbar(bloc);
+      bloc.refreshToolbar();
 
   @override
   void dispose(DocumentBloc bloc) {

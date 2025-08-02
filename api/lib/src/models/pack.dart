@@ -18,9 +18,9 @@ abstract class PackAsset with _$PackAsset {
 sealed class ColorPalette extends PackAsset with _$ColorPalette {
   const ColorPalette._();
 
-  const factory ColorPalette(
-          {@Default([]) @ColorJsonConverter() List<SRGBColor> colors}) =
-      _ColorPalette;
+  const factory ColorPalette({
+    @Default([]) @ColorJsonConverter() List<SRGBColor> colors,
+  }) = _ColorPalette;
   factory ColorPalette.fromJson(Map<String, dynamic> json) =>
       _$ColorPaletteFromJson(json);
 }
@@ -88,21 +88,20 @@ final class PackAssetLocation with _$PackAssetLocation {
 sealed class NamedItem<T extends PackAsset> with _$NamedItem<T> {
   const NamedItem._();
 
-  const factory NamedItem({
-    required String name,
-    required T item,
-  }) = _NamedItem<T>;
+  const factory NamedItem({required String name, required T item}) =
+      _NamedItem<T>;
 
   factory NamedItem.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
-  ) =>
-      _$NamedItemFromJson(json, fromJsonT);
+  ) => _$NamedItemFromJson(json, fromJsonT);
 
   @override
-  Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
-      throw UnimplementedError(
-          'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.');
+  Map<String, dynamic> toJson(
+    Object? Function(T) toJsonT,
+  ) => throw UnimplementedError(
+    'toJson is not implemented for NamedItem<T>. Use NamedItem.fromJson instead.',
+  );
 
   PackItem<T> toPack(NoteData pack, String namespace) =>
       PackItem<T>(PackAssetLocation(namespace, name), pack, item);
@@ -115,7 +114,7 @@ final class PackItem<T extends PackAsset> implements PackAssetLocation {
 
   const PackItem(this.location, this.pack, this.item);
   PackItem.build(String namespace, String key, this.pack, this.item)
-      : location = PackAssetLocation(namespace, key);
+    : location = PackAssetLocation(namespace, key);
 
   @override
   String get namespace => location.namespace;

@@ -2,6 +2,39 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.3 (2025-08-01)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
+
+* Upgrade to flutter 3.32
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Publish app to microsoft store
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Cherry picks:
+* Fix navigator page dialogs not rounded
+* Fix directory not respected when creating a document from a template
+
+Read more here: https://linwood.dev/butterfly/2.3.3
+
+## 2.4.0-beta.1 (2025-07-14)
+
+* Add polygon tool and element
+* Add stroke width to toolbar ([#797](https://github.com/LinwoodDev/Butterfly/issues/797))
+* Add txt support ([#874](https://github.com/LinwoodDev/Butterfly/issues/874))
+* Reimplement renaming of styles and palettes in pack dialog
+* Implement renaming of components in pack dialog
+* Fix migration issues with new text based file format
+* Fix loading of text based files (tbfly)
+* Fix directory not respected when creating a document from a template
+* Fix add to pack dialog not saving the component
+* Fix navigator page dialogs not rounded
+* Fix app is registered on all file types on android ([#874](https://github.com/LinwoodDev/Butterfly/issues/874))
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
+
 ## 2.4.0-beta.0 (2025-06-18)
 
 * Add ctrl + enter to create new text element below current text element ([#858](https://github.com/LinwoodDev/Butterfly/issues/858))

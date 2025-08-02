@@ -31,15 +31,15 @@ sealed class ExportOptions with _$ExportOptions {
       _$ExportOptionsFromJson(json);
 
   ImageExportOptions toImageOptions() => switch (this) {
-        ImageExportOptions e => e,
-        SvgExportOptions e => ImageExportOptions(
-            width: e.width,
-            height: e.height,
-            x: e.x,
-            y: e.y,
-            renderBackground: e.renderBackground,
-          ),
-      };
+    ImageExportOptions e => e,
+    SvgExportOptions e => ImageExportOptions(
+      width: e.width,
+      height: e.height,
+      x: e.x,
+      y: e.y,
+      renderBackground: e.renderBackground,
+    ),
+  };
 }
 
 @freezed

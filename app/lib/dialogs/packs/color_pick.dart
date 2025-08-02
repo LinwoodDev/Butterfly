@@ -15,7 +15,8 @@ class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;
   final SRGBColor value;
   final ColorPalette? palette;
-  final ValueChanged<ColorPalette>? onChanged;
+  final String? name;
+  final void Function(ColorPalette, String?)? onChanged;
   final DocumentBloc? bloc;
 
   const ColorPalettePickerDialog({
@@ -25,6 +26,7 @@ class ColorPalettePickerDialog extends StatefulWidget {
     this.bloc,
     this.palette,
     this.onChanged,
+    this.name,
   });
 
   @override
@@ -63,16 +65,20 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
 
   void _changePalette(ColorPalette palette, [String? name]) {
     if (widget.onChanged != null) {
-      widget.onChanged!(palette);
+      widget.onChanged!(palette, name);
     } else {
       setState(() {
         _palette = palette;
       });
       final location = _selected;
       if (location == null) return;
-      final newPack = _pack?.setPalette(name ?? location.key, palette);
-      if (newPack == null) return;
-      _packSystem.updateFile(location.namespace, newPack);
+      var pack = _pack;
+      if (name != null) {
+        pack = pack?.removePalette(location.key);
+      }
+      pack = pack?.setPalette(name ?? location.key, palette);
+      if (pack == null) return;
+      _packSystem.updateFile(location.namespace, pack);
     }
   }
 
@@ -247,7 +253,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                   ] else
                                     Expanded(
                                       child: TextFormField(
-                                        initialValue: _selected?.key,
+                                        initialValue:
+                                            widget.name ?? _selected?.key,
                                         decoration: InputDecoration(
                                           labelText: LeapLocalizations.of(
                                             context,

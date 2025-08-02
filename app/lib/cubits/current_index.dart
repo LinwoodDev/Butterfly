@@ -1002,8 +1002,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
-    ImageExportOptions options,
-  ) async {
+    ImageExportOptions options, [
+    CameraViewport? cameraViewport,
+  ]) async {
     final realWidth = (options.width * options.quality).ceil();
     final realHeight = (options.height * options.quality).ceil();
     final realZoom = options.scale * options.quality;
@@ -1014,7 +1015,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       renderBackground: options.renderBackground,
-      cameraViewport: state.cameraViewport.unbake(unbakedElements: renderers),
+      cameraViewport:
+          cameraViewport ??
+          state.cameraViewport.unbake(unbakedElements: renderers),
       transform: CameraTransform(Offset(options.x, options.y), realZoom),
     );
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
@@ -1133,16 +1136,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<pw.Document> renderPDF(
     NoteData document,
     DocumentInfo info, {
-    DocumentState? state,
+    required DocumentState docState,
     required List<AreaPreset> areas,
     bool renderBackground = true,
   }) async {
     final pdf = pw.Document();
+    if (docState is! DocumentLoaded) {
+      return pdf;
+    }
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final page = state?.pageName == preset.page
-          ? state?.page
+      final currentOpened = docState.pageName == preset.page;
+      final page = currentOpened
+          ? docState.page
           : document.getPage(preset.page);
       final area = preset.area ?? page?.getAreaByName(areaName);
       if (area == null || page == null) {
@@ -1164,6 +1171,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground,
         ),
+        currentOpened
+            ? null
+            : await CameraViewport.build(document, docState.assetService, page),
       );
       if (image == null) continue;
       pdf.addPage(
@@ -1354,6 +1364,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final document = await fileSystem.createFileWithName(
         name: currentData.name,
         suffix: '.bfly',
+        directory: location.fileExtension.isEmpty
+            ? state.location.path
+            : state.location.parent,
         currentData.toFile(),
       );
       location = document.location;

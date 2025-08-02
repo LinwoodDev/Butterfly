@@ -205,6 +205,12 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   LaserTool setColor(SRGBColor color) => data.copyWith(color: color);
 
   @override
+  double getStrokeWidth() => data.strokeWidth;
+
+  @override
+  LaserTool setStrokeWidth(double width) => data.copyWith(strokeWidth: width);
+
+  @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && _elements.isNotEmpty)
       ? SystemMouseCursors.none
       : SystemMouseCursors.precise;

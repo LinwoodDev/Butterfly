@@ -7,10 +7,11 @@ enum AssetFileType {
   page,
   image,
   markdown,
+  rawText,
   pdf,
   svg,
   xopp,
-  archive
+  archive,
 }
 
 extension AssetLocationFileTypeExtension on AssetLocation {

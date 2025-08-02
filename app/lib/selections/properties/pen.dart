@@ -1,7 +1,6 @@
 part of '../selection.dart';
 
-class PenPropertySelection extends PropertySelection<PenProperty>
-    with PathPropertySelection<PenProperty> {
+class PenPropertySelection extends PropertySelection<PenProperty> {
   PenPropertySelection();
 
   @override
@@ -10,7 +9,42 @@ class PenPropertySelection extends PropertySelection<PenProperty>
     PenProperty property,
     ValueChanged<PenProperty> onChanged,
   ) => [
-    ...super.build(context, property, onChanged),
+    ExactSlider(
+      header: Text(AppLocalizations.of(context).strokeWidth),
+      value: property.strokeWidth,
+      min: 0.1,
+      max: 70,
+      defaultValue: 5,
+      onChangeEnd: (value) =>
+          onChanged((property as dynamic).copyWith(strokeWidth: value)),
+    ),
+    ExactSlider(
+      header: Text(AppLocalizations.of(context).thinning),
+      value: property.thinning,
+      min: 0,
+      max: 1,
+      defaultValue: .4,
+      onChangeEnd: (value) =>
+          onChanged((property as dynamic).copyWith(thinning: value)),
+    ),
+    ExactSlider(
+      header: Text(AppLocalizations.of(context).smoothing),
+      value: property.smoothing,
+      min: 0,
+      max: 1,
+      defaultValue: .5,
+      onChangeEnd: (value) =>
+          onChanged((property as dynamic).copyWith(smoothing: value)),
+    ),
+    ExactSlider(
+      header: Text(AppLocalizations.of(context).streamline),
+      value: property.streamline,
+      min: .1,
+      max: 1,
+      defaultValue: .5,
+      onChangeEnd: (value) =>
+          onChanged((property as dynamic).copyWith(streamline: value)),
+    ),
     ColorField(
       value: property.color.withValues(a: 255),
       onChanged: (value) => onChanged(

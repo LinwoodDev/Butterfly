@@ -20,6 +20,7 @@ import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/views/toolbar/polygon.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -77,6 +78,7 @@ part 'presentation.dart';
 part 'redo.dart';
 part 'ruler.dart';
 part 'grid.dart';
+part 'polygon.dart';
 part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
@@ -274,6 +276,7 @@ abstract class Handler<T> {
           GridTool() => GridHandler(tool),
           RulerTool() => RulerHandler(tool),
           BarcodeTool() => BarcodeHandler(tool),
+          PolygonTool() => PolygonHandler(tool),
         }
         as Handler<T>;
   }

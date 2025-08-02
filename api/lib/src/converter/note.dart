@@ -27,10 +27,9 @@ NoteData archiveNoteDataMigrator(Archive archive, {String? password}) {
     noteData = _migrate(noteData, metadata);
     metadata = noteData.getMetadata();
     if (metadata != null) {
-      noteData = noteData.setMetadata(metadata.copyWith(
-        fileVersion: kFileVersion,
-        updatedAt: DateTime.now(),
-      ));
+      noteData = noteData.setMetadata(
+        metadata.copyWith(fileVersion: kFileVersion, updatedAt: DateTime.now()),
+      );
     }
   }
   return noteData;
@@ -44,12 +43,16 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
     if (page != null) {
       final pageData = json.decode(utf8.decode(page)) as Map<String, dynamic>;
       noteData = noteData.setAsset(
-          kInfoArchiveFile,
-          utf8.encode(json.encode({
-            'painters': (pageData['painters'] as List?)
-                ?.where((element) => element['type'] != 'waypoint'),
+        kInfoArchiveFile,
+        utf8.encode(
+          json.encode({
+            'painters': (pageData['painters'] as List?)?.where(
+              (element) => element['type'] != 'waypoint',
+            ),
             ...pageData,
-          })));
+          }),
+        ),
+      );
     }
   }
   if (version < 10) {
@@ -61,17 +64,16 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       if (backgroundType == 'box') {
         pageData['background'] = {
           'type': 'texture',
-          'texture': {
-            ...pageData['background'],
-            'type': 'pattern',
-          },
+          'texture': {...pageData['background'], 'type': 'pattern'},
         };
       }
       pageData['backgrounds'] = [
         if (backgroundType != 'empty') pageData['background'],
       ];
       noteData = noteData.setAsset(
-          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
+        '$kPagesArchiveDirectory/$page',
+        utf8.encode(json.encode(pageData)),
+      );
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {
@@ -86,7 +88,9 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
         return e;
       }).toList();
       noteData = noteData.setAsset(
-          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+        kInfoArchiveFile,
+        utf8.encode(json.encode(infoData)),
+      );
     }
   }
   if (version < 11) {
@@ -97,17 +101,15 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       final content = pageData['content'] as List?;
       final newLayer = {
         'id': createUniqueId(),
-        'content': content
-                ?.map((e) => {
-                      ...e,
-                      'collection': e['layer'],
-                    })
-                .toList() ??
+        'content':
+            content?.map((e) => {...e, 'collection': e['layer']}).toList() ??
             [],
       };
       pageData['layers'] = [newLayer];
       noteData = noteData.setAsset(
-          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
+        '$kPagesArchiveDirectory/$page',
+        utf8.encode(json.encode(pageData)),
+      );
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {
@@ -119,7 +121,9 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
         return e;
       }).toList();
       noteData = noteData.setAsset(
-          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+        kInfoArchiveFile,
+        utf8.encode(json.encode(infoData)),
+      );
     }
   }
   if (version < 12) {
@@ -134,10 +138,7 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       final data = NoteData.fromData(packData);
       final item = data.getAsset('$kind/$name');
       if (item == null) return null;
-      return {
-        'name': name,
-        'item': item,
-      };
+      return {'name': name, 'item': item};
     }
 
     void updatePenProperty(Map property) {
@@ -159,14 +160,18 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
         for (final item in content ?? []) {
           if ((const ['text', 'markdown'].contains(item['type']))) {
             item['stylesheet'] = resolvePackAssetLocation(
-                item['stylesheet'], kStylesArchiveDirectory);
+              item['stylesheet'],
+              kStylesArchiveDirectory,
+            );
           } else if (item['type'] == 'pen') {
             updatePenProperty(item['property']);
           }
         }
       }
       noteData = noteData.setAsset(
-          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
+        '$kPagesArchiveDirectory/$page',
+        utf8.encode(json.encode(pageData)),
+      );
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {
@@ -175,16 +180,22 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       for (final item in tools ?? []) {
         if ((const ['text', 'markdown'].contains(item['type']))) {
           item['stylesheet'] = resolvePackAssetLocation(
-              item['stylesheet'], kStylesArchiveDirectory);
+            item['stylesheet'],
+            kStylesArchiveDirectory,
+          );
         } else if (item['type'] == 'stamp') {
           item['component'] = resolvePackAssetLocation(
-              item['component'], kComponentsArchiveDirectory);
+            item['component'],
+            kComponentsArchiveDirectory,
+          );
         } else if (item['type'] == 'pen') {
           updatePenProperty(item['property']);
         }
       }
       noteData = noteData.setAsset(
-          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+        kInfoArchiveFile,
+        utf8.encode(json.encode(infoData)),
+      );
     }
   }
   return noteData;
