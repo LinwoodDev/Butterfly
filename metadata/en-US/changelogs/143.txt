@@ -1,4 +1,5 @@
 * Add stroke width to polygon tool toolbar
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
 
 Upstreamed from 2.3.3:
 * Add support for arm AppImage builds
