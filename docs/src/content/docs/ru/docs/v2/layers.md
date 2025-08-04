@@ -2,7 +2,7 @@
 title: Слои
 ---
 
-Layers allow you to separate elements from each other and choose which layers are rendered on top of others.
+Слои позволяют вам отделить элементы друг от друга и выбрать, какие слои будут отображены поверх других.
 
 Layers are drawn from bottom to top, so the top layer will be shown above all other layers.
 
