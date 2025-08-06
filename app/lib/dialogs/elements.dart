@@ -87,7 +87,12 @@ ContextMenuBuilder buildElementsContextMenu(
                 .map((e) => Renderer.fromInstance(e.element))
                 .toList();
             for (final renderer in transforms) {
-              await renderer.setup(document, assetService, page);
+              await renderer.setup(
+                state.transformCubit,
+                document,
+                assetService,
+                page,
+              );
             }
             cubit.fetchHandler<SelectHandler>()?.transform(
               bloc,

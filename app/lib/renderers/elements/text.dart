@@ -82,15 +82,28 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
     final paragraph = getParagraph(document);
-    await _renderLatex(paragraph);
+    await _renderLatex(paragraph, transformCubit);
     _createTool(paragraph, document, page);
-    await super.setup(document, assetService, page);
+    await super.setup(transformCubit, document, assetService, page);
     _updateRect(document);
+  }
+
+  @override
+  Future<void> updateView(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    _renderedLatex.clear();
+    final paragraph = getParagraph(document);
+    await _renderLatex(paragraph, transformCubit);
   }
 
   @override
@@ -110,17 +123,37 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     );
   }
 
-  Widget _buildLatexElement(text.LatexTextSpan span) => Math.tex(
-    span.text,
-    textStyle: TextStyle(fontSize: 42, color: Colors.black),
+  Widget _buildLatexElement(
+    text.TextStyleSheet? styleSheet,
+    text.DefinedParagraphProperty paragraphStyle,
+    text.LatexTextSpan span,
+  ) => Padding(
+    padding: const EdgeInsets.all(1),
+    child: Math.tex(
+      span.text,
+      textStyle:
+          (styleSheet.resolveSpanProperty(span.property) ??
+                  const text.DefinedSpanProperty())
+              .toFlutter(paragraphStyle, element.foreground),
+    ),
   );
 
-  Future<void> _renderLatex(text.TextParagraph paragraph) async {
+  Future<void> _renderLatex(
+    text.TextParagraph paragraph,
+    TransformCubit cubit,
+  ) async {
+    final styleSheet = _getStyle();
+    final paragraphStyle =
+        styleSheet.resolveParagraphProperty(paragraph.property) ??
+        const text.DefinedParagraphProperty();
     for (int i = 0; i < paragraph.textSpans.length; i++) {
       final span = paragraph.textSpans[i];
       if (span is text.LatexTextSpan && !_renderedLatex.containsKey(i)) {
-        final widget = _buildLatexElement(span);
-        final image = await renderWidget(widget, pixelRatio: scale);
+        final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
+        final image = await renderWidget(
+          widget,
+          pixelRatio: scale * cubit.state.pixelRatio * cubit.state.size,
+        );
         _renderedLatex[i] = image;
       }
     }

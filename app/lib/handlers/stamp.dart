@@ -33,7 +33,12 @@ class StampHandler extends PastingHandler<StampTool> {
   void _update(PointerEvent event, EventContext context) {
     final state = context.getState();
     if (state != null) {
-      _loadComponent(state.data, state.assetService, state.page);
+      _loadComponent(
+        state.transformCubit,
+        state.data,
+        state.assetService,
+        state.page,
+      );
     }
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
     context.refresh();
@@ -52,6 +57,7 @@ class StampHandler extends PastingHandler<StampTool> {
   ButterflyComponent? getComponent() => data.component?.item;
 
   Future<void> _loadComponent(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page, [
@@ -62,7 +68,7 @@ class StampHandler extends PastingHandler<StampTool> {
     if ((!force && _elements != null) || _component == null) return;
     final elements = _elements = await Future.wait(
       _component?.elements.map(Renderer.fromInstance).map((e) async {
-            await e.setup(document, assetService, page);
+            await e.setup(transformCubit, document, assetService, page);
             return e;
           }) ??
           [],

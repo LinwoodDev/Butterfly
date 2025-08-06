@@ -261,10 +261,18 @@ abstract class Renderer<T> {
 
   @mustCallSuper
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async => _updateArea(page);
+
+  FutureOr<void> updateView(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) {}
 
   void dispose() {}
 

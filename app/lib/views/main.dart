@@ -150,6 +150,7 @@ class _ProjectPageState extends State<ProjectPage> {
       }
     }
     final networkingService = NetworkingService();
+    final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
       final globalImportService = ImportService(context);
       var location = widget.location;
@@ -237,21 +238,25 @@ class _ProjectPageState extends State<ProjectPage> {
           .map((e) => Renderer.fromInstance(e))
           .toList();
       final assetService = AssetService(document);
+      final transformCubit = TransformCubit(pixelRatio);
       await Future.wait(
         renderers.map(
-          (e) async => await e.setup(document!, assetService, page),
+          (e) async =>
+              await e.setup(transformCubit, document!, assetService, page),
         ),
       );
       final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
       await Future.wait(
-        backgrounds.map((e) async => e.setup(document!, assetService, page)),
+        backgrounds.map(
+          (e) async => e.setup(transformCubit, document!, assetService, page),
+        ),
       );
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
         remote: _remote?.identifier ?? '',
       );
       setState(() {
-        _transformCubit = TransformCubit();
+        _transformCubit = transformCubit;
         _transformCubit?.teleportToWaypoint(page.getOriginWaypoint());
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
@@ -280,7 +285,7 @@ class _ProjectPageState extends State<ProjectPage> {
         print(e);
       }
       setState(() {
-        _transformCubit = TransformCubit();
+        _transformCubit = TransformCubit(pixelRatio);
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,

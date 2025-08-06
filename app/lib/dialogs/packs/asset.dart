@@ -161,7 +161,12 @@ Future<void> addToPack(
   final renderers = elements.map(Renderer.fromInstance).toList();
   await Future.wait(
     renderers.map(
-      (e) async => e.setup(state.data, state.assetService, state.page),
+      (e) async => e.setup(
+        state.transformCubit,
+        state.data,
+        state.assetService,
+        state.page,
+      ),
     ),
   );
   final transformed = renderers

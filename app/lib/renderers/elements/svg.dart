@@ -63,11 +63,12 @@ class SvgRenderer extends Renderer<SvgElement> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
     final data = element.getData(document);
     if (data != null) {
       pictureInfo = await vg.loadPicture(

@@ -22,6 +22,7 @@ class PenRenderer extends Renderer<PenElement> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
@@ -70,7 +71,7 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
   }
 
   @override

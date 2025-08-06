@@ -97,11 +97,12 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
 
   @override
   Future<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
     if (image != null) return;
     try {
       image = await assetService.getImage(element.source);
