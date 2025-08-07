@@ -701,5 +701,6 @@
   "createRawNote": "Ham not oluştur",
   "polygon": "Çokgen",
   "finishShape": "Şekli tamamla",
-  "submit": "Gönder"
+  "submit": "Gönder",
+  "math": "Math"
 }
