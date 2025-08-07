@@ -701,5 +701,6 @@
   "createRawNote": "रॉ नोट बनाएं",
   "polygon": "बहुभुज",
   "finishShape": "आकृति समाप्त करें",
-  "submit": "सबमिट करें"
+  "submit": "सबमिट करें",
+  "math": "Math"
 }
