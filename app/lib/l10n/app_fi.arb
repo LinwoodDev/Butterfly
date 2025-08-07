@@ -701,5 +701,6 @@
   "createRawNote": "Luo raaka merkintä",
   "polygon": "Monikulmio",
   "finishShape": "Viimeistele muoto",
-  "submit": "Lähetä"
+  "submit": "Lähetä",
+  "math": "Math"
 }
