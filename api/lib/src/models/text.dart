@@ -92,10 +92,10 @@ sealed class InlineSpan with _$InlineSpan {
     @Default('') String text,
     @Default(SpanProperty.undefined()) SpanProperty property,
   }) = TextSpan;
-  const factory InlineSpan.latex({
+  const factory InlineSpan.math({
     @Default('') String text,
     @Default(SpanProperty.undefined()) SpanProperty property,
-  }) = LatexTextSpan;
+  }) = MathTextSpan;
 
   factory InlineSpan.fromJson(Map<String, dynamic> json) =>
       _$InlineSpanFromJson(json);

@@ -5,7 +5,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   Rect rect;
   TextPainter? _tp;
   LabelContext? get context;
-  final Map<int, ui.Image> _renderedLatex = {};
+  final Map<int, (ui.Image, double)> _renderedLatex = {};
 
   GenericTextRenderer(super.element, [super.layer])
     : rect = Rect.fromCenter(
@@ -62,14 +62,17 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     switch (span) {
       case text.TextSpan():
         return TextSpan(text: span.text, style: style);
-      case text.LatexTextSpan():
-        final element = _renderedLatex[index];
-        dimensions.add(
-          PlaceholderDimensions(
-            size: Size(
+      case text.MathTextSpan():
+        final (element, scale) = _renderedLatex[index] ?? (null, 1.0);
+        final size =
+            Size(
               element?.width.toDouble() ?? 0,
               element?.height.toDouble() ?? 0,
-            ),
+            ) /
+            scale;
+        dimensions.add(
+          PlaceholderDimensions(
+            size: size,
             alignment: PlaceholderAlignment.middle,
           ),
         );
@@ -126,7 +129,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   Widget _buildLatexElement(
     text.TextStyleSheet? styleSheet,
     text.DefinedParagraphProperty paragraphStyle,
-    text.LatexTextSpan span,
+    text.MathTextSpan span,
   ) => Padding(
     padding: const EdgeInsets.all(1),
     child: Math.tex(
@@ -148,13 +151,14 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
         const text.DefinedParagraphProperty();
     for (int i = 0; i < paragraph.textSpans.length; i++) {
       final span = paragraph.textSpans[i];
-      if (span is text.LatexTextSpan && !_renderedLatex.containsKey(i)) {
+      if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
         final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
+        final pixelRatio = cubit.state.pixelRatio * cubit.state.size;
         final image = await renderWidget(
           widget,
-          pixelRatio: scale * cubit.state.pixelRatio * cubit.state.size,
+          pixelRatio: scale * pixelRatio,
         );
-        _renderedLatex[i] = image;
+        _renderedLatex[i] = (image, pixelRatio);
       }
     }
   }
@@ -182,7 +186,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (int i = 0; i < placeholders.length; i++) {
       if (i < orderedRendered.length) {
         final placeholder = placeholders[i];
-        final image = orderedRendered[i];
+        final (image, _) = orderedRendered[i];
         final rect = placeholder.toRect().shift(element.position.toOffset());
         canvas.drawImageRect(
           image,
@@ -243,7 +247,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
   void dispose() {
     if (context == null) _tp?.dispose();
-    for (final image in _renderedLatex.values) {
+    for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
   }

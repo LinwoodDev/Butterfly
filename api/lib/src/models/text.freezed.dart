@@ -669,8 +669,8 @@ InlineSpan _$InlineSpanFromJson(
           return TextSpan.fromJson(
             json
           );
-                case 'latex':
-          return LatexTextSpan.fromJson(
+                case 'math':
+          return MathTextSpan.fromJson(
             json
           );
         
@@ -846,9 +846,9 @@ $SpanPropertyCopyWith<$Res> get property {
 /// @nodoc
 @JsonSerializable()
 
-class LatexTextSpan extends InlineSpan {
-  const LatexTextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'latex',super._();
-  factory LatexTextSpan.fromJson(Map<String, dynamic> json) => _$LatexTextSpanFromJson(json);
+class MathTextSpan extends InlineSpan {
+  const MathTextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'math',super._();
+  factory MathTextSpan.fromJson(Map<String, dynamic> json) => _$MathTextSpanFromJson(json);
 
 @override@JsonKey() final  String text;
 @override@JsonKey() final  SpanProperty property;
@@ -861,16 +861,16 @@ final String $type;
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$LatexTextSpanCopyWith<LatexTextSpan> get copyWith => _$LatexTextSpanCopyWithImpl<LatexTextSpan>(this, _$identity);
+$MathTextSpanCopyWith<MathTextSpan> get copyWith => _$MathTextSpanCopyWithImpl<MathTextSpan>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$LatexTextSpanToJson(this, );
+  return _$MathTextSpanToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LatexTextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MathTextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -879,15 +879,15 @@ int get hashCode => Object.hash(runtimeType,text,property);
 
 @override
 String toString() {
-  return 'InlineSpan.latex(text: $text, property: $property)';
+  return 'InlineSpan.math(text: $text, property: $property)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $LatexTextSpanCopyWith<$Res> implements $InlineSpanCopyWith<$Res> {
-  factory $LatexTextSpanCopyWith(LatexTextSpan value, $Res Function(LatexTextSpan) _then) = _$LatexTextSpanCopyWithImpl;
+abstract mixin class $MathTextSpanCopyWith<$Res> implements $InlineSpanCopyWith<$Res> {
+  factory $MathTextSpanCopyWith(MathTextSpan value, $Res Function(MathTextSpan) _then) = _$MathTextSpanCopyWithImpl;
 @override @useResult
 $Res call({
  String text, SpanProperty property
@@ -898,17 +898,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$LatexTextSpanCopyWithImpl<$Res>
-    implements $LatexTextSpanCopyWith<$Res> {
-  _$LatexTextSpanCopyWithImpl(this._self, this._then);
+class _$MathTextSpanCopyWithImpl<$Res>
+    implements $MathTextSpanCopyWith<$Res> {
+  _$MathTextSpanCopyWithImpl(this._self, this._then);
 
-  final LatexTextSpan _self;
-  final $Res Function(LatexTextSpan) _then;
+  final MathTextSpan _self;
+  final $Res Function(MathTextSpan) _then;
 
 /// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? text = null,Object? property = null,}) {
-  return _then(LatexTextSpan(
+  return _then(MathTextSpan(
 text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as SpanProperty,

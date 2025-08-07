@@ -21,7 +21,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
 
   List<md.Node> _parse() => md.Document(
     extensionSet: md.ExtensionSet.gitHubWeb,
-    inlineSyntaxes: [md.LineBreakSyntax(), LatexInlineSyntax()],
+    inlineSyntaxes: [md.LineBreakSyntax(), MathInlineSyntax()],
     withDefaultBlockSyntaxes: true,
     withDefaultInlineSyntaxes: true,
     encodeHtml: true,
@@ -48,7 +48,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
         styleSheet?.getParagraphProperty(tag)?.span;
     List<text.InlineSpan> children = switch (tag) {
       'latex' => [
-        text.LatexTextSpan(
+        text.MathTextSpan(
           text: node.textContent,
           property: style ?? const text.SpanProperty.undefined(),
         ),

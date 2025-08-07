@@ -174,7 +174,7 @@ Map<String, dynamic> _$TextSpanToJson(TextSpan instance) => <String, dynamic>{
   'type': instance.$type,
 };
 
-LatexTextSpan _$LatexTextSpanFromJson(Map json) => LatexTextSpan(
+MathTextSpan _$MathTextSpanFromJson(Map json) => MathTextSpan(
   text: json['text'] as String? ?? '',
   property: json['property'] == null
       ? const SpanProperty.undefined()
@@ -184,7 +184,7 @@ LatexTextSpan _$LatexTextSpanFromJson(Map json) => LatexTextSpan(
   $type: json['type'] as String?,
 );
 
-Map<String, dynamic> _$LatexTextSpanToJson(LatexTextSpan instance) =>
+Map<String, dynamic> _$MathTextSpanToJson(MathTextSpan instance) =>
     <String, dynamic>{
       'text': instance.text,
       'property': instance.property.toJson(),

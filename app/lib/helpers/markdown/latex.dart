@@ -3,10 +3,10 @@ import 'package:markdown/markdown.dart';
 /// Syntax for inline LaTeX expressions in Markdown.
 /// Can be used to render LaTeX expressions.
 /// Use `$...$` for inline LaTeX.
-class LatexInlineSyntax extends InlineSyntax {
+class MathInlineSyntax extends InlineSyntax {
   static const _pattern = r'(\$)(?!\$)((?:.|\n)*?[^$])\1(?!\$)';
 
-  LatexInlineSyntax() : super(_pattern);
+  MathInlineSyntax() : super(_pattern);
 
   @override
   bool onMatch(InlineParser parser, Match match) {
