@@ -701,5 +701,6 @@
   "createRawNote": "צור פתק גולמי",
   "polygon": "מצולע",
   "finishShape": "סיים צורה",
-  "submit": "שלח"
+  "submit": "שלח",
+  "math": "Math"
 }
