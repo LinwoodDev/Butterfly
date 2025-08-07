@@ -701,5 +701,6 @@
   "createRawNote": "Vytvořit surovou poznámku",
   "polygon": "Polygon",
   "finishShape": "Dokončit tvar",
-  "submit": "Odeslat"
+  "submit": "Odeslat",
+  "math": "Math"
 }
