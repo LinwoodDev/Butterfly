@@ -701,5 +701,6 @@
   "createRawNote": "Opret rå note",
   "polygon": "Polygon",
   "finishShape": "Afslut form",
-  "submit": "Indsend"
+  "submit": "Indsend",
+  "math": "Math"
 }
