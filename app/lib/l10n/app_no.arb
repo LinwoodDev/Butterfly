@@ -701,5 +701,6 @@
   "createRawNote": "Opprett rå notat",
   "polygon": "Polygon",
   "finishShape": "Fullfør figur",
-  "submit": "Send"
+  "submit": "Send",
+  "math": "Math"
 }
