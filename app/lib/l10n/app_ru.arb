@@ -701,5 +701,6 @@
   "createRawNote": "Создать заметку",
   "polygon": "Полигон",
   "finishShape": "Закончить форму",
-  "submit": "Отправить"
+  "submit": "Отправить",
+  "math": "Math"
 }
