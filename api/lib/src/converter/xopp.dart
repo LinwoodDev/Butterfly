@@ -55,7 +55,7 @@ String _exportColor(SRGBColor value) {
           area: text.TextArea(
             paragraph: text.TextParagraph(
               textSpans: [
-                text.TextSpan.text(
+                text.InlineSpan.text(
                   text: element.innerText,
                   property: text.SpanProperty.defined(
                     color: _importColor(element.getAttribute('color')!),

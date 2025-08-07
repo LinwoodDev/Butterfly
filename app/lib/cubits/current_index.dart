@@ -183,8 +183,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (handler.setupForegrounds) {
         await Future.wait(
           foregrounds.map(
-            (e) async =>
-                await e.setup(document, blocState.assetService, blocState.page),
+            (e) async => await e.setup(
+              state.transformCubit,
+              document,
+              blocState.assetService,
+              blocState.page,
+            ),
           ),
         );
       }
@@ -290,6 +294,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await Future.wait(
       added.map(
         (e) async => await e.setup(
+          state.transformCubit,
           blocState.data,
           blocState.assetService,
           blocState.page,
@@ -330,6 +335,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
+            state.transformCubit,
             docState.data,
             docState.assetService,
             docState.page,
@@ -366,6 +372,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
+            state.transformCubit,
             docState.data,
             docState.assetService,
             docState.page,
@@ -472,7 +479,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           state.temporaryHandler?.setupForegrounds == true) {
         await Future.wait(
           temporaryForegrounds.map(
-            (e) async => await e.setup(document, assetService, page),
+            (e) async => await e.setup(
+              state.transformCubit,
+              document,
+              assetService,
+              page,
+            ),
           ),
         );
       }
@@ -486,7 +498,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (state.handler.setupForegrounds) {
         await Future.wait(
           foregrounds.map(
-            (e) async => await e.setup(document, assetService, page),
+            (e) async => await e.setup(
+              state.transformCubit,
+              document,
+              assetService,
+              page,
+            ),
           ),
         );
       }
@@ -504,7 +521,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (handler.setupForegrounds) {
           await Future.wait(
             foregrounds.map(
-              (e) async => await e.setup(document, assetService, page),
+              (e) async => await e.setup(
+                state.transformCubit,
+                document,
+                assetService,
+                page,
+              ),
             ),
           );
         }
@@ -594,7 +616,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (handler.setupForegrounds) {
       Future.wait(
         foregrounds.map(
-          (e) async => await e.setup(document, blocState.assetService, page),
+          (e) async => await e.setup(
+            state.transformCubit,
+            document,
+            blocState.assetService,
+            page,
+          ),
         ),
       );
     }
@@ -724,7 +751,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (handler.setupForegrounds) {
         await Future.wait(
           temporaryForegrounds.map(
-            (e) async => await e.setup(document, blocState.assetService, page),
+            (e) async => await e.setup(
+              state.transformCubit,
+              document,
+              blocState.assetService,
+              page,
+            ),
           ),
         );
       }
@@ -877,6 +909,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     _isBaking = true;
 
+    if (viewChanged) {
+      await Future.wait(
+        visibleElements.map(
+          (e) async => await e.updateView(
+            state.transformCubit,
+            document,
+            blocState.assetService,
+            page,
+          ),
+        ),
+      );
+    }
+
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
 
@@ -1018,7 +1063,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       cameraViewport:
           cameraViewport ??
           state.cameraViewport.unbake(unbakedElements: renderers),
-      transform: CameraTransform(Offset(options.x, options.y), realZoom),
+      transform: CameraTransform(1, Offset(options.x, options.y), realZoom),
     );
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
@@ -1095,11 +1140,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .expand((e) => e.content.map((c) => Renderer.fromInstance(c, e.id)))
         .toList();
     await Future.wait(
-      renderers.map((e) async => await e.setup(document, assetService, page)),
+      renderers.map(
+        (e) async =>
+            await e.setup(state.transformCubit, document, assetService, page),
+      ),
     );
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(
-      backgrounds.map((e) async => await e.setup(document, assetService, page)),
+      backgrounds.map(
+        (e) async =>
+            await e.setup(state.transformCubit, document, assetService, page),
+      ),
     );
     emit(
       state.copyWith(
@@ -1173,7 +1224,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
         currentOpened
             ? null
-            : await CameraViewport.build(document, docState.assetService, page),
+            : await CameraViewport.build(
+                docState.transformCubit,
+                document,
+                docState.assetService,
+                page,
+              ),
       );
       if (image == null) continue;
       pdf.addPage(
@@ -1419,7 +1475,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ...?replacedElements,
       ...addedElements,
     }) {
-      await renderer.setup(current.data, current.assetService, current.page);
+      await renderer.setup(
+        state.transformCubit,
+        current.data,
+        current.assetService,
+        current.page,
+      );
     }
     elements.addAll(addedElements);
 
@@ -1501,7 +1562,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (handler.setupForegrounds) {
         Future.wait(
           foregrounds.map(
-            (e) async => await e.setup(document, blocState.assetService, page),
+            (e) async => await e.setup(
+              state.transformCubit,
+              document,
+              blocState.assetService,
+              page,
+            ),
           ),
         );
       }

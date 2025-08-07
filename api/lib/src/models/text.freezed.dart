@@ -661,24 +661,47 @@ as VerticalAlignment,
 
 }
 
+InlineSpan _$InlineSpanFromJson(
+  Map<String, dynamic> json
+) {
+        switch (json['type']) {
+                  case 'text':
+          return TextSpan.fromJson(
+            json
+          );
+                case 'math':
+          return MathTextSpan.fromJson(
+            json
+          );
+        
+          default:
+            throw CheckedFromJsonException(
+  json,
+  'type',
+  'InlineSpan',
+  'Invalid union type "${json['type']}"!'
+);
+        }
+      
+}
 
 /// @nodoc
-mixin _$TextSpan {
+mixin _$InlineSpan {
 
  String get text; SpanProperty get property;
-/// Create a copy of TextSpan
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$TextSpanCopyWith<TextSpan> get copyWith => _$TextSpanCopyWithImpl<TextSpan>(this as TextSpan, _$identity);
+$InlineSpanCopyWith<InlineSpan> get copyWith => _$InlineSpanCopyWithImpl<InlineSpan>(this as InlineSpan, _$identity);
 
-  /// Serializes this TextSpan to a JSON map.
+  /// Serializes this InlineSpan to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InlineSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -687,15 +710,15 @@ int get hashCode => Object.hash(runtimeType,text,property);
 
 @override
 String toString() {
-  return 'TextSpan(text: $text, property: $property)';
+  return 'InlineSpan(text: $text, property: $property)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $TextSpanCopyWith<$Res>  {
-  factory $TextSpanCopyWith(TextSpan value, $Res Function(TextSpan) _then) = _$TextSpanCopyWithImpl;
+abstract mixin class $InlineSpanCopyWith<$Res>  {
+  factory $InlineSpanCopyWith(InlineSpan value, $Res Function(InlineSpan) _then) = _$InlineSpanCopyWithImpl;
 @useResult
 $Res call({
  String text, SpanProperty property
@@ -706,14 +729,14 @@ $SpanPropertyCopyWith<$Res> get property;
 
 }
 /// @nodoc
-class _$TextSpanCopyWithImpl<$Res>
-    implements $TextSpanCopyWith<$Res> {
-  _$TextSpanCopyWithImpl(this._self, this._then);
+class _$InlineSpanCopyWithImpl<$Res>
+    implements $InlineSpanCopyWith<$Res> {
+  _$InlineSpanCopyWithImpl(this._self, this._then);
 
-  final TextSpan _self;
-  final $Res Function(TextSpan) _then;
+  final InlineSpan _self;
+  final $Res Function(InlineSpan) _then;
 
-/// Create a copy of TextSpan
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? text = null,Object? property = null,}) {
   return _then(_self.copyWith(
@@ -722,7 +745,7 @@ as String,property: null == property ? _self.property : property // ignore: cast
 as SpanProperty,
   ));
 }
-/// Create a copy of TextSpan
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -739,18 +762,22 @@ $SpanPropertyCopyWith<$Res> get property {
 /// @nodoc
 @JsonSerializable()
 
-class _TextSpan extends TextSpan {
-  const _TextSpan({this.text = '', this.property = const SpanProperty.undefined()}): super._();
-  factory _TextSpan.fromJson(Map<String, dynamic> json) => _$TextSpanFromJson(json);
+class TextSpan extends InlineSpan {
+  const TextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'text',super._();
+  factory TextSpan.fromJson(Map<String, dynamic> json) => _$TextSpanFromJson(json);
 
 @override@JsonKey() final  String text;
 @override@JsonKey() final  SpanProperty property;
 
-/// Create a copy of TextSpan
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$TextSpanCopyWith<_TextSpan> get copyWith => __$TextSpanCopyWithImpl<_TextSpan>(this, _$identity);
+$TextSpanCopyWith<TextSpan> get copyWith => _$TextSpanCopyWithImpl<TextSpan>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
@@ -759,7 +786,7 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -768,15 +795,15 @@ int get hashCode => Object.hash(runtimeType,text,property);
 
 @override
 String toString() {
-  return 'TextSpan.text(text: $text, property: $property)';
+  return 'InlineSpan.text(text: $text, property: $property)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$TextSpanCopyWith<$Res> implements $TextSpanCopyWith<$Res> {
-  factory _$TextSpanCopyWith(_TextSpan value, $Res Function(_TextSpan) _then) = __$TextSpanCopyWithImpl;
+abstract mixin class $TextSpanCopyWith<$Res> implements $InlineSpanCopyWith<$Res> {
+  factory $TextSpanCopyWith(TextSpan value, $Res Function(TextSpan) _then) = _$TextSpanCopyWithImpl;
 @override @useResult
 $Res call({
  String text, SpanProperty property
@@ -787,24 +814,108 @@ $Res call({
 
 }
 /// @nodoc
-class __$TextSpanCopyWithImpl<$Res>
-    implements _$TextSpanCopyWith<$Res> {
-  __$TextSpanCopyWithImpl(this._self, this._then);
+class _$TextSpanCopyWithImpl<$Res>
+    implements $TextSpanCopyWith<$Res> {
+  _$TextSpanCopyWithImpl(this._self, this._then);
 
-  final _TextSpan _self;
-  final $Res Function(_TextSpan) _then;
+  final TextSpan _self;
+  final $Res Function(TextSpan) _then;
 
-/// Create a copy of TextSpan
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? text = null,Object? property = null,}) {
-  return _then(_TextSpan(
+  return _then(TextSpan(
 text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as SpanProperty,
   ));
 }
 
-/// Create a copy of TextSpan
+/// Create a copy of InlineSpan
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SpanPropertyCopyWith<$Res> get property {
+  
+  return $SpanPropertyCopyWith<$Res>(_self.property, (value) {
+    return _then(_self.copyWith(property: value));
+  });
+}
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class MathTextSpan extends InlineSpan {
+  const MathTextSpan({this.text = '', this.property = const SpanProperty.undefined(), final  String? $type}): $type = $type ?? 'math',super._();
+  factory MathTextSpan.fromJson(Map<String, dynamic> json) => _$MathTextSpanFromJson(json);
+
+@override@JsonKey() final  String text;
+@override@JsonKey() final  SpanProperty property;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of InlineSpan
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MathTextSpanCopyWith<MathTextSpan> get copyWith => _$MathTextSpanCopyWithImpl<MathTextSpan>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$MathTextSpanToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MathTextSpan&&(identical(other.text, text) || other.text == text)&&(identical(other.property, property) || other.property == property));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,text,property);
+
+@override
+String toString() {
+  return 'InlineSpan.math(text: $text, property: $property)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MathTextSpanCopyWith<$Res> implements $InlineSpanCopyWith<$Res> {
+  factory $MathTextSpanCopyWith(MathTextSpan value, $Res Function(MathTextSpan) _then) = _$MathTextSpanCopyWithImpl;
+@override @useResult
+$Res call({
+ String text, SpanProperty property
+});
+
+
+@override $SpanPropertyCopyWith<$Res> get property;
+
+}
+/// @nodoc
+class _$MathTextSpanCopyWithImpl<$Res>
+    implements $MathTextSpanCopyWith<$Res> {
+  _$MathTextSpanCopyWithImpl(this._self, this._then);
+
+  final MathTextSpan _self;
+  final $Res Function(MathTextSpan) _then;
+
+/// Create a copy of InlineSpan
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? text = null,Object? property = null,}) {
+  return _then(MathTextSpan(
+text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
+as String,property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
+as SpanProperty,
+  ));
+}
+
+/// Create a copy of InlineSpan
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -951,7 +1062,7 @@ as T,
 /// @nodoc
 mixin _$TextParagraph {
 
- ParagraphProperty get property; List<TextSpan> get textSpans;
+ ParagraphProperty get property; List<InlineSpan> get textSpans;
 /// Create a copy of TextParagraph
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -984,7 +1095,7 @@ abstract mixin class $TextParagraphCopyWith<$Res>  {
   factory $TextParagraphCopyWith(TextParagraph value, $Res Function(TextParagraph) _then) = _$TextParagraphCopyWithImpl;
 @useResult
 $Res call({
- ParagraphProperty property, List<TextSpan> textSpans
+ ParagraphProperty property, List<InlineSpan> textSpans
 });
 
 
@@ -1005,7 +1116,7 @@ class _$TextParagraphCopyWithImpl<$Res>
   return _then(_self.copyWith(
 property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as ParagraphProperty,textSpans: null == textSpans ? _self.textSpans : textSpans // ignore: cast_nullable_to_non_nullable
-as List<TextSpan>,
+as List<InlineSpan>,
   ));
 }
 /// Create a copy of TextParagraph
@@ -1026,12 +1137,12 @@ $ParagraphPropertyCopyWith<$Res> get property {
 @JsonSerializable()
 
 class _TextParagraph extends TextParagraph {
-  const _TextParagraph({this.property = const ParagraphProperty.undefined(), final  List<TextSpan> textSpans = const []}): _textSpans = textSpans,super._();
+  const _TextParagraph({this.property = const ParagraphProperty.undefined(), final  List<InlineSpan> textSpans = const []}): _textSpans = textSpans,super._();
   factory _TextParagraph.fromJson(Map<String, dynamic> json) => _$TextParagraphFromJson(json);
 
 @override@JsonKey() final  ParagraphProperty property;
- final  List<TextSpan> _textSpans;
-@override@JsonKey() List<TextSpan> get textSpans {
+ final  List<InlineSpan> _textSpans;
+@override@JsonKey() List<InlineSpan> get textSpans {
   if (_textSpans is EqualUnmodifiableListView) return _textSpans;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_textSpans);
@@ -1071,7 +1182,7 @@ abstract mixin class _$TextParagraphCopyWith<$Res> implements $TextParagraphCopy
   factory _$TextParagraphCopyWith(_TextParagraph value, $Res Function(_TextParagraph) _then) = __$TextParagraphCopyWithImpl;
 @override @useResult
 $Res call({
- ParagraphProperty property, List<TextSpan> textSpans
+ ParagraphProperty property, List<InlineSpan> textSpans
 });
 
 
@@ -1092,7 +1203,7 @@ class __$TextParagraphCopyWithImpl<$Res>
   return _then(_TextParagraph(
 property: null == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as ParagraphProperty,textSpans: null == textSpans ? _self._textSpans : textSpans // ignore: cast_nullable_to_non_nullable
-as List<TextSpan>,
+as List<InlineSpan>,
   ));
 }
 

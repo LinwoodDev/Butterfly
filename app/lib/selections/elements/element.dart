@@ -113,10 +113,11 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final page = state.page;
     final document = state.data;
     final assetService = state.assetService;
+    final transformCubit = state.transformCubit;
     final renderers = await Future.wait(
       elements.map((e) async {
         final renderer = Renderer.fromInstance(e);
-        await renderer.setup(document, assetService, page);
+        await renderer.setup(transformCubit, document, assetService, page);
         return renderer;
       }).toList(),
     );

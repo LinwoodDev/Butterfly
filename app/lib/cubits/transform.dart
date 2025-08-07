@@ -36,18 +36,20 @@ class CameraTransform extends Equatable {
   final Offset position;
   final double size;
   final FrictionState? friction;
+  final double pixelRatio;
 
   const CameraTransform([
+    this.pixelRatio = 1,
     this.position = Offset.zero,
     this.size = 1,
     this.friction,
   ]);
 
   CameraTransform withPosition(Offset position) =>
-      CameraTransform(position, size);
+      CameraTransform(pixelRatio, position, size);
 
   CameraTransform withPointPosition(Point<double> position) =>
-      CameraTransform(position.toOffset(), size);
+      CameraTransform(pixelRatio, position.toOffset(), size);
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
@@ -55,7 +57,11 @@ class CameraTransform extends Equatable {
     var mx = localToGlobal(cursor);
     mx = (mx - position) * newSize;
 
-    return CameraTransform(position + (mx - cursor) / newSize, newSize);
+    return CameraTransform(
+      pixelRatio,
+      position + (mx - cursor) / newSize,
+      newSize,
+    );
   }
 
   Offset localToGlobal(Offset local) => local / size + position;
@@ -95,6 +101,7 @@ class CameraTransform extends Equatable {
     );
 
     return CameraTransform(
+      pixelRatio,
       position - finalPos,
       size + finalSize,
       frictionState,
@@ -102,17 +109,22 @@ class CameraTransform extends Equatable {
   }
 
   CameraTransform withFrictionless(Offset position, double size) {
-    return CameraTransform(this.position - position, this.size - size, null);
+    return CameraTransform(
+      pixelRatio,
+      this.position - position,
+      this.size - size,
+      null,
+    );
   }
 
   CameraTransform improve(RenderResolution resolution, Size size) {
     final rect = resolution.getRect(position & size);
-    return CameraTransform(rect.topLeft, this.size, friction);
+    return CameraTransform(pixelRatio, rect.topLeft, this.size, friction);
   }
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
-  TransformCubit() : super(const CameraTransform());
+  TransformCubit(double pixelRatio) : super(CameraTransform(pixelRatio));
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
@@ -124,7 +136,7 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
 
-  void reset() => emit(const CameraTransform());
+  void reset() => emit(CameraTransform(state.pixelRatio));
 
   void size(double size, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(size, cursor));

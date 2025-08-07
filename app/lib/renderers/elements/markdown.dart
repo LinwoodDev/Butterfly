@@ -21,13 +21,13 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
 
   List<md.Node> _parse() => md.Document(
     extensionSet: md.ExtensionSet.gitHubWeb,
-    inlineSyntaxes: [md.LineBreakSyntax()],
+    inlineSyntaxes: [md.LineBreakSyntax(), MathInlineSyntax()],
     withDefaultBlockSyntaxes: true,
     withDefaultInlineSyntaxes: true,
     encodeHtml: true,
   ).parse(element.text);
 
-  List<text.TextSpan> _convertToSpan(
+  List<text.InlineSpan> _convertToSpan(
     md.Node node,
     text.TextStyleSheet? styleSheet, [
     bool paragraph = false,
@@ -35,7 +35,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   ]) {
     if (node is! md.Element) {
       return [
-        text.TextSpan.text(
+        text.InlineSpan.text(
           text: node.textContent,
           property: span ?? const text.SpanProperty.undefined(),
         ),
@@ -46,13 +46,20 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     final style =
         styleSheet?.getSpanProperty(tag) ??
         styleSheet?.getParagraphProperty(tag)?.span;
-    return [
-      ...(node.children
-              ?.expand((e) => _convertToSpan(e, styleSheet, false, style))
-              .toList() ??
-          []),
-      if (paragraph) const text.TextSpan.text(text: '\n'),
-    ];
+    List<text.InlineSpan> children = switch (tag) {
+      'latex' => [
+        text.MathTextSpan(
+          text: node.textContent,
+          property: style ?? const text.SpanProperty.undefined(),
+        ),
+      ],
+      _ =>
+        (node.children
+                ?.expand((e) => _convertToSpan(e, styleSheet, false, style))
+                .toList() ??
+            []),
+    };
+    return [...children, if (paragraph) const text.InlineSpan.text(text: '\n')];
   }
 
   text.TextParagraph _convertToParagraph(
@@ -62,7 +69,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     final style = styleSheet?.getParagraphProperty('p');
     return text.TextParagraph(
       textSpans: context != null
-          ? [text.TextSpan.text(text: element.text)]
+          ? [text.InlineSpan.text(text: element.text)]
           : node
                 .expandIndexed((i, e) => _convertToSpan(e, styleSheet))
                 .toList(growable: false),

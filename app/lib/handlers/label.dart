@@ -524,7 +524,7 @@ class LabelHandler extends Handler<LabelTool>
           final newSpan = e.shouldNewSpan(data);
           final paragraph = newSpan
               ? old.area.paragraph.replace(
-                  text.TextSpan.text(
+                  text.InlineSpan.text(
                     text: currentText,
                     property:
                         e.forcedSpanProperty ??
@@ -543,7 +543,7 @@ class LabelHandler extends Handler<LabelTool>
           element = old.copyWith(area: area);
         } else {
           final paragraph = text.TextParagraph(
-            textSpans: [text.TextSpan.text(text: value)],
+            textSpans: [text.InlineSpan.text(text: value)],
             property:
                 e.forcedProperty ?? const text.ParagraphProperty.undefined(),
           );
@@ -646,7 +646,7 @@ class LabelHandler extends Handler<LabelTool>
               var element = e.element;
               if (element == null) return e;
               element = element.copyWith(
-                text: element.text.replaceRange(start, selection.end, ''),
+                text: element.text.replaceRange(start, start + length, ''),
               );
               _context = e.copyWith(
                 element: element,

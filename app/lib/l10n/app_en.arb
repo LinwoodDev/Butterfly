@@ -701,5 +701,6 @@
   "createRawNote": "Create raw note",
   "polygon": "Polygon",
   "finishShape": "Finish shape",
-  "submit": "Submit"
+  "submit": "Submit",
+  "math": "Math"
 }

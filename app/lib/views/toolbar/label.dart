@@ -86,6 +86,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         '~~',
       ),
       (PhosphorIcons.code, AppLocalizations.of(context).code, '`'),
+      (PhosphorIcons.mathOperations, AppLocalizations.of(context).math, '\$'),
     ];
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;

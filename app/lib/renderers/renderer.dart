@@ -7,6 +7,7 @@ import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
+import 'package:butterfly/helpers/markdown/latex.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
@@ -17,6 +18,8 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
@@ -258,10 +261,18 @@ abstract class Renderer<T> {
 
   @mustCallSuper
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async => _updateArea(page);
+
+  FutureOr<void> updateView(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) {}
 
   void dispose() {}
 
@@ -389,4 +400,41 @@ abstract class Renderer<T> {
     DocumentBloc bloc,
     BuildContext context,
   ) => null;
+}
+
+Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
+  final repaintBoundary = RenderRepaintBoundary();
+  final pipelineOwner = PipelineOwner();
+  final BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+
+  try {
+    final renderView = RenderView(
+      view: ui.PlatformDispatcher.instance.implicitView!,
+      child: RenderPositionedBox(
+        alignment: Alignment.center,
+        child: repaintBoundary,
+      ),
+      configuration: ViewConfiguration(
+        logicalConstraints: BoxConstraints.tightFor(),
+        devicePixelRatio: pixelRatio,
+      ),
+    );
+
+    pipelineOwner.rootNode = renderView;
+
+    renderView.prepareInitialFrame();
+    final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
+      container: repaintBoundary,
+      child: Directionality(textDirection: TextDirection.ltr, child: widget),
+    ).attachToRenderTree(buildOwner);
+    buildOwner.buildScope(rootElement);
+    buildOwner.finalizeTree();
+    pipelineOwner.flushLayout();
+    pipelineOwner.flushCompositingBits();
+    pipelineOwner.flushPaint();
+    final image = await repaintBoundary.toImage(pixelRatio: pixelRatio);
+    return image;
+  } catch (e) {
+    throw Exception('Failed to render widget: $e');
+  }
 }

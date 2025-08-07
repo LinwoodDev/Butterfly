@@ -7,11 +7,12 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
     final bytes = getDataFromSource(document, element.source);
     if (bytes == null) return;
     final data = utf8.decode(bytes);

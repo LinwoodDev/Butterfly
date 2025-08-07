@@ -76,12 +76,13 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page, [
     bool force = false,
   ]) async {
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
     if (image != null && !force) return;
     try {
       image = await assetService.getImage(element.source, document);

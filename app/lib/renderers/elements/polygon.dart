@@ -33,13 +33,14 @@ class PolygonRenderer extends Renderer<PolygonElement> {
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
     rect = calculatePolygonRect(element.points);
 
-    super.setup(document, assetService, page);
+    super.setup(transformCubit, document, assetService, page);
   }
 
   @override

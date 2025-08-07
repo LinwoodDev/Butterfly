@@ -625,7 +625,7 @@ class ImportService {
               : TextElement(
                   area: text.TextArea(
                     paragraph: text.TextParagraph(
-                      textSpans: [text.TextSpan.text(text: contentString)],
+                      textSpans: [text.TextSpan(text: contentString)],
                     ),
                   ),
                   styleSheet: styleSheet,

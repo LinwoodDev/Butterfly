@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -56,6 +57,7 @@ class CameraViewport extends Equatable {
   });
 
   static Future<CameraViewport> build(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
@@ -68,7 +70,7 @@ class CameraViewport extends Equatable {
         .toList();
 
     for (final renderer in [...backgrounds, ...renderers]) {
-      await renderer.setup(document, assetService, page);
+      await renderer.setup(transformCubit, document, assetService, page);
     }
 
     return CameraViewport.unbaked(backgrounds, renderers);

@@ -5,6 +5,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   Rect rect;
   TextPainter? _tp;
   LabelContext? get context;
+  final Map<int, (ui.Image, double)> _renderedLatex = {};
 
   GenericTextRenderer(super.element, [super.layer])
     : rect = Rect.fromCenter(
@@ -17,23 +18,30 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   text.TextParagraph getParagraph(NoteData document);
 
-  void _createTool(NoteData document, DocumentPage page) {
+  void _createTool(
+    text.TextParagraph paragraph,
+    NoteData document,
+    DocumentPage page,
+  ) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaler = TextScaler.linear(scale);
-    final paragraph = getParagraph(document);
     final styleSheet = _getStyle();
     final style =
         styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
+    final dimensions = <PlaceholderDimensions>[];
     _tp?.text = switch (paragraph) {
       text.TextParagraph p => TextSpan(
         children: p.textSpans
-            .map((e) => _createSpan(document, e, style))
+            .mapIndexed(
+              (i, e) => _createSpan(document, dimensions, i, e, style),
+            )
             .toList(),
         style: style.span.toFlutter(null, element.foreground),
       ),
     };
+    _tp?.setPlaceholderDimensions(dimensions);
     _tp?.textAlign = style.alignment.toFlutter();
     _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
@@ -42,26 +50,63 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   InlineSpan _createSpan(
     NoteData document,
-    text.TextSpan span, [
+    List<PlaceholderDimensions> dimensions,
+    int index,
+    text.InlineSpan span, [
     text.DefinedParagraphProperty? parent,
   ]) {
     final styleSheet = _getStyle();
-    final style = styleSheet.resolveSpanProperty(span.property);
-    return TextSpan(
-      text: span.text,
-      style: style?.toFlutter(parent, element.foreground),
-    );
+    final style = styleSheet
+        .resolveSpanProperty(span.property)
+        ?.toFlutter(parent, element.foreground);
+    switch (span) {
+      case text.TextSpan():
+        return TextSpan(text: span.text, style: style);
+      case text.MathTextSpan():
+        final (element, scale) = _renderedLatex[index] ?? (null, 1.0);
+        final size =
+            Size(
+              element?.width.toDouble() ?? 0,
+              element?.height.toDouble() ?? 0,
+            ) /
+            scale;
+        dimensions.add(
+          PlaceholderDimensions(
+            size: size,
+            alignment: PlaceholderAlignment.middle,
+          ),
+        );
+        return WidgetSpan(
+          child: RawImage(image: element),
+          style: style,
+        );
+    }
   }
 
   @override
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) async {
-    _createTool(document, page);
-    await super.setup(document, assetService, page);
+    final paragraph = getParagraph(document);
+    await _renderLatex(paragraph, transformCubit);
+    _createTool(paragraph, document, page);
+    await super.setup(transformCubit, document, assetService, page);
     _updateRect(document);
+  }
+
+  @override
+  Future<void> updateView(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    _renderedLatex.clear();
+    final paragraph = getParagraph(document);
+    await _renderLatex(paragraph, transformCubit);
   }
 
   @override
@@ -81,8 +126,45 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     );
   }
 
+  Widget _buildLatexElement(
+    text.TextStyleSheet? styleSheet,
+    text.DefinedParagraphProperty paragraphStyle,
+    text.MathTextSpan span,
+  ) => Padding(
+    padding: const EdgeInsets.all(1),
+    child: Math.tex(
+      span.text,
+      textStyle:
+          (styleSheet.resolveSpanProperty(span.property) ??
+                  const text.DefinedSpanProperty())
+              .toFlutter(paragraphStyle, element.foreground),
+    ),
+  );
+
+  Future<void> _renderLatex(
+    text.TextParagraph paragraph,
+    TransformCubit cubit,
+  ) async {
+    final styleSheet = _getStyle();
+    final paragraphStyle =
+        styleSheet.resolveParagraphProperty(paragraph.property) ??
+        const text.DefinedParagraphProperty();
+    for (int i = 0; i < paragraph.textSpans.length; i++) {
+      final span = paragraph.textSpans[i];
+      if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
+        final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
+        final pixelRatio = cubit.state.pixelRatio * cubit.state.size;
+        final image = await renderWidget(
+          widget,
+          pixelRatio: scale * pixelRatio,
+        );
+        _renderedLatex[i] = (image, pixelRatio);
+      }
+    }
+  }
+
   @override
-  FutureOr<void> build(
+  void build(
     Canvas canvas,
     Size size,
     NoteData document,
@@ -92,9 +174,27 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (_tp?.text != null) {
-      _tp?.layout(maxWidth: rect.width);
-      _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
+    final tp = _tp;
+    if (tp == null || tp.text == null) return;
+    tp.layout(maxWidth: rect.width);
+    tp.paint(canvas, element.getOffset(rect.height).toOffset());
+    final placeholders = tp.inlinePlaceholderBoxes ?? [];
+    final orderedRendered = _renderedLatex.entries
+        .sorted((a, b) => a.key.compareTo(b.key))
+        .map((e) => e.value)
+        .toList();
+    for (int i = 0; i < placeholders.length; i++) {
+      if (i < orderedRendered.length) {
+        final placeholder = placeholders[i];
+        final (image, _) = orderedRendered[i];
+        final rect = placeholder.toRect().shift(element.position.toOffset());
+        canvas.drawImageRect(
+          image,
+          Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+          rect,
+          Paint(),
+        );
+      }
     }
   }
 
@@ -147,6 +247,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
   void dispose() {
     if (context == null) _tp?.dispose();
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
+    }
   }
 
   InlineSpan? get span => _tp?.text;
