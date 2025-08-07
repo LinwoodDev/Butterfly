@@ -701,5 +701,6 @@
   "createRawNote": "Ruw notitie maken",
   "polygon": "Veelhoek",
   "finishShape": "Vorm voltooien",
-  "submit": "Bevestigen"
+  "submit": "Bevestigen",
+  "math": "Math"
 }
