@@ -701,5 +701,6 @@
   "createRawNote": "创建原始笔记",
   "polygon": "多边形",
   "finishShape": "完成形状",
-  "submit": "提交"
+  "submit": "提交",
+  "math": "Math"
 }
