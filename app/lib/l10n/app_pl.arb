@@ -701,5 +701,6 @@
   "createRawNote": "Utwórz surową notatkę",
   "polygon": "Wielokąt",
   "finishShape": "Ukończ kształt",
-  "submit": "Prześlij"
+  "submit": "Prześlij",
+  "math": "Math"
 }
