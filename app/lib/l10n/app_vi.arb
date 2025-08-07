@@ -701,5 +701,6 @@
   "createRawNote": "Tạo ghi chú gốc",
   "polygon": "Đa giác",
   "finishShape": "Hoàn thành hình",
-  "submit": "Gửi"
+  "submit": "Gửi",
+  "math": "Math"
 }
