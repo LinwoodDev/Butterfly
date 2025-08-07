@@ -9,31 +9,31 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 ## Configuration
 
-|       Property |  Default  | Description                                                                                                                                                                                      |
-| -------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|          Color |   Black   | The color that will be drawn                                                                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
-|         Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|        Property |  Default  | Beskrywing                                                                                                                                                                                       |
+| --------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           Color |   Black   | The color that will be drawn                                                                                                                                                                     |
+|        Lynwydte |     5     | The width of the stroke                                                                                                                                                                          |
+|  Zoem-afhanklik |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
+|            Vorm | rectangle | The shape that will be drawn                                                                                                                                                                     |
+|           Wydte |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
+|          Hoogte |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
+| Aspekverhouding |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
-#### Rectangle
+#### Reghoek
 
-|      Property |   Default   | Description                                       |
-| ------------: | :---------: | :------------------------------------------------ |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
+|   Property |   Default   | Beskrywing                                        |
+| ---------: | :---------: | :------------------------------------------------ |
+|        Vul | Transparent | The color that will be drawn inside the rectangle |
+| Hoekradius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
 
-#### Circle
+#### Sirkel
 
-| Property |   Default   | Description                                       |
+| Property |   Default   | Beskrywing                                        |
 | -------: | :---------: | :------------------------------------------------ |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|      Vul | Transparent | The color that will be drawn inside the rectangle |
 
-#### Line
+#### Lyn
 
 _No configuration available._

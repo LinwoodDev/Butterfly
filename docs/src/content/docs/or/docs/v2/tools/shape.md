@@ -9,31 +9,31 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 ## Configuration
 
-|       Property |  Default  | ଵର୍ଣ୍ଣନା                                                                                                                                                                                         |
-| -------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           ରଙ୍ଗ |   Black   | The color that will be drawn                                                                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
-|         ଉଚ୍ଚତା |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|     Property |  Default  | ବିବରଣୀ                                                                                                                                                                                           |
+| -----------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|         ରଙ୍ଗ |   Black   | The color that will be drawn                                                                                                                                                                     |
+| ଲାଇନ୍ ପ୍ରସ୍ଥ |     5     | The width of the stroke                                                                                                                                                                          |
+|  ଜୁମ୍ ନିର୍ଭର |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
+|        ଆକୃତି | rectangle | The shape that will be drawn                                                                                                                                                                     |
+|       ପ୍ରସ୍ଥ |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
+|       ଉଚ୍ଚତା |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
+|   ପ୍ରମାଣୁପାତ |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
-#### Rectangle
+#### ଆୟତ
 
-|      Property |   Default   | ଵର୍ଣ୍ଣନା                                          |
-| ------------: | :---------: | :------------------------------------------------ |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
+|     Property |   Default   | ବିବରଣୀ                                            |
+| -----------: | :---------: | :------------------------------------------------ |
+|         ପୂରଣ | Transparent | The color that will be drawn inside the rectangle |
+| କୋନ୍ ରୌଦ୍ରତା |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
 
-#### Circle
+#### ବୃତ୍ତ
 
-| Property |   Default   | ଵର୍ଣ୍ଣନା                                          |
+| Property |   Default   | ବିବରଣୀ                                            |
 | -------: | :---------: | :------------------------------------------------ |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|     ପୂରଣ | Transparent | The color that will be drawn inside the rectangle |
 
-#### Line
+#### ରେଖା
 
 _No configuration available._

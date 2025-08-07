@@ -1,5 +1,5 @@
 ---
-title: Bouw je eigen
+title: "Bouw je eigen"
 ---
 
 1. Installeer git en flutter (bèta)

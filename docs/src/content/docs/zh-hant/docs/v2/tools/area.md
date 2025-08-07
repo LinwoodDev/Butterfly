@@ -6,7 +6,7 @@ The area tool allows you to create, edit and remove areas.
 
 For an overview of how areas work, see [Areas](../areas).
 
-## Actions
+## 動作
 
 |          滑鼠         |      觸控      |       Action      |
 | :-----------------: | :----------: | :---------------: |

@@ -1,5 +1,5 @@
 ---
-title: Layers
+title: שכבות
 ---
 
 Layers allow you to separate elements from each other and choose which layers are rendered on top of others.

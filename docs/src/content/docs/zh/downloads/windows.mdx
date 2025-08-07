@@ -7,10 +7,63 @@ title: 窗口
 
 import {CardGrid, TabItem, Tabs} from '@astrojs/starlight/components';
 import DownloadButton from '/src/components/DownloadButton.astro';
+import MicrosoftLight from '@assets/img/store/microsoft.svg';
+import MicrosoftDark from '@assets/img/store/microsoft_dark.svg';
 
 ## 最低制度要求
 
 - Windows 10或更高。
+
+## Store
+
+The recommended way to install Butterfly on Windows is through the Microsoft Store. This ensures that you always have the latest version and updates automatically.
+
+<div class="dark:sl-hidden">
+<a href="https://apps.microsoft.com/detail/9nb8293gbsnn?referrer=appbadge&launch=true&mode=full">
+	<img src={MicrosoftLight.src} width="200"/>
+</a>
+</div>
+<div class="light:sl-hidden">
+<a href="https://apps.microsoft.com/detail/9nb8293gbsnn?referrer=appbadge&launch=true&mode=full">
+	<img src={MicrosoftDark.src} width="200"/>
+</a>
+</div>
+
+### 使用winget安装
+
+```powershell
+winget install LinwoodCloud.Butterfly
+```
+
+要升级winget包，请运行：
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly
+```
+
+要卸载winget包，请运行：
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly
+```
+
+#### 每晚版本
+
+```powershell
+winget install LinwoodCloud.Butterfly.Nightly
+```
+
+要升级winget包，请运行：
+
+```powershell
+winget upgrade LinwoodCloud.Butterfly.Nightly
+```
+
+要卸载winget包，请运行：
+
+```powershell
+winget uninstall LinwoodCloud.Butterfly.Nightly
+```
 
 ## 二进制文件
 
@@ -30,39 +83,3 @@ import DownloadButton from '/src/components/DownloadButton.astro';
 </Tabs>
 
 阅读更多关于每晚版本的 Butterfell [here](/community/nightly)。
-
-## 使用winget安装
-
-```powershell
-winget install LinwoodCloud.Butterfly
-```
-
-要升级winget包，请运行：
-
-```powershell
-winget upgrade LinwoodCloud.Butterfly
-```
-
-要卸载winget包，请运行：
-
-```powershell
-winget uninstall LinwoodCloud.Butterfly
-```
-
-### 每晚版本
-
-```powershell
-winget install LinwoodCloud.Butterfly.Nightly
-```
-
-要升级winget包，请运行：
-
-```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
-```
-
-要卸载winget包，请运行：
-
-```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
-```

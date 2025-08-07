@@ -15,7 +15,7 @@ Bản nightly được thiết kế để cho bạn lựa chọn được thử 
 Go to the download pages of your platform.
 All nightly builds get also published as pre-release on github.
 
-## Experiments
+## Thử nghiệm
 
 Experiments are features that are not ready for production yet.
 Default they are disabled. You can enable them in the settings under `Experiments`.

@@ -14,7 +14,7 @@ Inputs get snapped to the ruler.
 
 ## Configuration
 
-| Property |  Default  | Description                                                                                  |
+| Property |  Default  | विवरण                                                                                        |
 | -------: | :-------: | :------------------------------------------------------------------------------------------- |
-|     Size |    100    | The size of the ruler                                                                        |
+|     आकार |    100    | The size of the ruler                                                                        |
 |    Color | _Not set_ | The color of the ruler. If not set, it uses the theme color. |

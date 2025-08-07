@@ -14,26 +14,26 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 |                Szín |   Black   | The color that will be drawn                                                                                                                                                                     |
 |           Vastagság |     5     | The width of the stroke                                                                                                                                                                          |
 | Függőleges nagyítás |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
-|               Shape | rectangle | The shape that will be drawn                                                                                                                                                                     |
+|               Forma | rectangle | The shape that will be drawn                                                                                                                                                                     |
 |           Szélesség |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
 |            Magasság |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-|        Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|          Oldalarány |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
-#### Rectangle
+#### Téglalap
 
-|      Property |   Default   | Leírás                                            |
-| ------------: | :---------: | :------------------------------------------------ |
-|      Kitöltés | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
+|     Property |   Default   | Leírás                                            |
+| -----------: | :---------: | :------------------------------------------------ |
+|     Kitöltés | Transparent | The color that will be drawn inside the rectangle |
+| Sarok sugara |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
 
-#### Circle
+#### Kör
 
 | Property |   Default   | Leírás                                            |
 | -------: | :---------: | :------------------------------------------------ |
 | Kitöltés | Transparent | The color that will be drawn inside the rectangle |
 
-#### Line
+#### Vonal
 
 _No configuration available._

@@ -13,20 +13,20 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 | ------------------: | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |                  สี |    Black   | The color that will be drawn                                                                                                                                                                     |
 | ความกว้างของเส้นขีด |      5     | The width of the stroke                                                                                                                                                                          |
-|      Zoom dependent |   ไม่จริง  | This will change the stroke width based on the zoom level.                                                                                                                       |
+|   ขึ้นอยู่กับการซูม |   ไม่จริง  | This will change the stroke width based on the zoom level.                                                                                                                       |
 |             รูปร่าง | สี่เหลี่ยม | The shape that will be drawn                                                                                                                                                                     |
 |           ความกว้าง |      0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
 |             ความสูง |      0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-|        Aspect ratio |      0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|           อัตราส่วน |      0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
 #### สี่เหลี่ยม
 
-|      Property |   Default   | คำอธิบาย                                          |
-| ------------: | :---------: | :------------------------------------------------ |
-|          เติม | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
+| Property |   Default   | คำอธิบาย                                          |
+| -------: | :---------: | :------------------------------------------------ |
+|     เติม | Transparent | The color that will be drawn inside the rectangle |
+| รัศมีมุม |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
 
 #### วงกลม
 

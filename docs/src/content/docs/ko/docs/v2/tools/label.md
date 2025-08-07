@@ -6,6 +6,6 @@ With this tool you can add text to the paper.
 
 ## Configuration
 
-| Property | Default | Description          |
+| Property | Default | 설명                   |
 | -------: | :-----: | :------------------- |
-|     Size |    12   | The size of the text |
+|       크기 |    12   | The size of the text |
