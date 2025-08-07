@@ -701,5 +701,6 @@
   "createRawNote": "Nyers jegyzet létrehozása",
   "polygon": "Sokszög",
   "finishShape": "Alakzat befejezése",
-  "submit": "Küldés"
+  "submit": "Küldés",
+  "math": "Math"
 }
