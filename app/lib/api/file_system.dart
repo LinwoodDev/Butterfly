@@ -185,6 +185,7 @@ class ButterflyFileSystem {
     onEncode: _encodeFile,
     onDecode: _decodeFile,
     storage: storage,
+    useIsolates: true,
   );
   TypedKeyFileSystem<NoteData> buildTemplateSystem([
     ExternalStorage? storage,
