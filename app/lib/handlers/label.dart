@@ -610,7 +610,7 @@ class LabelHandler extends Handler<LabelTool>
               var element = e.element;
               if (element == null) return e;
               element = element.copyWith(
-                text: element.text.replaceRange(start, selection.end, ''),
+                text: element.text.replaceRange(start, start + length, ''),
               );
               _context = e.copyWith(
                 element: element,
