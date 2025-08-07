@@ -701,5 +701,6 @@
   "createRawNote": "Creați o notă brută",
   "polygon": "Poligon",
   "finishShape": "Formă finală",
-  "submit": "Trimiteți"
+  "submit": "Trimiteți",
+  "math": "Math"
 }
