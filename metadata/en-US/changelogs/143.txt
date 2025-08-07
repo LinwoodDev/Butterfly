@@ -1,4 +1,6 @@
 * Add stroke width to polygon tool toolbar
+* Add latex support for markdown ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Fix delete key not working in markdown mode 
 * Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
 
 Upstreamed from 2.3.3:
