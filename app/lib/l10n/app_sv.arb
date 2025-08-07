@@ -701,5 +701,6 @@
   "createRawNote": "Skapa rå anteckning",
   "polygon": "Polygon",
   "finishShape": "Slutför form",
-  "submit": "Skicka"
+  "submit": "Skicka",
+  "math": "Math"
 }
