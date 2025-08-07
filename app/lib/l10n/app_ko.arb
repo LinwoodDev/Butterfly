@@ -701,5 +701,6 @@
   "createRawNote": "원본 노트 만들기",
   "polygon": "다각형",
   "finishShape": "도형 완성",
-  "submit": "제출"
+  "submit": "제출",
+  "math": "Math"
 }
