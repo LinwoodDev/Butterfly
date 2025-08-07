@@ -701,5 +701,6 @@
   "createRawNote": "未加工のノートを作成",
   "polygon": "多角形（多角形）",
   "finishShape": "形状を終了する",
-  "submit": "送信"
+  "submit": "送信",
+  "math": "Math"
 }
