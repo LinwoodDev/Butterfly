@@ -701,5 +701,6 @@
   "createRawNote": "إنشاء ملاحظة خام",
   "polygon": "مضلع",
   "finishShape": "إنهاء الشكل",
-  "submit": "إرسال"
+  "submit": "إرسال",
+  "math": "Math"
 }
