@@ -701,5 +701,6 @@
   "createRawNote": "Erstelle Rohnotiz",
   "polygon": "Polygon",
   "finishShape": "Form beenden",
-  "submit": "Absenden"
+  "submit": "Absenden",
+  "math": "Math"
 }
