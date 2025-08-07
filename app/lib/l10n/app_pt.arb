@@ -701,5 +701,6 @@
   "createRawNote": "Criar nota bruta",
   "polygon": "Polígono",
   "finishShape": "Forma de final",
-  "submit": "submeter"
+  "submit": "submeter",
+  "math": "Math"
 }
