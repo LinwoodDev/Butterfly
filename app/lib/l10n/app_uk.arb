@@ -701,5 +701,6 @@
   "createRawNote": "Створити сиру нотатку",
   "polygon": "Многокутник",
   "finishShape": "Завершити форму",
-  "submit": "Ввести"
+  "submit": "Ввести",
+  "math": "Math"
 }
