@@ -701,5 +701,6 @@
   "createRawNote": "Kreiraj sirovu belešku",
   "polygon": "Poligon",
   "finishShape": "Završi oblik",
-  "submit": "Pošalji"
+  "submit": "Pošalji",
+  "math": "Math"
 }
