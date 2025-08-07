@@ -701,5 +701,6 @@
   "createRawNote": "สร้างบันทึกดิบ",
   "polygon": "รูปหลายเหลี่ยม",
   "finishShape": "เสร็จสิ้นรูปทรง",
-  "submit": "ส่ง"
+  "submit": "ส่ง",
+  "math": "Math"
 }
