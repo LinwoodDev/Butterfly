@@ -313,7 +313,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, this.rotation * (pi / 180));
+      DefaultHitCalculator(rect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,
