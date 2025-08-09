@@ -371,6 +371,7 @@ sealed class TextStyleSheet extends PackAsset with _$TextStyleSheet {
       'tr',
       'th',
       'td',
+      'math',
     ];
   }
 

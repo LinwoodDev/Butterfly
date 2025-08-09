@@ -211,11 +211,13 @@ class LabelHandler extends Handler<LabelTool>
         selection: TextSelection.collapsed(offset: position.offset),
       );
     }
+    final viewId = View.of(context.buildContext).viewId;
     if (!(_connection?.attached ?? false)) {
       _connection =
           TextInput.attach(
               this,
               TextInputConfiguration(
+                viewId: viewId,
                 inputType: TextInputType.multiline,
                 obscureText: false,
                 autocorrect: false,

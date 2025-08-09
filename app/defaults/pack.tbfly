@@ -311,6 +311,25 @@
 					},
 					"alignment": "left",
 					"type": "defined"
+				},
+				"math": {
+					"span": {
+						"size": null,
+						"color": 4288585374,
+						"fontWeight": null,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
 				}
 			}
 		}

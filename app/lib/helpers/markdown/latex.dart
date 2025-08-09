@@ -14,7 +14,7 @@ class MathInlineSyntax extends InlineSyntax {
     if (text.isEmpty) return false;
 
     // Create a new node for the LaTeX expression
-    final latexNode = Element('latex', [Text(text)]);
+    final latexNode = Element('math', [Text(text)]);
 
     // Add the LaTeX node to the parser's current node
     parser.addNode(latexNode);

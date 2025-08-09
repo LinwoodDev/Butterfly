@@ -86,6 +86,7 @@ class DocumentDefaults {
     'h6': AppLocalizations.of(context).headline(6),
     'p': AppLocalizations.of(context).paragraph,
     'blockquote': AppLocalizations.of(context).quote,
+    'math': AppLocalizations.of(context).math,
   };
 
   static String translateParagraph(String key, BuildContext context) =>

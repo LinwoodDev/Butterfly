@@ -11,6 +11,7 @@ const kParagraphTags = {
   'blockquote',
   'br',
   'lio',
+  'math',
 };
 
 class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
@@ -47,7 +48,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
         styleSheet?.getSpanProperty(tag) ??
         styleSheet?.getParagraphProperty(tag)?.span;
     List<text.InlineSpan> children = switch (tag) {
-      'latex' => [
+      'math' => [
         text.MathTextSpan(
           text: node.textContent,
           property: style ?? const text.SpanProperty.undefined(),
