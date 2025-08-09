@@ -7,7 +7,7 @@ class UndoHandler extends Handler<UndoTool> {
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     bloc.sendUndo();
-    bloc.load().then((value) => bloc.bake().then((value) => bloc.save()));
+    bloc.load().then((value) => bloc.save());
     return SelectState.none;
   }
 

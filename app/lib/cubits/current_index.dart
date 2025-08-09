@@ -14,6 +14,7 @@ import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -232,7 +233,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     super.onChange(change);
     if (change.currentState.cameraViewport.image !=
         change.nextState.cameraViewport.image) {
-      change.currentState.cameraViewport.image?.dispose();
+      SchedulerBinding.instance.scheduleTask(
+        () => change.currentState.cameraViewport.image?.dispose(),
+        Priority.idle,
+      );
     }
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
