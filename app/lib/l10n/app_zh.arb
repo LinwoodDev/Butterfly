@@ -702,5 +702,7 @@
   "polygon": "多边形",
   "finishShape": "完成形状",
   "submit": "提交",
-  "math": "数学数"
+  "math": "数学数",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }
