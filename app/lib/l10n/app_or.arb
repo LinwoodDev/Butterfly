@@ -702,5 +702,7 @@
   "polygon": "ବহୁଭୁଜ",
   "finishShape": "ଆକୃତି ସମାପ୍ତ",
   "submit": "ଦାଖଲ କରନ୍ତୁ",
-  "math": "Math"
+  "math": "Math",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }
