@@ -12,6 +12,25 @@ import '../../cubits/settings.dart';
 class PenInputSettings extends StatelessWidget {
   const PenInputSettings({super.key});
 
+  String _getIgnorePressureName(
+    IgnorePressure ignorePressure,
+    BuildContext context,
+  ) => switch (ignorePressure) {
+    IgnorePressure.never => AppLocalizations.of(context).never,
+    IgnorePressure.first => AppLocalizations.of(context).first,
+    IgnorePressure.always => AppLocalizations.of(context).always,
+  };
+
+  String? _getIgnorePressureDescription(
+    IgnorePressure ignorePressure,
+    BuildContext context,
+  ) => switch (ignorePressure) {
+    IgnorePressure.first => AppLocalizations.of(
+      context,
+    ).ignoreFirstPressureDescription,
+    _ => null,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +64,55 @@ class PenInputSettings extends StatelessWidget {
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changePenOnlyInput(value),
+                          ),
+                          ListTile(
+                            title: Text(
+                              AppLocalizations.of(context).ignorePressure,
+                            ),
+                            subtitle: Text(
+                              _getIgnorePressureName(
+                                state.ignorePressure,
+                                context,
+                              ),
+                            ),
+                            leading: const PhosphorIcon(
+                              PhosphorIconsLight.lineSegments,
+                            ),
+                            onTap: () {
+                              final cubit = context.read<SettingsCubit>();
+                              final ignorePressure = cubit.state.ignorePressure;
+
+                              showLeapBottomSheet(
+                                context: context,
+                                titleBuilder: (context) => Text(
+                                  AppLocalizations.of(context).ignorePressure,
+                                ),
+                                childrenBuilder: (context) {
+                                  return [
+                                    ...IgnorePressure.values.map((e) {
+                                      final description =
+                                          _getIgnorePressureDescription(
+                                            e,
+                                            context,
+                                          );
+                                      return ListTile(
+                                        title: Text(
+                                          _getIgnorePressureName(e, context),
+                                        ),
+                                        subtitle: description != null
+                                            ? Text(description)
+                                            : null,
+                                        selected: e == ignorePressure,
+                                        onTap: () {
+                                          cubit.changeIgnorePressure(e);
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                    }),
+                                  ];
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),

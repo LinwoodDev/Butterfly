@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "180c1b368cf3485a18c46e219e3ad80271a779a6d66a749376e31244fd927cde"
+      sha256: e4aca5bccaf897b70cac87e5fdd789393310985202442837922fd40325e2733b
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.20+7"
+    version: "0.9.21+1"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -900,10 +900,10 @@ packages:
     dependency: "direct dev"
     description:
       name: msix
-      sha256: bbb9b3ff4a9f8e7e7507b2a22dc0517fd1fe3db44e72de7ab052cb6b362406ee
+      sha256: f88033fcb9e0dd8de5b18897cbebbd28ea30596810f4a7c86b12b0c03ace87e5
       url: "https://pub.dev"
     source: hosted
-    version: "3.16.10"
+    version: "3.16.12"
   nested:
     dependency: transitive
     description:

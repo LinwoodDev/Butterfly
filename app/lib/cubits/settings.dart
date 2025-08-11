@@ -200,6 +200,8 @@ enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum NavigatorPosition { left, right }
 
+enum IgnorePressure { never, first, always }
+
 enum ToolbarPosition {
   inline,
   top,
@@ -290,6 +292,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
     @Default(true) bool navigationRail,
+    @Default(IgnorePressure.first) IgnorePressure ignorePressure,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
@@ -439,6 +442,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           : RenderResolution.normal,
       moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
       swamps: prefs.getStringList('swamps') ?? [],
+      ignorePressure: prefs.containsKey('ignore_pressure')
+          ? IgnorePressure.values.byName(prefs.getString('ignore_pressure')!)
+          : IgnorePressure.first,
     );
   }
 
@@ -523,6 +529,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('render_resolution', renderResolution.name);
     await prefs.setBool('move_on_gesture', moveOnGesture);
     await prefs.setStringList('swamps', swamps);
+    await prefs.setString('ignore_pressure', ignorePressure.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1059,6 +1066,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeSwamp(String swamp) {
     emit(state.copyWith(swamps: [swamp]));
+    return save();
+  }
+
+  Future<void> changeIgnorePressure(IgnorePressure value) {
+    emit(state.copyWith(ignorePressure: value));
     return save();
   }
 

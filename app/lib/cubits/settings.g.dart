@@ -74,6 +74,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
   startInFullScreen: json['startInFullScreen'] as bool? ?? false,
   navigationRail: json['navigationRail'] as bool? ?? true,
+  ignorePressure:
+      $enumDecodeNullable(_$IgnorePressureEnumMap, json['ignorePressure']) ??
+      IgnorePressure.first,
   syncMode:
       $enumDecodeNullable(_$SyncModeEnumMap, json['syncMode']) ??
       SyncMode.noMobile,
@@ -172,6 +175,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'nativeTitleBar': instance.nativeTitleBar,
   'startInFullScreen': instance.startInFullScreen,
   'navigationRail': instance.navigationRail,
+  'ignorePressure': _$IgnorePressureEnumMap[instance.ignorePressure]!,
   'syncMode': _$SyncModeEnumMap[instance.syncMode]!,
   'inputConfiguration': instance.inputConfiguration.toJson(),
   'fallbackPack': instance.fallbackPack,
@@ -225,6 +229,12 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$IgnorePressureEnumMap = {
+  IgnorePressure.never: 'never',
+  IgnorePressure.first: 'first',
+  IgnorePressure.always: 'always',
 };
 
 const _$SyncModeEnumMap = {

@@ -116,6 +116,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             kind != PointerDeviceKind.invertedStylus)) {
       return;
     }
+    if (settings.ignorePressure == IgnorePressure.always) {
+      pressure = 1;
+    }
     double zoom = data.zoomDependent ? transform.size : 1;
     final createNew = !elements.containsKey(pointer);
     if (createNew && !shouldCreate) return;
@@ -129,15 +132,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             strokeWidth: data.property.strokeWidth / zoom,
           ),
         );
-    elements[pointer] = element.copyWith(
-      points: List<PathPoint>.from(element.points)
-        ..add(
-          PathPoint.fromPoint(
-            globalPos.toPoint(),
-            (createNew ? 0.5 : pressure),
-          ),
-        ),
-    );
+    final points = List<PathPoint>.from(element.points);
+    points.add(PathPoint.fromPoint(globalPos.toPoint(), pressure));
+    if (points.length == 2 && settings.ignorePressure == IgnorePressure.first) {
+      points[0] = points[0].copyWith(pressure: pressure);
+    }
+    elements[pointer] = element.copyWith(points: points);
     if (refresh) bloc.refresh();
   }
 
