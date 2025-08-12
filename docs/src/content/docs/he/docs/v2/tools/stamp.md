@@ -7,7 +7,7 @@ Use an existing pack, create your own or import a pack to use it. Read more [her
 
 ## Configuration
 
-|  Property | Default | Description                                                     |
+|  Property | Default | תיאור                                                           |
 | --------: | :-----: | :-------------------------------------------------------------- |
-|      Pack |   None  | The pack where the component is located.        |
-| Component |   None  | The component that will be added to the canvas. |
+|     חבילה |   ללא   | The pack where the component is located.        |
+| Component |   ללא   | The component that will be added to the canvas. |

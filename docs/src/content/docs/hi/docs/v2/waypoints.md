@@ -1,5 +1,5 @@
 ---
-title: Waypoints
+title: वेपॉइंट्स
 ---
 
 With waypoints, you can save important locations in your notes and quickly navigate between them.

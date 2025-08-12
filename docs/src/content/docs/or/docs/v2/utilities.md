@@ -19,6 +19,6 @@ Some features have recently moved to different locations. Please visit their pag
 Here are all globally properties that you can set like description and encryption settings.
 Additionally, you can capture a thumbnail from the current viewport to see it in the home page.
 
-## Camera
+## କ୍ୟାମେରା
 
 To jump to a specific position or zoom to a specific level you can use this tab.

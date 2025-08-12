@@ -1,5 +1,5 @@
 ---
-title: Strumenti
+title: "Strumenti"
 ---
 
 Tools can edit the paper.

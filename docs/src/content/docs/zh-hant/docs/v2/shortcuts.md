@@ -1,5 +1,5 @@
 ---
-title: Shortcuts
+title: 快速鍵
 ---
 
 ## 鍵盤

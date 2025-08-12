@@ -1,5 +1,5 @@
 ---
-title: Aletler
+title: "Aletler"
 ---
 
 Tools can edit the paper.

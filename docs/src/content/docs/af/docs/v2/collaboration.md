@@ -1,5 +1,5 @@
 ---
-title: Collaboration
+title: Samewerking
 ---
 
 :::caution[🧪 Experiment]

@@ -5,7 +5,7 @@ title: Pre-1.0 versions
 These versions are not supported anymore.
 New versions are available at [versions](/community/versions).
 
-| Version                                                       | Supported                           |                                                                                                                                               |
+| 버전                                                            | Supported                           |                                                                                                                                               |
 | ------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.0.0-rc.6    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
 | 1.0.0-rc.5    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |

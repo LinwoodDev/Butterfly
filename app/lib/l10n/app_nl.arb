@@ -698,5 +698,11 @@
   "rawFile": "Raw bestand",
   "webSocketDescription": "Uw apparaat organiseert de server, zodat collaborateurs zich alleen via hetzelfde netwerk of vanaf waar dan ook kunnen aanmelden als u de poort op uw router doorstuurt.",
   "swampDescription": "Je berichten worden doorgestuurd via een beveiligde relaisserver met end-to-end versleuteling. Een wamp serveradres is vereist om een sessie te maken.",
-  "createRawNote": "Ruw notitie maken"
+  "createRawNote": "Ruw notitie maken",
+  "polygon": "Veelhoek",
+  "finishShape": "Vorm voltooien",
+  "submit": "Bevestigen",
+  "math": "Wiskunde",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

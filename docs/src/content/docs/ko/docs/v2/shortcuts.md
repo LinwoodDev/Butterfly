@@ -1,13 +1,13 @@
 ---
-title: Shortcuts
+title: 단축키
 ---
 
-## Keyboard
+## 키보드
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
 
-### General
+### 일반
 
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
@@ -33,7 +33,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Pen
+## 펜
 
 By default, the the pen is configured to function as the following:
 

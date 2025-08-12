@@ -698,5 +698,11 @@
   "rawFile": "Rå fil",
   "webSocketDescription": "Din enhed er vært for serveren, så samarbejdspartnere kan kun deltage over det samme netværk eller fra hvor som helst, hvis du videresender porten på din router.",
   "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session.",
-  "createRawNote": "Opret rå note"
+  "createRawNote": "Opret rå note",
+  "polygon": "Polygon",
+  "finishShape": "Afslut form",
+  "submit": "Indsend",
+  "math": "Matematisk",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

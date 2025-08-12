@@ -1,5 +1,5 @@
 ---
-title: Shortcuts
+title: Phím tắt
 ---
 
 ## Bàn phím

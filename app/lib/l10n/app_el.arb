@@ -698,5 +698,11 @@
   "rawFile": "Αρχείο Raw",
   "webSocketDescription": "Η συσκευή σας φιλοξενεί το διακομιστή, έτσι ώστε οι συνεργάτες να μπορούν να συμμετέχουν στο ίδιο δίκτυο ή οπουδήποτε αν προωθείτε τη θύρα στον δρομολογητή σας.",
   "swampDescription": "Τα μηνύματά σας δρομολογούνται μέσω ενός ασφαλούς διακομιστή ρελέ με κρυπτογράφηση από άκρο σε άκρο. Απαιτείται μια διεύθυνση διακομιστή swamp για τη δημιουργία μιας συνεδρίας.",
-  "createRawNote": "Δημιουργία ακατέργαστης σημείωσης"
+  "createRawNote": "Δημιουργία ακατέργαστης σημείωσης",
+  "polygon": "Πολύγωνο",
+  "finishShape": "Ολοκλήρωση σχήματος",
+  "submit": "Υποβολή",
+  "math": "Μαθηματικά",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

@@ -698,5 +698,11 @@
   "rawFile": "Fișier brut",
   "webSocketDescription": "Dispozitivul tău găzduiește serverul, astfel încât colaboratorii se pot alătura doar prin aceeași rețea sau de oriunde ai înainta portul de pe router.",
   "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune.",
-  "createRawNote": "Creați o notă brută"
+  "createRawNote": "Creați o notă brută",
+  "polygon": "Poligon",
+  "finishShape": "Formă finală",
+  "submit": "Trimiteți",
+  "math": "Matematică",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

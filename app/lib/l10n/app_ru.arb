@@ -698,5 +698,11 @@
   "rawFile": "Файл сырых данных",
   "webSocketDescription": "Ваше устройство содержит сервер, поэтому соавторы могут подключаться только по той же сети или откуда угодно, если вы перенаправляете порт на маршрутизатор.",
   "swampDescription": "Ваши сообщения направляются через безопасный сервер ретрансляции с сквозным шифрованием. Для создания сеанса требуется адрес сервера swamp.",
-  "createRawNote": "Создать заметку"
+  "createRawNote": "Создать заметку",
+  "polygon": "Полигон",
+  "finishShape": "Закончить форму",
+  "submit": "Отправить",
+  "math": "Математика",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

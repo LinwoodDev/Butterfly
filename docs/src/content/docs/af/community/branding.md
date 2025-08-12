@@ -22,7 +22,7 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Documentation
+## Dokumentasie
 
 ![Documentation](/img/docs.svg)
 
