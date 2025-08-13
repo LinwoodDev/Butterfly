@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.0-beta.2 (2025-08-13)
+
+* Add stroke width to polygon tool toolbar
+* Add latex support for markdown ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Add ignore pressure setting to fix pressure values on some devices
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Upstreamed from 2.3.3:
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.2
+
 ## 2.3.3 (2025-08-01)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
