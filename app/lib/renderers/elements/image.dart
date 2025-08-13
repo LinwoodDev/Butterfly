@@ -75,7 +75,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  FutureOr<void> setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,

@@ -21,14 +21,14 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   @override
-  FutureOr<void> setup(
+  void setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
   ) {
     final points = element.points;
-    if (points.isEmpty) return null;
+    if (points.isEmpty) return;
     final property = element.property;
     var topLeftCorner = points.first.toOffset();
     var bottomRightCorner = points.first.toOffset();

@@ -6,7 +6,7 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
   SvgBackgroundRenderer(super.element);
 
   @override
-  FutureOr<void> setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,

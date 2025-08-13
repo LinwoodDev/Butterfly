@@ -254,7 +254,7 @@ class ImportService {
     );
   }
 
-  FutureOr<NoteData?> importBfly(
+  Future<NoteData?> importBfly(
     Uint8List bytes, {
     NoteData? document,
     Offset? position,

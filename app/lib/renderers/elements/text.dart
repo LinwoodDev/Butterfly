@@ -84,7 +84,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
-  FutureOr<void> setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,

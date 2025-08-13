@@ -10,7 +10,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element, [super.layer]);
 
   @override
-  FutureOr<void> build(
+  void build(
     Canvas canvas,
     Size size,
     NoteData document,

@@ -32,7 +32,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
 
   @override
-  FutureOr<void> setup(
+  void setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
