@@ -461,6 +461,10 @@ PadElement _$PadElementFromJson(
           return ImageElement.fromJson(
             json
           );
+                case 'pdf':
+          return PdfElement.fromJson(
+            json
+          );
                 case 'svg':
           return SvgElement.fromJson(
             json
@@ -960,6 +964,108 @@ as String?,position: null == position ? _self.position : position // ignore: cas
 as Point<double>,constraints: freezed == constraints ? _self.constraints : constraints // ignore: cast_nullable_to_non_nullable
 as ElementConstraints?,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as double,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
+  ));
+}
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ElementConstraintsCopyWith<$Res>? get constraints {
+    if (_self.constraints == null) {
+    return null;
+  }
+
+  return $ElementConstraintsCopyWith<$Res>(_self.constraints!, (value) {
+    return _then(_self.copyWith(constraints: value));
+  });
+}
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class PdfElement extends PadElement implements SourcedElement {
+   PdfElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
+  factory PdfElement.fromJson(Map<String, dynamic> json) => _$PdfElementFromJson(json);
+
+@override@JsonKey() final  double rotation;
+@override@JsonKey() final  String collection;
+@override@IdJsonConverter() final  String? id;
+@JsonKey()@DoublePointJsonConverter() final  Point<double> position;
+@JsonKey() final  ElementConstraints? constraints;
+ final  String source;
+@JsonKey() final  int page;
+ final  double width;
+ final  double height;
+ final  Map<String, dynamic> _extra;
+@override@JsonKey() Map<String, dynamic> get extra {
+  if (_extra is EqualUnmodifiableMapView) return _extra;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_extra);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PdfElementCopyWith<PdfElement> get copyWith => _$PdfElementCopyWithImpl<PdfElement>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PdfElementToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'PadElement.pdf(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, extra: $extra)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PdfElementCopyWith<$Res> implements $PadElementCopyWith<$Res> {
+  factory $PdfElementCopyWith(PdfElement value, $Res Function(PdfElement) _then) = _$PdfElementCopyWithImpl;
+@override @useResult
+$Res call({
+ double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, int page, double width, double height, Map<String, dynamic> extra
+});
+
+
+$ElementConstraintsCopyWith<$Res>? get constraints;
+
+}
+/// @nodoc
+class _$PdfElementCopyWithImpl<$Res>
+    implements $PdfElementCopyWith<$Res> {
+  _$PdfElementCopyWithImpl(this._self, this._then);
+
+  final PdfElement _self;
+  final $Res Function(PdfElement) _then;
+
+/// Create a copy of PadElement
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? page = null,Object? width = null,Object? height = null,Object? extra = null,}) {
+  return _then(PdfElement(
+rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
+as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Point<double>,constraints: freezed == constraints ? _self.constraints : constraints // ignore: cast_nullable_to_non_nullable
+as ElementConstraints?,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,

@@ -236,6 +236,43 @@ Map<String, dynamic> _$ImageElementToJson(ImageElement instance) =>
       'type': instance.$type,
     };
 
+PdfElement _$PdfElementFromJson(Map json) => PdfElement(
+  rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+  collection: json['collection'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  position: json['position'] == null
+      ? const Point(0.0, 0.0)
+      : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+  constraints: json['constraints'] == null
+      ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
+      : ElementConstraints.fromJson(
+          Map<String, dynamic>.from(json['constraints'] as Map),
+        ),
+  source: json['source'] as String,
+  page: (json['page'] as num?)?.toInt() ?? 0,
+  width: (json['width'] as num).toDouble(),
+  height: (json['height'] as num).toDouble(),
+  extra:
+      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
+      const {},
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$PdfElementToJson(PdfElement instance) =>
+    <String, dynamic>{
+      'rotation': instance.rotation,
+      'collection': instance.collection,
+      'id': const IdJsonConverter().toJson(instance.id),
+      'position': const DoublePointJsonConverter().toJson(instance.position),
+      'constraints': instance.constraints?.toJson(),
+      'source': instance.source,
+      'page': instance.page,
+      'width': instance.width,
+      'height': instance.height,
+      'extra': instance.extra,
+      'type': instance.$type,
+    };
+
 SvgElement _$SvgElementFromJson(Map json) => SvgElement(
   rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
   collection: json['collection'] as String? ?? '',

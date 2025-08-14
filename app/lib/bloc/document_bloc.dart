@@ -148,7 +148,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var data = current.data;
-      String importImage(String source, String fileExtension) {
+      Map<UriData, String> imported = {};
+      String importAsset(SourcedElement element, String fileExtension) {
+        final source = element.source;
         final uri = Uri.tryParse(source);
         final uriData = uri?.data;
         if (uriData == null) {
@@ -157,10 +159,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
           return source;
         }
-        final result = data.importImage(
-          uriData.contentAsBytes(),
-          fileExtension,
-        );
+        if (imported.containsKey(uriData)) {
+          return imported[uriData]!;
+        }
+        final bytes = uriData.contentAsBytes();
+        (NoteData, String) result;
+        if (element is PdfElement) {
+          result = data.importPdf(bytes);
+        } else {
+          result = data.importImage(bytes, fileExtension);
+        }
         data = result.$1;
         return Uri.file(result.$2, windows: false).toString();
       }
@@ -168,10 +176,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final elements = event.elements
           .map(
             (e) => switch (e) {
-              ImageElement e => e.copyWith(
-                source: importImage(e.source, 'png'),
-              ),
-              SvgElement e => e.copyWith(source: importImage(e.source, 'svg')),
+              ImageElement e => e.copyWith(source: importAsset(e, 'png')),
+              SvgElement e => e.copyWith(source: importAsset(e, 'svg')),
+              PdfElement e => e.copyWith(source: importAsset(e, 'pdf')),
               _ => e,
             },
           )

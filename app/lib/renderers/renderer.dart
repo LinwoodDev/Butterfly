@@ -24,8 +24,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
+import 'package:pdf/pdf.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:printing/printing.dart';
 import 'package:xml/xml.dart';
 
 import '../cubits/transform.dart';
@@ -41,6 +43,7 @@ part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
 part 'elements/texture.dart';
+part 'elements/pdf.dart';
 part 'elements/pen.dart';
 part 'elements/polygon.dart';
 part 'elements/shape.dart';
@@ -228,6 +231,7 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return switch (element) {
             PenElement() => PenRenderer(element, layer),
+            PdfElement() => PdfRenderer(element, layer),
             TextElement() => TextRenderer(element, layer),
             ImageElement() => ImageRenderer(element, layer),
             SvgElement() => SvgRenderer(element, layer),

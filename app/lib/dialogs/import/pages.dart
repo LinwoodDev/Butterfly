@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class PageDialogCallback {
 }
 
 class PagesDialog extends StatefulWidget {
-  final List<Uint8List> pages;
+  final List<ui.Image> pages;
   const PagesDialog({super.key, required this.pages});
 
   @override
@@ -104,7 +104,7 @@ class _PagesDialogState extends State<PagesDialog> {
                         child: Container(
                           margin: const EdgeInsets.all(5),
                           decoration: BoxDecoration(border: border),
-                          child: Image.memory(widget.pages[index]),
+                          child: RawImage(image: widget.pages[index]),
                         ),
                       );
                     },
