@@ -21,6 +21,7 @@ import '../widgets/color_field.dart';
 part 'elements/element.dart';
 part 'elements/image.dart';
 part 'elements/text.dart';
+part 'elements/pdf.dart';
 part 'elements/pen.dart';
 part 'elements/polygon.dart';
 part 'elements/shape.dart';

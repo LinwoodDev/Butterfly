@@ -31,6 +31,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return PolygonElementSelection([selected as Renderer<PolygonElement>])
           as ElementSelection<T>;
     }
+    if (selected is Renderer<PdfElement>) {
+      return PdfElementSelection([selected as Renderer<PdfElement>])
+          as ElementSelection<T>;
+    }
     return ElementSelection([selected]);
   }
 

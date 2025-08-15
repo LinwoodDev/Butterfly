@@ -355,6 +355,9 @@ final class NoteData extends ArchiveData<NoteData> {
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
 
+  (NoteData, String) importPdf(Uint8List data) =>
+      importAsset(kPdfArchiveDirectory, data, 'pdf');
+
   @useResult
   Uint8List? getFont(String fontName) =>
       getAsset('$kFontsArchiveDirectory/$fontName');

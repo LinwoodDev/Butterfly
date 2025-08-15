@@ -5,11 +5,9 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
-import 'package:image/image.dart' as img;
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/note.dart';
@@ -24,7 +22,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
-import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:super_clipboard/super_clipboard.dart';
@@ -650,106 +647,73 @@ class ImportService {
     Offset? position,
     bool advanced = true,
   }) async {
-    final dialog = showLoadingDialog(context);
+    LoadingDialogHandler? dialog;
     try {
       final firstPos = position ?? Offset.zero;
-      final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
-      // Define the compression value
-      int level = 5;
-      // Define the lot size
-      const batchSize = 200;
-      List<Uint8List> batch = [];
-      // Create a counter for decoded images
-      int decodedImagesCount = 0;
-      // Get the total number of pages
-      int totalPages = await Printing.raster(bytes).length;
-      double quality = context.read<SettingsCubit>().state.pdfQuality;
-      double dpi = PdfPageFormat.inch * quality;
-      await for (var page in Printing.raster(bytes, dpi: dpi)) {
-        final image = page.asImage();
-        try {
-          decodedImagesCount++;
-          await Future.delayed(const Duration(milliseconds: 100));
-          dialog?.setProgress(decodedImagesCount / totalPages);
-          //compress image
-          List<int> compressedPng = img.encodePng(image, level: level);
-          // Add the compressed image to the current batch
-          batch.add(Uint8List.fromList(compressedPng));
-          // If the lot has reached the lot size, process the lot and empty the lot
-          if (batch.length == batchSize) {
-            elements.addAll(batch);
-            batch = [];
-          }
-        } catch (e) {
-          showDialog(
-            context: context,
-            builder: (context) =>
-                UnknownImportConfirmationDialog(message: e.toString()),
-          );
-        }
-      }
-      dialog?.close();
-      // Process any image left in the batch
-      if (batch.isNotEmpty) {
-        elements.addAll(batch);
-      }
+      List<PdfRaster> elements = await Printing.raster(bytes).toList();
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
-        bool spreadToPages = false,
-            createAreas = false,
-            background = true,
-            invert = false;
+        bool spreadToPages = false, createAreas = false, invert = false;
+        SRGBColor background = BasicColors.whiteTransparent;
         if (advanced) {
+          List<ui.Image> images = [];
+          final dialog = showLoadingDialog(context);
+
+          for (int i = 0; i < elements.length; i++) {
+            final raster = elements[i];
+            dialog?.setProgress(i / elements.length);
+            final image = await raster.toImage();
+            images.add(image);
+          }
+          dialog?.close();
           final callback = await showDialog<PageDialogCallback>(
             context: context,
-            builder: (context) => PagesDialog(pages: elements),
+            builder: (context) => PagesDialog(pages: images),
           );
+          for (var image in images) {
+            try {
+              image.dispose();
+            } catch (_) {}
+          }
           if (callback == null) return document;
           pages = callback.pages;
-          quality = callback.quality;
           spreadToPages = callback.spreadToPages;
           createAreas = callback.createAreas;
-          background = callback.background;
           invert = callback.invert;
+          background = callback.background;
         }
-        final dialog = showLoadingDialog(context);
-        final selectedElements = <ImageElement>[];
+        dialog = showLoadingDialog(context);
+        final selectedElements = <PdfElement>[];
         final areas = <Area>[];
         final documentPages = <DocumentPage>[];
         var y = firstPos.dy;
         var current = 0;
+        final pdfUri = UriData.fromBytes(
+          bytes,
+          mimeType: 'application/pdf',
+        ).toString();
 
         for (var i = 0; i < elements.length; i++) {
-          var modifiedPng = elements[i];
+          var raster = elements[i];
           try {
             await Future.delayed(const Duration(milliseconds: 1));
             dialog?.setProgress(current / pages.length);
             current++;
-            var image = img.decodePng(modifiedPng);
-            final cmd = img.Command()..image(image!);
-            if (background) cmd.filter(updateImageBackground());
-            if (invert) cmd.invert();
-            cmd.encodePng();
-            final png = await cmd.getBytes();
-            if (png == null) continue;
-            final scale = 2.0 / quality;
-            final height = image.height;
-            final width = image.width;
-            final dataPath = Uri.dataFromBytes(png).toString();
-            final element = ImageElement(
-              height: height.toDouble(),
-              width: width.toDouble(),
-              source: dataPath,
-              constraints: ElementConstraints.scaled(
-                scaleX: scale,
-                scaleY: scale,
-              ),
+            final height = raster.height.toDouble();
+            final width = raster.width.toDouble();
+            final element = PdfElement(
+              height: height,
+              width: width,
+              source: pdfUri,
+              page: i,
               position: Point(firstPos.dx, y),
+              invert: invert,
+              background: background,
             );
             final area = Area(
-              height: height * scale,
-              width: width * scale,
+              height: height,
+              width: width,
               position: Point(firstPos.dx, y),
               name: localizations.pageIndex(areas.length + 1),
             );
@@ -766,7 +730,7 @@ class ImportService {
               selectedElements.add(element);
               areas.add(area);
             }
-            y += height * scale;
+            y += height;
           } catch (e) {
             showDialog(
               context: context,

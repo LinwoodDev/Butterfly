@@ -143,6 +143,25 @@ sealed class PadElement with _$PadElement {
   }) = ImageElement;
 
   @Implements<SourcedElement>()
+  factory PadElement.pdf({
+    @Default(0) double rotation,
+    @Default('') String collection,
+    @IdJsonConverter() String? id,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+    Point<double> position,
+    @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
+    ElementConstraints? constraints,
+    required String source,
+    @Default(0) int page,
+    required double width,
+    required double height,
+    @Default(false) bool invert,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor background,
+    @Default({}) Map<String, dynamic> extra,
+  }) = PdfElement;
+
+  @Implements<SourcedElement>()
   factory PadElement.svg({
     @Default(0) double rotation,
     @Default('') String collection,
