@@ -156,6 +156,8 @@ sealed class PadElement with _$PadElement {
     @Default(0) int page,
     required double width,
     required double height,
+    @Default(false) bool invert,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor background,
     @Default({}) Map<String, dynamic> extra,
   }) = PdfElement;
 

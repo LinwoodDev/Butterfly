@@ -252,6 +252,12 @@ PdfElement _$PdfElementFromJson(Map json) => PdfElement(
   page: (json['page'] as num?)?.toInt() ?? 0,
   width: (json['width'] as num).toDouble(),
   height: (json['height'] as num).toDouble(),
+  invert: json['invert'] as bool? ?? false,
+  background: json['background'] == null
+      ? SRGBColor.transparent
+      : const ColorJsonConverter().fromJson(
+          (json['background'] as num).toInt(),
+        ),
   extra:
       (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
       const {},
@@ -269,6 +275,8 @@ Map<String, dynamic> _$PdfElementToJson(PdfElement instance) =>
       'page': instance.page,
       'width': instance.width,
       'height': instance.height,
+      'invert': instance.invert,
+      'background': const ColorJsonConverter().toJson(instance.background),
       'extra': instance.extra,
       'type': instance.$type,
     };

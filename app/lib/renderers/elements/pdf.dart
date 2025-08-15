@@ -57,7 +57,7 @@ class PdfRenderer extends Renderer<PdfElement> {
     DocumentPage page,
     Rect viewportRect,
   ) {
-    if (!rect.overlaps(rect)) return;
+    if (!rect.overlaps(viewportRect)) return;
     // Create data url
     final data = element.getUriData(document, 'image/png').toString();
     // Create image
@@ -106,7 +106,27 @@ class PdfRenderer extends Renderer<PdfElement> {
       final dpi = PdfPageFormat.inch * scale;
       final stream = Printing.raster(data, pages: [element.page], dpi: dpi);
       final raster = await stream.first;
-      image = await raster.toImage();
+      var image = await raster.toImage();
+      if (element.invert || element.background != SRGBColor.transparent) {
+        final imgImage = await convertFlutterUiToImage(image);
+        final cmd = img.Command()..image(imgImage);
+        if (element.invert) {
+          cmd.invert();
+        }
+        if (element.background != SRGBColor.transparent) {
+          cmd.fill(
+            color: img.ColorRgba8(
+              element.background.r,
+              element.background.g,
+              element.background.b,
+              element.background.a,
+            ),
+          );
+        }
+        final converted = await cmd.getImage();
+        if (converted != null) image = await convertImageToFlutterUi(imgImage);
+      }
+      this.image = image;
       renderedScale = scale;
     } catch (_) {}
   }

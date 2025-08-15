@@ -219,7 +219,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     Rect viewportRect,
   ) {
     final svg = xml.getElement('svg');
-    if (!rect.overlaps(rect) || svg == null) return;
+    if (!rect.overlaps(viewportRect) || svg == null) return;
     final paragraph = getParagraph(document);
 
     _tp?.layout(maxWidth: rect.width);

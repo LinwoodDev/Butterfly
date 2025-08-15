@@ -56,7 +56,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     DocumentPage page,
     Rect viewportRect,
   ) {
-    if (!rect.overlaps(rect)) return;
+    if (!rect.overlaps(viewportRect)) return;
     // Create data url
     final data = element.getUriData(document, 'image/png').toString();
     // Create image
@@ -181,13 +181,7 @@ class ImageRenderer extends Renderer<ImageElement> {
           image == null) {
         return;
       }
-      final bytes = await image!.toByteData();
-      final imgImage = img.Image.fromBytes(
-        width: image!.width,
-        height: image!.height,
-        bytes: bytes!.buffer,
-        numChannels: 4,
-      );
+      final imgImage = await convertFlutterUiToImage(image!);
       var cmd = img.Command()..image(imgImage);
       update(cmd);
       cmd.encodePng();

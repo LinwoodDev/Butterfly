@@ -989,7 +989,7 @@ $ElementConstraintsCopyWith<$Res>? get constraints {
 @JsonSerializable()
 
 class PdfElement extends PadElement implements SourcedElement {
-   PdfElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
+   PdfElement({this.rotation = 0, this.collection = '', @IdJsonConverter() this.id, @DoublePointJsonConverter() this.position = const Point(0.0, 0.0), this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1), required this.source, this.page = 0, required this.width, required this.height, this.invert = false, @ColorJsonConverter() this.background = SRGBColor.transparent, final  Map<String, dynamic> extra = const {}, final  String? $type}): _extra = extra,$type = $type ?? 'pdf',super._();
   factory PdfElement.fromJson(Map<String, dynamic> json) => _$PdfElementFromJson(json);
 
 @override@JsonKey() final  double rotation;
@@ -1001,6 +1001,8 @@ class PdfElement extends PadElement implements SourcedElement {
 @JsonKey() final  int page;
  final  double width;
  final  double height;
+@JsonKey() final  bool invert;
+@JsonKey()@ColorJsonConverter() final  SRGBColor background;
  final  Map<String, dynamic> _extra;
 @override@JsonKey() Map<String, dynamic> get extra {
   if (_extra is EqualUnmodifiableMapView) return _extra;
@@ -1028,7 +1030,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'PadElement.pdf(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, extra: $extra)';
+  return 'PadElement.pdf(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, page: $page, width: $width, height: $height, invert: $invert, background: $background, extra: $extra)';
 }
 
 
@@ -1039,7 +1041,7 @@ abstract mixin class $PdfElementCopyWith<$Res> implements $PadElementCopyWith<$R
   factory $PdfElementCopyWith(PdfElement value, $Res Function(PdfElement) _then) = _$PdfElementCopyWithImpl;
 @override @useResult
 $Res call({
- double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, int page, double width, double height, Map<String, dynamic> extra
+ double rotation, String collection,@IdJsonConverter() String? id,@DoublePointJsonConverter() Point<double> position, ElementConstraints? constraints, String source, int page, double width, double height, bool invert,@ColorJsonConverter() SRGBColor background, Map<String, dynamic> extra
 });
 
 
@@ -1056,7 +1058,7 @@ class _$PdfElementCopyWithImpl<$Res>
 
 /// Create a copy of PadElement
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? page = null,Object? width = null,Object? height = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? rotation = null,Object? collection = null,Object? id = freezed,Object? position = null,Object? constraints = freezed,Object? source = null,Object? page = null,Object? width = null,Object? height = null,Object? invert = null,Object? background = null,Object? extra = null,}) {
   return _then(PdfElement(
 rotation: null == rotation ? _self.rotation : rotation // ignore: cast_nullable_to_non_nullable
 as double,collection: null == collection ? _self.collection : collection // ignore: cast_nullable_to_non_nullable
@@ -1067,7 +1069,9 @@ as ElementConstraints?,source: null == source ? _self.source : source // ignore:
 as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
+as double,invert: null == invert ? _self.invert : invert // ignore: cast_nullable_to_non_nullable
+as bool,background: null == background ? _self.background : background // ignore: cast_nullable_to_non_nullable
+as SRGBColor,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
