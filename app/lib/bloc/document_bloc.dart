@@ -98,6 +98,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      current.assetService.dispose();
       final data = current.data.setPage(current.page, current.pageName);
       final page = data.getPage(event.pageName);
       if (page == null) return;
@@ -148,9 +149,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var data = current.data;
-      Map<UriData, String> imported = {};
+      final assetService = current.assetService;
+      Map<String, String> imported = {};
       String importAsset(SourcedElement element, String fileExtension) {
         final source = element.source;
+        assetService.invalidate(source);
+        if (imported.containsKey(source)) {
+          return imported[source]!;
+        }
         final uri = Uri.tryParse(source);
         final uriData = uri?.data;
         if (uriData == null) {
@@ -158,9 +164,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             data = data.undoDelete(uri!.path);
           }
           return source;
-        }
-        if (imported.containsKey(uriData)) {
-          return imported[uriData]!;
         }
         final bytes = uriData.contentAsBytes();
         (NoteData, String) result;
@@ -1043,7 +1046,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var data = current.data;
       if (!validAssetPaths.any((e) => event.path.startsWith('$e/'))) return;
       data = data.setAsset(event.path, Uint8List.fromList(event.data));
-      current.assetService.invalidateImage(event.path);
+      current.assetService.invalidate(event.path);
       final shouldRepaint = current.renderers.any(
         (e) => e.onAssetUpdate(
           current.data,

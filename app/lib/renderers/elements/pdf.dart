@@ -4,7 +4,7 @@ class PdfRenderer extends Renderer<PdfElement> {
   ui.Image? image;
   double? renderedScale;
 
-  PdfRenderer(super.element, [super.layer, this.image]);
+  PdfRenderer(super.element, [super.layer, this.image, this.renderedScale]);
 
   @override
   bool onAssetUpdate(
@@ -30,24 +30,28 @@ class PdfRenderer extends Renderer<PdfElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (image == null) {
+    if (this.image == null || element.background.a > 0) {
       // Render placeholder
       final paint = Paint()
-        ..color = Colors.grey
+        ..color = element.background.a > 0
+            ? element.background.toColor()
+            : Colors.grey
         ..style = PaintingStyle.fill;
       canvas.drawRect(rect, paint);
-      return;
     }
-    var paint = Paint()
-      ..filterQuality = FilterQuality.high
-      ..isAntiAlias = true;
+    final image = this.image;
+    if (image != null) {
+      var paint = Paint()
+        ..filterQuality = FilterQuality.high
+        ..isAntiAlias = true;
 
-    canvas.drawImageRect(
-      image!,
-      Rect.fromLTWH(0, 0, image!.width.toDouble(), image!.height.toDouble()),
-      rect,
-      paint,
-    );
+      canvas.drawImageRect(
+        image,
+        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+        rect,
+        paint,
+      );
+    }
   }
 
   @override
@@ -85,7 +89,11 @@ class PdfRenderer extends Renderer<PdfElement> {
   ]) async {
     super.setup(transformCubit, document, assetService, page);
     if (image != null && !force) return;
-    return _renderImage(document, transformCubit.state.size);
+    return _renderImage(
+      assetService,
+      document,
+      transformCubit.state.size * transformCubit.state.pixelRatio,
+    );
   }
 
   @override
@@ -95,36 +103,38 @@ class PdfRenderer extends Renderer<PdfElement> {
     AssetService assetService,
     DocumentPage page,
   ) async {
-    return _renderImage(document, transformCubit.state.size);
+    return _renderImage(
+      assetService,
+      document,
+      transformCubit.state.size * transformCubit.state.pixelRatio,
+    );
   }
 
-  Future<void> _renderImage(NoteData document, double scale) async {
+  Future<void> _renderImage(
+    AssetService assetService,
+    NoteData document,
+    double scale,
+  ) async {
     if (renderedScale == scale && image != null) return;
-    final data = getDataFromSource(document, element.source);
+    final data = await assetService.computeDataFromSource(
+      element.source,
+      document,
+    );
     if (data == null) return;
     try {
       final dpi = PdfPageFormat.inch * scale;
       final stream = Printing.raster(data, pages: [element.page], dpi: dpi);
       final raster = await stream.first;
       var image = await raster.toImage();
-      if (element.invert || element.background != SRGBColor.transparent) {
+      if (element.invert) {
         final imgImage = await convertFlutterUiToImage(image);
-        final cmd = img.Command()..image(imgImage);
+        final cmd = img.Command();
+        cmd.image(imgImage);
         if (element.invert) {
           cmd.invert();
         }
-        if (element.background != SRGBColor.transparent) {
-          cmd.fill(
-            color: img.ColorRgba8(
-              element.background.r,
-              element.background.g,
-              element.background.b,
-              element.background.a,
-            ),
-          );
-        }
         final converted = await cmd.getImage();
-        if (converted != null) image = await convertImageToFlutterUi(imgImage);
+        if (converted != null) image = await convertImageToFlutterUi(converted);
       }
       this.image = image;
       renderedScale = scale;
@@ -203,6 +213,8 @@ class PdfRenderer extends Renderer<PdfElement> {
         constraints: element.constraints.scale(scaleX, scaleY),
       ),
       layer,
+      image,
+      renderedScale,
     );
   }
 

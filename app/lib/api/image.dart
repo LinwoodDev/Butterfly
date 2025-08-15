@@ -2,7 +2,7 @@ import 'package:image/image.dart' as img;
 import 'dart:ui' as ui;
 
 img.Image Function(img.Image) updateImageBackground([
-  img.ColorRgb8? background,
+  img.ColorRgba8? background,
 ]) => (image) {
   if (image.numChannels != 4) return image;
   final imageBg = img.Image(width: image.width, height: image.height);

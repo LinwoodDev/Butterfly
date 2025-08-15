@@ -21,6 +21,16 @@ class ImportHandler extends Handler<ImportTool> {
   }
 
   @override
+  void dispose(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final assetService = state.assetService;
+    for (final element in data.elements.whereType<SourcedElement>()) {
+      assetService.invalidate(element.source);
+    }
+  }
+
+  @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     _updatePosition(event.localPosition, context);
   }
@@ -87,7 +97,7 @@ class ImportHandler extends Handler<ImportTool> {
       [];
 
   @override
-  bool get setupForegrounds => data.elements.length <= 8;
+  bool get setupForegrounds => false;
 
   @override
   MouseCursor get cursor => SystemMouseCursors.grabbing;

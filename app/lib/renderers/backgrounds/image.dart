@@ -100,8 +100,9 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
-    DocumentPage page,
-  ) async {
+    DocumentPage page, {
+    bool isTemporary = false,
+  }) async {
     super.setup(transformCubit, document, assetService, page);
     if (image != null) return;
     try {

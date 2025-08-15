@@ -1,12 +1,13 @@
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly_api/butterfly_api.dart';
-
-import '../helpers/element.dart';
+import 'package:butterfly/helpers/element.dart' as element_helper;
 
 class AssetService {
   final NoteData document;
   final Map<String, ui.Image> _images = {};
+  final Map<String, Future<Uint8List?>> _dataCache = {};
 
   AssetService(this.document);
 
@@ -15,7 +16,7 @@ class AssetService {
       return _images[path]!.clone();
     }
     document ??= this.document;
-    var data = getDataFromSource(document, path);
+    var data = element_helper.getDataFromSource(document, path);
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
     final frameInfo = await codec.getNextFrame();
@@ -27,6 +28,7 @@ class AssetService {
   void dispose() {
     _images.keys.toList().forEach(invalidateImage);
     _images.clear();
+    _dataCache.clear();
   }
 
   void invalidateImage(String path) {
@@ -34,5 +36,27 @@ class AssetService {
       _images[path]?.dispose();
     } catch (_) {}
     _images.remove(path);
+  }
+
+  Future<Uint8List?> computeDataFromSource(
+    String source, [
+    NoteData? document,
+  ]) {
+    if (_dataCache.containsKey(source)) {
+      return _dataCache[source]!;
+    }
+    document ??= this.document;
+    final data = element_helper.computeDataFromSource(document, source);
+    _dataCache[source] = data;
+    return data;
+  }
+
+  void invalidateData(String source) {
+    _dataCache.remove(source);
+  }
+
+  void invalidate(String source) {
+    invalidateImage(source);
+    invalidateData(source);
   }
 }

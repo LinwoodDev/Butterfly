@@ -647,6 +647,7 @@ class ImportService {
     Offset? position,
     bool advanced = true,
   }) async {
+    LoadingDialogHandler? dialog;
     try {
       final firstPos = position ?? Offset.zero;
       final localizations = AppLocalizations.of(context);
@@ -654,7 +655,7 @@ class ImportService {
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
         bool spreadToPages = false, createAreas = false, invert = false;
-        SRGBColor background = SRGBColor.transparent;
+        SRGBColor background = BasicColors.whiteTransparent;
         if (advanced) {
           List<ui.Image> images = [];
           final dialog = showLoadingDialog(context);
@@ -682,7 +683,7 @@ class ImportService {
           invert = callback.invert;
           background = callback.background;
         }
-        final dialog = showLoadingDialog(context);
+        dialog = showLoadingDialog(context);
         final selectedElements = <PdfElement>[];
         final areas = <Area>[];
         final documentPages = <DocumentPage>[];
@@ -749,6 +750,7 @@ class ImportService {
         );
       }
     } catch (e) {
+      dialog?.close();
       showDialog(
         context: context,
         builder: (context) =>

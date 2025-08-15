@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -34,7 +35,7 @@ class PagesDialog extends StatefulWidget {
 class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
   bool _spreadToPages = false, _createAreas = true, _invert = false;
-  SRGBColor _background = SRGBColor.transparent;
+  SRGBColor _background = BasicColors.whiteTransparent;
 
   @override
   void initState() {
@@ -97,8 +98,14 @@ class _PagesDialogState extends State<PagesDialog> {
                         },
                         child: Container(
                           margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(border: border),
-                          child: RawImage(image: widget.pages[index]),
+                          decoration: BoxDecoration(
+                            border: border,
+                            color: _background.toColor(),
+                          ),
+                          child: RawImage(
+                            image: widget.pages[index],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     },
@@ -118,6 +125,7 @@ class _PagesDialogState extends State<PagesDialog> {
             ),
             ColorField(
               value: _background.withValues(a: 255),
+              custom: true,
               onChanged: (value) => setState(() {
                 _background = value.withValues(a: _background.a);
               }),
