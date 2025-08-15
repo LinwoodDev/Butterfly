@@ -653,7 +653,8 @@ class ImportService {
       List<PdfRaster> elements = await Printing.raster(bytes).toList();
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
-        bool spreadToPages = false, createAreas = false;
+        bool spreadToPages = false, createAreas = false, invert = false;
+        SRGBColor background = SRGBColor.transparent;
         if (advanced) {
           List<ui.Image> images = [];
           final dialog = showLoadingDialog(context);
@@ -678,6 +679,8 @@ class ImportService {
           pages = callback.pages;
           spreadToPages = callback.spreadToPages;
           createAreas = callback.createAreas;
+          invert = callback.invert;
+          background = callback.background;
         }
         final dialog = showLoadingDialog(context);
         final selectedElements = <PdfElement>[];
@@ -704,6 +707,8 @@ class ImportService {
               source: pdfUri,
               page: i,
               position: Point(firstPos.dx, y),
+              invert: invert,
+              background: background,
             );
             final area = Area(
               height: height,
