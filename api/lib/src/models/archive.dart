@@ -12,6 +12,7 @@ const kThumbnailArchiveFile = '$kBflyArchiveDirectory/thumbnail.png';
 const kInfoArchiveFile = '$kBflyArchiveDirectory/info.json';
 const kFontsArchiveDirectory = '$kBflyArchiveDirectory/fonts';
 const kImagesArchiveDirectory = '$kBflyArchiveDirectory/images';
+const kPdfArchiveDirectory = '$kBflyArchiveDirectory/pdf';
 const kPacksArchiveDirectory = '$kBflyArchiveDirectory/packs';
 const kPagesArchiveDirectory = '$kBflyArchiveDirectory/pages';
 // Pack specific

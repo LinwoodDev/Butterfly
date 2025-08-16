@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/markdown/latex.dart';
@@ -24,8 +25,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
+import 'package:pdf/pdf.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:printing/printing.dart';
 import 'package:xml/xml.dart';
 
 import '../cubits/transform.dart';
@@ -41,6 +44,7 @@ part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
 part 'elements/texture.dart';
+part 'elements/pdf.dart';
 part 'elements/pen.dart';
 part 'elements/polygon.dart';
 part 'elements/shape.dart';
@@ -228,6 +232,7 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return switch (element) {
             PenElement() => PenRenderer(element, layer),
+            PdfElement() => PdfRenderer(element, layer),
             TextElement() => TextRenderer(element, layer),
             ImageElement() => ImageRenderer(element, layer),
             SvgElement() => SvgRenderer(element, layer),
@@ -327,7 +332,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, this.rotation * (pi / 180));
+      DefaultHitCalculator(rect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,
@@ -400,15 +405,30 @@ abstract class Renderer<T> {
     DocumentBloc bloc,
     BuildContext context,
   ) => null;
+
+  FutureOr<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+
+  FutureOr<void> onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
 }
 
 Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
   final repaintBoundary = RenderRepaintBoundary();
   final pipelineOwner = PipelineOwner();
   final BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+  RenderView? renderView;
 
   try {
-    final renderView = RenderView(
+    renderView = RenderView(
       view: ui.PlatformDispatcher.instance.implicitView!,
       child: RenderPositionedBox(
         alignment: Alignment.center,
@@ -436,5 +456,10 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
     return image;
   } catch (e) {
     throw Exception('Failed to render widget: $e');
+  } finally {
+    pipelineOwner.rootNode = null;
+    repaintBoundary.dispose();
+    pipelineOwner.dispose();
+    renderView?.dispose();
   }
 }

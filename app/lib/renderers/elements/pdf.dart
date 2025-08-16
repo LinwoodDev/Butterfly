@@ -1,9 +1,10 @@
 part of '../renderer.dart';
 
-class ImageRenderer extends Renderer<ImageElement> {
+class PdfRenderer extends Renderer<PdfElement> {
   ui.Image? image;
+  double? renderedScale;
 
-  ImageRenderer(super.element, [super.layer, this.image]);
+  PdfRenderer(super.element, [super.layer, this.image, this.renderedScale]);
 
   @override
   bool onAssetUpdate(
@@ -29,24 +30,28 @@ class ImageRenderer extends Renderer<ImageElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (image == null) {
+    if (this.image == null || element.background.a > 0) {
       // Render placeholder
       final paint = Paint()
-        ..color = Colors.grey
+        ..color = element.background.a > 0
+            ? element.background.toColor()
+            : Colors.grey
         ..style = PaintingStyle.fill;
       canvas.drawRect(rect, paint);
-      return;
     }
-    var paint = Paint()
-      ..filterQuality = FilterQuality.high
-      ..isAntiAlias = true;
+    final image = this.image;
+    if (image != null) {
+      var paint = Paint()
+        ..filterQuality = FilterQuality.high
+        ..isAntiAlias = true;
 
-    canvas.drawImageRect(
-      image!,
-      Rect.fromLTWH(0, 0, element.width.toDouble(), element.height.toDouble()),
-      rect,
-      paint,
-    );
+      canvas.drawImageRect(
+        image,
+        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+        rect,
+        paint,
+      );
+    }
   }
 
   @override
@@ -81,13 +86,11 @@ class ImageRenderer extends Renderer<ImageElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) async {
-    if (image != null) return;
-    try {
-      image = await blocState.assetService.getImage(
-        element.source,
-        blocState.data,
-      );
-    } catch (_) {}
+    return _renderImage(
+      blocState.assetService,
+      blocState.data,
+      renderTransform.size * renderTransform.pixelRatio,
+    );
   }
 
   @override
@@ -99,6 +102,49 @@ class ImageRenderer extends Renderer<ImageElement> {
   ) {
     image?.dispose();
     image = null;
+  }
+
+  @override
+  Future<void> updateView(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    return _renderImage(
+      assetService,
+      document,
+      transformCubit.state.size * transformCubit.state.pixelRatio,
+    );
+  }
+
+  Future<void> _renderImage(
+    AssetService assetService,
+    NoteData document,
+    double scale,
+  ) async {
+    if (renderedScale == scale && image != null) return;
+    final data = await assetService.computeDataFromSource(
+      element.source,
+      document,
+    );
+    if (data == null) return;
+    try {
+      final dpi = PdfPageFormat.inch * scale;
+      final stream = Printing.raster(data, pages: [element.page], dpi: dpi);
+      final raster = await stream.first;
+      var image = await raster.toImage();
+      if (element.invert) {
+        final imgImage = await convertFlutterUiToImage(image);
+        final cmd = img.Command()
+          ..image(imgImage)
+          ..invert();
+        final converted = await cmd.getImage();
+        if (converted != null) image = await convertImageToFlutterUi(converted);
+      }
+      this.image = image;
+      renderedScale = scale;
+    } catch (_) {}
   }
 
   @override
@@ -160,19 +206,21 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  ImageRenderer _transform({
+  PdfRenderer _transform({
     required Offset position,
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    return ImageRenderer(
+    return PdfRenderer(
       element.copyWith(
         position: position.toPoint(),
         rotation: rotation,
         constraints: element.constraints.scale(scaleX, scaleY),
       ),
       layer,
+      image,
+      renderedScale,
     );
   }
 
@@ -180,43 +228,5 @@ class ImageRenderer extends Renderer<ImageElement> {
   void dispose() {
     image?.dispose();
     image = null;
-  }
-
-  @override
-  Map<RendererOperation, RendererOperationCallback> getOperations() {
-    Future<void> updateImage(
-      DocumentBloc bloc,
-      void Function(img.Command) update,
-    ) async {
-      final asset = Uri.parse(element.source);
-      if ((!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
-          image == null) {
-        return;
-      }
-      final imgImage = await convertFlutterUiToImage(image!);
-      var cmd = img.Command()..image(imgImage);
-      update(cmd);
-      cmd.encodePng();
-      final converted = await cmd.getBytes();
-      if (converted == null) return;
-      bloc.add(AssetUpdated(asset.path, converted));
-    }
-
-    return {
-      RendererOperation.invert: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.invert()),
-      RendererOperation.background: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.filter(updateImageBackground())),
-      RendererOperation.grayscale: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.grayscale()),
-      RendererOperation.flipHorizontal: (bloc, context) => updateImage(
-        bloc,
-        (cmd) => cmd.flip(direction: img.FlipDirection.horizontal),
-      ),
-      RendererOperation.flipVertical: (bloc, context) => updateImage(
-        bloc,
-        (cmd) => cmd.flip(direction: img.FlipDirection.vertical),
-      ),
-    };
   }
 }

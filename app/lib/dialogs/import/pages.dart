@@ -1,6 +1,8 @@
-import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -10,12 +12,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 @immutable
 class PageDialogCallback {
   final List<int> pages;
-  final double quality;
-  final bool spreadToPages, createAreas, background, invert;
+  final bool spreadToPages, createAreas, invert;
+  final SRGBColor background;
 
   const PageDialogCallback(
     this.pages,
-    this.quality,
     this.spreadToPages,
     this.createAreas,
     this.background,
@@ -24,7 +25,7 @@ class PageDialogCallback {
 }
 
 class PagesDialog extends StatefulWidget {
-  final List<Uint8List> pages;
+  final List<ui.Image> pages;
   const PagesDialog({super.key, required this.pages});
 
   @override
@@ -33,21 +34,15 @@ class PagesDialog extends StatefulWidget {
 
 class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
-  double _quality = 2.0;
-  double _defaultQuality = 2.0;
-  bool _spreadToPages = false,
-      _createAreas = true,
-      _background = true,
-      _invert = false;
+  bool _spreadToPages = false, _createAreas = true, _invert = false;
+  SRGBColor _background = BasicColors.whiteTransparent;
 
   @override
   void initState() {
     super.initState();
     _selected = List.generate(widget.pages.length, (i) => i);
     final settings = context.read<SettingsCubit>().state;
-    _defaultQuality = settings.pdfQuality;
     _spreadToPages = settings.spreadPages;
-    _quality = _defaultQuality;
   }
 
   @override
@@ -103,8 +98,14 @@ class _PagesDialogState extends State<PagesDialog> {
                         },
                         child: Container(
                           margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(border: border),
-                          child: Image.memory(widget.pages[index]),
+                          decoration: BoxDecoration(
+                            border: border,
+                            color: _background.toColor(),
+                          ),
+                          child: RawImage(
+                            image: widget.pages[index],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     },
@@ -122,23 +123,29 @@ class _PagesDialogState extends State<PagesDialog> {
               onChanged: (value) => setState(() => _spreadToPages = value),
               title: Text(AppLocalizations.of(context).spreadToPages),
             ),
-            SwitchListTile(
-              value: _background,
-              onChanged: (value) => setState(() => _background = value),
+            ColorField(
+              value: _background.withValues(a: 255),
+              custom: true,
+              onChanged: (value) => setState(() {
+                _background = value.withValues(a: _background.a);
+              }),
               title: Text(AppLocalizations.of(context).background),
+            ),
+            ExactSlider(
+              value: _background.a.toDouble(),
+              header: Text(AppLocalizations.of(context).alpha),
+              fractionDigits: 0,
+              max: 255,
+              min: 0,
+              defaultValue: 255,
+              onChangeEnd: (value) => setState(() {
+                _background = _background.withValues(a: value.toInt());
+              }),
             ),
             SwitchListTile(
               value: _invert,
               onChanged: (value) => setState(() => _invert = value),
               title: Text(AppLocalizations.of(context).invert),
-            ),
-            ExactSlider(
-              onChanged: (value) => setState(() => _quality = value),
-              defaultValue: _defaultQuality,
-              value: _quality,
-              max: 10,
-              min: 0.5,
-              header: Text(AppLocalizations.of(context).quality),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
@@ -158,7 +165,6 @@ class _PagesDialogState extends State<PagesDialog> {
                     onPressed: () => Navigator.of(context).pop(
                       PageDialogCallback(
                         _selected,
-                        _quality,
                         _spreadToPages,
                         _createAreas,
                         _background,

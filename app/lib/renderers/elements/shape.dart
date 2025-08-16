@@ -114,7 +114,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     DocumentPage page,
     Rect viewportRect,
   ) {
-    if (!rect.overlaps(rect)) return;
+    if (!rect.overlaps(viewportRect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final drawRect = rect.inflate(-strokeWidth);

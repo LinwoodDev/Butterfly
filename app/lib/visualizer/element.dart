@@ -10,6 +10,7 @@ extension ElementVisualizer on PadElement {
     final loc = AppLocalizations.of(context);
     return switch (this) {
       PenElement _ => loc.pen,
+      PdfElement _ => loc.pdf,
       TextElement _ => loc.text,
       ImageElement _ => loc.image,
       ShapeElement _ => loc.shape,
@@ -22,6 +23,7 @@ extension ElementVisualizer on PadElement {
 
   IconGetter get icon => switch (this) {
     PenElement _ => PhosphorIcons.pen,
+    PdfElement _ => PhosphorIcons.filePdf,
     TextElement _ => PhosphorIcons.textT,
     ImageElement _ => PhosphorIcons.image,
     ShapeElement element => element.property.shape.icon,

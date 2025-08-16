@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 
 Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {
@@ -17,6 +16,12 @@ Uint8List? getDataFromSource(NoteData document, String source) {
   final data = uri.data;
   return data?.contentAsBytes();
 }
+
+Uint8List? _getDataFromSource((NoteData, String) message) =>
+    getDataFromSource(message.$1, message.$2);
+
+Future<Uint8List?> computeDataFromSource(NoteData document, String source) =>
+    compute(_getDataFromSource, (document, source));
 
 UriData? getUriDataFromSource(
   NoteData document,

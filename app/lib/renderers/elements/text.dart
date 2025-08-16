@@ -91,7 +91,6 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     DocumentPage page,
   ) async {
     final paragraph = getParagraph(document);
-    await _renderLatex(paragraph, transformCubit);
     _createTool(paragraph, document, page);
     await super.setup(transformCubit, document, assetService, page);
     _updateRect(document);
@@ -106,7 +105,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   ) async {
     _renderedLatex.clear();
     final paragraph = getParagraph(document);
-    await _renderLatex(paragraph, transformCubit);
+    await _renderLatex(paragraph, transformCubit.state);
   }
 
   @override
@@ -143,7 +142,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   Future<void> _renderLatex(
     text.TextParagraph paragraph,
-    TransformCubit cubit,
+    CameraTransform transform,
   ) async {
     final styleSheet = _getStyle();
     final paragraphStyle =
@@ -153,7 +152,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       final span = paragraph.textSpans[i];
       if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
         final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
-        final pixelRatio = cubit.state.pixelRatio * cubit.state.size;
+        final pixelRatio = transform.pixelRatio * transform.size;
         final image = await renderWidget(
           widget,
           pixelRatio: scale * pixelRatio,
@@ -219,7 +218,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     Rect viewportRect,
   ) {
     final svg = xml.getElement('svg');
-    if (!rect.overlaps(rect) || svg == null) return;
+    if (!rect.overlaps(viewportRect) || svg == null) return;
     final paragraph = getParagraph(document);
 
     _tp?.layout(maxWidth: rect.width);
@@ -241,6 +240,28 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       textElement.createElement('tspan')
         ..setAttribute('style', style?.toCss())
         ..innerText = _convertTextToHtml(span.text);
+    }
+  }
+
+  @override
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    await _renderLatex(getParagraph(blocState.data), renderTransform);
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
     }
   }
 
