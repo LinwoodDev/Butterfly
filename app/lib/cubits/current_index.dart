@@ -900,15 +900,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (renderers.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
+    // store the elements that were visible before this bake
+    final oldVisible = cameraViewport.visibleElements;
+
     if (reset) {
       renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
           .where((renderer) => renderer.expandedRect?.overlaps(rect) ?? true)
           .toList();
     } else {
-      visibleElements = List.from(cameraViewport.visibleElements)
-        ..addAll(renderers);
+      visibleElements = List.from(oldVisible)..addAll(renderers);
     }
+
+    // call onVisible for any newly visible elements
+    await Future.wait(
+      visibleElements
+          .where((element) => !oldVisible.contains(element))
+          .map(
+            (element) async =>
+                await element.onVisible(this, blocState, renderTransform, size),
+          ),
+    );
+    await Future.wait(
+      oldVisible
+          .where((element) => !visibleElements.contains(element))
+          .map(
+            (element) async =>
+                await element.onHidden(this, blocState, renderTransform, size),
+          ),
+    );
+
     canvas.scale(ratio);
 
     _isBaking = true;

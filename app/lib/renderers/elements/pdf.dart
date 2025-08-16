@@ -80,20 +80,28 @@ class PdfRenderer extends Renderer<PdfElement> {
   }
 
   @override
-  Future<void> setup(
-    TransformCubit transformCubit,
-    NoteData document,
-    AssetService assetService,
-    DocumentPage page, [
-    bool force = false,
-  ]) async {
-    super.setup(transformCubit, document, assetService, page);
-    if (image != null && !force) return;
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
     return _renderImage(
-      assetService,
-      document,
-      transformCubit.state.size * transformCubit.state.pixelRatio,
+      blocState.assetService,
+      blocState.data,
+      renderTransform.size * renderTransform.pixelRatio,
     );
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    image?.dispose();
+    image = null;
   }
 
   @override

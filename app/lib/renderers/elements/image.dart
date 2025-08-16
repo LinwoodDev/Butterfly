@@ -75,18 +75,30 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  Future<void> setup(
-    TransformCubit transformCubit,
-    NoteData document,
-    AssetService assetService,
-    DocumentPage page, [
-    bool force = false,
-  ]) async {
-    super.setup(transformCubit, document, assetService, page);
-    if (image != null && !force) return;
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    if (image != null) return;
     try {
-      image = await assetService.getImage(element.source, document);
+      image = await blocState.assetService.getImage(
+        element.source,
+        blocState.data,
+      );
     } catch (_) {}
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    image?.dispose();
+    image = null;
   }
 
   @override

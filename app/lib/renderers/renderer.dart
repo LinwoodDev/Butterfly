@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/markdown/latex.dart';
@@ -331,7 +332,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, this.rotation * (pi / 180));
+      DefaultHitCalculator(rect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,
@@ -404,15 +405,30 @@ abstract class Renderer<T> {
     DocumentBloc bloc,
     BuildContext context,
   ) => null;
+
+  FutureOr<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+
+  FutureOr<void> onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
 }
 
 Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
   final repaintBoundary = RenderRepaintBoundary();
   final pipelineOwner = PipelineOwner();
   final BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+  RenderView? renderView;
 
   try {
-    final renderView = RenderView(
+    renderView = RenderView(
       view: ui.PlatformDispatcher.instance.implicitView!,
       child: RenderPositionedBox(
         alignment: Alignment.center,
@@ -440,5 +456,10 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
     return image;
   } catch (e) {
     throw Exception('Failed to render widget: $e');
+  } finally {
+    pipelineOwner.rootNode = null;
+    repaintBoundary.dispose();
+    pipelineOwner.dispose();
+    renderView?.dispose();
   }
 }
