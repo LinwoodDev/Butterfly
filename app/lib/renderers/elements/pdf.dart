@@ -136,11 +136,9 @@ class PdfRenderer extends Renderer<PdfElement> {
       var image = await raster.toImage();
       if (element.invert) {
         final imgImage = await convertFlutterUiToImage(image);
-        final cmd = img.Command();
-        cmd.image(imgImage);
-        if (element.invert) {
-          cmd.invert();
-        }
+        final cmd = img.Command()
+          ..image(imgImage)
+          ..invert();
         final converted = await cmd.getImage();
         if (converted != null) image = await convertImageToFlutterUi(converted);
       }
