@@ -1,3 +1,9 @@
 * Add search bar to waypoint view
+* Rework pdf system ([#327](https://github.com/LinwoodDev/Butterfly/issues/327))
+  * Add pdf element
+  * Add pdf elements on pdf import instead converting to image
+* Improve performance of pdf and image loading by rendering only visible elements
+* Use minSdkVersion 24 instead of 23 (The minimum version of android is 7.0 (Nougat))
+* Upgrade to flutter 3.35
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.3

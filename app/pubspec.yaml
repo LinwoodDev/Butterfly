@@ -17,7 +17,7 @@ version: 2.4.0-beta.3+144
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.32.8
+  flutter: 3.35.1
 
 dependencies:
   flutter:
@@ -28,7 +28,7 @@ dependencies:
     sdk: flutter
   butterfly_api:
     path: ../api
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.2.0
   flutter_bloc: ^9.0.0
   intl: any
   path_provider: ^2.1.3
