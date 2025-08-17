@@ -1,9 +1,10 @@
-* Add search bar to waypoint view
-* Rework pdf system ([#327](https://github.com/LinwoodDev/Butterfly/issues/327))
-  * Add pdf element
-  * Add pdf elements on pdf import instead converting to image
-* Improve performance of pdf and image loading by rendering only visible elements
-* Use minSdkVersion 24 instead of 23 (The minimum version of android is 7.0 (Nougat))
-* Upgrade to flutter 3.35
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
 
-Read more here: https://linwood.dev/butterfly/2.4.0-beta.3
+Cherry picks:
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Read more here: https://linwood.dev/butterfly/2.3.4
