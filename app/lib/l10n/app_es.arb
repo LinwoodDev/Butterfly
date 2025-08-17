@@ -698,5 +698,11 @@
   "rawFile": "Archivo Raw",
   "webSocketDescription": "Su dispositivo aloja el servidor, por lo que los colaboradores sólo pueden unirse a través de la misma red o desde cualquier lugar si reenvía el puerto en su router.",
   "swampDescription": "Sus mensajes son enrutados a través de un servidor repetidor seguro con cifrado de extremo a extremo. Se requiere una dirección de servidor pantano para crear una sesión.",
-  "createRawNote": "Crear nota cruda"
+  "createRawNote": "Crear nota cruda",
+  "polygon": "Polígono",
+  "finishShape": "Forma final",
+  "submit": "Enviar",
+  "math": "Matemáticas",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

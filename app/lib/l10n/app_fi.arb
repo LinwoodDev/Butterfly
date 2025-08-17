@@ -698,5 +698,11 @@
   "rawFile": "Raaka tiedosto",
   "webSocketDescription": "Laitteesi isännöi palvelinta, joten yhteistyökumppanit voivat liittyä samaan verkkoon tai mistä tahansa vain, jos jatkat porttia reitittimessäsi.",
   "swampDescription": "Viestisi reititetään turvallisen relepalvelimen kautta, jossa on end-to-end salaus. Ison palvelimen osoite tarvitaan istunnon luomiseksi.",
-  "createRawNote": "Luo raaka merkintä"
+  "createRawNote": "Luo raaka merkintä",
+  "polygon": "Monikulmio",
+  "finishShape": "Viimeistele muoto",
+  "submit": "Lähetä",
+  "math": "Matematiikka",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

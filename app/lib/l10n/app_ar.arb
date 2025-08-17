@@ -698,5 +698,11 @@
   "rawFile": "ملف خام",
   "webSocketDescription": "جهازك يستضيف الخادم، لذلك يمكن للمتعاونين الانضمام على نفس الشبكة فقط أو من أي مكان إذا قمت بإعادة توجيه المنفذ على جهاز التوجيه الخاص بك.",
   "swampDescription": "يتم توجيه رسائلك من خلال خادم نقل آمن مع تشفير من النهاية إلى النهاية. مطلوب عنوان خادم المستنقعات لإنشاء جلسة.",
-  "createRawNote": "إنشاء ملاحظة خام"
+  "createRawNote": "إنشاء ملاحظة خام",
+  "polygon": "مضلع",
+  "finishShape": "إنهاء الشكل",
+  "submit": "إرسال",
+  "math": "الرياضيات",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

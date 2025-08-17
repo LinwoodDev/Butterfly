@@ -698,5 +698,11 @@
   "rawFile": "Raw file",
   "webSocketDescription": "Your device hosts the server, so collaborators can only join over the same network or from anywhere if you forward the port on your router.",
   "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session.",
-  "createRawNote": "Create raw note"
+  "createRawNote": "Create raw note",
+  "polygon": "Polygon",
+  "finishShape": "Finish shape",
+  "submit": "Submit",
+  "math": "Math",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

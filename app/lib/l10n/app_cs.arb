@@ -698,5 +698,11 @@
   "rawFile": "Surový soubor",
   "webSocketDescription": "Vaše zařízení hostí server, takže se spolupracovníci mohou připojit přes stejnou síť nebo odkudkoliv pouze tehdy, pokud přeposíláte port na váš router.",
   "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s end-to-end šifrováním. Pro vytvoření relace je nutná adresa serveru swamp.",
-  "createRawNote": "Vytvořit surovou poznámku"
+  "createRawNote": "Vytvořit surovou poznámku",
+  "polygon": "Polygon",
+  "finishShape": "Dokončit tvar",
+  "submit": "Odeslat",
+  "math": "Matematika",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }

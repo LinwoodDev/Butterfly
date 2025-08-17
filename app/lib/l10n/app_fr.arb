@@ -698,5 +698,11 @@
   "rawFile": "Fichier brut",
   "webSocketDescription": "Votre périphérique héberge le serveur, de sorte que les collaborateurs ne peuvent se joindre que sur le même réseau ou depuis n'importe où si vous redirigez le port sur votre routeur.",
   "swampDescription": "Vos messages sont acheminés à travers un serveur de relais sécurisé avec chiffrement de bout en bout. Une adresse de serveur swamp est nécessaire pour créer une session.",
-  "createRawNote": "Créer une note brute"
+  "createRawNote": "Créer une note brute",
+  "polygon": "Polygone",
+  "finishShape": "Finir la forme",
+  "submit": "Soumettre",
+  "math": "Mathématiques",
+  "ignorePressure": "Ignore pressure",
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
 }
