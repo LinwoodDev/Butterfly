@@ -16,7 +16,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
-    "astro": "^5.12.9",
+    "astro": "^5.13.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "remark-gemoji": "^8.0.0",

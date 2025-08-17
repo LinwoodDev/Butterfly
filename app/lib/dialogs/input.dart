@@ -68,93 +68,61 @@ class _InputMappingOptionsState extends State<InputMappingOptions> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: () {
-            setState(() => _onCategoryChanged(InputMappingCategory.activeTool));
-          },
-          child: ListTile(
+    return RadioGroup<InputMappingCategory>(
+      groupValue: _category,
+      onChanged: _onCategoryChanged,
+      child: Column(
+        children: [
+          RadioListTile(
             title: Text(AppLocalizations.of(context).activeTool),
             subtitle: Text(AppLocalizations.of(context).activeToolDescription),
-            leading: Radio<InputMappingCategory>(
-              value: InputMappingCategory.activeTool,
-              groupValue: _category,
-              onChanged: _onCategoryChanged,
-            ),
+            value: InputMappingCategory.activeTool,
           ),
-        ),
-        InkWell(
-          onTap: () {
-            setState(() => _onCategoryChanged(InputMappingCategory.handTool));
-          },
-          child: ListTile(
+          RadioListTile(
             title: Text(AppLocalizations.of(context).handTool),
             subtitle: Text(AppLocalizations.of(context).handToolDescription),
-            leading: Radio<InputMappingCategory>(
-              value: InputMappingCategory.handTool,
-              groupValue: _category,
-              onChanged: _onCategoryChanged,
+            value: InputMappingCategory.handTool,
+          ),
+          RadioListTile<InputMappingCategory>(
+            value: InputMappingCategory.toolOnToolbar,
+            title: Text(AppLocalizations.of(context).toolOnToolbar),
+            subtitle: Text(
+              AppLocalizations.of(context).toolOnToolbarDescription,
+            ),
+            secondary: SizedBox(
+              width: 50,
+              child: TextFormField(
+                keyboardType: TextInputType.numberWithOptions(
+                  signed: false,
+                  decimal: false,
+                ),
+                decoration: InputDecoration(filled: true),
+                enabled: _category == InputMappingCategory.toolOnToolbar,
+                controller: _toolbarToolPositionController,
+                onTap: () {
+                  _toolbarToolPositionController.selection = TextSelection(
+                    baseOffset: 0,
+                    extentOffset:
+                        _toolbarToolPositionController.value.text.length,
+                  );
+                },
+                onEditingComplete: () {
+                  if (_toolbarToolPositionController.text.isEmpty) {
+                    _toolbarToolPositionController.text = '1';
+                  }
+                  FocusScope.of(context).unfocus();
+                },
+                onChanged: _toolbarToolPositionChanged,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () {
-            setState(
-              () => _onCategoryChanged(InputMappingCategory.toolOnToolbar),
-            );
-          },
-          child: Row(
-            children: [
-              Expanded(
-                child: ListTile(
-                  title: Text(AppLocalizations.of(context).toolOnToolbar),
-                  subtitle: Text(
-                    AppLocalizations.of(context).toolOnToolbarDescription,
-                  ),
-                  leading: Radio<InputMappingCategory>(
-                    value: InputMappingCategory.toolOnToolbar,
-                    groupValue: _category,
-                    onChanged: _onCategoryChanged,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 50,
-                child: TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(
-                    signed: false,
-                    decimal: false,
-                  ),
-                  decoration: InputDecoration(filled: true),
-                  enabled: _category == InputMappingCategory.toolOnToolbar,
-                  controller: _toolbarToolPositionController,
-                  onTap: () {
-                    _toolbarToolPositionController.selection = TextSelection(
-                      baseOffset: 0,
-                      extentOffset:
-                          _toolbarToolPositionController.value.text.length,
-                    );
-                  },
-                  onEditingComplete: () {
-                    if (_toolbarToolPositionController.text == '') {
-                      _toolbarToolPositionController.text = '1';
-                    }
-                    FocusScope.of(context).unfocus();
-                  },
-                  onChanged: _toolbarToolPositionChanged,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(width: 35),
-            ],
+          SizedBox(
+            // This adds space at the bottom of the fly-out to account for the keyboard appearing
+            height: MediaQuery.of(context).viewInsets.bottom,
           ),
-        ),
-        SizedBox(
-          // This adds space at the bottom of the fly-out to account for the keyboard appearing
-          height: MediaQuery.of(context).viewInsets.bottom,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
