@@ -703,6 +703,6 @@
   "finishShape": "إنهاء الشكل",
   "submit": "إرسال",
   "math": "الرياضيات",
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
+  "ignorePressure": "تجاهل الضغط",
+  "ignoreFirstPressureDescription": "في بعض الأجهزة، قيمة الضغط الأول غير دقيقة. هذا الإعداد سوف يتجاهل قيمة الضغط الأول ويستخدم ضغط الحدث الثاني بدلاً من ذلك."
 }
