@@ -28,8 +28,8 @@ The toolbar contains the following buttons:
 
 ## Konfigurace
 
-|    Majetek |  Výchozí  | L 343, 22.12.2009, s. 1). |
-| ---------: | :-------: | :---------------------------------------------------------------------------------------- |
-| Šířka tahu |     5     | Šířka zdvihu                                                                              |
-|      Barva |   Černý   | Barva, která bude kreslena                                                                |
-|    Vyplnit | Průhledný | The color that will be drawn inside the polygon.                          |
+| Majetek |  Výchozí  | Popis                                                            |
+| ------: | :-------: | :--------------------------------------------------------------- |
+|   Šířka |     5     | Šířka zdvihu                                                     |
+|   Barva |   Černý   | Barva, která bude kreslena                                       |
+| Vyplnit | Průhledný | The color that will be drawn inside the polygon. |
