@@ -2,7 +2,7 @@
 title: Zkratky
 ---
 
-## Keyboard
+## Klávesnice
 
 Existuje několik zkratek, které můžete použít v editoru.
 Některé z nich jsou zapsány pod tlačítky.
