@@ -703,6 +703,6 @@
   "finishShape": "Formă finală",
   "submit": "Trimiteți",
   "math": "Matematică",
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
+  "ignorePressure": "Ignoră presiunea",
+  "ignoreFirstPressureDescription": "Pe unele dispozitive, prima valoare a presiunii nu este exactă. Această setare va ignora prima valoare de presiune şi va folosi presiunea celui de-al doilea eveniment."
 }

@@ -703,6 +703,6 @@
   "finishShape": "Vorm voltooien",
   "submit": "Bevestigen",
   "math": "Wiskunde",
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
+  "ignorePressure": "Negeer druk",
+  "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis."
 }
