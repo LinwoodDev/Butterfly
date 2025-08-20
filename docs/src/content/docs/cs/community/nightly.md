@@ -1,22 +1,22 @@
 ---
-title: Noční sestavení
+title: Nightly verze
 ---
 
 :::warning
 
-Nepoužívejte noční verzi Butterfly pro produkci.
+Nightly verze Butterfly neslouží k běžnému používaní.
 
 :::
 
-Noční sestavení jsou navržena tak, aby vám dala možnost otestovat nejnovější verzi a získat nejnovější funkce a poskytnout zpětnou vazbu.
+Nightly verze slouží k tomu, vám dát možnost otestovat nejnovější verzi a získat nejnovější funkce a poskytnout zpětnou vazbu.
 
 ## Získat sestavení
 
 Přejděte na stránky pro stahování vaší platformy.
-Všechny noční sestavení jsou také publikovány jako předběžný vydání na githubu.
+Všechny nightly verze jsou také publikovány jako předběžná vydání na githubu.
 
 ## Experimenty
 
 Experimenty jsou funkce, které ještě nejsou připraveny k výrobě.
 Ve výchozím nastavení jsou zakázány. You can enable them in the settings under `Experiments`.
-Tato karta je viditelná pouze v noční verzi.
+Tato záložka je viditelná pouze v nightly verzi.

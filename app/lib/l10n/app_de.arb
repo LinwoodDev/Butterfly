@@ -703,6 +703,6 @@
   "finishShape": "Form beenden",
   "submit": "Absenden",
   "math": "Maj",
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
+  "ignorePressure": "Ignoriere Druck",
+  "ignoreFirstPressureDescription": "Bei einigen Geräten ist der erste Druckwert nicht korrekt. Diese Einstellung ignoriert den ersten Druckwert und verwendet stattdessen den Druck des zweiten Ereignisses."
 }

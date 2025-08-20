@@ -10,7 +10,7 @@ Tato aktiva jsou licencována pod licencí [CC-BY-SA-4.0](https://github.com/Lin
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Noční logo
+## Nightly logo
 
 ![Logo](/img/nightly.svg)
 
