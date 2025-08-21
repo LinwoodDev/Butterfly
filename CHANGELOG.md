@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.4 (2025-08-21)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
+
+Cherry picks:
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Read more here: https://linwood.dev/butterfly/2.3.4
+
 ## 2.3.3 (2025-08-01)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
