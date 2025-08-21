@@ -23,12 +23,12 @@
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.9.2"
   },
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.0",
     "sass": "^1.90.0",
     "sharp": "^0.34.3",
-    "vite-plugin-pwa": "^1.0.2",
+    "vite-plugin-pwa": "^1.0.3",
     "workbox-window": "^7.3.0"
   },
   "pnpm": {

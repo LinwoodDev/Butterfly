@@ -21,23 +21,6 @@ Upstreamed from 2.3.3:
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.2
 
-## 2.3.3 (2025-08-01)
-
-This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
-
-* Upgrade to flutter 3.32
-* Add support for arm AppImage builds
-* Add more alternative linux builds
-* Publish app to microsoft store
-* Fix snap builds
-* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
-
-Cherry picks:
-* Fix navigator page dialogs not rounded
-* Fix directory not respected when creating a document from a template
-
-Read more here: https://linwood.dev/butterfly/2.3.3
-
 ## 2.4.0-beta.1 (2025-07-14)
 
 * Add polygon tool and element
@@ -69,6 +52,48 @@ Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
 * Upgrade to flutter 3.32
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
+
+## 2.3.4 (2025-08-21)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
+
+Cherry picks:
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Read more here: https://linwood.dev/butterfly/2.3.4
+
+## 2.3.3 (2025-08-01)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
+
+* Upgrade to flutter 3.32
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Publish app to microsoft store
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Cherry picks:
+* Fix navigator page dialogs not rounded
+* Fix directory not respected when creating a document from a template
+
+Read more here: https://linwood.dev/butterfly/2.3.3
+
+## 2.3.2 (2025-06-23)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.0 nightly release.
+
+Cherry picks:
+* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Fix temporary handler not working correctly
+* Fix text elements not correctly movable on pasting
+* Fix new line not working in label tool
+
+Read more here: https://linwood.dev/butterfly/2.3.2
 
 ## 2.3.1 (2025-05-21)
 
