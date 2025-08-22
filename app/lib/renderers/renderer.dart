@@ -304,12 +304,17 @@ abstract class Renderer<T> {
     final current = rect;
     if (current == null) return null;
     final rotation = this.rotation * (pi / 180);
-    if (rotation == 0) return current;
-    final center = current.center;
-    final topLeft = current.topLeft.rotate(center, rotation);
-    final topRight = current.topRight.rotate(center, rotation);
-    final bottomLeft = current.bottomLeft.rotate(center, rotation);
-    final bottomRight = current.bottomRight.rotate(center, rotation);
+    return _expandedAabbFor(current, rotation);
+  }
+
+  // Computes the axis-aligned bounding box of a rotated rect.
+  static Rect _expandedAabbFor(Rect r, double radians) {
+    if (radians == 0) return r;
+    final center = r.center;
+    final topLeft = r.topLeft.rotate(center, radians);
+    final topRight = r.topRight.rotate(center, radians);
+    final bottomLeft = r.bottomLeft.rotate(center, radians);
+    final bottomRight = r.bottomRight.rotate(center, radians);
     final all = [topLeft, topRight, bottomLeft, bottomRight];
     final xs = all.map((p) => p.dx);
     final ys = all.map((p) => p.dy);
@@ -353,42 +358,61 @@ abstract class Renderer<T> {
     rotation ??= relative ? 0 : this.rotation;
     final double nextRotation =
         (relative ? rotation + this.rotation : rotation) % 360;
-    position ??= relative ? Offset.zero : rect.topLeft;
-    final expandedRect = this.expandedRect ?? rect;
-    var nextPosition = relative ? position + rect.topLeft : position;
 
-    final radians = this.rotation * (pi / 180);
-    if (rotatePosition) {
+    // Determine position (absolute for _transform)
+    position ??= relative ? Offset.zero : rect.topLeft;
+    var nextPosition = relative ? position + rect.topLeft : position;
+    final expandedRect = this.expandedRect ?? rect;
+
+    final radians = (this.rotation % 360) * (pi / 180);
+    // Keep original rotatePosition behavior (rotate relative movement by current rotation)
+    if (rotatePosition && (this.rotation % 360) != 0) {
       var relativePosition = nextPosition - rect.topLeft;
       relativePosition = relativePosition.rotate(Offset.zero, radians);
       nextPosition = relativePosition + rect.topLeft;
     }
 
-    if (radians != 0) {
-      final rotationCos = cos(radians);
-      final rotationSin = sin(radians);
-      final oldScaleX = scaleX;
-      final oldScaleY = scaleY;
+    // Convert world axis-aligned scaling (expandedRect-based) into local axes
+    // using the diagonal of R^-1 * S_world * R (ignore shear off-diagonals).
+    double sx = scaleX;
+    double sy = scaleY;
+    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
+      final c = cos(radians);
+      final s = sin(radians);
+      // Use column norms as effective local scales.
+      final sxLocal = sqrt((sx * c) * (sx * c) + (sy * s) * (sy * s));
+      final syLocal = sqrt((sx * s) * (sx * s) + (sy * c) * (sy * c));
 
-      scaleX = (oldScaleX * rotationCos - oldScaleY * rotationSin).abs();
-      scaleY = (oldScaleX * rotationSin + oldScaleY * rotationCos).abs();
-      // Calculate offset, please use Offset#rotate(pivot, radians)
-      // to rotate the offset around the pivot point
-      // Don't forget to use the radians and the scales to calculate the offset to keep the rectangle on the same position as if they are unrotated
-      final rotationPoint = rect.topLeft;
-      final offset = Offset(
-        (expandedRect.left - rotationPoint.dx) * scaleX / 2,
-        (expandedRect.top - rotationPoint.dy) * scaleY / 2,
+      sx = sxLocal;
+      sy = syLocal;
+    }
+
+    // Position compensation for scaling rotated elements so that the element's
+    // expanded AABB appears to move as expected when scaling around its top-left.
+    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
+      final double w = rect.width;
+      final double h = rect.height;
+
+      final Offset fOld = expandedRect.topLeft - rect.topLeft;
+
+      // New offset computed from the expanded AABB of the scaled rect.
+      final Rect scaledRect = Rect.fromLTWH(
+        rect.left,
+        rect.top,
+        w * sx,
+        h * sy,
       );
-      final rotatedOffset = offset.rotate(Offset.zero, radians);
-      nextPosition -= rotatedOffset;
+      final Rect newExpanded = _expandedAabbFor(scaledRect, radians);
+      final Offset fNew = newExpanded.topLeft - scaledRect.topLeft;
+
+      nextPosition += (fOld - fNew);
     }
 
     return _transform(
       position: nextPosition,
       rotation: nextRotation,
-      scaleX: scaleX,
-      scaleY: scaleY,
+      scaleX: sx,
+      scaleY: sy,
     );
   }
 

@@ -1199,12 +1199,11 @@ packages:
   reorderable_grid:
     dependency: "direct main"
     description:
-      path: "."
-      ref: d6f6a4fcf23129400529a055292133f1030b7eee
-      resolved-ref: d6f6a4fcf23129400529a055292133f1030b7eee
-      url: "https://github.com/CodeDoctorDE/reorderable_grid.git"
-    source: git
-    version: "1.0.9"
+      name: reorderable_grid
+      sha256: c7d2e1f2e032a8fffe121f9da828546ee58db35c9c7d19d7a2d189dea2f9939d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.12"
   replay_bloc:
     dependency: "direct main"
     description:

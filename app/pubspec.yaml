@@ -60,10 +60,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   cross_file: ^0.3.4+1
   args: ^2.5.0
-  reorderable_grid:
-    git:
-      url: https://github.com/CodeDoctorDE/reorderable_grid.git
-      ref: d6f6a4fcf23129400529a055292133f1030b7eee
+  reorderable_grid: ^1.0.12
   perfect_freehand:
     git:
       url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
