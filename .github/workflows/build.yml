@@ -21,7 +21,7 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v5
       - name: 🔧 Setup java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: "17"
           distribution: "temurin"
@@ -754,7 +754,7 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
           echo "$PLAY_STORE_CREDENTIALS" | base64 --decode > play-store-credentials.json
       - name: 🔧 Setup java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: "17"
           distribution: "temurin"
