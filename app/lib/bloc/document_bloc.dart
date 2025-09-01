@@ -337,7 +337,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return e.copyWith(content: content);
       });
-      current.currentIndexCubit.unbake(unbakedElements: renderers);
+      current.currentIndexCubit.unbake(current, unbakedElements: renderers);
       _saveState(emit, state: current.copyWith(page: newPage), unbake: true);
     });
     on<ElementsRemoved>((event, emit) {
@@ -665,7 +665,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         invisibleLayers.add(event.id);
       }
       emit(current.copyWith(invisibleLayers: invisibleLayers));
-      current.currentIndexCubit.unbake();
+      current.currentIndexCubit.unbake(current);
     });
 
     on<LayerCreated>((event, emit) {

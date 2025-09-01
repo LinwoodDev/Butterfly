@@ -11,7 +11,6 @@ const kParagraphTags = {
   'blockquote',
   'br',
   'lio',
-  'math',
 };
 
 class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {

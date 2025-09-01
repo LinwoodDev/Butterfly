@@ -43,7 +43,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     };
     _tp?.setPlaceholderDimensions(dimensions);
     _tp?.textAlign = style.alignment.toFlutter();
-    _tp?.layout(maxWidth: element.getMaxWidth(area));
+    _tp?.layout();
   }
 
   text.TextStyleSheet? _getStyle() => element.styleSheet?.item;
@@ -74,11 +74,14 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
           PlaceholderDimensions(
             size: size,
             alignment: PlaceholderAlignment.middle,
+            baseline: TextBaseline.alphabetic,
           ),
         );
         return WidgetSpan(
           child: RawImage(image: element),
           style: style,
+          alignment: PlaceholderAlignment.middle,
+          baseline: TextBaseline.alphabetic,
         );
     }
   }
@@ -183,17 +186,16 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
         .map((e) => e.value)
         .toList();
     for (int i = 0; i < placeholders.length; i++) {
-      if (i < orderedRendered.length) {
-        final placeholder = placeholders[i];
-        final (image, _) = orderedRendered[i];
-        final rect = placeholder.toRect().shift(element.position.toOffset());
-        canvas.drawImageRect(
-          image,
-          Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-          rect,
-          Paint(),
-        );
-      }
+      if (i >= orderedRendered.length) continue;
+      final placeholder = placeholders[i];
+      final (image, _) = orderedRendered[i];
+      final rect = placeholder.toRect().shift(element.position.toOffset());
+      canvas.drawImageRect(
+        image,
+        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+        rect,
+        Paint(),
+      );
     }
   }
 
@@ -250,7 +252,12 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     CameraTransform renderTransform,
     ui.Size size,
   ) async {
-    await _renderLatex(getParagraph(blocState.data), renderTransform);
+    final paragraph = getParagraph(blocState.data);
+    final document = blocState.data;
+    final page = blocState.page;
+    await _renderLatex(paragraph, renderTransform);
+    _createTool(paragraph, document, page);
+    _updateRect(document);
   }
 
   @override

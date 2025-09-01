@@ -129,6 +129,25 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.networkingService.setup(bloc);
   }
 
+  Future<void> _updateOnVisible(
+    CameraViewport newViewport,
+    DocumentLoaded blocState,
+  ) async {
+    final newVisible = newViewport.visibleElements.where(
+      (e) => !state.cameraViewport.visibleElements.contains(e),
+    );
+    await Future.wait(
+      newVisible.map(
+        (element) async => await element.onVisible(
+          this,
+          blocState,
+          state.transformCubit.state,
+          newViewport.toSize(),
+        ),
+      ),
+    );
+  }
+
   ThemeData getTheme(
     bool dark, [
     VisualDensity? density,
@@ -1135,18 +1154,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return xml;
   }
 
-  void unbake({
+  Future<void> unbake(
+    DocumentLoaded blocState, {
     List<Renderer<Background>>? backgrounds,
     List<Renderer<PadElement>>? unbakedElements,
-  }) {
-    emit(
-      state.copyWith(
-        cameraViewport: state.cameraViewport.unbake(
-          unbakedElements: unbakedElements,
-          backgrounds: backgrounds,
-        ),
-      ),
+  }) async {
+    final newViewport = state.cameraViewport.unbake(
+      unbakedElements: unbakedElements,
+      backgrounds: backgrounds,
     );
+    await _updateOnVisible(newViewport, blocState);
+    emit(state.copyWith(cameraViewport: newViewport));
   }
 
   Future<void> loadElements(DocumentState docState) async {
@@ -1177,23 +1195,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             await e.setup(state.transformCubit, document, assetService, page),
       ),
     );
+    final newViewport = state.cameraViewport.unbake(
+      unbakedElements: renderers,
+      backgrounds: backgrounds,
+    );
+    await _updateOnVisible(newViewport, docState);
     emit(
       state.copyWith(
         location: state.embedding?.location ?? state.location,
-        cameraViewport: state.cameraViewport.unbake(
-          unbakedElements: renderers,
-          backgrounds: backgrounds,
-        ),
+        cameraViewport: newViewport,
       ),
     );
   }
 
-  void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
-    emit(
-      state.copyWith(
-        cameraViewport: state.cameraViewport.withUnbaked(unbakedElements),
-      ),
-    );
+  Future<void> withUnbaked(
+    DocumentLoaded blocState,
+    List<Renderer<PadElement>> unbakedElements,
+  ) async {
+    final newViewport = state.cameraViewport.withUnbaked(unbakedElements);
+    await _updateOnVisible(newViewport, blocState);
+    emit(state.copyWith(cameraViewport: newViewport));
   }
 
   void setSaveState({
@@ -1508,18 +1529,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
     }
     elements.addAll(addedElements);
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
 
     if (replacedElements != null || unbake) {
-      current.currentIndexCubit.unbake(
+      await current.currentIndexCubit.unbake(
+        blocState,
         unbakedElements: replacedElements == null
             ? null
             : [...replacedElements, ...addedElements],
         backgrounds: backgrounds,
       );
     } else if (backgrounds != null) {
-      this.unbake(backgrounds: backgrounds);
+      await this.unbake(blocState, backgrounds: backgrounds);
     } else {
-      withUnbaked(elements);
+      await withUnbaked(blocState, elements);
     }
 
     setSaveState(saved: SaveState.unsaved);
