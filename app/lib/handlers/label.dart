@@ -9,17 +9,21 @@ class LabelHandler extends Handler<LabelTool>
 
   LabelHandler(super.data);
 
-  LabelContext _createContext(
-    NoteData document, {
+  Future<LabelContext> _createContext(
+    NoteData document,
+    ButterflyFileSystem fileSystem, {
     Point<double>? position,
     double zoom = 1,
     LabelElement? element,
-  }) {
+  }) async {
     final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
         : data.mode;
-    final styleSheet = data.styleSheet;
+    final styleSheet =
+        data.styleSheet ??
+        await fileSystem.findDefaultStyleSheet().then((e) => e?.toNamed());
+    final tool = data.copyWith(styleSheet: data.styleSheet ?? styleSheet);
     switch (mode) {
       case LabelMode.text:
         final forced = switch (_context) {
@@ -27,7 +31,7 @@ class LabelHandler extends Handler<LabelTool>
           _ => null,
         };
         return TextContext(
-          tool: data,
+          tool: tool,
           element:
               (element as TextElement?) ??
               (position == null
@@ -41,9 +45,9 @@ class LabelHandler extends Handler<LabelTool>
                               const text.ParagraphProperty.undefined(),
                         ),
                       ),
-                      styleSheet: styleSheet,
                       scale: scale,
                       foreground: data.foreground,
+                      styleSheet: styleSheet,
                       id: createUniqueId(),
                     )),
           textPainter: TextPainter(),
@@ -51,7 +55,7 @@ class LabelHandler extends Handler<LabelTool>
         );
       case LabelMode.markdown:
         return MarkdownContext(
-          tool: data,
+          tool: tool,
           element:
               (element as MarkdownElement?) ??
               (position == null
@@ -172,6 +176,7 @@ class LabelHandler extends Handler<LabelTool>
     final state = context.getState();
     final document = state?.data;
     if (document == null) return;
+    final fileSystem = context.getFileSystem();
     final focusNode = Focus.of(context.buildContext);
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
     final hitRect = _context?.getRect();
@@ -189,8 +194,9 @@ class LabelHandler extends Handler<LabelTool>
       );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
-        _context = _createContext(
+        _context = await _createContext(
           document,
+          fileSystem,
           position: globalPos.toPoint(),
           zoom: context.getCameraTransform().size,
         );
@@ -200,7 +206,11 @@ class LabelHandler extends Handler<LabelTool>
         final id = (labelRenderer.element as PadElement).id;
         if (id == null) return;
         context.getDocumentBloc().add(ElementsRemoved([id]));
-        _context = _createContext(document, element: labelRenderer.element);
+        _context = await _createContext(
+          document,
+          fileSystem,
+          element: labelRenderer.element,
+        );
       }
     }
     if (hit) {
@@ -265,10 +275,10 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+  Future<PreferredSizeWidget?> getToolbar(DocumentBloc bloc) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    _context ??= _createContext(state.data);
+    _context ??= await _createContext(state.data, state.fileSystem);
     return LabelToolbarView(
       value: _context!,
       onChanged: (value) => _change(bloc, value),
@@ -481,7 +491,11 @@ class LabelHandler extends Handler<LabelTool>
     newPosition += Point(0, caret.dy);
     _context = oldContext;
     _submit(bloc);
-    _context = _createContext(state.data, position: newPosition);
+    _context = await _createContext(
+      state.data,
+      state.fileSystem,
+      position: newPosition,
+    );
     _updateEditingState();
     bloc.refresh();
   }

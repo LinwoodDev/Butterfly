@@ -1,3 +1,4 @@
 * Fix latex not rendering and rendered centered
+* Fix no style sheet and palette not being selected
 
 Read more here: https://linwood.dev/butterfly/2.4.0-rc.0

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -168,6 +169,9 @@ class EventContext {
 
   DocumentPage? getPage() => getState()?.page;
   DocumentInfo? getInfo() => getState()?.info;
+
+  ButterflyFileSystem getFileSystem() =>
+      buildContext.read<ButterflyFileSystem>();
 }
 
 enum ToolStatus { normal, disabled, selected }
@@ -281,7 +285,7 @@ abstract class Handler<T> {
         as Handler<T>;
   }
 
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
+  FutureOr<PreferredSizeWidget?> getToolbar(DocumentBloc bloc) => null;
 
   Map<String, RendererState> get rendererStates => const {};
 

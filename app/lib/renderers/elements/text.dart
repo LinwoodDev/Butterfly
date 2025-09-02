@@ -43,7 +43,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     };
     _tp?.setPlaceholderDimensions(dimensions);
     _tp?.textAlign = style.alignment.toFlutter();
-    _tp?.layout();
+    _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
 
   text.TextStyleSheet? _getStyle() => element.styleSheet?.item;
@@ -94,8 +94,8 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     DocumentPage page,
   ) async {
     final paragraph = getParagraph(document);
-    _createTool(paragraph, document, page);
     await super.setup(transformCubit, document, assetService, page);
+    _createTool(paragraph, document, page);
     _updateRect(document);
   }
 
@@ -114,12 +114,12 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     super.onAreaUpdate(document, page, area);
+    _tp?.layout(maxWidth: element.getMaxWidth(area));
     _updateRect(document);
     return true;
   }
 
   void _updateRect(NoteData document) {
-    _tp?.layout(maxWidth: element.getMaxWidth(area));
     rect = Rect.fromLTWH(
       element.position.x,
       element.position.y,

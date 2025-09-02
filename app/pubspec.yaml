@@ -120,7 +120,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  build_runner: ^2.6.0
+  build_runner: ^2.7.0
   json_serializable: ^6.7.1
   freezed: ^3.0.2
   msix: ^3.16.9

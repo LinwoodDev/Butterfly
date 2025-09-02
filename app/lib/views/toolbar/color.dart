@@ -3,7 +3,6 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/select.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -41,7 +40,7 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
-  late final PackFileSystem _packSystem;
+  late final ButterflyFileSystem _fileSystem;
   final ScrollController _scrollController = ScrollController();
   Future<PackItem<ColorPalette>?>? _colorPalette;
   Timer? _stepTimer;
@@ -49,8 +48,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   @override
   void initState() {
     super.initState();
-    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
-    _colorPalette = _findPalette();
+    _fileSystem = context.read<ButterflyFileSystem>();
+    _colorPalette = _fileSystem.findDefaultPalette();
   }
 
   @override
@@ -63,24 +62,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     }
   }
 
-  Future<PackItem<ColorPalette>?> _findPalette() async {
-    final files = await _packSystem.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
-      final palette = pack.getNamedPalettes().firstOrNull;
-      if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
-      return palette.toPack(pack, name);
-    }
-    return null;
-  }
-
   Future<void> _updatePalette(
     PackItem<ColorPalette> selected,
     ColorPalette palette,
   ) async {
     final newPack = selected.pack.setPalette(selected.key, palette);
-    return _packSystem.updateFile(selected.namespace, newPack);
+    return _fileSystem.updatePack(selected.location, newPack);
   }
 
   void _startChanging(double delta) {

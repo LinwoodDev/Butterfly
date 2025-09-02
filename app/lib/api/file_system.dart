@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:idb_shim/idb.dart';
@@ -226,4 +227,33 @@ class ButterflyFileSystem {
 
   PackFileSystem buildDefaultPackSystem() =>
       buildPackSystem(settingsCubit.state.getDefaultRemote());
+
+  Future<PackItem<T>?> findPack<T extends PackAsset>(
+    NamedItem<T>? Function(NoteData) test, [
+    ExternalStorage? storage,
+  ]) async {
+    final files = await buildPackSystem(storage).getFiles();
+    for (final file in files) {
+      final pack = file.data!;
+      final palette = test(pack);
+      if (palette == null) continue;
+      final name = file.pathWithoutLeadingSlash;
+      return palette.toPack(pack, name);
+    }
+    return null;
+  }
+
+  Future<PackItem<text.TextStyleSheet>?> findDefaultStyleSheet([
+    ExternalStorage? storage,
+  ]) => findPack((pack) => pack.getNamedStyles().firstOrNull, storage);
+  Future<PackItem<ColorPalette>?> findDefaultPalette([
+    ExternalStorage? storage,
+  ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
+
+  Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
+      buildPackSystem(
+        location.namespace.isEmpty
+            ? null
+            : settingsCubit.state.getRemote(location.namespace),
+      ).updateFile(location.key, newPack);
 }

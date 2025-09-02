@@ -219,7 +219,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             handler: handler,
             cursor: handler.cursor ?? MouseCursor.defer,
             foregrounds: foregrounds,
-            toolbar: handler.getToolbar(bloc),
+            toolbar: await handler.getToolbar(bloc),
             rendererStates: handler.rendererStates,
             temporaryForegrounds: null,
             temporaryHandler: null,
@@ -331,11 +331,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void updateLastPosition(Offset position) =>
       emit(state.copyWith(lastPosition: position));
 
-  void updateHandler(DocumentBloc bloc, Handler handler) => emit(
+  Future<void> updateHandler(DocumentBloc bloc, Handler handler) async => emit(
     state.copyWith(
       handler: handler,
       cursor: handler.cursor ?? MouseCursor.defer,
-      toolbar: handler.getToolbar(bloc),
+      toolbar: await handler.getToolbar(bloc),
       rendererStates: handler.rendererStates,
     ),
   );
@@ -371,7 +371,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         index: state.index,
         handler: handler,
         foregrounds: foregrounds,
-        toolbar: handler.getToolbar(bloc),
+        toolbar: await handler.getToolbar(bloc),
         rendererStates: handler.rendererStates,
         cursor: handler.cursor ?? MouseCursor.defer,
       ),
@@ -407,7 +407,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: foregrounds,
-        temporaryToolbar: handler.getToolbar(bloc),
+        temporaryToolbar: await handler.getToolbar(bloc),
         temporaryRendererStates: handler.rendererStates,
         temporaryCursor: handler.cursor,
       ),
@@ -584,8 +584,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<void> refreshToolbar(DocumentBloc bloc) async {
     if (!isClosed) {
-      final toolbar = state.handler.getToolbar(bloc);
-      final temporaryToolbar = state.temporaryHandler?.getToolbar(bloc);
+      final toolbar = await state.handler.getToolbar(bloc);
+      final temporaryToolbar = await state.temporaryHandler?.getToolbar(bloc);
       emit(
         state.copyWith(toolbar: toolbar, temporaryToolbar: temporaryToolbar),
       );
@@ -787,7 +787,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(
           temporaryHandler: handler,
           temporaryForegrounds: temporaryForegrounds,
-          temporaryToolbar: handler.getToolbar(bloc),
+          temporaryToolbar: await handler.getToolbar(bloc),
           temporaryCursor: handler.cursor,
           temporaryRendererStates: handler.rendererStates,
           temporaryState: temporaryState,
