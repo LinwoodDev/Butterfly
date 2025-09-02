@@ -1,6 +1,7 @@
 * Fix latex not rendering and rendered centered
 * Fix no style sheet and palette not being selected
 * Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))
-* Fix home page header not aligned properly and wrong colors
+* Fix home page header not aligned properly and has wrong colors
+* Disable custom data directory selection on iOS
 
 Read more here: https://linwood.dev/butterfly/2.4.0-rc.0

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -66,44 +67,47 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ),
                           onTap: () => _openSyncModeModal(context),
                         ),
-                        ListTile(
-                          title: Text(
-                            AppLocalizations.of(context).dataDirectory,
-                          ),
-                          leading: const PhosphorIcon(
-                            PhosphorIconsLight.folder,
-                          ),
-                          subtitle: state.documentPath.isNotEmpty
-                              ? FutureBuilder<String>(
-                                  future: getButterflyDirectory(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return Text(snapshot.data!);
-                                    }
-                                    return const SizedBox(
-                                      height: 16,
-                                      width: 16,
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                )
-                              : Text(AppLocalizations.of(context).defaultPath),
-                          onTap: _changeDataDirectory,
-                          trailing: state.documentPath.isNotEmpty
-                              ? IconButton(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.clockClockwise,
+                        if (!Platform.isIOS)
+                          ListTile(
+                            title: Text(
+                              AppLocalizations.of(context).dataDirectory,
+                            ),
+                            leading: const PhosphorIcon(
+                              PhosphorIconsLight.folder,
+                            ),
+                            subtitle: state.documentPath.isNotEmpty
+                                ? FutureBuilder<String>(
+                                    future: getButterflyDirectory(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(snapshot.data!);
+                                      }
+                                      return const SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  )
+                                : Text(
+                                    AppLocalizations.of(context).defaultPath,
                                   ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).defaultPath,
-                                  onPressed: () => _changePath(
-                                    context.read<SettingsCubit>(),
-                                    '',
-                                  ),
-                                )
-                              : null,
-                        ),
+                            onTap: _changeDataDirectory,
+                            trailing: state.documentPath.isNotEmpty
+                                ? IconButton(
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.clockClockwise,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).defaultPath,
+                                    onPressed: () => _changePath(
+                                      context.read<SettingsCubit>(),
+                                      '',
+                                    ),
+                                  )
+                                : null,
+                          ),
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),

@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/visualizer/connection.dart';
-import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +60,6 @@ class ConnectionsSettingsPage extends StatelessWidget {
                     titleBuilder: (context) =>
                         Text(AppLocalizations.of(context).addConnection),
                     childrenBuilder: (context) => getSupportedStorages()
-                        .whereNot(
-                          (e) => e is LocalStorage && Platform.isAndroid,
-                        )
                         .map(
                           (e) => ListTile(
                             title: Text(e.getLocalizedTypeName(context)),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +86,6 @@ extension ExternalStorageVisualizer on ExternalStorage {
 }
 
 List<ExternalStorage> getSupportedStorages() => [
-  const LocalStorage(),
+  if (!Platform.isIOS && !Platform.isAndroid) const LocalStorage(),
   const DavRemoteStorage(username: '', url: ''),
 ];
