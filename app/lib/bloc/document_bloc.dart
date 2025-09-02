@@ -1228,7 +1228,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final thumbnail = render?.buffer.asUint8List();
     final settings = current.settingsCubit.state;
     final remoteStorage = settings.getRemote(remote);
-    current.fileSystem
+    await current.fileSystem
         .buildTemplateSystem(remoteStorage)
         .createFile(
           name ?? '',

@@ -1,4 +1,5 @@
 * Fix latex not rendering and rendered centered
 * Fix no style sheet and palette not being selected
+* Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))
 
 Read more here: https://linwood.dev/butterfly/2.4.0-rc.0
