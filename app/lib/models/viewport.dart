@@ -28,12 +28,12 @@ class CameraViewport extends Equatable {
     List<Renderer<PadElement>>? visibleElements,
     this.width,
     this.height,
+    this.pixelRatio = 1,
   ]) : image = null,
        belowLayerImage = null,
        aboveLayerImage = null,
        scale = 1,
        bakedElements = const [],
-       pixelRatio = 1,
        x = 0,
        y = 0,
        visibleElements = visibleElements ?? unbakedElements,
@@ -151,6 +151,7 @@ class CameraViewport extends Equatable {
           ..addAll(bakedElements)),
     width,
     height,
+    pixelRatio,
   );
 
   CameraViewport bake({

@@ -119,7 +119,7 @@ class EventContext {
   }
 
   void addDocumentEvent(DocumentEvent event) => getDocumentBloc().add(event);
-  double get devicePixelRatio => MediaQuery.of(buildContext).devicePixelRatio;
+  double get devicePixelRatio => MediaQuery.devicePixelRatioOf(buildContext);
 
   TransformCubit getTransformCubit() =>
       BlocProvider.of<TransformCubit>(buildContext);
