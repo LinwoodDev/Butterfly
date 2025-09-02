@@ -137,16 +137,11 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
         if (widget.hasNewerVersion)
-          const SizedBox(
+          SizedBox(
             height: 0,
-            width: 0,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: PhosphorIcon(PhosphorIconsLight.caretUp),
-                ),
-              ],
+            child: PhosphorIcon(
+              PhosphorIconsLight.caretUp,
+              color: ColorScheme.of(context).onPrimary,
             ),
           ),
       ],
@@ -166,14 +161,14 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
                 AppLocalizations.of(context).welcome(applicationVersionName),
                 style: TextTheme.of(
                   context,
-                ).titleLarge?.copyWith(color: colorScheme.onInverseSurface),
+                ).titleLarge?.copyWith(color: colorScheme.onPrimary),
                 overflow: TextOverflow.clip,
               ),
               Text(
                 AppLocalizations.of(context).welcomeContent,
                 style: TextTheme.of(
                   context,
-                ).bodySmall?.copyWith(color: colorScheme.onInverseSurface),
+                ).bodySmall?.copyWith(color: colorScheme.onPrimary),
               ),
             ],
           ),
