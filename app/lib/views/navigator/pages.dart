@@ -135,7 +135,7 @@ class _PagesViewState extends State<PagesView> {
             ),
             BottomAppBar(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 8,
                 children: [
                   Row(
                     children: [
@@ -144,36 +144,45 @@ class _PagesViewState extends State<PagesView> {
                       Text(LeapLocalizations.of(context).create),
                     ],
                   ),
-                  Row(
-                    children: [
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                        tooltip: AppLocalizations.of(context).insertBefore,
-                        onPressed: () => addPage(index),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          IconButton.filledTonal(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowUp,
+                            ),
+                            tooltip: AppLocalizations.of(context).insertBefore,
+                            onPressed: () => addPage(index),
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton.filledTonal(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowDown,
+                            ),
+                            tooltip: AppLocalizations.of(context).insertAfter,
+                            onPressed: () => addPage((index ?? -1) + 1),
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton.filledTonal(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowLineUp,
+                            ),
+                            tooltip: AppLocalizations.of(context).insertFirst,
+                            onPressed: () => addPage(0),
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton.filledTonal(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowLineDown,
+                            ),
+                            tooltip: AppLocalizations.of(context).insertLast,
+                            onPressed: () => addPage(),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(PhosphorIconsLight.arrowDown),
-                        tooltip: AppLocalizations.of(context).insertAfter,
-                        onPressed: () => addPage((index ?? -1) + 1),
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.arrowLineUp,
-                        ),
-                        tooltip: AppLocalizations.of(context).insertFirst,
-                        onPressed: () => addPage(0),
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.arrowLineDown,
-                        ),
-                        tooltip: AppLocalizations.of(context).insertLast,
-                        onPressed: () => addPage(),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),

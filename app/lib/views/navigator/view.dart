@@ -132,46 +132,34 @@ class _NavigatorViewState extends State<NavigatorView>
                       },
                     ),
                   ),
-                  LayoutBuilder(
-                    builder: (context, constraint) => SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraint.maxHeight,
-                        ),
-                        child: IntrinsicHeight(
-                          child: NavigationRail(
-                            minWidth: kNavigationRailWidth,
-                            destinations: NavigatorPage.values
-                                .map(
-                                  (e) => NavigationRailDestination(
-                                    icon: PhosphorIcon(
-                                      e.icon(PhosphorIconsStyle.light),
-                                    ),
-                                    label: Text(e.getLocalizedName(context)),
-                                  ),
-                                )
-                                .toList(),
-                            selectedIndex: currentIndex.navigatorEnabled
-                                ? selected
-                                : null,
-                            groupAlignment: 0,
-                            onDestinationSelected: (index) {
-                              final cubit = context.read<CurrentIndexCubit>();
-                              if (selected == index) {
-                                cubit.setNavigatorEnabled(
-                                  !currentIndex.navigatorEnabled,
-                                );
-                                return;
-                              }
-                              cubit.setNavigatorPage(
-                                NavigatorPage.values[index],
-                              );
-                              cubit.setNavigatorEnabled(true);
-                            },
+                  NavigationRail(
+                    scrollable: true,
+                    minWidth: kNavigationRailWidth,
+                    destinations: NavigatorPage.values
+                        .map(
+                          (e) => NavigationRailDestination(
+                            icon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            label: Text(e.getLocalizedName(context)),
                           ),
-                        ),
-                      ),
-                    ),
+                        )
+                        .toList(),
+                    selectedIndex: currentIndex.navigatorEnabled
+                        ? selected
+                        : null,
+                    groupAlignment: 0,
+                    onDestinationSelected: (index) {
+                      final cubit = context.read<CurrentIndexCubit>();
+                      if (selected == index) {
+                        cubit.setNavigatorEnabled(
+                          !currentIndex.navigatorEnabled,
+                        );
+                        return;
+                      }
+                      cubit.setNavigatorPage(NavigatorPage.values[index]);
+                      cubit.setNavigatorEnabled(true);
+                    },
                   ),
                 ],
               );
@@ -235,9 +223,11 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               ),
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(alignment: Alignment.topCenter, child: body),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(alignment: Alignment.topCenter, child: body),
+            ),
           ),
         );
         if (widget.asDialog) {

@@ -1199,7 +1199,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       unbakedElements: renderers,
       backgrounds: backgrounds,
     );
-    await _updateOnVisible(newViewport, docState);
     emit(
       state.copyWith(
         location: state.embedding?.location ?? state.location,
