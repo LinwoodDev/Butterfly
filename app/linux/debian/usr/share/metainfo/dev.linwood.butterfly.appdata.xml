@@ -3,7 +3,7 @@
 	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
 	<developer_name>Linwood</developer_name>
-	<summary>Powerful, minimalistic note-taking</summary>
+	<summary>Draw and organize ideas</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<recommends>
@@ -12,7 +12,7 @@
 		<control>touch</control>
 	</recommends>
 	<branding>
-		<color type="primary" scheme_preference="light">#f4d890</color>
+		<color type="primary" scheme_preference="light">#f2ead4</color>
 		<color type="primary" scheme_preference="dark">#4b3807</color>
 	</branding>
 	<url type="homepage">https://butterfly.linwood.dev/</url>

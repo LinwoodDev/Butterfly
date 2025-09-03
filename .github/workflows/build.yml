@@ -363,7 +363,7 @@ jobs:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
@@ -380,7 +380,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: "24.3.0"
+          node-version: 24
       - name: Install appdmg
         run: |
           python3 -m pip install setuptools
