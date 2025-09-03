@@ -240,14 +240,18 @@ sealed class TextParagraph with _$TextParagraph {
 
     final endSpans = getSpans(end, null, true);
 
-    if (endSpans.firstOrNull?.property == span.property) {
+    if (endSpans.firstOrNull?.property == span.property &&
+        span is TextSpan &&
+        endSpans.firstOrNull is TextSpan) {
       final firstSpan = endSpans.removeAt(0);
       span = span.copyWith(text: span.text + firstSpan.text);
     }
 
     final startSpans = getSpans(0, start, true);
 
-    if (startSpans.lastOrNull?.property == span.property) {
+    if (startSpans.lastOrNull?.property == span.property &&
+        span is TextSpan &&
+        endSpans.lastOrNull is TextSpan) {
       final lastSpan = startSpans.removeLast();
       span = lastSpan.copyWith(text: lastSpan.text + span.text);
     }

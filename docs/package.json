@@ -26,7 +26,7 @@
   "packageManager": "pnpm@10.15.1",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.0",
-    "sass": "^1.91.0",
+    "sass": "^1.92.0",
     "sharp": "^0.34.3",
     "vite-plugin-pwa": "^1.0.3",
     "workbox-window": "^7.3.0"

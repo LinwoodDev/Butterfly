@@ -190,6 +190,25 @@ extension TextContextHelper on TextContext {
 
   bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
+
+  List<txt.InlineSpan> getSpans() {
+    if (text == null) return [];
+    if (isParagraph()) {
+      return paragraph?.getSpans() ?? [];
+    } else {
+      return paragraph?.getSpans(
+            selection.start,
+            selection.end - selection.start,
+          ) ??
+          [];
+    }
+  }
+
+  bool isMathSelection() {
+    final spans = getSpans();
+    if (spans.isEmpty) return false;
+    return spans.every((e) => e is txt.MathTextSpan);
+  }
 }
 
 extension LabelElementLayouter on LabelElement {

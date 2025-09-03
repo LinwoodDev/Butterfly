@@ -99,7 +99,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
           _ => null,
         } ??
         const text.DefinedParagraphProperty();
-    final span = switch (value) {
+    final property = switch (value) {
       TextContext e => e.getDefinedForcedSpanProperty(document),
       _ => null,
     };
@@ -107,7 +107,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final styleSheet = named?.item;
     _scaleController.text = (value.labelElement?.scale ?? value.tool.scale)
         .toString();
-    _sizeController.text = span?.getSize(paragraph).toString() ?? '';
+    _sizeController.text = property?.getSize(paragraph).toString() ?? '';
     var paragraphSelection = switch (paragraph) {
       text.NamedParagraphProperty e => e.name,
       _ => null,
@@ -149,7 +149,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       final selection = value.selection;
       var element = value.element;
       if (element == null) {
-        final newSpan = update(span!);
+        final newSpan = update(property!);
         widget.onChanged(
           value.copyWith(
             forcedProperty: text.ParagraphProperty.defined(span: newSpan),
@@ -190,7 +190,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         );
       }
       widget.onChanged(
-        value.copyWith(element: element, forcedSpanProperty: update(span!)),
+        value.copyWith(element: element, forcedSpanProperty: update(property!)),
       );
     }
 
@@ -481,6 +481,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             }
                           },
                         ),
+                        _buildMathWidget(context, value),
                       ],
                     ],
                   ),
@@ -543,7 +544,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             );
                           },
                         ),
-                        const SizedBox(width: 32),
+                        const SizedBox(width: 16),
                         /*FutureBuilder<List<String>?>(
                           future: Future.value(SysInfo.getFonts()),
                           builder: (context, snapshot) {
@@ -586,7 +587,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             onFieldSubmitted: (current) {
                               updateSpan(
                                 (value) => value.copyWith(
-                                  size: double.tryParse(current) ?? span?.size,
+                                  size:
+                                      double.tryParse(current) ??
+                                      property?.size,
                                 ),
                               );
                             },
@@ -601,7 +604,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             width: 42,
                             height: 42,
                             decoration: BoxDecoration(
-                              color: span!.getColor(paragraph).toColor(),
+                              color: property!.getColor(paragraph).toColor(),
                               border: Border.all(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
@@ -615,7 +618,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             final result = await showDialog<SRGBColor>(
                               context: context,
                               builder: (_) => ColorPalettePickerDialog(
-                                value: span.getColor(paragraph),
+                                value: property.getColor(paragraph),
                                 bloc: context.read<DocumentBloc>(),
                               ),
                             );
@@ -632,10 +635,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         const SizedBox(width: 16),
                         ToggleButtons(
                           isSelected: [
-                            span.getFontWeight(paragraph) !=
+                            property.getFontWeight(paragraph) !=
                                 text.kFontWeightNormal,
-                            span.getItalic(paragraph),
-                            span.getUnderline(paragraph),
+                            property.getItalic(paragraph),
+                            property.getUnderline(paragraph),
                           ],
                           children: [
                             GestureDetector(
@@ -667,8 +670,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                       overlay.paintBounds.size.height,
                                     ),
                                   ),
-                                  initialValue: FontWeight
-                                      .values[span.getFontWeight(paragraph)],
+                                  initialValue:
+                                      FontWeight.values[property.getFontWeight(
+                                        paragraph,
+                                      )],
                                   items: List.generate(
                                     FontWeight.values.length,
                                     (index) {
@@ -708,19 +713,20 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             0 => updateSpan(
                               (value) => value.copyWith(
                                 fontWeight:
-                                    span.fontWeight == text.kFontWeightNormal
+                                    property.fontWeight ==
+                                        text.kFontWeightNormal
                                     ? text.kFontWeightBold
                                     : text.kFontWeightNormal,
                               ),
                             ),
                             1 => updateSpan(
                               (value) => value.copyWith(
-                                italic: !span.getItalic(paragraph),
+                                italic: !property.getItalic(paragraph),
                               ),
                             ),
                             2 => updateSpan(
                               (value) => value.copyWith(
-                                underline: !span.getUnderline(paragraph),
+                                underline: !property.getUnderline(paragraph),
                               ),
                             ),
                             _ => null,
@@ -841,6 +847,36 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildMathWidget(BuildContext context, TextContext value) {
+    final isMath = value.isMathSelection();
+    return IconButton(
+      icon: const PhosphorIcon(PhosphorIconsLight.mathOperations),
+      selectedIcon: const PhosphorIcon(PhosphorIconsFill.mathOperations),
+      tooltip: AppLocalizations.of(context).math,
+      isSelected: isMath,
+      onPressed: () async {
+        final selection = value.selection;
+        final element = value.element;
+        if (element == null) return;
+        // Get selection text
+        final content = element.text.substring(selection.start, selection.end);
+        // Create new span
+        final newSpan = isMath
+            ? text.TextSpan(text: content)
+            : text.MathTextSpan(text: content);
+        // Replace spans in paragraph
+        var paragraph = element.area.paragraph.replace(
+          newSpan,
+          selection.start,
+          selection.end - selection.start,
+        );
+        widget.onChanged(
+          value.copyWith(element: element.copyWith.area(paragraph: paragraph)),
+        );
+      },
     );
   }
 }

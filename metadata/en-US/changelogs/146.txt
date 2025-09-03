@@ -1,3 +1,4 @@
+* Add support for math in rich text
 * Fix latex not rendering and rendered centered
 * Fix no style sheet and palette not being selected
 * Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))

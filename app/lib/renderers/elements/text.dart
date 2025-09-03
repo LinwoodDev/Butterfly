@@ -63,6 +63,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       case text.TextSpan():
         return TextSpan(text: span.text, style: style);
       case text.MathTextSpan():
+        if (context != null) {
+          return TextSpan(text: span.text, style: style);
+        }
         final (element, scale) = _renderedLatex[index] ?? (null, 1.0);
         final size =
             Size(
@@ -86,6 +89,8 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     }
   }
 
+  List<Rect> _specialPlaceholders = [];
+
   @override
   Future<void> setup(
     TransformCubit transformCubit,
@@ -97,6 +102,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     await super.setup(transformCubit, document, assetService, page);
     _createTool(paragraph, document, page);
     _updateRect(document);
+    _specialPlaceholders = _getSpecialPlaceholders(paragraph);
   }
 
   @override
@@ -197,6 +203,48 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
         Paint(),
       );
     }
+    if (context != null) {
+      for (final special in _specialPlaceholders) {
+        final rrect = RRect.fromRectAndRadius(
+          special.shift(element.position.toOffset()).inflate(1),
+          const Radius.circular(2),
+        );
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = Colors.blue.withValues(alpha: 0.8)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2,
+        );
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = Colors.blue.withValues(alpha: 0.2)
+            ..style = PaintingStyle.fill,
+        );
+      }
+    }
+  }
+
+  List<Rect> _getSpecialPlaceholders(text.TextParagraph paragraph) {
+    final tp = _tp;
+    if (tp == null || tp.text == null) return [];
+    final placeholders = <Rect>[];
+    // Get all math spans and get the placeholders for them inside textpainter
+    var currentIndex = 0;
+    for (final span in paragraph.textSpans) {
+      if (span is text.MathTextSpan) {
+        final boxes = tp.getBoxesForSelection(
+          TextSelection(
+            baseOffset: currentIndex,
+            extentOffset: currentIndex + span.text.length,
+          ),
+        );
+        placeholders.addAll(boxes.map((e) => e.toRect()));
+      }
+      currentIndex += span.text.length;
+    }
+    return placeholders;
   }
 
   String _convertTextToHtml(String inputText) {
