@@ -1,10 +1,10 @@
 ---
-title: Polygon tool
+title: Outil polygone
 ---
 
-With this tool you can create custom shapes.
+Avec cet outil, vous pouvez créer des formes personnalisées.
 
-## Usage
+## Utilisation
 
 1. Click on the canvas to add the first point of the polygon.
 2. Click again to add subsequent points.

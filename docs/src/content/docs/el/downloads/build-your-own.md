@@ -12,5 +12,5 @@ title: "Φτιάξτε το δικό σας"
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-      after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. Τα μεταγλωττισμένα αρχεία βρίσκονται στον κατάλογο κατασκευής

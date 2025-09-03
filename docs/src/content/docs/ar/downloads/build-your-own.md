@@ -12,5 +12,5 @@ title: "بناء الخاص بك"
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-      after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. الملفات المجمعة موجودة في دليل البناء
