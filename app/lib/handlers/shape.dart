@@ -4,6 +4,16 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   ShapeHandler(super.data);
 
   @override
+  void _updateElement(
+    PointerEvent event,
+    EventContext context, [
+    bool first = false,
+  ]) {
+    changeStartedDrawing(context);
+    super._updateElement(event, context, first);
+  }
+
+  @override
   List<PadElement> transformElements(
     Rect rect,
     String collection,

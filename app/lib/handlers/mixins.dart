@@ -6,25 +6,37 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   double? getStrokeWidth() => null;
   T setStrokeWidth(double width) => data;
 
+  bool _startedDrawing = false;
+
+  void changeStartedDrawing(EventContext context) {
+    if (_startedDrawing) return;
+    _startedDrawing = true;
+    context.getCurrentIndexCubit().refreshToolbar(context.getDocumentBloc());
+  }
+
   @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) =>
-      bloc.state.settingsCubit.state.colorToolbarEnabled
-      ? ColorToolbarView(
-          color: getColor(),
-          onChanged: (value) => changeToolColor(bloc, value),
-          onEyeDropper: (context) {
-            final state = bloc.state;
-            state.currentIndexCubit?.changeTemporaryHandler(
-              context,
-              EyeDropperTool(),
-              bloc: bloc,
-              temporaryState: TemporaryState.removeAfterRelease,
-            );
-          },
-          strokeWidth: getStrokeWidth(),
-          onStrokeWidthChanged: (value) => changeToolStrokeWidth(bloc, value),
-        )
-      : null;
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+    final visiblity = bloc.state.settingsCubit.state.simpleToolbarVisibility;
+    if (visiblity == SimpleToolbarVisibility.hide ||
+        (_startedDrawing && visiblity == SimpleToolbarVisibility.temporary)) {
+      return null;
+    }
+    return ColorToolbarView(
+      color: getColor(),
+      onChanged: (value) => changeToolColor(bloc, value),
+      onEyeDropper: (context) {
+        final state = bloc.state;
+        state.currentIndexCubit?.changeTemporaryHandler(
+          context,
+          EyeDropperTool(),
+          bloc: bloc,
+          temporaryState: TemporaryState.removeAfterRelease,
+        );
+      },
+      strokeWidth: getStrokeWidth(),
+      onStrokeWidthChanged: (value) => changeToolStrokeWidth(bloc, value),
+    );
+  }
 
   void changeToolColor(DocumentBloc bloc, SRGBColor value) =>
       changeTool(bloc, setColor(value));
@@ -79,6 +91,9 @@ abstract class PastingHandler<T> extends Handler<T> {
   Offset? _secondPos;
   bool _aspectRatio = false, _center = false;
   String _currentCollection = '';
+
+  bool _startedDrawing = false;
+  bool get startedDrawing => _startedDrawing;
 
   PastingHandler(super.data);
 
@@ -167,6 +182,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     EventContext context, [
     bool first = false,
   ]) {
+    _startedDrawing = true;
     final transform = context.getCameraTransform();
     var localPos = event.localPosition;
     final currentIndex = context.getCurrentIndex();

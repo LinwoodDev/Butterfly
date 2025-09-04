@@ -152,6 +152,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
+    changeStartedDrawing(context);
     final localPos = details.localPosition;
     if (_editing) {
       _editPoint(context.getCameraTransform().localToGlobal(localPos), context);
@@ -167,6 +168,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
+    changeStartedDrawing(context);
     final localPos = details.localPosition;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPos);
@@ -199,6 +201,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     super.onScaleUpdate(details, context);
+    changeStartedDrawing(context);
     final selectedIndex = _selectedPointIndex;
     final element = _element;
     if (selectedIndex == null || element == null) return;
@@ -219,6 +222,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext context) {
+    changeStartedDrawing(context);
     final selectedIndex = _selectedPointIndex;
     final element = _element;
     if (selectedIndex == null || element == null) return;
@@ -229,6 +233,21 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     _element = element.copyWith(points: updatedPoints);
     context.refresh();
     context.getDocumentBloc().refreshToolbar();
+  }
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    changeStartedDrawing(context);
+    final localPos = details.localPosition;
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(localPos);
+    if (!getSelectionRect()
+        .inflate(2 * data.property.strokeWidth)
+        .contains(globalPos)) {
+      _submitElement(context.getDocumentBloc());
+      return;
+    }
+    _editPoint(globalPos, context);
   }
 
   @override
