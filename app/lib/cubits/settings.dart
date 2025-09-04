@@ -80,6 +80,18 @@ enum PlatformTheme {
   }
 }
 
+enum SimpleToolbarVisibility {
+  show,
+  temporary,
+  hide;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    SimpleToolbarVisibility.show => AppLocalizations.of(context).show,
+    SimpleToolbarVisibility.temporary => AppLocalizations.of(context).temporary,
+    SimpleToolbarVisibility.hide => AppLocalizations.of(context).hide,
+  };
+}
+
 enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
@@ -317,7 +329,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
-    @Default(true) bool colorToolbarEnabled,
+    @Default(SimpleToolbarVisibility.show)
+    SimpleToolbarVisibility simpleToolbarVisibility,
     @Default(OptionsPanelPosition.top)
     OptionsPanelPosition optionsPanelPosition,
     @Default(RenderResolution.normal) RenderResolution renderResolution,
@@ -428,7 +441,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       onStartup: prefs.containsKey('on_startup')
           ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
           : StartupBehavior.openHomeScreen,
-      colorToolbarEnabled: prefs.getBool('color_toolbar_enabled') ?? true,
+      simpleToolbarVisibility: prefs.containsKey('simple_toolbar_visibility')
+          ? SimpleToolbarVisibility.values.byName(
+              prefs.getString('simple_toolbar_visibility')!,
+            )
+          : (prefs.getBool('color_toolbar_enabled') ?? true
+                ? SimpleToolbarVisibility.show
+                : SimpleToolbarVisibility.hide),
       showSaveButton: prefs.getBool('show_save_button') ?? true,
       optionsPanelPosition: prefs.containsKey('options_panel_position')
           ? OptionsPanelPosition.values.byName(
@@ -523,7 +542,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('navigator_position', navigatorPosition.name);
     await prefs.setString('utilities', json.encode(utilities.toJson()));
     await prefs.setString('on_startup', onStartup.name);
-    await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
+    await prefs.setString(
+      'simple_toolbar_visibility',
+      simpleToolbarVisibility.name,
+    );
     await prefs.setBool('show_save_button', showSaveButton);
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
     await prefs.setString('render_resolution', renderResolution.name);
@@ -1049,8 +1071,10 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changeColorToolbarEnabled(bool value) {
-    emit(state.copyWith(colorToolbarEnabled: value));
+  Future<void> changeSimpleToolbarVisibility(
+    SimpleToolbarVisibility visibility,
+  ) {
+    emit(state.copyWith(simpleToolbarVisibility: visibility));
     return save();
   }
 

@@ -145,6 +145,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
     isDrawing = true;
+    changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     final currentIndex = context.getCurrentIndex();
     // Save initial position

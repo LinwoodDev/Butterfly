@@ -165,6 +165,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     context.refresh();
     final currentIndex = context.getCurrentIndex();

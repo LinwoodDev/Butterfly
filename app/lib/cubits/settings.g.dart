@@ -135,7 +135,12 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   onStartup:
       $enumDecodeNullable(_$StartupBehaviorEnumMap, json['onStartup']) ??
       StartupBehavior.openHomeScreen,
-  colorToolbarEnabled: json['colorToolbarEnabled'] as bool? ?? true,
+  simpleToolbarVisibility:
+      $enumDecodeNullable(
+        _$SimpleToolbarVisibilityEnumMap,
+        json['simpleToolbarVisibility'],
+      ) ??
+      SimpleToolbarVisibility.show,
   optionsPanelPosition:
       $enumDecodeNullable(
         _$OptionsPanelPositionEnumMap,
@@ -202,7 +207,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'hideCursorWhileDrawing': instance.hideCursorWhileDrawing,
   'utilities': instance.utilities.toJson(),
   'onStartup': _$StartupBehaviorEnumMap[instance.onStartup]!,
-  'colorToolbarEnabled': instance.colorToolbarEnabled,
+  'simpleToolbarVisibility':
+      _$SimpleToolbarVisibilityEnumMap[instance.simpleToolbarVisibility]!,
   'optionsPanelPosition':
       _$OptionsPanelPositionEnumMap[instance.optionsPanelPosition]!,
   'renderResolution': _$RenderResolutionEnumMap[instance.renderResolution]!,
@@ -286,6 +292,12 @@ const _$StartupBehaviorEnumMap = {
   StartupBehavior.openHomeScreen: 'openHomeScreen',
   StartupBehavior.openLastNote: 'openLastNote',
   StartupBehavior.openNewNote: 'openNewNote',
+};
+
+const _$SimpleToolbarVisibilityEnumMap = {
+  SimpleToolbarVisibility.show: 'show',
+  SimpleToolbarVisibility.temporary: 'temporary',
+  SimpleToolbarVisibility.hide: 'hide',
 };
 
 const _$OptionsPanelPositionEnumMap = {
