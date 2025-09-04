@@ -1549,11 +1549,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.embedding != null) {
       return;
     }
-    if (reset) {
-      loadElements(current);
-    }
     if (reset || shouldRefresh?.call() == true) {
       refresh(current);
+    }
+    if (reset) {
+      loadElements(current).then((_) => delayedBake(blocState));
     }
     if (updateIndex) {
       this.updateIndex(bloc);

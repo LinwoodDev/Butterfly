@@ -488,7 +488,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                     shrinkWrap: true,
                     children:
                         (_onlyCurrentPage
-                                ? [state.pageName ?? 'default']
+                                ? [state.pageName ?? '']
                                 : widget.document.getPages())
                             .expand(
                               (page) =>

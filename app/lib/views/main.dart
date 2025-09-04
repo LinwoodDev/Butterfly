@@ -232,7 +232,7 @@ class _ProjectPageState extends State<ProjectPage> {
         return;
       }
       document ??= defaultDocument;
-      final pageName = document.getPages().firstOrNull ?? 'default';
+      final pageName = document.getPages().firstOrNull ?? '';
       final page = document.getPage(pageName) ?? DocumentDefaults.createPage();
       final renderers = page.content
           .map((e) => Renderer.fromInstance(e))

@@ -1,4 +1,6 @@
 * Add support for math in rich text ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Add support for custom import names for pdf import
+* Fix default page name
 * Fix latex not rendering and rendered centered
 * Fix no style sheet and palette not being selected
 * Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))

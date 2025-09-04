@@ -7,16 +7,20 @@ part of 'event.dart';
 // **************************************************************************
 
 PageAdded _$PageAddedFromJson(Map json) => PageAdded(
-  (json['index'] as num?)?.toInt(),
-  json['page'] == null
+  index: (json['index'] as num?)?.toInt(),
+  page: json['page'] == null
       ? null
       : DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
-  json['type'] as String?,
+  addNumber: json['addNumber'] as bool? ?? true,
+  name: json['name'] as String? ?? '',
+  $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$PageAddedToJson(PageAdded instance) => <String, dynamic>{
   'index': instance.index,
   'page': instance.page?.toJson(),
+  'addNumber': instance.addNumber,
+  'name': instance.name,
   'type': instance.$type,
 };
 

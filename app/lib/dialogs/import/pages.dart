@@ -14,6 +14,7 @@ class PageDialogCallback {
   final List<int> pages;
   final bool spreadToPages, createAreas, invert;
   final SRGBColor background;
+  final String name;
 
   const PageDialogCallback(
     this.pages,
@@ -21,6 +22,7 @@ class PageDialogCallback {
     this.createAreas,
     this.background,
     this.invert,
+    this.name,
   );
 }
 
@@ -36,6 +38,7 @@ class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
   bool _spreadToPages = false, _createAreas = true, _invert = false;
   SRGBColor _background = BasicColors.whiteTransparent;
+  String _name = '';
 
   @override
   void initState() {
@@ -113,6 +116,14 @@ class _PagesDialogState extends State<PagesDialog> {
                 ),
               ),
             ),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: LeapLocalizations.of(context).name,
+                filled: true,
+              ),
+              initialValue: _name,
+              onChanged: (value) => setState(() => _name = value),
+            ),
             SwitchListTile(
               value: _createAreas,
               onChanged: (value) => setState(() => _createAreas = value),
@@ -169,6 +180,7 @@ class _PagesDialogState extends State<PagesDialog> {
                         _createAreas,
                         _background,
                         _invert,
+                        _name,
                       ),
                     ),
                   ),

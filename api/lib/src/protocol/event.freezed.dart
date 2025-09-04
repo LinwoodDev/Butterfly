@@ -284,11 +284,13 @@ $DocumentEventCopyWith(DocumentEvent _, $Res Function(DocumentEvent) __);
 @JsonSerializable()
 
 class PageAdded extends DocumentEvent {
-  const PageAdded([this.index, this.page, final  String? $type]): $type = $type ?? 'pageAdded',super._();
+  const PageAdded({this.index, this.page, this.addNumber = true, this.name = '', final  String? $type}): $type = $type ?? 'pageAdded',super._();
   factory PageAdded.fromJson(Map<String, dynamic> json) => _$PageAddedFromJson(json);
 
  final  int? index;
  final  DocumentPage? page;
+@JsonKey() final  bool addNumber;
+@JsonKey() final  String name;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -307,16 +309,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAdded&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAdded&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page);
+int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
 
 @override
 String toString() {
-  return 'DocumentEvent.pageAdded(index: $index, page: $page)';
+  return 'DocumentEvent.pageAdded(index: $index, page: $page, addNumber: $addNumber, name: $name)';
 }
 
 
@@ -327,7 +329,7 @@ abstract mixin class $PageAddedCopyWith<$Res> implements $DocumentEventCopyWith<
   factory $PageAddedCopyWith(PageAdded value, $Res Function(PageAdded) _then) = _$PageAddedCopyWithImpl;
 @useResult
 $Res call({
- int? index, DocumentPage? page
+ int? index, DocumentPage? page, bool addNumber, String name
 });
 
 
@@ -344,11 +346,13 @@ class _$PageAddedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
   return _then(PageAdded(
-freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int?,freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as DocumentPage?,
+index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
+as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

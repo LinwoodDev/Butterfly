@@ -496,7 +496,7 @@ $AreaCopyWith<$Res>? get area {
 @JsonSerializable()
 
 class _AreaPreset implements AreaPreset {
-  const _AreaPreset({this.page = 'default', this.name = '', this.quality = 1, this.area});
+  const _AreaPreset({this.page = '', this.name = '', this.quality = 1, this.area});
   factory _AreaPreset.fromJson(Map<String, dynamic> json) => _$AreaPresetFromJson(json);
 
 @override@JsonKey() final  String page;

@@ -3,21 +3,35 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 class LoadingDialogHandler {
   final GlobalKey<_LoadingDialogState> _key;
+  final OverlayEntry entry;
 
-  const LoadingDialogHandler._(this._key);
+  const LoadingDialogHandler._(this._key, this.entry);
 
   void setProgress(double progress) => _key.currentState?.setProgress(progress);
-  void close() => _key.currentState?.close();
+  void close() {
+    entry.remove();
+    entry.dispose();
+  }
 }
 
 LoadingDialogHandler? showLoadingDialog(BuildContext context) {
   final key = GlobalKey<_LoadingDialogState>();
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) => LoadingDialog(key: key),
+
+  final overlay = Overlay.maybeOf(context, rootOverlay: true);
+  if (overlay == null) return null;
+
+  late OverlayEntry entry;
+  entry = OverlayEntry(
+    builder: (ctx) => Stack(
+      children: [
+        const ModalBarrier(dismissible: false),
+        LoadingDialog(key: key),
+      ],
+    ),
   );
-  return LoadingDialogHandler._(key);
+
+  overlay.insert(entry);
+  return LoadingDialogHandler._(key, entry);
 }
 
 class LoadingDialog extends StatefulWidget {

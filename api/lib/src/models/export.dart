@@ -56,7 +56,7 @@ sealed class ExportPreset with _$ExportPreset {
 @freezed
 sealed class AreaPreset with _$AreaPreset {
   const factory AreaPreset({
-    @Default('default') String page,
+    @Default('') String page,
     @Default('') String name,
     @Default(1) double quality,
     Area? area,

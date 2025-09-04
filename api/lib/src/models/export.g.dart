@@ -64,7 +64,7 @@ Map<String, dynamic> _$ExportPresetToJson(_ExportPreset instance) =>
     };
 
 _AreaPreset _$AreaPresetFromJson(Map json) => _AreaPreset(
-  page: json['page'] as String? ?? 'default',
+  page: json['page'] as String? ?? '',
   name: json['name'] as String? ?? '',
   quality: (json['quality'] as num?)?.toDouble() ?? 1,
   area: json['area'] == null

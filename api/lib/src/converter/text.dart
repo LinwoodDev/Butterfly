@@ -276,7 +276,7 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
         return e;
       }).toList();
       data['pages'] = {
-        'default': data['type'] == 'document'
+        '': data['type'] == 'document'
             ? Map<String, dynamic>.from(data)
             : data['document'],
       };

@@ -38,8 +38,9 @@ class _PagesViewState extends State<PagesView> {
         final currentName = state.pageName;
         final pages = state.data.getPages();
         final index = state.data.getPageIndex(state.pageName);
-        void addPage([int? index]) =>
-            context.read<DocumentBloc>().add(PageAdded(index));
+        void addPage([int? index]) => context.read<DocumentBloc>().add(
+          PageAdded(index: index, name: AppLocalizations.of(context).page),
+        );
 
         return Column(
           children: [
@@ -219,6 +220,8 @@ class _PageEntityListTile extends StatelessWidget {
             ? PhosphorIconsLight.file
             : PhosphorIconsLight.folderSimple,
       ),
+      textFormatter: (v) =>
+          v.isEmpty ? AppLocalizations.of(context).untitled : v,
       onTap: () {
         if (entity.isFile) {
           context.read<DocumentBloc>().add(PageChanged(entity.path));

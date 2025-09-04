@@ -20,8 +20,12 @@ Map<String, dynamic> _assetLocationToJson(AssetLocation? location) =>
 sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
 
-  const factory DocumentEvent.pageAdded([int? index, DocumentPage? page]) =
-      PageAdded;
+  const factory DocumentEvent.pageAdded({
+    int? index,
+    DocumentPage? page,
+    @Default(true) bool addNumber,
+    @Default('') String name,
+  }) = PageAdded;
 
   const factory DocumentEvent.pageChanged(String pageName) = PageChanged;
 

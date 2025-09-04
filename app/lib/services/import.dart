@@ -340,13 +340,14 @@ class ImportService {
     } else if (bloc == null) {
       return data;
     }
-    for (final page in pages.map((e) => data.getPage(e)).nonNulls) {
+    for (final (name, page) in pages.map((e) => (e, data.getPage(e)))) {
+      if (page == null) continue;
       if (advanced) {
-        document = document.addPage(page).$1;
+        document = document.addPage(page, name).$1;
       } else {
-        document = document.setPage(page);
+        document = document.setPage(page, name);
       }
-      bloc?.add(PageAdded(null, page));
+      bloc?.add(PageAdded(page: page, name: name));
     }
     for (final packs in packs.map((e) => data.getBundledPack(e)).nonNulls) {
       document = document.setBundledPack(packs);
@@ -652,103 +653,111 @@ class ImportService {
       final firstPos = position ?? Offset.zero;
       final localizations = AppLocalizations.of(context);
       List<PdfRaster> elements = await Printing.raster(bytes).toList();
-      if (context.mounted) {
-        List<int> pages = List.generate(elements.length, (index) => index);
-        bool spreadToPages = false, createAreas = false, invert = false;
-        SRGBColor background = BasicColors.whiteTransparent;
-        if (advanced) {
-          List<ui.Image> images = [];
-          final dialog = showLoadingDialog(context);
+      if (!context.mounted) return null;
+      List<int> pages = List.generate(elements.length, (index) => index);
+      bool spreadToPages = false, createAreas = false, invert = false;
+      SRGBColor background = BasicColors.whiteTransparent;
+      String name = '';
+      if (advanced) {
+        List<ui.Image> images = [];
+        final dialog = showLoadingDialog(context);
 
-          for (int i = 0; i < elements.length; i++) {
-            final raster = elements[i];
-            dialog?.setProgress(i / elements.length);
-            final image = await raster.toImage();
-            images.add(image);
-          }
-          dialog?.close();
-          final callback = await showDialog<PageDialogCallback>(
-            context: context,
-            builder: (context) => PagesDialog(pages: images),
-          );
-          for (var image in images) {
-            try {
-              image.dispose();
-            } catch (_) {}
-          }
-          if (callback == null) return document;
-          pages = callback.pages;
-          spreadToPages = callback.spreadToPages;
-          createAreas = callback.createAreas;
-          invert = callback.invert;
-          background = callback.background;
-        }
-        dialog = showLoadingDialog(context);
-        final selectedElements = <PdfElement>[];
-        final areas = <Area>[];
-        final documentPages = <DocumentPage>[];
-        var y = firstPos.dy;
-        var current = 0;
-        final pdfUri = UriData.fromBytes(
-          bytes,
-          mimeType: 'application/pdf',
-        ).toString();
-
-        for (var i = 0; i < elements.length; i++) {
-          var raster = elements[i];
-          try {
-            await Future.delayed(const Duration(milliseconds: 1));
-            dialog?.setProgress(current / pages.length);
-            current++;
-            final height = raster.height.toDouble();
-            final width = raster.width.toDouble();
-            final element = PdfElement(
-              height: height,
-              width: width,
-              source: pdfUri,
-              page: i,
-              position: Point(firstPos.dx, y),
-              invert: invert,
-              background: background,
-            );
-            final area = Area(
-              height: height,
-              width: width,
-              position: Point(firstPos.dx, y),
-              name: localizations.pageIndex(areas.length + 1),
-            );
-            if (spreadToPages) {
-              documentPages.add(
-                DocumentPage(
-                  layers: [
-                    DocumentLayer(content: [element], id: createUniqueId()),
-                  ],
-                  areas: [if (createAreas) area],
-                ),
-              );
-            } else {
-              selectedElements.add(element);
-              areas.add(area);
-            }
-            y += height;
-          } catch (e) {
-            showDialog(
-              context: context,
-              builder: (context) =>
-                  UnknownImportConfirmationDialog(message: e.toString()),
-            );
-          }
+        for (int i = 0; i < elements.length; i++) {
+          final raster = elements[i];
+          dialog?.setProgress(i / elements.length);
+          final image = await raster.toImage();
+          images.add(image);
         }
         dialog?.close();
-        return _submit(
-          context,
-          document,
-          elements: selectedElements,
-          pages: documentPages,
-          areas: spreadToPages ? [] : areas,
-          choosePosition: position == null,
+        final callback = await showDialog<PageDialogCallback>(
+          context: context,
+          builder: (context) => PagesDialog(pages: images),
         );
+        for (var image in images) {
+          try {
+            image.dispose();
+          } catch (_) {}
+        }
+        if (callback == null) return document;
+        pages = callback.pages;
+        spreadToPages = callback.spreadToPages;
+        createAreas = callback.createAreas;
+        invert = callback.invert;
+        background = callback.background;
+        name = callback.name;
       }
+      String getPageName(int index) {
+        if (name.isEmpty) return localizations.pageIndex(index + 1);
+        return '$name $index';
+      }
+
+      dialog = showLoadingDialog(context);
+      final selectedElements = <PdfElement>[];
+      final areas = <Area>[];
+      final documentPages = <(String?, DocumentPage)>[];
+      var y = firstPos.dy;
+      var current = 0;
+      final pdfUri = UriData.fromBytes(
+        bytes,
+        mimeType: 'application/pdf',
+      ).toString();
+
+      for (var i = 0; i < elements.length; i++) {
+        var raster = elements[i];
+        try {
+          await Future.delayed(const Duration(milliseconds: 1));
+          dialog?.setProgress(current / pages.length);
+          current++;
+          final height = raster.height.toDouble();
+          final width = raster.width.toDouble();
+          final pageName = getPageName(i);
+          final element = PdfElement(
+            height: height,
+            width: width,
+            source: pdfUri,
+            page: i,
+            position: Point(firstPos.dx, y),
+            invert: invert,
+            background: background,
+          );
+          final area = Area(
+            height: height,
+            width: width,
+            position: Point(firstPos.dx, y),
+            name: pageName,
+          );
+          if (spreadToPages) {
+            documentPages.add((
+              pageName,
+              DocumentPage(
+                layers: [
+                  DocumentLayer(content: [element], id: createUniqueId()),
+                ],
+                areas: [if (createAreas) area],
+              ),
+            ));
+          } else {
+            selectedElements.add(element);
+            areas.add(area);
+            y += height;
+          }
+        } catch (e) {
+          showDialog(
+            context: context,
+            builder: (context) =>
+                UnknownImportConfirmationDialog(message: e.toString()),
+          );
+        }
+      }
+      dialog?.close();
+      return _submit(
+        context,
+        document,
+        elements: selectedElements,
+        pages: documentPages,
+        areas: spreadToPages ? [] : areas,
+        choosePosition: position == null,
+      );
     } catch (e) {
       dialog?.close();
       showDialog(
@@ -823,7 +832,7 @@ class ImportService {
     BuildContext context,
     NoteData document, {
     required List<PadElement> elements,
-    List<DocumentPage> pages = const [],
+    List<(String?, DocumentPage)> pages = const [],
     List<Area> areas = const [],
     List<NoteData> packs = const [],
     bool choosePosition = false,
@@ -845,8 +854,8 @@ class ImportService {
         ?..add(AreasCreated(areas))
         ..add(ElementsCreated(elements));
     }
-    for (final page in pages) {
-      bloc?.add(PageAdded(null, page));
+    for (final (name, page) in pages) {
+      bloc?.add(PageAdded(page: page, name: name ?? ''));
     }
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
@@ -860,8 +869,8 @@ class ImportService {
       ],
     );
     document = document.setPage(page);
-    for (final page in pages) {
-      (document, _) = document.addPage(page);
+    for (final (name, page) in pages) {
+      (document, _) = document.addPage(page, name ?? '');
     }
     for (final pack in packs) {
       document = document.setBundledPack(pack);

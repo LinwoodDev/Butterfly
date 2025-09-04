@@ -50,7 +50,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
            currentIndexCubit: currentIndexCubit,
            location: location,
            fileSystem: fileSystem,
-           pageName: pageName ?? initial.getPages().firstOrNull ?? 'default',
+           pageName: pageName ?? initial.getPages().firstOrNull ?? '',
          ),
        ) {
     _init();
@@ -88,7 +88,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final page =
           event.page ?? DocumentPage(backgrounds: current.page.backgrounds);
       final data = current.data.setPage(current.page, current.pageName);
-      final (newData, pageName) = data.addPage(page, event.index);
+      final (newData, pageName) = data.addPage(
+        page,
+        event.name,
+        index: event.index,
+        addNumber: event.addNumber,
+      );
       _saveState(
         emit,
         state: current.copyWith(data: newData, page: page, pageName: pageName),

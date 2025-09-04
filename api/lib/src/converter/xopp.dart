@@ -147,6 +147,7 @@ NoteData xoppMigrator(Uint8List data) {
         backgrounds: [if (background != null) background],
         extra: {'xopp:layers': layers},
       ),
+      '',
     );
   }
   return note;

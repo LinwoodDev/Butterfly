@@ -207,7 +207,7 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  DocumentPage? getPage([String name = 'default']) {
+  DocumentPage? getPage([String name = '']) {
     final data = getAsset(
       '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json',
     );
@@ -224,16 +224,12 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPage(DocumentPage page, [String name = 'default', int? index]) {
+  NoteData setPage(DocumentPage page, [String name = '', int? index]) {
     return setRawPage(utf8.encode(jsonEncode(page.toJson())), name, index);
   }
 
   @useResult
-  NoteData setRawPage(
-    Uint8List content, [
-    String name = 'default',
-    int? index,
-  ]) {
+  NoteData setRawPage(Uint8List content, [String name = '', int? index]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
     var noteData = this;
@@ -518,11 +514,25 @@ final class NoteData extends ArchiveData<NoteData> {
     return base64Encode(exportAsBytes());
   }
 
-  (NoteData, String) addPage(DocumentPage page, [int? index]) {
-    var name = 'Page ${getPages().length + 1}';
+  (NoteData, String) addPage(
+    DocumentPage page,
+    String name, {
+    int? index,
+    bool addNumber = true,
+  }) {
     var i = 1;
-    while (getPages().contains(name)) {
-      name = 'Page ${i++}';
+    String getName(int i) {
+      if (i == 1 && !addNumber) {
+        return name;
+      }
+      if (name.isEmpty) return i.toString();
+      return '$name $i';
+    }
+
+    var current = getName(i);
+
+    while (getPages().contains(current)) {
+      current = 'Page ${i++}';
     }
     return (setPage(page, name, index), name);
   }
