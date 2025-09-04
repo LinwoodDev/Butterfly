@@ -197,46 +197,50 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
               ],
               if (widget.strokeWidth != null &&
                   widget.onStrokeWidthChanged != null) ...[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                  child: SizedBox(
-                    width: 120,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onLongPress: () => _startChanging(-1),
-                          onLongPressUp: _stopChanging,
-                          child: IconButton(
-                            icon: const Icon(PhosphorIconsLight.minus),
-                            onPressed: () => widget.onStrokeWidthChanged!(
-                              widget.strokeWidth! - 0.1,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: TextEditingController(
-                              text: widget.strokeWidth!.toStringAsFixed(1),
-                            ),
-                            keyboardType: TextInputType.number,
-                            textAlign: TextAlign.center,
-                            onSubmitted: (val) {
-                              final v = double.tryParse(val);
-                              if (v != null) widget.onStrokeWidthChanged!(v);
-                            },
-                          ),
-                        ),
-                        GestureDetector(
-                          onLongPress: () => _startChanging(1),
-                          onLongPressUp: _stopChanging,
-                          child: IconButton(
-                            icon: const Icon(PhosphorIconsLight.plus),
-                            onPressed: () => widget.onStrokeWidthChanged!(
-                              widget.strokeWidth! + 0.1,
-                            ),
-                          ),
-                        ),
-                      ],
+                Center(
+                  child: GestureDetector(
+                    onLongPress: () => _startChanging(-1),
+                    onLongPressUp: _stopChanging,
+                    child: IconButton(
+                      icon: const Icon(PhosphorIconsLight.minus),
+                      onPressed: () => widget.onStrokeWidthChanged!(
+                        widget.strokeWidth! - 0.1,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 2),
+                Center(
+                  child: TextField(
+                    controller: TextEditingController(
+                      text: widget.strokeWidth!.toStringAsFixed(1),
+                    ),
+                    decoration: const InputDecoration(
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 0,
+                      ),
+                      constraints: BoxConstraints(maxWidth: 60),
+                    ),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onSubmitted: (val) {
+                      final v = double.tryParse(val);
+                      if (v != null) widget.onStrokeWidthChanged!(v);
+                    },
+                  ),
+                ),
+                const SizedBox(width: 2),
+                Center(
+                  child: GestureDetector(
+                    onLongPress: () => _startChanging(1),
+                    onLongPressUp: _stopChanging,
+                    child: IconButton(
+                      icon: const Icon(PhosphorIconsLight.plus),
+                      onPressed: () => widget.onStrokeWidthChanged!(
+                        widget.strokeWidth! + 0.1,
+                      ),
                     ),
                   ),
                 ),
