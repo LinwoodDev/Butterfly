@@ -6,23 +6,37 @@ part of 'event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PageAdded _$PageAddedFromJson(Map json) => PageAdded(
+_PageAddedDetails _$PageAddedDetailsFromJson(Map json) => _PageAddedDetails(
   index: (json['index'] as num?)?.toInt(),
   page: json['page'] == null
       ? null
       : DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
   addNumber: json['addNumber'] as bool? ?? true,
   name: json['name'] as String? ?? '',
+);
+
+Map<String, dynamic> _$PageAddedDetailsToJson(_PageAddedDetails instance) =>
+    <String, dynamic>{
+      'index': instance.index,
+      'page': instance.page?.toJson(),
+      'addNumber': instance.addNumber,
+      'name': instance.name,
+    };
+
+PagesAdded _$PagesAddedFromJson(Map json) => PagesAdded(
+  (json['pages'] as List<dynamic>)
+      .map(
+        (e) => PageAddedDetails.fromJson(Map<String, dynamic>.from(e as Map)),
+      )
+      .toList(),
   $type: json['type'] as String?,
 );
 
-Map<String, dynamic> _$PageAddedToJson(PageAdded instance) => <String, dynamic>{
-  'index': instance.index,
-  'page': instance.page?.toJson(),
-  'addNumber': instance.addNumber,
-  'name': instance.name,
-  'type': instance.$type,
-};
+Map<String, dynamic> _$PagesAddedToJson(PagesAdded instance) =>
+    <String, dynamic>{
+      'pages': instance.pages.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
 
 PageChanged _$PageChangedFromJson(Map json) =>
     PageChanged(json['pageName'] as String, $type: json['type'] as String?);

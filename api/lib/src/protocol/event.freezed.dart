@@ -11,12 +11,179 @@ part of 'event.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$PageAddedDetails {
+
+ int? get index; DocumentPage? get page; bool get addNumber; String get name;
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PageAddedDetailsCopyWith<PageAddedDetails> get copyWith => _$PageAddedDetailsCopyWithImpl<PageAddedDetails>(this as PageAddedDetails, _$identity);
+
+  /// Serializes this PageAddedDetails to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
+
+@override
+String toString() {
+  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PageAddedDetailsCopyWith<$Res>  {
+  factory $PageAddedDetailsCopyWith(PageAddedDetails value, $Res Function(PageAddedDetails) _then) = _$PageAddedDetailsCopyWithImpl;
+@useResult
+$Res call({
+ int? index, DocumentPage? page, bool addNumber, String name
+});
+
+
+$DocumentPageCopyWith<$Res>? get page;
+
+}
+/// @nodoc
+class _$PageAddedDetailsCopyWithImpl<$Res>
+    implements $PageAddedDetailsCopyWith<$Res> {
+  _$PageAddedDetailsCopyWithImpl(this._self, this._then);
+
+  final PageAddedDetails _self;
+  final $Res Function(PageAddedDetails) _then;
+
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
+  return _then(_self.copyWith(
+index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
+as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DocumentPageCopyWith<$Res>? get page {
+    if (_self.page == null) {
+    return null;
+  }
+
+  return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
+    return _then(_self.copyWith(page: value));
+  });
+}
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _PageAddedDetails implements PageAddedDetails {
+  const _PageAddedDetails({this.index, this.page, this.addNumber = true, this.name = ''});
+  factory _PageAddedDetails.fromJson(Map<String, dynamic> json) => _$PageAddedDetailsFromJson(json);
+
+@override final  int? index;
+@override final  DocumentPage? page;
+@override@JsonKey() final  bool addNumber;
+@override@JsonKey() final  String name;
+
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PageAddedDetailsCopyWith<_PageAddedDetails> get copyWith => __$PageAddedDetailsCopyWithImpl<_PageAddedDetails>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PageAddedDetailsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
+
+@override
+String toString() {
+  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PageAddedDetailsCopyWith<$Res> implements $PageAddedDetailsCopyWith<$Res> {
+  factory _$PageAddedDetailsCopyWith(_PageAddedDetails value, $Res Function(_PageAddedDetails) _then) = __$PageAddedDetailsCopyWithImpl;
+@override @useResult
+$Res call({
+ int? index, DocumentPage? page, bool addNumber, String name
+});
+
+
+@override $DocumentPageCopyWith<$Res>? get page;
+
+}
+/// @nodoc
+class __$PageAddedDetailsCopyWithImpl<$Res>
+    implements _$PageAddedDetailsCopyWith<$Res> {
+  __$PageAddedDetailsCopyWithImpl(this._self, this._then);
+
+  final _PageAddedDetails _self;
+  final $Res Function(_PageAddedDetails) _then;
+
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
+  return _then(_PageAddedDetails(
+index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
+as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DocumentPageCopyWith<$Res>? get page {
+    if (_self.page == null) {
+    return null;
+  }
+
+  return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
+    return _then(_self.copyWith(page: value));
+  });
+}
+}
+
 DocumentEvent _$DocumentEventFromJson(
   Map<String, dynamic> json
 ) {
         switch (json['type']) {
-                  case 'pageAdded':
-          return PageAdded.fromJson(
+                  case 'pagesAdded':
+          return PagesAdded.fromJson(
             json
           );
                 case 'pageChanged':
@@ -283,14 +450,17 @@ $DocumentEventCopyWith(DocumentEvent _, $Res Function(DocumentEvent) __);
 /// @nodoc
 @JsonSerializable()
 
-class PageAdded extends DocumentEvent {
-  const PageAdded({this.index, this.page, this.addNumber = true, this.name = '', final  String? $type}): $type = $type ?? 'pageAdded',super._();
-  factory PageAdded.fromJson(Map<String, dynamic> json) => _$PageAddedFromJson(json);
+class PagesAdded extends DocumentEvent {
+  const PagesAdded(final  List<PageAddedDetails> pages, {final  String? $type}): _pages = pages,$type = $type ?? 'pagesAdded',super._();
+  factory PagesAdded.fromJson(Map<String, dynamic> json) => _$PagesAddedFromJson(json);
 
- final  int? index;
- final  DocumentPage? page;
-@JsonKey() final  bool addNumber;
-@JsonKey() final  String name;
+ final  List<PageAddedDetails> _pages;
+ List<PageAddedDetails> get pages {
+  if (_pages is EqualUnmodifiableListView) return _pages;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_pages);
+}
+
 
 @JsonKey(name: 'type')
 final String $type;
@@ -300,75 +470,60 @@ final String $type;
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PageAddedCopyWith<PageAdded> get copyWith => _$PageAddedCopyWithImpl<PageAdded>(this, _$identity);
+$PagesAddedCopyWith<PagesAdded> get copyWith => _$PagesAddedCopyWithImpl<PagesAdded>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$PageAddedToJson(this, );
+  return _$PagesAddedToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAdded&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PagesAdded&&const DeepCollectionEquality().equals(other._pages, _pages));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_pages));
 
 @override
 String toString() {
-  return 'DocumentEvent.pageAdded(index: $index, page: $page, addNumber: $addNumber, name: $name)';
+  return 'DocumentEvent.pagesAdded(pages: $pages)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PageAddedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
-  factory $PageAddedCopyWith(PageAdded value, $Res Function(PageAdded) _then) = _$PageAddedCopyWithImpl;
+abstract mixin class $PagesAddedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
+  factory $PagesAddedCopyWith(PagesAdded value, $Res Function(PagesAdded) _then) = _$PagesAddedCopyWithImpl;
 @useResult
 $Res call({
- int? index, DocumentPage? page, bool addNumber, String name
+ List<PageAddedDetails> pages
 });
 
 
-$DocumentPageCopyWith<$Res>? get page;
+
 
 }
 /// @nodoc
-class _$PageAddedCopyWithImpl<$Res>
-    implements $PageAddedCopyWith<$Res> {
-  _$PageAddedCopyWithImpl(this._self, this._then);
+class _$PagesAddedCopyWithImpl<$Res>
+    implements $PagesAddedCopyWith<$Res> {
+  _$PagesAddedCopyWithImpl(this._self, this._then);
 
-  final PageAdded _self;
-  final $Res Function(PageAdded) _then;
+  final PagesAdded _self;
+  final $Res Function(PagesAdded) _then;
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
-  return _then(PageAdded(
-index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
-as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+@pragma('vm:prefer-inline') $Res call({Object? pages = null,}) {
+  return _then(PagesAdded(
+null == pages ? _self._pages : pages // ignore: cast_nullable_to_non_nullable
+as List<PageAddedDetails>,
   ));
 }
 
-/// Create a copy of DocumentEvent
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$DocumentPageCopyWith<$Res>? get page {
-    if (_self.page == null) {
-    return null;
-  }
 
-  return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
-    return _then(_self.copyWith(page: value));
-  });
-}
 }
 
 /// @nodoc

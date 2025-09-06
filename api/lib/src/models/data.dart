@@ -16,7 +16,16 @@ import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
 
-final Set<String> validAssetPaths = {kImagesArchiveDirectory};
+final Set<String> validAssetPaths = {
+  kImagesArchiveDirectory,
+  kPdfArchiveDirectory,
+};
+
+String getAssetFileName(String fileExtension, Uint8List data) {
+  final hash = sha512256.convert(data);
+  final name = hash.toString();
+  return '$name.$fileExtension';
+}
 
 final class NoteFile {
   final Uint8List data;
@@ -100,10 +109,16 @@ final class NoteData extends ArchiveData<NoteData> {
     Uint8List data,
     String fileExtension,
   ) {
-    final hash = sha512256.convert(data);
-    final name = hash.toString();
-    final newPath = '$path/$name.$fileExtension';
+    final newPath = '$path/${getAssetFileName(fileExtension, data)}';
+    if (getAsset(newPath) != null) {
+      return (this, newPath);
+    }
     return (setAsset(newPath, data), newPath);
+  }
+
+  bool containsAsset(String path, Uint8List data, String fileExtension) {
+    final assetPath = getAssetFileName(fileExtension, data);
+    return getAssets(path).contains(assetPath);
   }
 
   String _getFileName(String name, String fileExtension) =>
@@ -350,6 +365,9 @@ final class NoteData extends ArchiveData<NoteData> {
 
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
+
+  bool containsImage(Uint8List data, String fileExtension) =>
+      containsAsset(kImagesArchiveDirectory, data, fileExtension);
 
   (NoteData, String) importPdf(Uint8List data) =>
       importAsset(kPdfArchiveDirectory, data, 'pdf');

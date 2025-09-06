@@ -82,21 +82,37 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
 
   void _init() {
-    on<PageAdded>((event, emit) {
+    on<PagesAdded>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final page =
-          event.page ?? DocumentPage(backgrounds: current.page.backgrounds);
-      final data = current.data.setPage(current.page, current.pageName);
-      final (newData, pageName) = data.addPage(
-        page,
-        event.name,
-        index: event.index,
-        addNumber: event.addNumber,
-      );
+      var data = current.data;
+      Map<String, String> imported = {};
+      String? pageName;
+      DocumentPage? page;
+      for (final details in event.pages) {
+        page =
+            details.page ?? DocumentPage(backgrounds: current.page.backgrounds);
+        final layers = page.layers.map((layer) {
+          List<PadElement> elements;
+          (data, elements) = importAssets(
+            data,
+            layer.content,
+            alreadyImported: imported,
+            onInvalidate: current.assetService.invalidate,
+          );
+          return layer.copyWith(content: elements);
+        }).toList();
+        page = page.copyWith(layers: layers);
+        (data, pageName) = data.addPage(
+          page,
+          details.name,
+          index: details.index,
+          addNumber: details.addNumber,
+        );
+      }
       _saveState(
         emit,
-        state: current.copyWith(data: newData, page: page, pageName: pageName),
+        state: current.copyWith(data: data, page: page, pageName: pageName),
         reset: true,
       );
     });
@@ -153,45 +169,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      var data = current.data;
       final assetService = current.assetService;
-      Map<String, String> imported = {};
-      String importAsset(SourcedElement element, String fileExtension) {
-        final source = element.source;
-        assetService.invalidate(source);
-        if (imported.containsKey(source)) {
-          return imported[source]!;
-        }
-        final uri = Uri.tryParse(source);
-        final uriData = uri?.data;
-        if (uriData == null) {
-          if ((uri?.isScheme('file') ?? false) || !(uri?.hasScheme ?? true)) {
-            data = data.undoDelete(uri!.path);
-          }
-          return source;
-        }
-        final bytes = uriData.contentAsBytes();
-        (NoteData, String) result;
-        if (element is PdfElement) {
-          result = data.importPdf(bytes);
-        } else {
-          result = data.importImage(bytes, fileExtension);
-        }
-        data = result.$1;
-        return Uri.file(result.$2, windows: false).toString();
-      }
-
-      final elements = event.elements
-          .map(
-            (e) => switch (e) {
-              ImageElement e => e.copyWith(source: importAsset(e, 'png')),
-              SvgElement e => e.copyWith(source: importAsset(e, 'svg')),
-              PdfElement e => e.copyWith(source: importAsset(e, 'pdf')),
-              _ => e,
-            },
-          )
-          .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
-          .toList();
+      final (data, elements) = importAssets(
+        current.data,
+        event.elements.map((e) => e.copyWith(id: createUniqueId())).toList(),
+        onInvalidate: assetService.invalidate,
+      );
       final renderers = elements
           .map((e) => Renderer.fromInstance(e, current.currentLayer))
           .toList();

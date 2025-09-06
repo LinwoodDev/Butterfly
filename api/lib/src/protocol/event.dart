@@ -17,15 +17,24 @@ Map<String, dynamic> _assetLocationToJson(AssetLocation? location) =>
     location?.toMap() ?? {};
 
 @freezed
-sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
-  const DocumentEvent._();
-
-  const factory DocumentEvent.pageAdded({
+sealed class PageAddedDetails with _$PageAddedDetails {
+  const factory PageAddedDetails({
     int? index,
     DocumentPage? page,
     @Default(true) bool addNumber,
     @Default('') String name,
-  }) = PageAdded;
+  }) = _PageAddedDetails;
+
+  factory PageAddedDetails.fromJson(Map<String, dynamic> json) =>
+      _$PageAddedDetailsFromJson(json);
+}
+
+@freezed
+sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
+  const DocumentEvent._();
+
+  const factory DocumentEvent.pagesAdded(List<PageAddedDetails> pages) =
+      PagesAdded;
 
   const factory DocumentEvent.pageChanged(String pageName) = PageChanged;
 

@@ -347,8 +347,14 @@ class ImportService {
       } else {
         document = document.setPage(page, name);
       }
-      bloc?.add(PageAdded(page: page, name: name));
     }
+    bloc?.add(
+      PagesAdded(
+        pages
+            .map((e) => PageAddedDetails(page: data.getPage(e), name: e))
+            .toList(),
+      ),
+    );
     for (final packs in packs.map((e) => data.getBundledPack(e)).nonNulls) {
       document = document.setBundledPack(packs);
       bloc?.add(PackAdded(packs));
@@ -854,9 +860,13 @@ class ImportService {
         ?..add(AreasCreated(areas))
         ..add(ElementsCreated(elements));
     }
-    for (final (name, page) in pages) {
-      bloc?.add(PageAdded(page: page, name: name ?? ''));
-    }
+    bloc?.add(
+      PagesAdded(
+        pages
+            .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
+            .toList(),
+      ),
+    );
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
     }

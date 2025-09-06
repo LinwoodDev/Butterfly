@@ -39,7 +39,12 @@ class _PagesViewState extends State<PagesView> {
         final pages = state.data.getPages();
         final index = state.data.getPageIndex(state.pageName);
         void addPage([int? index]) => context.read<DocumentBloc>().add(
-          PageAdded(index: index, name: AppLocalizations.of(context).page),
+          PagesAdded([
+            PageAddedDetails(
+              index: index,
+              name: AppLocalizations.of(context).page,
+            ),
+          ]),
         );
 
         return Column(
