@@ -5,10 +5,15 @@ class LoadingDialogHandler {
   final GlobalKey<_LoadingDialogState> _key;
   final OverlayEntry entry;
 
-  const LoadingDialogHandler._(this._key, this.entry);
+  LoadingDialogHandler._(this._key, this.entry);
 
   void setProgress(double progress) => _key.currentState?.setProgress(progress);
+
+  bool _wasClosed = false;
+
   void close() {
+    if (_wasClosed) return;
+    _wasClosed = true;
     entry.remove();
     entry.dispose();
   }

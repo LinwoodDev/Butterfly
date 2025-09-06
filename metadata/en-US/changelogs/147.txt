@@ -1,0 +1,4 @@
+* Improve stroke width controls in color toolbar
+* Fix loading overlay having error on multiple closes
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.1
