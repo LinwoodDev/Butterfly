@@ -704,5 +704,7 @@
   "submit": "Enviar",
   "math": "Matemáticas",
   "ignorePressure": "Presión de ignorancia",
-  "ignoreFirstPressureDescription": "En algunos dispositivos, el primer valor de presión no es preciso. Este ajuste ignorará el primer valor de presión y utilizará la presión del segundo evento en su lugar."
+  "ignoreFirstPressureDescription": "En algunos dispositivos, el primer valor de presión no es preciso. Este ajuste ignorará el primer valor de presión y utilizará la presión del segundo evento en su lugar.",
+  "temporary": "Temporary",
+  "simpleToolbarVisibility": "Simple toolbar visibility"
 }
