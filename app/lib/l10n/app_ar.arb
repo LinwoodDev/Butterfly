@@ -705,6 +705,6 @@
   "math": "الرياضيات",
   "ignorePressure": "تجاهل الضغط",
   "ignoreFirstPressureDescription": "في بعض الأجهزة، قيمة الضغط الأول غير دقيقة. هذا الإعداد سوف يتجاهل قيمة الضغط الأول ويستخدم ضغط الحدث الثاني بدلاً من ذلك.",
-  "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "temporary": "مؤقت",
+  "simpleToolbarVisibility": "رؤية شريط الأدوات البسيطة"
 }
