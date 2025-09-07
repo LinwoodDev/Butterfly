@@ -705,6 +705,6 @@
   "math": "Mathématiques",
   "ignorePressure": "Ignorer la pression",
   "ignoreFirstPressureDescription": "Sur certains appareils, la première valeur de pression n'est pas précise. Ce paramètre ignorera la première valeur de pression et utilisera la pression du deuxième événement à la place.",
-  "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "temporary": "Temporaire",
+  "simpleToolbarVisibility": "Visibilité simple de la barre d'outils"
 }
