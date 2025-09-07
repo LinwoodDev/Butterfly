@@ -705,6 +705,6 @@
   "math": "Matematika",
   "ignorePressure": "Ignorovat sílu stisku",
   "ignoreFirstPressureDescription": "U některých zařízení není první zaznamenaná hodnota tlaku přesná. Toto nastavení bude ignorovat první hodnotu tlaku a místo toho použije druhou.",
-  "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "temporary": "Dočasné",
+  "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů"
 }
