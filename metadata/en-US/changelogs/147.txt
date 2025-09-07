@@ -1,4 +1,5 @@
 * Optimize pages events
+* Update stroke drawing algorithm
 * Improve stroke width controls in color toolbar
 * Fix loading overlay having error on multiple closes
 * Fix pdf spread pages import not being optimized 

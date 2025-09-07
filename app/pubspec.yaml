@@ -61,10 +61,7 @@ dependencies:
   cross_file: ^0.3.4+1
   args: ^2.5.0
   reorderable_grid: ^1.0.12
-  perfect_freehand:
-    git:
-      url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
-      ref: 85a6db5889db2916733a0f6c6914e66d06931f71
+  perfect_freehand: ^2.5.0
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
