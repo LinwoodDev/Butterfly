@@ -704,5 +704,7 @@
   "submit": "Send",
   "math": "Matematikk",
   "ignorePressure": "Ignorer trykk",
-  "ignoreFirstPressureDescription": "På noen enheter er den første trykkverdien ikke nøyaktig. Denne innstillingen vil ignorere den første trykkverdien, og bruke trykket til den andre hendelsen, i stedet."
+  "ignoreFirstPressureDescription": "På noen enheter er den første trykkverdien ikke nøyaktig. Denne innstillingen vil ignorere den første trykkverdien, og bruke trykket til den andre hendelsen, i stedet.",
+  "temporary": "Midlertidig",
+  "simpleToolbarVisibility": "Enkel verktøylinjens synlighet"
 }
