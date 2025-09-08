@@ -704,5 +704,7 @@
   "submit": "Lähetä",
   "math": "Matematiikka",
   "ignorePressure": "Ohita paine",
-  "ignoreFirstPressureDescription": "Joissain laitteissa ensimmäinen paineen arvo ei ole tarkka. Tämä asetus jättää huomiotta ensimmäisen paineen arvon ja käyttää sen sijaan toisen tapahtuman painetta."
+  "ignoreFirstPressureDescription": "Joissain laitteissa ensimmäinen paineen arvo ei ole tarkka. Tämä asetus jättää huomiotta ensimmäisen paineen arvon ja käyttää sen sijaan toisen tapahtuman painetta.",
+  "temporary": "Väliaikainen",
+  "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys"
 }
