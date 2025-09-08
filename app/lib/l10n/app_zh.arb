@@ -704,5 +704,7 @@
   "submit": "提交",
   "math": "数学数",
   "ignorePressure": "忽略电压",
-  "ignoreFirstPressureDescription": "在某些设备上，第一个压力值不准确。 此设置将忽略第一个压力值，然后使用第二个事件的压力。"
+  "ignoreFirstPressureDescription": "在某些设备上，第一个压力值不准确。 此设置将忽略第一个压力值，然后使用第二个事件的压力。",
+  "temporary": "临时的",
+  "simpleToolbarVisibility": "简单工具栏可见性"
 }
