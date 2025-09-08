@@ -704,5 +704,7 @@
   "submit": "送信",
   "math": "Math",
   "ignorePressure": "プレッシャーを無視",
-  "ignoreFirstPressureDescription": "デバイスによっては、最初の圧力値が正確でない場合があります。 この設定は、最初のプレッシャー値を無視し、代わりに2番目のイベントのプレッシャーを使用します。"
+  "ignoreFirstPressureDescription": "デバイスによっては、最初の圧力値が正確でない場合があります。 この設定は、最初のプレッシャー値を無視し、代わりに2番目のイベントのプレッシャーを使用します。",
+  "temporary": "一時的な",
+  "simpleToolbarVisibility": "シンプルなツールバーの表示"
 }
