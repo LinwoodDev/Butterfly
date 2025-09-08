@@ -4,11 +4,12 @@
 
 ## 2.4.0-rc.1 (2025-09-08)
 
+* Add temporary toolbar ([#900](https://github.com/LinwoodDev/Butterfly/issues/900))
 * Optimize pages events
 * Update stroke drawing algorithm
 * Improve stroke width controls in color toolbar
 * Fix loading overlay having error on multiple closes
-* Fix pdf spread pages import not being optimized 
+* Fix pdf spread pages import not being optimized
 
 Read more here: https://linwood.dev/butterfly/2.4.0-rc.1
 
