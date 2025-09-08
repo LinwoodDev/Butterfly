@@ -704,5 +704,7 @@
   "submit": "submeter",
   "math": "Matemática",
   "ignorePressure": "Ignorar pressão",
-  "ignoreFirstPressureDescription": "Em alguns dispositivos, o primeiro valor de pressão não é exacto. Esta configuração ignorará o primeiro valor de pressão e usará, em vez disso, a pressão do segundo evento."
+  "ignoreFirstPressureDescription": "Em alguns dispositivos, o primeiro valor de pressão não é exacto. Esta configuração ignorará o primeiro valor de pressão e usará, em vez disso, a pressão do segundo evento.",
+  "temporary": "Temporário",
+  "simpleToolbarVisibility": "Visibilidade na barra de ferramentas simples"
 }
