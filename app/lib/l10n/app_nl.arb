@@ -704,5 +704,7 @@
   "submit": "Bevestigen",
   "math": "Wiskunde",
   "ignorePressure": "Negeer druk",
-  "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis."
+  "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis.",
+  "temporary": "Tijdelijk",
+  "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid"
 }
