@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.0-rc.1 (2025-09-08)
+
+* Optimize pages events
+* Update stroke drawing algorithm
+* Improve stroke width controls in color toolbar
+* Fix loading overlay having error on multiple closes
+* Fix pdf spread pages import not being optimized 
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.1
+
 ## 2.4.0-rc.0 (2025-09-04)
 
 * Add support for math in rich text ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
