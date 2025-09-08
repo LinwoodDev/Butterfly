@@ -704,5 +704,7 @@
   "submit": "제출",
   "math": "Math",
   "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead."
+  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
+  "temporary": "Temporary",
+  "simpleToolbarVisibility": "Simple toolbar visibility"
 }
