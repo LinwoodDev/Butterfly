@@ -704,5 +704,7 @@
   "submit": "Prześlij",
   "math": "Matematyka",
   "ignorePressure": "Ignoruj nacisk",
-  "ignoreFirstPressureDescription": "Na niektórych urządzeniach pierwsza wartość ciśnienia nie jest dokładna. To ustawienie zignoruje pierwszą wartość nacisku i zamiast tego użyj nacisku drugiego zdarzenia."
+  "ignoreFirstPressureDescription": "Na niektórych urządzeniach pierwsza wartość ciśnienia nie jest dokładna. To ustawienie zignoruje pierwszą wartość nacisku i zamiast tego użyj nacisku drugiego zdarzenia.",
+  "temporary": "Tymczasowy",
+  "simpleToolbarVisibility": "Widoczność prostego paska narzędzi"
 }
