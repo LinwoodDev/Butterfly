@@ -1,0 +1,2 @@
+This is a stable release, it includes all the changes from the 2.4.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4

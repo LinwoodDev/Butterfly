@@ -89,10 +89,6 @@ jobs:
           BUTTERFLY_VERSION="${{ env.BUTTERFLY_VERSION }}"
           git tag -fa v${{ env.BUTTERFLY_VERSION }} -m "Release ${BUTTERFLY_VERSION}"
           git push origin v${BUTTERFLY_VERSION} -f
-      - uses: actions/checkout@v5
-        with:
-          token: ${{ secrets.CI_PAT }}
-          fetch-depth: 0
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
@@ -105,12 +101,12 @@ jobs:
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         run: |
           git tag -fa stable -m "Find all stable releases here"
-          git push origin HEAD:stable -f
+          git push origin stable -f
       - name: Retag nightly
         if: ${{ github.event.inputs.stable != 'true' && github.ref == 'refs/heads/develop' }}
         run: |
           git tag -fa nightly -m "Find all nightly releases here"
-          git push origin HEAD:nightly -f
+          git push origin nightly -f
       - name: Merge in main
         if: ${{ github.ref == 'refs/heads/develop' && github.event.inputs.stable == 'true' }}
         run: |

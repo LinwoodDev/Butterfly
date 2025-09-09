@@ -361,7 +361,7 @@ jobs:
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - name: ✅ Enable platforms
@@ -378,7 +378,7 @@ jobs:
         working-directory: app/build/macos/Build/Products/Release
         run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: Install appdmg

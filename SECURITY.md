@@ -2,20 +2,20 @@
 
 ## Supported Versions
 
-| Version               | Supported          |                                                                                                                                    |
-| --------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 2.4-dev (Black Hairstreak) | :warning:          | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.0-rc.1) |
-| 2.3.4 (Adonis Blue)   | :white_check_mark: | [Docs](https://butterfly.linwood.dev/docs/2.3/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.4)        |
-| 2.2.4                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)        |
-| 2.1.1                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.1.1)        |
-| 2.0.3                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.3)        |
-| 1.6.1                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.6/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.6.1)        |
-| 1.5.1                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.5/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.5.1)        |
-| 1.4.4                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.4/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.4.4)        |
-| 1.3.2                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.3/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.3.2)        |
-| 1.2.1                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.2/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.2.1)        |
-| 1.1.2                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.1.2)        |
-| 1.0.0                 | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.0.0)        |
+| Version                    | Supported          |                                                                             |
+| -------------------------- | ------------------ | --------------------------------------------------------------------------- |
+| 2.4-dev (Black Hairstreak) | :warning:          | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.0-rc.1) |
+| 2.3.4 (Adonis Blue)        | :white_check_mark: | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.4)      |
+| 2.2.4                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)      |
+| 2.1.1                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.1.1)      |
+| 2.0.3                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.3)      |
+| 1.6.1                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.6.1)      |
+| 1.5.1                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.5.1)      |
+| 1.4.4                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.4.4)      |
+| 1.3.2                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.3.2)      |
+| 1.2.1                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.2.1)      |
+| 1.1.2                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.1.2)      |
+| 1.0.0                      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.0.0)      |
 
 Older versions can be found [here](https://butterfly.linwood.dev/community/pre-1-0).
 
