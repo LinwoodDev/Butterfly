@@ -26,70 +26,70 @@ import logo from "/public/img/logo.svg";
 
 ---
 
-> Welcome to Butterfly, the open-source note app.
+> Willkommen bei Butterfly, der Opensource Notiz-App.
 
-Butterfly is a note-taking app that aims for a unified experience across all platforms. It provides a simple UI with powerful customization.
+Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Plattformen abzielt. Es bietet eine einfache Benutzeroberfläche mit leistungsstarken Anpassungen.
 
 ## Erste Schritte
 
-> You can use the sidebar to navigate quickly through this wiki.
+> Sie können die Seitenleiste benutzen, um schnell durch dieses Wiki zu navigieren.
 
-To start working on the app, you have two options:
+Um mit der Arbeit an der App zu beginnen, haben Sie zwei Optionen:
 
-1. [Download](/downloads) the app version that is appropriate for your platform. Butterfly can run on most mobile, desktop, and web platforms.
-2. Use the [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install the app. See [here](storage#web) for information about file storage on the web version.
+1. [Download](/downloads) die App-Version, die für Ihre Plattform geeignet ist. Butterfly kann auf den meisten Mobil-, Desktop- und Web-Plattformen laufen.
+2. Verwenden Sie die [Web-Version](https://web.butterfly.linwood.dev), wenn Sie Ihre Plattform nicht finden oder die App nicht installieren möchten. Siehe [here](storage#web) für Informationen über die Speicherung von Dateien auf der Web-Version.
 
-> Once you open the app, continue reading.
+> Sobald Sie die App geöffnet haben, lesen Sie weiter.
 
-## The Home View
+## Die Home-Ansicht
 
-<Tabs syncKey="platform">
+<Tabs syncKey="Plattform">
   <TabItem label="Desktop">
-    ![Welcome screen](welcome_screen_desktop.png)
-    The top of the screen holds the update banner, a link to this documentation, and the <Gear className="inline-icon" /> Settings button. Finally, to the right of the <Gear className="inline-icon" /> Settings button, you have a drop-down menu for controlling when the update banner will appear (always/never/on updates).
+    ![Willkommen](welcome_screen_desktop.png)
+    Am oberen Bildschirmrand befindet sich der Update-Banner, ein Link zu dieser Dokumentation und die <Gear className="inline-icon" /> Einstellungen-Schaltfläche. Zum Schluss auf der rechten Seite der <Gear className="inline-icon" /> Einstellungen-Schaltfläche haben Sie ein Dropdown-Menü um zu kontrollieren, wann der Update-Banner angezeigt wird (immer/nie/bei Updates).
 
-    The Files section is the main area to the left. Here, you can do the following operations:
+    Der Abschnitt Dateien ist der Hauptbereich links. Hier können Sie folgende Operationen durchführen:
 
-    * Select the display type (<GridFour className="inline-icon" /> Grid or <List className="inline-icon" /> List)
-    * Select the [source storage](../storage) of the files
-    * Sort the display order of the files
-    * Add a folder, file, template, or import files by clicking the <Plus className="inline-icon" /> plus sign
-    * Switch to a different directory by typing in the <Folder className="inline-icon" /> Location field
-    * Search for files
+    * Wählen Sie den Anzeigetyp (<GridFour className="inline-icon" /> Raster oder <List className="inline-icon" /> Liste)
+    * Wählen Sie den [Quellspeicher](../storage) der Dateien
+    * Reihenfolge der Dateien sortieren
+    * Füge einen Ordner, Datei, Vorlage oder importiere Dateien hinzu, indem du auf das <Plus className="inline-icon" /> Plus-Zeichen klickst
+    * Wechseln Sie zu einem anderen Verzeichnis, indem Sie das Feld <Folder className="inline-icon" /> ein Ort eingeben
+    * Suche nach Dateien
 
-    Finally, to the right, you have the Quickstart display with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
+    Schließlich, auf der rechten Seite, haben Sie die Schnellstart-Anzeige mit den Vorlagen an der aktuellen Stelle. Für eine neue Installation beinhaltet dies die Vorlagen Hell und Dunkel.
   </TabItem>
 
   <TabItem label="Mobil">
-    When opening Butterfly on a mobile device, you will be presented with a screen like this:
-    ![Welcome screen first part](welcome_screen_mobile_1.png)
-    The top of the screen holds the update banner. Below it, you can find a link to this documentation, the <Gear className="inline-icon" /> Settings button, and a drop-down menu for controlling when the update banner will appear (always/never/on updates).
+    Beim Öffnen von Butterfly auf einem mobilen Gerät wird dir ein Bildschirm wie folgt präsentiert:
+    ! Begrüßungsbildschirm](welcome_screen_mobile_1.png)
+    Am oberen Bildschirmrand befindet sich das Update-Banner. Darunter finden Sie einen Link zu dieser Dokumentation, die <Gear className="inline-icon" /> Einstellungen-Schaltfläche, und ein Drop-Down-Menü, um zu steuern, wann der Update-Banner erscheint (immer/nie/bei Updates).
 
-    Below those, you can find the Quickstart section with the templates available in the current location. For a fresh install, this includes the Light and Dark templates.
+    Unter diesen finden Sie die Schnellstart-Sektion mit den Vorlagen, die an der aktuellen Stelle verfügbar sind. Für eine neue Installation beinhaltet dies die Vorlagen Hell und Dunkel.
 
-    Scrolling down, you will see the Files section:
+    Scrollen Sie nach unten, sehen Sie den Abschnitt Dateien:
     \
-    ![Welcome screen second part](welcome_screen_mobile_2.png)
-    Here, you can do the following operations:
+    ![Willkommensbildschirm zweiter Teil](welcome_screen_mobile_2.png)
+    Hier können Sie folgende Operationen durchführen:
 
-    * Select the display type (<GridFour className="inline-icon" /> Grid or <List className="inline-icon" /> List)
-    * Select the [source storage](../storage) of the files
-    * Sort the display order of the files
-    * Add a folder, file, template, or import files by clicking the <Plus className="inline-icon" /> plus sign
-    * Switch to a different directory by typing in the <Folder className="inline-icon" /> Location field
-    * Search for files
+    * Wählen Sie den Anzeigetyp (<GridFour className="inline-icon" /> Raster oder <List className="inline-icon" /> Liste)
+    * Wählen Sie den [Quellspeicher](../storage) der Dateien
+    * Reihenfolge der Dateien sortieren
+    * Füge einen Ordner, Datei, Vorlage oder importiere Dateien hinzu, indem du auf das <Plus className="inline-icon" /> Plus-Zeichen klickst
+    * Wechseln Sie zu einem anderen Verzeichnis, indem Sie das Feld <Folder className="inline-icon" /> ein Ort eingeben
+    * Suche nach Dateien
   </TabItem>
 </Tabs>
 
-Once you open a document by selecting a template or an existing file, you will get to the **Document View**.
+Sobald Sie ein Dokument durch Auswahl einer Vorlage oder einer existierenden Datei geöffnet haben, gelangen Sie zur **Dokumentenansicht**.
 
-## The Document View
+## Die Dokumentenansicht
 
-![Document View](@assets/img/main.png)
+![Dokumentansicht](@assets/img/main.png)
 
-You can return from the document view to the document list with the back action of your device. As with the home view, the document display changes based on your device.
+Sie können von der Dokumentenansicht mit der Zurück-Taste Ihres Geräts in die Dokumentenliste zurückkehren. As with the home view, the document display changes based on your device.
 
-<Tabs syncKey="platform">
+<Tabs syncKey="Plattform">
   <TabItem label="Desktop">
     In the top-left of the screen, you have the file bar:\
     ![file_bar](document_view_file_bar.png)
@@ -115,14 +115,14 @@ You can return from the document view to the document list with the back action 
   </TabItem>
 </Tabs>
 
-### The Toolbar
+### Die Werkzeugleiste
 
-<Tabs syncKey="platform">
+<Tabs syncKey="Plattform">
   <TabItem label="Desktop">
     In the top-right of the screen, you have the toolbar:\
     ![toolbar](document_view_toolbar.png)
 
-    By default, this bar has:
+    Standardmäßig enthält diese Leiste:
 
     * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
     * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
@@ -137,7 +137,7 @@ You can return from the document view to the document list with the back action 
     At the bottom of the screen, you have the toolbar:\
     ![toolbar](document_view_toolbar.png)
 
-    By default, this bar has:
+    Standardmäßig enthält diese Leiste:
 
     * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
     * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
@@ -151,7 +151,7 @@ You can return from the document view to the document list with the back action 
 
 #### Customizing the Toolbar
 
-<Tabs syncKey="platform">
+<Tabs syncKey="Plattform">
   <TabItem label="Desktop">
     To add more tools to the toolbar, click the <Plus className="inline-icon" /> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
 
