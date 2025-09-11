@@ -1,8 +1,8 @@
 ---
-title: Collection tool
+title: Sammlungstool
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Aktionswerkzeug]
 
 This is a special tool.
 Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
