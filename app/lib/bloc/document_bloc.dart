@@ -328,7 +328,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current.currentIndexCubit.unbake(current, unbakedElements: renderers);
       _saveState(emit, state: current.copyWith(page: newPage), unbake: true);
     });
-    on<ElementsRemoved>((event, emit) {
+    on<ElementsRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -350,7 +350,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
-      _saveState(
+      return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
         reset: true,
@@ -553,7 +553,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         );
       }
     });
-    on<WaypointRemoved>((event, emit) {
+    on<WaypointRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -656,7 +656,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current.currentIndexCubit.unbake(current);
     });
 
-    on<LayerCreated>((event, emit) {
+    on<LayerCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -671,9 +671,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
       );
-    });
+    }, transformer: sequential());
 
-    on<LayerChanged>((event, emit) {
+    on<LayerChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -693,7 +693,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<LayerRemoved>((event, emit) {
+    on<LayerRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -705,9 +705,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
       );
-    });
+    }, transformer: sequential());
 
-    on<LayersMerged>((event, emit) {
+    on<LayersMerged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -750,7 +750,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               : current.currentLayer,
         ),
       );
-    });
+    }, transformer: sequential());
 
     on<CurrentLayerChanged>((event, emit) {
       final current = state;
@@ -787,7 +787,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: true,
       );
     });
-    on<AreasCreated>((event, emit) {
+    on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final areas = event.areas.map((e) {
@@ -816,7 +816,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         shouldRefresh: () => true,
         reset: shouldRepaint,
       );
-    });
+    }, transformer: sequential());
     on<AreasRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -1103,7 +1103,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     super.onTransition(transition);
   }
 
-  void _saveState(
+  Future<void> _saveState(
     Emitter<DocumentState> emit, {
     DocumentLoadSuccess? state,
     List<Renderer<PadElement>> addedElements = const [],
@@ -1114,7 +1114,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
-  }) {
+  }) async {
     if (this.state is! DocumentLoadSuccess && state == null) return;
     if (resetAll != null) {
       reset = resetAll;
@@ -1122,7 +1122,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
     state ??= this.state as DocumentLoadSuccess;
     emit(state);
-    state.currentIndexCubit.stateChanged(
+    return state.currentIndexCubit.stateChanged(
       state,
       this,
       addedElements: addedElements,

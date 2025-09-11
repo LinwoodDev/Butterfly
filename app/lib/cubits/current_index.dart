@@ -841,6 +841,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   bool _isBaking = false;
   Function? _queuedBake;
+  Completer<void>? _bakeCompleter;
+
   Future<void> bake(
     DocumentLoaded blocState, {
     Size? viewportSize,
@@ -849,16 +851,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool resetAllLayers = false,
   }) async {
     if (_isBaking) {
-      _queuedBake = () {
-        bake(
+      if (!(_bakeCompleter?.isCompleted ?? true)) _bakeCompleter?.complete();
+      final completer = Completer<void>();
+      _bakeCompleter = completer;
+      _queuedBake = () async {
+        await bake(
           blocState,
           viewportSize: viewportSize,
           pixelRatio: pixelRatio,
           reset: reset,
           resetAllLayers: resetAllLayers,
         );
+        if (completer.isCompleted) return;
+        completer.complete();
       };
-      return;
+      return completer.future;
     }
     _queuedBake = null;
     var cameraViewport = state.cameraViewport;
@@ -917,9 +924,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
+    _isBaking = true;
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
-    // store the elements that were visible before this bake
     final oldVisible = cameraViewport.visibleElements;
 
     if (reset) {
@@ -950,8 +957,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
 
     canvas.scale(ratio);
-
-    _isBaking = true;
 
     if (viewChanged) {
       await Future.wait(
@@ -988,20 +993,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       renderBakedLayers: false,
     ).paint(canvas, size);
 
-    var picture = recorder.endRecording();
-
+    final picture = recorder.endRecording();
     final newImage = await picture.toImage(imageWidth, imageHeight);
-
-    var currentRenderers = state.cameraViewport.unbakedElements;
-    if (reset) {
-      currentRenderers = this.renderers;
-    } else {
-      renderers.insertAll(0, state.cameraViewport.bakedElements);
-    }
-    currentRenderers = currentRenderers
-        .whereNot((element) => renderers.contains(element))
-        .toList();
-    visibleElements.addAll(currentRenderers);
 
     var belowLayerImage = cameraViewport.belowLayerImage;
     var aboveLayerImage = cameraViewport.aboveLayerImage;
@@ -1064,6 +1057,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       aboveLayerImage = result[1];
     }
 
+    final newlyUnbaked =
+        (reset ? this.renderers : state.cameraViewport.unbakedElements)
+            .where(
+              (element) =>
+                  !cameraViewport.bakedElements.any(
+                    (e) => e.element == element.element,
+                  ) &&
+                  !cameraViewport.unbakedElements.any(
+                    (e) => e.element == element.element,
+                  ),
+            )
+            .toList();
+    for (final u in newlyUnbaked) {
+      if (!visibleElements.contains(u)) visibleElements.add(u);
+    }
+
     emit(
       state.copyWith(
         cameraViewport: cameraViewport.bake(
@@ -1076,7 +1085,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           y: renderTransform.position.dy,
           image: newImage,
           bakedElements: renderers,
-          unbakedElements: currentRenderers,
+          unbakedElements: newlyUnbaked,
           visibleElements: visibleElements,
           belowLayerImage: belowLayerImage,
           aboveLayerImage: aboveLayerImage,

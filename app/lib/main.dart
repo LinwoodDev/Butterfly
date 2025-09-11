@@ -150,6 +150,7 @@ class ButterflyApp extends StatelessWidget {
   late final GoRouter _router = GoRouter(
     initialLocation: initialLocation,
     initialExtra: initialExtra,
+    restorationScopeId: 'router',
     errorBuilder: (context, state) =>
         ErrorPage(message: state.error.toString()),
     routes: [
@@ -387,6 +388,7 @@ class ButterflyApp extends StatelessWidget {
       builder: (context, state) => MaterialApp.router(
         locale: state.locale,
         title: applicationName,
+        restorationScopeId: 'app',
         routeInformationProvider: _router.routeInformationProvider,
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,

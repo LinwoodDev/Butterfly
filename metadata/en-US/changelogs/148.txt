@@ -1,2 +1,4 @@
-This is a stable release, it includes all the changes from the 2.4.0 nightly releases.
-Read more here: https://linwood.dev/butterfly/2.4
+* Add restoration support for routes
+* Fix baking sometimes duplicates renderers
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.2

@@ -55,10 +55,10 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     final size = data.strokeWidth;
     final shouldErase =
         _lastErased == null || (globalPos - _lastErased!).distance > size;
-    context.refresh();
     if (_currentlyErasing || !shouldErase) return;
     _currentlyErasing = true;
     _lastErased = globalPos;
+    await context.refresh();
     Iterable<Renderer<PadElement>> ray = await context
         .getDocumentBloc()
         .rayCast(
