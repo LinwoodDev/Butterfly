@@ -43,7 +43,7 @@ class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
         }.toColor()
         ..strokeCap = StrokeCap.round
         ..invertColors = true
-        ..strokeWidth = radius / transform.size
+        ..strokeWidth = element.tool.strokeWidth / 8
         ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear,
     );
   }

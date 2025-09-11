@@ -353,7 +353,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
-        reset: true,
+        replacedElements: current.renderers
+            .where((e) => !event.elements.contains(e.element.id))
+            .toList(),
       );
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {

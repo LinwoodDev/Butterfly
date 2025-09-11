@@ -1206,6 +1206,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     final newViewport = state.cameraViewport.unbake(
       unbakedElements: renderers,
+      visibleElements: [],
       backgrounds: backgrounds,
     );
     emit(
