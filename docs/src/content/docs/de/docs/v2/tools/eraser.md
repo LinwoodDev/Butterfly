@@ -1,5 +1,5 @@
 ---
-title: Eraser tool
+title: Radiergummi
 ---
 
 With this tool you can erase the elements on the paper.
