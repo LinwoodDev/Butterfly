@@ -2,14 +2,14 @@
 title: Wegpunkte
 ---
 
-With waypoints, you can save important locations in your notes and quickly navigate between them.
+Mit Wegpunkten können Sie wichtige Orte in Ihren Notizen speichern und schnell zwischen ihnen navigieren.
 
-Open the Waypoints dialog by clicking on the Butterfly button and selecting Waypoints, or by selecting the Waypoints icon in the Navigation Rail if it is enabled.
+Öffnen Sie den Wegpunkt-Dialog, indem Sie auf den Butterfly Button klicken und Wegpunkte auswählen oder wählen Sie das Wegpunkt-Symbol in der Navigationsleiste, wenn es aktiviert ist.
 
-To create a waypoint, move to the position on the canvas where you would like to place the waypoint, open the Waypoints dialog, and select Create. If Scale is checked, the canvas's current zoom amount will be saved in the waypoint, and the canvas will return to that same zoom amount whenever you navigate to the waypoint.
+Um einen Wegpunkt zu erstellen, bewegen Sie sich zur Position auf der Leinwand wo Sie den Wegpunkt platzieren möchten öffnen Sie den Wegpunkt-Dialog und wählen Sie "Erstellen". Wenn Skalierung aktiviert ist, wird der aktuelle Zoombetrag der Leinwand im Wegpunkt gespeichert und die Leinwand kehrt zu dem gleichen Zoombetrag zurück, wenn Sie zum Wegpunkt navigieren.
 
-To replace/overwrite an existing waypoint, move to a new position on the canvas, open the Waypoints dialog, and select Replace.
+Um einen vorhandenen Wegpunkt zu ersetzen/zu überschreiben, bewegen Sie sich auf der Leinwand auf eine neue Position, öffnen Sie den Wegpunkt-Dialog und wählen Sie Ersetzen.
 
-## The Origin waypoint
+## Der Ursprungswegpunkt
 
-The Origin waypoint is a special waypoint that defines the default position and scale when a document is opened. To change the default position or zoom, simply select Replace on the Origin waypoint.
+Der Ursprungswegpunkt ist ein spezieller Wegpunkt, der die Standardposition und Skalierung beim Öffnen eines Dokuments definiert. Um die Standardposition oder den Zoom zu ändern, wählen Sie einfach Ersetzen auf dem Ursprungswegpunkt.
