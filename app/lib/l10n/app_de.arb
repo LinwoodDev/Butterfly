@@ -425,7 +425,7 @@
   "actions": "Aktionen",
   "painters": "Maler",
   "breakingChangesTitle": "Wichtige Änderungen",
-  "breakingChangesMessage": "Es gibt ungültige Änderungen in dieser Version. Bitte lesen Sie das Changelog vor der Aktualisierung. Die aktuelle Dateiversion ist {version}, die neue Version ist {newVersion}.",
+  "breakingChangesMessage": "Es gibt gravierende Änderungen in dieser Version. Bitte lesen Sie das Changelog vor der Aktualisierung. Die aktuelle Dateiversion ist {version}, die neue Version ist {newVersion}.",
   "@breakingChangesMessage": {
     "placeholders": {
       "version": {
@@ -667,7 +667,7 @@
   "positionDependent": "Positionsabhängig",
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
-  "grayscale": "Grayscale",
+  "grayscale": "Graustufen",
   "moveOnGesture": "Verschieben bei Geste",
   "exportAllFiles": "Alle Dateien exportieren",
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
