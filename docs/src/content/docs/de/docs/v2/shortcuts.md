@@ -39,11 +39,11 @@ Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- (Sekundärer Knopf, falls unterstützt): Wechseln Sie zum zweiten Werkzeug (siehe [Konfigurieren] (#configure) Sektion unten) während Sie ihn gedrückt halten.
 
-## Configuring {#configure}
+## Konfigurieren {#configure}
 
-You can customize your controls by changing which tools your inputs map to.
+Sie können Ihre Steuerelemente anpassen, indem Sie ändern, welchen Werkzeugen Ihre Eingaben zugeordnet sind.
 
 **Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
 
