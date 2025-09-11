@@ -2,18 +2,18 @@
 title: Ebenen
 ---
 
-Layers allow you to separate elements from each other and choose which layers are rendered on top of others.
+Mit Ebenen können Sie Elemente voneinander trennen und auswählen, welche Ebenen oberhalb der anderen gerendert werden.
 
-Layers are drawn from bottom to top, so the top layer will be shown above all other layers.
+Die Ebenen werden von unten nach oben gezeichnet, so dass die obere Ebene vor allen anderen Ebenen angezeigt wird.
 
 :::note\[Note]
 
-Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are renderered.
+[Collections](../tools/collection) ist nicht dasselbe wie Ebenen. Sammlungen sind ein leichtgewichtiger Weg, um Elemente zu gruppieren, wirken sich aber nicht auf die Reihenfolge aus, in der sie dargestellt werden.
 
 :::
 
-## The Layers dialog
+## Der Ebenendialog
 
-Open the layer dialog by clicking on the Butterfly button and selecting Layers, or by selecting the Layers icon in the Navigation Rail if it is enabled.
+Öffnen Sie den Ebenendialog, indem Sie auf den Butterfly Button klicken und Ebenen auswählen, oder wählen Sie das Ebenensymbol in der Navigationsleiste, wenn es aktiviert ist.
 
-Hier sehen Sie alle Ebenen im Projekt. To create a new layer, use the Create button. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.
+Hier sehen Sie alle Ebenen im Projekt. Um eine neue Ebene zu erstellen, benutzen Sie die Schaltfläche Erstellen. Um eine Ebene anzuzeigen oder auszublenden, verwenden Sie die Augenschaltfläche. Um die Ebenen neu zu ordnen, klicken Sie und ziehen Sie den Griff auf der rechten Seite. Sie können auch eine Ebene löschen, umbenennen oder duplizieren, indem Sie mit der rechten Maustaste auf die Ebene oder die drei Punkte auswählen.
