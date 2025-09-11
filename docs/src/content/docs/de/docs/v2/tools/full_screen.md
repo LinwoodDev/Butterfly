@@ -1,5 +1,5 @@
 ---
-title: Full screen tool
+title: Vollbild-Tool
 ---
 
 :::note[⚡ Action tool]
