@@ -19,6 +19,15 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    // Flutter-friendly toggles:
+    // - Env: USE_LEGACY_PACKAGING=true
+    val useLegacy = (System.getenv("USE_LEGACY_PACKAGING") ?: "false").toBoolean()
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = useLegacy
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
