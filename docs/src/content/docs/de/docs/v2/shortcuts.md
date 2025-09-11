@@ -16,13 +16,13 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Strg` + `Alt` + `Shift` + `E` (Nightly (2.4): `Strg` + `Shift` + `P`): Datei als pdf exportieren
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
 - `Strg` + `Alt` + `P`: Open Packs
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Strg` + `K`: Suche öffnen
 - `Strg` + `Z`: Rückgängig
 - `Strg` + `Y`: Redo
 - `Strg` + `Shift` + `P`: Öffne Wegpunkte Dialog
