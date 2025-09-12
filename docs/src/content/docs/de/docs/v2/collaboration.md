@@ -4,14 +4,14 @@ title: Zusammenarbeit
 
 :::caution[🧪 Experiment]
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Dieses Feature befindet sich hinter einer experimentellen Flag. Lesen Sie mehr [here](/nightly#experiments).
+Alles in diesem Abschnitt kann geändert werden.
 
 :::
 
 ## Einführung
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Seit der Version 2.0 unterstützt Butterfly die Zusammenarbeit. Dies bedeutet, dass Sie die gleiche Datei mit mehreren Personen gleichzeitig bearbeiten können. Dies ist nützlich, wenn Sie an einem Dokument zusammenarbeiten möchten.
 
 ## Swamp
 

@@ -15,7 +15,7 @@ Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 | --------- | ------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | speichern | Boolean (true, false)                                                          | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                                  |
 | editable  | Boolean (true, false)                                                          | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                                    |
-| sprache   | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
+| Sprache   | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
 
 ## Ereignisse
 

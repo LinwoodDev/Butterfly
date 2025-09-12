@@ -22,6 +22,6 @@ A pack is a collection of components that can be used in the stamp tool. Sie kö
 
 ### Komponenten
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
-Use the components navigator page to paste components into your notes.
+Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.

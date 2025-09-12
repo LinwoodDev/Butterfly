@@ -1,5 +1,5 @@
 ---
-title: Area tool
+title: Flächen-Tool
 ---
 
 The area tool allows you to create, edit and remove areas.

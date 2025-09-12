@@ -2,11 +2,11 @@
 title: "Werkzeuge"
 ---
 
-Tools can edit the paper.
+Werkzeuge können Ihr Dokument bearbeiten.
 
 Über die Sidebar erfahren Sie mehr über die Werkzeuge.
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
+Fügen Sie ein Werkzeug hinzu, indem Sie auf das Plus Symbol klicken. Ändern Sie die Reihenfolge der Werkzeuge durch Ziehen zum gewünschten Platz und ändern sie das Werkzeug durch Anklicken des Symbols.
 Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
-The name of the tool will be displayed as tooltip on hover on the tool.
+Der Name des Werkzeugs wird als Hinweis beim Bewegen des Zeigers auf das Symbol angezeigt.

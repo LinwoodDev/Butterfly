@@ -1,5 +1,5 @@
 ---
-title: Eye dropper tool
+title: Pipette
 ---
 
 When clicking on this tool you can find the color of the part you clicked on. The color will be copied to the clipboard.

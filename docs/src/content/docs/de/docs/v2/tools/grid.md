@@ -1,5 +1,5 @@
 ---
-title: Grid tool
+title: Gitter-Tool
 ---
 
 :::note[🔘 Toggleable tool]

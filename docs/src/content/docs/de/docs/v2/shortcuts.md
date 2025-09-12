@@ -16,13 +16,13 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Strg` + `Alt` + `Shift` + `E` (Nightly (2.4): `Strg` + `Shift` + `P`): Datei als pdf exportieren
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
 - `Strg` + `Alt` + `P`: Open Packs
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Strg` + `K`: Suche öffnen
 - `Strg` + `Z`: Rückgängig
 - `Strg` + `Y`: Redo
 - `Strg` + `Shift` + `P`: Öffne Wegpunkte Dialog
@@ -39,11 +39,11 @@ Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- (Sekundärer Knopf, falls unterstützt): Wechseln Sie zum zweiten Werkzeug (siehe [Konfigurieren] (#configure) Sektion unten) während Sie ihn gedrückt halten.
 
-## Configuring {#configure}
+## Konfigurieren {#configure}
 
-You can customize your controls by changing which tools your inputs map to.
+Sie können Ihre Steuerelemente anpassen, indem Sie ändern, welchen Werkzeugen Ihre Eingaben zugeordnet sind.
 
 **Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
 
