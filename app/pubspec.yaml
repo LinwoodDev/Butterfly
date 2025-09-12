@@ -37,8 +37,8 @@ dependencies:
   file_selector: ^1.0.3
   phosphor_flutter: ^2.1.0
   replay_bloc: ^0.3.0
-  share_plus: ^11.0.0
-  package_info_plus: ^8.1.3
+  share_plus: ^12.0.0
+  package_info_plus: ^9.0.0
   idb_shim: ^2.4.1+1
   go_router: ^16.0.0
   xml: ^6.5.0
@@ -57,7 +57,7 @@ dependencies:
   rxdart: ^0.28.0
   archive: ^4.0.0
   animations: ^2.0.11
-  connectivity_plus: ^6.0.3
+  connectivity_plus: ^7.0.0
   cross_file: ^0.3.4+1
   args: ^2.5.0
   reorderable_grid: ^1.0.12
@@ -108,8 +108,14 @@ dependencies:
   web: ^1.0.0
   cryptography_plus: ^2.7.1
   barcode: ^2.2.9
-  network_info_plus: ^6.1.4
+  network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4
+dependency_overrides:
+  irondash_engine_context:
+    git:
+      url: https://github.com/CodeDoctorDE/irondash
+      ref: 65343873472d6796c0388362a8e04b6e9a499044
+      path: engine_context/dart
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
