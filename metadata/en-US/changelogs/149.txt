@@ -1,0 +1,4 @@
+* Improve performance of document reloading
+* Fix broken images/pdfs after undo/redo
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.3

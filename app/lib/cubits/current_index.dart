@@ -1176,27 +1176,52 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(cameraViewport: newViewport));
   }
 
-  Future<void> loadElements(DocumentState docState) async {
+  Future<void> loadElements(
+    DocumentState docState, {
+    bool reset = false,
+  }) async {
     if (docState is! DocumentLoaded) return;
     final document = docState.data;
     final assetService = docState.assetService;
     final page = docState.page;
-    for (var e in state.cameraViewport.unbakedElements) {
-      e.dispose();
+    var existing = renderers;
+    if (reset) {
+      for (var e in existing) {
+        e.dispose();
+      }
+      existing = [];
     }
-    for (var e in state.cameraViewport.bakedElements) {
-      e.dispose();
-    }
-    final renderers = page.layers
+    final elements = page.layers
         .where((e) => !docState.invisibleLayers.contains(e.id))
-        .expand((e) => e.content.map((c) => Renderer.fromInstance(c, e.id)))
+        .expand((l) => l.content.map((e) => (e, l.id)))
+        .toList();
+    final reusable = existing
+        .where(
+          (e) => elements.any((el) => el.$1 == e.element && el.$2 == e.layer),
+        )
+        .toList();
+    final newRenderers = elements
+        .where(
+          (e) => !reusable.any((r) => r.element == e.$1 && r.layer == e.$2),
+        )
+        .map((e) => Renderer.fromInstance(e.$1, e.$2))
         .toList();
     await Future.wait(
-      renderers.map(
+      newRenderers.map(
         (e) async =>
             await e.setup(state.transformCubit, document, assetService, page),
       ),
     );
+    final layers = page.layers.map((e) => e.id).toSet();
+    final combined = [...reusable, ...newRenderers]
+      ..sort((a, b) {
+        final layerA = layers.toList().indexOf(a.layer);
+        final layerB = layers.toList().indexOf(b.layer);
+        if (layerA != layerB) return layerA.compareTo(layerB);
+        final indexA = elements.indexWhere((e) => e.$1 == a.element);
+        final indexB = elements.indexWhere((e) => e.$1 == b.element);
+        return indexA.compareTo(indexB);
+      });
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(
       backgrounds.map(
@@ -1205,7 +1230,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ),
     );
     final newViewport = state.cameraViewport.unbake(
-      unbakedElements: renderers,
+      unbakedElements: combined,
       visibleElements: [],
       backgrounds: backgrounds,
     );
@@ -1563,7 +1588,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       refresh(current);
     }
     if (reset) {
-      loadElements(current).then((_) => delayedBake(blocState));
+      reload(current);
     }
     if (updateIndex) {
       this.updateIndex(bloc);
@@ -1678,5 +1703,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void setUserName(String name) {
     emit(state.copyWith(userName: name));
+  }
+
+  void reload(DocumentLoaded current) {
+    loadElements(current);
+    delayedBake(current);
   }
 }

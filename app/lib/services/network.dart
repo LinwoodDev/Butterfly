@@ -323,16 +323,12 @@ class NetworkingService extends Cubit<NetworkState?> {
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {
       _bloc?.undo();
       _needsInit = true;
-      _bloc?.load().then(
-        (value) => _bloc?.bake().then((value) => _bloc?.save()),
-      );
+      _bloc?.reload();
     });
     rpc.getNamedFunction(NetworkEvent.redo)?.read.listen((_) {
       _bloc?.redo();
       _needsInit = true;
-      _bloc?.load().then(
-        (value) => _bloc?.bake().then((value) => _bloc?.save()),
-      );
+      _bloc?.reload();
     });
   }
 

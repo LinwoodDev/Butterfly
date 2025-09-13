@@ -16,7 +16,6 @@ class RedoAction extends Action<RedoIntent> {
   Future<void> invoke(RedoIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     bloc.sendRedo();
-    await bloc.load();
-    bloc.save();
+    bloc.reload();
   }
 }

@@ -7,7 +7,7 @@ class RedoHandler extends Handler<RedoTool> {
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     bloc.sendRedo();
-    bloc.load().then((value) => bloc.save());
+    bloc.reload();
     return SelectState.none;
   }
 

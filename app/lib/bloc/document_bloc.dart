@@ -1198,6 +1198,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     cubit.init(this);
   }
 
+  void reload() {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    final cubit = current.currentIndexCubit;
+    cubit.reload(current);
+  }
+
   Future<void> createTemplate(
     String? remote, {
     String? directory,
