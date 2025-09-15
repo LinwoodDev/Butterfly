@@ -192,6 +192,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
               file: template,
               fileSystem: _templateSystem,
               bloc: widget.bloc,
+              key: ValueKey(path),
               selected: _selectedTemplates.contains(path),
               onSelected: () {
                 setState(() {
@@ -434,6 +435,7 @@ class _TemplateItem extends StatelessWidget {
     required this.onChanged,
     required this.selected,
     this.bloc,
+    super.key,
     required this.onSelected,
     required this.onUnselected,
   });
@@ -522,7 +524,7 @@ class _TemplateItem extends StatelessWidget {
             final result = await showDialog<String>(
               context: context,
               builder: (ctx) => NameDialog(
-                value: path,
+                value: file.fileNameWithoutExtension,
                 validator: defaultFileNameValidator(context),
               ),
             );
