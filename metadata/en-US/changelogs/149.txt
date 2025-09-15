@@ -1,6 +1,9 @@
+* Allow duration of laser to be 0
 * Improve performance of document reloading
 * Fix broken images/pdfs after undo/redo
 * Fix duplicate has file extension in name dialog
 * Fix template dialog not being correctly updated sometimes
+* Fix core pack not being created on fetching packs
+* Fix laser tool color not being animated
 
 Read more here: https://linwood.dev/butterfly/2.4.0-rc.3

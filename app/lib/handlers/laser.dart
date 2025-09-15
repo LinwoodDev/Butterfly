@@ -22,9 +22,6 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       // Test if the last change was more than [duration] seconds ago
       final difference = now.difference(_lastChanged!);
       if (difference > _getFullDuration()) {
-        _lastChanged = null;
-        _submittedElements.clear();
-        _elements.clear();
         _stopTimer();
       }
       // Fade out the elements
@@ -47,9 +44,9 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       return element.copyWith(points: subPoints);
     }
     var color = data.color;
-    final toolOpacity = color.a;
-    final opacity = (1 - delta) * toolOpacity;
-    color = color.withValues(a: opacity.clamp(0, 1).round());
+    final toolAlpha = color.a;
+    final alpha = ((1 - delta) * toolAlpha).clamp(0, 255).round();
+    color = color.withValues(a: alpha);
     return element.copyWith(property: element.property.copyWith(color: color));
   }
 
@@ -63,6 +60,9 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   }
 
   void _stopTimer() {
+    _lastChanged = null;
+    _submittedElements.clear();
+    _elements.clear();
     _timer?.cancel();
     _timer = null;
   }

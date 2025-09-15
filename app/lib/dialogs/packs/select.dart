@@ -32,6 +32,7 @@ class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
   }
 
   Future<List<(String, NoteData)>> _getPacks() async {
+    await _packSystem.initialize();
     final files = await _packSystem.getFiles();
     final packs = <(String, NoteData)>[];
     for (final file in files) {

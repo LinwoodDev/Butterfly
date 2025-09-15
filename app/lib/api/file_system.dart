@@ -232,7 +232,9 @@ class ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final files = await buildPackSystem(storage).getFiles();
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
     for (final file in files) {
       final pack = file.data!;
       final palette = test(pack);
