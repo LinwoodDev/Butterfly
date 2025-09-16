@@ -2,15 +2,9 @@
 title: Paket
 ---
 
-:::caution[Upcoming changes]
-
-In-document packs will be deprecated soon. In the meantime, it is recommended to save your packs globally to ensure a smooth transition to future releases.
-
-See [this issue](https://github.com/LinwoodDev/Butterfly/issues/805) for details.
-
-:::
-
 A pack is a collection of components that can be used in the stamp tool. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu auf die linke obere Ecke und klicken Sie auf "Paket".
+
+Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document.
 
 ## Eigenschaften
 
@@ -18,6 +12,7 @@ A pack is a collection of components that can be used in the stamp tool. Sie kö
 | -----------: | :--------------------------- |
 |         Name | Der Name des Pakets          |
 |        Autor | Der Autor des Pakets         |
+|      Version | The version of the pack      |
 | Beschreibung | Eine Beschreibung des Pakets |
 
 ### Komponenten
@@ -25,3 +20,11 @@ A pack is a collection of components that can be used in the stamp tool. Sie kö
 Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
+
+## Stile
+
+Styles are used to customize the appearance of the text. The paragraph styles can be used to format a whole paragraph (like a heading), while the text styles can be used to format only a part of the text (like a bold word).
+
+## Paletten
+
+The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (like mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color picker.
