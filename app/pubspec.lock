@@ -725,13 +725,12 @@ packages:
     source: hosted
     version: "1.0.5"
   irondash_engine_context:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "engine_context/dart"
-      ref: "65343873472d6796c0388362a8e04b6e9a499044"
-      resolved-ref: "65343873472d6796c0388362a8e04b6e9a499044"
-      url: "https://github.com/CodeDoctorDE/irondash"
-    source: git
+      name: irondash_engine_context
+      sha256: "2bb0bc13dfda9f5aaef8dde06ecc5feb1379f5bb387d59716d799554f3f305d7"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.5.5"
   irondash_message_channel:
     dependency: transitive

@@ -1,5 +1,6 @@
 Changes since 2.4.0-rc.3:
 * Fix duplicated refresh button in files view
+* Fix alignment of create buttons in pages navigator page
 * Revert 16kb page size support effort
 
 This is a stable release, it includes all the changes from the 2.4.0 nightly releases.

@@ -162,338 +162,361 @@ class FilesViewState extends State<FilesView> {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
 
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-      buildWhen: (previous, current) => previous.gridView != current.gridView,
-      builder: (context, state) {
-        final text = Text(
-          AppLocalizations.of(context).files,
-          style: TextTheme.of(context).headlineMedium,
-          textAlign: TextAlign.start,
-        );
-        final orderButton = IconButton(
-          icon: PhosphorIcon(
-            _sortOrder == SortOrder.ascending
-                ? PhosphorIconsLight.sortAscending
-                : PhosphorIconsLight.sortDescending,
-          ),
-          tooltip: _sortOrder == SortOrder.ascending
-              ? AppLocalizations.of(context).ascending
-              : AppLocalizations.of(context).descending,
-          onPressed: () => setState(() {
-            _sortOrder = _sortOrder == SortOrder.ascending
-                ? SortOrder.descending
-                : SortOrder.ascending;
-            _settingsCubit.changeSortOrder(_sortOrder);
-          }),
-        );
-        final desktopActions = OverflowBar(
-          spacing: 8,
-          overflowSpacing: 8,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isDesktop = constraints.maxWidth > LeapBreakpoints.medium;
+        final isTablet = constraints.maxWidth > LeapBreakpoints.compact;
+        return BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) =>
+              previous.gridView != current.gridView,
+          builder: (context, state) {
+            final text = Text(
+              AppLocalizations.of(context).files,
+              style: TextTheme.of(context).headlineMedium,
+              textAlign: TextAlign.start,
+            );
+            final orderButton = IconButton(
+              icon: PhosphorIcon(
+                _sortOrder == SortOrder.ascending
+                    ? PhosphorIconsLight.sortAscending
+                    : PhosphorIconsLight.sortDescending,
+              ),
+              tooltip: _sortOrder == SortOrder.ascending
+                  ? AppLocalizations.of(context).ascending
+                  : AppLocalizations.of(context).descending,
+              onPressed: () => setState(() {
+                _sortOrder = _sortOrder == SortOrder.ascending
+                    ? SortOrder.descending
+                    : SortOrder.ascending;
+                _settingsCubit.changeSortOrder(_sortOrder);
+              }),
+            );
+            final desktopActions = OverflowBar(
+              spacing: 8,
+              overflowSpacing: 8,
               children: [
-                Text(AppLocalizations.of(context).switchView),
-                const SizedBox(width: 8),
-                IconButton.filledTonal(
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppLocalizations.of(context).switchView),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      onPressed: () =>
+                          context.read<SettingsCubit>().toggleGridView(),
+                      icon: state.gridView
+                          ? const PhosphorIcon(PhosphorIconsLight.list)
+                          : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                    ),
+                  ],
+                ),
+                BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.connections != current.connections,
+                  builder: (context, state) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      DropdownMenu<String?>(
+                        label: Text(AppLocalizations.of(context).source),
+                        width: 225,
+                        dropdownMenuEntries: [
+                          DropdownMenuEntry(
+                            value: null,
+                            label: AppLocalizations.of(context).local,
+                          ),
+                          ...state.connections.map(
+                            (e) => DropdownMenuEntry(
+                              value: e.identifier,
+                              label: e.label,
+                            ),
+                          ),
+                        ],
+                        initialSelection: _remote?.identifier,
+                        onSelected: (value) => _setRemote(
+                          value == null ? null : state.getRemote(value),
+                        ),
+                      ),
+                      const SizedBox(width: 2),
+                      state.connections.any((e) => e is RemoteStorage)
+                          ? const SyncButton()
+                          : const SizedBox.shrink(),
+                    ],
+                  ),
+                ),
+                DropdownMenu<SortBy>(
+                  leadingIcon: orderButton,
+                  label: Text(AppLocalizations.of(context).sortBy),
+                  width: 225,
+                  dropdownMenuEntries: SortBy.values
+                      .map(
+                        (e) => DropdownMenuEntry(
+                          value: e,
+                          label: getLocalizedNameOfSortBy(e),
+                          leadingIcon: PhosphorIcon(
+                            getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  initialSelection: _sortBy,
+                  onSelected: (value) => setState(() {
+                    _sortBy = value ?? _sortBy;
+                    _settingsCubit.changeSortBy(_sortBy);
+                  }),
+                ),
+              ],
+            );
+            final primary = ColorScheme.of(context).primary;
+            final actionsChildren = [
+              if (!widget.collapsed)
+                IconButton(
                   onPressed: () =>
                       context.read<SettingsCubit>().toggleGridView(),
+                  tooltip: AppLocalizations.of(context).switchView,
                   icon: state.gridView
                       ? const PhosphorIcon(PhosphorIconsLight.list)
                       : const PhosphorIcon(PhosphorIconsLight.gridFour),
                 ),
-              ],
-            ),
-            BlocBuilder<SettingsCubit, ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.connections != current.connections,
-              builder: (context, state) => Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  DropdownMenu<String?>(
-                    label: Text(AppLocalizations.of(context).source),
-                    width: 225,
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(
-                        value: null,
-                        label: AppLocalizations.of(context).local,
-                      ),
-                      ...state.connections.map(
-                        (e) => DropdownMenuEntry(
-                          value: e.identifier,
-                          label: e.label,
+              ConnectionButton(
+                currentRemote: _remote?.identifier ?? '',
+                onChanged: _setRemote,
+              ),
+              MenuAnchor(
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).sortBy,
+                  icon: PhosphorIcon(
+                    getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light),
+                  ),
+                ),
+                menuChildren: SortBy.values
+                    .map(
+                      (e) => MenuItemButton(
+                        leadingIcon: PhosphorIcon(
+                          getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                          color: e == _sortBy ? primary : null,
                         ),
+                        child: Text(
+                          getLocalizedNameOfSortBy(e),
+                          style: e == _sortBy
+                              ? TextStyle(color: primary)
+                              : null,
+                        ),
+                        onPressed: () => setState(() {
+                          _sortBy = e;
+                          _settingsCubit.changeSortBy(_sortBy);
+                        }),
                       ),
-                    ],
-                    initialSelection: _remote?.identifier,
-                    onSelected: (value) => _setRemote(
-                      value == null ? null : state.getRemote(value),
+                    )
+                    .toList(),
+              ),
+              orderButton,
+            ];
+            final mobileActions = OverflowBar(
+              spacing: 4,
+              overflowSpacing: 4,
+              children: actionsChildren,
+            );
+            final searchBar = Row(
+              children: [
+                Expanded(
+                  child: SearchBar(
+                    onChanged: (value) => setState(() => _search = value),
+                    hintText: AppLocalizations.of(context).search,
+                    leading: const PhosphorIcon(
+                      PhosphorIconsLight.magnifyingGlass,
                     ),
                   ),
-                  const SizedBox(width: 2),
-                  state.connections.any((e) => e is RemoteStorage)
-                      ? const SyncButton()
-                      : const SizedBox.shrink(),
-                ],
-              ),
-            ),
-            DropdownMenu<SortBy>(
-              leadingIcon: orderButton,
-              label: Text(AppLocalizations.of(context).sortBy),
-              width: 225,
-              dropdownMenuEntries: SortBy.values
-                  .map(
-                    (e) => DropdownMenuEntry(
-                      value: e,
-                      label: getLocalizedNameOfSortBy(e),
-                      leadingIcon: PhosphorIcon(
-                        getIconOfSortBy(e)(PhosphorIconsStyle.light),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              initialSelection: _sortBy,
-              onSelected: (value) => setState(() {
-                _sortBy = value ?? _sortBy;
-                _settingsCubit.changeSortBy(_sortBy);
-              }),
-            ),
-          ],
-        );
-        final primary = ColorScheme.of(context).primary;
-        final actionsChildren = [
-          if (!widget.collapsed)
-            IconButton(
-              onPressed: () => context.read<SettingsCubit>().toggleGridView(),
-              tooltip: AppLocalizations.of(context).switchView,
-              icon: state.gridView
-                  ? const PhosphorIcon(PhosphorIconsLight.list)
-                  : const PhosphorIcon(PhosphorIconsLight.gridFour),
-            ),
-          ConnectionButton(
-            currentRemote: _remote?.identifier ?? '',
-            onChanged: _setRemote,
-          ),
-          MenuAnchor(
-            builder: defaultMenuButton(
-              tooltip: AppLocalizations.of(context).sortBy,
-              icon: PhosphorIcon(
-                getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light),
-              ),
-            ),
-            menuChildren: SortBy.values
-                .map(
-                  (e) => MenuItemButton(
-                    leadingIcon: PhosphorIcon(
-                      getIconOfSortBy(e)(PhosphorIconsStyle.light),
-                      color: e == _sortBy ? primary : null,
-                    ),
-                    child: Text(
-                      getLocalizedNameOfSortBy(e),
-                      style: e == _sortBy ? TextStyle(color: primary) : null,
-                    ),
-                    onPressed: () => setState(() {
-                      _sortBy = e;
-                      _settingsCubit.changeSortBy(_sortBy);
-                    }),
-                  ),
-                )
-                .toList(),
-          ),
-          orderButton,
-        ];
-        final mobileActions = OverflowBar(
-          spacing: 4,
-          overflowSpacing: 4,
-          children: actionsChildren,
-        );
-        final content = Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (!widget.isPage) ...[
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isDesktop = constraints.maxWidth > 800;
-                  if (widget.collapsed) {
-                    return Center(child: mobileActions);
-                  }
-                  return OverflowBar(
-                    alignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      text,
-                      isDesktop ? desktopActions : mobileActions,
-                    ],
-                  );
-                },
-              ),
-              if (!widget.collapsed) ...[
-                const SizedBox(height: 8),
-                RecentFilesView(
-                  key: _recentFilesKey,
-                  replace: widget.collapsed,
-                  onFileTap: widget.onPreview == null
-                      ? _onFileTap
-                      : (e) {
-                          if (e is FileSystemFile<NoteFile>) {
-                            widget.onPreview!(e);
-                            return;
-                          }
-                          _onFileTap(e);
-                        },
                 ),
               ],
-            ],
-            const SizedBox(height: 16),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final searchBar = SearchBar(
-                  onChanged: (value) => setState(() => _search = value),
-                  hintText: AppLocalizations.of(context).search,
-                  leading: const PhosphorIcon(
-                    PhosphorIconsLight.magnifyingGlass,
-                  ),
-                );
-                final locationBar = _buildLocationBar(parent);
-                final isDesktop = constraints.maxWidth > 600;
-                if (isDesktop) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(child: locationBar),
-                      const SizedBox(width: 8),
-                      SizedBox(width: 250, child: searchBar),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      searchBar,
-                      const SizedBox(height: 16),
-                      locationBar,
-                    ],
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 8),
-            BlocBuilder<SettingsCubit, ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.starred != current.starred,
-              builder: (context, settings) =>
-                  StreamBuilder<FileSystemEntity<NoteFile>?>(
-                    stream: _filesStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Text(AppLocalizations.of(context).noElements),
-                        );
-                      }
-                      final entity = snapshot.data;
-                      if (entity is! FileSystemDirectory<NoteFile>) {
-                        return Container();
-                      }
-                      final assets = entity.assets.where((e) {
-                        if (_search.isNotEmpty) {
-                          return e.fileName.toLowerCase().contains(
-                            _search.toLowerCase(),
-                          );
-                        }
-                        return true;
-                      }).toList()..sort(_sortAssets);
-                      if (assets.isEmpty) {
-                        return Center(
-                          child: Text(AppLocalizations.of(context).noElements),
-                        );
-                      }
-
-                      generateOnPreview(FileSystemEntity<NoteFile> e) =>
-                          widget.onPreview != null
-                          ? () {
-                              if (e is! FileSystemFile<NoteFile>) {
-                                _onFileTap(e);
+            );
+            final locationBar = _buildLocationBar(parent);
+            final content = Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (!widget.isPage) ...[
+                  widget.collapsed
+                      ? Center(child: mobileActions)
+                      : OverflowBar(
+                          alignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            text,
+                            isDesktop ? desktopActions : mobileActions,
+                          ],
+                        ),
+                  if (!widget.collapsed) ...[
+                    const SizedBox(height: 8),
+                    RecentFilesView(
+                      key: _recentFilesKey,
+                      replace: widget.collapsed,
+                      onFileTap: widget.onPreview == null
+                          ? _onFileTap
+                          : (e) {
+                              if (e is FileSystemFile<NoteFile>) {
+                                widget.onPreview!(e);
                                 return;
                               }
-                              widget.onPreview!(e);
+                              _onFileTap(e);
+                            },
+                    ),
+                  ],
+                ],
+                const SizedBox(height: 16),
+                isTablet
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 8,
+                        children: [
+                          Expanded(child: locationBar),
+                          if (isDesktop)
+                            IconButton(
+                              onPressed: reloadFileSystem,
+                              tooltip: AppLocalizations.of(context).refresh,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowClockwise,
+                              ),
+                            ),
+                          SizedBox(width: 250, child: searchBar),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          searchBar,
+                          const SizedBox(height: 16),
+                          locationBar,
+                        ],
+                      ),
+                const SizedBox(height: 8),
+                BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.starred != current.starred,
+                  builder: (context, settings) =>
+                      StreamBuilder<FileSystemEntity<NoteFile>?>(
+                        stream: _filesStream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: Text(
+                                AppLocalizations.of(context).noElements,
+                              ),
+                            );
+                          }
+                          final entity = snapshot.data;
+                          if (entity is! FileSystemDirectory<NoteFile>) {
+                            return Container();
+                          }
+                          final assets = entity.assets.where((e) {
+                            if (_search.isNotEmpty) {
+                              return e.fileName.toLowerCase().contains(
+                                _search.toLowerCase(),
+                              );
                             }
-                          : null;
-                      if (state.gridView && !widget.collapsed) {
-                        return Center(
-                          child: Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            children: assets.map((e) {
+                            return true;
+                          }).toList()..sort(_sortAssets);
+                          if (assets.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppLocalizations.of(context).noElements,
+                              ),
+                            );
+                          }
+
+                          generateOnPreview(FileSystemEntity<NoteFile> e) =>
+                              widget.onPreview != null
+                              ? () {
+                                  if (e is! FileSystemFile<NoteFile>) {
+                                    _onFileTap(e);
+                                    return;
+                                  }
+                                  widget.onPreview!(e);
+                                }
+                              : null;
+                          if (state.gridView && !widget.collapsed) {
+                            return Center(
+                              child: Wrap(
+                                spacing: 4,
+                                runSpacing: 4,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                children: assets.map((e) {
+                                  final active =
+                                      widget.activeAsset == e.location;
+                                  return FileEntityItem(
+                                    entity: e,
+                                    isMobile: widget.isMobile,
+                                    active: active,
+                                    collapsed: widget.collapsed,
+                                    onTap: () => _onFileTap(e),
+                                    onPreview: generateOnPreview(e),
+                                    selected: _selectedFiles.isEmpty
+                                        ? null
+                                        : _selectedFiles.contains(
+                                            e.location.path,
+                                          ),
+                                    onSelected: _updateSelection(
+                                      e.location.path,
+                                    ),
+                                    onReload: reloadFileSystem,
+                                    gridView: true,
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: assets.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final e = assets[index];
                               final active = widget.activeAsset == e.location;
                               return FileEntityItem(
                                 entity: e,
-                                isMobile: widget.isMobile,
                                 active: active,
                                 collapsed: widget.collapsed,
-                                onTap: () => _onFileTap(e),
                                 onPreview: generateOnPreview(e),
                                 selected: _selectedFiles.isEmpty
                                     ? null
                                     : _selectedFiles.contains(e.location.path),
+                                onTap: () => _onFileTap(e),
                                 onSelected: _updateSelection(e.location.path),
                                 onReload: reloadFileSystem,
-                                gridView: true,
+                                gridView: false,
+                                isMobile: widget.isMobile,
                               );
-                            }).toList(),
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: assets.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final e = assets[index];
-                          final active = widget.activeAsset == e.location;
-                          return FileEntityItem(
-                            entity: e,
-                            active: active,
-                            collapsed: widget.collapsed,
-                            onPreview: generateOnPreview(e),
-                            selected: _selectedFiles.isEmpty
-                                ? null
-                                : _selectedFiles.contains(e.location.path),
-                            onTap: () => _onFileTap(e),
-                            onSelected: _updateSelection(e.location.path),
-                            onReload: reloadFileSystem,
-                            gridView: false,
-                            isMobile: widget.isMobile,
+                            },
                           );
                         },
-                      );
-                    },
+                      ),
+                ),
+                const SizedBox(height: 32),
+              ],
+            );
+            if (widget.isPage) {
+              return Scaffold(
+                appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+                  title: Text(AppLocalizations.of(context).files),
+                  actions: actionsChildren,
+                ),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: content,
                   ),
-            ),
-            const SizedBox(height: 32),
-          ],
+                ),
+              );
+            }
+            return content;
+          },
         );
-        if (widget.isPage) {
-          return Scaffold(
-            appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-              title: Text(AppLocalizations.of(context).files),
-              actions: actionsChildren,
-            ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: content,
-              ),
-            ),
-          );
-        }
-        return content;
       },
     );
   }
