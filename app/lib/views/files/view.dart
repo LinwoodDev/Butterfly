@@ -347,26 +347,12 @@ class FilesViewState extends State<FilesView> {
             const SizedBox(height: 16),
             LayoutBuilder(
               builder: (context, constraints) {
-                final searchBar = Row(
-                  children: [
-                    IconButton(
-                      onPressed: reloadFileSystem,
-                      tooltip: AppLocalizations.of(context).refresh,
-                      icon: const PhosphorIcon(
-                        PhosphorIconsLight.arrowClockwise,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: SearchBar(
-                        onChanged: (value) => setState(() => _search = value),
-                        hintText: AppLocalizations.of(context).search,
-                        leading: const PhosphorIcon(
-                          PhosphorIconsLight.magnifyingGlass,
-                        ),
-                      ),
-                    ),
-                  ],
+                final searchBar = SearchBar(
+                  onChanged: (value) => setState(() => _search = value),
+                  hintText: AppLocalizations.of(context).search,
+                  leading: const PhosphorIcon(
+                    PhosphorIconsLight.magnifyingGlass,
+                  ),
                 );
                 final locationBar = _buildLocationBar(parent);
                 final isDesktop = constraints.maxWidth > 600;
