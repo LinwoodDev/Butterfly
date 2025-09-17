@@ -1,15 +1,19 @@
 import 'package:butterfly_api/butterfly_api.dart';
 
-(NoteData, List<PadElement>) importAssets(
+typedef ImportAssetOptions = (
   NoteData data,
   List<PadElement> elements, {
   void Function(String source)? onInvalidate,
   Map<String, String>? alreadyImported,
-}) {
-  final imported = alreadyImported ?? {};
+});
+
+(NoteData, List<PadElement>) importAssets(ImportAssetOptions options) {
+  final imported = options.alreadyImported ?? {};
+  var data = options.$1;
+  var elements = options.$2;
   String importAsset(SourcedElement element, String fileExtension) {
     final source = element.source;
-    onInvalidate?.call(source);
+    options.onInvalidate?.call(source);
     if (imported.containsKey(source)) {
       return imported[source]!;
     }

@@ -300,6 +300,8 @@ abstract class Renderer<T> {
 
   Rect? get rect => null;
 
+  bool isVisible(Rect rect) => expandedRect?.overlaps(rect) ?? true;
+
   Rect? get expandedRect {
     final current = rect;
     if (current == null) return null;

@@ -839,6 +839,40 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
+  Rect getViewportRect({Size? viewportSize}) {
+    var size = viewportSize ?? state.cameraViewport.toSize();
+
+    var transform = state.transformCubit.state;
+    final resolution = state.settingsCubit.state.renderResolution;
+
+    final friction = transform.friction;
+    final realWidth = size.width / transform.size;
+    final realHeight = size.height / transform.size;
+    var rect = Rect.fromLTWH(
+      transform.position.dx,
+      transform.position.dy,
+      realWidth / resolution.multiplier,
+      realHeight / resolution.multiplier,
+    );
+    if (friction != null) {
+      final topLeft = Offset(
+        min(transform.position.dx, friction.beginPosition.dx),
+        min(transform.position.dy, friction.beginPosition.dy),
+      );
+      final bottomRight = Offset(
+        max(transform.position.dx, friction.beginPosition.dx),
+        max(transform.position.dy, friction.beginPosition.dy),
+      ).translate(size.width, size.height);
+      transform = transform.withPosition(topLeft);
+      rect = Rect.fromPoints(topLeft, bottomRight);
+      size =
+          Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
+          transform.size;
+    }
+    rect = resolution.getRect(rect);
+    return rect;
+  }
+
   bool _isBaking = false;
   Function? _queuedBake;
   Completer<void>? _bakeCompleter;
@@ -879,37 +913,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size *= resolution.multiplier;
     }
     var transform = state.transformCubit.state;
-    final realWidth = size.width / transform.size;
-    final realHeight = size.height / transform.size;
-    var rect = Rect.fromLTWH(
-      transform.position.dx,
-      transform.position.dy,
-      realWidth / resolution.multiplier,
-      realHeight / resolution.multiplier,
-    );
     var renderers = List<Renderer<PadElement>>.from(
       cameraViewport.unbakedElements,
     );
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
-    final friction = transform.friction;
-    if (friction != null) {
-      final topLeft = Offset(
-        min(transform.position.dx, friction.beginPosition.dx),
-        min(transform.position.dy, friction.beginPosition.dy),
-      );
-      final bottomRight = Offset(
-        max(transform.position.dx, friction.beginPosition.dx),
-        max(transform.position.dy, friction.beginPosition.dy),
-      ).translate(size.width, size.height);
-      transform = transform.withPosition(topLeft);
-      rect = Rect.fromPoints(topLeft, bottomRight);
-      size =
-          Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
-          transform.size;
-    }
-    final renderTransform = transform.improve(resolution, rect.size);
-    rect = resolution.getRect(rect);
+    final rect = getViewportRect(viewportSize: size);
+    final renderTransform = transform.improve(resolution, rect);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -932,7 +942,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (reset) {
       renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
-          .where((renderer) => renderer.expandedRect?.overlaps(rect) ?? true)
+          .where((renderer) => renderer.isVisible(rect))
           .toList();
     } else {
       visibleElements = List.from(oldVisible)..addAll(renderers);
@@ -1170,6 +1180,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }) async {
     final newViewport = state.cameraViewport.unbake(
       unbakedElements: unbakedElements,
+      visibleElements: unbakedElements
+          ?.where((e) => e.isVisible(getViewportRect()))
+          .toList(),
       backgrounds: backgrounds,
     );
     await _updateOnVisible(newViewport, blocState);
@@ -1242,11 +1255,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
   }
 
-  Future<void> withUnbaked(
+  Future<void> addUnbaked(
     DocumentLoaded blocState,
-    List<Renderer<PadElement>> unbakedElements,
-  ) async {
-    final newViewport = state.cameraViewport.withUnbaked(unbakedElements);
+    List<Renderer<PadElement>> unbakedElements, [
+    List<Renderer<PadElement>>? visibleElements,
+  ]) async {
+    final rect = getViewportRect();
+    visibleElements ??= unbakedElements
+        .where((e) => e.isVisible(rect))
+        .toList();
+    final newViewport = state.cameraViewport.withUnbaked(
+      [...state.cameraViewport.unbakedElements, ...unbakedElements],
+      [...state.cameraViewport.visibleElements, ...visibleElements],
+    );
     await _updateOnVisible(newViewport, blocState);
     emit(state.copyWith(cameraViewport: newViewport));
   }
@@ -1547,9 +1568,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool updateIndex = false,
   }) async {
     final cameraViewport = current.cameraViewport;
-    final elements = List<Renderer<PadElement>>.from(
-      cameraViewport.unbakedElements,
-    );
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,
@@ -1562,7 +1580,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         current.page,
       );
     }
-    elements.addAll(addedElements);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
 
@@ -1577,7 +1594,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else if (backgrounds != null) {
       await this.unbake(blocState, backgrounds: backgrounds);
     } else {
-      await withUnbaked(blocState, elements);
+      final elements = List<Renderer<PadElement>>.from(
+        cameraViewport.unbakedElements,
+      );
+      elements.addAll(addedElements);
+      await addUnbaked(blocState, elements);
     }
 
     setSaveState(saved: SaveState.unsaved);

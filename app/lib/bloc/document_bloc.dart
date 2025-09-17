@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -28,6 +29,46 @@ import '../services/network.dart';
 part 'document_state.dart';
 
 enum ConnectionStatus { none, server, client }
+
+typedef ImportAssetSyncOptions = (
+  NoteData data,
+  List<PadElement> elements, {
+  SendPort? onInvalidate,
+  Map<String, String>? alreadyImported,
+});
+(NoteData, List<PadElement>) _importAssetsSync(ImportAssetSyncOptions options) {
+  return importAssets((
+    options.$1,
+    options.$2,
+    onInvalidate: options.onInvalidate != null
+        ? (source) => options.onInvalidate!.send(source)
+        : null,
+    alreadyImported: options.alreadyImported,
+  ));
+}
+
+Future<(NoteData, List<PadElement>)> importAssetsAsync(
+  NoteData data,
+  List<PadElement> elements, {
+  void Function(String source)? onInvalidate,
+  Map<String, String>? alreadyImported,
+}) {
+  ReceivePort? port;
+  if (onInvalidate != null) {
+    port = ReceivePort();
+    port.listen((message) {
+      if (message is String) {
+        onInvalidate(message);
+      }
+    });
+  }
+  return compute(_importAssetsSync, (
+    data,
+    elements,
+    onInvalidate: port?.sendPort,
+    alreadyImported: alreadyImported,
+  ));
+}
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
@@ -82,7 +123,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
 
   void _init() {
-    on<PagesAdded>((event, emit) {
+    on<PagesAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       var data = current.data;
@@ -92,16 +133,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       for (final details in event.pages) {
         page =
             details.page ?? DocumentPage(backgrounds: current.page.backgrounds);
-        final layers = page.layers.map((layer) {
-          List<PadElement> elements;
-          (data, elements) = importAssets(
-            data,
-            layer.content,
-            alreadyImported: imported,
-            onInvalidate: current.assetService.invalidate,
-          );
-          return layer.copyWith(content: elements);
-        }).toList();
+        final layers = await Future.wait(
+          page.layers.map((layer) async {
+            List<PadElement> elements;
+            (data, elements) = await importAssetsAsync(
+              data,
+              layer.content,
+              alreadyImported: imported,
+              onInvalidate: current.assetService.invalidate,
+            );
+            return layer.copyWith(content: elements);
+          }),
+        );
         page = page.copyWith(layers: layers);
         (data, pageName) = data.addPage(
           page,
@@ -165,12 +208,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final newData = current.data.setThumbnail(event.data);
       _saveState(emit, state: current.copyWith(data: newData));
     });
-    on<ElementsCreated>((event, emit) {
+    on<ElementsCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       final assetService = current.assetService;
-      final (data, elements) = importAssets(
+      final (data, elements) = await importAssetsAsync(
         current.data,
         event.elements.map((e) => e.copyWith(id: createUniqueId())).toList(),
         onInvalidate: assetService.invalidate,
