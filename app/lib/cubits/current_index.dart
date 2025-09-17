@@ -913,9 +913,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size *= resolution.multiplier;
     }
     var transform = state.transformCubit.state;
-    var renderers = List<Renderer<PadElement>>.from(
-      cameraViewport.unbakedElements,
-    );
+    var renderers = List<Renderer<PadElement>>.from(this.renderers);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final rect = getViewportRect(viewportSize: size);
@@ -940,12 +938,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final oldVisible = cameraViewport.visibleElements;
 
     if (reset) {
-      renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
           .where((renderer) => renderer.isVisible(rect))
           .toList();
     } else {
-      visibleElements = List.from(oldVisible)..addAll(renderers);
+      visibleElements = List.from(oldVisible)
+        ..addAll(
+          cameraViewport.unbakedElements.where(
+            (renderer) =>
+                !oldVisible.contains(renderer) && renderer.isVisible(rect),
+          ),
+        );
     }
 
     // call onVisible for any newly visible elements
