@@ -58,6 +58,14 @@ The nightly version is also available on the stores. Tenga en cuenta que esta ve
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-x86_64.apk" title="APK (x86_64)"/>
   </CardGrid>
 </TabItem>
+<TabItem label="Nightly (Legacy)">
+  <CardGrid>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-legacy.apk" title="APK (Universal)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm-legacy.apk" title="APK (ARM)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm64-legacy.apk" title="APK (ARM64)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-x86_64-legacy.apk" title="APK (x86_64)"/>
+  </CardGrid>
+</TabItem>
 </Tabs>
 
 Read more about the nightly version of Butterfly [here](/community/nightly).
@@ -65,5 +73,6 @@ Read more about the nightly version of Butterfly [here](/community/nightly).
 :::tip[What apk should I use?]
 
 **Universal** should work on all devices. If you want a smaller apk, use the one that matches your device's architecture.
+**Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. However, this can affect loading performance. Read more [in the android documentation](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
 
 :::

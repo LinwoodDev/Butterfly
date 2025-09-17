@@ -117,9 +117,8 @@ class CameraTransform extends Equatable {
     );
   }
 
-  CameraTransform improve(RenderResolution resolution, Size size) {
-    final rect = resolution.getRect(position & size);
-    return CameraTransform(pixelRatio, rect.topLeft, this.size, friction);
+  CameraTransform improve(RenderResolution resolution, Rect rect) {
+    return CameraTransform(pixelRatio, rect.topLeft, size, friction);
   }
 }
 
