@@ -72,7 +72,7 @@ abstract class DocumentLoaded extends DocumentState {
   final AssetService assetService;
 
   Future<NoteData> _updatePage(NoteData current) async =>
-      current.setRawPage(await compute(_encodePage, page), pageName);
+      current.setRawPage(await compute(_encodePage, page), pageName).$1;
   NoteData _updateMetadata(NoteData current) =>
       current.setMetadata(metadata.copyWith(updatedAt: DateTime.now().toUtc()));
   NoteData _updateInfo(NoteData current) =>

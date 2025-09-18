@@ -111,7 +111,7 @@ class DocumentDefaults {
     final metadata = createMetadata(name: name);
     final data = NoteData(
       Archive(),
-    ).setMetadata(metadata).setPage(page).setInfo(createInfo());
+    ).setMetadata(metadata).setPage(page).$1.setInfo(createInfo());
     return data;
   }
 
@@ -143,7 +143,8 @@ class DocumentDefaults {
     var data = NoteData(Archive())
         .setMetadata(metadata)
         .setInfo(createInfo(backgrounds.firstOrNull?.defaultColor))
-        .setPage(page);
+        .setPage(page)
+        .$1;
     if (thumbnail != null) data = data.setThumbnail(thumbnail);
     return data;
   }

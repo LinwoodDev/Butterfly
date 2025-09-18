@@ -808,8 +808,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "3eb0c455dd56cfcde08a7c7efaba5adbc38dd976"
-      resolved-ref: "3eb0c455dd56cfcde08a7c7efaba5adbc38dd976"
+      ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
+      resolved-ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -817,8 +817,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: "2ecf53489240f055c841d7c8f92fe374cc6a27ae"
-      resolved-ref: "2ecf53489240f055c841d7c8f92fe374cc6a27ae"
+      ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
+      resolved-ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -859,8 +859,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: ad67d9835e5fc673c9e7d1bcaad10c89423d4b61
-      resolved-ref: ad67d9835e5fc673c9e7d1bcaad10c89423d4b61
+      ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
+      resolved-ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

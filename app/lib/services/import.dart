@@ -345,7 +345,7 @@ class ImportService {
       if (advanced) {
         document = document.addPage(page, name).$1;
       } else {
-        document = document.setPage(page, name);
+        document = document.setPage(page, name).$1;
       }
     }
     bloc?.add(
@@ -878,7 +878,7 @@ class ImportService {
         ),
       ],
     );
-    document = document.setPage(page);
+    document = document.setPage(page).$1;
     for (final (name, page) in pages) {
       (document, _) = document.addPage(page, name ?? '');
     }

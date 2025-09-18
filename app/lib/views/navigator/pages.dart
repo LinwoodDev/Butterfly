@@ -36,13 +36,15 @@ class _PagesViewState extends State<PagesView> {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentName = state.pageName;
-        final pages = state.data.getPages();
+        final pages = state.data.getPagesWithNames();
         final index = state.data.getPageIndex(state.pageName);
         void addPage([int? index]) => context.read<DocumentBloc>().add(
           PagesAdded([
             PageAddedDetails(
               index: index,
-              name: AppLocalizations.of(context).page,
+              name: AppLocalizations.of(
+                context,
+              ).pageIndex(state.data.getPages().length + 1),
             ),
           ]),
         );
@@ -77,14 +79,8 @@ class _PagesViewState extends State<PagesView> {
                 builder: (context, value, child) {
                   final query = value.text.isEmpty ? '' : '${value.text}/';
                   final queried = pages
-                      .where((element) => element.startsWith(query))
-                      .map(
-                        (e) => (
-                          path: e,
-                          name: e.substring(query.length),
-                          isFile: true,
-                        ),
-                      )
+                      .where((element) => element.$1.startsWith(query))
+                      .map((e) => (path: e.$2, name: e.$1, isFile: true))
                       .toList();
                   final files = queried.where(
                     (element) => !element.name.contains('/'),
@@ -115,7 +111,7 @@ class _PagesViewState extends State<PagesView> {
                         final isFile = current.isFile;
                         if (!isFile) return;
                         final next = all[newIndex.clamp(0, all.length - 1)];
-                        var nextIndex = state.data.getPageIndex(next.name);
+                        var nextIndex = state.data.getPageIndex(next.path);
                         if (newIndex >= all.length && nextIndex != null) {
                           nextIndex++;
                         }
