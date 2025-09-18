@@ -45,7 +45,6 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 **OneNote Advantages:**
 - **Deep Microsoft ecosystem integration** - Works seamlessly with Office 365
 - **Advanced OCR** - Text recognition from handwritten notes and images
-- **Collaboration features** - Real-time collaborative editing
 - **Enterprise features** - Advanced sharing and permission management
 
 **Best for:**
@@ -57,7 +56,6 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 **Similarities:**
 - Cross-platform support
 - Customizable interface and themes
-- Plugin/extension support for enhanced functionality
 - Local data storage with sync options
 
 **Butterfly Advantages:**
@@ -74,6 +72,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Advanced search** - Complex queries and filtering
 - **Graph view** - Visualize connections between notes
 - **Better for text-heavy notes** - Structured note organization
+- **Plugin/extension** Plugin/extension support for enhanced functionality
 
 **Best for:**
 - **Butterfly**: Visual note-takers, sketching, casual note-taking, students
@@ -117,7 +116,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - Stylus/pen input optimization
 
 **Butterfly Advantages:**
-- **Mobile support** - Android app available
+- **Mobile support** - iOS and Android support
 - **Web version** - Browser-based access
 - **Modern interface** - Contemporary design and UX
 - **Infinite canvas** - Not limited to page boundaries
@@ -125,16 +124,14 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Multiple export formats** - SVG, PNG, PDF support
 
 **Xournal++ Advantages:**
-- **macOS support** - Native Mac application
-- **PDF-focused** - Specialized for document annotation
-- **Advanced pen tools** - More sophisticated drawing options
-- **Academic features** - LaTeX support, mathematical notation
-- **Mature software** - Long development history and stability
+- **Academic features** - LaTeX support, mathematical notation (note: LaTeX support is coming to Butterfly soon)
 - **Audio recording** - Link audio notes to written content
 
 **Best for:**
 - **Butterfly**: Mobile note-taking, modern UI preferences, cloud sync needs
-- **Xournal++**: Academic users, PDF-heavy workflows, macOS users
+- **Xournal++**: Academic users, PDF-heavy workflows
+
+**LaTeX is coming very soon to Butterfly**
 
 ## Migration and Compatibility
 
