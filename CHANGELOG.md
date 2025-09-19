@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.0-rc.4 (2025-09-19)
+
+* Add safearea on toolbar
+* Fix duplicated refresh button in files view
+* Fix alignment of create buttons in pages navigator page
+* Fix freeze when importing
+* Fix crash when having large pdf to import
+* Fix error if pages have same name
+* Fix problem in save system leading to duplicated pages in some cases
+* Revert 16kb page size support effort
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.4
+
 ## 2.4.0-rc.3 (2025-09-15)
 
 * Allow duration of laser to be 0
