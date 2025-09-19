@@ -239,21 +239,30 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData setPage(DocumentPage page, [String name = '', int? index]) {
+  (NoteData, String) setPage(
+    DocumentPage page, [
+    String name = '',
+    int? index,
+  ]) {
     return setRawPage(utf8.encode(jsonEncode(page.toJson())), name, index);
   }
 
   @useResult
-  NoteData setRawPage(Uint8List content, [String name = '', int? index]) {
+  (NoteData, String) setRawPage(
+    Uint8List content, [
+    String name = '',
+    int? index,
+  ]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
     var noteData = this;
     if (index != null) {
       noteData = _realignPages(index);
     }
-    return noteData.setAsset(
-      '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
-      content,
+    final pageName = _getPageFileName(name) ?? '$newIndex.$name';
+    return (
+      noteData.setAsset('$kPagesArchiveDirectory/$pageName.json', content),
+      pageName,
     );
   }
 
@@ -294,7 +303,8 @@ final class NoteData extends ArchiveData<NoteData> {
     }
     var noteData = removeAsset('$kPagesArchiveDirectory/$pageName.json');
     noteData = noteData._realignPages(newIndex);
-    noteData = noteData.setPage(data, page, newIndex);
+    // ignore: unused_result
+    (noteData, _) = noteData.setPage(data, page, newIndex);
     return noteData;
   }
 
@@ -319,8 +329,12 @@ final class NoteData extends ArchiveData<NoteData> {
       _getPagesOrder().map((e) => realName ? e.$3 : e.$2).toList();
 
   @useResult
+  List<(String, String)> getPagesWithNames() =>
+      _getPagesOrder().map((e) => (e.$2, e.$3)).toList();
+
+  @useResult
   int? getPageIndex(String page) =>
-      _getPagesOrder().firstWhereOrNull((element) => element.$2 == page)?.$1;
+      _getPagesOrder().firstWhereOrNull((element) => element.$3 == page)?.$1;
 
   @useResult
   NoteData removePage(String page) => removeAssets(
@@ -331,10 +345,10 @@ final class NoteData extends ArchiveData<NoteData> {
   );
 
   @useResult
-  NoteData renamePage(String oldName, String newName) {
+  (NoteData, String) renamePage(String oldName, String newName) {
     final page = getPage(oldName);
     final index = getPageIndex(oldName);
-    if (page == null) return this;
+    if (page == null) return (this, oldName);
     final noteData = removePage(oldName);
     return noteData.setPage(page, newName, index);
   }
@@ -552,7 +566,7 @@ final class NoteData extends ArchiveData<NoteData> {
     while (getPages().contains(current)) {
       current = 'Page ${i++}';
     }
-    return (setPage(page, name, index), name);
+    return setPage(page, name, index);
   }
 
   NoteData undoDelete(String path) {

@@ -91,7 +91,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
            currentIndexCubit: currentIndexCubit,
            location: location,
            fileSystem: fileSystem,
-           pageName: pageName ?? initial.getPages().firstOrNull ?? '',
+           pageName: pageName ?? initial.getPages(true).firstOrNull ?? '',
          ),
        ) {
     _init();
@@ -163,7 +163,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       current.assetService.dispose();
-      final data = current.data.setPage(current.page, current.pageName);
+      final data = current.data.setPage(current.page, current.pageName).$1;
       final page = data.getPage(event.pageName);
       if (page == null) return;
       _saveState(
@@ -185,15 +185,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageRenamed>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final newData = current.data.renamePage(event.oldName, event.newName);
+      final (newData, newPageName) = current.data.renamePage(
+        event.oldName,
+        event.newName,
+      );
       _saveState(
         emit,
-        state: current.copyWith(
-          data: newData,
-          pageName: current.pageName == event.oldName
-              ? event.newName
-              : current.pageName,
-        ),
+        state: current.copyWith(data: newData, pageName: newPageName),
       );
     });
     on<PageRemoved>((event, emit) {

@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.0-rc.4+150
+version: 2.4.0+151
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
@@ -65,7 +65,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ad67d9835e5fc673c9e7d1bcaad10c89423d4b61
+      ref: 835467e85d1055d120aeb3adc7b3f4013bd6853d
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -95,7 +95,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 3eb0c455dd56cfcde08a7c7efaba5adbc38dd976
+      ref: 835467e85d1055d120aeb3adc7b3f4013bd6853d
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
