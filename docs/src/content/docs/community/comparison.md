@@ -67,8 +67,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 **Obsidian Advantages:**
 - **Powerful linking system** - Bidirectional links between notes
-- **Markdown-based** - Future-proof plain text format  
-- **Extensive plugin ecosystem** - Thousands of community plugins
+- **Markdown-based** - Future-proof plain text format
 - **Advanced search** - Complex queries and filtering
 - **Graph view** - Visualize connections between notes
 - **Better for text-heavy notes** - Structured note organization
@@ -130,8 +129,6 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 **Best for:**
 - **Butterfly**: Mobile note-taking, modern UI preferences, cloud sync needs
 - **Xournal++**: Academic users, PDF-heavy workflows
-
-**LaTeX is coming very soon to Butterfly**
 
 ## Migration and Compatibility
 
