@@ -123,7 +123,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Multiple export formats** - SVG, PNG, PDF support
 
 **Xournal++ Advantages:**
-- **Academic features** - LaTeX support, mathematical notation (note: LaTeX support is coming to Butterfly soon)
+- **Built with GTK** - Natively integrated in the GNOME interface
 - **Audio recording** - Link audio notes to written content
 
 **Best for:**
