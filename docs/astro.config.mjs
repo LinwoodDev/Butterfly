@@ -28,11 +28,11 @@ export default defineConfig({
       },
       favicon: "./favicon.ico",
       social: [
-        {icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood"},
-        {icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix"},
-        {icon: "discord", label: "Discord", href: "https://linwood.dev/discord"},
-        {icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev"},
-        {icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Butterfly"},
+        { icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood" },
+        { icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix" },
+        { icon: "discord", label: "Discord", href: "https://linwood.dev/discord" },
+        { icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev" },
+        { icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Butterfly" },
       ],
       components: {
         Head: "./src/components/Head.astro",
@@ -224,6 +224,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Comparison"),
+              link: "/community/comparison/",
             },
             {
               ...getSidebarTranslatedLabel("Versions"),
