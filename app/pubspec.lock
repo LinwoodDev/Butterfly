@@ -143,7 +143,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.4.0"
+    version: "2.4.1-rc.0"
   camera:
     dependency: "direct main"
     description:
