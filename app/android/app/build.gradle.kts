@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -23,7 +24,7 @@ android {
     // - Env: USE_LEGACY_PACKAGING=true
     val useLegacy = (System.getenv("USE_LEGACY_PACKAGING") ?: "false").toBoolean()
 
-    packagingOptions {
+    packaging {
         jniLibs {
             useLegacyPackaging = useLegacy
         }
@@ -31,10 +32,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     flavorDimensions += "default"
@@ -90,6 +87,12 @@ android {
         includeInApk = false
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget("11")
     }
 }
 

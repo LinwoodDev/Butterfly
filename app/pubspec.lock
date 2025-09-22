@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: f0bb5d1648339c8308cc0b9838d8456b3cfe5c91f9dc1a735b4d003269e5da9a
+      sha256: dd3d2ad434b9510001d089e8de7556d50c834481b9abc2891a0184a8493a19dc
       url: "https://pub.dev"
     source: hosted
-    version: "88.0.0"
+    version: "89.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "0b7b9c329d2879f8f05d6c05b32ee9ec025f39b077864bdb5ac9a7b63418a98f"
+      sha256: c22b6e7726d1f9e5db58c7251606076a71ca0dbcf76116675edfadbec0c9e875
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.1"
+    version: "8.2.0"
   animations:
     dependency: "direct main"
     description:
@@ -156,10 +156,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "2d438248554f44766bf9ea34c117a5bb0074e241342ef7c22c768fb431335234"
+      sha256: "0db8e7b161ec6cdb2219540eaa4cf599dc963929e5f8ded3b20b3acb52712fa4"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.21"
+    version: "0.6.21+1"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -651,10 +651,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: eb059dfe59f08546e9787f895bd01652076f996bcbf485a8609ef990419ad227
+      sha256: b1488741c9ce37b72e026377c69a59c47378493156fc38efb5a54f6def3f92a3
       url: "https://pub.dev"
     source: hosted
-    version: "16.2.1"
+    version: "16.2.2"
   graphs:
     dependency: transitive
     description:
@@ -808,8 +808,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
-      resolved-ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
+      ref: "12843672e8f33e9370444b13fca8134f4543f7ee"
+      resolved-ref: "12843672e8f33e9370444b13fca8134f4543f7ee"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -817,8 +817,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
-      resolved-ref: "3f886507656f057d89a8b98de6ddbc7f5a21868e"
+      ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
+      resolved-ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -859,8 +859,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
-      resolved-ref: "835467e85d1055d120aeb3adc7b3f4013bd6853d"
+      ref: "12843672e8f33e9370444b13fca8134f4543f7ee"
+      resolved-ref: "12843672e8f33e9370444b13fca8134f4543f7ee"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
