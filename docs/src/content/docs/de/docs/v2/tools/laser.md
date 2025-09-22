@@ -2,7 +2,7 @@
 title: Laser tool
 ---
 
-With this tool you can draw on this paper temporarily. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
+Mit diesem Werkzeug können Sie temporär auf Ihrer Arbeitsfläche zeichnen. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
 
 ## Konfiguration
 

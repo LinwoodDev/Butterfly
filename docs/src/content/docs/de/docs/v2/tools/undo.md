@@ -9,5 +9,5 @@ Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie dara
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+Wenn Sie dieses Werkzeug anklicken, machen Sie Ihre letzte Aktion rückgängig.
+Siehe [Wiederholen](../redo), um die letzte Aktion zu wiederholen.

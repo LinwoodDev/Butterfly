@@ -2,7 +2,7 @@
 title: Label tool
 ---
 
-With this tool you can add text to the paper.
+Mit diesem Werkzeug können Sie Textfelder Ihrer Arbeitsfläche hinzufügen.
 
 ## Konfiguration
 

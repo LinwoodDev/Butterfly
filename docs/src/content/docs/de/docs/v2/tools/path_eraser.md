@@ -2,7 +2,7 @@
 title: Path eraser tool
 ---
 
-With this tool you can delete the whole path on the paper.
+Mit diesem Werkzeug radieren sie den gesamten Pfad auf ihrer Arbeitsfläche.
 
 ## Konfiguration
 
