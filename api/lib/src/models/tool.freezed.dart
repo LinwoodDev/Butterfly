@@ -327,7 +327,7 @@ as String,
 @JsonSerializable()
 
 class ImportTool extends Tool {
-   ImportTool({this.name = '', this.displayIcon = '', required final  List<PadElement> elements, required final  List<Area> areas, final  String? $type}): _elements = elements,_areas = areas,$type = $type ?? 'import',super._();
+   ImportTool({this.name = '', this.displayIcon = '', required final  List<PadElement> elements, required final  List<Area> areas, @Uint8ListJsonConverter() final  Map<String, Uint8List> assets = const {}, final  String? $type}): _elements = elements,_areas = areas,_assets = assets,$type = $type ?? 'import',super._();
   factory ImportTool.fromJson(Map<String, dynamic> json) => _$ImportToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -344,6 +344,13 @@ class ImportTool extends Tool {
   if (_areas is EqualUnmodifiableListView) return _areas;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_areas);
+}
+
+ final  Map<String, Uint8List> _assets;
+@JsonKey()@Uint8ListJsonConverter() Map<String, Uint8List> get assets {
+  if (_assets is EqualUnmodifiableMapView) return _assets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_assets);
 }
 
 
@@ -366,7 +373,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.import(name: $name, displayIcon: $displayIcon, elements: $elements, areas: $areas)';
+  return 'Tool.import(name: $name, displayIcon: $displayIcon, elements: $elements, areas: $areas, assets: $assets)';
 }
 
 
@@ -377,7 +384,7 @@ abstract mixin class $ImportToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $ImportToolCopyWith(ImportTool value, $Res Function(ImportTool) _then) = _$ImportToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon, List<PadElement> elements, List<Area> areas
+ String name, String displayIcon, List<PadElement> elements, List<Area> areas,@Uint8ListJsonConverter() Map<String, Uint8List> assets
 });
 
 
@@ -394,13 +401,14 @@ class _$ImportToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? elements = null,Object? areas = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? elements = null,Object? areas = null,Object? assets = null,}) {
   return _then(ImportTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,elements: null == elements ? _self._elements : elements // ignore: cast_nullable_to_non_nullable
 as List<PadElement>,areas: null == areas ? _self._areas : areas // ignore: cast_nullable_to_non_nullable
-as List<Area>,
+as List<Area>,assets: null == assets ? _self._assets : assets // ignore: cast_nullable_to_non_nullable
+as Map<String, Uint8List>,
   ));
 }
 

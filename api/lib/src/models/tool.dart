@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../converter/core.dart';
 import 'area.dart';
 import 'colors.dart';
 import 'element.dart';
@@ -72,6 +74,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     required List<PadElement> elements,
     required List<Area> areas,
+    @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
   }) = ImportTool;
 
   factory Tool.undo({

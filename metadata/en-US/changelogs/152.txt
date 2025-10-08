@@ -1,0 +1,4 @@
+* Improve memory usage and performance for importing large assets
+* Fix bfly files cannot be imported into existing documents
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.0

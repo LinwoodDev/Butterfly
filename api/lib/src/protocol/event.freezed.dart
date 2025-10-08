@@ -1063,7 +1063,7 @@ $UtilitiesStateCopyWith<$Res> get state {
 @JsonSerializable()
 
 class ElementsCreated extends DocumentEvent {
-  const ElementsCreated(final  List<PadElement> elements, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsCreated',super._();
+  const ElementsCreated(final  List<PadElement> elements, {@Uint8ListJsonConverter() final  Map<String, Uint8List> assets = const {}, final  String? $type}): _elements = elements,_assets = assets,$type = $type ?? 'elementsCreated',super._();
   factory ElementsCreated.fromJson(Map<String, dynamic> json) => _$ElementsCreatedFromJson(json);
 
  final  List<PadElement> _elements;
@@ -1071,6 +1071,13 @@ class ElementsCreated extends DocumentEvent {
   if (_elements is EqualUnmodifiableListView) return _elements;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_elements);
+}
+
+ final  Map<String, Uint8List> _assets;
+@JsonKey()@Uint8ListJsonConverter() Map<String, Uint8List> get assets {
+  if (_assets is EqualUnmodifiableMapView) return _assets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_assets);
 }
 
 
@@ -1091,16 +1098,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCreated&&const DeepCollectionEquality().equals(other._elements, _elements));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsCreated&&const DeepCollectionEquality().equals(other._elements, _elements)&&const DeepCollectionEquality().equals(other._assets, _assets));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),const DeepCollectionEquality().hash(_assets));
 
 @override
 String toString() {
-  return 'DocumentEvent.elementsCreated(elements: $elements)';
+  return 'DocumentEvent.elementsCreated(elements: $elements, assets: $assets)';
 }
 
 
@@ -1111,7 +1118,7 @@ abstract mixin class $ElementsCreatedCopyWith<$Res> implements $DocumentEventCop
   factory $ElementsCreatedCopyWith(ElementsCreated value, $Res Function(ElementsCreated) _then) = _$ElementsCreatedCopyWithImpl;
 @useResult
 $Res call({
- List<PadElement> elements
+ List<PadElement> elements,@Uint8ListJsonConverter() Map<String, Uint8List> assets
 });
 
 
@@ -1128,10 +1135,11 @@ class _$ElementsCreatedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? elements = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? elements = null,Object? assets = null,}) {
   return _then(ElementsCreated(
 null == elements ? _self._elements : elements // ignore: cast_nullable_to_non_nullable
-as List<PadElement>,
+as List<PadElement>,assets: null == assets ? _self._assets : assets // ignore: cast_nullable_to_non_nullable
+as Map<String, Uint8List>,
   ));
 }
 

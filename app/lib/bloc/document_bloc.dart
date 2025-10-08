@@ -35,6 +35,7 @@ typedef ImportAssetSyncOptions = (
   List<PadElement> elements, {
   SendPort? onInvalidate,
   Map<String, String>? alreadyImported,
+  Map<String, Uint8List>? assets,
 });
 (NoteData, List<PadElement>) _importAssetsSync(ImportAssetSyncOptions options) {
   return importAssets((
@@ -44,6 +45,7 @@ typedef ImportAssetSyncOptions = (
         ? (source) => options.onInvalidate!.send(source)
         : null,
     alreadyImported: options.alreadyImported,
+    assets: options.assets,
   ));
 }
 
@@ -52,6 +54,7 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   List<PadElement> elements, {
   void Function(String source)? onInvalidate,
   Map<String, String>? alreadyImported,
+  Map<String, Uint8List>? assets,
 }) {
   ReceivePort? port;
   if (onInvalidate != null) {
@@ -67,6 +70,7 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
     elements,
     onInvalidate: port?.sendPort,
     alreadyImported: alreadyImported,
+    assets: assets,
   ));
 }
 
@@ -215,6 +219,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current.data,
         event.elements.map((e) => e.copyWith(id: createUniqueId())).toList(),
         onInvalidate: assetService.invalidate,
+        assets: event.assets,
       );
       final renderers = elements
           .map((e) => Renderer.fromInstance(e, current.currentLayer))

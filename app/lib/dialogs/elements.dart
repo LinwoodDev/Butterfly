@@ -42,10 +42,14 @@ ContextMenuBuilder buildElementsContextMenu(
           onPressed: () {
             Navigator.of(context).pop(true);
             try {
-              importService.importClipboard(
-                state.data,
-                position: state.transformCubit.state.localToGlobal(position),
-              );
+              importService
+                  .importClipboard(
+                    state.data,
+                    position: state.transformCubit.state.localToGlobal(
+                      position,
+                    ),
+                  )
+                  .then((e) => e?.submit());
             } catch (_) {}
           },
           icon: const PhosphorIcon(PhosphorIconsLight.clipboard),

@@ -55,8 +55,10 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.utilitiesChanged(UtilitiesState state) =
       UtilitiesChanged;
 
-  const factory DocumentEvent.elementsCreated(List<PadElement> elements) =
-      ElementsCreated;
+  const factory DocumentEvent.elementsCreated(
+    List<PadElement> elements, {
+    @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
+  }) = ElementsCreated;
 
   const factory DocumentEvent.elementsChanged(
     Map<String, List<PadElement>> elements,

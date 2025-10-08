@@ -173,7 +173,9 @@ class _ProjectPageState extends State<ProjectPage> {
         type = '';
       }
       if (data != null) {
-        document ??= await globalImportService.load(type: type, data: data);
+        document ??= await globalImportService
+            .load(type: type, data: data)
+            .then((e) => e?.export());
         if (document == null) {
           GoRouter.of(context).pop();
         }
@@ -199,13 +201,15 @@ class _ProjectPageState extends State<ProjectPage> {
           if (!mounted) return;
           if (asset is FileSystemFile<NoteFile> &&
               location.fileType == AssetFileType.note) {
-            final noteData = await globalImportService.load(
-              document: defaultDocument,
-              type: widget.type.isEmpty
-                  ? (fileType ?? widget.type)
-                  : widget.type,
-              data: asset.data,
-            );
+            final NoteData? noteData = await globalImportService
+                .load(
+                  document: defaultDocument,
+                  type: widget.type.isEmpty
+                      ? (fileType ?? widget.type)
+                      : widget.type,
+                  data: asset.data,
+                )
+                .then((e) => e?.export());
             if (noteData != null) {
               document = await checkFileChanges(context, noteData);
             }
@@ -213,13 +217,15 @@ class _ProjectPageState extends State<ProjectPage> {
         } else {
           final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
-            document = await globalImportService.load(
-              document: defaultDocument,
-              type: widget.type.isEmpty
-                  ? (fileType ?? widget.type)
-                  : widget.type,
-              data: data,
-            );
+            document = await globalImportService
+                .load(
+                  document: defaultDocument,
+                  type: widget.type.isEmpty
+                      ? (fileType ?? widget.type)
+                      : widget.type,
+                  data: data,
+                )
+                .then((e) => e?.export());
           }
         }
       }

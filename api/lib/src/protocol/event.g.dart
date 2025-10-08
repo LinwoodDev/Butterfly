@@ -107,12 +107,23 @@ ElementsCreated _$ElementsCreatedFromJson(Map json) => ElementsCreated(
   (json['elements'] as List<dynamic>)
       .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
+  assets:
+      (json['assets'] as Map?)?.map(
+        (k, e) => MapEntry(
+          k as String,
+          const Uint8ListJsonConverter().fromJson(e as String),
+        ),
+      ) ??
+      const {},
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ElementsCreatedToJson(ElementsCreated instance) =>
     <String, dynamic>{
       'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'assets': instance.assets.map(
+        (k, e) => MapEntry(k, const Uint8ListJsonConverter().toJson(e)),
+      ),
       'type': instance.$type,
     };
 

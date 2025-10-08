@@ -77,6 +77,7 @@ class ImportHandler extends Handler<ImportTool> {
             )
             .nonNulls
             .toList(),
+        assets: data.assets,
       ),
     );
     await context.refresh();

@@ -25,6 +25,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:printing/printing.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:super_clipboard/super_clipboard.dart';
+import 'package:meta/meta.dart';
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
@@ -32,6 +33,88 @@ import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+
+class ImportResult {
+  final ImportService service;
+  final NoteData document;
+  final List<PadElement> elements;
+  final Map<String, Uint8List> assets;
+  final List<(String?, DocumentPage)> pages;
+  final List<Area> areas;
+  final List<NoteData> packs;
+  final bool choosePosition;
+
+  ImportResult({
+    required this.service,
+    required this.document,
+    this.elements = const [],
+    this.assets = const {},
+    this.pages = const [],
+    this.areas = const [],
+    this.packs = const [],
+    this.choosePosition = false,
+  });
+
+  Future<NoteData> export() async {
+    var document = this.document;
+    final state = service._getState();
+    DocumentPage page =
+        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
+    List<PadElement> imported;
+    (document, imported) = await importAssetsAsync(
+      document,
+      elements,
+      assets: assets,
+    );
+    page = page.copyWith(
+      layers: [
+        DocumentLayer(
+          content: [...page.content, ...imported],
+          id: createUniqueId(),
+        ),
+      ],
+    );
+    document = document.setPage(page).$1;
+    for (final (name, page) in pages) {
+      (document, _) = document.addPage(page, name ?? '');
+    }
+    for (final pack in packs) {
+      document = document.setBundledPack(pack);
+    }
+    return document;
+  }
+
+  void submit({bool? choosePosition}) {
+    choosePosition ??= this.choosePosition;
+    final state = service._getState();
+    final context = service.context;
+    final bloc = service.bloc;
+    if (choosePosition &&
+        state != null &&
+        (elements.isNotEmpty || areas.isNotEmpty)) {
+      state.currentIndexCubit.changeTemporaryHandler(
+        context,
+        ImportTool(elements: elements, areas: areas, assets: assets),
+        bloc: bloc!,
+        temporaryState: TemporaryState.removeAfterRelease,
+      );
+    } else {
+      bloc
+        ?..add(AreasCreated(areas))
+        ..add(ElementsCreated(elements));
+    }
+    bloc?.add(
+      PagesAdded(
+        pages
+            .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
+            .toList(),
+      ),
+    );
+    for (final pack in packs) {
+      bloc?.add(PackAdded(pack));
+    }
+  }
+}
 
 class ImportService {
   final DocumentBloc? bloc;
@@ -73,7 +156,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> load({
+  @useResult
+  Future<ImportResult?> load({
     String type = '',
     Object? data,
     NoteData? document,
@@ -99,7 +183,7 @@ class ImportService {
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
-      return data;
+      return ImportResult(service: this, document: data);
     } else if (data is NoteFile) {
       bytes = data.data;
     }
@@ -123,7 +207,8 @@ class ImportService {
     return import(fileType, bytes, document: document, advanced: false);
   }
 
-  Future<NoteData?> import(
+  @useResult
+  Future<ImportResult?> import(
     AssetFileType type,
     Uint8List bytes, {
     NoteData? document,
@@ -201,7 +286,8 @@ class ImportService {
     return c.future;
   }
 
-  Future<NoteData?> importClipboard(
+  @useResult
+  Future<ImportResult?> importClipboard(
     NoteData document, {
     Offset? position,
     bool advanced = true,
@@ -251,7 +337,8 @@ class ImportService {
     );
   }
 
-  Future<NoteData?> importBfly(
+  @useResult
+  Future<ImportResult?> importBfly(
     Uint8List bytes, {
     NoteData? document,
     Offset? position,
@@ -322,7 +409,7 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData>? _importDocument(
+  Future<ImportResult?> _importDocument(
     NoteData data,
     NoteData document, {
     bool advanced = true,
@@ -334,35 +421,27 @@ class ImportService {
         context: context,
         builder: (context) => NoteImportDialog(pages: pages, packs: packs),
       );
-      if (callback == null) return document;
+      if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
-    } else if (bloc == null) {
-      return data;
     }
-    for (final (name, page) in pages.map((e) => (e, data.getPage(e)))) {
-      if (page == null) continue;
-      if (advanced) {
-        document = document.addPage(page, name).$1;
-      } else {
-        document = document.setPage(page, name).$1;
-      }
-    }
-    bloc?.add(
-      PagesAdded(
-        pages
-            .map((e) => PageAddedDetails(page: data.getPage(e), name: e))
-            .toList(),
-      ),
+    return ImportResult(
+      service: this,
+      document: document,
+      pages: pages
+          .map((e) {
+            final page = data.getPage(e);
+            if (page == null) return null;
+            return (e, page);
+          })
+          .nonNulls
+          .toList(),
+      packs: packs.map((e) => data.getBundledPack(e)).nonNulls.toList(),
     );
-    for (final packs in packs.map((e) => data.getBundledPack(e)).nonNulls) {
-      document = document.setBundledPack(packs);
-      bloc?.add(PackAdded(packs));
-    }
-    return document;
   }
 
-  Future<NoteData?> importPage(
+  @useResult
+  Future<ImportResult?> importPage(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -380,7 +459,7 @@ class ImportService {
     return null;
   }
 
-  NoteData? _importPage(
+  ImportResult? _importPage(
     DocumentPage? page,
     NoteData document, [
     Offset? position,
@@ -401,16 +480,16 @@ class ImportService {
               e,
         )
         .toList();
-    return _submit(
-      context,
-      document,
+    return ImportResult(
+      service: this,
+      document: document,
       elements: content,
       areas: areas,
       choosePosition: position == null,
     );
   }
 
-  Future<NoteData?> _importTemplate(
+  Future<ImportResult?> _importTemplate(
     NoteData template, [
     TemplateFileSystem? templateSystem,
   ]) async {
@@ -425,7 +504,7 @@ class ImportService {
     if (context.mounted && result == true) {
       templateSystem.createFile(template.name ?? '', template);
     }
-    return template.createDocument();
+    return ImportResult(service: this, document: template.createDocument());
   }
 
   Future<bool> _importPack(
@@ -451,7 +530,8 @@ class ImportService {
     return true;
   }
 
-  Future<NoteData?> importImage(
+  @useResult
+  Future<ImportResult?> importImage(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -484,9 +564,9 @@ class ImportService {
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(
-        context,
-        document,
+      return ImportResult(
+        service: this,
+        document: document,
         elements: [
           ImageElement(
             height: height,
@@ -509,7 +589,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importXopp(
+  @useResult
+  Future<ImportResult?> importXopp(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -527,7 +608,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importSvg(
+  @useResult
+  Future<ImportResult?> importSvg(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -568,9 +650,9 @@ class ImportService {
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(
-          context,
-          document,
+        return ImportResult(
+          service: this,
+          document: document,
           elements: [
             SvgElement(
               width: width,
@@ -599,7 +681,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importText(
+  @useResult
+  Future<ImportResult?> importText(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -615,9 +698,9 @@ class ImportService {
           ? SRGBColor.white
           : SRGBColor.black;
       final styleSheet = await findStyleSheet();
-      return _submit(
-        context,
-        document,
+      return ImportResult(
+        service: this,
+        document: document,
         elements: [
           isMarkdown
               ? MarkdownElement(
@@ -648,7 +731,10 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importPdf(
+  static const _pdfImportSource = '$kAssetScheme://imported_pdf';
+
+  @useResult
+  Future<ImportResult?> importPdf(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -684,7 +770,7 @@ class ImportService {
             image.dispose();
           } catch (_) {}
         }
-        if (callback == null) return document;
+        if (callback == null) return null;
         pages = callback.pages;
         spreadToPages = callback.spreadToPages;
         createAreas = callback.createAreas;
@@ -703,10 +789,6 @@ class ImportService {
       final documentPages = <(String?, DocumentPage)>[];
       var y = firstPos.dy;
       var current = 0;
-      final pdfUri = UriData.fromBytes(
-        bytes,
-        mimeType: 'application/pdf',
-      ).toString();
 
       for (var i = 0; i < elements.length; i++) {
         var raster = elements[i];
@@ -720,7 +802,7 @@ class ImportService {
           final element = PdfElement(
             height: height,
             width: width,
-            source: pdfUri,
+            source: _pdfImportSource,
             page: i,
             position: Point(firstPos.dx, y),
             invert: invert,
@@ -756,13 +838,14 @@ class ImportService {
         }
       }
       dialog?.close();
-      return _submit(
-        context,
-        document,
+      return ImportResult(
+        service: this,
+        document: document,
         elements: selectedElements,
         pages: documentPages,
         areas: spreadToPages ? [] : areas,
         choosePosition: position == null,
+        assets: {_pdfImportSource: bytes},
       );
     } catch (e) {
       dialog?.close();
@@ -834,60 +917,6 @@ class ImportService {
     }
   }
 
-  NoteData? _submit(
-    BuildContext context,
-    NoteData document, {
-    required List<PadElement> elements,
-    List<(String?, DocumentPage)> pages = const [],
-    List<Area> areas = const [],
-    List<NoteData> packs = const [],
-    bool choosePosition = false,
-  }) {
-    final state = _getState();
-    DocumentPage page =
-        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
-    if (choosePosition &&
-        state != null &&
-        (elements.isNotEmpty || areas.isNotEmpty)) {
-      state.currentIndexCubit.changeTemporaryHandler(
-        context,
-        ImportTool(elements: elements, areas: areas),
-        bloc: bloc!,
-        temporaryState: TemporaryState.removeAfterRelease,
-      );
-    } else {
-      bloc
-        ?..add(AreasCreated(areas))
-        ..add(ElementsCreated(elements));
-    }
-    bloc?.add(
-      PagesAdded(
-        pages
-            .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
-            .toList(),
-      ),
-    );
-    for (final pack in packs) {
-      bloc?.add(PackAdded(pack));
-    }
-    page = page.copyWith(
-      layers: [
-        DocumentLayer(
-          content: [...page.content, ...elements],
-          id: createUniqueId(),
-        ),
-      ],
-    );
-    document = document.setPage(page).$1;
-    for (final (name, page) in pages) {
-      (document, _) = document.addPage(page, name ?? '');
-    }
-    for (final pack in packs) {
-      document = document.setBundledPack(pack);
-    }
-    return document;
-  }
-
   Future<bool> importArchive(
     Uint8List bytes, {
     DocumentFileSystem? fileSystem,
@@ -897,7 +926,7 @@ class ImportService {
       final archive = ZipDecoder().decodeBytes(bytes);
       final data = NoteData.fromArchive(archive);
       if (data.isValid) {
-        final document = await importBfly(bytes);
+        final document = await (await importBfly(bytes))?.export();
         if (document != null) {
           fileSystem.createFile(document.name ?? '', document.toFile());
         }
@@ -906,7 +935,7 @@ class ImportService {
       for (final file in archive) {
         const fileExtension = '.bfly';
         if (!file.name.endsWith(fileExtension)) continue;
-        final document = await importBfly(file.content, advanced: false);
+        final document = await (await importBfly(bytes))?.export();
         if (document != null) {
           fileSystem.createFile(file.name, document.toFile());
         }
