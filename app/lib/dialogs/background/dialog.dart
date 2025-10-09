@@ -59,6 +59,12 @@ class _BackgroundDialogState extends State<BackgroundDialog>
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
     final background = _backgrounds.elementAtOrNull(_index);

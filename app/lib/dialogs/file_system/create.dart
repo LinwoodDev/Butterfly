@@ -28,8 +28,8 @@ class _FileSystemAssetCreateDialogState
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
+    super.dispose();
   }
 
   @override

@@ -17,26 +17,25 @@ class _QuickstartHomeView extends StatefulWidget {
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   final ScrollController _scrollController = ScrollController();
-  late final TemplateFileSystem _templateSystem;
+  late TemplateFileSystem _templateSystem;
   Future<List<NoteData>>? _templatesFuture;
 
   @override
   void initState() {
+    super.initState();
     _templateSystem = context.read<ButterflyFileSystem>().buildTemplateSystem(
       widget.remote,
     );
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => setState(() {
-        _templatesFuture = _fetchTemplates();
-      }),
-    );
-    super.initState();
+    _templatesFuture = _fetchTemplates();
   }
 
   @override
   void didUpdateWidget(covariant _QuickstartHomeView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
+      _templateSystem = context.read<ButterflyFileSystem>().buildTemplateSystem(
+        widget.remote,
+      );
       setState(() {
         _templatesFuture = _fetchTemplates();
       });

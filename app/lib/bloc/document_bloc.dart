@@ -55,23 +55,29 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   void Function(String source)? onInvalidate,
   Map<String, String>? alreadyImported,
   Map<String, Uint8List>? assets,
-}) {
+}) async {
   ReceivePort? port;
-  if (onInvalidate != null) {
-    port = ReceivePort();
-    port.listen((message) {
-      if (message is String) {
-        onInvalidate(message);
-      }
-    });
+  StreamSubscription? subscription;
+  try {
+    if (onInvalidate != null) {
+      port = ReceivePort();
+      subscription = port.listen((message) {
+        if (message is String) {
+          onInvalidate(message);
+        }
+      });
+    }
+    return await compute(_importAssetsSync, (
+      data,
+      elements,
+      onInvalidate: port?.sendPort,
+      alreadyImported: alreadyImported,
+      assets: assets,
+    ));
+  } finally {
+    await subscription?.cancel();
+    port?.close();
   }
-  return compute(_importAssetsSync, (
-    data,
-    elements,
-    onInvalidate: port?.sendPort,
-    alreadyImported: alreadyImported,
-    assets: assets,
-  ));
 }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {

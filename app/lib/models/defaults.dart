@@ -28,6 +28,8 @@ class DocumentDefaults {
       size.height.toInt(),
     );
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    image.dispose();
+    picture.dispose();
     return bytes!.buffer.asUint8List();
   }
 

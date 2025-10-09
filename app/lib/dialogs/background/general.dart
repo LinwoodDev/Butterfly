@@ -46,18 +46,22 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                 if (result == null) return;
                 final dataPath = Uri.dataFromBytes(result).toString();
                 final codec = await ui.instantiateImageCodec(result);
-                final frame = await codec.getNextFrame();
-                final image = frame.image;
-                final width = image.width.toDouble(),
-                    height = image.height.toDouble();
-                image.dispose();
-                onChanged(
-                  ImageBackground(
-                    source: dataPath,
-                    width: width,
-                    height: height,
-                  ),
-                );
+                try {
+                  final frame = await codec.getNextFrame();
+                  final image = frame.image;
+                  final width = image.width.toDouble(),
+                      height = image.height.toDouble();
+                  image.dispose();
+                  onChanged(
+                    ImageBackground(
+                      source: dataPath,
+                      width: width,
+                      height: height,
+                    ),
+                  );
+                } finally {
+                  codec.dispose();
+                }
               },
             ),
             BoxTile(
@@ -76,13 +80,21 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   SvgStringLoader(contentString),
                   null,
                 );
-                final size = info.size;
-                var height = size.height, width = size.width;
-                if (!height.isFinite) height = 0;
-                if (!width.isFinite) width = 0;
-                onChanged(
-                  SvgBackground(source: dataPath, width: width, height: height),
-                );
+                try {
+                  final size = info.size;
+                  var height = size.height, width = size.width;
+                  if (!height.isFinite) height = 0;
+                  if (!width.isFinite) width = 0;
+                  onChanged(
+                    SvgBackground(
+                      source: dataPath,
+                      width: width,
+                      height: height,
+                    ),
+                  );
+                } finally {
+                  info.picture.dispose();
+                }
               },
             ),
           ],

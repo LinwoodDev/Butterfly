@@ -19,10 +19,14 @@ class AssetService {
     var data = element_helper.getDataFromSource(document, path);
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
-    final frameInfo = await codec.getNextFrame();
-    final image = frameInfo.image;
-    _images[path] = image;
-    return image.clone();
+    try {
+      final frameInfo = await codec.getNextFrame();
+      final image = frameInfo.image;
+      _images[path] = image;
+      return image.clone();
+    } finally {
+      codec.dispose();
+    }
   }
 
   void dispose() {

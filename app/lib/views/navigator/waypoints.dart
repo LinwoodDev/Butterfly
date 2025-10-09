@@ -22,8 +22,8 @@ class _WaypointsViewState extends State<WaypointsView> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -329,8 +329,8 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
+    super.dispose();
   }
 
   @override

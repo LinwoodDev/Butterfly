@@ -169,13 +169,19 @@ Future<void> addToPack(
       ),
     ),
   );
-  final transformed = renderers
-      .map(
-        (e) =>
-            e.transform(position: -rect.center, relative: true)?.element ??
-            e.element,
-      )
-      .toList();
+  final transformed = <PadElement>[];
+  for (final renderer in renderers) {
+    final transformedRenderer = renderer.transform(
+      position: -rect.center,
+      relative: true,
+    );
+    final activeRenderer = transformedRenderer ?? renderer;
+    transformed.add(activeRenderer.element);
+    transformedRenderer?.dispose();
+    if (!identical(transformedRenderer, renderer)) {
+      renderer.dispose();
+    }
+  }
   pack = pack.setComponent(
     result.key,
     ButterflyComponent(elements: transformed, thumbnail: thumbnail),

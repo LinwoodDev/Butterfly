@@ -27,9 +27,9 @@ class _AddDialogState extends State<AddDialog> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
     _filterScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -370,8 +370,8 @@ class _ToolsListViewState extends State<_ToolsListView> {
 
   @override
   void dispose() {
-    super.dispose();
     _scrollController.dispose();
+    super.dispose();
   }
 
   @override

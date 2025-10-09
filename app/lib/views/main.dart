@@ -315,11 +315,13 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void dispose() {
-    super.dispose();
     widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
     _bloc?.dispose();
+    _transformCubit?.close();
+    _currentIndexCubit?.close();
     _searchController.dispose();
+    super.dispose();
   }
 
   @override

@@ -31,8 +31,8 @@ class _AreasViewState extends State<AreasView> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
+    super.dispose();
   }
 
   @override

@@ -1007,7 +1007,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ).paint(canvas, size);
 
     final picture = recorder.endRecording();
-    final newImage = await picture.toImage(imageWidth, imageHeight);
+    ui.Image newImage;
+    try {
+      newImage = await picture.toImage(imageWidth, imageHeight);
+    } finally {
+      picture.dispose();
+    }
 
     var belowLayerImage = cameraViewport.belowLayerImage;
     var aboveLayerImage = cameraViewport.aboveLayerImage;
@@ -1062,12 +1067,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         renderBaked: false,
       ).paint(aboveLayerCanvas, size);
 
-      final result = await Future.wait([
-        belowLayerRecorder.endRecording().toImage(imageWidth, imageHeight),
-        aboveLayerRecorder.endRecording().toImage(imageWidth, imageHeight),
-      ]);
-      belowLayerImage = result[0];
-      aboveLayerImage = result[1];
+      final belowPicture = belowLayerRecorder.endRecording();
+      final abovePicture = aboveLayerRecorder.endRecording();
+      try {
+        final result = await Future.wait([
+          belowPicture.toImage(imageWidth, imageHeight),
+          abovePicture.toImage(imageWidth, imageHeight),
+        ]);
+        belowLayerImage = result[0];
+        aboveLayerImage = result[1];
+      } finally {
+        belowPicture.dispose();
+        abovePicture.dispose();
+      }
     }
 
     final newlyUnbaked =
@@ -1133,8 +1145,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
-    final image = await picture.toImage(realWidth, realHeight);
-    return await image.toByteData(format: ui.ImageByteFormat.png);
+    ui.Image? image;
+    ByteData? bytes;
+    try {
+      image = await picture.toImage(realWidth, realHeight);
+      bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    } finally {
+      image?.dispose();
+      picture.dispose();
+    }
+    return bytes;
   }
 
   XmlDocument renderSVG(

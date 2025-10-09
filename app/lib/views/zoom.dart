@@ -48,6 +48,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   @override
   void dispose() {
     _focusNode.dispose();
+    _zoomController.dispose();
     _controller.dispose();
     super.dispose();
   }
