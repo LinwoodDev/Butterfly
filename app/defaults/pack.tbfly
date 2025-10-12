@@ -1,8 +1,8 @@
 {
-	"fileVersion": null,
+	"fileVersion": 12,
 	"type": "pack",
 	"createdAt": 1678464022475,
-	"updatedAt": 1687714913347,
+	"updatedAt": 1760304633656,
 	"name": "Core",
 	"description": "The default core experience of Linwood Butterfly",
 	"author": "LinwoodDev",

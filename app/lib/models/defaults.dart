@@ -66,10 +66,9 @@ class DocumentDefaults {
   }
 
   static Future<NoteData> getCorePack() async {
-    _corePack ??= NoteData.fromData(
+    return _corePack ??= NoteData.fromData(
       Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
     );
-    return _corePack!;
   }
 
   static String translate(String key, Map<String, String> translations) {
