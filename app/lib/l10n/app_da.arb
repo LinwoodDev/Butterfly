@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorér tryk",
   "ignoreFirstPressureDescription": "På nogle enheder er førstetryksværdien ikke nøjagtig. Denne indstilling vil ignorere den første trykværdi og bruge trykket på den anden begivenhed i stedet.",
   "temporary": "Midlertidig",
-  "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen"
+  "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
