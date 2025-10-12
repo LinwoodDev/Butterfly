@@ -706,5 +706,11 @@
   "ignorePressure": "Ignoră presiunea",
   "ignoreFirstPressureDescription": "Pe unele dispozitive, prima valoare a presiunii nu este exactă. Această setare va ignora prima valoare de presiune şi va folosi presiunea celui de-al doilea eveniment.",
   "temporary": "Temporar",
-  "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente"
+  "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
