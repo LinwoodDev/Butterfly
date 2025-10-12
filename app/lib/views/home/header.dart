@@ -161,14 +161,14 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
                 AppLocalizations.of(context).welcome(applicationVersionName),
                 style: TextTheme.of(
                   context,
-                ).titleLarge?.copyWith(color: colorScheme.onPrimary),
+                ).titleLarge?.copyWith(color: colorScheme.onSecondary),
                 overflow: TextOverflow.clip,
               ),
               Text(
                 AppLocalizations.of(context).welcomeContent,
                 style: TextTheme.of(
                   context,
-                ).bodySmall?.copyWith(color: colorScheme.onPrimary),
+                ).bodySmall?.copyWith(color: colorScheme.onSecondary),
               ),
             ],
           ),

@@ -74,7 +74,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         subtitle: Text(
                           design.isEmpty
                               ? AppLocalizations.of(context).systemTheme
-                              : design.toDisplayString(),
+                              : design,
                         ),
                         trailing: ThemeBox(
                           theme: getThemeData(state.design, false),
@@ -198,7 +198,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
           ...getThemes().map((e) {
             final theme = getThemeData(e, false);
             return ListTile(
-              title: Text(e.toDisplayString()),
+              title: Text(e),
               selected: e == design,
               onTap: () => changeDesign(e),
               leading: ThemeBox(theme: theme),
