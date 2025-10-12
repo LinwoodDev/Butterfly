@@ -706,5 +706,11 @@
   "ignorePressure": "Ignoriere Druck",
   "ignoreFirstPressureDescription": "Bei einigen Geräten ist der erste Druckwert nicht korrekt. Diese Einstellung ignoriert den ersten Druckwert und verwendet stattdessen den Druck des zweiten Ereignisses.",
   "temporary": "Temporär",
-  "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit"
+  "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
