@@ -706,5 +706,11 @@
   "ignorePressure": "Presión de ignorancia",
   "ignoreFirstPressureDescription": "En algunos dispositivos, el primer valor de presión no es preciso. Este ajuste ignorará el primer valor de presión y utilizará la presión del segundo evento en su lugar.",
   "temporary": "Temporal",
-  "simpleToolbarVisibility": "Visibilidad simple de la barra de herramientas"
+  "simpleToolbarVisibility": "Visibilidad simple de la barra de herramientas",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
