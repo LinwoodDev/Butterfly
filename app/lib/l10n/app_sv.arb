@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorera tryck",
   "ignoreFirstPressureDescription": "På vissa enheter är det första tryckvärdet inte korrekt. Denna inställning kommer att ignorera det första tryckvärdet och använda trycket från den andra händelsen istället.",
   "temporary": "Tillfällig",
-  "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet"
+  "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
