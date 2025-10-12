@@ -67,7 +67,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         ),
                         subtitle: Text(
                           state.autosave
-                              ? state.showSaveButton
+                              ? state.delayedAutosave
+                                    ? AppLocalizations.of(context).delay
+                                    : state.showSaveButton
                                     ? AppLocalizations.of(
                                         context,
                                       ).yesButShowButtons
@@ -76,6 +78,21 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         ),
                         onTap: () => _openAutosaveModal(context),
                       ),
+                      if (state.autosave && state.delayedAutosave)
+                        ExactSlider(
+                          leading: const PhosphorIcon(PhosphorIconsLight.clock),
+                          header: Text(
+                            AppLocalizations.of(context).autosaveDelay,
+                          ),
+                          value: state.autosaveDelaySeconds.toDouble(),
+                          min: 1,
+                          max: 10,
+                          defaultValue: 5,
+                          fractionDigits: 0,
+                          onChangeEnd: (value) => context
+                              .read<SettingsCubit>()
+                              .changeAutosaveDelaySeconds(value.toInt()),
+                        ),
                       ListTile(
                         title: Text(AppLocalizations.of(context).onStartup),
                         subtitle: Text(
@@ -228,13 +245,14 @@ class BehaviorsSettingsPage extends StatelessWidget {
     final cubit = context.read<SettingsCubit>();
     final autosave = cubit.state.autosave;
     final showSaveButton = cubit.state.showSaveButton;
+    final delayed = cubit.state.delayedAutosave;
 
     showLeapBottomSheet(
       context: context,
       titleBuilder: (context) => Text(AppLocalizations.of(context).autosave),
       childrenBuilder: (context) {
-        void changeAutosave(bool? autosave) {
-          cubit.changeAutosave(autosave);
+        void changeAutosave(bool? autosave, {bool delayed = false}) {
+          cubit.changeAutosave(autosave, delayed: delayed);
           Navigator.of(context).pop();
         }
 
@@ -242,13 +260,19 @@ class BehaviorsSettingsPage extends StatelessWidget {
           ListTile(
             title: Text(AppLocalizations.of(context).yes),
             leading: Icon(PhosphorIconsLight.check),
-            selected: autosave && showSaveButton == false,
+            selected: autosave && !showSaveButton && !delayed,
             onTap: () => changeAutosave(true),
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context).delay),
+            leading: Icon(PhosphorIconsLight.clock),
+            selected: autosave && delayed,
+            onTap: () => changeAutosave(null, delayed: true),
           ),
           ListTile(
             title: Text(AppLocalizations.of(context).yesButShowButtons),
             leading: Icon(PhosphorIconsLight.question),
-            selected: autosave && showSaveButton,
+            selected: autosave && showSaveButton && !delayed,
             onTap: () => changeAutosave(null),
           ),
           ListTile(

@@ -33,7 +33,7 @@ import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
 
-enum SaveState { saved, saving, unsaved, absoluteRead }
+enum SaveState { saved, saving, unsaved, delay, absoluteRead }
 
 enum HideState { visible, keyboard, touch }
 
@@ -1514,6 +1514,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentState blocState, {
     AssetLocation? location,
     bool force = false,
+    bool isAutosave = false,
   }) async {
     if (!force && state.saved == SaveState.saved) {
       return state.location;
@@ -1521,10 +1522,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (state.networkingService.isClient) {
       return AssetLocation.empty;
     }
+    if (state.saved == SaveState.delay && isAutosave) {
+      return state.location;
+    }
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
     while (_currentlySaving) {
       await Future.delayed(const Duration(milliseconds: 100));
+    }
+    final isDelayed = state.settingsCubit.state.delayedAutosave;
+    if (isDelayed && isAutosave && state.saved == SaveState.unsaved) {
+      final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
+      emit(state.copyWith(saved: SaveState.delay));
+      await Future.delayed(Duration(seconds: seconds));
+      if (state.saved != SaveState.delay) {
+        return state.location;
+      }
     }
     _currentlySaving = true;
     emit(
@@ -1639,7 +1652,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
-      path = await current.save(location: path);
+      path = await current.save(location: path, isAutosave: true);
     }
   }
 

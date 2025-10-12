@@ -276,6 +276,8 @@ class SRGBConverter extends JsonConverter<SRGBColor, int> {
   int toJson(SRGBColor object) => object.value;
 }
 
+enum SaveMethod { manual, autosave, delayedAutosave }
+
 @freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
@@ -326,6 +328,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool autosave,
     @Default(true) bool showSaveButton,
     @Default(1) int toolbarRows,
+    @Default(true) bool delayedAutosave,
+    @Default(3) int autosaveDelaySeconds,
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
@@ -424,6 +428,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
       autosave: prefs.getBool('autosave') ?? true,
+      delayedAutosave: prefs.getBool('delayed_autosave') ?? false,
+      autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 5,
       toolbarSize: prefs.containsKey('toolbar_size')
           ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
           : ToolbarSize.normal,
@@ -536,6 +542,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('high_contrast', highContrast);
     await prefs.setBool('grid_view', gridView);
     await prefs.setBool('autosave', autosave);
+    await prefs.setBool('delayed_autosave', delayedAutosave);
+    await prefs.setInt('autosave_delay_seconds', autosaveDelaySeconds);
     await prefs.setString('toolbar_size', toolbarSize.name);
     await prefs.setInt('toolbar_rows', toolbarRows);
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
@@ -1039,10 +1047,20 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
 
-  Future<void> changeAutosave(bool? value) {
+  Future<void> changeAutosave(bool? value, {bool delayed = false}) {
     emit(
-      state.copyWith(autosave: value ?? true, showSaveButton: value == null),
+      state.copyWith(
+        autosave: value ?? true,
+        showSaveButton: value == null,
+        delayedAutosave: delayed,
+      ),
     );
+    return save();
+  }
+
+  Future<void> changeAutosaveDelaySeconds(int seconds) {
+    final normalized = seconds.clamp(1, 3600);
+    emit(state.copyWith(autosaveDelaySeconds: normalized));
     return save();
   }
 

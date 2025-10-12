@@ -351,10 +351,20 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   SaveState.unsaved ||
                   SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
                   SaveState.saving => PhosphorIconsLight.download,
+                  SaveState.delay => PhosphorIconsLight.clock,
                 });
+                String tooltip = switch (currentIndex.saved) {
+                  SaveState.saved => AppLocalizations.of(context).saved,
+                  SaveState.unsaved => AppLocalizations.of(context).unsaved,
+                  SaveState.absoluteRead => AppLocalizations.of(
+                    context,
+                  ).readOnly,
+                  SaveState.saving => AppLocalizations.of(context).saving,
+                  SaveState.delay => AppLocalizations.of(context).saveDelayed,
+                };
                 return IconButton(
                   icon: icon,
-                  tooltip: AppLocalizations.of(context).save,
+                  tooltip: tooltip,
                   onPressed: () {
                     Actions.maybeInvoke<SaveIntent>(
                       context,

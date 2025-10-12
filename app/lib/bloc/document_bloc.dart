@@ -1296,10 +1296,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     state.assetService?.dispose();
   }
 
-  Future<void> save() {
+  Future<void> save({AssetLocation? location, bool force = false}) {
     final current = state;
     if (current is! DocumentLoadSuccess) return Future.value();
-    return current.save();
+    return current.save(location: location, force: force);
   }
 
   bool isInBounds(Offset globalPosition) {

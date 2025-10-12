@@ -126,6 +126,8 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   autosave: json['autosave'] as bool? ?? true,
   showSaveButton: json['showSaveButton'] as bool? ?? true,
   toolbarRows: (json['toolbarRows'] as num?)?.toInt() ?? 1,
+  delayedAutosave: json['delayedAutosave'] as bool? ?? false,
+  autosaveDelaySeconds: (json['autosaveDelaySeconds'] as num?)?.toInt() ?? 5,
   hideCursorWhileDrawing: json['hideCursorWhileDrawing'] as bool? ?? false,
   utilities: json['utilities'] == null
       ? const UtilitiesState()
@@ -204,6 +206,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'autosave': instance.autosave,
   'showSaveButton': instance.showSaveButton,
   'toolbarRows': instance.toolbarRows,
+  'delayedAutosave': instance.delayedAutosave,
+  'autosaveDelaySeconds': instance.autosaveDelaySeconds,
   'hideCursorWhileDrawing': instance.hideCursorWhileDrawing,
   'utilities': instance.utilities.toJson(),
   'onStartup': _$StartupBehaviorEnumMap[instance.onStartup]!,
