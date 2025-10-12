@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorovat sílu stisku",
   "ignoreFirstPressureDescription": "U některých zařízení není první zaznamenaná hodnota tlaku přesná. Toto nastavení bude ignorovat první hodnotu tlaku a místo toho použije druhou.",
   "temporary": "Dočasné",
-  "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů"
+  "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
