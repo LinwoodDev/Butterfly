@@ -706,5 +706,11 @@
   "ignorePressure": "تجاهل الضغط",
   "ignoreFirstPressureDescription": "في بعض الأجهزة، قيمة الضغط الأول غير دقيقة. هذا الإعداد سوف يتجاهل قيمة الضغط الأول ويستخدم ضغط الحدث الثاني بدلاً من ذلك.",
   "temporary": "مؤقت",
-  "simpleToolbarVisibility": "رؤية شريط الأدوات البسيطة"
+  "simpleToolbarVisibility": "رؤية شريط الأدوات البسيطة",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }
