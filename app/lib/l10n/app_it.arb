@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "Su alcuni dispositivi, il primo valore di pressione non è accurato. Questa impostazione ignorerà il primo valore di pressione e userà invece la pressione del secondo evento.",
   "temporary": "Temporaneo",
   "simpleToolbarVisibility": "Semplice visibilità della barra degli strumenti",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Ritardo salvataggio automatico",
+  "saved": "Salvato",
+  "saving": "Salvataggio...",
+  "readOnly": "Sola lettura",
+  "saveDelayed": "Salva ritardato",
+  "unsaved": "Non Salvato"
 }
