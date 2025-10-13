@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "На деяких пристроях перше значення тиску не точне. Ця настройка ігноруватиме перше значення тиску і буде використовувати тиск другої події.",
   "temporary": "Тимчасово",
   "simpleToolbarVisibility": "Проста видимість панелі інструментів",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Затримка автозбереження",
+  "saved": "Збережено",
+  "saving": "Збереження...",
+  "readOnly": "Тільки для читання",
+  "saveDelayed": "Зберегти затримку",
+  "unsaved": "Не збережено"
 }
