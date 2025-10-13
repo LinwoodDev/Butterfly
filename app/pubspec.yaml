@@ -110,13 +110,12 @@ dependencies:
   barcode: ^2.2.9
   network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4
-# Does not work currently
-#dependency_overrides:
-#  irondash_engine_context:
-#    git:
-#      url: https://github.com/CodeDoctorDE/irondash
-#      ref: 65343873472d6796c0388362a8e04b6e9a499044
-#      path: engine_context/dart
+dependency_overrides:
+  irondash_engine_context:
+    git:
+      url: https://github.com/CodeDoctorDE/irondash
+      ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
+      path: engine_context/dart
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0

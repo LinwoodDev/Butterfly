@@ -717,12 +717,13 @@ packages:
     source: hosted
     version: "1.0.5"
   irondash_engine_context:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: irondash_engine_context
-      sha256: "2bb0bc13dfda9f5aaef8dde06ecc5feb1379f5bb387d59716d799554f3f305d7"
-      url: "https://pub.dev"
-    source: hosted
+      path: "engine_context/dart"
+      ref: "06272db8cf132d89f9e93ce71a5af75251a98e16"
+      resolved-ref: "06272db8cf132d89f9e93ce71a5af75251a98e16"
+      url: "https://github.com/CodeDoctorDE/irondash"
+    source: git
     version: "0.5.5"
   irondash_message_channel:
     dependency: transitive
