@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "デバイスによっては、最初の圧力値が正確でない場合があります。 この設定は、最初のプレッシャー値を無視し、代わりに2番目のイベントのプレッシャーを使用します。",
   "temporary": "一時的な",
   "simpleToolbarVisibility": "シンプルなツールバーの表示",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "自動保存の遅延",
+  "saved": "保存しました",
+  "saving": "保存中...",
+  "readOnly": "読み取り専用",
+  "saveDelayed": "遅延保存",
+  "unsaved": "未保存"
 }
