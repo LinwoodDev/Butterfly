@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis.",
   "temporary": "Tijdelijk",
   "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Automatisch opslaan vertraging",
+  "saved": "Opgeslagen",
+  "saving": "Opslaan...",
+  "readOnly": "Alleen lezen",
+  "saveDelayed": "Vertraagd opslaan",
+  "unsaved": "Niet-opgeslagen"
 }
