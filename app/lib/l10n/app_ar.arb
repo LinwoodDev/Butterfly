@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "في بعض الأجهزة، قيمة الضغط الأول غير دقيقة. هذا الإعداد سوف يتجاهل قيمة الضغط الأول ويستخدم ضغط الحدث الثاني بدلاً من ذلك.",
   "temporary": "مؤقت",
   "simpleToolbarVisibility": "رؤية شريط الأدوات البسيطة",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "تأخير تلقائي",
+  "saved": "محفوظ",
+  "saving": "حفظ...",
+  "readOnly": "قراءة فقط",
+  "saveDelayed": "حفظ متأخر",
+  "unsaved": "غير محفوظة"
 }
