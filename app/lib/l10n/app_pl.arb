@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "Na niektórych urządzeniach pierwsza wartość ciśnienia nie jest dokładna. To ustawienie zignoruje pierwszą wartość nacisku i zamiast tego użyj nacisku drugiego zdarzenia.",
   "temporary": "Tymczasowy",
   "simpleToolbarVisibility": "Widoczność prostego paska narzędzi",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Opóźnienie automatycznego zapisu",
+  "saved": "Zapisano",
+  "saving": "Zapisywanie...",
+  "readOnly": "Tylko do odczytu",
+  "saveDelayed": "Zapisz opóźnione",
+  "unsaved": "Niezapisane"
 }
