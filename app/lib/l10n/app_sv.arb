@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "På vissa enheter är det första tryckvärdet inte korrekt. Denna inställning kommer att ignorera det första tryckvärdet och använda trycket från den andra händelsen istället.",
   "temporary": "Tillfällig",
   "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Fördröjning för automatisk sparning",
+  "saved": "Sparad",
+  "saving": "Sparar...",
+  "readOnly": "Endast läsning",
+  "saveDelayed": "Spara försenad",
+  "unsaved": "Osparad"
 }
