@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "Joissain laitteissa ensimmäinen paineen arvo ei ole tarkka. Tämä asetus jättää huomiotta ensimmäisen paineen arvon ja käyttää sen sijaan toisen tapahtuman painetta.",
   "temporary": "Väliaikainen",
   "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Automaattisen tallennuksen viive",
+  "saved": "Tallennettu",
+  "saving": "Tallennetaan...",
+  "readOnly": "Vain luku",
+  "saveDelayed": "Tallennus viivästynyt",
+  "unsaved": "Tallentamaton"
 }
