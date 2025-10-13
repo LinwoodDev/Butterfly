@@ -707,10 +707,10 @@
   "ignoreFirstPressureDescription": "На некоторых устройствах первое значение давления неточно. Эта настройка будет игнорировать первое значение давления и вместо этого использовать давление второго события.",
   "temporary": "Временно",
   "simpleToolbarVisibility": "Простая видимость панели инструментов",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
-  "saving": "Saving...",
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "autosaveDelay": "Задержка автосохранения",
+  "saved": "Сохранено",
+  "saving": "Сохранение...",
+  "readOnly": "Только для чтения",
+  "saveDelayed": "Сохранить с задержкой",
+  "unsaved": "Не сохранено"
 }
