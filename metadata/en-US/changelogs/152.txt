@@ -6,6 +6,7 @@
 * Fix header text color on certain themes
 * Fix theme names not displaying correctly in personalization settings
 * Fix metadata file version not updating if file version is null
+* Fix cache settings not editable correctly
 * Add 16kb page size support for android
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.0

@@ -830,12 +830,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
             final documents = List<String>.from(e.cachedDocuments[''] ?? []);
-            return (e as dynamic).copyWith(
-                  cachedDocuments: documents
-                    ..removeWhere((element) => element == current)
-                    ..add(current),
-                )
-                as ExternalStorage;
+            return e.copyWith(
+              cachedDocuments: {
+                '': documents
+                  ..removeWhere((element) => element == current)
+                  ..add(current),
+              },
+            );
           }
           return e;
         }).toList(),
@@ -849,12 +850,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            return (e as dynamic).copyWith(
-                  cachedDocuments: List<String>.from(
-                    e.cachedDocuments[''] ?? [],
-                  )..remove(current),
-                )
-                as ExternalStorage;
+            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            return e.copyWith(
+              cachedDocuments: {
+                '': documents..removeWhere((element) => element == current),
+              },
+            );
           }
           return e;
         }).toList(),
@@ -878,11 +879,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> clearCaches(ExternalStorage storage) {
+  Future<void> clearCaches(String identifier) {
     emit(
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
-          if (e.identifier == storage.identifier && e is RemoteStorage) {
+          if (e.identifier == identifier && e is RemoteStorage) {
             return (e as dynamic).copyWith(cachedDocuments: [])
                 as ExternalStorage;
           }
