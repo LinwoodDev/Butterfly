@@ -223,7 +223,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final assetService = current.assetService;
       final (data, elements) = await importAssetsAsync(
         current.data,
-        event.elements.map((e) => e.copyWith(id: createUniqueId())).toList(),
+        event.elements
+            .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+            .toList(),
         onInvalidate: assetService.invalidate,
         assets: event.assets,
       );
@@ -257,7 +259,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final elements = event.elements.map(
         (key, value) => MapEntry(
           key,
-          value.map((e) => e.copyWith(id: createUniqueId())).toList(),
+          value.map((e) => e.copyWith(id: e.id ?? createUniqueId())).toList(),
         ),
       );
       final replacedRenderers =

@@ -192,6 +192,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (selectState != SelectState.none) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
+      _disposeTemporaryForegrounds();
       _disposeForegrounds();
       final foregrounds = handler.createForegrounds(
         this,
@@ -263,6 +264,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         change.nextState.lastPosition != change.currentState.lastPosition ||
         change.nextState.userName != change.currentState.userName) {
       _sendNetworkingState();
+    }
+    final newViewport = change.nextState.cameraViewport;
+    final currentViewport = change.currentState.cameraViewport;
+    if (change.currentState.cameraViewport != change.nextState.cameraViewport) {
+      change.nextState.handler.onViewportUpdated(currentViewport, newViewport);
+      change.nextState.temporaryHandler?.onViewportUpdated(
+        currentViewport,
+        newViewport,
+      );
     }
   }
 
@@ -345,7 +355,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
     final handler = Handler.fromTool(tool);
-    state.handler.dispose(bloc);
     _disposeForegrounds();
     final foregrounds = handler.createForegrounds(
       this,
@@ -694,16 +703,25 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       e.dispose(bloc);
     }
     _disposeForegrounds();
+    _disposeTemporaryForegrounds();
+    _disposeNetworkingForegrounds();
+    _disposeToggleableForegrounds();
     emit(
       state.copyWith(
         index: null,
         handler: HandHandler(),
         cursor: MouseCursor.defer,
-        foregrounds: [],
+        foregrounds: const <Renderer>[],
         temporaryHandler: null,
         temporaryForegrounds: null,
         temporaryCursor: null,
         temporaryRendererStates: null,
+        toolbar: null,
+        temporaryToolbar: null,
+        rendererStates: const <String, RendererState>{},
+        toggleableHandlers: const <int, Handler<Tool>>{},
+        toggleableForegrounds: const <int, List<Renderer>>{},
+        networkingForegrounds: const <Renderer>[],
         cameraViewport: CameraViewport.unbaked(),
       ),
     );
@@ -1603,7 +1621,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
-    final cameraViewport = current.cameraViewport;
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,
@@ -1630,11 +1647,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else if (backgrounds != null) {
       await this.unbake(blocState, backgrounds: backgrounds);
     } else {
-      final elements = List<Renderer<PadElement>>.from(
-        cameraViewport.unbakedElements,
-      );
-      elements.addAll(addedElements);
-      await addUnbaked(blocState, elements);
+      await addUnbaked(blocState, addedElements);
     }
 
     setSaveState(saved: SaveState.unsaved);

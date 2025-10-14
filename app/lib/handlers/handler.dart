@@ -239,6 +239,11 @@ abstract class Handler<T> {
     EventContext eventContext,
   ) {}
 
+  void onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) {}
+
   void onLongPressDown(LongPressDownDetails details, EventContext context) {}
 
   bool canChange(PointerDownEvent event, EventContext context) => true;

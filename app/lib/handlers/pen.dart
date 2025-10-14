@@ -5,6 +5,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   bool _hideCursorWhileDrawing = false;
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
+  final List<PenElement> _submittedElements = [];
   // Map to store the starting positions of each element.
   final Map<int, Offset> startPosition = {};
   // Map to store the last positions of each element.
@@ -29,7 +30,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
-  ]) => elements.values
+  ]) => [...elements.values, ..._submittedElements]
       .map((e) {
         if (e.points.length > 1) return PenRenderer(e);
         return null;
@@ -67,21 +68,34 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   // Flag to check if elements are being submitted.
   bool _currentlyBaking = false;
+  DocumentBloc? _bloc;
 
   // Submit elements for processing and rendering.
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
+    _bloc = bloc;
     final elements = indexes
         .map((e) => this.elements.remove(e))
         .nonNulls
         .toList();
     if (elements.isEmpty) return;
+    _submittedElements.addAll(elements);
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));
+    bloc.refresh();
+  }
+
+  @override
+  Future<void> onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) async {
+    if (_submittedElements.isEmpty) return;
+    _submittedElements.clear();
     if (_currentlyBaking) return;
     _currentlyBaking = true;
-    await bloc.bake();
+    await _bloc?.bake();
     _currentlyBaking = false;
-    bloc.refresh();
+    await _bloc?.refresh();
   }
 
   // Add a point to the element.
@@ -401,4 +415,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)
       ? SystemMouseCursors.none
       : SystemMouseCursors.precise;
+
+  @override
+  Map<String, RendererState> get rendererStates => Map.fromEntries(
+    _submittedElements.map((e) => MapEntry(e.id!, RendererState.hidden)),
+  );
 }
