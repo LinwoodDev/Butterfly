@@ -9,6 +9,7 @@
 * Fix metadata file version not updating if file version is null
 * Fix cache settings not editable correctly
 * Fix elements are duplicated on creation
+* Fix importing does not respect current directory
 * Add 16kb page size support for android
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.0

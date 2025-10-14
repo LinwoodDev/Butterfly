@@ -271,8 +271,11 @@ class __PacksListState extends State<_PacksList> {
         return Dismissible(
           key: ValueKey(('globalpack', metadata.name)),
           onDismissed: (direction) async {
-            setState(() => _globalPacks.removeAt(index));
             await _packSystem.deleteFile(file.path);
+            if (!mounted) return;
+            setState(() {
+              _globalPacks.removeAt(index);
+            });
           },
           background: Container(color: Colors.red),
           child: ContextRegion(
@@ -314,6 +317,7 @@ class __PacksListState extends State<_PacksList> {
                 child: Text(AppLocalizations.of(context).delete),
                 onPressed: () async {
                   await _packSystem.deleteFile(file.path);
+                  if (!mounted) return;
                   setState(() {
                     _globalPacks.removeAt(index);
                   });

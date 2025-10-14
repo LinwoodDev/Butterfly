@@ -61,7 +61,7 @@ class DocumentDefaults {
           thumbnail: await _createPlainThumnail(color),
           backgrounds: [bg],
         );
-      }).toList(),
+      }),
     );
   }
 

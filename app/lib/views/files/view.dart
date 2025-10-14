@@ -642,6 +642,10 @@ class FilesViewState extends State<FilesView> {
                             'native',
                             queryParameters: {
                               'name': 'document.bfly',
+                              'path': AssetLocation(
+                                path: _locationController.text,
+                                remote: _remote?.identifier ?? '',
+                              ).identifier,
                               'type': fileExtension ?? 'note',
                             },
                             extra: result,

@@ -90,12 +90,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     CameraViewport newViewport,
   ) async {
     if (_submittedElements.isEmpty) return;
-    _submittedElements.clear();
     if (_currentlyBaking) return;
     _currentlyBaking = true;
     await _bloc?.bake();
-    _currentlyBaking = false;
     await _bloc?.refresh();
+    _submittedElements.clear();
+    _currentlyBaking = false;
   }
 
   // Add a point to the element.
