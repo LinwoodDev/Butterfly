@@ -648,7 +648,7 @@
   "performanceDescription": "Βελτιστοποιημένο για τη χρήση ταχύτητας και μνήμης. Μόνο το ορατό τμήμα της σημείωσης ψήνεται μέσα στην εικόνα.",
   "normalDescription": "Προσδίδει μια εικόνα που καλύπτει 1,5 φορές την ορατή περιοχή, παρέχοντας ομαλότερες μεταβάσεις κατά την κύλιση.",
   "high": "Υψηλή",
-  "highDescription": "Περιγραφή: Μεγιστοποιεί την ποιότητα με το κόστος της απόδοσης. Μπαίνει μια εικόνα που καλύπτει 2 φορές την ορατή περιοχή, εξασφαλίζοντας απρόσκοπτη απόδοση ακόμη και κατά τη διάρκεια της ταχείας κύλισης ή μεγέθυνσης.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Ανάλυση απόδοσης",
   "translate": "Μετάφραση",
   "unencrypted": "Μη Κρυπτογραφημένο",
