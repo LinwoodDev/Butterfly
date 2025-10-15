@@ -648,7 +648,7 @@
   "performanceDescription": "Sebességre és memóriahasználatra optimalizált. A képbe csak a látható rész kerül beégetésre.",
   "normalDescription": "Minőség és teljesítmény kiegyensúlyozása: a kép a látható terület másfélszeresét tartalmazza, gördítés során simább átmenetet biztosítva.",
   "high": "Magas",
-  "highDescription": "Leírás: a minőséget maximalizálja a teljesítmény rovására. A kép a látható terület kétszeresét tartalmazza, gördítés vagy nagyítás közben is zökkenőmentes megjelenítést biztosít.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Renderelési felbontás",
   "translate": "Fordítás",
   "unencrypted": "Nem titkosított",
