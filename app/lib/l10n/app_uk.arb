@@ -648,7 +648,7 @@
   "performanceDescription": "Оптимізується для швидкості та використання пам'яті. Відображається лише видима частина нотаток, яка відтворена у зображення.",
   "normalDescription": "Активує якість та продуктивність. Створює зображення що охоплює відстань в 1,5 рази від видимої області, забезпечуючи більш плавні переходи при прокручуванні.",
   "high": "Високий",
-  "highDescription": "Опис: Максимізує якість за рахунок продуктивності. Викидає зображення, що охоплює в 2 рази видиму площу, забезпечує безперешкодне відтворення навіть під час швидкого прокручування чи масштабування.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Роздільна здатність візуалізації",
   "translate": "Переклад",
   "unencrypted": "Незашифровано",
