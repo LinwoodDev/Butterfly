@@ -648,7 +648,7 @@
   "performanceDescription": "Tối ưu cho tốc độ và bộ nhớ. Chỉ phần hiển thị được nướng thành hình ảnh.",
   "normalDescription": "Cân bằng chất lượng và hiệu năng. Nướng hình ảnh phủ 1.5 lần vùng hiển thị, mượt hơn khi cuộn.",
   "high": "Cao",
-  "highDescription": "Tối đa chất lượng đánh đổi hiệu năng. Nướng hình ảnh phủ 2 lần vùng hiển thị, đảm bảo mượt ngay cả khi cuộn hoặc phóng to nhanh.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Độ phân giải render",
   "translate": "Dịch",
   "unencrypted": "Chưa mã hóa",
