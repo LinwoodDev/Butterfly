@@ -648,7 +648,7 @@
   "performanceDescription": "Optimizovano za brzinu i korišćenje memorije. Samo vidljivi deo beleške se renderuje u sliku.",
   "normalDescription": "Balansira kvalitet i performanse. Renderuje sliku koja pokriva 1,5 puta vidljivu oblast, pružajući glatkije prelaze pri skrolovanju.",
   "high": "Visoko",
-  "highDescription": "Opis: Maksimizira kvalitet na uštrb performansi. Renderuje sliku koja pokriva 2 puta vidljivu oblast, osiguravajući besprekorno renderovanje čak i pri brzom skrolovanju ili zumiranju.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Rezolucija renderovanja",
   "translate": "Prevedi",
   "unencrypted": "Nešifrovano",
