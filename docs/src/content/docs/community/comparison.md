@@ -9,20 +9,20 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 | Feature | Butterfly | OneNote | Obsidian | Excalidraw | Xournal++ | Samsung Note |
 |---------|-----------|---------|----------|------------|-----------|-----------|
 | **Open Source** | ✅ Yes (AGPL-3.0) | ❌ No | ❌ No | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) | ❌ No |
-| **Cost** | Free | Free | Free (personal) | Free + Paid tiers | Free | Free | Free |
+| **Cost** | Free | Free | Free (personal) | Free + Paid tiers | Free | Free |
 | **Android** | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | **Windows** | ✅ | ✅ | ✅ | ❌ | ✅ (Windows 10)| 🟧 Limited (Samsung devices ONLY) |
 | **Linux** | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
 | **macOS** | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | **Web** | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ |
 | **Infinite Canvas** | ✅ Full | ✅ Positive coords only | ✅ | ✅ | ❌ Fixed pages | ❌ Fixed pages |
-| **Handwriting** | ✅ | ✅ | 🟧 Limited | ✅ Drawing | ✅ | ✅
-| **Custom Colors** | ✅ Full palette | ✅ | ✅ Themes | ✅ | ✅ | ✅
-| **PDF Import** | ✅ | ✅ | 🟧 Limited | ❌ | ✅ | ✅
-| **PDF Export** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
-| **SVG Support** | ✅ | ❌ | ❌ | ✅ | ❌ | ❌
-| **Offline Use** | ✅ | ✅ | ✅ | ✅ Basic | ✅ | ✅
-| **Cloud Sync** | WebDAV | OneDrive/SharePoint | Paid sync | Paid collab | Manual | OneDrive/Samsung Cloud
+| **Handwriting** | ✅ | ✅ | 🟧 Limited | ✅ Drawing | ✅ | ✅ |
+| **Custom Colors** | ✅ Full palette | ✅ | ✅ Themes | ✅ | ✅ | ✅ |
+| **PDF Import** | ✅ | ✅ | 🟧 Limited | ❌ | ✅ | ✅ |
+| **PDF Export** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **SVG Support** | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ |
+| **Offline Use** | ✅ | ✅ | ✅ | ✅ Basic | ✅ | ✅ |
+| **Cloud Sync** | WebDAV | OneDrive/SharePoint | Paid sync | Paid collab | Manual | OneDrive/Samsung Cloud |
 
 ## Detailed Comparisons
 
