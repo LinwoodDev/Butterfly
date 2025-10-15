@@ -648,7 +648,7 @@
   "performanceDescription": "Hız ve bellek kullanımı için optimize edildi. Notun yalnızca görünen kısmı görüntüye işlenir.",
   "normalDescription": "Kalite ve performans arasında denge sağlar. Görünen alanın 1.5 katını kapsayan bir görüntü oluşturur, kaydırırken daha pürüzsüz geçişler sağlar.",
   "high": "Yüksek",
-  "highDescription": "Açıklama: Performans pahasına kaliteyi en üst düzeye çıkarır. Görünen alanın 2 katını kapsayan bir görüntü oluşturur, hızlı kaydırma veya yakınlaştırma sırasında bile sorunsuz render sağlar.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Render çözünürlüğü",
   "translate": "Çevir",
   "unencrypted": "Şifrelenmemiş",
