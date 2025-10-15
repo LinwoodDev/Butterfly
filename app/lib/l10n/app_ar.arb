@@ -648,7 +648,7 @@
   "performanceDescription": "تم تحسينه لاستخدام السرعة والذاكرة. فقط الجزء المرئي من الملاحظة يخبز في الصورة.",
   "normalDescription": "جودة الموازين والأداء. يعطي صورة تغطي 1.5 ضعف المساحة المرئية، مما يوفر انتقالات أكثر سلاسة عند التمرير.",
   "high": "مرتفع",
-  "highDescription": "الوصف: زيادة الجودة إلى أقصى حد على حساب الأداء. تكوين صورة تغطي ضعفين من المساحة المرئية، مما يضمن سلاسة حتى أثناء التمرير السريع أو التكبير السريع.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "عرض الدقة",
   "translate": "ترجم",
   "unencrypted": "غير مشفرة",
