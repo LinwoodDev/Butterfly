@@ -648,7 +648,7 @@
   "performanceDescription": "Optimalizováno pro rychlost a využití paměti. Do obrázku se upíná pouze viditelná část poznámky.",
   "normalDescription": "Vyvažuje kvalitu a výkon. Peče obraz pokrývající 1,5 násobek viditelného prostoru, poskytuje tak hladší přechody při posouvání.",
   "high": "Vysoká",
-  "highDescription": "Popis: Maximalizuje kvalitu na úkor výkonu. Peče obraz pokrývající dvojnásobek viditelného prostoru. Zajišťuje tak plynulé vykreslování i při rychlém posouvání nebo přiblížení.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Vykreslovat rozlišení",
   "translate": "Přeložit",
   "unencrypted": "Nešifrováno",
