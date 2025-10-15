@@ -648,7 +648,7 @@
   "performanceDescription": "गति और मेमोरी उपयोग के लिए अनुकूलित। नोट का केवल दृश्यमान हिस्सा ही छवि में बेक किया जाता है।",
   "normalDescription": "गुणवत्ता और प्रदर्शन को संतुलित करता है। दृश्यमान क्षेत्र का 1.5 गुना कवर करने वाली एक छवि बेक करता है, जो स्क्रॉल करते समय सहज संक्रमण प्रदान करती है।",
   "high": "उच्च",
-  "highDescription": "विवरण: प्रदर्शन की कीमत पर गुणवत्ता को अधिकतम करता है। दृश्यमान क्षेत्र का 2 गुना कवर करने वाली एक छवि बेक करता है, जो तेजी से स्क्रॉलिंग या ज़ूमिंग के दौरान भी सहज प्रतिपादन सुनिश्चित करती है।",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "रेंडर रिज़ॉल्यूशन",
   "translate": "अनुवाद करें",
   "unencrypted": "अनएन्क्रिप्टेड",
