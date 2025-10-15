@@ -648,7 +648,7 @@
   "performanceDescription": "ଗତି ଏବଂ ସ୍ମୃତି ବ୍ୟବହାର ପାଇଁ ଅପ୍ଟିମାଇଜ୍। କେବଳ ଦେଖାଯାଉଥିବା ଅଞ୍ଚଳ ଇମେଜ୍ ବେକ୍ କରାଯାଏ।",
   "normalDescription": "ଗୁଣତ୍ତା ଏବଂ ଦକ୍ଷତା ମଧ୍ୟରେ ସମତୁଳନ। ଦৃଶ୍ୟମାନ ଅଞ୍ଚଳର 1.5 ଗୁଣ ଇମେଜ୍ ବେକ୍ କରାଯାଏ, ଯାହା ସ୍କ୍ରୋଲ୍ ସମୟରେ ସ୍ମୂଥ୍ ରୂପରେ ତରଙ୍ଗ ପ୍ରଦାନ କରେ।",
   "high": "ଉଚ୍ଚ",
-  "highDescription": "ବର୍ଣ୍ଢ ମୂଲ୍ୟରେ ଅଧିକ ଗୁଣତ୍ତା। ଦৃଶ୍ୟମାନ ଅଞ୍ଚଳର 2 ଗୁଣ ଇମେଜ୍ ବେକ୍ କରାଯାଏ, ତେବେ ତ୍ରୁଟିହୀନ ରେଣ୍ଡେରିଙ୍ଗ।",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "ରେଣ୍ଡର୍ ରେଜୋଲ୍ୟୁସନ୍",
   "translate": "ଅନୁବାଦ",
   "unencrypted": "ଅଏନ୍କ୍ରିପ୍ଟେଡ୍",
