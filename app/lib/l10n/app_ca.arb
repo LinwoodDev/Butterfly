@@ -648,7 +648,7 @@
   "performanceDescription": "Optimitzat per a velocitat i ús de memòria. Només la porció visible de la nota s'integra a la imatge.",
   "normalDescription": "Equilibra qualitat i rendiment. Integra una imatge que cobreix 1,5 vegades l'àrea visible, proporcionant transicions més suaus en desplaçar-se.",
   "high": "Alt",
-  "highDescription": "Descripció: Maximitza la qualitat a costa del rendiment. Integra una imatge que cobreix 2 vegades l'àrea visible, assegurant un renderitzat sense interrupcions fins i tot durant desplaçaments o zoom ràpids.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Resolució de renderitzat",
   "translate": "Tradueix",
   "unencrypted": "Sense xifrar",
