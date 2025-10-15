@@ -10,7 +10,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 |---------|-----------|---------|----------|------------|-----------|-----------|
 | **Open Source** | ✅ Yes (AGPL-3.0) | ❌ No | ❌ No | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) | ❌ No |
 | **Cost** | Free | Free | Free (personal) | Free + Paid tiers | Free | Free | Free |
-| **Android** | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ |
+| **Android** | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | **Windows** | ✅ | ✅ | ✅ | ❌ | ✅ (Windows 10)| 🟧 Limited (Samsung devices ONLY) |
 | **Linux** | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
 | **macOS** | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
