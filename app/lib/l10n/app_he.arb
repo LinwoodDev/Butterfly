@@ -648,7 +648,7 @@
   "performanceDescription": "מותאם למהירות ושימוש בזיכרון. רק החלק הנראה של הפתק נאפה לתוך התמונה.",
   "normalDescription": "מאזן בין איכות וביצועים. אופה תמונה המכסה פי 1.5 מהאזור הנראה, ומספק מעברים חלקים יותר בזמן גלילה.",
   "high": "גבוה",
-  "highDescription": "תיאור: ממקסם איכות על חשבון ביצועים. אופה תמונה המכסה פי 2 מהאזור הנראה, ומבטיח רינדור חלק גם בזמן גלילה או זום מהירים.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "רזולוציית רינדור",
   "translate": "תרגם",
   "unencrypted": "לא מוצפן",
