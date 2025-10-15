@@ -648,7 +648,7 @@
   "performanceDescription": "Optimizada para el uso de velocidad y memoria.",
   "normalDescription": "Equilibra calidad y rendimiento. Toma una imagen cubriendo 1,5 veces la zona visible, proporcionando transiciones más suaves cuando se desplaza.",
   "high": "Alta",
-  "highDescription": "Descripción: Maximiza la calidad al coste del rendimiento. Hace una imagen cubriendo 2 veces la zona visible, asegurando un renderizado sin costuras incluso durante un desplazamiento rápido o zooming.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Procesar resolución",
   "translate": "Traducir",
   "unencrypted": "Sin cifrar",
