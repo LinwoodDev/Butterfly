@@ -648,7 +648,7 @@
   "performanceDescription": "Optimalisert for hastighet og minnebruk. Bare synlig del av notatet blir bakt i bildet.",
   "normalDescription": "Balanser kvalitet og ytelse. Baker et bilde over 1,5 ganger synlig område, gir jevnere overgang når man scroller.",
   "high": "Høy",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Maksimerer kvaliteten på ytelsen. Baker et bilde som dekker to ganger det synlige området, og sørger for sømløs gjengivelse selv under rask rulling eller zooming.",
   "renderResolution": "Gjengi oppløsning",
   "translate": "Oversett",
   "unencrypted": "Ukryptert",
