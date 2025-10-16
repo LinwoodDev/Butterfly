@@ -648,7 +648,7 @@
   "performanceDescription": "Оптимизировано для скорости и использования памяти. В изображение помещается только видимая часть заметки.",
   "normalDescription": "Баланс качества и производительности. Прибавляет изображение, покрывающее видимую область в полтора раза, обеспечивая более плавные переходы при прокрутке.",
   "high": "Высокий",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Увеличивает качество за счет повышения производительности. Делает изображение, покрывающее в два раза видимую область, обеспечивая бесшовное рендеринг даже при быстрой прокрутке или масштабировании.",
   "renderResolution": "Отрисовка разрешения",
   "translate": "Перевести",
   "unencrypted": "Незашифрованный",
