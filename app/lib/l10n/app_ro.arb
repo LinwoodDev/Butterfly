@@ -648,7 +648,7 @@
   "performanceDescription": "Optimizat pentru viteză și utilizarea memoriei. Numai partea vizibilă a notei este copită în imagine.",
   "normalDescription": "Echilibrează calitatea și performanța. Bake o imagine care acoperă de 1,5 ori zona vizibilă, oferind tranziții mai ușoare atunci când derulează.",
   "high": "Ridicat",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Maximizează calitatea cu preţul performanţei. Bakează o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând o redare fără întreruperi chiar şi în timpul derulării sau măririi rapide.",
   "renderResolution": "Rezoluție de randare",
   "translate": "Tradu",
   "unencrypted": "Necriptat",
