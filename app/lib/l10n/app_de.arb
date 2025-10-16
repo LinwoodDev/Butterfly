@@ -648,7 +648,7 @@
   "performanceDescription": "Optimiert für Geschwindigkeit und Speicherauslastung. Nur der sichtbare Teil der Notiz wird in das Bild gebacken.",
   "normalDescription": "Balanciert Qualität und Performance. Bietet ein Bild, das das 1,5 Mal so viel wie der sichtbare Bereich abdeckt, und sorgt beim Scrollen für glattere Übergänge.",
   "high": "Hoch",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Maximiert die Qualität auf Kosten der Leistung. Fügt ein Bild ein, das das 2fache des sichtbaren Bereichs abdeckt, wodurch auch beim schnellen Scrollen oder Zoomen eine nahtlose Darstellung gewährleistet wird.",
   "renderResolution": "Render-Auflösung",
   "translate": "Übersetzen",
   "unencrypted": "Unverschlüsselt",
