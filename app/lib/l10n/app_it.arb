@@ -648,7 +648,7 @@
   "performanceDescription": "Ottimizzato per la velocità e l'utilizzo della memoria. Solo la parte visibile della nota viene cotta nell'immagine.",
   "normalDescription": "Bilancia qualità e prestazioni. Cuoce un'immagine che copre 1,5 volte l'area visibile, fornendo transizioni più fluide durante lo scorrimento.",
   "high": "Alto",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Massimizza la qualità al costo delle prestazioni. Cuoce un'immagine che copre 2 volte l'area visibile, garantendo un rendering senza interruzioni anche durante lo scorrimento rapido o lo zoom.",
   "renderResolution": "Risoluzione del rendering",
   "translate": "Trasla",
   "unencrypted": "Non Crittografato",
