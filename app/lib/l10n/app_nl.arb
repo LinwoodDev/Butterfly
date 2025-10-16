@@ -648,7 +648,7 @@
   "performanceDescription": "Geoptimaliseerd voor snelheid en geheugengebruik. Alleen het zichtbare deel van de notitie wordt in de afbeelding gebakken.",
   "normalDescription": "Geeft een balans van kwaliteit en prestaties. Maakt een afbeelding die 1,5 keer het zichtbare gebied beslaat en biedt betere overgangen bij het scrollen.",
   "high": "hoog",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Vergroot kwaliteit ten koste van prestaties. Maakt een afbeelding die 2 keer het zichtbare gebied beslaat en zorgt voor naadloze weergave zelfs tijdens snel scrollen of zoomen",
   "renderResolution": "Resolutie weergeven",
   "translate": "Vertalen",
   "unencrypted": "Onversleuteld",
