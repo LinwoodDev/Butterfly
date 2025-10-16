@@ -648,7 +648,7 @@
   "performanceDescription": "Optimoitu nopeuden ja muistin käyttöä varten. Kuvaan paistetaan vain muistin näkyvä osa.",
   "normalDescription": "Tasapainojen laatu ja suorituskyky. Bakes kuvan, joka kattaa 1,5 kertaa näkyvän alueen, tarjoaa sujuvampia siirtymiä vierittäessä.",
   "high": "Korkea",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Maksimoi laatua suorituskyvyn kustannuksella. Bakes kuvan, joka kattaa 2 kertaa näkyvän alueen, varmistaen saumattoman renderöinnin myös nopean vierityksen tai zoomauksen.",
   "renderResolution": "Renderöi resoluutio",
   "translate": "Käännä",
   "unencrypted": "Salaamaton",
