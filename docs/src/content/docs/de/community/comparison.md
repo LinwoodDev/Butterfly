@@ -6,23 +6,23 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 
 ## Quick Comparison Table
 
-| Feature             | Butterfly                                           | OneNote                | Obsidian                           | Excalidraw                     | Xournal++                                          |
-| ------------------- | --------------------------------------------------- | ---------------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------- |
-| **Open Source**     | ✅ Yes (AGPL-3.0) | ❌ No                   | ❌ No                               | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) |
-| **Cost**            | Free                                                | Free                   | Free (personal) | Free + Paid tiers              | Free                                               |
-| **Android**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ❌                                                  |
-| **Windows**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅ (Windows 10)                  |
-| **Linux**           | ✅                                                   | ❌                      | ✅                                  | ❌                              | ✅                                                  |
-| **macOS**           | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅                                                  |
-| **Web**             | ✅                                                   | ✅                      | ❌                                  | ✅                              | ❌                                                  |
-| **Infinite Canvas** | ✅ Full                                              | ✅ Positive coords only | ✅                                  | ✅                              | ❌ Fixed pages                                      |
-| **Handwriting**     | ✅                                                   | ✅                      | Begrenzt                           | ✅ Drawing                      | ✅                                                  |
-| **Custom Colors**   | ✅ Full palette                                      | ✅                      | ✅ Themes                           | ✅                              | ✅                                                  |
-| **PDF Import**      | ✅                                                   | ✅                      | Begrenzt                           | ❌                              | ✅                                                  |
-| **PDF Export**      | ✅                                                   | ✅                      | ✅                                  | ✅                              | ✅                                                  |
-| **SVG Support**     | ✅                                                   | ❌                      | ❌                                  | ✅                              | ❌                                                  |
-| **Offline Use**     | ✅                                                   | ✅                      | ✅                                  | ✅ Basic                        | ✅                                                  |
-| **Cloud Sync**      | WebDAV                                              | OneDrive/SharePoint    | Paid sync                          | Paid collab                    | Manuell                                            |
+| Feature             | Butterfly                                           | OneNote                | Obsidian                           | Excalidraw                     | Xournal++                                          | Samsung Note                                         |
+| ------------------- | --------------------------------------------------- | ---------------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------- | ---------------------------------------------------- |
+| **Open Source**     | ✅ Yes (AGPL-3.0) | ❌ No                   | ❌ No                               | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) | ❌ No                                                 |
+| **Cost**            | Free                                                | Free                   | Free (personal) | Free + Paid tiers              | Free                                               | Free                                                 |
+| **Android**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ❌                                                  | ✅                                                    |
+| **Windows**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅ (Windows 10)                  | 🟧 Limited (Samsung devices ONLY) |
+| **Linux**           | ✅                                                   | ❌                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
+| **macOS**           | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
+| **Web**             | ✅                                                   | ✅                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
+| **Infinite Canvas** | ✅ Full                                              | ✅ Positive coords only | ✅                                  | ✅                              | ❌ Fixed pages                                      | ❌ Fixed pages                                        |
+| **Handwriting**     | ✅                                                   | ✅                      | 🟧 Limited                         | ✅ Drawing                      | ✅                                                  | ✅                                                    |
+| **Custom Colors**   | ✅ Full palette                                      | ✅                      | ✅ Themes                           | ✅                              | ✅                                                  | ✅                                                    |
+| **PDF Import**      | ✅                                                   | ✅                      | 🟧 Limited                         | ❌                              | ✅                                                  | ✅                                                    |
+| **PDF Export**      | ✅                                                   | ✅                      | ✅                                  | ✅                              | ✅                                                  | ✅                                                    |
+| **SVG Support**     | ✅                                                   | ❌                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
+| **Offline Use**     | ✅                                                   | ✅                      | ✅                                  | ✅ Basic                        | ✅                                                  | ✅                                                    |
+| **Cloud Sync**      | WebDAV                                              | OneDrive/SharePoint    | Paid sync                          | Paid collab                    | Manuell                                            | OneDrive/Samsung Cloud                               |
 
 ## Detailed Comparisons
 
@@ -146,6 +146,36 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 - **Butterfly**: Mobile note-taking, modern UI preferences, cloud sync needs
 - **Xournal++**: Academic users, PDF-heavy workflows
 
+### Butterfly vs Samsung Notes
+
+**Similarities:**
+
+- Excellent handwriting support
+- PDF annotation capabilities
+- Free
+- Stylus/pen input optimization
+- Vorlagen
+
+**Butterfly Advantages:**
+
+- **Mobile support** - iOS and Android support
+- **Web version** - Browser-based access
+- **Infinite canvas** - Not limited to page boundaries
+- **Cloud sync** - WebDAV integration built-in
+- **Multiple export formats** - SVG, PNG, PDF support
+- **Cross-platform** - Windows, Android, iOS, and Linux
+
+**Samsung Notes Advantages:**
+
+- **Native OneUI** - OneUI's interface design
+- **Audio recording** - Link audio notes to written content
+- **Optimized for Samsung devices** - Works best on samsung devices running OneUI, Samsung's Operating System
+
+**Best for:**
+
+- **Butterfly**: Mobile note-taking, cloud sync needs, inifite canvas, cross-platform usage
+- **Samsung Notes**: PDF-heavy workflows, Samsung devices
+
 ## Migration and Compatibility
 
 **From OneNote:**
@@ -170,5 +200,11 @@ Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Pl
 
 - Export annotated PDFs and import into Butterfly
 - Transfer handwritten notes by recreating or importing as images
+- Adapt from page-based to infinite canvas workflow
+
+**From Samsung Notes:**
+
+- Export notes as PDFs and import into Butterfly
+- Handwritten annonations should be redrawn in butterfly for best experience
 - Adapt from page-based to infinite canvas workflow
 
