@@ -648,7 +648,7 @@
   "performanceDescription": "速度とメモリ使用量に合わせて最適化されました。ノートの表示部分だけが画像に焼き付けられます。",
   "normalDescription": "バランスの良さとパフォーマンス。可視領域の1.5倍の画像を焼き、スクロール時にスムーズなトランジションを提供します。",
   "high": "高い",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "パフォーマンスを犠牲にして品質を最大限に高めます。可視領域の2倍の画像を作成し、急速なスクロールやズーム時でもシームレスなレンダリングを実現します。",
   "renderResolution": "レンダリング解像度",
   "translate": "翻訳する",
   "unencrypted": "暗号化なし",
