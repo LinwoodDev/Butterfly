@@ -648,7 +648,7 @@
   "performanceDescription": "优化速度和内存使用率。只将笔记的可见部分填入图像。",
   "normalDescription": "平衡质量和性能。使图像覆盖可见区域的1.5倍，在滚动时提供更加顺利的转化。",
   "high": "高",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "以性能为代价最大化质量。使图像覆盖可见区域的2倍，确保无缝渲染，即使在快速滚动或缩放时也是如此。",
   "renderResolution": "渲染分辨率",
   "translate": "翻译",
   "unencrypted": "未加密",
