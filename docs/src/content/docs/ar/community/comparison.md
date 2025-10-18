@@ -1,5 +1,5 @@
 ---
-title: Comparison
+title: المقارنة
 ---
 
 Butterfly is a note-taking app that aims for a unified experience across all platforms. It combines a simple UI with powerful customization. This page compares Butterfly to other popular note-taking and drawing applications to highlight what makes Butterfly unique.
@@ -28,7 +28,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 ### Butterfly vs Microsoft OneNote
 
-**Similarities:**
+**التشابهات**
 
 - Infinite canvas for freeform note-taking
 - Strong handwriting and drawing support
@@ -57,7 +57,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 ### Butterfly vs Obsidian
 
-**Similarities:**
+**التشابهات**
 
 - Cross-platform support
 - Customizable interface and themes
@@ -82,12 +82,12 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 **Best for:**
 
-- **Butterfly**: Visual note-takers, sketching, casual note-taking, students
+-
 - **Obsidian**: Knowledge workers, researchers, those building personal knowledge bases
 
 ### Butterfly vs Excalidraw
 
-**Similarities:**
+**التشابهات**
 
 - Excellent drawing and diagramming capabilities
 - Clean, intuitive interface
@@ -119,7 +119,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 ### Butterfly vs Xournal++
 
-**Similarities:**
+**التشابهات**
 
 - Excellent handwriting support
 - PDF annotation capabilities
@@ -148,7 +148,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 ### Butterfly vs Samsung Notes
 
-**Similarities:**
+**التشابهات**
 
 - Excellent handwriting support
 - PDF annotation capabilities
