@@ -59,6 +59,15 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   ReceivePort? port;
   StreamSubscription? subscription;
   try {
+    if (kIsWeb) {
+      return importAssets((
+        data,
+        elements,
+        onInvalidate: onInvalidate,
+        alreadyImported: alreadyImported,
+        assets: assets,
+      ));
+    }
     if (onInvalidate != null) {
       port = ReceivePort();
       subscription = port.listen((message) {
