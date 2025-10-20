@@ -5,9 +5,10 @@ import 'package:butterfly_api/src/models/pack.dart';
 
 import '../models/archive.dart';
 import '../models/data.dart';
+import '../models/meta.dart';
 
 Archive convertTextDataToArchive(Map<String, dynamic> data) {
-  data = {'fileVersion': 8, ...legacyNoteDataJsonMigrator(data)};
+  data = {'fileVersion': kFileVersion, ...legacyNoteDataJsonMigrator(data)};
   var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
   for (final palette in Map<String, dynamic>.from(
@@ -289,11 +290,11 @@ Map<String, dynamic> _legacyTemplateJsonMigrator(
   Map<String, dynamic> data,
   int? fileVersion,
 ) {
-  data['document'] = _legacyDocumentJsonMigrator(
-    Map<String, dynamic>.from(data['document']),
-    fileVersion,
-  );
-  return {...data['document'], ...data};
+  var documentData = data;
+  if (fileVersion != null && fileVersion < 8) {
+    documentData = Map<String, dynamic>.from(data['document'] ?? data);
+  }
+  return _legacyDocumentJsonMigrator(documentData, fileVersion);
 }
 
 Map<String, dynamic> _legacyPackJsonMigrator(

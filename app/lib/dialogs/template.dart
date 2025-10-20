@@ -100,21 +100,27 @@ class _TemplateDialogState extends State<TemplateDialog> {
             load();
           },
         ),
-        IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.export),
-          tooltip: AppLocalizations.of(context).export,
-          onPressed: () async {
-            final archive = Archive();
-            for (final template in (await _templateSystem.getFiles())) {
-              final data = template.data!.exportAsBytes();
-              archive.addFile(
-                ArchiveFile('${template.fileName}.bfly', data.length, data),
-              );
-            }
-            final encoder = ZipEncoder();
-            final bytes = encoder.encode(archive);
-            await exportZip(context, bytes);
-          },
+        MenuAnchor(
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+              child: Text(AppLocalizations.of(context).packagedFile),
+              onPressed: () async {
+                await _exportTemplates();
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+              child: Text(AppLocalizations.of(context).rawFile),
+              onPressed: () async {
+                await _exportTemplates(isTextBased: true);
+              },
+            ),
+          ],
+          builder: defaultMenuButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.export),
+            tooltip: AppLocalizations.of(context).export,
+          ),
         ),
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
@@ -321,6 +327,47 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                             ),
                                           ),
                                     ),
+                                  MenuAnchor(
+                                    menuChildren: [
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                          PhosphorIconsLight.archive,
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          ).packagedFile,
+                                        ),
+                                        onPressed: () async {
+                                          await _exportTemplates(
+                                            useSelected: true,
+                                          );
+                                        },
+                                      ),
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                          PhosphorIconsLight.file,
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(context).rawFile,
+                                        ),
+                                        onPressed: () async {
+                                          await _exportTemplates(
+                                            useSelected: true,
+                                            isTextBased: true,
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                    builder: defaultMenuButton(
+                                      icon: const PhosphorIcon(
+                                        PhosphorIconsLight.export,
+                                      ),
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).export,
+                                    ),
+                                  ),
                                   IconButton(
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.trash,
@@ -419,6 +466,32 @@ class _TemplateDialogState extends State<TemplateDialog> {
         );
       },
     );
+  }
+
+  Future<void> _exportTemplates({
+    bool useSelected = false,
+    bool isTextBased = false,
+  }) async {
+    final archive = Archive();
+    final files = (await _templateSystem.getFiles()).where((element) {
+      if (useSelected) {
+        return _selectedTemplates.contains(element.path);
+      }
+      return true;
+    }).toList();
+    for (final template in files) {
+      final data = template.data!.toFile(isTextBased: isTextBased).data;
+      archive.addFile(
+        ArchiveFile(
+          '${template.fileNameWithoutExtension}.${isTextBased ? 'tbfly' : 'bfly'}',
+          data.length,
+          data,
+        ),
+      );
+    }
+    final encoder = ZipEncoder();
+    final bytes = encoder.encode(archive);
+    await exportZip(context, bytes);
   }
 }
 
@@ -595,6 +668,26 @@ class _TemplateItem extends StatelessWidget {
               ],
             );
           },
+        ),
+        SubmenuButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+              child: Text(AppLocalizations.of(context).packagedFile),
+              onPressed: () async {
+                await exportData(context, file.data!, isTextBased: false);
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+              child: Text(AppLocalizations.of(context).rawFile),
+              onPressed: () async {
+                await exportData(context, file.data!, isTextBased: true);
+              },
+            ),
+          ],
+          child: Text(AppLocalizations.of(context).export),
         ),
         MenuItemButton(
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),

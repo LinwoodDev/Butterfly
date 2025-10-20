@@ -1,0 +1,5 @@
+* Add templates tbfly export option
+* Add option to selectively export templates
+* Fix templates cannot be imported in tbfly format
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.1

@@ -291,7 +291,6 @@ class __PacksListState extends State<_PacksList> {
                     context.read<DocumentBloc>().add(PackAdded(pack));
                   },
                 ),
-
               SubmenuButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
                 menuChildren: [
