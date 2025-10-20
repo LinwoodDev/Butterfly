@@ -10,7 +10,6 @@ Changes since 2.3.0-rc.1:
 This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3
 
-
 ## 2.4.0-rc.4 (2025-09-19)
 
 * Add safearea on toolbar

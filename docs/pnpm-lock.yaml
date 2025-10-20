@@ -47,7 +47,7 @@ importers:
     devDependencies:
       '@vite-pwa/astro':
         specifier: ^1.1.1
-        version: 1.1.1(astro@5.14.6(@types/node@24.8.1)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(vite-plugin-pwa@1.1.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
+        version: 1.1.1(astro@5.14.6(@types/node@24.8.1)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(vite-plugin-pwa@1.1.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
       sass:
         specifier: ^1.93.2
         version: 1.93.2
@@ -56,7 +56,7 @@ importers:
         version: 0.34.4
       vite-plugin-pwa:
         specifier: ^1.1.0
-        version: 1.1.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
+        version: 1.1.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
       workbox-window:
         specifier: ^7.3.0
         version: 7.3.0
@@ -2669,8 +2669,8 @@ packages:
     resolution: {integrity: sha512-MyIV3ZA/PmyBN/ud8vV9XzwTrNtR4jFrObymZYnZqMmW0zA8Z17vnT0rBgFE/TlohB+YCHqXMgZzb3Csp49vqg==}
     engines: {node: '>=14.16'}
 
-  package-manager-detector@1.4.1:
-    resolution: {integrity: sha512-dSMiVLBEA4XaNJ0PRb4N5cV/SEP4BWrWZKBmfF+OUm2pQTiZ6DDkKeWaltwu3JRhLoy59ayIkJ00cx9K9CaYTg==}
+  package-manager-detector@1.5.0:
+    resolution: {integrity: sha512-uBj69dVlYe/+wxj8JOpr97XfsxH/eumMt6HqjNTmJDf/6NO9s+0uxeOneIz3AsPt2m6y9PqzDzd3ATcU17MNfw==}
 
   pagefind@1.4.0:
     resolution: {integrity: sha512-z2kY1mQlL4J8q5EIsQkLzQjilovKzfNVhX8De6oyE6uHpfFtyBaqUpcl/XzJC/4fjD8vBDyh1zolimIcVrCn9g==}
@@ -3010,8 +3010,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sitemap@8.0.0:
-    resolution: {integrity: sha512-+AbdxhM9kJsHtruUF39bwS/B0Fytw6Fr1o4ZAIAEqA6cke2xcoO2GleBw9Zw7nRzILVEgz7zBM5GiTJjie1G9A==}
+  sitemap@8.0.1:
+    resolution: {integrity: sha512-4Y8ynSMFAy/DadeAeio8Kx4zfC8/0VcKi7TH0I1SazvBcrU2fpJaGoeWsX1FMRaHoe3VGMA53DqVoLErZrtG9Q==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     hasBin: true
 
@@ -3380,8 +3380,8 @@ packages:
       '@vite-pwa/assets-generator':
         optional: true
 
-  vite@6.4.0:
-    resolution: {integrity: sha512-oLnWs9Hak/LOlKjeSpOwD6JMks8BeICEdYMJBf6P4Lac/pO9tKiv/XhXnAM7nNfSkZahjlCZu9sS50zL8fSnsw==}
+  vite@6.4.1:
+    resolution: {integrity: sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -3787,11 +3787,11 @@ snapshots:
     dependencies:
       '@types/react': 19.2.2
       '@types/react-dom': 19.2.2(@types/react@19.2.2)
-      '@vitejs/plugin-react': 4.7.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
+      '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       ultrahtml: 1.6.0
-      vite: 6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -3808,7 +3808,7 @@ snapshots:
 
   '@astrojs/sitemap@3.6.0':
     dependencies:
-      sitemap: 8.0.0
+      sitemap: 8.0.1
       stream-replace-string: 2.0.0
       zod: 3.25.76
 
@@ -5149,12 +5149,12 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vite-pwa/astro@1.1.1(astro@5.14.6(@types/node@24.8.1)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(vite-plugin-pwa@1.1.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
+  '@vite-pwa/astro@1.1.1(astro@5.14.6(@types/node@24.8.1)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(vite-plugin-pwa@1.1.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
     dependencies:
       astro: 5.14.6(@types/node@24.8.1)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1)
-      vite-plugin-pwa: 1.1.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
+      vite-plugin-pwa: 1.1.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
 
-  '@vitejs/plugin-react@4.7.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))':
+  '@vitejs/plugin-react@4.7.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -5162,7 +5162,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -5319,7 +5319,7 @@ snapshots:
       neotraverse: 0.6.18
       p-limit: 6.2.0
       p-queue: 8.1.1
-      package-manager-detector: 1.4.1
+      package-manager-detector: 1.5.0
       picomatch: 4.0.3
       prompts: 2.4.2
       rehype: 13.0.2
@@ -5334,8 +5334,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.17.1
       vfile: 6.0.3
-      vite: 6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
-      vitefu: 1.1.1(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
+      vite: 6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vitefu: 1.1.1(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -7007,7 +7007,7 @@ snapshots:
 
   p-timeout@6.1.4: {}
 
-  package-manager-detector@1.4.1: {}
+  package-manager-detector@1.5.0: {}
 
   pagefind@1.4.0:
     optionalDependencies:
@@ -7514,7 +7514,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sitemap@8.0.0:
+  sitemap@8.0.1:
     dependencies:
       '@types/node': 17.0.45
       '@types/sax': 1.2.7
@@ -7871,18 +7871,18 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-plugin-pwa@1.1.0(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
+  vite-plugin-pwa@1.1.0(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.15
-      vite: 6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
       workbox-build: 7.3.0(@types/babel__core@7.20.5)
       workbox-window: 7.3.0
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1):
+  vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.11
       fdir: 6.5.0(picomatch@4.0.3)
@@ -7898,9 +7898,9 @@ snapshots:
       terser: 5.44.0
       yaml: 2.8.1
 
-  vitefu@1.1.1(vite@6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)):
+  vitefu@1.1.1(vite@6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)):
     optionalDependencies:
-      vite: 6.4.0(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.8.1)(jiti@2.4.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
 
   volar-service-css@0.0.65(@volar/language-service@2.4.23):
     dependencies:
