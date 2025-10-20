@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.1-rc.0 (2025-10-20)
+
+* Add delayed autosave ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Add save state as tooltip
+* Improve memory usage and performance for importing large assets ([#917](https://github.com/LinwoodDev/Butterfly/issues/917))
+* Improve smoothness of elements creation for releasing pen
+* Fix bfly files cannot be imported into existing documents
+* Fix various memory leaks ([#925](https://github.com/LinwoodDev/Butterfly/issues/925))
+* Fix header text color on certain themes
+* Fix theme names not displaying correctly in personalization settings
+* Fix metadata file version not updating if file version is null
+* Fix cache settings not editable correctly
+* Fix elements are duplicated on creation
+* Fix importing does not respect current directory
+* Fix high render resolution description
+* Fix elements cannot be imported on web
+* Add 16kb page size support for android
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.0
+
 ## 2.4.0 (2025-09-22)
 
 Changes since 2.3.0-rc.1:
