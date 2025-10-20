@@ -648,7 +648,7 @@
   "performanceDescription": "ปรับแต่งเพื่อความเร็วและการใช้งานหน่วยความจำ ส่วนที่มองเห็นได้ของบันทึกเท่านั้นที่จะถูกแปลงเป็นภาพ",
   "normalDescription": "สร้างสมดุลระหว่างคุณภาพและประสิทธิภาพ โดยแปลงเป็นภาพครอบคลุมพื้นที่ที่มองเห็นได้ 1.5 เท่า ช่วยให้การเลื่อนมีความเรียบเนียนมากขึ้น",
   "high": "สูง",
-  "highDescription": "คำอธิบาย: ให้คุณภาพสูงสุดโดยแลกกับประสิทธิภาพ โดยแปลงเป็นภาพครอบคลุมพื้นที่ที่มองเห็นได้ 2 เท่า เพื่อให้การเรนเดอร์ไร้รอยต่อแม้ขณะเลื่อนหรือซูมอย่างรวดเร็ว",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "ความละเอียดการเรนเดอร์",
   "translate": "แปล",
   "unencrypted": "ไม่ได้เข้ารหัส",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "simpleToolbarVisibility": "Simple toolbar visibility",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }

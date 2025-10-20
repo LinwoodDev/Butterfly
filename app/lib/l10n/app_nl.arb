@@ -648,7 +648,7 @@
   "performanceDescription": "Geoptimaliseerd voor snelheid en geheugengebruik. Alleen het zichtbare deel van de notitie wordt in de afbeelding gebakken.",
   "normalDescription": "Geeft een balans van kwaliteit en prestaties. Maakt een afbeelding die 1,5 keer het zichtbare gebied beslaat en biedt betere overgangen bij het scrollen.",
   "high": "hoog",
-  "highDescription": "Omschrijving: maximaliseert kwaliteit ten koste van de prestaties. Neemt een afbeelding die 2 keer het zichtbare gebied beslaat, waardoor naadloos wordt weergegeven, zelfs tijdens snel scrollen of zoomen",
+  "highDescription": "Vergroot kwaliteit ten koste van prestaties. Maakt een afbeelding die 2 keer het zichtbare gebied beslaat en zorgt voor naadloze weergave zelfs tijdens snel scrollen of zoomen",
   "renderResolution": "Resolutie weergeven",
   "translate": "Vertalen",
   "unencrypted": "Onversleuteld",
@@ -706,5 +706,11 @@
   "ignorePressure": "Negeer druk",
   "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis.",
   "temporary": "Tijdelijk",
-  "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid"
+  "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid",
+  "autosaveDelay": "Automatisch opslaan vertraging",
+  "saved": "Opgeslagen",
+  "saving": "Opslaan...",
+  "readOnly": "Alleen lezen",
+  "saveDelayed": "Vertraagd opslaan",
+  "unsaved": "Niet-opgeslagen"
 }

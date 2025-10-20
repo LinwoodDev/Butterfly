@@ -648,7 +648,7 @@
   "performanceDescription": "Optimisé pour l'utilisation de la vitesse et de la mémoire. Seule la partie visible de la note est cuite dans l'image.",
   "normalDescription": "Balance la qualité et les performances. Passe une image couvrant 1,5 fois la zone visible, fournissant des transitions plus fluides lors du défilement.",
   "high": "Élevé",
-  "highDescription": "Description : Maximise la qualité au prix de la performance. Passe une image couvrant 2 fois la zone visible, assurant un rendu transparent même lors du défilement rapide ou du zoom.",
+  "highDescription": "Maximise la qualité au détriment des performances. Passe une image couvrant 2 fois la zone visible, assurant un rendu fluide même lors du défilement rapide ou du zoom.",
   "renderResolution": "Résolution du rendu",
   "translate": "Traduire",
   "unencrypted": "Non chiffré",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorer la pression",
   "ignoreFirstPressureDescription": "Sur certains appareils, la première valeur de pression n'est pas précise. Ce paramètre ignorera la première valeur de pression et utilisera la pression du deuxième événement à la place.",
   "temporary": "Temporaire",
-  "simpleToolbarVisibility": "Visibilité simple de la barre d'outils"
+  "simpleToolbarVisibility": "Visibilité simple de la barre d'outils",
+  "autosaveDelay": "Délai d'enregistrement automatique",
+  "saved": "Enregistré",
+  "saving": "Sauvegarde en cours...",
+  "readOnly": "Lecture seule",
+  "saveDelayed": "Enregistrer en retard",
+  "unsaved": "Non sauvegardé"
 }

@@ -648,7 +648,7 @@
   "performanceDescription": "Optimoitu nopeuden ja muistin käyttöä varten. Kuvaan paistetaan vain muistin näkyvä osa.",
   "normalDescription": "Tasapainojen laatu ja suorituskyky. Bakes kuvan, joka kattaa 1,5 kertaa näkyvän alueen, tarjoaa sujuvampia siirtymiä vierittäessä.",
   "high": "Korkea",
-  "highDescription": "Kuvaus: Maksimoi laatua suorituskyvyn kustannuksella. Leipoo kuvan, joka peittää 2 kertaa näkyvän alueen ja varmistaa saumattoman renderöinnin myös nopean vierityksen tai zoomauksen aikana.",
+  "highDescription": "Maksimoi laatua suorituskyvyn kustannuksella. Bakes kuvan, joka kattaa 2 kertaa näkyvän alueen, varmistaen saumattoman renderöinnin myös nopean vierityksen tai zoomauksen.",
   "renderResolution": "Renderöi resoluutio",
   "translate": "Käännä",
   "unencrypted": "Salaamaton",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ohita paine",
   "ignoreFirstPressureDescription": "Joissain laitteissa ensimmäinen paineen arvo ei ole tarkka. Tämä asetus jättää huomiotta ensimmäisen paineen arvon ja käyttää sen sijaan toisen tapahtuman painetta.",
   "temporary": "Väliaikainen",
-  "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys"
+  "simpleToolbarVisibility": "Yksinkertainen työkalupalkin näkyvyys",
+  "autosaveDelay": "Automaattisen tallennuksen viive",
+  "saved": "Tallennettu",
+  "saving": "Tallennetaan...",
+  "readOnly": "Vain luku",
+  "saveDelayed": "Tallennus viivästynyt",
+  "unsaved": "Tallentamaton"
 }

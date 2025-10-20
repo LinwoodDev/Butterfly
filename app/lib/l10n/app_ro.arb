@@ -648,7 +648,7 @@
   "performanceDescription": "Optimizat pentru viteză și utilizarea memoriei. Numai partea vizibilă a notei este copită în imagine.",
   "normalDescription": "Echilibrează calitatea și performanța. Bake o imagine care acoperă de 1,5 ori zona vizibilă, oferind tranziții mai ușoare atunci când derulează.",
   "high": "Ridicat",
-  "highDescription": "Descriere: Maximizează calitatea la costul performanței. Prinde o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând redarea fără întreruperi chiar şi în timpul derulării rapide sau al zooming-ului.",
+  "highDescription": "Maximizează calitatea cu preţul performanţei. Bakează o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând o redare fără întreruperi chiar şi în timpul derulării sau măririi rapide.",
   "renderResolution": "Rezoluție de randare",
   "translate": "Tradu",
   "unencrypted": "Necriptat",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignoră presiunea",
   "ignoreFirstPressureDescription": "Pe unele dispozitive, prima valoare a presiunii nu este exactă. Această setare va ignora prima valoare de presiune şi va folosi presiunea celui de-al doilea eveniment.",
   "temporary": "Temporar",
-  "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente"
+  "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente",
+  "autosaveDelay": "Întârziere salvare automată",
+  "saved": "Salvat",
+  "saving": "Salvare...",
+  "readOnly": "Doar citire",
+  "saveDelayed": "Salvare întârziată",
+  "unsaved": "nesalvate"
 }

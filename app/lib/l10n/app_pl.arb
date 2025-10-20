@@ -648,7 +648,7 @@
   "performanceDescription": "Zoptymalizowany pod kątem prędkości i wykorzystania pamięci. Tylko widoczna część notatki jest upieczona na obrazie.",
   "normalDescription": "Równowaga jakości i wydajności. Tworzy obraz pokrywający 1,5 razy większy od widocznego obszaru, zapewniając płynniejsze przejścia podczas przewijania.",
   "high": "Wysoka",
-  "highDescription": "Opis: Maksymalizuje jakość kosztem wyników. Upieka obraz pokrywający 2-krotnie widoczny obszar, zapewniając płynne renderowanie nawet podczas szybkiego przewijania lub powiększenia.",
+  "highDescription": "Maksymalizuje jakość kosztem wydajności. Powiększa obraz pokrywający 2-krotnie widoczny obszar, zapewniając płynne renderowanie nawet podczas szybkiego przewijania lub powiększania.",
   "renderResolution": "Rozdzielczość renderowania",
   "translate": "Przetłumacz",
   "unencrypted": "Niezaszyfrowane",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignoruj nacisk",
   "ignoreFirstPressureDescription": "Na niektórych urządzeniach pierwsza wartość ciśnienia nie jest dokładna. To ustawienie zignoruje pierwszą wartość nacisku i zamiast tego użyj nacisku drugiego zdarzenia.",
   "temporary": "Tymczasowy",
-  "simpleToolbarVisibility": "Widoczność prostego paska narzędzi"
+  "simpleToolbarVisibility": "Widoczność prostego paska narzędzi",
+  "autosaveDelay": "Opóźnienie automatycznego zapisu",
+  "saved": "Zapisano",
+  "saving": "Zapisywanie...",
+  "readOnly": "Tylko do odczytu",
+  "saveDelayed": "Zapisz opóźnione",
+  "unsaved": "Niezapisane"
 }

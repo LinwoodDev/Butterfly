@@ -13,4 +13,4 @@ Butterfly is a note taking app where your ideas come first. You can paint, add t
 * Take photos: You can take photos and add them to your notes. You can also import photos from your gallery.
 * Editable: You can change the size, color, and position of every element after you added it to your note.
 * Add shapes: You can add shapes to your notes. You can choose between a rectangle, circle and line.
-* Structure your notes: Add areas and waypoints to your notes to keep them organized.
+* Zorganizuj swoje notatki: Dodaj obszary i punkty orientacyjne do notatek, aby zachować ich uporządkowanie.

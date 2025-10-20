@@ -648,7 +648,7 @@
   "performanceDescription": "Optimizada para el uso de velocidad y memoria.",
   "normalDescription": "Equilibra calidad y rendimiento. Toma una imagen cubriendo 1,5 veces la zona visible, proporcionando transiciones más suaves cuando se desplaza.",
   "high": "Alta",
-  "highDescription": "Descripción: Maximiza la calidad al coste del rendimiento. Hace una imagen cubriendo 2 veces la zona visible, asegurando un renderizado sin costuras incluso durante un desplazamiento rápido o zooming.",
+  "highDescription": "Maximiza la calidad a costa del rendimiento. Toma una imagen cubriendo 2 veces la superficie visible, asegurando un renderizado sin fisuras incluso durante el desplazamiento rápido o el zooming.",
   "renderResolution": "Procesar resolución",
   "translate": "Traducir",
   "unencrypted": "Sin cifrar",
@@ -706,5 +706,11 @@
   "ignorePressure": "Presión de ignorancia",
   "ignoreFirstPressureDescription": "En algunos dispositivos, el primer valor de presión no es preciso. Este ajuste ignorará el primer valor de presión y utilizará la presión del segundo evento en su lugar.",
   "temporary": "Temporal",
-  "simpleToolbarVisibility": "Visibilidad simple de la barra de herramientas"
+  "simpleToolbarVisibility": "Visibilidad simple de la barra de herramientas",
+  "autosaveDelay": "Retraso de autoguardado",
+  "saved": "Guardado",
+  "saving": "Guardando...",
+  "readOnly": "Sólo lectura",
+  "saveDelayed": "Guardar retrasado",
+  "unsaved": "Sin guardar"
 }

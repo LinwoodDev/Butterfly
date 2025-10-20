@@ -648,7 +648,7 @@
   "performanceDescription": "Optimiert für Geschwindigkeit und Speicherauslastung. Nur der sichtbare Teil der Notiz wird in das Bild gebacken.",
   "normalDescription": "Balanciert Qualität und Performance. Bietet ein Bild, das das 1,5 Mal so viel wie der sichtbare Bereich abdeckt, und sorgt beim Scrollen für glattere Übergänge.",
   "high": "Hoch",
-  "highDescription": "Beschreibung: Maximizes quality at the cost of performance. Bietet ein 2-fachen sichtbares Bild ab und garantiert eine nahtlose Darstellung auch beim schnellen Scrollen oder Zoomen.",
+  "highDescription": "Maximiert die Qualität auf Kosten der Leistung. Fügt ein Bild ein, das das 2fache des sichtbaren Bereichs abdeckt, wodurch auch beim schnellen Scrollen oder Zoomen eine nahtlose Darstellung gewährleistet wird.",
   "renderResolution": "Render-Auflösung",
   "translate": "Übersetzen",
   "unencrypted": "Unverschlüsselt",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignoriere Druck",
   "ignoreFirstPressureDescription": "Bei einigen Geräten ist der erste Druckwert nicht korrekt. Diese Einstellung ignoriert den ersten Druckwert und verwendet stattdessen den Druck des zweiten Ereignisses.",
   "temporary": "Temporär",
-  "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit"
+  "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
+  "autosaveDelay": "Autosave-Verzögerung",
+  "saved": "Gespeichert",
+  "saving": "Speichern...",
+  "readOnly": "Nur lesen",
+  "saveDelayed": "Speichern verzögert",
+  "unsaved": "Nicht gespeichert"
 }

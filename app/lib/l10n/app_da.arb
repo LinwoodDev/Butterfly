@@ -648,7 +648,7 @@
   "performanceDescription": "Optimeret til hastighed og hukommelsesforbrug. Kun den synlige del af noten er bagt ind i billedet.",
   "normalDescription": "Balancer kvalitet og ydeevne. Bager et billede, der dækker 1,5 gange det synlige område, giver glattere overgange ved rulning.",
   "high": "Høj",
-  "highDescription": "Beskrivelse: Maksimerer kvalitet på bekostning af ydeevne. Bager et billede, der dækker 2 gange det synlige område, sikrer problemfri gengivelse selv under hurtig rulning eller zooming.",
+  "highDescription": "Maksimerer kvalitet på bekostning af ydeevne. Bager et billede, der dækker 2 gange det synlige område, sikrer problemfri rendering selv under hurtig rulning eller zooming.",
   "renderResolution": "Gengiv opløsning",
   "translate": "Oversæt",
   "unencrypted": "Ukrypteret",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorér tryk",
   "ignoreFirstPressureDescription": "På nogle enheder er førstetryksværdien ikke nøjagtig. Denne indstilling vil ignorere den første trykværdi og bruge trykket på den anden begivenhed i stedet.",
   "temporary": "Midlertidig",
-  "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen"
+  "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen",
+  "autosaveDelay": "Autogem forsinkelse",
+  "saved": "Gemt",
+  "saving": "Gemmer...",
+  "readOnly": "Læs kun",
+  "saveDelayed": "Gem forsinket",
+  "unsaved": "Ikke-Gemt"
 }

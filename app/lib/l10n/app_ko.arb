@@ -648,7 +648,7 @@
   "performanceDescription": "속도와 메모리 사용량에 최적화되었습니다. 노트의 보이는 부분만 이미지로 구워집니다.",
   "normalDescription": "품질과 성능의 균형을 맞춥니다. 보이는 영역의 1.5배를 덮는 이미지를 구워 스크롤 시 더 부드러운 전환을 제공합니다.",
   "high": "높음",
-  "highDescription": "설명: 성능을 희생하여 품질을 극대화합니다. 보이는 영역의 2배를 덮는 이미지를 구워 빠른 스크롤이나 확대/축소 중에도 원활한 렌더링을 보장합니다.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "렌더링 해상도",
   "translate": "번역",
   "unencrypted": "암호화되지 않음",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "simpleToolbarVisibility": "Simple toolbar visibility",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }

@@ -648,7 +648,7 @@
   "performanceDescription": "Tối ưu cho tốc độ và bộ nhớ. Chỉ phần hiển thị được nướng thành hình ảnh.",
   "normalDescription": "Cân bằng chất lượng và hiệu năng. Nướng hình ảnh phủ 1.5 lần vùng hiển thị, mượt hơn khi cuộn.",
   "high": "Cao",
-  "highDescription": "Tối đa chất lượng đánh đổi hiệu năng. Nướng hình ảnh phủ 2 lần vùng hiển thị, đảm bảo mượt ngay cả khi cuộn hoặc phóng to nhanh.",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Độ phân giải render",
   "translate": "Dịch",
   "unencrypted": "Chưa mã hóa",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "simpleToolbarVisibility": "Simple toolbar visibility",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }

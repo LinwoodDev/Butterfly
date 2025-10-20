@@ -648,7 +648,7 @@
   "performanceDescription": "已針對速度和記憶體使用進行最佳化。僅將可見區域烘焙成影像。",
   "normalDescription": "平衡品質和效能。烘焙相當於 1.5 倍可見區域的影像，提供更順暢的捲動過渡。",
   "high": "高",
-  "highDescription": "描述：將品質最大化但犧牲效能。烘焙相當於 2 倍可見區域的影像，確保在快速捲動或縮放時仍能無縫呈現。",
+  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "渲染解析度",
   "translate": "翻譯",
   "unencrypted": "未加密",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility"
+  "simpleToolbarVisibility": "Simple toolbar visibility",
+  "autosaveDelay": "Autosave delay",
+  "saved": "Saved",
+  "saving": "Saving...",
+  "readOnly": "Read only",
+  "saveDelayed": "Save delayed",
+  "unsaved": "Unsaved"
 }

@@ -648,7 +648,7 @@
   "performanceDescription": "速度とメモリ使用量に合わせて最適化されました。ノートの表示部分だけが画像に焼き付けられます。",
   "normalDescription": "バランスの良さとパフォーマンス。可視領域の1.5倍の画像を焼き、スクロール時にスムーズなトランジションを提供します。",
   "high": "高い",
-  "highDescription": "概要: 性能を犠牲にして品質を最大化します。 可視領域の2倍の画像を作成し、高速スクロールやズーム時でもシームレスなレンダリングを実現します。",
+  "highDescription": "パフォーマンスを犠牲にして品質を最大限に高めます。可視領域の2倍の画像を作成し、急速なスクロールやズーム時でもシームレスなレンダリングを実現します。",
   "renderResolution": "レンダリング解像度",
   "translate": "翻訳する",
   "unencrypted": "暗号化なし",
@@ -706,5 +706,11 @@
   "ignorePressure": "プレッシャーを無視",
   "ignoreFirstPressureDescription": "デバイスによっては、最初の圧力値が正確でない場合があります。 この設定は、最初のプレッシャー値を無視し、代わりに2番目のイベントのプレッシャーを使用します。",
   "temporary": "一時的な",
-  "simpleToolbarVisibility": "シンプルなツールバーの表示"
+  "simpleToolbarVisibility": "シンプルなツールバーの表示",
+  "autosaveDelay": "自動保存の遅延",
+  "saved": "保存しました",
+  "saving": "保存中...",
+  "readOnly": "読み取り専用",
+  "saveDelayed": "遅延保存",
+  "unsaved": "未保存"
 }

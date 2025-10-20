@@ -9,4 +9,4 @@ Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie dara
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Wenn Sie es anklicken, können Sie den Vollbild-Modus aktivieren bzw. deaktivieren.

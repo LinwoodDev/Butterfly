@@ -648,7 +648,7 @@
   "performanceDescription": "Optimalizováno pro rychlost a využití paměti. Do obrázku se upíná pouze viditelná část poznámky.",
   "normalDescription": "Vyvažuje kvalitu a výkon. Peče obraz pokrývající 1,5 násobek viditelného prostoru, poskytuje tak hladší přechody při posouvání.",
   "high": "Vysoká",
-  "highDescription": "Popis: Maximalizuje kvalitu na úkor výkonu. Peče obraz pokrývající dvojnásobek viditelného prostoru. Zajišťuje tak plynulé vykreslování i při rychlém posouvání nebo přiblížení.",
+  "highDescription": "Maximalizuje kvalitu za cenu výkonu. Bakes obrázek pokrývající dvojnásobek viditelného prostoru, který zajišťuje plynulé vykreslování i při rychlém posouvání nebo přiblížení.",
   "renderResolution": "Vykreslovat rozlišení",
   "translate": "Přeložit",
   "unencrypted": "Nešifrováno",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorovat sílu stisku",
   "ignoreFirstPressureDescription": "U některých zařízení není první zaznamenaná hodnota tlaku přesná. Toto nastavení bude ignorovat první hodnotu tlaku a místo toho použije druhou.",
   "temporary": "Dočasné",
-  "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů"
+  "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů",
+  "autosaveDelay": "Prodleva automatického ukládání",
+  "saved": "Uloženo",
+  "saving": "Ukládání...",
+  "readOnly": "Pouze pro čtení",
+  "saveDelayed": "Uložit pozdě",
+  "unsaved": "Neuloženo"
 }

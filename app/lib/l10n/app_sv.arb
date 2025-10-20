@@ -648,7 +648,7 @@
   "performanceDescription": "Optimerad för hastighet och minnesanvändning. Endast den synliga delen av noten bakas in i bilden.",
   "normalDescription": "Balanserar kvalitet och prestanda. Bakar en bild som täcker 1,5 gånger det synliga området, vilket ger jämnare övergångar vid rullning.",
   "high": "Hög",
-  "highDescription": "Beskrivning: Maximerar kvaliteten till priset av prestanda. Bakar en bild som täcker 2 gånger det synliga området, vilket säkerställer sömlös rendering även under snabb rullning eller zoomning.",
+  "highDescription": "Maximerar kvaliteten till priset av prestanda. Bakar en bild som täcker 2 gånger det synliga området, vilket garanterar sömlös rendering även under snabb rullning eller zoomning.",
   "renderResolution": "Rendera upplösning",
   "translate": "Översätt",
   "unencrypted": "Okrypterad",
@@ -706,5 +706,11 @@
   "ignorePressure": "Ignorera tryck",
   "ignoreFirstPressureDescription": "På vissa enheter är det första tryckvärdet inte korrekt. Denna inställning kommer att ignorera det första tryckvärdet och använda trycket från den andra händelsen istället.",
   "temporary": "Tillfällig",
-  "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet"
+  "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
+  "autosaveDelay": "Fördröjning för automatisk sparning",
+  "saved": "Sparad",
+  "saving": "Sparar...",
+  "readOnly": "Endast läsning",
+  "saveDelayed": "Spara försenad",
+  "unsaved": "Osparad"
 }
