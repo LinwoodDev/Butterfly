@@ -86,7 +86,7 @@ class EraserHandler extends Handler<EraserTool> {
       }
       modified[id] = paths
           .where((element) => element.isNotEmpty)
-          .map((e) => element.copyWith(points: e))
+          .map((e) => element.copyWith(points: e, id: createUniqueId()))
           .toList();
     }
     if (modified.isNotEmpty) {

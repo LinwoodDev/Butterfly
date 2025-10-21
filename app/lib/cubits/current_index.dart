@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -13,6 +12,7 @@ import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -187,7 +187,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     handler ??= Handler.fromTool(info.tools[index]);
     var selectState = SelectState.normal;
     if (context != null) {
-      selectState = handler.onSelected(context);
+      selectState = await handler.onSelected(context);
     }
     if (selectState != SelectState.none) {
       state.handler.dispose(bloc);
@@ -229,6 +229,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             temporaryRendererStates: null,
           ),
         );
+        await bake(blocState);
       } else {
         if (isHandlerEnabled(index)) {
           disableHandler(bloc, index);
@@ -491,7 +492,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return result;
   }
 
-  Future<void> refresh(DocumentLoaded blocState) async {
+  Future<void> refresh(
+    DocumentLoaded blocState, {
+    bool allowBake = true,
+  }) async {
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -585,7 +589,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               : state.temporaryRendererStates,
         ),
       );
-      if (shouldBake) {
+      if (shouldBake && allowBake) {
         return bake(blocState, reset: true);
       }
     }
@@ -778,7 +782,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final page = blocState.page;
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
-    final selectState = handler.onSelected(context);
+    final selectState = await handler.onSelected(context);
 
     if (selectState == SelectState.normal) {
       _disposeTemporaryForegrounds();
@@ -811,6 +815,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           temporaryState: temporaryState,
         ),
       );
+      await bake(blocState);
     } else if (selectState == SelectState.toggle && index != null) {
       toggleHandler(bloc, index);
     }
@@ -941,12 +946,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final info = blocState.info;
     final imageWidth = (size.width * ratio).ceil();
     final imageHeight = (size.height * ratio).ceil();
+    var allRendererStates = state.allRendererStates;
+    final rendererStatesChanged = !mapEquals(
+      allRendererStates,
+      cameraViewport.rendererStates,
+    );
+    if (!rendererStatesChanged) {
+      allRendererStates = cameraViewport.rendererStates;
+    }
     final viewChanged =
         cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
         cameraViewport.y != renderTransform.position.dy ||
-        cameraViewport.scale != transform.size;
+        cameraViewport.scale != transform.size ||
+        rendererStatesChanged;
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
@@ -1010,9 +1024,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       transform: renderTransform,
-      states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
+              rendererStates: allRendererStates,
               unbakedElements: visibleElements
                   .where((e) => currentLayer == e.layer)
                   .toList(),
@@ -1061,8 +1075,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         page,
         info,
         transform: renderTransform,
-        states: state.allRendererStates,
         cameraViewport: cameraViewport.unbake(
+          rendererStates: allRendererStates,
           unbakedElements: visibleElements
               .where((e) => belowLayers.contains(e.layer))
               .toList(),
@@ -1075,8 +1089,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         page,
         info,
         transform: renderTransform,
-        states: state.allRendererStates,
         cameraViewport: cameraViewport.unbake(
+          rendererStates: allRendererStates,
           unbakedElements: visibleElements
               .where((e) => aboveLayers.contains(e.layer))
               .toList(),
@@ -1132,6 +1146,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           visibleElements: visibleElements,
           belowLayerImage: belowLayerImage,
           aboveLayerImage: aboveLayerImage,
+          rendererStates: allRendererStates,
         ),
       ),
     );
@@ -1464,7 +1479,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeTemporaryHandlerMove() {
     emit(
-      state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null),
+      state.copyWith(
+        temporaryHandler: HandHandler(),
+        temporaryCursor: null,
+        temporaryRendererStates: null,
+        temporaryForegrounds: null,
+        temporaryToolbar: null,
+      ),
     );
   }
 
@@ -1775,8 +1796,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(userName: name));
   }
 
-  void reload(DocumentLoaded current) {
-    loadElements(current);
-    delayedBake(current);
+  Future<void> reload(DocumentLoaded current) async {
+    await loadElements(current);
+    refresh(current, allowBake: false);
+    await delayedBake(current);
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -21,15 +22,17 @@ class CameraViewport extends Equatable {
   final double scale;
   final double x, y;
   final RenderResolution resolution;
+  final Map<String, RendererState> rendererStates;
 
-  const CameraViewport.unbaked([
+  const CameraViewport.unbaked({
     this.backgrounds = const [],
     this.unbakedElements = const [],
     List<Renderer<PadElement>>? visibleElements,
     this.width,
     this.height,
     this.pixelRatio = 1,
-  ]) : image = null,
+    this.rendererStates = const {},
+  }) : image = null,
        belowLayerImage = null,
        aboveLayerImage = null,
        scale = 1,
@@ -54,6 +57,7 @@ class CameraViewport extends Equatable {
     this.x = 0,
     required this.resolution,
     this.y = 0,
+    this.rendererStates = const {},
   });
 
   static Future<CameraViewport> build(
@@ -73,7 +77,10 @@ class CameraViewport extends Equatable {
       await renderer.setup(transformCubit, document, assetService, page);
     }
 
-    return CameraViewport.unbaked(backgrounds, renderers);
+    return CameraViewport.unbaked(
+      backgrounds: backgrounds,
+      unbakedElements: renderers,
+    );
   }
 
   ui.Offset toOffset() => ui.Offset(x, y);
@@ -140,18 +147,22 @@ class CameraViewport extends Equatable {
     List<Renderer<Background>>? backgrounds,
     List<Renderer<PadElement>>? unbakedElements,
     List<Renderer<PadElement>>? visibleElements,
+    Map<String, RendererState>? rendererStates,
   }) => CameraViewport.unbaked(
-    backgrounds ?? this.backgrounds,
-    unbakedElements ??
-        (List<Renderer<PadElement>>.from(this.unbakedElements)
-          ..addAll(bakedElements)),
-    visibleElements ??
+    backgrounds: backgrounds ?? this.backgrounds,
+    unbakedElements:
         unbakedElements ??
         (List<Renderer<PadElement>>.from(this.unbakedElements)
           ..addAll(bakedElements)),
-    width,
-    height,
-    pixelRatio,
+    visibleElements:
+        visibleElements ??
+        unbakedElements ??
+        (List<Renderer<PadElement>>.from(this.unbakedElements)
+          ..addAll(bakedElements)),
+    rendererStates: rendererStates ?? this.rendererStates,
+    width: width,
+    height: height,
+    pixelRatio: pixelRatio,
   );
 
   CameraViewport bake({
@@ -168,6 +179,7 @@ class CameraViewport extends Equatable {
     double x = 0,
     double y = 0,
     required RenderResolution resolution,
+    Map<String, RendererState>? rendererStates,
   }) => CameraViewport.baked(
     backgrounds: backgrounds,
     image: image,
@@ -183,6 +195,7 @@ class CameraViewport extends Equatable {
     aboveLayerImage: aboveLayerImage,
     belowLayerImage: belowLayerImage,
     resolution: resolution,
+    rendererStates: rendererStates ?? this.rendererStates,
   );
 
   CameraViewport withoutLayers() => CameraViewport.baked(
@@ -200,6 +213,7 @@ class CameraViewport extends Equatable {
     aboveLayerImage: null,
     belowLayerImage: null,
     resolution: resolution,
+    rendererStates: rendererStates,
   );
 
   CameraViewport withBackgrounds(List<Renderer<Background>> backgrounds) =>
@@ -218,6 +232,7 @@ class CameraViewport extends Equatable {
         aboveLayerImage: aboveLayerImage,
         belowLayerImage: belowLayerImage,
         resolution: resolution,
+        rendererStates: rendererStates,
       );
 
   @override
@@ -236,5 +251,6 @@ class CameraViewport extends Equatable {
     aboveLayerImage,
     belowLayerImage,
     resolution,
+    rendererStates,
   ];
 }

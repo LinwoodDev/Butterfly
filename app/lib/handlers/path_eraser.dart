@@ -2,6 +2,7 @@ part of 'handler.dart';
 
 class PathEraserHandler extends Handler<PathEraserTool> {
   bool _currentlyErasing = false;
+  bool _submittedErase = false;
   Offset? _currentPos, _lastErased;
   final Set<String> _erased = {};
   PathEraserHandler(super.data);
@@ -75,13 +76,26 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     _currentlyErasing = false;
   }
 
+  DocumentBloc? _bloc;
+
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    if (_erased.isNotEmpty) {
-      final bloc = context.getDocumentBloc();
-      bloc.add(ElementsRemoved(_erased.toList()));
-      bloc.delayedBake();
-    }
+  void onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) {
+    if (!_submittedErase || _erased.isEmpty) return;
+    _erased.clear();
+    _bloc?.refresh();
+    _submittedErase = false;
+  }
+
+  @override
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
+    if (_erased.isEmpty) return;
+    final bloc = _bloc = context.getDocumentBloc();
+    bloc.add(ElementsRemoved(_erased.toList()));
+    await bloc.delayedBake();
+    _submittedErase = true;
   }
 
   @override

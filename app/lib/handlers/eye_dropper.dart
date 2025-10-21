@@ -4,7 +4,10 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
   EyeDropperHandler(super.data);
 
   @override
-  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
+  FutureOr<SelectState> onSelected(
+    BuildContext context, [
+    bool wasAdded = true,
+  ]) {
     if (!wasAdded) {
       context.read<CurrentIndexCubit>().changeTemporaryHandler(
         context,

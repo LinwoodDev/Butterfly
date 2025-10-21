@@ -183,8 +183,10 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  SelectState onSelected(BuildContext context, [bool wasAdded = true]) =>
-      SelectState.normal;
+  FutureOr<SelectState> onSelected(
+    BuildContext context, [
+    bool wasAdded = true,
+  ]) => SelectState.normal;
 
   List<Renderer> createForegrounds(
     CurrentIndexCubit currentIndexCubit,

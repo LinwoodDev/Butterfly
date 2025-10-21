@@ -12,7 +12,7 @@ part of 'current_index.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$CurrentIndex {
+mixin _$CurrentIndex implements DiagnosticableTreeMixin {
 
  int? get index; Handler get handler; CameraViewport get cameraViewport; SettingsCubit get settingsCubit; TransformCubit get transformCubit; NetworkingService get networkingService; UtilitiesState get utilities; Handler<Tool>? get temporaryHandler; List<Renderer> get foregrounds; Selection? get selection; bool get pinned; List<Renderer>? get temporaryForegrounds; Map<int, Handler<Tool>> get toggleableHandlers; List<Renderer> get networkingForegrounds; Map<int, List<Renderer>> get toggleableForegrounds; MouseCursor get cursor; MouseCursor? get temporaryCursor; TemporaryState get temporaryState; Offset? get lastPosition; List<int> get pointers; int? get buttons; AssetLocation get location; Embedding? get embedding; SaveState get saved; PreferredSizeWidget? get toolbar; PreferredSizeWidget? get temporaryToolbar; Map<String, RendererState> get rendererStates; Map<String, RendererState>? get temporaryRendererStates; ViewOption get viewOption; HideState get hideUi; bool get areaNavigatorCreate; bool get areaNavigatorExact; bool get areaNavigatorAsk; bool get navigatorEnabled; NavigatorPage get navigatorPage; bool get isCreating; String get userName;
 /// Create a copy of CurrentIndex
@@ -22,11 +22,17 @@ mixin _$CurrentIndex {
 $CurrentIndexCopyWith<CurrentIndex> get copyWith => _$CurrentIndexCopyWithImpl<CurrentIndex>(this as CurrentIndex, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CurrentIndex'))
+    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('settingsCubit', settingsCubit))..add(DiagnosticsProperty('transformCubit', transformCubit))..add(DiagnosticsProperty('networkingService', networkingService))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('hideUi', hideUi))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('isCreating', isCreating))..add(DiagnosticsProperty('userName', userName));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
 }
 
@@ -123,7 +129,7 @@ $ViewOptionCopyWith<$Res> get viewOption {
 /// @nodoc
 
 
-class _CurrentIndex extends CurrentIndex {
+class _CurrentIndex extends CurrentIndex with DiagnosticableTreeMixin {
   const _CurrentIndex(this.index, this.handler, this.cameraViewport, this.settingsCubit, this.transformCubit, this.networkingService, {this.utilities = const UtilitiesState(), this.temporaryHandler, final  List<Renderer> foregrounds = const [], this.selection, this.pinned = false, final  List<Renderer>? temporaryForegrounds, final  Map<int, Handler<Tool>> toggleableHandlers = const {}, final  List<Renderer> networkingForegrounds = const [], final  Map<int, List<Renderer>> toggleableForegrounds = const {}, this.cursor = MouseCursor.defer, this.temporaryCursor, this.temporaryState = TemporaryState.allowClick, this.lastPosition, final  List<int> pointers = const [], this.buttons, this.location = const AssetLocation(path: ''), this.embedding, this.saved = SaveState.saved, this.toolbar, this.temporaryToolbar, final  Map<String, RendererState> rendererStates = const {}, final  Map<String, RendererState>? temporaryRendererStates = const {}, this.viewOption = const ViewOption(), this.hideUi = HideState.visible, this.areaNavigatorCreate = true, this.areaNavigatorExact = true, this.areaNavigatorAsk = false, this.navigatorEnabled = false, this.navigatorPage = NavigatorPage.waypoints, this.isCreating = false, this.userName = ''}): _foregrounds = foregrounds,_temporaryForegrounds = temporaryForegrounds,_toggleableHandlers = toggleableHandlers,_networkingForegrounds = networkingForegrounds,_toggleableForegrounds = toggleableForegrounds,_pointers = pointers,_rendererStates = rendererStates,_temporaryRendererStates = temporaryRendererStates,super._();
   
 
@@ -224,11 +230,17 @@ class _CurrentIndex extends CurrentIndex {
 _$CurrentIndexCopyWith<_CurrentIndex> get copyWith => __$CurrentIndexCopyWithImpl<_CurrentIndex>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CurrentIndex'))
+    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('settingsCubit', settingsCubit))..add(DiagnosticsProperty('transformCubit', transformCubit))..add(DiagnosticsProperty('networkingService', networkingService))..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('hideUi', hideUi))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('isCreating', isCreating))..add(DiagnosticsProperty('userName', userName));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, utilities: $utilities, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, isCreating: $isCreating, userName: $userName)';
 }
 

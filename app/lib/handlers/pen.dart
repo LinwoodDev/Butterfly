@@ -32,7 +32,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     Area? currentArea,
   ]) => [...elements.values, ..._submittedElements]
       .map((e) {
-        if (e.points.length > 1) return PenRenderer(e);
+        if (e.points.length > 1) {
+          return PenRenderer(e.copyWith(id: createUniqueId()));
+        }
         return null;
       })
       .whereType<Renderer>()
@@ -81,7 +83,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _submittedElements.addAll(elements);
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));
-    bloc.refresh();
+    bloc.refresh(allowBake: false);
   }
 
   @override
@@ -92,9 +94,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (_submittedElements.isEmpty) return;
     if (_currentlyBaking) return;
     _currentlyBaking = true;
-    await _bloc?.bake();
-    await _bloc?.refresh();
     _submittedElements.clear();
+    await _bloc?.refresh(allowBake: false);
+    await _bloc?.bake();
     _currentlyBaking = false;
   }
 

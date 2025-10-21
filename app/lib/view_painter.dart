@@ -112,7 +112,6 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final ColorScheme? colorScheme;
   final Set<String> invisibleLayers;
-  final Map<String, RendererState> states;
 
   const ViewPainter(
     this.document,
@@ -120,7 +119,6 @@ class ViewPainter extends CustomPainter {
     this.info, {
     this.currentArea,
     this.invisibleLayers = const {},
-    this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,
     this.renderBakedLayers = true,
@@ -178,12 +176,14 @@ class ViewPainter extends CustomPainter {
 
       // Draw our baked image, scaling it down with drawImageRect.
       if (image != null) {
-        canvas.drawImageRect(
-          image,
-          Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-          bakedDst,
-          Paint(),
-        );
+        try {
+          canvas.drawImageRect(
+            image,
+            Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+            bakedDst,
+            Paint(),
+          );
+        } catch (_) {}
       }
     }
     canvas.scale(transform.size, transform.size);
@@ -209,7 +209,7 @@ class ViewPainter extends CustomPainter {
           );
     });
     for (final renderer in renderers) {
-      final state = states[renderer.id];
+      final state = cameraViewport.rendererStates[renderer.id];
       if (!invisibleLayers.contains(renderer.layer) &&
           state != RendererState.hidden) {
         final center = renderer.rect?.center;
@@ -259,14 +259,12 @@ class ViewPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
-    const mapEq = MapEquality();
     final shouldRepaint =
         page != oldDelegate.page ||
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
-        colorScheme != oldDelegate.colorScheme ||
-        !mapEq.equals(states, oldDelegate.states);
+        colorScheme != oldDelegate.colorScheme;
     return shouldRepaint;
   }
 }

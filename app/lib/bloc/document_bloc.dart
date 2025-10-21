@@ -1209,10 +1209,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({bool allowBake = true}) async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    return current.currentIndexCubit.refresh(current);
+    return current.currentIndexCubit.refresh(current, allowBake: allowBake);
   }
 
   Future<void> refreshToolbar() =>
@@ -1261,11 +1261,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     cubit.init(this);
   }
 
-  void reload() {
+  Future<void> reload() async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     final cubit = current.currentIndexCubit;
-    cubit.reload(current);
+    return cubit.reload(current);
   }
 
   Future<void> createTemplate(

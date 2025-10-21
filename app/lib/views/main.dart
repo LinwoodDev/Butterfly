@@ -268,7 +268,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
-          CameraViewport.unbaked(backgrounds),
+          CameraViewport.unbaked(backgrounds: backgrounds),
           embedding,
           networkingService,
         );
