@@ -713,5 +713,5 @@
   "readOnly": "Doar citire",
   "saveDelayed": "Salvare întârziată",
   "unsaved": "nesalvate",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "pdfEmptyDescription": "În acest moment nu există zone pentru export. Vă rugăm să selectaţi cel puţin o zonă folosind butonul plus în colţul din dreapta sus sau să adăugaţi toate zonele din pagina curentă sau din tot documentul de mai jos."
 }
