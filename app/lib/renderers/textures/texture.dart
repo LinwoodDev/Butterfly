@@ -33,6 +33,7 @@ void drawSurfaceTextureOnSvg(
   Offset offset,
   Size size, [
   Offset translation = Offset.zero,
+  bool extraLines = false,
 ]) => switch (texture) {
   PatternTexture e => drawPatternTextureOnSvg(
     e,
@@ -40,5 +41,6 @@ void drawSurfaceTextureOnSvg(
     offset,
     size,
     translation,
+    extraLines,
   ),
 };

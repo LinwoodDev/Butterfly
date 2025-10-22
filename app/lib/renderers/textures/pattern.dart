@@ -20,13 +20,15 @@ void drawPatternTextureOnCanvas(
     var relativeWidth = texture.boxWidth * scale;
     var relativeSpace = texture.boxXSpace * scale;
     final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
+    final relativePart = relativeWidth * texture.boxXCount + relativeSpace;
     int xCount = (offset.dx / part).floor();
     if (extraLines) xCount--;
     double x = xCount * part - offset.dx;
     x *= scale;
+    final xLimit = size.width + (extraLines ? relativePart : 0);
 
     int count = 0;
-    while (x < size.width) {
+    while (x < xLimit) {
       canvas.drawLine(
         Offset(x + translation.dx, 0 + translation.dy),
         Offset(x + translation.dx, size.height + translation.dy),
@@ -46,12 +48,14 @@ void drawPatternTextureOnCanvas(
     var relativeHeight = texture.boxHeight * scale;
     var relativeSpace = texture.boxYSpace * scale;
     final part = texture.boxHeight * texture.boxYCount + texture.boxYSpace;
+    final relativePart = relativeHeight * texture.boxYCount + relativeSpace;
     int yCount = (offset.dy / part).floor();
     if (extraLines) yCount--;
     double y = yCount * part + -offset.dy;
     y *= scale;
+    final yLimit = size.height + (extraLines ? relativePart : 0);
     int count = 0;
-    while (y < size.height) {
+    while (y < yLimit) {
       canvas.drawLine(
         Offset(0 + translation.dx, y + translation.dy),
         Offset(size.width + translation.dx, y + translation.dy),
@@ -75,6 +79,7 @@ void drawPatternTextureOnSvg(
   Offset offset,
   Size size, [
   Offset translation = Offset.zero,
+  bool extraLines = false,
 ]) {
   final id = createUniqueId();
   var g = xml
@@ -84,8 +89,8 @@ void drawPatternTextureOnSvg(
   g.createElement(
     'rect',
     attributes: {
-      'x': '${offset.dx + translation.dx}px',
-      'y': '${offset.dy + translation.dy}px',
+      'x': '${translation.dx}px',
+      'y': '${translation.dy}px',
       'width': '${size.width}px',
       'height': '${size.height}px',
       'fill': texture.boxColor.toHexString(),
@@ -93,18 +98,21 @@ void drawPatternTextureOnSvg(
   );
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
+    final xLimit = size.width + (extraLines ? part : 0);
     int xCount = (offset.dx / part).floor();
-    double x = -xCount * part + offset.dx;
+    if (extraLines) xCount--;
+    double x = xCount * part - offset.dx;
 
     int count = 0;
-    while (x < size.width) {
+    while (x < xLimit) {
+      final currentX = translation.dx + x;
       g.createElement(
         'line',
         attributes: {
-          'x1': '${x + offset.dx + translation.dx}px',
-          'y1': '${offset.dy + translation.dy}px',
-          'x2': '${x + offset.dx + translation.dx}px',
-          'y2': '${offset.dy + size.height + translation.dy}px',
+          'x1': '${currentX}px',
+          'y1': '${translation.dy}px',
+          'x2': '${currentX}px',
+          'y2': '${translation.dy + size.height}px',
           'stroke': texture.boxXColor.toHexString(),
           'stroke-width': '${texture.boxXStroke}',
         },
@@ -119,18 +127,21 @@ void drawPatternTextureOnSvg(
   }
   if (texture.boxHeight > 0 && texture.boxYCount > 0) {
     final part = texture.boxHeight * texture.boxYCount + texture.boxYSpace;
+    final yLimit = size.height + (extraLines ? part : 0);
     int yCount = (offset.dy / part).floor();
-    double y = -yCount * part + offset.dy;
+    if (extraLines) yCount--;
+    double y = yCount * part - offset.dy;
 
     int count = 0;
-    while (y < size.height) {
+    while (y < yLimit) {
+      final currentY = translation.dy + y;
       g.createElement(
         'line',
         attributes: {
-          'x1': '${offset.dx + translation.dx}px',
-          'y1': '${y + offset.dy + translation.dy}px',
-          'x2': '${offset.dx + size.width + translation.dx}px',
-          'y2': '${y + offset.dy + translation.dy}px',
+          'x1': '${translation.dx}px',
+          'y1': '${currentY}px',
+          'x2': '${translation.dx + size.width}px',
+          'y2': '${currentY}px',
           'stroke': texture.boxYColor.toHexString(),
           'stroke-width': '${texture.boxYStroke}',
         },

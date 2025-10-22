@@ -34,7 +34,9 @@ class TextureBackgroundRenderer extends Renderer<TextureBackground> {
   ) => drawSurfaceTextureOnSvg(
     texture,
     xml,
-    viewportRect.topLeft,
+    Offset.zero,
     viewportRect.size,
+    viewportRect.topLeft,
+    true,
   );
 }
