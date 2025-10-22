@@ -713,5 +713,5 @@
   "readOnly": "Sólo lectura",
   "saveDelayed": "Guardar retrasado",
   "unsaved": "Sin guardar",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "pdfEmptyDescription": "Actualmente no hay áreas para exportar. Por favor, seleccione al menos un área usando el botón más en la esquina superior derecha o añada todas las áreas de la página actual o de todo el documento abajo."
 }
