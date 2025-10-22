@@ -104,7 +104,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **PDF import** – Annotate existing documents
 - **Offline-first** – Works without an internet connection
 
-**Excalidraw Advantages:**
+
 
 - **Collaboration focus** – Real-time collaborative drawing
 - **Library system** – Reusable components and templates
