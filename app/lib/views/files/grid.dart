@@ -53,7 +53,6 @@ class FileEntityGridItem extends StatelessWidget {
     );
     return Card(
       elevation: 5,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: active
