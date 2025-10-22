@@ -713,5 +713,5 @@
   "readOnly": "読み取り専用",
   "saveDelayed": "遅延保存",
   "unsaved": "未保存",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "pdfEmptyDescription": "エクスポートするエリアがありません。 右上隅のプラスボタンを使用して少なくとも1つの領域を選択するか、現在のページから、または以下のドキュメント全体からすべての領域を追加してください。"
 }
