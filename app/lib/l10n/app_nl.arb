@@ -712,5 +712,6 @@
   "saving": "Opslaan...",
   "readOnly": "Alleen lezen",
   "saveDelayed": "Vertraagd opslaan",
-  "unsaved": "Niet-opgeslagen"
+  "unsaved": "Niet-opgeslagen",
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
 }
