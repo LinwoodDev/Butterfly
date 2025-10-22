@@ -2,88 +2,88 @@
 title: المقارنة
 ---
 
-Butterfly is a note-taking app that aims for a unified experience across all platforms. It combines a simple UI with powerful customization. This page compares Butterfly to other popular note-taking and drawing applications to highlight what makes Butterfly unique.
+Butterfly is a note-taking app that aims for a unified experience across all platforms. يجمع بين واجهة مستخدم بسيطة وتخصيص قوي. هذه الصفحه تقارن Linwood Butterfly مع تطبيقات تدوين الملاحظات و الرسم الشائعين لإبراز ما يجعل Butterfly مميزاً.
 
-## Quick Comparison Table
+## جدول المقارنة السريعة
 
-| Feature             | Butterfly                                           | OneNote                | Obsidian                           | Excalidraw                     | Xournal++                                          | Samsung Notes                                        |
-| ------------------- | --------------------------------------------------- | ---------------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------- | ---------------------------------------------------- |
-| **Open Source**     | ✅ Yes (AGPL-3.0) | ❌ No                   | ❌ No                               | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) | ❌ No                                                 |
-| **Cost**            | Free                                                | Free                   | Free (personal) | Free + Paid tiers              | Free                                               | Free                                                 |
-| **Android**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ❌                                                  | ✅                                                    |
-| **Windows**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅ (Windows 10)                  | 🟧 Limited (Samsung devices ONLY) |
-| **Linux**           | ✅                                                   | ❌                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
-| **macOS**           | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
-| **Web**             | ✅                                                   | ✅                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
-| **Infinite Canvas** | ✅ Full                                              | ✅ Positive coords only | ✅                                  | ✅                              | ❌ Fixed pages                                      | ❌ Fixed pages                                        |
-| **Handwriting**     | ✅                                                   | ✅                      | 🟧 Limited                         | ✅ Drawing                      | ✅                                                  | ✅                                                    |
-| **Custom Colors**   | ✅ Full palette                                      | ✅                      | ✅ Themes                           | ✅                              | ✅                                                  | ✅                                                    |
-| **PDF Import**      | ✅                                                   | ✅                      | 🟧 Limited                         | ❌                              | ✅                                                  | ✅                                                    |
-| **PDF Export**      | ✅                                                   | ✅                      | ✅                                  | ✅                              | ✅                                                  | ✅                                                    |
-| **SVG Support**     | ✅                                                   | ❌                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
-| **Offline Use**     | ✅                                                   | ✅                      | ✅                                  | ✅ Basic                        | ✅                                                  | ✅                                                    |
-| **Cloud Sync**      | WebDAV                                              | OneDrive/SharePoint    | Paid sync                          | Paid collab                    | دليل                                               |                                                      |
+| الميزه                     | Butterfly                                        | OneNote               | Obsidian               | Excalidraw                  | Xournal++                                       | Samsung Notes                               |
+| -------------------------- | ------------------------------------------------ | --------------------- | ---------------------- | --------------------------- | ----------------------------------------------- | ------------------------------------------- |
+| مفتوح المصدر               | نعم(AGPL-3.0) | لا                    | لا                     | نعم(MIT) | نعم(GPL-2.0) | لا                                          |
+| **السعر**                  | مجاني                                            | مجاني                 | مجاني للاستخدام الشخصي | مجاني مع خطط مدفوعه         | مجاني                                           | مجاني                                       |
+| **Android**                | ✅                                                | ✅                     | ✅                      | ❌                           | ❌                                               | ✅                                           |
+| **Windows**                | ✅                                                | ✅                     | ✅                      | ❌                           | ✅ (Windows 10)               | 🟧 محدود (Samsung أجهزة) |
+| **Linux**                  | ✅                                                | ❌                     | ✅                      | ❌                           | ✅                                               | ❌                                           |
+| **macOS**                  | ✅                                                | ✅                     | ✅                      | ❌                           | ✅                                               | ❌                                           |
+| **الويب**                  | ✅                                                | ✅                     | ❌                      | ✅                           | ❌                                               | ❌                                           |
+| **لوحة رسم لا نهائية**     | ✅ كامل                                           | ✅ الإحداثيات الإجابية | ✅                      | ✅                           | ❌ صفحات                                         | ❌ صفحات                                     |
+| **الكتابه باليد**          | ✅                                                | ✅                     | 🟧 محدود               | ✅ رسم                       | ✅                                               | ✅                                           |
+| **ألوان مخصصه**            | ✅ لوحة ألوان كاملة                               | ✅                     | ✅ سمات                 | ✅                           | ✅                                               | ✅                                           |
+| **استيراد ملف PDF**        | ✅                                                | ✅                     | 🟧 محدود               | ❌                           | ✅                                               | ✅                                           |
+| **تصدير ملف PDF**          | ✅                                                | ✅                     | ✅                      | ✅                           | ✅                                               | ✅                                           |
+| **دعم ملف SVG**            | ✅                                                | ❌                     | ❌                      | ✅                           | ❌                                               | ❌                                           |
+| **الاستخدام بلا الأنترنت** | ✅                                                | ✅                     | ✅                      | ✅ بدائي                     | ✅                                               | ✅                                           |
+| **مزامنة السحابه**         | WebDAV                                           | OneDrive/SharePoint   | مدفوع                  | مدفوع                       | دليل                                            |                                             |
 
-## Detailed Comparisons
+## مقارنات مفصلة
 
-### Butterfly vs Microsoft OneNote
-
-**التشابهات**
-
-- Infinite canvas for freeform note-taking
-- Strong handwriting and drawing support
-- Support for images and multimedia content
-- Cross-platform availability
-
-**Butterfly Advantages:**
-
-- **Open source** – You can inspect, modify, and contribute to the code
-- **True infinite canvas** – No coordinate limitations
-- **Better privacy** – Store data locally or choose your own WebDAV provider
-- **Lighter weight** – Faster startup and lower resource usage
-- **SVG support** – Vector graphics import and export
-- **No vendor lock-in** – Your data stays under your control
-
-**OneNote Advantages:**
-
-- **Deep Microsoft ecosystem integration** – Works seamlessly with Office 365
-- **Advanced OCR** – Text recognition from handwritten notes and images
-- **Enterprise features** – Advanced sharing and permission management
-
-**Best for:**
-
-- **Butterfly**: Privacy-conscious users, Linux users, those wanting lightweight open-source solutions
-- **OneNote**: Microsoft ecosystem users, teams needing collaboration, macOS users
-
-### Butterfly vs Obsidian
+### Butterfly ضد Microsoft OneNote
 
 **التشابهات**
 
-- Cross-platform support
-- Customizable interface and themes
-- Local data storage with sync options
+- لوحه لانهائيه لأخذ الملاحظات بحريه
+- دعم قوي للكتابة اليدوية والرسم
+- دعم الصور ومحتوى الوسائط المتعددة
+- توفر عبر المنصات
 
-**Butterfly Advantages:**
+**ميزات Butterfly:**
 
-- **Canvas-based interface** – Freeform drawing and note placement
-- **Built-in drawing tools** – No plugins required for handwriting
-- **Simpler learning curve** – Ready to use out of the box
-- **Better for visual thinkers** – Infinite canvas for mind mapping
-- **Web version available** – No installation required
+- **مفتوح المصدر** - يمكنك التفتيش والتعديل والمساهمة في الرمز
+- **لوحه لانهائيه حقيقيه** - لا حدود للإحداثيات
+- **خصوصية أفضل** – خزّن البيانات محليًا أو اختر مزود WebDAV الخاص بك
+- **وزن أخف** – تشغيل أسرع واستخدام أقل للموارد
+- **دعم SVG** - استيراد وتصدير الرسوم البيانية
+- **بدون تقييد البائع** - البيانات الخاصة بك تبقى تحت سيطرتك
 
-**Obsidian Advantages:**
+**مزايا OneNote:**
 
-- **Powerful linking system** – Bidirectional links between notes
-- **Markdown-based** – Future-proof plain text format
-- **Advanced search** – Complex queries and filtering
-- **Graph view** – Visualize connections between notes
-- **Better for text-heavy notes** – Structured note organization
-- **Plugin/extension support** – For enhanced functionality
+- \*_تكامل عميق مع نظام Microsoft_ – يعمل بسلاسة مع Office 365
+- **تقنية متقدمه لتعرف على الحروف** – التعرف على النصوص من الملاحظات المكتوبة بخط اليد والصور
+- **ميزات المؤسسات** - المشاركة المتقدمة وإدارة الأذونات
 
-**Best for:**
+**الأفضل لـ:**
+
+- **Butterfly**: مستخدمون واعون بالخصوصية، مستخدمو Linux، وأولئك الذين يريدون حلولا خفيفة الوزن ومفتوحة المصدر
+- **OneNote**: مستخدمو نظام مايكروسوفت، الفُرق التي تحتاج إلى التعاون، مستخدمي MacOS.
+
+### Butterfly ضد Obsidian
+
+**التشابهات**
+
+- دعم متعدد المنصات
+- واجهة وسمات قابلة للتخصيص
+- تخزين البيانات المحلية مع خيارات المزامنة
+
+**ميزات Butterfly:**
+
+- **واجهة تعتمد على اللوحة الرسومية** -  رسم حر و ملاحظات حره
+- **أدوات الرسم مدمجة** - لا توجد إضافات مطلوبة للكتابة اليدوية
+- **أبسط للاستخدام** - محضَر للاستخدام خارج الصندوق
+- **أفضل للمفكرين البصريين** – لوحة فنية لا نهائية لرسم الخرائط الذهنية
+- **نسخة الويب متوفرة** - لا حاجة لتثبيت
+
+**ميزات Obsidian:**
+
+- **نظام ربط قوي** - الروابط ثنائية الاتجاه بين الملاحظات
+- **يعتمد على Markdown** - صيغة نص عادي لا يستبعد
+- **بحث متقدم** - تصفية افضل
+- **عرض رسم بياني** - رؤية الاتصالات بين الملاحظات
+- **أفضل للملاحظات الكثيفة النصية** - ملاحظات منظمة
+- **دعم الإضافات** - لتعزيز الوظائف
+
+**الأفضل لـ:**
 
 -
-- **Obsidian**: Knowledge workers, researchers, those building personal knowledge bases
+- **Obsidian**: العاملون في مجال المعرفة، والباحثون، ومن يقومون ببناء قواعد معلومات شخصية
 
 ### Butterfly vs Excalidraw
 
@@ -95,7 +95,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - Open-source foundation
 - Hand-drawn aesthetic for diagrams
 
-**Butterfly Advantages:**
+**ميزات Butterfly:**
 
 - **Mobile apps** – iOS and Android support
 - **Desktop applications** – Windows and Linux apps available
@@ -112,7 +112,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Integration friendly** – Embeds well in other applications
 - **Specialized for diagrams** – Purpose-built for technical drawings
 
-**Best for:**
+**الأفضل لـ:**
 
 - **Butterfly**: General note-taking with drawing, mobile users, offline work
 - **Excalidraw**: Team diagramming, technical documentation, collaborative sketching
@@ -127,7 +127,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - Cross-platform (Windows, Linux)
 - Stylus/pen input optimization
 
-**Butterfly Advantages:**
+**ميزات Butterfly:**
 
 - **Mobile support** – iOS and Android support
 - **Web version** – Browser-based access
@@ -141,7 +141,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Built with GTK** – Natively integrated in the GNOME interface
 - **Audio recording** – Link audio notes to written content
 
-**Best for:**
+**الأفضل لـ:**
 
 - **Butterfly**: Mobile note-taking, modern UI preferences, cloud sync needs
 - **Xournal++**: Academic users, PDF-heavy workflows
@@ -152,11 +152,11 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 
 - Excellent handwriting support
 - PDF annotation capabilities
-- Free
+- مجاني
 - Stylus/pen input optimization
 - قوالب
 
-**Butterfly Advantages:**
+**ميزات Butterfly:**
 
 - **Mobile support** – iOS and Android support
 - **Web version** – Browser-based access
@@ -171,7 +171,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - **Audio recording** – Link audio notes to written content
 - **Optimized for Samsung devices** – Works best on Samsung devices running OneUI, Samsung’s operating system
 
-**Best for:**
+**الأفضل لـ:**
 
 - **Butterfly**: Mobile note-taking, cloud sync needs, infinite canvas, cross-platform usage
 - **Samsung Notes**: PDF-heavy workflows, Samsung devices
