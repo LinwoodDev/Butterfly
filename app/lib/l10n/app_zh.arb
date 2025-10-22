@@ -713,5 +713,5 @@
   "readOnly": "只读",
   "saveDelayed": "保存延迟",
   "unsaved": "未保存",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "pdfEmptyDescription": "目前没有要导出的区域。 请使用右上角的加号按钮选择至少一个区域，或从当前页面或从下面的整个文档中添加所有区域。"
 }
