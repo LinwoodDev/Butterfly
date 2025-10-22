@@ -1,4 +1,5 @@
 import 'package:butterfly/api/save.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -106,169 +107,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       children: [
                         Flexible(
                           child: areas.isEmpty
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context).noElements,
-                                      textAlign: TextAlign.center,
-                                      style: TextTheme.of(
-                                        context,
-                                      ).headlineMedium,
-                                    ),
-                                    Align(
-                                      child: ConstrainedBox(
-                                        constraints: const BoxConstraints(
-                                          maxWidth: 400,
-                                        ),
-                                        child: const Divider(),
-                                      ),
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context).addAll,
-                                      textAlign: TextAlign.center,
-                                      style: TextTheme.of(context).bodyLarge,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton.icon(
-                                          label: Text(
-                                            AppLocalizations.of(context).page,
-                                          ),
-                                          icon: const PhosphorIcon(
-                                            PhosphorIconsLight.book,
-                                          ),
-                                          onPressed: () {
-                                            final areas = state.page.areas;
-                                            setState(() {
-                                              this.areas.addAll(
-                                                areas.map(
-                                                  (e) => AreaPreset(
-                                                    name: e.name,
-                                                    page: state.pageName,
-                                                  ),
-                                                ),
-                                              );
-                                            });
-                                          },
-                                        ),
-                                        ElevatedButton.icon(
-                                          label: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            ).document,
-                                          ),
-                                          icon: const PhosphorIcon(
-                                            PhosphorIconsLight.file,
-                                          ),
-                                          onPressed: () {
-                                            final areas = state.data
-                                                .getPages(true)
-                                                .expand(
-                                                  (e) =>
-                                                      (state.pageName == e
-                                                              ? state.page
-                                                              : state.data
-                                                                    .getPage(e))
-                                                          ?.areas
-                                                          .map(
-                                                            (area) =>
-                                                                AreaPreset(
-                                                                  name:
-                                                                      area.name,
-                                                                  page: e,
-                                                                ),
-                                                          )
-                                                          .toList() ??
-                                                      <AreaPreset>[],
-                                                )
-                                                .toList();
-                                            setState(() {
-                                              this.areas.addAll(areas);
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              : SingleChildScrollView(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    children: areas.mapIndexed((i, e) {
-                                      final page =
-                                          (e.page == state.pageName
-                                              ? null
-                                              : state.data.getPage(e.page)) ??
-                                          state.page;
-                                      final area =
-                                          e.area ?? page.getAreaByName(e.name);
-                                      if (area == null) {
-                                        return Container();
-                                      }
-                                      return FutureBuilder<ByteData?>(
-                                        future: currentIndex.render(
-                                          state.data,
-                                          page,
-                                          state.info,
-                                          ImageExportOptions(
-                                            width: area.width,
-                                            height: area.height,
-                                            quality: e.quality,
-                                            x: area.position.x,
-                                            y: area.position.y,
-                                          ),
-                                        ),
-                                        builder: (context, snapshot) =>
-                                            _AreaPreview(
-                                              area: area,
-                                              page: e.page,
-                                              quality: e.quality,
-                                              onRemove: () {
-                                                setState(() {
-                                                  areas.removeAt(i);
-                                                });
-                                              },
-                                              onQualityChanged: (value) {
-                                                setState(() {
-                                                  areas[i] = e.copyWith(
-                                                    quality: value,
-                                                  );
-                                                });
-                                              },
-                                              onMoveLeft: i == 0
-                                                  ? null
-                                                  : () {
-                                                      setState(() {
-                                                        final temp =
-                                                            areas[i - 1];
-                                                        areas[i - 1] = areas[i];
-                                                        areas[i] = temp;
-                                                      });
-                                                    },
-                                              onMoveRight: i >= areas.length - 1
-                                                  ? null
-                                                  : () {
-                                                      setState(() {
-                                                        final temp =
-                                                            areas[i + 1];
-                                                        areas[i + 1] = areas[i];
-                                                        areas[i] = temp;
-                                                      });
-                                                    },
-                                              image: snapshot.data?.buffer
-                                                  .asUint8List(),
-                                            ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
+                              ? _buildEmptyState(state)
+                              : _buildAreasList(state, currentIndex),
                         ),
                         const Divider(),
                         Row(
@@ -350,6 +190,152 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(DocumentLoaded state) {
+    final pageAreas = state.page.areas;
+    Widget pageButton = ElevatedButton.icon(
+      label: Text(AppLocalizations.of(context).page),
+      icon: const PhosphorIcon(PhosphorIconsLight.book),
+      onPressed: pageAreas.isEmpty
+          ? null
+          : () {
+              setState(() {
+                areas.addAll(
+                  pageAreas.map(
+                    (e) => AreaPreset(name: e.name, page: state.pageName),
+                  ),
+                );
+              });
+            },
+    );
+    if (pageAreas.isEmpty) {
+      pageButton = Tooltip(
+        message: AppLocalizations.of(context).noElements,
+        child: pageButton,
+      );
+    }
+    final documentAreas = state.data
+        .getPages(true)
+        .expand(
+          (e) =>
+              (state.pageName == e ? state.page : state.data.getPage(e))?.areas
+                  .map((area) => AreaPreset(name: area.name, page: e))
+                  .toList() ??
+              <AreaPreset>[],
+        )
+        .toList();
+    Widget documentButton = ElevatedButton.icon(
+      label: Text(AppLocalizations.of(context).document),
+      icon: const PhosphorIcon(PhosphorIconsLight.file),
+      onPressed: documentAreas.isEmpty
+          ? null
+          : () {
+              setState(() {
+                areas.addAll(documentAreas);
+              });
+            },
+    );
+    if (documentAreas.isEmpty) {
+      documentButton = Tooltip(
+        message: AppLocalizations.of(context).noElements,
+        child: documentButton,
+      );
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          AppLocalizations.of(context).noElements,
+          textAlign: TextAlign.center,
+          style: TextTheme.of(context).headlineMedium,
+        ),
+        Align(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: const Divider(),
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context).pdfEmptyDescription,
+          textAlign: TextAlign.center,
+          style: TextTheme.of(context).bodyMedium,
+        ),
+        const SizedBox(height: 4),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 4,
+          children: [pageButton, documentButton],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
+    return SingleChildScrollView(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: areas.mapIndexed((i, e) {
+          final page =
+              (e.page == state.pageName ? null : state.data.getPage(e.page)) ??
+              state.page;
+          final area = e.area ?? page.getAreaByName(e.name);
+          if (area == null) {
+            return Container();
+          }
+          return FutureBuilder<ByteData?>(
+            future: currentIndex.render(
+              state.data,
+              page,
+              state.info,
+              ImageExportOptions(
+                width: area.width,
+                height: area.height,
+                quality: e.quality,
+                x: area.position.x,
+                y: area.position.y,
+              ),
+            ),
+            builder: (context, snapshot) => _AreaPreview(
+              area: area,
+              page: e.page,
+              quality: e.quality,
+              onRemove: () {
+                setState(() {
+                  areas.removeAt(i);
+                });
+              },
+              onQualityChanged: (value) {
+                setState(() {
+                  areas[i] = e.copyWith(quality: value);
+                });
+              },
+              onMoveLeft: i == 0
+                  ? null
+                  : () {
+                      setState(() {
+                        final temp = areas[i - 1];
+                        areas[i - 1] = areas[i];
+                        areas[i] = temp;
+                      });
+                    },
+              onMoveRight: i >= areas.length - 1
+                  ? null
+                  : () {
+                      setState(() {
+                        final temp = areas[i + 1];
+                        areas[i + 1] = areas[i];
+                        areas[i] = temp;
+                      });
+                    },
+              image: snapshot.data?.buffer.asUint8List(),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

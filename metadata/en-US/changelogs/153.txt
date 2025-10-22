@@ -1,5 +1,6 @@
 * Add templates tbfly export option ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
 * Add option to selectively export templates ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
+* Improve empty description in pdf dialog ([#943](https://github.com/LinwoodDev/Butterfly/943))
 * Fix templates cannot be imported in tbfly format ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
 * Fix flickering while drawing ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix issues with eraser tool creating artifacts ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
