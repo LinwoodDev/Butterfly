@@ -713,5 +713,5 @@
   "readOnly": "Læs kun",
   "saveDelayed": "Gem forsinket",
   "unsaved": "Ikke-Gemt",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "pdfEmptyDescription": "Der er i øjeblikket ingen områder at eksportere. Vælg mindst et område ved hjælp af plus-knappen i øverste højre hjørne eller tilføj alle områder fra den aktuelle side eller fra hele dokumentet nedenfor."
 }
