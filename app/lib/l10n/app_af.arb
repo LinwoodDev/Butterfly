@@ -712,5 +712,6 @@
   "saving": "Saving...",
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved"
+  "unsaved": "Unsaved",
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
 }
