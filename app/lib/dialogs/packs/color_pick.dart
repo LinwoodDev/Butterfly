@@ -45,9 +45,11 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
     super.initState();
     _palette = widget.palette;
     _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadPalette();
-    });
+    if (_palette == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _loadPalette();
+      });
+    }
   }
 
   Future<void> _loadPalette() async {
@@ -64,12 +66,12 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   }
 
   void _changePalette(ColorPalette palette, [String? name]) {
+    setState(() {
+      _palette = palette;
+    });
     if (widget.onChanged != null) {
       widget.onChanged!(palette, name);
     } else {
-      setState(() {
-        _palette = palette;
-      });
       final location = _selected;
       if (location == null) return;
       var pack = _pack;
