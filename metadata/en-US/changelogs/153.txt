@@ -5,8 +5,9 @@
 * Fix flickering while drawing ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix issues with eraser tool creating artifacts ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix eraser tool creates elements with duplicate IDs ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
-* Fix color palette dialog not updating and loading correctly ([#938](https://github.com/LinwoodDev/Butterfly/938))
-* Fix background lines don't render last row or column if only partially visible ([#939](https://github.com/LinwoodDev/Butterfly/939))
+* Fix color palette dialog not updating and loading correctly ([#938](https://github.com/LinwoodDev/Butterfly/issues/938))
+* Fix background lines don't render last row or column if only partially visible ([#932](https://github.com/LinwoodDev/Butterfly/issues/932))
 * Fix files in grid view not having correctly spacing
+* Fix concurrent file system operation, causing templates being initialized multiple times ([#940](https://github.com/LinwoodDev/Butterfly/issues/940))
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.1

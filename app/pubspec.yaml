@@ -95,7 +95,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 12843672e8f33e9370444b13fca8134f4543f7ee
+      ref: 0f25528ada0c29044de0261f44f9f5ee212c24b8
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
