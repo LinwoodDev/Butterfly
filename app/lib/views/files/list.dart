@@ -340,11 +340,11 @@ class FileEntityListTile extends StatelessWidget {
                               selectionCheckbox,
                               const SizedBox(width: 8),
                               Expanded(
-                                child: Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [fileName, edit],
+                                child: Row(
+                                  children: [
+                                    Flexible(child: fileName),
+                                    edit,
+                                  ],
                                 ),
                               ),
                               if (!collapsed) ...[

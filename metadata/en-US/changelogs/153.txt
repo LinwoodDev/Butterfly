@@ -9,5 +9,6 @@
 * Fix background lines don't render last row or column if only partially visible ([#932](https://github.com/LinwoodDev/Butterfly/issues/932))
 * Fix files in grid view not having correctly spacing
 * Fix concurrent file system operation, causing templates being initialized multiple times ([#940](https://github.com/LinwoodDev/Butterfly/issues/940))
+* Fix file name goes into second line in file list view in desktop mode ([#941](https://github.com/LinwoodDev/Butterfly/issues/941))
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.1
