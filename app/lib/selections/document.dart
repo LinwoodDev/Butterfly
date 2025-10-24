@@ -141,20 +141,27 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     final viewport =
                         state.currentIndexCubit.state.cameraViewport;
                     final rect = viewport.toRealRect();
-                    final height =
-                        rect.width * kThumbnailHeight / kThumbnailWidth;
-                    final heightOffset = (rect.height - height) / 2;
-                    final quality = kThumbnailWidth / rect.width;
+                    final targetAspectRatio =
+                        kThumbnailWidth / kThumbnailHeight;
+                    var captureWidth = rect.width;
+                    var captureHeight = captureWidth / targetAspectRatio;
+                    if (captureHeight > rect.height) {
+                      captureHeight = rect.height;
+                      captureWidth = captureHeight * targetAspectRatio;
+                    }
+                    final widthOffset = (rect.width - captureWidth) / 2;
+                    final heightOffset = (rect.height - captureHeight) / 2;
+                    final quality = kThumbnailWidth / captureWidth;
                     final thumbnail = await state.currentIndexCubit.render(
                       state.data,
                       state.page,
                       state.info,
                       ImageExportOptions(
-                        width: rect.width,
-                        height: height,
+                        width: captureWidth,
+                        height: captureHeight,
                         quality: quality,
                         scale: viewport.scale,
-                        x: rect.left,
+                        x: rect.left + (widthOffset) / viewport.scale,
                         y: rect.top + (heightOffset) / viewport.scale,
                       ),
                     );

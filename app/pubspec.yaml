@@ -17,7 +17,7 @@ version: 2.4.1-rc.1+153
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.35.5
+  flutter: 3.35.7
 
 dependencies:
   flutter:
@@ -95,12 +95,12 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0f25528ada0c29044de0261f44f9f5ee212c24b8
+      ref: 7a5ca7e97f9bc92a4f3e886242ac07afb5980742
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
   dynamic_color: ^1.7.0
-  popover: ^0.3.0
+  popover: ^0.4.0
   markdown: ^7.2.2
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
