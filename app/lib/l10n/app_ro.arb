@@ -712,5 +712,6 @@
   "saving": "Salvare...",
   "readOnly": "Doar citire",
   "saveDelayed": "Salvare întârziată",
-  "unsaved": "nesalvate"
+  "unsaved": "nesalvate",
+  "pdfEmptyDescription": "În acest moment nu există zone pentru export. Vă rugăm să selectaţi cel puţin o zonă folosind butonul plus în colţul din dreapta sus sau să adăugaţi toate zonele din pagina curentă sau din tot documentul de mai jos."
 }

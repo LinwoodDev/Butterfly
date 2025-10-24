@@ -712,5 +712,6 @@
   "saving": "Tallennetaan...",
   "readOnly": "Vain luku",
   "saveDelayed": "Tallennus viivästynyt",
-  "unsaved": "Tallentamaton"
+  "unsaved": "Tallentamaton",
+  "pdfEmptyDescription": "Tällä hetkellä ei ole vientialueita. Valitse ainakin yksi alue käyttämällä oikeassa yläkulmassa olevaa plus -painiketta tai lisää kaikki alueet nykyiseltä sivulta tai koko asiakirjasta."
 }

@@ -712,5 +712,6 @@
   "saving": "Gemmer...",
   "readOnly": "Læs kun",
   "saveDelayed": "Gem forsinket",
-  "unsaved": "Ikke-Gemt"
+  "unsaved": "Ikke-Gemt",
+  "pdfEmptyDescription": "Der er i øjeblikket ingen områder at eksportere. Vælg mindst et område ved hjælp af plus-knappen i øverste højre hjørne eller tilføj alle områder fra den aktuelle side eller fra hele dokumentet nedenfor."
 }

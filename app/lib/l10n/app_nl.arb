@@ -712,5 +712,6 @@
   "saving": "Opslaan...",
   "readOnly": "Alleen lezen",
   "saveDelayed": "Vertraagd opslaan",
-  "unsaved": "Niet-opgeslagen"
+  "unsaved": "Niet-opgeslagen",
+  "pdfEmptyDescription": "Er zijn momenteel geen gebieden om te exporteren. Selecteer ten minste één gebied met behulp van de plusknop in de rechterbovenhoek of voeg alle gebieden toe uit de huidige pagina of uit het hele document hieronder."
 }

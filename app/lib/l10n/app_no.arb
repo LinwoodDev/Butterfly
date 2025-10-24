@@ -712,5 +712,6 @@
   "saving": "Lagrer...",
   "readOnly": "Kun lesetilgang",
   "saveDelayed": "Lagre forsinket",
-  "unsaved": "Ulagret"
+  "unsaved": "Ulagret",
+  "pdfEmptyDescription": "Det er for tiden ingen områder å eksportere. Velg minst ett område med pluss-knappen oppe i høyre hjørne eller legg til alle områder fra gjeldende side eller fra hele dokumentet nedenfor."
 }

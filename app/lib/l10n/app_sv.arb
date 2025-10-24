@@ -712,5 +712,6 @@
   "saving": "Sparar...",
   "readOnly": "Endast läsning",
   "saveDelayed": "Spara försenad",
-  "unsaved": "Osparad"
+  "unsaved": "Osparad",
+  "pdfEmptyDescription": "Det finns för närvarande inga exportområden. Välj minst ett område med plusknappen i det övre högra hörnet eller lägg till alla områden från den aktuella sidan eller från hela dokumentet nedan."
 }

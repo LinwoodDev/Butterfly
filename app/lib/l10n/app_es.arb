@@ -712,5 +712,6 @@
   "saving": "Guardando...",
   "readOnly": "Sólo lectura",
   "saveDelayed": "Guardar retrasado",
-  "unsaved": "Sin guardar"
+  "unsaved": "Sin guardar",
+  "pdfEmptyDescription": "Actualmente no hay áreas para exportar. Por favor, seleccione al menos un área usando el botón más en la esquina superior derecha o añada todas las áreas de la página actual o de todo el documento abajo."
 }

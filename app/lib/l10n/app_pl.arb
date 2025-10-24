@@ -712,5 +712,6 @@
   "saving": "Zapisywanie...",
   "readOnly": "Tylko do odczytu",
   "saveDelayed": "Zapisz opóźnione",
-  "unsaved": "Niezapisane"
+  "unsaved": "Niezapisane",
+  "pdfEmptyDescription": "Obecnie nie ma żadnych obszarów do wyeksportowania. Wybierz co najmniej jeden obszar używając przycisku plus w prawym górnym rogu lub dodaj wszystkie obszary z bieżącej strony lub całego dokumentu poniżej."
 }

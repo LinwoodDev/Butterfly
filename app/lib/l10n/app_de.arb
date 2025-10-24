@@ -712,5 +712,6 @@
   "saving": "Speichern...",
   "readOnly": "Nur lesen",
   "saveDelayed": "Speichern verzögert",
-  "unsaved": "Nicht gespeichert"
+  "unsaved": "Nicht gespeichert",
+  "pdfEmptyDescription": "Derzeit gibt es keine Bereiche zu exportieren. Bitte wählen Sie mindestens einen Bereich mit der Plus-Taste in der oberen rechten Ecke aus oder fügen Sie alle Bereiche von der aktuellen Seite oder vom gesamten unten stehenden Dokument hinzu."
 }
