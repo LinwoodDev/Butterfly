@@ -372,7 +372,8 @@ class ImportService {
         ).then((value) => null);
       }
       if (!data.isValid) {
-        await importArchive(bytes);
+        final archive = ZipDecoder().decodeBytes(bytes);
+        await _importArchive(archive);
         return null;
       }
       final type = data.getMetadata()?.type;
@@ -920,21 +921,34 @@ class ImportService {
     Uint8List bytes, {
     DocumentFileSystem? fileSystem,
   }) async {
+    final archive = ZipDecoder().decodeBytes(bytes);
+    final data = NoteData.fromArchive(archive);
+    if (data.isValid) {
+      fileSystem ??= getDocumentSystem();
+      final document = await (await importBfly(bytes))?.export();
+      if (document != null) {
+        fileSystem.createFile(document.name ?? '', document.toFile());
+      }
+      return document != null;
+    }
+    return _importArchive(archive, fileSystem: fileSystem);
+  }
+
+  Future<bool> _importArchive(
+    Archive archive, {
+    DocumentFileSystem? fileSystem,
+  }) async {
     try {
       fileSystem ??= getDocumentSystem();
-      final archive = ZipDecoder().decodeBytes(bytes);
-      final data = NoteData.fromArchive(archive);
-      if (data.isValid) {
-        final document = await (await importBfly(bytes))?.export();
-        if (document != null) {
-          fileSystem.createFile(document.name ?? '', document.toFile());
-        }
-        return document != null;
-      }
       for (final file in archive) {
         const fileExtension = '.bfly';
         if (!file.name.endsWith(fileExtension)) continue;
-        final document = await (await importBfly(bytes))?.export();
+        final bytes = file.readBytes();
+        if (bytes == null) continue;
+        final document = await (await importBfly(
+          bytes,
+          advanced: false,
+        ))?.export();
         if (document != null) {
           fileSystem.createFile(file.name, document.toFile());
         }

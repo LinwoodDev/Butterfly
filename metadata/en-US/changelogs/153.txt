@@ -14,5 +14,6 @@
 * Fix thumbnail does not capture center of viewport ([#946](https://github.com/LinwoodDev/Butterfly/issues/946))
 * Fix pages cannot be removed sometimes
 * Fix default page will be recreated on opening ([#952](https://github.com/LinwoodDev/Butterfly/issues/952))
+* Fix error when trying to import archive
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.1
