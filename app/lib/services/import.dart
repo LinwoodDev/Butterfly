@@ -36,7 +36,7 @@ import '../dialogs/export/pdf.dart';
 
 class ImportResult {
   final ImportService service;
-  final NoteData document;
+  final NoteData? document;
   final List<PadElement> elements;
   final Map<String, Uint8List> assets;
   final List<(String?, DocumentPage)> pages;
@@ -56,7 +56,9 @@ class ImportResult {
   });
 
   Future<NoteData> export() async {
-    var document = this.document;
+    var document =
+        this.document ??
+        DocumentDefaults.createDocument(createDefaultPage: false);
     final state = service._getState();
     DocumentPage page =
         state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
@@ -66,15 +68,17 @@ class ImportResult {
       elements,
       assets: assets,
     );
-    page = page.copyWith(
-      layers: [
-        DocumentLayer(
-          content: [...page.content, ...imported],
-          id: createUniqueId(),
-        ),
-      ],
-    );
-    document = document.setPage(page).$1;
+    if (imported.isNotEmpty) {
+      page = page.copyWith(
+        layers: [
+          DocumentLayer(
+            content: [...page.content, ...imported],
+            id: createUniqueId(),
+          ),
+        ],
+      );
+      document = document.setPage(page).$1;
+    }
     for (final (name, page) in pages) {
       (document, _) = document.addPage(page, name ?? '');
     }
@@ -162,12 +166,7 @@ class ImportService {
     Object? data,
     NoteData? document,
   }) async {
-    final state = bloc?.state is DocumentLoadSuccess
-        ? (bloc?.state as DocumentLoadSuccess)
-        : null;
-    final location = state?.location;
-    document ??= state?.data;
-    document ??= DocumentDefaults.createDocument();
+    final location = bloc?.state.currentIndexCubit?.state.location;
     Uint8List? bytes;
     final fs = getDocumentSystem();
     if (data is Uint8List) {
@@ -218,7 +217,8 @@ class ImportService {
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
   }) async {
-    final realDocument = document ?? DocumentDefaults.createDocument();
+    final realDocument =
+        document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
     return switch (type) {
       AssetFileType.note || AssetFileType.textNote => importBfly(
         bytes,
@@ -348,7 +348,6 @@ class ImportService {
   }) async {
     try {
       final documentOpened = document != null;
-      final realDocument = document ?? DocumentDefaults.createDocument();
       final file = NoteFile(bytes);
       String? password;
       if (file.isEncrypted()) {
@@ -380,7 +379,7 @@ class ImportService {
       return switch (type) {
         NoteFileType.document => _importDocument(
           data,
-          realDocument,
+          document: document,
           advanced: advanced,
         ),
         NoteFileType.template when documentOpened => _importTemplate(
@@ -410,8 +409,8 @@ class ImportService {
   }
 
   Future<ImportResult?> _importDocument(
-    NoteData data,
-    NoteData document, {
+    NoteData data, {
+    NoteData? document,
     bool advanced = true,
   }) async {
     var pages = data.getPages();
@@ -597,7 +596,7 @@ class ImportService {
   }) async {
     try {
       final data = xoppMigrator(bytes);
-      return _importDocument(data, document);
+      return _importDocument(data, document: document);
     } catch (e) {
       showDialog(
         context: context,

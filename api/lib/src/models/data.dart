@@ -339,7 +339,7 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removePage(String page) => removeAssets(
     _getPagesOrder()
-        .where((e) => e.$2 == page)
+        .where((e) => e.$3 == page)
         .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
         .toList(),
   );

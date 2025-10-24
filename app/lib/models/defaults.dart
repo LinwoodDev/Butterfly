@@ -107,12 +107,17 @@ class DocumentDefaults {
   static String translateBlock(String key, BuildContext context) =>
       translate(key, getSpanTranslations(context));
 
-  static NoteData createDocument({String name = '', DocumentPage? page}) {
-    page ??= createPage();
+  static NoteData createDocument({
+    String name = '',
+    DocumentPage? page,
+    bool createDefaultPage = true,
+  }) {
     final metadata = createMetadata(name: name);
-    final data = NoteData(
-      Archive(),
-    ).setMetadata(metadata).setPage(page).$1.setInfo(createInfo());
+    var data = NoteData(Archive()).setMetadata(metadata).setInfo(createInfo());
+    if (createDefaultPage) {
+      page ??= createPage();
+      data = data.setPage(page).$1;
+    }
     return data;
   }
 
