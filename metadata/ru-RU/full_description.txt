@@ -1,16 +1,16 @@
-Butterfly is a note taking app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on android, windows, linux, and in the web.
+Butterfly — это приложение для заметок, где на первом месте — ваши идеи. Вы можете рисовать, добавлять текст и легко экспортировать свои заметки на любом устройстве. Приложение работает на Android, Windows, Linux. Также есть его веб-версия.
 
-* Simple and intuitive: Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
-* Customizable: Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
-* Support your favorite formats: Import and export are supported for images, pdf and svg. Register the app to open these files to edit them.
-* Works on every device: The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
-* Choose where your data is stored: You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
-* Available in many languages: The app is available in many languages. Help us to translate this app to your language.
-* FOSS: The app is open source and free. You can contribute to the project and help to make it better.
-* Use it offline: You can use the app offline. You can draw, paint, and export your notes without an internet connection.
-* Use your favorite stylus: The app supports stylus and touch devices. You can draw and paint with your favorite stylus.
-* Write text: You can write text on your notes. You can change the font, size, and color.
-* Take photos: You can take photos and add them to your notes. You can also import photos from your gallery.
-* Editable: You can change the size, color, and position of every element after you added it to your note.
-* Add shapes: You can add shapes to your notes. You can choose between a rectangle, circle and line.
-* Structure your notes: Add areas and waypoints to your notes to keep them organized.
+* Просто и интуитивно понятно: все инструменты находятся там, где нужно. Просто откройте приложение и начните рисовать. Меняйте инструменты, нажимая на его пиктограмму.
+* Настраиваемое: подгоните всё под себя. Выбирайте цвета, создавайте палитры и добавляйте листы в вашу рабочую область. Размер «листа» не ограничен — идеально для идей и заметок любого масштаба.
+* Поддержка популярных форматов: импорт и экспорт изображений, PDF и SVG. Зарегистрируйте в системе приложение как средство для открытия этих файлов, чтобы открывать их одним нажатием.
+* Работает на всех устройствах: приложение доступно для Android, Windows, Linux и в браузере. Используйте его на телефоне, планшете или компьютере.
+* Контроль данных: вы можете хранить документы локально или в облаке (через WebDAV). Также, можно экспортировать все заметки в файл и, при необходимости, снова их импортировать.
+* Многоязычная поддержка: приложение переведено на множество языки. Помогите нам добавить или улучшить перевод на ваш язык!
+* FOSS: приложение является свободным и открытым (Free and Open Source Software). Вы можете внести свой вклад и помочь сделать его ещё лучше.
+* Офлайн-режим: приложение полностью функционально без доступа к интернету. Рисуйте, создавайте и экспортируйте заметки даже там, где нет сети.
+* Сенсорный ввод: конечно, приложение поддерживает работу со стилусами и сенсорными устройствами, для рисования и письма.
+* Добавляйте текст: вы можете писать текст прямо в заметках, изменяя гарнитуру, кегль и цвет.
+* Делайте фотографии: делайте снимки и добавляйте их в свои заметки, либо импортируйте изображения из галереи.
+* Редактирование элементов: после добавления вы можете изменить размер, цвет и положение любого элемента в заметке.
+* Добавляйте фигуры: вставляйте в заметки прямоугольники, круги и линии, чтобы визуально структурировать свои записи.
+* Организуйте заметки: добавляйте области и точки навигации, чтобы поддерживать порядок в ваших заметках.
