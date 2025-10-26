@@ -750,6 +750,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     int index, {
     DocumentBloc? bloc,
     TemporaryState temporaryState = TemporaryState.allowClick,
+    bool force = false,
   }) async {
     bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
@@ -758,6 +759,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     final tool = blocState.info.tools[index];
+    final temporaryHandler = state.temporaryHandler;
+    if (!force &&
+        index == state.index &&
+        temporaryHandler != null &&
+        temporaryHandler.data == tool) {
+      return temporaryHandler;
+    }
     return changeTemporaryHandler(
       context,
       tool,
