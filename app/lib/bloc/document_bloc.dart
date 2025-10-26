@@ -1253,7 +1253,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (current is! DocumentLoaded) return;
     final cubit = current.currentIndexCubit;
     if (!current.location.isEmpty) {
-      cubit.setSaveState(saved: SaveState.saved, isCreating: false);
+      cubit.setSaveState(
+        saved: SaveState.saved,
+        isCreating: false,
+        keepRead: true,
+      );
     } else {
       cubit.setSaveState(isCreating: true);
     }

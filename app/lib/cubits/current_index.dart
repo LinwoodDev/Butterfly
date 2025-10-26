@@ -109,10 +109,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
-    CameraViewport viewport, [
+    CameraViewport viewport, {
     Embedding? embedding,
     NetworkingService? networkingService,
-  ]) : super(
+    bool absolute = false,
+  }) : super(
          CurrentIndex(
            null,
            HandHandler(),
@@ -121,6 +122,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
            transformCubit,
            networkingService ?? NetworkingService(),
            embedding: embedding,
+           saved: absolute ? SaveState.absoluteRead : SaveState.saved,
          ),
        );
 
@@ -1341,11 +1343,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     SaveState? saved,
     bool absolute = false,
     bool? isCreating,
+    bool keepRead = false,
   }) => emit(
     state.copyWith(
       location: location ?? state.location,
       isCreating: isCreating ?? state.isCreating,
-      saved: absolute ? SaveState.absoluteRead : saved ?? state.saved,
+      saved: (absolute || (keepRead && state.absolute))
+          ? SaveState.absoluteRead
+          : saved ?? state.saved,
     ),
   );
 
@@ -1563,7 +1568,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool force = false,
     bool isAutosave = false,
   }) async {
-    if (!force && state.saved == SaveState.saved) {
+    final absolute = state.absolute;
+    if (!force &&
+        (state.saved == SaveState.saved ||
+            state.saved == SaveState.absoluteRead)) {
       return state.location;
     }
     if (state.networkingService.isClient) {
@@ -1600,11 +1608,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _currentlySaving = false;
       return AssetLocation.empty;
     }
-    if (state.absolute || !(location.fileType?.isNote() ?? false)) {
+    if (absolute || !(location.fileType?.isNote() ?? false)) {
       final document = await fileSystem.createFileWithName(
         name: currentData.name,
         suffix: '.bfly',
-        directory: location.fileExtension.isEmpty
+        directory: absolute
+            ? null
+            : location.fileExtension.isEmpty
             ? state.location.path
             : state.location.parent,
         currentData.toFile(),

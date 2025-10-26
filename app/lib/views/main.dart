@@ -180,7 +180,7 @@ class _ProjectPageState extends State<ProjectPage> {
           GoRouter.of(context).pop();
         }
       }
-      final name = absolute ? location!.fileName : '';
+      final name = absolute ? location!.fileNameWithoutExtension : '';
       NoteData? defaultDocument;
       final defaultTemplate = settingsCubit.state.defaultTemplate;
       if (document == null) {
@@ -191,6 +191,7 @@ class _ProjectPageState extends State<ProjectPage> {
           defaultDocument = template.createDocument(
             name: name,
             createdAt: DateTime.now(),
+            disablePages: true,
           );
         }
       }
@@ -237,7 +238,17 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!mounted) {
         return;
       }
-      document ??= defaultDocument;
+      if (document == null) {
+        final template =
+            await fileSystem
+                .buildTemplateSystem(_remote)
+                .getDefaultFile(defaultTemplate) ??
+            await DocumentDefaults.createTemplate();
+        document = template.createDocument(
+          name: name,
+          createdAt: DateTime.now(),
+        );
+      }
       final pageName = document.getPages(true).firstOrNull;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
@@ -269,8 +280,9 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           _transformCubit!,
           CameraViewport.unbaked(backgrounds: backgrounds),
-          embedding,
-          networkingService,
+          embedding: embedding,
+          networkingService: networkingService,
+          absolute: absolute,
         );
         _bloc = DocumentBloc(
           fileSystem,
@@ -297,8 +309,7 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           _transformCubit!,
           CameraViewport.unbaked(),
-          null,
-          networkingService,
+          networkingService: networkingService,
         );
         _bloc = DocumentBloc.error(
           fileSystem,

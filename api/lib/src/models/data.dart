@@ -188,7 +188,11 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  NoteData createDocument({String name = '', DateTime? createdAt}) {
+  NoteData createDocument({
+    String name = '',
+    DateTime? createdAt,
+    bool disablePages = false,
+  }) {
     final archive = export();
     var document = NoteData(archive);
     final metadata = getMetadata();
@@ -203,6 +207,11 @@ final class NoteData extends ArchiveData<NoteData> {
       directory: metadata?.directory ?? '',
     );
     document = document.setMetadata(newMetadata);
+    if (disablePages) {
+      for (final page in document.getPages(true)) {
+        document = document.removePage(page);
+      }
+    }
     return document;
   }
 

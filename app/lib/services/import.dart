@@ -182,7 +182,7 @@ class ImportService {
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
-      return ImportResult(service: this, document: data);
+      return _importDocument(data, document: document, advanced: false);
     } else if (data is NoteFile) {
       bytes = data.data;
     }
