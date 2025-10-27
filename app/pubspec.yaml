@@ -110,6 +110,7 @@ dependencies:
   barcode: ^2.2.9
   network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4
+  synchronized: ^3.4.0
 dependency_overrides:
   irondash_engine_context:
     git:

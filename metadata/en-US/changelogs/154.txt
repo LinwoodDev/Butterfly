@@ -1,0 +1,2 @@
+* Fix loading documents does not load metadata and info
+* Fix autosaving will save multiple times

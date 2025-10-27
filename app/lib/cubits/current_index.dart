@@ -22,6 +22,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:synchronized/synchronized.dart';
 import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
@@ -1560,7 +1561,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ? null
       : state.settingsCubit.state.getRemote(state.location.remote);
 
-  bool _currentlySaving = false;
+  final _savingLock = Lock();
 
   Future<AssetLocation> save(
     DocumentState blocState, {
@@ -1582,9 +1583,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
-    while (_currentlySaving) {
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
     final isDelayed = state.settingsCubit.state.delayedAutosave;
     if (isDelayed && isAutosave && state.saved == SaveState.unsaved) {
       final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
@@ -1594,44 +1592,45 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         return state.location;
       }
     }
-    _currentlySaving = true;
-    emit(
-      state.copyWith(
-        saved: SaveState.saving,
-        location: location ?? state.location,
-      ),
-    );
-    location ??= state.location;
-    final currentData = await blocState.saveData();
-    if (currentData == null || blocState.embedding != null) {
-      emit(state.copyWith(saved: SaveState.saved));
-      _currentlySaving = false;
-      return AssetLocation.empty;
-    }
-    if (absolute || !(location.fileType?.isNote() ?? false)) {
-      final document = await fileSystem.createFileWithName(
-        name: currentData.name,
-        suffix: '.bfly',
-        directory: absolute
-            ? null
-            : location.fileExtension.isEmpty
-            ? state.location.path
-            : state.location.parent,
-        currentData.toFile(),
-      );
-      location = document.location;
-    } else {
-      await fileSystem.updateFile(
-        location.path,
-        currentData.toFile(
-          isTextBased: location.fileType == AssetFileType.textNote,
+    final current = location ?? state.location;
+    return _savingLock.synchronized(() async {
+      emit(state.copyWith(saved: SaveState.saving, location: current));
+      final currentData = await blocState.saveData();
+      if (currentData == null || blocState.embedding != null) {
+        emit(state.copyWith(saved: SaveState.saved));
+        return AssetLocation.empty;
+      }
+      if (absolute || !(current.fileType?.isNote() ?? false)) {
+        final document = await fileSystem.createFileWithName(
+          name: currentData.name,
+          suffix: '.bfly',
+          directory: absolute
+              ? null
+              : current.fileExtension.isEmpty
+              ? state.location.path
+              : state.location.parent,
+          currentData.toFile(),
+        );
+        location = document.location;
+      } else {
+        await fileSystem.updateFile(
+          current.path,
+          currentData.toFile(
+            isTextBased: current.fileType == AssetFileType.textNote,
+          ),
+        );
+      }
+      state.settingsCubit.addRecentHistory(current);
+      emit(
+        state.copyWith(
+          saved: state.saved == SaveState.saving
+              ? SaveState.saved
+              : state.saved,
+          location: current,
         ),
       );
-    }
-    state.settingsCubit.addRecentHistory(location);
-    emit(state.copyWith(location: location, saved: SaveState.saved));
-    _currentlySaving = false;
-    return location;
+      return current;
+    });
   }
 
   void dispose() {

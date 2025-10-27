@@ -43,6 +43,7 @@ class ImportResult {
   final List<Area> areas;
   final List<NoteData> packs;
   final bool choosePosition;
+  final bool documentReady;
 
   ImportResult({
     required this.service,
@@ -53,11 +54,23 @@ class ImportResult {
     this.areas = const [],
     this.packs = const [],
     this.choosePosition = false,
-  });
+  }) : documentReady = false;
+  ImportResult.ready({required this.service, required this.document})
+    : elements = const [],
+      assets = const {},
+      pages = const [],
+      areas = const [],
+      packs = const [],
+      choosePosition = false,
+      documentReady = true;
 
   Future<NoteData> export() async {
+    final currentDocument = this.document;
+    if (documentReady && currentDocument != null) {
+      return currentDocument;
+    }
     var document =
-        this.document ??
+        currentDocument ??
         DocumentDefaults.createDocument(createDefaultPage: false);
     final state = service._getState();
     DocumentPage page =
@@ -424,6 +437,8 @@ class ImportService {
       if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
+    } else if (document == null) {
+      return ImportResult.ready(service: this, document: data);
     }
     return ImportResult(
       service: this,
