@@ -712,5 +712,6 @@
   "saving": "Sauvegarde en cours...",
   "readOnly": "Lecture seule",
   "saveDelayed": "Enregistrer en retard",
-  "unsaved": "Non sauvegardé"
+  "unsaved": "Non sauvegardé",
+  "pdfEmptyDescription": "Il n'y a actuellement aucune zone à exporter. Veuillez sélectionner au moins une zone en utilisant le bouton plus en haut à droite ou ajouter toutes les zones de la page en cours ou à partir du document entier ci-dessous."
 }
