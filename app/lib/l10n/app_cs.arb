@@ -712,5 +712,6 @@
   "saving": "Ukládání...",
   "readOnly": "Pouze pro čtení",
   "saveDelayed": "Uložit pozdě",
-  "unsaved": "Neuloženo"
+  "unsaved": "Neuloženo",
+  "pdfEmptyDescription": "V současné době nejsou žádné oblasti pro vývoz. Vyberte prosím alespoň jednu oblast pomocí tlačítka plus v pravém horním rohu nebo přidejte všechny oblasti z aktuální stránky nebo z celého níže uvedeného dokumentu."
 }

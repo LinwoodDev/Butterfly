@@ -712,5 +712,6 @@
   "saving": "Salvataggio...",
   "readOnly": "Sola lettura",
   "saveDelayed": "Salva ritardato",
-  "unsaved": "Non Salvato"
+  "unsaved": "Non Salvato",
+  "pdfEmptyDescription": "Al momento non ci sono aree da esportare. Si prega di selezionare almeno un'area utilizzando il pulsante più nell'angolo in alto a destra o aggiungere tutte le aree dalla pagina corrente o dall'intero documento qui sotto."
 }
