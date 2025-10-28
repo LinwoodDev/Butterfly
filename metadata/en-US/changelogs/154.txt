@@ -1,2 +1,5 @@
 * Fix loading documents does not load metadata and info
 * Fix autosaving will save multiple times
+* Fix templates will be recreated on every app start
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.2

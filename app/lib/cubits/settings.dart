@@ -483,6 +483,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     return Locale(localeTag);
   }
 
+  List<String> getRemoteIdentifiers() {
+    return connections.map((e) => e.identifier).toList();
+  }
+
   bool get isInline =>
       toolbarPosition == ToolbarPosition.inline && toolbarRows <= 1;
 

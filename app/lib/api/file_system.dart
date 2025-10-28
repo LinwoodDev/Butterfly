@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -76,6 +77,10 @@ class ButterflyFileSystem {
   final SettingsCubit settingsCubit;
   final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
+  final _documentCache = <String, DocumentFileSystem>{};
+  final _templateCache = <String, TemplateFileSystem>{};
+  final _packCache = <String, PackFileSystem>{};
+
   ButterflyFileSystem(this.context, this.settingsCubit)
     : _documentConfig = FileSystemConfig(
         passwordStorage: passwordStorage,
@@ -105,7 +110,26 @@ class ButterflyFileSystem {
         databaseVersion: _databaseVersion,
         onDatabaseUpgrade: _upgradeDatabase,
         defaultStorageKey: 'defaultPack',
-      );
+      ) {
+    _listenSettings();
+  }
+
+  void _listenSettings() {
+    var previousState = settingsCubit.state;
+    settingsCubit.stream.listen((state) {
+      if (state == previousState) return;
+      final previousRemotes = previousState.connections.toSet();
+      final currentRemotes = state.connections.toSet();
+      final removedRemotes = previousRemotes.difference(currentRemotes);
+      for (final remote in removedRemotes) {
+        removeCachedFileSystem(remote);
+      }
+      if (previousState.documentPath != state.documentPath) {
+        removeCachedFileSystem(null);
+      }
+      previousState = state;
+    });
+  }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
       ButterflyFileSystem(context, context.read<SettingsCubit>());
@@ -179,54 +203,96 @@ class ButterflyFileSystem {
     await fs.createFile('${pack.name}.bfly', pack);
   }
 
+  String _cacheKey(ExternalStorage? storage) => storage?.identifier ?? 'local';
+
   TypedDirectoryFileSystem<NoteFile> buildDocumentSystem([
     ExternalStorage? storage,
-  ]) => TypedDirectoryFileSystem.build(
-    _documentConfig,
-    onEncode: _encodeFile,
-    onDecode: _decodeFile,
-    storage: storage,
-    useIsolates: true,
-  );
+    bool forceRecreate = false,
+  ]) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _documentCache[key];
+      if (cached != null) return cached;
+    }
+    final system = TypedDirectoryFileSystem.build(
+      _documentConfig,
+      onEncode: _encodeFile,
+      onDecode: _decodeFile,
+      storage: storage,
+      useIsolates: true,
+    );
+    _documentCache[key] = system;
+    return system;
+  }
+
   TypedKeyFileSystem<NoteData> buildTemplateSystem([
     ExternalStorage? storage,
-  ]) => TypedKeyFileSystem.build(
-    _templateConfig,
-    onEncode: _encode,
-    onDecode: _decode,
-    storage: storage,
-    createDefault: _createDefaultTemplates,
-  );
-  TypedKeyFileSystem<NoteData> buildPackSystem([ExternalStorage? storage]) =>
-      TypedKeyFileSystem.build(
-        _packConfig,
-        onEncode: _encode,
-        onDecode: _decode,
-        storage: storage,
-        createDefault: _createDefaultPacks,
-      );
+    bool forceRecreate = false,
+  ]) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _templateCache[key];
+      if (cached != null) return cached;
+    }
+    final system = TypedKeyFileSystem.build(
+      _templateConfig,
+      onEncode: _encode,
+      onDecode: _decode,
+      storage: storage,
+      createDefault: _createDefaultTemplates,
+    );
+    _templateCache[key] = system;
+    return system;
+  }
 
-  DocumentFileSystem buildDefaultDocumentSystem() =>
-      buildDocumentSystem(settingsCubit.state.getDefaultRemote());
+  TypedKeyFileSystem<NoteData> buildPackSystem([
+    ExternalStorage? storage,
+    bool forceRecreate = false,
+  ]) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _packCache[key];
+      if (cached != null) return cached;
+    }
+    final system = TypedKeyFileSystem.build(
+      _packConfig,
+      onEncode: _encode,
+      onDecode: _decode,
+      storage: storage,
+      createDefault: _createDefaultPacks,
+    );
+    _packCache[key] = system;
+    return system;
+  }
+
+  DocumentFileSystem buildDefaultDocumentSystem({bool forceRecreate = false}) =>
+      buildDocumentSystem(
+        settingsCubit.state.getDefaultRemote(),
+        forceRecreate,
+      );
 
   Map<String, DocumentFileSystem> buildAllDocumentSystems({
     bool includeLocal = true,
+    bool forceRecreate = false,
   }) {
     final map = <String, DocumentFileSystem>{};
     if (includeLocal) {
-      map[''] = buildDocumentSystem();
+      map[''] = buildDocumentSystem(null, forceRecreate);
     }
     for (final remote in settingsCubit.state.connections) {
-      map[remote.identifier] = buildDocumentSystem(remote);
+      map[remote.identifier] = buildDocumentSystem(remote, forceRecreate);
     }
     return map;
   }
 
-  TemplateFileSystem buildDefaultTemplateSystem() =>
-      buildTemplateSystem(settingsCubit.state.getDefaultRemote());
+  TemplateFileSystem buildDefaultTemplateSystem({bool forceRecreate = false}) =>
+      buildTemplateSystem(
+        settingsCubit.state.getDefaultRemote(),
+        forceRecreate,
+      );
 
-  PackFileSystem buildDefaultPackSystem() =>
-      buildPackSystem(settingsCubit.state.getDefaultRemote());
+  PackFileSystem buildDefaultPackSystem({bool forceRecreate = false}) =>
+      buildPackSystem(settingsCubit.state.getDefaultRemote(), forceRecreate);
 
   Future<PackItem<T>?> findPack<T extends PackAsset>(
     NamedItem<T>? Function(NoteData) test, [
@@ -258,4 +324,25 @@ class ButterflyFileSystem {
             ? null
             : settingsCubit.state.getRemote(location.namespace),
       ).updateFile(location.key, newPack);
+
+  void removeCachedDocumentSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _documentCache.remove(key);
+  }
+
+  void removeCachedTemplateSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _templateCache.remove(key);
+  }
+
+  void removeCachedPackSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _packCache.remove(key);
+  }
+
+  void removeCachedFileSystem(ExternalStorage? storage) {
+    removeCachedDocumentSystem(storage);
+    removeCachedTemplateSystem(storage);
+    removeCachedPackSystem(storage);
+  }
 }
