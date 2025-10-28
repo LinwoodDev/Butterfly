@@ -125,7 +125,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
       buildWhen: (previous, current) =>
           previous.location != current.location ||
           previous.saved != current.saved ||
-          previous.isCreating != current.isCreating,
+          previous.isCreating != current.isCreating ||
+          previous.isSaveDelayed != current.isSaveDelayed,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) {
@@ -347,20 +348,22 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             child: Builder(
               builder: (context) {
                 Widget icon = PhosphorIcon(switch (currentIndex.saved) {
+                  SaveState.saving => PhosphorIconsLight.download,
+                  _ when currentIndex.isSaveDelayed => PhosphorIconsLight.clock,
                   SaveState.saved => PhosphorIconsFill.floppyDisk,
                   SaveState.unsaved ||
                   SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
-                  SaveState.saving => PhosphorIconsLight.download,
-                  SaveState.delay => PhosphorIconsLight.clock,
                 });
                 String tooltip = switch (currentIndex.saved) {
+                  SaveState.saving => AppLocalizations.of(context).saving,
+                  _ when currentIndex.isSaveDelayed => AppLocalizations.of(
+                    context,
+                  ).saveDelayed,
                   SaveState.saved => AppLocalizations.of(context).saved,
                   SaveState.unsaved => AppLocalizations.of(context).unsaved,
                   SaveState.absoluteRead => AppLocalizations.of(
                     context,
                   ).readOnly,
-                  SaveState.saving => AppLocalizations.of(context).saving,
-                  SaveState.delay => AppLocalizations.of(context).saveDelayed,
                 };
                 return IconButton(
                   icon: icon,

@@ -49,7 +49,8 @@ class SearchButton extends StatelessWidget {
       };
 
   String _getDisplay(SearchResult item, BuildContext context) => switch (item) {
-    PageResult e => e.name,
+    PageResult e =>
+      e.name.isEmpty ? AppLocalizations.of(context).untitled : e.name,
     ElementResult e => e.text,
     AreaResult e => e.area.name,
     WaypointResult e => e.waypoint.name ?? '',

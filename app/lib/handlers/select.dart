@@ -161,35 +161,35 @@ class SelectHandler extends Handler<SelectTool> {
     final current = _getTransformed();
     _selectionManager.deselect();
     if (current == null) return null;
-    bloc.add(
-      _duplicate
-          ? ElementsCreated(
-              current
-                  .map((e) => e.element.copyWith(id: createUniqueId()))
-                  .toList(),
-            )
-          : ElementsChanged(
-              Map.fromEntries(
-                current.mapIndexed((i, e) {
-                  final id = _selected[i].element.id;
-                  if (id == null) return null;
-                  return MapEntry(id, [e.element]);
-                }).nonNulls,
-              ),
-            ),
-    );
     if (_duplicate) {
-      return _selected;
+      final elements = current
+          .map((e) => e.element.copyWith(id: createUniqueId()))
+          .toList();
+      bloc.add(ElementsCreated(elements));
+      return [];
     }
+
+    bloc.add(
+      ElementsChanged(
+        Map.fromEntries(
+          current.mapIndexed((i, e) {
+            final id = _selected[i].element.id;
+            if (id == null) return null;
+            return MapEntry(id, [e.element]);
+          }).nonNulls,
+        ),
+      ),
+    );
     return current;
   }
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
-    _onSelectionAdd(context, details.localPosition, false);
     if (_selectionManager.isTransforming) {
-      _submitTransform(context.getDocumentBloc());
+      _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
+      return;
     }
+    await _onSelectionAdd(context, details.localPosition, false);
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localPosition);
     final selectionRect = getSelectionRect();

@@ -34,7 +34,7 @@ import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
 
-enum SaveState { saved, saving, unsaved, delay, absoluteRead }
+enum SaveState { saved, saving, unsaved, absoluteRead }
 
 enum HideState { visible, keyboard, touch }
 
@@ -53,6 +53,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
     NetworkingService networkingService, {
+    @Default(false) bool isSaveDelayed,
     @Default(UtilitiesState()) UtilitiesState utilities,
     Handler<Tool>? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
@@ -1578,23 +1579,29 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (state.networkingService.isClient) {
       return AssetLocation.empty;
     }
-    if (state.saved == SaveState.delay && isAutosave) {
+    if (state.isSaveDelayed && isAutosave) {
       return state.location;
     }
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
     final isDelayed = state.settingsCubit.state.delayedAutosave;
-    if (isDelayed && isAutosave && state.saved == SaveState.unsaved) {
+    if (isDelayed && isAutosave) {
       final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
-      emit(state.copyWith(saved: SaveState.delay));
+      emit(state.copyWith(isSaveDelayed: true));
       await Future.delayed(Duration(seconds: seconds));
-      if (state.saved != SaveState.delay) {
+      if (!state.isSaveDelayed) {
         return state.location;
       }
     }
     return _savingLock.synchronized(() async {
       var current = location ?? state.location;
-      emit(state.copyWith(saved: SaveState.saving, location: current));
+      emit(
+        state.copyWith(
+          saved: SaveState.saving,
+          location: current,
+          isSaveDelayed: false,
+        ),
+      );
       final currentData = await blocState.saveData();
       if (currentData == null || blocState.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
