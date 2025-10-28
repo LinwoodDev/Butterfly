@@ -1592,8 +1592,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         return state.location;
       }
     }
-    final current = location ?? state.location;
     return _savingLock.synchronized(() async {
+      var current = location ?? state.location;
       emit(state.copyWith(saved: SaveState.saving, location: current));
       final currentData = await blocState.saveData();
       if (currentData == null || blocState.embedding != null) {
@@ -1611,7 +1611,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               : state.location.parent,
           currentData.toFile(),
         );
-        location = document.location;
+        current = document.location;
       } else {
         await fileSystem.updateFile(
           current.path,
