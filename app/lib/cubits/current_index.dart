@@ -1608,6 +1608,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         return AssetLocation.empty;
       }
       if (absolute || !(current.fileType?.isNote() ?? false)) {
+        final file = await compute(_toFile, (currentData, false));
         final document = await fileSystem.createFileWithName(
           name: currentData.name,
           suffix: '.bfly',
@@ -1616,16 +1617,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               : current.fileExtension.isEmpty
               ? state.location.path
               : state.location.parent,
-          currentData.toFile(),
+          file,
         );
         current = document.location;
       } else {
-        await fileSystem.updateFile(
-          current.path,
-          currentData.toFile(
-            isTextBased: current.fileType == AssetFileType.textNote,
-          ),
-        );
+        final file = await compute(_toFile, (
+          currentData,
+          current.fileType == AssetFileType.textNote,
+        ));
+        await fileSystem.updateFile(current.path, file);
       }
       state.settingsCubit.addRecentHistory(current);
       emit(
@@ -1825,4 +1825,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     refresh(current, allowBake: false);
     await delayedBake(current);
   }
+}
+
+Future<NoteFile> _toFile((NoteData, bool) args) async {
+  return args.$1.toFile(isTextBased: args.$2);
 }

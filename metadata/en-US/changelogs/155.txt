@@ -1,0 +1,3 @@
+* Fix performance problems when saving large notes
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.3
