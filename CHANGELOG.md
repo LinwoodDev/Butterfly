@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.1-rc.2 (2025-10-29)
+
+* Fix loading documents does not load metadata and info
+* Fix autosaving will save multiple times
+* Fix templates will be recreated on every app start
+* Fix duplicating opens context menu and selects the old element
+* Fix search results does not show page as untitled
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.2
+
 ## 2.4.1-rc.1 (2025-10-27)
 
 * Add templates tbfly export option ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
