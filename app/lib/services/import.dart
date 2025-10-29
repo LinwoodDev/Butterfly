@@ -360,7 +360,6 @@ class ImportService {
     PackFileSystem? packSystem,
   }) async {
     try {
-      final documentOpened = document != null;
       final file = NoteFile(bytes);
       String? password;
       if (file.isEncrypted()) {
@@ -396,11 +395,8 @@ class ImportService {
           document: document,
           advanced: advanced,
         ),
-        NoteFileType.template when documentOpened => _importTemplate(
-          data,
-          templateSystem,
-        ),
-        NoteFileType.pack when documentOpened => _importPack(
+        NoteFileType.template => _importTemplate(data, templateSystem),
+        NoteFileType.pack => _importPack(
           data,
           document,
           packSystem,
