@@ -82,7 +82,6 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  // ignore: closeSinks
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;

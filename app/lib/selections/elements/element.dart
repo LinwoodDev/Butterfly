@@ -125,7 +125,6 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         return renderer;
       }).toList(),
     );
-    // ignore: use_build_context_synchronously
     update(context, renderers);
   }
 
