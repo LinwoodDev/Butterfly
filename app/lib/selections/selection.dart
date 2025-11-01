@@ -6,6 +6,7 @@ import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
+import 'package:butterfly/widgets/editable_list_tile.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';

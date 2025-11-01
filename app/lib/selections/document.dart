@@ -53,7 +53,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -105,6 +105,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       PhosphorIconsLight.file,
                       AppLocalizations.of(context).file,
                     ],
+                    [PhosphorIconsLight.toolbox, 'Toolbars'],
                     [
                       PhosphorIconsLight.camera,
                       AppLocalizations.of(context).camera,
@@ -342,6 +343,32 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       );
                     }
                   },
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                ListTile(
+                  title: Text('Custom'),
+                  subtitle: Text('Click to save toolbar layout'),
+                ),
+                Divider(),
+                EditableListTile(
+                  subtitle: Text('Core'),
+                  actions: [
+                    MenuItemButton(
+                      onPressed: () {},
+                      leadingIcon: Icon(PhosphorIconsLight.floppyDisk),
+                      child: Text('Override'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {},
+                      leadingIcon: Icon(PhosphorIconsLight.trash),
+                      child: Text('Delete'),
+                    ),
+                  ],
+                  initialValue: 'Default',
+                  onSaved: (String value) {},
                 ),
               ],
             ),
