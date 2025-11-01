@@ -79,13 +79,14 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   DocumentBloc? _bloc;
 
   @override
-  void onViewportUpdated(
+  Future<void> onViewportUpdated(
     CameraViewport currentViewport,
     CameraViewport newViewport,
-  ) {
+  ) async {
     if (!_submittedErase || _erased.isEmpty) return;
     _erased.clear();
-    _bloc?.refresh();
+    await _bloc?.refresh(allowBake: true);
+    await _bloc?.bake();
     _submittedErase = false;
   }
 
@@ -94,7 +95,6 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     if (_erased.isEmpty) return;
     final bloc = _bloc = context.getDocumentBloc();
     bloc.add(ElementsRemoved(_erased.toList()));
-    await bloc.delayedBake();
     _submittedErase = true;
   }
 

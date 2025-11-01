@@ -1709,9 +1709,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (updateIndex) {
       this.updateIndex(bloc);
     }
-    AssetLocation? path = current.location;
     if (current.hasAutosave()) {
-      path = await save(bloc, location: path, isAutosave: true);
+      save(bloc, isAutosave: true);
     }
   }
 
