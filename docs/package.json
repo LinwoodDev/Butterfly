@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",
-    "@astrojs/react": "^4.4.0",
-    "@astrojs/starlight": "^0.36.1",
+    "@astrojs/react": "^4.4.1",
+    "@astrojs/starlight": "^0.36.2",
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "astro": "^5.15.1",
+    "astro": "^5.15.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remark-gemoji": "^8.0.0",
@@ -26,7 +26,7 @@
   "packageManager": "pnpm@10.19.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.1",
-    "sass": "^1.93.2",
+    "sass": "^1.93.3",
     "sharp": "^0.34.4",
     "vite-plugin-pwa": "^1.1.0",
     "workbox-window": "^7.3.0"

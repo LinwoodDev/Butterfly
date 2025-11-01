@@ -258,7 +258,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     }
                     if (state is DocumentLoadSuccess &&
                         currentIndex.isCreating) {
-                      await state.save(
+                      await bloc.save(
                         location: location.copyWith(path: toFilePath(value)),
                         force: true,
                       );

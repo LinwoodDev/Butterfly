@@ -1565,7 +1565,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   final _savingLock = Lock();
 
   Future<AssetLocation> save(
-    DocumentState blocState, {
+    DocumentBloc bloc, {
     AssetLocation? location,
     bool force = false,
     bool isAutosave = false,
@@ -1583,7 +1583,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return state.location;
     }
     final storage = getRemoteStorage();
-    final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
+    final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
     final isDelayed = state.settingsCubit.state.delayedAutosave;
     if (isDelayed && isAutosave) {
       final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
@@ -1602,6 +1602,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           isSaveDelayed: false,
         ),
       );
+      final blocState = bloc.state;
       final currentData = await blocState.saveData();
       if (currentData == null || blocState.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
@@ -1710,7 +1711,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
-      path = await current.save(location: path, isAutosave: true);
+      path = await save(bloc, location: path, isAutosave: true);
     }
   }
 

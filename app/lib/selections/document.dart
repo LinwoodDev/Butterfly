@@ -91,7 +91,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
       value ??= _descriptionController.text;
       if (metadata.description == value) return;
       bloc.add(DocumentDescriptionChanged(description: value));
-      state.save();
+      bloc.save();
     }
 
     return Column(

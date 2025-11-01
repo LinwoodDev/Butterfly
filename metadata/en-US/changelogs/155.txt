@@ -1,4 +1,5 @@
 * Fix performance problems when saving large notes
 * Fix templates and packs could not be imported if no document is opened
+* Fix state will not be saved if changes are made during autosave
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.3

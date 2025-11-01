@@ -1054,15 +1054,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       _saveState(emit, state: current.copyWith(page: currentDocument));
     });
-    on<DocumentSaved>((event, emit) {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      current.currentIndexCubit.setSaveState(
-        saved: SaveState.saved,
-        location: event.location,
-      );
-    });
     on<PresentationModeEntered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -1311,11 +1302,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     state.assetService?.dispose();
   }
 
-  Future<void> save({AssetLocation? location, bool force = false}) {
-    final current = state;
-    if (current is! DocumentLoadSuccess) return Future.value();
-    return current.save(location: location, force: force);
-  }
+  Future<void> save({
+    AssetLocation? location,
+    bool force = false,
+    bool isAutosave = false,
+  }) async => await state.currentIndexCubit?.save(
+    this,
+    location: location,
+    force: force,
+    isAutosave: isAutosave,
+  );
 
   bool isInBounds(Offset globalPosition) {
     final state = this.state;

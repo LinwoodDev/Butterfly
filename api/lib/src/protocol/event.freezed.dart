@@ -234,10 +234,6 @@ DocumentEvent _$DocumentEventFromJson(
           return DocumentDescriptionChanged.fromJson(
             json
           );
-                case 'documentSaved':
-          return DocumentSaved.fromJson(
-            json
-          );
                 case 'toolCreated':
           return ToolCreated.fromJson(
             json
@@ -1454,79 +1450,6 @@ class _$DocumentDescriptionChangedCopyWithImpl<$Res>
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,
-  ));
-}
-
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class DocumentSaved extends DocumentEvent {
-  const DocumentSaved([@JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson) this.location, final  String? $type]): $type = $type ?? 'documentSaved',super._();
-  factory DocumentSaved.fromJson(Map<String, dynamic> json) => _$DocumentSavedFromJson(json);
-
-@JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson) final  AssetLocation? location;
-
-@JsonKey(name: 'type')
-final String $type;
-
-
-/// Create a copy of DocumentEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$DocumentSavedCopyWith<DocumentSaved> get copyWith => _$DocumentSavedCopyWithImpl<DocumentSaved>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$DocumentSavedToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentSaved&&(identical(other.location, location) || other.location == location));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,location);
-
-@override
-String toString() {
-  return 'DocumentEvent.documentSaved(location: $location)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $DocumentSavedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
-  factory $DocumentSavedCopyWith(DocumentSaved value, $Res Function(DocumentSaved) _then) = _$DocumentSavedCopyWithImpl;
-@useResult
-$Res call({
-@JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson) AssetLocation? location
-});
-
-
-
-
-}
-/// @nodoc
-class _$DocumentSavedCopyWithImpl<$Res>
-    implements $DocumentSavedCopyWith<$Res> {
-  _$DocumentSavedCopyWithImpl(this._self, this._then);
-
-  final DocumentSaved _self;
-  final $Res Function(DocumentSaved) _then;
-
-/// Create a copy of DocumentEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? location = freezed,}) {
-  return _then(DocumentSaved(
-freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as AssetLocation?,
   ));
 }
 

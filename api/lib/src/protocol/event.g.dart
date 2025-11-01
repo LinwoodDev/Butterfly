@@ -190,17 +190,6 @@ Map<String, dynamic> _$DocumentDescriptionChangedToJson(
   'type': instance.$type,
 };
 
-DocumentSaved _$DocumentSavedFromJson(Map json) => DocumentSaved(
-  AssetLocationMapper.fromMap(json['location'] as Map<String, dynamic>),
-  json['type'] as String?,
-);
-
-Map<String, dynamic> _$DocumentSavedToJson(DocumentSaved instance) =>
-    <String, dynamic>{
-      'location': _assetLocationToJson(instance.location),
-      'type': instance.$type,
-    };
-
 ToolCreated _$ToolCreatedFromJson(Map json) => ToolCreated(
   Tool.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
   $type: json['type'] as String?,
