@@ -153,12 +153,19 @@ class _EditableListTileState extends State<EditableListTile> {
                       padding: const EdgeInsets.only(left: 4),
                       child: ListenableBuilder(
                         listenable: _controller,
-                        builder: (context, _) => Text(
-                          widget.textFormatter?.call(_controller.text) ??
-                              _controller.text,
-                          style: currentStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        builder: (context, _) {
+                          final text =
+                              widget.textFormatter?.call(_controller.text) ??
+                              _controller.text;
+                          return Tooltip(
+                            message: text,
+                            child: Text(
+                              text,
+                              style: currentStyle,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),

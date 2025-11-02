@@ -161,8 +161,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         height: captureHeight,
                         quality: quality,
                         scale: viewport.scale,
-                        x: rect.left + (widthOffset) / viewport.scale,
-                        y: rect.top + (heightOffset) / viewport.scale,
+                        x: rect.left + widthOffset,
+                        y: rect.top + heightOffset,
                       ),
                     );
                     if (thumbnail == null) return;

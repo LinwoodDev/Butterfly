@@ -94,11 +94,12 @@ class CameraViewport extends Equatable {
 
   ui.Rect toRect() => toOffset() & toSize(true);
 
-  ui.Size toRealSize() => toSize() / resolution.multiplier;
+  ui.Size toRealSize([bool scaled = false]) =>
+      toSize(scaled) / resolution.multiplier;
 
   ui.Rect toRealRect() {
     final rect = toRect();
-    final size = toRealSize();
+    final size = toRealSize(true);
     return ui.Rect.fromCenter(
       center: rect.center,
       width: size.width,

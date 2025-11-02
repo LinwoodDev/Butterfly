@@ -12,7 +12,7 @@ class PenRenderer extends Renderer<PenElement> {
   ]);
 
   @override
-  Rect expandedRect = Rect.zero;
+  Rect expandedRect;
 
   bool shouldSimulatePressure() {
     final points = element.points.sublist(1);
@@ -219,17 +219,29 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   List<PathPoint> movePoints(Offset position, double scaleX, double scaleY) {
-    final topLeft = expandedRect.topLeft;
-    final points = element.points.map((element) {
-      final old = element.toOffset() - topLeft;
-      final x = old.dx * scaleX + position.dx;
-      final y = old.dy * scaleY + position.dy;
-      return element.copyWith(x: x, y: y);
-    }).toList();
-    return points;
+    var topLeft = element.points
+        .map((e) => e.toOffset())
+        .reduce(
+          (value, element) =>
+              Offset(min(value.dx, element.dx), min(value.dy, element.dy)),
+        );
+    return element.points
+        .map(
+          (point) => point.copyWith(
+            x: (point.x - topLeft.dx) * scaleX + position.dx,
+            y: (point.y - topLeft.dy) * scaleY + position.dy,
+          ),
+        )
+        .toList();
   }
 
-  Rect moveRect(Offset position, double scaleX, double scaleY) {
+  Rect moveRect(
+    Offset position,
+    double scaleX,
+    double scaleY, [
+    bool expanded = false,
+  ]) {
+    final rect = expanded ? expandedRect : this.rect;
     final size = Size(rect.width * scaleX, rect.height * scaleY);
     return position & size;
   }
@@ -247,6 +259,7 @@ class PenRenderer extends Renderer<PenElement> {
     ),
     layer,
     moveRect(position, scaleX, scaleY),
+    moveRect(position, scaleX, scaleY, true),
   );
 
   @override

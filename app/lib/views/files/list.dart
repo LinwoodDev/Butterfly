@@ -214,13 +214,16 @@ class FileEntityListTile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(
-                                            entity.fileName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextTheme.of(
-                                              context,
-                                            ).labelLarge,
+                                          Tooltip(
+                                            message: entity.fileName,
+                                            child: Text(
+                                              entity.fileName,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextTheme.of(
+                                                context,
+                                              ).labelLarge,
+                                            ),
                                           ),
                                           if (!isDesktop && !collapsed) ...[
                                             const SizedBox(height: 6),

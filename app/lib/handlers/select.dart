@@ -95,34 +95,53 @@ class SelectHandler extends Handler<SelectTool> {
   void _updateSelectionRect() => _selectionManager.select(getSelectionRect());
 
   List<Renderer<PadElement>>? _getTransformed() {
-    final rect = _selectionManager.selection;
+    final selectionRect = _selectionManager.selection;
     final pivot = _selectionManager.pivot;
     final transform = _selectionManager.getTransform();
     if (transform == null) return null;
-    return _selected.map((e) {
-      var oldPos = e.expandedRect?.topLeft ?? Offset.zero;
-      var diff = oldPos - rect.topLeft;
-      // Scale and calculate relative position based on transformRect
-      var newPos =
-          Offset(
-            diff.dx * (transform.scaleX - 1),
-            diff.dy * (transform.scaleY - 1),
-          ) +
-          transform.position;
-      // Rotate around center
-      if (transform.rotation != 0) {
-        final center = e.expandedRect?.center ?? Offset.zero;
-        newPos += center.rotate(pivot, transform.rotation / 180 * pi) - center;
+
+    final scaleX = transform.scaleX;
+    final scaleY = transform.scaleY;
+    final rotation = transform.rotation;
+    final rotationRad = rotation * pi / 180;
+
+    final Offset selectionTopLeft = selectionRect.topLeft;
+    final Offset movedSelectionTopLeft = selectionTopLeft + transform.position;
+
+    Offset applyScaleAndTranslate(Offset original) {
+      final relative = original - selectionTopLeft;
+      return Offset(relative.dx * scaleX, relative.dy * scaleY) +
+          movedSelectionTopLeft;
+    }
+
+    final Offset transformedPivot = applyScaleAndTranslate(pivot);
+
+    return _selected.map((renderer) {
+      final elementRect = renderer.rect ?? renderer.expandedRect ?? Rect.zero;
+
+      final originalTopLeft = elementRect.topLeft;
+      final translatedTopLeft = applyScaleAndTranslate(originalTopLeft);
+      var delta = translatedTopLeft - originalTopLeft;
+
+      if (rotation != 0) {
+        final originalCenter = elementRect.center;
+        final transformedCenter = applyScaleAndTranslate(originalCenter);
+        final rotatedCenter = transformedCenter.rotate(
+          transformedPivot,
+          rotationRad,
+        );
+        delta += rotatedCenter - transformedCenter;
       }
-      return e.transform(
-            position: newPos,
-            scaleX: transform.scaleX,
-            scaleY: transform.scaleY,
-            rotation: transform.rotation,
-            rotatePosition: transform.rotation != 0,
+
+      return renderer.transform(
+            position: delta,
+            scaleX: scaleX,
+            scaleY: scaleY,
+            rotation: rotation,
+            rotatePosition: false,
             relative: true,
           ) ??
-          e;
+          renderer;
     }).toList();
   }
 
