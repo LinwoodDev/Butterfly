@@ -151,14 +151,15 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     }
                     final widthOffset = (rect.width - captureWidth) / 2;
                     final heightOffset = (rect.height - captureHeight) / 2;
-                    final quality = kThumbnailWidth / captureWidth;
+                    final quality =
+                        kThumbnailWidth / (captureWidth * viewport.scale);
                     final thumbnail = await state.currentIndexCubit.render(
                       state.data,
                       state.page,
                       state.info,
                       ImageExportOptions(
-                        width: captureWidth,
-                        height: captureHeight,
+                        width: captureWidth * viewport.scale,
+                        height: captureHeight * viewport.scale,
                         quality: quality,
                         scale: viewport.scale,
                         x: rect.left + widthOffset,
