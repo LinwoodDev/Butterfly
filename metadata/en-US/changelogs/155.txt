@@ -3,5 +3,7 @@
 * Fix state will not be saved if changes are made during autosave
 * Fix sequential events like element removing will wait for autosave to finish
 * Fix classic theme name first letter not capitalized in personalization settings
+* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix mouse cannot double click for context menu in select tool
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.3

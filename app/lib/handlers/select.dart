@@ -267,9 +267,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset = details.kind != PointerDeviceKind.mouse
-        ? details.localPosition
-        : null;
+    _contextMenuOffset = details.localPosition;
   }
 
   @override

@@ -56,6 +56,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(false) bool isSaveDelayed,
     @Default(UtilitiesState()) UtilitiesState utilities,
     Handler<Tool>? temporaryHandler,
+    int? temporaryIndex,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
     @Default(false) bool pinned,
@@ -231,6 +232,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             temporaryToolbar: null,
             temporaryCursor: null,
             temporaryRendererStates: null,
+            temporaryIndex: null,
           ),
         );
         await bake(blocState);
@@ -726,6 +728,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryRendererStates: null,
         toolbar: null,
         temporaryToolbar: null,
+        temporaryIndex: null,
         rendererStates: const <String, RendererState>{},
         toggleableHandlers: const <int, Handler<Tool>>{},
         toggleableForegrounds: const <int, List<Renderer>>{},
@@ -764,10 +767,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final tool = blocState.info.tools[index];
     final temporaryHandler = state.temporaryHandler;
-    if (!force &&
-        index == state.index &&
-        temporaryHandler != null &&
-        temporaryHandler.data == tool) {
+    if (!force && index == state.temporaryIndex && temporaryHandler != null) {
       return temporaryHandler;
     }
     return changeTemporaryHandler(
@@ -825,6 +825,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           temporaryCursor: handler.cursor,
           temporaryRendererStates: handler.rendererStates,
           temporaryState: temporaryState,
+          temporaryIndex: index,
         ),
       );
       await bake(blocState);
@@ -859,6 +860,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(
       state.copyWith(
         temporaryHandler: null,
+        temporaryIndex: null,
         temporaryForegrounds: null,
         temporaryToolbar: null,
         temporaryCursor: null,
@@ -1496,6 +1498,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(
       state.copyWith(
         temporaryHandler: HandHandler(),
+        temporaryIndex: null,
         temporaryCursor: null,
         temporaryRendererStates: null,
         temporaryForegrounds: null,
