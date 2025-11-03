@@ -9,5 +9,6 @@
 * Fix scaling of multiple elements
 * Fix scaling pen elements will jump to wrong position
 * Fix thumbnails not having correct position if viewport is scaled
+* Fix invisible layers will get visible after moving camera
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.3

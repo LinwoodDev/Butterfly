@@ -968,13 +968,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (!rendererStatesChanged) {
       allRendererStates = cameraViewport.rendererStates;
     }
+    final invisibleLayers = blocState.invisibleLayers;
     final viewChanged =
         cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
         cameraViewport.y != renderTransform.position.dy ||
         cameraViewport.scale != transform.size ||
-        rendererStatesChanged;
+        rendererStatesChanged ||
+        !setEquals(cameraViewport.invisibleLayers, invisibleLayers);
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
@@ -1050,6 +1052,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       renderBackground: false,
       renderBaked: !reset,
       renderBakedLayers: false,
+      invisibleLayers: invisibleLayers,
     ).paint(canvas, size);
 
     final picture = recorder.endRecording();
@@ -1097,6 +1100,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
         renderBackground: false,
         renderBaked: false,
+        invisibleLayers: invisibleLayers,
       ).paint(belowLayerCanvas, size);
       ViewPainter(
         document,
@@ -1111,6 +1115,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
         renderBackground: false,
         renderBaked: false,
+        invisibleLayers: invisibleLayers,
       ).paint(aboveLayerCanvas, size);
 
       final belowPicture = belowLayerRecorder.endRecording();
@@ -1161,6 +1166,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           belowLayerImage: belowLayerImage,
           aboveLayerImage: aboveLayerImage,
           rendererStates: allRendererStates,
+          invisibleLayers: invisibleLayers,
         ),
       ),
     );

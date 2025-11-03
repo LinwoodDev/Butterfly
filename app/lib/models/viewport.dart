@@ -23,6 +23,7 @@ class CameraViewport extends Equatable {
   final double x, y;
   final RenderResolution resolution;
   final Map<String, RendererState> rendererStates;
+  final Set<String> invisibleLayers;
 
   const CameraViewport.unbaked({
     this.backgrounds = const [],
@@ -32,6 +33,7 @@ class CameraViewport extends Equatable {
     this.height,
     this.pixelRatio = 1,
     this.rendererStates = const {},
+    this.invisibleLayers = const {},
   }) : image = null,
        belowLayerImage = null,
        aboveLayerImage = null,
@@ -58,6 +60,7 @@ class CameraViewport extends Equatable {
     required this.resolution,
     this.y = 0,
     this.rendererStates = const {},
+    this.invisibleLayers = const {},
   });
 
   static Future<CameraViewport> build(
@@ -141,6 +144,7 @@ class CameraViewport extends Equatable {
     aboveLayerImage: aboveLayerImage,
     belowLayerImage: belowLayerImage,
     resolution: resolution,
+    invisibleLayers: invisibleLayers,
   );
 
   CameraViewport unbake({
@@ -163,6 +167,7 @@ class CameraViewport extends Equatable {
     width: width,
     height: height,
     pixelRatio: pixelRatio,
+    invisibleLayers: invisibleLayers,
   );
 
   CameraViewport bake({
@@ -180,6 +185,7 @@ class CameraViewport extends Equatable {
     double y = 0,
     required RenderResolution resolution,
     Map<String, RendererState>? rendererStates,
+    Set<String>? invisibleLayers,
   }) => CameraViewport.baked(
     backgrounds: backgrounds,
     image: image,
@@ -196,6 +202,7 @@ class CameraViewport extends Equatable {
     belowLayerImage: belowLayerImage,
     resolution: resolution,
     rendererStates: rendererStates ?? this.rendererStates,
+    invisibleLayers: invisibleLayers ?? this.invisibleLayers,
   );
 
   CameraViewport withoutLayers() => CameraViewport.baked(
@@ -214,6 +221,7 @@ class CameraViewport extends Equatable {
     belowLayerImage: null,
     resolution: resolution,
     rendererStates: rendererStates,
+    invisibleLayers: invisibleLayers,
   );
 
   CameraViewport withBackgrounds(List<Renderer<Background>> backgrounds) =>
@@ -233,6 +241,7 @@ class CameraViewport extends Equatable {
         belowLayerImage: belowLayerImage,
         resolution: resolution,
         rendererStates: rendererStates,
+        invisibleLayers: invisibleLayers,
       );
 
   @override
@@ -252,5 +261,6 @@ class CameraViewport extends Equatable {
     belowLayerImage,
     resolution,
     rendererStates,
+    invisibleLayers,
   ];
 }
