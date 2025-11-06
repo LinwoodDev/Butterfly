@@ -284,8 +284,8 @@ class ButterflyApp extends StatelessWidget {
             name: 'native',
             builder: (context, state) {
               final type = state.uri.queryParameters['type'] ?? '';
-              final path = state.uri.queryParameters['path'] ?? '';
-              final data = state.extra;
+              final path = state.uri.queryParameters['path'] ?? getNativeType();
+              final data = state.extra ?? getNativeData();
               return ProjectPage(
                 location: AssetLocation.local(path),
                 absolute: true,

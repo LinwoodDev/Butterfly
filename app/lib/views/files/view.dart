@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -638,6 +639,7 @@ class FilesViewState extends State<FilesView> {
                             // see https://github.com/LinwoodDev/Butterfly/issues/839
                             fileExtension = null;
                           }
+                          setNativeData(result, fileExtension);
                           router.goNamed(
                             'native',
                             queryParameters: {
@@ -648,7 +650,6 @@ class FilesViewState extends State<FilesView> {
                               ).identifier,
                               'type': fileExtension ?? 'note',
                             },
-                            extra: result,
                           );
                           if (!widget.collapsed) {
                             reloadFileSystem();

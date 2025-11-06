@@ -801,8 +801,8 @@ class ImportService {
       var y = firstPos.dy;
       var current = 0;
 
-      for (var i = 0; i < elements.length; i++) {
-        var raster = elements[i];
+      for (var i = 0; i < pages.length; i++) {
+        var raster = elements[pages[i]];
         try {
           await Future.delayed(const Duration(milliseconds: 1));
           dialog?.setProgress(current / pages.length);

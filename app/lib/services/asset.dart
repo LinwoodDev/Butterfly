@@ -1,8 +1,11 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/helpers/element.dart' as element_helper;
+import 'package:flutter/foundation.dart';
+
+Uint8List? _getDataFromSource((NoteData, String) message) =>
+    element_helper.getDataFromSource(message.$1, message.$2);
 
 class AssetService {
   final NoteData document;
@@ -16,7 +19,11 @@ class AssetService {
       return _images[path]!.clone();
     }
     document ??= this.document;
-    var data = element_helper.getDataFromSource(document, path);
+    return _importImage(path);
+  }
+
+  Future<ui.Image?> _importImage(String path) async {
+    var data = await compute(_getDataFromSource, (document, path));
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
     try {

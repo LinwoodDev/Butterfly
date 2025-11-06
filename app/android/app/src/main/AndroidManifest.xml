@@ -4,6 +4,7 @@
     <application
         android:label="${appName}"
         android:name="${applicationName}"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher">
 
         <activity

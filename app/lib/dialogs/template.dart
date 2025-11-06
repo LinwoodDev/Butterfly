@@ -490,7 +490,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       );
     }
     final encoder = ZipEncoder();
-    final bytes = encoder.encode(archive);
+    final bytes = encoder.encodeBytes(archive);
     await exportZip(context, bytes);
   }
 }
