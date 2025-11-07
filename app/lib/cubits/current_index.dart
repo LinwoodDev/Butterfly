@@ -1023,12 +1023,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (viewChanged) {
       await Future.wait(
         visibleElements.map(
-          (e) async => await e.updateView(
-            state.transformCubit,
-            document,
-            blocState.assetService,
-            page,
-          ),
+          (e) async =>
+              await e.updateView(this, blocState, renderTransform, size),
         ),
       );
     }

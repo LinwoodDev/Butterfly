@@ -40,6 +40,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/usr/libexec
       cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
       ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/dart $CRAFT_PART_INSTALL/usr/bin/dart
       export PATH="$CRAFT_PART_INSTALL/usr/bin:$PATH"
       flutter doctor
     build-packages:

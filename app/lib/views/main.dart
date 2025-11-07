@@ -203,7 +203,6 @@ class _ProjectPageState extends State<ProjectPage> {
               location.fileType == AssetFileType.note) {
             final NoteData? noteData = await globalImportService
                 .load(
-                  document: defaultDocument,
                   type: widget.type.isEmpty
                       ? (fileType ?? widget.type)
                       : widget.type,
