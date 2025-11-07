@@ -33,6 +33,7 @@ jobs:
         run: |
           flutter clean
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: Import files
         if: ${{ github.event_name != 'pull_request' }}
@@ -154,16 +155,15 @@ jobs:
         run: |
           flutter clean
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
-          flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
-          flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=production
       - name: Build setup
         shell: pwsh
@@ -204,6 +204,7 @@ jobs:
         run: |
           flutter clean
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build MSIX
         run: |
@@ -279,8 +280,9 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter clean
-          flutter doctor -v
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
+          flutter doctor -v
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
@@ -414,6 +416,7 @@ jobs:
         run: |
           flutter clean
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build
         run: |
@@ -462,6 +465,7 @@ jobs:
         run: |
           flutter clean
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
           flutter doctor -v
       - name: 🏭 Build
         run: |
@@ -833,6 +837,8 @@ jobs:
       - name: 📦 Get dependencies
         run: |
           flutter pub get
+          dart run pdfrx:remove_wasm_modules
+          flutter doctor -v
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:

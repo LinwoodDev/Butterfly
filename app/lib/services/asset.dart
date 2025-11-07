@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/helpers/element.dart' as element_helper;
 import 'package:flutter/foundation.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 Uint8List? _getDataFromSource((NoteData, String) message) =>
     element_helper.getDataFromSource(message.$1, message.$2);
@@ -11,6 +12,7 @@ class AssetService {
   final NoteData document;
   final Map<String, ui.Image> _images = {};
   final Map<String, Future<Uint8List?>> _dataCache = {};
+  final Map<String, PdfDocument> _pdfDocumentCache = {};
 
   AssetService(this.document);
 
@@ -34,12 +36,6 @@ class AssetService {
     } finally {
       codec.dispose();
     }
-  }
-
-  void dispose() {
-    _images.keys.toList().forEach(invalidateImage);
-    _images.clear();
-    _dataCache.clear();
   }
 
   void invalidateImage(String path) {
@@ -66,8 +62,36 @@ class AssetService {
     _dataCache.remove(source);
   }
 
+  Future<PdfDocument?> getPdfDocument(
+    String source, [
+    NoteData? document,
+  ]) async {
+    if (_pdfDocumentCache.containsKey(source)) {
+      return _pdfDocumentCache[source];
+    }
+    document ??= this.document;
+    final data = await computeDataFromSource(source, document);
+    if (data == null) return null;
+    final pdfDocument = await PdfDocument.openData(data);
+    _pdfDocumentCache[source] = pdfDocument;
+    return pdfDocument;
+  }
+
+  void invalidatePdfDocument(String source) {
+    _pdfDocumentCache.remove(source)?.dispose();
+  }
+
   void invalidate(String source) {
     invalidateImage(source);
     invalidateData(source);
+    invalidatePdfDocument(source);
+  }
+
+  void dispose() {
+    _images.keys.toList().forEach(invalidateImage);
+    _images.clear();
+    _dataCache.clear();
+    _pdfDocumentCache.keys.toList().forEach(invalidatePdfDocument);
+    _pdfDocumentCache.clear();
   }
 }

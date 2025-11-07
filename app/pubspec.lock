@@ -57,14 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.9"
-  bidi:
-    dependency: transitive
-    description:
-      name: bidi
-      sha256: "77f475165e94b261745cf1032c751e2032b8ed92ccb2bf5716036db79320637d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.13"
   bloc:
     dependency: transitive
     description:
@@ -321,6 +313,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.1"
+  dart_pubspec_licenses:
+    dependency: transitive
+    description:
+      name: dart_pubspec_licenses
+      sha256: fafb90d50c182dd3d4f441c6aea75baff1e5311aab2f6430d3f40f6e3a1f5885
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.12"
   dart_style:
     dependency: transitive
     description:
@@ -980,22 +980,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  pdf:
+  pdfrx:
     dependency: "direct main"
     description:
-      name: pdf
-      sha256: "28eacad99bffcce2e05bba24e50153890ad0255294f4dd78a17075a2ba5c8416"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.11.3"
-  pdf_widget_wrapper:
-    dependency: transitive
+      path: "packages/pdfrx"
+      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
+      resolved-ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
+      url: "https://github.com/CodeDoctorDE/pdfrx"
+    source: git
+    version: "2.2.8"
+  pdfrx_engine:
+    dependency: "direct overridden"
     description:
-      name: pdf_widget_wrapper
-      sha256: c930860d987213a3d58c7ec3b7ecf8085c3897f773e8dc23da9cae60a5d6d0f5
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
+      path: "packages/pdfrx_engine"
+      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
+      resolved-ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
+      url: "https://github.com/CodeDoctorDE/pdfrx"
+    source: git
+    version: "0.2.4"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1068,14 +1070,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.3"
-  printing:
-    dependency: "direct main"
-    description:
-      name: printing
-      sha256: "482cd5a5196008f984bb43ed0e47cbfdca7373490b62f3b27b3299275bf22a93"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.14.2"
   process:
     dependency: transitive
     description:

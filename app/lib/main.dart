@@ -96,20 +96,6 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow) {
-    await windowManager.ensureInitialized();
-    const kWindowOptions = WindowOptions(
-      minimumSize: Size(410, 300),
-      title: applicationName,
-      backgroundColor: Colors.transparent,
-    );
-
-    // Use it only after calling `hiddenWindowAtLaunch`
-    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
-      await windowManager.setResizable(true);
-      await windowManager.setPreventClose(false);
-    });
-  }
   final clipboardManager = await SysAPI.getClipboardManager();
   overrideButterflyDirectory = result['path'];
   runApp(

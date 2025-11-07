@@ -124,26 +124,26 @@ class PdfRenderer extends Renderer<PdfElement> {
     double scale,
   ) async {
     if (renderedScale == scale && image != null) return;
-    final data = await assetService.computeDataFromSource(
-      element.source,
-      document,
-    );
+    final data = await assetService.getPdfDocument(element.source, document);
     if (data == null) return;
     try {
-      final dpi = PdfPageFormat.inch * scale;
-      final stream = Printing.raster(data, pages: [element.page], dpi: dpi);
-      final raster = await stream.first;
-      var image = await raster.toImage();
+      final raster = await data.pages
+          .elementAtOrNull(element.page)
+          ?.render(
+            fullWidth: (element.width * scale),
+            fullHeight: (element.height * scale),
+          );
+      if (raster == null) return;
+      var imgImage = raster.createImageNF();
       if (element.invert) {
-        final imgImage = await convertFlutterUiToImage(image);
         final cmd = img.Command()
           ..image(imgImage)
           ..invert();
         final converted = await cmd.getImage();
-        if (converted != null) image = await convertImageToFlutterUi(converted);
+        if (converted != null) imgImage = converted;
       }
-      this.image?.dispose();
-      this.image = image;
+      image?.dispose();
+      image = await convertImageToFlutterUi(imgImage);
       renderedScale = scale;
     } catch (_) {}
   }

@@ -22,8 +22,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
-import 'package:printing/printing.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
 
@@ -752,10 +752,12 @@ class ImportService {
     bool advanced = true,
   }) async {
     LoadingDialogHandler? dialog;
+    PdfDocument? pdfDocument;
     try {
       final firstPos = position ?? Offset.zero;
       final localizations = AppLocalizations.of(context);
-      List<PdfRaster> elements = await Printing.raster(bytes).toList();
+      pdfDocument = await PdfDocument.openData(bytes);
+      final elements = pdfDocument.pages;
       if (!context.mounted) return null;
       List<int> pages = List.generate(elements.length, (index) => index);
       bool spreadToPages = false, createAreas = false, invert = false;
@@ -768,8 +770,9 @@ class ImportService {
         for (int i = 0; i < elements.length; i++) {
           final raster = elements[i];
           dialog?.setProgress(i / elements.length);
-          final image = await raster.toImage();
-          images.add(image);
+          final pdfImage = await raster.render();
+          if (pdfImage == null) continue;
+          images.add(await pdfImage.createImage());
         }
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(
@@ -865,6 +868,8 @@ class ImportService {
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
       );
+    } finally {
+      await pdfDocument?.dispose();
     }
     return null;
   }

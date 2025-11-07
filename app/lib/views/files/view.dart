@@ -829,8 +829,7 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    final data = entity.data?.data;
-    await openFile(context, widget.collapsed, location, data);
+    await openFile(context, widget.collapsed, location);
     if (!widget.collapsed) {
       reloadFileSystem();
     }

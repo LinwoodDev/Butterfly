@@ -9,7 +9,6 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:printing/printing.dart';
 
 import '../../bloc/document_bloc.dart';
 
@@ -126,19 +125,18 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               ElevatedButton(
                                 child: Text(
                                   widget.print
-                                      ? AppLocalizations.of(context).print
+                                      ? AppLocalizations.of(context).share
                                       : AppLocalizations.of(context).export,
                                 ),
                                 onPressed: () async {
-                                  await Printing.layoutPdf(
-                                    onLayout: (_) async =>
-                                        (await currentIndex.renderPDF(
-                                          state.data,
-                                          state.info,
-                                          areas: areas,
-                                          docState: state,
-                                        )).save(),
-                                  );
+                                  final pdf =
+                                      await (await currentIndex.renderPDF(
+                                        state.data,
+                                        state.info,
+                                        areas: areas,
+                                        docState: state,
+                                      )).encodePdf();
+                                  await exportPdf(context, pdf, widget.print);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -156,7 +154,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                         state.info,
                                         areas: areas,
                                         docState: state,
-                                      )).save(),
+                                      )).encodePdf(),
                                       true,
                                     );
                                     Navigator.of(context).pop();
@@ -174,7 +172,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                       state.info,
                                       areas: areas,
                                       docState: state,
-                                    )).save(),
+                                    )).encodePdf(),
                                   );
                                   Navigator.of(context).pop();
                                 },

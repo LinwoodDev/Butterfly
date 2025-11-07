@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -17,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image/image.dart' hide Channel;
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:pdfrx/pdfrx.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:xml/xml.dart';
 
@@ -1174,7 +1175,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _queuedBake?.call();
   }
 
-  Future<ByteData?> render(
+  Future<ui.Image?> renderImage(
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
@@ -1199,13 +1200,33 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
     ui.Image? image;
-    ByteData? bytes;
     try {
       image = await picture.toImage(realWidth, realHeight);
-      bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    } finally {
+      picture.dispose();
+    }
+    return image;
+  }
+
+  Future<ByteData?> render(
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    ImageExportOptions options, [
+    CameraViewport? cameraViewport,
+  ]) async {
+    final image = await renderImage(
+      document,
+      page,
+      info,
+      options,
+      cameraViewport,
+    );
+    ByteData? bytes;
+    try {
+      bytes = await image?.toByteData(format: ui.ImageByteFormat.png);
     } finally {
       image?.dispose();
-      picture.dispose();
     }
     return bytes;
   }
@@ -1364,14 +1385,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ),
   );
 
-  Future<pw.Document> renderPDF(
+  Future<PdfDocument> renderPDF(
     NoteData document,
     DocumentInfo info, {
     required DocumentState docState,
     required List<AreaPreset> areas,
     bool renderBackground = true,
   }) async {
-    final pdf = pw.Document();
+    var name = document.getMetadata()?.name ?? '';
+    if (name.isEmpty) {
+      name = 'document';
+    }
+    final pdf = await PdfDocument.createNew(sourceName: '$name.pdf');
     if (docState is! DocumentLoaded) {
       return pdf;
     }
@@ -1386,11 +1411,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (area == null || page == null) {
         continue;
       }
-      final pageFormat = PdfPageFormat(
-        area.width * quality,
-        area.height * quality,
-      );
-      final image = await render(
+      final image = await renderImage(
         document,
         page,
         info,
@@ -1412,14 +1433,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               ),
       );
       if (image == null) continue;
-      pdf.addPage(
-        pw.Page(
-          pageFormat: pageFormat,
-          build: (context) {
-            return pw.Image(pw.MemoryImage(image.buffer.asUint8List()));
-          },
-        ),
+      final imgImage = await convertFlutterUiToImage(image);
+      final pdfImage = await compute((img) => encodeJpg(img), imgImage);
+      image.dispose();
+      final imageDoc = await PdfDocument.createFromJpegData(
+        pdfImage,
+        width: imgImage.width.toDouble(),
+        height: imgImage.height.toDouble(),
+        sourceName: '$name-$areaName.jpg',
       );
+      pdf.pages.addAll(imageDoc.pages);
+      imageDoc.dispose();
+      image.dispose();
     }
     return pdf;
   }
