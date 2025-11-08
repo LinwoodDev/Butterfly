@@ -4,5 +4,6 @@
 * Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))
 * Fix memory leak in PDFs
 * Fix changing arrangement not working correctly
+* Fix eye dropper not working correctly for selecting a color for current tool
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.4

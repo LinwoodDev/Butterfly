@@ -172,11 +172,13 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
+                          behavior: SnackBarBehavior.floating,
                           content: Row(
+                            mainAxisSize: MainAxisSize.min,
                             spacing: 8,
                             children: [
                               Image.memory(bytes, height: 42),
-                              Expanded(
+                              Flexible(
                                 child: Text(
                                   AppLocalizations.of(
                                     context,

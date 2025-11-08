@@ -118,11 +118,11 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         );
     if (response == null) return;
     final srgb = response.toSRGB();
-    widget.onChanged(srgb);
     if (response.action == ColorPickerToolbarAction.eyeDropper) {
       widget.onEyeDropper?.call(context);
       return;
     }
+    widget.onChanged(srgb);
     if (response.action != ColorPickerToolbarAction.pin) {
       settingsCubit.addRecentColors(srgb);
       return;
