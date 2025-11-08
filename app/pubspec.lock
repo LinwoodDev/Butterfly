@@ -341,10 +341,10 @@ packages:
     dependency: transitive
     description:
       name: device_info_plus
-      sha256: "98f28b42168cc509abc92f88518882fd58061ea372d7999aecc424345c7bff6a"
+      sha256: dd0e8e02186b2196c7848c9d394a5fd6e5b57a43a546082c5820b1ec72317e33
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.0"
+    version: "12.2.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -1340,12 +1340,13 @@ packages:
     source: hosted
     version: "0.9.1"
   super_native_extensions:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: super_native_extensions
-      sha256: b9611dcb68f1047d6f3ef11af25e4e68a21b1a705bbcc3eb8cb4e9f5c3148569
-      url: "https://pub.dev"
-    source: hosted
+      path: super_native_extensions
+      ref: "1055873bac1dcfa859d306b825eecf23b7587d23"
+      resolved-ref: "1055873bac1dcfa859d306b825eecf23b7587d23"
+      url: "https://github.com/CodeDoctorDE/super_native_extensions"
+    source: git
     version: "0.9.1"
   swamp_api:
     dependency: "direct main"

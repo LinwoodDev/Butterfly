@@ -125,6 +125,11 @@ dependency_overrides:
       url: https://github.com/CodeDoctorDE/pdfrx
       ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
       path: packages/pdfrx_engine
+  super_native_extensions:
+    git:
+      url: https://github.com/CodeDoctorDE/super_native_extensions
+      ref: 1055873bac1dcfa859d306b825eecf23b7587d23
+      path: super_native_extensions
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
