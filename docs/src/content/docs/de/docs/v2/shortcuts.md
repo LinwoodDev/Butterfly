@@ -13,7 +13,6 @@ Einige davon sind unter den Buttons geschrieben.
 - `Ctrl` + `Shift` + `N`: Neue Datei aus Vorlage
 - `Strg` + `E`: Datei exportieren
 - `Strg` + `Alt` + `E`: Datei als svg exportieren
-- `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Strg` + `Alt` + `Shift` + `E` (Nightly (2.4): `Strg` + `Shift` + `P`): Datei als pdf exportieren
