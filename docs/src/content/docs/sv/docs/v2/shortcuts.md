@@ -13,7 +13,6 @@ Några av dem är skrivna under knapparna.
 - `Ctrl` + `Shift` + `N`: Ny fil från mallen
 - `Ctrl` + `E`: Exportera fil
 - `Ctrl` + `P`: Skriv ut fil
-- `Ctrl` + `Shift` + `E`: Exportera fil som bild
 - `Ctrl` + `Alt` + `E`: Exportera fil som svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Öppna paket
