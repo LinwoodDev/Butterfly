@@ -13,7 +13,6 @@ Nogle af dem er skrevet under knapperne.
 - `Ctrl` + `Shift` + `N`: Ny fil fra skabelon
 - `Ctrl` + `E`: Eksporter fil
 - `Ctrl` + `P`: Udskriv fil
-- `Ctrl` + `Shift` + `E`: Eksportér fil som billede
 - `Ctrl` + `Alt` + `E`: Eksportér fil som svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Åbn pakker
