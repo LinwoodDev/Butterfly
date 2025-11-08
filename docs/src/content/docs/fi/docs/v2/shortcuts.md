@@ -13,7 +13,6 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `Shift` + `N`: Uusi tiedosto mallista
 - `Ctrl` + `E`: Vie tiedosto
 - `Ctrl` + `P`: Tulosta tiedosto
-- `Ctrl` + `Shift` + `E`: Vie kuva kuvaksi
 - `Ctrl` + `Alt` + `E`: Vie tiedosto svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Avaa paketit
