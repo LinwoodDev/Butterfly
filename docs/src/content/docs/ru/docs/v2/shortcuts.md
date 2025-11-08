@@ -13,7 +13,6 @@ title: Ярлыки
 - `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 - `Ctrl` + `E`: Экспорт файла
 - `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
-- `Ctrl` + `P`: Печать файла
 - `Ctrl` + `Shift` + `E`: Экспортировать файл как изображение
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
