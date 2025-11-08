@@ -13,7 +13,6 @@ Sommige ervan worden onder de knoppen geschreven.
 - `Ctrl` + `Shift` + `N`: Nieuw bestand van template
 - `Ctrl` + `E`: Bestand exporteren
 - `Ctrl` + `Shift` + `E`: Exporteer bestand als afbeelding
-- `Ctrl` + `P`: bestand afdrukken
 - `Ctrl` + `Alt` + `E`: Exporteer bestand als svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
