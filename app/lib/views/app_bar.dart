@@ -575,20 +575,6 @@ class _MainPopupMenu extends StatelessWidget {
                     },
                     child: Text(AppLocalizations.of(context).pdf),
                   ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyP,
-                      control: true,
-                    ),
-                    onPressed: () {
-                      Actions.maybeInvoke<PdfExportIntent>(
-                        context,
-                        PdfExportIntent(context, true),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).print),
-                  ),
                   /*MenuItemButton(
                       leadingIcon: const PhosphorIcon(PhosphorIconsLight.notebook),
                       onPressed: () => exportXopp(context),

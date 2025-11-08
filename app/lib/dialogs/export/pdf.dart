@@ -1,5 +1,6 @@
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -129,14 +130,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                       : AppLocalizations.of(context).export,
                                 ),
                                 onPressed: () async {
-                                  final pdf =
-                                      await (await currentIndex.renderPDF(
-                                        state.data,
-                                        state.info,
-                                        areas: areas,
-                                        docState: state,
-                                      )).encodePdf();
-                                  await exportPdf(context, pdf, widget.print);
+                                  await _export(true);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -147,16 +141,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                     AppLocalizations.of(context).share,
                                   ),
                                   onPressed: () async {
-                                    await exportPdf(
-                                      context,
-                                      await (await currentIndex.renderPDF(
-                                        state.data,
-                                        state.info,
-                                        areas: areas,
-                                        docState: state,
-                                      )).encodePdf(),
-                                      true,
-                                    );
+                                    await _export(true);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -165,15 +150,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                   AppLocalizations.of(context).export,
                                 ),
                                 onPressed: () async {
-                                  await exportPdf(
-                                    context,
-                                    await (await currentIndex.renderPDF(
-                                      state.data,
-                                      state.info,
-                                      areas: areas,
-                                      docState: state,
-                                    )).encodePdf(),
-                                  );
+                                  await _export(false);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -190,6 +167,36 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         ),
       ),
     );
+  }
+
+  Future<void> _export(bool share) async {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final loading = showLoadingDialog(context);
+    try {
+      final pdf = await state.currentIndexCubit.renderPDF(state, areas: areas);
+      if (pdf == null) {
+        throw Exception('Failed to generate PDF.');
+      }
+      await exportPdf(context, pdf, share);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context).error),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      loading?.close();
+    }
   }
 
   Widget _buildEmptyState(DocumentLoaded state) {

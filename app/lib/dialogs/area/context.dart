@@ -201,23 +201,6 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             },
             child: Text(AppLocalizations.of(context).pdf),
           ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
-            onPressed: () {
-              if (pop) Navigator.of(context).pop();
-              showDialog<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: PdfExportDialog(
-                    areas: [AreaPreset(area: area, name: area.name)],
-                    print: true,
-                  ),
-                ),
-                context: context,
-              );
-            },
-            child: Text(AppLocalizations.of(context).print),
-          ),
         ],
       ),
       ContextMenuItem(

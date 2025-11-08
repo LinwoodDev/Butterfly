@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image/image.dart' hide Channel;
+import 'package:image/image.dart' as img;
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
@@ -1381,21 +1381,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ),
   );
 
-  Future<PdfDocument> renderPDF(
-    NoteData document,
-    DocumentInfo info, {
-    required DocumentState docState,
+  Future<Uint8List?> renderPDF(
+    DocumentLoaded docState, {
     required List<AreaPreset> areas,
     bool renderBackground = true,
   }) async {
-    var name = document.getMetadata()?.name ?? '';
+    var name = docState.metadata.name;
     if (name.isEmpty) {
       name = 'document';
     }
     final pdf = await PdfDocument.createNew(sourceName: '$name.pdf');
-    if (docState is! DocumentLoaded) {
-      return pdf;
-    }
+    final document = docState.data;
+    final info = docState.info;
+    final pages = <PdfPage>[];
+    final documents = <PdfDocument>[];
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
@@ -1430,19 +1429,27 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       if (image == null) continue;
       final imgImage = await convertFlutterUiToImage(image);
-      final pdfImage = await compute((img) => encodeJpg(img), imgImage);
-      image.dispose();
+      final pdfImage = await compute(
+        (image) => img.JpegEncoder().encode(image),
+        imgImage,
+      );
       final imageDoc = await PdfDocument.createFromJpegData(
         pdfImage,
         width: imgImage.width.toDouble(),
         height: imgImage.height.toDouble(),
         sourceName: '$name-$areaName.jpg',
       );
-      pdf.pages.addAll(imageDoc.pages);
-      imageDoc.dispose();
+      pages.addAll(imageDoc.pages);
       image.dispose();
+      documents.add(imageDoc);
     }
-    return pdf;
+    pdf.pages = pages;
+    final bytes = await pdf.encodePdf();
+    pdf.dispose();
+    for (final doc in documents) {
+      doc.dispose();
+    }
+    return bytes;
   }
 
   void updateIndex(DocumentBloc bloc) {

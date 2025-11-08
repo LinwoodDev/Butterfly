@@ -484,13 +484,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                       ),
                                       LogicalKeySet(
                                         LogicalKeyboardKey.control,
-                                        LogicalKeyboardKey.keyP,
-                                      ): PdfExportIntent(
-                                        context,
-                                        true,
-                                      ),
-                                      LogicalKeySet(
-                                        LogicalKeyboardKey.control,
                                         LogicalKeyboardKey.alt,
                                         LogicalKeyboardKey.keyE,
                                       ): SvgExportIntent(
