@@ -13,7 +13,6 @@ title: الاختصارات
 - 'Ctrl' + 'Shift' + 'N': ملف جديد من القالب
 - `Ctrl` + `E`: تصدير الملف
 - Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `P`: طباعة الملف
 - `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
