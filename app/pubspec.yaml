@@ -39,7 +39,7 @@ dependencies:
   share_plus: ^12.0.0
   package_info_plus: ^9.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^16.0.0
+  go_router: ^17.0.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.3.0

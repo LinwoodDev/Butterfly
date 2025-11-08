@@ -2,5 +2,6 @@
 * Fix crashes on importing and exporting large files on Android
 * Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))
 * Fix memory leak in PDFs
+* Fix changing arrangement not working correctly
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.4

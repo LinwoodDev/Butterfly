@@ -341,8 +341,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ? renderers.removeAt(newRendererIndex)
               : null;
           if (event.arrangement == Arrangement.front) {
-            newIndex = content.length - 1;
-            newRendererIndex = renderers.length - 1;
+            newIndex = content.length;
+            newRendererIndex = renderers.length;
           } else if (event.arrangement == Arrangement.back) {
             newIndex = 0;
             newRendererIndex = 0;
@@ -388,8 +388,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return e.copyWith(content: content);
       });
-      current.currentIndexCubit.unbake(current, unbakedElements: renderers);
-      _saveState(emit, state: current.copyWith(page: newPage), unbake: true);
+      _saveState(
+        emit,
+        state: current.copyWith(page: newPage),
+        replacedElements: renderers,
+      );
     });
     on<ElementsRemoved>((event, emit) async {
       final current = state;
