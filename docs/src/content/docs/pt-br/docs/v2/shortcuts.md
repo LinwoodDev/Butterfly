@@ -13,7 +13,6 @@ Alguns deles estão escritos abaixo dos botões.
 - `Ctrl` + `Shift` + `N`: Novo arquivo do template
 - `Ctrl` + `E`: Exportar arquivo
 - `Ctrl` + `Shift` + `E`: Exportar arquivo como imagem
-- `Ctrl` + `P`: Imprimir arquivo
 - `Ctrl` + `Alt` + `E`: Exportar arquivo como svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
