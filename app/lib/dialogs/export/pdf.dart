@@ -175,7 +175,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     if (state is! DocumentLoadSuccess) return;
     final loading = showLoadingDialog(context);
     try {
-      final pdf = await state.currentIndexCubit.renderPDF(state, areas: areas);
+      final pdf = await state.currentIndexCubit.renderPDF(
+        state,
+        areas: areas,
+        onProgress: (progress) => loading?.setProgress(progress),
+      );
       if (pdf == null) {
         throw Exception('Failed to generate PDF.');
       }

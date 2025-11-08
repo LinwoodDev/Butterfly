@@ -1,4 +1,5 @@
-* Added preview in snackbar after capturing thumbnail
+* Add preview in snackbar after capturing thumbnail
+* Add progress indicator when exporting PDF
 * Migrate to new PDF rendering and file handling system
 * Fix crashes on importing and exporting large files on Android
 * Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))

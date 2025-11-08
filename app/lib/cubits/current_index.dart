@@ -1385,6 +1385,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentLoaded docState, {
     required List<AreaPreset> areas,
     bool renderBackground = true,
+    void Function(double progress)? onProgress,
   }) async {
     var name = docState.metadata.name;
     if (name.isEmpty) {
@@ -1395,7 +1396,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final info = docState.info;
     final pages = <PdfPage>[];
     final documents = <PdfDocument>[];
-    for (final preset in areas) {
+    for (var i = 0; i < areas.length; i++) {
+      onProgress?.call(i / areas.length);
+      final preset = areas[i];
       final areaName = preset.name;
       final quality = preset.quality;
       final currentOpened = docState.pageName == preset.page;
@@ -1443,6 +1446,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       image.dispose();
       documents.add(imageDoc);
     }
+    onProgress?.call(1.0);
     pdf.pages = pages;
     final bytes = await pdf.encodePdf();
     pdf.dispose();
