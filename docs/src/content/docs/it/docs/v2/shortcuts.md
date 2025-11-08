@@ -13,7 +13,6 @@ Alcuni di loro sono scritti sotto i pulsanti.
 - `Ctrl` + `Shift` + `N`: Nuovo file dal modello
 - `Ctrl` + `E`: Esporta file
 - Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `P`: Stampa file
 - `Ctrl` + `Shift` + `E`: Esporta file come immagine
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
