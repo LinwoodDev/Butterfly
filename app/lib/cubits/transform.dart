@@ -123,7 +123,8 @@ class CameraTransform extends Equatable {
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
-  TransformCubit(double pixelRatio) : super(CameraTransform(pixelRatio));
+  TransformCubit(double pixelRatio, [Offset? position])
+    : super(CameraTransform(pixelRatio, position ?? Offset.zero));
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 

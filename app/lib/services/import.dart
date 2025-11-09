@@ -5,7 +5,9 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/asset.dart';
+import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -470,25 +472,35 @@ class ImportService {
     return null;
   }
 
-  ImportResult? _importPage(
+  Future<ImportResult?> _importPage(
     DocumentPage? page,
     NoteData document, [
     Offset? position,
-  ]) {
+  ]) async {
     final firstPos = position ?? Offset.zero;
     if (page == null) return null;
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
 
-    final content = page.content
+    final renderers = page.content
         .map((e) => e.copyWith(id: createUniqueId()))
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
+    final transformCubit = TransformCubit(1, position);
+    final assetService = AssetService(document);
+    await Future.wait(
+      renderers.map(
+        (e) async =>
+            await e.setup(transformCubit, document, assetService, page),
+      ),
+    );
+    assetService.dispose();
+    final content = renderers
         .map(
           (e) =>
-              Renderer.fromInstance(
-                e,
-              ).transform(position: firstPos, relative: true)?.element ??
-              e,
+              e.transform(position: firstPos, relative: true)?.element ??
+              e.element,
         )
         .toList();
     return ImportResult(

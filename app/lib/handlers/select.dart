@@ -208,11 +208,13 @@ class SelectHandler extends Handler<SelectTool> {
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
       return;
     }
+    final noSelection = _selected.isEmpty;
     await _onSelectionAdd(context, details.localPosition, false);
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localPosition);
     final selectionRect = getSelectionRect();
-    if (selectionRect == null || !selectionRect.contains(globalPos)) {
+    if (noSelection &&
+        (selectionRect == null || !selectionRect.contains(globalPos))) {
       _onSelectionContext(context, details.localPosition);
     }
   }

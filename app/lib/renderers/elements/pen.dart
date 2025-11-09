@@ -2,7 +2,7 @@ part of '../renderer.dart';
 
 class PenRenderer extends Renderer<PenElement> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
 
   PenRenderer(
     super.element, [
