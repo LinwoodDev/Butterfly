@@ -204,14 +204,15 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(details.localPosition);
     if (_selectionManager.isTransforming) {
+      _selectionManager.updateCurrentPosition(globalPos);
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
       return;
     }
     final noSelection = _selected.isEmpty;
     await _onSelectionAdd(context, details.localPosition, false);
-    final cameraTransform = context.getCameraTransform();
-    final globalPos = cameraTransform.localToGlobal(details.localPosition);
     final selectionRect = getSelectionRect();
     if (noSelection &&
         (selectionRect == null || !selectionRect.contains(globalPos))) {

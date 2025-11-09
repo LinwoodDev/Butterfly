@@ -8,6 +8,7 @@
 * Fix eye dropper not working correctly for selecting a color for current tool
 * Fix pasting won't preserve relative position when pasting multiple elements
 * Fix paste menu will be shown if trying to deselect with select tool
+* Fix transformation/duplicate not working correctly on touch devices
 * Remove print option from pdf dialog
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.4
