@@ -672,7 +672,7 @@
   "exportAllFiles": "导出所有文件",
   "restoreSettingsFromFile": "从文件恢复设置",
   "exportSettingsToFile": "导出设置到文件",
-  "barcode": "Barcode",
+  "barcode": "条形码",
   "barcodeType": "条形码类型",
   "qrCode": "QR Code",
   "dataMatrix": "数据矩阵表",
