@@ -674,7 +674,7 @@
   "exportSettingsToFile": "导出设置到文件",
   "barcode": "条形码",
   "barcodeType": "条形码类型",
-  "qrCode": "QR Code",
+  "qrCode": "二维码",
   "dataMatrix": "数据矩阵表",
   "code128": "代码 128",
   "defaultUserName": "User {index}",
