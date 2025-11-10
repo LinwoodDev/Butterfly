@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.1-rc.4 (2025-11-10)
+
+* Add preview in snackbar after capturing thumbnail
+* Add progress indicator when exporting PDF
+* Migrate to new PDF rendering and file handling system
+* Fix crashes on importing and exporting large files on Android
+* Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))
+* Fix memory leak in PDFs
+* Fix changing arrangement not working correctly
+* Fix eye dropper not working correctly for selecting a color for current tool
+* Fix pasting won't preserve relative position when pasting multiple elements
+* Fix paste menu will be shown if trying to deselect with select tool
+* Fix transformation/duplicate not working correctly on touch devices
+* Remove print option from pdf dialog
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.4
+
 ## 2.4.1-rc.3 (2025-11-03)
 
 * Add tooltips for texts that can be ellipsized
