@@ -12,10 +12,10 @@ title: الاختصارات
 - `Ctrl` + `N`: ملف جديد
 - 'Ctrl' + 'Shift' + 'N': ملف جديد من القالب
 - `Ctrl` + `E`: تصدير الملف
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: فتح الإعدادات
 - `Ctrl` + `Alt` + `P`: فتح الحزم
 
