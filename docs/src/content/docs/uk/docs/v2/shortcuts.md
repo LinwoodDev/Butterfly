@@ -12,10 +12,10 @@ title: Гарячі клавіші
 - `Ctrl` + `N`: новий файл
 - `Ctrl` + `Shift` + `N`: новий файл з шаблону
 - `Ctrl` + `E`: Експорт файлу
-- `Ctrl` + `P`: Друкувати файл
-- `Ctrl` + `Alt` + `E`: Експортувати файл як svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Відкриті пакети
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Відкрити налаштування
 - `Ctrl` + `Alt` + `S`: Відкрити налаштування
 
