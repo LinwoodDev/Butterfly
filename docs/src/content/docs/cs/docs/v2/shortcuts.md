@@ -12,10 +12,10 @@ Některé z nich jsou zapsány pod tlačítky.
 - `Ctrl` + `N`: Nový soubor
 - `Ctrl` + `Shift` + `N`: Nový soubor ze šablony
 - `Ctrl` + `E`: Exportovat soubor
-- `Ctrl` + `P`: Tisknout soubor
-- `Ctrl` + `Alt` + `E`: Exportovat soubor jako svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Otevřené balíčky
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Otevřít nastavení
 - `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
