@@ -12,10 +12,10 @@ Algunos de ellos se escriben debajo de los botones.
 - `Ctrl` + `N`: Nuevo archivo
 - `Ctrl` + `Shift` + `N`: Nuevo archivo de plantilla
 - `Ctrl` + `E`: Exportar archivo
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `Alt` + `E`: Exportar archivo como svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Abrir ajustes
 - `Ctrl` + `Alt` + `P`: Abrir paquetes
 
