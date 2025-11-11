@@ -12,10 +12,10 @@ Some of them are written below the buttons.
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
 - `Ctrl` + `E`: Export file
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `Shift` + `E`: Export file as image
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `E`: Export file as svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Open packs
 - `Ctrl` + `Alt` + `S`: Open settings
 
