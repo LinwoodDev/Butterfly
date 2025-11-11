@@ -16,17 +16,17 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "astro": "^5.15.4",
+    "astro": "^5.15.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.21.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.1",
-    "sass": "^1.93.3",
+    "sass": "^1.94.0",
     "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.1.0",
     "workbox-window": "^7.3.0"

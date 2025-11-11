@@ -109,22 +109,13 @@ dependencies:
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
   file_picker: ^10.3.3
-  pdfrx:
-    git:
-      url: https://github.com/CodeDoctorDE/pdfrx
-      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      path: packages/pdfrx
+  pdfrx: ^2.2.9
 dependency_overrides:
   irondash_engine_context:
     git:
       url: https://github.com/CodeDoctorDE/irondash
       ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
       path: engine_context/dart
-  pdfrx_engine:
-    git:
-      url: https://github.com/CodeDoctorDE/pdfrx
-      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      path: packages/pdfrx_engine
   super_native_extensions:
     git:
       url: https://github.com/CodeDoctorDE/super_native_extensions

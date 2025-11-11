@@ -101,18 +101,18 @@ packages:
     dependency: transitive
     description:
       name: build_daemon
-      sha256: "409002f1adeea601018715d613115cfaf0e31f512cb80ae4534c79867ae2363d"
+      sha256: bf05f6e12cfea92d3c09308d7bcdab1906cd8a179b023269eed00c071004b957
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.1.1"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: a9461b8e586bf018dd4afd2e13b49b08c6a844a4b226c8d1d10f3a723cdd78c3
+      sha256: "04f69b1502f66e22ae7990bbd01eb552b7f12793c4d3ea6e715d0ac5e98bcdac"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.1"
+    version: "2.10.2"
   built_collection:
     dependency: transitive
     description:
@@ -148,10 +148,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: b68b638e5e0ede21155e670493ac568981a8f56c5f636d720935a916a1c5a0ef
+      sha256: d5256612833f9169c1698599a87370490622a188c5a7fb601169bb7b2f41f22b
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.24"
+    version: "0.6.24+1"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -603,10 +603,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: bb2ce4590bc2667c96f318d68cac1b5a7987ec819351d32b1c987239a815e007
+      sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "1.6.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -980,24 +980,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pdfium_dart:
+    dependency: transitive
+    description:
+      name: pdfium_dart
+      sha256: "61085bbc08939c5086ceb14496bfb55c52c68cadf0d8a0646be27eb1ae17eb4e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
+  pdfium_flutter:
+    dependency: transitive
+    description:
+      name: pdfium_flutter
+      sha256: "2c07ba66c1b6612aaeb9bc45643e4fef13b0b772c0a2d505c59767416c638360"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   pdfrx:
     dependency: "direct main"
     description:
-      path: "packages/pdfrx"
-      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      resolved-ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      url: "https://github.com/CodeDoctorDE/pdfrx"
-    source: git
-    version: "2.2.8"
+      name: pdfrx
+      sha256: cc9513ecdcfb78e1c2af4ca0e014a05dc3e6fd21933ee92e1c956013449905e6
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.9"
   pdfrx_engine:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "packages/pdfrx_engine"
-      ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      resolved-ref: c49d4c38b15c56a8d25a410a75a7378457d66b56
-      url: "https://github.com/CodeDoctorDE/pdfrx"
-    source: git
-    version: "0.2.4"
+      name: pdfrx_engine
+      sha256: c43ccbb72d56a164b9a6c66d20e87929c63d6b25f739a6869941c88d667af010
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   perfect_freehand:
     dependency: "direct main"
     description:
