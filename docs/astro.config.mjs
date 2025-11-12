@@ -18,7 +18,8 @@ export default defineConfig({
       title: "Linwood Butterfly",
       customCss: [
         // Relative path to your custom CSS file
-        "./src/styles/custom.css",
+        "./src/styles/linwood-style.scss",
+        "./src/styles/custom.scss",
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',

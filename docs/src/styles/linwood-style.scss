@@ -1,0 +1,90 @@
+@use '@linwooddev/style/scss/mixins.scss' as lw;
+
+:root {
+  --ls-primary: var(--sl-color-accent);
+  --ls-primary-text: #fff;
+  --ls-background-text: var(--sl-color-text);
+  --ls-background: var(--sl-color-gray-7);
+}
+:root[data-theme="light"] {
+  --ls-elevation: rgba(0, 0, 0, 0.1);
+}
+
+.sl-link-button {
+  @include lw.button-base();
+}
+
+a.btn {
+  @include lw.button-base;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  @include lw.link-base;
+}
+
+.actions {
+  gap: 0.5rem;
+}
+
+input {
+  @include lw.input-base();
+}
+.label-icon {
+  z-index: 1;
+  margin-left: 0.5rem;
+}
+select {
+  @include lw.choice-base;
+  @include lw.select-enhancements();
+  background-image: none;
+  width: revert-layer;
+  padding-left: 1.5rem;
+}
+option {
+  @include lw.option-base();
+  color: var(--ls-background-text);
+}
+.sl-link-card a {
+  text-decoration: none;
+}
+.sidebar-content {
+  padding-left: 6px;
+  summary {
+    @extend .secondary;
+    @include lw.button-base;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    &:hover {
+      text-decoration: none;
+    }
+    span {
+      color: inherit;
+    }
+
+  }
+  li a {
+    @include lw.button-base;
+    justify-content: start;
+  }
+  [aria-current='page'],
+  [aria-current='page']:hover,
+  [aria-current='page']:focus {
+    @extend .primary;
+  }
+}
+
+site-search button {
+  @include lw.input-base();
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icons a {
+  @extend .secondary;
+  @include lw.button-base();
+  padding: 0.5rem;
+  border-radius: 50%;
+}

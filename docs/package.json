@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.5",
     "@astrojs/react": "^4.4.2",
     "@astrojs/starlight": "^0.36.2",
+    "@linwooddev/style": "https://github.com/LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
