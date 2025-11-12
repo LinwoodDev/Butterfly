@@ -2,7 +2,7 @@
 title: 快捷键
 ---
 
-## Keyboard
+## 键盘
 
 您可以在编辑器中使用一些快捷方式。
 其中一些是在按钮下面写的。
@@ -12,11 +12,10 @@ title: 快捷键
 - `Ctrl` + `N`: 新建文件
 - `Ctrl` + `Shift` + `N`: 模板中的新文件
 - `Ctrl` + `E`：导出文件
-- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `P`：打印文件
-- `Ctrl` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Alt` + `Shift` + `E`): Export file as image
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `E`: 导出文件为 svg
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: 打开包
 - `Ctrl` + `Alt` + `S`: 打开设置
 
