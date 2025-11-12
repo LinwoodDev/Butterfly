@@ -12,11 +12,10 @@ Noen av dem er skrevet under knappene.
 - `Ctrl` + `N`: Ny fil
 - `Ctrl` + `Shift` + `N`: Ny fil fra mal
 - `Ctrl` + `E`: Eksporter fil
-- `Ctrl` + `P`: Skriv ut fil
-- `Ctrl` + `Shift` + `E`: Eksporter som bilde
-- `Ctrl` + `Alt` + `E`: Eksporter filen som svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Åpne pakker
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Åpne innstillinger
 - `Ctrl` + `Alt` + `S`: Åpne innstillinger
 
