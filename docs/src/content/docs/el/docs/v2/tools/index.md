@@ -1,5 +1,5 @@
 ---
-title: Εργαλεία
+title: "Εργαλεία"
 ---
 
 Tools can edit the paper.

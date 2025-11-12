@@ -136,7 +136,8 @@ class FileSystemDirectoryTreeViewState
 
   Future<void> _newFolder() async {
     String name = '';
-    final success = await showDialog<bool>(
+    final success =
+        await showDialog<bool>(
           context: context,
           builder: (context) {
             return AlertDialog(

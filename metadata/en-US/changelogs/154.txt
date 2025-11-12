@@ -1,0 +1,7 @@
+* Fix loading documents does not load metadata and info
+* Fix autosaving will save multiple times
+* Fix templates will be recreated on every app start
+* Fix duplicating opens context menu and selects the old element
+* Fix search results does not show page as untitled
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.2

@@ -18,6 +18,7 @@ Noen av dem er skrevet under knappene.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Åpne pakker
 - `Ctrl` + `Alt` + `S`: Åpne innstillinger
+- `Ctrl` + `Alt` + `S`: Åpne innstillinger
 
 ### Prosjekt
 
@@ -40,16 +41,18 @@ Som standard konfigureres pennen til å fungere som følgende:
 - `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy mens du trykker.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Konfigurer {#configure}
+## Configuring {#configure}
 
-Du kan tilpasse kontrollene ved å gi hver kontroll en verktøyindeks. Verktøyet som indekserer fra venstre av verktøylinjen, starter med at '1' er den første indeksen. Se eksempelet nedenfor
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 \==verktøylinje nummerert](toolbar_numbered.png)
-
-Her viser 1 til lassoverktøyet 2, til panserverktøyet osv.
-
-Konfigurere innstillingene du har er følgende:
-
-- Tom - verktøyet er ubelastet.
-- 0 - verktøyet fungerer som flytting (dvs. hånd) i denne moden.
-- Positivt nummer - Verktøyet vil følge indekseringen som forklarer ovenfor.

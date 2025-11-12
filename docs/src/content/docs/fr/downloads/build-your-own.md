@@ -1,5 +1,5 @@
 ---
-title: Construisez la vôtre
+title: "Construisez la vôtre"
 ---
 
 1. Installer git et flutter (bêta)
@@ -12,5 +12,5 @@ title: Construisez la vôtre
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-      after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. Les fichiers compilés sont dans le répertoire de compilation

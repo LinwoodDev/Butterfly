@@ -27,13 +27,24 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return SvgElementSelection([selected as Renderer<SvgElement>])
           as ElementSelection<T>;
     }
+    if (selected is Renderer<PolygonElement>) {
+      return PolygonElementSelection([selected as Renderer<PolygonElement>])
+          as ElementSelection<T>;
+    }
+    if (selected is Renderer<PdfElement>) {
+      return PdfElementSelection([selected as Renderer<PdfElement>])
+          as ElementSelection<T>;
+    }
     return ElementSelection([selected]);
   }
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final position = selected.fold(
-            Offset.zero, (p, e) => p + (e.rect?.topLeft ?? Offset.zero)) /
+    final position =
+        selected.fold(
+          Offset.zero,
+          (p, e) => p + (e.rect?.topLeft ?? Offset.zero),
+        ) /
         selected.length.toDouble();
     return [
       ...super.buildProperties(context),
@@ -42,13 +53,16 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         title: Text(AppLocalizations.of(context).position),
         onChanged: (value) {
           updateElements(
-              context,
-              selected
-                  .map((e) =>
+            context,
+            selected
+                .map(
+                  (e) =>
                       e.transform(position: value, relative: false)?.element ??
-                      e.element)
-                  .whereType<T>()
-                  .toList());
+                      e.element,
+                )
+                .whereType<T>()
+                .toList(),
+          );
         },
       ),
       ExactSlider(
@@ -59,13 +73,16 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         header: Text(AppLocalizations.of(context).rotation),
         onChangeEnd: (value) {
           updateElements(
-              context,
-              selected
-                  .map((e) =>
+            context,
+            selected
+                .map(
+                  (e) =>
                       e.transform(rotation: value, relative: false)?.element ??
-                      e.element)
-                  .whereType<T>()
-                  .toList());
+                      e.element,
+                )
+                .whereType<T>()
+                .toList(),
+          );
         },
       ),
     ];
@@ -100,12 +117,14 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final page = state.page;
     final document = state.data;
     final assetService = state.assetService;
-    final renderers = await Future.wait(elements.map((e) async {
-      final renderer = Renderer.fromInstance(e);
-      await renderer.setup(document, assetService, page);
-      return renderer;
-    }).toList());
-    // ignore: use_build_context_synchronously
+    final transformCubit = state.transformCubit;
+    final renderers = await Future.wait(
+      elements.map((e) async {
+        final renderer = Renderer.fromInstance(e);
+        await renderer.setup(transformCubit, document, assetService, page);
+        return renderer;
+      }).toList(),
+    );
     update(context, renderers);
   }
 
@@ -146,9 +165,11 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   @override
   Selection? remove(dynamic selected) {
     final selections = List.from(this.selected);
-    selections.removeWhere((element) =>
-        element == selected ||
-        (element is Renderer && element.element == selected));
+    selections.removeWhere(
+      (element) =>
+          element == selected ||
+          (element is Renderer && element.element == selected),
+    );
     final success = selections.length != this.selected.length;
     if (!success) return this;
     if (selections.isEmpty) return null;

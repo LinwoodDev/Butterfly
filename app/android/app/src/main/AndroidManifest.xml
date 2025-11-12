@@ -1,9 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <application
         android:label="${appName}"
+        android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -39,42 +42,178 @@
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- file:// URIs -->
                 <data
+                    android:scheme="file"
                     android:mimeType="application/octet-stream"
-                    android:host="*"
+                    android:pathPattern=".*\\.bfly" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/x-butterfly"
+                    android:pathPattern=".*\\.bfly" />
+
+                <!-- content:// URIs -->
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.bfly" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/x-butterfly"
                     android:pathPattern=".*\\.bfly" />
             </intent-filter>
+
+            <!-- .tbfly files (application/octet-stream + custom mime) -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/zip" />
+
+                <!-- file:// URIs -->
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.tbfly" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/x-text-butterfly"
+                    android:pathPattern=".*\\.tbfly" />
+
+                <!-- content:// URIs -->
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.tbfly" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/x-text-butterfly"
+                    android:pathPattern=".*\\.tbfly" />
             </intent-filter>
+
+            <!-- ZIP files -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/pdf" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/zip"
+                    android:pathPattern=".*\\.zip" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/zip"
+                    android:pathPattern=".*\\.zip" />
             </intent-filter>
+
+            <!-- PDF files -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/pdf"
+                    android:pathPattern=".*\\.pdf" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/pdf"
+                    android:pathPattern=".*\\.pdf" />
+            </intent-filter>
+
+            <!-- Images -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="image/*"
+                    android:pathPattern=".*\\.(jpg|jpeg|png|gif|bmp|webp)" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="image/*"
+                    android:pathPattern=".*\\.(jpg|jpeg|png|gif|bmp|webp)" />
+            </intent-filter>
+
+
+            <!-- Markdown files (.md) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- file:// URIs -->
+                <data
+                    android:scheme="file"
+                    android:mimeType="text/markdown"
+                    android:pathPattern=".*\\.md" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.md" />
+
+                <!-- content:// URIs -->
+                <data
+                    android:scheme="content"
+                    android:mimeType="text/markdown"
+                    android:pathPattern=".*\\.md" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.md" />
+            </intent-filter>
+
+            <!-- Text files (.txt) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- file:// URIs -->
+                <data
+                    android:scheme="file"
+                    android:mimeType="text/plain"
+                    android:pathPattern=".*\\.txt" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.txt" />
+
+                <!-- content:// URIs -->
+                <data
+                    android:scheme="content"
+                    android:mimeType="text/plain"
+                    android:pathPattern=".*\\.txt" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.txt" />
             </intent-filter>
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+
+        <!-- Flutter plugin registrant -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- DataProvider for SuperClipboard -->
         <provider
             android:name="com.superlist.super_native_extensions.DataProvider"
             android:authorities="${applicationId}.SuperClipboardDataProvider"
             android:exported="true"
-            android:grantUriPermissions="true">
-        </provider>
+            android:grantUriPermissions="true" />
+
     </application>
+
+    <!-- Required for text processing plugins -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 </manifest>

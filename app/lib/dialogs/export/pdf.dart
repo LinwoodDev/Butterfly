@@ -1,4 +1,6 @@
 import 'package:butterfly/api/save.dart';
+import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +10,6 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:printing/printing.dart';
 
 import '../../bloc/document_bloc.dart';
 
@@ -79,9 +80,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           context: context,
                           builder: (_) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
-                            child: _AreaSelectionDialog(
-                              document: state.data,
-                            ),
+                            child: _AreaSelectionDialog(document: state.data),
                           ),
                         );
                         if (result != null) {
@@ -108,174 +107,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       children: [
                         Flexible(
                           child: areas.isEmpty
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context).noElements,
-                                      textAlign: TextAlign.center,
-                                      style: TextTheme.of(
-                                        context,
-                                      ).headlineMedium,
-                                    ),
-                                    Align(
-                                      child: ConstrainedBox(
-                                        constraints: const BoxConstraints(
-                                          maxWidth: 400,
-                                        ),
-                                        child: const Divider(),
-                                      ),
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context).addAll,
-                                      textAlign: TextAlign.center,
-                                      style: TextTheme.of(context).bodyLarge,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton.icon(
-                                          label: Text(
-                                            AppLocalizations.of(context).page,
-                                          ),
-                                          icon: const PhosphorIcon(
-                                            PhosphorIconsLight.book,
-                                          ),
-                                          onPressed: () {
-                                            final areas = state.page.areas;
-                                            setState(() {
-                                              this.areas.addAll(
-                                                    areas.map(
-                                                      (e) => AreaPreset(
-                                                        name: e.name,
-                                                        page: state.pageName,
-                                                      ),
-                                                    ),
-                                                  );
-                                            });
-                                          },
-                                        ),
-                                        ElevatedButton.icon(
-                                          label: Text(
-                                            AppLocalizations.of(
-                                              context,
-                                            ).document,
-                                          ),
-                                          icon: const PhosphorIcon(
-                                            PhosphorIconsLight.file,
-                                          ),
-                                          onPressed: () {
-                                            final areas = state.data
-                                                .getPages(true)
-                                                .expand(
-                                                  (e) =>
-                                                      (state.pageName == e
-                                                              ? state.page
-                                                              : state.data
-                                                                  .getPage(
-                                                                  e,
-                                                                ))
-                                                          ?.areas
-                                                          .map(
-                                                            (
-                                                              area,
-                                                            ) =>
-                                                                AreaPreset(
-                                                              name: area.name,
-                                                              page: e,
-                                                            ),
-                                                          )
-                                                          .toList() ??
-                                                      <AreaPreset>[],
-                                                )
-                                                .toList();
-                                            setState(() {
-                                              this.areas.addAll(areas);
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              : SingleChildScrollView(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    children: areas.mapIndexed((i, e) {
-                                      final page = (e.page == state.pageName
-                                              ? null
-                                              : state.data.getPage(
-                                                  e.page,
-                                                )) ??
-                                          state.page;
-                                      final area =
-                                          e.area ?? page.getAreaByName(e.name);
-                                      if (area == null) {
-                                        return Container();
-                                      }
-                                      return FutureBuilder<ByteData?>(
-                                        future: currentIndex.render(
-                                          state.data,
-                                          page,
-                                          state.info,
-                                          ImageExportOptions(
-                                            width: area.width,
-                                            height: area.height,
-                                            quality: e.quality,
-                                            x: area.position.x,
-                                            y: area.position.y,
-                                          ),
-                                        ),
-                                        builder: (
-                                          context,
-                                          snapshot,
-                                        ) =>
-                                            _AreaPreview(
-                                          area: area,
-                                          page: e.page,
-                                          quality: e.quality,
-                                          onRemove: () {
-                                            setState(() {
-                                              areas.removeAt(i);
-                                            });
-                                          },
-                                          onQualityChanged: (value) {
-                                            setState(() {
-                                              areas[i] = e.copyWith(
-                                                quality: value,
-                                              );
-                                            });
-                                          },
-                                          onMoveLeft: i == 0
-                                              ? null
-                                              : () {
-                                                  setState(() {
-                                                    final temp = areas[i - 1];
-                                                    areas[i - 1] = areas[i];
-                                                    areas[i] = temp;
-                                                  });
-                                                },
-                                          onMoveRight: i >= areas.length - 1
-                                              ? null
-                                              : () {
-                                                  setState(() {
-                                                    final temp = areas[i + 1];
-                                                    areas[i + 1] = areas[i];
-                                                    areas[i] = temp;
-                                                  });
-                                                },
-                                          image: snapshot.data?.buffer
-                                              .asUint8List(),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
+                              ? _buildEmptyState(state)
+                              : _buildAreasList(state, currentIndex),
                         ),
                         const Divider(),
                         Row(
@@ -293,20 +126,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               ElevatedButton(
                                 child: Text(
                                   widget.print
-                                      ? AppLocalizations.of(context).print
+                                      ? AppLocalizations.of(context).share
                                       : AppLocalizations.of(context).export,
                                 ),
                                 onPressed: () async {
-                                  await Printing.layoutPdf(
-                                    onLayout: (_) async =>
-                                        (await currentIndex.renderPDF(
-                                      state.data,
-                                      state.info,
-                                      areas: areas,
-                                      state: state,
-                                    ))
-                                            .save(),
-                                  );
+                                  await _export(true);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -317,17 +141,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                     AppLocalizations.of(context).share,
                                   ),
                                   onPressed: () async {
-                                    await exportPdf(
-                                      context,
-                                      await (await currentIndex.renderPDF(
-                                        state.data,
-                                        state.info,
-                                        areas: areas,
-                                        state: state,
-                                      ))
-                                          .save(),
-                                      true,
-                                    );
+                                    await _export(true);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -336,16 +150,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                   AppLocalizations.of(context).export,
                                 ),
                                 onPressed: () async {
-                                  await exportPdf(
-                                    context,
-                                    await (await currentIndex.renderPDF(
-                                      state.data,
-                                      state.info,
-                                      areas: areas,
-                                      state: state,
-                                    ))
-                                        .save(),
-                                  );
+                                  await _export(false);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -360,6 +165,186 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Future<void> _export(bool share) async {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final loading = showLoadingDialog(context);
+    try {
+      final pdf = await state.currentIndexCubit.renderPDF(
+        state,
+        areas: areas,
+        onProgress: (progress) => loading?.setProgress(progress),
+      );
+      if (pdf == null) {
+        throw Exception('Failed to generate PDF.');
+      }
+      await exportPdf(context, pdf, share);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context).error),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      loading?.close();
+    }
+  }
+
+  Widget _buildEmptyState(DocumentLoaded state) {
+    final pageAreas = state.page.areas;
+    Widget pageButton = ElevatedButton.icon(
+      label: Text(AppLocalizations.of(context).page),
+      icon: const PhosphorIcon(PhosphorIconsLight.book),
+      onPressed: pageAreas.isEmpty
+          ? null
+          : () {
+              setState(() {
+                areas.addAll(
+                  pageAreas.map(
+                    (e) => AreaPreset(name: e.name, page: state.pageName),
+                  ),
+                );
+              });
+            },
+    );
+    if (pageAreas.isEmpty) {
+      pageButton = Tooltip(
+        message: AppLocalizations.of(context).noElements,
+        child: pageButton,
+      );
+    }
+    final documentAreas = state.data
+        .getPages(true)
+        .expand(
+          (e) =>
+              (state.pageName == e ? state.page : state.data.getPage(e))?.areas
+                  .map((area) => AreaPreset(name: area.name, page: e))
+                  .toList() ??
+              <AreaPreset>[],
+        )
+        .toList();
+    Widget documentButton = ElevatedButton.icon(
+      label: Text(AppLocalizations.of(context).document),
+      icon: const PhosphorIcon(PhosphorIconsLight.file),
+      onPressed: documentAreas.isEmpty
+          ? null
+          : () {
+              setState(() {
+                areas.addAll(documentAreas);
+              });
+            },
+    );
+    if (documentAreas.isEmpty) {
+      documentButton = Tooltip(
+        message: AppLocalizations.of(context).noElements,
+        child: documentButton,
+      );
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          AppLocalizations.of(context).noElements,
+          textAlign: TextAlign.center,
+          style: TextTheme.of(context).headlineMedium,
+        ),
+        Align(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: const Divider(),
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context).pdfEmptyDescription,
+          textAlign: TextAlign.center,
+          style: TextTheme.of(context).bodyMedium,
+        ),
+        const SizedBox(height: 4),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 4,
+          children: [pageButton, documentButton],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
+    return SingleChildScrollView(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: areas.mapIndexed((i, e) {
+          final page =
+              (e.page == state.pageName ? null : state.data.getPage(e.page)) ??
+              state.page;
+          final area = e.area ?? page.getAreaByName(e.name);
+          if (area == null) {
+            return Container();
+          }
+          return FutureBuilder<ByteData?>(
+            future: currentIndex.render(
+              state.data,
+              page,
+              state.info,
+              ImageExportOptions(
+                width: area.width,
+                height: area.height,
+                quality: e.quality,
+                x: area.position.x,
+                y: area.position.y,
+              ),
+            ),
+            builder: (context, snapshot) => _AreaPreview(
+              area: area,
+              page: e.page,
+              quality: e.quality,
+              onRemove: () {
+                setState(() {
+                  areas.removeAt(i);
+                });
+              },
+              onQualityChanged: (value) {
+                setState(() {
+                  areas[i] = e.copyWith(quality: value);
+                });
+              },
+              onMoveLeft: i == 0
+                  ? null
+                  : () {
+                      setState(() {
+                        final temp = areas[i - 1];
+                        areas[i - 1] = areas[i];
+                        areas[i] = temp;
+                      });
+                    },
+              onMoveRight: i >= areas.length - 1
+                  ? null
+                  : () {
+                      setState(() {
+                        final temp = areas[i + 1];
+                        areas[i + 1] = areas[i];
+                        areas[i] = temp;
+                      });
+                    },
+              image: snapshot.data?.buffer.asUint8List(),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -496,33 +481,34 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                       previous.pageName != current.pageName,
                   builder: (context, state) => ListView(
                     shrinkWrap: true,
-                    children: (_onlyCurrentPage
-                            ? [state.pageName ?? 'default']
-                            : widget.document.getPages())
-                        .expand(
-                          (page) =>
-                              (page == state.pageName
-                                      ? state.page
-                                      : widget.document.getPage(page))
-                                  ?.areas
-                                  .where(
-                                    (element) => element.name.contains(
-                                      _searchQuery,
-                                    ),
-                                  )
-                                  .map((e) {
-                                return ListTile(
-                                  title: Text(e.name),
-                                  subtitle: Text(page),
-                                  key: ObjectKey(e.name),
-                                  onTap: () => Navigator.of(
-                                    context,
-                                  ).pop((page, e)),
-                                );
-                              }).toList() ??
-                              <Widget>[],
-                        )
-                        .toList(),
+                    children:
+                        (_onlyCurrentPage
+                                ? [state.pageName ?? '']
+                                : widget.document.getPages())
+                            .expand(
+                              (page) =>
+                                  (page == state.pageName
+                                          ? state.page
+                                          : widget.document.getPage(page))
+                                      ?.areas
+                                      .where(
+                                        (element) =>
+                                            element.name.contains(_searchQuery),
+                                      )
+                                      .map((e) {
+                                        return ListTile(
+                                          title: Text(e.name),
+                                          subtitle: Text(page),
+                                          key: ObjectKey(e.name),
+                                          onTap: () => Navigator.of(
+                                            context,
+                                          ).pop((page, e)),
+                                        );
+                                      })
+                                      .toList() ??
+                                  <Widget>[],
+                            )
+                            .toList(),
                   ),
                 ),
               ),
@@ -626,8 +612,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                 key: ObjectKey(e.name),
                                 onDismissed: (direction) {
                                   context.read<DocumentBloc>().add(
-                                        ExportPresetRemoved(e.name),
-                                      );
+                                    ExportPresetRemoved(e.name),
+                                  );
                                 },
                                 child: ListTile(
                                   title: Text(e.name),
@@ -641,9 +627,8 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                             title: Text(
                               AppLocalizations.of(context).newContent,
                             ),
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pop(const ExportPreset()),
+                            onTap: () =>
+                                Navigator.of(context).pop(const ExportPreset()),
                           ),
                         ],
                       ],

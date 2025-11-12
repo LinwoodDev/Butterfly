@@ -12,8 +12,10 @@ sealed class Waypoint with _$Waypoint {
   static const Waypoint defaultOrigin = Waypoint(originName, Point(0, 0), 1);
 
   const factory Waypoint(
-      String? name, @DoublePointJsonConverter() Point<double> position,
-      [double? scale]) = _Waypoint;
+    String? name,
+    @DoublePointJsonConverter() Point<double> position, [
+    double? scale,
+  ]) = _Waypoint;
 
   factory Waypoint.fromJson(Map<String, dynamic> json) =>
       _$WaypointFromJson(json);

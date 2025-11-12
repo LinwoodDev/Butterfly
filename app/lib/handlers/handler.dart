@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -20,6 +21,7 @@ import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/views/toolbar/polygon.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -77,6 +79,7 @@ part 'presentation.dart';
 part 'redo.dart';
 part 'ruler.dart';
 part 'grid.dart';
+part 'polygon.dart';
 part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
@@ -90,8 +93,13 @@ class EventContext {
   final Size viewportSize;
   final bool isShiftPressed, isAltPressed, isCtrlPressed;
 
-  const EventContext(this.buildContext, this.viewportSize, this.isShiftPressed,
-      this.isAltPressed, this.isCtrlPressed);
+  const EventContext(
+    this.buildContext,
+    this.viewportSize,
+    this.isShiftPressed,
+    this.isAltPressed,
+    this.isCtrlPressed,
+  );
 
   DocumentBloc getDocumentBloc() => BlocProvider.of<DocumentBloc>(buildContext);
   DocumentLoadSuccess? getState() {
@@ -111,7 +119,7 @@ class EventContext {
   }
 
   void addDocumentEvent(DocumentEvent event) => getDocumentBloc().add(event);
-  double get devicePixelRatio => MediaQuery.of(buildContext).devicePixelRatio;
+  double get devicePixelRatio => MediaQuery.devicePixelRatioOf(buildContext);
 
   TransformCubit getTransformCubit() =>
       BlocProvider.of<TransformCubit>(buildContext);
@@ -129,17 +137,22 @@ class EventContext {
       BlocProvider.of<SettingsCubit>(buildContext);
   ButterflySettings getSettings() => getSettingsCubit().state;
 
-  Future<void> bake(
-          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      getDocumentBloc().bake(
-          pixelRatio: pixelRatio, viewportSize: viewportSize, reset: reset);
+  Future<void> bake({
+    Size? viewportSize,
+    double? pixelRatio,
+    bool reset = false,
+  }) => getDocumentBloc().bake(
+    pixelRatio: pixelRatio,
+    viewportSize: viewportSize,
+    reset: reset,
+  );
 
   List<BlocProvider> getProviders() => [
-        BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
-        BlocProvider<TransformCubit>.value(value: getTransformCubit()),
-        BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
-        BlocProvider<SettingsCubit>.value(value: getSettingsCubit())
-      ];
+    BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
+    BlocProvider<TransformCubit>.value(value: getTransformCubit()),
+    BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
+    BlocProvider<SettingsCubit>.value(value: getSettingsCubit()),
+  ];
 
   Map<Type, Action<Intent>> getActions() =>
       buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
@@ -156,6 +169,9 @@ class EventContext {
 
   DocumentPage? getPage() => getState()?.page;
   DocumentInfo? getInfo() => getState()?.info;
+
+  ButterflyFileSystem getFileSystem() =>
+      buildContext.read<ButterflyFileSystem>();
 }
 
 enum ToolStatus { normal, disabled, selected }
@@ -167,19 +183,26 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  SelectState onSelected(BuildContext context, [bool wasAdded = true]) =>
-      SelectState.normal;
+  FutureOr<SelectState> onSelected(
+    BuildContext context, [
+    bool wasAdded = true,
+  ]) => SelectState.normal;
 
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [];
 
   bool get setupForegrounds => true;
 
   bool onRendererUpdated(
-          DocumentPage page, Renderer old, List<Renderer> updated) =>
-      false;
+    DocumentPage page,
+    Renderer old,
+    List<Renderer> updated,
+  ) => false;
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
@@ -214,7 +237,14 @@ abstract class Handler<T> {
   void onDoubleTap(EventContext context) {}
 
   void onLongPressStart(
-      LongPressStartDetails details, EventContext eventContext) {}
+    LongPressStartDetails details,
+    EventContext eventContext,
+  ) {}
+
+  void onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) {}
 
   void onLongPressDown(LongPressDownDetails details, EventContext context) {}
 
@@ -233,34 +263,36 @@ abstract class Handler<T> {
 
   static Handler<T> fromTool<T extends Tool>(T tool) {
     return switch (tool) {
-      HandTool() => HandHandler(tool),
-      SelectTool() => SelectHandler(tool),
-      ImportTool() => ImportHandler(tool),
-      UndoTool() => UndoHandler(tool),
-      RedoTool() => RedoHandler(tool),
-      LabelTool() => LabelHandler(tool),
-      PenTool() => PenHandler(tool),
-      EraserTool() => EraserHandler(tool),
-      PathEraserTool() => PathEraserHandler(tool),
-      CollectionTool() => CollectionHandler(tool),
-      AreaTool() => AreaHandler(tool),
-      LaserTool() => LaserHandler(tool),
-      ShapeTool() => ShapeHandler(tool),
-      StampTool() => StampHandler(tool),
-      PresentationTool() => PresentationHandler(tool),
-      SpacerTool() => SpacerHandler(tool),
-      FullScreenTool() => FullScreenHandler(tool),
-      TextureTool() => TextureHandler(tool),
-      AssetTool() => AssetHandler(tool),
-      EyeDropperTool() => EyeDropperHandler(tool),
-      ExportTool() => ExportHandler(tool),
-      GridTool() => GridHandler(tool),
-      RulerTool() => RulerHandler(tool),
-      BarcodeTool() => BarcodeHandler(tool),
-    } as Handler<T>;
+          HandTool() => HandHandler(tool),
+          SelectTool() => SelectHandler(tool),
+          ImportTool() => ImportHandler(tool),
+          UndoTool() => UndoHandler(tool),
+          RedoTool() => RedoHandler(tool),
+          LabelTool() => LabelHandler(tool),
+          PenTool() => PenHandler(tool),
+          EraserTool() => EraserHandler(tool),
+          PathEraserTool() => PathEraserHandler(tool),
+          CollectionTool() => CollectionHandler(tool),
+          AreaTool() => AreaHandler(tool),
+          LaserTool() => LaserHandler(tool),
+          ShapeTool() => ShapeHandler(tool),
+          StampTool() => StampHandler(tool),
+          PresentationTool() => PresentationHandler(tool),
+          SpacerTool() => SpacerHandler(tool),
+          FullScreenTool() => FullScreenHandler(tool),
+          TextureTool() => TextureHandler(tool),
+          AssetTool() => AssetHandler(tool),
+          EyeDropperTool() => EyeDropperHandler(tool),
+          ExportTool() => ExportHandler(tool),
+          GridTool() => GridHandler(tool),
+          RulerTool() => RulerHandler(tool),
+          BarcodeTool() => BarcodeHandler(tool),
+          PolygonTool() => PolygonHandler(tool),
+        }
+        as Handler<T>;
   }
 
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
+  FutureOr<PreferredSizeWidget?> getToolbar(DocumentBloc bloc) => null;
 
   Map<String, RendererState> get rendererStates => const {};
 
@@ -268,13 +300,14 @@ abstract class Handler<T> {
 
   @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
-        PasteTextIntent: CallbackAction<PasteTextIntent>(
-            onInvoke: (intent) =>
-                Actions.maybeInvoke(context, PasteIntent(context))),
-        SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-            onInvoke: (intent) =>
-                Actions.maybeInvoke(context, SelectAllIntent(context))),
-      };
+    PasteTextIntent: CallbackAction<PasteTextIntent>(
+      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent(context)),
+    ),
+    SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+      onInvoke: (intent) =>
+          Actions.maybeInvoke(context, SelectAllIntent(context)),
+    ),
+  };
 
   MouseCursor? get cursor => null;
 }

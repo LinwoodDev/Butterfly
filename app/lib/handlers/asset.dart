@@ -5,8 +5,9 @@ class AssetHandler extends Handler<AssetTool> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localPosition);
+    final globalPos = context.getCameraTransform().localToGlobal(
+      details.localPosition,
+    );
     showImportAssetWizard(
       data.importType,
       context.buildContext,
@@ -18,27 +19,43 @@ class AssetHandler extends Handler<AssetTool> {
   }
 }
 
-Future<void> showImportAssetWizard(ImportType type, BuildContext context,
-    DocumentBloc bloc, ImportService service,
-    {Offset? position, bool advanced = true}) async {
+Future<void> showImportAssetWizard(
+  ImportType type,
+  BuildContext context,
+  DocumentBloc bloc,
+  ImportService service, {
+  Offset? position,
+  bool advanced = true,
+}) async {
   Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    await service.import(type, bytes,
-        document: state.data, position: position, advanced: advanced);
+    await service
+        .import(
+          type,
+          bytes,
+          document: state.data,
+          position: position,
+          advanced: advanced,
+        )
+        .then((e) => e?.submit());
   }
 
-  Future<void> importWithDialog(AssetFileType type) async {
-    final (result, _) = await importFile(context, [type]);
+  Future<void> importWithDialog(List<AssetFileType> type) async {
+    final (result, fileExtension) = await importFile(context, type);
     if (result == null) return;
-    return importAsset(type, result);
+    return importAsset(
+      AssetFileTypeHelper.fromFileExtension(fileExtension) ??
+          AssetFileType.note,
+      result,
+    );
   }
 
   if (!await type.isAvailable()) return;
 
   switch (type) {
     case ImportType.image:
-      return importWithDialog(AssetFileType.image);
+      return importWithDialog([AssetFileType.image]);
     case ImportType.camera:
       final content = await showDialog<Uint8List>(
         context: context,
@@ -47,7 +64,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       if (content == null) return;
       return importAsset(AssetFileType.image, content);
     case ImportType.svg:
-      return importWithDialog(AssetFileType.svg);
+      return importWithDialog([AssetFileType.svg]);
     case ImportType.svgText:
       final controller = TextEditingController();
       final result = await showDialog<bool>(
@@ -67,8 +84,9 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
               suffixIcon: IconButton(
                 icon: const Icon(PhosphorIconsLight.clipboard),
                 onPressed: () async {
-                  final clipboard =
-                      await Clipboard.getData(Clipboard.kTextPlain);
+                  final clipboard = await Clipboard.getData(
+                    Clipboard.kTextPlain,
+                  );
                   final data = clipboard?.text;
                   if (data != null) controller.text = data;
                 },
@@ -90,12 +108,12 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       if (result != true) return;
       return importAsset(AssetFileType.svg, utf8.encode(controller.text));
     case ImportType.pdf:
-      return importWithDialog(AssetFileType.pdf);
+      return importWithDialog([AssetFileType.pdf]);
     case ImportType.document:
-      return importWithDialog(AssetFileType.note);
+      return importWithDialog([AssetFileType.note, AssetFileType.textNote]);
     case ImportType.markdown:
-      return importWithDialog(AssetFileType.markdown);
+      return importWithDialog([AssetFileType.markdown]);
     case ImportType.xopp:
-      return importWithDialog(AssetFileType.xopp);
+      return importWithDialog([AssetFileType.xopp]);
   }
 }

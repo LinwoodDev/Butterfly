@@ -6,4 +6,10 @@
     <comment>Butterfly files</comment>
     <glob pattern="*.bfly"/>
   </mime-type>
+  <mime-type type="application/x-text-butterfly">
+    <sub-class-of type="application/json"/>
+    <icon name="dev.linwood.butterfly"/>
+    <comment>Butterfly text files</comment>
+    <glob pattern="*.tbfly"/>
+  </mime-type>
 </mime-info>

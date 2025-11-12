@@ -24,10 +24,14 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
-    _animation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeInOutExpo);
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutExpo,
+    );
     _focusNode.addListener(_onFocus);
   }
 
@@ -44,6 +48,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   @override
   void dispose() {
     _focusNode.dispose();
+    _zoomController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -61,28 +66,30 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 400),
       child: BlocBuilder<DocumentBloc, DocumentState>(
-          buildWhen: (previous, current) =>
-              previous.runtimeType != current.runtimeType,
-          builder: (context, state) => BlocBuilder<WindowCubit, WindowState>(
-              builder: (context, windowState) =>
-                  BlocBuilder<SettingsCubit, ButterflySettings>(
-                    buildWhen: (previous, current) =>
-                        previous.zoomEnabled != current.zoomEnabled,
-                    builder: (context, settings) =>
-                        BlocBuilder<TransformCubit, CameraTransform>(
+        buildWhen: (previous, current) =>
+            previous.runtimeType != current.runtimeType,
+        builder: (context, state) => BlocBuilder<WindowCubit, WindowState>(
+          builder: (context, windowState) =>
+              BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.zoomEnabled != current.zoomEnabled,
+                builder: (context, settings) =>
+                    BlocBuilder<TransformCubit, CameraTransform>(
                       buildWhen: (previous, current) =>
                           previous.size != current.size,
                       builder: (context, transform) {
                         var scale = transform.size;
-                        final currentIndexCubit =
-                            context.read<CurrentIndexCubit>();
-                        final hideZoom = !settings.zoomEnabled ||
+                        final currentIndexCubit = context
+                            .read<CurrentIndexCubit>();
+                        final hideZoom =
+                            !settings.zoomEnabled ||
                             windowState.fullScreen ||
                             currentIndexCubit.state.hideUi != HideState.visible;
                         void zoom(double value, [bool bake = true]) {
                           final state = context.read<DocumentBloc>().state;
-                          final currentIndex =
-                              context.read<CurrentIndexCubit>().state;
+                          final currentIndex = context
+                              .read<CurrentIndexCubit>()
+                              .state;
                           if (state is! DocumentLoaded) {
                             return;
                           }
@@ -110,45 +117,48 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                             return LayoutBuilder(
                               builder: (context, constraints) {
                                 return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 75,
-                                        child: TextFormField(
-                                          textAlign: TextAlign.center,
-                                          controller: _zoomController,
-                                          keyboardType: TextInputType.number,
-                                          focusNode: _focusNode,
-                                          onChanged: (value) {
-                                            setState(() => scale =
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 75,
+                                      child: TextFormField(
+                                        textAlign: TextAlign.center,
+                                        controller: _zoomController,
+                                        keyboardType: TextInputType.number,
+                                        focusNode: _focusNode,
+                                        onChanged: (value) {
+                                          setState(
+                                            () => scale =
                                                 (double.tryParse(value) ??
-                                                        (scale * 100)) /
-                                                    100);
-                                          },
-                                          onEditingComplete: () => zoom(scale),
-                                          onTapOutside: (event) {
-                                            if (!_focusNode.hasFocus) return;
-                                            zoom(scale);
-                                            _focusNode.unfocus();
-                                          },
-                                          onFieldSubmitted: (value) =>
-                                              zoom(scale),
-                                        ),
+                                                    (scale * 100)) /
+                                                100,
+                                          );
+                                        },
+                                        onEditingComplete: () => zoom(scale),
+                                        onTapOutside: (event) {
+                                          if (!_focusNode.hasFocus) return;
+                                          zoom(scale);
+                                          _focusNode.unfocus();
+                                        },
+                                        onFieldSubmitted: (value) =>
+                                            zoom(scale),
                                       ),
-                                      if (!widget.isMobile) ...[
-                                        if (constraints.maxWidth > 200)
-                                          Flexible(
-                                            child: Slider(
-                                              value: scale.clamp(kMinZoom, 10),
-                                              min: kMinZoom,
-                                              max: 10,
-                                              onChanged: (value) =>
-                                                  zoom(value, false),
-                                              onChangeEnd: zoom,
-                                            ),
+                                    ),
+                                    if (!widget.isMobile) ...[
+                                      if (constraints.maxWidth > 200)
+                                        Flexible(
+                                          child: Slider(
+                                            value: scale.clamp(kMinZoom, 10),
+                                            min: kMinZoom,
+                                            max: 10,
+                                            onChanged: (value) =>
+                                                zoom(value, false),
+                                            onChangeEnd: zoom,
                                           ),
-                                      ],
-                                    ]);
+                                        ),
+                                    ],
+                                  ],
+                                );
                               },
                             );
                           },
@@ -181,7 +191,9 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                         );
                       },
                     ),
-                  ))),
+              ),
+        ),
+      ),
     );
   }
 }

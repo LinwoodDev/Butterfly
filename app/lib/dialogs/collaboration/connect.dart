@@ -3,6 +3,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConnectCollaborationDialog extends StatefulWidget {
   const ConnectCollaborationDialog({super.key});
@@ -30,9 +31,16 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
-      title: Text(
-        AppLocalizations.of(context).collaboration,
-      ),
+      title: Text(AppLocalizations.of(context).collaboration),
+      headerActions: [
+        IconButton(
+          icon: const Icon(PhosphorIconsLight.sealQuestion),
+          onPressed: () {
+            openHelp(['collaboration']);
+          },
+          tooltip: AppLocalizations.of(context).help,
+        ),
+      ],
       constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
       content: ListView(
         shrinkWrap: true,
@@ -59,12 +67,9 @@ class ConnectCollaborationDialogState extends State<ConnectCollaborationDialog>
             Navigator.of(context).pop();
             final url = parseConnectUri(Uri.parse(_urlConntroller.text));
             if (url.isEmpty) return;
-            GoRouter.of(context).pushNamed(
-              'connect',
-              queryParameters: {
-                'url': url,
-              },
-            );
+            GoRouter.of(
+              context,
+            ).pushNamed('connect', queryParameters: {'url': url});
           },
           child: Text(AppLocalizations.of(context).connect),
         ),

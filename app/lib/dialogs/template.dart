@@ -10,6 +10,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -20,16 +21,17 @@ import 'delete.dart';
 Future<void> _overrideTools(
   TemplateFileSystem templateSystem,
   DocumentBloc bloc,
-  List<NoteData> templates,
+  List<FileSystemFile<NoteData>> templates,
 ) async {
   final state = bloc.state;
   if (state is! DocumentLoaded) return;
   final tools = state.info.tools;
-  for (var template in templates) {
-    final info = template.getInfo();
+  for (final template in templates) {
+    var data = template.data!;
+    final info = data.getInfo();
     if (info == null) continue;
-    template = template.setInfo(info.copyWith(tools: tools));
-    await templateSystem.updateFile(template.name ?? '', template);
+    data = data.setInfo(info.copyWith(tools: tools));
+    await templateSystem.updateFile(template.path, data);
   }
 }
 
@@ -44,7 +46,7 @@ class TemplateDialog extends StatefulWidget {
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _templateSystem;
   late final ButterflyFileSystem _fileSystem;
-  Future<List<NoteData>>? _templatesFuture;
+  Future<List<FileSystemFile<NoteData>>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
 
@@ -65,14 +67,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
   void load() {
     setState(() {
       _templatesFuture = _templateSystem.initialize().then((value) async {
-        var templates =
-            (await _templateSystem.getFiles()).map((e) => e.data!).toList();
+        var templates = (await _templateSystem.getFiles()).toList();
         templates = templates
             .where(
               (element) =>
-                  element.name?.toLowerCase().contains(
-                        _searchController.text.toLowerCase(),
-                      ) ??
+                  element.data!.name?.toLowerCase().contains(
+                    _searchController.text.toLowerCase(),
+                  ) ??
                   true,
             )
             .toList();
@@ -99,21 +100,27 @@ class _TemplateDialogState extends State<TemplateDialog> {
             load();
           },
         ),
-        IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.export),
-          tooltip: AppLocalizations.of(context).export,
-          onPressed: () async {
-            final archive = Archive();
-            for (final template in (await _templateSystem.getFiles())) {
-              final data = template.data!.exportAsBytes();
-              archive.addFile(
-                ArchiveFile('${template.fileName}.bfly', data.length, data),
-              );
-            }
-            final encoder = ZipEncoder();
-            final bytes = encoder.encode(archive);
-            await exportZip(context, bytes);
-          },
+        MenuAnchor(
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+              child: Text(AppLocalizations.of(context).packagedFile),
+              onPressed: () async {
+                await _exportTemplates();
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+              child: Text(AppLocalizations.of(context).rawFile),
+              onPressed: () async {
+                await _exportTemplates(isTextBased: true);
+              },
+            ),
+          ],
+          builder: defaultMenuButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.export),
+            tooltip: AppLocalizations.of(context).export,
+          ),
         ),
         IconButton(
           icon: const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
@@ -154,7 +161,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
           },
         ),
       ],
-      content: FutureBuilder<List<NoteData>>(
+      content: FutureBuilder<List<FileSystemFile<NoteData>>>(
         future: _templatesFuture,
         builder: _buildBody,
       ),
@@ -163,7 +170,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   Widget _buildBody(
     BuildContext context,
-    AsyncSnapshot<List<NoteData>> snapshot,
+    AsyncSnapshot<List<FileSystemFile<NoteData>>> snapshot,
   ) {
     if (snapshot.hasError) {
       return Text(snapshot.error.toString());
@@ -171,7 +178,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     if (!snapshot.hasData) {
       return const Center(child: CircularProgressIndicator());
     }
-    var templates = snapshot.data!;
+    final templates = snapshot.data!;
     final everythingSelected = _selectedTemplates.length == templates.length;
     return Stack(
       alignment: Alignment.topCenter,
@@ -185,20 +192,22 @@ class _TemplateDialogState extends State<TemplateDialog> {
             right: 8,
           ),
           itemBuilder: (context, index) {
-            var template = templates[index];
+            final template = templates[index];
+            final path = template.path;
             return _TemplateItem(
-              template: template,
+              file: template,
               fileSystem: _templateSystem,
               bloc: widget.bloc,
-              selected: _selectedTemplates.contains(template.name),
+              key: ValueKey(path),
+              selected: _selectedTemplates.contains(path),
               onSelected: () {
                 setState(() {
-                  _selectedTemplates.add(template.name!);
+                  _selectedTemplates.add(path);
                 });
               },
               onUnselected: () {
                 setState(() {
-                  _selectedTemplates.remove(template.name);
+                  _selectedTemplates.remove(path);
                 });
               },
               onChanged: () {
@@ -229,13 +238,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 duration: const Duration(milliseconds: 100),
                 child: _selectedTemplates.isEmpty
                     ? widget.bloc == null
-                        ? SizedBox()
-                        : FloatingActionButton.extended(
-                            onPressed: () => _showCreateDialog(widget.bloc!),
-                            label: Text(LeapLocalizations.of(context).create),
-                            icon: const PhosphorIcon(
-                                PhosphorIconsLight.floppyDisk),
-                          )
+                          ? SizedBox()
+                          : FloatingActionButton.extended(
+                              onPressed: () => _showCreateDialog(widget.bloc!),
+                              label: Text(LeapLocalizations.of(context).create),
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.floppyDisk,
+                              ),
+                            )
                     : Card(
                         child: Padding(
                           padding: const EdgeInsets.all(8),
@@ -248,15 +258,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.selectionInverse,
                                     ),
-                                    tooltip: AppLocalizations.of(context)
-                                        .invertSelection,
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).invertSelection,
                                     onPressed: () {
                                       setState(() {
                                         final inverted = templates
-                                            .map((e) => e.name!)
+                                            .map((e) => e.path)
                                             .toSet()
                                             .difference(
-                                                _selectedTemplates.toSet());
+                                              _selectedTemplates.toSet(),
+                                            );
                                         _selectedTemplates.clear();
                                         _selectedTemplates.addAll(inverted);
                                       });
@@ -270,14 +282,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     ),
                                     tooltip: everythingSelected
                                         ? AppLocalizations.of(context).deselect
-                                        : AppLocalizations.of(context)
-                                            .selectAll,
+                                        : AppLocalizations.of(
+                                            context,
+                                          ).selectAll,
                                     onPressed: () {
                                       setState(() {
                                         _selectedTemplates.clear();
                                         if (!everythingSelected) {
                                           _selectedTemplates.addAll(
-                                              templates.map((e) => e.name!));
+                                            templates.map((e) => e.path),
+                                          );
                                         }
                                       });
                                     },
@@ -291,28 +305,76 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.wrench,
                                       ),
-                                      tooltip: AppLocalizations.of(context)
-                                          .overrideTools,
-                                      onPressed: () => _overrideTools(
-                                        _templateSystem,
-                                        widget.bloc!,
-                                        templates
-                                            .where(
-                                              (element) => _selectedTemplates
-                                                  .contains(element.name),
-                                            )
-                                            .toList(),
-                                      ).then(
-                                        (value) => setState(
-                                          () => _selectedTemplates.clear(),
-                                        ),
-                                      ),
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).overrideTools,
+                                      onPressed: () =>
+                                          _overrideTools(
+                                            _templateSystem,
+                                            widget.bloc!,
+                                            templates
+                                                .where(
+                                                  (element) =>
+                                                      _selectedTemplates
+                                                          .contains(
+                                                            element.path,
+                                                          ),
+                                                )
+                                                .toList(),
+                                          ).then(
+                                            (value) => setState(
+                                              () => _selectedTemplates.clear(),
+                                            ),
+                                          ),
                                     ),
+                                  MenuAnchor(
+                                    menuChildren: [
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                          PhosphorIconsLight.archive,
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          ).packagedFile,
+                                        ),
+                                        onPressed: () async {
+                                          await _exportTemplates(
+                                            useSelected: true,
+                                          );
+                                        },
+                                      ),
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                          PhosphorIconsLight.file,
+                                        ),
+                                        child: Text(
+                                          AppLocalizations.of(context).rawFile,
+                                        ),
+                                        onPressed: () async {
+                                          await _exportTemplates(
+                                            useSelected: true,
+                                            isTextBased: true,
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                    builder: defaultMenuButton(
+                                      icon: const PhosphorIcon(
+                                        PhosphorIconsLight.export,
+                                      ),
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      ).export,
+                                    ),
+                                  ),
                                   IconButton(
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.trash),
-                                    tooltip:
-                                        AppLocalizations.of(context).delete,
+                                      PhosphorIconsLight.trash,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).delete,
                                     onPressed: () async {
                                       final result = await showDialog<bool>(
                                         context: context,
@@ -321,8 +383,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       if (result != true) return;
                                       for (final template
                                           in _selectedTemplates) {
-                                        await _templateSystem
-                                            .deleteFile(template);
+                                        await _templateSystem.deleteFile(
+                                          template,
+                                        );
                                       }
                                       _selectedTemplates.clear();
                                       load();
@@ -390,12 +453,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
             ElevatedButton(
               child: Text(LeapLocalizations.of(context).create),
               onPressed: () async {
-                bloc.createTemplate(
+                Navigator.of(context).pop();
+                await bloc.createTemplate(
                   _templateSystem.storage?.identifier,
                   name: name,
                   directory: directory,
                 );
-                Navigator.of(context).pop();
                 load();
               },
             ),
@@ -404,21 +467,48 @@ class _TemplateDialogState extends State<TemplateDialog> {
       },
     );
   }
+
+  Future<void> _exportTemplates({
+    bool useSelected = false,
+    bool isTextBased = false,
+  }) async {
+    final archive = Archive();
+    final files = (await _templateSystem.getFiles()).where((element) {
+      if (useSelected) {
+        return _selectedTemplates.contains(element.path);
+      }
+      return true;
+    }).toList();
+    for (final template in files) {
+      final data = template.data!.toFile(isTextBased: isTextBased).data;
+      archive.addFile(
+        ArchiveFile(
+          '${template.fileNameWithoutExtension}.${isTextBased ? 'tbfly' : 'bfly'}',
+          data.length,
+          data,
+        ),
+      );
+    }
+    final encoder = ZipEncoder();
+    final bytes = encoder.encodeBytes(archive);
+    await exportZip(context, bytes);
+  }
 }
 
 class _TemplateItem extends StatelessWidget {
-  final NoteData template;
+  final FileSystemFile<NoteData> file;
   final TemplateFileSystem fileSystem;
   final DocumentBloc? bloc;
   final VoidCallback onChanged, onSelected, onUnselected;
   final bool selected;
 
   const _TemplateItem({
-    required this.template,
+    required this.file,
     required this.fileSystem,
     required this.onChanged,
     required this.selected,
     this.bloc,
+    super.key,
     required this.onSelected,
     required this.onUnselected,
   });
@@ -427,7 +517,9 @@ class _TemplateItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
     final settings = settingsCubit.state;
-    final isDefault = settings.defaultTemplate == template.name;
+    final template = file.data!;
+    final path = file.pathWithoutLeadingSlash;
+    final isDefault = settings.defaultTemplate == path;
     final metadata = template.getMetadata();
     final info = template.getInfo();
     if (metadata == null) {
@@ -473,8 +565,8 @@ class _TemplateItem extends StatelessWidget {
         ),
       ),
       onSaved: (value) async {
-        if (value == metadata.name) return;
-        await fileSystem.deleteFile(metadata.name);
+        if (value == path) return;
+        await fileSystem.deleteFile(path);
         await fileSystem.createFile(
           value,
           template.setMetadata(metadata.copyWith(name: value)),
@@ -486,8 +578,7 @@ class _TemplateItem extends StatelessWidget {
           value: isDefault,
           child: Text(AppLocalizations.of(context).defaultTemplate),
           onChanged: (value) async {
-            final name = metadata.name;
-            settingsCubit.changeDefaultTemplate(name);
+            settingsCubit.changeDefaultTemplate(path);
             onChanged();
           },
         ),
@@ -496,7 +587,7 @@ class _TemplateItem extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.toolbox),
             child: Text(AppLocalizations.of(context).overrideTools),
             onPressed: () async {
-              _overrideTools(fileSystem, bloc!, [template]);
+              _overrideTools(fileSystem, bloc!, [file]);
             },
           ),
         MenuItemButton(
@@ -505,7 +596,10 @@ class _TemplateItem extends StatelessWidget {
           onPressed: () async {
             final result = await showDialog<String>(
               context: context,
-              builder: (ctx) => NameDialog(value: template.name),
+              builder: (ctx) => NameDialog(
+                value: file.fileNameWithoutExtension,
+                validator: defaultFileNameValidator(context),
+              ),
             );
             if (result == null) return;
             if (context.mounted) {
@@ -575,6 +669,26 @@ class _TemplateItem extends StatelessWidget {
             );
           },
         ),
+        SubmenuButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+              child: Text(AppLocalizations.of(context).packagedFile),
+              onPressed: () async {
+                await exportData(context, file.data!, isTextBased: false);
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+              child: Text(AppLocalizations.of(context).rawFile),
+              onPressed: () async {
+                await exportData(context, file.data!, isTextBased: true);
+              },
+            ),
+          ],
+          child: Text(AppLocalizations.of(context).export),
+        ),
         MenuItemButton(
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
           child: Text(AppLocalizations.of(context).delete),
@@ -585,7 +699,7 @@ class _TemplateItem extends StatelessWidget {
             );
             if (result != true) return;
             if (context.mounted) {
-              await fileSystem.deleteFile(metadata.name);
+              await fileSystem.deleteFile(path);
               onChanged();
             }
           },

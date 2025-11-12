@@ -13,11 +13,12 @@ jobs:
         working-directory: ${{ matrix.projects }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.19.0
+        uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
-      - uses: actions/checkout@v4
+          cache: true
+      - uses: actions/checkout@v5
       - name: Print Dart SDK version
         run: |
           dart --version
@@ -40,6 +41,9 @@ jobs:
       - name: Run build_runner
         if: matrix.projects != 'tools'
         run: dart run build_runner build --delete-conflicting-outputs
+      - name: Run format for generated files
+        if: matrix.projects != 'tools'
+        run: dart format .
       - name: Test for git changes
         run: git diff --exit-code
       # Your project will need to have tests in test/ and a dependency on

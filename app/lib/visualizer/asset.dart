@@ -6,25 +6,28 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension AssetFileTypeVisualizer on AssetFileType? {
   String getLocalizedName(BuildContext context) => switch (this) {
-        AssetFileType.note => AppLocalizations.of(context).note,
-        AssetFileType.image => AppLocalizations.of(context).image,
-        AssetFileType.markdown => AppLocalizations.of(context).markdown,
-        AssetFileType.pdf => AppLocalizations.of(context).pdf,
-        AssetFileType.svg => AppLocalizations.of(context).svg,
-        AssetFileType.xopp => 'Xournal++',
-        AssetFileType.page => AppLocalizations.of(context).page,
-        AssetFileType.archive => AppLocalizations.of(context).data,
-        null => AppLocalizations.of(context).unknownImportType,
-      };
+    AssetFileType.note ||
+    AssetFileType.textNote => AppLocalizations.of(context).note,
+    AssetFileType.image => AppLocalizations.of(context).image,
+    AssetFileType.markdown => AppLocalizations.of(context).markdown,
+    AssetFileType.pdf => AppLocalizations.of(context).pdf,
+    AssetFileType.svg => AppLocalizations.of(context).svg,
+    AssetFileType.xopp => 'Xournal++',
+    AssetFileType.page => AppLocalizations.of(context).page,
+    AssetFileType.archive => AppLocalizations.of(context).data,
+    AssetFileType.rawText => AppLocalizations.of(context).text,
+    null => AppLocalizations.of(context).unknownImportType,
+  };
 
   IconGetter get icon => switch (this) {
-        AssetFileType.note => PhosphorIcons.fileText,
-        AssetFileType.image => PhosphorIcons.image,
-        AssetFileType.markdown => PhosphorIcons.textbox,
-        AssetFileType.pdf => PhosphorIcons.filePdf,
-        AssetFileType.svg => PhosphorIcons.fileSvg,
-        AssetFileType.xopp => PhosphorIcons.notebook,
-        AssetFileType.page => PhosphorIcons.book,
-        _ => PhosphorIcons.file,
-      };
+    AssetFileType.note || AssetFileType.textNote => PhosphorIcons.fileText,
+    AssetFileType.image => PhosphorIcons.image,
+    AssetFileType.markdown => PhosphorIcons.textbox,
+    AssetFileType.pdf => PhosphorIcons.filePdf,
+    AssetFileType.svg => PhosphorIcons.fileSvg,
+    AssetFileType.xopp => PhosphorIcons.notebook,
+    AssetFileType.page => PhosphorIcons.book,
+    AssetFileType.archive => PhosphorIcons.archive,
+    _ => PhosphorIcons.file,
+  };
 }

@@ -2,9 +2,25 @@
 title: Einführung
 ---
 
-import { Gear,  Plus,  FloppyDisk,  MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import logo from '/public/img/logo.svg';
+import {
+  Gear,
+  Plus,
+  FloppyDisk,
+  MagnifyingGlass,
+  ScribbleLoop,
+  Pen,
+  Path,
+  ArrowCounterClockwise,
+  ArrowClockwise,
+  Hand,
+  Wrench,
+  Lock,
+  Folder,
+  GridFour,
+  List,
+} from "@phosphor-icons/react";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import logo from "/public/img/logo.svg";
 
 ![Banner](/img/banner.png)
 
@@ -12,87 +28,144 @@ import logo from '/public/img/logo.svg';
 
 > Willkommen bei Butterfly, der Opensource Notiz-App.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Plattformen abzielt. Es bietet eine einfache Benutzeroberfläche mit leistungsstarken Anpassungen.
 
 ## Erste Schritte
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Sie können die Seitenleiste benutzen, um schnell durch dieses Wiki zu navigieren.
 
-To start working on the app you have two options:
+Um mit der Arbeit an der App zu beginnen, haben Sie zwei Optionen:
 
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platforms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+1. [Download](/downloads) die App-Version, die für Ihre Plattform geeignet ist. Butterfly kann auf den meisten Mobil-, Desktop- und Web-Plattformen laufen.
+2. Verwenden Sie die [Web-Version](https://web.butterfly.linwood.dev), wenn Sie Ihre Plattform nicht finden oder die App nicht installieren möchten. Siehe [here](storage#web) für Informationen über die Speicherung von Dateien auf der Web-Version.
 
-> Once you open the app, continue reading.
+> Sobald Sie die App geöffnet haben, lesen Sie weiter.
 
-## Hauptansicht
+## Die Home-Ansicht
 
-![Main view](@assets/img/main.png)
+<Tabs syncKey="Plattform">
+  <TabItem label="Desktop">
+    ![Welcome screen](@assets/img/main.png)
+    The top of the screen holds the update banner, a link to this documentation, and the <Gear className="inline-icon" /> Settings button. Zum Schluss auf der rechten Seite der <Gear className="inline-icon" /> Einstellungen-Schaltfläche haben Sie ein Dropdown-Menü um zu kontrollieren, wann der Update-Banner angezeigt wird (immer/nie/bei Updates).
 
-The main view is composed of several elements
+    Der Abschnitt Dateien ist der Hauptbereich links. Hier können Sie folgende Operationen durchführen:
 
-<Tabs syncKey="platform">
-    <TabItem label="Desktop">
-        ![Welcome screen](welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
-    </TabItem>
-    <TabItem label="Mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](welcome_screen_mobile_1.png)
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates.
-        Scrolling down, you will see the file interface:
-        \
-        ![Welcome screen second part](welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
- </TabItem>
+    * Wählen Sie den Anzeigetyp (<GridFour className="inline-icon" /> Raster oder <List className="inline-icon" /> Liste)
+    * Wählen Sie den [Quellspeicher](../storage) der Dateien
+    * Reihenfolge der Dateien sortieren
+    * Füge einen Ordner, Datei, Vorlage oder importiere Dateien hinzu, indem du auf das <Plus className="inline-icon" /> Plus-Zeichen klickst
+    * Wechseln Sie zu einem anderen Verzeichnis, indem Sie das Feld <Folder className="inline-icon" /> ein Ort eingeben
+    * Suche nach Dateien
+
+    Schließlich, auf der rechten Seite, haben Sie die Schnellstart-Anzeige mit den Vorlagen an der aktuellen Stelle. Für eine neue Installation beinhaltet dies die Vorlagen Hell und Dunkel.
+  </TabItem>
+
+  <TabItem label="Mobil">
+    When opening Butterfly on a mobile device, you will be presented with a screen like this:
+    ![Welcome screen first part](welcome_screen_mobile_1.png)
+    The top of the screen you will see the release name and a link to the release notes and documentation.
+
+    Unter diesen finden Sie die Schnellstart-Sektion mit den Vorlagen, die an der aktuellen Stelle verfügbar sind. Für eine neue Installation beinhaltet dies die Vorlagen Hell und Dunkel. Below the templates, you will see your recent files.
+
+    Clicking on the files tab at the bottom will bring you to the file list:
+    \
+    ![Welcome screen second part](welcome_screen_mobile_2.png)
+    Here, you can do the following operations:
+
+    * Wählen Sie den Anzeigetyp (<GridFour className="inline-icon" /> Raster oder <List className="inline-icon" /> Liste)
+    * Reloading the file list
+    * Wählen Sie den [Quellspeicher](../storage) der Dateien
+    * Reihenfolge der Dateien sortieren
+    * Füge einen Ordner, Datei, Vorlage oder importiere Dateien hinzu, indem du auf das <Plus className="inline-icon" /> Plus-Zeichen klickst
+    * Wechseln Sie zu einem anderen Verzeichnis, indem Sie das Feld <Folder className="inline-icon" /> ein Ort eingeben
+    * Suche nach Dateien
+  </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Sobald Sie ein Dokument durch Auswahl einer Vorlage oder einer existierenden Datei geöffnet haben, gelangen Sie zur **Dokumentenansicht**.
 
-## The Document View
+## Die Dokumentenansicht
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+![Dokumentansicht](@assets/img/main.png)
 
-<Tabs syncKey="platform">
-    <TabItem label="Desktop">
-  In the Desktop view, you'll have at the top left the file bar\
-  ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
-  \
-  At the top right of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon"/> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools.
-  2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
- </TabItem>
- <TabItem label="Mobile">
-  In the mobile view, you'll have at the top the file bar\
-     ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} class="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
-  \
-  At the bottom of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon" /> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements.
-  2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
- </TabItem>
+Sie können von der Dokumentenansicht mit der Zurück-Taste Ihres Geräts in die Dokumentenliste zurückkehren. As with the home view, the document display changes based on your device.
+
+<Tabs syncKey="Plattform">
+  <TabItem label="Desktop">
+    In the top-left of the screen, you have the file bar:\
+    ![file_bar](document_view_file_bar.png)
+
+    This holds, from left to right:
+
+    * The <img alt="logo" src={logo.src} className="inline-icon" width="16" /> Butterfly button, which opens the menu.
+    * The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
+    * The <FloppyDisk className="inline-icon" /> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
+    * The <MagnifyingGlass className="inline-icon" /> Search button, which allow you to search for elements within the note.
+  </TabItem>
+
+  <TabItem label="Mobil">
+    At the top of the screen, you have the file bar:\
+    ![file_bar](document_view_file_bar.png)
+
+    This holds, from left to right:
+
+    * The <img alt="logo" src={logo.src} className="inline-icon" width="16" /> Butterfly button, which opens the menu.
+    * The Name field, which displays the name of the note. You can rename the note by typing a new name into the field and saving the note.
+    * The <FloppyDisk className="inline-icon" /> Save button. You can enable auto-saving and optionally disable this button by going to Settings → Behaviors → Autosave.
+    * The <MagnifyingGlass className="inline-icon" /> Search button, which allow you to search for elements within the note.
+  </TabItem>
+</Tabs>
+
+### Die Werkzeugleiste
+
+<Tabs syncKey="Plattform">
+  <TabItem label="Desktop">
+    In the top-right of the screen, you have the toolbar:\
+    ![toolbar](document_view_toolbar.png)
+
+    Standardmäßig enthält diese Leiste:
+
+    * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
+    * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
+    * The [<Path className="inline-icon" /> Path Erase tool](tools/path_eraser)
+    * The [<ArrowCounterClockwise className="inline-icon" /> Undo](tools/undo) and [<ArrowClockwise className="inline-icon" /> Redo](tools/redo) buttons
+    * The [<Hand className="inline-icon" /> Hand tool](tools/hand).
+
+    Then you have the <Plus className="inline-icon" /> button to add elements to the tool bar, the <Wrench className="inline-icon" /> button to configure the document, and finally the <Lock className="inline-icon" /> tool to lock the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, click and drag (or swipe) left or right to reveal further tools.
+  </TabItem>
+
+  <TabItem label="Mobil">
+    At the bottom of the screen, you have the toolbar:\
+    ![toolbar](document_view_toolbar.png)
+
+    Standardmäßig enthält diese Leiste:
+
+    * The [<ScribbleLoop className="inline-icon" /> Lasso Select tool](tools/select)
+    * The [<Pen className="inline-icon" /> Pen tool](tools/pen)
+    * The [<Path className="inline-icon" /> Path Erase tool](tools/path_eraser)
+    * The [<ArrowCounterClockwise className="inline-icon" /> Undo](tools/undo) and [<ArrowClockwise className="inline-icon" /> Redo](tools/redo) buttons
+    * The [<Hand className="inline-icon" /> Hand tool](tools/hand).
+
+    Then you have the <Plus className="inline-icon" /> button to add elements to the tool bar, the <Wrench className="inline-icon" /> button to configure the document, and finally the <Lock className="inline-icon" /> tool to look the zoom and/or the position of the screen. If some of the elements on the toolbar are not visible to you, swipe left or right to reveal further tools.
+  </TabItem>
+</Tabs>
+
+#### Customizing the Toolbar
+
+<Tabs syncKey="Plattform">
+  <TabItem label="Desktop">
+    To add more tools to the toolbar, click the <Plus className="inline-icon" /> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
+
+    To reorder the tools on your toolbar, first select a tool and then click-and-drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
+
+    Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then click it again.
+  </TabItem>
+
+  <TabItem label="Mobil">
+    To add more tools to the toolbar, tap the <Plus className="inline-icon" /> Add button. In the Add menu, you can use the search bar or filters to find the tool you are looking for. For more information, see [Add](add).
+
+    To reorder the tools on your toolbar, first select a tool and then long-tap and drag it to a new position. Some input methods have shortcuts to quickly switch to tools based on their position on the toolbar, which can be [configured](shortcuts#configure).
+
+    Many tools have a configuration menu, which allows you to change settings about how the tool behaves. To open this menu, first select a tool in the toolbar and then tap it again.
+  </TabItem>
 </Tabs>

@@ -55,8 +55,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       selected: collection == state.currentCollection,
                       onTap: () {
                         context.read<DocumentBloc>().add(
-                              CurrentCollectionChanged(collection),
-                            );
+                          CurrentCollectionChanged(collection),
+                        );
                       },
                     );
                   },
@@ -86,8 +86,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       bloc.add(CurrentCollectionChanged(name));
                     },
                     icon: const PhosphorIcon(PhosphorIconsLight.cursor),
-                    tooltip:
-                        AppLocalizations.of(context).selectCustomCollection,
+                    tooltip: AppLocalizations.of(
+                      context,
+                    ).selectCustomCollection,
                   ),
                   const SizedBox(height: 32, child: VerticalDivider()),
                   IconButton(
@@ -96,7 +97,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       Navigator.pop(context);
                       final cubit = bloc.state.currentIndexCubit;
                       if (cubit == null) return;
-                      final handler = cubit.fetchHandler<SelectHandler>() ??
+                      final handler =
+                          cubit.fetchHandler<SelectHandler>() ??
                           await cubit.changeTemporaryHandler(
                             context,
                             SelectTool(),

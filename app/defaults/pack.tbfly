@@ -1,0 +1,337 @@
+{
+	"fileVersion": 12,
+	"type": "pack",
+	"createdAt": 1678464022475,
+	"updatedAt": 1760304633656,
+	"name": "Core",
+	"description": "The default core experience of Linwood Butterfly",
+	"author": "LinwoodDev",
+	"directory": "",
+	"version": "",
+	"palettes": {
+		"Material": {
+			"colors": [
+				4293467747,
+				4294198070,
+				4294924066,
+				4294940672,
+				4294951175,
+				4294961979,
+				4291681337,
+				4287349578,
+				4283215696,
+				4278228616,
+				4278238420,
+				4278430196,
+				4280391411,
+				4282339765,
+				4288423856,
+				4284955319,
+				4284513675,
+				4286141768,
+				4288585374,
+				4294967295,
+				4278190080
+			]
+		}
+	},
+	"styles": {
+		"Material": {
+			"spanProperties": {
+				"a": {
+					"size": null,
+					"color": 4278190335,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": true,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": 4278190335,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"checkbox": {
+					"size": null,
+					"color": null,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"del": {
+					"size": null,
+					"color": null,
+					"fontWeight": null,
+					"lineThrough": true,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"em": {
+					"size": null,
+					"color": null,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": true,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"img": {
+					"size": null,
+					"color": null,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"listBullet": {
+					"size": null,
+					"color": null,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"strong": {
+					"size": null,
+					"color": null,
+					"fontWeight": 6,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": null,
+					"type": "defined"
+				},
+				"code": {
+					"size": null,
+					"color": 4294967295,
+					"fontWeight": null,
+					"lineThrough": null,
+					"underline": null,
+					"overline": null,
+					"italic": null,
+					"letterSpacing": null,
+					"decorationColor": null,
+					"decorationStyle": null,
+					"decorationThickness": null,
+					"backgroundColor": 4278190080,
+					"type": "defined"
+				}
+			},
+			"paragraphProperties": {
+				"h1": {
+					"span": {
+						"size": 18.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"h2": {
+					"span": {
+						"size": 16.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"h3": {
+					"span": {
+						"size": 14.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"h4": {
+					"span": {
+						"size": 13.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": true,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"h5": {
+					"span": {
+						"size": 12.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"h6": {
+					"span": {
+						"size": 12.0,
+						"color": null,
+						"fontWeight": 6,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": true,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"p": {
+					"span": {
+						"size": 12.0,
+						"color": null,
+						"fontWeight": null,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"blockquote": {
+					"span": {
+						"size": null,
+						"color": 4288585374,
+						"fontWeight": null,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				},
+				"math": {
+					"span": {
+						"size": null,
+						"color": 4288585374,
+						"fontWeight": null,
+						"lineThrough": null,
+						"underline": null,
+						"overline": null,
+						"italic": null,
+						"letterSpacing": null,
+						"decorationColor": null,
+						"decorationStyle": null,
+						"decorationThickness": null,
+						"backgroundColor": null,
+						"type": "defined"
+					},
+					"alignment": "left",
+					"type": "defined"
+				}
+			}
+		}
+	}
+}

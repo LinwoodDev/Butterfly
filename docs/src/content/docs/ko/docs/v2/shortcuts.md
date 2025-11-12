@@ -1,17 +1,18 @@
 ---
-title: Shortcuts
+title: 단축키
 ---
 
-## Keyboard
+## 키보드
 
 There are a few shortcuts that you can use in the editor.
 Some of them are written below the buttons.
 
-### General
+### 일반
 
 - `Ctrl` + `N`: New file
 - `Ctrl` + `Shift` + `N`: New file from template
 - `Ctrl` + `E`: Export file
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Print file
 - `Ctrl` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `E`: Export file as svg
@@ -32,7 +33,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Pen
+## 펜
 
 By default, the the pen is configured to function as the following:
 
@@ -40,16 +41,18 @@ By default, the the pen is configured to function as the following:
 - `First` (Primary button, if supported): Change to hand tool while pressed.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Configure {#configure}
+## Configuring {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 ![toolbar numbered](toolbar_numbered.png)
-
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
-
-The configure options you have are the following:
-
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.

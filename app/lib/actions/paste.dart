@@ -20,7 +20,7 @@ class PasteAction extends Action<PasteIntent> {
     if (state is! DocumentLoadSuccess) return;
     final importService = intent.context.read<ImportService>();
     try {
-      importService.importClipboard(state.data);
+      importService.importClipboard(state.data).then((e) => e?.submit());
     } catch (_) {}
   }
 }

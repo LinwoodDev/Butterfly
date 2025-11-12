@@ -2,77 +2,237 @@ part of '../renderer.dart';
 
 abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
-  Rect rect = Rect.zero;
+  Rect rect;
   TextPainter? _tp;
   LabelContext? get context;
+  final Map<int, (ui.Image, double)> _renderedLatex = {};
 
-  GenericTextRenderer(super.element, [super.layer]);
+  GenericTextRenderer(super.element, [super.layer])
+    : rect = Rect.fromCenter(
+        center: element.position.toOffset(),
+        width: 0,
+        height: 0,
+      );
 
   double get scale => element.scale;
 
   text.TextParagraph getParagraph(NoteData document);
 
-  void _createTool(NoteData document, DocumentPage page) {
+  void _createTool(
+    text.TextParagraph paragraph,
+    NoteData document,
+    DocumentPage page,
+  ) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaler = TextScaler.linear(scale);
-    final paragraph = getParagraph(document);
-    final styleSheet = element.styleSheet.resolveStyle(document);
-    final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
+    final styleSheet = _getStyle();
+    final style =
+        styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
+    final dimensions = <PlaceholderDimensions>[];
     _tp?.text = switch (paragraph) {
       text.TextParagraph p => TextSpan(
-          children:
-              p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-          style: style.span.toFlutter(null, element.foreground),
-        ),
+        children: p.textSpans
+            .mapIndexed(
+              (i, e) => _createSpan(document, dimensions, i, e, style),
+            )
+            .toList(),
+        style: style.span.toFlutter(null, element.foreground),
+      ),
     };
+    _tp?.setPlaceholderDimensions(dimensions);
     _tp?.textAlign = style.alignment.toFlutter();
     _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
 
-  text.TextStyleSheet? _getStyle(NoteData document) =>
-      element.styleSheet.resolveStyle(document);
+  text.TextStyleSheet? _getStyle() => element.styleSheet?.item;
 
-  InlineSpan _createSpan(NoteData document, text.TextSpan span,
-      [text.DefinedParagraphProperty? parent]) {
-    final styleSheet = _getStyle(document);
-    final style = styleSheet.resolveSpanProperty(span.property);
-    return TextSpan(
-      text: span.text,
-      style: style?.toFlutter(parent, element.foreground),
-    );
+  InlineSpan _createSpan(
+    NoteData document,
+    List<PlaceholderDimensions> dimensions,
+    int index,
+    text.InlineSpan span, [
+    text.DefinedParagraphProperty? parent,
+  ]) {
+    final styleSheet = _getStyle();
+    final style = styleSheet
+        .resolveSpanProperty(span.property)
+        ?.toFlutter(parent, element.foreground);
+    switch (span) {
+      case text.TextSpan():
+        return TextSpan(text: span.text, style: style);
+      case text.MathTextSpan():
+        if (context != null) {
+          return TextSpan(text: span.text, style: style);
+        }
+        final (element, scale) = _renderedLatex[index] ?? (null, 1.0);
+        final size =
+            Size(
+              element?.width.toDouble() ?? 0,
+              element?.height.toDouble() ?? 0,
+            ) /
+            scale;
+        dimensions.add(
+          PlaceholderDimensions(
+            size: size,
+            alignment: PlaceholderAlignment.middle,
+            baseline: TextBaseline.alphabetic,
+          ),
+        );
+        return WidgetSpan(
+          child: RawImage(image: element),
+          style: style,
+          alignment: PlaceholderAlignment.middle,
+          baseline: TextBaseline.alphabetic,
+        );
+    }
   }
 
+  List<Rect> _specialPlaceholders = [];
+
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
-    _createTool(document, page);
-    await super.setup(document, assetService, page);
+  Future<void> setup(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    final paragraph = getParagraph(document);
+    await super.setup(transformCubit, document, assetService, page);
+    _createTool(paragraph, document, page);
     _updateRect(document);
+    _specialPlaceholders = _getSpecialPlaceholders(paragraph);
   }
 
   @override
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     super.onAreaUpdate(document, page, area);
+    _tp?.layout(maxWidth: element.getMaxWidth(area));
     _updateRect(document);
     return true;
   }
 
   void _updateRect(NoteData document) {
-    _tp?.layout(maxWidth: element.getMaxWidth(area));
-    rect = Rect.fromLTWH(element.position.x, element.position.y,
-        _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
+    rect = Rect.fromLTWH(
+      element.position.x,
+      element.position.y,
+      _tp?.width ?? 0,
+      element.getHeight(_tp?.height ?? 0),
+    );
+  }
+
+  Widget _buildLatexElement(
+    text.TextStyleSheet? styleSheet,
+    text.DefinedParagraphProperty paragraphStyle,
+    text.MathTextSpan span,
+  ) => Padding(
+    padding: const EdgeInsets.all(1),
+    child: Math.tex(
+      span.text,
+      textStyle:
+          (styleSheet.resolveSpanProperty(span.property) ??
+                  const text.DefinedSpanProperty())
+              .toFlutter(paragraphStyle, element.foreground),
+    ),
+  );
+
+  Future<void> _renderLatex(
+    text.TextParagraph paragraph,
+    CameraTransform transform,
+  ) async {
+    final styleSheet = _getStyle();
+    final paragraphStyle =
+        styleSheet.resolveParagraphProperty(paragraph.property) ??
+        const text.DefinedParagraphProperty();
+    for (int i = 0; i < paragraph.textSpans.length; i++) {
+      final span = paragraph.textSpans[i];
+      if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
+        final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
+        final pixelRatio = transform.pixelRatio * transform.size;
+        final image = await renderWidget(
+          widget,
+          pixelRatio: scale * pixelRatio,
+        );
+        _renderedLatex[i] = (image, pixelRatio);
+      }
+    }
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
-    if (_tp?.plainText.isNotEmpty ?? false) {
-      _tp?.layout(maxWidth: rect.width);
-      _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
+    final tp = _tp;
+    if (tp == null || tp.text == null) return;
+    tp.layout(maxWidth: rect.width);
+    tp.paint(canvas, element.getOffset(rect.height).toOffset());
+    final placeholders = tp.inlinePlaceholderBoxes ?? [];
+    final orderedRendered = _renderedLatex.entries
+        .sorted((a, b) => a.key.compareTo(b.key))
+        .map((e) => e.value)
+        .toList();
+    for (int i = 0; i < placeholders.length; i++) {
+      if (i >= orderedRendered.length) continue;
+      final placeholder = placeholders[i];
+      final (image, _) = orderedRendered[i];
+      final rect = placeholder.toRect().shift(element.position.toOffset());
+      canvas.drawImageRect(
+        image,
+        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+        rect,
+        Paint(),
+      );
     }
+    if (context != null) {
+      for (final special in _specialPlaceholders) {
+        final rrect = RRect.fromRectAndRadius(
+          special.shift(element.position.toOffset()).inflate(1),
+          const Radius.circular(2),
+        );
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = Colors.blue.withValues(alpha: 0.8)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2,
+        );
+        canvas.drawRRect(
+          rrect,
+          Paint()
+            ..color = Colors.blue.withValues(alpha: 0.2)
+            ..style = PaintingStyle.fill,
+        );
+      }
+    }
+  }
+
+  List<Rect> _getSpecialPlaceholders(text.TextParagraph paragraph) {
+    final tp = _tp;
+    if (tp == null || tp.text == null) return [];
+    final placeholders = <Rect>[];
+    // Get all math spans and get the placeholders for them inside textpainter
+    var currentIndex = 0;
+    for (final span in paragraph.textSpans) {
+      if (span is text.MathTextSpan) {
+        final boxes = tp.getBoxesForSelection(
+          TextSelection(
+            baseOffset: currentIndex,
+            extentOffset: currentIndex + span.text.length,
+          ),
+        );
+        placeholders.addAll(boxes.map((e) => e.toRect()));
+      }
+      currentIndex += span.text.length;
+    }
+    return placeholders;
   }
 
   String _convertTextToHtml(String inputText) {
@@ -89,25 +249,29 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
     final svg = xml.getElement('svg');
-    if (!rect.overlaps(rect) || svg == null) return;
+    if (!rect.overlaps(viewportRect) || svg == null) return;
     final paragraph = getParagraph(document);
 
     _tp?.layout(maxWidth: rect.width);
-    final styles = element.styleSheet.resolveStyle(document);
-    final textElement = svg.createElement('text', attributes: {
-      'x': '${rect.left}px',
-      'y': '${rect.top}px',
-      'width': '${rect.width}px',
-      'height': '${rect.height}px',
-    });
-    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
-    textElement.setAttribute(
-      'text-anchor',
-      paragraphStyle?.alignment.name,
+    final styles = element.styleSheet?.item;
+    final textElement = svg.createElement(
+      'text',
+      attributes: {
+        'x': '${rect.left}px',
+        'y': '${rect.top}px',
+        'width': '${rect.width}px',
+        'height': '${rect.height}px',
+      },
     );
+    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
+    textElement.setAttribute('text-anchor', paragraphStyle?.alignment.name);
     // Add spans as html elements
     for (final span in paragraph.textSpans) {
       final style = styles.resolveSpanProperty(span.property);
@@ -118,8 +282,50 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    final paragraph = getParagraph(blocState.data);
+    final document = blocState.data;
+    final page = blocState.page;
+    await _renderLatex(paragraph, renderTransform);
+    _createTool(paragraph, document, page);
+    _updateRect(document);
+  }
+
+  @override
+  Future<void> updateView(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    _renderedLatex.clear();
+    final paragraph = getParagraph(blocState.data);
+    await _renderLatex(paragraph, renderTransform);
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
+    }
+  }
+
+  @override
   void dispose() {
     if (context == null) _tp?.dispose();
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
+    }
   }
 
   InlineSpan? get span => _tp?.text;
@@ -137,15 +343,15 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) =>
-      TextRenderer(
-          element.copyWith(
-            position: position.toPoint(),
-            rotation: rotation,
-            scale: element.scale * max(scaleX, scaleY),
-          ),
-          layer,
-          context);
+  }) => TextRenderer(
+    element.copyWith(
+      position: position.toPoint(),
+      rotation: rotation,
+      scale: element.scale * max(scaleX, scaleY),
+    ),
+    layer,
+    context,
+  );
 
   @override
   void dispose() {

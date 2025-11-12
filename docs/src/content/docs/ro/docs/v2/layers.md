@@ -2,15 +2,18 @@
 title: Straturi
 ---
 
-Layers are an option to separate elements from another.
-The first layer from top will be rendered last (and would be shown above everything).
+Layers allow you to separate elements from each other and choose which layers are rendered on top of others.
 
-Do not confuse the layer feature with the collection feature. The earlier layer system was renamed to collections and doesn't change the renderer priority and are lightweight to group some elements together. Read more about them [here](../tools/collection).
+Layers are drawn from bottom to top, so the top layer will be shown above all other layers.
 
-## Dialog straturi
+:::note\[Note]
 
-Deschideţi dialogul strat făcând clic pe o pânză goală şi dând click pe "Layers".
+Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are renderered.
 
-Aici puteţi vedea toate straturile din proiect.
-Elimină un strat făcând clic pe pictograma de gunoi sau mutându-se la stânga sau la dreapta.
-Schimbă vizibilitatea unui strat făcând clic pe pictograma ochiului.
+:::
+
+## The Layers dialog
+
+Open the layer dialog by clicking on the Butterfly button and selecting Layers, or by selecting the Layers icon in the Navigation Rail if it is enabled.
+
+Aici puteţi vedea toate straturile din proiect. To create a new layer, use the Create button. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.

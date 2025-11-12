@@ -17,7 +17,8 @@
 <p align="center">
     <a href="https://butterfly.linwood.dev"><b>Website</b></a> •
     <a href="https://butterfly.linwood.dev/downloads"><b>Download</b></a> •
-    <a href="https://linwood.dev/matrix"><b>Matrix</b></a> •
+    <a href="https://go.linwood.dev/butterfly/translate"><b>Crowdin</b></a> •
+    <a href="https://go.linwood.dev/matrix"><b>Matrix</b></a> •
     <a href="https://go.linwood.dev/discord"><b>Discord</b></a> •
     <a href="https://floss.social/@linwood"><b>Mastodon</b></a> •
     <a href="https://bsky.app/profile/linwood.dev"><b>Bluesky</b></a> •
@@ -31,7 +32,7 @@ Butterfly is a note taking app where your ideas come first. You can paint, add t
 
 ## Features
 
-* **⚡ Simple and intuitive** Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
+* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
 * **🎨 Customizable:** Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
 * **📝 Support your favorite formats:** Import and export are supported for images, pdf and svg. Register the app to open these files to edit them.
 * **📱 Works on every device:** The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.

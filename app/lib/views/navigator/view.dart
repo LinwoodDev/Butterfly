@@ -25,31 +25,31 @@ enum NavigatorPage {
   files;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
-        NavigatorPage.areas => AppLocalizations.of(context).areas,
-        NavigatorPage.layers => AppLocalizations.of(context).layers,
-        NavigatorPage.pages => AppLocalizations.of(context).pages,
-        NavigatorPage.files => AppLocalizations.of(context).files,
-        NavigatorPage.components => AppLocalizations.of(context).components,
-      };
+    NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
+    NavigatorPage.areas => AppLocalizations.of(context).areas,
+    NavigatorPage.layers => AppLocalizations.of(context).layers,
+    NavigatorPage.pages => AppLocalizations.of(context).pages,
+    NavigatorPage.files => AppLocalizations.of(context).files,
+    NavigatorPage.components => AppLocalizations.of(context).components,
+  };
 
   (List<String>, String?) getHelp() => switch (this) {
-        NavigatorPage.waypoints => (['waypoints'], null),
-        NavigatorPage.areas => (['areas'], null),
-        NavigatorPage.layers => (['layers'], null),
-        NavigatorPage.pages => (['pages'], null),
-        NavigatorPage.files => (['storage'], null),
-        NavigatorPage.components => (['pack'], 'components'),
-      };
+    NavigatorPage.waypoints => (['waypoints'], null),
+    NavigatorPage.areas => (['areas'], null),
+    NavigatorPage.layers => (['layers'], null),
+    NavigatorPage.pages => (['pages'], null),
+    NavigatorPage.files => (['storage'], null),
+    NavigatorPage.components => (['pack'], 'components'),
+  };
 
   IconGetter get icon => switch (this) {
-        NavigatorPage.waypoints => PhosphorIcons.mapPin,
-        NavigatorPage.areas => PhosphorIcons.monitor,
-        NavigatorPage.layers => PhosphorIcons.stack,
-        NavigatorPage.pages => PhosphorIcons.book,
-        NavigatorPage.files => PhosphorIcons.file,
-        NavigatorPage.components => PhosphorIcons.cube,
-      };
+    NavigatorPage.waypoints => PhosphorIcons.mapPin,
+    NavigatorPage.areas => PhosphorIcons.monitor,
+    NavigatorPage.layers => PhosphorIcons.stack,
+    NavigatorPage.pages => PhosphorIcons.book,
+    NavigatorPage.files => PhosphorIcons.file,
+    NavigatorPage.components => PhosphorIcons.cube,
+  };
 }
 
 class NavigatorView extends StatefulWidget {
@@ -92,92 +92,87 @@ class _NavigatorViewState extends State<NavigatorView>
           previous.navigatorPosition != current.navigatorPosition,
       builder: (context, settings) =>
           BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-        buildWhen: (previous, current) =>
-            previous.navigatorEnabled != current.navigatorEnabled ||
-            previous.navigatorPage != current.navigatorPage,
-        builder: (context, currentIndex) {
-          final selected =
-              NavigatorPage.values.indexOf(currentIndex.navigatorPage);
-          if (currentIndex.navigatorEnabled) {
-            _animationController.forward();
-          } else {
-            _animationController.reverse();
-          }
-          return Row(
-            textDirection: settings.navigatorPosition == NavigatorPosition.left
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            mainAxisAlignment:
-                settings.navigatorPosition == NavigatorPosition.left
+            buildWhen: (previous, current) =>
+                previous.navigatorEnabled != current.navigatorEnabled ||
+                previous.navigatorPage != current.navigatorPage,
+            builder: (context, currentIndex) {
+              final selected = NavigatorPage.values.indexOf(
+                currentIndex.navigatorPage,
+              );
+              if (currentIndex.navigatorEnabled) {
+                _animationController.forward();
+              } else {
+                _animationController.reverse();
+              }
+              return Row(
+                textDirection:
+                    settings.navigatorPosition == NavigatorPosition.left
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
+                mainAxisAlignment:
+                    settings.navigatorPosition == NavigatorPosition.left
                     ? MainAxisAlignment.start
                     : MainAxisAlignment.end,
-            children: [
-              SizeTransition(
-                sizeFactor: _animation,
-                axis: Axis.horizontal,
-                axisAlignment: 1,
-                child: AnimatedBuilder(
-                    animation: _animation,
-                    child: SizedBox(
-                      width: drawerWidth,
-                      child: Card(
-                        child: DocumentNavigator(asDrawer: false),
+                children: [
+                  SizeTransition(
+                    sizeFactor: _animation,
+                    axis: Axis.horizontal,
+                    axisAlignment: 1,
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      child: SizedBox(
+                        width: drawerWidth,
+                        child: Card(child: DocumentNavigator(asDialog: false)),
                       ),
-                    ),
-                    builder: (context, child) {
-                      if (_animation.value == 0) {
-                        return const SizedBox();
-                      }
-                      return child!;
-                    }),
-              ),
-              LayoutBuilder(
-                builder: (context, constraint) => SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        minWidth: kNavigationRailWidth,
-                        destinations: NavigatorPage.values
-                            .map(
-                              (e) => NavigationRailDestination(
-                                icon: PhosphorIcon(
-                                    e.icon(PhosphorIconsStyle.light)),
-                                label: Text(e.getLocalizedName(context)),
-                              ),
-                            )
-                            .toList(),
-                        labelType: NavigationRailLabelType.none,
-                        selectedIndex:
-                            currentIndex.navigatorEnabled ? selected : null,
-                        groupAlignment: 0,
-                        onDestinationSelected: (index) {
-                          final cubit = context.read<CurrentIndexCubit>();
-                          if (selected == index) {
-                            cubit.setNavigatorEnabled(
-                                !currentIndex.navigatorEnabled);
-                            return;
-                          }
-                          cubit.setNavigatorPage(NavigatorPage.values[index]);
-                          cubit.setNavigatorEnabled(true);
-                        },
-                      ),
+                      builder: (context, child) {
+                        if (_animation.value == 0) {
+                          return const SizedBox();
+                        }
+                        return child!;
+                      },
                     ),
                   ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                  NavigationRail(
+                    scrollable: true,
+                    minWidth: kNavigationRailWidth,
+                    destinations: NavigatorPage.values
+                        .map(
+                          (e) => NavigationRailDestination(
+                            icon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            label: Text(e.getLocalizedName(context)),
+                          ),
+                        )
+                        .toList(),
+                    selectedIndex: currentIndex.navigatorEnabled
+                        ? selected
+                        : null,
+                    groupAlignment: 0,
+                    onDestinationSelected: (index) {
+                      final cubit = context.read<CurrentIndexCubit>();
+                      if (selected == index) {
+                        cubit.setNavigatorEnabled(
+                          !currentIndex.navigatorEnabled,
+                        );
+                        return;
+                      }
+                      cubit.setNavigatorPage(NavigatorPage.values[index]);
+                      cubit.setNavigatorEnabled(true);
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
     );
   }
 }
 
 class DocumentNavigator extends StatefulWidget {
-  final bool asDrawer;
-  const DocumentNavigator({super.key, this.asDrawer = false});
+  final bool asDialog;
+
+  const DocumentNavigator({super.key, this.asDialog = false});
 
   @override
   State<DocumentNavigator> createState() => _DocumentNavigatorState();
@@ -200,46 +195,48 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
           NavigatorPage.files => const FilesNavigatorPage(),
           NavigatorPage.components => const ComponentsView(),
         };
-        final content = Padding(
-          padding: const EdgeInsets.all(12),
+        final content = Scaffold(
           key: ValueKey(('navigator', page)),
-          child: Column(
-            children: [
-              Header(
-                leading: widget.asDrawer
-                    ? IconButton.outlined(
-                        icon: const PhosphorIcon(PhosphorIconsLight.x),
-                        onPressed: () => Navigator.of(context).pop(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .closeButtonTooltip,
-                      )
-                    : null,
-                title: Text(page.getLocalizedName(context)),
-                actions: [
-                  IconButton(
-                    icon: const PhosphorIcon(
-                      PhosphorIconsLight.sealQuestion,
-                    ),
-                    onPressed: () {
-                      final help = page.getHelp();
-                      openHelp(help.$1, help.$2);
-                    },
-                    tooltip: AppLocalizations.of(context).help,
-                  ),
-                ],
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            leading: widget.asDialog
+                ? IconButton.outlined(
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
+                    onPressed: () => Navigator.of(context).pop(),
+                    tooltip: MaterialLocalizations.of(
+                      context,
+                    ).closeButtonTooltip,
+                  )
+                : null,
+            automaticallyImplyLeading: false,
+            title: Text(page.getLocalizedName(context)),
+            actions: [
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                onPressed: () {
+                  final help = page.getHelp();
+                  openHelp(help.$1, help.$2);
+                },
+                tooltip: AppLocalizations.of(context).help,
               ),
-              Expanded(child: body),
             ],
           ),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(alignment: Alignment.topCenter, child: body),
+            ),
+          ),
         );
-        if (widget.asDrawer) {
-          return Drawer(width: 400, child: SafeArea(child: content));
-        } else {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: content,
-          );
+        if (widget.asDialog) {
+          return Dialog.fullscreen(child: content);
         }
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: content,
+        );
       },
     );
   }

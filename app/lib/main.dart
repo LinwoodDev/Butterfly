@@ -78,16 +78,8 @@ Future<void> main([List<String> args = const []]) async {
         ).toString();
       }
     }
-  } else if (!kIsWeb && Platform.isAndroid) {
-    final intentType = await getIntentType();
-    if (intentType != null) {
-      initialLocation = Uri(
-        pathSegments: ['', 'native'],
-        queryParameters: {'type': intentType},
-      ).toString();
-      initialExtra = await getIntentData();
-    }
-  } else {
+  }
+  if (initialLocation == '/') {
     final settings = settingsCubit.state;
     switch (settings.onStartup) {
       case StartupBehavior.openHomeScreen:
@@ -97,30 +89,13 @@ Future<void> main([List<String> args = const []]) async {
         if (lastNote == null) break;
         initialLocation = Uri(
           path: '/new',
-          queryParameters: {
-            'remote': lastNote.remote,
-            'path': lastNote.path,
-          },
+          queryParameters: {'remote': lastNote.remote, 'path': lastNote.path},
         ).toString();
       case StartupBehavior.openNewNote:
         initialLocation = '/new';
     }
   }
 
-  if (!kIsWeb && isWindow) {
-    await windowManager.ensureInitialized();
-    const kWindowOptions = WindowOptions(
-      minimumSize: Size(410, 300),
-      title: applicationName,
-      backgroundColor: Colors.transparent,
-    );
-
-    // Use it only after calling `hiddenWindowAtLaunch`
-    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
-      await windowManager.setResizable(true);
-      await windowManager.setPreventClose(false);
-    });
-  }
   final clipboardManager = await SysAPI.getClipboardManager();
   overrideButterflyDirectory = result['path'];
   runApp(
@@ -146,7 +121,6 @@ List<Locale> getLocales() => AppLocalizations.supportedLocales;
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
-  final String importedLocation;
   final SettingsCubit settingsCubit;
   final Object? initialExtra;
   final bool fullScreen;
@@ -157,181 +131,209 @@ class ButterflyApp extends StatelessWidget {
     this.fullScreen = false,
     this.initialLocation = '/',
     this.initialExtra,
-    this.importedLocation = '',
-  }) : _router = GoRouter(
-          initialLocation: initialLocation,
-          initialExtra: initialExtra,
-          errorBuilder: (context, state) =>
-              ErrorPage(message: state.error.toString()),
-          routes: [
-            GoRoute(
-              name: 'home',
-              path: '/',
-              builder: (context, state) {
-                return const HomePage();
-              },
-              routes: [
-                GoRoute(
-                  path: 'settings',
-                  builder: (context, state) => const SettingsPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'general',
-                      builder: (context, state) => const GeneralSettingsPage(),
+  });
+
+  late final GoRouter _router = GoRouter(
+    initialLocation: initialLocation,
+    initialExtra: initialExtra,
+    restorationScopeId: 'router',
+    errorBuilder: (context, state) =>
+        ErrorPage(message: state.error.toString()),
+    routes: [
+      GoRoute(
+        name: 'home',
+        path: '/',
+        builder: (context, state) {
+          return const HomePage();
+        },
+        routes: [
+          GoRoute(
+            path: 'settings',
+            builder: (context, state) => const SettingsPage(),
+            routes: [
+              GoRoute(
+                path: 'general',
+                builder: (context, state) => const GeneralSettingsPage(),
+              ),
+              GoRoute(
+                path: 'inputs',
+                builder: (context, state) => const InputsSettingsPage(),
+                routes: [
+                  GoRoute(
+                    path: 'mouse',
+                    builder: (context, state) => const MouseInputSettings(),
+                  ),
+                  GoRoute(
+                    path: 'pen',
+                    builder: (context, state) => const PenInputSettings(),
+                  ),
+                  GoRoute(
+                    path: 'keyboard',
+                    builder: (context, state) => const KeyboardInputSettings(),
+                  ),
+                  GoRoute(
+                    path: 'touch',
+                    builder: (context, state) => const TouchInputSettings(),
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: 'behaviors',
+                builder: (context, state) => const BehaviorsSettingsPage(),
+              ),
+              GoRoute(
+                path: 'personalization',
+                builder: (context, state) =>
+                    const PersonalizationSettingsPage(),
+              ),
+              GoRoute(
+                path: 'view',
+                builder: (context, state) => const ViewSettingsPage(),
+              ),
+              GoRoute(
+                path: 'data',
+                builder: (context, state) => const DataSettingsPage(),
+              ),
+              GoRoute(
+                path: 'experiments',
+                builder: (context, state) => const ExperimentsSettingsPage(),
+              ),
+              GoRoute(
+                path: 'connections',
+                builder: (context, state) => const ConnectionsSettingsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':id',
+                    name: 'connection',
+                    builder: (context, state) => ConnectionSettingsPage(
+                      remote: state.pathParameters['id']!,
                     ),
-                    GoRoute(
-                      path: 'inputs',
-                      builder: (context, state) => const InputsSettingsPage(),
-                      routes: [
-                        GoRoute(
-                          path: 'mouse',
-                          builder: (context, state) =>
-                              const MouseInputSettings(),
-                        ),
-                        GoRoute(
-                          path: 'pen',
-                          builder: (context, state) => const PenInputSettings(),
-                        ),
-                        GoRoute(
-                          path: 'keyboard',
-                          builder: (context, state) =>
-                              const KeyboardInputSettings(),
-                        ),
-                        GoRoute(
-                          path: 'touch',
-                          builder: (context, state) =>
-                              const TouchInputSettings(),
-                        ),
-                      ],
-                    ),
-                    GoRoute(
-                      path: 'behaviors',
-                      builder: (context, state) =>
-                          const BehaviorsSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'personalization',
-                      builder: (context, state) =>
-                          const PersonalizationSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'view',
-                      builder: (context, state) => const ViewSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'data',
-                      builder: (context, state) => const DataSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'experiments',
-                      builder: (context, state) =>
-                          const ExperimentsSettingsPage(),
-                    ),
-                    GoRoute(
-                      path: 'connections',
-                      builder: (context, state) =>
-                          const ConnectionsSettingsPage(),
-                      routes: [
-                        GoRoute(
-                          path: ':id',
-                          name: 'connection',
-                          builder: (context, state) => ConnectionSettingsPage(
-                            remote: state.pathParameters['id']!,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            name: 'new',
+            path: 'new',
+            builder: (context, state) {
+              final defaultRemote = context
+                  .read<SettingsCubit>()
+                  .state
+                  .defaultRemote;
+              return ProjectPage(
+                data: state.extra,
+                location: AssetLocation(
+                  remote: state.uri.queryParameters['remote'] ?? defaultRemote,
+                  path: state.uri.queryParameters['path'] ?? '',
                 ),
-                GoRoute(
-                  name: 'new',
-                  path: 'new',
-                  builder: (context, state) {
-                    final defaultRemote =
-                        context.read<SettingsCubit>().state.defaultRemote;
-                    return ProjectPage(
-                      data: state.extra,
-                      location: AssetLocation(
-                        remote: state.uri.queryParameters['remote'] ??
-                            defaultRemote,
-                        path: state.uri.queryParameters['path'] ?? '',
-                      ),
-                    );
-                  },
-                ),
-                GoRoute(
-                  name: 'connect',
-                  path: 'connect',
-                  builder: (context, state) {
-                    final url = state.uri.queryParameters['url'];
-                    return ProjectPage(data: state.extra, uri: url);
-                  },
-                ),
-                GoRoute(
-                  name: 'local',
-                  path: 'local/:path(.*)',
-                  builder: (context, state) {
-                    final path = state.pathParameters['path'];
-                    return ProjectPage(
-                      data: state.extra,
-                      type: state.uri.queryParameters['type'] ?? '',
-                      location: AssetLocation.local(path ?? ''),
-                    );
-                  },
-                ),
-                GoRoute(
-                  name: 'remote',
-                  path: 'remote/:remote/:path(.*)',
-                  builder: (context, state) {
-                    final remote = Uri.decodeComponent(
-                      state.pathParameters['remote'] ?? '',
-                    );
-                    final path = state.pathParameters['path'];
-                    return ProjectPage(
-                      data: state.extra,
-                      type: state.uri.queryParameters['type'] ?? '',
-                      location: AssetLocation(remote: remote, path: path ?? ''),
-                    );
-                  },
-                ),
-                GoRoute(
-                  path: 'native',
-                  name: 'native',
-                  builder: (context, state) {
-                    final type = state.uri.queryParameters['type'] ?? '';
-                    final path = state.uri.queryParameters['path'] ?? '';
-                    final data = state.extra;
-                    return ProjectPage(
-                      location: AssetLocation.local(path),
-                      absolute: true,
-                      type: type,
-                      data: data,
-                    );
-                  },
-                ),
-                GoRoute(
-                  path: 'native/:path(.*)',
-                  name: 'native-path',
-                  builder: (context, state) {
-                    final path = state.pathParameters['path'] ?? '';
-                    return ProjectPage(
-                      location: AssetLocation.local(path, true),
-                    );
-                  },
-                ),
-              ],
-            ),
-            GoRoute(
-              name: 'embed',
-              path: '/embed',
-              builder: (context, state) {
+              );
+            },
+          ),
+          GoRoute(
+            name: 'connect',
+            path: 'connect',
+            builder: (context, state) {
+              final url = state.uri.queryParameters['url'];
+              return ProjectPage(data: state.extra, uri: url);
+            },
+          ),
+          GoRoute(
+            name: 'local',
+            path: 'local/:path(.*)',
+            builder: (context, state) {
+              final path = state.pathParameters['path'];
+              return ProjectPage(
+                data: state.extra,
+                type: state.uri.queryParameters['type'] ?? '',
+                location: AssetLocation.local(path ?? ''),
+              );
+            },
+          ),
+          GoRoute(
+            name: 'remote',
+            path: 'remote/:remote/:path(.*)',
+            builder: (context, state) {
+              final remote = Uri.decodeComponent(
+                state.pathParameters['remote'] ?? '',
+              );
+              final path = state.pathParameters['path'];
+              return ProjectPage(
+                data: state.extra,
+                type: state.uri.queryParameters['type'] ?? '',
+                location: AssetLocation(remote: remote, path: path ?? ''),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'native',
+            name: 'native',
+            builder: (context, state) {
+              final type = state.uri.queryParameters['type'] ?? '';
+              final path = state.uri.queryParameters['path'] ?? getNativeType();
+              final data = state.extra ?? getNativeData();
+              return ProjectPage(
+                location: AssetLocation.local(path),
+                absolute: true,
+                type: type,
+                data: data,
+              );
+            },
+          ),
+          GoRoute(
+            path: 'native/:path(.*)',
+            name: 'native-path',
+            builder: (context, state) {
+              final path = state.pathParameters['path'] ?? '';
+              return ProjectPage(location: AssetLocation.local(path, true));
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        name: 'embed',
+        path: '/embed',
+        builder: (context, state) {
+          return ProjectPage(
+            embedding: Embedding.fromQuery(state.uri.queryParameters),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/intent',
+        builder: (context, state) {
+          Future<(String, Object)?>? intent;
+          if (!kIsWeb && Platform.isAndroid) {
+            intent = () async {
+              final type = await getIntentType();
+              final data = await getIntentData();
+              if (type == null || data == null) return null;
+              return (type, data);
+            }();
+          }
+          return FutureBuilder<(String, Object)?>(
+            future: intent,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                final type = snapshot.data?.$1;
+                final data = snapshot.data?.$2;
                 return ProjectPage(
-                  embedding: Embedding.fromQuery(state.uri.queryParameters),
+                  location: AssetLocation.local(
+                    state.pathParameters['path'] ?? '',
+                  ),
+                  type: type ?? '',
+                  data: data,
                 );
-              },
-            ),
-          ],
-        );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          );
+        },
+      ),
+    ],
+    redirect: (context, state) =>
+        (state.uri.scheme == 'content') ? '/intent' : null,
+  );
 
   // This widget is the root of your application.
   @override
@@ -372,6 +374,7 @@ class ButterflyApp extends StatelessWidget {
       builder: (context, state) => MaterialApp.router(
         locale: state.locale,
         title: applicationName,
+        restorationScopeId: 'app',
         routeInformationProvider: _router.routeInformationProvider,
         routeInformationParser: _router.routeInformationParser,
         routerDelegate: _router.routerDelegate,
@@ -387,10 +390,8 @@ class ButterflyApp extends StatelessWidget {
           return RepositoryProvider(
             create: ButterflyFileSystem.build,
             child: RepositoryProvider(
-              create: (context) => SyncService(
-                context,
-                context.read<ButterflyFileSystem>(),
-              ),
+              create: (context) =>
+                  SyncService(context, context.read<ButterflyFileSystem>()),
               lazy: false,
               child: child ?? Container(),
             ),
@@ -415,17 +416,15 @@ class ButterflyApp extends StatelessWidget {
       ),
     );
   }
-
-  final GoRouter _router;
 }
 
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Adonis Blue';
+const applicationVersionName = 'Black Hairstreak';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.3';
+const applicationMinorVersion = '2.4';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');

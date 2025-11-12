@@ -9,5 +9,5 @@ Use an existing pack, create your own or import a pack to use it. Read more [her
 
 |  Property | Default | Leírás                                                          |
 | --------: | :-----: | :-------------------------------------------------------------- |
-|      Pack |   None  | The pack where the component is located.        |
-| Component |   None  | The component that will be added to the canvas. |
+|    Csomag |  Nincs  | The pack where the component is located.        |
+| Component |  Nincs  | The component that will be added to the canvas. |

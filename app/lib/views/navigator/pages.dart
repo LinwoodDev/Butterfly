@@ -36,10 +36,18 @@ class _PagesViewState extends State<PagesView> {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentName = state.pageName;
-        final pages = state.data.getPages();
+        final pages = state.data.getPagesWithNames();
         final index = state.data.getPageIndex(state.pageName);
-        void addPage([int? index]) =>
-            context.read<DocumentBloc>().add(PageAdded(index));
+        void addPage([int? index]) => context.read<DocumentBloc>().add(
+          PagesAdded([
+            PageAddedDetails(
+              index: index,
+              name: AppLocalizations.of(
+                context,
+              ).pageIndex(state.data.getPages().length + 1),
+            ),
+          ]),
+        );
 
         return Column(
           children: [
@@ -71,14 +79,8 @@ class _PagesViewState extends State<PagesView> {
                 builder: (context, value, child) {
                   final query = value.text.isEmpty ? '' : '${value.text}/';
                   final queried = pages
-                      .where((element) => element.startsWith(query))
-                      .map(
-                        (e) => (
-                          path: e,
-                          name: e.substring(query.length),
-                          isFile: true,
-                        ),
-                      )
+                      .where((element) => element.$1.startsWith(query))
+                      .map((e) => (path: e.$2, name: e.$1, isFile: true))
                       .toList();
                   final files = queried.where(
                     (element) => !element.name.contains('/'),
@@ -87,11 +89,12 @@ class _PagesViewState extends State<PagesView> {
                       .where((element) => element.name.contains('/'))
                       .map((e) => e.name.split('/').first)
                       .map((e) {
-                    var path = value.text;
-                    if (path.isNotEmpty) path += '/';
-                    path += e;
-                    return (path: path, name: e, isFile: false);
-                  }).toSet();
+                        var path = value.text;
+                        if (path.isNotEmpty) path += '/';
+                        path += e;
+                        return (path: path, name: e, isFile: false);
+                      })
+                      .toSet();
                   final all = [...folders, ...files];
                   return Material(
                     type: MaterialType.transparency,
@@ -108,14 +111,14 @@ class _PagesViewState extends State<PagesView> {
                         final isFile = current.isFile;
                         if (!isFile) return;
                         final next = all[newIndex.clamp(0, all.length - 1)];
-                        var nextIndex = state.data.getPageIndex(next.name);
+                        var nextIndex = state.data.getPageIndex(next.path);
                         if (newIndex >= all.length && nextIndex != null) {
                           nextIndex++;
                         }
                         if (!next.isFile || nextIndex == null) return;
                         context.read<DocumentBloc>().add(
-                              PageReordered(name, nextIndex),
-                            );
+                          PageReordered(name, nextIndex),
+                        );
                       },
                       itemBuilder: (BuildContext context, int index) {
                         final entity = all[index];
@@ -134,7 +137,7 @@ class _PagesViewState extends State<PagesView> {
             ),
             BottomAppBar(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 8,
                 children: [
                   Row(
                     children: [
@@ -143,36 +146,50 @@ class _PagesViewState extends State<PagesView> {
                       Text(LeapLocalizations.of(context).create),
                     ],
                   ),
-                  Row(
-                    children: [
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                        tooltip: AppLocalizations.of(context).insertBefore,
-                        onPressed: () => addPage(index),
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(PhosphorIconsLight.arrowDown),
-                        tooltip: AppLocalizations.of(context).insertAfter,
-                        onPressed: () => addPage((index ?? -1) + 1),
-                      ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.arrowLineUp,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            IconButton.filledTonal(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowUp,
+                              ),
+                              tooltip: AppLocalizations.of(
+                                context,
+                              ).insertBefore,
+                              onPressed: () => addPage(index),
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowDown,
+                              ),
+                              tooltip: AppLocalizations.of(context).insertAfter,
+                              onPressed: () => addPage((index ?? -1) + 1),
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowLineUp,
+                              ),
+                              tooltip: AppLocalizations.of(context).insertFirst,
+                              onPressed: () => addPage(0),
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowLineDown,
+                              ),
+                              tooltip: AppLocalizations.of(context).insertLast,
+                              onPressed: () => addPage(),
+                            ),
+                          ],
                         ),
-                        tooltip: AppLocalizations.of(context).insertFirst,
-                        onPressed: () => addPage(0),
                       ),
-                      const SizedBox(width: 8),
-                      IconButton.filledTonal(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.arrowLineDown,
-                        ),
-                        tooltip: AppLocalizations.of(context).insertLast,
-                        onPressed: () => addPage(),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -209,6 +226,8 @@ class _PageEntityListTile extends StatelessWidget {
             ? PhosphorIconsLight.file
             : PhosphorIconsLight.folderSimple,
       ),
+      textFormatter: (v) =>
+          v.isEmpty ? AppLocalizations.of(context).untitled : v,
       onTap: () {
         if (entity.isFile) {
           context.read<DocumentBloc>().add(PageChanged(entity.path));
@@ -218,8 +237,8 @@ class _PageEntityListTile extends StatelessWidget {
       },
       onSaved: editable
           ? (value) => context.read<DocumentBloc>().add(
-                PageRenamed(entity.path, value),
-              )
+              PageRenamed(entity.path, value),
+            )
           : null,
       actions: editable
           ? [
@@ -236,8 +255,8 @@ class _PageEntityListTile extends StatelessWidget {
                           return;
                         }
                         context.read<DocumentBloc>().add(
-                              PageRemoved(entity.path),
-                            );
+                          PageRemoved(entity.path),
+                        );
                       },
                 child: Text(AppLocalizations.of(context).delete),
               ),

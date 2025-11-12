@@ -102,8 +102,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 2),
                                   Text(
                                     modifiedText!,
-                                    style: TextTheme.of(context)
-                                        .bodySmall
+                                    style: TextTheme.of(context).bodySmall
                                         ?.copyWith(color: colorScheme.outline),
                                   ),
                                 ],
@@ -123,8 +122,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 2),
                                   Text(
                                     createdText!,
-                                    style: TextTheme.of(context)
-                                        .bodySmall
+                                    style: TextTheme.of(context).bodySmall
                                         ?.copyWith(color: colorScheme.outline),
                                   ),
                                 ],
@@ -145,9 +143,7 @@ class FileEntityListTile extends StatelessWidget {
                                   ? AspectRatio(
                                       aspectRatio: kThumbnailRatio,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          8,
-                                        ),
+                                        borderRadius: BorderRadius.circular(8),
                                         child: Image.memory(
                                           thumbnail!,
                                           fit: BoxFit.cover,
@@ -218,13 +214,16 @@ class FileEntityListTile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(
-                                            entity.fileName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextTheme.of(
-                                              context,
-                                            ).labelLarge,
+                                          Tooltip(
+                                            message: entity.fileName,
+                                            child: Text(
+                                              entity.fileName,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextTheme.of(
+                                                context,
+                                              ).labelLarge,
+                                            ),
                                           ),
                                           if (!isDesktop && !collapsed) ...[
                                             const SizedBox(height: 6),
@@ -249,8 +248,9 @@ class FileEntityListTile extends StatelessWidget {
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.pencil,
                                     ),
-                                    tooltip:
-                                        AppLocalizations.of(context).rename,
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).rename,
                                   ),
                                 ],
                               );
@@ -266,10 +266,8 @@ class FileEntityListTile extends StatelessWidget {
                                 builder: (context, snapshot) {
                                   final currentStatus = snapshot.data
                                       ?.lastWhereOrNull(
-                                        (element) =>
-                                            entity.location.path.startsWith(
-                                          element.location.path,
-                                        ),
+                                        (element) => entity.location.path
+                                            .startsWith(element.location.path),
                                       )
                                       ?.status;
                                   return IconButton(
@@ -315,15 +313,17 @@ class FileEntityListTile extends StatelessWidget {
                               },
                             ),
                             IconButton(
-                              onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => FileSystemAssetMoveDialog(
-                                  assets: [entity.location],
-                                  fileSystem: documentSystem,
-                                ),
-                              ).then((value) {
-                                if (value != null) onReload();
-                              }),
+                              onPressed: () =>
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        FileSystemAssetMoveDialog(
+                                          assets: [entity.location],
+                                          fileSystem: documentSystem,
+                                        ),
+                                  ).then((value) {
+                                    if (value != null) onReload();
+                                  }),
                               tooltip: AppLocalizations.of(context).move,
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.arrowsDownUp,
@@ -343,11 +343,11 @@ class FileEntityListTile extends StatelessWidget {
                               selectionCheckbox,
                               const SizedBox(width: 8),
                               Expanded(
-                                child: Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [fileName, edit],
+                                child: Row(
+                                  children: [
+                                    Flexible(child: fileName),
+                                    edit,
+                                  ],
                                 ),
                               ),
                               if (!collapsed) ...[
@@ -412,9 +412,20 @@ class FileEntityListTile extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           try {
-                            final data =
-                                (entity as FileSystemFile<NoteFile>).data;
-                            exportData(context, data?.data ?? []);
+                            final data = (entity as FileSystemFile<NoteFile>)
+                                .data
+                                ?.load();
+                            if (data == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    AppLocalizations.of(context).error,
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+                            exportData(context, data);
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

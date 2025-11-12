@@ -6,8 +6,12 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [super.layer, this.image]);
 
   @override
-  bool onAssetUpdate(NoteData document, AssetService assetService,
-      DocumentPage page, String path) {
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) {
     final uri = Uri.parse(element.source);
     if (uri.hasScheme && !uri.isScheme('file')) return false;
     final shouldUpdate = uri.path == path;
@@ -15,9 +19,16 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     if (image == null) {
       // Render placeholder
       final paint = Paint()
@@ -39,30 +50,55 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
-    if (!rect.overlaps(rect)) return;
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
+    if (!rect.overlaps(viewportRect)) return;
     // Create data url
     final data = element.getUriData(document, 'image/png').toString();
     // Create image
-    xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${rect.left}px',
-      'y': '${rect.top}px',
-      'width': '${rect.width}px',
-      'height': '${rect.height}px',
-      'xlink:href': data,
-    });
+    xml
+        .getElement('svg')
+        ?.createElement(
+          'image',
+          attributes: {
+            'x': '${rect.left}px',
+            'y': '${rect.top}px',
+            'width': '${rect.width}px',
+            'height': '${rect.height}px',
+            'xlink:href': data,
+          },
+        );
   }
 
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page,
-      [bool force = false]) async {
-    super.setup(document, assetService, page);
-    if (image != null && !force) return;
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    if (image != null) return;
     try {
-      image = await assetService.getImage(element.source, document);
+      image = await blocState.assetService.getImage(
+        element.source,
+        blocState.data,
+      );
     } catch (_) {}
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    image?.dispose();
+    image = null;
   }
 
   @override
@@ -72,17 +108,22 @@ class ImageRenderer extends Renderer<ImageElement> {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
       return Rect.fromLTWH(
-          element.position.x,
-          element.position.y,
-          (element.width * scaleX).toDouble(),
-          (element.height * scaleY).toDouble());
+        element.position.x,
+        element.position.y,
+        (element.width * scaleX).toDouble(),
+        (element.height * scaleY).toDouble(),
+      );
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
       if (height <= 0) height = element.height.toDouble();
       if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
-          element.position.x, element.position.y, width, height);
+        element.position.x,
+        element.position.y,
+        width,
+        height,
+      );
     } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
@@ -103,10 +144,18 @@ class ImageRenderer extends Renderer<ImageElement> {
       if (height <= 0) height = element.height.toDouble();
       if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
-          element.position.x, element.position.y, width, height);
+        element.position.x,
+        element.position.y,
+        width,
+        height,
+      );
     } else {
-      return Rect.fromLTWH(element.position.x, element.position.y,
-          element.width.toDouble(), element.height.toDouble());
+      return Rect.fromLTWH(
+        element.position.x,
+        element.position.y,
+        element.width.toDouble(),
+        element.height.toDouble(),
+      );
     }
   }
 
@@ -118,12 +167,13 @@ class ImageRenderer extends Renderer<ImageElement> {
     double scaleY = 1,
   }) {
     return ImageRenderer(
-        element.copyWith(
-          position: position.toPoint(),
-          rotation: rotation,
-          constraints: element.constraints.scale(scaleX, scaleY),
-        ),
-        layer);
+      element.copyWith(
+        position: position.toPoint(),
+        rotation: rotation,
+        constraints: element.constraints.scale(scaleX, scaleY),
+      ),
+      layer,
+    );
   }
 
   @override
@@ -135,19 +185,15 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   Map<RendererOperation, RendererOperationCallback> getOperations() {
     Future<void> updateImage(
-        DocumentBloc bloc, void Function(img.Command) update) async {
+      DocumentBloc bloc,
+      void Function(img.Command) update,
+    ) async {
       final asset = Uri.parse(element.source);
       if ((!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
           image == null) {
         return;
       }
-      final bytes = await image!.toByteData();
-      final imgImage = img.Image.fromBytes(
-        width: image!.width,
-        height: image!.height,
-        bytes: bytes!.buffer,
-        numChannels: 4,
-      );
+      final imgImage = await convertFlutterUiToImage(image!);
       var cmd = img.Command()..image(imgImage);
       update(cmd);
       cmd.encodePng();
@@ -164,9 +210,13 @@ class ImageRenderer extends Renderer<ImageElement> {
       RendererOperation.grayscale: (bloc, context) =>
           updateImage(bloc, (cmd) => cmd.grayscale()),
       RendererOperation.flipHorizontal: (bloc, context) => updateImage(
-          bloc, (cmd) => cmd.flip(direction: img.FlipDirection.horizontal)),
+        bloc,
+        (cmd) => cmd.flip(direction: img.FlipDirection.horizontal),
+      ),
       RendererOperation.flipVertical: (bloc, context) => updateImage(
-          bloc, (cmd) => cmd.flip(direction: img.FlipDirection.vertical)),
+        bloc,
+        (cmd) => cmd.flip(direction: img.FlipDirection.vertical),
+      ),
     };
   }
 }

@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Eylemler
 
 |          Fare         |      Dokunma     |          Eylem          |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Yapılandırma
 
-|      Özellik | Varsayılan | Tanım                                                                                                                                                                                                          |
-| -----------: | :--------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     Genişlik |      0     | Alan genişliğini sabitleme. Eğer 0 olarak ayarlanırsa genişlik otomatik olarak hesaplanacaktır.                                                                                |
-|    Yükseklik |      0     | Alan yüksekliğini sabitleme. Eğer 0 olarak ayarlanırsa yükseklik otomatik olarak hesaplanacaktır.                                                                              |
-| En boy oranı |      0     | Alanın en boy oranını sabitleme. Eğer 0 olarak ayarlanırsa en boy oranı otomatik olarak hesaplanacaktır. En boy oranı, genişlik / yükseklik olarak tanımlanır. |
+|      Özellik | Varsayılan | Tanım                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -----------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     Genişlik |     `0`    | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|    Yükseklik |     `0`    | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| En boy oranı |     `0`    | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 Üç farklı en boy oranı ön ayarı vardır:
 

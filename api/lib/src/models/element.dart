@@ -35,9 +35,10 @@ abstract class SourcedElement {
 @freezed
 @immutable
 sealed class ElementConstraints with _$ElementConstraints {
-  const factory ElementConstraints.scaled(
-      {@Default(1) double scaleX,
-      @Default(1) double scaleY}) = ScaledElementConstraints;
+  const factory ElementConstraints.scaled({
+    @Default(1) double scaleX,
+    @Default(1) double scaleY,
+  }) = ScaledElementConstraints;
   const factory ElementConstraints.fixed(double height, double width) =
       FixedElementConstraints;
   const factory ElementConstraints.dynamic({
@@ -60,21 +61,21 @@ mixin LabelElement {
   String get collection;
   Point<double> get position;
   double get scale;
-  PackAssetLocation get styleSheet;
+  NamedItem<TextStyleSheet>? get styleSheet;
   ElementConstraint get constraint;
   SRGBColor get foreground;
 
   AreaProperty get areaProperty => switch (this) {
-        MarkdownElement e => e.areaProperty,
-        TextElement e => e.area.areaProperty,
-        _ => throw UnimplementedError(),
-      };
+    MarkdownElement e => e.areaProperty,
+    TextElement e => e.area.areaProperty,
+    _ => throw UnimplementedError(),
+  };
 
   String get text => switch (this) {
-        MarkdownElement e => e.text,
-        TextElement e => e.area.paragraph.text,
-        _ => throw UnimplementedError(),
-      };
+    MarkdownElement e => e.text,
+    TextElement e => e.area.paragraph.text,
+    _ => throw UnimplementedError(),
+  };
 }
 
 @Freezed(equal: false)
@@ -101,7 +102,7 @@ sealed class PadElement with _$PadElement {
     @Default(Point(0.0, 0.0))
     Point<double> position,
     @Default(1.0) double scale,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
@@ -117,7 +118,7 @@ sealed class PadElement with _$PadElement {
     @Default(Point(0.0, 0.0))
     Point<double> position,
     @Default(1.0) double scale,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     @Default(AreaProperty()) AreaProperty areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
@@ -140,6 +141,25 @@ sealed class PadElement with _$PadElement {
     required double height,
     @Default({}) Map<String, dynamic> extra,
   }) = ImageElement;
+
+  @Implements<SourcedElement>()
+  factory PadElement.pdf({
+    @Default(0) double rotation,
+    @Default('') String collection,
+    @IdJsonConverter() String? id,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+    Point<double> position,
+    @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
+    ElementConstraints? constraints,
+    required String source,
+    @Default(0) int page,
+    required double width,
+    required double height,
+    @Default(false) bool invert,
+    @Default(SRGBColor.transparent) @ColorJsonConverter() SRGBColor background,
+    @Default({}) Map<String, dynamic> extra,
+  }) = PdfElement;
 
   @Implements<SourcedElement>()
   factory PadElement.svg({
@@ -185,12 +205,21 @@ sealed class PadElement with _$PadElement {
     @Default({}) Map<String, dynamic> extra,
   }) = TextureElement;
 
+  factory PadElement.polygon({
+    @Default(0) double rotation,
+    @Default('') String collection,
+    @IdJsonConverter() String? id,
+    @Default([]) List<PolygonPoint> points,
+    @Default({}) Map<String, dynamic> extra,
+    @Default(PolygonProperty()) PolygonProperty property,
+  }) = PolygonElement;
+
   factory PadElement.fromJson(Map<String, dynamic> json) =>
       _$PadElementFromJson(json);
 
   bool isStroke() => switch (this) {
-        PenElement _ => true,
-        ShapeElement _ => true,
-        _ => false,
-      };
+    PenElement _ => true,
+    ShapeElement _ => true,
+    _ => false,
+  };
 }

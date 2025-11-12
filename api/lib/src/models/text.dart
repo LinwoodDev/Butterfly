@@ -5,6 +5,8 @@ import 'package:collection/collection.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'pack.dart';
+
 part 'text.freezed.dart';
 part 'text.g.dart';
 
@@ -84,27 +86,29 @@ sealed class AreaProperty with _$AreaProperty {
 }
 
 @freezed
-sealed class TextSpan with _$TextSpan {
-  const TextSpan._();
-  const factory TextSpan.text({
+sealed class InlineSpan with _$InlineSpan {
+  const InlineSpan._();
+  const factory InlineSpan.text({
     @Default('') String text,
     @Default(SpanProperty.undefined()) SpanProperty property,
-  }) = _TextSpan;
+  }) = TextSpan;
+  const factory InlineSpan.math({
+    @Default('') String text,
+    @Default(SpanProperty.undefined()) SpanProperty property,
+  }) = MathTextSpan;
 
-  factory TextSpan.fromJson(Map<String, dynamic> json) =>
-      _$TextSpanFromJson(json);
+  factory InlineSpan.fromJson(Map<String, dynamic> json) =>
+      _$InlineSpanFromJson(json);
 
   int get length => text.length;
 
-  TextSpan subSpan([int start = 0, int? length]) {
+  InlineSpan subSpan([int start = 0, int? length]) {
     length ??= this.length;
     length = length.clamp(0, this.length);
     start = max(start, 0);
     length = length.clamp(0, this.length - start);
     final end = start + length;
-    return copyWith(
-      text: text.substring(start, end),
-    );
+    return copyWith(text: text.substring(start, end));
   }
 
   bool get isEmpty => text.isEmpty;
@@ -121,7 +125,7 @@ sealed class TextParagraph with _$TextParagraph {
   const TextParagraph._();
   const factory TextParagraph({
     @Default(ParagraphProperty.undefined()) ParagraphProperty property,
-    @Default([]) List<TextSpan> textSpans,
+    @Default([]) List<InlineSpan> textSpans,
   }) = _TextParagraph;
 
   factory TextParagraph.fromJson(Map<String, dynamic> json) =>
@@ -135,28 +139,33 @@ sealed class TextParagraph with _$TextParagraph {
   String get text => textSpans.map((e) => e.text).join();
   String substring(int start, [int? end]) => text.substring(start, end);
 
-  TextSpan? getSpan(int index, [bool cut = true]) =>
+  InlineSpan? getSpan(int index, [bool cut = true]) =>
       getIndexedSpan(index, cut)?.model;
 
-  IndexedModel<TextSpan>? getIndexedSpan(int index, [bool cut = true]) {
+  IndexedModel<InlineSpan>? getIndexedSpan(int index, [bool cut = true]) {
     var currentLength = 0;
     for (var span in textSpans) {
       if (currentLength + span.length > index) {
         return IndexedModel(
-            currentLength, cut ? span.subSpan(index - currentLength) : span);
+          currentLength,
+          cut ? span.subSpan(index - currentLength) : span,
+        );
       }
       currentLength += span.length;
     }
     return null;
   }
 
-  List<TextSpan> getSpans([int start = 0, int? length, bool cut = false]) =>
+  List<InlineSpan> getSpans([int start = 0, int? length, bool cut = false]) =>
       getIndexedSpans(start, length, cut).model;
 
-  IndexedModel<List<TextSpan>> getIndexedSpans(
-      [int start = 0, int? length, bool cut = false]) {
+  IndexedModel<List<InlineSpan>> getIndexedSpans([
+    int start = 0,
+    int? length,
+    bool cut = false,
+  ]) {
     length ??= this.length;
-    var spans = <TextSpan>[];
+    var spans = <InlineSpan>[];
     var currentLength = 0;
     int? firstIndex;
     final end = start + length;
@@ -166,9 +175,14 @@ sealed class TextParagraph with _$TextParagraph {
           break;
         }
         firstIndex ??= currentLength;
-        spans.add(cut
-            ? span.subSpan(start - currentLength, length - currentLength)
-            : span);
+        spans.add(
+          cut
+              ? span.subSpan(
+                  start - currentLength,
+                  end - max(currentLength, start),
+                )
+              : span,
+        );
       }
       currentLength += span.length;
     }
@@ -177,7 +191,7 @@ sealed class TextParagraph with _$TextParagraph {
 
   TextParagraph subParagraph([int start = 0, int? length]) {
     length ??= this.length;
-    var subSpans = <TextSpan>[];
+    var subSpans = <InlineSpan>[];
     var currentLength = 0;
     final end = start + length;
     for (var span in textSpans) {
@@ -198,8 +212,8 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph insert(TextSpan span, int offset) {
-    List<TextSpan> spans = [];
+  TextParagraph insert(InlineSpan span, int offset) {
+    List<InlineSpan> spans = [];
     spans.addAll(getSpans(0, offset));
     spans.add(span);
     spans.addAll(getSpans(offset));
@@ -207,9 +221,9 @@ sealed class TextParagraph with _$TextParagraph {
   }
 
   TextParagraph insertText(String text, int offset) {
-    List<TextSpan> spans = [];
+    List<InlineSpan> spans = [];
     // Merge spans
-    final span = getSpan(offset) ?? const TextSpan.text();
+    final span = getSpan(offset) ?? const InlineSpan.text();
     var newSpan = span.copyWith(text: span.text + text);
     final before = getSpans(0, offset);
     before.removeLast();
@@ -219,21 +233,25 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: spans);
   }
 
-  TextParagraph replace(TextSpan span, [int start = 0, int? length]) {
+  TextParagraph replace(InlineSpan span, [int start = 0, int? length]) {
     length ??= 0;
-    var subSpans = <TextSpan>[];
+    var subSpans = <InlineSpan>[];
     final end = start + length;
 
     final endSpans = getSpans(end, null, true);
 
-    if (endSpans.firstOrNull?.property == span.property) {
+    if (endSpans.firstOrNull?.property == span.property &&
+        span is TextSpan &&
+        endSpans.firstOrNull is TextSpan) {
       final firstSpan = endSpans.removeAt(0);
       span = span.copyWith(text: span.text + firstSpan.text);
     }
 
     final startSpans = getSpans(0, start, true);
 
-    if (startSpans.lastOrNull?.property == span.property) {
+    if (startSpans.lastOrNull?.property == span.property &&
+        span is TextSpan &&
+        endSpans.lastOrNull is TextSpan) {
       final lastSpan = startSpans.removeLast();
       span = lastSpan.copyWith(text: lastSpan.text + span.text);
     }
@@ -244,16 +262,21 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph replaceText(String text,
-      [int start = 0, int? length, bool replaceWholeSpan = false]) {
+  TextParagraph replaceText(
+    String text, [
+    int start = 0,
+    int? length,
+    bool replaceWholeSpan = false,
+  ]) {
     final indexed = getIndexedSpan(start);
     length ??= replaceWholeSpan ? indexed?.model.length : 0;
     return replace(
-        indexed != null
-            ? indexed.model.copyWith(text: text)
-            : TextSpan.text(text: text),
-        (replaceWholeSpan ? indexed?.index : null) ?? start,
-        length);
+      indexed != null
+          ? indexed.model.copyWith(text: text)
+          : InlineSpan.text(text: text),
+      (replaceWholeSpan ? indexed?.index : null) ?? start,
+      length,
+    );
   }
 
   TextParagraph remove([int start = 0, int length = 0]) {
@@ -261,11 +284,12 @@ sealed class TextParagraph with _$TextParagraph {
 
     final beforeSpans = getSpans(0, start, true);
     final afterSpans = getSpans(end, null, true);
-// Test if beforeSpans and afterSpans can be merged
+    // Test if beforeSpans and afterSpans can be merged
     if (beforeSpans.isNotEmpty &&
         beforeSpans.lastOrNull?.property == afterSpans.firstOrNull?.property) {
       final merged = beforeSpans.lastOrNull!.copyWith(
-          text: beforeSpans.lastOrNull!.text + afterSpans.firstOrNull!.text);
+        text: beforeSpans.lastOrNull!.text + afterSpans.firstOrNull!.text,
+      );
       afterSpans.removeAt(0);
       beforeSpans.removeLast();
       beforeSpans.add(merged);
@@ -273,20 +297,26 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: [...beforeSpans, ...afterSpans]);
   }
 
-  TextParagraph updateSpans(TextSpan Function(TextSpan) update,
-      [int start = 0, int length = 0]) {
+  TextParagraph updateSpans(
+    InlineSpan Function(InlineSpan) update, [
+    int start = 0,
+    int length = 0,
+  ]) {
     final spans = getSpans(start, length, true);
     if (spans.isEmpty) {
       return this;
     }
-    final updated = update(spans.first.copyWith(
-      text: spans.map((e) => e.text).join(),
-    ));
+    final updated = update(
+      spans.first.copyWith(text: spans.map((e) => e.text).join()),
+    );
     return replace(updated, start, length);
   }
 
-  TextParagraph applyStyle(SpanProperty property,
-      [int start = 0, int length = 0]) {
+  TextParagraph applyStyle(
+    SpanProperty property, [
+    int start = 0,
+    int length = 0,
+  ]) {
     return updateSpans(
       (span) => span.copyWith(property: property),
       start,
@@ -310,11 +340,10 @@ sealed class TextArea with _$TextArea {
 }
 
 @freezed
-sealed class TextStyleSheet with _$TextStyleSheet {
+sealed class TextStyleSheet extends PackAsset with _$TextStyleSheet {
   const TextStyleSheet._();
 
   const factory TextStyleSheet({
-    @Default('') String name,
     @Default({}) Map<String, DefinedSpanProperty> spanProperties,
     @Default({}) Map<String, DefinedParagraphProperty> paragraphProperties,
   }) = _TextStyleSheet;
@@ -322,14 +351,7 @@ sealed class TextStyleSheet with _$TextStyleSheet {
       _$TextStyleSheetFromJson(json);
 
   static List<String> getMarkdownSpanPropertyNames() {
-    return [
-      'em',
-      'strong',
-      'codeSpan',
-      'del',
-      'a',
-      'img',
-    ];
+    return ['em', 'strong', 'codeSpan', 'del', 'a', 'img'];
   }
 
   static List<String> getMarkdownParagraphPropertyNames() {
@@ -353,6 +375,7 @@ sealed class TextStyleSheet with _$TextStyleSheet {
       'tr',
       'th',
       'td',
+      'math',
     ];
   }
 
@@ -374,20 +397,21 @@ extension ResolveProperty on TextStyleSheet? {
       };
 
   DefinedParagraphProperty? resolveParagraphProperty(
-          ParagraphProperty? property) =>
-      switch (property) {
-        DefinedParagraphProperty e => e,
-        NamedParagraphProperty e => this?.paragraphProperties[e.name],
-        _ => null,
-      };
+    ParagraphProperty? property,
+  ) => switch (property) {
+    DefinedParagraphProperty e => e,
+    NamedParagraphProperty e => this?.paragraphProperties[e.name],
+    _ => null,
+  };
 }
 
 extension SpanPropertyGetter on DefinedSpanProperty {
   double getSize([DefinedParagraphProperty? paragraphProperty]) =>
       size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
-  SRGBColor getColor(
-          [DefinedParagraphProperty? paragraphProperty,
-          SRGBColor? foreground]) =>
+  SRGBColor getColor([
+    DefinedParagraphProperty? paragraphProperty,
+    SRGBColor? foreground,
+  ]) =>
       color ??
       paragraphProperty?.span.color ??
       foreground ??
@@ -418,13 +442,15 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       decorationColor ??
       paragraphProperty?.span.decorationColor ??
       SpanProperty.kDefault.decorationColor!;
-  TextDecorationStyle getDecorationStyle(
-          [DefinedParagraphProperty? paragraphProperty]) =>
+  TextDecorationStyle getDecorationStyle([
+    DefinedParagraphProperty? paragraphProperty,
+  ]) =>
       decorationStyle ??
       paragraphProperty?.span.decorationStyle ??
       SpanProperty.kDefault.decorationStyle!;
-  double getDecorationThickness(
-          [DefinedParagraphProperty? paragraphProperty]) =>
+  double getDecorationThickness([
+    DefinedParagraphProperty? paragraphProperty,
+  ]) =>
       decorationThickness ??
       paragraphProperty?.span.decorationThickness ??
       SpanProperty.kDefault.decorationThickness!;

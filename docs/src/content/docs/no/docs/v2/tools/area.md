@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Handlinger
 
 |         Mus         |     Berør    |        Handling        |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Konfigurasjon
 
-|                Egenskap | Standard | Beskrivelse                                                                                                                                                                                                |
-| ----------------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                   Width |     0    | Den faste bredden på området. Hvis satt til 0, vil bredden bli beregnet automatisk.                                                                                        |
-|                   Høyde |     0    | Den faste høyden av området. Hvis satt til 0, vil høyden bli beregnet automatisk.                                                                                          |
-| Høyde- og breddeforhold |     0    | The fixed aspect ratio of the area. Hvis satt til 0, vil størrelsesforholdet bli beregnet automatisk. Et størrelsesforhold er definert som bredde / høyde. |
+|                Egenskap | Standard | Beskrivelse                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                   Width |    `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|                   Høyde |    `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| Høyde- og breddeforhold |    `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 Det er forhåndsinnstillinger for tre størrelseforhold:
 

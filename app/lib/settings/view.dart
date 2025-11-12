@@ -118,10 +118,9 @@ class ViewSettingsPage extends StatelessWidget {
                                 Text(AppLocalizations.of(context).position),
                             childrenBuilder: (context) => [
                               ListTile(
-                                title: Text(
-                                  AppLocalizations.of(context).left,
-                                ),
-                                selected: state.navigatorPosition ==
+                                title: Text(AppLocalizations.of(context).left),
+                                selected:
+                                    state.navigatorPosition ==
                                     NavigatorPosition.left,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineLeft,
@@ -131,10 +130,9 @@ class ViewSettingsPage extends StatelessWidget {
                                 ).pop(NavigatorPosition.left),
                               ),
                               ListTile(
-                                title: Text(
-                                  AppLocalizations.of(context).right,
-                                ),
-                                selected: state.navigatorPosition ==
+                                title: Text(AppLocalizations.of(context).right),
+                                selected:
+                                    state.navigatorPosition ==
                                     NavigatorPosition.right,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineRight,
@@ -166,15 +164,19 @@ class ViewSettingsPage extends StatelessWidget {
                         ),
                         onTap: () => _openOptionsPanelPositionModal(context),
                       ),
-                      SwitchListTile(
-                        value: state.colorToolbarEnabled,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeColorToolbarEnabled(value),
-                        title: Text(AppLocalizations.of(context).colorToolbar),
-                        secondary: const PhosphorIcon(
-                          PhosphorIconsLight.palette,
+                      ListTile(
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.cursorText,
                         ),
+                        title: Text(
+                          AppLocalizations.of(context).simpleToolbarVisibility,
+                        ),
+                        subtitle: Text(
+                          state.simpleToolbarVisibility.getLocalizedName(
+                            context,
+                          ),
+                        ),
+                        onTap: () => _openSimpleToolbarVisibilityModal(context),
                       ),
                     ],
                   ),
@@ -234,6 +236,33 @@ class ViewSettingsPage extends StatelessWidget {
               }),
               onTap: () {
                 cubit.changeOptionsPanelPosition(e);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _openSimpleToolbarVisibilityModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.simpleToolbarVisibility;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).simpleToolbarVisibility),
+      childrenBuilder: (context) => SimpleToolbarVisibility.values
+          .map(
+            (e) => ListTile(
+              title: Text(e.getLocalizedName(context)),
+              selected: currentPos == e,
+              leading: Icon(switch (e) {
+                SimpleToolbarVisibility.show => PhosphorIconsLight.eye,
+                SimpleToolbarVisibility.hide => PhosphorIconsLight.eyeSlash,
+                SimpleToolbarVisibility.temporary => PhosphorIconsLight.clock,
+              }),
+              onTap: () {
+                cubit.changeSimpleToolbarVisibility(e);
                 Navigator.of(context).pop();
               },
             ),

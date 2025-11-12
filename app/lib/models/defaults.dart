@@ -28,17 +28,20 @@ class DocumentDefaults {
       size.height.toInt(),
     );
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    image.dispose();
+    picture.dispose();
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Tool> createTools([SRGBColor? background]) => [
-        SelectTool(mode: SelectMode.lasso),
-        PenTool(),
-        PathEraserTool(),
-        UndoTool(),
-        RedoTool(),
-        HandTool(),
-      ]
+  static List<Tool> createTools([SRGBColor? background]) =>
+      [
+            SelectTool(mode: SelectMode.lasso),
+            PenTool(),
+            PathEraserTool(),
+            UndoTool(),
+            RedoTool(),
+            HandTool(),
+          ]
           .map(
             (e) =>
                 background == null ? e : updateToolDefaultColor(e, background),
@@ -58,15 +61,14 @@ class DocumentDefaults {
           thumbnail: await _createPlainThumnail(color),
           backgrounds: [bg],
         );
-      }).toList(),
+      }),
     );
   }
 
   static Future<NoteData> getCorePack() async {
-    _corePack ??= NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')),
+    return _corePack ??= NoteData.fromData(
+      Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
     );
-    return _corePack!;
   }
 
   static String translate(String key, Map<String, String> translations) {
@@ -77,39 +79,45 @@ class DocumentDefaults {
   }
 
   static Map<String, String> getParagraphTranslations(BuildContext context) => {
-        'h1': AppLocalizations.of(context).headline(1),
-        'h2': AppLocalizations.of(context).headline(2),
-        'h3': AppLocalizations.of(context).headline(3),
-        'h4': AppLocalizations.of(context).headline(4),
-        'h5': AppLocalizations.of(context).headline(5),
-        'h6': AppLocalizations.of(context).headline(6),
-        'p': AppLocalizations.of(context).paragraph,
-        'blockquote': AppLocalizations.of(context).quote,
-      };
+    'h1': AppLocalizations.of(context).headline(1),
+    'h2': AppLocalizations.of(context).headline(2),
+    'h3': AppLocalizations.of(context).headline(3),
+    'h4': AppLocalizations.of(context).headline(4),
+    'h5': AppLocalizations.of(context).headline(5),
+    'h6': AppLocalizations.of(context).headline(6),
+    'p': AppLocalizations.of(context).paragraph,
+    'blockquote': AppLocalizations.of(context).quote,
+    'math': AppLocalizations.of(context).math,
+  };
 
   static String translateParagraph(String key, BuildContext context) =>
       translate(key, getParagraphTranslations(context));
 
   static Map<String, String> getSpanTranslations(BuildContext context) => {
-        'a': AppLocalizations.of(context).link,
-        'checkbox': AppLocalizations.of(context).checkbox,
-        'del': AppLocalizations.of(context).deleted,
-        'em': AppLocalizations.of(context).emphasis,
-        'img': AppLocalizations.of(context).image,
-        'listBullet': AppLocalizations.of(context).listBullet,
-        'strong': AppLocalizations.of(context).strong,
-        'code': AppLocalizations.of(context).code,
-      };
+    'a': AppLocalizations.of(context).link,
+    'checkbox': AppLocalizations.of(context).checkbox,
+    'del': AppLocalizations.of(context).deleted,
+    'em': AppLocalizations.of(context).emphasis,
+    'img': AppLocalizations.of(context).image,
+    'listBullet': AppLocalizations.of(context).listBullet,
+    'strong': AppLocalizations.of(context).strong,
+    'code': AppLocalizations.of(context).code,
+  };
 
   static String translateBlock(String key, BuildContext context) =>
       translate(key, getSpanTranslations(context));
 
-  static NoteData createDocument({String name = '', DocumentPage? page}) {
-    page ??= createPage();
+  static NoteData createDocument({
+    String name = '',
+    DocumentPage? page,
+    bool createDefaultPage = true,
+  }) {
     final metadata = createMetadata(name: name);
-    final data = NoteData(
-      Archive(),
-    ).setMetadata(metadata).setPage(page).setInfo(createInfo());
+    var data = NoteData(Archive()).setMetadata(metadata).setInfo(createInfo());
+    if (createDefaultPage) {
+      page ??= createPage();
+      data = data.setPage(page).$1;
+    }
     return data;
   }
 
@@ -142,20 +150,19 @@ class DocumentDefaults {
         .setMetadata(metadata)
         .setInfo(createInfo(backgrounds.firstOrNull?.defaultColor))
         .setPage(page)
-        .setPack(await getCorePack());
+        .$1;
     if (thumbnail != null) data = data.setThumbnail(thumbnail);
     return data;
   }
 
-  static createMetadata({
+  static FileMetadata createMetadata({
     NoteFileType type = NoteFileType.document,
     String name = '',
-  }) =>
-      FileMetadata(
-        name: name,
-        createdAt: DateTime.now().toUtc(),
-        type: type,
-        fileVersion: kFileVersion,
-        updatedAt: DateTime.now().toUtc(),
-      );
+  }) => FileMetadata(
+    name: name,
+    createdAt: DateTime.now().toUtc(),
+    type: type,
+    fileVersion: kFileVersion,
+    updatedAt: DateTime.now().toUtc(),
+  );
 }

@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Acțiuni
 
 |            Șoricel            |       Atingere      |       Acțiune       |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Configurare
 
-|      Proprietate | Implicit | Descriere                                                                                                                                                                                              |
-| ---------------: | :------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|            Width |     0    | Lăţimea fixă a zonei. Dacă este setat la 0, lățimea va fi calculată automat.                                                                                           |
-|         Înălțime |     0    | Înălţimea fixă a zonei. Dacă este setată la 0, înălțimea va fi calculată automat.                                                                                      |
-| Raport de aspect |     0    | Raportul de aspect fix al zonei. Dacă este setat la 0, raportul de aspect va fi calculat automat. Un raport de aspect este definit ca lățime/înălțime. |
+|      Proprietate | Implicit | Descriere                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|            Width |    `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|         Înălțime |    `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| Raport de aspect |    `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 Există trei presetări ale raportului de aspect:
 

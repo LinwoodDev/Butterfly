@@ -18,6 +18,7 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Avaa paketit
 - `Ctrl` + `Alt` + `S`: Avaa asetukset
+- `Ctrl` + `Alt` + `S`: Avaa asetukset
 
 ### Projekti
 
@@ -40,16 +41,18 @@ Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
 - `First` (Valinnainen painike, jos tuettu): Vaihda käsityökalua painettuna.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Määritä {#configure}
+## Configuring {#configure}
 
-Voit muokata ohjaimia antamalla jokaiselle ohjaukselle työkalun indeksin. Työkalun indeksointi alkaa työkalupalkin vasemmalta ja `1` on ensimmäinen indeksi. Katso esimerkki alla
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 ![toolbar numbered](toolbar_numbered.png)
-
-Täällä, 1 viittaa lasso työkalu, 2, pan työkalu jne.
-
-Määritä asetukset sinulla on ovat seuraavat:
-
-- Tyhjä - työkalu on chaged.
-- 0 - työkalu toimii liikkuvana (eli kädessä) tässä moodissa.
-- Positiivinen numero - Työkalu seuraa indeksointi kuten selitetään edellä.

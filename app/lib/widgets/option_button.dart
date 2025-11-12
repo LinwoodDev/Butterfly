@@ -71,14 +71,13 @@ class _OptionButtonState extends State<OptionButton>
   Widget build(BuildContext context) {
     final selectedBottom = IconTheme(
       data: Theme.of(context).iconTheme.copyWith(
-            size: 14,
-            color: widget.selected ? ColorScheme.of(context).primary : null,
-          ),
+        size: 14,
+        color: widget.selected ? ColorScheme.of(context).primary : null,
+      ),
       child: Align(
-        child: widget.bottomIcon ??
-            const PhosphorIcon(
-              PhosphorIconsLight.caretDown,
-            ),
+        child:
+            widget.bottomIcon ??
+            const PhosphorIcon(PhosphorIconsLight.caretDown),
       ),
     );
     return Tooltip(
@@ -112,15 +111,15 @@ class _OptionButtonState extends State<OptionButton>
                         borderRadius: BorderRadius.circular(12),
                       )
                     : (widget.focussed
-                        ? BoxDecoration(
-                            // Border
-                            border: Border.all(
-                              color: ColorScheme.of(context).outlineVariant,
-                              width: 2 * _animation.value,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          )
-                        : null),
+                          ? BoxDecoration(
+                              // Border
+                              border: Border.all(
+                                color: ColorScheme.of(context).outlineVariant,
+                                width: 2 * _animation.value,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            )
+                          : null),
                 margin: (widget.highlighted || widget.focussed)
                     ? null
                     : const EdgeInsets.all(2),
@@ -130,39 +129,38 @@ class _OptionButtonState extends State<OptionButton>
             child: Padding(
               padding: const EdgeInsets.all(4),
               child: IconTheme(
-                  data: Theme.of(context).iconTheme.copyWith(
-                      size: 28,
-                      color: widget.selected
-                          ? ColorScheme.of(context).primary
-                          : null),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          if (widget.leadingIcon != null)
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: widget.leadingIcon!,
-                            ),
-                          widget.selected
-                              ? (widget.selectedIcon ?? widget.icon)
-                              : widget.icon
-                        ],
+                data: Theme.of(context).iconTheme.copyWith(
+                  size: 28,
+                  color: widget.selected
+                      ? ColorScheme.of(context).primary
+                      : null,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        if (widget.leadingIcon != null)
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: widget.leadingIcon!,
+                          ),
+                        widget.selected
+                            ? (widget.selectedIcon ?? widget.icon)
+                            : widget.icon,
+                      ],
+                    ),
+                    SizeTransition(
+                      axisAlignment: -1,
+                      axis: Axis.vertical,
+                      sizeFactor: _animation,
+                      child: Column(
+                        children: [const SizedBox(height: 4), selectedBottom],
                       ),
-                      SizeTransition(
-                        axisAlignment: -1,
-                        axis: Axis.vertical,
-                        sizeFactor: _animation,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 4),
-                            selectedBottom,
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

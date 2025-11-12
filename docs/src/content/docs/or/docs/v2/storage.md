@@ -3,7 +3,7 @@ title: Storage
 sidebar_position: 2
 ---
 
-## Data directory
+## ଡାଟା ଡିରେକ୍ଟୋରି
 
 The data directory is the directory where documents, templates and packs are stored.
 On the desktop you can found it in `~/Documents/Linwood/Butterfly`.

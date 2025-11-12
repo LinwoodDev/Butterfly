@@ -13,11 +13,13 @@ class BarcodeToolSelection extends ToolSelection<BarcodeTool> {
         trailing: DropdownMenu<BarcodeType>(
           initialSelection: selected.first.barcodeType,
           dropdownMenuEntries: BarcodeType.values
-              .map((e) => DropdownMenuEntry(
-                    label: e.getLocalizedName(context),
-                    leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
-                    value: e,
-                  ))
+              .map(
+                (e) => DropdownMenuEntry(
+                  label: e.getLocalizedName(context),
+                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                  value: e,
+                ),
+              )
               .toList(),
           onSelected: (value) {
             if (value != null) {

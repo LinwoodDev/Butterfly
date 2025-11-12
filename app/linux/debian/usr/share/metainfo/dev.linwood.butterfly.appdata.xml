@@ -3,7 +3,7 @@
 	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
 	<developer_name>Linwood</developer_name>
-	<summary>Powerful, minimalistic note-taking</summary>
+	<summary>Draw and organize ideas</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<recommends>
@@ -12,8 +12,8 @@
 		<control>touch</control>
 	</recommends>
 	<branding>
-		<color type="primary" scheme_preference="light">#d0d0d0</color>
-		<color type="primary" scheme_preference="dark">#2f2f2f</color>
+		<color type="primary" scheme_preference="light">#f2ead4</color>
+		<color type="primary" scheme_preference="dark">#4b3807</color>
 	</branding>
 	<url type="homepage">https://butterfly.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Butterfly/issues</url>
@@ -22,26 +22,59 @@
 	<url type="vcs-browser">https://github.com/LinwoodDev/Butterfly.git</url>
 	<url type="contribute">https://github.com/LinwoodDev/Butterfly/blob/develop/CONTRIBUTING.md</url>
 	<description>
-		<p>Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on android, windows, linux and in the web.</p>
+		<p>Butterfly is a note-taking app where your ideas come first. You can paint, add texts, and
+			export them easily on every device. This app works on android, windows, linux, and in the web.</p>
 		<p>Features:</p>
 		<ul>
-			<li>Simple and intuitive: Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.</li>
-			<li>Customizable: Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.</li>
-			<li>Your data will be saved locally: Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.</li>
+			<li>Simple and intuitive: Every tool is in the right place. Open the app and start drawing.
+				Change your tools by clicking on it.</li>
+			<li>Customizable: Change everything to your needs. Choose your custom color, create a palette,
+				and add your pages to the paper. The paper has an infinite size, perfect for your ideas and
+				notes.</li>
+			<li>Support your favorite formats: Import and export are supported for images, pdf and svg.
+				Register the app to open these files to edit them.</li>
+			<li>Works on every device: The app is available for android, windows, linux, and in the web.
+				You can use it on your phone, tablet, or computer.</li>
+			<li>Choose where your data is stored: You can choose to store your data locally or in your
+				favorite cloud (webdav). You can also export your data to a file and import it again.</li>
+			<li>Available in many languages: The app is available in many languages. Help us to translate
+				this app to your language.</li>
+			<li>FOSS: The app is open source and free. You can contribute to the project and help to make
+				it better.</li>
+			<li>Use it offline: You can use the app offline. You can draw, paint, and export your notes
+				without an internet connection.</li>
+			<li>Use your favorite stylus: The app supports stylus and touch devices. You can draw and
+				paint with your favorite stylus.</li>
+			<li>Write text: You can write text on your notes. You can change the font, size, and color.</li>
+			<li>Take photos: You can take photos and add them to your notes. You can also import photos
+				from your gallery.</li>
+			<li>Editable: You can change the size, color, and position of every element after you added it
+				to your note.</li>
+			<li>Add shapes: You can add shapes to your notes. You can choose between a rectangle,
+				triangle, circle and line.</li>
+			<li>Structure your notes: Add areas and waypoints to your notes to keep them organized.</li>
 		</ul>
 	</description>
 	<screenshots>
 		<screenshot type="default">
-			<image type="source">https://raw.githubusercontent.com/LinwoodDev/Butterfly/8e204abb341f0f129462be5985105449e2590793/docs/src/assets/img/main.png</image>
+			<image type="source">
+				https://raw.githubusercontent.com/LinwoodDev/Butterfly/36cf8d82907ef721f775544d0c83418bca3d229c/docs/src/assets/img/main.png</image>
 			<caption>Main draw view</caption>
 		</screenshot>
 		<screenshot>
-			<image type="source">https://raw.githubusercontent.com/LinwoodDev/Butterfly/a60131c05bd9b7691d022c25dda9cdd76670e003/docs/src/assets/img/home.png</image>
+			<image type="source">
+				https://raw.githubusercontent.com/LinwoodDev/Butterfly/36cf8d82907ef721f775544d0c83418bca3d229c/docs/src/assets/img/home.png</image>
 			<caption>Home view</caption>
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.4.0" date="2025-09-22" />
+		<release version="2.3.4" date="2025-08-21" />
+		<release version="2.3.3" date="2025-08-01" />
+		<release version="2.3.2" date="2025-06-23" />
+		<release version="2.3.1" date="2025-06-23" />
+		<release version="2.3.0" date="2025-04-20" />
 		<release version="2.2.4" date="2025-01-13" />
 		<release version="2.2.3" date="2024-12-24" />
 		<release version="2.2.2" date="2024-11-11" />

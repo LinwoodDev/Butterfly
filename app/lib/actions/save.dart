@@ -1,4 +1,3 @@
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,10 +23,7 @@ class SaveAction extends Action<SaveIntent> {
       sendEmbedMessage('save', (await state.saveData()).exportAsBytes());
       state.currentIndexCubit.setSaveState(saved: SaveState.saved);
     } else {
-      final path = await state.save(force: true);
-      await state.currentIndexCubit.stream
-          .firstWhere((state) => state.saved == SaveState.saved);
-      bloc.add(DocumentSaved(path));
+      await bloc.save(force: true);
     }
   }
 }

@@ -1,15 +1,18 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../converter/core.dart';
 import 'area.dart';
 import 'colors.dart';
 import 'element.dart';
 import 'export.dart';
 import 'pack.dart';
 import 'property.dart';
+import 'text.dart';
 import 'texture.dart';
 
 part 'tool.freezed.dart';
@@ -19,18 +22,14 @@ const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
 const double _kLandscapeRatio = sqrt2;
 
-enum AspectRatioPreset {
-  square,
-  portrait,
-  landscape,
-}
+enum AspectRatioPreset { square, portrait, landscape }
 
 extension RatioPresetExtension on AspectRatioPreset {
   double get ratio => switch (this) {
-        AspectRatioPreset.square => _kSquareRatio,
-        AspectRatioPreset.portrait => _kAPortraitRatio,
-        AspectRatioPreset.landscape => _kLandscapeRatio,
-      };
+    AspectRatioPreset.square => _kSquareRatio,
+    AspectRatioPreset.portrait => _kAPortraitRatio,
+    AspectRatioPreset.landscape => _kLandscapeRatio,
+  };
 }
 
 enum LabelMode { markdown, text }
@@ -75,6 +74,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     required List<PadElement> elements,
     required List<Area> areas,
+    @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
   }) = ImportTool;
 
   factory Tool.undo({
@@ -93,7 +93,7 @@ sealed class Tool with _$Tool {
     @Default(LabelMode.text) LabelMode mode,
     @Default(false) bool zoomDependent,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    NamedItem<TextStyleSheet>? styleSheet,
     @Default(2.0) double scale,
   }) = LabelTool;
 
@@ -160,7 +160,7 @@ sealed class Tool with _$Tool {
   factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
-    @Default(PackAssetLocation()) PackAssetLocation component,
+    NamedItem<ButterflyComponent>? component,
   }) = StampTool;
 
   factory Tool.presentation({
@@ -235,32 +235,40 @@ sealed class Tool with _$Tool {
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
   }) = BarcodeTool;
 
+  factory Tool.polygon({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @Default(false) bool zoomDependent,
+    @Default(PolygonProperty()) PolygonProperty property,
+  }) = PolygonTool;
+
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
-        SelectTool() => ToolCategory.normal,
-        HandTool() => ToolCategory.normal,
-        ImportTool() => ToolCategory.import,
-        UndoTool() => ToolCategory.action,
-        RedoTool() => ToolCategory.action,
-        LabelTool() => ToolCategory.normal,
-        PenTool() => ToolCategory.normal,
-        EraserTool() => ToolCategory.normal,
-        PathEraserTool() => ToolCategory.normal,
-        CollectionTool() => ToolCategory.normal,
-        AreaTool() => ToolCategory.normal,
-        LaserTool() => ToolCategory.normal,
-        ShapeTool() => ToolCategory.surface,
-        StampTool() => ToolCategory.surface,
-        PresentationTool() => ToolCategory.normal,
-        SpacerTool() => ToolCategory.normal,
-        FullScreenTool() => ToolCategory.action,
-        AssetTool() => ToolCategory.import,
-        ExportTool() => ToolCategory.action,
-        TextureTool() => ToolCategory.surface,
-        RulerTool() => ToolCategory.view,
-        GridTool() => ToolCategory.view,
-        EyeDropperTool() => ToolCategory.action,
-        BarcodeTool() => ToolCategory.surface,
-      };
+    SelectTool() => ToolCategory.normal,
+    HandTool() => ToolCategory.normal,
+    ImportTool() => ToolCategory.import,
+    UndoTool() => ToolCategory.action,
+    RedoTool() => ToolCategory.action,
+    LabelTool() => ToolCategory.normal,
+    PenTool() => ToolCategory.normal,
+    EraserTool() => ToolCategory.normal,
+    PathEraserTool() => ToolCategory.normal,
+    CollectionTool() => ToolCategory.normal,
+    AreaTool() => ToolCategory.normal,
+    LaserTool() => ToolCategory.normal,
+    ShapeTool() => ToolCategory.surface,
+    StampTool() => ToolCategory.surface,
+    PresentationTool() => ToolCategory.normal,
+    SpacerTool() => ToolCategory.normal,
+    FullScreenTool() => ToolCategory.action,
+    AssetTool() => ToolCategory.import,
+    ExportTool() => ToolCategory.action,
+    TextureTool() => ToolCategory.surface,
+    RulerTool() => ToolCategory.view,
+    GridTool() => ToolCategory.view,
+    EyeDropperTool() => ToolCategory.action,
+    BarcodeTool() => ToolCategory.surface,
+    PolygonTool() => ToolCategory.surface,
+  };
 }

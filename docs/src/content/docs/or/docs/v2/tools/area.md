@@ -4,9 +4,11 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
-## Actions
+For an overview of how areas work, see [Areas](../areas).
 
-|        Mouse        |     Touch    |       Action      |
+## କାର୍ଯ୍ୟ
+
+|        ମାଉସ୍        |      ଟଚ୍     |       Action      |
 | :-----------------: | :----------: | :---------------: |
 | Left click and drag | Tap and drag | Create a new area |
 |     Middle click    |  Two fingers |    Move canvas    |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | ଵର୍ଣ୍ଣନା                                                                                                                                                                                         |
-| -----------: | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|        Width |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
-|       ଉଚ୍ଚତା |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-| Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|   Property | Default | ଵର୍ଣ୍ଣନା                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------: | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     ପ୍ରସ୍ଥ |   `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|     ଉଚ୍ଚତା |   `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| ପ୍ରମାଣୁପାତ |   `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 There are three aspect ratio presets:
 

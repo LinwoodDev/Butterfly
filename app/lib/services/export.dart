@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/helpers/element.dart';
@@ -45,10 +48,10 @@ class ExportService {
     );
   }
 
-  Future<List<int>?> getData(PadElement element) async {
+  Future<Uint8List?> getData(PadElement element) async {
     final document = _getDocument();
     if (document == null) return null;
-    List<int>? fromString(String? value) => value?.codeUnits;
+    Uint8List? fromString(String? value) => utf8.encode(value ?? '');
     return switch (element) {
       ImageElement e => e.getData(document),
       SvgElement e => e.getData(document),

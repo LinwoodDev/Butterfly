@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 
 Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {
@@ -18,8 +17,17 @@ Uint8List? getDataFromSource(NoteData document, String source) {
   return data?.contentAsBytes();
 }
 
+Uint8List? _getDataFromSource((NoteData, String) message) =>
+    getDataFromSource(message.$1, message.$2);
+
+Future<Uint8List?> computeDataFromSource(NoteData document, String source) =>
+    compute(_getDataFromSource, (document, source));
+
 UriData? getUriDataFromSource(
-    NoteData document, String source, String mimeType) {
+  NoteData document,
+  String source,
+  String mimeType,
+) {
   final data = getDataFromSource(document, source);
   if (data == null) {
     return null;
@@ -36,19 +44,15 @@ extension ImageElementDataExtension on SourcedElement {
 extension PadElementDataExtension on PadElement {
   Map<String, dynamic> toDataJson(NoteData document) {
     String getUriData(String source, String mimeType) => UriData.fromBytes(
-          getDataFromSource(document, source) ?? [],
-          mimeType: mimeType,
-        ).toString();
+      getDataFromSource(document, source) ?? [],
+      mimeType: mimeType,
+    ).toString();
 
     return {
       ...toJson(),
       ...switch (this) {
-        ImageElement e => {
-            'source': getUriData(e.source, 'image/png'),
-          },
-        SvgElement e => {
-            'source': getUriData(e.source, 'image/svg+xml'),
-          },
+        ImageElement e => {'source': getUriData(e.source, 'image/png')},
+        SvgElement e => {'source': getUriData(e.source, 'image/svg+xml')},
         _ => {},
       },
     };
@@ -57,7 +61,7 @@ extension PadElementDataExtension on PadElement {
 
 extension DocumentPageDataExtension on DocumentPage {
   Map<String, dynamic> toDataJson(NoteData document) => {
-        ...toJson(),
-        'content': content.map((e) => e.toDataJson(document)),
-      };
+    ...toJson(),
+    'content': content.map((e) => e.toDataJson(document)).toList(),
+  };
 }

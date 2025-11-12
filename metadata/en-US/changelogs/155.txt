@@ -1,0 +1,14 @@
+* Add tooltips for texts that can be ellipsized
+* Fix performance problems when saving large notes
+* Fix templates and packs could not be imported if no document is opened
+* Fix state will not be saved if changes are made during autosave
+* Fix sequential events like element removing will wait for autosave to finish
+* Fix classic theme name first letter not capitalized in personalization settings
+* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix mouse cannot double click for context menu in select tool
+* Fix scaling of multiple elements
+* Fix scaling pen elements will jump to wrong position
+* Fix thumbnails not having correct position if viewport is scaled
+* Fix invisible layers will get visible after moving camera
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.3

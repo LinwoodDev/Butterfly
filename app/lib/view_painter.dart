@@ -24,10 +24,15 @@ class ForegroundPainter extends CustomPainter {
   final NavigatorPosition navigatorPosition;
 
   ForegroundPainter(
-      this.renderers, this.document, this.page, this.info, this.colorScheme,
-      [this.transform = const CameraTransform(),
-      this.selection,
-      this.navigatorPosition = NavigatorPosition.left]);
+    this.renderers,
+    this.document,
+    this.page,
+    this.info,
+    this.colorScheme, [
+    this.transform = const CameraTransform(),
+    this.selection,
+    this.navigatorPosition = NavigatorPosition.left,
+  ]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -44,7 +49,15 @@ class ForegroundPainter extends CustomPainter {
         canvas.translate(-center.dx, -center.dy);
       }
       renderer.build(
-          canvas, size, document, page, info, transform, colorScheme, true);
+        canvas,
+        size,
+        document,
+        page,
+        info,
+        transform,
+        colorScheme,
+        true,
+      );
       if (center != null) {
         canvas.translate(center.dx, center.dy);
       }
@@ -63,7 +76,8 @@ class ForegroundPainter extends CustomPainter {
     final rect = selection.expandedRect;
     if (rect == null) return;
     // Don't allow drawing outside the bounds of the viewport.
-    var bounds = transform.position &
+    var bounds =
+        transform.position &
         ((Size(size.width - kNavigationRailWidth, size.height)) /
             transform.size);
     if (navigatorPosition == NavigatorPosition.left) {
@@ -72,11 +86,12 @@ class ForegroundPainter extends CustomPainter {
     final intersection = rect.intersect(bounds);
     if (intersection.isEmpty) return;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(intersection, const Radius.circular(2)),
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..color = colorScheme.primary
-          ..strokeWidth = 5 / transform.size);
+      RRect.fromRectAndRadius(intersection, const Radius.circular(2)),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..color = colorScheme.primary
+        ..strokeWidth = 5 / transform.size,
+    );
   }
 
   @override
@@ -97,7 +112,6 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final ColorScheme? colorScheme;
   final Set<String> invisibleLayers;
-  final Map<String, RendererState> states;
 
   const ViewPainter(
     this.document,
@@ -105,7 +119,6 @@ class ViewPainter extends CustomPainter {
     this.info, {
     this.currentArea,
     this.invisibleLayers = const {},
-    this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,
     this.renderBakedLayers = true,
@@ -119,18 +132,20 @@ class ViewPainter extends CustomPainter {
     var areaRect = currentArea?.rect;
     final layers = page.layers;
     if (areaRect != null) {
-      areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
-          transform.globalToLocal(areaRect.bottomRight));
+      areaRect = Rect.fromPoints(
+        transform.globalToLocal(areaRect.topLeft),
+        transform.globalToLocal(areaRect.bottomRight),
+      );
     }
     if (areaRect != null) {
       canvas.drawRRect(
-          RRect.fromRectAndRadius(
-              areaRect.inflate(5), const Radius.circular(5)),
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..color = colorScheme?.primary ?? Colors.black
-            ..strokeWidth = 5 * transform.size
-            ..blendMode = BlendMode.srcOver);
+        RRect.fromRectAndRadius(areaRect.inflate(5), const Radius.circular(5)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..color = colorScheme?.primary ?? Colors.black
+          ..strokeWidth = 5 * transform.size
+          ..blendMode = BlendMode.srcOver,
+      );
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
@@ -148,8 +163,10 @@ class ViewPainter extends CustomPainter {
       canvas.drawImageRect(
         belowLayerImage,
         Offset.zero &
-            Size(belowLayerImage.width.toDouble(),
-                belowLayerImage.height.toDouble()),
+            Size(
+              belowLayerImage.width.toDouble(),
+              belowLayerImage.height.toDouble(),
+            ),
         bakedDst,
         Paint(),
       );
@@ -159,12 +176,14 @@ class ViewPainter extends CustomPainter {
 
       // Draw our baked image, scaling it down with drawImageRect.
       if (image != null) {
-        canvas.drawImageRect(
-          image,
-          Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-          bakedDst,
-          Paint(),
-        );
+        try {
+          canvas.drawImageRect(
+            image,
+            Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+            bakedDst,
+            Paint(),
+          );
+        } catch (_) {}
       }
     }
     canvas.scale(transform.size, transform.size);
@@ -186,10 +205,11 @@ class ViewPainter extends CustomPainter {
       return cameraViewport.unbakedElements
           .indexWhere((e) => e.id == a.id)
           .compareTo(
-              cameraViewport.unbakedElements.indexWhere((e) => e.id == b.id));
+            cameraViewport.unbakedElements.indexWhere((e) => e.id == b.id),
+          );
     });
     for (final renderer in renderers) {
-      final state = states[renderer.id];
+      final state = cameraViewport.rendererStates[renderer.id];
       if (!invisibleLayers.contains(renderer.layer) &&
           state != RendererState.hidden) {
         final center = renderer.rect?.center;
@@ -202,7 +222,15 @@ class ViewPainter extends CustomPainter {
           canvas.translate(-center.dx, -center.dy);
         }
         renderer.build(
-            canvas, size, document, page, info, transform, colorScheme, false);
+          canvas,
+          size,
+          document,
+          page,
+          info,
+          transform,
+          colorScheme,
+          false,
+        );
         if (center != null) {
           canvas.translate(center.dx, center.dy);
         }
@@ -219,8 +247,10 @@ class ViewPainter extends CustomPainter {
       canvas.drawImageRect(
         aboveLayerImage,
         Offset.zero &
-            Size(aboveLayerImage.width.toDouble(),
-                aboveLayerImage.height.toDouble()),
+            Size(
+              aboveLayerImage.width.toDouble(),
+              aboveLayerImage.height.toDouble(),
+            ),
         bakedDst,
         Paint(),
       );
@@ -229,13 +259,12 @@ class ViewPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
-    const mapEq = MapEquality();
-    final shouldRepaint = page != oldDelegate.page ||
+    final shouldRepaint =
+        page != oldDelegate.page ||
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
-        colorScheme != oldDelegate.colorScheme ||
-        !mapEq.equals(states, oldDelegate.states);
+        colorScheme != oldDelegate.colorScheme;
     return shouldRepaint;
   }
 }

@@ -1,11 +1,13 @@
 import 'package:xml/xml.dart';
 
 extension XmlHelper on XmlNode {
-  XmlElement createElement(String name,
-      {String? id,
-      String? className,
-      Map<String, String> attributes = const {},
-      List<XmlNode> children = const []}) {
+  XmlElement createElement(
+    String name, {
+    String? id,
+    String? className,
+    Map<String, String> attributes = const {},
+    List<XmlNode> children = const [],
+  }) {
     final element = XmlElement(XmlName(name));
     if (id != null) {
       element.attributes.add(XmlAttribute(XmlName('id'), id));
@@ -28,14 +30,23 @@ extension XmlHelper on XmlNode {
     var elements = findElements(name);
     if (id != null) {
       elements = elements
-          .where((element) => element.attributes.any((attribute) =>
-              attribute.name.local == 'id' && attribute.value == id))
+          .where(
+            (element) => element.attributes.any(
+              (attribute) =>
+                  attribute.name.local == 'id' && attribute.value == id,
+            ),
+          )
           .toList();
     }
     if (className != null) {
       elements = elements
-          .where((element) => element.attributes.any((attribute) =>
-              attribute.name.local == 'class' && attribute.value == className))
+          .where(
+            (element) => element.attributes.any(
+              (attribute) =>
+                  attribute.name.local == 'class' &&
+                  attribute.value == className,
+            ),
+          )
           .toList();
     }
     if (elements.isEmpty) {

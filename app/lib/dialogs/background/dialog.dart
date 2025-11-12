@@ -59,31 +59,37 @@ class _BackgroundDialogState extends State<BackgroundDialog>
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
     final background = _backgrounds.elementAtOrNull(_index);
     final content = switch (background) {
       TextureBackground() => _TextureBackgroundPropertiesView(
-          value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value),
-        ),
+        value: background,
+        onChanged: (value) => setState(() => _backgrounds[_index] = value),
+      ),
       ImageBackground() => _ImageBackgroundPropertiesView(
-          value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value),
-        ),
+        value: background,
+        onChanged: (value) => setState(() => _backgrounds[_index] = value),
+      ),
       SvgBackground() => _SvgBackgroundPropertiesView(
-          value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value),
-        ),
+        value: background,
+        onChanged: (value) => setState(() => _backgrounds[_index] = value),
+      ),
       Null() => _GeneralBackgroundPropertiesView(
-          onChanged: (value) {
-            setState(() {
-              _backgrounds.add(value);
-              _updateController();
-              _tabController.index = _backgrounds.length - 1;
-            });
-          },
-        ),
+        onChanged: (value) {
+          setState(() {
+            _backgrounds.add(value);
+            _updateController();
+            _tabController.index = _backgrounds.length - 1;
+          });
+        },
+      ),
     };
     return ResponsiveAlertDialog(
       constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
@@ -147,10 +153,10 @@ class _BackgroundDialogState extends State<BackgroundDialog>
                 tooltip: AppLocalizations.of(context).moveLeft,
                 onPressed: _index > 0 && _index < _backgrounds.length
                     ? () => setState(() {
-                          final background = _backgrounds.removeAt(_index);
-                          _backgrounds.insert(_index - 1, background);
-                          _tabController.index = _index - 1;
-                        })
+                        final background = _backgrounds.removeAt(_index);
+                        _backgrounds.insert(_index - 1, background);
+                        _tabController.index = _index - 1;
+                      })
                     : null,
               ),
               IconButton(
@@ -158,10 +164,10 @@ class _BackgroundDialogState extends State<BackgroundDialog>
                 tooltip: AppLocalizations.of(context).moveRight,
                 onPressed: _index < (_backgrounds.length - 1)
                     ? () => setState(() {
-                          final background = _backgrounds.removeAt(_index);
-                          _backgrounds.insert(_index + 1, background);
-                          _tabController.index = _index + 1;
-                        })
+                        final background = _backgrounds.removeAt(_index);
+                        _backgrounds.insert(_index + 1, background);
+                        _tabController.index = _index + 1;
+                      })
                     : null,
               ),
             ],
@@ -179,8 +185,8 @@ class _BackgroundDialogState extends State<BackgroundDialog>
           child: Text(AppLocalizations.of(context).save),
           onPressed: () {
             context.read<DocumentBloc>().add(
-                  DocumentBackgroundsChanged(_backgrounds),
-                );
+              DocumentBackgroundsChanged(_backgrounds),
+            );
             Navigator.of(context).pop();
           },
         ),

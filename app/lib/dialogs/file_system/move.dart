@@ -37,8 +37,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
+    super.dispose();
   }
 
   bool isSingleFile() => widget.assets.length == 1;

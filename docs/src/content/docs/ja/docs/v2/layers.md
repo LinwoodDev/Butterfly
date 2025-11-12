@@ -2,15 +2,18 @@
 title: レイヤー
 ---
 
-Layers are an option to separate elements from another.
-The first layer from top will be rendered last (and would be shown above everything).
+Layers allow you to separate elements from each other and choose which layers are rendered on top of others.
 
-Do not confuse the layer feature with the collection feature. The earlier layer system was renamed to collections and doesn't change the renderer priority and are lightweight to group some elements together. Read more about them [here](../tools/collection).
+Layers are drawn from bottom to top, so the top layer will be shown above all other layers.
 
-## レイヤーダイアログ
+:::note\[Note]
 
-空のキャンバスをクリックして「レイヤー」をクリックしてレイヤーダイアログを開きます。
+Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are renderered.
 
-ここでは、プロジェクト内のすべてのレイヤーを見ることができます。
-ごみ箱のアイコンをクリックするか、左右に移動してレイヤーを削除します。
-目のアイコンをクリックしてレイヤーの表示を変更します。
+:::
+
+## The Layers dialog
+
+Open the layer dialog by clicking on the Butterfly button and selecting Layers, or by selecting the Layers icon in the Navigation Rail if it is enabled.
+
+ここでは、プロジェクト内のすべてのレイヤーを見ることができます。 To create a new layer, use the Create button. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.

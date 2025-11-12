@@ -1,0 +1,9 @@
+* Add restoration support for routes
+* Improve performance of elements removing
+* Fix baking sometimes duplicates renderers
+* Fix images and pdfs not being rendered on viewport setup
+* Fix eraser cursor size
+* Add apk legacy build
+* Add support for 16kb page size on android
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.2

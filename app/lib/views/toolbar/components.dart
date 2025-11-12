@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -7,13 +8,10 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../bloc/document_bloc.dart';
-import '../../helpers/element.dart';
-
 class ComponentsToolbarView extends StatefulWidget
     implements PreferredSizeWidget {
-  final PackAssetLocation component;
-  final ValueChanged<PackAssetLocation> onChanged;
+  final NamedItem<ButterflyComponent>? component;
+  final ValueChanged<NamedItem<ButterflyComponent>?> onChanged;
 
   const ComponentsToolbarView({
     super.key,
@@ -29,18 +27,31 @@ class ComponentsToolbarView extends StatefulWidget
 }
 
 class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
+  late final PackFileSystem _packSystem;
   final ScrollController _scrollController = ScrollController();
-  late String currentPack;
+  String? currentPack;
+  Future<List<PackItem<ButterflyComponent>>>? _componentsFuture;
 
   @override
   void initState() {
     super.initState();
-    currentPack = widget.component.pack;
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoaded) return;
-    final pack = state.data.getPack(widget.component.pack);
-    if (pack != null) return;
-    currentPack = state.data.getPacks().firstOrNull ?? '';
+    _packSystem = context.read<PackFileSystem>();
+    _componentsFuture = _getComponents();
+  }
+
+  Future<List<PackItem<ButterflyComponent>>> _getComponents() async {
+    final files = await _packSystem.getFiles();
+    final packComponents = <PackItem<ButterflyComponent>>[];
+    for (final file in files) {
+      final pack = file.data!;
+      final components = pack
+          .getNamedComponents()
+          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
+          .nonNulls
+          .toList();
+      packComponents.addAll(components);
+    }
+    return packComponents;
   }
 
   @override
@@ -51,102 +62,89 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-    final bloc = context.read<DocumentBloc>();
-    final document = state.data;
-
-    final component = widget.component.resolveComponent(document);
-    final pack = document.getPack(currentPack);
-    final components = pack
-            ?.getComponents()
-            .map((e) {
-              final component = pack.getComponent(e);
-              if (component == null) return null;
-              return (e, component);
-            })
-            .nonNulls
-            .toList() ??
-        [];
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (currentPack != widget.component.pack && component != null) ...[
-          _ComponentsButton(
-            component: widget.component,
-            valueLocation: widget.component,
-            value: component,
-            bloc: bloc,
-            pack: pack,
-            onChanged: () {},
-          ),
-          const VerticalDivider(),
-        ],
-        Expanded(
-          child: Scrollbar(
-            controller: _scrollController,
-            child: ListView(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              children: [
-                ...List.generate(components.length, (index) {
-                  final current = components[index];
-                  final location = PackAssetLocation(currentPack, current.$1);
-                  return _ComponentsButton(
-                    bloc: bloc,
-                    component: widget.component,
-                    value: current.$2,
-                    valueLocation: location,
-                    pack: pack,
-                    onChanged: () {
-                      widget.onChanged(location);
-                    },
-                  );
-                }),
-              ],
+    return FutureBuilder<List<PackItem<ButterflyComponent>>>(
+      future: _componentsFuture,
+      builder: (context, snapshot) {
+        final allComponents = snapshot.data ?? [];
+        final packs = allComponents.map((e) => e.namespace).toSet().toList()
+          ..sort((a, b) => a.compareTo(b));
+        var pack = currentPack ?? allComponents.firstOrNull?.namespace;
+        final components = allComponents
+            .where((e) => e.namespace == pack)
+            .toList();
+        final value = widget.component;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (value != null) ...[
+              _ComponentsButton(
+                onChanged: () {},
+                value: value.item,
+                name: value.name,
+              ),
+              const VerticalDivider(),
+            ],
+            Expanded(
+              child: Scrollbar(
+                controller: _scrollController,
+                child: ListView(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...List.generate(components.length, (index) {
+                      final current = components[index];
+                      final named = current.toNamed();
+                      return _ComponentsButton(
+                        value: current.item,
+                        name: current.key,
+                        selected: value == named,
+                        onChanged: () {
+                          widget.onChanged(named);
+                        },
+                      );
+                    }),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: MenuAnchor(
-            builder: defaultMenuButton(
-              tooltip: AppLocalizations.of(context).pack,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MenuAnchor(
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).pack,
+                ),
+                menuChildren: packs
+                    .map(
+                      (e) => RadioMenuButton(
+                        value: e,
+                        groupValue: currentPack,
+                        onChanged: (value) =>
+                            setState(() => currentPack = value ?? e),
+                        child: Text(e),
+                      ),
+                    )
+                    .toList(),
+              ),
             ),
-            menuChildren: document
-                .getPacks()
-                .map(
-                  (e) => RadioMenuButton(
-                    value: e,
-                    groupValue: currentPack,
-                    onChanged: (value) =>
-                        setState(() => currentPack = value ?? e),
-                    child: Text(e),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
 
 class _ComponentsButton extends StatelessWidget {
   final ButterflyComponent value;
-  final PackAssetLocation? component, valueLocation;
-  final NoteData? pack;
-  final DocumentBloc bloc;
+  final String? name;
+  final bool selected;
   final VoidCallback onChanged;
 
   const _ComponentsButton({
-    required this.component,
     required this.value,
-    required this.valueLocation,
-    required this.bloc,
     required this.onChanged,
-    required this.pack,
+    this.name,
+    this.selected = false,
   });
 
   @override
@@ -155,20 +153,18 @@ class _ComponentsButton extends StatelessWidget {
       aspectRatio: 1,
       child: PhosphorIcon(PhosphorIconsLight.selection),
     );
-    final thumbnail = value.thumbnail == null || pack == null
-        ? null
-        : getDataFromSource(pack!, value.thumbnail!);
+    final thumbnail = value.thumbnail;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: onChanged,
         child: Tooltip(
-          message: value.name,
+          message: name,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: component == valueLocation
+                color: selected
                     ? ColorScheme.of(context).primary
                     : Colors.transparent,
                 width: 4,

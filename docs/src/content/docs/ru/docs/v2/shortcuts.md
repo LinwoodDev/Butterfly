@@ -12,12 +12,13 @@ title: Ярлыки
 - `Ctrl` + `N`: Новый файл
 - `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 - `Ctrl` + `E`: Экспорт файла
+- `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
 - `Ctrl` + `P`: Печать файла
 - `Ctrl` + `Shift` + `E`: Экспортировать файл как изображение
-- `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Открытые пакеты
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `S`: Открыть настройки
+- `Ctrl` + `Alt` + `P`: Открытые пакеты
 
 ### Проект
 
@@ -40,16 +41,18 @@ title: Ярлыки
 - `First` (основная кнопка, если поддерживается): Измените на инструмент вручную.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Настроить {#configure}
+## Configuring {#configure}
 
-Вы можете настраивать элементы управления, предоставляя каждому управляющему индексу инструментов. Индексация инструмента начинается слева от панели инструментов, первый индекс - `1`. Пример ниже
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 ![номер панели инструментов](toolbar_numbered.png)
-
-Здесь 1 относится к инструменту lasso 2, инструменту pan и т.д.
-
-Варианты настройки, которые у вас есть, следующие:
-
-- Пустое - инструмент отскочен.
-- 0 - инструмент будет функционировать как перемещение (т.е. рука) в этом моде.
-- Положительное число - Индексация будет следовать за индексированием, как описано выше.

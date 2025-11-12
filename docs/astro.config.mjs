@@ -18,18 +18,22 @@ export default defineConfig({
       title: "Linwood Butterfly",
       customCss: [
         // Relative path to your custom CSS file
-        "./src/styles/custom.css",
+        "./src/styles/linwood-style.scss",
+        "./src/styles/custom.scss",
       ],
+      editLink: {
+        baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',
+      },
       logo: {
         src: "./public/img/docs.svg",
       },
       favicon: "./favicon.ico",
       social: [
-        {icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood"},
-        {icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix"},
-        {icon: "discord", label: "Discord", href: "https://linwood.dev/discord"},
-        {icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev"},
-        {icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Butterfly"},
+        { icon: "mastodon", label: "Mastodon", href: "https://floss.social/@linwood" },
+        { icon: "matrix", label: "Matrix", href: "https://linwood.dev/matrix" },
+        { icon: "discord", label: "Discord", href: "https://linwood.dev/discord" },
+        { icon: "blueSky", label: "Bluesky", href: "https://bsky.app/profile/linwood.dev" },
+        { icon: "github", label: "GitHub", href: "https://github.com/LinwoodDev/Butterfly" },
       ],
       components: {
         Head: "./src/components/Head.astro",
@@ -59,10 +63,6 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Layers"),
               link: "/docs/v2/layers/",
-            },
-            {
-              ...getSidebarTranslatedLabel("Migrating"),
-              link: "/docs/v2/migrating/",
             },
             {
               ...getSidebarTranslatedLabel("Pack"),
@@ -99,6 +99,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Arguments"),
               link: "/docs/v2/arguments/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Migrating"),
+              link: "/docs/v2/migrating/",
             },
             {
               ...getSidebarTranslatedLabel("Tools"),
@@ -221,6 +225,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Comparison"),
+              link: "/community/comparison/",
             },
             {
               ...getSidebarTranslatedLabel("Versions"),

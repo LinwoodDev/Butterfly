@@ -2,6 +2,342 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.1-rc.4 (2025-11-10)
+
+* Add preview in snackbar after capturing thumbnail
+* Add progress indicator when exporting PDF
+* Migrate to new PDF rendering and file handling system
+* Fix crashes on importing and exporting large files on Android
+* Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))
+* Fix memory leak in PDFs
+* Fix changing arrangement not working correctly
+* Fix eye dropper not working correctly for selecting a color for current tool
+* Fix pasting won't preserve relative position when pasting multiple elements
+* Fix paste menu will be shown if trying to deselect with select tool
+* Fix transformation/duplicate not working correctly on touch devices
+* Remove print option from pdf dialog
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.4
+
+## 2.4.1-rc.3 (2025-11-03)
+
+* Add tooltips for texts that can be ellipsized
+* Fix performance problems when saving large notes
+* Fix templates and packs could not be imported if no document is opened
+* Fix state will not be saved if changes are made during autosave
+* Fix sequential events like element removing will wait for autosave to finish
+* Fix classic theme name first letter not capitalized in personalization settings
+* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix mouse cannot double click for context menu in select tool
+* Fix scaling of multiple elements
+* Fix scaling pen elements will jump to wrong position
+* Fix thumbnails not having correct position if viewport is scaled
+* Fix invisible layers will get visible after moving camera
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.3
+
+## 2.4.1-rc.2 (2025-10-29)
+
+* Fix loading documents does not load metadata and info
+* Fix autosaving will save multiple times
+* Fix templates will be recreated on every app start
+* Fix duplicating opens context menu and selects the old element
+* Fix search results does not show page as untitled
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.2
+
+## 2.4.1-rc.1 (2025-10-27)
+
+* Add templates tbfly export option ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
+* Add option to selectively export templates ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
+* Improve empty description in pdf dialog ([#943](https://github.com/LinwoodDev/Butterfly/943))
+* Fix templates cannot be imported in tbfly format ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
+* Fix flickering while drawing ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
+* Fix issues with eraser tool creating artifacts ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
+* Fix eraser tool creates elements with duplicate IDs ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
+* Fix color palette dialog not updating and loading correctly ([#938](https://github.com/LinwoodDev/Butterfly/issues/938))
+* Fix background lines don't render last row or column if only partially visible ([#932](https://github.com/LinwoodDev/Butterfly/issues/932))
+* Fix files in grid view not having correctly spacing
+* Fix concurrent file system operation, causing templates being initialized multiple times ([#940](https://github.com/LinwoodDev/Butterfly/issues/940))
+* Fix file name goes into second line in file list view in desktop mode ([#941](https://github.com/LinwoodDev/Butterfly/issues/941))
+* Fix file is duplicated when name is the same ([#951](https://github.com/LinwoodDev/Butterfly/issues/951))
+* Fix thumbnail does not capture center of viewport ([#946](https://github.com/LinwoodDev/Butterfly/issues/946))
+* Fix pages cannot be removed sometimes
+* Fix default page will be recreated on opening ([#952](https://github.com/LinwoodDev/Butterfly/issues/952))
+* Fix error when trying to import archive
+* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix absolute read only files not being correctly saved ([#949](https://github.com/LinwoodDev/Butterfly/issues/949))
+* Fix absolute read only files being saved on closed
+* Fix imported documents have file extension in their name
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.1
+
+## 2.4.1-rc.0 (2025-10-20)
+
+* Add delayed autosave ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Add save state as tooltip
+* Improve memory usage and performance for importing large assets ([#917](https://github.com/LinwoodDev/Butterfly/issues/917))
+* Improve smoothness of elements creation for releasing pen
+* Fix bfly files cannot be imported into existing documents
+* Fix various memory leaks ([#925](https://github.com/LinwoodDev/Butterfly/issues/925))
+* Fix header text color on certain themes
+* Fix theme names not displaying correctly in personalization settings
+* Fix metadata file version not updating if file version is null
+* Fix cache settings not editable correctly
+* Fix elements are duplicated on creation
+* Fix importing does not respect current directory
+* Fix high render resolution description
+* Fix elements cannot be imported on web
+* Add 16kb page size support for android
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.0
+
+## 2.4.0 (2025-09-22)
+
+Changes since 2.3.0-rc.1:
+* Fix updated assets cannot be removed
+
+This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.3
+
+## 2.4.0-rc.4 (2025-09-19)
+
+* Add safearea on toolbar
+* Fix duplicated refresh button in files view
+* Fix alignment of create buttons in pages navigator page
+* Fix freeze when importing
+* Fix crash when having large pdf to import
+* Fix error if pages have same name
+* Fix problem in save system leading to duplicated pages in some cases
+* Revert 16kb page size support effort
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.4
+
+## 2.4.0-rc.3 (2025-09-15)
+
+* Allow duration of laser to be 0
+* Improve performance of document reloading
+* Fix broken images/pdfs after undo/redo
+* Fix duplicate has file extension in name dialog
+* Fix template dialog not being correctly updated sometimes
+* Fix core pack not being created on fetching packs
+* Fix laser tool color not being animated
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.3
+
+## 2.4.0-rc.2 (2025-09-12)
+
+* Add restoration support for routes
+* Improve performance of elements removing
+* Fix baking sometimes duplicates renderers
+* Fix images and pdfs not being rendered on viewport setup
+* Fix eraser cursor size
+* Add apk legacy build
+* Add support for 16kb page size on android
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.2
+
+## 2.4.0-rc.1 (2025-09-08)
+
+* Add temporary toolbar ([#900](https://github.com/LinwoodDev/Butterfly/issues/900))
+* Optimize pages events
+* Update stroke drawing algorithm
+* Improve stroke width controls in color toolbar
+* Fix loading overlay having error on multiple closes
+* Fix pdf spread pages import not being optimized
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.1
+
+## 2.4.0-rc.0 (2025-09-04)
+
+* Add support for math in rich text ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Add support for custom import names for pdf import
+* Fix default page name
+* Fix latex not rendering and rendered centered
+* Fix no style sheet and palette not being selected
+* Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))
+* Fix home page header not aligned properly and has wrong colors
+* Fix safe area in navigator rail
+* Fix overflows in page navigator
+* Fix pixel ratio gets resetted when unbaking the viewport
+* Port linux appdata from flathub version
+* Disable custom data directory selection on iOS
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.0
+
+## 2.4.0-beta.3 (2025-08-28)
+
+* Add search bar to waypoint view
+* Rework pdf system ([#327](https://github.com/LinwoodDev/Butterfly/issues/327))
+  * Add pdf element
+  * Add pdf elements on pdf import instead converting to image
+* Improve rotation based scaling ([#518](https://github.com/LinwoodDev/Butterfly/issues/518))
+* Improve performance of pdf and image loading by rendering only visible elements
+* Use minSdkVersion 24 instead of 23 (The minimum version of android is 7.0 (Nougat))
+* Upgrade to flutter 3.35
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.3
+
+## 2.4.0-beta.2 (2025-08-13)
+
+* Add stroke width to polygon tool toolbar
+* Add latex support for markdown ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Add ignore pressure setting to fix pressure values on some devices
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Upstreamed from 2.3.3:
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.2
+
+## 2.4.0-beta.1 (2025-07-14)
+
+* Add polygon tool and element
+* Add stroke width to toolbar ([#797](https://github.com/LinwoodDev/Butterfly/issues/797))
+* Add txt support ([#874](https://github.com/LinwoodDev/Butterfly/issues/874))
+* Reimplement renaming of styles and palettes in pack dialog
+* Implement renaming of components in pack dialog
+* Fix migration issues with new text based file format
+* Fix loading of text based files (tbfly)
+* Fix directory not respected when creating a document from a template
+* Fix add to pack dialog not saving the component
+* Fix navigator page dialogs not rounded
+* Fix app is registered on all file types on android ([#874](https://github.com/LinwoodDev/Butterfly/issues/874))
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
+
+## 2.4.0-beta.0 (2025-06-18)
+
+* Add ctrl + enter to create new text element below current text element ([#858](https://github.com/LinwoodDev/Butterfly/issues/858))
+* Add text based file format ([#823](https://github.com/LinwoodDev/Butterfly/issues/823))
+* Add specific fill color ([#802](https://github.com/LinwoodDev/Butterfly/issues/802))
+* Redesign pack system ([#805](https://github.com/LinwoodDev/Butterfly/issues/805))
+* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Fix temporary handler not working correctly
+* Fix text elements not correctly movable on pasting
+* Fix new line not working in label tool
+* Remove duplicated name property in pack items
+* Fix server crash when invalid request is made
+* Upgrade to flutter 3.32
+
+Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
+
+## 2.3.4 (2025-08-21)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
+
+Cherry picks:
+* Save files in different thread ([#883](https://github.com/LinwoodDev/Butterfly/issues/883))
+* Fix delete key not working in markdown mode
+* Fix export to multipage PDF leads to empty pages except the current one ([#878](https://github.com/LinwoodDev/Butterfly/issues/878))
+* Fix undo/redo not working correctly and freezing the app
+* Big translation updates
+
+Read more here: https://linwood.dev/butterfly/2.3.4
+
+## 2.3.3 (2025-08-01)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.1 nightly release.
+
+* Upgrade to flutter 3.32
+* Add support for arm AppImage builds
+* Add more alternative linux builds
+* Publish app to microsoft store
+* Fix snap builds
+* Fix laser fade animation not smoothly fading out ([#877](https://github.com/LinwoodDev/Butterfly/issues/877))
+
+Cherry picks:
+* Fix navigator page dialogs not rounded
+* Fix directory not respected when creating a document from a template
+
+Read more here: https://linwood.dev/butterfly/2.3.3
+
+## 2.3.2 (2025-06-23)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.0 nightly release.
+
+Cherry picks:
+* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Fix temporary handler not working correctly
+* Fix text elements not correctly movable on pasting
+* Fix new line not working in label tool
+
+Read more here: https://linwood.dev/butterfly/2.3.2
+
+## 2.3.1 (2025-05-21)
+
+Changes since 2.3.1-rc.1:
+* Fix property view divider height
+* Fix navigator appbar
+* Remove recently files in file navigator
+
+This is a stable release, it includes all the changes from the 2.3.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.3.1
+
+## 2.3.1-rc.1 (2025-05-12)
+
+* Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
+* Respect Input mappings when lasso select tool is selected ([#821](https://github.com/LinwoodDev/Butterfly/issues/821))
+* Redesign mobile navigator pages to improve usability ([#853](https://github.com/LinwoodDev/Butterfly/issues/853))
+* Redesign collaboration start dialog
+* Add support for starting collaboration server with swamp on web
+* Use modern material progress indicator
+* Fix layers not reoderable on mobile
+* Fix readonly files can change tool
+* Fix file preview has window handles on desktop
+* Update to agb 8.10
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
+
+## 2.3.1-rc.0 (2025-05-05)
+
+* Add copy button to the collaboration dialog
+* Add process intent queries in android to fix internal flutter android processing
+* Improve sharing files
+* Improve default template when creating a new document ([#848](https://github.com/LinwoodDev/Butterfly/issues/848))
+* Fix camera is required for android app
+* Fix newly created elements created with pen or label desyncs in collaboration
+* Fix undo/redo in collaboration
+* Fix collaboration dialog dialog constraints
+* Fix toolbar on mobile below the system ui ([#847](https://github.com/LinwoodDev/Butterfly/issues/847))
+* Fix appbar menu overlays with system ui
+* Fix initial save state to saved
+* Fix window can't be moved on the title text area
+* Fix window title bar height to be too big on some pages
+* Update branding color on linux in appdata
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.0
+
+## 2.3.0 (2025-04-20)
+
+Happy Easter! 🐰
+
+Changes since 2.3.0-rc.1:
+* Fix exporting svg
+
+This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.3
+
+## 2.3.0-rc.1 (2025-04-16)
+
+* Reduce crashes during canvas movement ([#838](https://github.com/LinwoodDev/Butterfly/pull/838))
+* Upload the butterfly image file on the Docker website ([#756](https://github.com/LinwoodDev/Butterfly/issues/756))
+* Improve android file association
+* Improve error display page
+* Fix opening files with intent not working on android
+* Fix document was saved regardless if the file is up to date
+* Fix error not appearing after failed import
+* Fix bfly imports not working ([#839](https://github.com/LinwoodDev/Butterfly/issues/839))
+
+Read more here: https://linwood.dev/butterfly/2.3.0-rc.1
+
 ## 2.3.0-rc.0 (2025-04-13)
 
 * Add option to add custom user name for collaboration

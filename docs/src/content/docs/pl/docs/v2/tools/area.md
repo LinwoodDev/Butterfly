@@ -4,6 +4,8 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
+For an overview of how areas work, see [Areas](../areas).
+
 ## Akcje
 
 |                      Mysz                     |        Dotknij        |        Akcja       |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Konfiguracja
 
-|               Własność | Domyślny | Opis                                                                                                                                                                                                                                  |
-| ---------------------: | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|                  Width |     0    | Stała szerokość obszaru. Jeśli ustawione na 0, szerokość zostanie obliczona automatycznie.                                                                                                            |
-|               Wysokość |     0    | Stała wysokość obszaru. Jeśli ustawione na 0, wysokość zostanie obliczona automatycznie.                                                                                                              |
-| Współczynnik proporcji |     0    | Ustalony współczynnik kształtu obszaru. Jeśli ustawione na 0, współczynnik proporcji zostanie obliczony automatycznie. Stosunek kształtu jest zdefiniowany jako szerokość / wysokość. |
+|               Własność | Domyślny | Opis                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                  Width |    `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|               Wysokość |    `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| Współczynnik proporcji |    `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 Istnieją trzy presety proporcji proporcji:
 

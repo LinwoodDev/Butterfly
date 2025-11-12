@@ -66,52 +66,54 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: _scrollController,
-      child: BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.inputConfiguration != current.inputConfiguration ||
-            previous.toolbarSize != current.toolbarSize ||
-            previous.toolbarRows != current.toolbarRows ||
-            previous.toolbarPosition != current.toolbarPosition,
-        builder: (context, settings) {
-          final shortcuts = settings.inputConfiguration.getShortcuts();
-          final size = settings.toolbarSize.size;
-          final fullSize = (size + 4) * settings.toolbarRows;
-          return SizedBox(
-            height: direction == Axis.horizontal ? fullSize : null,
-            width: direction == Axis.horizontal ? null : fullSize,
-            child: BlocBuilder<DocumentBloc, DocumentState>(
-              builder: (context, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                final tools = state.info.tools;
+    return SafeArea(
+      child: Scrollbar(
+        controller: _scrollController,
+        child: BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) =>
+              previous.inputConfiguration != current.inputConfiguration ||
+              previous.toolbarSize != current.toolbarSize ||
+              previous.toolbarRows != current.toolbarRows ||
+              previous.toolbarPosition != current.toolbarPosition,
+          builder: (context, settings) {
+            final shortcuts = settings.inputConfiguration.getShortcuts();
+            final size = settings.toolbarSize.size;
+            final fullSize = (size + 4) * settings.toolbarRows;
+            return SizedBox(
+              height: direction == Axis.horizontal ? fullSize : null,
+              width: direction == Axis.horizontal ? null : fullSize,
+              child: BlocBuilder<DocumentBloc, DocumentState>(
+                builder: (context, state) {
+                  if (state is! DocumentLoadSuccess) return Container();
+                  final tools = state.info.tools;
 
-                return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  buildWhen: (previous, current) =>
-                      previous.index != current.index ||
-                      previous.handler != current.handler ||
-                      previous.toggleableHandlers !=
-                          current.toggleableHandlers ||
-                      previous.temporaryHandler != current.temporaryHandler ||
-                      previous.selection != current.selection,
-                  builder: (context, currentIndex) {
-                    return Card(
-                      elevation: 10,
-                      child: _buildBody(
-                        state,
-                        currentIndex,
-                        settings,
-                        tools,
-                        shortcuts,
-                        size,
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          );
-        },
+                  return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                    buildWhen: (previous, current) =>
+                        previous.index != current.index ||
+                        previous.handler != current.handler ||
+                        previous.toggleableHandlers !=
+                            current.toggleableHandlers ||
+                        previous.temporaryHandler != current.temporaryHandler ||
+                        previous.selection != current.selection,
+                    builder: (context, currentIndex) {
+                      return Card(
+                        elevation: 10,
+                        child: _buildBody(
+                          state,
+                          currentIndex,
+                          settings,
+                          tools,
+                          shortcuts,
+                          size,
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -157,24 +159,23 @@ class _EditToolbarState extends State<EditToolbar> {
                     selected: true,
                     highlighted:
                         currentIndex.selection?.selected.contains(tempData) ??
-                            false,
+                        false,
                     icon: _buildIcon(icon, size),
                     selectedIcon: _buildIcon(iconFilled, size),
-                    onLongPressed: () =>
-                        context.read<CurrentIndexCubit>().changeSelection(
-                              tempData,
-                            ),
+                    onLongPressed: () => context
+                        .read<CurrentIndexCubit>()
+                        .changeSelection(tempData),
                     onPressed: () {
                       if (_mouseState == _MouseState.multi) {
                         context.read<CurrentIndexCubit>().insertSelection(
-                              tempData,
-                              true,
-                            );
+                          tempData,
+                          true,
+                        );
                       } else {
                         context.read<CurrentIndexCubit>().changeSelection(
-                              tempData,
-                              true,
-                            );
+                          tempData,
+                          true,
+                        );
                       }
                     },
                   ),
@@ -206,7 +207,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         final importService = context.read<ImportService>();
                         showGeneralDialog(
                           context: context,
-                          pageBuilder: (ctx, _, __) => MultiBlocProvider(
+                          pageBuilder: (ctx, _, _) => MultiBlocProvider(
                             providers: [
                               BlocProvider.value(value: bloc),
                               BlocProvider.value(value: cubit),
@@ -221,23 +222,24 @@ class _EditToolbarState extends State<EditToolbar> {
                             context,
                           ).modalBarrierDismissLabel,
                           transitionDuration: const Duration(milliseconds: 200),
-                          transitionBuilder: (
-                            context,
-                            animation,
-                            secondaryAnimation,
-                            child,
-                          ) {
-                            // Animate the dialog from bottom to center
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(0, 1),
-                                end: Offset.zero,
-                              )
-                                  .chain(CurveTween(curve: Curves.easeOutQuart))
-                                  .animate(animation),
-                              child: child,
-                            );
-                          },
+                          transitionBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                                // Animate the dialog from bottom to center
+                                return SlideTransition(
+                                  position:
+                                      Tween<Offset>(
+                                            begin: const Offset(0, 1),
+                                            end: Offset.zero,
+                                          )
+                                          .chain(
+                                            CurveTween(
+                                              curve: Curves.easeOutQuart,
+                                            ),
+                                          )
+                                          .animate(animation),
+                                  child: child,
+                                );
+                              },
                         );
                       },
                       child: PhosphorIcon(
@@ -253,13 +255,16 @@ class _EditToolbarState extends State<EditToolbar> {
                         key: const Key('add-row'),
                         children: [
                           const VerticalDivider(),
-                          Expanded(child: add)
+                          Expanded(child: add),
                         ],
                       )
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         key: const Key('add-column'),
-                        children: [const Divider(), Expanded(child: add)],
+                        children: [
+                          const Divider(),
+                          Expanded(child: add),
+                        ],
                       );
               }
               final bloc = context.read<DocumentBloc>();
@@ -268,7 +273,8 @@ class _EditToolbarState extends State<EditToolbar> {
               ) {
                 final selected = i == currentIndex.index;
                 final tool = handler.data;
-                final highlighted = currentIndex.selection?.selected.any(
+                final highlighted =
+                    currentIndex.selection?.selected.any(
                       (element) => element.hashCode == tool.hashCode,
                     ) ??
                     false;
@@ -291,14 +297,13 @@ class _EditToolbarState extends State<EditToolbar> {
                     onLongPressed: selected || highlighted
                         ? null
                         : () => context
-                            .read<CurrentIndexCubit>()
-                            .insertSelection(tool, true),
+                              .read<CurrentIndexCubit>()
+                              .insertSelection(tool, true),
                     onSecondaryPressed: () =>
-                        context.read<CurrentIndexCubit>().changeSelection(
-                              tool,
-                            ),
+                        context.read<CurrentIndexCubit>().changeSelection(tool),
                     focussed: shortcuts.contains(InputMapping(i)),
-                    selected: selected ||
+                    selected:
+                        selected ||
                         currentIndex.toggleableHandlers.containsKey(i),
                     showBottom: selected || tool.isAction(),
                     highlighted: highlighted,
@@ -307,18 +312,18 @@ class _EditToolbarState extends State<EditToolbar> {
                             tool.isAction()
                                 ? PhosphorIconsLight.playCircle
                                 : isMobile
-                                    ? PhosphorIconsLight.caretUp
-                                    : switch (settings.toolbarPosition) {
-                                        ToolbarPosition.top ||
-                                        ToolbarPosition.inline =>
-                                          PhosphorIconsLight.caretDown,
-                                        ToolbarPosition.bottom =>
-                                          PhosphorIconsLight.caretUp,
-                                        ToolbarPosition.left =>
-                                          PhosphorIconsLight.caretRight,
-                                        ToolbarPosition.right =>
-                                          PhosphorIconsLight.caretLeft,
-                                      },
+                                ? PhosphorIconsLight.caretUp
+                                : switch (settings.toolbarPosition) {
+                                    ToolbarPosition.top ||
+                                    ToolbarPosition.inline =>
+                                      PhosphorIconsLight.caretDown,
+                                    ToolbarPosition.bottom =>
+                                      PhosphorIconsLight.caretUp,
+                                    ToolbarPosition.left =>
+                                      PhosphorIconsLight.caretRight,
+                                    ToolbarPosition.right =>
+                                      PhosphorIconsLight.caretLeft,
+                                  },
                           )
                         : null,
                     selectedIcon: _buildIcon(
@@ -334,22 +339,22 @@ class _EditToolbarState extends State<EditToolbar> {
                     onPressed: () {
                       if (_mouseState == _MouseState.multi) {
                         context.read<CurrentIndexCubit>().insertSelection(
-                              tool,
-                              true,
-                            );
+                          tool,
+                          true,
+                        );
                       } else if (!selected || temp != null) {
                         context.read<CurrentIndexCubit>().resetSelection();
                         context.read<CurrentIndexCubit>().changeTool(
-                              context.read<DocumentBloc>(),
-                              index: i,
-                              handler: handler,
-                              context: context,
-                            );
+                          context.read<DocumentBloc>(),
+                          index: i,
+                          handler: handler,
+                          context: context,
+                        );
                       } else {
                         context.read<CurrentIndexCubit>().changeSelection(
-                              tool,
-                              true,
-                            );
+                          tool,
+                          true,
+                        );
                       }
                     },
                   ),
@@ -365,9 +370,9 @@ class _EditToolbarState extends State<EditToolbar> {
             onReorder: (oldIndex, newIndex) {
               if (oldIndex == newIndex) {
                 context.read<CurrentIndexCubit>().insertSelection(
-                      tools[newIndex],
-                      true,
-                    );
+                  tools[newIndex],
+                  true,
+                );
                 return;
               }
               final bloc = context.read<DocumentBloc>();
@@ -389,7 +394,8 @@ class _EditToolbarState extends State<EditToolbar> {
                   icon: const PhosphorIcon(PhosphorIconsLight.wrench),
                   tooltip: AppLocalizations.of(context).document,
                   selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
-                  isSelected: currentIndex.selection?.selected.any(
+                  isSelected:
+                      currentIndex.selection?.selected.any(
                         (element) => element is CurrentIndexCubit,
                       ) ??
                       false,
@@ -415,15 +421,14 @@ class _EditToolbarState extends State<EditToolbar> {
                       UtilitiesState Function() update,
                       PhosphorIconData icon,
                       String title,
-                    ) =>
-                        CheckboxMenuButton(
-                          value: selected,
-                          trailingIcon: PhosphorIcon(icon),
-                          onChanged: (value) => context
-                              .read<CurrentIndexCubit>()
-                              .updateUtilities(utilities: update()),
-                          child: Text(title),
-                        );
+                    ) => CheckboxMenuButton(
+                      value: selected,
+                      trailingIcon: PhosphorIcon(icon),
+                      onChanged: (value) => context
+                          .read<CurrentIndexCubit>()
+                          .updateUtilities(utilities: update()),
+                      child: Text(title),
+                    );
 
                     return MenuAnchor(
                       menuChildren: [

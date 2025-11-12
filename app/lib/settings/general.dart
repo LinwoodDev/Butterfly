@@ -23,10 +23,10 @@ class Meta {
     required this.mainVersion,
   });
   Meta.fromJson(Map<String, dynamic> json)
-      : stableVersion = json['version']?['stable'] ?? '?',
-        nightlyVersion = json['version']?['nightly'] ?? '?',
-        developVersion = json['version']?['develop'] ?? '?',
-        mainVersion = json['version']?['main'] ?? '?';
+    : stableVersion = json['version']?['stable'] ?? '?',
+      nightlyVersion = json['version']?['nightly'] ?? '?',
+      developVersion = json['version']?['develop'] ?? '?',
+      mainVersion = json['version']?['main'] ?? '?';
 }
 
 class GeneralSettingsPage extends StatefulWidget {
@@ -42,8 +42,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   final Future<String> _currentVersion = getCurrentVersion();
 
   void loadMeta() => setState(() {
-        _metaFuture = _fetchMeta();
-      });
+    _metaFuture = _fetchMeta();
+  });
 
   Future<Meta> _fetchMeta() async {
     final response = await http.get(
@@ -125,9 +125,11 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                             final isNightly = currentVersion == nightlyVersion;
                             final isDevelop = currentVersion == developVersion;
                             final isMain = currentVersion == mainVersion;
-                            final isError = meta.nightlyVersion == '?' ||
+                            final isError =
+                                meta.nightlyVersion == '?' ||
                                 meta.stableVersion == '?';
-                            final isUpdateAvailable = !isError &&
+                            final isUpdateAvailable =
+                                !isError &&
                                 !isStable &&
                                 !isNightly &&
                                 !isDevelop &&
@@ -139,20 +141,16 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                                     AppLocalizations.of(context).stable,
                                   ),
                                   subtitle: Text(stableVersion),
-                                  onTap: () => saveToClipboard(
-                                    context,
-                                    stableVersion,
-                                  ),
+                                  onTap: () =>
+                                      saveToClipboard(context, stableVersion),
                                 ),
                                 ListTile(
                                   title: Text(
                                     AppLocalizations.of(context).nightly,
                                   ),
                                   subtitle: Text(nightlyVersion),
-                                  onTap: () => saveToClipboard(
-                                    context,
-                                    nightlyVersion,
-                                  ),
+                                  onTap: () =>
+                                      saveToClipboard(context, nightlyVersion),
                                 ),
                                 const Divider(),
                                 if (isStable) ...[
@@ -251,16 +249,13 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                         ),
                         title: Text(AppLocalizations.of(context).translate),
                         onTap: () => launchUrl(
-                          Uri.https(
-                            'go.linwood.dev',
-                            'butterfly/translate',
-                          ),
+                          Uri.https('go.linwood.dev', 'butterfly/translate'),
                           mode: LaunchMode.externalApplication,
                         ),
                       ),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.code),
-                        title: Text(AppLocalizations.of(context).source),
+                        title: Text(AppLocalizations.of(context).sourceCode),
                         onTap: () => launchUrl(
                           Uri.https('go.linwood.dev', 'butterfly/source'),
                           mode: LaunchMode.externalApplication,
@@ -309,10 +304,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                         leading: const PhosphorIcon(PhosphorIconsLight.shield),
                         title: Text(AppLocalizations.of(context).privacypolicy),
                         onTap: () => launchUrl(
-                          Uri.https(
-                            'butterfly.linwood.dev',
-                            'privacypolicy',
-                          ),
+                          Uri.https('butterfly.linwood.dev', 'privacypolicy'),
                           mode: LaunchMode.externalApplication,
                         ),
                       ),

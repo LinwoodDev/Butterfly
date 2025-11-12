@@ -3,27 +3,46 @@ part of 'handler.dart';
 mixin ColoredHandler<T extends Tool> on Handler<T> {
   SRGBColor getColor();
   T setColor(SRGBColor color);
+  double? getStrokeWidth() => null;
+  T setStrokeWidth(double width) => data;
+
+  bool _startedDrawing = false;
+
+  void changeStartedDrawing(EventContext context) {
+    if (_startedDrawing) return;
+    _startedDrawing = true;
+    context.getCurrentIndexCubit().refreshToolbar(context.getDocumentBloc());
+  }
 
   @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) =>
-      bloc.state.settingsCubit.state.colorToolbarEnabled
-          ? ColorToolbarView(
-              color: getColor(),
-              onChanged: (value) => changeToolColor(bloc, value),
-              onEyeDropper: (context) {
-                final state = bloc.state;
-                state.currentIndexCubit?.changeTemporaryHandler(
-                  context,
-                  EyeDropperTool(),
-                  bloc: bloc,
-                  temporaryState: TemporaryState.removeAfterRelease,
-                );
-              },
-            )
-          : null;
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+    final visiblity = bloc.state.settingsCubit.state.simpleToolbarVisibility;
+    if (visiblity == SimpleToolbarVisibility.hide ||
+        (_startedDrawing && visiblity == SimpleToolbarVisibility.temporary)) {
+      return null;
+    }
+    return ColorToolbarView(
+      color: getColor(),
+      onChanged: (value) => changeToolColor(bloc, value),
+      onEyeDropper: (context) {
+        final state = bloc.state;
+        state.currentIndexCubit?.changeTemporaryHandler(
+          context,
+          EyeDropperTool(),
+          bloc: bloc,
+          temporaryState: TemporaryState.removeAfterRelease,
+        );
+      },
+      strokeWidth: getStrokeWidth(),
+      onStrokeWidthChanged: (value) => changeToolStrokeWidth(bloc, value),
+    );
+  }
 
   void changeToolColor(DocumentBloc bloc, SRGBColor value) =>
       changeTool(bloc, setColor(value));
+
+  void changeToolStrokeWidth(DocumentBloc bloc, double value) =>
+      changeTool(bloc, setStrokeWidth(value));
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
@@ -33,11 +52,19 @@ mixin HandlerWithCursor<T> on Handler<T> {
 
   @mustCallSuper
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    final renderers =
-        super.createForegrounds(currentIndexCubit, document, page, info);
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) {
+    final renderers = super.createForegrounds(
+      currentIndexCubit,
+      document,
+      page,
+      info,
+    );
     if (_currentPos != null) {
       renderers.add(createCursor(_currentPos!));
     }
@@ -65,20 +92,28 @@ abstract class PastingHandler<T> extends Handler<T> {
   bool _aspectRatio = false, _center = false;
   String _currentCollection = '';
 
+  bool _startedDrawing = false;
+  bool get startedDrawing => _startedDrawing;
+
   PastingHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        if (_firstPos != null && _secondPos != null)
-          ...getTransformed(currentIndexCubit)
-              .map((e) => Renderer.fromInstance(e)),
-      ];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [
+    if (_firstPos != null && _secondPos != null)
+      ...getTransformed(currentIndexCubit).map((e) => Renderer.fromInstance(e)),
+  ];
 
   List<PadElement> transformElements(
-      Rect rect, String collection, CurrentIndexCubit cubit);
+    Rect rect,
+    String collection,
+    CurrentIndexCubit cubit,
+  );
 
   bool get shouldNormalize => true;
 
@@ -142,14 +177,22 @@ abstract class PastingHandler<T> extends Handler<T> {
     return transformElements(rect, _currentCollection, cubit);
   }
 
-  void _updateElement(PointerEvent event, EventContext context,
-      [bool first = false]) {
+  void _updateElement(
+    PointerEvent event,
+    EventContext context, [
+    bool first = false,
+  ]) {
+    _startedDrawing = true;
     final transform = context.getCameraTransform();
     var localPos = event.localPosition;
     final currentIndex = context.getCurrentIndex();
     final viewportSize = context.viewportSize;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndex, localPos, viewportSize, transform);
+      currentIndex,
+      localPos,
+      viewportSize,
+      transform,
+    );
     final globalPos = transform.localToGlobal(localPos);
     if (!context.getDocumentBloc().isInBounds(globalPos)) return;
     if (first) _firstPos = globalPos;
@@ -181,9 +224,6 @@ abstract class PastingHandler<T> extends Handler<T> {
     bloc.bake();
     _firstPos = null;
     _secondPos = null;
-    context
-        .getCurrentIndexCubit()
-        .resetTemporaryHandler(context.getDocumentBloc());
     context.refresh();
   }
 
@@ -203,19 +243,26 @@ abstract class PastingHandler<T> extends Handler<T> {
 }
 
 mixin PointerManipulationHandler<T> on Handler<T> {
-  Offset getPointerPosition(Offset position, Size viewportSize,
-      [CameraTransform transform = const CameraTransform()]) {
+  Offset getPointerPosition(
+    Offset position,
+    Size viewportSize, [
+    CameraTransform transform = const CameraTransform(),
+  ]) {
     return position;
   }
 
   static Offset calculatePointerPosition(
-      CurrentIndex index, Offset position, Size viewportSize,
-      [CameraTransform transform = const CameraTransform()]) {
+    CurrentIndex index,
+    Offset position,
+    Size viewportSize, [
+    CameraTransform transform = const CameraTransform(),
+  ]) {
     return index.toggleableHandlers.values
         .whereType<PointerManipulationHandler>()
         .fold(
-            position,
-            (pos, handler) =>
-                handler.getPointerPosition(pos, viewportSize, transform));
+          position,
+          (pos, handler) =>
+              handler.getPointerPosition(pos, viewportSize, transform),
+        );
   }
 }

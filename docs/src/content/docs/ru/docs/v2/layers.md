@@ -2,15 +2,18 @@
 title: Слои
 ---
 
-Layers are an option to separate elements from another.
-The first layer from top will be rendered last (and would be shown above everything).
+Слои позволяют вам отделить элементы друг от друга и выбрать, какие слои будут отображены поверх других.
 
-Do not confuse the layer feature with the collection feature. The earlier layer system was renamed to collections and doesn't change the renderer priority and are lightweight to group some elements together. Read more about them [here](../tools/collection).
+Layers are drawn from bottom to top, so the top layer will be shown above all other layers.
 
-## Диалог слоёв
+:::note\[Note]
 
-Откройте диалоговое окно слоя, нажав на пустой холст и нажав на "Слои".
+Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are renderered.
 
-Здесь вы можете увидеть все слои в проекте.
-Удалите слой, нажав на значок корзины или переместившись влево или вправо.
-Изменить видимость слоя, нажав на значок глаза.
+:::
+
+## The Layers dialog
+
+Open the layer dialog by clicking on the Butterfly button and selecting Layers, or by selecting the Layers icon in the Navigation Rail if it is enabled.
+
+Здесь вы можете увидеть все слои в проекте. Для создания нового слоя, нажмите кнопку Создать. To show or hide a layer, use the eye button. To reorder the layers, click and drag the handle on the right. You can also delete, rename, or duplicate a layer by right-clicking the layer or selecting the three dots.

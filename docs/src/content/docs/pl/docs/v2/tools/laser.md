@@ -6,9 +6,9 @@ With this tool you can draw on this paper temporarily. Po pewnym czasie rysunek 
 
 ## Konfiguracja
 
-|         Własność | Domyślny | Opis                                                               |
-| ---------------: | :------: | :----------------------------------------------------------------- |
-|            Kolor |  Czarny  | Kolor który zostanie narysowany                                    |
-| Szerokość obrysu |     5    | Szerokość skoku                                                    |
-|  Mnożnik uderzeń |     1    | Jeśli masz styl, to jest mnożnik, który zostanie dodany do nacisku |
-|     Czas trwania |     5    | Czas w sekundach, kiedy rysunek będzie widoczny                    |
+|        Własność | Domyślny | Opis                                                               |
+| --------------: | :------: | :----------------------------------------------------------------- |
+|           Kolor |  Czarny  | Kolor który zostanie narysowany                                    |
+| Szerokość skoku |     5    | Szerokość obrysu                                                   |
+| Mnożnik uderzeń |     1    | Jeśli masz styl, to jest mnożnik, który zostanie dodany do nacisku |
+|    Czas trwania |     5    | Czas w sekundach, kiedy rysunek będzie widoczny                    |

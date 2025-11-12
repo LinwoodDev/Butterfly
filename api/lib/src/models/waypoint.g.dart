@@ -7,13 +7,13 @@ part of 'waypoint.dart';
 // **************************************************************************
 
 _Waypoint _$WaypointFromJson(Map json) => _Waypoint(
-      json['name'] as String?,
-      const DoublePointJsonConverter().fromJson(json['position'] as Map),
-      (json['scale'] as num?)?.toDouble(),
-    );
+  json['name'] as String?,
+  const DoublePointJsonConverter().fromJson(json['position'] as Map),
+  (json['scale'] as num?)?.toDouble(),
+);
 
 Map<String, dynamic> _$WaypointToJson(_Waypoint instance) => <String, dynamic>{
-      'name': instance.name,
-      'position': const DoublePointJsonConverter().toJson(instance.position),
-      'scale': instance.scale,
-    };
+  'name': instance.name,
+  'position': const DoublePointJsonConverter().toJson(instance.position),
+  'scale': instance.scale,
+};

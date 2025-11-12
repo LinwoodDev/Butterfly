@@ -2,13 +2,14 @@
 title: ページ
 ---
 
+Pages are a way to organize your notes by allowing separate infinte canvases to be contained in a single document.
+
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../areas).
+Pages are **not** used to create regions on the infinite canvas. To create canvas regions, use [Areas](../areas).
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Use the page navigator to create and manage pages.
 
-Use the page navigator page to create and manage pages.
+To create folders of pages, add a `/` in the name of a page.

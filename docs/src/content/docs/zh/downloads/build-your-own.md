@@ -1,5 +1,5 @@
 ---
-title: 建立你自己的
+title: "建立你自己的"
 ---
 
 1. 安装 git 和 flotter (测试版)
@@ -12,5 +12,5 @@ title: 建立你自己的
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-      after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. 编译的文件在构建目录

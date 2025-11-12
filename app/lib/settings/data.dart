@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -8,7 +9,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,46 +67,47 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ),
                           onTap: () => _openSyncModeModal(context),
                         ),
-                        ListTile(
-                          title: Text(
-                            AppLocalizations.of(context).dataDirectory,
-                          ),
-                          leading: const PhosphorIcon(
-                            PhosphorIconsLight.folder,
-                          ),
-                          subtitle: state.documentPath.isNotEmpty
-                              ? FutureBuilder<String>(
-                                  future: getButterflyDirectory(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return Text(snapshot.data!);
-                                    }
-                                    return const SizedBox(
-                                      height: 16,
-                                      width: 16,
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                )
-                              : Text(
-                                  AppLocalizations.of(context).defaultPath,
-                                ),
-                          onTap: _changeDataDirectory,
-                          trailing: state.documentPath.isNotEmpty
-                              ? IconButton(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.clockClockwise,
+                        if (!Platform.isIOS)
+                          ListTile(
+                            title: Text(
+                              AppLocalizations.of(context).dataDirectory,
+                            ),
+                            leading: const PhosphorIcon(
+                              PhosphorIconsLight.folder,
+                            ),
+                            subtitle: state.documentPath.isNotEmpty
+                                ? FutureBuilder<String>(
+                                    future: getButterflyDirectory(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(snapshot.data!);
+                                      }
+                                      return const SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  )
+                                : Text(
+                                    AppLocalizations.of(context).defaultPath,
                                   ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).defaultPath,
-                                  onPressed: () => _changePath(
-                                    context.read<SettingsCubit>(),
-                                    '',
-                                  ),
-                                )
-                              : null,
-                        ),
+                            onTap: _changeDataDirectory,
+                            trailing: state.documentPath.isNotEmpty
+                                ? IconButton(
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.clockClockwise,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).defaultPath,
+                                    onPressed: () => _changePath(
+                                      context.read<SettingsCubit>(),
+                                      '',
+                                    ),
+                                  )
+                                : null,
+                          ),
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),
@@ -135,15 +137,16 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         ),
                       ),
                       ListTile(
-                        title:
-                            Text(AppLocalizations.of(context).exportAllFiles),
+                        title: Text(
+                          AppLocalizations.of(context).exportAllFiles,
+                        ),
                         leading: const PhosphorIcon(PhosphorIconsLight.export),
                         onTap: () async {
                           final directory = await _documentSystem.fileSystem
                               .getRootDirectory(listLevel: allListLevel);
                           final archive = exportDirectory(directory);
                           final encoder = ZipEncoder();
-                          final bytes = encoder.encode(archive);
+                          final bytes = encoder.encodeBytes(archive);
                           exportZip(context, bytes);
                         },
                       ),
@@ -159,14 +162,16 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ListTile(
-                        title: Text(AppLocalizations.of(context)
-                            .restoreSettingsFromFile),
+                        title: Text(
+                          AppLocalizations.of(context).restoreSettingsFromFile,
+                        ),
                         leading: Icon(PhosphorIconsLight.arrowSquareIn),
                         onTap: () => _importSettings(context),
                       ),
                       ListTile(
                         title: Text(
-                            AppLocalizations.of(context).exportSettingsToFile),
+                          AppLocalizations.of(context).exportSettingsToFile,
+                        ),
                         leading: Icon(PhosphorIconsLight.arrowSquareOut),
                         onTap: () => _exportSettings(context),
                       ),
@@ -184,7 +189,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Future<void> _changeDataDirectory() async {
     try {
       final settingsCubit = context.read<SettingsCubit>();
-      final selectedDir = await getDirectoryPath();
+      final selectedDir = await FilePicker.platform.getDirectoryPath();
       if (selectedDir != null) {
         _changePath(settingsCubit, selectedDir);
       }
@@ -217,28 +222,28 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   }
 
   Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
-        context: context,
-        titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
-        childrenBuilder: (ctx) {
-          final settingsCubit = context.read<SettingsCubit>();
-          void changeSyncMode(SyncMode syncMode) {
-            settingsCubit.changeSyncMode(syncMode);
-            Navigator.of(context).pop();
-          }
+    context: context,
+    titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
+    childrenBuilder: (ctx) {
+      final settingsCubit = context.read<SettingsCubit>();
+      void changeSyncMode(SyncMode syncMode) {
+        settingsCubit.changeSyncMode(syncMode);
+        Navigator.of(context).pop();
+      }
 
-          return [
-            ...SyncMode.values.map((syncMode) {
-              return ListTile(
-                title: Text(syncMode.getLocalizedName(context)),
-                leading: PhosphorIcon(syncMode.getIcon()),
-                selected: syncMode == settingsCubit.state.syncMode,
-                onTap: () => changeSyncMode(syncMode),
-              );
-            }),
-            const SizedBox(height: 32),
-          ];
-        },
-      );
+      return [
+        ...SyncMode.values.map((syncMode) {
+          return ListTile(
+            title: Text(syncMode.getLocalizedName(context)),
+            leading: PhosphorIcon(syncMode.getIcon()),
+            selected: syncMode == settingsCubit.state.syncMode,
+            onTap: () => changeSyncMode(syncMode),
+          );
+        }),
+        const SizedBox(height: 32),
+      ];
+    },
+  );
 
   /* 
   Future<void> _openIceServersModal(BuildContext context) {
@@ -298,14 +303,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final file = await openFile(acceptedTypeGroups: [
-      XTypeGroup(
-        label: 'Settings',
-        extensions: ['json'],
-      ),
-    ]);
-    if (file == null) return;
-    final data = await file.readAsString();
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+      withData: true,
+    );
+    final bytes = result?.files.firstOrNull?.bytes;
+    if (bytes == null) return;
+    final data = utf8.decode(bytes);
     settingsCubit.importSettings(data);
   }
 

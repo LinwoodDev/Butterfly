@@ -4,7 +4,9 @@ title: Area tool
 
 The area tool allows you to create, edit and remove areas.
 
-## Actions
+For an overview of how areas work, see [Areas](../areas).
+
+## Hành động
 
 |        Chuột        |     Chạm     |       Action      |
 | :-----------------: | :----------: | :---------------: |
@@ -14,11 +16,11 @@ The area tool allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | Mô tả                                                                                                                                                                                            |
-| -----------: | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   Chiều rộng |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
-|    Chiều cao |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-| Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|         Property | Default | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------: | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|       Chiều rộng |   `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
+|        Chiều cao |   `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
+| Tỷ lệ khung hình |   `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
 
 There are three aspect ratio presets:
 

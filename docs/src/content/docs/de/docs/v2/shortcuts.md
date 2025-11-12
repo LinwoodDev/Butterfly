@@ -12,16 +12,17 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `N`: Neue Datei
 - `Ctrl` + `Shift` + `N`: Neue Datei aus Vorlage
 - `Strg` + `E`: Datei exportieren
+- `Strg` + `Alt` + `E`: Datei als svg exportieren
 - `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
-- `Strg` + `Alt` + `E`: Datei als svg exportieren
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Strg` + `Alt` + `P`: Open Packs
+- `Strg` + `Alt` + `Shift` + `E` (Nightly (2.4): `Strg` + `Shift` + `P`): Datei als pdf exportieren
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
+- `Strg` + `Alt` + `P`: Open Packs
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Strg` + `K`: Suche öffnen
 - `Strg` + `Z`: Rückgängig
 - `Strg` + `Y`: Redo
 - `Strg` + `Shift` + `P`: Öffne Wegpunkte Dialog
@@ -38,18 +39,20 @@ Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- (Sekundärer Knopf, falls unterstützt): Wechseln Sie zum zweiten Werkzeug (siehe [Konfigurieren] (#configure) Sektion unten) während Sie ihn gedrückt halten.
 
-## Konfiguriere {#configure}
+## Konfigurieren {#configure}
 
-Sie können die Steuerelemente anpassen, indem Sie jeder Steuerung einen Werkzeugindex geben. Die Werkzeug-Indexierung beginnt links neben der Werkzeugleiste, wobei `1` der erste Index ist. Siehe Beispiel unten
+Sie können Ihre Steuerelemente anpassen, indem Sie ändern, welchen Werkzeugen Ihre Eingaben zugeordnet sind.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 ![Toolbar nummeriert](toolbar_numbered.png)
-
-Hier bezieht sich 1 auf das Lasso-Werkzeug, 2, das Pfangenwerkzeug usw.
-
-Die Konfigurationsoptionen, die Sie haben, sind folgende:
-
-- Leer - das Werkzeug ist freigeschaltet.
-- 0 - das Werkzeug funktioniert als Bewegung (d.h. Hand) in diesem Mod.
-- Positive Nummer - Das Tool folgt der Indizierung wie oben beschrieben.

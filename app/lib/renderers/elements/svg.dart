@@ -6,9 +6,16 @@ class SvgRenderer extends Renderer<SvgElement> {
   SvgRenderer(super.element, [super.layer, this.pictureInfo]);
 
   @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {
     final rect = this.rect;
     if (pictureInfo == null) {
       // Render placeholder
@@ -32,28 +39,43 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {
-    if (!rect.overlaps(rect)) return;
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {
+    if (!rect.overlaps(viewportRect)) return;
     final data = element.getUriData(document, 'image/png').toString();
-    xml.getElement('svg')?.createElement('image', attributes: {
-      'x': '${rect.left}px',
-      'y': '${rect.top}px',
-      'width': '${rect.width}px',
-      'height': '${rect.height}px',
-      'xlink:href': data,
-    });
+    xml
+        .getElement('svg')
+        ?.createElement(
+          'image',
+          attributes: {
+            'x': '${rect.left}px',
+            'y': '${rect.top}px',
+            'width': '${rect.width}px',
+            'height': '${rect.height}px',
+            'xlink:href': data,
+          },
+        );
   }
 
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
-    super.setup(document, assetService, page);
+  Future<void> setup(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    super.setup(transformCubit, document, assetService, page);
     final data = element.getData(document);
     if (data != null) {
       pictureInfo = await vg.loadPicture(
-          SvgStringLoader(utf8.decode(data)), null,
-          clipViewbox: false);
+        SvgStringLoader(utf8.decode(data)),
+        null,
+        clipViewbox: false,
+      );
     }
   }
 
@@ -64,15 +86,23 @@ class SvgRenderer extends Renderer<SvgElement> {
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
-      return Rect.fromLTWH(element.position.x, element.position.y,
-          (size.width * scaleX).toDouble(), (size.height * scaleY).toDouble());
+      return Rect.fromLTWH(
+        element.position.x,
+        element.position.y,
+        (size.width * scaleX).toDouble(),
+        (size.height * scaleY).toDouble(),
+      );
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
       if (height <= 0) height = size.height.toDouble();
       if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
-          element.position.x, element.position.y, width, height);
+        element.position.x,
+        element.position.y,
+        width,
+        height,
+      );
     } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
@@ -93,10 +123,18 @@ class SvgRenderer extends Renderer<SvgElement> {
       if (height <= 0) height = size.height.toDouble();
       if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
-          element.position.x, element.position.y, width, height);
+        element.position.x,
+        element.position.y,
+        width,
+        height,
+      );
     } else {
-      return Rect.fromLTWH(element.position.x, element.position.y,
-          size.width.toDouble(), size.height.toDouble());
+      return Rect.fromLTWH(
+        element.position.x,
+        element.position.y,
+        size.width.toDouble(),
+        size.height.toDouble(),
+      );
     }
   }
 
@@ -113,13 +151,14 @@ class SvgRenderer extends Renderer<SvgElement> {
     double scaleY = 1,
   }) {
     return SvgRenderer(
-        element.copyWith(
-          position: position.toPoint(),
-          rotation: rotation,
-          width: element.width * scaleX,
-          height: element.height * scaleY,
-        ),
-        layer,
-        pictureInfo);
+      element.copyWith(
+        position: position.toPoint(),
+        rotation: rotation,
+        width: element.width * scaleX,
+        height: element.height * scaleY,
+      ),
+      layer,
+      pictureInfo,
+    );
   }
 }

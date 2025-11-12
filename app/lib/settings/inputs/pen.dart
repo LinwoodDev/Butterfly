@@ -12,6 +12,25 @@ import '../../cubits/settings.dart';
 class PenInputSettings extends StatelessWidget {
   const PenInputSettings({super.key});
 
+  String _getIgnorePressureName(
+    IgnorePressure ignorePressure,
+    BuildContext context,
+  ) => switch (ignorePressure) {
+    IgnorePressure.never => AppLocalizations.of(context).never,
+    IgnorePressure.first => AppLocalizations.of(context).first,
+    IgnorePressure.always => AppLocalizations.of(context).always,
+  };
+
+  String? _getIgnorePressureDescription(
+    IgnorePressure ignorePressure,
+    BuildContext context,
+  ) => switch (ignorePressure) {
+    IgnorePressure.first => AppLocalizations.of(
+      context,
+    ).ignoreFirstPressureDescription,
+    _ => null,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +59,60 @@ class PenInputSettings extends StatelessWidget {
                               AppLocalizations.of(context).penOnlyInput,
                             ),
                             secondary: const PhosphorIcon(
-                                PhosphorIconsLight.pencilSimpleLine),
+                              PhosphorIconsLight.pencilSimpleLine,
+                            ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changePenOnlyInput(value),
+                          ),
+                          ListTile(
+                            title: Text(
+                              AppLocalizations.of(context).ignorePressure,
+                            ),
+                            subtitle: Text(
+                              _getIgnorePressureName(
+                                state.ignorePressure,
+                                context,
+                              ),
+                            ),
+                            leading: const PhosphorIcon(
+                              PhosphorIconsLight.lineSegments,
+                            ),
+                            onTap: () {
+                              final cubit = context.read<SettingsCubit>();
+                              final ignorePressure = cubit.state.ignorePressure;
+
+                              showLeapBottomSheet(
+                                context: context,
+                                titleBuilder: (context) => Text(
+                                  AppLocalizations.of(context).ignorePressure,
+                                ),
+                                childrenBuilder: (context) {
+                                  return [
+                                    ...IgnorePressure.values.map((e) {
+                                      final description =
+                                          _getIgnorePressureDescription(
+                                            e,
+                                            context,
+                                          );
+                                      return ListTile(
+                                        title: Text(
+                                          _getIgnorePressureName(e, context),
+                                        ),
+                                        subtitle: description != null
+                                            ? Text(description)
+                                            : null,
+                                        selected: e == ignorePressure,
+                                        onTap: () {
+                                          cubit.changeIgnorePressure(e);
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                    }),
+                                  ];
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -85,9 +154,23 @@ class PenInputSettings extends StatelessWidget {
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  pen: value,
-                                ),
+                                config.copyWith(pen: value),
+                              );
+                            },
+                          ),
+                          InputMappingListTile(
+                            inputName: AppLocalizations.of(context).invertedPen,
+                            currentValue: config.invertedPen,
+                            defaultValue: InputMappingDefault.invertedPen,
+                            icon: Transform.flip(
+                              flipX: true,
+                              flipY: true,
+                              child: PhosphorIcon(PhosphorIconsLight.pen),
+                            ),
+                            onChanged: (value) {
+                              final cubit = context.read<SettingsCubit>();
+                              cubit.changeInputConfiguration(
+                                config.copyWith(invertedPen: value),
                               );
                             },
                           ),
@@ -96,13 +179,12 @@ class PenInputSettings extends StatelessWidget {
                             currentValue: config.firstPenButton,
                             defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleOne),
+                              PhosphorIconsLight.numberCircleOne,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  firstPenButton: value,
-                                ),
+                                config.copyWith(firstPenButton: value),
                               );
                             },
                           ),
@@ -111,13 +193,12 @@ class PenInputSettings extends StatelessWidget {
                             currentValue: config.secondPenButton,
                             defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleTwo),
+                              PhosphorIconsLight.numberCircleTwo,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(
-                                config.copyWith(
-                                  secondPenButton: value,
-                                ),
+                                config.copyWith(secondPenButton: value),
                               );
                             },
                           ),

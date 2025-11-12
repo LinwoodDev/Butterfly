@@ -7,34 +7,55 @@ import {Wrench,
 	Image,
 	Globe,
 	Gear,
+	Plus,
+	Trash,
+	ArrowLeft,
+	ArrowRight
 	
 } from "@phosphor-icons/react";
+import logo from '/public/img/logo.svg';
 
-To edit the background of the page, click on the <Wrench className="inline-icon"/> icon and there, on the <Book className="inline-icon"/> page icon. There, you'll have the option to click on the <Image className="inline-icon"/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+To edit the background of a page, click on the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly button and then select <Image className="inline-icon"/> Background. On a computer, you can also use the shortcut `Ctrl+B`.
 
-When configuring a backgournd, you have two tabs. The <Globe className="inline-icon"/> General tab to select the type of background to use, and the <Gear className="inline-icon"/> To configure the selected background.
+Backgrounds can be composed of multiple background layers, which are drawn on top of each other.
 
-## <Globe className="inline-icon"/> Pattern
+## Configuring Background Layers
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+On the Background screen, the first set of tabs shows the layers of the background.
 
-### <Gear className="inline-icon"/> Properties
+To add a new layer, use the <Plus className="inline-icon"/> button.
 
-In the horizontal configuration tab, you have the following option:
+To delete the selected layer, use the <Trash className="inline-icon"/> button.
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+To reorder the layers, use the <ArrowLeft className="inline-icon"/> and <ArrowRight className="inline-icon"/> buttons. Layers are drawn from left to right, so layers on the right will appear on top of layers on the left.
 
-For example, to create a music sheet, you can use the following configuration:
-`Width - 40`, `Count - 5`, `Space - 80`
+## Background Layer Types
 
-The vertical configuration follows the same logic for columns instead of rows
+There are two types of background layers: Patterns and Images/SVGs.
 
-## <Globe className="inline-icon"/> Image
+### Pattern Layers
 
-The image background type allows you to upload an image and use it as background for the page.
+There are many different pattern templates available that you can choose from. After selecting a pattern template, you can configure the following:
 
-### <Gear className="inline-icon"/> Properties
+#### Háttér
 
-The scale in x and y direction can be changed if this image to small or big.
+- Color - The color of the background of the pattern.
+- Alpha - The alpha/opacity of the background of the pattern.
+
+#### Horizontal / Vertical
+
+These sections allow you to configure the appearance of grid lines.
+
+- Color - The color of the grid lines.
+- Alpha - The alpha/opacity of the grid lines.
+- Width - The distance between grid lines.
+- Count - The number of grid lines in a group. To prevent grouping, use `1`.
+- Space - The distance between each group of grid lines.
+- Stroke Width - The thickness/weight of the grid lines.
+
+For example, to create sheet music staffs, you can use the following configuration:
+`Width: 40`, `Count: 5`, `Space: 80`
+
+### Image & SVG Layers
+
+These background layer types allow you to upload an image and use it as background for the page. Images will be tiled on the canvas, and you can configure the scale of the image to make the tiles larger or smaller.

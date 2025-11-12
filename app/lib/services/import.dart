@@ -5,10 +5,11 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/image.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/asset.dart';
+import 'package:butterfly/services/asset.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
-import 'package:image/image.dart' as img;
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/note.dart';
@@ -23,10 +24,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:super_clipboard/super_clipboard.dart';
+import 'package:meta/meta.dart';
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
@@ -34,6 +35,105 @@ import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+
+class ImportResult {
+  final ImportService service;
+  final NoteData? document;
+  final List<PadElement> elements;
+  final Map<String, Uint8List> assets;
+  final List<(String?, DocumentPage)> pages;
+  final List<Area> areas;
+  final List<NoteData> packs;
+  final bool choosePosition;
+  final bool documentReady;
+
+  ImportResult({
+    required this.service,
+    required this.document,
+    this.elements = const [],
+    this.assets = const {},
+    this.pages = const [],
+    this.areas = const [],
+    this.packs = const [],
+    this.choosePosition = false,
+  }) : documentReady = false;
+  ImportResult.ready({required this.service, required this.document})
+    : elements = const [],
+      assets = const {},
+      pages = const [],
+      areas = const [],
+      packs = const [],
+      choosePosition = false,
+      documentReady = true;
+
+  Future<NoteData> export() async {
+    final currentDocument = this.document;
+    if (documentReady && currentDocument != null) {
+      return currentDocument;
+    }
+    var document =
+        currentDocument ??
+        DocumentDefaults.createDocument(createDefaultPage: false);
+    final state = service._getState();
+    DocumentPage page =
+        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
+    List<PadElement> imported;
+    (document, imported) = await importAssetsAsync(
+      document,
+      elements,
+      assets: assets,
+    );
+    if (imported.isNotEmpty) {
+      page = page.copyWith(
+        layers: [
+          DocumentLayer(
+            content: [...page.content, ...imported],
+            id: createUniqueId(),
+          ),
+        ],
+      );
+      document = document.setPage(page).$1;
+    }
+    for (final (name, page) in pages) {
+      (document, _) = document.addPage(page, name ?? '');
+    }
+    for (final pack in packs) {
+      document = document.setBundledPack(pack);
+    }
+    return document;
+  }
+
+  void submit({bool? choosePosition}) {
+    choosePosition ??= this.choosePosition;
+    final state = service._getState();
+    final context = service.context;
+    final bloc = service.bloc;
+    if (choosePosition &&
+        state != null &&
+        (elements.isNotEmpty || areas.isNotEmpty)) {
+      state.currentIndexCubit.changeTemporaryHandler(
+        context,
+        ImportTool(elements: elements, areas: areas, assets: assets),
+        bloc: bloc!,
+        temporaryState: TemporaryState.removeAfterRelease,
+      );
+    } else {
+      bloc
+        ?..add(AreasCreated(areas))
+        ..add(ElementsCreated(elements));
+    }
+    bloc?.add(
+      PagesAdded(
+        pages
+            .map((e) => PageAddedDetails(page: e.$2, name: e.$1 ?? ''))
+            .toList(),
+      ),
+    );
+    for (final pack in packs) {
+      bloc?.add(PackAdded(pack));
+    }
+  }
+}
 
 class ImportService {
   final DocumentBloc? bloc;
@@ -64,18 +164,24 @@ class ImportService {
   PackFileSystem getPackFileSystem() => useDefaultStorage
       ? getFileSystem().buildDefaultPackSystem()
       : getFileSystem().buildPackSystem(storage);
+  Future<NamedItem<text.TextStyleSheet>?> findStyleSheet() async {
+    final fileSystem = getPackFileSystem();
+    for (final pack in await fileSystem.getFiles()) {
+      final styleSheet = pack.data!.getNamedStyles().firstOrNull;
+      if (styleSheet != null) {
+        return styleSheet;
+      }
+    }
+    return null;
+  }
 
-  Future<NoteData?> load({
+  @useResult
+  Future<ImportResult?> load({
     String type = '',
     Object? data,
     NoteData? document,
   }) async {
-    final state = bloc?.state is DocumentLoadSuccess
-        ? (bloc?.state as DocumentLoadSuccess)
-        : null;
-    final location = state?.location;
-    document ??= state?.data;
-    document ??= DocumentDefaults.createDocument();
+    final location = bloc?.state.currentIndexCubit?.state.location;
     Uint8List? bytes;
     final fs = getDocumentSystem();
     if (data is Uint8List) {
@@ -91,7 +197,7 @@ class ImportService {
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
-      return data;
+      return _importDocument(data, document: document, advanced: false);
     } else if (data is NoteFile) {
       bytes = data.data;
     }
@@ -115,7 +221,8 @@ class ImportService {
     return import(fileType, bytes, document: document, advanced: false);
   }
 
-  Future<NoteData?> import(
+  @useResult
+  Future<ImportResult?> import(
     AssetFileType type,
     Uint8List bytes, {
     NoteData? document,
@@ -125,39 +232,47 @@ class ImportService {
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
   }) async {
-    final realDocument = document ?? DocumentDefaults.createDocument();
+    final realDocument =
+        document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
     return switch (type) {
-      AssetFileType.note => importBfly(
-          bytes,
-          document: document,
-          position: position,
-          advanced: advanced,
-          templateSystem: templateSystem,
-          packSystem: packSystem,
-        ),
+      AssetFileType.note || AssetFileType.textNote => importBfly(
+        bytes,
+        document: document,
+        position: position,
+        advanced: advanced,
+        templateSystem: templateSystem,
+        packSystem: packSystem,
+      ),
       AssetFileType.image => importImage(
-          bytes,
-          realDocument,
-          position: position,
-        ),
+        bytes,
+        realDocument,
+        position: position,
+      ),
       AssetFileType.svg => importSvg(bytes, realDocument, position: position),
-      AssetFileType.markdown => importMarkdown(
-          bytes,
-          realDocument,
-          position: position,
-        ),
+      AssetFileType.markdown => importText(
+        bytes,
+        realDocument,
+        position: position,
+        isMarkdown: true,
+      ),
       AssetFileType.pdf => importPdf(
-          bytes,
-          realDocument,
-          position: position,
-          advanced: advanced,
-        ),
+        bytes,
+        realDocument,
+        position: position,
+        advanced: advanced,
+      ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
       AssetFileType.archive => importArchive(
-          bytes,
-          fileSystem: fileSystem,
-        ).then((value) => null),
+        bytes,
+        fileSystem: fileSystem,
+      ).then((value) => null),
+      AssetFileType.rawText => importText(
+        bytes,
+        realDocument,
+        position: position,
+        isMarkdown: false,
+      ),
     };
   }
 
@@ -186,7 +301,8 @@ class ImportService {
     return c.future;
   }
 
-  Future<NoteData?> importClipboard(
+  @useResult
+  Future<ImportResult?> importClipboard(
     NoteData document, {
     Offset? position,
     bool advanced = true,
@@ -199,8 +315,8 @@ class ImportService {
       final result = AssetFileType.values
           .map((e) {
             final format = e.getClipboardFormats().firstWhereOrNull(
-                  (f) => reader.canProvide(f),
-                );
+              (f) => reader.canProvide(f),
+            );
             return format == null ? null : (e, format);
           })
           .nonNulls
@@ -236,7 +352,8 @@ class ImportService {
     );
   }
 
-  FutureOr<NoteData?> importBfly(
+  @useResult
+  Future<ImportResult?> importBfly(
     Uint8List bytes, {
     NoteData? document,
     Offset? position,
@@ -245,8 +362,6 @@ class ImportService {
     PackFileSystem? packSystem,
   }) async {
     try {
-      final documentOpened = document != null;
-      final realDocument = document ?? DocumentDefaults.createDocument();
       final file = NoteFile(bytes);
       String? password;
       if (file.isEncrypted()) {
@@ -271,31 +386,29 @@ class ImportService {
         ).then((value) => null);
       }
       if (!data.isValid) {
-        await importArchive(bytes);
+        final archive = ZipDecoder().decodeBytes(bytes);
+        await _importArchive(archive);
         return null;
       }
       final type = data.getMetadata()?.type;
       return switch (type) {
         NoteFileType.document => _importDocument(
-            data,
-            realDocument,
-            advanced: advanced,
-          ),
-        NoteFileType.template when documentOpened => _importTemplate(
-            data,
-            templateSystem,
-          ),
-        NoteFileType.pack when documentOpened => _importPack(
-            data,
-            document,
-            packSystem,
-          ).then((value) => null),
+          data,
+          document: document,
+          advanced: advanced,
+        ),
+        NoteFileType.template => _importTemplate(data, templateSystem),
+        NoteFileType.pack => _importPack(
+          data,
+          document,
+          packSystem,
+        ).then((value) => null),
         _ => showDialog(
-            context: context,
-            builder: (context) => UnknownImportConfirmationDialog(
-              message: AppLocalizations.of(context).unknownImportType,
-            ),
-          ).then((value) => null),
+          context: context,
+          builder: (context) => UnknownImportConfirmationDialog(
+            message: AppLocalizations.of(context).unknownImportType,
+          ),
+        ).then((value) => null),
       };
     } catch (e) {
       await showDialog(
@@ -307,41 +420,45 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData>? _importDocument(
-    NoteData data,
-    NoteData document, {
+  Future<ImportResult?> _importDocument(
+    NoteData data, {
+    NoteData? document,
     bool advanced = true,
   }) async {
     var pages = data.getPages();
-    var packs = data.getPacks().toList();
+    var packs = data.getBundledPacks().toList();
     if (advanced) {
       final callback = await showDialog<NoteDialogCallback>(
         context: context,
         builder: (context) => NoteImportDialog(pages: pages, packs: packs),
       );
-      if (callback == null) return document;
+      if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
-    } else if (bloc == null) {
-      return data;
+    } else if (document == null) {
+      return ImportResult.ready(service: this, document: data);
     }
-    for (final page in pages.map((e) => data.getPage(e)).nonNulls) {
-      if (advanced) {
-        document = document.addPage(page).$1;
-      } else {
-        document = document.setPage(page);
-      }
-      bloc?.add(PageAdded(null, page));
-    }
-    for (final packs in packs.map((e) => data.getPack(e)).nonNulls) {
-      document = document.setPack(packs);
-      bloc?.add(PackAdded(packs));
-    }
-    return document;
+    return ImportResult(
+      service: this,
+      document: document,
+      pages: pages
+          .map((e) {
+            final page = data.getPage(e);
+            if (page == null) return null;
+            return (e, page);
+          })
+          .nonNulls
+          .toList(),
+      packs: packs.map((e) => data.getBundledPack(e)).nonNulls.toList(),
+    );
   }
 
-  Future<NoteData?> importPage(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  @useResult
+  Future<ImportResult?> importPage(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
       return _importPage(page, document, position);
@@ -355,37 +472,47 @@ class ImportService {
     return null;
   }
 
-  NoteData? _importPage(
+  Future<ImportResult?> _importPage(
     DocumentPage? page,
     NoteData document, [
     Offset? position,
-  ]) {
+  ]) async {
     final firstPos = position ?? Offset.zero;
     if (page == null) return null;
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
 
-    final content = page.content
+    final renderers = page.content
         .map((e) => e.copyWith(id: createUniqueId()))
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
+    final transformCubit = TransformCubit(1, position);
+    final assetService = AssetService(document);
+    await Future.wait(
+      renderers.map(
+        (e) async =>
+            await e.setup(transformCubit, document, assetService, page),
+      ),
+    );
+    assetService.dispose();
+    final content = renderers
         .map(
           (e) =>
-              Renderer.fromInstance(
-                e,
-              ).transform(position: firstPos, relative: true)?.element ??
-              e,
+              e.transform(position: firstPos, relative: true)?.element ??
+              e.element,
         )
         .toList();
-    return _submit(
-      context,
-      document,
+    return ImportResult(
+      service: this,
+      document: document,
       elements: content,
       areas: areas,
       choosePosition: position == null,
     );
   }
 
-  Future<NoteData?> _importTemplate(
+  Future<ImportResult?> _importTemplate(
     NoteData template, [
     TemplateFileSystem? templateSystem,
   ]) async {
@@ -400,7 +527,7 @@ class ImportService {
     if (context.mounted && result == true) {
       templateSystem.createFile(template.name ?? '', template);
     }
-    return template.createDocument();
+    return ImportResult(service: this, document: template.createDocument());
   }
 
   Future<bool> _importPack(
@@ -418,7 +545,7 @@ class ImportService {
     if (result != true) return false;
     if (context.mounted) {
       if (document != null) {
-        document = document.setPack(pack);
+        document = document.setBundledPack(pack);
       } else {
         packSystem.createFile(pack.name ?? '', pack);
       }
@@ -426,7 +553,8 @@ class ImportService {
     return true;
   }
 
-  Future<NoteData?> importImage(
+  @useResult
+  Future<ImportResult?> importImage(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -442,23 +570,26 @@ class ImportService {
       final state = _getState();
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      final dataPath =
-          Uri.dataFromBytes(newData, mimeType: 'image/png').toString();
+      final dataPath = Uri.dataFromBytes(
+        newData,
+        mimeType: 'image/png',
+      ).toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
       if (position == null && currentIndexCubit != null && settingsScale > 0) {
-        final scale = min(
+        final scale =
+            min(
               (screen.width * settingsScale) / width,
               (screen.height * settingsScale) / height,
             ) /
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(
-        context,
-        document,
+      return ImportResult(
+        service: this,
+        document: document,
         elements: [
           ImageElement(
             height: height,
@@ -481,14 +612,15 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importXopp(
+  @useResult
+  Future<ImportResult?> importXopp(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
   }) async {
     try {
       final data = xoppMigrator(bytes);
-      return _importDocument(data, document);
+      return _importDocument(data, document: document);
     } catch (e) {
       showDialog(
         context: context,
@@ -499,7 +631,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importSvg(
+  @useResult
+  Future<ImportResult?> importSvg(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
@@ -517,27 +650,32 @@ class ImportService {
         final state = _getState();
         String dataPath;
         if (state != null) {
-          dataPath =
-              Uri.dataFromBytes(bytes, mimeType: 'image/svg+xml').toString();
+          dataPath = Uri.dataFromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
         } else {
-          dataPath =
-              UriData.fromBytes(bytes, mimeType: 'image/svg+xml').toString();
+          dataPath = UriData.fromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
         }
         final settingsScale = getSettingsCubit().state.imageScale;
         ElementConstraints? constraints;
         if (position == null &&
             currentIndexCubit != null &&
             settingsScale > 0) {
-          final scale = min(
+          final scale =
+              min(
                 (screen.width * settingsScale) / width,
                 (screen.height * settingsScale) / height,
               ) /
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(
-          context,
-          document,
+        return ImportResult(
+          service: this,
+          document: document,
           elements: [
             SvgElement(
               width: width,
@@ -566,30 +704,43 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importMarkdown(
+  @useResult
+  Future<ImportResult?> importText(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
+    required bool isMarkdown,
   }) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
-      final styleSheet = document.findStyle();
       final state = _getState();
       final background =
           state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
-      final foreground =
-          background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
-      return _submit(
-        context,
-        document,
+      final foreground = background.toColor().isDark()
+          ? SRGBColor.white
+          : SRGBColor.black;
+      final styleSheet = await findStyleSheet();
+      return ImportResult(
+        service: this,
+        document: document,
         elements: [
-          MarkdownElement(
-            position: firstPos.toPoint(),
-            text: contentString,
-            styleSheet: styleSheet,
-            foreground: foreground,
-          ),
+          isMarkdown
+              ? MarkdownElement(
+                  position: firstPos.toPoint(),
+                  text: contentString,
+                  foreground: foreground,
+                  styleSheet: styleSheet,
+                )
+              : TextElement(
+                  area: text.TextArea(
+                    paragraph: text.TextParagraph(
+                      textSpans: [text.TextSpan(text: contentString)],
+                    ),
+                  ),
+                  styleSheet: styleSheet,
+                  foreground: foreground,
+                ),
         ],
         choosePosition: position == null,
       );
@@ -603,42 +754,106 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importPdf(
+  static const _pdfImportSource = '$kAssetScheme://imported_pdf';
+
+  @useResult
+  Future<ImportResult?> importPdf(
     Uint8List bytes,
     NoteData document, {
     Offset? position,
     bool advanced = true,
   }) async {
-    final dialog = showLoadingDialog(context);
+    LoadingDialogHandler? dialog;
+    PdfDocument? pdfDocument;
     try {
       final firstPos = position ?? Offset.zero;
-      final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
-      // Define the compression value
-      int level = 5;
-      // Define the lot size
-      const batchSize = 200;
-      List<Uint8List> batch = [];
-      // Create a counter for decoded images
-      int decodedImagesCount = 0;
-      // Get the total number of pages
-      int totalPages = await Printing.raster(bytes).length;
-      double quality = context.read<SettingsCubit>().state.pdfQuality;
-      double dpi = PdfPageFormat.inch * quality;
-      await for (var page in Printing.raster(bytes, dpi: dpi)) {
-        final image = page.asImage();
+      pdfDocument = await PdfDocument.openData(bytes);
+      final elements = pdfDocument.pages;
+      if (!context.mounted) return null;
+      List<int> pages = List.generate(elements.length, (index) => index);
+      bool spreadToPages = false, createAreas = false, invert = false;
+      SRGBColor background = BasicColors.whiteTransparent;
+      String name = '';
+      if (advanced) {
+        List<ui.Image> images = [];
+        final dialog = showLoadingDialog(context);
+
+        for (int i = 0; i < elements.length; i++) {
+          final raster = elements[i];
+          dialog?.setProgress(i / elements.length);
+          final pdfImage = await raster.render();
+          if (pdfImage == null) continue;
+          images.add(await pdfImage.createImage());
+        }
+        dialog?.close();
+        final callback = await showDialog<PageDialogCallback>(
+          context: context,
+          builder: (context) => PagesDialog(pages: images),
+        );
+        for (var image in images) {
+          try {
+            image.dispose();
+          } catch (_) {}
+        }
+        if (callback == null) return null;
+        pages = callback.pages;
+        spreadToPages = callback.spreadToPages;
+        createAreas = callback.createAreas;
+        invert = callback.invert;
+        background = callback.background;
+        name = callback.name;
+      }
+      String getPageName(int index) {
+        if (name.isEmpty) return localizations.pageIndex(index + 1);
+        return '$name $index';
+      }
+
+      dialog = showLoadingDialog(context);
+      final selectedElements = <PdfElement>[];
+      final areas = <Area>[];
+      final documentPages = <(String?, DocumentPage)>[];
+      var y = firstPos.dy;
+      var current = 0;
+
+      for (var i = 0; i < pages.length; i++) {
+        var raster = elements[pages[i]];
         try {
-          decodedImagesCount++;
-          await Future.delayed(const Duration(milliseconds: 100));
-          dialog?.setProgress(decodedImagesCount / totalPages);
-          //compress image
-          List<int> compressedPng = img.encodePng(image, level: level);
-          // Add the compressed image to the current batch
-          batch.add(Uint8List.fromList(compressedPng));
-          // If the lot has reached the lot size, process the lot and empty the lot
-          if (batch.length == batchSize) {
-            elements.addAll(batch);
-            batch = [];
+          await Future.delayed(const Duration(milliseconds: 1));
+          dialog?.setProgress(current / pages.length);
+          current++;
+          final height = raster.height.toDouble();
+          final width = raster.width.toDouble();
+          final pageName = getPageName(i);
+          final element = PdfElement(
+            height: height,
+            width: width,
+            source: _pdfImportSource,
+            page: i,
+            position: Point(firstPos.dx, y),
+            invert: invert,
+            background: background,
+          );
+          final area = Area(
+            height: height,
+            width: width,
+            position: Point(firstPos.dx, y),
+            name: pageName,
+          );
+          if (spreadToPages) {
+            documentPages.add((
+              pageName,
+              DocumentPage(
+                layers: [
+                  DocumentLayer(content: [element], id: createUniqueId()),
+                ],
+                areas: [if (createAreas) area],
+              ),
+            ));
+          } else {
+            selectedElements.add(element);
+            areas.add(area);
+            y += height;
           }
         } catch (e) {
           showDialog(
@@ -649,101 +864,15 @@ class ImportService {
         }
       }
       dialog?.close();
-      // Process any image left in the batch
-      if (batch.isNotEmpty) {
-        elements.addAll(batch);
-      }
-      if (context.mounted) {
-        List<int> pages = List.generate(elements.length, (index) => index);
-        bool spreadToPages = false,
-            createAreas = false,
-            background = true,
-            invert = false;
-        if (advanced) {
-          final callback = await showDialog<PageDialogCallback>(
-            context: context,
-            builder: (context) => PagesDialog(pages: elements),
-          );
-          if (callback == null) return document;
-          pages = callback.pages;
-          quality = callback.quality;
-          spreadToPages = callback.spreadToPages;
-          createAreas = callback.createAreas;
-          background = callback.background;
-          invert = callback.invert;
-        }
-        final dialog = showLoadingDialog(context);
-        final selectedElements = <ImageElement>[];
-        final areas = <Area>[];
-        final documentPages = <DocumentPage>[];
-        var y = firstPos.dy;
-        var current = 0;
-
-        for (var i = 0; i < elements.length; i++) {
-          var modifiedPng = elements[i];
-          try {
-            await Future.delayed(const Duration(milliseconds: 1));
-            dialog?.setProgress(current / pages.length);
-            current++;
-            var image = img.decodePng(modifiedPng);
-            final cmd = img.Command()..image(image!);
-            if (background) cmd.filter(updateImageBackground());
-            if (invert) cmd.invert();
-            cmd.encodePng();
-            final png = await cmd.getBytes();
-            if (png == null) continue;
-            final scale = 2.0 / quality;
-            final height = image.height;
-            final width = image.width;
-            final dataPath = Uri.dataFromBytes(png).toString();
-            final element = ImageElement(
-              height: height.toDouble(),
-              width: width.toDouble(),
-              source: dataPath,
-              constraints: ElementConstraints.scaled(
-                scaleX: scale,
-                scaleY: scale,
-              ),
-              position: Point(firstPos.dx, y),
-            );
-            final area = Area(
-              height: height * scale,
-              width: width * scale,
-              position: Point(firstPos.dx, y),
-              name: localizations.pageIndex(areas.length + 1),
-            );
-            if (spreadToPages) {
-              documentPages.add(
-                DocumentPage(
-                  layers: [
-                    DocumentLayer(content: [element], id: createUniqueId()),
-                  ],
-                  areas: [if (createAreas) area],
-                ),
-              );
-            } else {
-              selectedElements.add(element);
-              areas.add(area);
-            }
-            y += height * scale;
-          } catch (e) {
-            showDialog(
-              context: context,
-              builder: (context) =>
-                  UnknownImportConfirmationDialog(message: e.toString()),
-            );
-          }
-        }
-        dialog?.close();
-        return _submit(
-          context,
-          document,
-          elements: selectedElements,
-          pages: documentPages,
-          areas: spreadToPages ? [] : areas,
-          choosePosition: position == null,
-        );
-      }
+      return ImportResult(
+        service: this,
+        document: document,
+        elements: selectedElements,
+        pages: documentPages,
+        areas: spreadToPages ? [] : areas,
+        choosePosition: position == null,
+        assets: {_pdfImportSource: bytes},
+      );
     } catch (e) {
       dialog?.close();
       showDialog(
@@ -751,6 +880,8 @@ class ImportService {
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
       );
+    } finally {
+      await pdfDocument?.dispose();
     }
     return null;
   }
@@ -764,10 +895,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        exportData(
-          context,
-          Uint8List.fromList((await state.saveData()).exportAsBytes()),
-        );
+        exportData(context, await state.saveData());
         break;
       case AssetFileType.image:
         return showDialog<void>(
@@ -817,75 +945,38 @@ class ImportService {
     }
   }
 
-  NoteData? _submit(
-    BuildContext context,
-    NoteData document, {
-    required List<PadElement> elements,
-    List<DocumentPage> pages = const [],
-    List<Area> areas = const [],
-    List<NoteData> packs = const [],
-    bool choosePosition = false,
-  }) {
-    final state = _getState();
-    DocumentPage page =
-        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
-    if (choosePosition &&
-        state != null &&
-        (elements.isNotEmpty || areas.isNotEmpty)) {
-      state.currentIndexCubit.changeTemporaryHandler(
-        context,
-        ImportTool(elements: elements, areas: areas),
-        bloc: bloc!,
-        temporaryState: TemporaryState.removeAfterRelease,
-      );
-    } else {
-      bloc
-        ?..add(AreasCreated(areas))
-        ..add(ElementsCreated(elements));
-    }
-    for (final page in pages) {
-      bloc?.add(PageAdded(null, page));
-    }
-    for (final pack in packs) {
-      bloc?.add(PackAdded(pack));
-    }
-    page = page.copyWith(
-      layers: [
-        DocumentLayer(
-          content: [...page.content, ...elements],
-          id: createUniqueId(),
-        ),
-      ],
-    );
-    document = document.setPage(page);
-    for (final page in pages) {
-      (document, _) = document.addPage(page);
-    }
-    for (final pack in packs) {
-      document = document.setPack(pack);
-    }
-    return document;
-  }
-
   Future<bool> importArchive(
     Uint8List bytes, {
     DocumentFileSystem? fileSystem,
   }) async {
+    final archive = ZipDecoder().decodeBytes(bytes);
+    final data = NoteData.fromArchive(archive);
+    if (data.isValid) {
+      fileSystem ??= getDocumentSystem();
+      final document = await (await importBfly(bytes))?.export();
+      if (document != null) {
+        fileSystem.createFile(document.name ?? '', document.toFile());
+      }
+      return document != null;
+    }
+    return _importArchive(archive, fileSystem: fileSystem);
+  }
+
+  Future<bool> _importArchive(
+    Archive archive, {
+    DocumentFileSystem? fileSystem,
+  }) async {
     try {
       fileSystem ??= getDocumentSystem();
-      final archive = ZipDecoder().decodeBytes(bytes);
-      final data = NoteData.fromArchive(archive);
-      if (data.isValid) {
-        final document = await importBfly(bytes);
-        if (document != null) {
-          fileSystem.createFile(document.name ?? '', document.toFile());
-        }
-        return document != null;
-      }
       for (final file in archive) {
         const fileExtension = '.bfly';
         if (!file.name.endsWith(fileExtension)) continue;
-        final document = await importBfly(file.content, advanced: false);
+        final bytes = file.readBytes();
+        if (bytes == null) continue;
+        final document = await (await importBfly(
+          bytes,
+          advanced: false,
+        ))?.export();
         if (document != null) {
           fileSystem.createFile(file.name, document.toFile());
         }

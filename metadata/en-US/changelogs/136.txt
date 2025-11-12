@@ -1,0 +1,16 @@
+* Add copy button to the collaboration dialog
+* Add process intent queries in android to fix internal flutter android processing
+* Improve sharing files
+* Improve default template when creating a new document ([#848](https://github.com/LinwoodDev/Butterfly/issues/848))
+* Fix camera is required for android app
+* Fix newly created elements created with pen or label desyncs in collaboration
+* Fix undo/redo in collaboration
+* Fix collaboration dialog dialog constraints
+* Fix toolbar on mobile below the system ui ([#847](https://github.com/LinwoodDev/Butterfly/issues/847))
+* Fix appbar menu overlays with system ui
+* Fix initial save state to saved
+* Fix window can't be moved on the title text area
+* Fix window title bar height to be too big on some pages
+* Update branding color on linux in appdata
+
+Read more here: https://linwood.dev/butterfly/2.3.1-rc.0

@@ -4,10 +4,13 @@ class RedoHandler extends Handler<RedoTool> {
   RedoHandler(super.data);
 
   @override
-  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
+  Future<SelectState> onSelected(
+    BuildContext context, [
+    bool wasAdded = true,
+  ]) async {
     final bloc = context.read<DocumentBloc>();
-    bloc.redo();
-    bloc.load().then((value) => bloc.bake().then((value) => bloc.save()));
+    bloc.sendRedo();
+    await bloc.reload();
     return SelectState.none;
   }
 

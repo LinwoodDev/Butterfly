@@ -1,10 +1,10 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.3.0-rc.1
+version: 2.4.1
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
   archive: ^4.0.0
@@ -19,7 +19,7 @@ dependencies:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       path: packages/lw_file_system_api
-      ref: 2ecf53489240f055c841d7c8f92fe374cc6a27ae
+      ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
   dart_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
@@ -31,5 +31,5 @@ dev_dependencies:
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
   freezed: ^3.0.2
-  lints: ^5.0.0
-  analyzer: ^7.1.0
+  lints: ^6.0.0
+  analyzer: ^8.1.1

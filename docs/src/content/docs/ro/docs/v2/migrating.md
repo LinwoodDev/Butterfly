@@ -2,17 +2,13 @@
 title: Migrare
 ---
 
-Acest ghid vă va arăta cum să migrați la ultima versiune.
+This page lists breaking changes that may affect you when updating to newer versions.
 
-## 7 (Breaking change) {#7}
+## Version 2.0 (File Version 7) {#7}
 
-**Versiune: 2.0**
-
-### Ruperea modificărilor
-
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+The eraser layer has been removed. Upon updating to version 2.0, the eraser layer will be removed automatically.
 
 ## Versiuni mai vechi
 
-All migrations before will be done automatically.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+All migrations for earlier versions will be done automatically.
+The migration code can be found [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

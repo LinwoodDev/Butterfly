@@ -40,16 +40,20 @@ class PalettesPackView extends StatelessWidget {
                             builder: (context) => ColorPalettePickerDialog(
                               palette: value.getPalette(e),
                               viewMode: true,
-                              onChanged: (palette) {
-                                onChanged(value.setPalette(palette));
+                              name: e,
+                              onChanged: (palette, name) {
+                                var pack = value;
+                                if (name != null) {
+                                  pack = pack.removePalette(e);
+                                }
+                                pack = pack.setPalette(name ?? e, palette);
+                                onChanged(pack);
                               },
                             ),
                           );
                         },
                         trailing: IconButton(
-                          icon: const PhosphorIcon(
-                            PhosphorIconsLight.trash,
-                          ),
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
                           onPressed: () async {
                             onChanged(value.removePalette(e));
                           },
@@ -76,7 +80,7 @@ class PalettesPackView extends StatelessWidget {
                 ),
               );
               if (name == null) return;
-              onChanged(value.setPalette(ColorPalette(name: name)));
+              onChanged(value.setPalette(name, ColorPalette()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
             label: Text(LeapLocalizations.of(context).create),

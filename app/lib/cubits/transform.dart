@@ -36,15 +36,20 @@ class CameraTransform extends Equatable {
   final Offset position;
   final double size;
   final FrictionState? friction;
+  final double pixelRatio;
 
-  const CameraTransform(
-      [this.position = Offset.zero, this.size = 1, this.friction]);
+  const CameraTransform([
+    this.pixelRatio = 1,
+    this.position = Offset.zero,
+    this.size = 1,
+    this.friction,
+  ]);
 
   CameraTransform withPosition(Offset position) =>
-      CameraTransform(position, size);
+      CameraTransform(pixelRatio, position, size);
 
   CameraTransform withPointPosition(Point<double> position) =>
-      CameraTransform(position.toOffset(), size);
+      CameraTransform(pixelRatio, position.toOffset(), size);
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
@@ -53,6 +58,7 @@ class CameraTransform extends Equatable {
     mx = (mx - position) * newSize;
 
     return CameraTransform(
+      pixelRatio,
       position + (mx - cursor) / newSize,
       newSize,
     );
@@ -64,40 +70,38 @@ class CameraTransform extends Equatable {
   @override
   List<Object?> get props => [position, size];
 
-  double _getFinalTime(double velocity, double drag,
-          {double effectivelyMotionless = 10}) =>
-      log(effectivelyMotionless / velocity) / log(drag / 100);
+  double _getFinalTime(
+    double velocity,
+    double drag, {
+    double effectivelyMotionless = 10,
+  }) => log(effectivelyMotionless / velocity) / log(drag / 100);
 
-  FrictionSimulation _getSimulation(double velocity) => FrictionSimulation(
-        kDrag,
-        0,
-        velocity,
-      );
+  FrictionSimulation _getSimulation(double velocity) =>
+      FrictionSimulation(kDrag, 0, velocity);
   CameraTransform withFriction(Offset velocityPosition, double velocitySize) {
     final simX = _getSimulation(velocityPosition.dx);
     final finalX = simX.finalX;
     final simY = _getSimulation(velocityPosition.dy);
     final finalY = simY.finalX;
-    final durationPosition = _getFinalTime(
-      velocityPosition.distance,
-      kDrag,
-    );
+    final durationPosition = _getFinalTime(velocityPosition.distance, kDrag);
     final finalPos = Offset(finalX, finalY);
     final simScale = _getSimulation(velocitySize);
     final finalSize = simScale.finalX;
-    final durationSize = _getFinalTime(
-      velocitySize,
-      kDrag,
-    );
+    final durationSize = _getFinalTime(velocitySize, kDrag);
     final duration = max(durationPosition, durationSize);
     if (!duration.isFinite) {
       return this;
     }
 
-    final frictionState =
-        FrictionState(-finalPos, 1 / velocitySize, DateTime.now(), duration);
+    final frictionState = FrictionState(
+      -finalPos,
+      1 / velocitySize,
+      DateTime.now(),
+      duration,
+    );
 
     return CameraTransform(
+      pixelRatio,
       position - finalPos,
       size + finalSize,
       frictionState,
@@ -105,17 +109,22 @@ class CameraTransform extends Equatable {
   }
 
   CameraTransform withFrictionless(Offset position, double size) {
-    return CameraTransform(this.position - position, this.size - size, null);
+    return CameraTransform(
+      pixelRatio,
+      this.position - position,
+      this.size - size,
+      null,
+    );
   }
 
-  CameraTransform improve(RenderResolution resolution, Size size) {
-    final rect = resolution.getRect(position & size);
-    return CameraTransform(rect.topLeft, this.size, friction);
+  CameraTransform improve(RenderResolution resolution, Rect rect) {
+    return CameraTransform(pixelRatio, rect.topLeft, size, friction);
   }
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
-  TransformCubit() : super(const CameraTransform());
+  TransformCubit(double pixelRatio, [Offset? position])
+    : super(CameraTransform(pixelRatio, position ?? Offset.zero));
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
@@ -127,7 +136,7 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void focus(Offset cursor) => emit(state.withSize(state.size, cursor));
 
-  void reset() => emit(const CameraTransform());
+  void reset() => emit(CameraTransform(state.pixelRatio));
 
   void size(double size, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(size, cursor));
@@ -142,15 +151,14 @@ class TransformCubit extends Cubit<CameraTransform> {
       final width = screen.width / area.width;
       final height = screen.height / area.height;
       size = min(width, height).clamp(kMinZoom, kMaxZoom);
-      position += Offset((area.width - screen.width / size) / 2,
-          (area.height - screen.height / size) / 2);
+      position += Offset(
+        (area.width - screen.width / size) / 2,
+        (area.height - screen.height / size) / 2,
+      );
     }
     teleport(position, size);
   }
 
   void slide(Offset velocityPosition, double velocitySize) =>
-      emit(state.withFriction(
-        velocityPosition,
-        velocitySize,
-      ));
+      emit(state.withFriction(velocityPosition, velocitySize));
 }

@@ -17,7 +17,7 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 Click on the shield icon in the address bar to change the setting.
 Try updating your browser to the latest version.
 
-## Mobile
+## Mobil
 
 ### S-Pen won't be recognized
 

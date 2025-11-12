@@ -24,7 +24,7 @@ RUN flutter config --enable-web
 RUN flutter build web
 
 # Nginx Container
-FROM nginx:alpine
+FROM nginx:1-alpine
 
 EXPOSE 80
 

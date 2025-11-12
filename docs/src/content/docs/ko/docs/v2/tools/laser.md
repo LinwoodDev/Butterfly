@@ -6,9 +6,9 @@ With this tool you can draw on this paper temporarily. After a while, the drawin
 
 ## Configuration
 
-|          Property | Default | Description                                                                      |
+|          Property | Default | 설명                                                                               |
 | ----------------: | :-----: | :------------------------------------------------------------------------------- |
 |             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
+|              선 굵기 |    5    | The width of the stroke                                                          |
 | Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|             지속 시간 |    5    | The duration in seconds that the drawing will be visible                         |

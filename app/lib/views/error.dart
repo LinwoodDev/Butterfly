@@ -50,33 +50,31 @@ class ErrorPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(child: Text(stackTrace.toString())),
-                          IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.copy),
-                            tooltip: AppLocalizations.of(context).copy,
-                            onPressed: () {
-                              Clipboard.setData(
-                                ClipboardData(text: stackTrace.toString()),
-                              );
-                            },
-                          ),
-                        ],
+                    if (stackTrace != null)
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(child: Text(stackTrace.toString())),
+                            IconButton(
+                              icon: const PhosphorIcon(PhosphorIconsLight.copy),
+                              tooltip: AppLocalizations.of(context).copy,
+                              onPressed: () {
+                                Clipboard.setData(
+                                  ClipboardData(text: stackTrace.toString()),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         OutlinedButton(
                           onPressed: () => launchUrl(
-                            Uri.https(
-                              'go.linwood.dev',
-                              '/butterfly/report',
-                            ),
+                            Uri.https('go.linwood.dev', '/butterfly/report'),
                           ),
                           child: Text(AppLocalizations.of(context).report),
                         ),

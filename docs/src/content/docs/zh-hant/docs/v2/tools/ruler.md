@@ -14,7 +14,7 @@ Inputs get snapped to the ruler.
 
 ## Configuration
 
-| Property |  Default  | 說明                                                                                           |
-| -------: | :-------: | :------------------------------------------------------------------------------------------- |
-|       大小 |    100    | The size of the ruler                                                                        |
-|       顏色 | _Not set_ | The color of the ruler. If not set, it uses the theme color. |
+| Property | Default | 說明                                                                                           |
+| -------: | :-----: | :------------------------------------------------------------------------------------------- |
+|       大小 |   100   | The size of the ruler                                                                        |
+|       顏色 |   _未設_  | The color of the ruler. If not set, it uses the theme color. |

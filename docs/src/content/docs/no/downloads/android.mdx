@@ -7,11 +7,36 @@ title: Android
 
 import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
 import DownloadButton from '/src/components/DownloadButton.astro';
+import Playstore from '@assets/img/store/playstore.png';
+import Fdroid from '@assets/img/store/fdroid.svg';
 
 ## Minimumskrav til systemer
 
-- Android 5.0 (API nivå 21) eller høyere.
-- Nightly: Android 6.0 (API level 23) or higher.
+- Android Nougat 7.0 (API level 24) or higher.
+
+## Store
+
+The recommended way to install Butterfly on Android is through the store. This ensures that you always have the latest version and updates automatically.
+
+<div class="row">
+<a href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+	<img src={Playstore.src} width="200"/>
+</a>
+<a href="https://f-droid.org/de/packages/dev.linwood.butterfly">
+	<img src={Fdroid.src} width="200" />
+</a>
+</div>
+
+The nightly version is also available on the stores. Vær oppmerksom på at denne versjonen kan ha feil.
+
+<div class="row">
+<a href="https://play.google.com/apps/testing/dev.linwood.butterfly">
+	<img src={Playstore.src} width="200"/>
+</a>
+<a href="https://f-droid.org/de/packages/dev.linwood.butterfly.nightly">
+	<img src={Fdroid.src} width="200" />
+</a>
+</div>
 
 ## Binærfiler
 
@@ -24,12 +49,28 @@ import DownloadButton from '/src/components/DownloadButton.astro';
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-x86_64.apk" title="APK (x86_64)"/>
   </CardGrid>
 </TabItem>
+<TabItem label="Stable (Legacy)">
+  <CardGrid>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-legacy.apk" title="APK (Universal)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-arm-legacy.apk" title="APK (ARM)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-arm64-legacy.apk" title="APK (ARM64)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-x86_64-legacy.apk" title="APK (x86_64)"/>
+  </CardGrid>
+</TabItem>
 <TabItem label="Nightly">
   <CardGrid>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android.apk" title="APK (Universal)"/>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm.apk" title="APK (ARM)"/>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm64.apk" title="APK (ARM64)"/>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-x86_64.apk" title="APK (x86_64)"/>
+  </CardGrid>
+</TabItem>
+<TabItem label="Nightly (Legacy)">
+  <CardGrid>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-legacy.apk" title="APK (Universal)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm-legacy.apk" title="APK (ARM)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-arm64-legacy.apk" title="APK (ARM64)"/>
+    <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android-x86_64-legacy.apk" title="APK (x86_64)"/>
   </CardGrid>
 </TabItem>
 </Tabs>
@@ -39,16 +80,6 @@ Read more about the nightly version of Butterfly [here](/community/nightly).
 :::tip[What apk should I use?]
 
 **Universal** should work on all devices. If you want a smaller apk, use the one that matches your device's architecture.
+**Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. However, this can affect loading performance. Read more [in the android documentation](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
 
 :::
-
-## Butikker
-
-<CardGrid>
-<LinkCard href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly" title="Play Store" />
-<LinkCard href="https://f-droid.org/de/packages/dev.linwood.butterfly" title="F-Droid" />
-</CardGrid>
-
-## beta programmet som spilles av butikken
-
-Click on [this link](https://play.google.com/apps/testing/dev.linwood.butterfly) to register for the [nightly](/community/nightly) version of the app. Vær oppmerksom på at denne versjonen kan ha feil. Spillbutikkversjonen vil automatisk bli oppdatert når en ny nightly versjon blir lansert.

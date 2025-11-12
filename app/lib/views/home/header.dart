@@ -8,16 +8,18 @@ PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) =>
     };
 
 String _getLocalizedNameOfBannerVisibility(
-        BuildContext context, BannerVisibility visibility) =>
-    switch (visibility) {
-      BannerVisibility.always => AppLocalizations.of(context).always,
-      BannerVisibility.never => AppLocalizations.of(context).never,
-      BannerVisibility.onlyOnUpdates =>
-        AppLocalizations.of(context).onlyOnUpdates,
-    };
+  BuildContext context,
+  BannerVisibility visibility,
+) => switch (visibility) {
+  BannerVisibility.always => AppLocalizations.of(context).always,
+  BannerVisibility.never => AppLocalizations.of(context).never,
+  BannerVisibility.onlyOnUpdates => AppLocalizations.of(context).onlyOnUpdates,
+};
 
 Widget _getBannerVisibilityWidget(
-    BuildContext context, ButterflySettings settings) {
+  BuildContext context,
+  ButterflySettings settings,
+) {
   return MenuAnchor(
     builder: defaultMenuButton(
       tooltip: AppLocalizations.of(context).visibility,
@@ -26,9 +28,7 @@ Widget _getBannerVisibilityWidget(
     menuChildren: BannerVisibility.values
         .map(
           (e) => MenuItemButton(
-            leadingIcon: Icon(
-              _getIconOfBannerVisibility(e),
-            ),
+            leadingIcon: Icon(_getIconOfBannerVisibility(e)),
             onPressed: () {
               context.read<SettingsCubit>().changeBannerVisibility(e);
             },
@@ -77,7 +77,8 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     super.didUpdateWidget(oldWidget);
     if (widget.showBanner) {
       _expandController.forward(
-          from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
+        from: oldWidget.isDesktop != widget.isDesktop ? 0 : null,
+      );
     } else {
       _expandController.reverse();
     }
@@ -107,14 +108,13 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
           tooltip: AppLocalizations.of(context).settings,
         ),
         _getBannerVisibilityWidget(
-            context, context.read<SettingsCubit>().state),
+          context,
+          context.read<SettingsCubit>().state,
+        ),
       ],
     );
     final style = FilledButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 32,
-        vertical: 20,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
       textStyle: const TextStyle(fontSize: 20),
     );
     void openNew() {
@@ -137,16 +137,11 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
         if (widget.hasNewerVersion)
-          const SizedBox(
+          SizedBox(
             height: 0,
-            width: 0,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: PhosphorIcon(PhosphorIconsLight.caretUp),
-                ),
-              ],
+            child: PhosphorIcon(
+              PhosphorIconsLight.caretUp,
+              color: ColorScheme.of(context).onPrimary,
             ),
           ),
       ],
@@ -155,10 +150,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
       mainAxisSize: MainAxisSize.min,
       spacing: 16,
       children: [
-        Image.asset(
-          'images/logo.png',
-          width: 64,
-        ),
+        Image.asset('images/logo.png', width: 64),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -167,33 +159,36 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             children: [
               Text(
                 AppLocalizations.of(context).welcome(applicationVersionName),
-                style: TextTheme.of(context).titleLarge?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
+                style: TextTheme.of(
+                  context,
+                ).titleLarge?.copyWith(color: colorScheme.onSecondary),
                 overflow: TextOverflow.clip,
               ),
               Text(
                 AppLocalizations.of(context).welcomeContent,
-                style: TextTheme.of(context).bodySmall?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
+                style: TextTheme.of(
+                  context,
+                ).bodySmall?.copyWith(color: colorScheme.onSecondary),
               ),
             ],
           ),
         ),
       ],
     );
-    final innerCard = LayoutBuilder(builder: (context, constraints) {
-      final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
-      if (isMobile) {
-        return Column(
-          children: [logo, const SizedBox(height: 16), whatsNew],
+    final innerCard = LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
+        if (isMobile) {
+          return Column(children: [logo, const SizedBox(height: 16), whatsNew]);
+        }
+        return Row(
+          children: [
+            Expanded(child: logo),
+            whatsNew,
+          ],
         );
-      }
-      return Row(
-        children: [Expanded(child: logo), whatsNew],
-      );
-    });
+      },
+    );
     final card = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(24),
@@ -204,10 +199,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              colorScheme.secondary,
-              colorScheme.primary,
-            ],
+            colors: [colorScheme.secondary, colorScheme.primary],
             stops: const [0.2, 0.8],
           ),
         ),
@@ -225,11 +217,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
           )
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              card,
-              const SizedBox(height: 32),
-              actions,
-            ],
+            children: [card, const SizedBox(height: 32), actions],
           );
     return SizeTransition(
       sizeFactor: _animation,

@@ -1,0 +1,14 @@
+* Add support for math in rich text ([#725](https://github.com/LinwoodDev/Butterfly/issues/725))
+* Add support for custom import names for pdf import
+* Fix default page name
+* Fix latex not rendering and rendered centered
+* Fix no style sheet and palette not being selected
+* Fix templates not being editable in dialog ([#898](https://github.com/LinwoodDev/Butterfly/issues/898))
+* Fix home page header not aligned properly and has wrong colors
+* Fix safe area in navigator rail
+* Fix overflows in page navigator
+* Fix pixel ratio gets resetted when unbaking the viewport
+* Port linux appdata from flathub version
+* Disable custom data directory selection on iOS
+
+Read more here: https://linwood.dev/butterfly/2.4.0-rc.0

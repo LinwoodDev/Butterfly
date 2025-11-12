@@ -30,22 +30,22 @@ enum ToolbarSize {
   large;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        ToolbarSize.tiny => AppLocalizations.of(context).tiny,
-        ToolbarSize.small => AppLocalizations.of(context).small,
-        ToolbarSize.compact => AppLocalizations.of(context).compact,
-        ToolbarSize.normal => AppLocalizations.of(context).normal,
-        ToolbarSize.medium => AppLocalizations.of(context).medium,
-        ToolbarSize.large => AppLocalizations.of(context).large,
-      };
+    ToolbarSize.tiny => AppLocalizations.of(context).tiny,
+    ToolbarSize.small => AppLocalizations.of(context).small,
+    ToolbarSize.compact => AppLocalizations.of(context).compact,
+    ToolbarSize.normal => AppLocalizations.of(context).normal,
+    ToolbarSize.medium => AppLocalizations.of(context).medium,
+    ToolbarSize.large => AppLocalizations.of(context).large,
+  };
 
   double get size => switch (this) {
-        ToolbarSize.tiny => 45,
-        ToolbarSize.small => 50,
-        ToolbarSize.compact => 55,
-        ToolbarSize.normal => 60,
-        ToolbarSize.medium => 65,
-        ToolbarSize.large => 70,
-      };
+    ToolbarSize.tiny => 45,
+    ToolbarSize.small => 50,
+    ToolbarSize.compact => 55,
+    ToolbarSize.normal => 60,
+    ToolbarSize.medium => 65,
+    ToolbarSize.large => 70,
+  };
 }
 
 enum RenderResolution {
@@ -60,11 +60,7 @@ enum RenderResolution {
   Rect getRect(Rect rect) {
     final width = (rect.width * multiplier).ceilToDouble();
     final height = (rect.height * multiplier).ceilToDouble();
-    return Rect.fromCenter(
-      center: rect.center,
-      width: width,
-      height: height,
-    );
+    return Rect.fromCenter(center: rect.center, width: width, height: height);
   }
 }
 
@@ -84,23 +80,34 @@ enum PlatformTheme {
   }
 }
 
+enum SimpleToolbarVisibility {
+  show,
+  temporary,
+  hide;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    SimpleToolbarVisibility.show => AppLocalizations.of(context).show,
+    SimpleToolbarVisibility.temporary => AppLocalizations.of(context).temporary,
+    SimpleToolbarVisibility.hide => AppLocalizations.of(context).hide,
+  };
+}
+
 enum SyncMode { always, noMobile, manual }
 
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
-enum InputMappingCategory {
-  activeTool,
-  handTool,
-  toolOnToolbar,
-}
+enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
 class InputMappingDefault {
-  static const InputMapping leftMouse =
-      InputMapping(InputMapping.activeToolValue);
-  static const InputMapping middleMouse =
-      InputMapping(InputMapping.handToolValue);
+  static const InputMapping leftMouse = InputMapping(
+    InputMapping.activeToolValue,
+  );
+  static const InputMapping middleMouse = InputMapping(
+    InputMapping.handToolValue,
+  );
   static const InputMapping rightMouse = InputMapping(1);
   static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping invertedPen = InputMapping(3);
   static const InputMapping firstPenButton = InputMapping(2);
   static const InputMapping secondPenButton = InputMapping(1);
   static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
@@ -110,9 +117,10 @@ extension type const InputMapping(int value) {
   static const int activeToolValue = -2;
   static const int handToolValue = -1;
 
-  factory InputMapping.fromUIData(InputMappingCategory category,
-      [int? toolNumber] // 1-indexed
-      ) {
+  factory InputMapping.fromUIData(
+    InputMappingCategory category, [
+    int? toolNumber, // 1-indexed
+  ]) {
     switch (category) {
       case InputMappingCategory.activeTool:
         return InputMapping(activeToolValue);
@@ -175,6 +183,7 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
+    @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
@@ -184,14 +193,15 @@ sealed class InputConfiguration with _$InputConfiguration {
       _$InputConfigurationFromJson(json);
 
   Set<InputMapping> getShortcuts() => {
-        leftMouse,
-        middleMouse,
-        rightMouse,
-        pen,
-        firstPenButton,
-        secondPenButton,
-        touch
-      }.toSet();
+    leftMouse,
+    middleMouse,
+    rightMouse,
+    pen,
+    invertedPen,
+    firstPenButton,
+    secondPenButton,
+    touch,
+  }.toSet();
 }
 
 enum SortBy { name, created, modified }
@@ -202,6 +212,8 @@ enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum NavigatorPosition { left, right }
 
+enum IgnorePressure { never, first, always }
+
 enum ToolbarPosition {
   inline,
   top,
@@ -210,20 +222,20 @@ enum ToolbarPosition {
   right;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        ToolbarPosition.inline => AppLocalizations.of(context).inline,
-        ToolbarPosition.top => AppLocalizations.of(context).top,
-        ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
-        ToolbarPosition.left => AppLocalizations.of(context).left,
-        ToolbarPosition.right => AppLocalizations.of(context).right
-      };
+    ToolbarPosition.inline => AppLocalizations.of(context).inline,
+    ToolbarPosition.top => AppLocalizations.of(context).top,
+    ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
+    ToolbarPosition.left => AppLocalizations.of(context).left,
+    ToolbarPosition.right => AppLocalizations.of(context).right,
+  };
 
   Axis get axis => switch (this) {
-        ToolbarPosition.left => Axis.vertical,
-        ToolbarPosition.right => Axis.vertical,
-        ToolbarPosition.inline => Axis.horizontal,
-        ToolbarPosition.top => Axis.horizontal,
-        ToolbarPosition.bottom => Axis.horizontal,
-      };
+    ToolbarPosition.left => Axis.vertical,
+    ToolbarPosition.right => Axis.vertical,
+    ToolbarPosition.inline => Axis.horizontal,
+    ToolbarPosition.top => Axis.horizontal,
+    ToolbarPosition.bottom => Axis.horizontal,
+  };
 }
 
 enum OptionsPanelPosition {
@@ -231,9 +243,9 @@ enum OptionsPanelPosition {
   bottom;
 
   String getLocalizedName(BuildContext context) => switch (this) {
-        OptionsPanelPosition.top => AppLocalizations.of(context).top,
-        OptionsPanelPosition.bottom => AppLocalizations.of(context).bottom,
-      };
+    OptionsPanelPosition.top => AppLocalizations.of(context).top,
+    OptionsPanelPosition.bottom => AppLocalizations.of(context).bottom,
+  };
 }
 
 enum ThemeDensity {
@@ -245,15 +257,13 @@ enum ThemeDensity {
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.maximize =>
-          const VisualDensity(horizontal: -4, vertical: -4),
-        ThemeDensity.desktop =>
-          const VisualDensity(horizontal: -3, vertical: -3),
-        ThemeDensity.compact => VisualDensity.compact,
-        ThemeDensity.comfortable => VisualDensity.comfortable,
-        ThemeDensity.standard => VisualDensity.standard,
-        ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
-      };
+    ThemeDensity.maximize => const VisualDensity(horizontal: -4, vertical: -4),
+    ThemeDensity.desktop => const VisualDensity(horizontal: -3, vertical: -3),
+    ThemeDensity.compact => VisualDensity.compact,
+    ThemeDensity.comfortable => VisualDensity.comfortable,
+    ThemeDensity.standard => VisualDensity.standard,
+    ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
+  };
 }
 
 class SRGBConverter extends JsonConverter<SRGBColor, int> {
@@ -265,6 +275,8 @@ class SRGBConverter extends JsonConverter<SRGBColor, int> {
   @override
   int toJson(SRGBColor object) => object.value;
 }
+
+enum SaveMethod { manual, autosave, delayedAutosave }
 
 @freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
@@ -294,6 +306,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
     @Default(true) bool navigationRail,
+    @Default(IgnorePressure.first) IgnorePressure ignorePressure,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
@@ -315,10 +328,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool autosave,
     @Default(true) bool showSaveButton,
     @Default(1) int toolbarRows,
+    @Default(true) bool delayedAutosave,
+    @Default(3) int autosaveDelaySeconds,
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
-    @Default(true) bool colorToolbarEnabled,
+    @Default(SimpleToolbarVisibility.show)
+    SimpleToolbarVisibility simpleToolbarVisibility,
     @Default(OptionsPanelPosition.top)
     OptionsPanelPosition optionsPanelPosition,
     @Default(RenderResolution.normal) RenderResolution renderResolution,
@@ -330,7 +346,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       _$ButterflySettingsFromJson(json);
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
-    final connections = prefs
+    final connections =
+        prefs
             .getStringList('connections')
             ?.map((e) => ExternalStorageMapper.fromJson(e))
             .toList() ??
@@ -352,10 +369,12 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
-          ? BannerVisibility.values
-              .byName(prefs.getString('banner_visibility')!)
+          ? BannerVisibility.values.byName(
+              prefs.getString('banner_visibility')!,
+            )
           : BannerVisibility.always,
-      history: prefs
+      history:
+          prefs
               .getStringList('history')
               ?.map((e) {
                 // Try to parse the asset location
@@ -374,8 +393,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeTitleBar: prefs.getBool('native_title_bar') ?? false,
       startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
-      syncMode:
-          SyncMode.values.byName(prefs.getString('sync_mode') ?? 'noMobile'),
+      syncMode: SyncMode.values.byName(
+        prefs.getString('sync_mode') ?? 'noMobile',
+      ),
       inputConfiguration: InputConfiguration.fromJson(
         json.decode(prefs.getString('input_configuration') ?? '{}'),
       ),
@@ -397,7 +417,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
-      recentColors: prefs
+      recentColors:
+          prefs
               .getStringList('recent_colors')
               ?.map((e) => SRGBColor(int.parse(e)))
               .toList() ??
@@ -407,6 +428,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
       autosave: prefs.getBool('autosave') ?? true,
+      delayedAutosave: prefs.getBool('delayed_autosave') ?? false,
+      autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 5,
       toolbarSize: prefs.containsKey('toolbar_size')
           ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
           : ToolbarSize.normal,
@@ -414,8 +437,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       hideCursorWhileDrawing:
           prefs.getBool('hide_cursor_while_drawing') ?? false,
       navigatorPosition: prefs.containsKey('navigator_position')
-          ? NavigatorPosition.values
-              .byName(prefs.getString('navigator_position')!)
+          ? NavigatorPosition.values.byName(
+              prefs.getString('navigator_position')!,
+            )
           : NavigatorPosition.left,
       utilities: prefs.containsKey('utilities')
           ? UtilitiesState.fromJson(json.decode(prefs.getString('utilities')!))
@@ -423,18 +447,29 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       onStartup: prefs.containsKey('on_startup')
           ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
           : StartupBehavior.openHomeScreen,
-      colorToolbarEnabled: prefs.getBool('color_toolbar_enabled') ?? true,
+      simpleToolbarVisibility: prefs.containsKey('simple_toolbar_visibility')
+          ? SimpleToolbarVisibility.values.byName(
+              prefs.getString('simple_toolbar_visibility')!,
+            )
+          : (prefs.getBool('color_toolbar_enabled') ?? true
+                ? SimpleToolbarVisibility.show
+                : SimpleToolbarVisibility.hide),
       showSaveButton: prefs.getBool('show_save_button') ?? true,
       optionsPanelPosition: prefs.containsKey('options_panel_position')
-          ? OptionsPanelPosition.values
-              .byName(prefs.getString('options_panel_position')!)
+          ? OptionsPanelPosition.values.byName(
+              prefs.getString('options_panel_position')!,
+            )
           : OptionsPanelPosition.top,
       renderResolution: prefs.containsKey('render_resolution')
-          ? RenderResolution.values
-              .byName(prefs.getString('render_resolution')!)
+          ? RenderResolution.values.byName(
+              prefs.getString('render_resolution')!,
+            )
           : RenderResolution.normal,
       moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
       swamps: prefs.getStringList('swamps') ?? [],
+      ignorePressure: prefs.containsKey('ignore_pressure')
+          ? IgnorePressure.values.byName(prefs.getString('ignore_pressure')!)
+          : IgnorePressure.first,
     );
   }
 
@@ -446,6 +481,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       return Locale(localeTag.split('-')[0], localeTag.split('-')[1]);
     }
     return Locale(localeTag);
+  }
+
+  List<String> getRemoteIdentifiers() {
+    return connections.map((e) => e.identifier).toList();
   }
 
   bool get isInline =>
@@ -466,7 +505,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
-        'history', history.map((e) => e.toJson()).toList());
+      'history',
+      history.map((e) => e.toJson()).toList(),
+    );
     await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
@@ -474,13 +515,17 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       await prefs.setString('last_version', lastVersion!);
     }
     await prefs.setStringList(
-        'connections', connections.map((e) => e.toJson()).toList());
+      'connections',
+      connections.map((e) => e.toJson()).toList(),
+    );
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
-        'input_configuration', json.encode(inputConfiguration.toJson()));
+      'input_configuration',
+      json.encode(inputConfiguration.toJson()),
+    );
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
     await prefs.setInt('version', 0);
@@ -493,32 +538,41 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('pdf_quality', pdfQuality);
     await prefs.setString('platform_theme', platformTheme.name);
     await prefs.setStringList(
-        'recent_colors', recentColors.map((e) => e.value.toString()).toList());
+      'recent_colors',
+      recentColors.map((e) => e.value.toString()).toList(),
+    );
     await prefs.setStringList('flags', flags);
     await prefs.setBool('spread_pages', spreadPages);
     await prefs.setBool('high_contrast', highContrast);
     await prefs.setBool('grid_view', gridView);
     await prefs.setBool('autosave', autosave);
+    await prefs.setBool('delayed_autosave', delayedAutosave);
+    await prefs.setInt('autosave_delay_seconds', autosaveDelaySeconds);
     await prefs.setString('toolbar_size', toolbarSize.name);
     await prefs.setInt('toolbar_rows', toolbarRows);
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
     await prefs.setString('navigator_position', navigatorPosition.name);
     await prefs.setString('utilities', json.encode(utilities.toJson()));
     await prefs.setString('on_startup', onStartup.name);
-    await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
+    await prefs.setString(
+      'simple_toolbar_visibility',
+      simpleToolbarVisibility.name,
+    );
     await prefs.setBool('show_save_button', showSaveButton);
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
     await prefs.setString('render_resolution', renderResolution.name);
     await prefs.setBool('move_on_gesture', moveOnGesture);
     await prefs.setStringList('swamps', swamps);
+    await prefs.setString('ignore_pressure', ignorePressure.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
     if (identifier?.isEmpty ?? true) {
       return getDefaultRemote();
     }
-    return connections
-        .firstWhereOrNull((e) => e.identifier == (identifier ?? defaultRemote));
+    return connections.firstWhereOrNull(
+      (e) => e.identifier == (identifier ?? defaultRemote),
+    );
   }
 
   bool hasRemote(String identifier) {
@@ -543,7 +597,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
 class SettingsCubit extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
   SettingsCubit(SharedPreferences prefs)
-      : super(ButterflySettings.fromPrefs(prefs));
+    : super(ButterflySettings.fromPrefs(prefs));
 
   void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
@@ -694,9 +748,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> removeRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
-    history.removeWhere((element) =>
-        element.remote == location.remote &&
-        element.path.startsWith(location.path));
+    history.removeWhere(
+      (element) =>
+          element.remote == location.remote &&
+          element.path.startsWith(location.path),
+    );
     emit(state.copyWith(history: history));
     return save();
   }
@@ -736,10 +792,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> save() => state.save();
 
   Future<void> addRemote(ExternalStorage storage, {required String password}) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         connections: List.from(state.connections)
           ..removeWhere((element) => element.identifier == storage.identifier)
-          ..add(storage)));
+          ..add(storage),
+      ),
+    );
     if (storage is RemoteStorage) {
       passwordStorage.write(storage, password);
     }
@@ -747,10 +806,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> deleteRemote(String identifier) async {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         connections: state.connections
             .where((r) => r.identifier != identifier)
-            .toList()));
+            .toList(),
+      ),
+    );
     const FlutterSecureStorage().delete(key: 'connections/$identifier');
     return save();
   }
@@ -767,63 +829,83 @@ class SettingsCubit extends Cubit<ButterflySettings>
     if (!current.startsWith('/')) {
       current = '/$current';
     }
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
-      if (e.identifier == identifier && e is RemoteStorage) {
-        final documents = List<String>.from(e.cachedDocuments[''] ?? []);
-        return (e as dynamic).copyWith(
-            cachedDocuments: documents
-              ..removeWhere((element) => element == current)
-              ..add(current)) as ExternalStorage;
-      }
-      return e;
-    }).toList()));
+          if (e.identifier == identifier && e is RemoteStorage) {
+            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            return e.copyWith(
+              cachedDocuments: {
+                '': documents
+                  ..removeWhere((element) => element == current)
+                  ..add(current),
+              },
+            );
+          }
+          return e;
+        }).toList(),
+      ),
+    );
     return save();
   }
 
   Future<void> removeCache(String identifier, String current) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
-      if (e.identifier == identifier && e is RemoteStorage) {
-        return (e as dynamic).copyWith(
-            cachedDocuments: List<String>.from(e.cachedDocuments[''] ?? [])
-              ..remove(current)) as ExternalStorage;
-      }
-      return e;
-    }).toList()));
+          if (e.identifier == identifier && e is RemoteStorage) {
+            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            return e.copyWith(
+              cachedDocuments: {
+                '': documents..removeWhere((element) => element == current),
+              },
+            );
+          }
+          return e;
+        }).toList(),
+      ),
+    );
     return save();
   }
 
   Future<void> updateLastSynced(String identifier) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
-      if (e.identifier == identifier && e is RemoteStorage) {
-        return (e as dynamic).copyWith(lastSynced: DateTime.now().toUtc())
-            as ExternalStorage;
-      }
-      return e;
-    }).toList()));
+          if (e.identifier == identifier && e is RemoteStorage) {
+            return (e as dynamic).copyWith(lastSynced: DateTime.now().toUtc())
+                as ExternalStorage;
+          }
+          return e;
+        }).toList(),
+      ),
+    );
     return save();
   }
 
-  Future<void> clearCaches(ExternalStorage storage) {
-    emit(state.copyWith(
+  Future<void> clearCaches(String identifier) {
+    emit(
+      state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
-      if (e.identifier == storage.identifier && e is RemoteStorage) {
-        return (e as dynamic).copyWith(cachedDocuments: []) as ExternalStorage;
-      }
-      return e;
-    }).toList()));
+          if (e.identifier == identifier && e is RemoteStorage) {
+            return (e as dynamic).copyWith(cachedDocuments: [])
+                as ExternalStorage;
+          }
+          return e;
+        }).toList(),
+      ),
+    );
     return save();
   }
 
   void setNativeTitleBar([bool? value]) {
     if (kIsWeb || !isWindow) return;
     windowManager.setTitleBarStyle(
-        (value ?? state.nativeTitleBar)
-            ? TitleBarStyle.normal
-            : TitleBarStyle.hidden,
-        windowButtonVisibility: state.nativeTitleBar);
+      (value ?? state.nativeTitleBar)
+          ? TitleBarStyle.normal
+          : TitleBarStyle.hidden,
+      windowButtonVisibility: state.nativeTitleBar,
+    );
   }
 
   Future<void> changeNativeTitleBar(bool value, [bool modify = true]) {
@@ -844,7 +926,8 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   ExternalStorage? getRemote([String? remote]) {
     return state.connections.firstWhereOrNull(
-        (element) => element.identifier == (remote ?? state.defaultRemote));
+      (element) => element.identifier == (remote ?? state.defaultRemote),
+    );
   }
 
   Future<void> toggleStarred(AssetLocation location) {
@@ -865,13 +948,16 @@ class SettingsCubit extends Cubit<ButterflySettings>
         } else {
           starred.add(location.path);
         }
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             connections: List<ExternalStorage>.from(state.connections).map((e) {
-          if (e.identifier == remote.identifier) {
-            return e.copyWith(starred: {'': starred});
-          }
-          return e;
-        }).toList()));
+              if (e.identifier == remote.identifier) {
+                return e.copyWith(starred: {'': starred});
+              }
+              return e;
+            }).toList(),
+          ),
+        );
       }
     }
     return save();
@@ -966,9 +1052,20 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
 
-  Future<void> changeAutosave(bool? value) {
+  Future<void> changeAutosave(bool? value, {bool delayed = false}) {
     emit(
-        state.copyWith(autosave: value ?? true, showSaveButton: value == null));
+      state.copyWith(
+        autosave: value ?? true,
+        showSaveButton: value == null,
+        delayedAutosave: delayed,
+      ),
+    );
+    return save();
+  }
+
+  Future<void> changeAutosaveDelaySeconds(int seconds) {
+    final normalized = seconds.clamp(1, 3600);
+    emit(state.copyWith(autosaveDelaySeconds: normalized));
     return save();
   }
 
@@ -997,8 +1094,10 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changeColorToolbarEnabled(bool value) {
-    emit(state.copyWith(colorToolbarEnabled: value));
+  Future<void> changeSimpleToolbarVisibility(
+    SimpleToolbarVisibility visibility,
+  ) {
+    emit(state.copyWith(simpleToolbarVisibility: visibility));
     return save();
   }
 
@@ -1017,11 +1116,15 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
+  Future<void> changeIgnorePressure(IgnorePressure value) {
+    emit(state.copyWith(ignorePressure: value));
+    return save();
+  }
+
   Future<void> importSettings(String data) {
-    final settings = ButterflySettings.fromJson(json.decode(data)).copyWith(
-      history: state.history,
-      connections: state.connections,
-    );
+    final settings = ButterflySettings.fromJson(
+      json.decode(data),
+    ).copyWith(history: state.history, connections: state.connections);
     emit(settings);
     return save();
   }

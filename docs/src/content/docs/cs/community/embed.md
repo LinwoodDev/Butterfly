@@ -11,7 +11,7 @@ Add the following code to your website:
 
 ## Možnosti
 
-| Možnost  | Typ                                                                                                | Výchozí | L 343, 22.12.2009, s. 1).                                                                                   |
+| Možnost  | Typ                                                                                                | Výchozí | Popis                                                                                                                                                                       |
 | -------- | -------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | uložit   | Boolean (true, false)                                                           | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable | Boolean (true, false)                                                           | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |

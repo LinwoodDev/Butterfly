@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.3.0-rc.1+134
+version: 2.4.1+157
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: 3.29.2
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.35.7
 
 dependencies:
   flutter:
@@ -28,85 +28,76 @@ dependencies:
     sdk: flutter
   butterfly_api:
     path: ../api
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.2.0
   flutter_bloc: ^9.0.0
-  intl: ^0.19.0
+  intl: any
   path_provider: ^2.1.3
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
-  file_selector: ^1.0.3
   phosphor_flutter: ^2.1.0
   replay_bloc: ^0.3.0
-  share_plus: ^10.0.1
-  package_info_plus: ^8.1.3
+  share_plus: ^12.0.0
+  package_info_plus: ^9.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^14.1.0
+  go_router: ^17.0.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.3.0
   camera: ^0.11.0
   camera_windows: ^0.2.1+9
-  window_manager: ^0.4.0
+  window_manager: ^0.5.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
-  printing: ^5.14.2
-  pdf: ^3.11.3
   http: ^1.2.1
   flutter_secure_storage: ^10.0.0-beta.2
   equatable: ^2.0.5
   rxdart: ^0.28.0
   archive: ^4.0.0
   animations: ^2.0.11
-  connectivity_plus: ^6.0.3
+  connectivity_plus: ^7.0.0
   cross_file: ^0.3.4+1
   args: ^2.5.0
-  reorderable_grid:
-    git:
-      url: https://github.com/CodeDoctorDE/reorderable_grid.git
-      ref: d6f6a4fcf23129400529a055292133f1030b7eee
-  perfect_freehand:
-    git:
-      url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
-      ref: 85a6db5889db2916733a0f6c6914e66d06931f71
+  reorderable_grid: ^1.0.12
+  perfect_freehand: ^2.5.0
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
+      ref: d5e4559d7ebde73fd35ee8dded0ae70289535334
       path: packages/material_leap
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ebf47114a4d63fc06a6be0dbbfd5594ed82e7ee5
+      ref: 38fd0a6df52bf4115a6926271734d36e601af9cf
       path: packages/lw_sysapi
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 2e0ab5b548cb8e2d64ca24e0d7b4a6cfcc6d57fe
+      ref: 4f221c5943ceb786eb7bd427eb71a8cc1346b9b8
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 72c7cdd7a60d98c3a7f587122da83dc8b99b7ed0
+      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
       path: packages/networker/networker_socket
   networker_crypto:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 1cc2988f680758fcb45c88b3905b0312d8c5a513
+      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
       path: packages/networker/networker_crypto
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: e3731236887b11685aa9c7c94d453babf726b46c
+      ref: 1c15259fc8c5e043997ffcaafbf45348a77e3003
       path: api
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d5c41c874b0758cb8fb623cdd095c032f04f5740
+      ref: 7a5ca7e97f9bc92a4f3e886242ac07afb5980742
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
   dynamic_color: ^1.7.0
-  popover: ^0.3.0
+  popover: ^0.4.0
   markdown: ^7.2.2
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
@@ -114,21 +105,33 @@ dependencies:
   web: ^1.0.0
   cryptography_plus: ^2.7.1
   barcode: ^2.2.9
-  network_info_plus:
+  network_info_plus: ^7.0.0
+  flutter_math_fork: ^0.7.4
+  synchronized: ^3.4.0
+  file_picker: ^10.3.3
+  pdfrx: ^2.2.9
+dependency_overrides:
+  irondash_engine_context:
     git:
-      url: https://github.com/CodeDoctorDE/plus_plugins.git
-      ref: 9bd0c023f2dc209576dc66bf989048ba218127b6
-      path: packages/network_info_plus/network_info_plus
+      url: https://github.com/CodeDoctorDE/irondash
+      ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
+      path: engine_context/dart
+  super_native_extensions:
+    git:
+      url: https://github.com/CodeDoctorDE/super_native_extensions
+      ref: 1055873bac1dcfa859d306b825eecf23b7587d23
+      path: super_native_extensions
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  build_runner: ^2.4.9
+  build_runner: ^2.7.0
   json_serializable: ^6.7.1
   freezed: ^3.0.2
+  msix: ^3.16.9
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
@@ -216,3 +219,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Linwood Butterfly
+  publisher_display_name: Linwood Development
+  identity_name: LinwoodDevelopment.linwood-butterfly
+  logo_path: images/logo.png
+  capabilities: internetClientServer, webcam, documentsLibrary
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  install_certificate: false

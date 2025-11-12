@@ -2,7 +2,7 @@
 title: Path eraser tool
 ---
 
-With this tool you can delete the whole path on the paper.
+Avec cet outil vous pouvez supprimer un chemin entier du document.
 
 ## Configuration
 

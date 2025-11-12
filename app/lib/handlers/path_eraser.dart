@@ -2,19 +2,24 @@ part of 'handler.dart';
 
 class PathEraserHandler extends Handler<PathEraserTool> {
   bool _currentlyErasing = false;
+  bool _submittedErase = false;
   Offset? _currentPos, _lastErased;
   final Set<String> _erased = {};
   PathEraserHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        if (_currentPos != null)
-          EraserCursor(
-              ToolCursorData(EraserInfo.fromPathEraser(data), _currentPos!))
-      ];
+  List<Renderer> createForegrounds(
+    CurrentIndexCubit currentIndexCubit,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info, [
+    Area? currentArea,
+  ]) => [
+    if (_currentPos != null)
+      EraserCursor(
+        ToolCursorData(EraserInfo.fromPathEraser(data), _currentPos!),
+      ),
+  ];
 
   @override
   Map<String, RendererState> get rendererStates =>
@@ -39,7 +44,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
 
   @override
   Future<void> onPointerMove(
-      PointerMoveEvent event, EventContext context) async {
+    PointerMoveEvent event,
+    EventContext context,
+  ) async {
     _currentPos = event.localPosition;
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
@@ -49,17 +56,18 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     final size = data.strokeWidth;
     final shouldErase =
         _lastErased == null || (globalPos - _lastErased!).distance > size;
-    context.refresh();
     if (_currentlyErasing || !shouldErase) return;
     _currentlyErasing = true;
     _lastErased = globalPos;
-    Iterable<Renderer<PadElement>> ray =
-        await context.getDocumentBloc().rayCast(
-              globalPos,
-              size,
-              useCollection: utilities.lockCollection,
-              useLayer: utilities.lockLayer,
-            );
+    await context.refresh();
+    Iterable<Renderer<PadElement>> ray = await context
+        .getDocumentBloc()
+        .rayCast(
+          globalPos,
+          size,
+          useCollection: utilities.lockCollection,
+          useLayer: utilities.lockLayer,
+        );
     final page = state?.page;
     if (page == null) return;
     if (!data.eraseElements) ray = ray.where((e) => e.element.isStroke());
@@ -68,13 +76,26 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     _currentlyErasing = false;
   }
 
+  DocumentBloc? _bloc;
+
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    if (_erased.isNotEmpty) {
-      final bloc = context.getDocumentBloc();
-      bloc.add(ElementsRemoved(_erased.toList()));
-      bloc.delayedBake();
-    }
+  Future<void> onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) async {
+    if (!_submittedErase || _erased.isEmpty) return;
+    _erased.clear();
+    await _bloc?.refresh(allowBake: true);
+    await _bloc?.bake();
+    _submittedErase = false;
+  }
+
+  @override
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
+    if (_erased.isEmpty) return;
+    final bloc = _bloc = context.getDocumentBloc();
+    bloc.add(ElementsRemoved(_erased.toList()));
+    _submittedErase = true;
   }
 
   @override

@@ -13,11 +13,22 @@ Everything in this section is subject to change.
 
 Depuis la version bêta 2.0, Butterfly prend en charge la collaboration. Cela signifie que vous pouvez modifier le même fichier avec plusieurs personnes en même temps. C'est utile lorsque vous souhaitez travailler ensemble sur un document.
 
-## Comment ça marche
+## Swamp
+
+Swamp is a protocol that allows you to share your document with other people by using a remote server. This is useful if the other person is not in the same network as you. The server will just be a proxy for the connection and cannot read the data since it is all end to end encrypted.
+
+### Setup Sawmp
+
+Create a swamp server by visiting the [swamp website](https://swamp.linwood.dev).
+Now enter the url of the server in the collaboration view. The url should look like this: `wss://example.com` or `ws://example.com`. Please note that only secure connections are allowed on the web. Please also make sure that the server is reachable from the internet.
+
+Now you can just click on `Start` to start the server. With the given link you can share the document with other people. They can just enter the link in the connect dialog and click on `Connect`. This will connect them to the server and they will be able to edit the document.
+
+## Websocket
 
 Butterfly utilise un serveur Websocket qui sera hébergé sur votre ordinateur. Ce serveur doit être accessible depuis internet ou depuis votre réseau local. Le client se connectera sur ce serveur. Le serveur synchronise toutes les modifications et tous les événements avec tous les clients.
 
-## Configuration du serveur
+### Configuration du serveur
 
 :::note
 
@@ -38,7 +49,7 @@ Pour ngrok, la commande ressemblerait à ceci :
 ngrok http 28005
 ```
 
-## Se connecter au serveur
+### Se connecter au serveur
 
 Vous devez maintenant vous connecter au serveur. Pour ce faire, allez à la page d'accueil et cliquez sur le bouton "plus" comme si vous alliez créer un nouveau document. Là, vous verrez un nouvel élément de menu appelé `Connecter`.
 

@@ -32,122 +32,148 @@ class LayersView extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: layers.length,
+              buildDefaultDragHandles: false,
               itemBuilder: (BuildContext context, int index) {
                 final layer = layers[index];
                 final id = layer.id ?? '';
                 final visible = state.isLayerVisible(id);
-                return EditableListTile(
-                  initialValue: layer.name,
-                  selected: id == state.currentLayer,
-                  onTap: () => context.read<DocumentBloc>().add(
+                final contentPadding =
+                    ListTileTheme.of(context).contentPadding ?? EdgeInsets.zero;
+                return Stack(
+                  key: ValueKey(id),
+                  children: [
+                    EditableListTile(
+                      initialValue: layer.name,
+                      selected: id == state.currentLayer,
+                      onTap: () => context.read<DocumentBloc>().add(
                         CurrentLayerChanged(id),
                       ),
-                  subtitle: Text(AppLocalizations.of(
-                    context,
-                  ).countElements(layer.content.length)),
-                  leading: IconButton(
-                    icon: PhosphorIcon(
-                      visible
-                          ? PhosphorIconsLight.eye
-                          : PhosphorIconsLight.eyeSlash,
-                    ),
-                    tooltip: visible
-                        ? AppLocalizations.of(context).hide
-                        : AppLocalizations.of(context).show,
-                    onPressed: () {
-                      context.read<DocumentBloc>().add(
+                      subtitle: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).countElements(layer.content.length),
+                      ),
+                      leading: IconButton(
+                        icon: PhosphorIcon(
+                          visible
+                              ? PhosphorIconsLight.eye
+                              : PhosphorIconsLight.eyeSlash,
+                        ),
+                        tooltip: visible
+                            ? AppLocalizations.of(context).hide
+                            : AppLocalizations.of(context).show,
+                        onPressed: () {
+                          context.read<DocumentBloc>().add(
                             LayerVisibilityChanged(id, !visible),
                           );
-                    },
-                  ),
-                  textFormatter: (e) =>
-                      e.isEmpty ? AppLocalizations.of(context).layer : e,
-                  onSaved: (value) => context.read<DocumentBloc>().add(
+                        },
+                      ),
+                      textFormatter: (e) =>
+                          e.isEmpty ? AppLocalizations.of(context).layer : e,
+                      onSaved: (value) => context.read<DocumentBloc>().add(
                         LayerChanged(id, name: value),
                       ),
-                  key: ValueKey(id),
-                  actions: [
-                    if (layers.length > 1)
-                      SubmenuButton(
-                        leadingIcon: const PhosphorIcon(
-                          PhosphorIconsLight.stack,
-                        ),
-                        menuChildren: [
-                          MenuItemButton(
+                      actions: [
+                        if (layers.length > 1)
+                          SubmenuButton(
                             leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowUp,
+                              PhosphorIconsLight.stack,
                             ),
-                            onPressed: index <= 0
-                                ? null
-                                : () => context.read<DocumentBloc>().add(
-                                      LayersMerged(
-                                        [
-                                          layers[index - 1].id,
-                                          id,
-                                        ].nonNulls.toList(),
-                                      ),
-                                    ),
-                            child: Text(AppLocalizations.of(context).up),
-                          ),
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.arrowDown,
-                            ),
-                            onPressed: index >= layers.length - 1
-                                ? null
-                                : () => context.read<DocumentBloc>().add(
-                                      LayersMerged(
-                                        [
-                                          id,
-                                          layers[index + 1].id,
-                                        ].nonNulls.toList(),
-                                      ),
-                                    ),
-                            child: Text(AppLocalizations.of(context).down),
-                          ),
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.dotsNine,
-                            ),
-                            onPressed: () {
-                              final bloc = context.read<DocumentBloc>();
-                              showDialog(
-                                context: context,
-                                builder: (context) => BlocProvider.value(
-                                  value: bloc,
-                                  child: _LayerMergeDialog(main: id),
+                            menuChildren: [
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowUp,
                                 ),
-                              );
-                            },
-                            child: Text(AppLocalizations.of(context).other),
+                                onPressed: index <= 0
+                                    ? null
+                                    : () => context.read<DocumentBloc>().add(
+                                        LayersMerged(
+                                          [
+                                            layers[index - 1].id,
+                                            id,
+                                          ].nonNulls.toList(),
+                                        ),
+                                      ),
+                                child: Text(AppLocalizations.of(context).up),
+                              ),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowDown,
+                                ),
+                                onPressed: index >= layers.length - 1
+                                    ? null
+                                    : () => context.read<DocumentBloc>().add(
+                                        LayersMerged(
+                                          [
+                                            id,
+                                            layers[index + 1].id,
+                                          ].nonNulls.toList(),
+                                        ),
+                                      ),
+                                child: Text(AppLocalizations.of(context).down),
+                              ),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.dotsNine,
+                                ),
+                                onPressed: () {
+                                  final bloc = context.read<DocumentBloc>();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => BlocProvider.value(
+                                      value: bloc,
+                                      child: _LayerMergeDialog(main: id),
+                                    ),
+                                  );
+                                },
+                                child: Text(AppLocalizations.of(context).other),
+                              ),
+                            ],
+                            child: Text(AppLocalizations.of(context).merge),
                           ),
-                        ],
-                        child: Text(AppLocalizations.of(context).merge),
-                      ),
-                    MenuItemButton(
-                      leadingIcon: const PhosphorIcon(
-                        PhosphorIconsLight.copySimple,
-                      ),
-                      onPressed: () => context.read<DocumentBloc>().add(
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.copySimple,
+                          ),
+                          onPressed: () => context.read<DocumentBloc>().add(
                             LayersMerged([id], true),
                           ),
-                      child: Text(AppLocalizations.of(context).duplicate),
-                    ),
-                    MenuItemButton(
-                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                      onPressed: currentLayer == layer
-                          ? null
-                          : () async {
-                              final result = await showDialog<bool>(
-                                context: context,
-                                builder: (context) => const DeleteDialog(),
-                              );
-                              if (result != true) return;
-                              context.read<DocumentBloc>().add(
+                          child: Text(AppLocalizations.of(context).duplicate),
+                        ),
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.trash,
+                          ),
+                          onPressed: currentLayer == layer
+                              ? null
+                              : () async {
+                                  final result = await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => const DeleteDialog(),
+                                  );
+                                  if (result != true) return;
+                                  context.read<DocumentBloc>().add(
                                     LayerRemoved(id),
                                   );
-                            },
-                      child: Text(AppLocalizations.of(context).delete),
+                                },
+                          child: Text(AppLocalizations.of(context).delete),
+                        ),
+                      ],
+                      contentPadding: contentPadding.add(
+                        const EdgeInsets.only(right: 32),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      bottom: 0,
+                      right: 4,
+                      child: ReorderableDragStartListener(
+                        index: index,
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.grab,
+                          child: const Icon(PhosphorIconsLight.dotsSix),
+                        ),
+                      ),
                     ),
                   ],
                 );
@@ -159,8 +185,8 @@ class LayersView extends StatelessWidget {
                 }
                 newIndex = layers.length - 1 - newIndex;
                 context.read<DocumentBloc>().add(
-                      LayerOrderChanged(layer.id ?? '', newIndex),
-                    );
+                  LayerOrderChanged(layer.id ?? '', newIndex),
+                );
               },
             ),
             Align(
@@ -211,8 +237,9 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
           final layers = state.page.layers;
-          final mainLayer =
-              widget.main == null ? null : state.page.getLayer(widget.main!);
+          final mainLayer = widget.main == null
+              ? null
+              : state.page.getLayer(widget.main!);
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -231,7 +258,9 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
                 ),
                 const Divider(),
               ],
-              ...layers.where((e) => e.id != widget.main).map(
+              ...layers
+                  .where((e) => e.id != widget.main)
+                  .map(
                     (e) => CheckboxListTile(
                       value: _selected.contains(e.id),
                       onChanged: (value) {
@@ -267,11 +296,11 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
         ElevatedButton(
           onPressed: () {
             context.read<DocumentBloc>().add(
-                  LayersMerged([
-                    if (widget.main != null) widget.main!,
-                    ..._selected,
-                  ]),
-                );
+              LayersMerged([
+                if (widget.main != null) widget.main!,
+                ..._selected,
+              ]),
+            );
             Navigator.of(context).pop();
           },
           child: Text(AppLocalizations.of(context).merge),

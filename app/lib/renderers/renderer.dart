@@ -5,20 +5,27 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
+import 'package:butterfly/helpers/markdown/latex.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/text.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:xml/xml.dart';
@@ -36,8 +43,9 @@ part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
 part 'elements/texture.dart';
-part 'elements/path.dart';
+part 'elements/pdf.dart';
 part 'elements/pen.dart';
+part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
@@ -164,7 +172,7 @@ abstract class HitCalculator {
     // Get the axes from both polygons.
     final List<Offset> axes = [
       ...getAxesOfPolygon(poly1),
-      ...getAxesOfPolygon(poly2)
+      ...getAxesOfPolygon(poly2),
     ];
 
     // For each axis, project both polygons.
@@ -200,16 +208,16 @@ enum RendererOperation {
   }
 
   IconGetter get icon => switch (this) {
-        RendererOperation.invert => PhosphorIcons.circleHalf,
-        RendererOperation.background => PhosphorIcons.paintBucket,
-        RendererOperation.grayscale => PhosphorIcons.palette,
-        RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
-        RendererOperation.flipVertical => PhosphorIcons.flipVertical,
-      };
+    RendererOperation.invert => PhosphorIcons.circleHalf,
+    RendererOperation.background => PhosphorIcons.paintBucket,
+    RendererOperation.grayscale => PhosphorIcons.palette,
+    RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
+    RendererOperation.flipVertical => PhosphorIcons.flipVertical,
+  };
 }
 
-typedef RendererOperationCallback = void Function(
-    DocumentBloc bloc, BuildContext context);
+typedef RendererOperationCallback =
+    void Function(DocumentBloc bloc, BuildContext context);
 
 abstract class Renderer<T> {
   final T element;
@@ -222,23 +230,27 @@ abstract class Renderer<T> {
     // Elements
     if (element is PadElement) {
       return switch (element) {
-        PenElement() => PenRenderer(element, layer),
-        TextElement() => TextRenderer(element, layer),
-        ImageElement() => ImageRenderer(element, layer),
-        SvgElement() => SvgRenderer(element, layer),
-        ShapeElement() => ShapeRenderer(element, layer),
-        MarkdownElement() => MarkdownRenderer(element, layer),
-        TextureElement() => TextureRenderer(element, layer),
-      } as Renderer<T>;
+            PenElement() => PenRenderer(element, layer),
+            PdfElement() => PdfRenderer(element, layer),
+            TextElement() => TextRenderer(element, layer),
+            ImageElement() => ImageRenderer(element, layer),
+            SvgElement() => SvgRenderer(element, layer),
+            ShapeElement() => ShapeRenderer(element, layer),
+            MarkdownElement() => MarkdownRenderer(element, layer),
+            TextureElement() => TextureRenderer(element, layer),
+            PolygonElement() => PolygonRenderer(element, layer),
+          }
+          as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
       return switch (element) {
-        TextureBackground() => TextureBackgroundRenderer(element),
-        ImageBackground() => ImageBackgroundRenderer(element),
-        SvgBackground() => SvgBackgroundRenderer(element),
-      } as Renderer<T>;
+            TextureBackground() => TextureBackgroundRenderer(element),
+            ImageBackground() => ImageBackgroundRenderer(element),
+            SvgBackground() => SvgBackgroundRenderer(element),
+          }
+          as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');
@@ -253,19 +265,17 @@ abstract class Renderer<T> {
 
   @mustCallSuper
   FutureOr<void> setup(
+    TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
-  ) async =>
-      _updateArea(page);
+  ) async => _updateArea(page);
 
   void dispose() {}
 
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
-      : page.areas.firstWhereOrNull(
-          (area) => area.rect.overlaps(rect!),
-        );
+      : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
@@ -278,21 +288,27 @@ abstract class Renderer<T> {
     AssetService assetService,
     DocumentPage page,
     String path,
-  ) =>
-      false;
+  ) => false;
 
   Rect? get rect => null;
+
+  bool isVisible(Rect rect) => expandedRect?.overlaps(rect) ?? true;
 
   Rect? get expandedRect {
     final current = rect;
     if (current == null) return null;
     final rotation = this.rotation * (pi / 180);
-    if (rotation == 0) return current;
-    final center = current.center;
-    final topLeft = current.topLeft.rotate(center, rotation);
-    final topRight = current.topRight.rotate(center, rotation);
-    final bottomLeft = current.bottomLeft.rotate(center, rotation);
-    final bottomRight = current.bottomRight.rotate(center, rotation);
+    return _expandedAabbFor(current, rotation);
+  }
+
+  // Computes the axis-aligned bounding box of a rotated rect.
+  static Rect _expandedAabbFor(Rect r, double radians) {
+    if (radians == 0) return r;
+    final center = r.center;
+    final topLeft = r.topLeft.rotate(center, radians);
+    final topRight = r.topRight.rotate(center, radians);
+    final bottomLeft = r.bottomLeft.rotate(center, radians);
+    final bottomRight = r.bottomRight.rotate(center, radians);
     final all = [topLeft, topRight, bottomLeft, bottomRight];
     final xs = all.map((p) => p.dx);
     final ys = all.map((p) => p.dy);
@@ -315,7 +331,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, this.rotation * (pi / 180));
+      DefaultHitCalculator(rect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,
@@ -336,42 +352,61 @@ abstract class Renderer<T> {
     rotation ??= relative ? 0 : this.rotation;
     final double nextRotation =
         (relative ? rotation + this.rotation : rotation) % 360;
-    position ??= relative ? Offset.zero : rect.topLeft;
-    final expandedRect = this.expandedRect ?? rect;
-    var nextPosition = relative ? position + rect.topLeft : position;
 
-    final radians = this.rotation * (pi / 180);
-    if (rotatePosition) {
+    // Determine position (absolute for _transform)
+    position ??= relative ? Offset.zero : rect.topLeft;
+    var nextPosition = relative ? position + rect.topLeft : position;
+    final expandedRect = this.expandedRect ?? rect;
+
+    final radians = (this.rotation % 360) * (pi / 180);
+    // Keep original rotatePosition behavior (rotate relative movement by current rotation)
+    if (rotatePosition && (this.rotation % 360) != 0) {
       var relativePosition = nextPosition - rect.topLeft;
       relativePosition = relativePosition.rotate(Offset.zero, radians);
       nextPosition = relativePosition + rect.topLeft;
     }
 
-    if (radians != 0) {
-      final rotationCos = cos(radians);
-      final rotationSin = sin(radians);
-      final oldScaleX = scaleX;
-      final oldScaleY = scaleY;
+    // Convert world axis-aligned scaling (expandedRect-based) into local axes
+    // using the diagonal of R^-1 * S_world * R (ignore shear off-diagonals).
+    double sx = scaleX;
+    double sy = scaleY;
+    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
+      final c = cos(radians);
+      final s = sin(radians);
+      // Use column norms as effective local scales.
+      final sxLocal = sqrt((sx * c) * (sx * c) + (sy * s) * (sy * s));
+      final syLocal = sqrt((sx * s) * (sx * s) + (sy * c) * (sy * c));
 
-      scaleX = (oldScaleX * rotationCos - oldScaleY * rotationSin).abs();
-      scaleY = (oldScaleX * rotationSin + oldScaleY * rotationCos).abs();
-      // Calculate offset, please use Offset#rotate(pivot, radians)
-      // to rotate the offset around the pivot point
-      // Don't forget to use the radians and the scales to calculate the offset to keep the rectangle on the same position as if they are unrotated
-      final rotationPoint = rect.topLeft;
-      final offset = Offset(
-        (expandedRect.left - rotationPoint.dx) * scaleX / 2,
-        (expandedRect.top - rotationPoint.dy) * scaleY / 2,
+      sx = sxLocal;
+      sy = syLocal;
+    }
+
+    // Position compensation for scaling rotated elements so that the element's
+    // expanded AABB appears to move as expected when scaling around its top-left.
+    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
+      final double w = rect.width;
+      final double h = rect.height;
+
+      final Offset fOld = expandedRect.topLeft - rect.topLeft;
+
+      // New offset computed from the expanded AABB of the scaled rect.
+      final Rect scaledRect = Rect.fromLTWH(
+        rect.left,
+        rect.top,
+        w * sx,
+        h * sy,
       );
-      final rotatedOffset = offset.rotate(Offset.zero, radians);
-      nextPosition -= rotatedOffset;
+      final Rect newExpanded = _expandedAabbFor(scaledRect, radians);
+      final Offset fNew = newExpanded.topLeft - scaledRect.topLeft;
+
+      nextPosition += (fOld - fNew);
     }
 
     return _transform(
       position: nextPosition,
       rotation: nextRotation,
-      scaleX: scaleX,
-      scaleY: scaleY,
+      scaleX: sx,
+      scaleY: sy,
     );
   }
 
@@ -380,8 +415,76 @@ abstract class Renderer<T> {
     required double rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) =>
-      null;
+  }) => null;
 
   Map<RendererOperation, RendererOperationCallback> getOperations() => {};
+
+  ContextMenuItem? getContextMenuItem(
+    DocumentBloc bloc,
+    BuildContext context,
+  ) => null;
+
+  FutureOr<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+
+  FutureOr<void> onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+
+  FutureOr<void> updateView(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+}
+
+Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
+  final repaintBoundary = RenderRepaintBoundary();
+  final pipelineOwner = PipelineOwner();
+  final BuildOwner buildOwner = BuildOwner(focusManager: FocusManager());
+  RenderView? renderView;
+
+  try {
+    renderView = RenderView(
+      view: ui.PlatformDispatcher.instance.implicitView!,
+      child: RenderPositionedBox(
+        alignment: Alignment.center,
+        child: repaintBoundary,
+      ),
+      configuration: ViewConfiguration(
+        logicalConstraints: BoxConstraints.tightFor(),
+        devicePixelRatio: pixelRatio,
+      ),
+    );
+
+    pipelineOwner.rootNode = renderView;
+
+    renderView.prepareInitialFrame();
+    final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
+      container: repaintBoundary,
+      child: Directionality(textDirection: TextDirection.ltr, child: widget),
+    ).attachToRenderTree(buildOwner);
+    buildOwner.buildScope(rootElement);
+    buildOwner.finalizeTree();
+    pipelineOwner.flushLayout();
+    pipelineOwner.flushCompositingBits();
+    pipelineOwner.flushPaint();
+    final image = await repaintBoundary.toImage(pixelRatio: pixelRatio);
+    return image;
+  } catch (e) {
+    throw Exception('Failed to render widget: $e');
+  } finally {
+    pipelineOwner.rootNode = null;
+    repaintBoundary.dispose();
+    pipelineOwner.dispose();
+    renderView?.dispose();
+  }
 }

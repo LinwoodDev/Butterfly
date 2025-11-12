@@ -8,19 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-typedef ContextMenuBuilder = List<ContextMenuEntry> Function(
-    BuildContext context);
+typedef ContextMenuBuilder =
+    List<ContextMenuEntry> Function(BuildContext context);
 
 sealed class ContextMenuEntry {
   final String label;
   final Widget icon;
   final MenuSerializableShortcut? shortcut;
 
-  ContextMenuEntry({
-    required this.label,
-    required this.icon,
-    this.shortcut,
-  });
+  ContextMenuEntry({required this.label, required this.icon, this.shortcut});
 }
 
 class ContextMenuItem extends ContextMenuEntry {
@@ -50,12 +46,13 @@ class ContextMenu extends StatefulWidget {
   final ContextMenuBuilder builder;
   final double maxWidth, maxHeight;
 
-  const ContextMenu(
-      {super.key,
-      this.position = Offset.zero,
-      required this.builder,
-      this.maxHeight = 300,
-      this.maxWidth = 300});
+  const ContextMenu({
+    super.key,
+    this.position = Offset.zero,
+    required this.builder,
+    this.maxHeight = 300,
+    this.maxWidth = 300,
+  });
 
   @override
   State<ContextMenu> createState() => _ContextMenuState();
@@ -89,8 +86,9 @@ class _ContextMenuState extends State<ContextMenu>
 
   @override
   Widget build(BuildContext context) {
-    final isMobile =
-        context.read<SettingsCubit>().state.platformTheme.isMobile(context);
+    final isMobile = context.read<SettingsCubit>().state.platformTheme.isMobile(
+      context,
+    );
     final entries = widget.builder(context);
     return CustomSingleChildLayout(
       delegate: DesktopTextSelectionToolbarLayoutDelegate(
@@ -124,62 +122,68 @@ class _ContextMenuState extends State<ContextMenu>
 }
 
 Widget buildMenuItem(
-    BuildContext context, ContextMenuEntry entry, bool isIcon, bool showCaret) {
+  BuildContext context,
+  ContextMenuEntry entry,
+  bool isIcon,
+  bool showCaret,
+) {
   Widget buildItemWidget(VoidCallback? onPressed) => AspectRatio(
-        aspectRatio: 1,
-        child: IconButton(
-          icon: entry.icon,
-          tooltip: entry.label,
-          onPressed: onPressed,
-          iconSize: 30,
-        ),
-      );
+    aspectRatio: 1,
+    child: IconButton(
+      icon: entry.icon,
+      tooltip: entry.label,
+      onPressed: onPressed,
+      iconSize: 30,
+    ),
+  );
   return switch (entry) {
-    ContextMenuItem() => isIcon
-        ? buildItemWidget(entry.onPressed)
-        : MenuItemButton(
-            leadingIcon: entry.icon,
-            onPressed: entry.onPressed,
-            child: Text(entry.label),
-          ),
-    ContextMenuGroup() => isIcon
-        ? MenuAnchor(
-            menuChildren: entry.children,
-            builder: (context, controller, child) =>
-                buildItemWidget(controller.toggle),
-          )
-        : SubmenuButton(
-            menuChildren: entry.children,
-            leadingIcon: entry.icon,
-            trailingIcon: showCaret
-                ? const PhosphorIcon(PhosphorIconsLight.caretRight)
-                : null,
-            menuStyle: const MenuStyle(
-              alignment: Alignment.bottomRight,
+    ContextMenuItem() =>
+      isIcon
+          ? buildItemWidget(entry.onPressed)
+          : MenuItemButton(
+              leadingIcon: entry.icon,
+              onPressed: entry.onPressed,
+              child: Text(entry.label),
             ),
-            child: Text(entry.label),
-          ),
+    ContextMenuGroup() =>
+      isIcon
+          ? MenuAnchor(
+              menuChildren: entry.children,
+              builder: (context, controller, child) =>
+                  buildItemWidget(controller.toggle),
+            )
+          : SubmenuButton(
+              menuChildren: entry.children,
+              leadingIcon: entry.icon,
+              trailingIcon: showCaret
+                  ? const PhosphorIcon(PhosphorIconsLight.caretRight)
+                  : null,
+              menuStyle: const MenuStyle(alignment: Alignment.bottomRight),
+              child: Text(entry.label),
+            ),
   };
 }
 
-Future<T?> showContextMenu<T>(
-    {required BuildContext context,
-    Offset position = Offset.zero,
-    required ContextMenuBuilder builder,
-    double maxHeight = 400,
-    double maxWidth = 300}) async {
+Future<T?> showContextMenu<T>({
+  required BuildContext context,
+  Offset position = Offset.zero,
+  required ContextMenuBuilder builder,
+  double maxHeight = 400,
+  double maxWidth = 300,
+}) async {
   final RenderBox box = context.findRenderObject() as RenderBox;
   final Offset globalPos = box.localToGlobal(position);
   AdaptiveTextSelectionToolbar;
   return showModal<T>(
-      context: context,
-      useRootNavigator: true,
-      builder: (context) {
-        return ContextMenu(
-          position: globalPos,
-          builder: builder,
-          maxHeight: maxHeight,
-          maxWidth: maxWidth,
-        );
-      });
+    context: context,
+    useRootNavigator: true,
+    builder: (context) {
+      return ContextMenu(
+        position: globalPos,
+        builder: builder,
+        maxHeight: maxHeight,
+        maxWidth: maxWidth,
+      );
+    },
+  );
 }

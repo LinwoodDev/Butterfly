@@ -9,31 +9,31 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 ## Configuration
 
-|       Property |  Default  | Description                                                                                                                                                                                      |
-| -------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|          Color |   Black   | The color that will be drawn                                                                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
-|         Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|              Property |  Default  | Opis                                                                                                                                                                                             |
+| --------------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                 Color |   Black   | The color that will be drawn                                                                                                                                                                     |
+|       Debljina linije |     5     | The width of the stroke                                                                                                                                                                          |
+|       Zavisno od zuma |   false   | This will change the stroke width based on the zoom level.                                                                                                                       |
+|                 Oblik | rectangle | The shape that will be drawn                                                                                                                                                                     |
+|                Širina |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                            |
+|                Visina |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                          |
+| Odnos širine i visine |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
-#### Rectangle
+#### Pravougaonik
 
-|      Property |   Default   | Description                                       |
-| ------------: | :---------: | :------------------------------------------------ |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
+|     Property |   Default   | Opis                                              |
+| -----------: | :---------: | :------------------------------------------------ |
+|       Popuna | Transparent | The color that will be drawn inside the rectangle |
+| Radijus ugla |  0, 0, 0, 0 | The radius of the corners of the rectangle        |
 
-#### Circle
+#### Krug
 
-| Property |   Default   | Description                                       |
+| Property |   Default   | Opis                                              |
 | -------: | :---------: | :------------------------------------------------ |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|   Popuna | Transparent | The color that will be drawn inside the rectangle |
 
-#### Line
+#### Linija
 
 _No configuration available._

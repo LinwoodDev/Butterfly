@@ -6,7 +6,7 @@ If you have any questions, please contact me at [contact@linwood.dev](mailto:con
 
 There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
-Please follow the [Code of Conduct](https://butterfly.linwood.dev/code-of-conduct).
+Please follow the [Code of Conduct](https://butterfly.linwood.dev/community/code-of-conduct).
 
 ## Give feedback
 
@@ -44,7 +44,7 @@ Fork the project and create a pull request to add your documentation to the `dev
 ## Translate
 
 Crowdin is a service that allows you to translate the documentation and the app.
-Click [here](https://linwood.dev/butterfly/crowdin) to see the project and start translating.
+Click [here](https://go.linwood.dev/butterfly/translate) to see the project and start translating.
 If you have a new language to add, please contact me.
 
 ## Code

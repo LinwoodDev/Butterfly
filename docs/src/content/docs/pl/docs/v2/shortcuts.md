@@ -12,12 +12,13 @@ Niektóre z nich są napisane pod przyciskami.
 - `Ctrl` + `N`: Nowy plik
 - `Ctrl` + `Shift` + `N`: Nowy plik z szablonu
 - `Ctrl` + `E`: Eksportuj plik
+- Nightly (2.4): `Ctrl` + `Shift` + `E`: Export file (text based)
 - `Ctrl` + `P`: Drukuj plik
-- `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
 - `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Otwarte paczki
+- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
 - `Ctrl` + `Alt` + `S`: Otwórz ustawienia
+- `Ctrl` + `Alt` + `P`: Otwarte paczki
 
 ### Projekt
 
@@ -40,16 +41,18 @@ Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
 - `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
 - `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
-## Konfiguruj {#configure}
+## Configuring {#configure}
 
-Możesz dostosować ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeksowanie narzędzi zaczyna się od lewej strony paska narzędzi, przy czym `1` jest pierwszym indeksem Zobacz przykład poniżej
+You can customize your controls by changing which tools your inputs map to.
+
+**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+
+To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+
+After selecting an input, you will have 3 options:
+
+- `Active Tool`: The input will act as the currently selected tool on the toolbar.
+- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
+- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
 
 ![pasek narzędzi numerowany](toolbar_numbered.png)
-
-W tym miejscu 1 odnosi się do narzędzia laserowego, 2, narzędzia do panewki itp.
-
-Konfiguruj następujące opcje:
-
-- Puste - narzędzie jest odcięte.
-- 0 - narzędzie będzie działać jako poruszające się (tj. ręcznie) w tym modze.
-- Liczba dodatnia - Narzędzie będzie podążać za indeksacją, jak wyjaśniono powyżej.

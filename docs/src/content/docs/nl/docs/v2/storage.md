@@ -31,7 +31,7 @@ Deze functie is niet beschikbaar op het web.
 
 De applicatie kan worden opgeslagen in een externe server. Dit is handig als je de gegevens wilt delen met andere mensen of als je meerdere computers hebt. Momenteel wordt alleen het `WebDAV` protocol ondersteund.
 
-Om een externe server toe te voegen, ga naar instellingen en klik op `Remotes`. Klik vervolgens op `Voeg remote` toe.
+Om een externe server toe te voegen, ga naar instellingen en klik op `Remotes`. Klik vervolgens op `Voeg remote` toe. Klik vervolgens op `Voeg remote` toe.
 Voeg de URL van de externe server en de gebruikersnaam en het wachtwoord toe. Daarna kunt u de map opgeven waar de gegevens worden opgeslagen.
 
 Om de webdav url te krijgen, bezoek de documentatie:

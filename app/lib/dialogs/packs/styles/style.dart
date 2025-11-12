@@ -10,8 +10,16 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class StyleDialog extends StatefulWidget {
   final text.TextStyleSheet value;
   final ValueChanged<text.TextStyleSheet> onChanged;
+  final String name;
+  final void Function(String) onNameChanged;
 
-  const StyleDialog({super.key, required this.value, required this.onChanged});
+  const StyleDialog({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    required this.name,
+    required this.onNameChanged,
+  });
 
   @override
   State<StyleDialog> createState() => _StyleDialogState();
@@ -49,33 +57,39 @@ class _StyleDialogState extends State<StyleDialog> {
           children: [
             TabBar(
               isScrollable: true,
-              tabs: [
-                (
-                  PhosphorIconsLight.gear,
-                  AppLocalizations.of(context).general,
-                ),
-                (
-                  PhosphorIconsLight.article,
-                  AppLocalizations.of(context).paragraph,
-                ),
-                (
-                  PhosphorIconsLight.textT,
-                  AppLocalizations.of(context).text,
-                ),
-              ]
-                  .map(
-                    (e) => HorizontalTab(
-                      icon: PhosphorIcon(e.$1),
-                      label: Text(e.$2),
-                    ),
-                  )
-                  .toList(),
+              tabs:
+                  [
+                        (
+                          PhosphorIconsLight.gear,
+                          AppLocalizations.of(context).general,
+                        ),
+                        (
+                          PhosphorIconsLight.article,
+                          AppLocalizations.of(context).paragraph,
+                        ),
+                        (
+                          PhosphorIconsLight.textT,
+                          AppLocalizations.of(context).text,
+                        ),
+                      ]
+                      .map(
+                        (e) => HorizontalTab(
+                          icon: PhosphorIcon(e.$1),
+                          label: Text(e.$2),
+                        ),
+                      )
+                      .toList(),
             ),
             const SizedBox(height: 8),
             Expanded(
               child: TabBarView(
                 children: [
-                  GeneralStyleView(value: _style, onChanged: _onChanged),
+                  GeneralStyleView(
+                    value: _style,
+                    onChanged: _onChanged,
+                    name: widget.name,
+                    onNameChanged: widget.onNameChanged,
+                  ),
                   ParagraphsStyleView(value: _style, onChanged: _onChanged),
                   TextsStyleView(value: _style, onChanged: _onChanged),
                 ],

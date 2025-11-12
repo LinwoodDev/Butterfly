@@ -27,9 +27,9 @@ class _AddDialogState extends State<AddDialog> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
     _filterScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,90 +46,101 @@ class _AddDialogState extends State<AddDialog> {
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
           return ResponsiveDialog(
-            constraints: const BoxConstraints(
-              maxWidth: 1000,
-              maxHeight: 840,
-            ),
+            constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 980),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 48,
-                      child: NavigationToolbar(
-                        leading: Row(mainAxisSize: MainAxisSize.min, children: [
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: SizedBox(
+                    height: 48,
+                    child: NavigationToolbar(
+                      leading: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           IconButton.outlined(
                             onPressed: () => Navigator.of(context).pop(),
                             icon: const PhosphorIcon(PhosphorIconsLight.x),
-                            tooltip: MaterialLocalizations.of(context)
-                                .closeButtonTooltip,
+                            tooltip: MaterialLocalizations.of(
+                              context,
+                            ).closeButtonTooltip,
                           ),
                           const SizedBox(width: 8),
                           Text(
                             AppLocalizations.of(context).add,
                             style: TextTheme.of(context).headlineSmall,
                           ),
-                        ]),
-                        middle: isMobile ? null : search,
-                        trailing: IconButton(
-                          onPressed: () => openHelp(['add']),
-                          icon: const PhosphorIcon(
-                              PhosphorIconsLight.sealQuestion),
-                          tooltip: AppLocalizations.of(context).help,
+                        ],
+                      ),
+                      middle: isMobile ? null : search,
+                      trailing: IconButton(
+                        onPressed: () => openHelp(['add']),
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.sealQuestion,
+                        ),
+                        tooltip: AppLocalizations.of(context).help,
+                      ),
+                    ),
+                  ),
+                ),
+                if (isMobile)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    child: search,
+                  ),
+                const SizedBox(height: 4),
+                Scrollbar(
+                  controller: _filterScrollController,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 8,
+                        right: 8,
+                        top: 2,
+                        bottom: 4,
+                      ),
+                      child: SizedBox(
+                        height: 48,
+                        child: ListView(
+                          controller: _filterScrollController,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          children: [
+                            ...ToolCategory.values.map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                                child: ChoiceChip(
+                                  label: Text(e.getLocalizedName(context)),
+                                  showCheckmark: false,
+                                  avatar: PhosphorIcon(
+                                    e.icon(PhosphorIconsStyle.light),
+                                  ),
+                                  onSelected: (selected) => setState(() {
+                                    _category = selected ? e : null;
+                                  }),
+                                  selected: _category == e,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  if (isMobile)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: search,
-                    ),
-                  const SizedBox(height: 4),
-                  Scrollbar(
-                    controller: _filterScrollController,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8, right: 8, top: 2, bottom: 4),
-                        child: SizedBox(
-                          height: 48,
-                          child: ListView(
-                            controller: _filterScrollController,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            children: [
-                              ...ToolCategory.values.map((e) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4),
-                                    child: ChoiceChip(
-                                      label: Text(e.getLocalizedName(context)),
-                                      showCheckmark: false,
-                                      avatar: PhosphorIcon(
-                                          e.icon(PhosphorIconsStyle.light)),
-                                      onSelected: (selected) => setState(() {
-                                        _category = selected ? e : null;
-                                      }),
-                                      selected: _category == e,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                ),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: _buildBody(isMobile),
                   ),
-                  Expanded(
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 200),
-                      child: _buildBody(isMobile),
-                    ),
-                  ),
-                ]),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -162,8 +173,8 @@ class _AddDialogState extends State<AddDialog> {
       final handler = Handler.fromTool(tool);
       final color =
           handler.getStatus(context.read<DocumentBloc>()) == ToolStatus.disabled
-              ? Theme.of(context).disabledColor
-              : null;
+          ? Theme.of(context).disabledColor
+          : null;
       return BoxTile(
         title: Text(
           tool.getLocalizedName(context),
@@ -197,122 +208,143 @@ class _AddDialogState extends State<AddDialog> {
       child: ValueListenableBuilder(
         valueListenable: _searchController,
         builder: (context, value, _) => FutureBuilder<List<ImportType>>(
-            future: Future.wait(
-                ImportType.values
-                    .map((e) async => (e, await e.isAvailable()))).then(
-                (value) => value.where((e) => e.$2).map((e) => e.$1).toList()),
-            builder: (context, snapshot) {
-              final search = value.text;
-              final imports = (snapshot.data ?? [])
-                  .where((e) => e
+          future: Future.wait(
+            ImportType.values.map((e) async => (e, await e.isAvailable())),
+          ).then((value) => value.where((e) => e.$2).map((e) => e.$1).toList()),
+          builder: (context, snapshot) {
+            final search = value.text;
+            final imports = (snapshot.data ?? [])
+                .where(
+                  (e) => e
                       .getLocalizedName(context)
                       .toLowerCase()
-                      .contains(search.toLowerCase()))
-                  .toList();
-              final tools = [
-                Tool.hand,
-                () => Tool.select(mode: SelectMode.lasso),
-                () => Tool.select(mode: SelectMode.rectangle),
-                Tool.pen,
-                Tool.laser,
-                Tool.pathEraser,
-                Tool.label,
-                Tool.eraser,
-                Tool.area,
-                Tool.presentation,
-                () => Tool.spacer(axis: Axis2D.vertical),
-                () => Tool.spacer(axis: Axis2D.horizontal),
-                Tool.stamp,
-                ...[
-                  PathShape.circle,
-                  PathShape.rectangle,
-                  PathShape.line,
-                  PathShape.triangle
-                ].map((e) =>
-                    () => Tool.shape(property: ShapeProperty(shape: e()))),
-                ...[SurfaceTexture.pattern]
-                    .map((e) => () => TextureTool(texture: e())),
-                Tool.undo,
-                Tool.redo,
-                Tool.fullScreen,
-                Tool.collection,
-                Tool.eyeDropper,
-                Tool.ruler,
-                Tool.grid,
-                ...BarcodeType.values
-                    .map((e) => () => Tool.barcode(barcodeType: e)),
-              ]
-                  .map((e) => e())
-                  .where((e) => _category == null || e.category == _category)
-                  .where((e) =>
-                      e
-                          .getLocalizedName(context)
-                          .toLowerCase()
-                          .contains(search.toLowerCase()) ||
-                      e
-                          .getLocalizedCaption(context)
-                          .toLowerCase()
-                          .contains(search.toLowerCase()))
-                  .toList();
-              return ListView(
-                children: [
-                  if ((_category == null || _category == ToolCategory.import) &&
-                      imports.isNotEmpty) ...[
-                    _ToolsListView(
-                      isMobile: isMobile && _category == null,
-                      children: imports
-                          .map(
-                            (e) => BoxTile(
-                              title: Text(
-                                e.getLocalizedName(context),
-                                textAlign: TextAlign.center,
-                              ),
-                              trailing: IconButton(
-                                onPressed: () =>
-                                    addTool(Tool.asset(importType: e)),
-                                tooltip: AppLocalizations.of(context).pin,
-                                icon: const PhosphorIcon(
-                                    PhosphorIconsLight.pushPin),
-                              ),
-                              icon: PhosphorIcon(
-                                  e.icon(PhosphorIconsStyle.light)),
-                              onTap: () async {
-                                final bloc = context.read<DocumentBloc>();
-                                final importService =
-                                    context.read<ImportService>();
-                                Navigator.of(context).pop();
-                                await showImportAssetWizard(
-                                    e, context, bloc, importService);
-                              },
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                  if (tools.isEmpty && imports.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 64, horizontal: 16),
-                      child: Text(
-                        AppLocalizations.of(context).noElements,
-                        textAlign: TextAlign.center,
-                        style: TextTheme.of(context).bodyLarge,
+                      .contains(search.toLowerCase()),
+                )
+                .toList();
+            final tools =
+                [
+                      Tool.hand,
+                      () => Tool.select(mode: SelectMode.lasso),
+                      () => Tool.select(mode: SelectMode.rectangle),
+                      Tool.pen,
+                      Tool.laser,
+                      Tool.pathEraser,
+                      Tool.label,
+                      Tool.eraser,
+                      Tool.area,
+                      Tool.presentation,
+                      Tool.polygon,
+                      () => Tool.spacer(axis: Axis2D.vertical),
+                      () => Tool.spacer(axis: Axis2D.horizontal),
+                      Tool.stamp,
+                      ...[
+                        PathShape.circle,
+                        PathShape.rectangle,
+                        PathShape.line,
+                        PathShape.triangle,
+                      ].map(
+                        (e) =>
+                            () =>
+                                Tool.shape(property: ShapeProperty(shape: e())),
                       ),
-                    ),
-                  if (tools.isNotEmpty) ...[
-                    _ToolsListView(
-                      isMobile: false,
-                      title: imports.isEmpty || _category != null
-                          ? null
-                          : AppLocalizations.of(context).tools,
-                      children: tools.map(buildTool).toList(),
-                    ),
-                    const SizedBox(height: 16),
-                  ],
+                      ...[SurfaceTexture.pattern].map(
+                        (e) =>
+                            () => TextureTool(texture: e()),
+                      ),
+                      Tool.undo,
+                      Tool.redo,
+                      Tool.fullScreen,
+                      Tool.collection,
+                      Tool.eyeDropper,
+                      Tool.ruler,
+                      Tool.grid,
+                      ...BarcodeType.values.map(
+                        (e) =>
+                            () => Tool.barcode(barcodeType: e),
+                      ),
+                    ]
+                    .map((e) => e())
+                    .where((e) => _category == null || e.category == _category)
+                    .where(
+                      (e) =>
+                          e
+                              .getLocalizedName(context)
+                              .toLowerCase()
+                              .contains(search.toLowerCase()) ||
+                          e
+                              .getLocalizedCaption(context)
+                              .toLowerCase()
+                              .contains(search.toLowerCase()),
+                    )
+                    .toList();
+            return ListView(
+              children: [
+                if ((_category == null || _category == ToolCategory.import) &&
+                    imports.isNotEmpty) ...[
+                  _ToolsListView(
+                    isMobile: isMobile && _category == null,
+                    children: imports
+                        .map(
+                          (e) => BoxTile(
+                            title: Text(
+                              e.getLocalizedName(context),
+                              textAlign: TextAlign.center,
+                            ),
+                            trailing: IconButton(
+                              onPressed: () =>
+                                  addTool(Tool.asset(importType: e)),
+                              tooltip: AppLocalizations.of(context).pin,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.pushPin,
+                              ),
+                            ),
+                            icon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            onTap: () async {
+                              final bloc = context.read<DocumentBloc>();
+                              final importService = context
+                                  .read<ImportService>();
+                              Navigator.of(context).pop();
+                              await showImportAssetWizard(
+                                e,
+                                context,
+                                bloc,
+                                importService,
+                              );
+                            },
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  const SizedBox(height: 16),
                 ],
-              );
-            }),
+                if (tools.isEmpty && imports.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 64,
+                      horizontal: 16,
+                    ),
+                    child: Text(
+                      AppLocalizations.of(context).noElements,
+                      textAlign: TextAlign.center,
+                      style: TextTheme.of(context).bodyLarge,
+                    ),
+                  ),
+                if (tools.isNotEmpty) ...[
+                  _ToolsListView(
+                    isMobile: false,
+                    title: imports.isEmpty || _category != null
+                        ? null
+                        : AppLocalizations.of(context).tools,
+                    children: tools.map(buildTool).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -338,8 +370,8 @@ class _ToolsListViewState extends State<_ToolsListView> {
 
   @override
   void dispose() {
-    super.dispose();
     _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -371,7 +403,7 @@ class _ToolsListViewState extends State<_ToolsListView> {
               alignment: WrapAlignment.center,
               children: widget.children,
             ),
-          )
+          ),
       ],
     );
   }

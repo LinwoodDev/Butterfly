@@ -7,8 +7,9 @@ import 'close.dart';
 typedef OnCloseCallback = FutureOr<String?> Function();
 
 CloseSubscription onPreventClose(
-        BuildContext context, OnCloseCallback onClose) =>
-    StubCloseSubscription();
+  BuildContext context,
+  OnCloseCallback onClose,
+) => StubCloseSubscription();
 
 class StubCloseSubscription extends CloseSubscription {
   @override
