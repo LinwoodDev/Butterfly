@@ -3,11 +3,28 @@
 :root {
   --ls-primary: var(--sl-color-accent);
   --ls-primary-text: #fff;
-  --ls-background-text: var(--sl-color-text);
-  --ls-background: var(--sl-color-gray-7);
+  --sl-color-accent-low: var(--sl-color-accent);
+  --sl-color-accent-high: var(--sl-color-accent);
+  --sl-color-black: var(--ls-background);
+  --sl-color-gray-1: var(--ls-elevation);
+  --sl-color-gray-2: var(--ls-elevation);
+  --sl-color-gray-3: var(--ls-elevation);
+  --sl-color-gray-4: var(--ls-elevation);
+  --sl-color-gray-5: var(--ls-elevation);
+  --sl-color-gray-6: var(--ls-elevation);
+  --sl-color-gray-7: var(--ls-elevation);
+  --sl-color-text: var(--sl-color-text);
 }
 :root[data-theme="light"] {
   --ls-elevation: rgba(0, 0, 0, 0.1);
+  --ls-background-text: #000;
+  --ls-background: #fff;
+}
+header {
+  backdrop-filter: lw.$elevation-filter;
+}
+.tagline, label, .site-title {
+  color: var(--ls-background-text);
 }
 
 .sl-link-button {
