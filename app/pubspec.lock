@@ -397,10 +397,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: f2d9f173c2c14635cc0e9b14c143c49ef30b4934e8d1d274d6206fcb0086a06f
+      sha256: f8f4ea435f791ab1f817b4e338ed958cb3d04ba43d6736ffc39958d950754967
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.3"
+    version: "10.3.6"
   fixnum:
     dependency: transitive
     description:
@@ -984,34 +984,34 @@ packages:
     dependency: transitive
     description:
       name: pdfium_dart
-      sha256: "61085bbc08939c5086ceb14496bfb55c52c68cadf0d8a0646be27eb1ae17eb4e"
+      sha256: bf44cf85da2e828d9b59742315468484293d4b0ae5bbe253686ae507dcb53403
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   pdfium_flutter:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: "2c07ba66c1b6612aaeb9bc45643e4fef13b0b772c0a2d505c59767416c638360"
+      sha256: c8864ad4eb37362d6d00183278df6e2d84aaab47afd986f181c3776f546c993b
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.6"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: cc9513ecdcfb78e1c2af4ca0e014a05dc3e6fd21933ee92e1c956013449905e6
+      sha256: "45d535ab7156144e19748e95ecbc1e2ef3f72ed0ea91fb2b22b7493dd95167a2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.9"
+    version: "2.2.11"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: c43ccbb72d56a164b9a6c66d20e87929c63d6b25f739a6869941c88d667af010
+      sha256: "46f9b2da314cb4b8fd3d5eace24977b91da0920110fea6f531892c10847dc256"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.3"
   perfect_freehand:
     dependency: "direct main"
     description:
