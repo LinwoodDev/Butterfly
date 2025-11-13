@@ -2,6 +2,13 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.1 (2025-11-13)
+
+No changes compared to version 2.4.1.
+
+This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.1
+
 ## 2.4.1-rc.4 (2025-11-10)
 
 * Add preview in snackbar after capturing thumbnail
