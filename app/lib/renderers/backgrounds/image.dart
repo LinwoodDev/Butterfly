@@ -106,7 +106,7 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     super.setup(transformCubit, document, assetService, page);
     if (image != null) return;
     try {
-      image = await assetService.getImage(element.source);
+      image = await assetService.getImage(element.source, document);
     } catch (_) {}
   }
 

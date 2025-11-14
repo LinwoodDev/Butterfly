@@ -9,22 +9,20 @@ Uint8List? _getDataFromSource((NoteData, String) message) =>
     element_helper.getDataFromSource(message.$1, message.$2);
 
 class AssetService {
-  final NoteData document;
   final Map<String, ui.Image> _images = {};
   final Map<String, Future<Uint8List?>> _dataCache = {};
   final Map<String, PdfDocument> _pdfDocumentCache = {};
 
-  AssetService(this.document);
+  AssetService();
 
-  Future<ui.Image?> getImage(String path, [NoteData? document]) async {
+  Future<ui.Image?> getImage(String path, NoteData document) async {
     if (_images.containsKey(path)) {
       return _images[path]!.clone();
     }
-    document ??= this.document;
-    return _importImage(path);
+    return _importImage(path, document);
   }
 
-  Future<ui.Image?> _importImage(String path) async {
+  Future<ui.Image?> _importImage(String path, NoteData document) async {
     var data = await compute(_getDataFromSource, (document, path));
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
@@ -45,14 +43,10 @@ class AssetService {
     _images.remove(path);
   }
 
-  Future<Uint8List?> computeDataFromSource(
-    String source, [
-    NoteData? document,
-  ]) {
+  Future<Uint8List?> computeDataFromSource(String source, NoteData document) {
     if (_dataCache.containsKey(source)) {
       return _dataCache[source]!;
     }
-    document ??= this.document;
     final data = element_helper.computeDataFromSource(document, source);
     _dataCache[source] = data;
     return data;
@@ -62,14 +56,10 @@ class AssetService {
     _dataCache.remove(source);
   }
 
-  Future<PdfDocument?> getPdfDocument(
-    String source, [
-    NoteData? document,
-  ]) async {
+  Future<PdfDocument?> getPdfDocument(String source, NoteData document) async {
     if (_pdfDocumentCache.containsKey(source)) {
       return _pdfDocumentCache[source];
     }
-    document ??= this.document;
     final data = await computeDataFromSource(source, document);
     if (data == null) return null;
     final pdfDocument = await PdfDocument.openData(data);

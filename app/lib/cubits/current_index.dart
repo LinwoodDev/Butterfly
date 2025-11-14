@@ -1689,7 +1689,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Rect getPageRect() {
     Rect? rect;
     for (final renderer in renderers) {
-      final rendererRect = renderer.rect;
+      final rendererRect = renderer.expandedRect;
       if (rendererRect == null) continue;
       rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }

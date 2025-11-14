@@ -253,7 +253,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final renderers = page.content
           .map((e) => Renderer.fromInstance(e))
           .toList();
-      final assetService = AssetService(document);
+      final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
       await Future.wait(
         renderers.map(

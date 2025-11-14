@@ -109,10 +109,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "04f69b1502f66e22ae7990bbd01eb552b7f12793c4d3ea6e715d0ac5e98bcdac"
+      sha256: "7b5b569f3df370590a85029148d6fc66c7d0201fc6f1847c07dd85d365ae9fcd"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.2"
+    version: "2.10.3"
   built_collection:
     dependency: transitive
     description:
@@ -325,10 +325,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: c87dfe3d56f183ffe9106a18aebc6db431fc7c98c31a54b952a77f3d54a85697
+      sha256: a9c30492da18ff84efe2422ba2d319a89942d93e58eb0b73d32abe822ef54b7b
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.2"
+    version: "3.1.3"
   dbus:
     dependency: transitive
     description:
@@ -1000,10 +1000,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "45d535ab7156144e19748e95ecbc1e2ef3f72ed0ea91fb2b22b7493dd95167a2"
+      sha256: aff4b53b463c2a6417325d47198fdf11e91f18298fe42681ced203bb2cd611c3
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.11"
+    version: "2.2.12"
   pdfrx_engine:
     dependency: transitive
     description:
@@ -1016,10 +1016,10 @@ packages:
     dependency: "direct main"
     description:
       name: perfect_freehand
-      sha256: "399c16dc35a6eb1dee4d9a2c638ff0fe71ebb5e8980ab41261bf4306dafaa4af"
+      sha256: "7a6a591832be33fe82d8ecab68562a794d39837af16e7413fe0ccebdd0c3e3c0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.1"
   petitparser:
     dependency: transitive
     description:
