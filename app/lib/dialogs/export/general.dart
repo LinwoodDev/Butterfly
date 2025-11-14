@@ -88,6 +88,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
       state.page,
       state.info,
       _options.toImageOptions(),
+      invisibleLayers: state.invisibleLayers,
     );
   }
 
@@ -96,7 +97,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
     return state.currentIndexCubit
-        .renderSVG(state.data, state.page, options)
+        .renderSVG(
+          state.data,
+          state.page,
+          options,
+          invisibleLayers: state.invisibleLayers,
+        )
         .toXmlString();
   }
 
@@ -259,12 +265,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             ),
             IconButton.filledTonal(
               onPressed: () {
-                final cubit = context
-                    .read<DocumentBloc>()
-                    .state
-                    .currentIndexCubit;
-                if (cubit == null) return;
-                final rect = cubit.getPageRect();
+                final bloc = context.read<DocumentBloc>();
+                final state = bloc.state;
+                if (state is! DocumentLoaded) return;
+                final cubit = state.currentIndexCubit;
+                final rect = cubit.getPageRect(
+                  invisibleLayers: state.invisibleLayers,
+                );
                 setState(() {
                   _preset = ExportTransformPreset.page;
                   _options = (switch (_options) {

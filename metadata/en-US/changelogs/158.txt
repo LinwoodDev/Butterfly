@@ -1,3 +1,4 @@
+* Ignore invisible layers on export
 * Fix page rect does not consider whole content
 * Fix png not loading after importing
 * Fix png not updating after doing operations like flip or invert

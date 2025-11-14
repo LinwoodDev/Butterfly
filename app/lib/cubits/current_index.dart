@@ -1175,12 +1175,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
-    ImageExportOptions options, [
+    ImageExportOptions options, {
     CameraViewport? cameraViewport,
-  ]) async {
+    Set<String>? invisibleLayers,
+  }) async {
     final realWidth = (options.width * options.quality).ceil();
     final realHeight = (options.height * options.quality).ceil();
     final realZoom = options.scale * options.quality;
+    if (realWidth <= 0 || realHeight <= 0) {
+      return null;
+    }
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     final painter = ViewPainter(
@@ -1188,6 +1192,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       renderBackground: options.renderBackground,
+      invisibleLayers: invisibleLayers,
       cameraViewport:
           cameraViewport ??
           state.cameraViewport.unbake(unbakedElements: renderers),
@@ -1208,15 +1213,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
-    ImageExportOptions options, [
+    ImageExportOptions options, {
     CameraViewport? cameraViewport,
-  ]) async {
+    Set<String>? invisibleLayers,
+  }) async {
     final image = await renderImage(
       document,
       page,
       info,
       options,
-      cameraViewport,
+      cameraViewport: cameraViewport,
+      invisibleLayers: invisibleLayers,
     );
     ByteData? bytes;
     try {
@@ -1230,8 +1237,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   XmlDocument renderSVG(
     NoteData document,
     DocumentPage page,
-    SvgExportOptions options,
-  ) {
+    SvgExportOptions options, {
+    Set<String>? invisibleLayers,
+  }) {
     final xml = XmlDocument();
     xml.createElement(
       'svg',
@@ -1257,10 +1265,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         e.buildSvg(xml, document, page, rect);
       }
     }
-    for (var e in [
-      ...state.cameraViewport.visibleElements,
-      ...state.cameraViewport.unbakedElements,
-    ]) {
+    for (var e in renderers) {
+      if ((invisibleLayers?.contains(e.layer) ?? false) || !e.isVisible(rect)) {
+        continue;
+      }
       e.buildSvg(xml, document, page, rect);
     }
     return xml;
@@ -1386,6 +1394,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     required List<AreaPreset> areas,
     bool renderBackground = true,
     void Function(double progress)? onProgress,
+    Set<String>? invisibleLayers,
   }) async {
     var name = docState.metadata.name;
     if (name.isEmpty) {
@@ -1421,7 +1430,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground,
         ),
-        currentOpened
+        cameraViewport: currentOpened
             ? null
             : await CameraViewport.build(
                 docState.transformCubit,
@@ -1429,6 +1438,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
                 docState.assetService,
                 page,
               ),
+        invisibleLayers: invisibleLayers ?? docState.invisibleLayers,
       );
       if (image == null) continue;
       final imgImage = await convertFlutterUiToImage(image);
@@ -1686,11 +1696,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.networkingService.closeNetworking();
   }
 
-  Rect getPageRect() {
+  Rect getPageRect({Set<String>? invisibleLayers}) {
     Rect? rect;
     for (final renderer in renderers) {
       final rendererRect = renderer.expandedRect;
       if (rendererRect == null) continue;
+      if (invisibleLayers?.contains(renderer.layer) ?? false) {
+        continue;
+      }
       rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }
     return rect ?? Rect.zero;
