@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
 
-const kSecondaryStylusButton = 0x20;
+const kFallbackSecondaryStylusButton = 0x20;
 
 class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
@@ -119,7 +119,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                   }
                 case PointerDeviceKind.stylus:
                   nextPointerMapping = config.pen;
-                  if ((buttons & kSecondaryStylusButton) != 0) {
+                  if ((buttons & kSecondaryStylusButton) != 0 ||
+                      (buttons & kFallbackSecondaryStylusButton) != 0) {
                     nextPointerMapping = config.secondPenButton;
                   } else if ((buttons & kPrimaryStylusButton) != 0) {
                     nextPointerMapping = config.firstPenButton;

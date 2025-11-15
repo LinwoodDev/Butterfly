@@ -1,6 +1,8 @@
+* Improve memory usage on closing documents
 * Ignore invisible layers on export
 * Fix page rect does not consider whole content
 * Fix png not loading after importing
 * Fix png not updating after doing operations like flip or invert
+* Fix buttons on stylus not working correctly on some devices ([#968](https://github.com/LinwoodDev/Butterfly/issues/968))
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.0

@@ -326,7 +326,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void dispose() {
     widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
-    _bloc?.dispose();
+    _bloc?.close();
     _transformCubit?.close();
     _currentIndexCubit?.close();
     _searchController.dispose();

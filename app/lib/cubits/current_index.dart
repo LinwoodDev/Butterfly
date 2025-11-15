@@ -1692,8 +1692,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     });
   }
 
-  void dispose() {
-    state.networkingService.closeNetworking();
+  @override
+  Future<void> close() async {
+    if (!state.networkingService.isClosed) {
+      await state.networkingService.close();
+    }
+    return super.close();
   }
 
   Rect getPageRect({Set<String>? invisibleLayers}) {
