@@ -73,6 +73,10 @@ export default defineConfig({
               link: "/docs/v2/pages/",
             },
             {
+              ...getSidebarTranslatedLabel("Templates"),
+              link: "/docs/v2/templates/",
+            },
+            {
               ...getSidebarTranslatedLabel("Shortcuts"),
               link: "/docs/v2/shortcuts/",
             },
