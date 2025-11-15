@@ -27,6 +27,7 @@ I'm using the input provided by the flutter framework.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
 ### Butterfly is slow
+
 Butterfly is more performant every update, but sometimes, the problem is your device.
 
 First, turn off your device's powersaver.
