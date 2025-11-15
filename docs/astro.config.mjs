@@ -69,12 +69,12 @@ export default defineConfig({
               link: "/docs/v2/pack/",
             },
             {
-              ...getSidebarTranslatedLabel("Pages"),
-              link: "/docs/v2/pages/",
-            },
-            {
               ...getSidebarTranslatedLabel("Templates"),
               link: "/docs/v2/areas/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Pages"),
+              link: "/docs/v2/pages/",
             },
             {
               ...getSidebarTranslatedLabel("Shortcuts"),
