@@ -28,17 +28,21 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 
 ### Butterfly is slow
 
-Butterfly is more performant every update, but sometimes, the problem is your device.
+Butterfly is optimized every update, but sometimes the problem could be from your device.
 
-First, turn off your device's powersaver.
-Then, set your screen refresh rate to its highest.
-This allows butterfly to update faster and become more responsive.
+1. First, turn off your device's power saver mode.
+2. Then, set your screen refresh rate to its highest available (if supported by your device)
 
-If these steps dont help, please dont hesistate to complain in Discord, Matrix, or in Github!
+This allows Butterfly to refresh faster and feel more responsive.
 
-### Butterfly restarts when it is in the background
+If these steps dont help, please dont hesitate to complain in Discord, Matrix, or in Github.
 
-Disable battery optimization for Butterfly, Samsung among other brands usually put heavy battery restrictions on apps that crash frequently or overheat the device.
+### Butterfly restarts in the background
+
+Disable battery optimization for Butterfly.  
+Battery optimizations prevent apps from running normally in the background to save power.
+
+Samsung, among other brands, usually put heavy battery restrictions on apps that crash frequently or overheat the device.
 
 If you dont know how to disable battery optimization for Butterfly, this website may help: [Dont kill my app!](https://dontkillmyapp.com/)
 
