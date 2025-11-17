@@ -340,7 +340,7 @@
   "path": "المسار",
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة دليل الجذر",
-  "penOnlyInput": "فقط إدخال القلم",
+  "penOnlyInput": "الرسم باستخدام القلم فقط",
   "inputGestures": "إيماءات الإدخال",
   "nativeTitleBar": "استخدم شريط عنوان النظام",
   "syncMode": "وضع المزامنة",
