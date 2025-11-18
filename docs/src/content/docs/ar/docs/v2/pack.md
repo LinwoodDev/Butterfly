@@ -33,11 +33,11 @@ To add a component:
 
 You can use these components using the [stamp tool](/docs/v2/pack)
 
-## Styles
+## الأنماط
 
 Styles are used to customize the appearance of the text. The paragraph styles can be used to format a whole paragraph (like a heading), while the text styles can be used to format only a part of the text (like a bold word).
 
-## Palettes
+## ألواح الألوان
 
 The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (like mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color picker.
 
