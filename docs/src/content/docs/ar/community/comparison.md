@@ -22,7 +22,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 | **تصدير ملف PDF**          | ✅                                                | ✅                     | ✅                      | ✅                           | ✅                                               | ✅                                           |
 | **دعم ملف SVG**            | ✅                                                | ❌                     | ❌                      | ✅                           | ❌                                               | ❌                                           |
 | **الاستخدام بلا الأنترنت** | ✅                                                | ✅                     | ✅                      | ✅ بدائي                     | ✅                                               | ✅                                           |
-| **مزامنة السحابه**         | WebDAV                                           | OneDrive/SharePoint   | مدفوع                  | مدفوع                       | دليل                                            |                                             |
+| **مزامنة السحابه**         | WebDAV                                           | OneDrive/SharePoint   | مدفوع                  | مدفوع                       | يدوي                                            |                                             |
 
 ## مقارنات مفصلة
 
