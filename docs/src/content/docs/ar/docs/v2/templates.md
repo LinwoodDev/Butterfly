@@ -15,7 +15,7 @@ They store everything a normal document does, including:
 - أدوات
 - Document Content like pictures, drawings, strokes, etc.
 - The settings for each tool
-- الطبقات
+- طبقات
 - المناطق
 - الصفحات
 
