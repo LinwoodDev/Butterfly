@@ -19,38 +19,38 @@ title: الأسئلة المتكررة
 
 ## الجوال
 
-### S-Pen won't be recognized
+### لا يتم التعرف على قلم S-Pen
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### Butterfly is slow
+### باترفلاي بطيئ
 
-Butterfly is optimized every update, but sometimes the problem could be from your device.
+يتم تحسين باترفلاي كل تحديث، ولكن في بعض الأحيان قد تكون المشكلة من جهازك.
 
-1. First, turn off your device's power saver mode.
-2. Then, set your screen refresh rate to its highest available (if supported by your device)
+1. أولاً، قم بإيقاف تشغيل وضع توفير الطاقة للجهاز.
+2. ثم قم بتعيين معدل تحديث الشاشة إلى أعلى معدل متاح (إذا كان مدعوماً من قبل جهازك)
 
-This allows Butterfly to refresh faster and feel more responsive.
+وهذا يتيح لـ باترفلاي التحديث بشكل أسرع والاستجابة بشكل أفضل.
 
-If these steps dont help, please dont hesitate to complain in Discord, Matrix, or in Github.
+إذا لم تساعد هذه الخطوات، يرجى عدم التردد في تقديم الشكوى في ديسكورد أو ماتركس أو في جيت هب.
 
-### Butterfly restarts in the background
+### يتم إعادة تشغيل باترفلاي في الخلفية
 
-Disable battery optimization for Butterfly.  
-Battery optimizations prevent apps from running normally in the background to save power.
+عطل تحسين البطارية لباترفلاي.  
+تحسين البطارية يمنع التطبيقات من العمل بشكل طبيعي في الخلفية لتوفير الطاقة.
 
-Samsung, among other brands, usually put heavy battery restrictions on apps that crash frequently or overheat the device.
+عادةً ما تفرض سامسونج، وغيرها من العلامات التجارية، قيودًا صارمة على البطارية بالنسبة للتطبيقات التي تتعطل بشكل متكرر أو تسبب ارتفاع درجة حرارة الجهاز.
 
-If you dont know how to disable battery optimization for Butterfly, this website may help: [Dont kill my app!](https://dontkillmyapp.com/)
+إذا كنت لا تعرف كيفية تعطيل تحسين البطارية لباترفلاي، فقد يساعدك هذا الموقع: [لا تقتل تطبيقي!](https://dontkillmyapp.com/)
 
-### iOS support
+### دعم iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+باترفلاي متاح على iOS كمعاينة. انقر [هنا](https://butterfly.linwood.dev/downloads/ios) لتحميله. انظر [هنا](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878لماذا لا يتوفر في متجر التطبيقات.
 
 ## سطح المكتب
 
@@ -59,8 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
-Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+هناك بالفعل مشاكل لتعقبها:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter#102836](https://github.com/flutter/flutter/issues/102836).
+لينوكس: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 وهذه المسائل قديمة إلى حد ما. يجب أن تعمل نسخة الويب بشكل جيد في الوقت الحالي.
