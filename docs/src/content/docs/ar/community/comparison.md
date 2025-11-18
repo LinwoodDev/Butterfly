@@ -85,24 +85,24 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 -
 - **Obsidian**: العاملون في مجال المعرفة، والباحثون، ومن يقومون ببناء قواعد معلومات شخصية
 
-### Butterfly vs Excalidraw
+### Butterfly ضد Excalidraw
 
 **التشابهات**
 
-- Excellent drawing and diagramming capabilities
-- Clean, intuitive interface
-- Web-based accessibility
-- Open-source foundation
-- Hand-drawn aesthetic for diagrams
+- قدرات رسم ورسم بياني ممتازة
+- واجهة نظيفة وبديهية
+- إمكانية الوصول على الإنترنت
+- قاعدة مفتوحة المصدر
+- رسومات بيانية جميلة بخط اليد
 
 **ميزات Butterfly:**
 
-- **Mobile apps** – iOS and Android support
-- **Desktop applications** – Windows and Linux apps available
-- **Text editing** – Rich text support beyond just drawings
-- **File management** – Organize notes with pages and structure
-- **PDF import** – Annotate existing documents
-- **Offline-first** – Works without an internet connection
+- **تطبيقات الجوال** - دعم iOS و Android
+- **تطبيقات سطح المكتب** - تطبيقات Windows و Linux متوفرة
+- **تحرير النص** - دعم النص الغني بما يتجاوز الرسم فقط
+- **إدارة الملفات** - تنظيم الملاحظات مع الصفحات والبنية
+- \*\*استيراد PDF \*\* - تدوين المستندات الموجودة
+- **دون اتصال** - يعمل بدون اتصال بالإنترنت
 
 
 
