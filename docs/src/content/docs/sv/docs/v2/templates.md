@@ -29,4 +29,4 @@ Press the "Create" button, and give it a name, keep directory empty unless you w
 
 Unfortunately, there is no specific place to share your templates.
 
-But of you think you have made a cool template, feel free to share in Discord.
+But if you think you have made a cool template, feel free to share in Discord.
