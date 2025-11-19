@@ -1,5 +1,6 @@
 * Improve memory usage on closing documents
 * Ignore invisible layers on export
+* Enlarge buttons in the Add dialog
 * Fix page rect does not consider whole content
 * Fix png not loading after importing
 * Fix png not updating after doing operations like flip or invert

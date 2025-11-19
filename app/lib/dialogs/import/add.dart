@@ -36,7 +36,7 @@ class _AddDialogState extends State<AddDialog> {
   Widget build(BuildContext context) {
     final search = SearchBar(
       autoFocus: true,
-      constraints: const BoxConstraints(maxWidth: 250, minHeight: 50),
+      constraints: const BoxConstraints(maxWidth: 350, minHeight: 50),
       leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
       hintText: AppLocalizations.of(context).search,
       controller: _searchController,
@@ -46,7 +46,7 @@ class _AddDialogState extends State<AddDialog> {
         builder: (context, constraints) {
           final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
           return ResponsiveDialog(
-            constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 980),
+            constraints: const BoxConstraints(maxWidth: 1050, maxHeight: 1000),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -180,9 +180,10 @@ class _AddDialogState extends State<AddDialog> {
           tool.getLocalizedName(context),
           textAlign: TextAlign.center,
         ),
+        size: 140,
         subtitle: caption.isEmpty ? null : Text(caption),
         icon: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: PhosphorIcon(
             handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
             color: color,

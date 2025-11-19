@@ -569,6 +569,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 searchController:
                                                     _searchController,
                                                 padding: padding,
+                                                direction: Directionality.of(
+                                                  context,
+                                                ),
                                                 inView:
                                                     state
                                                         .embedding
@@ -678,6 +681,7 @@ class _MainBody extends StatelessWidget {
                             },
                           ),
                           Row(
+                            textDirection: TextDirection.ltr,
                             children: [
                               if (showNavigator &&
                                   settings.navigatorPosition ==
