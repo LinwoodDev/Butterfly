@@ -15,9 +15,9 @@
     "@astrojs/starlight": "^0.36.2",
     "@linwooddev/style": "github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
-    "@types/react": "^19.2.4",
+    "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.15.7",
+    "astro": "^5.15.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remark-gemoji": "^8.0.0",
@@ -27,7 +27,7 @@
   "packageManager": "pnpm@10.22.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.1.1",
-    "sass": "^1.94.0",
+    "sass": "^1.94.1",
     "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.1.0",
     "workbox-window": "^7.3.0"

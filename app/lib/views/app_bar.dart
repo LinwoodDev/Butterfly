@@ -57,7 +57,12 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(child: windowTitleBar);
+    return RepaintBoundary(
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: windowTitleBar,
+      ),
+    );
   }
 
   WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
@@ -163,10 +168,14 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 builder: (context, settings) => LayoutBuilder(
                   builder: (context, constraints) => Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: TextDirection.ltr,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
-                          maxWidth: min(300.0, constraints.maxWidth - 16),
+                          maxWidth: (constraints.maxWidth - 16).clamp(
+                            100.0,
+                            300.0,
+                          ),
                         ),
                         child: _buildAppBar(
                           state,

@@ -66,53 +66,57 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scrollbar(
-        controller: _scrollController,
-        child: BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) =>
-              previous.inputConfiguration != current.inputConfiguration ||
-              previous.toolbarSize != current.toolbarSize ||
-              previous.toolbarRows != current.toolbarRows ||
-              previous.toolbarPosition != current.toolbarPosition,
-          builder: (context, settings) {
-            final shortcuts = settings.inputConfiguration.getShortcuts();
-            final size = settings.toolbarSize.size;
-            final fullSize = (size + 4) * settings.toolbarRows;
-            return SizedBox(
-              height: direction == Axis.horizontal ? fullSize : null,
-              width: direction == Axis.horizontal ? null : fullSize,
-              child: BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) {
-                  if (state is! DocumentLoadSuccess) return Container();
-                  final tools = state.info.tools;
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SafeArea(
+        child: Scrollbar(
+          controller: _scrollController,
+          child: BlocBuilder<SettingsCubit, ButterflySettings>(
+            buildWhen: (previous, current) =>
+                previous.inputConfiguration != current.inputConfiguration ||
+                previous.toolbarSize != current.toolbarSize ||
+                previous.toolbarRows != current.toolbarRows ||
+                previous.toolbarPosition != current.toolbarPosition,
+            builder: (context, settings) {
+              final shortcuts = settings.inputConfiguration.getShortcuts();
+              final size = settings.toolbarSize.size;
+              final fullSize = (size + 4) * settings.toolbarRows;
+              return SizedBox(
+                height: direction == Axis.horizontal ? fullSize : null,
+                width: direction == Axis.horizontal ? null : fullSize,
+                child: BlocBuilder<DocumentBloc, DocumentState>(
+                  builder: (context, state) {
+                    if (state is! DocumentLoadSuccess) return Container();
+                    final tools = state.info.tools;
 
-                  return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                    buildWhen: (previous, current) =>
-                        previous.index != current.index ||
-                        previous.handler != current.handler ||
-                        previous.toggleableHandlers !=
-                            current.toggleableHandlers ||
-                        previous.temporaryHandler != current.temporaryHandler ||
-                        previous.selection != current.selection,
-                    builder: (context, currentIndex) {
-                      return Card(
-                        elevation: 10,
-                        child: _buildBody(
-                          state,
-                          currentIndex,
-                          settings,
-                          tools,
-                          shortcuts,
-                          size,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            );
-          },
+                    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                      buildWhen: (previous, current) =>
+                          previous.index != current.index ||
+                          previous.handler != current.handler ||
+                          previous.toggleableHandlers !=
+                              current.toggleableHandlers ||
+                          previous.temporaryHandler !=
+                              current.temporaryHandler ||
+                          previous.selection != current.selection,
+                      builder: (context, currentIndex) {
+                        return Card(
+                          elevation: 10,
+                          child: _buildBody(
+                            state,
+                            currentIndex,
+                            settings,
+                            tools,
+                            shortcuts,
+                            size,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
