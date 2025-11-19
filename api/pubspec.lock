@@ -463,10 +463,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "9098ab86015c4f1d8af6486b547b11100e73b193e1899015033cb3e14ad20243"
+      sha256: "0d6c4e1080176801112ed1111226d13cd4f74947383aabafbd9726a22083aeaa"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "4.1.0"
   source_helper:
     dependency: transitive
     description:
