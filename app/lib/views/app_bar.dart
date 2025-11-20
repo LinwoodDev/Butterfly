@@ -42,12 +42,14 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final SearchController searchController;
   final EdgeInsets? padding;
   final bool inView;
+  final TextDirection direction;
 
   PadAppBar({
     super.key,
     required this.viewportKey,
     required this.size,
     required this.searchController,
+    required this.direction,
     this.showTools = true,
     this.inView = false,
     this.padding,
@@ -71,29 +73,36 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
         inView: inView,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+        leading: Directionality(
+          textDirection: direction,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isLarge =
+                    MediaQuery.of(context).size.width <
+                    LeapBreakpoints.expanded;
+                return _MainPopupMenu(
+                  viewportKey: viewportKey,
+                  isLarge: isLarge,
+                  padding: padding,
+                );
+              },
+            ),
+          ),
+        ),
+        title: Directionality(
+          textDirection: direction,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final isLarge =
-                  MediaQuery.of(context).size.width < LeapBreakpoints.expanded;
-              return _MainPopupMenu(
-                viewportKey: viewportKey,
-                isLarge: isLarge,
-                padding: padding,
+              final isMobile =
+                  MediaQuery.of(context).size.width < LeapBreakpoints.compact;
+              return _AppBarTitle(
+                isMobile: isMobile,
+                searchController: searchController,
               );
             },
           ),
-        ),
-        title: LayoutBuilder(
-          builder: (context, constraints) {
-            final isMobile =
-                MediaQuery.of(context).size.width < LeapBreakpoints.compact;
-            return _AppBarTitle(
-              isMobile: isMobile,
-              searchController: searchController,
-            );
-          },
         ),
       );
 
@@ -167,8 +176,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     previous.showSaveButton != current.showSaveButton,
                 builder: (context, settings) => LayoutBuilder(
                   builder: (context, constraints) => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     textDirection: TextDirection.ltr,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
@@ -229,6 +238,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     BuildContext context,
     ButterflySettings settings,
   ) => Row(
+    textDirection: TextDirection.ltr,
     children: [
       Flexible(
         child: StreamBuilder<NetworkState?>(

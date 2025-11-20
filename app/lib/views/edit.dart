@@ -257,6 +257,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         key: const Key('add-row'),
+                        textDirection: TextDirection.ltr,
                         children: [
                           const VerticalDivider(),
                           Expanded(child: add),
@@ -487,7 +488,10 @@ class _EditToolbarState extends State<EditToolbar> {
                 ),
               ];
               if (direction == Axis.horizontal) {
-                return Row(children: children);
+                return Row(
+                  textDirection: TextDirection.ltr,
+                  children: children,
+                );
               }
               return Column(children: children);
             },
