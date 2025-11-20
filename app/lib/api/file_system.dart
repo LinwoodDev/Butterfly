@@ -47,6 +47,7 @@ Future<String> getButterflyDirectory({bool usePrefs = true}) async {
     path ??= (await getExternalStorageDirectory())?.path;
   }
   path ??= (await getApplicationDocumentsDirectory()).path;
+  path = path.replaceAll('\\', '/');
   path += butterflySubDirectory;
   return path;
 }
