@@ -147,26 +147,23 @@ class _EditableListTileState extends State<EditableListTile> {
                       hintText: AppLocalizations.of(context).enterText,
                     ),
                   )
-                : Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: ListenableBuilder(
-                        listenable: _controller,
-                        builder: (context, _) {
-                          final text =
-                              widget.textFormatter?.call(_controller.text) ??
-                              _controller.text;
-                          return Tooltip(
-                            message: text,
-                            child: Text(
-                              text,
-                              style: currentStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          );
-                        },
-                      ),
+                : Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: ListenableBuilder(
+                      listenable: _controller,
+                      builder: (context, _) {
+                        final text =
+                            widget.textFormatter?.call(_controller.text) ??
+                            _controller.text;
+                        return Tooltip(
+                          message: text,
+                          child: Text(
+                            text,
+                            style: currentStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        );
+                      },
                     ),
                   ),
           ),
@@ -179,6 +176,7 @@ class _EditableListTileState extends State<EditableListTile> {
                         _isEditing
                             ? PhosphorIconsLight.check
                             : PhosphorIconsLight.pencil,
+                        textDirection: TextDirection.ltr,
                       ),
                       tooltip: _isEditing
                           ? AppLocalizations.of(context).save

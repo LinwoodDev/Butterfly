@@ -66,7 +66,10 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
             ),
             BoxTile(
               title: Text(AppLocalizations.of(context).svg),
-              icon: const Icon(PhosphorIconsLight.fileSvg),
+              icon: const Icon(
+                PhosphorIconsLight.fileSvg,
+                textDirection: TextDirection.ltr,
+              ),
               onTap: () async {
                 final state = context.read<DocumentBloc>().state;
                 if (state is! DocumentLoaded) return;

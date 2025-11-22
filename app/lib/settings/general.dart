@@ -312,7 +312,10 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                         title: Text(
                           AppLocalizations.of(context).thirdPartyLicenses,
                         ),
-                        leading: const PhosphorIcon(PhosphorIconsLight.file),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.file,
+                          textDirection: TextDirection.ltr,
+                        ),
                         onTap: () => showLicensePage(context: context),
                       ),
                     ],

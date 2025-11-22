@@ -238,7 +238,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         .toList();
     Widget documentButton = ElevatedButton.icon(
       label: Text(AppLocalizations.of(context).document),
-      icon: const PhosphorIcon(PhosphorIconsLight.file),
+      icon: const PhosphorIcon(
+        PhosphorIconsLight.file,
+        textDirection: TextDirection.ltr,
+      ),
       onPressed: documentAreas.isEmpty
           ? null
           : () {

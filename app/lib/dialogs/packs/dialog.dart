@@ -302,7 +302,10 @@ class __PacksListState extends State<_PacksList> {
                     },
                   ),
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    leadingIcon: const PhosphorIcon(
+                      PhosphorIconsLight.file,
+                      textDirection: TextDirection.ltr,
+                    ),
                     child: Text(AppLocalizations.of(context).rawFile),
                     onPressed: () async {
                       await _exportPack(pack, isTextBased: true);

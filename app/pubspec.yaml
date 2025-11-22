@@ -62,7 +62,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d5e4559d7ebde73fd35ee8dded0ae70289535334
+      ref: 288a37b7f6b9cc59cabf8aa052d9a74a36e5f633
       path: packages/material_leap
   lw_sysapi:
     git:

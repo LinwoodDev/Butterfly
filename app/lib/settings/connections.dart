@@ -563,6 +563,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ).documentsDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.file,
+                                      textDirection: TextDirection.ltr,
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
@@ -585,6 +586,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ).templatesDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.fileDashed,
+                                      textDirection: TextDirection.ltr,
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {

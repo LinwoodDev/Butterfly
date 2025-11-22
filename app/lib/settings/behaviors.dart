@@ -203,7 +203,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   StartupBehavior.openLastNote =>
                     PhosphorIconsLight.arrowCounterClockwise,
                   StartupBehavior.openNewNote => PhosphorIconsLight.file,
-                }),
+                }, textDirection: TextDirection.ltr),
                 selected: currentStartup == e,
                 onTap: () => changeStartup(e),
               ),

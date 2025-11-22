@@ -225,6 +225,7 @@ class _PageEntityListTile extends StatelessWidget {
         entity.isFile
             ? PhosphorIconsLight.file
             : PhosphorIconsLight.folderSimple,
+        textDirection: TextDirection.ltr,
       ),
       textFormatter: (v) =>
           v.isEmpty ? AppLocalizations.of(context).untitled : v,

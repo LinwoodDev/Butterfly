@@ -292,7 +292,10 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 });
                 _regeneratePreviewImage();
               },
-              icon: const PhosphorIcon(PhosphorIconsLight.file),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.file,
+                textDirection: TextDirection.ltr,
+              ),
               tooltip: AppLocalizations.of(context).page,
               selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
               isSelected: _preset == ExportTransformPreset.page,

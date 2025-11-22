@@ -187,6 +187,7 @@ class _AddDialogState extends State<AddDialog> {
           child: PhosphorIcon(
             handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
             color: color,
+            textDirection: TextDirection.ltr,
           ),
         ),
         trailing: tool.isAction()
@@ -297,10 +298,12 @@ class _AddDialogState extends State<AddDialog> {
                               tooltip: AppLocalizations.of(context).pin,
                               icon: const PhosphorIcon(
                                 PhosphorIconsLight.pushPin,
+                                textDirection: TextDirection.ltr,
                               ),
                             ),
                             icon: PhosphorIcon(
                               e.icon(PhosphorIconsStyle.light),
+                              textDirection: TextDirection.ltr,
                             ),
                             onTap: () async {
                               final bloc = context.read<DocumentBloc>();

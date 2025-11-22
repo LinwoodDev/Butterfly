@@ -57,11 +57,17 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
                 onTap: (_) => setState(() {}),
                 tabs: [
                   HorizontalTab(
-                    icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                    icon: const PhosphorIcon(
+                      PhosphorIconsLight.gear,
+                      textDirection: TextDirection.ltr,
+                    ),
                     label: Text(AppLocalizations.of(context).general),
                   ),
                   HorizontalTab(
-                    icon: const PhosphorIcon(PhosphorIconsLight.files),
+                    icon: const PhosphorIcon(
+                      PhosphorIconsLight.files,
+                      textDirection: TextDirection.ltr,
+                    ),
                     label: Text(AppLocalizations.of(context).caches),
                   ),
                 ],

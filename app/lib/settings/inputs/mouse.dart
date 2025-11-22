@@ -85,6 +85,7 @@ class MouseInputSettings extends StatelessWidget {
                             defaultValue: InputMappingDefault.leftMouse,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.mouseLeftClick,
+                              textDirection: TextDirection.ltr,
                             ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -99,6 +100,7 @@ class MouseInputSettings extends StatelessWidget {
                             defaultValue: InputMappingDefault.middleMouse,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.mouseMiddleClick,
+                              textDirection: TextDirection.ltr,
                             ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -113,6 +115,7 @@ class MouseInputSettings extends StatelessWidget {
                             defaultValue: InputMappingDefault.rightMouse,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.mouseRightClick,
+                              textDirection: TextDirection.ltr,
                             ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();

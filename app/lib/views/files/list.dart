@@ -197,6 +197,7 @@ class FileEntityListTile extends StatelessWidget {
                                           },
                                           icon: const PhosphorIcon(
                                             PhosphorIconsLight.check,
+                                            textDirection: TextDirection.ltr,
                                           ),
                                           tooltip: AppLocalizations.of(
                                             context,
@@ -273,6 +274,7 @@ class FileEntityListTile extends StatelessWidget {
                                   return IconButton(
                                     icon: PhosphorIcon(
                                       currentStatus.getIcon(),
+                                      textDirection: TextDirection.ltr,
                                       color: currentStatus.getColor(
                                         ColorScheme.of(context),
                                       ),
