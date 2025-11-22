@@ -35,7 +35,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   @override
   void initState() {
     super.initState();
-    _packSystem = context.read<PackFileSystem>();
+    _packSystem = context.read<ButterflyFileSystem>().buildPackSystem();
     _componentsFuture = _getComponents();
   }
 
@@ -46,7 +46,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
       final pack = file.data!;
       final components = pack
           .getNamedComponents()
-          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
+          .map((e) => e.toPack(pack, pack.getMetadata()?.name ?? ''))
           .nonNulls
           .toList();
       packComponents.addAll(components);
@@ -73,11 +73,15 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
             .where((e) => e.namespace == pack)
             .toList();
         final value = widget.component;
+        if (allComponents.isEmpty) {
+          return Center(child: Text(AppLocalizations.of(context).noElements));
+        }
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (value != null) ...[
+            if (value != null &&
+                !components.map((e) => e.toNamed()).contains(value)) ...[
               _ComponentsButton(
                 onChanged: () {},
                 value: value.item,
@@ -118,7 +122,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                     .map(
                       (e) => RadioMenuButton(
                         value: e,
-                        groupValue: currentPack,
+                        groupValue: pack,
                         onChanged: (value) =>
                             setState(() => currentPack = value ?? e),
                         child: Text(e),
@@ -154,22 +158,23 @@ class _ComponentsButton extends StatelessWidget {
       child: PhosphorIcon(PhosphorIconsLight.selection),
     );
     final thumbnail = value.thumbnail;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: onChanged,
-        child: Tooltip(
-          message: name,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: selected
-                    ? ColorScheme.of(context).primary
-                    : Colors.transparent,
-                width: 4,
-              ),
-            ),
+    return Tooltip(
+      message: name,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selected
+                ? ColorScheme.of(context).primary
+                : Colors.transparent,
+            width: 4,
+          ),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onChanged,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: thumbnail == null
                 ? fallbackWidget
                 : Image.memory(

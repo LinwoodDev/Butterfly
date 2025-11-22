@@ -39,7 +39,7 @@ class _ComponentsViewState extends State<ComponentsView> {
       final pack = file.data!;
       final components = pack
           .getNamedComponents()
-          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
+          .map((e) => e.toPack(pack, pack.getMetadata()?.name ?? ''))
           .nonNulls
           .toList();
       packComponents.addAll(components);
@@ -119,6 +119,8 @@ class _ComponentsViewState extends State<ComponentsView> {
                               .changeTemporaryHandler(
                                 context,
                                 StampTool(component: named),
+                                temporaryState:
+                                    TemporaryState.removeAfterRelease,
                               ),
                         );
                       }).toList(),
