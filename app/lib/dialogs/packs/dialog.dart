@@ -269,7 +269,7 @@ class __PacksListState extends State<_PacksList> {
         final metadata =
             pack.getMetadata() ?? DocumentDefaults.createMetadata();
         return Dismissible(
-          key: ValueKey(('globalpack', metadata.name)),
+          key: ValueKey(('globalpack', file.path)),
           onDismissed: (direction) async {
             await _packSystem.deleteFile(file.path);
             if (!mounted) return;

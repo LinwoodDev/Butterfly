@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.0 (2025-11-20)
+
+* Improve memory usage on closing documents
+* Ignore invisible layers on export
+* Enlarge buttons in the Add dialog
+* Fix page rect does not consider whole content
+* Fix png not loading after importing
+* Fix png not updating after doing operations like flip or invert
+* Fix buttons on stylus not working correctly on some devices ([#968](https://github.com/LinwoodDev/Butterfly/issues/968))
+* Fix right to left layout issues in appbar causing menu not to open and window buttons reverse order
+* Fix renaming, duplicating and moving on native and running on deep directories
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
+
 ## 2.4.1 (2025-11-13)
 
 No changes compared to version 2.4.1.

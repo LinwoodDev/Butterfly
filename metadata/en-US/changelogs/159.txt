@@ -1,0 +1,6 @@
+* Improve performance of webdav operations
+* Fix stamp handler toolbar not working correctly
+* Fix temporary tool from components navigator not being removed after releasing
+* Fix full file name shown in components view and add to pack dialog
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
