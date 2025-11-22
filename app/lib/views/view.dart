@@ -508,8 +508,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
         _positionAnimation = Tween<Offset>(
           begin:
-              friction.beginPosition -
-              (_positionAnimation?.value ?? Offset.zero),
+              friction.beginOffset - (_positionAnimation?.value ?? Offset.zero),
           end: Offset.zero,
         ).animate(_animationController);
         final lastDuration = _animationController.duration?.inMilliseconds ?? 0;

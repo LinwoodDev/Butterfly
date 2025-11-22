@@ -1,4 +1,5 @@
 * Improve performance of webdav operations
+* Fix smooth navigation ([#978](https://github.com/LinwoodDev/Butterfly/issues/978))
 * Fix stamp handler toolbar not working correctly
 * Fix temporary tool from components navigator not being removed after releasing
 * Fix full file name shown in components view and add to pack dialog

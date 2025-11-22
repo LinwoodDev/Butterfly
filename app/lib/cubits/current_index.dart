@@ -881,34 +881,28 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     var size = viewportSize ?? state.cameraViewport.toSize();
 
     var transform = state.transformCubit.state;
-    final resolution = state.settingsCubit.state.renderResolution;
 
     final friction = transform.friction;
     final realWidth = size.width / transform.size;
     final realHeight = size.height / transform.size;
-    var rect = Rect.fromLTWH(
+    if (friction != null) {
+      final beginPosition = transform.position - friction.beginOffset;
+      final topLeft = Offset(
+        min(transform.position.dx, beginPosition.dx),
+        min(transform.position.dy, beginPosition.dy),
+      );
+      final frictionSize = Size(
+        realWidth + friction.beginOffset.dx.abs(),
+        realHeight + friction.beginOffset.dy.abs(),
+      );
+      return topLeft & frictionSize;
+    }
+    return Rect.fromLTWH(
       transform.position.dx,
       transform.position.dy,
-      realWidth / resolution.multiplier,
-      realHeight / resolution.multiplier,
+      realWidth,
+      realHeight,
     );
-    if (friction != null) {
-      final topLeft = Offset(
-        min(transform.position.dx, friction.beginPosition.dx),
-        min(transform.position.dy, friction.beginPosition.dy),
-      );
-      final bottomRight = Offset(
-        max(transform.position.dx, friction.beginPosition.dx),
-        max(transform.position.dy, friction.beginPosition.dy),
-      ).translate(size.width, size.height);
-      transform = transform.withPosition(topLeft);
-      rect = Rect.fromPoints(topLeft, bottomRight);
-      size =
-          Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
-          transform.size;
-    }
-    rect = resolution.getRect(rect);
-    return rect;
   }
 
   bool _isBaking = false;
@@ -959,8 +953,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
-    final imageWidth = (size.width * ratio).ceil();
-    final imageHeight = (size.height * ratio).ceil();
+    final imageWidth = (rect.width * renderTransform.size * ratio).ceil();
+    final imageHeight = (rect.height * renderTransform.size * ratio).ceil();
     var allRendererStates = state.allRendererStates;
     final rendererStatesChanged = !mapEquals(
       allRendererStates,
@@ -1149,8 +1143,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(
       state.copyWith(
         cameraViewport: cameraViewport.bake(
-          height: size.height.ceil(),
-          width: size.width.ceil(),
+          height: imageHeight,
+          width: imageWidth,
           pixelRatio: ratio,
           resolution: resolution,
           scale: transform.size,
@@ -1597,6 +1591,30 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.transformCubit.zoom(delta, cursor);
   }
 
+  void slide(
+    Offset positionVelocity,
+    double sizeVelocity, [
+    bool force = false,
+  ]) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    final utilitiesState = state.utilities;
+    if (utilitiesState.lockHorizontal && !force) {
+      positionVelocity = Offset(0, positionVelocity.dy);
+    }
+    if (utilitiesState.lockVertical && !force) {
+      positionVelocity = Offset(positionVelocity.dx, 0);
+    }
+    if (utilitiesState.lockZoom && !force) {
+      sizeVelocity = 0;
+    }
+    if (positionVelocity.dx == 0 &&
+        positionVelocity.dy == 0 &&
+        sizeVelocity == 0) {
+      return;
+    }
+    state.transformCubit.slide(positionVelocity, sizeVelocity);
+  }
+
   void toggleKeyboardHideUI() => emit(
     state.copyWith(
       hideUi: state.hideUi == HideState.visible
@@ -1770,11 +1788,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.hasAutosave()) {
       save(bloc, isAutosave: true);
     }
-  }
-
-  void slide(ui.Offset positionVelocity, double scaleVelocity) {
-    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
-    state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
 
   void setAreaNavigatorCreate(bool value) =>

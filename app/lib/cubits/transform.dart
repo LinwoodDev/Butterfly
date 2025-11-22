@@ -15,20 +15,20 @@ const kDrag = 0.0625;
 
 @immutable
 class FrictionState extends Equatable {
-  final Offset beginPosition;
+  final Offset beginOffset;
   final double beginSize;
   final DateTime lastUpdate;
   final double duration;
 
   const FrictionState(
-    this.beginPosition,
+    this.beginOffset,
     this.beginSize,
     this.lastUpdate,
     this.duration,
   );
 
   @override
-  List<Object?> get props => [beginPosition, beginSize, lastUpdate];
+  List<Object?> get props => [beginOffset, beginSize, lastUpdate];
 }
 
 @immutable
