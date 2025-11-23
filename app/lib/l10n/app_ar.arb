@@ -197,7 +197,7 @@
   "currentArea": "المنطقة الحالي",
   "design": "تصميم",
   "text": "نص",
-  "welcome": "مرحبا، هذه لينوود باترفلاي  {codeName}",
+  "welcome": "مرحباً، هذه Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
@@ -290,7 +290,7 @@
   "icon": "أيقونة",
   "update": "تحديث",
   "updateAvailable": "التحديث متاح",
-  "stable": "اسطبل",
+  "stable": "الإصدار المستقر",
   "nightly": "الإصدار الليلي",
   "checkForUpdates": "تحقق من التحديثات",
   "checkForUpdatesWarning": "التحقق من التحديثات يتصل بموقع Butterfly للحصول على المعلومات.",
