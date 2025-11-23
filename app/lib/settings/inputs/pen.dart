@@ -180,6 +180,7 @@ class PenInputSettings extends StatelessWidget {
                             defaultValue: InputMappingDefault.firstPenButton,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.numberCircleOne,
+                              textDirection: TextDirection.ltr,
                             ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -194,6 +195,7 @@ class PenInputSettings extends StatelessWidget {
                             defaultValue: InputMappingDefault.secondPenButton,
                             icon: const PhosphorIcon(
                               PhosphorIconsLight.numberCircleTwo,
+                              textDirection: TextDirection.ltr,
                             ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();

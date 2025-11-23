@@ -1,5 +1,8 @@
 {
   "open": "Open",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Settings",
   "personalization": "Personalization",
   "theme": "Theme",
@@ -7,10 +10,22 @@
   "lightTheme": "Light theme",
   "systemTheme": "Use default system theme",
   "view": "View",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Edit",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Export",
   "save": "Save",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zoom",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "Pen",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Inverted Pen",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Path eraser",
   "label": "Label",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Delete",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Are you sure?",
   "reallyDelete": "Do you really want to delete this item?",
   "no": "No",
   "yes": "Yes",
   "undo": "Undo",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Redo",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "General",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Copied to clipboard",
   "loading": "Loading...",
   "enterText": "Enter the text",
   "size": "Size",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Height",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Count",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Space",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Background",
   "box": "Box",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Locale",
   "systemLocale": "System locale",
   "information": "Information",
@@ -53,19 +107,34 @@
   "existOverride": "This element already exist. Overwrite?",
   "description": "Description",
   "fill": "Fill",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Default palette",
   "highlighter": "Highlighter",
   "add": "Add",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Remove",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Do you really want to remove this?",
   "resetPalette": "Reset palette",
   "custom": "Custom",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Decoration",
   "underline": "Underline",
   "overline": "Overline",
   "strikethrough": "Strikethrough",
   "thickness": "Thickness",
   "style": "Style",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Double",
   "dotted": "Dotted",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Clipboard",
   "file": "File",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Data",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Share",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Spacing",
   "image": "Image",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Enter the url",
   "scale": "Scale",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Help",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Do you really want to reset it?",
   "whatToDo": "What do you want to do?",
   "ignore": "Ignore",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Backup",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Waypoints",
   "origin": "Origin",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Import",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "New",
   "selectElement": "Select element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Copy version",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Behaviors",
   "dataDirectory": "Data directory",
   "defaultPath": "Default path",
@@ -138,16 +240,40 @@
   "rename": "Rename",
   "duplicate": "Duplicate",
   "hand": "Hand",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Folder",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Move",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Copy",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Back",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zoom dependent",
   "shapeDetection": "Shape Detection",
   "delay": "Delay",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Default layer",
   "layer": "Layer",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Layers",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Not set",
   "enterLayer": "Enter the layer name",
   "selectElements": "Select elements",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
   "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Sensitivity",
   "sensitivityHint": "The higher the value, the more sensitive the input",
   "horizontal": "Horizontal",
   "vertical": "Vertical",
   "plain": "Plain",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Light",
   "ruled": "Ruled",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Quad",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Music",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Dark",
   "plainDark": "Dark",
   "ruledDark": "Ruled dark",
@@ -174,29 +315,56 @@
   "createTemplate": "Create template",
   "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
   "replace": "Replace",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
   "defaultTemplate": "Default template",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Document",
   "camera": "Camera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Printout",
   "selectCamera": "Select a camera",
   "changeDocumentPath": "Change document path",
   "deleteWholeStroke": "Delete whole stroke",
   "alpha": "Alpha",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Area",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Select an area",
   "aspectRatio": "Aspect ratio",
   "presets": "Presets",
   "pagePortrait": "Page portrait",
   "pageLandscape": "Page landscape",
   "square": "Square",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Areas",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Enter the area",
   "exitArea": "Exit the area",
   "currentArea": "Current area",
   "design": "Design",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hey, this is Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fixed",
   "dynamicContent": "Dynamic",
   "none": "None",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Include area",
   "verticalAlignment": "Vertical alignment",
   "horizontalAlignment": "Horizontal alignment",
   "top": "Top",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Center",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Bottom",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Left",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Right",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Justify",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Constraint",
   "length": "Length",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Export SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Select pages",
   "recentFiles": "Recent files",
   "start": "Start",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "No recent files",
   "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Exit",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "No elements",
   "invertSelection": "Invert selection",
   "errorWhileImporting": "Error while importing",
@@ -268,14 +469,23 @@
   "error": "Error",
   "stackTrace": "Stack trace",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Duration",
   "quality": "Quality",
   "exportPdf": "Export PDF",
   "local": "Local",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Add connection",
   "connections": "Connections",
   "noConnections": "No connections",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Connect",
   "username": "Username",
   "password": "Password",
@@ -288,10 +498,22 @@
   "cannotConnect": "Cannot connect",
   "urlNotValid": "URL not valid",
   "icon": "Icon",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Update",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Update available",
   "stable": "Stable",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nightly",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Check for updates",
   "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
   "usingLatestStable": "You are using the latest stable version",
@@ -299,10 +521,25 @@
   "currentVersion": "Current version",
   "updateNow": "Update now",
   "shape": "Shape",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Circle",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rectangle",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Triangle",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Line",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Top left",
   "topRight": "Top right",
@@ -310,6 +547,9 @@
   "bottomRight": "Bottom right",
   "caches": "Caches",
   "manage": "Manage",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Clear caches",
   "createCache": "Create cache",
   "thirdPartyLicenses": "Third party licenses",
@@ -317,6 +557,9 @@
   "synced": "Synced",
   "notSynced": "Not synced",
   "conflict": "Conflict",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Keep local",
   "keepConnection": "Keep connection",
   "keepBoth": "Keep both",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Local latest",
   "connectionLatest": "Connection latest",
   "path": "Path",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
@@ -346,19 +595,55 @@
   "syncMode": "Sync mode",
   "connection": "Connection",
   "always": "Always",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "No mobile",
   "manual": "Manual",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Search",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Properties",
   "pin": "Pin",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Painter",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Position",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Note",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Packs",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Pack",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "More",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Ask for name",
   "areaIndex": "Area {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Start in full screen",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Mouse",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Touch",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Shortcuts",
   "middle": "Middle",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "First",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Second",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Active Tool",
   "activeToolDescription": "Use the currently selected tool on the toolbar",
   "handTool": "Hand Tool",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Tools",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Show grid",
   "grid": "Grid",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Ruler",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Angle",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Report",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "New folder",
   "createPack": "Create pack",
   "editPack": "Edit pack",
   "packsDirectory": "Packs directory",
   "stamp": "Stamp",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Add to pack",
   "sureImportPack": "Are you sure you want to import the pack?",
   "byAuthor": "by {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Add asset",
   "editAsset": "Edit asset",
   "scope": "Scope",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "There are currently no packs available",
   "components": "Components",
   "waypoint": "Waypoint",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Paragraph",
   "fontFamily": "Font family",
   "smoothing": "Smoothing",
@@ -449,9 +779,21 @@
   "unknownImportType": "Unknown import type",
   "sureImportTemplate": "Are you sure you want to import the template?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Play",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Breakpoint",
   "presentationControls": "Presentation controls",
   "nextSlide": "Next slide",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Code",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Quote",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Checkbox",
   "deleted": "Deleted",
   "emphasis": "Emphasis",
   "listBullet": "List bullet",
   "strong": "Strong",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Home",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Files",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sort by",
   "location": "Location",
   "whatsNew": "What's new?",
@@ -493,12 +853,21 @@
   "star": "Star",
   "goUp": "Go up",
   "created": "Created",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Modified",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Quickstart",
   "noTemplates": "There are currently no templates available",
   "importCorePack": "Import core pack",
   "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack.",
   "never": "Never",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Only on updates",
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Choose label mode",
   "foreground": "Foreground",
   "version": "Version",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repository",
   "pages": "Pages",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Arrange",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Bring to front",
   "sendToBack": "Send to back",
   "bringForward": "Bring forward",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Only available on larger screens",
   "toolbarPosition": "Toolbar position",
   "rotate": "Rotate",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Spacer",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigation rail",
   "cut": "Cut",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Insert before",
   "insertAfter": "Insert after",
   "insertFirst": "Insert first",
   "insertLast": "Insert last",
   "paste": "Paste",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Ascending",
   "descending": "Descending",
   "imageScale": "Image scale",
   "select": "Select",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Tool",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Texture",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Platform theme",
   "desktop": "Desktop",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobile",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF quality",
   "surface": "Surface",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Pattern",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Are you sure you want to close the document?",
   "thereAreUnsavedChanges": "There are unsaved changes",
   "page": "Page",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE Servers",
   "collaboration": "Collaboration",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE Server",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Type",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Side",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Client",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Switch View",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Hide UI",
   "density": "Density",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Compact",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Comfortable",
   "standard": "Standard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Lock",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Add element",
   "notDefaultConnection": "Not default connection",
   "defaultConnection": "Default connection",
   "hide": "Hide",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Show",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pause",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Stop",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Refresh",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Print",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Eye dropper",
   "users": "Users",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experiments",
   "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Address",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Spread to pages",
   "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
   "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type.",
@@ -594,25 +1065,49 @@
   "createAreas": "Create areas",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operations",
   "medium": "Medium",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Large",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Toolbar size",
   "addAll": "Add all",
   "onlyCurrentPage": "Only current page",
   "smoothNavigation": "Smooth navigation",
   "exact": "Exact",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Inline",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Toolbar rows",
   "pointerTest": "Pointer test",
   "pressure": "Pressure",
   "small": "Small",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Tiny",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Select all",
   "overrideTools": "Override tools",
   "hideCursorWhileDrawing": "Hide cursor while drawing",
   "installed": "Installed",
   "install": "Install",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Deselect",
   "changeCollection": "Change collection",
   "collections": "Collections",
@@ -621,15 +1116,30 @@
   "collection": "Collection",
   "defaultCollection": "Default collection",
   "scroll": "Scroll",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "On startup",
   "homeScreen": "Home screen",
   "lastNote": "Last note",
   "newNote": "New note",
   "convertToLayer": "Convert to layer",
   "merge": "Merge",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Up",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Down",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Other",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Render resolution",
   "translate": "Translate",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Unencrypted",
   "encrypted": "Encrypted",
   "encryptDocumentMessage": "Click to encrypt the document",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Confirm password",
   "passwordMismatch": "The passwords do not match",
   "action": "Action",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG Text",
   "offset": "Offset",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Position dependent",
   "flipHorizontal": "Flip horizontal",
   "flipVertical": "Flip vertical",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Restore settings from file",
   "exportSettingsToFile": "Export settings to file",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Barcode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Move right",
   "bundledPacks": "Bundled packs",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Select component",
   "bundlePackInDocument": "Bundle pack in document",
   "bundledPacksDescription": "Bundled packs are included in the document and only be used to share with the document. Assets can only be used in the document if the pack is installed. Packs can be installed with clicking on them.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Your messages are routed through a secure relay server with end-to-end encryption. A swamp server address is required to create a session.",
   "createRawNote": "Create raw note",
   "polygon": "Polygon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Finish shape",
   "submit": "Submit",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
