@@ -507,7 +507,14 @@ $PadElementCopyWith<PadElement> get copyWith => _$PadElementCopyWithImpl<PadElem
   Map<String, dynamic> toJson();
 
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PadElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.extra, extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,const DeepCollectionEquality().hash(extra));
 
 @override
 String toString() {
@@ -595,7 +602,14 @@ Map<String, dynamic> toJson() {
   return _$PenElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PenElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.zoom, zoom) || other.zoom == zoom)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,zoom,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -682,7 +696,14 @@ Map<String, dynamic> toJson() {
   return _$TextElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.area, area) || other.area == area)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,scale,styleSheet,area,constraint,foreground,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -803,7 +824,14 @@ Map<String, dynamic> toJson() {
   return _$MarkdownElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MarkdownElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.styleSheet, styleSheet) || other.styleSheet == styleSheet)&&(identical(other.areaProperty, areaProperty) || other.areaProperty == areaProperty)&&(identical(other.text, text) || other.text == text)&&(identical(other.constraint, constraint) || other.constraint == constraint)&&(identical(other.foreground, foreground) || other.foreground == foreground)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,scale,styleSheet,areaProperty,text,constraint,foreground,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -923,7 +951,14 @@ Map<String, dynamic> toJson() {
   return _$ImageElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -1026,7 +1061,14 @@ Map<String, dynamic> toJson() {
   return _$PdfElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PdfElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.page, page) || other.page == page)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.invert, invert) || other.invert == invert)&&(identical(other.background, background) || other.background == background)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,page,width,height,invert,background,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -1129,7 +1171,14 @@ Map<String, dynamic> toJson() {
   return _$SvgElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.constraints, constraints) || other.constraints == constraints)&&(identical(other.source, source) || other.source == source)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,position,constraints,source,width,height,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -1227,7 +1276,14 @@ Map<String, dynamic> toJson() {
   return _$ShapeElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other.property, property)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,firstPosition,secondPosition,const DeepCollectionEquality().hash(property),const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -1311,7 +1367,14 @@ Map<String, dynamic> toJson() {
   return _$TextureElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&(identical(other.texture, texture) || other.texture == texture)&&(identical(other.firstPosition, firstPosition) || other.firstPosition == firstPosition)&&(identical(other.secondPosition, secondPosition) || other.secondPosition == secondPosition)&&const DeepCollectionEquality().equals(other._extra, _extra));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,texture,firstPosition,secondPosition,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
@@ -1409,7 +1472,14 @@ Map<String, dynamic> toJson() {
   return _$PolygonElementToJson(this, );
 }
 
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PolygonElement&&(identical(other.rotation, rotation) || other.rotation == rotation)&&(identical(other.collection, collection) || other.collection == collection)&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._points, _points)&&const DeepCollectionEquality().equals(other._extra, _extra)&&const DeepCollectionEquality().equals(other.property, property));
+}
 
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,rotation,collection,id,const DeepCollectionEquality().hash(_points),const DeepCollectionEquality().hash(_extra),const DeepCollectionEquality().hash(property));
 
 @override
 String toString() {

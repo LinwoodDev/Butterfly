@@ -157,10 +157,16 @@ class _EditableListTileState extends State<EditableListTile> {
                             _controller.text;
                         return Tooltip(
                           message: text,
-                          child: Text(
-                            text,
-                            style: currentStyle,
-                            overflow: TextOverflow.ellipsis,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                text,
+                                style: currentStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         );
                       },
