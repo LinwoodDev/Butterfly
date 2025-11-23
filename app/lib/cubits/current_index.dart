@@ -892,8 +892,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         min(transform.position.dy, beginPosition.dy),
       );
       final frictionSize = Size(
-        realWidth + friction.beginOffset.dx.abs(),
-        realHeight + friction.beginOffset.dy.abs(),
+        realWidth + (friction.beginOffset.dx * transform.size).abs(),
+        realHeight + (friction.beginOffset.dy * transform.size).abs(),
       );
       return topLeft & frictionSize;
     }
@@ -949,12 +949,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final rect = getViewportRect(viewportSize: size);
+    size = rect.size * transform.size;
     final renderTransform = transform.improve(resolution, rect);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
-    final imageWidth = (rect.width * renderTransform.size * ratio).ceil();
-    final imageHeight = (rect.height * renderTransform.size * ratio).ceil();
+    final imageWidth = (size.width * ratio).ceil();
+    final imageHeight = (size.height * ratio).ceil();
     var allRendererStates = state.allRendererStates;
     final rendererStatesChanged = !mapEquals(
       allRendererStates,
