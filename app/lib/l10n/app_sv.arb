@@ -1,5 +1,8 @@
 {
   "open": "Öppna",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Inställningar",
   "personalization": "Personalisering",
   "theme": "Tema",
@@ -7,10 +10,22 @@
   "lightTheme": "Ljust tema",
   "systemTheme": "Använd standard systemtema",
   "view": "Visa",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Redigera",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportera",
   "save": "Spara",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zooma",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Zooma in",
   "zoomOut": "Zooma ut",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Inkludera suddgummi?",
   "thinning": "Gallring",
   "pen": "Penna",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Inverterad penna",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Radering av sökväg",
   "label": "Etikett",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Radera",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Är du säker?",
   "reallyDelete": "Vill du verkligen ta bort detta objekt?",
   "no": "Nej",
   "yes": "Ja",
   "undo": "Ångra",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Gör om",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Allmänt",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Kopierad till urklipp",
   "loading": "Laddar...",
   "enterText": "Ange texten",
   "size": "Storlek",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Höjd",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Antal",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Mellanslag",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Bakgrund",
   "box": "Låda",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Lokalt",
   "systemLocale": "Systemets språk",
   "information": "Information",
@@ -53,19 +107,34 @@
   "existOverride": "Detta element finns redan. Skriv över?",
   "description": "Beskrivning",
   "fill": "Fyll",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Standard palett",
   "highlighter": "Highlighter",
   "add": "Lägg till",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Radera",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Vill du verkligen ta bort detta?",
   "resetPalette": "Reset palette",
   "custom": "Anpassad",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekoration",
   "underline": "Understruken",
   "overline": "Overline",
   "strikethrough": "Genomstruken",
   "thickness": "Tjocklek",
   "style": "Stil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Dubbel",
   "dotted": "Prickad",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Urklipp",
   "file": "Fil",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Data",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Dela",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Avstånd",
   "image": "Bild",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Ange webbadressen",
   "scale": "Skala",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Hjälp",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Vill du verkligen återställa den?",
   "whatToDo": "Vad vill du göra?",
   "ignore": "Ignorera",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Säkerhetskopiera",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Filen {fileName} skapades i en nyare version ({fileVersion}). Vad bör göras med den här filen?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Vägpunkter",
   "origin": "Ursprung",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importera",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Ny",
   "selectElement": "Välj element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Kopiera version",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Beteenden",
   "dataDirectory": "Datakatalog",
   "defaultPath": "Standard sökväg",
@@ -138,16 +240,40 @@
   "rename": "Döp om",
   "duplicate": "Duplicate",
   "hand": "Hand",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Mapp",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Flytta",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopiera",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Tillbaka",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zooma beroende",
   "shapeDetection": "Form detektion",
   "delay": "Fördröjning",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Förvalt lager",
   "layer": "Lager",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Lager",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Ej inställd",
   "enterLayer": "Ange lagrets namn",
   "selectElements": "Välj element",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Vill du verkligen ta bort de markerade elementen?",
   "selectCustomCollection": "Välj en anpassad samling",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Känslighet",
   "sensitivityHint": "Ju högre värde, desto känsligare är inmatningen",
   "horizontal": "Horisontell",
   "vertical": "Vertikal",
   "plain": "Oformaterad",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Ljus",
   "ruled": "Reglerad",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Fyrtal",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Musik",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Mörk",
   "plainDark": "Mörk",
   "ruledDark": "Reglerat mörkt",
@@ -174,29 +315,56 @@
   "createTemplate": "Skapa mall",
   "createTemplateContent": "Vill du verkligen skapa en mall från detta dokument? Det ursprungliga dokumentet kommer att raderas.",
   "replace": "Ersätt",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Vill du verkligen ersätta mallen? Den här åtgärden kan inte ångras!",
   "defaultTemplate": "Standard mall",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Utskrift",
   "selectCamera": "Välj en kamera",
   "changeDocumentPath": "Ändra dokumentets sökväg",
   "deleteWholeStroke": "Ta bort hela slaget",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Område",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Välj ett område",
   "aspectRatio": "Bildförhållande",
   "presets": "Förval",
   "pagePortrait": "Porträtt av sida",
   "pageLandscape": "Sidans landskap",
   "square": "Kvadrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Områden",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Ange området",
   "exitArea": "Avsluta området",
   "currentArea": "Nuvarande område",
   "design": "Design",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hej, detta är Linwood fjäril {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fast",
   "dynamicContent": "Dynamisk",
   "none": "Ingen",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Inkludera område",
   "verticalAlignment": "Vertikal justering",
   "horizontalAlignment": "Horisontell justering",
   "top": "Överst",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Centrera",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Botten",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Vänster",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Höger",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Justera",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Begränsa",
   "length": "Längd",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Exportera SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Välj sidor",
   "recentFiles": "Senaste filer",
   "start": "Starta",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Inga nya filer",
   "countPages": "{count,plural, =0{Inga sidor} =1{1 sida} other{{count} sidor}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Avsluta",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Inga element",
   "invertSelection": "Invertera markering",
   "errorWhileImporting": "Fel vid import",
@@ -268,14 +469,23 @@
   "error": "Fel",
   "stackTrace": "Stack spår",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Varaktighet",
   "quality": "Kvalitet",
   "exportPdf": "Exportera PDF",
   "local": "Lokal",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Lägg till kontakt",
   "connections": "Anslutningar",
   "noConnections": "Inga kontakter",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Anslut",
   "username": "Användarnamn",
   "password": "Lösenord",
@@ -288,10 +498,22 @@
   "cannotConnect": "Kan inte ansluta",
   "urlNotValid": "URL är inte giltig",
   "icon": "Ikon",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Uppdatera",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Uppdatering tillgänglig",
   "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nattlig",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Sök efter uppdateringar",
   "checkForUpdatesWarning": "Utföra en sökning efter uppdateringar kommer att ansluta till fjärilens webbplats för att få informationen.",
   "usingLatestStable": "Du använder den senaste stabila versionen",
@@ -299,10 +521,25 @@
   "currentVersion": "Nuvarande version",
   "updateNow": "Uppdatera nu",
   "shape": "Form",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Cirkel",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rektangel",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Triangel",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linje",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Överst till vänster",
   "topRight": "Överst till höger",
@@ -310,6 +547,9 @@
   "bottomRight": "Nere till höger",
   "caches": "Cacher",
   "manage": "Hantera",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Rensa cacher",
   "createCache": "Skapa cache",
   "thirdPartyLicenses": "Tredje parts licenser",
@@ -317,6 +557,9 @@
   "synced": "Synkroniserad",
   "notSynced": "Inte synkroniserad",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Behåll lokal",
   "keepConnection": "Behåll kontakt",
   "keepBoth": "Behåll båda",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Lokalt senaste",
   "connectionLatest": "Anslutning senaste",
   "path": "Sökväg",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Mappen synkroniserad",
   "syncRootDirectory": "Synkronisera rotkatalog",
   "penOnlyInput": "Endast penna inmatning",
@@ -346,19 +595,55 @@
   "syncMode": "Synkronisera läge",
   "connection": "Anslutning",
   "always": "Alltid",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Ingen mobil",
   "manual": "Manuell",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Sök",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Egenskaper",
   "pin": "Fäst",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Målare",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Befattning",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Anteckning",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Paket",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Paket",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Mer",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Fråga efter namn",
   "areaIndex": "Område {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Starta i helskärm",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Mus",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Tryck",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Genvägar",
   "middle": "Mitten",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Första",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Sekund",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktivt verktyg",
   "activeToolDescription": "Använd det valda verktyget i verktygsfältet",
   "handTool": "Handverktyg",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Verktyg",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Visa rutnät",
   "grid": "Rutnät",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Linjal",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Vinkel",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Rapportera",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Ny mapp",
   "createPack": "Skapa paket",
   "editPack": "Redigera paket",
   "packsDirectory": "Paketkatalog",
   "stamp": "Stämpel",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Lägg till i paket",
   "sureImportPack": "Är du säker du vill importera paketet?",
   "byAuthor": "av {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Lägg till tillgång",
   "editAsset": "Redigera tillgång",
   "scope": "Omfattning",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Det finns för närvarande inga paket tillgängliga",
   "components": "Komponenter",
   "waypoint": "Waypoint",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Punkt",
   "fontFamily": "Typsnitt familj",
   "smoothing": "Utjämning",
@@ -449,9 +779,21 @@
   "unknownImportType": "Okänd importtyp",
   "sureImportTemplate": "Är du säker på att du vill importera mallen?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Spela",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Brytpunkt",
   "presentationControls": "Presentationskontroller",
   "nextSlide": "Nästa bild",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kod",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Offert",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Länk",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Kryssruta",
   "deleted": "Borttagen",
   "emphasis": "Tonvikt",
   "listBullet": "Lista punkt",
   "strong": "Stark",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Hem",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Filer",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sortera efter",
   "location": "Plats",
   "whatsNew": "Vad är nytt?",
@@ -493,12 +853,21 @@
   "star": "Stjärna",
   "goUp": "Gå upp",
   "created": "Skapad",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Ändrad",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Snabbstart",
   "noTemplates": "Det finns för närvarande inga tillgängliga mallar",
   "importCorePack": "Importera kärnpaket",
   "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet.",
   "never": "Aldrig",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Endast på uppdateringar",
   "visibility": "Synlighet",
   "captureThumbnail": "Fånga miniatyrbild",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Välj etikettläge",
   "foreground": "Förgrund",
   "version": "Version",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Utveckling",
   "pages": "Sidor",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Ordna",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Ta fram",
   "sendToBack": "Skicka till baksidan",
   "bringForward": "Ta fram",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
   "rotate": "Rotera",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Mellanslag",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigeringsräls",
   "cut": "Klipp",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Infoga före",
   "insertAfter": "Infoga efter",
   "insertFirst": "Infoga först",
   "insertLast": "Insert last",
   "paste": "Klistra in",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Stigande",
   "descending": "Fallande",
   "imageScale": "Skala bild",
   "select": "Välj",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Verktyg",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textur",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Plattformens tema",
   "desktop": "Skrivbord",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF kvalitet",
   "surface": "Yta",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Mönster",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Är du säker på att du vill stänga dokumentet?",
   "thereAreUnsavedChanges": "Det finns osparade ändringar",
   "page": "Sida",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE servrar",
   "collaboration": "Samarbete",
   "webRtc": "Web RTC",
   "webSocket": "Webb Socket",
   "iceServer": "ICE Server",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Typ",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Sida",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Klient",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Växla vy",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Dölj gränssnitt",
   "density": "Densitet",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompakt",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Bekväm",
   "standard": "Standard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Lås",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Lägg till element",
   "notDefaultConnection": "Inte standardanslutning",
   "defaultConnection": "Förvald kontakt",
   "hide": "Dölj",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Visa",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pausa",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Stoppa",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Uppdatera",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Skriv ut",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Ögondroppare",
   "users": "Användare",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experiment",
   "experimentsWarning": "Dessa funktioner är experimentella och kan ändra, bryta eller försvinna när som helst. Att aktivera dem kan orsaka instabilitet eller dataförlust. Fortsätt med försiktighet. Rapportera eventuella buggar.",
   "address": "Adress",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Sprid till sidor",
   "rootDirectorySpecifiedDescription": "Rotkatalogen är angiven. Alla avancerade katalogvägar kommer att vara relativa till denna katalog. Håll den tom för att inaktivera denna katalogtyp.",
   "rootDirectoryNotSpecifiedDescription": "Rotkatalogen är inte angiven. Ett namn krävs. Alla avancerade katalogsökvägar kommer att vara absolut. Håll den tom för att inaktivera denna katalogtyp.",
@@ -594,25 +1065,49 @@
   "createAreas": "Skapa områden",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Åtgärder",
   "medium": "Medel",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Stor",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Storlek på verktygsfält",
   "addAll": "Lägg till alla",
   "onlyCurrentPage": "Endast aktuell sida",
   "smoothNavigation": "Smidig navigering",
   "exact": "Exakt",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Infogad",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Verktygsfält rader",
   "pointerTest": "Pekare test",
   "pressure": "Tryck",
   "small": "Liten",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Liten",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Markera alla",
   "overrideTools": "Åsidosätt verktyg",
   "hideCursorWhileDrawing": "Dölj markören medan du ritar",
   "installed": "Installerad",
   "install": "Installera",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Avmarkera",
   "changeCollection": "Ändra samling",
   "collections": "Samlingar",
@@ -621,15 +1116,30 @@
   "collection": "Samling",
   "defaultCollection": "Förvald samling",
   "scroll": "Rulla",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Vid uppstart",
   "homeScreen": "Startskärmen",
   "lastNote": "Senaste anteckning",
   "newNote": "Ny anteckning",
   "convertToLayer": "Konvertera till lager",
   "merge": "Sammanfoga",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Upp",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Ner",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Annat",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Inga element} =1{1 element} other{{count} element}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximerar kvaliteten till priset av prestanda. Bakar en bild som täcker 2 gånger det synliga området, vilket garanterar sömlös rendering även under snabb rullning eller zoomning.",
   "renderResolution": "Rendera upplösning",
   "translate": "Översätt",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Okrypterad",
   "encrypted": "Krypterad",
   "encryptDocumentMessage": "Klicka för att kryptera dokumentet",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Bekräfta lösenord",
   "passwordMismatch": "Lösenorden matchar inte",
   "action": "Åtgärd",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG Text",
   "offset": "Förskjutning",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Beroende på position",
   "flipHorizontal": "Vänd horisontell",
   "flipVertical": "Vänd vertikalt",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Återställ inställningar från fil",
   "exportSettingsToFile": "Exportera inställningar till fil",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Streckkodstyp",
   "qrCode": "QR Code",
   "dataMatrix": "Data matris",
@@ -690,6 +1212,9 @@
   "moveRight": "Flytta åt höger",
   "bundledPacks": "Paketpaket med paket",
   "component": "Komponent",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Välj komponent",
   "bundlePackInDocument": "Paketpaket i dokument",
   "bundledPacksDescription": "Paket ingår i dokumentet och används endast för att dela med dokumentet. Tillgångar kan endast användas i dokumentet om paketet är installerat. Paket kan installeras med att klicka på dem.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Dina meddelanden dirigeras via en säker reläserver med end-to-end-kryptering. En träskserveradress krävs för att skapa en session.",
   "createRawNote": "Skapa rå anteckning",
   "polygon": "Polygon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Slutför form",
   "submit": "Skicka",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Matematik",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignorera tryck",
   "ignoreFirstPressureDescription": "På vissa enheter är det första tryckvärdet inte korrekt. Denna inställning kommer att ignorera det första tryckvärdet och använda trycket från den andra händelsen istället.",
   "temporary": "Tillfällig",
   "simpleToolbarVisibility": "Enkel synlighet i verktygsfältet",
   "autosaveDelay": "Fördröjning för automatisk sparning",
   "saved": "Sparad",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Sparar...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Endast läsning",
   "saveDelayed": "Spara försenad",
   "unsaved": "Osparad",
-  "pdfEmptyDescription": "Det finns för närvarande inga exportområden. Välj minst ett område med plusknappen i det övre högra hörnet eller lägg till alla områden från den aktuella sidan eller från hela dokumentet nedan."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Det finns för närvarande inga exportområden. Välj minst ett område med plusknappen i det övre högra hörnet eller lägg till alla områden från den aktuella sidan eller från hela dokumentet nedan.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
