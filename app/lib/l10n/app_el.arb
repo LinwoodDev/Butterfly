@@ -1,5 +1,8 @@
 {
   "open": "Άνοιγμα",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Ρυθμίσεις",
   "personalization": "Εξατομικοποίηση",
   "theme": "Θέμα",
@@ -7,10 +10,22 @@
   "lightTheme": "Φωτεινό θέμα",
   "systemTheme": "Χρήση προεπιλεγμένου θέματος συστήματος",
   "view": "Προβολή",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Επεξεργασία",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Εξαγωγή",
   "save": "Αποθήκευση",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Εστίαση",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Μεγέθυνση",
   "zoomOut": "Σμίκρυνση",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Συμπεριλάβετε γόμα?",
   "thinning": "Λέπτυνση",
   "pen": "Πένα",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Ανεστραμμένη Πένα",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Διαδρομή γόμας",
   "label": "Ετικέτα",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Διαγραφή",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Είσαι σίγουρος?",
   "reallyDelete": "Θέλετε πραγματικά να διαγράψετε αυτό το στοιχείο?",
   "no": "Όχι",
   "yes": "Ναι",
   "undo": "Αναίρεση",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Επανάληψη",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Γενικά",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Αντιγράφηκε στο πρόχειρο",
   "loading": "Φόρτωση...",
   "enterText": "Εισάγετε το κείμενο",
   "size": "Μέγεθος",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Ύψος",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Μέτρηση",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Κενό",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Φόντο",
   "box": "Κουτί",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Τοπική",
   "systemLocale": "Τοπική ρύθμιση συστήματος",
   "information": "Πληροφορίες",
@@ -53,19 +107,34 @@
   "existOverride": "Αυτό το στοιχείο υπάρχει ήδη. Αντικατάσταση?",
   "description": "Περιγραφή",
   "fill": "Γέμισμα",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Προεπιλεγμένη παλέτα",
   "highlighter": "Επισήμανση",
   "add": "Προσθήκη",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Αφαίρεση",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Θέλετε πραγματικά να το αφαιρέσετε αυτό?",
   "resetPalette": "Reset palette",
   "custom": "Προσαρμοσμένο",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Διακόσμηση",
   "underline": "Υπογράμμιση",
   "overline": "Συνολική",
   "strikethrough": "Επιγράμμιση",
   "thickness": "Πάχος",
   "style": "Στυλ",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Διπλό",
   "dotted": "Διακεκομμένη",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Πρόχειρο",
   "file": "Αρχείο",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Δεδομένα",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Κοινοποίηση",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Απόσταση",
   "image": "Εικόνα",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Εισάγετε τη διεύθυνση url",
   "scale": "Κλίμακα",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Βοήθεια",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Θέλετε πραγματικά να το επαναφέρετε?",
   "whatToDo": "Τι θέλετε να κάνετε?",
   "ignore": "Παράβλεψη",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Αντίγραφα Ασφαλείας",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Το αρχείο {fileName} δημιουργήθηκε σε μια νεότερη έκδοση ({fileVersion}). Τι πρέπει να γίνει με αυτό το αρχείο?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Σημεία",
   "origin": "Καταγωγή",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Εισαγωγή",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Νέο",
   "selectElement": "Επιλογή στοιχείου",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Αντιγραφή έκδοσης",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Συμπεριφορές",
   "dataDirectory": "Κατάλογος δεδομένων",
   "defaultPath": "Προεπιλεγμένη διαδρομή",
@@ -138,16 +240,40 @@
   "rename": "Μετονομασία",
   "duplicate": "Duplicate",
   "hand": "Χέρι",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Φάκελος",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Μετακίνηση",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Αντιγραφή",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Πίσω",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Εξαρτώμενο από ζουμ",
   "shapeDetection": "Ανίχνευση Σχήματος",
   "delay": "Καθυστέρηση",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Προεπιλεγμένο επίπεδο",
   "layer": "Στρώμα",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Επίπεδα",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Δεν έχει οριστεί",
   "enterLayer": "Εισάγετε το όνομα του επιπέδου",
   "selectElements": "Επιλογή στοιχείων",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Θέλετε πραγματικά να διαγράψετε τα επιλεγμένα στοιχεία?",
   "selectCustomCollection": "Επιλέξτε μια προσαρμοσμένη συλλογή",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Ευαισθησία",
   "sensitivityHint": "Όσο υψηλότερη είναι η τιμή, τόσο πιο ευαίσθητη είναι η είσοδος",
   "horizontal": "Οριζόντια",
   "vertical": "Κατακόρυφα",
   "plain": "Απλό",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Φωτεινό",
   "ruled": "Εκτελέστηκε",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Τετράγωνο",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Μουσική",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Σκοτεινό",
   "plainDark": "Σκοτεινό",
   "ruledDark": "Τυχόν σκούρο",
@@ -174,29 +315,56 @@
   "createTemplate": "Δημιουργία προτύπου",
   "createTemplateContent": "Θέλετε πραγματικά να δημιουργήσετε ένα πρότυπο από αυτό το έγγραφο? Το αρχικό έγγραφο θα διαγραφεί.",
   "replace": "Αντικατάσταση",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Θέλετε πραγματικά να αντικαταστήσετε το πρότυπο? Αυτή η λειτουργία δεν μπορεί να αναιρεθεί!",
   "defaultTemplate": "Προεπιλεγμένο πρότυπο",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Έγγραφο",
   "camera": "Κάμερα",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Εκτύπωση",
   "selectCamera": "Επιλογή κάμερας",
   "changeDocumentPath": "Αλλαγή διαδρομής εγγράφου",
   "deleteWholeStroke": "Διαγραφή ολόκληρου του κτυπήματος",
   "alpha": "Άλφα",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Ζώνη",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Επιλέξτε μια περιοχή",
   "aspectRatio": "Αναλογία διαστάσεων",
   "presets": "Προεπιλογές",
   "pagePortrait": "Πορτρέτο σελίδας",
   "pageLandscape": "Οριζόντια σελίδα",
   "square": "Τετράγωνο",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Περιοχές",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Εισάγετε την περιοχή",
   "exitArea": "Έξοδος από την περιοχή",
   "currentArea": "Τρέχουσα περιοχή",
   "design": "Σχεδιασμός",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Κείμενο",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hey, this is Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Σταθερό",
   "dynamicContent": "Δυναμικό",
   "none": "Κανένα",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Ενσωμάτωση περιοχής",
   "verticalAlignment": "Κατακόρυφη στοίχιση",
   "horizontalAlignment": "Οριζόντια στοίχιση",
   "top": "Πάνω",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Κέντρο",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Κάτω",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Αριστερά",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Δεξιά",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Στοίχιση",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Περιορισμός",
   "length": "Μήκος",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Εξαγωγή SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Επιλογή σελίδων",
   "recentFiles": "Πρόσφατα αρχεία",
   "start": "Έναρξη",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Κανένα πρόσφατο αρχείο",
   "countPages": "{count,plural, =0{Καμία σελίδα} =1{1 σελίδα} other{{count} σελίδες}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Έξοδος",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Δεν υπάρχουν στοιχεία",
   "invertSelection": "Αντιστροφή επιλογής",
   "errorWhileImporting": "Σφάλμα κατά την εισαγωγή",
@@ -268,14 +469,23 @@
   "error": "Σφάλμα",
   "stackTrace": "Ίχνη στοίβας",
   "laser": "Λέιζερ",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Διάρκεια",
   "quality": "Ποιότητα",
   "exportPdf": "Εξαγωγή PDF",
   "local": "Τοπικό",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Προσθήκη σύνδεσης",
   "connections": "Συνδέσεις",
   "noConnections": "Δεν υπάρχουν συνδέσεις",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Σύνδεση",
   "username": "Όνομα Χρήστη",
   "password": "Κωδικός",
@@ -288,10 +498,22 @@
   "cannotConnect": "Αδυναμία σύνδεσης",
   "urlNotValid": "Μη έγκυρο URL",
   "icon": "Εικονίδιο",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Ενημέρωση",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Διαθέσιμη ενημέρωση",
   "stable": "Σταθερό",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Νυχτερινή",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Έλεγχος ενημερώσεων",
   "checkForUpdatesWarning": "Εκτελώντας έναν έλεγχο για ενημερώσεις θα συνδεθείτε στην ιστοσελίδα Butterfly για να πάρετε τις πληροφορίες.",
   "usingLatestStable": "Χρησιμοποιείτε την τελευταία σταθερή έκδοση",
@@ -299,10 +521,25 @@
   "currentVersion": "Τρέχουσα έκδοση",
   "updateNow": "Ενημέρωση τώρα",
   "shape": "Σχήμα",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Κύκλος",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Ορθογώνιο",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Τρίγωνο",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Γραμμή",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Πάνω αριστερά",
   "topRight": "Πάνω δεξιά",
@@ -310,6 +547,9 @@
   "bottomRight": "Κάτω δεξιά",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Εκκαθάριση κρυπτών",
   "createCache": "Δημιουργία προσωρινής μνήμης",
   "thirdPartyLicenses": "Άδειες χρήσης τρίτων",
@@ -317,6 +557,9 @@
   "synced": "Συγχρονισμένα",
   "notSynced": "Δεν συγχρονίστηκε",
   "conflict": "Σύγκρουση",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Διατήρηση τοπικών",
   "keepConnection": "Διατήρηση σύνδεσης",
   "keepBoth": "Κρατήστε και τα δύο",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Αποσυνδεδεμένος",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Τοπική πιο πρόσφατη",
   "connectionLatest": "Σύνδεση τελευταία",
   "path": "Διαδρομή",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
@@ -346,19 +595,55 @@
   "syncMode": "Λειτουργία συγχρονισμού",
   "connection": "Σύνδεση",
   "always": "Πάντα",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Χωρίς κινητό",
   "manual": "Χειροκίνητα",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Αναζήτηση",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Ιδιότητες",
   "pin": "Καρφίτσα",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Στοιχείο",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Ζωγράφος",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Θέση",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Σημείωση",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Πακέτα",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Πακέτο",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Περισσότερα",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Ερώτηση ονόματος",
   "areaIndex": "Περιοχή {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Έναρξη σε πλήρη οθόνη",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Ποντίκι",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Άγγιγμα",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Συντομεύσεις",
   "middle": "Μεσαία",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Πρώτη",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Δευτερόλεπτο",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Ενεργό Εργαλείο",
   "activeToolDescription": "Χρήση του τρέχοντος επιλεγμένου εργαλείου στη γραμμή εργαλείων",
   "handTool": "Εργαλείο Χεριών",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Εργαλεία",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Εμφάνιση καννάβου",
   "grid": "Πλέγμα",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Κανόνας",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Γωνία",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Αναφορά",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Νέος φάκελος",
   "createPack": "Δημιουργία πακέτου",
   "editPack": "Επεξεργασία πακέτου",
   "packsDirectory": "Κατάλογος πακέτων",
   "stamp": "Σφραγίδα",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Προσθήκη στο πακέτο",
   "sureImportPack": "Είστε σίγουροι ότι θέλετε να εισαγάγετε το πακέτο?",
   "byAuthor": "από {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Προσθήκη στοιχείου",
   "editAsset": "Επεξεργασία στοιχείου",
   "scope": "Πεδίο",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Προς το παρόν δεν υπάρχουν διαθέσιμα πακέτα",
   "components": "Συστατικά",
   "waypoint": "Σημείο Πορείας",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Παράγραφος",
   "fontFamily": "Οικογένεια γραμματοσειρών",
   "smoothing": "Εξομάλυνση",
@@ -449,9 +779,21 @@
   "unknownImportType": "Άγνωστος τύπος εισαγωγής",
   "sureImportTemplate": "Είστε βέβαιοι ότι θέλετε να εισαγάγετε το πρότυπο?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Αναπαραγωγή",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Βίντεο",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Σημείο διακοπής",
   "presentationControls": "Στοιχεία ελέγχου παρουσίασης",
   "nextSlide": "Επόμενη διαφάνεια",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Κωδικός",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Παράθεση",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Σύνδεσμος",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Πλαίσιο",
   "deleted": "Διαγράφηκε",
   "emphasis": "Έμφαση",
   "listBullet": "Λίστα κουκκίδας",
   "strong": "Ισχυρός",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Αρχική",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Αρχεία",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Ταξινόμηση κατά",
   "location": "Τοποθεσία",
   "whatsNew": "Τι νέο υπάρχει?",
@@ -493,12 +853,21 @@
   "star": "Αστέρι",
   "goUp": "Μετάβαση πάνω",
   "created": "Δημιουργήθηκε",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Τροποποιήθηκε",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Γρήγορη Έναρξη",
   "noTemplates": "Προς το παρόν δεν υπάρχουν διαθέσιμα πρότυπα",
   "importCorePack": "Εισαγωγή βασικού πακέτου",
   "importCorePackDescription": "Εισαγωγή του βασικού πακέτου που περιέχει όλα τα βασικά στοιχεία ενεργητικού για να ξεκινήσετε. Αυτό θα αντικαταστήσει το τρέχον βασικό πακέτο.",
   "never": "Ποτέ",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Μόνο στις ενημερώσεις",
   "visibility": "Ορατότητα",
   "captureThumbnail": "Σύλληψη μικρογραφίας",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
   "foreground": "Προσκήνιο",
   "version": "Έκδοση",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Αποθετήριο",
   "pages": "Σελίδες",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Τακτοποίηση",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Φέρτε μπροστά",
   "sendToBack": "Αποστολή πίσω",
   "bringForward": "Φέρτε μπροστά",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Διάστημα",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Σιδηρόδρομος πλοήγησης",
   "cut": "Αποκοπή",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Εισαγωγή πριν",
   "insertAfter": "Εισαγωγή μετά",
   "insertFirst": "Εισαγωγή πρώτα",
   "insertLast": "Insert last",
   "paste": "Επικόλληση",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
   "select": "Επιλογή",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Εργαλείο",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Υφή",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Θέμα πλατφόρμας",
   "desktop": "Επιφάνεια Εργασίας",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Κινητό",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Ποιότητα PDF",
   "surface": "Επιφάνεια",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Μοτίβο",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Είστε βέβαιοι ότι θέλετε να κλείσετε το έγγραφο?",
   "thereAreUnsavedChanges": "Υπάρχουν αλλαγές που δεν έχουν αποθηκευτεί",
   "page": "Σελίδα",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Διακομιστές ICE",
   "collaboration": "Συνεργασία",
   "webRtc": "Web RTC",
   "webSocket": "Υποδοχή Ιστού",
   "iceServer": "Εξυπηρετητής ICE",
   "port": "Θύρα",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Τύπος",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Πλευρά",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Πελάτης",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Διακομιστής",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Εναλλαγή Προβολής",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Απόκρυψη UI",
   "density": "Πυκνότητα",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Συμπαγής",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Άνετο",
   "standard": "Τυπικό",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Κλείδωμα",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Προσθήκη στοιχείου",
   "notDefaultConnection": "Μη προεπιλεγμένη σύνδεση",
   "defaultConnection": "Προεπιλεγμένη σύνδεση",
   "hide": "Απόκρυψη",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Εμφάνιση",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Παύση",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Διακοπή",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Ανανέωση",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Εκτύπωση",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Σταγονόμετρο ματιών",
   "users": "Χρήστες",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Πειράματα",
   "experimentsWarning": "Αυτά τα χαρακτηριστικά είναι πειραματικά και μπορεί να αλλάξουν, να σπάσουν ή να εξαφανιστούν ανά πάσα στιγμή. Η ενεργοποίηση τους μπορεί να προκαλέσει αστάθεια ή απώλεια δεδομένων. Συνεχίστε με προσοχή. Παρακαλώ αναφέρετε τυχόν σφάλματα.",
   "address": "Διεύθυνση",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Διαδώστε στις σελίδες",
   "rootDirectorySpecifiedDescription": "Ο ριζικός κατάλογος έχει καθοριστεί. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι σχετικές με αυτόν τον κατάλογο. Κρατήστε τον κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
   "rootDirectoryNotSpecifiedDescription": "Ο ριζικός κατάλογος δεν έχει καθοριστεί. Απαιτείται ένα όνομα. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι απόλυτες. Κρατήστε το κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
@@ -594,25 +1065,49 @@
   "createAreas": "Δημιουργία περιοχών",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Λειτουργίες",
   "medium": "Μεσαίο",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Μεγάλο",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Μέγεθος γραμμής εργαλείων",
   "addAll": "Προσθήκη όλων",
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
   "smoothNavigation": "Ομαλή πλοήγηση",
   "exact": "Ακριβής",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Εμβόλιμο",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Γραμμές γραμμής εργαλείων",
   "pointerTest": "Δοκιμή δείκτη",
   "pressure": "Πίεση",
   "small": "Μικρό",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Μικροσκοπικό",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Επιλογή όλων",
   "overrideTools": "Παράκαμψη εργαλείων",
   "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο",
   "installed": "Εγκατεστημένο",
   "install": "Εγκατάσταση",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Αποεπιλογή",
   "changeCollection": "Αλλαγή συλλογής",
   "collections": "Συλλογές",
@@ -621,15 +1116,30 @@
   "collection": "Συλλογή",
   "defaultCollection": "Προεπιλεγμένη συλλογή",
   "scroll": "Κύλιση",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Κατά την εκκίνηση",
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
   "convertToLayer": "Μετατροπή σε επίπεδο",
   "merge": "Συγχώνευση",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Επάνω",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Κάτω",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Άλλο",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Κανένα στοιχείο} =1{1 στοιχείο} other{{count} στοιχεία}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Μεγιστοποιεί την ποιότητα με κόστος την απόδοση. Μπαίνει μια εικόνα που καλύπτει 2 φορές την ορατή περιοχή, εξασφαλίζοντας απρόσκοπτη απόδοση ακόμη και κατά τη διάρκεια της ταχείας κύλισης ή μεγέθυνσης.",
   "renderResolution": "Ανάλυση απόδοσης",
   "translate": "Μετάφραση",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Μη Κρυπτογραφημένο",
   "encrypted": "Κρυπτογραφημένο",
   "encryptDocumentMessage": "Κάντε κλικ για κρυπτογράφηση του εγγράφου",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Επιβεβαίωση κωδικού πρόσβασης",
   "passwordMismatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
   "action": "Ενέργεια",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "Κείμενο SVG",
   "offset": "Μετατόπιση",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Εξάρτηση από τη θέση",
   "flipHorizontal": "Οριζόντια αναστροφή",
   "flipVertical": "Κάθετη αναστροφή",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Επαναφορά ρυθμίσεων από αρχείο",
   "exportSettingsToFile": "Εξαγωγή ρυθμίσεων σε αρχείο",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Τύπος γραμμωτού κώδικα",
   "qrCode": "QR Code",
   "dataMatrix": "Πίνακας Δεδομένων",
@@ -690,6 +1212,9 @@
   "moveRight": "Μετακίνηση δεξιά",
   "bundledPacks": "Συνδυασμένα πακέτα",
   "component": "Συστατικό",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Επιλογή στοιχείου",
   "bundlePackInDocument": "Πακέτο πακέτου σε έγγραφο",
   "bundledPacksDescription": "Τα ομαδοποιημένα πακέτα περιλαμβάνονται στο έγγραφο και χρησιμοποιούνται μόνο για να μοιραστούν με το έγγραφο. Τα περιουσιακά στοιχεία μπορούν να χρησιμοποιηθούν στο έγγραφο μόνο αν είναι εγκατεστημένο το πακέτο. Τα πακέτα μπορούν να εγκατασταθούν κάνοντας κλικ πάνω τους.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Τα μηνύματά σας δρομολογούνται μέσω ενός ασφαλούς διακομιστή ρελέ με κρυπτογράφηση από άκρο σε άκρο. Απαιτείται μια διεύθυνση διακομιστή swamp για τη δημιουργία μιας συνεδρίας.",
   "createRawNote": "Δημιουργία ακατέργαστης σημείωσης",
   "polygon": "Πολύγωνο",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Ολοκλήρωση σχήματος",
   "submit": "Υποβολή",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Μαθηματικά",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Παράβλεψη πίεσης",
   "ignoreFirstPressureDescription": "Σε ορισμένες συσκευές, η πρώτη τιμή πίεσης δεν είναι ακριβής. Αυτή η ρύθμιση θα αγνοήσει την πρώτη τιμή πίεσης και θα χρησιμοποιήσει την πίεση του δεύτερου γεγονότος.",
   "temporary": "Προσωρινή",
   "simpleToolbarVisibility": "Απλή ορατότητα γραμμής εργαλείων",
   "autosaveDelay": "Καθυστέρηση αυτόματης αποθήκευσης",
   "saved": "Αποθηκεύτηκε",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Αποθηκεύεται...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Μόνο για ανάγνωση",
   "saveDelayed": "Η αποθήκευση καθυστέρησε",
   "unsaved": "Μη Αποθηκευμένα",
-  "pdfEmptyDescription": "Προς το παρόν δεν υπάρχουν περιοχές για εξαγωγή. Παρακαλώ επιλέξτε τουλάχιστον μία περιοχή χρησιμοποιώντας το κουμπί συν στην επάνω δεξιά γωνία ή προσθέστε όλες τις περιοχές από την τρέχουσα σελίδα ή από ολόκληρο το κείμενο παρακάτω."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Προς το παρόν δεν υπάρχουν περιοχές για εξαγωγή. Παρακαλώ επιλέξτε τουλάχιστον μία περιοχή χρησιμοποιώντας το κουμπί συν στην επάνω δεξιά γωνία ή προσθέστε όλες τις περιοχές από την τρέχουσα σελίδα ή από ολόκληρο το κείμενο παρακάτω.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
