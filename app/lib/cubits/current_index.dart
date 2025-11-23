@@ -905,9 +905,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
   }
 
-  bool _isBaking = false;
-  Function? _queuedBake;
-  Completer<void>? _bakeCompleter;
+  final _bakeLock = Lock();
 
   Future<void> bake(
     DocumentLoaded blocState, {
@@ -915,25 +913,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     double? pixelRatio,
     bool reset = false,
     bool resetAllLayers = false,
-  }) async {
-    if (_isBaking) {
-      if (!(_bakeCompleter?.isCompleted ?? true)) _bakeCompleter?.complete();
-      final completer = Completer<void>();
-      _bakeCompleter = completer;
-      _queuedBake = () async {
-        await bake(
-          blocState,
-          viewportSize: viewportSize,
-          pixelRatio: pixelRatio,
-          reset: reset,
-          resetAllLayers: resetAllLayers,
-        );
-        if (completer.isCompleted) return;
-        completer.complete();
-      };
-      return completer.future;
-    }
-    _queuedBake = null;
+  }) => _bakeLock.synchronized(() async {
     var cameraViewport = state.cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
@@ -976,7 +956,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
-    _isBaking = true;
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
@@ -1162,9 +1141,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       ),
     );
-    _isBaking = false;
-    _queuedBake?.call();
-  }
+  });
 
   Future<ui.Image?> renderImage(
     NoteData document,
