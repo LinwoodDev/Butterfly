@@ -5,5 +5,6 @@
 * Fix full file name shown in components view and add to pack dialog
 * Fix rtl icons not displaying correctly
 * Fix pack name in select asset dialog
+* Fix adding to pack renders background in thumbnail
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.1

@@ -460,7 +460,7 @@ jobs:
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
-          cache: true
+          #cache: true
       - name: 📦 Get dependencies
         run: |
           flutter clean

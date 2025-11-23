@@ -149,7 +149,7 @@ Future<void> addToPack(
     ImageExportOptions(
       width: rect.width,
       height: rect.height,
-      renderBackground: true,
+      renderBackground: false,
       x: rect.left,
       y: rect.top,
       quality: kThumbnailWidth / rect.width,
