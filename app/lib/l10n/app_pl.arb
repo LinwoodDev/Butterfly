@@ -1,5 +1,8 @@
 {
   "open": "Otwórz",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Ustawienia",
   "personalization": "Personalizacja",
   "theme": "Motyw",
@@ -7,10 +10,22 @@
   "lightTheme": "Jasny motyw",
   "systemTheme": "Użyj domyślnego motywu systemowego",
   "view": "Widok",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Edytuj",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Eksportuj",
   "save": "Zapisz",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Powiększ",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Powiększ",
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
@@ -18,28 +33,67 @@
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Odwrócony wstrzykiwacz",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Wymaż linię",
   "label": "Etykieta",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Usuń",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Jesteś pewien?",
   "reallyDelete": "Czy na pewno chcesz usunąć ten element?",
   "no": "Nie",
   "yes": "Tak",
   "undo": "Cofnij",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Ponów",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Ogólny",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Skopiowano do schowka",
   "loading": "Ładowanie...",
   "enterText": "Wprowadź tekst",
   "size": "Rozmiar",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Wysokość",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Liczba",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Przestrzeń",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Kontekst",
   "box": "Pudełko",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Język",
   "systemLocale": "Ustawienia regionalne systemu",
   "information": "Informacje",
@@ -53,19 +107,34 @@
   "existOverride": "Ten element już istnieje. Nadpisać?",
   "description": "Opis",
   "fill": "Wypełnij",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Domyślna paleta",
   "highlighter": "Podświetlenie",
   "add": "Dodaj",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Usuń",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Czy na pewno chcesz to usunąć?",
   "resetPalette": "Reset palette",
   "custom": "Własny",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekoracja",
   "underline": "Podkreślenie",
   "overline": "Obiekt",
   "strikethrough": "Przekreślenie",
   "thickness": "Grubość",
   "style": "Styl",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Podwójny",
   "dotted": "Kropkowy",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Schowek",
   "file": "Plik",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Dane",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Udostępnij",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Odstępy",
   "image": "Obraz",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Wprowadź adres URL",
   "scale": "Skala",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Pomoc",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Czy na pewno chcesz to zresetować?",
   "whatToDo": "Co chcesz zrobić?",
   "ignore": "Ignoruj",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Kopia zapasowa",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Plik {fileName} został utworzony w nowszej wersji ({fileVersion}). Co należy zrobić z tym plikiem?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Punkty drogi",
   "origin": "Pochodzenie",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importuj",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Nowy",
   "selectElement": "Wybierz element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Kopiuj wersję",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Zachowania",
   "dataDirectory": "Katalog danych",
   "defaultPath": "Domyślna ścieżka",
@@ -138,16 +240,40 @@
   "rename": "Zmień nazwę",
   "duplicate": "Duplicate",
   "hand": "Dłoń",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Folder",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Przenieś",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopiuj",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Powrót",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zależny od powiększenia",
   "shapeDetection": "Wykrywanie kształtu",
   "delay": "Opóźnienie",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Warstwa domyślna",
   "layer": "Warstwa",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Warstwa",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nie ustawiono",
   "enterLayer": "Wprowadź nazwę warstwy",
   "selectElements": "Wybierz elementy",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Czy na pewno chcesz usunąć wybrane elementy?",
   "selectCustomCollection": "Wybierz własną kolekcję",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Czułość",
   "sensitivityHint": "Im wyższa wartość, tym bardziej wrażliwe dane wejściowe",
   "horizontal": "Poziomy",
   "vertical": "Pionowo",
   "plain": "Zwykłe",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Światło",
   "ruled": "Otoczone",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Poczwórny",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Muzyka",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Ciemny",
   "plainDark": "Ciemny",
   "ruledDark": "Ciemny wieszak",
@@ -174,29 +315,56 @@
   "createTemplate": "Utwórz szablon",
   "createTemplateContent": "Czy na pewno chcesz utworzyć szablon z tego dokumentu? Oryginalny dokument zostanie usunięty.",
   "replace": "Zamień",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Czy na pewno chcesz zastąpić szablon? Tej operacji nie można cofnąć!",
   "defaultTemplate": "Domyślny szablon",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Aparat",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Wydruk",
   "selectCamera": "Wybierz kamerę",
   "changeDocumentPath": "Zmień ścieżkę dokumentu",
   "deleteWholeStroke": "Usuń całą kreskę",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Obszar",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Wybierz obszar",
   "aspectRatio": "Współczynnik proporcji",
   "presets": "Ustawienia",
   "pagePortrait": "Strona pionowa",
   "pageLandscape": "Strona pozioma",
   "square": "Kwadratowy",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Obszary",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Wejdź do obszaru",
   "exitArea": "Wyjdź z obszaru",
   "currentArea": "Bieżący obszar",
   "design": "Projekt",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Tekst",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hej, to jest Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Naprawione",
   "dynamicContent": "Dynamiczny",
   "none": "Brak",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Dołącz obszar",
   "verticalAlignment": "Wyrównanie pionowe",
   "horizontalAlignment": "Wyrównanie poziome",
   "top": "Góra",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Środkowy",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Dolny",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "W lewo",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Prawy",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Wyrównaj",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Ograniczenie",
   "length": "Długość",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Eksportuj SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Wybierz strony",
   "recentFiles": "Ostatnie pliki",
   "start": "Rozpocznij",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Brak ostatnich plików",
   "countPages": "{count,plural, =0{Brak stron} =1{1 strona} other{{count} strony}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Wyjście",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Brak elementów",
   "invertSelection": "Odwróć zaznaczenie",
   "errorWhileImporting": "Błąd podczas importowania",
@@ -268,14 +469,23 @@
   "error": "Błąd",
   "stackTrace": "Ślad stosu",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Czas trwania",
   "quality": "Jakość",
   "exportPdf": "Eksportuj PDF",
   "local": "Lokalny",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Dodaj połączenie",
   "connections": "Połączenia",
   "noConnections": "Brak połączeń",
   "url": "Adres URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Połącz",
   "username": "Nazwa użytkownika",
   "password": "Hasło",
@@ -288,10 +498,22 @@
   "cannotConnect": "Nie można połączyć",
   "urlNotValid": "Nieprawidłowy adres URL",
   "icon": "Ikona",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Aktualizuj",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Dostępna aktualizacja",
   "stable": "Stabilność",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nocny",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Sprawdź aktualizacje",
   "checkForUpdatesWarning": "Sprawdzanie aktualizacji połączy się ze stroną Motyl, aby uzyskać informacje.",
   "usingLatestStable": "Używasz najnowszej stabilnej wersji",
@@ -299,10 +521,25 @@
   "currentVersion": "Aktualna wersja",
   "updateNow": "Aktualizuj teraz",
   "shape": "Kształt",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Okręg",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Prostokąt",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Trójkąt",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linia",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Lewy górny róg",
   "topRight": "Prawy górny róg",
@@ -310,6 +547,9 @@
   "bottomRight": "Dolny prawy róg",
   "caches": "Skrzynki",
   "manage": "Zarządzaj",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Wyczyść skrzynki",
   "createCache": "Utwórz skrzynkę",
   "thirdPartyLicenses": "Licencje firm trzecich",
@@ -317,6 +557,9 @@
   "synced": "Zsynchronizowano",
   "notSynced": "Nie zsynchronizowano",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Zachowaj lokalnie",
   "keepConnection": "Zachowaj połączenie",
   "keepBoth": "Zachowaj oba",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Najnowsze lokalne",
   "connectionLatest": "Najnowsze połączenie",
   "path": "Ścieżka",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Folder zsynchronizowany",
   "syncRootDirectory": "Synchronizuj główny katalog",
   "penOnlyInput": "Wprowadzanie tylko pióra",
@@ -346,19 +595,55 @@
   "syncMode": "Tryb synchronizacji",
   "connection": "Połączenie",
   "always": "Zawsze",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Brak mobilnych",
   "manual": "Ręcznie",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Szukaj",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Właściwości",
   "pin": "Przypnij",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Bażant",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Położenie",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Uwaga",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Pakiety",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Paczka",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Więcej",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Zapytaj o nazwę",
   "areaIndex": "Obszar {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Uruchom na pełnym ekranie",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Mysz",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Dotknij",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Skróty",
   "middle": "Środkowy",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Pierwszy",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Drugi",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktywne narzędzie",
   "activeToolDescription": "Użyj aktualnie wybranego narzędzia na pasku narzędzi",
   "handTool": "Narzędzie ręczne",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Narzędzia",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Pokaż siatkę",
   "grid": "Siatka",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Rywalizacja",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Kąt",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Zgłoszenie",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Nowy folder",
   "createPack": "Utwórz pakiet",
   "editPack": "Edytuj paczkę",
   "packsDirectory": "Katalog pakietów",
   "stamp": "Pieczęć",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Dodaj do paczki",
   "sureImportPack": "Czy na pewno chcesz zaimportować paczkę?",
   "byAuthor": "przez {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Dodaj zasób",
   "editAsset": "Edytuj zasób",
   "scope": "Niniejsze rozporządzenie stosuje się od dnia 1 stycznia 2018 r.",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Obecnie nie ma dostępnych pakietów",
   "components": "Składniki",
   "waypoint": "Punkt drogi",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Paragraf",
   "fontFamily": "Rodzina czcionek",
   "smoothing": "Wygładzanie",
@@ -449,9 +779,21 @@
   "unknownImportType": "Nieznany typ importu",
   "sureImportTemplate": "Czy na pewno chcesz zaimportować szablon?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Odtwórz",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Wideo",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Przerwanie",
   "presentationControls": "Sterowanie prezentacją",
   "nextSlide": "Następny slajd",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kod",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Oferta",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Pole wyboru",
   "deleted": "Usunięto",
   "emphasis": "Nacisk",
   "listBullet": "Lista punktowa",
   "strong": "Silny",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Strona główna",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Pliki",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sortuj według",
   "location": "Lokalizacja",
   "whatsNew": "Co nowego?",
@@ -493,12 +853,21 @@
   "star": "Gwiazdka",
   "goUp": "Idź w górę",
   "created": "Utworzono",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Zmodyfikowane",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Szybki start",
   "noTemplates": "Obecnie nie ma dostępnych szablonów",
   "importCorePack": "Importuj pakiet rdzeniowy",
   "importCorePackDescription": "Importuj pakiet główny, który zawiera wszystkie podstawowe zasoby aby rozpocząć. To zastąpi bieżący pakiet główny.",
   "never": "Nigdy",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Tylko przy aktualizacjach",
   "visibility": "Widoczność",
   "captureThumbnail": "Przechwyć miniaturę",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Wybierz tryb etykiety",
   "foreground": "Pierwszy plan",
   "version": "Wersja",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repozytorium",
   "pages": "Strony",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Rozmieść",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Przenieś na przód",
   "sendToBack": "Wyślij do powrotu",
   "bringForward": "Przenieś do przodu",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
   "toolbarPosition": "Pozycja paska narzędzi",
   "rotate": "Obróć",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Odstęp",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Kolej nawigacyjna",
   "cut": "Wytnij",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Wstaw przed",
   "insertAfter": "Wstaw po",
   "insertFirst": "Wstaw najpierw",
   "insertLast": "Insert last",
   "paste": "Wklej",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Rosnąco",
   "descending": "Malejąco",
   "imageScale": "Skala obrazu",
   "select": "Wybierz",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Narzędzie",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Tekstura",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Motyw platformy",
   "desktop": "Pulpit",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Komórka",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Jakość PDF",
   "surface": "Powierzchnia",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Wzorzec",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Czy na pewno chcesz zamknąć dokument?",
   "thereAreUnsavedChanges": "Istnieją niezapisane zmiany",
   "page": "Strona",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Serwery ICE",
   "collaboration": "Współpraca",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "Serwer ICE",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Typ",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Bok",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Klient",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Serwer",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Przełącz widok",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Ukryj interfejs użytkownika",
   "density": "Gęstość",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompaktowy",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Komfortowalne",
   "standard": "Standardowy",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Blokada",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Dodaj element",
   "notDefaultConnection": "Połączenie niedomyślne",
   "defaultConnection": "Domyślne połączenie",
   "hide": "Ukryj",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Pokaż",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Wstrzymaj",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Zatrzymaj",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Odśwież",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Drukuj",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Krople do oczu",
   "users": "Użytkownicy",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Eksperymenty",
   "experimentsWarning": "Funkcje te są eksperymentalne i mogą się zmienić, pęknąć lub zniknąć w dowolnym momencie. Włączenie ich może spowodować niestabilność lub utratę danych. Zachowaj ostrożność. Prosimy o zgłaszanie błędów.",
   "address": "Adres",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Rozpowszechnij na strony",
   "rootDirectorySpecifiedDescription": "Katalog główny jest określony. Wszystkie zaawansowane ścieżki katalogu będą relatywne do tego katalogu. Pozostaw puste, aby wyłączyć ten typ katalogu.",
   "rootDirectoryNotSpecifiedDescription": "Katalog główny nie jest określony. Nazwa jest wymagana. Wszystkie zaawansowane ścieżki katalogu będą bezwzględne. Pozostaw puste, aby wyłączyć ten typ katalogu.",
@@ -594,25 +1065,49 @@
   "createAreas": "Utwórz obszary",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operacje",
   "medium": "Średni",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Duży",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Rozmiar paska narzędzi",
   "addAll": "Dodaj wszystkie",
   "onlyCurrentPage": "Tylko bieżąca strona",
   "smoothNavigation": "Gładka nawigacja",
   "exact": "Dokładny",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Wbudowany",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Wiersze paska narzędzi",
   "pointerTest": "Badanie wskaźnika",
   "pressure": "Ciśnienie",
   "small": "Mały",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Małe",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Zaznacz wszystkie",
   "overrideTools": "Zastąp narzędzia",
   "hideCursorWhileDrawing": "Ukryj kursor podczas rysowania",
   "installed": "Zainstalowane",
   "install": "Zainstaluj",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Odznacz",
   "changeCollection": "Zmień kolekcję",
   "collections": "Kolekcje",
@@ -621,15 +1116,30 @@
   "collection": "Kolekcja",
   "defaultCollection": "Domyślna kolekcja",
   "scroll": "Przewiń",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Przy starcie",
   "homeScreen": "Ekran główny",
   "lastNote": "Ostatnia notatka",
   "newNote": "Nowa nota",
   "convertToLayer": "Konwertuj na warstwę",
   "merge": "Połącz",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Góra",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "W dół",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Inne",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Brak elementów} =1{1 element} other{{count} elementy}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maksymalizuje jakość kosztem wydajności. Powiększa obraz pokrywający 2-krotnie widoczny obszar, zapewniając płynne renderowanie nawet podczas szybkiego przewijania lub powiększania.",
   "renderResolution": "Rozdzielczość renderowania",
   "translate": "Przetłumacz",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Niezaszyfrowane",
   "encrypted": "Zaszyfrowane",
   "encryptDocumentMessage": "Kliknij, aby zaszyfrować dokument",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Potwierdź hasło",
   "passwordMismatch": "Hasła nie pasują",
   "action": "Akcja",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "Tekst SVG",
   "offset": "Przesunięcie",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Pozycja zależna",
   "flipHorizontal": "Odwróć poziomo",
   "flipVertical": "Odwróć w pionie",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Przywróć ustawienia z pliku",
   "exportSettingsToFile": "Eksportuj ustawienia do pliku",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Typ kodu kreskowego",
   "qrCode": "QR Code",
   "dataMatrix": "Matryca danych",
@@ -690,6 +1212,9 @@
   "moveRight": "Przesuń w prawo",
   "bundledPacks": "Pakiety wiązane",
   "component": "Komponent",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Wybierz komponent",
   "bundlePackInDocument": "Pakiet pakietów w dokumencie",
   "bundledPacksDescription": "Pakiety zbiorcze znajdują się w dokumencie i są wykorzystywane wyłącznie do udostępniania dokumentu. Zasoby mogą być użyte w dokumencie tylko wtedy, gdy pakiet jest zainstalowany. Pakiety mogą być zainstalowane klikając na nie.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Twoje wiadomości są kierowane przez bezpieczny serwer przekaźnikowy z szyfrowaniem end-to-end. Aby utworzyć sesję, wymagany jest adres serwera bagiennego.",
   "createRawNote": "Utwórz surową notatkę",
   "polygon": "Wielokąt",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Ukończ kształt",
   "submit": "Prześlij",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Matematyka",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignoruj nacisk",
   "ignoreFirstPressureDescription": "Na niektórych urządzeniach pierwsza wartość ciśnienia nie jest dokładna. To ustawienie zignoruje pierwszą wartość nacisku i zamiast tego użyj nacisku drugiego zdarzenia.",
   "temporary": "Tymczasowy",
   "simpleToolbarVisibility": "Widoczność prostego paska narzędzi",
   "autosaveDelay": "Opóźnienie automatycznego zapisu",
   "saved": "Zapisano",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Zapisywanie...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Tylko do odczytu",
   "saveDelayed": "Zapisz opóźnione",
   "unsaved": "Niezapisane",
-  "pdfEmptyDescription": "Obecnie nie ma żadnych obszarów do wyeksportowania. Wybierz co najmniej jeden obszar używając przycisku plus w prawym górnym rogu lub dodaj wszystkie obszary z bieżącej strony lub całego dokumentu poniżej."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Obecnie nie ma żadnych obszarów do wyeksportowania. Wybierz co najmniej jeden obszar używając przycisku plus w prawym górnym rogu lub dodaj wszystkie obszary z bieżącej strony lub całego dokumentu poniżej.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
