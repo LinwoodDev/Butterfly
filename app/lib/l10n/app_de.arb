@@ -1,5 +1,8 @@
 {
   "open": "Öffnen",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Einstellungen",
   "personalization": "Personalisierung",
   "theme": "Thema",
@@ -7,10 +10,22 @@
   "lightTheme": "Helles Theme",
   "systemTheme": "Standard-System-Theme verwenden",
   "view": "Ansicht",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Bearbeiten",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportieren",
   "save": "Speichern",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zoom",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Vergrößern",
   "zoomOut": "Verkleinern",
   "resetZoom": "Vergrößerung zurücksetzen",
@@ -18,28 +33,67 @@
   "includeEraser": "Löschvorrichtung einbeziehen?",
   "thinning": "Dünnheit",
   "pen": "Stift",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Invertiertes Pen",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Pfadlöscher",
   "label": "Label",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Löschen",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Bist du sicher?",
   "reallyDelete": "Möchten Sie dieses Element wirklich löschen?",
   "no": "Nein",
   "yes": "Ja",
   "undo": "Rückgängig",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Wiederholen",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Allgemein",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "In Zwischenablage kopiert",
   "loading": "Wird geladen...",
   "enterText": "Text eingeben",
   "size": "Größe",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Breite",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Höhe",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Anzahl",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Raum",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Hintergrund",
   "box": "Box",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Sprache",
   "systemLocale": "Systemsprache",
   "information": "Informationen",
@@ -53,19 +107,34 @@
   "existOverride": "Dieses Element existiert bereits. Überschreiben?",
   "description": "Beschreibung",
   "fill": "Füllen",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Standardpalette",
   "highlighter": "Hervorhebung",
   "add": "Neu",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Entfernen",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Wollen Sie das wirklich entfernen?",
   "resetPalette": "Palette zurücksetzen",
   "custom": "Eigene",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekoration",
   "underline": "Unterstrichen",
   "overline": "Überzeile",
   "strikethrough": "Durchstreichen",
   "thickness": "Dicke",
   "style": "Stil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Doppelt",
   "dotted": "Gepunktet",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Zwischenablage",
   "file": "Datei",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Daten",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Teilen",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Abstand",
   "image": "Bild",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "URL eingeben",
   "scale": "Maßstab",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Hilfe",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Wollen Sie wirklich zurücksetzen?",
   "whatToDo": "Was möchtest du tun?",
   "ignore": "Ignorieren",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Sichern",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Die Datei {fileName} wurde in einer neueren Version ({fileVersion}) erstellt. Was soll mit dieser Datei gemacht werden?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Wegpunkte",
   "origin": "Ursprung",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importieren",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Neu",
   "selectElement": "Element auswählen",
   "ctrlKey": "Strg",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Version kopieren",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Verhalten",
   "dataDirectory": "Datenverzeichnis",
   "defaultPath": "Standardpfad",
@@ -138,16 +240,40 @@
   "rename": "Umbenennen",
   "duplicate": "Duplizieren",
   "hand": "Hand",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Ordner",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Bewegen",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopieren",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Zurück",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zoomabhängig",
   "shapeDetection": "Formerkennung",
   "delay": "Verzögerung",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Standard Ebene",
   "layer": "Ebene",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Ebenen",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nicht gesetzt",
   "enterLayer": "Ebenenname eingeben",
   "selectElements": "Elemente auswählen",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
   "selectCustomCollection": "Wähle eine eigene Sammlung",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Empfindlichkeit",
   "sensitivityHint": "Je höher der Wert, desto sensibler die Eingabe",
   "horizontal": "Horizontal",
   "vertical": "Vertikal",
   "plain": "Schlicht",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Hell",
   "ruled": "Liniert",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Kariert",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Musik",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Dunkel",
   "plainDark": "Dunkel",
   "ruledDark": "Liniert dunkel",
@@ -174,29 +315,56 @@
   "createTemplate": "Vorlage erstellen",
   "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus diesem Dokument erstellen? Das Originaldokument wird gelöscht.",
   "replace": "Ersetzen",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Wollen Sie wirklich die Vorlage ersetzen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
   "defaultTemplate": "Standardvorlage",
   "insert": "Einfügen",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Drucken",
   "selectCamera": "Kamera auswählen",
   "changeDocumentPath": "Dokumentpfad ändern",
   "deleteWholeStroke": "Den ganzen Strich löschen",
   "alpha": "Alpha",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Fläche",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Wählen Sie einen Bereich",
   "aspectRatio": "Seitenverhältnis",
   "presets": "Vorlagen",
   "pagePortrait": "Seitenportrait",
   "pageLandscape": "Seitenlandschaft",
   "square": "Quadrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Flächen",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Geben Sie den Bereich ein",
   "exitArea": "Beende das Gebiet",
   "currentArea": "Aktueller Bereich",
   "design": "Design",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hey, das ist Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fixiert",
   "dynamicContent": "Dynamisch",
   "none": "Keine",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Bereich einbeziehen",
   "verticalAlignment": "Vertikale Ausrichtung",
   "horizontalAlignment": "Horizontale Ausrichtung",
   "top": "Oben",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Zentriert",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Unten",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Links",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Rechts",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Blocksatz",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Einschränkung",
   "length": "Länge",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "SVG exportieren",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Seiten auswählen",
   "recentFiles": "Letzte Dateien",
   "start": "Start",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Keine aktuellen Dateien",
   "countPages": "{count,plural, =0{Keine Seiten} =1{1 Seite} other{{count} Seiten}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Beenden",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Keine Elemente",
   "invertSelection": "Auswahl umkehren",
   "errorWhileImporting": "Fehler beim Importieren",
@@ -268,14 +469,23 @@
   "error": "Fehler",
   "stackTrace": "Stack-Trace",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Dauer",
   "quality": "Qualität",
   "exportPdf": "PDF exportieren",
   "local": "Lokal",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Verbindung hinzufügen",
   "connections": "Verbindungen",
   "noConnections": "Keine Verbindungen",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Verbinden",
   "username": "Benutzername",
   "password": "Passwort",
@@ -288,10 +498,22 @@
   "cannotConnect": "Verbindung nicht möglich",
   "urlNotValid": "URL ungültig",
   "icon": "Symbol",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Aktualisieren",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Update verfügbar",
   "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nightly",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Nach Updates suchen",
   "checkForUpdatesWarning": "Wenn Sie nach Updates suchen, werden Sie sich mit der Butterfly-Website verbinden, um die Informationen zu erhalten.",
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
@@ -299,10 +521,25 @@
   "currentVersion": "Aktuelle Version",
   "updateNow": "Jetzt aktualisieren",
   "shape": "Form",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Kreis",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rechteck",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Dreieck",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linie",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Eckenradius",
   "topLeft": "Oben links",
   "topRight": "Oben rechts",
@@ -310,6 +547,9 @@
   "bottomRight": "Unten rechts",
   "caches": "Caches",
   "manage": "Verwalten",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Caches löschen",
   "createCache": "Cache erstellen",
   "thirdPartyLicenses": "Drittlizenzen",
@@ -317,6 +557,9 @@
   "synced": "Synchronisiert",
   "notSynced": "Nicht synchronisiert",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Lokal behalten",
   "keepConnection": "Verbindung behalten",
   "keepBoth": "Beides behalten",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Lokale neueste",
   "connectionLatest": "Neueste Verbindung",
   "path": "Pfad",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
   "penOnlyInput": "Nur-Pen-Eingabe",
@@ -346,19 +595,55 @@
   "syncMode": "Sync-Modus",
   "connection": "Verbindung",
   "always": "Immer",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Nicht mobil",
   "manual": "Manuell",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Suchen",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Eigenschaften",
   "pin": "Anheften",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Loslösen",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Maler",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Position",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Notiz",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Pakete",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Paket",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Mehr",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Nach Namen fragen",
   "areaIndex": "Bereich {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Im Vollbild starten",
   "inputs": "Eingaben",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Maus",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Berühren",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Tastatur",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Verknüpfungen",
   "middle": "Mitte",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Erster",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Zweiter",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktives Werkzeug",
   "activeToolDescription": "Aktuell ausgewähltes Werkzeug in der Symbolleiste verwenden",
   "handTool": "Handwerkzeug",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Werkzeuge",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Raster anzeigen",
   "grid": "Raster",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Lineal",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Winkel",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Melden",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Neuer Ordner",
   "createPack": "Paket erstellen",
   "editPack": "Paket bearbeiten",
   "packsDirectory": "Paketverzeichnis",
   "stamp": "Stempel",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Zum Paket hinzufügen",
   "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren möchten?",
   "byAuthor": "von {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Asset hinzufügen",
   "editAsset": "Asset bearbeiten",
   "scope": "Bereich",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Derzeit sind keine Pakete verfügbar",
   "components": "Komponenten",
   "waypoint": "Wegpunkt",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Stile",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Absatz",
   "fontFamily": "Schriftfamilie",
   "smoothing": "Glättung",
@@ -449,9 +779,21 @@
   "unknownImportType": "Unbekannter Importtyp",
   "sureImportTemplate": "Sind Sie sicher, dass Sie die Vorlage importieren möchten?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Abspielen",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Haltepunkt",
   "presentationControls": "Präsentations-Steuerelemente",
   "nextSlide": "Nächste Folie",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Code",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Zitat",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Kontrollkästchen",
   "deleted": "Gelöscht",
   "emphasis": "Hervorhebung",
   "listBullet": "Auflistungskugel",
   "strong": "Stark",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Start",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Dateien",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sortieren nach",
   "location": "Standort",
   "whatsNew": "Was ist neu?",
@@ -493,12 +853,21 @@
   "star": "Favorisieren",
   "goUp": "Nach oben",
   "created": "Erstellt",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Geändert",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Schnellstart",
   "noTemplates": "Derzeit sind keine Vorlagen verfügbar",
   "importCorePack": "Kernpaket importieren",
   "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben.",
   "never": "Nie",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Nur bei Updates",
   "visibility": "Sichtbarkeit",
   "captureThumbnail": "Thumbnail aufnehmen",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Labelmodus wählen",
   "foreground": "Vordergrund",
   "version": "Version",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repository",
   "pages": "Seiten",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Anordnen",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Nach vorne bringen",
   "sendToBack": "An zurück senden",
   "bringForward": "Vorwärts bringen",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
   "rotate": "Drehen",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Abstandhalter",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigationsschiene",
   "cut": "Ausschneiden",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Vorher einfügen",
   "insertAfter": "Danach einfügen",
   "insertFirst": "Am Anfang einfügen",
   "insertLast": "Am Ende einfügen",
   "paste": "Einfügen",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
   "imageScale": "Bildskala",
   "select": "Auswählen",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Werkzeug",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textur",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Plattform-Theme",
   "desktop": "Desktop",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF-Qualität",
   "surface": "Oberfläche",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Muster",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Sind Sie sicher, dass Sie das Dokument schließen möchten?",
   "thereAreUnsavedChanges": "Es gibt ungespeicherte Änderungen",
   "page": "Seite",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE-Server",
   "collaboration": "Zusammenarbeit",
   "webRtc": "Web RTC",
   "webSocket": "Web-Socket",
   "iceServer": "ICE-Server",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Typ",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Seite",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Client",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Ansicht wechseln",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "UI ausblenden",
   "density": "Dichte",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompakt",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Bequemer",
   "standard": "Standard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Sperren",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Element hinzufügen",
   "notDefaultConnection": "Keine Standard-Verbindung",
   "defaultConnection": "Standardverbindung",
   "hide": "Verstecken",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Zeigen",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pause",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Stoppen",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Aktualisieren",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Drucken",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Pipette",
   "users": "Benutzer",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experimente",
   "experimentsWarning": "Diese Funktionen sind experimentell und können sich ändern, abbrechen oder verschwinden. Das Aktivieren kann zu Instabilität oder Datenverlust führen. Fahren Sie mit Vorsicht fort. Bitte melden Sie alle Fehler.",
   "address": "Adresse",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Auf Seiten verteilen",
   "rootDirectorySpecifiedDescription": "Das Wurzelverzeichnis ist spezifiziert. Alle erweiterten Verzeichnispfade sind relativ zu diesem Verzeichnis. Leer lassen um diesen Verzeichnistyp zu deaktivieren.",
   "rootDirectoryNotSpecifiedDescription": "Das Wurzelverzeichnis ist nicht spezifiziert. Ein Name ist erforderlich. Alle erweiterten Verzeichnispfade sind absolut. Lassen Sie es leer, um diesen Verzeichnistyp zu deaktivieren.",
@@ -594,25 +1065,49 @@
   "createAreas": "Bereiche erstellen",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operationen",
   "medium": "Mittel",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Groß",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Größe der Werkzeugleiste",
   "addAll": "Alle hinzufügen",
   "onlyCurrentPage": "Nur aktuelle Seite",
   "smoothNavigation": "Glatte Navigation",
   "exact": "Exakt",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Inline",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Zeilen der Symbolleiste",
   "pointerTest": "Zeigertest",
   "pressure": "Druck",
   "small": "Klein",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Winzig",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Alles auswählen",
   "overrideTools": "Werkzeuge überschreiben",
   "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden",
   "installed": "Installiert",
   "install": "Installieren",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Abwählen",
   "changeCollection": "Sammlung ändern",
   "collections": "Sammlungen",
@@ -621,15 +1116,30 @@
   "collection": "Sammlung",
   "defaultCollection": "Standard-Sammlung",
   "scroll": "Scrollen",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Beim Start",
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
   "newNote": "Neue Notiz",
   "convertToLayer": "In Ebene konvertieren",
   "merge": "Zusammenführen",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Hoch",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Runter",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Andere",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Keine Elemente} =1{1 Element} other{{count} Elemente}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximiert die Qualität auf Kosten der Leistung. Fügt ein Bild ein, das das 2fache des sichtbaren Bereichs abdeckt, wodurch auch beim schnellen Scrollen oder Zoomen eine nahtlose Darstellung gewährleistet wird.",
   "renderResolution": "Render-Auflösung",
   "translate": "Übersetzen",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Unverschlüsselt",
   "encrypted": "Verschlüsselt",
   "encryptDocumentMessage": "Klicken, um das Dokument zu verschlüsseln",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Passwort bestätigen",
   "passwordMismatch": "Passwörter stimmen nicht überein",
   "action": "Aktion",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG-Text",
   "offset": "Versatz",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Positionsabhängig",
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Einstellungen aus Datei wiederherstellen",
   "exportSettingsToFile": "Einstellungen in Datei exportieren",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Barcode-Typ",
   "qrCode": "QR Code",
   "dataMatrix": "Datenmatrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Nach rechts",
   "bundledPacks": "Gebündelte Pakete",
   "component": "Komponente",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Komponente auswählen",
   "bundlePackInDocument": "Paket in Dokument bündeln",
   "bundledPacksDescription": "Gebündelte Pakete sind im Dokument enthalten und werden nur verwendet, um sie mit dem Dokument zu teilen. Assets können nur im Dokument verwendet werden, wenn das Paket installiert ist. Pakete können mit einem Klick installiert werden.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
   "createRawNote": "Erstelle Rohnotiz",
   "polygon": "Polygon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Form beenden",
   "submit": "Absenden",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Mathe",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignoriere Druck",
   "ignoreFirstPressureDescription": "Bei einigen Geräten ist der erste Druckwert nicht korrekt. Diese Einstellung ignoriert den ersten Druckwert und verwendet stattdessen den Druck des zweiten Ereignisses.",
   "temporary": "Temporär",
   "simpleToolbarVisibility": "Einfache Symbolleiste Sichtbarkeit",
   "autosaveDelay": "Autosave-Verzögerung",
   "saved": "Gespeichert",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Speichern...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Nur lesen",
   "saveDelayed": "Speichern verzögert",
   "unsaved": "Nicht gespeichert",
-  "pdfEmptyDescription": "Derzeit gibt es keine Bereiche zu exportieren. Bitte wählen Sie mindestens einen Bereich mit der Plus-Taste in der oberen rechten Ecke aus oder fügen Sie alle Bereiche von der aktuellen Seite oder vom gesamten unten stehenden Dokument hinzu."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Derzeit gibt es keine Bereiche zu exportieren. Bitte wählen Sie mindestens einen Bereich mit der Plus-Taste in der oberen rechten Ecke aus oder fügen Sie alle Bereiche von der aktuellen Seite oder vom gesamten unten stehenden Dokument hinzu.",
+  "densityMaximize": "Maximieren",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
