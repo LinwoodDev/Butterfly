@@ -263,4 +263,6 @@ class CameraViewport extends Equatable {
     rendererStates,
     invisibleLayers,
   ];
+
+  bool get baked => image != null;
 }

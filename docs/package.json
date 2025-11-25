@@ -12,10 +12,10 @@
   "dependencies": {
     "@astrojs/check": "^0.9.5",
     "@astrojs/react": "^4.4.2",
-    "@astrojs/starlight": "^0.36.2",
+    "@astrojs/starlight": "^0.36.3",
     "@linwooddev/style": "github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
-    "@types/react": "^19.2.6",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.0",
     "react": "^19.2.0",

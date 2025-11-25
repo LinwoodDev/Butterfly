@@ -1,4 +1,6 @@
 * Improve performance of webdav operations
+* Improve delay queue on bake
+* Prevent repeated bakes without changes
 * Improve bake queue
 * Fix smooth navigation ([#978](https://github.com/LinwoodDev/Butterfly/issues/978))
 * Fix stamp handler toolbar not working correctly

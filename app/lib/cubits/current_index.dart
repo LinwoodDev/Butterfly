@@ -598,6 +598,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       if (shouldBake && allowBake) {
         return bake(blocState, reset: true);
+      } else if (!state.cameraViewport.baked) {
+        return delayedBake(blocState);
       }
     }
   }
@@ -955,7 +957,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         !setEquals(cameraViewport.invisibleLayers, invisibleLayers);
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
-    if (renderers.isEmpty && !reset) return;
+    if (cameraViewport.unbakedElements.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
@@ -1837,16 +1839,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(navigatorPage: page));
   }
 
+  var _bakeDelayed = false;
+
   Future<void> delayedBake(
     DocumentLoaded blocState, {
     ui.Size? viewportSize,
     double? pixelRatio,
     bool reset = false,
     bool testTransform = false,
-  }) {
+  }) async {
+    if (_bakeDelayed) return;
     final transformCubit = state.transformCubit;
     final oldTransform = transformCubit.state;
-    return Future.delayed(const Duration(milliseconds: 100), () {
+    try {
+      await Future.delayed(const Duration(milliseconds: 100));
       final newTransform = transformCubit.state;
       final viewport = state.cameraViewport;
       if (testTransform &&
@@ -1854,15 +1860,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               oldTransform.position != newTransform.position ||
               (oldTransform.size == viewport.scale &&
                   oldTransform.position == viewport.toOffset()))) {
-        return Future.value();
+        return;
       }
-      return bake(
-        blocState,
-        viewportSize: viewportSize,
-        pixelRatio: pixelRatio,
-        reset: reset,
-      );
-    });
+    } finally {
+      _bakeDelayed = false;
+    }
+    await bake(
+      blocState,
+      viewportSize: viewportSize,
+      pixelRatio: pixelRatio,
+      reset: reset,
+    );
   }
 
   void setUserName(String name) {
