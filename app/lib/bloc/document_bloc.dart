@@ -172,6 +172,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           addNumber: details.addNumber,
         );
       }
+      data = data.setPage(current.page, current.pageName).$1;
       _saveState(
         emit,
         state: current.copyWith(data: data, page: page, pageName: pageName),
