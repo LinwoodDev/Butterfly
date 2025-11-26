@@ -17,7 +17,7 @@ class CameraViewport extends Equatable {
   final List<Renderer<PadElement>> bakedElements,
       unbakedElements,
       visibleElements;
-  final int? width, height;
+  final double? width, height;
   final double pixelRatio;
   final double scale;
   final double x, y;
@@ -172,8 +172,8 @@ class CameraViewport extends Equatable {
 
   CameraViewport bake({
     required ui.Image image,
-    required int width,
-    required int height,
+    required double width,
+    required double height,
     required double pixelRatio,
     ui.Image? belowLayerImage,
     ui.Image? aboveLayerImage,

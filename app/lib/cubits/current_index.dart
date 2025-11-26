@@ -1125,8 +1125,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(
       state.copyWith(
         cameraViewport: cameraViewport.bake(
-          height: imageHeight,
-          width: imageWidth,
+          height: size.height,
+          width: size.width,
           pixelRatio: ratio,
           resolution: resolution,
           scale: transform.size,

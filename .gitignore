@@ -4,6 +4,7 @@
 *.iml
 \#*\#
 .\#*f
+.zed
 
 # Temporary files
 docs_old/
