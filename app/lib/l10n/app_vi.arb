@@ -1,5 +1,8 @@
 {
   "open": "Mở",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Cài đặt",
   "personalization": "Cá nhân hóa",
   "theme": "Giao diện",
@@ -7,10 +10,22 @@
   "lightTheme": "Giao diện sáng",
   "systemTheme": "Dùng giao diện mặc định của máy",
   "view": "Hiển thị",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Chỉnh sửa",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Xuất dữ liệu",
   "save": "Lưu",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Thu phóng",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Phóng to",
   "zoomOut": "Thu nhỏ",
   "resetZoom": "Đặt lại",
@@ -18,28 +33,67 @@
   "includeEraser": "Bao gồm công cụ tẩy?",
   "thinning": "Làm mảnh",
   "pen": "Bút vẽ",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Bút đảo ngược",
   "eraser": "Tẩy",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Bút xóa đường",
   "label": "Nhãn",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Xóa",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Bạn chắc chứ?",
   "reallyDelete": "Bạn có thực sự muốn xoá mục này?",
   "no": "Không",
   "yes": "Có",
   "undo": "Hoàn tác",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Làm lại",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Chung",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Đã sao chép vào bộ nhớ tạm",
   "loading": "Đang tải...",
   "enterText": "Nhập văn bản",
   "size": "Kích thước",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Chiều rộng",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Chiều cao",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Số lượng",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Phím cách",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Nền",
   "box": "Hộp",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Ngôn ngữ",
   "systemLocale": "Ngôn ngữ hệ thống",
   "information": "Thông tin",
@@ -53,19 +107,34 @@
   "existOverride": "Phần tử này đã tồn tại. Ghi đè?",
   "description": "Mô tả",
   "fill": "Tô",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Bảng màu mặc định",
   "highlighter": "Bút đánh dấu",
   "add": "Thêm",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Loại bỏ",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Bạn có thực sự muốn loại bỏ không?",
   "resetPalette": "Đặt lại bảng màu",
   "custom": "Tùy chỉnh",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Trang trí",
   "underline": "Gạch chân",
   "overline": "Gạch đầu",
   "strikethrough": "Gạch ngang",
   "thickness": "Độ dày",
   "style": "Kiểu",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Khối",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
@@ -77,17 +146,41 @@
   "italic": "In nghiêng",
   "clipboard": "Bảng nhớ tạm",
   "file": "Tệp tin",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Dữ liệu",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Chia sẻ",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Khoảng cách",
   "image": "Hình ảnh",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Nhập URL",
   "scale": "Tỷ lệ",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Trợ giúp",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Bạn có thực sự muốn đặt lại không?",
   "whatToDo": "Bạn muốn làm gì?",
   "ignore": "Bỏ qua",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Sao lưu",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Tệp tin {fileName} đã được tạo với phiên bản mới hơn ({fileVersion}). Nên làm gì với tệp tin này?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Điểm dừng",
   "origin": "Gốc",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Nhập",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Mới",
   "selectElement": "Chọn phần tử",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Sao chép phiên bản",
   "input": "Đầu vào",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Hành vi",
   "dataDirectory": "Thư mục dữ liệu",
   "defaultPath": "Đường dẫn mặc định",
@@ -138,16 +240,40 @@
   "rename": "Đổi tên",
   "duplicate": "Tạo bản sao",
   "hand": "Tay",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Thư mục",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Di chuyển",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Sao chép",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Quay lại",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Phụ thuộc thu phóng",
   "shapeDetection": "Phát hiện hình dạng",
   "delay": "Độ trễ",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Lớp mặc định",
   "layer": "Lớp",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Các lớp",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Chưa đặt",
   "enterLayer": "Nhập tên lớp",
   "selectElements": "Chọn các phần tử",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Bạn có thực sự muốn xóa các phần tử đã chọn không?",
   "selectCustomCollection": "Chọn bộ sưu tập tùy chỉnh",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Độ nhạy",
   "sensitivityHint": "Giá trị càng cao, đầu vào càng nhạy",
   "horizontal": "Ngang",
   "vertical": "Dọc",
   "plain": "Trơn",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Sáng",
   "ruled": "Có dòng kẻ",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Lưới ô vuông",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Âm nhạc",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Tối",
   "plainDark": "Trơn tối",
   "ruledDark": "Dòng tối",
@@ -174,29 +315,56 @@
   "createTemplate": "Tạo mẫu",
   "createTemplateContent": "Bạn có thực sự muốn tạo mẫu từ tài liệu này không? Tài liệu gốc sẽ bị xóa.",
   "replace": "Thay thế",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Bạn có thực sự muốn thay thế mẫu không? Hành động này không thể hoàn tác!",
   "defaultTemplate": "Mẫu mặc định",
   "insert": "Chèn",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Tài liệu",
   "camera": "Camera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Bản in",
   "selectCamera": "Chọn camera",
   "changeDocumentPath": "Thay đổi đường dẫn tài liệu",
   "deleteWholeStroke": "Xóa toàn bộ nét vẽ",
   "alpha": "Độ trong suốt",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Khu vực",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Chọn khu vực",
   "aspectRatio": "Tỷ lệ khung hình",
   "presets": "Cài đặt trước",
   "pagePortrait": "Khổ dọc",
   "pageLandscape": "Khổ ngang",
   "square": "Vuông",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Các khu vực",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Nhập khu vực",
   "exitArea": "Thoát khu vực",
   "currentArea": "Khu vực hiện tại",
   "design": "Thiết kế",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Văn bản",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Chào, đây là Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Cố định",
   "dynamicContent": "Nội dung động",
   "none": "Không có",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Bao gồm khu vực",
   "verticalAlignment": "Căn dọc",
   "horizontalAlignment": "Căn ngang",
   "top": "Trên cùng",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Giữa",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Dưới cùng",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Trái",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Phải",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Căn đều",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Ràng buộc",
   "length": "Chiều dài",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Xuất SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Chọn trang",
   "recentFiles": "Tệp tin gần đây",
   "start": "Bắt đầu",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Không có tệp tin gần đây",
   "countPages": "{count,plural, =0{Không có trang} =1{1 trang} other{{count} trang}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Thoát",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Không có phần tử",
   "invertSelection": "Đảo ngược lựa chọn",
   "errorWhileImporting": "Lỗi khi nhập",
@@ -268,14 +469,23 @@
   "error": "Lỗi",
   "stackTrace": "Dấu vết ngăn xếp",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Thời lượng",
   "quality": "Chất lượng",
   "exportPdf": "Xuất PDF",
   "local": "Cục bộ",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Thêm kết nối",
   "connections": "Kết nối",
   "noConnections": "Không có kết nối",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Kết nối",
   "username": "Tên người dùng",
   "password": "Mật khẩu",
@@ -288,10 +498,22 @@
   "cannotConnect": "Không thể kết nối",
   "urlNotValid": "URL không hợp lệ",
   "icon": "Biểu tượng",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Cập nhật",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Có bản cập nhật",
   "stable": "Ổn định",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Phiên bản thử nghiệm",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Kiểm tra cập nhật",
   "checkForUpdatesWarning": "Việc kiểm tra cập nhật sẽ kết nối với trang web Butterfly để lấy thông tin.",
   "usingLatestStable": "Bạn đang dùng phiên bản ổn định mới nhất",
@@ -299,10 +521,25 @@
   "currentVersion": "Phiên bản hiện tại",
   "updateNow": "Cập nhật ngay",
   "shape": "Hình dạng",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Hình tròn",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Hình chữ nhật",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Hình tam giác",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Đường thẳng",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Bán kính góc",
   "topLeft": "Trên trái",
   "topRight": "Trên phải",
@@ -310,6 +547,9 @@
   "bottomRight": "Dưới phải",
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Xóa bộ nhớ đệm",
   "createCache": "Tạo bộ nhớ đệm",
   "thirdPartyLicenses": "Giấy phép bên thứ ba",
@@ -317,6 +557,9 @@
   "synced": "Đã đồng bộ",
   "notSynced": "Chưa đồng bộ",
   "conflict": "Xung đột",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Giữ bản cục bộ",
   "keepConnection": "Giữ bản kết nối",
   "keepBoth": "Giữ cả hai",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Ngoại tuyến",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Bản cục bộ mới nhất",
   "connectionLatest": "Bản kết nối mới nhất",
   "path": "Đường dẫn",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Thư mục đã đồng bộ",
   "syncRootDirectory": "Thư mục gốc đồng bộ",
   "penOnlyInput": "Chỉ nhận đầu vào bằng bút",
@@ -346,19 +595,55 @@
   "syncMode": "Chế độ đồng bộ",
   "connection": "Kết nối",
   "always": "Luôn luôn",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Không dùng dữ liệu di động",
   "manual": "Thủ công",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Tìm kiếm",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Thuộc tính",
   "pin": "Ghim",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Bỏ ghim",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Phần tử",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Họa sĩ",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Vị trí",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Ghi chú",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Gói",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Gói",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Thêm",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Yêu cầu tên",
   "areaIndex": "Khu vực {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Khởi chạy toàn màn hình",
   "inputs": "Đầu vào",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Chuột",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Cảm ứng",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Bàn phím",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Phím tắt",
   "middle": "Giữa",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Đầu tiên",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Thứ hai",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Công cụ đang hoạt động",
   "activeToolDescription": "Sử dụng công cụ đang chọn trên thanh công cụ",
   "handTool": "Công cụ Tay",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Công cụ",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Hiện lưới",
   "grid": "Lưới",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Thước kẻ",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Góc",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Báo cáo",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Thư mục mới",
   "createPack": "Tạo gói",
   "editPack": "Chỉnh sửa gói",
   "packsDirectory": "Thư mục gói",
   "stamp": "Con dấu",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Thêm vào gói",
   "sureImportPack": "Bạn có chắc muốn nhập gói không?",
   "byAuthor": "bởi {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Thêm tài nguyên",
   "editAsset": "Chỉnh sửa tài nguyên",
   "scope": "Phạm vi",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Hiện không có gói nào",
   "components": "Thành phần",
   "waypoint": "Điểm dừng",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Kiểu dáng",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Đoạn văn",
   "fontFamily": "Phông chữ",
   "smoothing": "Làm mượt",
@@ -449,9 +779,21 @@
   "unknownImportType": "Loại nhập không xác định",
   "sureImportTemplate": "Bạn có chắc muốn nhập mẫu không?",
   "frame": "Khung",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Phát",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "Khung/giây",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Điểm dừng",
   "presentationControls": "Điều khiển trình chiếu",
   "nextSlide": "Trang tiếp theo",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Mã",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Trích dẫn",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Liên kết",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Hộp kiểm",
   "deleted": "Đã xóa",
   "emphasis": "Nhấn mạnh",
   "listBullet": "Danh sách dấu đầu dòng",
   "strong": "Đậm",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Trang chủ",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Tệp tin",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sắp xếp theo",
   "location": "Vị trí",
   "whatsNew": "Có gì mới?",
@@ -493,12 +853,21 @@
   "star": "Gắn sao",
   "goUp": "Lên trên",
   "created": "Đã tạo",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Đã sửa",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Bắt đầu nhanh",
   "noTemplates": "Hiện không có mẫu nào",
   "importCorePack": "Nhập gói cốt lõi",
   "importCorePackDescription": "Nhập gói cốt lõi chứa tất cả tài nguyên cơ bản để bắt đầu. Thao tác này sẽ ghi đè gói cốt lõi hiện tại.",
   "never": "Không bao giờ",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Chỉ khi cập nhật",
   "visibility": "Hiển thị",
   "captureThumbnail": "Chụp hình thu nhỏ",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Chọn chế độ nhãn",
   "foreground": "Tiền cảnh",
   "version": "Phiên bản",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Kho lưu trữ",
   "pages": "Trang",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Trình điều hướng",
   "arrange": "Sắp xếp",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Đưa lên trên",
   "sendToBack": "Đưa xuống dưới",
   "bringForward": "Đưa lên trước",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Chỉ khả dụng trên màn hình lớn hơn",
   "toolbarPosition": "Vị trí thanh công cụ",
   "rotate": "Xoay",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Khoảng trống",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Thanh điều hướng",
   "cut": "Cắt",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Chèn trước",
   "insertAfter": "Chèn sau",
   "insertFirst": "Chèn đầu tiên",
   "insertLast": "Chèn cuối cùng",
   "paste": "Dán",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "imageScale": "Tỷ lệ hình ảnh",
   "select": "Chọn",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Công cụ",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Kết cấu",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Giao diện nền tảng",
   "desktop": "Máy tính",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Di động",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Chất lượng PDF",
   "surface": "Bề mặt",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Mẫu",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Bạn có chắc muốn đóng tài liệu không?",
   "thereAreUnsavedChanges": "Có một số thay đổi chưa được lưu",
   "page": "Trang",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Máy chủ ICE",
   "collaboration": "Cộng tác",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "Máy chủ ICE",
   "port": "Cổng",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Loại",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Bên",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Khách hàng",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Máy chủ",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Chuyển chế độ xem",
   "lasso": "Thòng lọng",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Ẩn giao diện",
   "density": "Mật độ",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Gọn",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Thoải mái",
   "standard": "Tiêu chuẩn",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Khóa",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Thêm phần tử",
   "notDefaultConnection": "Không phải kết nối mặc định",
   "defaultConnection": "Kết nối mặc định",
   "hide": "Ẩn",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Hiện",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Tạm dừng",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Dừng",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Làm mới",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "In",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Công cụ lấy màu",
   "users": "Người dùng",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Thử nghiệm",
   "experimentsWarning": "Các tính năng này đang thử nghiệm và có thể thay đổi, hỏng hoặc biến mất bất cứ lúc nào. Việc kích hoạt có thể gây mất ổn định hoặc mất dữ liệu. Hãy cẩn thận. Vui lòng báo lỗi nếu có.",
   "address": "Địa chỉ",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Trải ra các trang",
   "rootDirectorySpecifiedDescription": "Thư mục gốc đã được chỉ định. Tất cả đường dẫn thư mục nâng cao sẽ dựa trên thư mục này. Giữ trống để vô hiệu hóa.",
   "rootDirectoryNotSpecifiedDescription": "Chưa chỉ định thư mục gốc. Cần có tên. Tất cả đường dẫn thư mục nâng cao sẽ là đường dẫn tuyệt đối. Giữ trống để vô hiệu hóa.",
@@ -594,25 +1065,49 @@
   "createAreas": "Tạo khu vực",
   "autosave": "Tự động lưu",
   "invert": "Đảo ngược",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Các thao tác",
   "medium": "Vừa",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Lớn",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Kích thước thanh công cụ",
   "addAll": "Thêm tất cả",
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
   "exact": "Chính xác",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Nội tuyến",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Số hàng thanh công cụ",
   "pointerTest": "Kiểm tra con trỏ",
   "pressure": "Áp lực",
   "small": "Nhỏ",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Rất nhỏ",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Chọn tất cả",
   "overrideTools": "Ghi đè công cụ",
   "hideCursorWhileDrawing": "Ẩn con trỏ khi vẽ",
   "installed": "Đã cài",
   "install": "Cài đặt",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Bỏ chọn",
   "changeCollection": "Đổi bộ sưu tập",
   "collections": "Các bộ sưu tập",
@@ -621,15 +1116,30 @@
   "collection": "Bộ sưu tập",
   "defaultCollection": "Bộ sưu tập mặc định",
   "scroll": "Cuộn",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Khi khởi động",
   "homeScreen": "Màn hình chính",
   "lastNote": "Ghi chú cuối",
   "newNote": "Ghi chú mới",
   "convertToLayer": "Chuyển thành lớp",
   "merge": "Gộp",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Lên",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Xuống",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Khác",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Không có phần tử} =1{1 phần tử} other{{count} phần tử}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Độ phân giải render",
   "translate": "Dịch",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Chưa mã hóa",
   "encrypted": "Đã mã hóa",
   "encryptDocumentMessage": "Nhấp để mã hóa tài liệu",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Xác nhận mật khẩu",
   "passwordMismatch": "Mật khẩu không khớp",
   "action": "Thao tác",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "Văn bản SVG",
   "offset": "Độ lệch",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Phụ thuộc vị trí",
   "flipHorizontal": "Lật ngang",
   "flipVertical": "Lật dọc",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Khôi phục cài đặt từ tệp tin",
   "exportSettingsToFile": "Xuất cài đặt ra tệp tin",
   "barcode": "Mã vạch",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Loại mã vạch",
   "qrCode": "Mã QR",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Di chuyển sang phải",
   "bundledPacks": "Gói đi kèm",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Chọn thành phần",
   "bundlePackInDocument": "Đóng gói vào tài liệu",
   "bundledPacksDescription": "Các gói đi kèm được bao gồm trong tài liệu và chỉ dùng khi chia sẻ cùng tài liệu. Tài nguyên chỉ dùng khi gói được cài. Nhấp để cài gói.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Tin nhắn của bạn được định tuyến qua máy chủ trung gian mã hóa đầu cuối. Cần địa chỉ máy chủ swamp để tạo phiên.",
   "createRawNote": "Tạo ghi chú gốc",
   "polygon": "Đa giác",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Hoàn thành hình",
   "submit": "Gửi",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

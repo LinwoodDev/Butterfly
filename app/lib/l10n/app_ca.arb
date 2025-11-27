@@ -1,5 +1,8 @@
 {
   "open": "Obrir",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Configuració",
   "personalization": "Personalització",
   "theme": "Tema",
@@ -7,10 +10,22 @@
   "lightTheme": "Tema clar",
   "systemTheme": "Utilitzar tema del sistema per defecte",
   "view": "Veure",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Editar",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportar",
   "save": "Desa",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zoom",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Amplia",
   "zoomOut": "Redueix",
   "resetZoom": "Reinicia zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Incloure esborrador?",
   "thinning": "Afinament",
   "pen": "Bolígraf",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Bolígraf invertit",
   "eraser": "Esborrador",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Esborrador de trajectes",
   "label": "Etiqueta",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Suprimeix",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Estàs segur?",
   "reallyDelete": "Realment vols suprimir aquest element?",
   "no": "No",
   "yes": "Sí",
   "undo": "Desfer",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Tornar a fer",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "General",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Copiat al porta-retalls",
   "loading": "Carregant...",
   "enterText": "Introdueix el text",
   "size": "Mida",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Amplada",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Alçada",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Nombre",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Espai",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Fons",
   "box": "Quadre",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Configuració regional",
   "systemLocale": "Configuració regional del sistema",
   "information": "Informació",
@@ -53,19 +107,34 @@
   "existOverride": "Aquest element ja existeix. Sobreescriure?",
   "description": "Descripció",
   "fill": "Omplir",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Paleta per defecte",
   "highlighter": "Marcador",
   "add": "Afegeix",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Elimina",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Realment vols eliminar això?",
   "resetPalette": "Reinicia paleta",
   "custom": "Personalitzat",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Decoració",
   "underline": "Subratllat",
   "overline": "Sobrelineat",
   "strikethrough": "Ratllat",
   "thickness": "Gruix",
   "style": "Estil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Sòlid",
   "double": "Doble",
   "dotted": "Puntejat",
@@ -77,17 +146,41 @@
   "italic": "Cursiva",
   "clipboard": "Porta-retalls",
   "file": "Fitxer",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Dades",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Comparteix",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Espaiat",
   "image": "Imatge",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Introdueix l'URL",
   "scale": "Escala",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Ajuda",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Realment vols reiniciar-ho?",
   "whatToDo": "Què vols fer?",
   "ignore": "Ignora",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Còpia de seguretat",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "El fitxer {fileName} es va crear en una versió més nova ({fileVersion}). Què cal fer amb aquest fitxer?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Punts de pas",
   "origin": "Origen",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importa",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Nou",
   "selectElement": "Selecciona element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Copia versió",
   "input": "Entrada",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Comportaments",
   "dataDirectory": "Directori de dades",
   "defaultPath": "Ruta per defecte",
@@ -138,16 +240,40 @@
   "rename": "Canvia nom",
   "duplicate": "Duplica",
   "hand": "Mà",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Carpeta",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Mou",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Copia",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Enrere",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Depenent del zoom",
   "shapeDetection": "Detecció de formes",
   "delay": "Retard",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Capa per defecte",
   "layer": "Capa",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Capes",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "No establert",
   "enterLayer": "Introdueix el nom de la capa",
   "selectElements": "Selecciona elements",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Realment vols suprimir els elements seleccionats?",
   "selectCustomCollection": "Selecciona una col·lecció personalitzada",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Sensibilitat",
   "sensitivityHint": "Com més alt el valor, més sensible serà l'entrada",
   "horizontal": "Horitzontal",
   "vertical": "Vertical",
   "plain": "Pla",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Clar",
   "ruled": "Ratllat",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Quadrícula",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Música",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Fosc",
   "plainDark": "Pla fosc",
   "ruledDark": "Ratllat fosc",
@@ -174,29 +315,56 @@
   "createTemplate": "Crea plantilla",
   "createTemplateContent": "Realment vols crear una plantilla d'aquest document? El document original s'eliminarà.",
   "replace": "Substitueix",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Realment vols substituir la plantilla? Aquesta operació no es pot desfer!",
   "defaultTemplate": "Plantilla per defecte",
   "insert": "Insereix",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Document",
   "camera": "Càmera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Impressió",
   "selectCamera": "Selecciona una càmera",
   "changeDocumentPath": "Canvia la ruta del document",
   "deleteWholeStroke": "Suprimeix tot el traç",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Àrea",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Selecciona l'àrea",
   "aspectRatio": "Relació d'aspecte",
   "presets": "Predefinits",
   "pagePortrait": "Pàgina vertical",
   "pageLandscape": "Pàgina horitzontal",
   "square": "Quadrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Àrees",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Introdueix l'àrea",
   "exitArea": "Surt de l'àrea",
   "currentArea": "Àrea actual",
   "design": "Disseny",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hola, això és Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fix",
   "dynamicContent": "Dinàmic",
   "none": "Cap",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Inclou àrea",
   "verticalAlignment": "Alineació vertical",
   "horizontalAlignment": "Alineació horitzontal",
   "top": "Superior",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Centre",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Inferior",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Esquerra",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Dreta",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Justifica",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Restricció",
   "length": "Longitud",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Exporta SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Selecciona pàgines",
   "recentFiles": "Fitxers recents",
   "start": "Inicia",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Cap fitxer recent",
   "countPages": "{count,plural, =0{Cap pàgina} =1{1 pàgina} other{{count} pàgines}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Surt",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Cap element",
   "invertSelection": "Inverteix selecció",
   "errorWhileImporting": "Error en importar",
@@ -268,14 +469,23 @@
   "error": "Error",
   "stackTrace": "Traça de pila",
   "laser": "Làser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Durada",
   "quality": "Qualitat",
   "exportPdf": "Exporta PDF",
   "local": "Local",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Afegeix connexió",
   "connections": "Connexions",
   "noConnections": "Cap connexió",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Connecta",
   "username": "Nom d'usuari",
   "password": "Contrasenya",
@@ -288,10 +498,22 @@
   "cannotConnect": "No es pot connectar",
   "urlNotValid": "URL no vàlida",
   "icon": "Icona",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Actualitza",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Actualització disponible",
   "stable": "Estable",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nightly",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Comprova actualitzacions",
   "checkForUpdatesWarning": "Fer una comprovació d'actualitzacions se connectarà al lloc web de Butterfly per obtenir la informació.",
   "usingLatestStable": "Estàs utilitzant l'última versió estable",
@@ -299,10 +521,25 @@
   "currentVersion": "Versió actual",
   "updateNow": "Actualitza ara",
   "shape": "Forma",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Cercle",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rectangle",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Triangle",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Línia",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Radi de cantonada",
   "topLeft": "Superior esquerra",
   "topRight": "Superior dreta",
@@ -310,6 +547,9 @@
   "bottomRight": "Inferior dreta",
   "caches": "Cachés",
   "manage": "Gestiona",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Neteja cachés",
   "createCache": "Crea caché",
   "thirdPartyLicenses": "Llicències de tercers",
@@ -317,6 +557,9 @@
   "synced": "Sincronitzat",
   "notSynced": "No sincronitzat",
   "conflict": "Conflicte",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Manté local",
   "keepConnection": "Manté connexió",
   "keepBoth": "Manté ambdós",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Desconnectat",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Local més recent",
   "connectionLatest": "Connexió més recent",
   "path": "Ruta",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Carpeta sincronitzada",
   "syncRootDirectory": "Directori arrel de sincronització",
   "penOnlyInput": "Entrada només bolígraf",
@@ -346,19 +595,55 @@
   "syncMode": "Mode de sincronització",
   "connection": "Connexió",
   "always": "Sempre",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Sense mòbil",
   "manual": "Manual",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Cerca",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Propietats",
   "pin": "Fixar",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Desfixar",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Pintor",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Posició",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Nota",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Paquets",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Pack",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Més",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Demana nom",
   "areaIndex": "Àrea {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Inicia en pantalla completa",
   "inputs": "Entrades",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Ratolí",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Tacte",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Teclat",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Dreceres",
   "middle": "Mig",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Primer",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Segon",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Eina activa",
   "activeToolDescription": "Utilitza l'eina seleccionada actualment a la barra d'eines",
   "handTool": "Eina de mà",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Eines",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Mostra quadrícula",
   "grid": "Quadrícula",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Regle",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Angle",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Informe",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Nova carpeta",
   "createPack": "Crea pack",
   "editPack": "Edita pack",
   "packsDirectory": "Directori de packs",
   "stamp": "Segell",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Afegeix al pack",
   "sureImportPack": "Segur que vols importar el pack?",
   "byAuthor": "per {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Afegeix recurs",
   "editAsset": "Edita recurs",
   "scope": "Àmbit",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Actualment no hi ha packs disponibles",
   "components": "Components",
   "waypoint": "Punt de pas",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Estils",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Pàrraf",
   "fontFamily": "Tipus de lletra",
   "smoothing": "Suavització",
@@ -449,9 +779,21 @@
   "unknownImportType": "Tipus d'importació desconegut",
   "sureImportTemplate": "Segur que vols importar la plantilla?",
   "frame": "Marc",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Reprodueix",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Vídeo",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Punt de ruptura",
   "presentationControls": "Controls de presentació",
   "nextSlide": "Següent diapositiva",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Codi",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Cita",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Enllaç",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Casella de selecció",
   "deleted": "Eliminat",
   "emphasis": "Èmfasi",
   "listBullet": "Llista amb vinyetes",
   "strong": "Fort",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Inici",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Fitxers",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Ordena per",
   "location": "Ubicació",
   "whatsNew": "Què hi ha de nou?",
@@ -493,12 +853,21 @@
   "star": "Marca amb estrella",
   "goUp": "Puja",
   "created": "Creat",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Modificat",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Inici ràpid",
   "noTemplates": "Actualment no hi ha plantilles disponibles",
   "importCorePack": "Importa pack principal",
   "importCorePackDescription": "Importa el pack principal que conté tots els recursos bàsics per començar. Això sobreescriurà el pack principal actual.",
   "never": "Mai",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Només en actualitzacions",
   "visibility": "Visibilitat",
   "captureThumbnail": "Captura la miniatura",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Tria mode d'etiqueta",
   "foreground": "Primer pla",
   "version": "Versió",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repositori",
   "pages": "Pàgines",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navegador",
   "arrange": "Organitza",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Porta al davant",
   "sendToBack": "Envia enrere",
   "bringForward": "Porta endavant",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Només disponible en pantalles grans",
   "toolbarPosition": "Posició de la barra d'eines",
   "rotate": "Rota",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Separador",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Rail de navegació",
   "cut": "Talla",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Insereix abans",
   "insertAfter": "Insereix després",
   "insertFirst": "Insereix primer",
   "insertLast": "Insereix últim",
   "paste": "Enganxa",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Ascendent",
   "descending": "Descendent",
   "imageScale": "Escala d'imatge",
   "select": "Selecciona",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Eina",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textura",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Tema de plataforma",
   "desktop": "Escriptori",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mòbil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Qualitat PDF",
   "surface": "Superfície",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Patró",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Segur que vols tancar el document?",
   "thereAreUnsavedChanges": "Hi ha canvis sense desar",
   "page": "Pàgina",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Servidors ICE",
   "collaboration": "Col·laboració",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "Servidor ICE",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Tipus",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Costat",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Client",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Servidor",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Canvia vista",
   "lasso": "Llaç",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Amaga la interfície",
   "density": "Densitat",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Compacte",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Còmode",
   "standard": "Estàndard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Bloqueja",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Afegeix element",
   "notDefaultConnection": "Connexió no per defecte",
   "defaultConnection": "Connexió per defecte",
   "hide": "Amaga",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Mostra",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pausa",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Atura",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Actualitza",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Imprimeix",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Pipeta",
   "users": "Usuaris",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experiments",
   "experimentsWarning": "Aquestes funcions són experimentals i poden canviar, trencar-se o desaparèixer en qualsevol moment. Activar-les pot causar inestabilitat o pèrdua de dades. Procedeix amb precaució. Si us plau, informa de qualsevol error.",
   "address": "Adreça",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Estén a pàgines",
   "rootDirectorySpecifiedDescription": "S'ha especificat el directori arrel. Totes les rutes de directori avançades seran relatives a aquest directori. Deixa-ho buit per desactivar aquest tipus de directori.",
   "rootDirectoryNotSpecifiedDescription": "No s'ha especificat el directori arrel. Es requereix un nom. Totes les rutes de directori avançades seran absolutes. Deixa-ho buit per desactivar aquest tipus de directori.",
@@ -594,25 +1065,49 @@
   "createAreas": "Crea àrees",
   "autosave": "Desament automàtic",
   "invert": "Inverteix",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operacions",
   "medium": "Mitjà",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Gran",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Mida de la barra d'eines",
   "addAll": "Afegeix-ho tot",
   "onlyCurrentPage": "Només pàgina actual",
   "smoothNavigation": "Navegació fluida",
   "exact": "Exacte",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "En línia",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Files de barra d'eines",
   "pointerTest": "Prova de punter",
   "pressure": "Pressió",
   "small": "Petit",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Minúscul",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Selecciona-ho tot",
   "overrideTools": "Sobreescriu eines",
   "hideCursorWhileDrawing": "Amaga el cursor mentre dibuixes",
   "installed": "Instal·lat",
   "install": "Instal·la",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Deselecciona",
   "changeCollection": "Canvia col·lecció",
   "collections": "Col·leccions",
@@ -621,15 +1116,30 @@
   "collection": "Col·lecció",
   "defaultCollection": "Col·lecció per defecte",
   "scroll": "Desplaça",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "A l'inici",
   "homeScreen": "Pantalla d'inici",
   "lastNote": "Darrera nota",
   "newNote": "Nova nota",
   "convertToLayer": "Converteix a capa",
   "merge": "Fusiona",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Amunt",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Avall",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Altres",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Cap element} =1{1 element} other{{count} elements}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Resolució de renderitzat",
   "translate": "Tradueix",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Sense xifrar",
   "encrypted": "Xifrat",
   "encryptDocumentMessage": "Fes clic per xifrar el document",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Confirma la contrasenya",
   "passwordMismatch": "Les contrasenyes no coincideixen",
   "action": "Acció",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "Text SVG",
   "offset": "Desplaçament",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Depend de la posició",
   "flipHorizontal": "Gira horitzontalment",
   "flipVertical": "Gira verticalment",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Restaura configuració des de fitxer",
   "exportSettingsToFile": "Exporta configuració a fitxer",
   "barcode": "Codi de barres",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Tipus de codi de barres",
   "qrCode": "Codi QR",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Mou a la dreta",
   "bundledPacks": "Packs inclosos",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Selecciona component",
   "bundlePackInDocument": "Inclou pack en el document",
   "bundledPacksDescription": "Els packs inclosos estan en el document i només es poden utilitzar per compartir amb el document. Els recursos només es poden usar si el pack està instal·lat. Es poden instal·lar fent clic sobre ells.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Els teus missatges es redirigeixen a través d'un servidor de relé segur amb xifrat de punta a punta. Es requereix una adreça de servidor swamp per crear una sessió.",
   "createRawNote": "Crea nota bruta",
   "polygon": "Polígon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Acaba la forma",
   "submit": "Envia",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

@@ -1,5 +1,8 @@
 {
   "open": "Open",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Instellingen",
   "personalization": "Personalisatie",
   "theme": "Thema",
@@ -7,10 +10,22 @@
   "lightTheme": "Licht thema",
   "systemTheme": "Gebruik standaard systeemthema",
   "view": "Bekijken",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Bewerken",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exporteren",
   "save": "Opslaan",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Inzoomen",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom uit",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Inclusief gum",
   "thinning": "Duiken",
   "pen": "pennen",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Omgekeerde Pen",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Pad gum",
   "label": "Omschrijving",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Verwijderen",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Weet je het zeker?",
   "reallyDelete": "Weet u zeker dat u dit artikel wilt verwijderen?",
   "no": "Neen",
   "yes": "ja",
   "undo": "Herstel",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Opnieuw",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Algemeen",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Gekopieerd naar klembord",
   "loading": "Laden...",
   "enterText": "Voer de tekst in",
   "size": "Grootte",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Højde",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Tel",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Spatiebalk",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Achtergrond",
   "box": "Vierkant",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Lokalisatie",
   "systemLocale": "Systeem lokalisatie",
   "information": "Informatie",
@@ -53,19 +107,34 @@
   "existOverride": "Dit element bestaat al. Overschrijven?",
   "description": "Beschrijving",
   "fill": "Invullen",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Standaard palet",
   "highlighter": "Markeerstift",
   "add": "Toevoegen",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Verwijderen",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Weet je zeker dat je dit wilt verwijderen?",
   "resetPalette": "Reset palette",
   "custom": "Aangepaste",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Decoratie",
   "underline": "Onderstrepen",
   "overline": "Overlijn",
   "strikethrough": "Doorhalen",
   "thickness": "Dikte",
   "style": "CSS",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Dubbel",
   "dotted": "Gestippeld",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Klembord",
   "file": "Bestand",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Gegevens",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Delen",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Afstand",
   "image": "Afbeelding",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Voer de URL in",
   "scale": "Schaal",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Hulp",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Weet u zeker dat u het wilt resetten?",
   "whatToDo": "Wat wil je doen?",
   "ignore": "Negeren",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Back-up",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Het bestand {fileName} is gemaakt in een nieuwere versie ({fileVersion}). Wat moet er met dit bestand worden gedaan?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Routepunten",
   "origin": "Oorsprong",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importeren",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Nieuw",
   "selectElement": "Element selecteren",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Versie kopiëren",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Gedrag",
   "dataDirectory": "Data map",
   "defaultPath": "Standaard pad",
@@ -138,16 +240,40 @@
   "rename": "Hernoem",
   "duplicate": "Duplicate",
   "hand": "Hand",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Map",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Verplaatsen",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopiëren",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Achterzijde",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Afhankelijk zoomen",
   "shapeDetection": "Vorm Detectie",
   "delay": "Vertraging",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Standaard laag",
   "layer": "Laag",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Lagen",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Niet ingesteld",
   "enterLayer": "Voer de naam van de laag in",
   "selectElements": "Elementen selecteren",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Weet u zeker dat u de geselecteerde elementen wilt verwijderen?",
   "selectCustomCollection": "Selecteer een aangepaste collectie",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Gevoeligheid",
   "sensitivityHint": "Hoe hoger de waarde, hoe gevoeliger de input",
   "horizontal": "Horizontaal",
   "vertical": "Verticaal",
   "plain": "Eenvoudig",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Licht",
   "ruled": "Gerecht",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Quad",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Muziek",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Donker",
   "plainDark": "Donker",
   "ruledDark": "Geruïneerd donker",
@@ -174,29 +315,56 @@
   "createTemplate": "Sjabloon aanmaken",
   "createTemplateContent": "Wilt u echt een template van dit document aanmaken? Het oorspronkelijke document zal worden verwijderd.",
   "replace": "Vervangen",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Wilt u echt de template vervangen? Deze actie kan niet ongedaan worden gemaakt!",
   "defaultTemplate": "Standaard sjabloon",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Document",
   "camera": "camera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Afdrukken",
   "selectCamera": "Selecteer een camera",
   "changeDocumentPath": "Documentpad wijzigen",
   "deleteWholeStroke": "Verwijder hele streek",
   "alpha": "Transparantie",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Oppervlak",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Selecteer een gebied",
   "aspectRatio": "Aspect verhouding",
   "presets": "Voorkeursinstellingen",
   "pagePortrait": "Pagina portret",
   "pageLandscape": "Pagina liggend",
   "square": "Vierkant",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Gebieden",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Voer het gebied in",
   "exitArea": "Verlaat het gebied",
   "currentArea": "Huidig gebied",
   "design": "Ontwerp",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Tekstveld",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hé, dit is Linwood Vlinder {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Opgelost",
   "dynamicContent": "Dynamisch",
   "none": "geen",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Opnemen van gebied",
   "verticalAlignment": "Verticale uitlijning",
   "horizontalAlignment": "Horizontale uitlijning",
   "top": "Bovenkant",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Gecentreerd",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Onderaan",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Linkerkant",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Rechterkant",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Uitlijnen",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Beperking",
   "length": "longueur",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "SVG exporteren",
   "pdf": "PDF-bestand",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Pagina's selecteren",
   "recentFiles": "Recente bestanden",
   "start": "Beginnen",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Geen recente bestanden",
   "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Afsluiten",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Geen elementen",
   "invertSelection": "Selectie omkeren",
   "errorWhileImporting": "Fout tijdens importeren",
@@ -268,14 +469,23 @@
   "error": "Foutmelding",
   "stackTrace": "Stapel traceren",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Duur",
   "quality": "Kwaliteit",
   "exportPdf": "Exporteren als PDF",
   "local": "lokaal",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Contact toevoegen",
   "connections": "Verbindingen",
   "noConnections": "Geen verbindingen",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Verbinden",
   "username": "Gebruikersnaam",
   "password": "Wachtwoord",
@@ -288,10 +498,22 @@
   "cannotConnect": "Kan niet verbinden",
   "urlNotValid": "URL niet geldig",
   "icon": "Pictogram",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Vernieuwen",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Update beschikbaar",
   "stable": "Stabiel",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nachtelijk",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Op updates controleren",
   "checkForUpdatesWarning": "Bij het uitvoeren van een controle op updates wordt verbinding gemaakt met de website Butterfly om de informatie te krijgen.",
   "usingLatestStable": "U gebruikt de laatste stabiele versie",
@@ -299,10 +521,25 @@
   "currentVersion": "Huidige versie",
   "updateNow": "Nu bijwerken",
   "shape": "Vorm",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Cirkel",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rechthoek",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Driehoek",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Lijn",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Boven links",
   "topRight": "Boven rechts",
@@ -310,6 +547,9 @@
   "bottomRight": "Onder rechts",
   "caches": "Caches",
   "manage": "Beheren",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Caches wissen",
   "createCache": "Maak cache",
   "thirdPartyLicenses": "Licenties van derden",
@@ -317,6 +557,9 @@
   "synced": "Gesynchroniseerd",
   "notSynced": "Niet gesynchroniseerd",
   "conflict": "Conflict",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Lokaal behouden",
   "keepConnection": "Connectie behouden",
   "keepBoth": "Houd beide",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Lokale nieuwste",
   "connectionLatest": "Laatste verbinding",
   "path": "Pad",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Map gesynchroniseerd",
   "syncRootDirectory": "Synchroniseer hoofdmap",
   "penOnlyInput": "Alleen invoer pen",
@@ -346,19 +595,55 @@
   "syncMode": "Synchronisatie modus",
   "connection": "Verbindingsinstellingen",
   "always": "altijd",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Geen mobiel",
   "manual": "Handleiding",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Zoeken",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Eigenschappen",
   "pin": "Vastzetten",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Schilder",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Positie",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Notitie",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Pakketten",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Pakket",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Meer",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Vraag om naam",
   "areaIndex": "Gebied {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Start op volledig scherm",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Muis",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Aanraking",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Snelkoppelingen",
   "middle": "Midden",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Eerste",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Tweede",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Actieve functie",
   "activeToolDescription": "Gebruik de huidige geselecteerde tool op de werkbalk",
   "handTool": "Handleiding Gereedschap",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Hulpmiddelen",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Raster weergeven",
   "grid": "Rooster",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Liniaal",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Hoek",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Rapporteren",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Nieuwe map",
   "createPack": "Pakket aanmaken",
   "editPack": "Pakket bewerken",
   "packsDirectory": "Pakketten map",
   "stamp": "Zegel",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Voeg toe aan pakket",
   "sureImportPack": "Weet u zeker dat u het pakket wilt importeren?",
   "byAuthor": "door {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Bestand toevoegen",
   "editAsset": "Bestand bewerken",
   "scope": "Bereik",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Er zijn momenteel geen pakketten beschikbaar",
   "components": "Onderdelen",
   "waypoint": "Routepunt",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Paragraaf",
   "fontFamily": "Lettertype familie",
   "smoothing": "Vloeiend",
@@ -449,9 +779,21 @@
   "unknownImportType": "Onbekend importtype",
   "sureImportTemplate": "Weet u zeker dat u de template wilt importeren?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Afspelen",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Breekpunt",
   "presentationControls": "Presentatie besturing",
   "nextSlide": "Volgende slide",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Code",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Offerte",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Koppeling",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Selectievakje",
   "deleted": "Verwijderd",
   "emphasis": "Nadruk",
   "listBullet": "Lijst opsommingsteken",
   "strong": "Sterk",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Startpagina",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Bestanden",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sorteren op",
   "location": "Locatie",
   "whatsNew": "Wat is nieuw?",
@@ -493,12 +853,21 @@
   "star": "Ster",
   "goUp": "Ga omhoog",
   "created": "Aangemaakt",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Gewijzigd",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Snelstart",
   "noTemplates": "Er zijn momenteel geen sjablonen beschikbaar",
   "importCorePack": "Importeer core pakket",
   "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven.",
   "never": "Nooit",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Alleen op updates",
   "visibility": "Zichtbaarheid",
   "captureThumbnail": "Thumbnail opnemen",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Kies labelmodus",
   "foreground": "Voorgrond",
   "version": "Versie",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Bewaarplaats",
   "pages": "Pagina's",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Ordenen",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Naar voren brengen",
   "sendToBack": "Stuur naar achterkant",
   "bringForward": "Breng naar voren",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
   "rotate": "Draaien",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Afstandshouder",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigatie spoor",
   "cut": "Knippen",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Voordat invoegen",
   "insertAfter": "Voeg toe na",
   "insertFirst": "Eerst invoegen",
   "insertLast": "Insert last",
   "paste": "Plakken",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Oplopend",
   "descending": "Aflopend",
   "imageScale": "Afbeelding schaal",
   "select": "Selecteren",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Gereedschap",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textuur",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Platform thema",
   "desktop": "Startscherm",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobiel",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF kwaliteit",
   "surface": "Oppervlak",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Patroon",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Weet u zeker dat u het document wilt sluiten?",
   "thereAreUnsavedChanges": "Er zijn niet-opgeslagen wijzigingen",
   "page": "Pagina",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE servers",
   "collaboration": "Samenwerken",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE server",
   "port": "Poort",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Type",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Zijde",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Klant",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Wissel weergave",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Verberg UI",
   "density": "Dichtheid",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Compacte",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Comfortabel",
   "standard": "Standaard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Vergrendelen",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Element toevoegen",
   "notDefaultConnection": "Niet standaard verbinding",
   "defaultConnection": "Standaard connectie",
   "hide": "Verbergen",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Weergeven",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Onderbreken",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Stoppen",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Vernieuwen",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Afdrukken",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Oog dropper",
   "users": "Gebruikers",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experimenten",
   "experimentsWarning": "Deze functies zijn experimenteel en kunnen veranderen, vastlopen of op elk moment verdwijnen. Het inschakelen ervan kan leiden tot instabiliteit of gegevensverlies. Ga voorzichtig te werk. Rapporteer eventuele bugs.",
   "address": "Adres:",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Verspreid naar pagina's",
   "rootDirectorySpecifiedDescription": "De hoofdmap is opgegeven. Alle geavanceerde mappen zullen relatief zijn ten opzichte van deze map. Laat het leeg om dit maptype uit te schakelen.",
   "rootDirectoryNotSpecifiedDescription": "De hoofdmap is niet opgegeven. Een naam is vereist. Alle geavanceerde directory paden zullen absoluut zijn. Leeg houden om dit type map uit te schakelen.",
@@ -594,25 +1065,49 @@
   "createAreas": "Maak gebieden",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Bewerkingen",
   "medium": "Middelgroot",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "groot",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Werkbalk grootte",
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
   "smoothNavigation": "Vloeiende navigatie",
   "exact": "Exacte",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Inline",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Werkbalk rijen",
   "pointerTest": "Testen van aanwijzer",
   "pressure": "Drukdruk",
   "small": "Klein",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Klein",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Alles selecteren",
   "overrideTools": "Hulpmiddelen vervangen",
   "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen",
   "installed": "Geinstalleerd",
   "install": "Installeren",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Deselecteer",
   "changeCollection": "Verzameling wijzigen",
   "collections": "Collecties",
@@ -621,15 +1116,30 @@
   "collection": "Collectie",
   "defaultCollection": "Standaard collectie",
   "scroll": "Scrollen",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Bij het opstarten",
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
   "newNote": "Nieuwe notitie",
   "convertToLayer": "Converteren naar laag",
   "merge": "Samenvoegen",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Omhoog",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Omlaag",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "anders",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Geen elementen} =1{1 element} other{{count} elementen}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Vergroot kwaliteit ten koste van prestaties. Maakt een afbeelding die 2 keer het zichtbare gebied beslaat en zorgt voor naadloze weergave zelfs tijdens snel scrollen of zoomen",
   "renderResolution": "Resolutie weergeven",
   "translate": "Vertalen",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Onversleuteld",
   "encrypted": "Versleuteld",
   "encryptDocumentMessage": "Klik om het document te coderen",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Bevestig wachtwoord",
   "passwordMismatch": "De wachtwoorden komen niet overeen",
   "action": "actie",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG tekst",
   "offset": "Verschuiving",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Afhankelijke positie",
   "flipHorizontal": "Horizontaal spiegelen",
   "flipVertical": "Spiegel verticaal",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Instellingen herstellen vanuit bestand",
   "exportSettingsToFile": "Instellingen exporteren naar bestand",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Streepjescode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Beweeg rechts",
   "bundledPacks": "Gebundelde pakketten",
   "component": "Onderdeel",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Selecteer component",
   "bundlePackInDocument": "Bundelpakket in document",
   "bundledPacksDescription": "Gebundelde pakketten zijn opgenomen in het document en worden alleen gebruikt om met het document te delen. Assets kunnen alleen in het document worden gebruikt als het pakket is geïnstalleerd. Pakketten kunnen worden geïnstalleerd door erop te klikken.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Je berichten worden doorgestuurd via een beveiligde relaisserver met end-to-end versleuteling. Een wamp serveradres is vereist om een sessie te maken.",
   "createRawNote": "Ruw notitie maken",
   "polygon": "Veelhoek",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Vorm voltooien",
   "submit": "Bevestigen",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Wiskunde",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Negeer druk",
   "ignoreFirstPressureDescription": "Op sommige apparaten is de eerste drukwaarde niet nauwkeurig. Deze instelling negeert de eerste drukwaarde en gebruikt in plaats daarvan de druk van de tweede gebeurtenis.",
   "temporary": "Tijdelijk",
   "simpleToolbarVisibility": "Eenvoudige werkbalk zichtbaarheid",
   "autosaveDelay": "Automatisch opslaan vertraging",
   "saved": "Opgeslagen",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Opslaan...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Alleen lezen",
   "saveDelayed": "Vertraagd opslaan",
   "unsaved": "Niet-opgeslagen",
-  "pdfEmptyDescription": "Er zijn momenteel geen gebieden om te exporteren. Selecteer ten minste één gebied met behulp van de plusknop in de rechterbovenhoek of voeg alle gebieden toe uit de huidige pagina of uit het hele document hieronder."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Er zijn momenteel geen gebieden om te exporteren. Selecteer ten minste één gebied met behulp van de plusknop in de rechterbovenhoek of voeg alle gebieden toe uit de huidige pagina of uit het hele document hieronder.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

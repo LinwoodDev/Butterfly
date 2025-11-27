@@ -1,5 +1,8 @@
 {
   "open": "열기",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "설정",
   "personalization": "개인화",
   "theme": "테마",
@@ -7,10 +10,22 @@
   "lightTheme": "밝은 테마",
   "systemTheme": "시스템 기본 테마 사용",
   "view": "보기",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "편집",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "내보내기",
   "save": "저장",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "확대/축소",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "확대",
   "zoomOut": "축소",
   "resetZoom": "확대/축소 초기화",
@@ -18,28 +33,67 @@
   "includeEraser": "지우개 포함?",
   "thinning": "필압 감지",
   "pen": "펜",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "반전 펜",
   "eraser": "지우개",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "경로 지우개",
   "label": "레이블",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "삭제",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "확실하신가요?",
   "reallyDelete": "이 항목을 정말로 삭제하시겠습니까?",
   "no": "아니요",
   "yes": "예",
   "undo": "실행 취소",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "다시 실행",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "일반",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "클립보드에 복사됨",
   "loading": "로드 중...",
   "enterText": "텍스트를 입력하세요",
   "size": "크기",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "너비",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "높이",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "개수",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "공간",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "배경",
   "box": "상자",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "언어",
   "systemLocale": "시스템 언어",
   "information": "정보",
@@ -53,19 +107,34 @@
   "existOverride": "이 요소가 이미 존재합니다. 덮어쓰시겠습니까?",
   "description": "설명",
   "fill": "채우기",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "기본 팔레트",
   "highlighter": "형광펜",
   "add": "추가",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "제거",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "정말로 제거하시겠습니까?",
   "resetPalette": "팔레트 초기화",
   "custom": "사용자 지정",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "장식",
   "underline": "밑줄",
   "overline": "윗줄",
   "strikethrough": "취소선",
   "thickness": "두께",
   "style": "스타일",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "실선",
   "double": "이중선",
   "dotted": "점선",
@@ -77,17 +146,41 @@
   "italic": "기울임꼴",
   "clipboard": "클립보드",
   "file": "파일",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "데이터",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "공유",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "간격",
   "image": "이미지",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "URL을 입력하세요",
   "scale": "배율",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "도움말",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "정말로 초기화하시겠습니까?",
   "whatToDo": "어떻게 하시겠습니까?",
   "ignore": "무시",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "백업",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "파일 {fileName}이(가) 더 새로운 버전({fileVersion})에서 생성되었습니다. 이 파일을 어떻게 처리할까요?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "경유지",
   "origin": "원본",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "가져오기",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "새로 만들기",
   "selectElement": "요소 선택",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "버전 복사",
   "input": "입력",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "동작",
   "dataDirectory": "데이터 디렉터리",
   "defaultPath": "기본 경로",
@@ -138,16 +240,40 @@
   "rename": "이름 바꾸기",
   "duplicate": "복제",
   "hand": "손",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "폴더",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "이동",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "복사",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "뒤로",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "확대/축소에 따라",
   "shapeDetection": "도형 인식",
   "delay": "지연",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "기본 레이어",
   "layer": "레이어",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "레이어",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "설정 안 됨",
   "enterLayer": "레이어 이름을 입력하세요",
   "selectElements": "요소 선택",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "선택한 요소를 정말로 삭제하시겠습니까?",
   "selectCustomCollection": "사용자 지정 컬렉션 선택",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "민감도",
   "sensitivityHint": "값이 높을수록 입력이 더 민감해집니다",
   "horizontal": "가로",
   "vertical": "세로",
   "plain": "무지",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "밝음",
   "ruled": "줄무늬",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "격자",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "오선지",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "어두움",
   "plainDark": "어두운 무지",
   "ruledDark": "어두운 줄무늬",
@@ -174,29 +315,56 @@
   "createTemplate": "템플릿 만들기",
   "createTemplateContent": "이 문서로 템플릿을 만드시겠습니까? 원본 문서는 삭제됩니다.",
   "replace": "바꾸기",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "템플릿을 정말로 바꾸시겠습니까? 이 작업은 되돌릴 수 없습니다!",
   "defaultTemplate": "기본 템플릿",
   "insert": "삽입",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "문서",
   "camera": "카메라",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "인쇄물",
   "selectCamera": "카메라 선택",
   "changeDocumentPath": "문서 경로 변경",
   "deleteWholeStroke": "전체 획 삭제",
   "alpha": "알파",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "영역",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "영역 선택",
   "aspectRatio": "종횡비",
   "presets": "프리셋",
   "pagePortrait": "세로 페이지",
   "pageLandscape": "가로 페이지",
   "square": "정사각형",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "영역",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "영역 입력",
   "exitArea": "영역 나가기",
   "currentArea": "현재 영역",
   "design": "디자인",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "텍스트",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "안녕하세요, Linwood Butterfly {codeName}입니다",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "고정",
   "dynamicContent": "동적",
   "none": "없음",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "영역 포함",
   "verticalAlignment": "세로 정렬",
   "horizontalAlignment": "가로 정렬",
   "top": "위쪽",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "가운데",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "아래쪽",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "왼쪽",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "오른쪽",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "양쪽 맞춤",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "제약 조건",
   "length": "길이",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "SVG로 내보내기",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "페이지 선택",
   "recentFiles": "최근 파일",
   "start": "시작",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "최근 파일 없음",
   "countPages": "{count,plural, =0{페이지 없음} =1{1 페이지} other{{count} 페이지}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "종료",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "요소 없음",
   "invertSelection": "선택 반전",
   "errorWhileImporting": "가져오는 중 오류 발생",
@@ -268,14 +469,23 @@
   "error": "오류",
   "stackTrace": "스택 추적",
   "laser": "레이저",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "지속 시간",
   "quality": "품질",
   "exportPdf": "PDF로 내보내기",
   "local": "로컬",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "연결 추가",
   "connections": "연결",
   "noConnections": "연결 없음",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "연결",
   "username": "사용자 이름",
   "password": "비밀번호",
@@ -288,10 +498,22 @@
   "cannotConnect": "연결할 수 없습니다",
   "urlNotValid": "유효하지 않은 URL입니다",
   "icon": "아이콘",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "업데이트",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "업데이트 가능",
   "stable": "안정",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "나이틀리",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "업데이트 확인",
   "checkForUpdatesWarning": "업데이트를 확인하면 Butterfly 웹사이트에 연결하여 정보를 가져옵니다.",
   "usingLatestStable": "최신 안정 버전을 사용하고 있습니다",
@@ -299,10 +521,25 @@
   "currentVersion": "현재 버전",
   "updateNow": "지금 업데이트",
   "shape": "도형",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "원",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "사각형",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "삼각형",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "선",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "모서리 반지름",
   "topLeft": "왼쪽 위",
   "topRight": "오른쪽 위",
@@ -310,6 +547,9 @@
   "bottomRight": "오른쪽 아래",
   "caches": "캐시",
   "manage": "관리",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "캐시 지우기",
   "createCache": "캐시 생성",
   "thirdPartyLicenses": "서드파티 라이선스",
@@ -317,6 +557,9 @@
   "synced": "동기화됨",
   "notSynced": "동기화되지 않음",
   "conflict": "충돌",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "로컬 파일 유지",
   "keepConnection": "연결 파일 유지",
   "keepBoth": "둘 다 유지",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "오프라인",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "로컬이 최신",
   "connectionLatest": "연결이 최신",
   "path": "경로",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "폴더 동기화됨",
   "syncRootDirectory": "루트 디렉터리 동기화",
   "penOnlyInput": "펜 전용 입력",
@@ -346,19 +595,55 @@
   "syncMode": "동기화 모드",
   "connection": "연결",
   "always": "항상",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "모바일 제외",
   "manual": "수동",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "검색",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "속성",
   "pin": "고정",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "고정 해제",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "요소",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "페인터",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "위치",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "노트",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "팩",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "팩",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "더 보기",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "이름 요청",
   "areaIndex": "영역 {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "전체 화면으로 시작",
   "inputs": "입력",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "마우스",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "터치",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "키보드",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "단축키",
   "middle": "가운데",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "첫 번째",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "두 번째",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "활성 도구",
   "activeToolDescription": "도구 모음에서 현재 선택된 도구를 사용합니다",
   "handTool": "손 도구",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "도구",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "격자 보기",
   "grid": "격자",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "자",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "각도",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "보고",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "새 폴더",
   "createPack": "팩 만들기",
   "editPack": "팩 편집",
   "packsDirectory": "팩 디렉터리",
   "stamp": "스탬프",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "팩에 추가",
   "sureImportPack": "팩을 가져오시겠습니까?",
   "byAuthor": "{author} 작성",
@@ -419,6 +743,9 @@
   "addAsset": "에셋 추가",
   "editAsset": "에셋 편집",
   "scope": "범위",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "현재 사용 가능한 팩이 없습니다",
   "components": "구성 요소",
   "waypoint": "경유지",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "스타일",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "단락",
   "fontFamily": "글꼴",
   "smoothing": "부드럽게",
@@ -449,9 +779,21 @@
   "unknownImportType": "알 수 없는 가져오기 유형",
   "sureImportTemplate": "템플릿을 가져오시겠습니까?",
   "frame": "프레임",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "재생",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "비디오",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "중단점",
   "presentationControls": "프레젠테이션 컨트롤",
   "nextSlide": "다음 슬라이드",
@@ -476,16 +818,34 @@
     }
   },
   "code": "코드",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "인용",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "링크",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "체크박스",
   "deleted": "삭제됨",
   "emphasis": "강조",
   "listBullet": "목록 글머리 기호",
   "strong": "굵게",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "마크다운",
   "home": "홈",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "파일",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "정렬 기준",
   "location": "위치",
   "whatsNew": "새로운 기능은?",
@@ -493,12 +853,21 @@
   "star": "별표",
   "goUp": "위로 가기",
   "created": "생성일",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "수정일",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "빠른 시작",
   "noTemplates": "현재 사용 가능한 템플릿이 없습니다",
   "importCorePack": "코어 팩 가져오기",
   "importCorePackDescription": "시작하는 데 필요한 모든 기본 에셋이 포함된 코어 팩을 가져옵니다. 이렇게 하면 현재 코어 팩을 덮어씁니다.",
   "never": "안 함",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "업데이트 시에만",
   "visibility": "표시 여부",
   "captureThumbnail": "미리보기 이미지 캡처",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "레이블 모드 선택",
   "foreground": "전경",
   "version": "버전",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "리포지토리",
   "pages": "페이지",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "탐색기",
   "arrange": "정렬",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "맨 앞으로 가져오기",
   "sendToBack": "맨 뒤로 보내기",
   "bringForward": "앞으로 가져오기",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "더 큰 화면에서만 사용 가능",
   "toolbarPosition": "도구 모음 위치",
   "rotate": "회전",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "간격",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "탐색 레일",
   "cut": "잘라내기",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "앞에 삽입",
   "insertAfter": "뒤에 삽입",
   "insertFirst": "맨 앞에 삽입",
   "insertLast": "맨 뒤에 삽입",
   "paste": "붙여넣기",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "오름차순",
   "descending": "내림차순",
   "imageScale": "이미지 배율",
   "select": "선택",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "도구",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "질감",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "플랫폼 테마",
   "desktop": "데스크톱",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "모바일",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF 품질",
   "surface": "표면",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "패턴",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "문서를 닫으시겠습니까?",
   "thereAreUnsavedChanges": "저장되지 않은 변경 사항이 있습니다",
   "page": "페이지",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE 서버",
   "collaboration": "협업",
   "webRtc": "Web RTC",
   "webSocket": "웹 소켓",
   "iceServer": "ICE 서버",
   "port": "포트",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "유형",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "측면",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "클라이언트",
+  "@client": {
+    "description": "Role"
+  },
   "server": "서버",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "보기 전환",
   "lasso": "올가미",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "UI 숨기기",
   "density": "밀도",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "좁게",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "편안하게",
   "standard": "표준",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "잠금",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "요소 추가",
   "notDefaultConnection": "기본 연결이 아님",
   "defaultConnection": "기본 연결",
   "hide": "숨기기",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "표시",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "일시 중지",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "중지",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "새로고침",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "인쇄",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "스포이트",
   "users": "사용자",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "실험 기능",
   "experimentsWarning": "이 기능들은 실험적이며 언제든지 변경, 중단 또는 사라질 수 있습니다. 활성화하면 불안정성이나 데이터 손실을 유발할 수 있습니다. 주의해서 진행하세요. 버그를 발견하면 보고해 주세요.",
   "address": "주소",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "페이지에 펼치기",
   "rootDirectorySpecifiedDescription": "루트 디렉터리가 지정되었습니다. 모든 고급 디렉터리 경로는 이 디렉터리를 기준으로 합니다. 이 디렉터리 유형을 비활성화하려면 비워두세요.",
   "rootDirectoryNotSpecifiedDescription": "루트 디렉터리가 지정되지 않았습니다. 이름이 필요합니다. 모든 고급 디렉터리 경로는 절대 경로가 됩니다. 이 디렉터리 유형을 비활성화하려면 비워두세요.",
@@ -594,25 +1065,49 @@
   "createAreas": "영역 만들기",
   "autosave": "자동 저장",
   "invert": "반전",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "작업",
   "medium": "중간",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "큼",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "도구 모음 크기",
   "addAll": "모두 추가",
   "onlyCurrentPage": "현재 페이지만",
   "smoothNavigation": "부드러운 탐색",
   "exact": "정확",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "인라인",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "도구 모음 행",
   "pointerTest": "포인터 테스트",
   "pressure": "필압",
   "small": "작음",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "매우 작음",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "모두 선택",
   "overrideTools": "도구 재정의",
   "hideCursorWhileDrawing": "그리는 동안 커서 숨기기",
   "installed": "설치됨",
   "install": "설치",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "선택 해제",
   "changeCollection": "컬렉션 변경",
   "collections": "컬렉션",
@@ -621,15 +1116,30 @@
   "collection": "컬렉션",
   "defaultCollection": "기본 컬렉션",
   "scroll": "스크롤",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "시작 시",
   "homeScreen": "홈 화면",
   "lastNote": "마지막 노트",
   "newNote": "새 노트",
   "convertToLayer": "레이어로 변환",
   "merge": "병합",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "위로",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "아래로",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "기타",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{요소 없음} =1{요소 1개} other{{count}개 요소}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "렌더링 해상도",
   "translate": "번역",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "암호화되지 않음",
   "encrypted": "암호화됨",
   "encryptDocumentMessage": "문서를 암호화하려면 클릭하세요",
@@ -662,8 +1175,14 @@
   "confirmPassword": "비밀번호 확인",
   "passwordMismatch": "비밀번호가 일치하지 않습니다",
   "action": "동작",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG 텍스트",
   "offset": "오프셋",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "위치에 따라",
   "flipHorizontal": "가로로 뒤집기",
   "flipVertical": "세로로 뒤집기",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "파일에서 설정 복원",
   "exportSettingsToFile": "설정을 파일로 내보내기",
   "barcode": "바코드",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "바코드 유형",
   "qrCode": "QR 코드",
   "dataMatrix": "데이터 매트릭스",
@@ -690,6 +1212,9 @@
   "moveRight": "오른쪽으로 이동",
   "bundledPacks": "번들 팩",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "구성 요소 선택",
   "bundlePackInDocument": "문서에 팩 번들",
   "bundledPacksDescription": "번들 팩은 문서에 포함되며 문서와 공유하는 데만 사용됩니다. 에셋은 팩이 설치된 경우에만 문서에서 사용할 수 있습니다. 팩을 클릭하여 설치할 수 있습니다.",
@@ -700,18 +1225,40 @@
   "swampDescription": "메시지는 종단 간 암호화가 적용된 보안 릴레이 서버를 통해 라우팅됩니다. 세션을 생성하려면 스웜프 서버 주소가 필요합니다.",
   "createRawNote": "원본 노트 만들기",
   "polygon": "다각형",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "도형 완성",
   "submit": "제출",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

@@ -1,5 +1,8 @@
 {
   "open": "開啟",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "設定",
   "personalization": "個人化",
   "theme": "主題",
@@ -7,10 +10,22 @@
   "lightTheme": "淺色主題",
   "systemTheme": "使用系統預設主題",
   "view": "查看",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "編輯",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "匯出",
   "save": "儲存",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "縮放",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "放大",
   "zoomOut": "縮小",
   "resetZoom": "重設縮放",
@@ -18,28 +33,67 @@
   "includeEraser": "包含橡皮擦？",
   "thinning": "稀薄化",
   "pen": "筆",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "反相筆",
   "eraser": "橡皮擦",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "路徑橡皮擦",
   "label": "標記",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "刪除",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "確定嗎？",
   "reallyDelete": "確定要刪除此項目嗎？",
   "no": "否",
   "yes": "是",
   "undo": "還原",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "復原",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "一般",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "已複製到剪貼簿",
   "loading": "載入中……",
   "enterText": "輸入文字",
   "size": "大小",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "寬度",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "高度",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "線數",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "間隔",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "背景",
   "box": "盒子",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "區域",
   "systemLocale": "系統語言",
   "information": "資訊",
@@ -53,19 +107,34 @@
   "existOverride": "此元素已存在。要覆寫嗎？",
   "description": "說明",
   "fill": "填滿",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "預設調色板",
   "highlighter": "螢光筆",
   "add": "新增",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "移除",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "確定要移除嗎？",
   "resetPalette": "重設調色板",
   "custom": "自訂",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "彩飾",
   "underline": "下劃線",
   "overline": "上劃線",
   "strikethrough": "刪除線",
   "thickness": "寬度",
   "style": "樣式",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "實線",
   "double": "雙線",
   "dotted": "點線",
@@ -77,17 +146,41 @@
   "italic": "斜體",
   "clipboard": "剪貼簿",
   "file": "檔案",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "資料",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "分享",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "間距",
   "image": "圖片",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "輸入網址",
   "scale": "縮放",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "幫助",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "確定要重設嗎？",
   "whatToDo": "您想要做什麼？",
   "ignore": "略過",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "備份",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "「{fileName}」是在第 {fileVersion} 版（較新的版本）中建立的。要如何處理這份檔案？",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "定位點",
   "origin": "原點",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "匯入",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "新建",
   "selectElement": "選擇元素",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "複製版本資訊",
   "input": "輸入",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "行爲",
   "dataDirectory": "資料夾",
   "defaultPath": "預設路徑",
@@ -138,16 +240,40 @@
   "rename": "改名",
   "duplicate": "再製",
   "hand": "手",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "資料夾",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "移動",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "複製",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "返回",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "隨應縮放",
   "shapeDetection": "形狀偵測",
   "delay": "延遲",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "預設圖層",
   "layer": "圖層",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "圖層",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "未設",
   "enterLayer": "輸入圖層名稱",
   "selectElements": "選取元素",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "確定要刪除所選元素嗎？",
   "selectCustomCollection": "選擇自訂集合",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "靈敏度",
   "sensitivityHint": "數值越高，輸入越靈敏",
   "horizontal": "水平",
   "vertical": "垂直",
   "plain": "素色",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "亮",
   "ruled": "直紋",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "方格",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "樂譜",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "暗",
   "plainDark": "暗",
   "ruledDark": "直紋 - 暗",
@@ -174,29 +315,56 @@
   "createTemplate": "建立模板",
   "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
   "replace": "取代",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "確定要取代模板嗎？這無法復原喔！",
   "defaultTemplate": "預設模板",
   "insert": "插入",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "文件",
   "camera": "鏡頭",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "印出",
   "selectCamera": "選擇鏡頭",
   "changeDocumentPath": "修改文件路徑",
   "deleteWholeStroke": "刪除整條筆劃",
   "alpha": "不透明",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "分區",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "選擇分區",
   "aspectRatio": "長寬比",
   "presets": "預設",
   "pagePortrait": "直式紙張",
   "pageLandscape": "橫式紙張",
   "square": "正方形",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "分區",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "進入分區",
   "exitArea": "退出分區",
   "currentArea": "目前分區",
   "design": "配色",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "文字",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "嗨，這是 Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "固定",
   "dynamicContent": "動態",
   "none": "無",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "包含分區",
   "verticalAlignment": "垂直對齊",
   "horizontalAlignment": "水平對齊",
   "top": "上",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "中",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "下",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "左",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "右",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "左右對齊",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "限制",
   "length": "長度",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "匯出 SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "選取頁面",
   "recentFiles": "最近使用的檔案",
   "start": "開始",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "沒有最近使用的檔案",
   "countPages": "{count,plural, =0{沒有頁面} =1{共 {count} 頁} other{共 {count} 頁}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "退出",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "沒有元素",
   "invertSelection": "反向選取",
   "errorWhileImporting": "匯入時發生錯誤",
@@ -268,14 +469,23 @@
   "error": "錯誤",
   "stackTrace": "堆疊追蹤",
   "laser": "雷射",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "存續時間",
   "quality": "品質",
   "exportPdf": "匯出 PDF",
   "local": "本機",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "新增連線",
   "connections": "連線",
   "noConnections": "沒有連線",
   "url": "網址",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "連線",
   "username": "使用者名稱",
   "password": "密碼",
@@ -288,10 +498,22 @@
   "cannotConnect": "無法連線",
   "urlNotValid": "網址無效",
   "icon": "圖示",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "更新",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "有更新",
   "stable": "穩定版",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "預覽版",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "檢查更新",
   "checkForUpdatesWarning": "執行更新檢查將連接到 Butterfly 網站以獲取資訊。",
   "usingLatestStable": "現在的是最新穩定版",
@@ -299,10 +521,25 @@
   "currentVersion": "目前版本",
   "updateNow": "立即更新",
   "shape": "形狀",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "圓形",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "矩形",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "三角形",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "直線",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "圓角大小",
   "topLeft": "左上角",
   "topRight": "右上角",
@@ -310,6 +547,9 @@
   "bottomRight": "右下角",
   "caches": "快取",
   "manage": "管理",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "清除快取",
   "createCache": "建立快取",
   "thirdPartyLicenses": "第三方授權",
@@ -317,6 +557,9 @@
   "synced": "已同步",
   "notSynced": "未同步",
   "conflict": "衝突",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "保留在本機",
   "keepConnection": "保持連線",
   "keepBoth": "兩者皆保留",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "離線",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "本機最新",
   "connectionLatest": "連線最新",
   "path": "路徑",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "已同步資料夾",
   "syncRootDirectory": "同步根目錄",
   "penOnlyInput": "只讓筆輸入",
@@ -346,19 +595,55 @@
   "syncMode": "同步模式",
   "connection": "連線",
   "always": "一律",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "沒有行動裝置",
   "manual": "手動",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "搜尋",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "屬性",
   "pin": "釘選",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "取消釘選",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "元素",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "畫具",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "位置",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "筆記",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "素材包",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "素材包",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "更多",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "討取名稱",
   "areaIndex": "分區 {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "以全螢幕啟動",
   "inputs": "輸入",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "滑鼠",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "觸控",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "鍵盤",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "快速鍵",
   "middle": "中",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "第一",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "第二",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "當前工具",
   "activeToolDescription": "使用工具列上目前選取的工具",
   "handTool": "手工具",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "工具",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "顯示格線",
   "grid": "格線",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "標尺",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "角度",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "報告",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "建新資料夾",
   "createPack": "建立素材包",
   "editPack": "編輯素材包",
   "packsDirectory": "素材包目錄",
   "stamp": "圖章",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "加入素材包",
   "sureImportPack": "確定要匯入素材包嗎？",
   "byAuthor": "作者：{author}",
@@ -419,6 +743,9 @@
   "addAsset": "新增素材",
   "editAsset": "編輯素材",
   "scope": "範圍",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "目前沒有能用的素材包",
   "components": "元件",
   "waypoint": "定位點",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "樣式",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "段落",
   "fontFamily": "字族",
   "smoothing": "平滑化",
@@ -449,9 +779,21 @@
   "unknownImportType": "未知的匯入類型",
   "sureImportTemplate": "確定要刪除此模板嗎？",
   "frame": "影格",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "播放",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "影片",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "暫停點",
   "presentationControls": "操控簡報",
   "nextSlide": "下一張投影片",
@@ -476,16 +818,34 @@
     }
   },
   "code": "程式碼",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "引述",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "鏈結",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "核取方塊",
   "deleted": "已刪除",
   "emphasis": "強調",
   "listBullet": "項目符號",
   "strong": "Strong",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "首頁",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "檔案",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "排序方式",
   "location": "位置",
   "whatsNew": "有什麼新鮮事？",
@@ -493,12 +853,21 @@
   "star": "星號",
   "goUp": "回上一層",
   "created": "建立之時",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "修改之時",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "快速開始",
   "noTemplates": "目前沒有模板能用",
   "importCorePack": "匯入核心素材包",
   "importCorePackDescription": "匯入包含所有基本素材的核心素材包，以便開始使用。這會覆寫目前的核心素材包。",
   "never": "永不",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "更新後",
   "visibility": "顯示條件",
   "captureThumbnail": "擷爲縮圖",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "選擇標記模式",
   "foreground": "前景",
   "version": "版本",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "儲存庫",
   "pages": "頁面",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "導覽",
   "arrange": "排列",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "提至頂層",
   "sendToBack": "推至底層",
   "bringForward": "上提一層",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
   "rotate": "旋轉",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "間隔",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "導覽列",
   "cut": "剪下",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "之前插入",
   "insertAfter": "之後插入",
   "insertFirst": "插入最前",
   "insertLast": "插入最後",
   "paste": "貼上",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "遞增",
   "descending": "遞減",
   "imageScale": "圖片縮放",
   "select": "選擇",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "工具",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "紋理",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "平台主題",
   "desktop": "電腦",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "手機",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF 品質",
   "surface": "表面",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "圖案",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "您確定要關閉此文件嗎？",
   "thereAreUnsavedChanges": "此處有未儲存的變更",
   "page": "頁面",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE 伺服器",
   "collaboration": "協作",
   "webRtc": "",
   "webSocket": "WebSocket",
   "iceServer": "ICE 伺服器",
   "port": "連接埠",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "類型",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "側",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "用戶端",
+  "@client": {
+    "description": "Role"
+  },
   "server": "伺服器",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "切換檢視",
   "lasso": "套索",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "隱藏介面",
   "density": "密度",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "緊湊",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "舒適",
   "standard": "標準",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "鎖定",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "新增元素",
   "notDefaultConnection": "非預設連線",
   "defaultConnection": "預設連線",
   "hide": "隱藏",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "顯示",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "暫停",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "停止",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "重新整理",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "列印",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "吸管",
   "users": "使用者",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "實驗功能",
   "experimentsWarning": "這些功能尚屬實驗性，可能隨時變更、失效或消失。啟用它們可能導致不穩定或資料遺失。請謹慎操作，如有任何錯誤，請回報。",
   "address": "地址",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "跨頁延伸",
   "rootDirectorySpecifiedDescription": "已指定根目錄。所有進階目錄路徑將相對於此目錄。保持為空以停用此目錄類型。",
   "rootDirectoryNotSpecifiedDescription": "尚未指定根目錄。必須提供名稱。所有進階目錄路徑將為絕對路徑。保持為空以停用此目錄類型。",
@@ -594,25 +1065,49 @@
   "createAreas": "建立分區",
   "autosave": "自動儲存",
   "invert": "反轉",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "操作",
   "medium": "中等",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "大",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "工具列大小",
   "addAll": "全部新增",
   "onlyCurrentPage": "僅本頁",
   "smoothNavigation": "流暢導覽",
   "exact": "精確",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "內嵌",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "工具列列數",
   "pointerTest": "指標測試",
   "pressure": "壓力",
   "small": "小",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "極小",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "全選",
   "overrideTools": "覆蓋工具",
   "hideCursorWhileDrawing": "繪製時隱藏游標",
   "installed": "已安裝",
   "install": "安裝",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "取消選取",
   "changeCollection": "變更集合",
   "collections": "集合",
@@ -621,15 +1116,30 @@
   "collection": "集合",
   "defaultCollection": "預設集合",
   "scroll": "捲動",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "啟動時",
   "homeScreen": "主畫面",
   "lastNote": "上一則筆記",
   "newNote": "新筆記",
   "convertToLayer": "轉換為圖層",
   "merge": "合併",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "上",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "下",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "其他",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{沒有元素} =1{1 個元素} other{共有 {count} 個元素}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "渲染解析度",
   "translate": "翻譯",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "未加密",
   "encrypted": "已加密",
   "encryptDocumentMessage": "按一下以加密文件",
@@ -662,8 +1175,14 @@
   "confirmPassword": "確認密碼",
   "passwordMismatch": "密碼不符",
   "action": "動作",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG 文字",
   "offset": "偏移",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "依位置而定",
   "flipHorizontal": "水平翻轉",
   "flipVertical": "垂直翻轉",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "從檔案還原設定",
   "exportSettingsToFile": "匯出設定到檔案",
   "barcode": "條碼",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "條碼類型",
   "qrCode": "QR 碼",
   "dataMatrix": "資料矩陣碼",
@@ -690,6 +1212,9 @@
   "moveRight": "向右移動",
   "bundledPacks": "捆綁素材包",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "選擇元件",
   "bundlePackInDocument": "將素材包捆綁到文件",
   "bundledPacksDescription": "捆綁素材包包含在文件中，僅能隨該文件一起分享。只有安裝了該素材包，資源才能在文件中使用。您可以點擊素材包來安裝它們。",
@@ -700,18 +1225,40 @@
   "swampDescription": "您的訊息會通過具備端對端加密的安全中繼伺服器路由。建立會議需要提供 Swamp 伺服器位址。",
   "createRawNote": "建立原始筆記",
   "polygon": "多邊形",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "完成形狀",
   "submit": "提交",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "最大化",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }
