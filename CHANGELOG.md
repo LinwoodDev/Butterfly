@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.1 (2025-11-27)
+
+* Improve performance of webdav operations
+* Improve delay queue on bake
+* Prevent repeated bakes without changes
+* Improve bake queue
+* Improve bake image sizing ([#930](https://github.com/LinwoodDev/Butterfly/issues/930))
+* Fix smooth navigation ([#978](https://github.com/LinwoodDev/Butterfly/issues/978))
+* Fix stamp handler toolbar not working correctly
+* Fix temporary tool from components navigator not being removed after releasing
+* Fix full file name shown in components view and add to pack dialog
+* Fix rtl icons not displaying correctly
+* Fix pack name in select asset dialog
+* Fix adding to pack renders background in thumbnail
+* Fix page won't be saved when adding a new page ([#982](https://github.com/LinwoodDev/Butterfly/issues/982))
+* Fix ruler cannot be rotated in touch mode
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
+
 ## 2.4.2-rc.0 (2025-11-20)
 
 * Improve memory usage on closing documents
