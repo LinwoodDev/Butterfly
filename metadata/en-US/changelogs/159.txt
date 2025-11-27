@@ -11,5 +11,6 @@
 * Fix pack name in select asset dialog
 * Fix adding to pack renders background in thumbnail
 * Fix page won't be saved when adding a new page ([#982](https://github.com/LinwoodDev/Butterfly/issues/982))
+* Fix ruler cannot be rotated in touch mode
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.1

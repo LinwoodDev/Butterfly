@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -74,6 +76,8 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   @override
   Widget build(BuildContext context) {
+    RulerHandler? ruler;
+    double previousRulerRotation = 0;
     return SizedBox.expand(
       child: RepaintBoundary(
         child: LayoutBuilder(
@@ -238,6 +242,20 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     return;
                                   }
+                                  if (ruler != null) {
+                                    final deltaRotation =
+                                        (details.rotation -
+                                            previousRulerRotation) *
+                                        180 /
+                                        pi;
+                                    previousRulerRotation = details.rotation;
+                                    ruler?.transform(
+                                      getEventContext(),
+                                      position: details.focalPointDelta,
+                                      rotation: deltaRotation,
+                                    );
+                                    return;
+                                  }
                                   final cubit = context
                                       .read<CurrentIndexCubit>();
                                   if (openView) openView = details.scale == 1;
@@ -290,6 +308,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     delayBake();
                                   }
+                                  ruler = null;
+                                  previousRulerRotation = 0;
                                   cubit.removeButtons();
                                   cubit.resetReleaseHandler(bloc);
                                 },
@@ -309,6 +329,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       getEventContext(),
                                     );
                                   }
+                                  ruler = RulerHandler.getFirstRuler(
+                                    currentIndex,
+                                    details.localFocalPoint,
+                                    constraints.biggest,
+                                  );
+                                  previousRulerRotation = 0;
                                   point = details.localFocalPoint;
                                   size = 1;
                                 },
