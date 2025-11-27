@@ -13,12 +13,12 @@ jobs:
         working-directory: ${{ matrix.projects }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Print Dart SDK version
         run: |
           dart --version
