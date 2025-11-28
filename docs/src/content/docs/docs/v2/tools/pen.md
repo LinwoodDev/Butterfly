@@ -3,7 +3,36 @@ title: Pen tool
 ---
 
 
-With this tool you can draw on this paper.
+With this tool you can draw strokes on the infinite canvas!
+
+Strokes are the lines that you draw using the pen.
+
+This tool has many properties, as you can make a highlighter using the pen tool!
+
+
+## How to ~~Pen~~ Highlighter
+
+The pen tool can be used as a highlighter if you want!
+
+1. Add a new pen tool into the toolbar
+    1. Press the + button in the toolbar!
+    2. Add a pen
+    3. Hold the new pen icon to move it
+        - Note: when moving any tool, make sure to modify the settings in the behaviors tab to make sure the correct tool is activated for each input
+2. Modify the new pen
+    1. Open the properties panel of the new pen by pressing it again
+    2. Rename the pen by double tapping the tool's name.
+    3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
+3. After modifying the tool's appearance. It time to modify the properties!
+    1. Change the stroke width to a big number, for example, 50. Highlighters have big strokes after all
+    2. Set thinning to 0. Highlighters dont have variable stroke width.
+    3. Also set the smoothing to 0. It has a weird look that highlighters never make.
+    4. Set the streamline to MAX (1) to make the highlighter's strokes look nice :]
+    5. Change the alpha to 50 or something similar, this makes sure the strokes under the highlighting are visible.
+    
+Congratulations!!
+
+
 
 ## Configuration
 
