@@ -26,7 +26,7 @@ Follow these steps or the video below:
     1. Open the properties panel of the new pen by pressing it again
     2. Rename the pen by double tapping the tool's name.
     3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
-3. After modifying the tool's appearance. It time to modify the properties!
+3. After modifying the tool's appearance. It's time to modify the properties!
     1. Change the stroke width to a big number, for example, 50. Highlighters have big strokes after all
     2. Set thinning to 0. Highlighters dont have variable stroke width.
     3. Also set the smoothing to 0. It has a weird look that highlighters never make.
