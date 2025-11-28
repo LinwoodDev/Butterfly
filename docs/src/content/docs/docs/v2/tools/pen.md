@@ -28,7 +28,7 @@ Follow these steps or the video below:
     3. After renaming the pen to highlighter, change the icon to match the highlighter look by pressing the icon
 3. After modifying the tool's appearance. It's time to modify the properties!
     1. Change the stroke width to a big number, for example, 50. Highlighters have big strokes after all
-    2. Set thinning to 0. Highlighters dont have variable stroke width.
+    2. Set thinning to 0. Highlighters don't have variable stroke width.
     3. Also set the smoothing to 0. It has a weird look that highlighters never make.
     4. Set the streamline to MAX (1) to make the highlighter's strokes look nice :]
     5. Change the alpha to 50 or something similar, this makes sure the strokes under the highlighting are visible.
