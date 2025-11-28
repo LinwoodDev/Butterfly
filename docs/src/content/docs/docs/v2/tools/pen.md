@@ -34,8 +34,7 @@ Follow these steps or the video below:
     5. Change the alpha to 50 or something similar, this makes sure the strokes under the highlighting are visible.
 
 Can't read the mess above? Use this video: 
-
-https://github.com/user-attachments/assets/24eacd07-8312-438a-938c-fa305771864f
+[](@assets/img/How2Highlighter.mp4)
 
 Congratulations!!
 
