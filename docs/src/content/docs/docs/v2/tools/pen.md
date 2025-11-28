@@ -14,6 +14,9 @@ This tool has many properties, as you can make a highlighter using the pen tool!
 
 The pen tool can be used as a highlighter if you want!
 
+
+Follow these steps or the video below:
+
 1. Add a new pen tool into the toolbar
     1. Press the + button in the toolbar!
     2. Add a pen
@@ -29,9 +32,12 @@ The pen tool can be used as a highlighter if you want!
     3. Also set the smoothing to 0. It has a weird look that highlighters never make.
     4. Set the streamline to MAX (1) to make the highlighter's strokes look nice :]
     5. Change the alpha to 50 or something similar, this makes sure the strokes under the highlighting are visible.
-    
-Congratulations!!
 
+Cant read the mess above? Use this video: 
+
+https://github.com/user-attachments/assets/24eacd07-8312-438a-938c-fa305771864f
+
+Congratulations!!
 
 
 ## Configuration
