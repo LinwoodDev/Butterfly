@@ -33,7 +33,7 @@ Follow these steps or the video below:
     4. Set the streamline to MAX (1) to make the highlighter's strokes look nice :]
     5. Change the alpha to 50 or something similar, this makes sure the strokes under the highlighting are visible.
 
-Cant read the mess above? Use this video: 
+Can't read the mess above? Use this video: 
 
 https://github.com/user-attachments/assets/24eacd07-8312-438a-938c-fa305771864f
 
