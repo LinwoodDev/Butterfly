@@ -33,13 +33,13 @@ Then, modify the new pen
 Finally, after modifying the tool's appearance. It's time to modify the properties!
 1. Change the stroke width to a big number, for example, 50.  
    Highlighters have big strokes after all
-3. Set thinning to 0.  
+2. Set thinning to 0.  
     Highlighters don't have variable stroke width.
-4. Also set the smoothing to 0.  
-   Smoothing is something that highlighters never make.
-6. Set the streamline to MAX (1)  
+3. Also set the smoothing to 0.  
+   Smoothing is soomething that highlighters never make.
+4. Set the streamline to MAX (1)  
    to make the highlighter's strokes look more like lines :]
-8. Change the alpha to 50 or similar,  
+5. Change the alpha to 50 or similar,  
    this makes sure the strokes under the highlighting are visible.
 
 #### This video demonstrates how to apply the guide above: 
