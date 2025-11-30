@@ -1,3 +1,4 @@
+* Change navigation rail to be smaller
 * Fix viewport rect is off-centered if render resolution is not on performance
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
