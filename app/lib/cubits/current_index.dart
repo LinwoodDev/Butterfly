@@ -882,11 +882,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Rect getViewportRect({Size? viewportSize}) {
     var size = viewportSize ?? state.cameraViewport.toSize();
 
-    var transform = state.transformCubit.state;
+    final transform = state.transformCubit.state;
+    final resolution = state.settingsCubit.state.renderResolution;
 
     final friction = transform.friction;
     final realWidth = size.width / transform.size;
     final realHeight = size.height / transform.size;
+    Rect rect = Rect.fromLTWH(
+      transform.position.dx,
+      transform.position.dy,
+      realWidth,
+      realHeight,
+    );
     if (friction != null) {
       final beginPosition = transform.position - friction.beginOffset;
       final topLeft = Offset(
@@ -897,14 +904,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         realWidth + (friction.beginOffset.dx * transform.size).abs(),
         realHeight + (friction.beginOffset.dy * transform.size).abs(),
       );
-      return topLeft & frictionSize;
+      rect = topLeft & frictionSize;
     }
-    return Rect.fromLTWH(
-      transform.position.dx,
-      transform.position.dy,
-      realWidth,
-      realHeight,
-    );
+    rect = resolution.getRect(rect);
+    return rect;
   }
 
   final _bakeLock = Lock();
