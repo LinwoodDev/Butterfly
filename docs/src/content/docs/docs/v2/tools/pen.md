@@ -43,9 +43,10 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
    this makes sure the strokes under the highlighting are visible.
 
 #### This video demonstrates how to apply the guide above: 
+
 [](@assets/img/How2Highlighter.mp4)
 
-##### Congratulations, you now have a highlighter!!
+**Congratulations, you now have a highlighter!**
 
 
 ## Configuration
