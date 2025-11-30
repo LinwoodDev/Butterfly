@@ -44,7 +44,9 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 #### This video demonstrates how to apply the guide above: 
 
-[](@assets/img/How2Highlighter.mp4)
+<video src="/vid/How2Highlighter.mp4" controls width="600">
+  Your browser does not support the video tag.
+</video>
 
 **Congratulations, you now have a highlighter!**
 
