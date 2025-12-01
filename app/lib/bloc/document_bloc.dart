@@ -333,6 +333,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final content = List<PadElement>.from(e.content);
         for (final id in event.elements) {
           final index = content.indexWhere((element) => element.id == id);
+          if (index == -1) continue;
           final element = content.removeAt(index);
           var newIndex = index;
           var newRendererIndex = renderers.indexWhere(
@@ -484,7 +485,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       final updatedCurrent = event.tools.entries.firstWhereOrNull(
         (element) =>
-            oldTools[element.key] ==
+            oldTools.elementAtOrNull(element.key) ==
             current.currentIndexCubit.state.handler.data,
       );
       if (updatedCurrent != null) {
@@ -493,7 +494,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current.currentIndexCubit.updateTogglingTools(this, event.tools);
       final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
         (element) =>
-            oldTools[element.key] ==
+            oldTools.elementAtOrNull(element.key) ==
             current.currentIndexCubit.state.temporaryHandler?.data,
       );
       if (updatedTempCurrent != null) {
@@ -529,7 +530,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var tools = List<Tool>.from(current.info.tools);
       var oldIndex = event.oldIndex;
       var newIndex = event.newIndex;
-      if (oldIndex >= tools.length || newIndex > tools.length) return;
+      if (oldIndex < 0 ||
+          newIndex < 0 ||
+          oldIndex >= tools.length ||
+          newIndex > tools.length) {}
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }
@@ -646,6 +650,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       if (waypoint == null) return;
       waypoints.remove(waypoint);
+      if (event.newIndex < 0 || event.newIndex > waypoints.length) return;
       waypoints.insert(event.newIndex, waypoint);
       final currentDocument = current.page.copyWith(waypoints: waypoints);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -707,6 +712,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final layer = layers.firstWhereOrNull((e) => e.id == event.id);
       if (layer == null) return;
       layers.remove(layer);
+      if (event.index < 0 || event.index > layers.length) return;
       layers.insert(event.index, layer);
       final currentDocument = current.page.copyWith(layers: layers);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -786,6 +792,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final mainLayerIndex = layers.indexWhere(
         (element) => element.id == mainLayer,
       );
+      if (mainLayerIndex == -1) return;
       final mergedLayers = event.layers.skip(1).toList()
         ..sort(
           (a, b) => layers
@@ -939,6 +946,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       if (area == null) return;
       areas.remove(area);
+      if (event.newIndex < 0 || event.newIndex > areas.length) return;
       areas.insert(event.newIndex, area);
       final currentDocument = current.page.copyWith(areas: areas);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -1261,10 +1269,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   Future<void> reload() async {
-    final current = state;
-    if (current is! DocumentLoadSuccess) return;
-    final cubit = current.currentIndexCubit;
-    return cubit.reload(current);
+    return state.currentIndexCubit?.reload(this);
   }
 
   Future<void> createTemplate(

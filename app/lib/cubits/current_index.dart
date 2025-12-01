@@ -11,6 +11,7 @@ import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -1763,7 +1764,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       refresh(current);
     }
     if (reset) {
-      reload(current);
+      reload(bloc, current);
     }
     if (updateIndex) {
       this.updateIndex(bloc);
@@ -1880,7 +1881,27 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(userName: name));
   }
 
-  Future<void> reload(DocumentLoaded current) async {
+  Future<void> reloadTool(
+    DocumentBloc bloc, [
+    DocumentLoaded? blocState,
+  ]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    // If tool is not the same, change tool
+    final tools = current.info.tools;
+    final toolIndex = state.index ?? 0;
+    final newTool = tools.elementAtOrNull(toolIndex);
+    if (newTool?.isAction() ?? true) {
+      await changeTool(bloc, index: 0);
+    } else if (newTool != state.handler.data) {
+      await changeTool(bloc, index: toolIndex);
+    }
+  }
+
+  Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    await reloadTool(bloc, current);
     await loadElements(current);
     refresh(current, allowBake: false);
     await delayedBake(current);
