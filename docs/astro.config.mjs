@@ -70,7 +70,7 @@ export default defineConfig({
             },
             {
               ...getSidebarTranslatedLabel("Templates"),
-              link: "/docs/v2/areas/",
+              link: "/docs/v2/templates/",
             },
             {
               ...getSidebarTranslatedLabel("Pages"),
