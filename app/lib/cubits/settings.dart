@@ -340,6 +340,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(RenderResolution.normal) RenderResolution renderResolution,
     @Default(true) bool moveOnGesture,
     @Default([]) List<String> swamps,
+    PackAssetLocation? selectedPalette,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -470,6 +471,11 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       ignorePressure: prefs.containsKey('ignore_pressure')
           ? IgnorePressure.values.byName(prefs.getString('ignore_pressure')!)
           : IgnorePressure.first,
+      selectedPalette: prefs.containsKey('selected_palette')
+          ? PackAssetLocation.fromJson(
+              json.decode(prefs.getString('selected_palette')!),
+            )
+          : null,
     );
   }
 
@@ -564,6 +570,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('move_on_gesture', moveOnGesture);
     await prefs.setStringList('swamps', swamps);
     await prefs.setString('ignore_pressure', ignorePressure.name);
+    await prefs.setString(
+      'selected_palette',
+      selectedPalette != null ? json.encode(selectedPalette!.toJson()) : '',
+    );
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1131,5 +1141,10 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<String> exportSettings() async {
     return json.encode(state.toJson());
+  }
+
+  Future<void> changeSelectedPalette(PackAssetLocation palette) {
+    emit(state.copyWith(selectedPalette: palette));
+    return save();
   }
 }

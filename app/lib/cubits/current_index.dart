@@ -927,8 +927,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    if (viewportSize != null) {
-      size *= resolution.multiplier;
+    if (viewportSize == null) {
+      size /= resolution.multiplier;
     }
     var transform = state.transformCubit.state;
     var renderers = List<Renderer<PadElement>>.from(this.renderers);

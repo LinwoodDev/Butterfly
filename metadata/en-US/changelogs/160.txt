@@ -1,4 +1,6 @@
+* Add restore current palette
 * Change navigation rail to be smaller
+* Improve performance of pen tool
 * Fix viewport rect is off-centered if render resolution is not on performance
 * Fix current tools not being updated after undo/redo
 

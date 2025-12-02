@@ -96,7 +96,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _currentlyBaking = true;
     _submittedElements.clear();
     await _bloc?.refresh(allowBake: false);
-    await _bloc?.bake();
+    await _bloc?.delayedBake();
     _currentlyBaking = false;
   }
 

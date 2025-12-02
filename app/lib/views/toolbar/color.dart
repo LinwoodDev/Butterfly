@@ -9,6 +9,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'dart:async';
+import 'package:collection/collection.dart';
 
 import '../../bloc/document_bloc.dart';
 
@@ -49,7 +50,26 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   void initState() {
     super.initState();
     _fileSystem = context.read<ButterflyFileSystem>();
-    _colorPalette = _fileSystem.findDefaultPalette();
+    _colorPalette = _loadPalette();
+  }
+
+  Future<PackItem<ColorPalette>?> _loadPalette() async {
+    final settings = context.read<SettingsCubit>().state;
+    final location = settings.selectedPalette;
+    if (location != null) {
+      final packSystem = _fileSystem.buildDefaultPackSystem();
+      await packSystem.initialize();
+      final pack = await packSystem.getFile(location.namespace);
+      if (pack != null) {
+        final palette = pack.getNamedPalettes().firstWhereOrNull(
+          (e) => e.name == location.key,
+        );
+        if (palette != null) {
+          return palette.toPack(pack, location.namespace);
+        }
+      }
+    }
+    return _fileSystem.findDefaultPalette();
   }
 
   @override
@@ -291,6 +311,9 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                     );
 
                     if (result == null) return;
+                    context.read<SettingsCubit>().changeSelectedPalette(
+                      result.location,
+                    );
                     setState(() {
                       _colorPalette = Future.value(result);
                     });
