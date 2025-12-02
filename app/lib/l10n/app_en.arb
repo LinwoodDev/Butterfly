@@ -1260,5 +1260,6 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts"
 }

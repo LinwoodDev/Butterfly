@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ColorPaletteIntent extends Intent {
-  final BuildContext context;
-
-  const ColorPaletteIntent(this.context);
+  const ColorPaletteIntent();
 }
 
 class ColorPaletteAction extends Action<ColorPaletteIntent> {
-  ColorPaletteAction();
+  final BuildContext context;
+
+  ColorPaletteAction(this.context);
 
   @override
   Future<void> invoke(ColorPaletteIntent intent) {
     return showDialog<void>(
-      context: intent.context,
+      context: context,
       builder: (ctx) => ColorPalettePickerDialog(
         viewMode: true,
-        bloc: intent.context.read<DocumentBloc>(),
+        bloc: context.read<DocumentBloc>(),
       ),
     );
   }

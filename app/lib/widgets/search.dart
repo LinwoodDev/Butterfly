@@ -5,14 +5,25 @@ import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:keybinder/keybinder.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SearchIntent extends Intent {
   const SearchIntent();
 }
+
+final searchShortcut = ShortcutDefinition(
+  id: 'search',
+  intent: const SearchIntent(),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.keyK,
+    control: true,
+  ),
+);
 
 Future<List<SearchResult>> _searchIsolate(
   NoteData noteData,

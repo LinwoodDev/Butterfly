@@ -23,6 +23,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:keybinder/keybinder.dart';
 
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
@@ -382,6 +383,7 @@ class ButterflyApp extends StatelessWidget {
           ...AppLocalizations.localizationsDelegates,
           LocaleNamesLocalizationsDelegate(),
           LeapLocalizations.delegate,
+          KeybinderLocalizations.delegate,
         ],
         builder: (context, child) {
           if (!state.nativeTitleBar) {
