@@ -570,10 +570,14 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('move_on_gesture', moveOnGesture);
     await prefs.setStringList('swamps', swamps);
     await prefs.setString('ignore_pressure', ignorePressure.name);
-    await prefs.setString(
-      'selected_palette',
-      selectedPalette != null ? json.encode(selectedPalette!.toJson()) : '',
-    );
+    if (selectedPalette != null) {
+      await prefs.setString(
+        'selected_palette',
+        json.encode(selectedPalette!.toJson()),
+      );
+    } else {
+      await prefs.remove('selected_palette');
+    }
   }
 
   ExternalStorage? getRemote(String? identifier) {

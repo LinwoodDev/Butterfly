@@ -59,6 +59,13 @@ Archive convertTextDataToArchive(Map<String, dynamic> data) {
     final data = UriData.parse(thumbnail!).contentAsBytes();
     reader = reader.setThumbnail(data);
   }
+  final info = data['info'] as Map<String, dynamic>?;
+  if (info != null) {
+    reader = reader.setAsset(kInfoArchiveFile, utf8.encode(jsonEncode(info)));
+  }
+  reader = reader.setMetadata(
+    FileMetadata.fromJson(Map<String, dynamic>.from(data)),
+  );
   return reader.export();
 }
 
@@ -129,6 +136,11 @@ Map<String, dynamic> convertDocumentToText(NoteData data) {
       thumbnail,
       mimeType: 'image/png',
     ).toString();
+  }
+
+  final info = data.getInfo();
+  if (info != null) {
+    output['info'] = info.toJson();
   }
 
   return output;
