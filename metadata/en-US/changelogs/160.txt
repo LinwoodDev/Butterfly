@@ -3,5 +3,6 @@
 * Improve performance of pen tool
 * Fix viewport rect is off-centered if render resolution is not on performance
 * Fix current tools not being updated after undo/redo
+* Fix changing color for shape tool resets alpha ([#996](https://github.com/LinwoodDev/Butterfly/issues/996))
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
