@@ -34,7 +34,7 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 2. Set thinning to 0.  
    Highlighters don't have variable stroke width.
 3. Also set the smoothing to 0.  
-   Smoothing is soomething that highlighters never make.
+   Smoothing is something that highlighters never make.
 4. Set the streamline to MAX (1)  
    to make the highlighter's strokes look more like lines :]
 5. Change the alpha to 50 or similar,  
