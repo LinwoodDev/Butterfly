@@ -86,7 +86,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     if (!_submittedErase || _erased.isEmpty) return;
     _erased.clear();
     await _bloc?.refresh(allowBake: true);
-    await _bloc?.bake();
+    await _bloc?.delayedBake();
     _submittedErase = false;
   }
 

@@ -147,6 +147,18 @@ class EventContext {
     reset: reset,
   );
 
+  Future<void> delayedBake({
+    Size? viewportSize,
+    double? pixelRatio,
+    bool reset = false,
+    bool testTransform = false,
+  }) => getDocumentBloc().delayedBake(
+    pixelRatio: pixelRatio,
+    viewportSize: viewportSize,
+    reset: reset,
+    testTransform: testTransform,
+  );
+
   List<BlocProvider> getProviders() => [
     BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
     BlocProvider<TransformCubit>.value(value: getTransformCubit()),

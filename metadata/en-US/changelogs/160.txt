@@ -1,6 +1,7 @@
 * Add restore current palette
 * Change navigation rail to be smaller
 * Improve performance of pen tool
+* Improve performance of rendering and tool switching
 * Improve hit calculation for line shape ([#995](https://github.com/LinwoodDev/Butterfly/issues/995))
 * Fix viewport rect is off-centered if render resolution is not on performance
 * Fix current tools not being updated after undo/redo

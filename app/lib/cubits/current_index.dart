@@ -140,8 +140,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     CameraViewport newViewport,
     DocumentLoaded blocState,
   ) async {
+    final currentVisible = state.cameraViewport.visibleElements.toSet();
     final newVisible = newViewport.visibleElements.where(
-      (e) => !state.cameraViewport.visibleElements.contains(e),
+      (e) => !currentVisible.contains(e),
     );
     await Future.wait(
       newVisible.map(
@@ -632,15 +633,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
-  void toggleHandler(DocumentBloc bloc, int index) {
+  Future<void> toggleHandler(DocumentBloc bloc, int index) async {
     if (state.toggleableHandlers.containsKey(index)) {
       disableHandler(bloc, index);
     } else {
-      enableHandler(bloc, index);
+      await enableHandler(bloc, index);
     }
   }
 
-  Handler? enableHandler(DocumentBloc bloc, int index) {
+  Future<Handler?> enableHandler(DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoaded) return null;
     if (index < 0 || index >= blocState.info.tools.length) {
@@ -660,7 +661,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       currentArea,
     );
     if (handler.setupForegrounds) {
-      Future.wait(
+      await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
             state.transformCubit,
@@ -834,7 +835,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       await bake(blocState);
     } else if (selectState == SelectState.toggle && index != null) {
-      toggleHandler(bloc, index);
+      await toggleHandler(bloc, index);
     }
     return handler;
   }
@@ -965,6 +966,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
+    final oldVisibleSet = oldVisible.toSet();
 
     if (reset) {
       visibleElements = renderers
@@ -975,15 +977,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(
           cameraViewport.unbakedElements.where(
             (renderer) =>
-                !oldVisible.contains(renderer) && renderer.isVisible(rect),
+                !oldVisibleSet.contains(renderer) && renderer.isVisible(rect),
           ),
         );
     }
 
+    final visibleElementsSet = visibleElements.toSet();
+
     // call onVisible for any newly visible elements
     await Future.wait(
       visibleElements
-          .where((element) => !oldVisible.contains(element))
+          .where((element) => !oldVisibleSet.contains(element))
           .map(
             (element) async =>
                 await element.onVisible(this, blocState, renderTransform, size),
@@ -991,7 +995,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     await Future.wait(
       oldVisible
-          .where((element) => !visibleElements.contains(element))
+          .where((element) => !visibleElementsSet.contains(element))
           .map(
             (element) async =>
                 await element.onHidden(this, blocState, renderTransform, size),
@@ -1110,20 +1114,23 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
     }
 
+    final bakedElementsSet = cameraViewport.bakedElements
+        .map((e) => e.element)
+        .toSet();
+    final unbakedElementsSet = cameraViewport.unbakedElements
+        .map((e) => e.element)
+        .toSet();
+
     final newlyUnbaked =
         (reset ? this.renderers : state.cameraViewport.unbakedElements)
             .where(
               (element) =>
-                  !cameraViewport.bakedElements.any(
-                    (e) => e.element == element.element,
-                  ) &&
-                  !cameraViewport.unbakedElements.any(
-                    (e) => e.element == element.element,
-                  ),
+                  !bakedElementsSet.contains(element.element) &&
+                  !unbakedElementsSet.contains(element.element),
             )
             .toList();
     for (final u in newlyUnbaked) {
-      if (!visibleElements.contains(u)) visibleElements.add(u);
+      if (!visibleElementsSet.contains(u)) visibleElements.add(u);
     }
 
     emit(
@@ -1783,7 +1790,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
 
-  void updateTogglingTools(DocumentBloc bloc, Map<int, Tool> tools) {
+  Future<void> updateTogglingTools(
+    DocumentBloc bloc,
+    Map<int, Tool> tools,
+  ) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final newHandlers = Map<int, Handler<Tool>>.from(state.toggleableHandlers);
@@ -1813,7 +1823,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         currentArea,
       );
       if (handler.setupForegrounds) {
-        Future.wait(
+        await Future.wait(
           foregrounds.map(
             (e) async => await e.setup(
               state.transformCubit,

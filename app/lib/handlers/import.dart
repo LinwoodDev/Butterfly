@@ -81,7 +81,7 @@ class ImportHandler extends Handler<ImportTool> {
       ),
     );
     await context.refresh();
-    await context.bake();
+    await context.delayedBake();
   }
 
   @override

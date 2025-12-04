@@ -992,7 +992,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaName: event.name));
-      current.bake();
+      current.delayedBake();
     });
     on<PackAdded>((event, emit) {
       final current = state;

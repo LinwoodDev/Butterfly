@@ -221,7 +221,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     if (elements.isEmpty) return;
     final current = List<PadElement>.from(elements);
     bloc.add(ElementsCreated(current));
-    bloc.bake();
+    bloc.delayedBake();
     _firstPos = null;
     _secondPos = null;
     context.refresh();
