@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.2 (2025-12-04)
+
+* Add restore current palette
+* Change navigation rail to be smaller
+* Improve performance of pen tool
+* Improve performance of rendering and tool switching
+* Improve hit calculation for line shape ([#995](https://github.com/LinwoodDev/Butterfly/issues/995))
+* Fix viewport rect is off-centered if render resolution is not on performance
+* Fix current tools not being updated after undo/redo
+* Fix changing color for shape tool resets alpha ([#996](https://github.com/LinwoodDev/Butterfly/issues/996))
+* Fix missing data in raw text file format
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
+
 ## 2.4.2-rc.1 (2025-11-27)
 
 * Improve performance of webdav operations
