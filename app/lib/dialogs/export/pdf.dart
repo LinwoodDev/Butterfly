@@ -584,9 +584,28 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                                             element.name.contains(_searchQuery),
                                       )
                                       .map((e) {
+                                        final pageName =
+                                            NoteData.getPageNameFromRealName(
+                                              page,
+                                            );
                                         return ListTile(
                                           title: Text(e.name),
-                                          subtitle: Text(page),
+                                          subtitle: Text(
+                                            pageName.isEmpty
+                                                ? AppLocalizations.of(
+                                                    context,
+                                                  ).untitled
+                                                : pageName,
+                                            style: TextTheme.of(context)
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  color: page == state.pageName
+                                                      ? ColorScheme.of(
+                                                          context,
+                                                        ).primary
+                                                      : null,
+                                                ),
+                                          ),
                                           key: ObjectKey(e.name),
                                           onTap: () => Navigator.of(
                                             context,

@@ -1,5 +1,6 @@
 * Improve ui of pdf export dialog
 * Improve image export preview
+* Show untitled for empty page names in pdf select dialog
 * Change area tool to open context with double tap
 * Fix pdf export crashes when changing quality
 

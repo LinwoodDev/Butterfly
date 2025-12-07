@@ -129,6 +129,9 @@ class ViewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    /*debugPrint(
+      'Baked ${cameraViewport.image != null}, unbaked elements: ${cameraViewport.unbakedElements.length} with size ${cameraViewport.width}x${cameraViewport.height}',
+    );*/
     var areaRect = currentArea?.rect;
     final layers = page.layers;
     if (areaRect != null) {
