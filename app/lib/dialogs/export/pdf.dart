@@ -323,7 +323,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         if (area == null) {
           return Container(key: wrapper.key);
         }
-        const maxImageWidth = 400;
+        const maxImageDimension = 1000;
+        final maxSide = max(area.width, area.height);
         final imageFuture = currentIndex.render(
           state.data,
           page,
@@ -331,7 +332,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           ImageExportOptions(
             width: area.width,
             height: area.height,
-            quality: min(e.quality, maxImageWidth / area.width),
+            quality: min(e.quality, maxImageDimension / maxSide),
             x: area.position.x,
             y: area.position.y,
           ),

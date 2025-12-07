@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -79,15 +81,25 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     if (mounted) setState(() => _previewImage = image);
   }
 
-  Future<ByteData?> generateImage() async {
+  Future<ByteData?> generateImage([bool optimize = true]) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
+    var imageOptions = _options.toImageOptions();
+    const maxImageDimension = 1000;
+    if (optimize) {
+      final maxSide = max(imageOptions.width, imageOptions.height);
+      if (maxSide > maxImageDimension) {
+        imageOptions = imageOptions.copyWith(
+          quality: min(imageOptions.quality, maxImageDimension / maxSide),
+        );
+      }
+    }
     return state.currentIndexCubit.render(
       state.data,
       state.page,
       state.info,
-      _options.toImageOptions(),
+      imageOptions,
       invisibleLayers: state.invisibleLayers,
     );
   }
@@ -113,7 +125,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     }
     switch (_options) {
       case ImageExportOptions():
-        final data = await generateImage();
+        final data = await generateImage(false);
         if (data == null) {
           return;
         }
