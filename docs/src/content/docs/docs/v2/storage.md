@@ -40,7 +40,25 @@ Add the URL of the remote server and the username and password. After that you c
 
 To get the webdav url, please visit the documentation:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
+[Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
+
+#### How to get the URL
+1. Go to 'Files'
+2. Open the 'Files settings'
+3. Choose the 'WebDAV' section in the sidebar
+4. Copy the URL
+5. Paste the URL inside the URL input box inside the Butterfly
+#### How to get the password and username
+1. Go to your account info by pressing the profile picture on the corner
+2. Press 'Settings'
+3. In the security info tab, scroll down to 'Devices & sessions'
+4. Enter any name for the app name input box
+    - "Butterfly Connection" is a good name to use, as it is identfiable and clear.
+5. Press the button called 'Create new app password'
+6. Authenticate
+7. Copy the email/login text and paste it in the username input box in Butterfly
+8. Copy the password and paste it in the password input box in Butterfly
+      
 
 ### Offline sync {#offline}
 
