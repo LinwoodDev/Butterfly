@@ -49,7 +49,7 @@ To get the webdav url, please visit the documentation:
 4. Copy the URL
 5. Paste the URL in the URL input box in Butterfly
 #### How to get the password and username
-1. Go to your account info by pressing the profile picture on the corner
+1. Go to your Nextcloud account info by pressing the profile picture on the corner
 2. Press 'Settings'
 3. In the security info tab, scroll down to 'Devices & sessions'
 4. Enter any name for the app name input box
