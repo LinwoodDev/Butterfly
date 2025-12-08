@@ -47,7 +47,7 @@ To get the webdav url, please visit the documentation:
 2. Open the 'Files settings'
 3. Choose the 'WebDAV' section in the sidebar
 4. Copy the URL
-5. Paste the URL inside the URL input box inside the Butterfly
+5. Paste the URL in the URL input box in Butterfly
 #### How to get the password and username
 1. Go to your account info by pressing the profile picture on the corner
 2. Press 'Settings'
