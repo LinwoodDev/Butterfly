@@ -58,8 +58,6 @@ To get the webdav url, please visit the documentation:
 6. Authenticate
 7. Copy the email/login text and paste it in the username input box in Butterfly
 8. Copy the password and paste it in the password input box in Butterfly
-      
-
 ### Offline sync {#offline}
 
 This feature allows you to edit your files on remote servers while you are offline.
