@@ -53,7 +53,7 @@ To get the webdav url, please visit the documentation:
 2. Press 'Settings'
 3. In the security info tab, scroll down to 'Devices & sessions'
 4. Enter any name for the app name input box
-    - "Butterfly Connection" is a good name to use, as it is identfiable and clear.
+    - "Butterfly Connection" is a good name to use, as it is identifiable and clear.
 5. Press the button called 'Create new app password'
 6. Authenticate
 7. Copy the email/login text and paste it in the username input box in Butterfly
