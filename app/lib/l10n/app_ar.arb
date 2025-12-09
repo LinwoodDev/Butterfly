@@ -1257,7 +1257,7 @@
     "description": "Save status"
   },
   "pdfEmptyDescription": "لا توجد حالياً أي مناطق للتصدير. يرجى تحديد منطقة واحدة على الأقل باستخدام زر الإضافة في الزاوية العلوية اليمنى أو إضافة جميع المناطق من الصفحة الحالية أو من المستند بأكمله أدناه.",
-  "densityMaximize": "Maximize",
+  "densityMaximize": "مضغوط جداً",
   "@densityMaximize": {
     "description": "Density value"
   }
