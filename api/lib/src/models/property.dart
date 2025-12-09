@@ -18,6 +18,8 @@ enum HorizontalAlignment { left, center, right, justify }
 
 enum VerticalAlignment { top, center, bottom }
 
+enum StrokeStyle { solid, dotted, dashed }
+
 @freezed
 sealed class Property with _$Property {
   @Implements<PathProperty>()
@@ -34,6 +36,7 @@ sealed class Property with _$Property {
     @Default(5) double strokeWidth,
     required PathShape shape,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+    @Default(StrokeStyle.solid) StrokeStyle strokeStyle,
   }) = ShapeProperty;
 
   const factory Property.polygon({

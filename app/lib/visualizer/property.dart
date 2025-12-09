@@ -22,3 +22,20 @@ extension PathShapeVisualizer on PathShape {
     };
   }
 }
+
+extension StrokeStyleVisualizer on StrokeStyle {
+  String getLocalizedName(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return switch (this) {
+      StrokeStyle.solid => loc.solid,
+      StrokeStyle.dotted => loc.dotted,
+      StrokeStyle.dashed => loc.dashed,
+    };
+  }
+
+  IconGetter get icon => switch (this) {
+    StrokeStyle.solid => PhosphorIcons.minus,
+    StrokeStyle.dotted => PhosphorIcons.dotsSix,
+    StrokeStyle.dashed => PhosphorIcons.equals,
+  };
+}

@@ -44,6 +44,50 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
               .toList(),
         ),
       ),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).strokeWidth),
+        value: element.property.strokeWidth,
+        min: 0,
+        max: 70,
+        defaultValue: 5,
+        onChangeEnd: (value) => updateElements(
+          context,
+          elements
+              .map(
+                (e) => e.copyWith(
+                  property: e.property.copyWith(strokeWidth: value),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+      ListTile(
+        title: Text(AppLocalizations.of(context).strokeStyle),
+        trailing: DropdownMenu<StrokeStyle>(
+          initialSelection: element.property.strokeStyle,
+          dropdownMenuEntries: StrokeStyle.values
+              .map(
+                (e) => DropdownMenuEntry(
+                  label: e.getLocalizedName(context),
+                  value: e,
+                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                ),
+              )
+              .toList(),
+          onSelected: (value) => updateElements(
+            context,
+            elements
+                .map(
+                  (e) => e.copyWith(
+                    property: e.property.copyWith(
+                      strokeStyle: value ?? StrokeStyle.solid,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ),
       ShapeView(
         shape: element.property.shape,
         onChanged: (value) => updateElements(

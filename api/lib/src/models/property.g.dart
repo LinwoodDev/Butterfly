@@ -37,6 +37,9 @@ ShapeProperty _$ShapePropertyFromJson(Map json) => ShapeProperty(
   color: json['color'] == null
       ? SRGBColor.black
       : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+  strokeStyle:
+      $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
+      StrokeStyle.solid,
   $type: json['type'] as String?,
 );
 
@@ -45,8 +48,15 @@ Map<String, dynamic> _$ShapePropertyToJson(ShapeProperty instance) =>
       'strokeWidth': instance.strokeWidth,
       'shape': instance.shape.toJson(),
       'color': const ColorJsonConverter().toJson(instance.color),
+      'strokeStyle': _$StrokeStyleEnumMap[instance.strokeStyle]!,
       'type': instance.$type,
     };
+
+const _$StrokeStyleEnumMap = {
+  StrokeStyle.solid: 'solid',
+  StrokeStyle.dotted: 'dotted',
+  StrokeStyle.dashed: 'dashed',
+};
 
 PolygonProperty _$PolygonPropertyFromJson(Map json) => PolygonProperty(
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,

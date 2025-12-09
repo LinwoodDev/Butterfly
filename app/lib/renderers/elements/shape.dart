@@ -9,6 +9,47 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   ShapeRenderer(super.element, [super.layer]);
 
+  /// Creates a dashed path from the source path based on stroke style
+  Path _createDashedPath(Path source, StrokeStyle strokeStyle) {
+    if (strokeStyle == StrokeStyle.solid) return source;
+
+    final strokeWidth = element.property.strokeWidth;
+    final dashLength = strokeStyle == StrokeStyle.dashed
+        ? strokeWidth * 3 // Dashed: 3x stroke width
+        : strokeWidth; // Dotted: 1x stroke width
+    final gapLength = strokeWidth * 2;
+
+    final dashedPath = Path();
+    for (final metric in source.computeMetrics()) {
+      double distance = 0;
+      bool draw = true;
+      while (distance < metric.length) {
+        final length = draw ? dashLength : gapLength;
+        final end = (distance + length).clamp(0.0, metric.length);
+        if (draw) {
+          dashedPath.addPath(
+            metric.extractPath(distance, end),
+            Offset.zero,
+          );
+        }
+        distance = end;
+        draw = !draw;
+      }
+    }
+    return dashedPath;
+  }
+
+  /// Draws a path with the appropriate stroke style (solid, dashed, or dotted)
+  void _drawStyledPath(Canvas canvas, Path path, Paint paint) {
+    final strokeStyle = element.property.strokeStyle;
+    if (strokeStyle == StrokeStyle.solid) {
+      canvas.drawPath(path, paint);
+    } else {
+      final dashedPath = _createDashedPath(path, strokeStyle);
+      canvas.drawPath(dashedPath, paint);
+    }
+  }
+
   @override
   void build(
     Canvas canvas,
@@ -52,16 +93,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
       );
       if (strokeWidth > 0) {
-        canvas.drawRRect(
-          RRect.fromRectAndCorners(
-            rect,
-            topLeft: topLeftCornerRadius,
-            topRight: topRightCornerRadius,
-            bottomLeft: bottomLeftCornerRadius,
-            bottomRight: bottomRightCornerRadius,
-          ),
-          paint,
+        final rrect = RRect.fromRectAndCorners(
+          rect,
+          topLeft: topLeftCornerRadius,
+          topRight: topRightCornerRadius,
+          bottomLeft: bottomLeftCornerRadius,
+          bottomRight: bottomRightCornerRadius,
         );
+        final path = Path()..addRRect(rrect);
+        _drawStyledPath(canvas, path, paint);
       }
     } else if (shape is CircleShape) {
       canvas.drawOval(
@@ -72,14 +112,14 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
       );
       if (strokeWidth > 0) {
-        canvas.drawOval(rect, paint);
+        final path = Path()..addOval(rect);
+        _drawStyledPath(canvas, path, paint);
       }
     } else if (shape is LineShape) {
-      canvas.drawLine(
-        element.firstPosition.toOffset(),
-        element.secondPosition.toOffset(),
-        paint,
-      );
+      final path = Path()
+        ..moveTo(element.firstPosition.x, element.firstPosition.y)
+        ..lineTo(element.secondPosition.x, element.secondPosition.y);
+      _drawStyledPath(canvas, path, paint);
     } else if (shape is TriangleShape) {
       final topCenter = drawRect.topCenter;
       final path = Path()
@@ -95,7 +135,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
       );
       if (strokeWidth > 0) {
-        canvas.drawPath(path, paint);
+        _drawStyledPath(canvas, path, paint);
       }
     }
   }
@@ -106,6 +146,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..style = style ?? PaintingStyle.stroke
     ..strokeCap = StrokeCap.round
     ..strokeJoin = StrokeJoin.round;
+
+  /// Returns SVG stroke-dasharray attribute value based on stroke style
+  String? _getSvgDashArray() {
+    final strokeWidth = element.property.strokeWidth;
+    return switch (element.property.strokeStyle) {
+      StrokeStyle.solid => null,
+      StrokeStyle.dotted => '$strokeWidth,${strokeWidth * 2}',
+      StrokeStyle.dashed => '${strokeWidth * 3},${strokeWidth * 2}',
+    };
+  }
 
   @override
   void buildSvg(
@@ -118,6 +168,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final drawRect = rect.inflate(-strokeWidth);
+    final dashArray = _getSvgDashArray();
+
     if (shape is RectangleShape) {
       final topLeftRadius =
           shape.topLeftCornerRadius / 100 * drawRect.shortestSide;
@@ -146,47 +198,60 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
       d += '${drawRect.left + topLeftRadius} ${drawRect.top} ';
       d += 'Z';
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'path',
-            attributes: {
-              'd': d,
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
-              'stroke-width': '${element.property.strokeWidth}px',
-            },
-          );
+      xml.getElement('svg')?.createElement(
+        'path',
+        attributes: {
+          'd': d,
+          'fill': shape.fillColor.toHexString(),
+          'stroke': element.property.color.toHexString(),
+          'stroke-width': '${element.property.strokeWidth}px',
+          if (dashArray != null) 'stroke-dasharray': dashArray,
+        },
+      );
     } else if (shape is CircleShape) {
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'ellipse',
-            attributes: {
-              'cx': '${drawRect.center.dx}',
-              'cy': '${drawRect.center.dy}',
-              'rx': '${(drawRect.width / 2).abs()}',
-              'ry': '${(drawRect.height / 2).abs()}',
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
-              'stroke-width': '${element.property.strokeWidth}px',
-            },
-          );
+      xml.getElement('svg')?.createElement(
+        'ellipse',
+        attributes: {
+          'cx': '${drawRect.center.dx}',
+          'cy': '${drawRect.center.dy}',
+          'rx': '${(drawRect.width / 2).abs()}',
+          'ry': '${(drawRect.height / 2).abs()}',
+          'fill': shape.fillColor.toHexString(),
+          'stroke': element.property.color.toHexString(),
+          'stroke-width': '${element.property.strokeWidth}px',
+          if (dashArray != null) 'stroke-dasharray': dashArray,
+        },
+      );
     } else if (shape is LineShape) {
-      xml
-          .getElement('svg')
-          ?.createElement(
-            'line',
-            attributes: {
-              'x1': '${element.firstPosition.x}px',
-              'y1': '${element.firstPosition.y}px',
-              'x2': '${element.secondPosition.x}px',
-              'y2': '${element.secondPosition.y}px',
-              'stroke-width': '${element.property.strokeWidth}px',
-              'stroke': element.property.color.toHexString(),
-              'fill': 'none',
-            },
-          );
+      xml.getElement('svg')?.createElement(
+        'line',
+        attributes: {
+          'x1': '${element.firstPosition.x}px',
+          'y1': '${element.firstPosition.y}px',
+          'x2': '${element.secondPosition.x}px',
+          'y2': '${element.secondPosition.y}px',
+          'stroke-width': '${element.property.strokeWidth}px',
+          'stroke': element.property.color.toHexString(),
+          'fill': 'none',
+          if (dashArray != null) 'stroke-dasharray': dashArray,
+        },
+      );
+    } else if (shape is TriangleShape) {
+      final topCenter = drawRect.topCenter;
+      final d =
+          'M${topCenter.dx} ${topCenter.dy} '
+          'L${drawRect.right} ${drawRect.bottom} '
+          'L${drawRect.left} ${drawRect.bottom} Z';
+      xml.getElement('svg')?.createElement(
+        'path',
+        attributes: {
+          'd': d,
+          'fill': shape.fillColor.toHexString(),
+          'stroke': element.property.color.toHexString(),
+          'stroke-width': '${element.property.strokeWidth}px',
+          if (dashArray != null) 'stroke-dasharray': dashArray,
+        },
+      );
     }
   }
 

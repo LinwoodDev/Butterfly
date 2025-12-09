@@ -191,12 +191,13 @@ as double,
 @JsonSerializable()
 
 class ShapeProperty implements Property {
-  const ShapeProperty({this.strokeWidth = 5, required this.shape, @ColorJsonConverter() this.color = SRGBColor.black, final  String? $type}): $type = $type ?? 'shape';
+  const ShapeProperty({this.strokeWidth = 5, required this.shape, @ColorJsonConverter() this.color = SRGBColor.black, this.strokeStyle = StrokeStyle.solid, final  String? $type}): $type = $type ?? 'shape';
   factory ShapeProperty.fromJson(Map<String, dynamic> json) => _$ShapePropertyFromJson(json);
 
 @override@JsonKey() final  double strokeWidth;
  final  PathShape shape;
 @override@JsonKey()@ColorJsonConverter() final  SRGBColor color;
+@JsonKey() final  StrokeStyle strokeStyle;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -215,16 +216,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.shape, shape) || other.shape == shape)&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShapeProperty&&(identical(other.strokeWidth, strokeWidth) || other.strokeWidth == strokeWidth)&&(identical(other.shape, shape) || other.shape == shape)&&(identical(other.color, color) || other.color == color)&&(identical(other.strokeStyle, strokeStyle) || other.strokeStyle == strokeStyle));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,strokeWidth,shape,color);
+int get hashCode => Object.hash(runtimeType,strokeWidth,shape,color,strokeStyle);
 
 @override
 String toString() {
-  return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, color: $color)';
+  return 'Property.shape(strokeWidth: $strokeWidth, shape: $shape, color: $color, strokeStyle: $strokeStyle)';
 }
 
 
@@ -235,7 +236,7 @@ abstract mixin class $ShapePropertyCopyWith<$Res> implements $PropertyCopyWith<$
   factory $ShapePropertyCopyWith(ShapeProperty value, $Res Function(ShapeProperty) _then) = _$ShapePropertyCopyWithImpl;
 @override @useResult
 $Res call({
- double strokeWidth, PathShape shape,@ColorJsonConverter() SRGBColor color
+ double strokeWidth, PathShape shape,@ColorJsonConverter() SRGBColor color, StrokeStyle strokeStyle
 });
 
 
@@ -252,12 +253,13 @@ class _$ShapePropertyCopyWithImpl<$Res>
 
 /// Create a copy of Property
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? strokeWidth = null,Object? shape = null,Object? color = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? strokeWidth = null,Object? shape = null,Object? color = null,Object? strokeStyle = null,}) {
   return _then(ShapeProperty(
 strokeWidth: null == strokeWidth ? _self.strokeWidth : strokeWidth // ignore: cast_nullable_to_non_nullable
 as double,shape: null == shape ? _self.shape : shape // ignore: cast_nullable_to_non_nullable
 as PathShape,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as SRGBColor,
+as SRGBColor,strokeStyle: null == strokeStyle ? _self.strokeStyle : strokeStyle // ignore: cast_nullable_to_non_nullable
+as StrokeStyle,
   ));
 }
 

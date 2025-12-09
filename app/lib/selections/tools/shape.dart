@@ -108,6 +108,24 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
               .toList(),
         ),
       ),
+      ListTile(
+        title: Text(AppLocalizations.of(context).strokeStyle),
+        trailing: DropdownMenu<StrokeStyle>(
+          initialSelection: property.strokeStyle,
+          dropdownMenuEntries: StrokeStyle.values
+              .map(
+                (e) => DropdownMenuEntry(
+                  label: e.getLocalizedName(context),
+                  value: e,
+                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                ),
+              )
+              .toList(),
+          onSelected: (value) => updateProperty(
+            property.copyWith(strokeStyle: value ?? StrokeStyle.solid),
+          ),
+        ),
+      ),
       ColorField(
         value: property.color.withValues(a: 255),
         onChanged: (color) => update(
