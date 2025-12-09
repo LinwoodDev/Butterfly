@@ -1,5 +1,7 @@
 * Improve ui of pdf export dialog
 * Improve image export preview
+* Improve performance of eraser and path eraser tool
+* Skip baking on pen if new element is started
 * Show untitled for empty page names in pdf select dialog
 * Change area tool to open context with double tap
 * Fix pdf export crashes when changing quality

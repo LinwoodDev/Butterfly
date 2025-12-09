@@ -131,7 +131,8 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  Future<void> refresh() => getDocumentBloc().refresh();
+  Future<void> refresh({bool allowBake = true}) =>
+      getDocumentBloc().refresh(allowBake: allowBake);
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);

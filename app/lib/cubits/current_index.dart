@@ -16,7 +16,6 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image/image.dart' as img;
@@ -179,6 +178,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     int? index,
     BuildContext? context,
     Handler<Tool>? handler,
+    bool allowBake = true,
   }) async {
     await resetInput(bloc);
     final blocState = bloc.state;
@@ -238,7 +238,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             temporaryIndex: null,
           ),
         );
-        await bake(blocState);
+        if (allowBake) await bake(blocState);
       } else {
         if (isHandlerEnabled(index)) {
           disableHandler(bloc, index);
@@ -261,13 +261,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
-    if (change.currentState.cameraViewport.image !=
-        change.nextState.cameraViewport.image) {
-      SchedulerBinding.instance.scheduleTask(
-        () => change.currentState.cameraViewport.image?.dispose(),
-        Priority.idle,
-      );
-    }
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
@@ -283,6 +276,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         currentViewport,
         newViewport,
       );
+    }
+    if (change.currentState.cameraViewport.image !=
+        change.nextState.cameraViewport.image) {
+      final image = change.currentState.cameraViewport.image;
+      Future.delayed(const Duration(seconds: 2), () => image?.dispose());
     }
   }
 
@@ -598,10 +596,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               : state.temporaryRendererStates,
         ),
       );
-      if (shouldBake && allowBake) {
-        return bake(blocState, reset: true);
-      } else if (!state.cameraViewport.baked) {
-        return delayedBake(blocState);
+      if (allowBake) {
+        if (shouldBake) {
+          return bake(blocState, reset: true);
+        } else if (!state.cameraViewport.baked) {
+          return delayedBake(blocState);
+        }
       }
     }
   }
@@ -921,6 +921,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool reset = false,
     bool resetAllLayers = false,
   }) => _bakeLock.synchronized(() async {
+    if (isClosed) return;
     var cameraViewport = state.cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
@@ -1132,6 +1133,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final u in newlyUnbaked) {
       if (!visibleElementsSet.contains(u)) visibleElements.add(u);
     }
+
+    if (isClosed) return;
 
     emit(
       state.copyWith(
@@ -1767,11 +1770,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.embedding != null) {
       return;
     }
-    if (reset || shouldRefresh?.call() == true) {
-      refresh(current);
-    }
     if (reset) {
       reload(bloc, current);
+    } else if (shouldRefresh?.call() == true) {
+      await refresh(current);
     }
     if (updateIndex) {
       this.updateIndex(bloc);
@@ -1902,9 +1904,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final toolIndex = state.index ?? 0;
     final newTool = tools.elementAtOrNull(toolIndex);
     if (newTool?.isAction() ?? true) {
-      await changeTool(bloc, index: 0);
+      await changeTool(bloc, index: 0, allowBake: false);
     } else if (newTool != state.handler.data) {
-      await changeTool(bloc, index: toolIndex);
+      await changeTool(bloc, index: toolIndex, allowBake: false);
     }
   }
 
@@ -1913,7 +1915,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current is! DocumentLoaded) return;
     await reloadTool(bloc, current);
     await loadElements(current);
-    refresh(current, allowBake: false);
+    await refresh(current, allowBake: false);
     await delayedBake(current);
   }
 }

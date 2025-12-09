@@ -318,6 +318,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   @override
@@ -326,6 +327,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   InlineSpan? get span => _tp?.text;
