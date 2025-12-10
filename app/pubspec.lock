@@ -148,10 +148,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "360a9436980590e7268e0ff9eff482ff73ac3e0f66fffdd203cd93d1bfed0fc4"
+      sha256: "474d8355961658d43f1c976e2fa1ca715505bea1adbd56df34c581aaa70ec41f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.25+1"
+    version: "0.6.26+2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -1008,10 +1008,10 @@ packages:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "6b7810d0fdd467760bf8e0afafb67140971bf297c9f9b12add5b2033bb55064f"
+      sha256: e4e942bda9f3876d34729fab8e0c5185b9384614929d82bd6efa8ef2a31b0be3
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5"
+    version: "0.3.6"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1216,10 +1216,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: "6e8bf70b7fef813df4e9a36f658ac46d107db4b4cfe1048b477d4e453a8159f5"
+      sha256: "2939ae520c9024cb197fc20dee269cd8cdbf564c8b5746374ec6cacdc5169e64"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.3"
+    version: "2.5.4"
   shared_preferences_android:
     dependency: transitive
     description:
