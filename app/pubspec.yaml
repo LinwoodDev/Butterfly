@@ -110,6 +110,7 @@ dependencies:
   synchronized: ^3.4.0
   file_picker: ^10.3.3
   pdfrx: ^2.2.9
+  pdfrx_engine: 0.3.5
 dependency_overrides:
   irondash_engine_context:
     git:
