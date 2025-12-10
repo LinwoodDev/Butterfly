@@ -143,7 +143,10 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
         label: AppLocalizations.of(context).export,
         children: [
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.fileSvg,
+              textDirection: TextDirection.ltr,
+            ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
               showDialog<void>(
@@ -164,7 +167,10 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             child: Text(AppLocalizations.of(context).svg),
           ),
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileImage),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.fileImage,
+              textDirection: TextDirection.ltr,
+            ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
               showDialog<void>(
@@ -186,7 +192,10 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             child: Text(AppLocalizations.of(context).image),
           ),
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePdf),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.filePdf,
+              textDirection: TextDirection.ltr,
+            ),
             onPressed: () {
               if (pop) Navigator.of(context).pop();
               showDialog<void>(
@@ -200,23 +209,6 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
               );
             },
             child: Text(AppLocalizations.of(context).pdf),
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
-            onPressed: () {
-              if (pop) Navigator.of(context).pop();
-              showDialog<void>(
-                builder: (context) => BlocProvider.value(
-                  value: bloc,
-                  child: PdfExportDialog(
-                    areas: [AreaPreset(area: area, name: area.name)],
-                    print: true,
-                  ),
-                ),
-                context: context,
-              );
-            },
-            child: Text(AppLocalizations.of(context).print),
           ),
         ],
       ),

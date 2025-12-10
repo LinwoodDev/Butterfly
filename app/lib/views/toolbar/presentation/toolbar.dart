@@ -599,6 +599,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.file,
+                                  textDirection: TextDirection.ltr,
                                 ),
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {

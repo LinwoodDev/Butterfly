@@ -21,11 +21,13 @@ class StampToolSelection extends ToolSelection<StampTool> {
         subtitle: value == null
             ? Text(AppLocalizations.of(context).notSet)
             : Text(value.name),
-        trailing: IconButton(
-          icon: const PhosphorIcon(PhosphorIconsLight.trash),
-          onPressed: () => updateComponent(null),
-          tooltip: AppLocalizations.of(context).delete,
-        ),
+        trailing: value == null
+            ? null
+            : IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                onPressed: () => updateComponent(null),
+                tooltip: AppLocalizations.of(context).delete,
+              ),
       ),
     ];
   }

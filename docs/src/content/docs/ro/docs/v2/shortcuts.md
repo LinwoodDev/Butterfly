@@ -12,11 +12,10 @@ Unele dintre ele sunt scrise sub butoane.
 - `Ctrl` + `N`: Fișier nou
 - `Ctrl` + `Shift` + `N`: Fișier nou din șablon
 - `Ctrl` + `E`: Export fişier
-- `Ctrl` + `P`: Fişier de imprimare
-- `Ctrl` + `Shift` + `E`: Exportă fișierul ca imagine
-- `Ctrl` + `Alt` + `E`: Export fişier ca svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Deschide pachete
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Deschideți setările
 - `Ctrl` + `Alt` + `S`: Deschideți setările
 

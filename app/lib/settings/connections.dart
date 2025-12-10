@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/visualizer/connection.dart';
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -492,7 +492,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             icon: const PhosphorIcon(PhosphorIconsLight.folder),
                             onPick: shouldShowPicker
                                 ? () async {
-                                    final result = await getDirectoryPath();
+                                    final result = await FilePicker.platform
+                                        .getDirectoryPath();
                                     if (result != null) {
                                       _directoryController.text = result;
                                     }
@@ -562,11 +563,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ).documentsDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.file,
+                                      textDirection: TextDirection.ltr,
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result =
-                                                await getDirectoryPath();
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
                                                       .text =
@@ -583,11 +586,13 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ).templatesDirectory,
                                     icon: const PhosphorIcon(
                                       PhosphorIconsLight.fileDashed,
+                                      textDirection: TextDirection.ltr,
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result =
-                                                await getDirectoryPath();
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
                                             if (result != null) {
                                               _templatesDirectoryController
                                                       .text =
@@ -607,8 +612,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result =
-                                                await getDirectoryPath();
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
                                                       .text =

@@ -5,7 +5,9 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/asset.dart';
+import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -22,8 +24,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
-import 'package:printing/printing.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
 
@@ -470,25 +472,35 @@ class ImportService {
     return null;
   }
 
-  ImportResult? _importPage(
+  Future<ImportResult?> _importPage(
     DocumentPage? page,
     NoteData document, [
     Offset? position,
-  ]) {
+  ]) async {
     final firstPos = position ?? Offset.zero;
     if (page == null) return null;
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
 
-    final content = page.content
+    final renderers = page.content
         .map((e) => e.copyWith(id: createUniqueId()))
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
+    final transformCubit = TransformCubit(1, position);
+    final assetService = AssetService();
+    await Future.wait(
+      renderers.map(
+        (e) async =>
+            await e.setup(transformCubit, document, assetService, page),
+      ),
+    );
+    assetService.dispose();
+    final content = renderers
         .map(
           (e) =>
-              Renderer.fromInstance(
-                e,
-              ).transform(position: firstPos, relative: true)?.element ??
-              e,
+              e.transform(position: firstPos, relative: true)?.element ??
+              e.element,
         )
         .toList();
     return ImportResult(
@@ -752,10 +764,12 @@ class ImportService {
     bool advanced = true,
   }) async {
     LoadingDialogHandler? dialog;
+    PdfDocument? pdfDocument;
     try {
       final firstPos = position ?? Offset.zero;
       final localizations = AppLocalizations.of(context);
-      List<PdfRaster> elements = await Printing.raster(bytes).toList();
+      pdfDocument = await PdfDocument.openData(bytes);
+      final elements = pdfDocument.pages;
       if (!context.mounted) return null;
       List<int> pages = List.generate(elements.length, (index) => index);
       bool spreadToPages = false, createAreas = false, invert = false;
@@ -768,8 +782,9 @@ class ImportService {
         for (int i = 0; i < elements.length; i++) {
           final raster = elements[i];
           dialog?.setProgress(i / elements.length);
-          final image = await raster.toImage();
-          images.add(image);
+          final pdfImage = await raster.render();
+          if (pdfImage == null) continue;
+          images.add(await pdfImage.createImage());
         }
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(
@@ -801,8 +816,8 @@ class ImportService {
       var y = firstPos.dy;
       var current = 0;
 
-      for (var i = 0; i < elements.length; i++) {
-        var raster = elements[i];
+      for (var i = 0; i < pages.length; i++) {
+        var raster = elements[pages[i]];
         try {
           await Future.delayed(const Duration(milliseconds: 1));
           dialog?.setProgress(current / pages.length);
@@ -865,6 +880,8 @@ class ImportService {
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),
       );
+    } finally {
+      await pdfDocument?.dispose();
     }
     return null;
   }
@@ -878,6 +895,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
+      case AssetFileType.textNote:
         exportData(context, await state.saveData());
         break;
       case AssetFileType.image:

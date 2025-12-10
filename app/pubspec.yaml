@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.1-rc.3+155
+version: 2.4.2-rc.3+161
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
@@ -34,13 +34,12 @@ dependencies:
   path_provider: ^2.1.3
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
-  file_selector: ^1.0.3
   phosphor_flutter: ^2.1.0
   replay_bloc: ^0.3.0
   share_plus: ^12.0.0
   package_info_plus: ^9.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^16.0.0
+  go_router: ^17.0.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.3.0
@@ -49,8 +48,6 @@ dependencies:
   window_manager: ^0.5.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
-  printing: ^5.14.2
-  pdf: ^3.11.3
   http: ^1.2.1
   flutter_secure_storage: ^10.0.0-beta.2
   equatable: ^2.0.5
@@ -65,12 +62,12 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 12843672e8f33e9370444b13fca8134f4543f7ee
+      ref: 7d58db18bf9f420236009d9519769ec13f9404b0
       path: packages/material_leap
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7a9ebaba930ca39b6d2a4a76ab5056d7fad18a01
+      ref: 38fd0a6df52bf4115a6926271734d36e601af9cf
       path: packages/lw_sysapi
   networker:
     git:
@@ -95,7 +92,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7a5ca7e97f9bc92a4f3e886242ac07afb5980742
+      ref: 42bd9fde81a3692711862cdb0c60f05f648241a9
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
@@ -111,12 +108,19 @@ dependencies:
   network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
+  file_picker: ^10.3.3
+  pdfrx: ^2.2.9
 dependency_overrides:
   irondash_engine_context:
     git:
       url: https://github.com/CodeDoctorDE/irondash
       ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
       path: engine_context/dart
+  super_native_extensions:
+    git:
+      url: https://github.com/CodeDoctorDE/super_native_extensions
+      ref: 1055873bac1dcfa859d306b825eecf23b7587d23
+      path: super_native_extensions
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0

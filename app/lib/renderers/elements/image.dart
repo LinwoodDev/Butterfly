@@ -15,6 +15,10 @@ class ImageRenderer extends Renderer<ImageElement> {
     final uri = Uri.parse(element.source);
     if (uri.hasScheme && !uri.isScheme('file')) return false;
     final shouldUpdate = uri.path == path;
+    if (shouldUpdate) {
+      image?.dispose();
+      image = null;
+    }
     return shouldUpdate;
   }
 

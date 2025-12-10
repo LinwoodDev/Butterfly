@@ -25,10 +25,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
-import 'package:pdf/pdf.dart';
+import 'package:pdfrx/pdfrx.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:printing/printing.dart';
 import 'package:xml/xml.dart';
 
 import '../cubits/transform.dart';
@@ -272,13 +271,6 @@ abstract class Renderer<T> {
     DocumentPage page,
   ) async => _updateArea(page);
 
-  FutureOr<void> updateView(
-    TransformCubit transformCubit,
-    NoteData document,
-    AssetService assetService,
-    DocumentPage page,
-  ) {}
-
   void dispose() {}
 
   void _updateArea(DocumentPage page) => area = rect == null
@@ -440,6 +432,13 @@ abstract class Renderer<T> {
   ) {}
 
   FutureOr<void> onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {}
+
+  FutureOr<void> updateView(
     CurrentIndexCubit currentIndexCubit,
     DocumentLoaded blocState,
     CameraTransform renderTransform,

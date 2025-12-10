@@ -150,7 +150,10 @@ class _PropertyCardState extends State<_PropertyCard> {
         : DisplayIcons.recommended(selected)
               .map(
                 (e) => IconButton(
-                  icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  icon: PhosphorIcon(
+                    e.icon(PhosphorIconsStyle.light),
+                    textDirection: TextDirection.ltr,
+                  ),
                   iconSize: 26,
                   onPressed: selected is! Tool
                       ? null
@@ -178,7 +181,11 @@ class _PropertyCardState extends State<_PropertyCard> {
     final leading = SizedBox.square(
       dimension: 60,
       child: menuChildren.length <= 1
-          ? PhosphorIcon(icon, color: Theme.of(context).iconTheme.color)
+          ? PhosphorIcon(
+              icon,
+              color: Theme.of(context).iconTheme.color,
+              textDirection: TextDirection.ltr,
+            )
           : Center(
               child: MenuAnchor(
                 controller: _menuController,
@@ -188,6 +195,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                       PhosphorIcon(
                         icon,
                         color: Theme.of(context).colorScheme.onPrimary,
+                        textDirection: TextDirection.ltr,
                       ),
                       const SizedBox(width: 8),
                       PhosphorIcon(
@@ -237,6 +245,7 @@ class _PropertyCardState extends State<_PropertyCard> {
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 200),
           child: Row(
+            textDirection: TextDirection.ltr,
             children: [
               if (!widget.isMobile)
                 MouseRegion(

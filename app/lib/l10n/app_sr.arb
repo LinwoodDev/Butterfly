@@ -1,5 +1,8 @@
 {
   "open": "Otvori",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Podešavanja",
   "personalization": "Personalizacija",
   "theme": "Tema",
@@ -7,10 +10,22 @@
   "lightTheme": "Svetla tema",
   "systemTheme": "Koristi podrazumevanu sistemsku temu",
   "view": "Prikaz",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Izmeni",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Izvezi",
   "save": "Sačuvaj",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zumiranje",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Uvećaj",
   "zoomOut": "Umanji",
   "resetZoom": "Resetuj zumiranje",
@@ -18,28 +33,67 @@
   "includeEraser": "Uključi gumicu?",
   "thinning": "Tanjanje",
   "pen": "Olovka",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Invertovana olovka",
   "eraser": "Gumica",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Gumica za putanje",
   "label": "Oznaka",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Obriši",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Da li ste sigurni?",
   "reallyDelete": "Da li zaista želite da obrišete ovu stavku?",
   "no": "Ne",
   "yes": "Da",
   "undo": "Opozovi",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Ponovi",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Opšte",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Kopirano u klipbord",
   "loading": "Učitavanje...",
   "enterText": "Unesite tekst",
   "size": "Veličina",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Širina",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Visina",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Broj",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Prostor",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Pozadina",
   "box": "Kutija",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Jezik",
   "systemLocale": "Sistemski jezik",
   "information": "Informacije",
@@ -53,19 +107,34 @@
   "existOverride": "Ovaj element već postoji. Prepiši?",
   "description": "Opis",
   "fill": "Popuna",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Podrazumevana paleta",
   "highlighter": "Marker",
   "add": "Dodaj",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Ukloni",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Da li zaista želite da uklonite ovo?",
   "resetPalette": "Resetuj paletu",
   "custom": "Prilagođeno",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekoracija",
   "underline": "Podvučeno",
   "overline": "Nadvučeno",
   "strikethrough": "Precrtano",
   "thickness": "Debljina",
   "style": "Stil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Puna",
   "double": "Dvostruka",
   "dotted": "Tačkasta",
@@ -77,17 +146,41 @@
   "italic": "Kurziv",
   "clipboard": "Klipbord",
   "file": "Datoteka",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Podaci",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Deli",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Razmak",
   "image": "Slika",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Unesite URL",
   "scale": "Skala",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Pomoć",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Da li zaista želite da resetujete ovo?",
   "whatToDo": "Šta želite da uradite?",
   "ignore": "Ignoriši",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Rezervna kopija",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Datoteka {fileName} je kreirana u novijoj verziji ({fileVersion}). Šta treba uraditi sa ovom datotekom?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Tačke putanje",
   "origin": "Poreklo",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Uvezi",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Novo",
   "selectElement": "Izaberi element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Kopiraj verziju",
   "input": "Unos",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Ponašanja",
   "dataDirectory": "Direktorijum sa podacima",
   "defaultPath": "Podrazumevana putanja",
@@ -138,16 +240,40 @@
   "rename": "Preimenuj",
   "duplicate": "Dupliraj",
   "hand": "Ruka",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Fascikla",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Premesti",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopiraj",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Nazad",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zavisno od zuma",
   "shapeDetection": "Prepoznavanje oblika",
   "delay": "Odlaganje",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Podrazumevani sloj",
   "layer": "Sloj",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Slojevi",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nije postavljeno",
   "enterLayer": "Unesite naziv sloja",
   "selectElements": "Izaberi elemente",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Da li zaista želite da obrišete izabrane elemente?",
   "selectCustomCollection": "Izaberite prilagođenu kolekciju",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Osetljivost",
   "sensitivityHint": "Što je veća vrednost, to je unos osetljiviji",
   "horizontal": "Horizontalno",
   "vertical": "Vertikalno",
   "plain": "Obično",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Svetlo",
   "ruled": "Linije",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Kvadrat",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Muzika",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Tamno",
   "plainDark": "Tamno",
   "ruledDark": "Tamne linije",
@@ -174,29 +315,56 @@
   "createTemplate": "Kreiraj šablon",
   "createTemplateContent": "Da li zaista želite da kreirate šablon od ovog dokumenta? Originalni dokument će biti obrisan.",
   "replace": "Zameni",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Da li zaista želite da zamenite šablon? Ova operacija se ne može opozvati!",
   "defaultTemplate": "Podrazumevani šablon",
   "insert": "Ubaci",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Ispis",
   "selectCamera": "Izaberite kameru",
   "changeDocumentPath": "Promeni putanju dokumenta",
   "deleteWholeStroke": "Obriši celu liniju",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Oblast",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Izaberite oblast",
   "aspectRatio": "Odnos širine i visine",
   "presets": "Unapred podešeno",
   "pagePortrait": "Portret stranica",
   "pageLandscape": "Pejzaž stranica",
   "square": "Kvadrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Oblasti",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Unesite oblast",
   "exitArea": "Izađite iz oblasti",
   "currentArea": "Trenutna oblast",
   "design": "Dizajn",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Tekst",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Zdravo, ovo je Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fiksno",
   "dynamicContent": "Dinamično",
   "none": "Ništa",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Uključi oblast",
   "verticalAlignment": "Vertikalno poravnanje",
   "horizontalAlignment": "Horizontalno poravnanje",
   "top": "Vrh",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Centar",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Dno",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Levo",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Desno",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Obostrano",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Ograničenje",
   "length": "Dužina",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Izvezi SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Izaberi stranice",
   "recentFiles": "Nedavne datoteke",
   "start": "Početak",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Nema nedavnih datoteka",
   "countPages": "{count,plural, =0{Nema stranica} =1{1 stranica} other{{count} stranice}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Izlaz",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Nema elemenata",
   "invertSelection": "Invertuj selekciju",
   "errorWhileImporting": "Greška prilikom uvoza",
@@ -268,14 +469,23 @@
   "error": "Greška",
   "stackTrace": "Trag steka",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Trajanje",
   "quality": "Kvalitet",
   "exportPdf": "Izvezi PDF",
   "local": "Lokalno",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Dodaj konekciju",
   "connections": "Konekcije",
   "noConnections": "Nema konekcija",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Poveži se",
   "username": "Korisničko ime",
   "password": "Lozinka",
@@ -288,10 +498,22 @@
   "cannotConnect": "Povezivanje nije moguće",
   "urlNotValid": "URL nije važeći",
   "icon": "Ikona",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Ažuriraj",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Dostupno ažuriranje",
   "stable": "Stabilno",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Noćno",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Proveri ažuriranja",
   "checkForUpdatesWarning": "Provera ažuriranja će se povezati sa Butterfly veb-sajtom radi dobijanja informacija.",
   "usingLatestStable": "Koristite najnoviju stabilnu verziju",
@@ -299,10 +521,25 @@
   "currentVersion": "Trenutna verzija",
   "updateNow": "Ažuriraj sada",
   "shape": "Oblik",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Krug",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Pravougaonik",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Trougao",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linija",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Radijus ugla",
   "topLeft": "Gore levo",
   "topRight": "Gore desno",
@@ -310,6 +547,9 @@
   "bottomRight": "Dole desno",
   "caches": "Keš memorije",
   "manage": "Upravljaj",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Očisti keš memorije",
   "createCache": "Kreiraj keš",
   "thirdPartyLicenses": "Licence trećih strana",
@@ -317,6 +557,9 @@
   "synced": "Sinhronizovano",
   "notSynced": "Nije sinhronizovano",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Zadrži lokalno",
   "keepConnection": "Zadrži sa konekcije",
   "keepBoth": "Zadrži oba",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Van mreže",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Lokalno najnovije",
   "connectionLatest": "Sa konekcije najnovije",
   "path": "Putanja",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Fascikla sinhronizovana",
   "syncRootDirectory": "Sinhronizuj korenski direktorijum",
   "penOnlyInput": "Unos samo olovkom",
@@ -346,19 +595,55 @@
   "syncMode": "Režim sinhronizacije",
   "connection": "Konekcija",
   "always": "Uvek",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Nema na mobilnom",
   "manual": "Ručno",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Pretraga",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Svojstva",
   "pin": "Zakači",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Otkači",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Crtaljka",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Pozicija",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Beleška",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Paketi",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Paket",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Više",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Pitaj za ime",
   "areaIndex": "Oblast {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Pokreni u režimu celog ekrana",
   "inputs": "Unosi",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Miš",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Dodir",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Tastatura",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Prečice",
   "middle": "Srednji",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Prvi",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Drugi",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktivni alat",
   "activeToolDescription": "Koristi trenutno izabrani alat sa trake sa alatkama",
   "handTool": "Alat Ruka",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Alati",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Prikaži mrežu",
   "grid": "Mreža",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Lenjir",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Ugao",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Prijavi",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Nova fascikla",
   "createPack": "Kreiraj paket",
   "editPack": "Izmeni paket",
   "packsDirectory": "Direktorijum paketa",
   "stamp": "Pečat",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Dodaj u paket",
   "sureImportPack": "Da li ste sigurni da želite da uvezete paket?",
   "byAuthor": "od {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Dodaj resurs",
   "editAsset": "Izmeni resurs",
   "scope": "Obim",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Trenutno nema dostupnih paketa",
   "components": "Komponente",
   "waypoint": "Tačka putanje",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Stilovi",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Pasus",
   "fontFamily": "Porodica fontova",
   "smoothing": "Izglađivanje",
@@ -449,9 +779,21 @@
   "unknownImportType": "Nepoznat tip uvoza",
   "sureImportTemplate": "Da li ste sigurni da želite da uvezete šablon?",
   "frame": "Okvir",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Pusti",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Tačka prekida",
   "presentationControls": "Kontrole prezentacije",
   "nextSlide": "Sledeći slajd",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kod",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Citat",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Polje za potvrdu",
   "deleted": "Obrisano",
   "emphasis": "Naglasak",
   "listBullet": "Znak za nabrajanje",
   "strong": "Jako",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Početna",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Datoteke",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sortiraj po",
   "location": "Lokacija",
   "whatsNew": "Šta je novo?",
@@ -493,12 +853,21 @@
   "star": "Dodaj zvezdicu",
   "goUp": "Idi gore",
   "created": "Kreirano",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Izmenjeno",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Brzi početak",
   "noTemplates": "Trenutno nema dostupnih šablona",
   "importCorePack": "Uvezi osnovni paket",
   "importCorePackDescription": "Uvezite osnovni paket koji sadrži sve osnovne resurse za početak. Ovo će prepisati trenutni osnovni paket.",
   "never": "Nikada",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Samo pri ažuriranjima",
   "visibility": "Vidljivost",
   "captureThumbnail": "Snimi sličicu",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Izaberite režim oznake",
   "foreground": "Prednji plan",
   "version": "Verzija",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repozitorijum",
   "pages": "Stranice",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Rasporedi",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Dovedi napred",
   "sendToBack": "Pošalji nazad",
   "bringForward": "Pomeri napred",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Dostupno samo na većim ekranima",
   "toolbarPosition": "Pozicija trake sa alatkama",
   "rotate": "Rotiraj",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Odstojnik",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigaciona traka",
   "cut": "Iseci",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Ubaci pre",
   "insertAfter": "Ubaci posle",
   "insertFirst": "Ubaci na početak",
   "insertLast": "Ubaci na kraj",
   "paste": "Nalepi",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Uzlazno",
   "descending": "Silazno",
   "imageScale": "Skala slike",
   "select": "Izaberi",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Alat",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Tekstura",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Tema platforme",
   "desktop": "Desktop",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobilni",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Kvalitet PDF-a",
   "surface": "Površina",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Šablon",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Da li ste sigurni da želite da zatvorite dokument?",
   "thereAreUnsavedChanges": "Postoje nesačuvane izmene",
   "page": "Stranica",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE serveri",
   "collaboration": "Saradnja",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE Server",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Tip",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Strana",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Klijent",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Promeni prikaz",
   "lasso": "Laso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Sakrij interfejs",
   "density": "Gustina",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompaktno",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Komforno",
   "standard": "Standardno",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Zaključaj",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Dodaj element",
   "notDefaultConnection": "Nije podrazumevana konekcija",
   "defaultConnection": "Podrazumevana konekcija",
   "hide": "Sakrij",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Prikaži",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pauziraj",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Zaustavi",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Osveži",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Štampaj",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Kapaljka",
   "users": "Korisnici",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Eksperimenti",
   "experimentsWarning": "Ove funkcije su eksperimentalne i mogu se promeniti, pokvariti ili nestati u bilo kom trenutku. Njihovo omogućavanje može izazvati nestabilnost ili gubitak podataka. Nastavite s oprezom. Molimo prijavite sve greške.",
   "address": "Adresa",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Proširi na stranice",
   "rootDirectorySpecifiedDescription": "Korenski direktorijum je naveden. Sve napredne putanje direktorijuma biće relativne u odnosu na ovaj direktorijum. Ostavite prazno da biste onemogućili ovaj tip direktorijuma.",
   "rootDirectoryNotSpecifiedDescription": "Korenski direktorijum nije naveden. Ime je obavezno. Sve napredne putanje direktorijuma biće apsolutne. Ostavite prazno da biste onemogućili ovaj tip direktorijuma.",
@@ -594,25 +1065,49 @@
   "createAreas": "Kreiraj oblasti",
   "autosave": "Automatsko čuvanje",
   "invert": "Invertuj",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operacije",
   "medium": "Srednje",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Veliko",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Veličina trake sa alatkama",
   "addAll": "Dodaj sve",
   "onlyCurrentPage": "Samo trenutna stranica",
   "smoothNavigation": "Glatka navigacija",
   "exact": "Tačno",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Unutar linije",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Redovi trake sa alatkama",
   "pointerTest": "Test pokazivača",
   "pressure": "Pritisak",
   "small": "Malo",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Sitno",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Izaberi sve",
   "overrideTools": "Prepiši alate",
   "hideCursorWhileDrawing": "Sakrij kursor tokom crtanja",
   "installed": "Instalirano",
   "install": "Instaliraj",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Poništi izbor",
   "changeCollection": "Promeni kolekciju",
   "collections": "Kolekcije",
@@ -621,15 +1116,30 @@
   "collection": "Kolekcija",
   "defaultCollection": "Podrazumevana kolekcija",
   "scroll": "Skroluj",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Pri pokretanju",
   "homeScreen": "Početni ekran",
   "lastNote": "Poslednja beleška",
   "newNote": "Nova beleška",
   "convertToLayer": "Pretvori u sloj",
   "merge": "Spoji",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Gore",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Dole",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Drugo",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Nema elemenata} =1{1 element} other{{count} elementa}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Rezolucija renderovanja",
   "translate": "Prevedi",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Nešifrovano",
   "encrypted": "Šifrovano",
   "encryptDocumentMessage": "Kliknite da šifrujete dokument",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Potvrdi lozinku",
   "passwordMismatch": "Lozinke se ne podudaraju",
   "action": "Akcija",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG Tekst",
   "offset": "Pomak",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Zavisno od pozicije",
   "flipHorizontal": "Okreni horizontalno",
   "flipVertical": "Okreni vertikalno",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Vrati podešavanja iz datoteke",
   "exportSettingsToFile": "Izvezi podešavanja u datoteku",
   "barcode": "Barkod",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Tip barkoda",
   "qrCode": "QR kod",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Pomeri desno",
   "bundledPacks": "Uključeni paketi",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Izaberi komponentu",
   "bundlePackInDocument": "Uključi paket u dokument",
   "bundledPacksDescription": "Uključeni paketi su sadržani u dokumentu i koriste se samo za deljenje sa dokumentom. Resursi se mogu koristiti u dokumentu samo ako je paket instaliran. Paketi se mogu instalirati klikom na njih.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Vaše poruke se rutiraju kroz siguran relejni server sa end-to-end enkripcijom. Adresa swamp servera je potrebna za kreiranje sesije.",
   "createRawNote": "Kreiraj sirovu belešku",
   "polygon": "Poligon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Završi oblik",
   "submit": "Pošalji",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

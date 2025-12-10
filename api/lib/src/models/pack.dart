@@ -84,14 +84,13 @@ sealed class Toolbar extends PackAsset with _$Toolbar {
       _$ToolbarFromJson(json);
 }
 
-@Freezed(equal: true, fromJson: false, toJson: false, copyWith: false)
-final class PackAssetLocation with _$PackAssetLocation {
-  @override
-  final String namespace;
-  @override
-  final String key;
+@freezed
+sealed class PackAssetLocation with _$PackAssetLocation {
+  const factory PackAssetLocation(String namespace, String key) =
+      _PackAssetLocation;
 
-  const PackAssetLocation(this.namespace, this.key);
+  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$PackAssetLocationFromJson(json);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -132,4 +131,11 @@ final class PackItem<T extends PackAsset> implements PackAssetLocation {
   String get key => location.key;
 
   NamedItem<T> toNamed() => NamedItem(name: key, item: item);
+
+  @override
+  $PackAssetLocationCopyWith<PackAssetLocation> get copyWith =>
+      location.copyWith;
+
+  @override
+  Map<String, dynamic> toJson() => location.toJson();
 }

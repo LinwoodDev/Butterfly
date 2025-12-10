@@ -1,5 +1,8 @@
 {
   "open": "Otevřít",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Nastavení",
   "personalization": "Přizpůsobení",
   "theme": "Téma",
@@ -7,10 +10,22 @@
   "lightTheme": "Světlý motiv",
   "systemTheme": "Použít výchozí motiv systému",
   "view": "Zobrazit",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Upravit",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportovat",
   "save": "Uložit",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Přiblížení",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Přiblížit",
   "zoomOut": "Oddálit",
   "resetZoom": "Resetovat zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Zahrnout gumu?",
   "thinning": "Ztenčování",
   "pen": "Tužka",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Převrácená tužka",
   "eraser": "Guma",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Vymazání tahem",
   "label": "Štítek",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Vymazat",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Jste si jisti?",
   "reallyDelete": "Opravdu chcete odstranit tuto položku?",
   "no": "Ne",
   "yes": "Ano",
   "undo": "Zpět",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Znovu",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Obecné",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Zkopírováno do schránky",
   "loading": "Načítám...",
   "enterText": "Zadejte text",
   "size": "Velikost",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Šířka",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Výška",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Počet",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Prostor",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Pozadí",
   "box": "Krabice",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Jazyk",
   "systemLocale": "Systémový jazyk",
   "information": "Informace",
@@ -53,19 +107,34 @@
   "existOverride": "Tento prvek již existuje. Přepsat?",
   "description": "Popis",
   "fill": "Vyplnit",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Výchozí paleta",
   "highlighter": "Zvýrazňovač",
   "add": "Přidat",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Odebrat",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Opravdu chcete toto odstranit?",
   "resetPalette": "Resetovat paletu",
   "custom": "Vlastní",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekorace",
   "underline": "Podtrhnout",
   "overline": "Nadtržení",
   "strikethrough": "Přeškrtnutí",
   "thickness": "Tloušťka",
   "style": "Styl",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Pevný",
   "double": "Dvojitý",
   "dotted": "Tečkovaný",
@@ -77,17 +146,41 @@
   "italic": "Kurzíva",
   "clipboard": "Schránka",
   "file": "Soubor",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Údaje",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Sdílet",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Rozestup",
   "image": "Obrázek",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Zadejte adresu URL",
   "scale": "Měřítko",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Nápověda",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Opravdu to chcete resetovat?",
   "whatToDo": "Co chcete udělat?",
   "ignore": "Ignorovat",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Záloha",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Soubor {fileName} byl vytvořen v novější verzi ({fileVersion}). Co chcete provést s tímto souborem?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Body",
   "origin": "Původ",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importovat",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Nové",
   "selectElement": "Vyberte prvek",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Kopírovat verzi",
   "input": "Vstup",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Chování",
   "dataDirectory": "Datový adresář",
   "defaultPath": "Výchozí cesta",
@@ -138,16 +240,40 @@
   "rename": "Přejmenovat",
   "duplicate": "Duplikovat",
   "hand": "Ruka",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Složka",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Přesunout",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopírovat",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Zpět",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Přiblížení závislé",
   "shapeDetection": "Detekce tvarů",
   "delay": "Zpoždění",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Výchozí vrstva",
   "layer": "Vrstva",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Vrstvy",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nenastaveno",
   "enterLayer": "Zadejte název vrstvy",
   "selectElements": "Vybrat prvky",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Opravdu chcete odstranit vybrané prvky?",
   "selectCustomCollection": "Vybrat vlastní kolekci",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Citlivost",
   "sensitivityHint": "Čím vyšší hodnota, tím citlivější je vstup",
   "horizontal": "Horizontální",
   "vertical": "Vertikální",
   "plain": "Jednoduchý",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Světlý",
   "ruled": "Ovládáno",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Čárka",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Hudba",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Tmavý",
   "plainDark": "Tmavý",
   "ruledDark": "Rušeno tmavé",
@@ -174,29 +315,56 @@
   "createTemplate": "Vytvořit šablonu",
   "createTemplateContent": "Opravdu chcete vytvořit šablonu z tohoto dokumentu? Původní dokument bude smazán.",
   "replace": "Nahradit",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Opravdu chcete nahradit šablonu? Tuto operaci nelze vrátit zpět!",
   "defaultTemplate": "Výchozí šablona",
   "insert": "Vložit",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Fotoaparát",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Výtisk",
   "selectCamera": "Vybrat fotoaparát",
   "changeDocumentPath": "Změnit umístění dokumentu",
   "deleteWholeStroke": "Odstranit celý tah",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Oblast",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Vyberte oblast",
   "aspectRatio": "Poměr stran",
   "presets": "Předvolby",
   "pagePortrait": "Stránka na výšku",
   "pageLandscape": "Stránka na šířku",
   "square": "Čtverec",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Oblasti",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Vybrat oblast",
   "exitArea": "Opustit oblast",
   "currentArea": "Aktuální oblast",
   "design": "Vzhled",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Vítej v Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Pevný",
   "dynamicContent": "Dynamický",
   "none": "Nic",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Zahrnout oblast",
   "verticalAlignment": "Svislé zarovnání",
   "horizontalAlignment": "Vodorovné zarovnání",
   "top": "Nahoře",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Uprostřed",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Dole",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Vlevo",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Vpravo",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Zarovnat",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Omezit",
   "length": "Délka",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Exportovat SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Vybrat stránky",
   "recentFiles": "Nedávné soubory",
   "start": "Začít",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Žádné nedávné soubory",
   "countPages": "{count,plural, =0{Žádné stránky} =1{1 stránka} other{{count} stránky}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Ukončit",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Žádné prvky",
   "invertSelection": "Obrátit výběr",
   "errorWhileImporting": "Chyba při importovaní",
@@ -268,14 +469,23 @@
   "error": "Chyba",
   "stackTrace": "Trasování zásobníku",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Doba trvání",
   "quality": "Kvalita",
   "exportPdf": "Exportovat PDF",
   "local": "Místní",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Přidat spojení",
   "connections": "Spojení",
   "noConnections": "Žádná spojení",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Připojit",
   "username": "Uživatelské jméno",
   "password": "Heslo",
@@ -288,10 +498,22 @@
   "cannotConnect": "Nelze se připojit",
   "urlNotValid": "Adresa URL není platná",
   "icon": "Ikona",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Aktualizace",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "K dispozici je aktualizace",
   "stable": "Stabilní",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Nightly",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Zkontrolovat aktualizace",
   "checkForUpdatesWarning": "Při kontrole aktualizací proběhne spojení s webem Butterfly.",
   "usingLatestStable": "Používáte nejnovější stabilní verzi",
@@ -299,10 +521,25 @@
   "currentVersion": "Aktuální verze",
   "updateNow": "Aktualizovat nyní",
   "shape": "Tvar",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Kruh",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Obdélník",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Trojúhelník",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Řádek",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Zaoblení rohů",
   "topLeft": "Vlevo nahoře",
   "topRight": "Vpravo nahoře",
@@ -310,6 +547,9 @@
   "bottomRight": "Vpravo dole",
   "caches": "Cache",
   "manage": "Spravovat",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Vymazat cache",
   "createCache": "Vytvořit cache",
   "thirdPartyLicenses": "Licence třetích stran",
@@ -317,6 +557,9 @@
   "synced": "Synchronizováno",
   "notSynced": "Nesynchronizováno",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Ponechat lokální",
   "keepConnection": "Zachovat připojení",
   "keepBoth": "Zachovat obojí",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Nejnovější místní",
   "connectionLatest": "Poslední připojení",
   "path": "Cesta",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Složka synchronizována",
   "syncRootDirectory": "Synchronizovat kořenový adresář",
   "penOnlyInput": "Používat pouze tužku",
@@ -346,19 +595,55 @@
   "syncMode": "Režim synchronizace",
   "connection": "Připojení",
   "always": "Vždy",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Žádný mobil",
   "manual": "Ruční",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Hledat",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Vlastnosti",
   "pin": "Připnout",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Odepnout",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Prvek",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Malíř",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Pozice",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Poznámka",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Balíčky",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Balení",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Více",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Požádat o název",
   "areaIndex": "Oblast {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Spustit na celou obrazovku",
   "inputs": "Vstupy",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Myš",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Dotkněte se",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Klávesnice",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Zkratky",
   "middle": "Uprostřed",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "První",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Sekunda",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktivní nástroj",
   "activeToolDescription": "Použít aktuálně vybraný nástroj na panelu nástrojů",
   "handTool": "Ruční nástroj",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Nástroje a nářadí",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Zobrazit mřížku",
   "grid": "Mřížka",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Řidič",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Úhel",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Nahlásit",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Nová složka",
   "createPack": "Vytvořit balíček",
   "editPack": "Upravit balíček",
   "packsDirectory": "Adresář balíčků",
   "stamp": "Razítko",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Přidat do balíčku",
   "sureImportPack": "Opravdu chcete importovat balíček?",
   "byAuthor": "od {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Přidat majetek",
   "editAsset": "Upravit aktivum",
   "scope": "Oblast působnosti",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Momentálně nejsou dostupné žádné balíčky",
   "components": "Součásti",
   "waypoint": "Trasový bod",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styly",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Odstavec",
   "fontFamily": "Rodina písma",
   "smoothing": "Vyhlazování",
@@ -449,9 +779,21 @@
   "unknownImportType": "Neznámý typ importu",
   "sureImportTemplate": "Jste si jisti, že chcete importovat šablonu?",
   "frame": "Rámeček",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Hrát",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Zarážka",
   "presentationControls": "Ovládání prezentace",
   "nextSlide": "Další snímek",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kód",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Cenová nabídka",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Odkaz",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Zaškrtávací políčko",
   "deleted": "Odstraněno",
   "emphasis": "Důraz",
   "listBullet": "Seznam odrážek",
   "strong": "Silný",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Domů",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Soubory",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Seřadit podle",
   "location": "Poloha",
   "whatsNew": "Co je nového?",
@@ -493,12 +853,21 @@
   "star": "Hvězda",
   "goUp": "Přejít nahoru",
   "created": "Vytvořeno",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Upraveno",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Rychlý start",
   "noTemplates": "V současné době nejsou k dispozici žádné šablony",
   "importCorePack": "Importovat základní balíček",
   "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra.",
   "never": "Nikdy",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Pouze při aktualizacích",
   "visibility": "Viditelnost",
   "captureThumbnail": "Snímat miniaturu",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Zvolte mód popisku",
   "foreground": "Popředí",
   "version": "Verze",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Repozitář",
   "pages": "Stránky",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigátor",
   "arrange": "Uspořádat",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Přivést do popředí",
   "sendToBack": "Poslat zpět",
   "bringForward": "Posunout vpřed",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
   "rotate": "Otočit",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Mezera",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigační kolejnice",
   "cut": "Vyjmout",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Vložit před",
   "insertAfter": "Vložit po",
   "insertFirst": "Nejdříve vložte",
   "insertLast": "Vložit poslední",
   "paste": "Vložit",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Vzestupně",
   "descending": "Sestupně",
   "imageScale": "Měřítko obrázku",
   "select": "Vybrat",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Nástroj",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textilie",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Motiv platformy",
   "desktop": "Stolní počítače",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Kvalita PDF",
   "surface": "Povrch",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Vzor",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Opravdu chcete dokument zavřít?",
   "thereAreUnsavedChanges": "Existují neuložené změny",
   "page": "Stránka",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Servery ICE",
   "collaboration": "Spolupráce",
   "webRtc": "Web RTC",
   "webSocket": "Webová raketa",
   "iceServer": "Server ICE",
   "port": "Přístav",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Typ",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Boční",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Zákazník",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Přepnout zobrazení",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Skrýt uživatelské rozhraní",
   "density": "Hustota",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompaktní",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Komfortní",
   "standard": "Standardní",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Zamknout",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Přidat prvek",
   "notDefaultConnection": "Není výchozí připojení",
   "defaultConnection": "Výchozí připojení",
   "hide": "Skrýt",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Zobrazit",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pozastavit",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Zastavit",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Aktualizovat",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Tisk",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Kapátko",
   "users": "Uživatelé",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experimenty",
   "experimentsWarning": "Tyto vlastnosti jsou experimentální a mohou kdykoliv změnit, rozbít nebo zmizet. Jejich povolení může způsobit nestabilitu nebo ztrátu dat. Buďte opatrní. Nahlaste prosím chyby.",
   "address": "Adresa",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Rozšiřte na stránky",
   "rootDirectorySpecifiedDescription": "Kořenový adresář je zadán. Všechny pokročilé cesty adresáře budou relativní k tomuto adresáři. Ponechte prázdné pro vypnutí tohoto typu adresáře.",
   "rootDirectoryNotSpecifiedDescription": "Kořenový adresář není zadán. Je vyžadován název všech pokročilých adresářů budou absolutní. Ponechte prázdné pro vypnutí tohoto typu adresáře.",
@@ -594,25 +1065,49 @@
   "createAreas": "Vytvořit oblasti",
   "autosave": "Automatické uložení",
   "invert": "Převrátit",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operace",
   "medium": "Střední",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Velký",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Velikost panelu nástrojů",
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
   "smoothNavigation": "Hladká navigace",
   "exact": "Přesné",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Řádek",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Řádky panelu nástrojů",
   "pointerTest": "Zkouška ukazovatele",
   "pressure": "Tlak",
   "small": "Malá",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Malý",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Vybrat vše",
   "overrideTools": "Přepsat nástroje",
   "hideCursorWhileDrawing": "Skrýt kurzor při kreslení",
   "installed": "Nainstalováno",
   "install": "Instalovat",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Zrušit výběr",
   "changeCollection": "Změnit kolekci",
   "collections": "Sbírky",
@@ -621,15 +1116,30 @@
   "collection": "Sbírka",
   "defaultCollection": "Výchozí kolekce",
   "scroll": "Posunout",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Při startu",
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
   "newNote": "Nová poznámka",
   "convertToLayer": "Převést na vrstvu",
   "merge": "Sloučit",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Nahoru",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Dolů",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Ostatní",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Žádné elementy} =1{1 element} other{{count} elementy}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximalizuje kvalitu za cenu výkonu. Bakes obrázek pokrývající dvojnásobek viditelného prostoru, který zajišťuje plynulé vykreslování i při rychlém posouvání nebo přiblížení.",
   "renderResolution": "Vykreslovat rozlišení",
   "translate": "Přeložit",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Nešifrováno",
   "encrypted": "Šifrováno",
   "encryptDocumentMessage": "Kliknutím zašifrujete dokument",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Potvrdit heslo",
   "passwordMismatch": "Hesla se neshodují",
   "action": "Akce",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG text",
   "offset": "Odsazení",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Závislost na poloze",
   "flipHorizontal": "Překlopit vodorovně",
   "flipVertical": "Překlopit svisle",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Obnovit nastavení ze souboru",
   "exportSettingsToFile": "Exportovat nastavení do souboru",
   "barcode": "Čárový kód",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Typ čárového kódu",
   "qrCode": "QR kód",
   "dataMatrix": "Datová matice",
@@ -690,6 +1212,9 @@
   "moveRight": "Přesunout vpravo",
   "bundledPacks": "Balíčky",
   "component": "Komponenty",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Vybrat komponentu",
   "bundlePackInDocument": "Balíček balíků v dokumentu",
   "bundledPacksDescription": "Balené balíčky jsou v dokumentu obsaženy a používají se pouze ke sdílení s dokumentem. Majetky mohou být použity v dokumentu pouze v případě, že je balíček nainstalován. Balíčky lze nainstalovat kliknutím na něj.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Vaše zprávy jsou směrovány přes bezpečný server s koncovým šifrováním. Pro vytvoření relace je nutná adresa swamp serveru.",
   "createRawNote": "Vytvořit surovou poznámku",
   "polygon": "Polygon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Dokončit tvar",
   "submit": "Odeslat",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Matematika",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignorovat sílu stisku",
   "ignoreFirstPressureDescription": "U některých zařízení není první zaznamenaná hodnota tlaku přesná. Toto nastavení bude ignorovat první hodnotu tlaku a místo toho použije druhou.",
   "temporary": "Dočasné",
   "simpleToolbarVisibility": "Jednoduchá viditelnost panelu nástrojů",
   "autosaveDelay": "Prodleva automatického ukládání",
   "saved": "Uloženo",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Ukládání...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Pouze pro čtení",
   "saveDelayed": "Uložit pozdě",
   "unsaved": "Neuloženo",
-  "pdfEmptyDescription": "V současné době nejsou žádné oblasti pro vývoz. Vyberte prosím alespoň jednu oblast pomocí tlačítka plus v pravém horním rohu nebo přidejte všechny oblasti z aktuální stránky nebo z celého níže uvedeného dokumentu."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "V současné době nejsou žádné oblasti pro vývoz. Vyberte prosím alespoň jednu oblast pomocí tlačítka plus v pravém horním rohu nebo přidejte všechny oblasti z aktuální stránky nebo z celého níže uvedeného dokumentu.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

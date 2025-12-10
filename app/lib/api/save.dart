@@ -26,7 +26,7 @@ Future<void> exportSvg(
 
 Future<void> exportImage(
   BuildContext context,
-  List<int> bytes, [
+  Uint8List bytes, [
   bool share = false,
 ]) => exportFile(
   context: context,
@@ -41,7 +41,7 @@ Future<void> exportImage(
 
 Future<void> exportPdf(
   BuildContext context,
-  List<int> bytes, [
+  Uint8List bytes, [
   bool share = false,
 ]) => exportFile(
   context: context,
@@ -56,7 +56,7 @@ Future<void> exportPdf(
 
 Future<void> exportZip(
   BuildContext context,
-  List<int> bytes, [
+  Uint8List bytes, [
   bool share = false,
 ]) => exportFile(
   context: context,

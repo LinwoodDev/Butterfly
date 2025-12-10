@@ -8,6 +8,7 @@
   "migrating": "迁移",
   "pack": "包",
   "pages": "页 次",
+  "templates": "模板",
   "shortcuts": "快捷键",
   "waypoints": "航点",
   "add": "添加",
@@ -45,7 +46,7 @@
   "versions": "版本",
   "nightly": "开发版",
   "privacy_policy": "隐私政策",
-  "ruler": "标标",
+  "ruler": "标尺",
   "grid": "网格",
   "utilities": "实用工具"
 }

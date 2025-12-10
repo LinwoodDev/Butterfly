@@ -12,11 +12,10 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `N`: Uusi tiedosto
 - `Ctrl` + `Shift` + `N`: Uusi tiedosto mallista
 - `Ctrl` + `E`: Vie tiedosto
-- `Ctrl` + `P`: Tulosta tiedosto
-- `Ctrl` + `Shift` + `E`: Vie kuva kuvaksi
-- `Ctrl` + `Alt` + `E`: Vie tiedosto svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Avaa paketit
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Avaa asetukset
 - `Ctrl` + `Alt` + `S`: Avaa asetukset
 

@@ -40,6 +40,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/usr/libexec
       cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
       ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/dart $CRAFT_PART_INSTALL/usr/bin/dart
       export PATH="$CRAFT_PART_INSTALL/usr/bin:$PATH"
       flutter doctor
     build-packages:
@@ -66,6 +67,7 @@ parts:
       cd $CRAFT_PART_SRC_WORK
       cd app
       flutter pub get || true
+      dart run pdfrx:remove_wasm_modules
       flutter build linux --release --verbose --target lib/main.dart
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
       mkdir -p $CRAFT_PART_INSTALL/metainfo

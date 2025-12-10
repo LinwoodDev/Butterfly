@@ -78,7 +78,7 @@ mixin LabelElement {
   };
 }
 
-@Freezed(equal: false)
+@freezed
 sealed class PadElement with _$PadElement {
   const PadElement._();
 

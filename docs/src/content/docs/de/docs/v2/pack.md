@@ -15,11 +15,23 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 |      Version | The version of the pack      |
 | Beschreibung | Eine Beschreibung des Pakets |
 
-### Komponenten
+## Komponenten
 
 Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
+
+### Adding a component into a pack
+
+To add a component:
+
+1. Select the elements on the infinite canvas
+2. Double tap or right click to summon the context menu
+3. Press the plus icon (Add to pack)
+4. Choose the pack
+5. Give a name to the new component, it can be anything.
+
+You can use these components using the [stamp tool](/docs/v2/pack)
 
 ## Stile
 
@@ -28,3 +40,4 @@ Styles are used to customize the appearance of the text. The paragraph styles ca
 ## Paletten
 
 The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (like mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color picker.
+

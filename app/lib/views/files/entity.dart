@@ -14,7 +14,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -98,7 +98,10 @@ void deleteEntities({
                   }
                   onDelete();
                 },
-                child: const PhosphorIcon(PhosphorIconsLight.check),
+                child: const PhosphorIcon(
+                  PhosphorIconsLight.check,
+                  textDirection: TextDirection.ltr,
+                ),
               ),
             ],
           ),
@@ -303,6 +306,7 @@ class ContextFileRegion extends StatelessWidget {
               return MenuItemButton(
                 leadingIcon: PhosphorIcon(
                   currentStatus.getIcon(),
+                  textDirection: TextDirection.ltr,
                   color: currentStatus.getColor(ColorScheme.of(context)),
                 ),
                 child: Text(currentStatus.getLocalizedName(context)),
@@ -333,7 +337,10 @@ class ContextFileRegion extends StatelessWidget {
         if (onSelect != null)
           MenuItemButton(
             onPressed: onSelect,
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+            leadingIcon: const PhosphorIcon(
+              PhosphorIconsLight.check,
+              textDirection: TextDirection.ltr,
+            ),
             child: Text(AppLocalizations.of(context).select),
           ),
         MenuItemButton(

@@ -172,6 +172,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           addNumber: details.addNumber,
         );
       }
+      data = data.setPage(current.page, current.pageName).$1;
       _saveState(
         emit,
         state: current.copyWith(data: data, page: page, pageName: pageName),
@@ -332,6 +333,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final content = List<PadElement>.from(e.content);
         for (final id in event.elements) {
           final index = content.indexWhere((element) => element.id == id);
+          if (index == -1) continue;
           final element = content.removeAt(index);
           var newIndex = index;
           var newRendererIndex = renderers.indexWhere(
@@ -341,8 +343,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ? renderers.removeAt(newRendererIndex)
               : null;
           if (event.arrangement == Arrangement.front) {
-            newIndex = content.length - 1;
-            newRendererIndex = renderers.length - 1;
+            newIndex = content.length;
+            newRendererIndex = renderers.length;
           } else if (event.arrangement == Arrangement.back) {
             newIndex = 0;
             newRendererIndex = 0;
@@ -388,8 +390,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return e.copyWith(content: content);
       });
-      current.currentIndexCubit.unbake(current, unbakedElements: renderers);
-      _saveState(emit, state: current.copyWith(page: newPage), unbake: true);
+      _saveState(
+        emit,
+        state: current.copyWith(page: newPage),
+        replacedElements: renderers,
+      );
     });
     on<ElementsRemoved>((event, emit) async {
       final current = state;
@@ -536,7 +541,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var oldIndex = tools.indexWhere((element) => element.id == event.id);
       if (oldIndex == -1) return;
       var newIndex = event.newIndex;
-      if (oldIndex >= tools.length || newIndex > tools.length) return;
+      if (oldIndex < 0 ||
+          newIndex < 0 ||
+          oldIndex >= tools.length ||
+          newIndex > tools.length) {}
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }
@@ -653,6 +661,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       if (waypoint == null) return;
       waypoints.remove(waypoint);
+      if (event.newIndex < 0 || event.newIndex > waypoints.length) return;
       waypoints.insert(event.newIndex, waypoint);
       final currentDocument = current.page.copyWith(waypoints: waypoints);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -714,6 +723,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final layer = layers.firstWhereOrNull((e) => e.id == event.id);
       if (layer == null) return;
       layers.remove(layer);
+      if (event.index < 0 || event.index > layers.length) return;
       layers.insert(event.index, layer);
       final currentDocument = current.page.copyWith(layers: layers);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -793,6 +803,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final mainLayerIndex = layers.indexWhere(
         (element) => element.id == mainLayer,
       );
+      if (mainLayerIndex == -1) return;
       final mergedLayers = event.layers.skip(1).toList()
         ..sort(
           (a, b) => layers
@@ -946,6 +957,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       if (area == null) return;
       areas.remove(area);
+      if (event.newIndex < 0 || event.newIndex > areas.length) return;
       areas.insert(event.newIndex, area);
       final currentDocument = current.page.copyWith(areas: areas);
       _saveState(emit, state: current.copyWith(page: currentDocument));
@@ -991,7 +1003,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaName: event.name));
-      current.bake();
+      current.delayedBake();
     });
     on<PackAdded>((event, emit) {
       final current = state;
@@ -1064,15 +1076,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .toList(),
       );
       _saveState(emit, state: current.copyWith(page: currentDocument));
-    });
-    on<DocumentSaved>((event, emit) {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      current.currentIndexCubit.setSaveState(
-        saved: SaveState.saved,
-        location: event.location,
-      );
     });
     on<PresentationModeEntered>((event, emit) {
       final current = state;
@@ -1277,10 +1280,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   Future<void> reload() async {
-    final current = state;
-    if (current is! DocumentLoadSuccess) return;
-    final cubit = current.currentIndexCubit;
-    return cubit.reload(current);
+    return state.currentIndexCubit?.reload(this);
   }
 
   Future<void> createTemplate(
@@ -1315,18 +1315,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         );
   }
 
-  void dispose() {
-    final current = state;
-    if (current is! DocumentLoaded) return;
-    current.currentIndexCubit.dispose();
-    state.assetService?.dispose();
+  @override
+  Future<void> close() async {
+    final currentState = state;
+    final cubit = currentState.currentIndexCubit;
+    if (cubit != null && !cubit.isClosed) {
+      await cubit.close();
+    }
+    currentState.assetService?.dispose();
+    return super.close();
   }
 
-  Future<void> save({AssetLocation? location, bool force = false}) {
-    final current = state;
-    if (current is! DocumentLoadSuccess) return Future.value();
-    return current.save(location: location, force: force);
-  }
+  Future<void> save({
+    AssetLocation? location,
+    bool force = false,
+    bool isAutosave = false,
+  }) async => await state.currentIndexCubit?.save(
+    this,
+    location: location,
+    force: force,
+    isAutosave: isAutosave,
+  );
 
   bool isInBounds(Offset globalPosition) {
     final state = this.state;

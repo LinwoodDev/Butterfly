@@ -3,6 +3,7 @@
 
     <application
         android:label="${appName}"
+        android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

@@ -124,6 +124,7 @@ class ViewSettingsPage extends StatelessWidget {
                                     NavigatorPosition.left,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineLeft,
+                                  textDirection: TextDirection.ltr,
                                 ),
                                 onTap: () => Navigator.of(
                                   context,
@@ -136,6 +137,7 @@ class ViewSettingsPage extends StatelessWidget {
                                     NavigatorPosition.right,
                                 leading: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineRight,
+                                  textDirection: TextDirection.ltr,
                                 ),
                                 onTap: () => Navigator.of(
                                   context,

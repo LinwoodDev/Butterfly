@@ -88,7 +88,7 @@ abstract class DocumentLoaded extends DocumentState {
     FileMetadata? metadata,
     DocumentInfo? info,
   }) : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
-       assetService = assetService ?? AssetService(data),
+       assetService = assetService ?? AssetService(),
        metadata =
            metadata ?? data.getMetadata() ?? DocumentDefaults.createMetadata(),
        info = info ?? data.getInfo() ?? DocumentDefaults.createInfo();
@@ -254,17 +254,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
                           .getRemote(location.remote)
                           ?.hasDocumentCached(location.path) ??
                       false))));
-
-  Future<AssetLocation> save({
-    AssetLocation? location,
-    bool force = false,
-    bool isAutosave = false,
-  }) => currentIndexCubit.save(
-    this,
-    location: location,
-    force: force,
-    isAutosave: isAutosave,
-  );
 
   ExternalStorage? getRemoteStorage() => currentIndexCubit.getRemoteStorage();
 

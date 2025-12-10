@@ -6,10 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   camera_windows
   connectivity_plus
   dynamic_color
-  file_selector_windows
   flutter_secure_storage_windows
   irondash_engine_context
-  printing
   screen_retriever_windows
   share_plus
   super_native_extensions
@@ -18,6 +16,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
+  pdfium_flutter
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

@@ -91,7 +91,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
       value ??= _descriptionController.text;
       if (metadata.description == value) return;
       bloc.add(DocumentDescriptionChanged(description: value));
-      state.save();
+      bloc.save();
     }
 
     return Column(
@@ -113,7 +113,10 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                   ]
                   .map(
                     (e) => HorizontalTab(
-                      icon: PhosphorIcon(e[0]),
+                      icon: PhosphorIcon(
+                        e[0],
+                        textDirection: TextDirection.ltr,
+                      ),
                       label: Text(e[1]),
                     ),
                   )
@@ -152,18 +155,19 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     }
                     final widthOffset = (rect.width - captureWidth) / 2;
                     final heightOffset = (rect.height - captureHeight) / 2;
-                    final quality = kThumbnailWidth / captureWidth;
+                    final quality =
+                        kThumbnailWidth / (captureWidth * viewport.scale);
                     final thumbnail = await state.currentIndexCubit.render(
                       state.data,
                       state.page,
                       state.info,
                       ImageExportOptions(
-                        width: captureWidth,
-                        height: captureHeight,
+                        width: captureWidth * viewport.scale,
+                        height: captureHeight * viewport.scale,
                         quality: quality,
                         scale: viewport.scale,
-                        x: rect.left + (widthOffset) / viewport.scale,
-                        y: rect.top + (heightOffset) / viewport.scale,
+                        x: rect.left + widthOffset,
+                        y: rect.top + heightOffset,
                       ),
                     );
                     if (thumbnail == null) return;
@@ -172,8 +176,20 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                            AppLocalizations.of(context).capturedThumbnail,
+                          behavior: SnackBarBehavior.floating,
+                          content: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 8,
+                            children: [
+                              Image.memory(bytes, height: 42),
+                              Flexible(
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  ).capturedThumbnail,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );

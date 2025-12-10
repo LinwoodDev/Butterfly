@@ -19,18 +19,38 @@ title: الأسئلة المتكررة
 
 ## الجوال
 
-### S-Pen won't be recognized
+### لا يتم التعرف على قلم S-Pen
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### باترفلاي بطيئ
+
+يتم تحسين باترفلاي كل تحديث، ولكن في بعض الأحيان قد تكون المشكلة من جهازك.
+
+1. أولاً، قم بإيقاف تشغيل وضع توفير الطاقة للجهاز.
+2. ثم قم بتعيين معدل تحديث الشاشة إلى أعلى معدل متاح (إذا كان مدعوماً من قبل جهازك)
+
+وهذا يتيح لـ باترفلاي التحديث بشكل أسرع والاستجابة بشكل أفضل.
+
+إذا لم تساعد هذه الخطوات، يرجى عدم التردد في تقديم الشكوى في ديسكورد أو ماتركس أو في جيت هب.
+
+### يتم إعادة تشغيل باترفلاي في الخلفية
+
+عطل تحسين البطارية لباترفلاي.  
+تحسين البطارية يمنع التطبيقات من العمل بشكل طبيعي في الخلفية لتوفير الطاقة.
+
+عادةً ما تفرض سامسونج، وغيرها من العلامات التجارية، قيودًا صارمة على البطارية بالنسبة للتطبيقات التي تتعطل بشكل متكرر أو تسبب ارتفاع درجة حرارة الجهاز.
+
+إذا كنت لا تعرف كيفية تعطيل تحسين البطارية لباترفلاي، فقد يساعدك هذا الموقع: [لا تقتل تطبيقي!](https://dontkillmyapp.com/)
+
+### دعم iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+باترفلاي متاح على iOS كمعاينة. انقر [هنا](https://butterfly.linwood.dev/downloads/ios) لتحميله. انظر [هنا](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878لماذا لا يتوفر في متجر التطبيقات.
 
 ## سطح المكتب
 
@@ -39,8 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
-Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+هناك بالفعل مشاكل لتعقبها:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter#102836](https://github.com/flutter/flutter/issues/102836).
+لينوكس: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 وهذه المسائل قديمة إلى حد ما. يجب أن تعمل نسخة الويب بشكل جيد في الوقت الحالي.

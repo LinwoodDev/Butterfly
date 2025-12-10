@@ -18,7 +18,8 @@ export default defineConfig({
       title: "Linwood Butterfly",
       customCss: [
         // Relative path to your custom CSS file
-        "./src/styles/custom.css",
+        "./src/styles/linwood-style.scss",
+        "./src/styles/custom.scss",
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',
@@ -66,6 +67,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Pack"),
               link: "/docs/v2/pack/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Templates"),
+              link: "/docs/v2/templates/",
             },
             {
               ...getSidebarTranslatedLabel("Pages"),

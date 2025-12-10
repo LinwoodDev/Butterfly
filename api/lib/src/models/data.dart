@@ -215,19 +215,21 @@ final class NoteData extends ArchiveData<NoteData> {
     return document;
   }
 
+  static String getPageNameFromRealName(String realName) {
+    if (realName.contains('.')) {
+      final split = realName.split('.');
+      return split.sublist(1).join('.');
+    }
+    return realName;
+  }
+
   @useResult
   String? _getPageFileName(String name) {
     final pages = getPages(true);
     if (pages.contains(name)) {
       return name;
     }
-    final fileName = pages
-        .where((element) => element.split('.').sublist(1).join('.') == name)
-        .firstOrNull;
-    if (fileName != null) {
-      return fileName;
-    }
-    return null;
+    return getPageNameFromRealName(name);
   }
 
   @useResult

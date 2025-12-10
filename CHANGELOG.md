@@ -2,6 +2,94 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.2 (2025-12-04)
+
+* Add restore current palette
+* Change navigation rail to be smaller
+* Improve performance of pen tool
+* Improve performance of rendering and tool switching
+* Improve hit calculation for line shape ([#995](https://github.com/LinwoodDev/Butterfly/issues/995))
+* Fix viewport rect is off-centered if render resolution is not on performance
+* Fix current tools not being updated after undo/redo
+* Fix changing color for shape tool resets alpha ([#996](https://github.com/LinwoodDev/Butterfly/issues/996))
+* Fix missing data in raw text file format
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
+
+## 2.4.2-rc.1 (2025-11-27)
+
+* Improve performance of webdav operations
+* Improve delay queue on bake
+* Prevent repeated bakes without changes
+* Improve bake queue
+* Improve bake image sizing ([#930](https://github.com/LinwoodDev/Butterfly/issues/930))
+* Fix smooth navigation ([#978](https://github.com/LinwoodDev/Butterfly/issues/978))
+* Fix stamp handler toolbar not working correctly
+* Fix temporary tool from components navigator not being removed after releasing
+* Fix full file name shown in components view and add to pack dialog
+* Fix rtl icons not displaying correctly
+* Fix pack name in select asset dialog
+* Fix adding to pack renders background in thumbnail
+* Fix page won't be saved when adding a new page ([#982](https://github.com/LinwoodDev/Butterfly/issues/982))
+* Fix ruler cannot be rotated in touch mode
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
+
+## 2.4.2-rc.0 (2025-11-20)
+
+* Improve memory usage on closing documents
+* Ignore invisible layers on export
+* Enlarge buttons in the Add dialog
+* Fix page rect does not consider whole content
+* Fix png not loading after importing
+* Fix png not updating after doing operations like flip or invert
+* Fix buttons on stylus not working correctly on some devices ([#968](https://github.com/LinwoodDev/Butterfly/issues/968))
+* Fix right to left layout issues in appbar causing menu not to open and window buttons reverse order
+* Fix renaming, duplicating and moving on native and running on deep directories
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
+
+## 2.4.1 (2025-11-13)
+
+No changes compared to version 2.4.1.
+
+This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.1
+
+## 2.4.1-rc.4 (2025-11-10)
+
+* Add preview in snackbar after capturing thumbnail
+* Add progress indicator when exporting PDF
+* Migrate to new PDF rendering and file handling system
+* Fix crashes on importing and exporting large files on Android
+* Fix crash when zooming on a PDF element ([#960](https://github.com/LinwoodDev/Butterfly/issues/960))
+* Fix memory leak in PDFs
+* Fix changing arrangement not working correctly
+* Fix eye dropper not working correctly for selecting a color for current tool
+* Fix pasting won't preserve relative position when pasting multiple elements
+* Fix paste menu will be shown if trying to deselect with select tool
+* Fix transformation/duplicate not working correctly on touch devices
+* Remove print option from pdf dialog
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.4
+
+## 2.4.1-rc.3 (2025-11-03)
+
+* Add tooltips for texts that can be ellipsized
+* Fix performance problems when saving large notes
+* Fix templates and packs could not be imported if no document is opened
+* Fix state will not be saved if changes are made during autosave
+* Fix sequential events like element removing will wait for autosave to finish
+* Fix classic theme name first letter not capitalized in personalization settings
+* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix mouse cannot double click for context menu in select tool
+* Fix scaling of multiple elements
+* Fix scaling pen elements will jump to wrong position
+* Fix thumbnails not having correct position if viewport is scaled
+* Fix invisible layers will get visible after moving camera
+
+Read more here: https://linwood.dev/butterfly/2.4.1-rc.3
+
 ## 2.4.1-rc.2 (2025-10-29)
 
 * Fix loading documents does not load metadata and info

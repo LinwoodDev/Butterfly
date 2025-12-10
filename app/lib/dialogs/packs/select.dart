@@ -66,7 +66,7 @@ class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
                   .map(
                     (e) => ListTile(
                       title: Text(e.key),
-                      subtitle: Text(e.namespace),
+                      subtitle: Text(e.pack.getMetadata()?.name ?? ''),
                       onTap: () => Navigator.of(context).pop(e),
                       selected:
                           e.location == widget.selected ||

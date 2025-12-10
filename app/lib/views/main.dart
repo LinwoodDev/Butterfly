@@ -82,7 +82,6 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  // ignore: closeSinks
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
@@ -200,11 +199,9 @@ class _ProjectPageState extends State<ProjectPage> {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
-          if (asset is FileSystemFile<NoteFile> &&
-              location.fileType == AssetFileType.note) {
+          if (asset is FileSystemFile<NoteFile>) {
             final NoteData? noteData = await globalImportService
                 .load(
-                  document: defaultDocument,
                   type: widget.type.isEmpty
                       ? (fileType ?? widget.type)
                       : widget.type,
@@ -255,7 +252,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final renderers = page.content
           .map((e) => Renderer.fromInstance(e))
           .toList();
-      final assetService = AssetService(document);
+      final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
       await Future.wait(
         renderers.map(
@@ -328,7 +325,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void dispose() {
     widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
-    _bloc?.dispose();
+    _bloc?.close();
     _transformCubit?.close();
     _currentIndexCubit?.close();
     _searchController.dispose();
@@ -486,13 +483,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                       ),
                                       LogicalKeySet(
                                         LogicalKeyboardKey.control,
-                                        LogicalKeyboardKey.keyP,
-                                      ): PdfExportIntent(
-                                        context,
-                                        true,
-                                      ),
-                                      LogicalKeySet(
-                                        LogicalKeyboardKey.control,
                                         LogicalKeyboardKey.alt,
                                         LogicalKeyboardKey.keyE,
                                       ): SvgExportIntent(
@@ -578,6 +568,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 searchController:
                                                     _searchController,
                                                 padding: padding,
+                                                direction: Directionality.of(
+                                                  context,
+                                                ),
                                                 inView:
                                                     state
                                                         .embedding
@@ -687,6 +680,7 @@ class _MainBody extends StatelessWidget {
                             },
                           ),
                           Row(
+                            textDirection: TextDirection.ltr,
                             children: [
                               if (showNavigator &&
                                   settings.navigatorPosition ==

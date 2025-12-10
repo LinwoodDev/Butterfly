@@ -269,7 +269,7 @@ class __PacksListState extends State<_PacksList> {
         final metadata =
             pack.getMetadata() ?? DocumentDefaults.createMetadata();
         return Dismissible(
-          key: ValueKey(('globalpack', metadata.name)),
+          key: ValueKey(('globalpack', file.path)),
           onDismissed: (direction) async {
             await _packSystem.deleteFile(file.path);
             if (!mounted) return;
@@ -302,7 +302,10 @@ class __PacksListState extends State<_PacksList> {
                     },
                   ),
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    leadingIcon: const PhosphorIcon(
+                      PhosphorIconsLight.file,
+                      textDirection: TextDirection.ltr,
+                    ),
                     child: Text(AppLocalizations.of(context).rawFile),
                     onPressed: () async {
                       await _exportPack(pack, isTextBased: true);

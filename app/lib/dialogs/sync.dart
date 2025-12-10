@@ -35,7 +35,10 @@ class _SyncDialogState extends State<SyncDialog> {
                   title: Text(status.getLocalizedName(context)),
                   actions: [
                     IconButton(
-                      icon: PhosphorIcon(status.getIcon()),
+                      icon: PhosphorIcon(
+                        status.getIcon(),
+                        textDirection: TextDirection.ltr,
+                      ),
                       onPressed: () => service.sync(),
                       tooltip: status.getLocalizedName(context),
                     ),

@@ -96,20 +96,6 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow) {
-    await windowManager.ensureInitialized();
-    const kWindowOptions = WindowOptions(
-      minimumSize: Size(410, 300),
-      title: applicationName,
-      backgroundColor: Colors.transparent,
-    );
-
-    // Use it only after calling `hiddenWindowAtLaunch`
-    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
-      await windowManager.setResizable(true);
-      await windowManager.setPreventClose(false);
-    });
-  }
   final clipboardManager = await SysAPI.getClipboardManager();
   overrideButterflyDirectory = result['path'];
   runApp(
@@ -284,8 +270,8 @@ class ButterflyApp extends StatelessWidget {
             name: 'native',
             builder: (context, state) {
               final type = state.uri.queryParameters['type'] ?? '';
-              final path = state.uri.queryParameters['path'] ?? '';
-              final data = state.extra;
+              final path = state.uri.queryParameters['path'] ?? getNativeType();
+              final data = state.extra ?? getNativeData();
               return ProjectPage(
                 location: AssetLocation.local(path),
                 absolute: true,

@@ -106,18 +106,6 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
-  Future<void> updateView(
-    TransformCubit transformCubit,
-    NoteData document,
-    AssetService assetService,
-    DocumentPage page,
-  ) async {
-    _renderedLatex.clear();
-    final paragraph = getParagraph(document);
-    await _renderLatex(paragraph, transformCubit.state);
-  }
-
-  @override
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     super.onAreaUpdate(document, page, area);
     _tp?.layout(maxWidth: element.getMaxWidth(area));
@@ -309,6 +297,18 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
+  Future<void> updateView(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) async {
+    _renderedLatex.clear();
+    final paragraph = getParagraph(blocState.data);
+    await _renderLatex(paragraph, renderTransform);
+  }
+
+  @override
   void onHidden(
     CurrentIndexCubit currentIndexCubit,
     DocumentLoaded blocState,
@@ -318,6 +318,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   @override
@@ -326,6 +327,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     for (final (image, _) in _renderedLatex.values) {
       image.dispose();
     }
+    _renderedLatex.clear();
   }
 
   InlineSpan? get span => _tp?.text;

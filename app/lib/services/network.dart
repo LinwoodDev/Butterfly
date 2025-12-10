@@ -124,6 +124,7 @@ enum ConnectionTechnology {
 
 class NetworkingService extends Cubit<NetworkState?> {
   DocumentBloc? _bloc;
+  StreamSubscription<Uint8List>? _resetSubscription;
   String _userName = '';
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
   final BehaviorSubject<Map<Channel, NetworkingUser>> _users =
@@ -146,9 +147,26 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   bool get isActive => state != null;
 
+  bool get _canEmitConnections => !_connections.isClosed;
+
+  bool get _canEmitUsers => !_users.isClosed;
+
+  void _emitConnections(Set<Channel> value) {
+    if (_canEmitConnections) {
+      _connections.add(value);
+    }
+  }
+
+  void _emitUsers(Map<Channel, NetworkingUser> value) {
+    if (_canEmitUsers) {
+      _users.add(value);
+    }
+  }
+
   void setup(DocumentBloc bloc) {
     _bloc = bloc;
-    resetStream.listen((event) {
+    _resetSubscription?.cancel();
+    _resetSubscription = resetStream.listen((event) {
       bloc.add(DocumentRebuilt(event));
     });
   }
@@ -189,8 +207,8 @@ class NetworkingService extends Cubit<NetworkState?> {
   Future<void> closeNetworking() async {
     await state?.connection.close();
     emit(null);
-    _connections.add({});
-    _users.add({});
+    _emitConnections({});
+    _emitUsers({});
   }
 
   void _setupReset(NamedRpcNetworkerPipe<NetworkEvent, NetworkEvent> rpc) {
@@ -232,7 +250,7 @@ class NetworkingService extends Cubit<NetworkState?> {
   ) {
     void sendConnections() {
       final current = server.clientConnections;
-      _connections.add(current);
+      _emitConnections(current);
       rpc.sendNamedFunction(
         NetworkEvent.connections,
         Uint8List.fromList(jsonEncode(current.toList()).codeUnits),
@@ -298,8 +316,8 @@ class NetworkingService extends Cubit<NetworkState?> {
           RawJsonNetworkerPlugin()
             ..read.listen((message) {
               final ids = Set<Channel>.from(message.data);
-              _connections.add(ids);
-              _users.add(
+              _emitConnections(ids);
+              _emitUsers(
                 Map.from(_users.value)
                   ..removeWhere((key, value) => !ids.contains(key)),
               );
@@ -313,7 +331,7 @@ class NetworkingService extends Cubit<NetworkState?> {
               final user = NetworkingUser.fromJson(message.data);
               final users = Map<Channel, NetworkingUser>.from(_users.value)
                 ..[message.channel] = user;
-              _users.add(users);
+              _emitUsers(users);
               _bloc?.state.currentIndexCubit?.updateNetworkingState(
                 _bloc!,
                 users,

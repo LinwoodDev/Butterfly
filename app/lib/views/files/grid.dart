@@ -209,6 +209,7 @@ class FileEntityGridItem extends StatelessWidget {
                                       },
                                       icon: const PhosphorIcon(
                                         PhosphorIconsLight.check,
+                                        textDirection: TextDirection.ltr,
                                       ),
                                       tooltip: AppLocalizations.of(
                                         context,

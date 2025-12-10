@@ -9,7 +9,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -111,7 +111,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),
-                        leading: const PhosphorIcon(PhosphorIconsLight.file),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.file,
+                          textDirection: TextDirection.ltr,
+                        ),
                         onTap: () => showDialog(
                           context: context,
                           builder: (ctx) => const TemplateDialog(),
@@ -146,7 +149,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                               .getRootDirectory(listLevel: allListLevel);
                           final archive = exportDirectory(directory);
                           final encoder = ZipEncoder();
-                          final bytes = encoder.encode(archive);
+                          final bytes = encoder.encodeBytes(archive);
                           exportZip(context, bytes);
                         },
                       ),
@@ -189,7 +192,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Future<void> _changeDataDirectory() async {
     try {
       final settingsCubit = context.read<SettingsCubit>();
-      final selectedDir = await getDirectoryPath();
+      final selectedDir = await FilePicker.platform.getDirectoryPath();
       if (selectedDir != null) {
         _changePath(settingsCubit, selectedDir);
       }
@@ -303,13 +306,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final file = await openFile(
-      acceptedTypeGroups: [
-        XTypeGroup(label: 'Settings', extensions: ['json']),
-      ],
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+      withData: true,
     );
-    if (file == null) return;
-    final data = await file.readAsString();
+    final bytes = result?.files.firstOrNull?.bytes;
+    if (bytes == null) return;
+    final data = utf8.decode(bytes);
     settingsCubit.importSettings(data);
   }
 

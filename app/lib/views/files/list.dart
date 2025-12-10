@@ -197,6 +197,7 @@ class FileEntityListTile extends StatelessWidget {
                                           },
                                           icon: const PhosphorIcon(
                                             PhosphorIconsLight.check,
+                                            textDirection: TextDirection.ltr,
                                           ),
                                           tooltip: AppLocalizations.of(
                                             context,
@@ -214,13 +215,16 @@ class FileEntityListTile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(
-                                            entity.fileName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextTheme.of(
-                                              context,
-                                            ).labelLarge,
+                                          Tooltip(
+                                            message: entity.fileName,
+                                            child: Text(
+                                              entity.fileName,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextTheme.of(
+                                                context,
+                                              ).labelLarge,
+                                            ),
                                           ),
                                           if (!isDesktop && !collapsed) ...[
                                             const SizedBox(height: 6),
@@ -270,6 +274,7 @@ class FileEntityListTile extends StatelessWidget {
                                   return IconButton(
                                     icon: PhosphorIcon(
                                       currentStatus.getIcon(),
+                                      textDirection: TextDirection.ltr,
                                       color: currentStatus.getColor(
                                         ColorScheme.of(context),
                                       ),

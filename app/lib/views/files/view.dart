@@ -1,4 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -560,6 +561,7 @@ class FilesViewState extends State<FilesView> {
                         ),
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.filePlus,
+                          textDirection: TextDirection.ltr,
                         ),
                         child: Text(AppLocalizations.of(context).newNote),
                       ),
@@ -568,6 +570,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.file,
+                            textDirection: TextDirection.ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {
@@ -597,6 +600,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.fileTxt,
+                            textDirection: TextDirection.ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {
@@ -638,6 +642,7 @@ class FilesViewState extends State<FilesView> {
                             // see https://github.com/LinwoodDev/Butterfly/issues/839
                             fileExtension = null;
                           }
+                          setNativeData(result, fileExtension);
                           router.goNamed(
                             'native',
                             queryParameters: {
@@ -648,7 +653,6 @@ class FilesViewState extends State<FilesView> {
                               ).identifier,
                               'type': fileExtension ?? 'note',
                             },
-                            extra: result,
                           );
                           if (!widget.collapsed) {
                             reloadFileSystem();
@@ -828,8 +832,7 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    final data = entity.data?.data;
-    await openFile(context, widget.collapsed, location, data);
+    await openFile(context, widget.collapsed, location);
     if (!widget.collapsed) {
       reloadFileSystem();
     }

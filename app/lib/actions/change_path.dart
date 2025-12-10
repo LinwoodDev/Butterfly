@@ -41,7 +41,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
         location: location.copyWith(path: newPaths.first),
         isCreating: false,
       );
-      state.save();
+      bloc.save();
     }
   }
 }

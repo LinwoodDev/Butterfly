@@ -1,5 +1,8 @@
 {
   "open": "פתח",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "הגדרות",
   "personalization": "התאמה אישית",
   "theme": "ערכת נושא",
@@ -7,10 +10,22 @@
   "lightTheme": "ערכת נושא בהירה",
   "systemTheme": "השתמש בערכת הנושא של המערכת",
   "view": "תצוגה",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "עריכה",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "ייצוא",
   "save": "שמירה",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "זום",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "הגדלה",
   "zoomOut": "הקטנה",
   "resetZoom": "איפוס זום",
@@ -18,28 +33,67 @@
   "includeEraser": "לכלול מחק?",
   "thinning": "הידקקות",
   "pen": "עט",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "עט הפוך",
   "eraser": "מחק",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "מחק נתיבים",
   "label": "תווית",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "מחיקה",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "האם אתה בטוח?",
   "reallyDelete": "האם אתה בטוח שברצונך למחוק פריט זה?",
   "no": "לא",
   "yes": "כן",
   "undo": "ביטול",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "ביצוע חוזר",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "כללי",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "הועתק ללוח",
   "loading": "טוען...",
   "enterText": "הזן את הטקסט",
   "size": "גודל",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "רוחב",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "גובה",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "כמות",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "רווח",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "רקע",
   "box": "תיבה",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "שפה",
   "systemLocale": "שפת המערכת",
   "information": "מידע",
@@ -53,19 +107,34 @@
   "existOverride": "פריט זה כבר קיים. האם לדרוס?",
   "description": "תיאור",
   "fill": "מילוי",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "פלטת צבעים ברירת מחדל",
   "highlighter": "מרקר",
   "add": "הוספה",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "הסרה",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "האם אתה בטוח שברצונך להסיר זאת?",
   "resetPalette": "איפוס פלטת צבעים",
   "custom": "מותאם אישית",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "עיטור",
   "underline": "קו תחתון",
   "overline": "קו עליון",
   "strikethrough": "קו חוצה",
   "thickness": "עובי",
   "style": "סגנון",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "אחיד",
   "double": "כפול",
   "dotted": "מנוקד",
@@ -77,17 +146,41 @@
   "italic": "נטוי",
   "clipboard": "לוח",
   "file": "קובץ",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "נתונים",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "שיתוף",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "ריווח",
   "image": "תמונה",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "הזן את הכתובת",
   "scale": "קנה מידה",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "עזרה",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "האם אתה בטוח שברצונך לאפס זאת?",
   "whatToDo": "מה ברצונך לעשות?",
   "ignore": "התעלם",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "גיבוי",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "הקובץ {fileName} נוצר בגרסה חדשה יותר ({fileVersion}). מה לעשות עם קובץ זה?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "נקודות ציון",
   "origin": "מקור",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "ייבוא",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "חדש",
   "selectElement": "בחר פריט",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "העתק גרסה",
   "input": "קלט",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "התנהגויות",
   "dataDirectory": "ספריית נתונים",
   "defaultPath": "נתיב ברירת מחדל",
@@ -138,16 +240,40 @@
   "rename": "שנה שם",
   "duplicate": "שכפל",
   "hand": "יד",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "תיקייה",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "העבר",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "העתק",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "חזור",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "תלוי זום",
   "shapeDetection": "זיהוי צורות",
   "delay": "השהיה",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "שכבת ברירת מחדל",
   "layer": "שכבה",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "שכבות",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "לא הוגדר",
   "enterLayer": "הזן את שם השכבה",
   "selectElements": "בחר פריטים",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?",
   "selectCustomCollection": "בחר אוסף מותאם אישית",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "רגישות",
   "sensitivityHint": "ככל שהערך גבוה יותר, כך הקלט רגיש יותר",
   "horizontal": "אופקי",
   "vertical": "אנכי",
   "plain": "חלק",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "בהיר",
   "ruled": "עם שורות",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "משובץ",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "מוזיקה",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "כהה",
   "plainDark": "כהה",
   "ruledDark": "עם שורות כהה",
@@ -174,29 +315,56 @@
   "createTemplate": "צור תבנית",
   "createTemplateContent": "האם ברצונך ליצור תבנית ממסמך זה? המסמך המקורי יימחק.",
   "replace": "החלף",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "האם אתה בטוח שברצונך להחליף את התבנית? לא ניתן לבטל פעולה זו!",
   "defaultTemplate": "תבנית ברירת מחדל",
   "insert": "הוסף",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "מסמך",
   "camera": "מצלמה",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "תדפיס",
   "selectCamera": "בחר מצלמה",
   "changeDocumentPath": "שנה נתיב מסמך",
   "deleteWholeStroke": "מחק קו שלם",
   "alpha": "אלפא",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "אזור",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "בחר אזור",
   "aspectRatio": "יחס גובה-רוחב",
   "presets": "הגדרות קבועות מראש",
   "pagePortrait": "עמוד לאורך",
   "pageLandscape": "עמוד לרוחב",
   "square": "ריבוע",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "אזורים",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "הזן את האזור",
   "exitArea": "צא מהאזור",
   "currentArea": "אזור נוכחי",
   "design": "עיצוב",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "טקסט",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "היי, זה Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "קבוע",
   "dynamicContent": "דינמי",
   "none": "ללא",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "כלול אזור",
   "verticalAlignment": "יישור אנכי",
   "horizontalAlignment": "יישור אופקי",
   "top": "למעלה",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "מרכז",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "למטה",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "שמאל",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "ימין",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "יישור לשני הצדדים",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "אילוץ",
   "length": "אורך",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "ייצא SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "בחר עמודים",
   "recentFiles": "קבצים אחרונים",
   "start": "התחל",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "אין קבצים אחרונים",
   "countPages": "{count,plural, =0{אין עמודים} =1{עמוד אחד} other{{count} עמודים}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "יציאה",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "אין פריטים",
   "invertSelection": "הפוך בחירה",
   "errorWhileImporting": "שגיאה במהלך הייבוא",
@@ -268,14 +469,23 @@
   "error": "שגיאה",
   "stackTrace": "עקבות מחסנית",
   "laser": "לייזר",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "משך",
   "quality": "איכות",
   "exportPdf": "ייצא PDF",
   "local": "מקומי",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "הוסף חיבור",
   "connections": "חיבורים",
   "noConnections": "אין חיבורים",
   "url": "כתובת אתר",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "התחבר",
   "username": "שם משתמש",
   "password": "סיסמה",
@@ -288,10 +498,22 @@
   "cannotConnect": "לא ניתן להתחבר",
   "urlNotValid": "כתובת האתר אינה תקינה",
   "icon": "סמל",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "עדכון",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "עדכון זמין",
   "stable": "יציב",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "לילי",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "בדוק עדכונים",
   "checkForUpdatesWarning": "בדיקת עדכונים תתחבר לאתר Butterfly כדי לקבל את המידע.",
   "usingLatestStable": "אתה משתמש בגרסה היציבה האחרונה",
@@ -299,10 +521,25 @@
   "currentVersion": "גרסה נוכחית",
   "updateNow": "עדכן כעת",
   "shape": "צורה",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "עיגול",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "מלבן",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "משולש",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "קו",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "רדיוס פינה",
   "topLeft": "שמאל למעלה",
   "topRight": "ימין למעלה",
@@ -310,6 +547,9 @@
   "bottomRight": "ימין למטה",
   "caches": "מטמונים",
   "manage": "נהל",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "נקה מטמונים",
   "createCache": "צור מטמון",
   "thirdPartyLicenses": "רישיונות צד שלישי",
@@ -317,6 +557,9 @@
   "synced": "סונכרן",
   "notSynced": "לא סונכרן",
   "conflict": "התנגשות",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "שמור מקומי",
   "keepConnection": "שמור חיבור",
   "keepBoth": "שמור את שניהם",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "לא מקוון",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "מקומי אחרון",
   "connectionLatest": "חיבור אחרון",
   "path": "נתיב",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "התיקייה סונכרנה",
   "syncRootDirectory": "סנכרן ספריית שורש",
   "penOnlyInput": "קלט עט בלבד",
@@ -346,19 +595,55 @@
   "syncMode": "מצב סנכרון",
   "connection": "חיבור",
   "always": "תמיד",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "לא בנייד",
   "manual": "ידני",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "חיפוש",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "מאפיינים",
   "pin": "נעץ",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "הסר נעץ",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "פריט",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "צייר",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "מיקום",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "פתק",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "חבילות",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "חבילה",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "עוד",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "בקש שם",
   "areaIndex": "אזור {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "התחל במסך מלא",
   "inputs": "קלטים",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "עכבר",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "מגע",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "מקלדת",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "קיצורי דרך",
   "middle": "אמצעי",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "ראשון",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "שני",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "כלי פעיל",
   "activeToolDescription": "השתמש בכלי הנבחר כעת בסרגל הכלים",
   "handTool": "כלי היד",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "כלים",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "הצג רשת",
   "grid": "רשת",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "סרגל",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "זווית",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "דיווח",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "תיקייה חדשה",
   "createPack": "צור חבילה",
   "editPack": "ערוך חבילה",
   "packsDirectory": "ספריית חבילות",
   "stamp": "חותמת",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "הוסף לחבילה",
   "sureImportPack": "האם אתה בטוח שברצונך לייבא את החבילה?",
   "byAuthor": "מאת {author}",
@@ -419,6 +743,9 @@
   "addAsset": "הוסף נכס",
   "editAsset": "ערוך נכס",
   "scope": "היקף",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "אין כרגע חבילות זמינות",
   "components": "רכיבים",
   "waypoint": "נקודת ציון",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "סגנונות",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "פסקה",
   "fontFamily": "משפחת גופנים",
   "smoothing": "החלקה",
@@ -449,9 +779,21 @@
   "unknownImportType": "סוג ייבוא לא ידוע",
   "sureImportTemplate": "האם אתה בטוח שברצונך לייבא את התבנית?",
   "frame": "מסגרת",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "נגן",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "וידאו",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "נקודת עצירה",
   "presentationControls": "פקדי מצגת",
   "nextSlide": "שקופית הבאה",
@@ -476,16 +818,34 @@
     }
   },
   "code": "קוד",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "ציטוט",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "קישור",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "תיבת סימון",
   "deleted": "נמחק",
   "emphasis": "הדגשה",
   "listBullet": "תבליט רשימה",
   "strong": "חזק",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "בית",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "קבצים",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "מיין לפי",
   "location": "מיקום",
   "whatsNew": "מה חדש?",
@@ -493,12 +853,21 @@
   "star": "כוכב",
   "goUp": "עלה למעלה",
   "created": "נוצר",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "שוּנה",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "התחלה מהירה",
   "noTemplates": "אין כרגע תבניות זמינות",
   "importCorePack": "ייבא חבילת ליבה",
   "importCorePackDescription": "ייבא את חבילת הליבה המכילה את כל הנכסים הבסיסיים כדי להתחיל. פעולה זו תדרוס את חבילת הליבה הנוכחית.",
   "never": "אף פעם",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "רק בעדכונים",
   "visibility": "נראות",
   "captureThumbnail": "צלם תמונה ממוזערת",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "בחר מצב תווית",
   "foreground": "חזית",
   "version": "גרסה",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "מאגר",
   "pages": "עמודים",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "נווט",
   "arrange": "סדר",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "הבא לקדמה",
   "sendToBack": "העבר לרקע",
   "bringForward": "הבא קדימה",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "זמין רק במסכים גדולים יותר",
   "toolbarPosition": "מיקום סרגל כלים",
   "rotate": "סובב",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "מרווח",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "פס ניווט",
   "cut": "גזור",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "הוסף לפני",
   "insertAfter": "הוסף אחרי",
   "insertFirst": "הוסף ראשון",
   "insertLast": "הוסף אחרון",
   "paste": "הדבק",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "סדר עולה",
   "descending": "סדר יורד",
   "imageScale": "קנה מידה של תמונה",
   "select": "בחר",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "כלי",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "מרקם",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "ערכת נושא של הפלטפורמה",
   "desktop": "שולחן עבודה",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "נייד",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "איכות PDF",
   "surface": "משטח",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "תבנית",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "האם אתה בטוח שברצונך לסגור את המסמך?",
   "thereAreUnsavedChanges": "ישנם שינויים שלא נשמרו",
   "page": "עמוד",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "שרתי ICE",
   "collaboration": "שיתוף פעולה",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "שרת ICE",
   "port": "פורט",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "סוג",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "צד",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "לקוח",
+  "@client": {
+    "description": "Role"
+  },
   "server": "שרת",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "החלף תצוגה",
   "lasso": "לאסו",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "הסתר ממשק משתמש",
   "density": "צפיפות",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "קומפקטי",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "נוח",
   "standard": "סטנדרטי",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "נעל",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "הוסף פריט",
   "notDefaultConnection": "לא חיבור ברירת מחדל",
   "defaultConnection": "חיבור ברירת מחדל",
   "hide": "הסתר",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "הצג",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "השהה",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "עצור",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "רענן",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "הדפס",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "דוגם צבע",
   "users": "משתמשים",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "ניסויים",
   "experimentsWarning": "תכונות אלו הן ניסיוניות ועשויות להשתנות, להישבר או להיעלם בכל עת. הפעלתן עלולה לגרום לחוסר יציבות או לאובדן נתונים. יש לפעול בזהירות. אנא דווח על כל באג.",
   "address": "כתובת",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "פרוס על פני עמודים",
   "rootDirectorySpecifiedDescription": "ספריית השורש צוינה. כל נתיבי הספריות המתקדמות יהיו יחסיים לספרייה זו. השאר ריק כדי להשבית סוג ספרייה זה.",
   "rootDirectoryNotSpecifiedDescription": "ספריית השורש לא צוינה. נדרש שם. כל נתיבי הספריות המתקדמות יהיו מוחלטים. השאר ריק כדי להשבית סוג ספרייה זה.",
@@ -594,25 +1065,49 @@
   "createAreas": "צור אזורים",
   "autosave": "שמירה אוטומטית",
   "invert": "הפוך",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "פעולות",
   "medium": "בינוני",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "גדול",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "גודל סרגל כלים",
   "addAll": "הוסף הכל",
   "onlyCurrentPage": "רק העמוד הנוכחי",
   "smoothNavigation": "ניווט חלק",
   "exact": "מדויק",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "בתוך השורה",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "שורות בסרגל הכלים",
   "pointerTest": "בדיקת מצביע",
   "pressure": "לחץ",
   "small": "קטן",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "זעיר",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "בחר הכל",
   "overrideTools": "דרוס כלים",
   "hideCursorWhileDrawing": "הסתר סמן בזמן ציור",
   "installed": "מותקן",
   "install": "התקן",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "בטל בחירה",
   "changeCollection": "שנה אוסף",
   "collections": "אוספים",
@@ -621,15 +1116,30 @@
   "collection": "אוסף",
   "defaultCollection": "אוסף ברירת מחדל",
   "scroll": "גלול",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "בעת הפעלה",
   "homeScreen": "מסך הבית",
   "lastNote": "פתק אחרון",
   "newNote": "פתק חדש",
   "convertToLayer": "המר לשכבה",
   "merge": "מזג",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "למעלה",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "למטה",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "אחר",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{אין פריטים} =1{פריט אחד} other{{count} פריטים}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "רזולוציית רינדור",
   "translate": "תרגם",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "לא מוצפן",
   "encrypted": "מוצפן",
   "encryptDocumentMessage": "לחץ כדי להצפין את המסמך",
@@ -662,8 +1175,14 @@
   "confirmPassword": "אשר סיסמה",
   "passwordMismatch": "הסיסמאות אינן תואמות",
   "action": "פעולה",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "טקסט SVG",
   "offset": "היסט",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "תלוי מיקום",
   "flipHorizontal": "הפוך אופקית",
   "flipVertical": "הפוך אנכית",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "שחזר הגדרות מקובץ",
   "exportSettingsToFile": "ייצא הגדרות לקובץ",
   "barcode": "ברקוד",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "סוג ברקוד",
   "qrCode": "קוד QR",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "הזז ימינה",
   "bundledPacks": "חבילות כלולות",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "בחר רכיב",
   "bundlePackInDocument": "כלול חבילה במסמך",
   "bundledPacksDescription": "חבילות כלולות נכללות במסמך וניתן להשתמש בהן רק לשיתוף עם המסמך. ניתן להשתמש בנכסים במסמך רק אם החבילה מותקנת. ניתן להתקין חבילות על ידי לחיצה עליהן.",
@@ -700,18 +1225,40 @@
   "swampDescription": "ההודעות שלך מנותבות דרך שרת ממסר מאובטח עם הצפנה מקצה לקצה. נדרשת כתובת שרת Swamp ליצירת סשן.",
   "createRawNote": "צור פתק גולמי",
   "polygon": "מצולע",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "סיים צורה",
   "submit": "שלח",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

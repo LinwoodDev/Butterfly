@@ -10,26 +10,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.5",
-    "@astrojs/react": "^4.4.0",
-    "@astrojs/starlight": "^0.36.1",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/starlight": "^0.37.0",
+    "@linwooddev/style": "github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "astro": "^5.15.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.4",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.19.0",
+  "packageManager": "pnpm@10.25.0",
   "devDependencies": {
-    "@vite-pwa/astro": "^1.1.1",
-    "sass": "^1.93.2",
-    "sharp": "^0.34.4",
-    "vite-plugin-pwa": "^1.1.0",
-    "workbox-window": "^7.3.0"
+    "@vite-pwa/astro": "^1.2.0",
+    "sass": "^1.94.2",
+    "sharp": "^0.34.5",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-window": "^7.4.0"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [

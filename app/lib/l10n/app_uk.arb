@@ -1,5 +1,8 @@
 {
   "open": "Відкриті",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Налаштування",
   "personalization": "Персоналізація",
   "theme": "Тема",
@@ -7,10 +10,22 @@
   "lightTheme": "Світла тема",
   "systemTheme": "Використовувати типову системну тему",
   "view": "Дивитись",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Редагувати",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Експорт",
   "save": "Зберегти",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Масштабування",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Збільшити масштаб",
   "zoomOut": "Зменшити масштаб",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Включати гущаду?",
   "thinning": "Думки",
   "pen": "Ручка",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Інвертована пера",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Лінійка шляху",
   "label": "Мітка",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Видалити",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Ви впевнені?",
   "reallyDelete": "Ви дійсно бажаєте видалити цей елемент?",
   "no": "Ні",
   "yes": "Так",
   "undo": "Скасувати",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Повторити дію",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Загальні налаштування",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Скопійовано до буферу обміну",
   "loading": "Завантажується...",
   "enterText": "Введіть текст",
   "size": "Розмір",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Висота",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Підрахунок",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "З відступом",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Фон",
   "box": "Ящик",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Локалізація",
   "systemLocale": "Мова локалізації системи",
   "information": "Інформація про нас",
@@ -53,19 +107,34 @@
   "existOverride": "Цей елемент уже існує. Перезаписати?",
   "description": "Опис",
   "fill": "Заливка рядка",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Стандартна палітра",
   "highlighter": "Маркер",
   "add": "Додати",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Видалити",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Ви дійсно хочете видалити це?",
   "resetPalette": "Reset palette",
   "custom": "Користувацька",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Декорація",
   "underline": "Підкреслений",
   "overline": "Оверлайн",
   "strikethrough": "Закреслений",
   "thickness": "Товщина",
   "style": "Стиль",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Подвійний",
   "dotted": "Пунктирна",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Буфер обміну",
   "file": "Файл",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Дані",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Поділитись",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Інтервал",
   "image": "Зображення",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Введіть URL-адресу",
   "scale": "Масштаб",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Довідка",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Ви дійсно хочете скинути його?",
   "whatToDo": "Що ти хочеш зробити?",
   "ignore": "Ігнорувати",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Резервне копіювання",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Файл {fileName} був створений у новішій версії ({fileVersion}). Що слід зробити з цим файлом?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Точки",
   "origin": "Початок координат",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Імпорт",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Новий",
   "selectElement": "Виберіть елемент",
   "ctrlKey": "Сtrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Копіювати версію",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Поведінка",
   "dataDirectory": "Каталог даних",
   "defaultPath": "Типовий шлях",
@@ -138,16 +240,40 @@
   "rename": "Перейменувати",
   "duplicate": "Duplicate",
   "hand": "Кисть",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Тека",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Пересунути",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Копія",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Відмінити",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Залежність масштабу",
   "shapeDetection": "Визначення форми",
   "delay": "Затримка",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Типовий шар",
   "layer": "Шар",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Шари",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Не задано",
   "enterLayer": "Введіть назву шару",
   "selectElements": "Обрати елементи",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Ви дійсно бажаєте видалити вибрані елементи?",
   "selectCustomCollection": "Обрати користувацьку колекцію",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Чутливість",
   "sensitivityHint": "Чим вище значення, тим більш чутливе вхідне значення",
   "horizontal": "Горизонтально",
   "vertical": "Вертикально",
   "plain": "Рівнина",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Світла",
   "ruled": "Лінійність",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Кварка",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Музика",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Темна",
   "plainDark": "Темна",
   "ruledDark": "Лінійчата темна",
@@ -174,29 +315,56 @@
   "createTemplate": "Створити шаблон",
   "createTemplateContent": "Ви дійсно хочете створити шаблон з цього документа? Оригінальний документ буде видалено.",
   "replace": "Заміняти",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Ви дійсно хочете замінити шаблон? Цю операцію неможливо скасувати!",
   "defaultTemplate": "Шаблон за замовчуванням",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Документ",
   "camera": "Камера",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Прінтут",
   "selectCamera": "Обрати камеру",
   "changeDocumentPath": "Змінити шлях до документу",
   "deleteWholeStroke": "Видалити весь розряд",
   "alpha": "Альфа",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Площа",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Вибір області",
   "aspectRatio": "Відношення сторін",
   "presets": "Шаблони",
   "pagePortrait": "Вертикальна орієнтація",
   "pageLandscape": "Сторінка в ландшафтному режимі",
   "square": "Квадрат",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Розділи",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Введіть область",
   "exitArea": "Вийти з району",
   "currentArea": "Поточна область",
   "design": "Дизайн",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Текст",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Гей, це метелик Лінвуда {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Виправлена",
   "dynamicContent": "Динамічний",
   "none": "Без ефекту",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Включити площу",
   "verticalAlignment": "Вертикальне вирівнювання",
   "horizontalAlignment": "Горизонтальне вирівнювання",
   "top": "Верх",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Центр",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Униз",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Ліворуч",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Праворуч",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Вирівняти",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Обмеження",
   "length": "Довжина",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Експорт SVG",
   "pdf": "Файл pdf",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Вибрати сторінки",
   "recentFiles": "Останні файли",
   "start": "Старт",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Немає останніх файлів",
   "countPages": "{count,plural, =0{Жодних сторінок} =1{1 сторінка} other{{count} Сторінки}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Вийти",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Немає елементів",
   "invertSelection": "Інвертувати виділення",
   "errorWhileImporting": "Помилка при імпорті",
@@ -268,14 +469,23 @@
   "error": "Помилка",
   "stackTrace": "Траса стеку",
   "laser": "Лазер",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Тривалість",
   "quality": "Якість",
   "exportPdf": "Експорт PDF",
   "local": "Місцевий",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Додати зв'язок",
   "connections": "З'єднання",
   "noConnections": "Немає підключень",
   "url": "Адреса",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Підключитися",
   "username": "Ім'я користувача",
   "password": "Пароль",
@@ -288,10 +498,22 @@
   "cannotConnect": "Не вдалося підключитися",
   "urlNotValid": "Неприпустима URL-адреса",
   "icon": "Іконка",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Оновити",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Доступне оновлення",
   "stable": "Стабільний",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Нічна",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Перевірити наявність оновлень",
   "checkForUpdatesWarning": "Перевірка оновлень з’єднується з сайтом Butterfly для отримання інформації.",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
@@ -299,10 +521,25 @@
   "currentVersion": "Поточна версія",
   "updateNow": "Оновити зараз",
   "shape": "Форма",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Коло",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Прямокутник",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Трикутник",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Лінія",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Зверху зліва",
   "topRight": "Зверху праворуч",
@@ -310,6 +547,9 @@
   "bottomRight": "Нижній правий",
   "caches": "Кеш",
   "manage": "Керування",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Очистити кеш",
   "createCache": "Створити кеш",
   "thirdPartyLicenses": "Сторонні ліцензії",
@@ -317,6 +557,9 @@
   "synced": "Синхронізовано",
   "notSynced": "Не синхронізовано",
   "conflict": "Конфлікт",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Зберегти локально",
   "keepConnection": "Залишити з’єднання",
   "keepBoth": "Залишити обидва",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "В автономному режимі",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Локальне оновлення",
   "connectionLatest": "Підключення до останнього",
   "path": "Шлях",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Папку синхронізовано",
   "syncRootDirectory": "Синхронізація кореневого каталогу",
   "penOnlyInput": "Тільки введення Pen",
@@ -346,19 +595,55 @@
   "syncMode": "Режим синхронізації",
   "connection": "З'єднання",
   "always": "Завжди",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Немає мобільного телефону",
   "manual": "Вручну",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Пошук",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Властивості",
   "pin": "Закріплення повідомлень",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Елемент",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Вазописець",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Позиція",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Примітка",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Пакунки",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Набір",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Більше",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Запитати про ім'я",
   "areaIndex": "Площа {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Запускати в повноекранному режимі",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Миша",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Дотик",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Гарячі клавіші",
   "middle": "По центру",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Перший",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Секунда",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Активний інструмент",
   "activeToolDescription": "Використовувати зараз обраний інструмент на панелі інструментів",
   "handTool": "Інструмент для рук",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Інструменти",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Показати сітку",
   "grid": "Сітка",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Лінійка",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Кут",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Доповісти",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Нова папка",
   "createPack": "Створити пакет",
   "editPack": "Редагувати пакет",
   "packsDirectory": "Пакунковий каталог",
   "stamp": "Відзнака",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Додати до набору",
   "sureImportPack": "Ви впевнені, що хочете імпортувати пакет?",
   "byAuthor": "від {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Додати медіафайл",
   "editAsset": "Редагувати медіафайли",
   "scope": "Область використання",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Наразі немає доступних пакетів",
   "components": "Компоненти",
   "waypoint": "Шляхова Точка",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Абзац",
   "fontFamily": "Сімейство шрифтів",
   "smoothing": "Згладжування",
@@ -449,9 +779,21 @@
   "unknownImportType": "Невідомий тип імпорту",
   "sureImportTemplate": "Ви впевнені, що хочете імпортувати шаблон?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Відтворити",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Відео",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "Кадрів в секунду",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Точка зупину",
   "presentationControls": "Керування представленням",
   "nextSlide": "Наступний слайд",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Код",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Цитувати",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Лінк",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Прапорець",
   "deleted": "Видалено",
   "emphasis": "У Emphasє",
   "listBullet": "Список кулі",
   "strong": "Сильний",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Домашній екран",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Файли",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Сортувати за",
   "location": "Місцезнаходження",
   "whatsNew": "Що новенького?",
@@ -493,12 +853,21 @@
   "star": "Зірка",
   "goUp": "Догори",
   "created": "Створений",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Змінено",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Швидкий старт",
   "noTemplates": "Наразі немає доступних шаблонів",
   "importCorePack": "Імпортувати базовий пакет",
   "importCorePackDescription": "Імпортувати основний пакет, який містить всі основні активи для початку. Це перевизначить поточний базовий пакет.",
   "never": "Ніколи",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Тільки при оновленні",
   "visibility": "Видимість",
   "captureThumbnail": "Захопити ескіз",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Виберіть режим мітки",
   "foreground": "Активний режим",
   "version": "Версія",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Репозиторій",
   "pages": "Сторінки",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Організувати",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Привести на передній план",
   "sendToBack": "Відправити на задній план",
   "bringForward": "Поверніть вперед",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
   "rotate": "Обертати",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Розділювач",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Навігаційна залізниця",
   "cut": "Вирізати",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Вставити до",
   "insertAfter": "Вставити після",
   "insertFirst": "Вставити перший",
   "insertLast": "Insert last",
   "paste": "Вставити",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "За зростанням",
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
   "select": "Вибрати",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Інструмент",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Текстура",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Тема платформи",
   "desktop": "Стільниця",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Мобільний",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Якість PDF",
   "surface": "Поверхня",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Графічний ключ",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Ви впевнені, що хочете закрити документ?",
   "thereAreUnsavedChanges": "Є незбережені зміни",
   "page": "Сторінка",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE сервери",
   "collaboration": "Співпраця",
   "webRtc": "Web RTC",
   "webSocket": "Веб-сокет",
   "iceServer": "Сервер ICE",
   "port": "Порт",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Тип",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Сторона",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Клієнт",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Сервер",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Перемкнути у вигляд",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Приховати інтерфейс",
   "density": "Густина",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Компактний",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Комфортний",
   "standard": "Стандартна",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Зачинити",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Додати елемент",
   "notDefaultConnection": "Не з'єднатися за замовчуванням",
   "defaultConnection": "З'єднання за замовчуванням",
   "hide": "Приховати",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Показати",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Пауза",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Зупинити",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Оновити",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Друк",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "ДАНІ",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Піпетка",
   "users": "Спільноти",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Експерименти",
   "experimentsWarning": "Ці функції експериментальні і можуть змінюватися, перебиватися чи зникати в будь-який час. Включення їх може викликати нестабільність або втрату даних. Будьте обачні. Будь ласка, повідомте про будь-які помилки.",
   "address": "Адреса",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Поширення на сторінки",
   "rootDirectorySpecifiedDescription": "Кореневий каталог вказаний. Всі просунуті шляхи будуть відносно цієї теки. Залиште порожнім, щоб вимкнути цей тип каталогу.",
   "rootDirectoryNotSpecifiedDescription": "Кореневий каталог не вказано. Ім'я вимагається. Всі розширені шляхи до каталогів будуть абсолютні. Залиште порожнім, щоб вимкнути цей тип каталогу.",
@@ -594,25 +1065,49 @@
   "createAreas": "Створення області",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Операції",
   "medium": "Медіум",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Великий",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Розмір панелі інструментів",
   "addAll": "Додати всі",
   "onlyCurrentPage": "Тільки поточна сторінка",
   "smoothNavigation": "Плавна навігація",
   "exact": "Точно",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "У тексті",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Рядки панелі інструментів",
   "pointerTest": "Тест вказівника",
   "pressure": "Тиск",
   "small": "Маленький",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Дрібний",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Виділити все",
   "overrideTools": "Змінити інструменти",
   "hideCursorWhileDrawing": "Сховати курсор під час малювання",
   "installed": "Встановлено",
   "install": "Інсталювати",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Зняти виділення",
   "changeCollection": "Змінити збірку",
   "collections": "Колекції",
@@ -621,15 +1116,30 @@
   "collection": "Колекція",
   "defaultCollection": "Типова збірка",
   "scroll": "Прокрутка",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "При запуску",
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
   "newNote": "Нова нотатка",
   "convertToLayer": "Конвертувати в шар",
   "merge": "Об'єднати",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Вгору",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Донизу",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Інше",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Немає елементів} =1{1 елемент} other{{count} елементи}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Підвищує якість відповідно до продуктивності. Випускає область зображення, що розкриває 2 рази видимості, забезпечує безшовний рендеринг навіть під час швидкого прокручування чи масштабування.",
   "renderResolution": "Роздільна здатність візуалізації",
   "translate": "Переклад",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Незашифровано",
   "encrypted": "Зашифрований",
   "encryptDocumentMessage": "Натисніть для шифрування документа",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Підтвердити пароль",
   "passwordMismatch": "Паролі не співпадають",
   "action": "Дія",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG текст",
   "offset": "Зміщення",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Залежність від позиції",
   "flipHorizontal": "Віддзеркалити горизонтально",
   "flipVertical": "Віддзеркалити вертикально",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Відновити налаштування з файлу",
   "exportSettingsToFile": "Експорт налаштувань у файл",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Тип штрихкоду",
   "qrCode": "QR Code",
   "dataMatrix": "Матриця даних",
@@ -690,6 +1212,9 @@
   "moveRight": "Рухатися праворуч",
   "bundledPacks": "Зібрані пакети",
   "component": "Компонент",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Компонент",
   "bundlePackInDocument": "Комплектний пакет в документі",
   "bundledPacksDescription": "Комплектні пакети включені в документ і використовуються тільки для спільного використання з документом. Активи можуть бути використані тільки в документі, якщо пакет встановлений. Пакунки можуть бути встановлені за допомогою натискання на них.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Ваші повідомлення перенаправляються через безпечний сервер ретранслятора з обмеженим шифруванням. Для створення сеансу потрібна адреса болота.",
   "createRawNote": "Створити сиру нотатку",
   "polygon": "Многокутник",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Завершити форму",
   "submit": "Ввести",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Математика",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ігнорувати тиск",
   "ignoreFirstPressureDescription": "На деяких пристроях перше значення тиску не точне. Ця настройка ігноруватиме перше значення тиску і буде використовувати тиск другої події.",
   "temporary": "Тимчасово",
   "simpleToolbarVisibility": "Проста видимість панелі інструментів",
   "autosaveDelay": "Затримка автозбереження",
   "saved": "Збережено",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Збереження...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Тільки для читання",
   "saveDelayed": "Зберегти затримку",
   "unsaved": "Не збережено",
-  "pdfEmptyDescription": "Наразі немає областей для експорту. Будь ласка, виберіть принаймні одну ділянку, використовуючи \"+\" у правому верхньому куті, або додайте усі області з поточної сторінки або з документу нижче."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Наразі немає областей для експорту. Будь ласка, виберіть принаймні одну ділянку, використовуючи \"+\" у правому верхньому куті, або додайте усі області з поточної сторінки або з документу нижче.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

@@ -7,6 +7,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -23,17 +24,17 @@ class AssetDialog extends StatelessWidget {
     String? pack = value?.namespace;
     String name = value?.key ?? '';
     final bloc = context.read<DocumentBloc>();
-    return FutureBuilder<List<String>>(
+    return FutureBuilder<List<FileSystemFile<NoteData>>>(
       future: context
           .read<ButterflyFileSystem>()
           .buildDefaultPackSystem()
-          .getKeys(),
+          .getFiles(),
       builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) => previous.data != current.data,
         builder: (context, state) {
           if (state is! DocumentLoaded) return const SizedBox();
-          final packs = snapshot.data ?? <String>[];
-          pack ??= packs.firstOrNull;
+          final packs = snapshot.data ?? <FileSystemFile<NoteData>>[];
+          pack ??= packs.firstOrNull?.path;
           return AlertDialog(
             title: Text(
               value == null
@@ -51,12 +52,12 @@ class AssetDialog extends StatelessWidget {
                       child: DropdownMenu<String>(
                         label: Text(AppLocalizations.of(context).pack),
                         key: UniqueKey(),
-                        dropdownMenuEntries: packs
-                            .map(
-                              (e) =>
-                                  DropdownMenuEntry<String>(value: e, label: e),
-                            )
-                            .toList(),
+                        dropdownMenuEntries: packs.map((e) {
+                          return DropdownMenuEntry<String>(
+                            value: e.path,
+                            label: e.data!.getMetadata()?.name ?? e.path,
+                          );
+                        }).toList(),
                         onSelected: (value) {
                           pack = value;
                         },
@@ -148,7 +149,7 @@ Future<void> addToPack(
     ImageExportOptions(
       width: rect.width,
       height: rect.height,
-      renderBackground: true,
+      renderBackground: false,
       x: rect.left,
       y: rect.top,
       quality: kThumbnailWidth / rect.width,

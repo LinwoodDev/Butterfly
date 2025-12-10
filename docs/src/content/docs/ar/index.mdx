@@ -1,22 +1,26 @@
 ---
-title: Linwood Butterfly
-description: 🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨
+title: لينوود باترفلاي
+description: 🎨 تطبيق قوي وبسيط ومتعدد المنصات ومفتوح المصدر لتدوين الملاحظات 🎨
 template: splash
 hero:
-  tagline: 🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨
+  tagline: 🎨 تطبيق قوي وبسيط ومتعدد المنصات ومفتوح المصدر لتدوين الملاحظات 🎨
   image:
     file: /public/img/logo.svg
   actions:
-    - text: Download
-      link: /التنزيلات/
+    - text: التنزيل
+      link: ""
       icon: download
       variant: primary
-    - text: بدء التشغيل
+    - text: الخطوات الأولى
       link: /docs/v2/intro/
       icon: document
     - text: Web App
       link: https://web.butterfly.linwood.dev
       icon: rocket
+    - text: المدونة
+      link: https://linwood.dev/butterfly
+      icon: external
+      variant: secondary
 ---
 
 import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
@@ -25,23 +29,23 @@ import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid stagger>
   <Card title="منصة متقاطعة" icon="laptop">
-    You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.
+    يمكنك استخدام التطبيق على الهاتف أو الجهاز اللوحي أو الكمبيوتر المحمول أو سطح المكتب. التطبيق متوفر على لينوكس، وأندرويد، وويندوز. يمكنك أيضا استخدام التطبيق على الويب.
   </Card>
 
   <Card title="بسيط وبديهي" icon="puzzle">
-    Every tool is on the right place. Open the app and start drawing. Change your tools by clicking on it.
+    كل أداة موجودة في المكان الصحيح. Open the app and start drawing. Change your tools by clicking on it.
   </Card>
 
   <Card title="قابل للتخصيص" icon="pencil">
-    Change everything to your needs. Choose your custom color, create a palette and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
+    غير كل شيء حسب احتياجاتك أنت. اختر لونك المخصص، وأنشئ لوحة ألوان وأضف صفحاتك إلى الورق. The paper has an infinite size, perfect for your ideas and notes.
   </Card>
 
   <Card title="اختر مكان تخزين بياناتك" icon="open-book">
-    You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
+    خزّن بياناتك محليا أو في السحابة المفضلة لديك (webDav). You can also export your data to a file and import it again.
   </Card>
 </CardGrid>
 
-## Features
+## الميزات
 
 <div class="dark:sl-hidden">
   ![Main view](@assets/img/main.png)
@@ -52,13 +56,13 @@ import { LinkCard, Card, CardGrid } from '@astrojs/starlight/components';
 </div>
 
 <CardGrid stagger>
-  <Card title="Let your ideas flow on an infinite canvas" />
+  <Card title="دع أفكارك تتدفق على لوحه لا حدود لها" />
 
-  <Card title="Use your pen, markdown or rich text to let your ideas flow" />
+  <Card title="استخدم قلمك أو Markdown أو النص المنسق لإطلاق العنان لأفكارك" />
 
-  <Card title="Load PDF, SVG, PNG and more files into your notes or take pictures from the camera" />
+  <Card title="قم بإضافة ملفات PDF و SVG و PNG وغيرها إلى ملاحظاتك أو التقط صورًا من الكاميرا" />
 
-  <Card title="Structure your notes by adding areas and waypoints or use multiple pages" />
+  <Card title="نظِّم ملاحظاتك بإضافة مناطق ونقاط توجيه أو باستخدام صفحات متعددة" />
 </CardGrid>
 
-<LinkCard title="Download today" href="/التنزيلات/" />
+<LinkCard title="حمّل التطبيق الآن!" href="" />
