@@ -551,6 +551,45 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   @useResult
+  Iterable<String> getToolbars() =>
+      getAssets('$kToolbarsArchiveDirectory/', true);
+
+  @useResult
+  Iterable<NamedItem<Toolbar>> getNamedToolbars() => getToolbars().map((e) {
+    final toolbar = getToolbar(e);
+    if (toolbar == null) return null;
+    return NamedItem<Toolbar>(name: e, item: toolbar);
+  }).nonNulls;
+
+  @useResult
+  Toolbar? getToolbar(String toolbarName) {
+    final data = getAsset('$kToolbarsArchiveDirectory/$toolbarName.json');
+    if (data == null) {
+      return null;
+    }
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return Toolbar.fromJson(json);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @useResult
+  NoteData setToolbar(String name, Toolbar toolbar) {
+    final content = jsonEncode(toolbar.toJson());
+    return setAsset(
+      '$kToolbarsArchiveDirectory/$name.json',
+      utf8.encode(content),
+    );
+  }
+
+  @useResult
+  NoteData removeToolbar(String name) =>
+      removeAsset('$kToolbarsArchiveDirectory/$name.json');
+
+  @useResult
   String toJson() {
     return base64Encode(exportAsBytes());
   }

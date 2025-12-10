@@ -90,11 +90,7 @@ class StampHandler extends PastingHandler<StampTool> {
     onChanged: (value) {
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
-      bloc.add(
-        ToolsChanged({
-          state.info.tools.indexOf(data): data.copyWith(component: value),
-        }),
-      );
+      bloc.add(ToolsChanged([data.copyWith(component: value)]));
     },
   );
   @override

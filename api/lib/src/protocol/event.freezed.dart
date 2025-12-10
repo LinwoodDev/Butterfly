@@ -250,6 +250,10 @@ DocumentEvent _$DocumentEventFromJson(
           return ToolsRemoved.fromJson(
             json
           );
+                case 'toolsReplaced':
+          return ToolsReplaced.fromJson(
+            json
+          );
                 case 'toolReordered':
           return ToolReordered.fromJson(
             json
@@ -1619,14 +1623,14 @@ $ToolCopyWith<$Res> get tool {
 @JsonSerializable()
 
 class ToolsChanged extends DocumentEvent {
-  const ToolsChanged(final  Map<int, Tool> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsChanged',super._();
+  const ToolsChanged(final  List<Tool> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsChanged',super._();
   factory ToolsChanged.fromJson(Map<String, dynamic> json) => _$ToolsChangedFromJson(json);
 
- final  Map<int, Tool> _tools;
- Map<int, Tool> get tools {
-  if (_tools is EqualUnmodifiableMapView) return _tools;
+ final  List<Tool> _tools;
+ List<Tool> get tools {
+  if (_tools is EqualUnmodifiableListView) return _tools;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_tools);
+  return EqualUnmodifiableListView(_tools);
 }
 
 
@@ -1667,7 +1671,7 @@ abstract mixin class $ToolsChangedCopyWith<$Res> implements $DocumentEventCopyWi
   factory $ToolsChangedCopyWith(ToolsChanged value, $Res Function(ToolsChanged) _then) = _$ToolsChangedCopyWithImpl;
 @useResult
 $Res call({
- Map<int, Tool> tools
+ List<Tool> tools
 });
 
 
@@ -1687,7 +1691,7 @@ class _$ToolsChangedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? tools = null,}) {
   return _then(ToolsChanged(
 null == tools ? _self._tools : tools // ignore: cast_nullable_to_non_nullable
-as Map<int, Tool>,
+as List<Tool>,
   ));
 }
 
@@ -1698,11 +1702,11 @@ as Map<int, Tool>,
 @JsonSerializable()
 
 class ToolsRemoved extends DocumentEvent {
-  const ToolsRemoved(final  List<int> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsRemoved',super._();
+  const ToolsRemoved(final  List<String> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsRemoved',super._();
   factory ToolsRemoved.fromJson(Map<String, dynamic> json) => _$ToolsRemovedFromJson(json);
 
- final  List<int> _tools;
- List<int> get tools {
+ final  List<String> _tools;
+ List<String> get tools {
   if (_tools is EqualUnmodifiableListView) return _tools;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_tools);
@@ -1746,7 +1750,7 @@ abstract mixin class $ToolsRemovedCopyWith<$Res> implements $DocumentEventCopyWi
   factory $ToolsRemovedCopyWith(ToolsRemoved value, $Res Function(ToolsRemoved) _then) = _$ToolsRemovedCopyWithImpl;
 @useResult
 $Res call({
- List<int> tools
+ List<String> tools
 });
 
 
@@ -1766,7 +1770,86 @@ class _$ToolsRemovedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? tools = null,}) {
   return _then(ToolsRemoved(
 null == tools ? _self._tools : tools // ignore: cast_nullable_to_non_nullable
-as List<int>,
+as List<String>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class ToolsReplaced extends DocumentEvent {
+  const ToolsReplaced(final  List<Tool> tools, {final  String? $type}): _tools = tools,$type = $type ?? 'toolsReplaced',super._();
+  factory ToolsReplaced.fromJson(Map<String, dynamic> json) => _$ToolsReplacedFromJson(json);
+
+ final  List<Tool> _tools;
+ List<Tool> get tools {
+  if (_tools is EqualUnmodifiableListView) return _tools;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tools);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ToolsReplacedCopyWith<ToolsReplaced> get copyWith => _$ToolsReplacedCopyWithImpl<ToolsReplaced>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ToolsReplacedToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolsReplaced&&const DeepCollectionEquality().equals(other._tools, _tools));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+
+@override
+String toString() {
+  return 'DocumentEvent.toolsReplaced(tools: $tools)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ToolsReplacedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
+  factory $ToolsReplacedCopyWith(ToolsReplaced value, $Res Function(ToolsReplaced) _then) = _$ToolsReplacedCopyWithImpl;
+@useResult
+$Res call({
+ List<Tool> tools
+});
+
+
+
+
+}
+/// @nodoc
+class _$ToolsReplacedCopyWithImpl<$Res>
+    implements $ToolsReplacedCopyWith<$Res> {
+  _$ToolsReplacedCopyWithImpl(this._self, this._then);
+
+  final ToolsReplaced _self;
+  final $Res Function(ToolsReplaced) _then;
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tools = null,}) {
+  return _then(ToolsReplaced(
+null == tools ? _self._tools : tools // ignore: cast_nullable_to_non_nullable
+as List<Tool>,
   ));
 }
 
@@ -1777,10 +1860,10 @@ as List<int>,
 @JsonSerializable()
 
 class ToolReordered extends DocumentEvent {
-  const ToolReordered(this.oldIndex, this.newIndex, {final  String? $type}): $type = $type ?? 'toolReordered',super._();
+  const ToolReordered(this.id, this.newIndex, {final  String? $type}): $type = $type ?? 'toolReordered',super._();
   factory ToolReordered.fromJson(Map<String, dynamic> json) => _$ToolReorderedFromJson(json);
 
- final  int oldIndex;
+ final  String id;
  final  int newIndex;
 
 @JsonKey(name: 'type')
@@ -1800,16 +1883,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolReordered&&(identical(other.oldIndex, oldIndex) || other.oldIndex == oldIndex)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToolReordered&&(identical(other.id, id) || other.id == id)&&(identical(other.newIndex, newIndex) || other.newIndex == newIndex));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,oldIndex,newIndex);
+int get hashCode => Object.hash(runtimeType,id,newIndex);
 
 @override
 String toString() {
-  return 'DocumentEvent.toolReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
+  return 'DocumentEvent.toolReordered(id: $id, newIndex: $newIndex)';
 }
 
 
@@ -1820,7 +1903,7 @@ abstract mixin class $ToolReorderedCopyWith<$Res> implements $DocumentEventCopyW
   factory $ToolReorderedCopyWith(ToolReordered value, $Res Function(ToolReordered) _then) = _$ToolReorderedCopyWithImpl;
 @useResult
 $Res call({
- int oldIndex, int newIndex
+ String id, int newIndex
 });
 
 
@@ -1837,10 +1920,10 @@ class _$ToolReorderedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? oldIndex = null,Object? newIndex = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? id = null,Object? newIndex = null,}) {
   return _then(ToolReordered(
-null == oldIndex ? _self.oldIndex : oldIndex // ignore: cast_nullable_to_non_nullable
-as int,null == newIndex ? _self.newIndex : newIndex // ignore: cast_nullable_to_non_nullable
+null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,null == newIndex ? _self.newIndex : newIndex // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

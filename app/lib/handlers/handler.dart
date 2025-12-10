@@ -326,7 +326,6 @@ extension ToolHandler<T extends Tool> on Handler<T> {
   void changeTool(DocumentBloc bloc, T newTool) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final index = state.info.tools.indexOf(data);
-    bloc.add(ToolsChanged({index: newTool}));
+    bloc.add(ToolsChanged([newTool]));
   }
 }

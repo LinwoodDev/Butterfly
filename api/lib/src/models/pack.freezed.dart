@@ -769,6 +769,146 @@ as double,
 
 }
 
+
+/// @nodoc
+mixin _$Toolbar {
+
+ List<Tool> get tools;
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ToolbarCopyWith<Toolbar> get copyWith => _$ToolbarCopyWithImpl<Toolbar>(this as Toolbar, _$identity);
+
+  /// Serializes this Toolbar to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Toolbar&&const DeepCollectionEquality().equals(other.tools, tools));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tools));
+
+@override
+String toString() {
+  return 'Toolbar(tools: $tools)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ToolbarCopyWith<$Res> implements $PackAssetCopyWith<$Res> {
+  factory $ToolbarCopyWith(Toolbar value, $Res Function(Toolbar) _then) = _$ToolbarCopyWithImpl;
+@useResult
+$Res call({
+ List<Tool> tools
+});
+
+
+
+
+}
+/// @nodoc
+class _$ToolbarCopyWithImpl<$Res>
+    implements $ToolbarCopyWith<$Res> {
+  _$ToolbarCopyWithImpl(this._self, this._then);
+
+  final Toolbar _self;
+  final $Res Function(Toolbar) _then;
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? tools = null,}) {
+  return _then(_self.copyWith(
+tools: null == tools ? _self.tools : tools // ignore: cast_nullable_to_non_nullable
+as List<Tool>,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _Toolbar extends Toolbar {
+  const _Toolbar({final  List<Tool> tools = const []}): _tools = tools,super._();
+  factory _Toolbar.fromJson(Map<String, dynamic> json) => _$ToolbarFromJson(json);
+
+ final  List<Tool> _tools;
+@override@JsonKey() List<Tool> get tools {
+  if (_tools is EqualUnmodifiableListView) return _tools;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tools);
+}
+
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ToolbarCopyWith<_Toolbar> get copyWith => __$ToolbarCopyWithImpl<_Toolbar>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ToolbarToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Toolbar&&const DeepCollectionEquality().equals(other._tools, _tools));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+
+@override
+String toString() {
+  return 'Toolbar(tools: $tools)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ToolbarCopyWith<$Res> implements $ToolbarCopyWith<$Res> {
+  factory _$ToolbarCopyWith(_Toolbar value, $Res Function(_Toolbar) _then) = __$ToolbarCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Tool> tools
+});
+
+
+
+
+}
+/// @nodoc
+class __$ToolbarCopyWithImpl<$Res>
+    implements _$ToolbarCopyWith<$Res> {
+  __$ToolbarCopyWithImpl(this._self, this._then);
+
+  final _Toolbar _self;
+  final $Res Function(_Toolbar) _then;
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? tools = null,}) {
+  return _then(_Toolbar(
+tools: null == tools ? _self._tools : tools // ignore: cast_nullable_to_non_nullable
+as List<Tool>,
+  ));
+}
+
+
+}
+
 /// @nodoc
 mixin _$PackAssetLocation {
 

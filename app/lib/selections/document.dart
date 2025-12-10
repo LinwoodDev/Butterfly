@@ -346,32 +346,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ),
               ],
             ),
-            Column(
-              children: [
-                ListTile(
-                  title: Text('Custom'),
-                  subtitle: Text('Click to save toolbar layout'),
-                ),
-                Divider(),
-                EditableListTile(
-                  subtitle: Text('Core'),
-                  actions: [
-                    MenuItemButton(
-                      onPressed: () {},
-                      leadingIcon: Icon(PhosphorIconsLight.floppyDisk),
-                      child: Text('Override'),
-                    ),
-                    MenuItemButton(
-                      onPressed: () {},
-                      leadingIcon: Icon(PhosphorIconsLight.trash),
-                      child: Text('Delete'),
-                    ),
-                  ],
-                  initialValue: 'Default',
-                  onSaved: (String value) {},
-                ),
-              ],
-            ),
+            const ToolbarsView(),
             Column(
               children: [
                 OffsetListTile(

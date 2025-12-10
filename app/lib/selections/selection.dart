@@ -1,23 +1,23 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
-import 'package:butterfly/widgets/editable_list_tile.dart';
+import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../cubits/transform.dart';
-import '../renderers/renderer.dart';
-import '../widgets/color_field.dart';
+import 'toolbars.dart';
 
 part 'elements/element.dart';
 part 'elements/image.dart';

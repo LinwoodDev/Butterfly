@@ -160,13 +160,10 @@ class _PropertyCardState extends State<_PropertyCard> {
                           if (state is! DocumentLoadSuccess) {
                             return;
                           }
-                          final painters = state.info.tools;
                           bloc.add(
-                            ToolsChanged({
-                              painters.indexOf(selected): selected.copyWith(
-                                displayIcon: e.name,
-                              ),
-                            }),
+                            ToolsChanged([
+                              selected.copyWith(displayIcon: e.name),
+                            ]),
                           );
                           _menuController.close();
                         },

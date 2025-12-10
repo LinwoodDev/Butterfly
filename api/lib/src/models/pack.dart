@@ -74,6 +74,16 @@ sealed class ButterflyParameter with _$ButterflyParameter {
       _$ButterflyParameterFromJson(json);
 }
 
+@freezed
+sealed class Toolbar extends PackAsset with _$Toolbar {
+  const Toolbar._();
+
+  const factory Toolbar({@Default([]) List<Tool> tools}) = _Toolbar;
+
+  factory Toolbar.fromJson(Map<String, dynamic> json) =>
+      _$ToolbarFromJson(json);
+}
+
 @Freezed(equal: true, fromJson: false, toJson: false, copyWith: false)
 final class PackAssetLocation with _$PackAssetLocation {
   @override
