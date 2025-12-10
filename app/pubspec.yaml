@@ -227,5 +227,5 @@ msix_config:
   logo_path: images/logo.png
   capabilities: internetClientServer, webcam, documentsLibrary
   languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
-  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  file_extension: .bfly, .tbfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
   install_certificate: false

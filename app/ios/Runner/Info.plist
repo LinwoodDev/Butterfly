@@ -67,6 +67,15 @@
                   <string>bfly</string>
               </array>
           </dict>
+          <key>UTTypeDescription</key>
+          <string>Linwood Butterfly Text Note</string>
+          <key>UTTypeTagSpecification</key>
+          <dict>
+              <key>public.filename-extension</key>
+              <array>
+                  <string>tbfly</string>
+              </array>
+          </dict>
       </dict>
       <dict>
           <key>UTTypeIdentifier</key>
