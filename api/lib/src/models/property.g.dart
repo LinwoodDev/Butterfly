@@ -40,6 +40,8 @@ ShapeProperty _$ShapePropertyFromJson(Map json) => ShapeProperty(
   strokeStyle:
       $enumDecodeNullable(_$StrokeStyleEnumMap, json['strokeStyle']) ??
       StrokeStyle.solid,
+  dashMultiplier: (json['dashMultiplier'] as num?)?.toDouble() ?? 1.0,
+  gapMultiplier: (json['gapMultiplier'] as num?)?.toDouble() ?? 1.0,
   $type: json['type'] as String?,
 );
 
@@ -49,13 +51,14 @@ Map<String, dynamic> _$ShapePropertyToJson(ShapeProperty instance) =>
       'shape': instance.shape.toJson(),
       'color': const ColorJsonConverter().toJson(instance.color),
       'strokeStyle': _$StrokeStyleEnumMap[instance.strokeStyle]!,
+      'dashMultiplier': instance.dashMultiplier,
+      'gapMultiplier': instance.gapMultiplier,
       'type': instance.$type,
     };
 
 const _$StrokeStyleEnumMap = {
   StrokeStyle.solid: 'solid',
   StrokeStyle.dotted: 'dotted',
-  StrokeStyle.dashed: 'dashed',
 };
 
 PolygonProperty _$PolygonPropertyFromJson(Map json) => PolygonProperty(

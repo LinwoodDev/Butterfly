@@ -29,13 +29,11 @@ extension StrokeStyleVisualizer on StrokeStyle {
     return switch (this) {
       StrokeStyle.solid => loc.solid,
       StrokeStyle.dotted => loc.dotted,
-      StrokeStyle.dashed => loc.dashed,
     };
   }
 
   IconGetter get icon => switch (this) {
     StrokeStyle.solid => PhosphorIcons.minus,
     StrokeStyle.dotted => PhosphorIcons.dotsSix,
-    StrokeStyle.dashed => PhosphorIcons.equals,
   };
 }

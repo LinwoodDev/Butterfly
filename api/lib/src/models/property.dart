@@ -18,7 +18,7 @@ enum HorizontalAlignment { left, center, right, justify }
 
 enum VerticalAlignment { top, center, bottom }
 
-enum StrokeStyle { solid, dotted, dashed }
+enum StrokeStyle { solid, dotted }
 
 @freezed
 sealed class Property with _$Property {
@@ -37,6 +37,8 @@ sealed class Property with _$Property {
     required PathShape shape,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
     @Default(StrokeStyle.solid) StrokeStyle strokeStyle,
+    @Default(1.0) double dashMultiplier,
+    @Default(1.0) double gapMultiplier,
   }) = ShapeProperty;
 
   const factory Property.polygon({

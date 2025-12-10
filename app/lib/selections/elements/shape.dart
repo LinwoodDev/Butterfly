@@ -61,31 +61,13 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
               .toList(),
         ),
       ),
-      ListTile(
-        title: Text(AppLocalizations.of(context).strokeStyle),
-        trailing: DropdownMenu<StrokeStyle>(
-          initialSelection: element.property.strokeStyle,
-          dropdownMenuEntries: StrokeStyle.values
-              .map(
-                (e) => DropdownMenuEntry(
-                  label: e.getLocalizedName(context),
-                  value: e,
-                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
-                ),
-              )
+      _ShapeElementStrokeStyleSection(
+        property: element.property,
+        onPropertyChanged: (property) => updateElements(
+          context,
+          elements
+              .map((e) => e.copyWith(property: property))
               .toList(),
-          onSelected: (value) => updateElements(
-            context,
-            elements
-                .map(
-                  (e) => e.copyWith(
-                    property: e.property.copyWith(
-                      strokeStyle: value ?? StrokeStyle.solid,
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
         ),
       ),
       ShapeView(
@@ -116,4 +98,89 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
   @override
   String getLocalizedName(BuildContext context) =>
       AppLocalizations.of(context).shape;
+}
+
+class _ShapeElementStrokeStyleSection extends StatefulWidget {
+  final ShapeProperty property;
+  final ValueChanged<ShapeProperty> onPropertyChanged;
+
+  const _ShapeElementStrokeStyleSection({
+    required this.property,
+    required this.onPropertyChanged,
+  });
+
+  @override
+  State<_ShapeElementStrokeStyleSection> createState() =>
+      _ShapeElementStrokeStyleSectionState();
+}
+
+class _ShapeElementStrokeStyleSectionState
+    extends State<_ShapeElementStrokeStyleSection> {
+  bool _advancedExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final property = widget.property;
+    final isStyled = property.strokeStyle != StrokeStyle.solid;
+
+    return ExpansionPanelList(
+      expansionCallback: (index, isExpanded) {
+        setState(() {
+          _advancedExpanded = isExpanded;
+        });
+      },
+      children: [
+        ExpansionPanel(
+          canTapOnHeader: true,
+          isExpanded: _advancedExpanded,
+          headerBuilder: (context, isExpanded) => ListTile(
+            title: Text(AppLocalizations.of(context).strokeStyle),
+            trailing: DropdownMenu<StrokeStyle>(
+              initialSelection: property.strokeStyle,
+              dropdownMenuEntries: StrokeStyle.values
+                  .map(
+                    (e) => DropdownMenuEntry(
+                      label: e.getLocalizedName(context),
+                      value: e,
+                      leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                    ),
+                  )
+                  .toList(),
+              onSelected: (value) => widget.onPropertyChanged(
+                property.copyWith(strokeStyle: value ?? StrokeStyle.solid),
+              ),
+            ),
+          ),
+          body: Column(
+            children: [
+              ExactSlider(
+                header: Text(AppLocalizations.of(context).dashLength),
+                value: property.dashMultiplier,
+                min: 0.1,
+                max: 5,
+                defaultValue: 1,
+                onChangeEnd: isStyled
+                    ? (value) => widget.onPropertyChanged(
+                          property.copyWith(dashMultiplier: value),
+                        )
+                    : null,
+              ),
+              ExactSlider(
+                header: Text(AppLocalizations.of(context).gapLength),
+                value: property.gapMultiplier,
+                min: 0.1,
+                max: 5,
+                defaultValue: 1,
+                onChangeEnd: isStyled
+                    ? (value) => widget.onPropertyChanged(
+                          property.copyWith(gapMultiplier: value),
+                        )
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }

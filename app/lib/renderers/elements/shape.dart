@@ -9,15 +9,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   ShapeRenderer(super.element, [super.layer]);
 
-  /// Creates a dashed path from the source path based on stroke style
+  /// Creates a dotted path from the source path based on stroke style
   Path _createDashedPath(Path source, StrokeStyle strokeStyle) {
     if (strokeStyle == StrokeStyle.solid) return source;
 
-    final strokeWidth = element.property.strokeWidth;
-    final dashLength = strokeStyle == StrokeStyle.dashed
-        ? strokeWidth * 3 // Dashed: 3x stroke width
-        : strokeWidth; // Dotted: 1x stroke width
-    final gapLength = strokeWidth * 2;
+    final property = element.property;
+    final strokeWidth = property.strokeWidth;
+    final baseDashLength = strokeWidth; // Dotted: 1x stroke width
+    final baseGapLength = strokeWidth * 2;
+    final dashLength = baseDashLength * property.dashMultiplier;
+    final gapLength = baseGapLength * property.gapMultiplier;
 
     final dashedPath = Path();
     for (final metric in source.computeMetrics()) {
@@ -94,7 +95,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       );
       if (strokeWidth > 0) {
         final rrect = RRect.fromRectAndCorners(
-          rect,
+          drawRect,
           topLeft: topLeftCornerRadius,
           topRight: topRightCornerRadius,
           bottomLeft: bottomLeftCornerRadius,
@@ -112,7 +113,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ),
       );
       if (strokeWidth > 0) {
-        final path = Path()..addOval(rect);
+        final path = Path()..addOval(drawRect);
         _drawStyledPath(canvas, path, paint);
       }
     } else if (shape is LineShape) {
@@ -149,11 +150,14 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   /// Returns SVG stroke-dasharray attribute value based on stroke style
   String? _getSvgDashArray() {
-    final strokeWidth = element.property.strokeWidth;
-    return switch (element.property.strokeStyle) {
+    final property = element.property;
+    final strokeWidth = property.strokeWidth;
+    final dashMultiplier = property.dashMultiplier;
+    final gapMultiplier = property.gapMultiplier;
+    return switch (property.strokeStyle) {
       StrokeStyle.solid => null,
-      StrokeStyle.dotted => '$strokeWidth,${strokeWidth * 2}',
-      StrokeStyle.dashed => '${strokeWidth * 3},${strokeWidth * 2}',
+      StrokeStyle.dotted =>
+        '${strokeWidth * dashMultiplier},${strokeWidth * 2 * gapMultiplier}',
     };
   }
 

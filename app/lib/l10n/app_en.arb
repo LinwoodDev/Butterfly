@@ -31,6 +31,8 @@
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke width",
   "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "Pen",
