@@ -293,6 +293,9 @@ export default defineConfig({
         hu: {
           label: "Hungarian",
         },
+        id: {
+          label: "Indonesian",
+        },
         it: {
           label: "Italian",
         },
