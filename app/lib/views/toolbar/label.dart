@@ -208,6 +208,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
+              textDirection: TextDirection.ltr,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -519,30 +520,32 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                         ),
                         const SizedBox(width: 16),*/
-                        ToggleButtons(
-                          isSelected: text.HorizontalAlignment.values
-                              .map((e) => e == paragraph.alignment)
-                              .toList(),
-                          children: const [
-                            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
-                            PhosphorIcon(PhosphorIconsLight.textAlignCenter),
-                            PhosphorIcon(PhosphorIconsLight.textAlignRight),
-                            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
-                          ],
-                          onPressed: (current) {
-                            final newParagraph = paragraph.copyWith(
-                              alignment:
-                                  text.HorizontalAlignment.values[current],
-                            );
-                            widget.onChanged(
-                              value.copyWith(
-                                forcedProperty: newParagraph,
-                                element: value.element?.copyWith.area.paragraph(
-                                  property: newParagraph,
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: ToggleButtons(
+                            isSelected: text.HorizontalAlignment.values
+                                .map((e) => e == paragraph.alignment)
+                                .toList(),
+                            children: const [
+                              PhosphorIconsLight.textAlignLeft,
+                              PhosphorIconsLight.textAlignCenter,
+                              PhosphorIconsLight.textAlignRight,
+                              PhosphorIconsLight.textAlignJustify,
+                            ].map((e) => PhosphorIcon(e)).toList(),
+                            onPressed: (current) {
+                              final newParagraph = paragraph.copyWith(
+                                alignment:
+                                    text.HorizontalAlignment.values[current],
+                              );
+                              widget.onChanged(
+                                value.copyWith(
+                                  forcedProperty: newParagraph,
+                                  element: value.element?.copyWith.area
+                                      .paragraph(property: newParagraph),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                         const SizedBox(width: 16),
                         /*FutureBuilder<List<String>?>(
@@ -633,104 +636,107 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           },
                         ),
                         const SizedBox(width: 16),
-                        ToggleButtons(
-                          isSelected: [
-                            property.getFontWeight(paragraph) !=
-                                text.kFontWeightNormal,
-                            property.getItalic(paragraph),
-                            property.getUnderline(paragraph),
-                          ],
-                          children: [
-                            GestureDetector(
-                              child: const PhosphorIcon(
-                                PhosphorIconsLight.textB,
-                              ),
-                              onLongPressEnd: (details) {
-                                final RenderObject? overlay = Overlay.of(
-                                  context,
-                                ).context.findRenderObject();
-                                final RenderBox referenceBox =
-                                    context.findRenderObject() as RenderBox;
-                                var tapPosition = referenceBox.globalToLocal(
-                                  details.globalPosition,
-                                );
-                                showMenu(
-                                  context: context,
-                                  position: RelativeRect.fromRect(
-                                    Rect.fromLTWH(
-                                      tapPosition.dx,
-                                      tapPosition.dy,
-                                      30,
-                                      30,
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: ToggleButtons(
+                            isSelected: [
+                              property.getFontWeight(paragraph) !=
+                                  text.kFontWeightNormal,
+                              property.getItalic(paragraph),
+                              property.getUnderline(paragraph),
+                            ],
+                            children: [
+                              GestureDetector(
+                                child: const PhosphorIcon(
+                                  PhosphorIconsLight.textB,
+                                ),
+                                onLongPressEnd: (details) {
+                                  final RenderObject? overlay = Overlay.of(
+                                    context,
+                                  ).context.findRenderObject();
+                                  final RenderBox referenceBox =
+                                      context.findRenderObject() as RenderBox;
+                                  var tapPosition = referenceBox.globalToLocal(
+                                    details.globalPosition,
+                                  );
+                                  showMenu(
+                                    context: context,
+                                    position: RelativeRect.fromRect(
+                                      Rect.fromLTWH(
+                                        tapPosition.dx,
+                                        tapPosition.dy,
+                                        30,
+                                        30,
+                                      ),
+                                      Rect.fromLTWH(
+                                        0,
+                                        0,
+                                        overlay!.paintBounds.size.width,
+                                        overlay.paintBounds.size.height,
+                                      ),
                                     ),
-                                    Rect.fromLTWH(
-                                      0,
-                                      0,
-                                      overlay!.paintBounds.size.width,
-                                      overlay.paintBounds.size.height,
+                                    initialValue:
+                                        FontWeight.values[property
+                                            .getFontWeight(paragraph)],
+                                    items: List.generate(
+                                      FontWeight.values.length,
+                                      (index) {
+                                        var text = ((index + 1) * 100)
+                                            .toString();
+                                        if (index == 3) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).normal;
+                                        } else if (index == 6) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).bold;
+                                        }
+                                        return PopupMenuItem(
+                                          value: FontWeight.values[index],
+                                          child: Text(text),
+                                          onTap: () {
+                                            updateSpan(
+                                              (value) => value.copyWith(
+                                                fontWeight: index,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  initialValue:
-                                      FontWeight.values[property.getFontWeight(
-                                        paragraph,
-                                      )],
-                                  items: List.generate(
-                                    FontWeight.values.length,
-                                    (index) {
-                                      var text = ((index + 1) * 100).toString();
-                                      if (index == 3) {
-                                        text = AppLocalizations.of(
-                                          context,
-                                        ).normal;
-                                      } else if (index == 6) {
-                                        text = AppLocalizations.of(
-                                          context,
-                                        ).bold;
-                                      }
-                                      return PopupMenuItem(
-                                        value: FontWeight.values[index],
-                                        child: Text(text),
-                                        onTap: () {
-                                          updateSpan(
-                                            (value) => value.copyWith(
-                                              fontWeight: index,
-                                            ),
-                                          );
-                                          Navigator.pop(context);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                            const PhosphorIcon(PhosphorIconsLight.textItalic),
-                            const PhosphorIcon(
-                              PhosphorIconsLight.textUnderline,
-                            ),
-                          ],
-                          onPressed: (current) => switch (current) {
-                            0 => updateSpan(
-                              (value) => value.copyWith(
-                                fontWeight:
-                                    property.fontWeight ==
-                                        text.kFontWeightNormal
-                                    ? text.kFontWeightBold
-                                    : text.kFontWeightNormal,
+                                  );
+                                },
                               ),
-                            ),
-                            1 => updateSpan(
-                              (value) => value.copyWith(
-                                italic: !property.getItalic(paragraph),
+                              const PhosphorIcon(PhosphorIconsLight.textItalic),
+                              const PhosphorIcon(
+                                PhosphorIconsLight.textUnderline,
                               ),
-                            ),
-                            2 => updateSpan(
-                              (value) => value.copyWith(
-                                underline: !property.getUnderline(paragraph),
+                            ],
+                            onPressed: (current) => switch (current) {
+                              0 => updateSpan(
+                                (value) => value.copyWith(
+                                  fontWeight:
+                                      property.fontWeight ==
+                                          text.kFontWeightNormal
+                                      ? text.kFontWeightBold
+                                      : text.kFontWeightNormal,
+                                ),
                               ),
-                            ),
-                            _ => null,
-                          },
+                              1 => updateSpan(
+                                (value) => value.copyWith(
+                                  italic: !property.getItalic(paragraph),
+                                ),
+                              ),
+                              2 => updateSpan(
+                                (value) => value.copyWith(
+                                  underline: !property.getUnderline(paragraph),
+                                ),
+                              ),
+                              _ => null,
+                            },
+                          ),
                         ),
                       ],
                     ),
