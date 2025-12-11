@@ -6,6 +6,6 @@ With this tool you can add text to the paper.
 
 ## Configuration
 
-| Property | Default | Description          |
+| Property | Default | Deskripsi            |
 | -------: | :-----: | :------------------- |
-|     Size |    12   | The size of the text |
+|   Ukuran |    12   | The size of the text |
