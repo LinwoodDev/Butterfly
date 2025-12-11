@@ -1,15 +1,15 @@
 {
-  "open": "Open",
+  "open": "Buka ",
   "@open": {
     "description": "Open a file or dialog"
   },
-  "settings": "Settings",
-  "personalization": "Personalization",
-  "theme": "Theme",
-  "darkTheme": "Dark theme",
-  "lightTheme": "Light theme",
-  "systemTheme": "Use default system theme",
-  "view": "View",
+  "settings": "Pengaturan ",
+  "personalization": "Personalisasi ",
+  "theme": "Tema",
+  "darkTheme": "Tema Gelap",
+  "lightTheme": "Tema Terang",
+  "systemTheme": "Gunakan Tema Sistem Default",
+  "view": "Tampilan",
   "@view": {
     "description": "View mode or menu"
   },
@@ -17,135 +17,135 @@
   "@edit": {
     "description": "Edit mode or menu"
   },
-  "export": "Export",
-  "save": "Save",
+  "export": "Ekspor",
+  "save": "Simpan ",
   "@save": {
     "description": "Save action"
   },
-  "zoom": "Zoom",
+  "zoom": "Perbesar ",
   "@zoom": {
     "description": "Zoom action or level"
   },
-  "zoomIn": "Zoom in",
-  "zoomOut": "Zoom out",
+  "zoomIn": "Perbesar Masuk ",
+  "zoomOut": "Perbesar Keluar",
   "resetZoom": "Atur Ulang Pembesaran",
-  "strokeWidth": "Stroke width",
-  "includeEraser": "Include eraser?",
-  "thinning": "Thinning",
+  "strokeWidth": "Lebar Goresan ",
+  "includeEraser": "Sertakan Penghapus ",
+  "thinning": "Penipisan",
   "pen": "Pen",
   "@pen": {
     "description": "Pen tool"
   },
-  "invertedPen": "Inverted Pen",
-  "eraser": "Eraser",
+  "invertedPen": "Pena Terbalik",
+  "eraser": "Penghapus ",
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Path eraser",
+  "pathEraser": "Penghapus Jalur",
   "label": "Label",
   "@label": {
     "description": "Label tool"
   },
-  "delete": "Delete",
+  "delete": "Hapus",
   "@delete": {
     "description": "Delete action"
   },
-  "areYouSure": "Are you sure?",
-  "reallyDelete": "Do you really want to delete this item?",
-  "no": "No",
-  "yes": "Yes",
-  "undo": "Undo",
+  "areYouSure": "Apakah Kamu Yakin?",
+  "reallyDelete": "Apakah Kamu Yakin Menghapus item ini",
+  "no": "Tidak",
+  "yes": "Iya",
+  "undo": "Urungkan",
   "@undo": {
     "description": "Undo action"
   },
-  "redo": "Redo",
+  "redo": "Ulangi",
   "@redo": {
     "description": "Redo action"
   },
-  "general": "General",
+  "general": "Umum",
   "@general": {
     "description": "General settings"
   },
-  "copyTitle": "Copied to clipboard",
-  "loading": "Loading...",
-  "enterText": "Enter the text",
-  "size": "Size",
+  "copyTitle": "Disalin Ke Papan Klip",
+  "loading": "Memuat ",
+  "enterText": "Masukan Teks",
+  "size": "Ukuran ",
   "@size": {
     "description": "Size property"
   },
-  "width": "Width",
+  "width": "Lebar",
   "@width": {
     "description": "Width property"
   },
-  "height": "Height",
+  "height": "Tinggi ",
   "@height": {
     "description": "Height property"
   },
-  "count": "Count",
+  "count": "Jumlah ",
   "@count": {
     "description": "Count property"
   },
-  "space": "Space",
+  "space": "Spasi",
   "@space": {
     "description": "Spacing property"
   },
-  "background": "Background",
-  "box": "Box",
+  "background": "Latar Belakang ",
+  "box": "Kotak ",
   "@box": {
     "description": "Box shape"
   },
-  "locale": "Locale",
-  "systemLocale": "System locale",
-  "information": "Information",
-  "license": "License",
-  "imprint": "Imprint",
-  "privacypolicy": "Privacy policy",
-  "sourceCode": "Source code",
-  "documentation": "Documentation",
-  "changelog": "Changelog",
+  "locale": "Lokal ",
+  "systemLocale": "Sistem Lokal ",
+  "information": "Informasi ",
+  "license": "Lisensi",
+  "imprint": "Sekilas ",
+  "privacypolicy": "Kebijakan Privasi ",
+  "sourceCode": "Kode Sumber ",
+  "documentation": "Dokumentasi ",
+  "changelog": "Log Perubahan ",
   "source": "Source",
-  "existOverride": "This element already exist. Overwrite?",
-  "description": "Description",
-  "fill": "Fill",
+  "existOverride": "Elemen ini sudah ada. Timpa?",
+  "description": "Deskripsi",
+  "fill": "Isi",
   "@fill": {
     "description": "Fill property"
   },
-  "defaultPalette": "Default palette",
-  "highlighter": "Highlighter",
-  "add": "Add",
+  "defaultPalette": "Palet bawaan",
+  "highlighter": "Stabilo",
+  "add": "Tambah",
   "@add": {
     "description": "Add action"
   },
-  "remove": "Remove",
+  "remove": "Hapus",
   "@remove": {
     "description": "Remove action"
   },
-  "removeConfirm": "Do you really want to remove this?",
-  "resetPalette": "Reset palette",
-  "custom": "Custom",
+  "removeConfirm": "Anda yakin ingin menghapus ini?",
+  "resetPalette": "Atur ulang palet",
+  "custom": "Kebiasaan",
   "@custom": {
     "description": "Custom value"
   },
-  "decoration": "Decoration",
-  "underline": "Underline",
-  "overline": "Overline",
-  "strikethrough": "Strikethrough",
-  "thickness": "Thickness",
-  "style": "Style",
+  "decoration": "Dekorasi",
+  "underline": "Garis Bawah",
+  "overline": "Garis Atas",
+  "strikethrough": "Coretan",
+  "thickness": "Ketebalan",
+  "style": "Gaya",
   "@style": {
     "description": "Style property"
   },
-  "solid": "Solid",
-  "double": "Double",
-  "dotted": "Dotted",
-  "dashed": "Dashed",
-  "wavy": "Wavy",
-  "fontWeight": "Font weight",
-  "normal": "Normal",
-  "bold": "Bold",
-  "italic": "Italic",
-  "clipboard": "Clipboard",
-  "file": "File",
+  "solid": "Padat",
+  "double": "Ganda",
+  "dotted": "Titik-Titik",
+  "dashed": "Garis Putus-Putus",
+  "wavy": "Berombak",
+  "fontWeight": "Ketebalan Huruf",
+  "normal": "Biasa",
+  "bold": "Tebal",
+  "italic": "Miring",
+  "clipboard": "Papan Klip",
+  "file": "Berkas",
   "@file": {
     "description": "File menu or object"
   },
@@ -153,35 +153,35 @@
   "@data": {
     "description": "Data settings"
   },
-  "share": "Share",
+  "share": "Bagikan",
   "@share": {
     "description": "Share action"
   },
-  "spacing": "Spacing",
-  "image": "Image",
+  "spacing": "Jarak",
+  "image": "Gambar",
   "@image": {
     "description": "Image object or tool"
   },
-  "enterUrl": "Enter the url",
-  "scale": "Scale",
+  "enterUrl": "Masukkan Alamat Jaringan",
+  "scale": "Skala",
   "@scale": {
     "description": "Scale property"
   },
-  "help": "Help",
+  "help": "Bantuan",
   "@help": {
     "description": "Help action"
   },
-  "reallyReset": "Do you really want to reset it?",
-  "whatToDo": "What do you want to do?",
-  "ignore": "Ignore",
+  "reallyReset": "Anda yakin ingin mengatur ulang?",
+  "whatToDo": "Apa yang ingin Anda lakukan?",
+  "ignore": "Abaikan",
   "@ignore": {
     "description": "Ignore action"
   },
-  "backup": "Backup",
+  "backup": "Cadangan",
   "@backup": {
     "description": "Backup action"
   },
-  "createdInNewerVersion": "The file {fileName} was created in a newer version ({fileVersion}). What should be done with this file?",
+  "createdInNewerVersion": "Berkas {fileName} dibuat dalam versi yang lebih baru ({fileVersion}). Apa yang harus dilakukan dengan berkas ini?",
   "@createdInNewerVersion": {
     "placeholders": {
       "fileName": {
@@ -194,20 +194,20 @@
       }
     }
   },
-  "waypoints": "Waypoints",
-  "origin": "Origin",
+  "waypoints": "Titik Arah",
+  "origin": "Asal",
   "@origin": {
     "description": "Origin point"
   },
-  "import": "Import",
+  "import": "Impor",
   "@import": {
     "description": "Import action"
   },
-  "newContent": "New",
-  "selectElement": "Select element",
-  "ctrlKey": "Ctrl",
+  "newContent": "Baru",
+  "selectElement": "Pilih elemen",
+  "ctrlKey": "Kontrol",
   "shiftKey": "Shift",
-  "altKey": "Alt",
+  "altKey": "Alternatif",
   "copyVersion": "Copy version",
   "input": "Input",
   "@input": {
