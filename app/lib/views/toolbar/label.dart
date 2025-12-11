@@ -901,7 +901,15 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         final element = value.element;
         if (element == null) return;
         // Get selection text
-        final content = element.text.substring(selection.start, selection.end);
+        var content = element.text.substring(selection.start, selection.end);
+        var newSelection = selection;
+        if (content.isEmpty && !isMath) {
+          content = ' ';
+          newSelection = TextSelection(
+            baseOffset: selection.start,
+            extentOffset: selection.start + 1,
+          );
+        }
         // Create new span
         final newSpan = isMath
             ? text.TextSpan(text: content)
@@ -913,7 +921,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
           selection.end - selection.start,
         );
         widget.onChanged(
-          value.copyWith(element: element.copyWith.area(paragraph: paragraph)),
+          value.copyWith(
+            element: element.copyWith.area(paragraph: paragraph),
+            selection: newSelection,
+          ),
         );
       },
     );
