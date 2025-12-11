@@ -1,10 +1,10 @@
 ---
-title: Add
+title: Tambah
 ---
 
 Here you can add things to your notes.
 
-## Import
+## Impor
 
 Here you can import existing files inside your documents.
 Supported are butterfly documents, markdown, png, svg and pdf.
