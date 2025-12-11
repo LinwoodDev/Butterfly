@@ -1,10 +1,10 @@
-Butterfly ist eine Notiz-App, bei der deine Ideen an erster Stelle stehen. Du kannst zeichnen, Texte hinzufügen und deine Notizen auf jedem Gerät ganz einfach exportieren. Die App läuft auf Android, Windows, Linux und im Web.
+Butterfly is a note-taking app where your ideas come first. Du kannst zeichnen, Texte hinzufügen und deine Notizen auf jedem Gerät ganz einfach exportieren. This app works on Android, Windows, Linux, and in the web.
 
-* Einfach und intuitiv: Jedes Werkzeug ist genau dort, wo du es erwartest. Öffne die App und starte. Ändern Sie Ihre Werkzeuge, indem du darauf klickst.
+* Einfach und intuitiv: Jedes Werkzeug ist genau dort, wo du es erwartest. Öffne die App und starte. Change your tools by clicking on them.
 * Anpassbar: Ändern Sie alles an deine Bedürfnisse. Wähle eine individuelle Farbe, erstelle deine eigene Farbpalette und füge Sie diese auf die Seiten. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.
-* Unterstützt deine Lieblingsformate: Import und Export von Bildern, Pdf- und Svg-Dateien werden unterstützt. Registriere die App als Standardanwendung, um solche Dateien direkt zum Bearbeiten zu öffnen.
-* Auf jedem Gerät verfügbar: Ob Android, Windows, Linux oder im Browser – du kannst Butterfly auf Smartphone, Tablet und Computer nutzen. Du kannst es auf deinem Handy, Tablet oder Computer verwenden.
-* Wähle, wo deine Daten gespeichert werden: Entscheide selbst, ob deine Daten lokal oder in deiner bevorzugten Cloud (WebDAV) abgelegt werden. Alternativ kannst du sie in eine Datei exportieren und später wieder importieren.
+* Supports your favorite formats: Import and export are supported for images, PDF and SVG. Open these files directly to edit them.
+* Works on every device: The app is available for Android, Windows, Linux, and in the web. Du kannst es auf deinem Handy, Tablet oder Computer verwenden.
+* Choose where your data is stored: You can choose to store your data locally or in your favorite cloud (WebDAV). Alternativ kannst du sie in eine Datei exportieren und später wieder importieren.
 * **In vielen Sprachen verfügbar:** Die App ist mehrsprachig. Hilf uns, diese App in deine Sprache zu übersetzen.
 * **FOSS (Open Source & kostenlos):** Der Quellcode ist offen, und die Nutzung ist gratis. Du kannst aktiv zum Projekt beitragen und es weiter verbessern.
 * **Offline nutzbar:** Du kannst die App offline benutzen. Auch ohne Internetverbindung kannst du zeichnen, malen und deine Notizen exportieren.
