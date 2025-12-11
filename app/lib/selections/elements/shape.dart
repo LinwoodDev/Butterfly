@@ -65,9 +65,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
         property: element.property,
         onPropertyChanged: (property) => updateElements(
           context,
-          elements
-              .map((e) => e.copyWith(property: property))
-              .toList(),
+          elements.map((e) => e.copyWith(property: property)).toList(),
         ),
       ),
       ShapeView(
@@ -161,8 +159,8 @@ class _ShapeElementStrokeStyleSectionState
                 defaultValue: 1,
                 onChangeEnd: isStyled
                     ? (value) => widget.onPropertyChanged(
-                          property.copyWith(dashMultiplier: value),
-                        )
+                        property.copyWith(dashMultiplier: value),
+                      )
                     : null,
               ),
               ExactSlider(
@@ -173,8 +171,8 @@ class _ShapeElementStrokeStyleSectionState
                 defaultValue: 1,
                 onChangeEnd: isStyled
                     ? (value) => widget.onPropertyChanged(
-                          property.copyWith(gapMultiplier: value),
-                        )
+                        property.copyWith(gapMultiplier: value),
+                      )
                     : null,
               ),
             ],

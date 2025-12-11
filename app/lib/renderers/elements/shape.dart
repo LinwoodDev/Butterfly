@@ -28,10 +28,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         final length = draw ? dashLength : gapLength;
         final end = (distance + length).clamp(0.0, metric.length);
         if (draw) {
-          dashedPath.addPath(
-            metric.extractPath(distance, end),
-            Offset.zero,
-          );
+          dashedPath.addPath(metric.extractPath(distance, end), Offset.zero);
         }
         distance = end;
         draw = !draw;
@@ -202,60 +199,68 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       d += 'A$topLeftRadius $topLeftRadius 0 0 1 ';
       d += '${drawRect.left + topLeftRadius} ${drawRect.top} ';
       d += 'Z';
-      xml.getElement('svg')?.createElement(
-        'path',
-        attributes: {
-          'd': d,
-          'fill': shape.fillColor.toHexString(),
-          'stroke': element.property.color.toHexString(),
-          'stroke-width': '${element.property.strokeWidth}px',
-          if (dashArray != null) 'stroke-dasharray': dashArray,
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'path',
+            attributes: {
+              'd': d,
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+              if (dashArray != null) 'stroke-dasharray': dashArray,
+            },
+          );
     } else if (shape is CircleShape) {
-      xml.getElement('svg')?.createElement(
-        'ellipse',
-        attributes: {
-          'cx': '${drawRect.center.dx}',
-          'cy': '${drawRect.center.dy}',
-          'rx': '${(drawRect.width / 2).abs()}',
-          'ry': '${(drawRect.height / 2).abs()}',
-          'fill': shape.fillColor.toHexString(),
-          'stroke': element.property.color.toHexString(),
-          'stroke-width': '${element.property.strokeWidth}px',
-          if (dashArray != null) 'stroke-dasharray': dashArray,
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'ellipse',
+            attributes: {
+              'cx': '${drawRect.center.dx}',
+              'cy': '${drawRect.center.dy}',
+              'rx': '${(drawRect.width / 2).abs()}',
+              'ry': '${(drawRect.height / 2).abs()}',
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+              if (dashArray != null) 'stroke-dasharray': dashArray,
+            },
+          );
     } else if (shape is LineShape) {
-      xml.getElement('svg')?.createElement(
-        'line',
-        attributes: {
-          'x1': '${element.firstPosition.x}px',
-          'y1': '${element.firstPosition.y}px',
-          'x2': '${element.secondPosition.x}px',
-          'y2': '${element.secondPosition.y}px',
-          'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHexString(),
-          'fill': 'none',
-          if (dashArray != null) 'stroke-dasharray': dashArray,
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'line',
+            attributes: {
+              'x1': '${element.firstPosition.x}px',
+              'y1': '${element.firstPosition.y}px',
+              'x2': '${element.secondPosition.x}px',
+              'y2': '${element.secondPosition.y}px',
+              'stroke-width': '${element.property.strokeWidth}px',
+              'stroke': element.property.color.toHexString(),
+              'fill': 'none',
+              if (dashArray != null) 'stroke-dasharray': dashArray,
+            },
+          );
     } else if (shape is TriangleShape) {
       final topCenter = drawRect.topCenter;
       final d =
           'M${topCenter.dx} ${topCenter.dy} '
           'L${drawRect.right} ${drawRect.bottom} '
           'L${drawRect.left} ${drawRect.bottom} Z';
-      xml.getElement('svg')?.createElement(
-        'path',
-        attributes: {
-          'd': d,
-          'fill': shape.fillColor.toHexString(),
-          'stroke': element.property.color.toHexString(),
-          'stroke-width': '${element.property.strokeWidth}px',
-          if (dashArray != null) 'stroke-dasharray': dashArray,
-        },
-      );
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'path',
+            attributes: {
+              'd': d,
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+              if (dashArray != null) 'stroke-dasharray': dashArray,
+            },
+          );
     }
   }
 
