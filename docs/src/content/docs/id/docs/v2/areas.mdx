@@ -1,0 +1,56 @@
+---
+title: Areas
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import {Monitor, Plus, TextT, Faders, Folder, Stack, SignOut, SignIn, Trash, Export, PlusCircle, Door, DotsThreeVertical} from "@phosphor-icons/react";
+import logo from '/public/img/logo.svg';
+
+## Introduction
+
+![Area](area.png)
+
+Areas are a way to create sections of the canvas. Areas have many useful features, such as the ability to export only the contents of an area, as if it was a separate page. You can also "enter" an area, which restricts editing tools to the area, allowing you to safely work in the area without affecting anything outside of it.
+
+## Creating Areas
+
+With the [<Monitor className="inline-icon"/> Area tool](../tools/area) selected, draw a rectangle anywhere on the canvas to define a new area. If you do not have the Area tool on your toolbar, see [Customizing the Toolbar](../intro#customizing-the-toolbar).
+
+After creating an area, you can activate its features using the [Context Menu](#the-context-menu).
+
+## The Context Menu
+
+<Tabs syncKey="platform">
+    <TabItem label="Desktop">
+    You can open the context menu by either right-clicking an area or using the <Monitor className="inline-icon"/> Area section of the Navigator on the left side of the screen.
+    </TabItem>
+    <TabItem label="Tablet">
+    You can open the context menu by either long-tapping an area or using the <Monitor className="inline-icon"/> Area section of the Navigator on the left side of the screen.
+    </TabItem>
+    <TabItem label="Mobile">
+    You can open the context menu by either long-tapping an area or using the <Monitor className="inline-icon"/> Area section in the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly menu.
+    </TabItem>
+</Tabs>
+
+The context menu has the following options:
+
+- <TextT className="inline-icon"/> `Rename` - Change the name of the area.
+- <SignIn className="inline-icon"/> `Enter the area` - Activate the area, restricting edits to only the contents contained in the area. After entering an area, select this option again to exit it.
+- <Trash className="inline-icon"/> `Delete` - Delete the area. This does **not** delete the content within the area.
+- <Faders className="inline-icon"/> `Properties` - Change the dimensions of the area.
+- <Folder className="inline-icon"/> `Change collection` - Change which [collection](../tools/collection) the area belongs to.
+- <Stack className="inline-icon"/> `Convert to layer` - Move the contents of the area to a new [layer](../layers).
+- <Export className="inline-icon"/> `Export` - Export the content of the selected area.
+- <PlusCircle className="inline-icon"/> `Add to pack` - Add the area to a [pack](../pack).
+
+## Exiting an Area
+
+After entering an area, you can leave it by doing any of the following:
+
+- Tap the <SignOut className="inline-icon"/> button in the app bar.
+- Tap the <SignOut className="inline-icon"/> button in the <Monitor className="inline-icon"/> Area section of the Navigator.
+- Select the <Monitor className="inline-icon"/> Area tool, open the context menu, and then tap <SignOut className="inline-icon"/> Exit the Area.
+
+## Configuring the Area Tool
+
+You can configure the Area tool by selecting the <Monitor className="inline-icon"/> Area tool in the toolbar and then clicking it again. See [Area Tool: Configuration](../tools/area#configuration) for more information.
