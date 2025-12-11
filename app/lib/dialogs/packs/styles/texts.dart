@@ -67,10 +67,25 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                 controller: _controller,
                 expandedInsets: const EdgeInsets.all(4),
                 dropdownMenuEntries: [
-                  ...widget.value.spanProperties.entries.map(
-                    (style) =>
-                        DropdownMenuEntry(value: style.key, label: style.key),
-                  ),
+                  ...widget.value.spanProperties.entries.map((style) {
+                    final isSpecial = DocumentDefaults.getSpanTranslations(
+                      context,
+                    ).containsKey(style.key);
+                    return DropdownMenuEntry(
+                      value: style.key,
+                      label: DocumentDefaults.translateBlock(
+                        style.key,
+                        context,
+                      ),
+                      style: isSpecial
+                          ? ButtonStyle(
+                              foregroundColor: WidgetStateProperty.all(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                            )
+                          : null,
+                    );
+                  }),
                 ],
                 initialSelection: _currentStyle,
                 onSelected: (value) {

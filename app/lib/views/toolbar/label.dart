@@ -12,6 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
+import '../../models/defaults.dart';
 import '../../models/label.dart';
 import 'view.dart';
 
@@ -360,14 +361,31 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         value.isParagraph()
                             ? DropdownMenu<String>(
                                 key: _paragraphKey,
-                                dropdownMenuEntries: paragraphSelections
-                                    .map(
-                                      (e) => DropdownMenuEntry<String>(
-                                        value: e,
-                                        label: e,
-                                      ),
-                                    )
-                                    .toList(),
+                                dropdownMenuEntries: paragraphSelections.map((
+                                  e,
+                                ) {
+                                  final isSpecial =
+                                      DocumentDefaults.getParagraphTranslations(
+                                        context,
+                                      ).containsKey(e);
+                                  return DropdownMenuEntry<String>(
+                                    value: e,
+                                    label: DocumentDefaults.translateParagraph(
+                                      e,
+                                      context,
+                                    ),
+                                    style: isSpecial
+                                        ? ButtonStyle(
+                                            foregroundColor:
+                                                WidgetStateProperty.all(
+                                                  Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary,
+                                                ),
+                                          )
+                                        : null,
+                                  );
+                                }).toList(),
                                 initialSelection: paragraphSelection,
                                 onSelected: (name) {
                                   if (name == null) return;
@@ -401,14 +419,29 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               )
                             : DropdownMenu<String>(
                                 key: _spanKey,
-                                dropdownMenuEntries: spanSelections
-                                    .map(
-                                      (e) => DropdownMenuEntry<String>(
-                                        value: e,
-                                        label: e,
-                                      ),
-                                    )
-                                    .toList(),
+                                dropdownMenuEntries: spanSelections.map((e) {
+                                  final isSpecial =
+                                      DocumentDefaults.getSpanTranslations(
+                                        context,
+                                      ).containsKey(e);
+                                  return DropdownMenuEntry<String>(
+                                    value: e,
+                                    label: DocumentDefaults.translateBlock(
+                                      e,
+                                      context,
+                                    ),
+                                    style: isSpecial
+                                        ? ButtonStyle(
+                                            foregroundColor:
+                                                WidgetStateProperty.all(
+                                                  Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary,
+                                                ),
+                                          )
+                                        : null,
+                                  );
+                                }).toList(),
                                 initialSelection: spanSelection,
                                 onSelected: (name) {
                                   if (name == null) return;
