@@ -8,12 +8,12 @@ Packs are saved globally, so you can use them in any document. If you want to sh
 
 ## Properties
 
-|        Name | Description               |
-| ----------: | :------------------------ |
-|        Name | The name of the pack      |
-|      Author | The author of the pack    |
-|     Version | The version of the pack   |
-| Description | A description of the pack |
+|      Name | Deskripsi                 |
+| --------: | :------------------------ |
+|      Name | The name of the pack      |
+|    Author | The author of the pack    |
+|   Version | The version of the pack   |
+| Deskripsi | A description of the pack |
 
 ## Components
 
