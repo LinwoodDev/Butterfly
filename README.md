@@ -28,15 +28,15 @@
 
 ---
 
-Butterfly is a note taking app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on android, windows, linux, and in the web.
+Butterfly is a note-taking app where your ideas come first. You can paint, add texts, and export them easily on every device. This app works on Android, Windows, Linux, and in the web.
 
 ## Features
 
-* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on it.
+* **⚡ Simple and intuitive:** Every tool is in the right place. Open the app and start drawing. Change your tools by clicking on them.
 * **🎨 Customizable:** Change everything to your needs. Choose your custom color, create a palette, and add your pages to the paper. The paper has an infinite size, perfect for your ideas and notes.
-* **📝 Support your favorite formats:** Import and export are supported for images, pdf and svg. Register the app to open these files to edit them.
-* **📱 Works on every device:** The app is available for android, windows, linux, and in the web. You can use it on your phone, tablet, or computer.
-* **💻 Choose where your data is stored:** You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.
+* **📝 Supports your favorite formats:** Import and export are supported for images, PDF and SVG. Open these files directly to edit them.
+* **📱 Works on every device:** The app is available for Android, Windows, Linux, and in the web. You can use it on your phone, tablet, or computer.
+* **💻 Choose where your data is stored:** You can choose to store your data locally or in your favorite cloud (WebDAV). You can also export your data to a file and import it again.
 * **🌐 Available in many languages:** The app is available in many languages. Help us to translate this app to your language.
 * **📚 FOSS:** The app is open source and free. You can contribute to the project and help to make it better.
 * **🔋 Use it offline:** You can use the app offline. You can draw, paint, and export your notes without an internet connection.
