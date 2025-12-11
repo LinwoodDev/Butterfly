@@ -11,4 +11,4 @@ With this tool you can draw on this paper temporarily. After a while, the drawin
 |             Color |  Black  | The color that will be drawn                                                     |
 |     Lebar Goresan |    5    | The width of the stroke                                                          |
 | Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|            Durasi |    5    | The duration in seconds that the drawing will be visible                         |
