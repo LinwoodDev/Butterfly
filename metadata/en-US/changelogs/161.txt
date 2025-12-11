@@ -6,5 +6,6 @@
 * Change area tool to open context with double tap
 * Fix pdf export crashes when changing quality
 * Add tbfly file association on Windows and iOS
+* Fix image transforming incorrectly displayed
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
