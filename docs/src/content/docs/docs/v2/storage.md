@@ -44,10 +44,15 @@ To get the webdav url, please visit the documentation:
 
 #### How to get the URL
 1. Go to 'Files'
+![](@assets/img/webDAV/URLstep1)
 2. Open the 'Files settings'
+![](@assets/img/webDAV/URLstep2)
 3. Choose the 'WebDAV' section in the sidebar
 4. Copy the URL
+![](@assets/img/webDAV/URLstep3and4)
 5. Paste the URL in the URL input box in Butterfly
+![](@assets/img/webDAV/URLstep5)
+
 #### How to get the password and username
 1. Go to your Nextcloud account info by pressing the profile picture on the corner
 2. Press 'Settings'
