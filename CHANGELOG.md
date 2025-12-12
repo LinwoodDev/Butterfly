@@ -2,6 +2,24 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.3 (2025-12-12)
+
+* Improve ui of pdf export dialog
+* Improve image export preview
+* Improve performance of eraser and path eraser tool
+* Skip baking on pen if new element is started
+* Show untitled for empty page names in pdf select dialog
+* Change area tool to open context with double tap
+* Translate style classes ([#1006](https://github.com/LinwoodDev/Butterfly/issues/1006))
+* Fix pdf export crashes when changing quality
+* Fix image transforming incorrectly displayed
+* Fix rtl text direction in label and color toolbar
+* Fix math button in label toolbar does nothing if no text is selected
+* Add indonesian translation
+* Add tbfly file association on Windows and iOS
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.3
+
 ## 2.4.2-rc.2 (2025-12-04)
 
 * Add restore current palette
