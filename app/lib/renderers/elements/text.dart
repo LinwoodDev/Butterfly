@@ -150,11 +150,13 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
       if (span is text.MathTextSpan && !_renderedLatex.containsKey(i)) {
         final widget = _buildLatexElement(styleSheet, paragraphStyle, span);
         final pixelRatio = transform.pixelRatio * transform.size;
-        final image = await renderWidget(
-          widget,
-          pixelRatio: scale * pixelRatio,
-        );
-        _renderedLatex[i] = (image, pixelRatio);
+        try {
+          final image = await renderWidget(
+            widget,
+            pixelRatio: scale * pixelRatio,
+          );
+          _renderedLatex[i] = (image, pixelRatio);
+        } catch (_) {}
       }
     }
   }
