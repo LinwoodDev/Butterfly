@@ -4,6 +4,7 @@ class LabelHandler extends Handler<LabelTool>
     with HandlerWithCursor, TextInputClient {
   LabelContext? _context;
   DocumentBloc? _bloc;
+  bool _isSelecting = false;
 
   bool get isCurrentlyEditing => _context?.element != null;
 
@@ -107,6 +108,7 @@ class LabelHandler extends Handler<LabelTool>
       details.localFocalPoint,
     );
     final hit = hitRect?.contains(globalPos) ?? false;
+    _isSelecting = hit;
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(
         globalPos - Offset(hitRect!.left, hitRect.top),
@@ -121,14 +123,14 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (!_isSelecting) return;
     final hitRect = _context?.getRect();
     final globalPos = context.getCameraTransform().localToGlobal(
       details.localFocalPoint,
     );
-    final hit = hitRect?.contains(globalPos) ?? false;
-    if (hit) {
+    if (hitRect != null) {
       final position = _context!.textPainter.getPositionForOffset(
-        globalPos - Offset(hitRect!.left, hitRect.top),
+        globalPos - Offset(hitRect.left, hitRect.top),
       );
       _context = _context!.copyWith(
         selection: TextSelection(
@@ -138,6 +140,14 @@ class LabelHandler extends Handler<LabelTool>
       );
       _refreshToolbar(context.getDocumentBloc());
       context.refresh();
+    }
+  }
+
+  @override
+  void onScaleEnd(ScaleEndDetails details, EventContext context) {
+    if (_isSelecting) {
+      _updateEditingState();
+      _isSelecting = false;
     }
   }
 
@@ -320,10 +330,10 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   void dispose(DocumentBloc bloc) {
+    _submit(bloc);
     _connection?.close();
     _connection = null;
     _context = null;
-    _submit(bloc);
   }
 
   void _submit(DocumentBloc bloc) {
@@ -489,14 +499,12 @@ class LabelHandler extends Handler<LabelTool>
         ) ??
         Offset.zero;
     newPosition += Point(0, caret.dy);
-    _context = oldContext;
     _submit(bloc);
     _context = await _createContext(
       state.data,
       state.fileSystem,
       position: newPosition,
     );
-    _updateEditingState();
     bloc.refresh();
   }
 
@@ -509,30 +517,46 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void updateEditingValue(TextEditingValue value) {
     if (_context == null) return;
-    _updateText(value.text);
+    if (value.text != currentTextEditingValue.text) {
+      _updateText(value.text, true, value.selection);
+    } else {
+      _context = _context?.copyWith(selection: value.selection);
+      _bloc?.refresh();
+      if (_bloc != null) _refreshToolbar(_bloc!);
+    }
   }
 
-  Future<void> _updateText(String value, [bool replace = true]) async {
+  Future<void> _updateText(
+    String value, [
+    bool replace = true,
+    TextSelection? newSelection,
+  ]) async {
     TextElement element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess || _context == null) return;
     final data = state.data;
 
     final lastValue = currentTextEditingValue;
-    final start = replace
+    final selectionReplacement = !lastValue.selection.isCollapsed;
+    final useComposing =
+        replace && !selectionReplacement && lastValue.composing.isValid;
+    final start = useComposing
         ? lastValue.composing.start
         : lastValue.selection.start;
-    final length = replace ? null : lastValue.selection.end - start;
+    final length = useComposing ? null : lastValue.selection.end - start;
     final newIndex = replace
         ? lastValue.selection.end - lastValue.text.length + value.length
         : start + value.length;
     final currentText = replace
         ? value.substring(
             start,
-            value.length - lastValue.text.length + lastValue.composing.end,
+            value.length -
+                lastValue.text.length +
+                (length == null ? lastValue.composing.end : (start + length)),
           )
         : value;
     if (_context == null) return;
+    final selection = newSelection ?? TextSelection.collapsed(offset: newIndex);
     switch (_context!) {
       case TextContext e:
         final old = e.element;
@@ -553,7 +577,7 @@ class LabelHandler extends Handler<LabelTool>
                   currentText,
                   start,
                   length,
-                  replace,
+                  useComposing,
                 );
           final area = old.area.copyWith(paragraph: paragraph);
           element = old.copyWith(area: area);
@@ -566,10 +590,7 @@ class LabelHandler extends Handler<LabelTool>
           final area = text.TextArea(paragraph: paragraph);
           element = TextElement(area: area, id: createUniqueId());
         }
-        _context = e.copyWith(
-          element: element,
-          selection: TextSelection.collapsed(offset: newIndex),
-        );
+        _context = e.copyWith(element: element, selection: selection);
       case MarkdownContext e:
         var text = e.text ?? '';
         text = replace
@@ -581,7 +602,7 @@ class LabelHandler extends Handler<LabelTool>
               );
         _context = e.copyWith(
           element: e.element?.copyWith(text: text),
-          selection: TextSelection.collapsed(offset: newIndex),
+          selection: selection,
         );
     }
     await _bloc?.refresh();
@@ -606,7 +627,7 @@ class LabelHandler extends Handler<LabelTool>
   int _getVerticalNewSelection(bool forward) {
     final context = _context;
     if (context == null) return 0;
-    final selection = context.selection.start;
+    final selection = context.selection.extentOffset;
     var nextLine = context.nextLineIndex(selection);
     final currentLine = context.previousLineIndex(selection);
     if (nextLine <= 0) nextLine = context.length + 1;
@@ -626,6 +647,32 @@ class LabelHandler extends Handler<LabelTool>
         .clamp(0, context.length);
   }
 
+  int _nextWordBoundary(String text, int index) {
+    if (index >= text.length) return index;
+    bool startIsWord = _isWordChar(text[index]);
+    for (int i = index; i < text.length; i++) {
+      bool currentIsWord = _isWordChar(text[i]);
+      if (startIsWord && !currentIsWord) return i;
+      if (!startIsWord && currentIsWord) return i;
+    }
+    return text.length;
+  }
+
+  int _prevWordBoundary(String text, int index) {
+    if (index <= 0) return 0;
+    bool startIsWord = _isWordChar(text[index - 1]);
+    for (int i = index - 1; i >= 0; i--) {
+      bool currentIsWord = _isWordChar(text[i]);
+      if (startIsWord && !currentIsWord) return i + 1;
+      if (!startIsWord && currentIsWord) return i + 1;
+    }
+    return 0;
+  }
+
+  bool _isWordChar(String char) {
+    return RegExp(r'\w').hasMatch(char);
+  }
+
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
@@ -639,9 +686,11 @@ class LabelHandler extends Handler<LabelTool>
           var start = selection.start;
           var length = selection.end - start;
           if (length == 0) {
-            if (start == 0) return null;
             if (!intent.forward) {
+              if (start == 0) return null;
               start--;
+            } else {
+              if (start >= (_context?.length ?? 0)) return null;
             }
             length = 1;
           }
@@ -680,14 +729,13 @@ class LabelHandler extends Handler<LabelTool>
       ExtendSelectionVerticallyToAdjacentLineIntent:
           CallbackAction<ExtendSelectionVerticallyToAdjacentLineIntent>(
             onInvoke: (intent) {
+              final newOffset = _getVerticalNewSelection(intent.forward);
               _context = _context?.copyWith(
                 selection: intent.collapseSelection
-                    ? TextSelection.collapsed(
-                        offset: _getVerticalNewSelection(intent.forward),
-                      )
+                    ? TextSelection.collapsed(offset: newOffset)
                     : TextSelection(
-                        baseOffset: _getVerticalNewSelection(intent.forward),
-                        extentOffset: _context?.selection.extentOffset ?? 0,
+                        baseOffset: _context?.selection.baseOffset ?? 0,
+                        extentOffset: newOffset,
                       ),
               );
               bloc.refresh();
@@ -707,15 +755,21 @@ class LabelHandler extends Handler<LabelTool>
                   _context?.selection ??
                   const TextSelection.collapsed(offset: 0);
               if (intent.collapseSelection) {
-                selection = TextSelection.collapsed(
-                  offset: (selection.baseOffset + (intent.forward ? 1 : -1))
-                      .clamp(0, maxLength),
-                );
+                if (!selection.isCollapsed) {
+                  selection = TextSelection.collapsed(
+                    offset: intent.forward ? selection.end : selection.start,
+                  );
+                } else {
+                  selection = TextSelection.collapsed(
+                    offset: (selection.extentOffset + (intent.forward ? 1 : -1))
+                        .clamp(0, maxLength),
+                  );
+                }
               } else {
-                selection = TextSelection(
-                  baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
-                      .clamp(0, maxLength),
-                  extentOffset: selection.extentOffset,
+                selection = selection.copyWith(
+                  extentOffset:
+                      (selection.extentOffset + (intent.forward ? 1 : -1))
+                          .clamp(0, maxLength),
                 );
               }
               _context = _context?.copyWith(selection: selection);
@@ -753,51 +807,88 @@ class LabelHandler extends Handler<LabelTool>
               return null;
             },
           ),
+      ExtendSelectionToNextWordBoundaryIntent:
+          CallbackAction<ExtendSelectionToNextWordBoundaryIntent>(
+            onInvoke: (intent) {
+              final selection = _context?.selection;
+              if (selection == null) return null;
+              final text = _context?.text ?? '';
+              final target = intent.forward
+                  ? _nextWordBoundary(text, selection.extentOffset)
+                  : _prevWordBoundary(text, selection.extentOffset);
+
+              final newSelection = intent.collapseSelection
+                  ? TextSelection.collapsed(offset: target)
+                  : selection.copyWith(extentOffset: target);
+
+              _context = _context?.copyWith(selection: newSelection);
+              _context = switch (_context) {
+                TextContext e => e.copyWith(
+                  forcedSpanProperty:
+                      e.element?.area.paragraph
+                          .getSpan(newSelection.baseOffset)
+                          ?.property ??
+                      e.forcedSpanProperty,
+                  forceParagraph: null,
+                ),
+                _ => _context,
+              };
+              bloc.refresh();
+              _refreshToolbar(bloc);
+              _updateEditingState();
+              return null;
+            },
+          ),
       DeleteToNextWordBoundaryIntent:
           CallbackAction<DeleteToNextWordBoundaryIntent>(
             onInvoke: (intent) {
               final selection = _context?.selection;
               if (selection == null) return null;
-              var index = selection.baseOffset;
-              var wordIndex = _context?.previousWordIndex(index) ?? 0;
-              if (wordIndex > 0) wordIndex--;
-              if (wordIndex < 0) {
-                index = wordIndex;
+              var start = selection.start;
+              var length = selection.end - start;
+              if (length == 0) {
+                final text = _context?.text ?? '';
+                final index = selection.extentOffset;
+                final target = intent.forward
+                    ? _nextWordBoundary(text, index)
+                    : _prevWordBoundary(text, index);
+                start = min(index, target);
+                length = (target - index).abs();
               }
-              final length = selection.end - wordIndex;
               switch (_context) {
                 case TextContext e:
                   final element = e.element;
                   if (element == null) return e;
                   var area = element.area;
                   var paragraph = area.paragraph;
-                  paragraph = paragraph.remove(wordIndex, length.abs());
+                  paragraph = paragraph.remove(start, length);
                   area = area.copyWith(paragraph: paragraph);
                   final newElement = element.copyWith(area: area);
 
                   _context = e.copyWith(
                     element: newElement,
-                    selection: TextSelection.collapsed(offset: wordIndex),
+                    selection: TextSelection.collapsed(offset: start),
                   );
                   break;
                 case MarkdownContext e:
                   final element = e.element;
                   if (element == null) return e;
                   final text = element.text.replaceRange(
-                    wordIndex,
-                    length.abs(),
+                    start,
+                    start + length,
                     '',
                   );
 
                   _context = e.copyWith(
                     element: element.copyWith(text: text),
-                    selection: TextSelection.collapsed(offset: wordIndex),
+                    selection: TextSelection.collapsed(offset: start),
                   );
                 default:
                   return null;
               }
 
               bloc.refresh();
+
               _refreshToolbar(bloc);
               _updateEditingState();
               return null;
