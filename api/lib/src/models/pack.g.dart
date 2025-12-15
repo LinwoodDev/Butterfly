@@ -128,6 +128,12 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
       'type': instance.$type,
     };
 
+_PackAssetLocation _$PackAssetLocationFromJson(Map json) =>
+    _PackAssetLocation(json['namespace'] as String, json['key'] as String);
+
+Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
+    <String, dynamic>{'namespace': instance.namespace, 'key': instance.key};
+
 _NamedItem<T> _$NamedItemFromJson<T extends PackAsset>(
   Map json,
   T Function(Object? json) fromJsonT,

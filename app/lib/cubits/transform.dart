@@ -11,24 +11,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
 const kRoundPrecision = 3;
-const kDrag = 0.0625;
+const kDrag = 0.001;
 
 @immutable
 class FrictionState extends Equatable {
-  final Offset beginPosition;
+  final Offset beginOffset;
   final double beginSize;
   final DateTime lastUpdate;
   final double duration;
 
   const FrictionState(
-    this.beginPosition,
+    this.beginOffset,
     this.beginSize,
     this.lastUpdate,
     this.duration,
   );
 
   @override
-  List<Object?> get props => [beginPosition, beginSize, lastUpdate];
+  List<Object?> get props => [beginOffset, beginSize, lastUpdate];
 }
 
 @immutable
@@ -74,7 +74,7 @@ class CameraTransform extends Equatable {
     double velocity,
     double drag, {
     double effectivelyMotionless = 10,
-  }) => log(effectivelyMotionless / velocity) / log(drag / 100);
+  }) => log(effectivelyMotionless / velocity) / log(drag);
 
   FrictionSimulation _getSimulation(double velocity) =>
       FrictionSimulation(kDrag, 0, velocity);

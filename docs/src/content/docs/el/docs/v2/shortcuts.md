@@ -12,11 +12,10 @@ title: Συντομεύσεις
 - `Ctrl` + `N`: Νέο αρχείο
 - `Ctrl` + `Shift` + `N`: Νέο αρχείο από πρότυπο
 - `Ctrl` + `E`: Εξαγωγή αρχείου
-- `Ctrl` + `P`: Αρχείο εκτύπωσης
-- `Ctrl` + `Shift` + `E`: Εξαγωγή αρχείου ως εικόνα
-- `Ctrl` + `Alt` + `E`: Εξαγωγή αρχείου ως svg
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `P`: Ανοίξτε πακέτα
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 - `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 

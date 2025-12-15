@@ -42,12 +42,14 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final SearchController searchController;
   final EdgeInsets? padding;
   final bool inView;
+  final TextDirection direction;
 
   PadAppBar({
     super.key,
     required this.viewportKey,
     required this.size,
     required this.searchController,
+    required this.direction,
     this.showTools = true,
     this.inView = false,
     this.padding,
@@ -57,7 +59,12 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(child: windowTitleBar);
+    return RepaintBoundary(
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: windowTitleBar,
+      ),
+    );
   }
 
   WindowTitleBar _buildWindowTitleBar(EdgeInsets? padding) =>
@@ -66,29 +73,36 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: max(70, showTools ? size.size + 20 : 0),
         titleIgnorePointer: false,
         inView: inView,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+        leading: Directionality(
+          textDirection: direction,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isLarge =
+                    MediaQuery.of(context).size.width <
+                    LeapBreakpoints.expanded;
+                return _MainPopupMenu(
+                  viewportKey: viewportKey,
+                  isLarge: isLarge,
+                  padding: padding,
+                );
+              },
+            ),
+          ),
+        ),
+        title: Directionality(
+          textDirection: direction,
           child: LayoutBuilder(
             builder: (context, constraints) {
-              final isLarge =
-                  MediaQuery.of(context).size.width < LeapBreakpoints.expanded;
-              return _MainPopupMenu(
-                viewportKey: viewportKey,
-                isLarge: isLarge,
-                padding: padding,
+              final isMobile =
+                  MediaQuery.of(context).size.width < LeapBreakpoints.compact;
+              return _AppBarTitle(
+                isMobile: isMobile,
+                searchController: searchController,
               );
             },
           ),
-        ),
-        title: LayoutBuilder(
-          builder: (context, constraints) {
-            final isMobile =
-                MediaQuery.of(context).size.width < LeapBreakpoints.compact;
-            return _AppBarTitle(
-              isMobile: isMobile,
-              searchController: searchController,
-            );
-          },
         ),
       );
 
@@ -162,11 +176,15 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     previous.showSaveButton != current.showSaveButton,
                 builder: (context, settings) => LayoutBuilder(
                   builder: (context, constraints) => Row(
+                    textDirection: TextDirection.ltr,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ConstrainedBox(
                         constraints: BoxConstraints(
-                          maxWidth: min(300.0, constraints.maxWidth - 16),
+                          maxWidth: (constraints.maxWidth - 16).clamp(
+                            100.0,
+                            300.0,
+                          ),
                         ),
                         child: _buildAppBar(
                           state,
@@ -220,6 +238,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     BuildContext context,
     ButterflySettings settings,
   ) => Row(
+    textDirection: TextDirection.ltr,
     children: [
       Flexible(
         child: StreamBuilder<NetworkState?>(
@@ -513,7 +532,10 @@ class _MainPopupMenu extends StatelessWidget {
                     child: Text(AppLocalizations.of(context).packagedFile),
                   ),
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    leadingIcon: const PhosphorIcon(
+                      PhosphorIconsLight.file,
+                      textDirection: TextDirection.ltr,
+                    ),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyE,
                       control: true,
@@ -528,7 +550,10 @@ class _MainPopupMenu extends StatelessWidget {
                     child: Text(AppLocalizations.of(context).rawFile),
                   ),
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+                    leadingIcon: const PhosphorIcon(
+                      PhosphorIconsLight.fileSvg,
+                      textDirection: TextDirection.ltr,
+                    ),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyE,
                       alt: true,
@@ -545,6 +570,7 @@ class _MainPopupMenu extends StatelessWidget {
                   MenuItemButton(
                     leadingIcon: const PhosphorIcon(
                       PhosphorIconsLight.fileImage,
+                      textDirection: TextDirection.ltr,
                     ),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyE,
@@ -561,7 +587,10 @@ class _MainPopupMenu extends StatelessWidget {
                     child: Text(AppLocalizations.of(context).image),
                   ),
                   MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePdf),
+                    leadingIcon: const PhosphorIcon(
+                      PhosphorIconsLight.filePdf,
+                      textDirection: TextDirection.ltr,
+                    ),
                     shortcut: const SingleActivator(
                       LogicalKeyboardKey.keyP,
                       shift: true,
@@ -603,7 +632,10 @@ class _MainPopupMenu extends StatelessWidget {
               ),
               const Divider(),
               MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
+                leadingIcon: const PhosphorIcon(
+                  PhosphorIconsLight.filePlus,
+                  textDirection: TextDirection.ltr,
+                ),
                 shortcut: const SingleActivator(
                   LogicalKeyboardKey.keyN,
                   control: true,
@@ -614,7 +646,10 @@ class _MainPopupMenu extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).newContent),
               ),
               MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                leadingIcon: const PhosphorIcon(
+                  PhosphorIconsLight.file,
+                  textDirection: TextDirection.ltr,
+                ),
                 shortcut: const SingleActivator(
                   LogicalKeyboardKey.keyN,
                   shift: true,

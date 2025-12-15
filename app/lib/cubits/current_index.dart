@@ -11,11 +11,11 @@ import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image/image.dart' as img;
@@ -139,8 +139,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     CameraViewport newViewport,
     DocumentLoaded blocState,
   ) async {
+    final currentVisible = state.cameraViewport.visibleElements.toSet();
     final newVisible = newViewport.visibleElements.where(
-      (e) => !state.cameraViewport.visibleElements.contains(e),
+      (e) => !currentVisible.contains(e),
     );
     await Future.wait(
       newVisible.map(
@@ -177,6 +178,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     int? index,
     BuildContext? context,
     Handler<Tool>? handler,
+    bool allowBake = true,
   }) async {
     await resetInput(bloc);
     final blocState = bloc.state;
@@ -236,7 +238,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             temporaryIndex: null,
           ),
         );
-        await bake(blocState);
+        if (allowBake) await bake(blocState);
       } else {
         if (isHandlerEnabled(index)) {
           disableHandler(bloc, index);
@@ -259,13 +261,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
-    if (change.currentState.cameraViewport.image !=
-        change.nextState.cameraViewport.image) {
-      SchedulerBinding.instance.scheduleTask(
-        () => change.currentState.cameraViewport.image?.dispose(),
-        Priority.idle,
-      );
-    }
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
@@ -281,6 +276,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         currentViewport,
         newViewport,
       );
+    }
+    if (change.currentState.cameraViewport.image !=
+        change.nextState.cameraViewport.image) {
+      final image = change.currentState.cameraViewport.image;
+      Future.delayed(const Duration(seconds: 2), () => image?.dispose());
     }
   }
 
@@ -596,8 +596,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               : state.temporaryRendererStates,
         ),
       );
-      if (shouldBake && allowBake) {
-        return bake(blocState, reset: true);
+      if (allowBake) {
+        if (shouldBake) {
+          return bake(blocState, reset: true);
+        } else if (!state.cameraViewport.baked) {
+          return delayedBake(blocState);
+        }
       }
     }
   }
@@ -629,15 +633,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
-  void toggleHandler(DocumentBloc bloc, int index) {
+  Future<void> toggleHandler(DocumentBloc bloc, int index) async {
     if (state.toggleableHandlers.containsKey(index)) {
       disableHandler(bloc, index);
     } else {
-      enableHandler(bloc, index);
+      await enableHandler(bloc, index);
     }
   }
 
-  Handler? enableHandler(DocumentBloc bloc, int index) {
+  Future<Handler?> enableHandler(DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoaded) return null;
     if (index < 0 || index >= blocState.info.tools.length) {
@@ -657,7 +661,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       currentArea,
     );
     if (handler.setupForegrounds) {
-      Future.wait(
+      await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
             state.transformCubit,
@@ -831,7 +835,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       await bake(blocState);
     } else if (selectState == SelectState.toggle && index != null) {
-      toggleHandler(bloc, index);
+      await toggleHandler(bloc, index);
     }
     return handler;
   }
@@ -880,40 +884,35 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Rect getViewportRect({Size? viewportSize}) {
     var size = viewportSize ?? state.cameraViewport.toSize();
 
-    var transform = state.transformCubit.state;
+    final transform = state.transformCubit.state;
     final resolution = state.settingsCubit.state.renderResolution;
 
     final friction = transform.friction;
     final realWidth = size.width / transform.size;
     final realHeight = size.height / transform.size;
-    var rect = Rect.fromLTWH(
+    Rect rect = Rect.fromLTWH(
       transform.position.dx,
       transform.position.dy,
-      realWidth / resolution.multiplier,
-      realHeight / resolution.multiplier,
+      realWidth,
+      realHeight,
     );
     if (friction != null) {
+      final beginPosition = transform.position - friction.beginOffset;
       final topLeft = Offset(
-        min(transform.position.dx, friction.beginPosition.dx),
-        min(transform.position.dy, friction.beginPosition.dy),
+        min(transform.position.dx, beginPosition.dx),
+        min(transform.position.dy, beginPosition.dy),
       );
-      final bottomRight = Offset(
-        max(transform.position.dx, friction.beginPosition.dx),
-        max(transform.position.dy, friction.beginPosition.dy),
-      ).translate(size.width, size.height);
-      transform = transform.withPosition(topLeft);
-      rect = Rect.fromPoints(topLeft, bottomRight);
-      size =
-          Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
-          transform.size;
+      final frictionSize = Size(
+        realWidth + (friction.beginOffset.dx * transform.size).abs(),
+        realHeight + (friction.beginOffset.dy * transform.size).abs(),
+      );
+      rect = topLeft & frictionSize;
     }
     rect = resolution.getRect(rect);
     return rect;
   }
 
-  bool _isBaking = false;
-  Function? _queuedBake;
-  Completer<void>? _bakeCompleter;
+  final _bakeLock = Lock();
 
   Future<void> bake(
     DocumentLoaded blocState, {
@@ -921,25 +920,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     double? pixelRatio,
     bool reset = false,
     bool resetAllLayers = false,
-  }) async {
-    if (_isBaking) {
-      if (!(_bakeCompleter?.isCompleted ?? true)) _bakeCompleter?.complete();
-      final completer = Completer<void>();
-      _bakeCompleter = completer;
-      _queuedBake = () async {
-        await bake(
-          blocState,
-          viewportSize: viewportSize,
-          pixelRatio: pixelRatio,
-          reset: reset,
-          resetAllLayers: resetAllLayers,
-        );
-        if (completer.isCompleted) return;
-        completer.complete();
-      };
-      return completer.future;
-    }
-    _queuedBake = null;
+  }) => _bakeLock.synchronized(() async {
+    if (isClosed) return;
     var cameraViewport = state.cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
@@ -947,14 +929,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    if (viewportSize != null) {
-      size *= resolution.multiplier;
+    if (viewportSize == null) {
+      size /= resolution.multiplier;
     }
     var transform = state.transformCubit.state;
     var renderers = List<Renderer<PadElement>>.from(this.renderers);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final rect = getViewportRect(viewportSize: size);
+    size = rect.size * transform.size;
     final renderTransform = transform.improve(resolution, rect);
     final document = blocState.data;
     final page = blocState.page;
@@ -980,11 +963,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         !setEquals(cameraViewport.invisibleLayers, invisibleLayers);
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
-    if (renderers.isEmpty && !reset) return;
-    _isBaking = true;
+    if (cameraViewport.unbakedElements.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
+    final oldVisibleSet = oldVisible.toSet();
 
     if (reset) {
       visibleElements = renderers
@@ -995,15 +978,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(
           cameraViewport.unbakedElements.where(
             (renderer) =>
-                !oldVisible.contains(renderer) && renderer.isVisible(rect),
+                !oldVisibleSet.contains(renderer) && renderer.isVisible(rect),
           ),
         );
     }
 
+    final visibleElementsSet = visibleElements.toSet();
+
     // call onVisible for any newly visible elements
     await Future.wait(
       visibleElements
-          .where((element) => !oldVisible.contains(element))
+          .where((element) => !oldVisibleSet.contains(element))
           .map(
             (element) async =>
                 await element.onVisible(this, blocState, renderTransform, size),
@@ -1011,7 +996,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     await Future.wait(
       oldVisible
-          .where((element) => !visibleElements.contains(element))
+          .where((element) => !visibleElementsSet.contains(element))
           .map(
             (element) async =>
                 await element.onHidden(this, blocState, renderTransform, size),
@@ -1130,27 +1115,32 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
     }
 
+    final bakedElementsSet = cameraViewport.bakedElements
+        .map((e) => e.element)
+        .toSet();
+    final unbakedElementsSet = cameraViewport.unbakedElements
+        .map((e) => e.element)
+        .toSet();
+
     final newlyUnbaked =
         (reset ? this.renderers : state.cameraViewport.unbakedElements)
             .where(
               (element) =>
-                  !cameraViewport.bakedElements.any(
-                    (e) => e.element == element.element,
-                  ) &&
-                  !cameraViewport.unbakedElements.any(
-                    (e) => e.element == element.element,
-                  ),
+                  !bakedElementsSet.contains(element.element) &&
+                  !unbakedElementsSet.contains(element.element),
             )
             .toList();
     for (final u in newlyUnbaked) {
-      if (!visibleElements.contains(u)) visibleElements.add(u);
+      if (!visibleElementsSet.contains(u)) visibleElements.add(u);
     }
+
+    if (isClosed) return;
 
     emit(
       state.copyWith(
         cameraViewport: cameraViewport.bake(
-          height: size.height.ceil(),
-          width: size.width.ceil(),
+          height: size.height,
+          width: size.width,
           pixelRatio: ratio,
           resolution: resolution,
           scale: transform.size,
@@ -1167,20 +1157,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       ),
     );
-    _isBaking = false;
-    _queuedBake?.call();
-  }
+  });
 
   Future<ui.Image?> renderImage(
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
-    ImageExportOptions options, [
+    ImageExportOptions options, {
     CameraViewport? cameraViewport,
-  ]) async {
+    Set<String>? invisibleLayers,
+  }) async {
     final realWidth = (options.width * options.quality).ceil();
     final realHeight = (options.height * options.quality).ceil();
     final realZoom = options.scale * options.quality;
+    if (realWidth <= 0 || realHeight <= 0) {
+      return null;
+    }
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     final painter = ViewPainter(
@@ -1188,6 +1180,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       renderBackground: options.renderBackground,
+      invisibleLayers: invisibleLayers,
       cameraViewport:
           cameraViewport ??
           state.cameraViewport.unbake(unbakedElements: renderers),
@@ -1208,15 +1201,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     NoteData document,
     DocumentPage page,
     DocumentInfo info,
-    ImageExportOptions options, [
+    ImageExportOptions options, {
     CameraViewport? cameraViewport,
-  ]) async {
+    Set<String>? invisibleLayers,
+  }) async {
     final image = await renderImage(
       document,
       page,
       info,
       options,
-      cameraViewport,
+      cameraViewport: cameraViewport,
+      invisibleLayers: invisibleLayers,
     );
     ByteData? bytes;
     try {
@@ -1230,8 +1225,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   XmlDocument renderSVG(
     NoteData document,
     DocumentPage page,
-    SvgExportOptions options,
-  ) {
+    SvgExportOptions options, {
+    Set<String>? invisibleLayers,
+  }) {
     final xml = XmlDocument();
     xml.createElement(
       'svg',
@@ -1257,10 +1253,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         e.buildSvg(xml, document, page, rect);
       }
     }
-    for (var e in [
-      ...state.cameraViewport.visibleElements,
-      ...state.cameraViewport.unbakedElements,
-    ]) {
+    for (var e in renderers) {
+      if ((invisibleLayers?.contains(e.layer) ?? false) || !e.isVisible(rect)) {
+        continue;
+      }
       e.buildSvg(xml, document, page, rect);
     }
     return xml;
@@ -1386,6 +1382,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     required List<AreaPreset> areas,
     bool renderBackground = true,
     void Function(double progress)? onProgress,
+    Set<String>? invisibleLayers,
   }) async {
     var name = docState.metadata.name;
     if (name.isEmpty) {
@@ -1421,7 +1418,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground,
         ),
-        currentOpened
+        cameraViewport: currentOpened
             ? null
             : await CameraViewport.build(
                 docState.transformCubit,
@@ -1429,6 +1426,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
                 docState.assetService,
                 page,
               ),
+        invisibleLayers: invisibleLayers ?? docState.invisibleLayers,
       );
       if (image == null) continue;
       final imgImage = await convertFlutterUiToImage(image);
@@ -1587,6 +1585,30 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.transformCubit.zoom(delta, cursor);
   }
 
+  void slide(
+    Offset positionVelocity,
+    double sizeVelocity, [
+    bool force = false,
+  ]) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    final utilitiesState = state.utilities;
+    if (utilitiesState.lockHorizontal && !force) {
+      positionVelocity = Offset(0, positionVelocity.dy);
+    }
+    if (utilitiesState.lockVertical && !force) {
+      positionVelocity = Offset(positionVelocity.dx, 0);
+    }
+    if (utilitiesState.lockZoom && !force) {
+      sizeVelocity = 0;
+    }
+    if (positionVelocity.dx == 0 &&
+        positionVelocity.dy == 0 &&
+        sizeVelocity == 0) {
+      return;
+    }
+    state.transformCubit.slide(positionVelocity, sizeVelocity);
+  }
+
   void toggleKeyboardHideUI() => emit(
     state.copyWith(
       hideUi: state.hideUi == HideState.visible
@@ -1682,15 +1704,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     });
   }
 
-  void dispose() {
-    state.networkingService.closeNetworking();
+  @override
+  Future<void> close() async {
+    if (!state.networkingService.isClosed) {
+      await state.networkingService.close();
+    }
+    return super.close();
   }
 
-  Rect getPageRect() {
+  Rect getPageRect({Set<String>? invisibleLayers}) {
     Rect? rect;
     for (final renderer in renderers) {
-      final rendererRect = renderer.rect;
+      final rendererRect = renderer.expandedRect;
       if (rendererRect == null) continue;
+      if (invisibleLayers?.contains(renderer.layer) ?? false) {
+        continue;
+      }
       rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }
     return rect ?? Rect.zero;
@@ -1741,11 +1770,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.embedding != null) {
       return;
     }
-    if (reset || shouldRefresh?.call() == true) {
-      refresh(current);
-    }
     if (reset) {
-      reload(current);
+      reload(bloc, current);
+    } else if (shouldRefresh?.call() == true) {
+      await refresh(current);
     }
     if (updateIndex) {
       this.updateIndex(bloc);
@@ -1753,11 +1781,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current.hasAutosave()) {
       save(bloc, isAutosave: true);
     }
-  }
-
-  void slide(ui.Offset positionVelocity, double scaleVelocity) {
-    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
-    state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
 
   void setAreaNavigatorCreate(bool value) =>
@@ -1769,7 +1792,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
 
-  void updateTogglingTools(DocumentBloc bloc, Map<int, Tool> tools) {
+  Future<void> updateTogglingTools(
+    DocumentBloc bloc,
+    Map<int, Tool> tools,
+  ) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final newHandlers = Map<int, Handler<Tool>>.from(state.toggleableHandlers);
@@ -1799,7 +1825,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         currentArea,
       );
       if (handler.setupForegrounds) {
-        Future.wait(
+        await Future.wait(
           foregrounds.map(
             (e) async => await e.setup(
               state.transformCubit,
@@ -1829,16 +1855,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(navigatorPage: page));
   }
 
+  var _bakeDelayed = false;
+
   Future<void> delayedBake(
     DocumentLoaded blocState, {
     ui.Size? viewportSize,
     double? pixelRatio,
     bool reset = false,
     bool testTransform = false,
-  }) {
+  }) async {
+    if (_bakeDelayed) return;
     final transformCubit = state.transformCubit;
     final oldTransform = transformCubit.state;
-    return Future.delayed(const Duration(milliseconds: 100), () {
+    try {
+      await Future.delayed(const Duration(milliseconds: 100));
       final newTransform = transformCubit.state;
       final viewport = state.cameraViewport;
       if (testTransform &&
@@ -1846,24 +1876,46 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               oldTransform.position != newTransform.position ||
               (oldTransform.size == viewport.scale &&
                   oldTransform.position == viewport.toOffset()))) {
-        return Future.value();
+        return;
       }
-      return bake(
-        blocState,
-        viewportSize: viewportSize,
-        pixelRatio: pixelRatio,
-        reset: reset,
-      );
-    });
+    } finally {
+      _bakeDelayed = false;
+    }
+    await bake(
+      blocState,
+      viewportSize: viewportSize,
+      pixelRatio: pixelRatio,
+      reset: reset,
+    );
   }
 
   void setUserName(String name) {
     emit(state.copyWith(userName: name));
   }
 
-  Future<void> reload(DocumentLoaded current) async {
+  Future<void> reloadTool(
+    DocumentBloc bloc, [
+    DocumentLoaded? blocState,
+  ]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    // If tool is not the same, change tool
+    final tools = current.info.tools;
+    final toolIndex = state.index ?? 0;
+    final newTool = tools.elementAtOrNull(toolIndex);
+    if (newTool?.isAction() ?? true) {
+      await changeTool(bloc, index: 0, allowBake: false);
+    } else if (newTool != state.handler.data) {
+      await changeTool(bloc, index: toolIndex, allowBake: false);
+    }
+  }
+
+  Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    await reloadTool(bloc, current);
     await loadElements(current);
-    refresh(current, allowBake: false);
+    await refresh(current, allowBake: false);
     await delayedBake(current);
   }
 }

@@ -13,7 +13,7 @@
   --sl-color-gray-5: var(--ls-elevation);
   --sl-color-gray-6: var(--ls-elevation);
   --sl-color-gray-7: var(--ls-elevation);
-  --sl-color-text: var(--sl-color-text);
+  --sl-color-text: var(--ls-background-text);
 }
 :root[data-theme="light"] {
   --ls-elevation: rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@ select {
   @include lw.select-enhancements();
   background-image: none;
   width: revert-layer;
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
 }
 option {
   @include lw.option-base();
@@ -90,13 +90,34 @@ option {
   }
 }
 
-site-search button {
+:where(site-search button):not(:where(site-search dialog button)) {
   @include lw.input-base();
+  width: revert-layer;
 }
 
 .social-icons {
   display: flex;
   gap: 1.5rem;
+}
+
+span {
+  --sl-color-gray-2: var(--ls-background-text);
+}
+
+a {
+  --sl-color-gray-3: var(--ls-background-text);
+  --sl-color-gray-2: var(--ls-background-text);
+
+  &[aria-current="true"] {
+    color: var(--ls-primary);
+  }
+  .tab &:hover {
+    text-decoration: none;
+    color: var(--ls-primary);
+  }
+  &:not(:where(.pagination-links *, .sl-link-button, .sl-link-card *, .tab *)):hover {
+    text-decoration: underline;
+  }
 }
 
 .social-icons a {

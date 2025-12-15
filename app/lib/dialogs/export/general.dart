@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -79,15 +81,26 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     if (mounted) setState(() => _previewImage = image);
   }
 
-  Future<ByteData?> generateImage() async {
+  Future<ByteData?> generateImage([bool optimize = true]) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
+    var imageOptions = _options.toImageOptions();
+    const maxImageDimension = 1000;
+    if (optimize) {
+      final maxSide = max(imageOptions.width, imageOptions.height);
+      if (maxSide > maxImageDimension) {
+        imageOptions = imageOptions.copyWith(
+          quality: min(imageOptions.quality, maxImageDimension / maxSide),
+        );
+      }
+    }
     return state.currentIndexCubit.render(
       state.data,
       state.page,
       state.info,
-      _options.toImageOptions(),
+      imageOptions,
+      invisibleLayers: state.invisibleLayers,
     );
   }
 
@@ -96,7 +109,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
     return state.currentIndexCubit
-        .renderSVG(state.data, state.page, options)
+        .renderSVG(
+          state.data,
+          state.page,
+          options,
+          invisibleLayers: state.invisibleLayers,
+        )
         .toXmlString();
   }
 
@@ -107,7 +125,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     }
     switch (_options) {
       case ImageExportOptions():
-        final data = await generateImage();
+        final data = await generateImage(false);
         if (data == null) {
           return;
         }
@@ -259,12 +277,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             ),
             IconButton.filledTonal(
               onPressed: () {
-                final cubit = context
-                    .read<DocumentBloc>()
-                    .state
-                    .currentIndexCubit;
-                if (cubit == null) return;
-                final rect = cubit.getPageRect();
+                final bloc = context.read<DocumentBloc>();
+                final state = bloc.state;
+                if (state is! DocumentLoaded) return;
+                final cubit = state.currentIndexCubit;
+                final rect = cubit.getPageRect(
+                  invisibleLayers: state.invisibleLayers,
+                );
                 setState(() {
                   _preset = ExportTransformPreset.page;
                   _options = (switch (_options) {
@@ -285,7 +304,10 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 });
                 _regeneratePreviewImage();
               },
-              icon: const PhosphorIcon(PhosphorIconsLight.file),
+              icon: const PhosphorIcon(
+                PhosphorIconsLight.file,
+                textDirection: TextDirection.ltr,
+              ),
               tooltip: AppLocalizations.of(context).page,
               selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
               isSelected: _preset == ExportTransformPreset.page,

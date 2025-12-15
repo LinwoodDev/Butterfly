@@ -3,6 +3,9 @@ title: Lagring
 sidebar_position: 2
 ---
 
+There are multiple ways of storing notes in Butterfly.
+Either by using your device storage, or by using the cloud storage (WebDAV).
+
 ## Datakatalog
 
 Datakatalogen är den katalog där dokument, mallar och paket lagras.
@@ -54,3 +57,28 @@ Det finns några begränsningar:
 Om du är på en infödd enhet kan du även synkronisera applikationskatalogen med din favoritplattform.
 Google drive har [en officiell app](https://www.google.com/drive/download/) på windows och det finns inofficiella en gång i play store.
 På Linux kan du också använda det inbyggda fjärrlagringssystemet och ändra datakatalogen till detta eller lägga till ett nytt externt lagringsutrymme om du klickar på knappen Lägg till anslutning.
+
+## Supported file types
+
+Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+### Butterfly Note (.bfly)
+
+This file type is the recommended for saving notes.
+
+It is a zip archive containing the information (mostly in JSON files) about the note.
+These included JSON files aren't optimized for being human readable.
+
+### Butterfly Raw Note (.tbfly)
+
+This file is recommended for use with version control software like git.
+
+This file is **not** a zip archive, instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+
+### SVG
+
+This file type doesn't save information about the note!
+When this file is imported into Butterfly, it is treated as a single image.
+
+Use this _ONLY_ when the note shouldn't be modified by butterfly.

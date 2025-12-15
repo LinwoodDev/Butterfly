@@ -12,11 +12,10 @@ title: Ярлыки
 - `Ctrl` + `N`: Новый файл
 - `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 - `Ctrl` + `E`: Экспорт файла
-- `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
-- `Ctrl` + `P`: Печать файла
-- `Ctrl` + `Shift` + `E`: Экспортировать файл как изображение
+- `Ctrl` + `Shift` + `E`: Export file (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Alt` + `Shift` + `E` (Nightly (2.4): `Ctrl` + `Shift` + `P`): Export file as pdf
+- `Ctrl` + `Shift` + `P`: Export file as pdf
 - `Ctrl` + `Alt` + `S`: Открыть настройки
 - `Ctrl` + `Alt` + `P`: Открытые пакеты
 

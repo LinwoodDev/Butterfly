@@ -488,7 +488,7 @@ class ImportService {
         .map((e) => Renderer.fromInstance(e))
         .toList();
     final transformCubit = TransformCubit(1, position);
-    final assetService = AssetService(document);
+    final assetService = AssetService();
     await Future.wait(
       renderers.map(
         (e) async =>
@@ -895,6 +895,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
+      case AssetFileType.textNote:
         exportData(context, await state.saveData());
         break;
       case AssetFileType.image:

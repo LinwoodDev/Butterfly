@@ -1,5 +1,8 @@
 {
   "open": "打开",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "设置",
   "personalization": "个性化",
   "theme": "主题",
@@ -7,39 +10,90 @@
   "lightTheme": "亮色主题",
   "systemTheme": "使用系统默认主题",
   "view": "查看",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "编辑",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "导出",
   "save": "保存",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "缩放",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "缩放",
   "zoomOut": "缩放",
   "resetZoom": "Reset zoom",
   "strokeWidth": "笔画宽度",
   "includeEraser": "包括擦除器？",
-  "thinning": "闪光灯",
+  "thinning": "细化",
   "pen": "笔",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "反转笔数",
   "eraser": "橡皮擦",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "整笔擦除",
   "label": "标签",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "删除",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "您确定吗？",
   "reallyDelete": "您真的想要删除这个项目吗？",
   "no": "否",
   "yes": "否",
   "undo": "撤消操作",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "重做",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "常规",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "复制到剪贴板",
   "loading": "加载中...",
   "enterText": "输入文本",
   "size": "大小",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "宽度",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "高度",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "计数",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "空间",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "背景",
   "box": "框",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "本地化",
   "systemLocale": "系统区域设置",
   "information": "信息",
@@ -53,19 +107,34 @@
   "existOverride": "此元素已经存在。覆盖吗？",
   "description": "描述",
   "fill": "填充",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "默认调色板",
   "highlighter": "高亮器",
   "add": "添加",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "删除",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "您真的想要删除这个吗？",
   "resetPalette": "Reset palette",
   "custom": "自定义",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "装饰",
   "underline": "下划线",
   "overline": "轮廓线",
   "strikethrough": "删除线",
   "thickness": "厚度",
   "style": "样式",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "双精度",
   "dotted": "虚线",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "剪切板",
   "file": "文件",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "数据",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "分享",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "间距",
   "image": "图片",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "输入网址",
   "scale": "缩放比例",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "帮助",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "您真的想要重置吗？",
   "whatToDo": "您想要做什么？",
   "ignore": "忽略",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "备份",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "文件 {fileName} 是在更新版本 ({fileVersion})中创建的。该文件应该怎么办？",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "航点",
   "origin": "始发地",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "导入",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "新的",
   "selectElement": "选择元素",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "复制版本",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "行为",
   "dataDirectory": "数据目录",
   "defaultPath": "默认路径",
@@ -138,16 +240,40 @@
   "rename": "重命名：",
   "duplicate": "Duplicate",
   "hand": "手",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "文件夹",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "移动",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "复制",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "后退",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "依靠缩放",
   "shapeDetection": "形状检测",
   "delay": "延迟",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "默认图层",
   "layer": "图层",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "图层",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "未设置",
   "enterLayer": "输入图层名称",
   "selectElements": "选择元素",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "您真的想要删除选定的元素吗？",
   "selectCustomCollection": "选择一个自定义收藏",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "灵敏度",
-  "sensitivityHint": "值越高，输入越灵敏度",
+  "sensitivityHint": "值越高，输入越敏感",
   "horizontal": "水平",
   "vertical": "垂直的",
   "plain": "纯色",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "亮色的",
   "ruled": "已规则",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "四月",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "音乐",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "深色",
   "plainDark": "深色",
   "ruledDark": "限定的暗色",
@@ -174,29 +315,56 @@
   "createTemplate": "创建模板",
   "createTemplateContent": "您真的想要从此文档创建一个模板吗？原始文档将被删除。",
   "replace": "替换",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "您真的想要替换模板吗？此操作不能撤消！",
   "defaultTemplate": "默认模板",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "文件",
   "camera": "摄像头",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "打印输出",
   "selectCamera": "选择相机",
   "changeDocumentPath": "更改文档路径",
   "deleteWholeStroke": "删除整个笔记",
-  "alpha": "阿尔法",
+  "alpha": "不透明度",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "区域",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "选择区域",
   "aspectRatio": "纵横比",
   "presets": "预设值",
   "pagePortrait": "页面肖像",
   "pageLandscape": "横屏页面",
   "square": "方形",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "地区",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "输入区域",
   "exitArea": "退出区域",
   "currentArea": "当前区域",
   "design": "设计",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "文本",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "固定的",
   "dynamicContent": "动态",
   "none": "无",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "包含区域",
   "verticalAlignment": "垂直对齐",
   "horizontalAlignment": "水平对齐",
   "top": "顶端",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "居中",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "底部",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "左侧",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "右侧",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "对齐",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "制约因素",
   "length": "长度",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "导出SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "选择页面",
   "recentFiles": "最近的文件",
   "start": "开始",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "没有最近的文件",
   "countPages": "{count,plural, =0{没有页面} =1{1页面} other{{count} pages}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "退出",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "没有元素",
   "invertSelection": "反转选择",
   "errorWhileImporting": "导入时出错",
@@ -268,14 +469,23 @@
   "error": "错误",
   "stackTrace": "堆栈跟踪",
   "laser": "激光器",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "期限",
   "quality": "质量",
   "exportPdf": "导出 PDF",
   "local": "本地的",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "添加连接",
   "connections": "连接",
   "noConnections": "没有连接",
   "url": "网址",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "连接",
   "username": "用户名",
   "password": "密码",
@@ -288,10 +498,22 @@
   "cannotConnect": "无法连接",
   "urlNotValid": "URL无效",
   "icon": "图标",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "更新",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "可用更新",
   "stable": "稳定的",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "每晚一次",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "检查更新",
   "checkForUpdatesWarning": "检查更新将连接到Butterfair网站获取信息。",
   "usingLatestStable": "您正在使用最新的稳定版本",
@@ -299,10 +521,25 @@
   "currentVersion": "当前版本",
   "updateNow": "立即更新",
   "shape": "形状",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "圆圈",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "矩形",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "三角形",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "直线",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "左上方",
   "topRight": "右上",
@@ -310,6 +547,9 @@
   "bottomRight": "右下",
   "caches": "缓存",
   "manage": "管理",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "清除缓存",
   "createCache": "创建缓存",
   "thirdPartyLicenses": "第三方许可证",
@@ -317,6 +557,9 @@
   "synced": "已同步",
   "notSynced": "未同步",
   "conflict": "冲突",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "保持本地状态",
   "keepConnection": "保持连接",
   "keepBoth": "两者都保留",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "离线的",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "本地最新版本",
   "connectionLatest": "最新连接",
   "path": "路径",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "文件夹已同步",
   "syncRootDirectory": "同步根目录",
   "penOnlyInput": "只输入笔数",
@@ -346,19 +595,55 @@
   "syncMode": "同步模式",
   "connection": "连接",
   "always": "总是显示",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "无手机",
   "manual": "手动模式",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "搜索",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "属性",
   "pin": "置顶",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "元素",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "涂料",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "位置",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "说明",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "包",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "包",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "更多",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "询问名称",
   "areaIndex": "区域 {index}",
   "@areaIndex": {
@@ -370,14 +655,35 @@
     }
   },
   "startInFullScreen": "全屏启动",
-  "inputs": "Inputs",
-  "mouse": "鼠标键",
-  "touch": "触摸时",
-  "keyboard": "Keyboard",
+  "inputs": "输入",
+  "@inputs": {
+    "description": "Input settings"
+  },
+  "mouse": "鼠标",
+  "@mouse": {
+    "description": "Input device"
+  },
+  "touch": "触摸",
+  "@touch": {
+    "description": "Input device"
+  },
+  "keyboard": "键盘",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "快捷键",
   "middle": "中",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "第一页",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "秒",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "活动工具",
   "activeToolDescription": "使用工具栏上当前选择的工具",
   "handTool": "手持工具",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "工具",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "显示网格",
   "grid": "网格",
-  "ruler": "标标",
+  "@grid": {
+    "description": "Helper tool"
+  },
+  "ruler": "标尺",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "角度",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "报告",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "新建文件夹",
   "createPack": "创建包",
   "editPack": "编辑包",
   "packsDirectory": "包目录",
   "stamp": "印章",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "添加到包",
   "sureImportPack": "您确定要导入包吗？",
   "byAuthor": "由 {author}",
@@ -419,6 +743,9 @@
   "addAsset": "添加资产",
   "editAsset": "编辑素材",
   "scope": "范围",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "目前没有可用的包",
   "components": "组件",
   "waypoint": "航点",
@@ -439,19 +766,34 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "第18段",
   "fontFamily": "字体类",
   "smoothing": "平滑化",
-  "streamline": "简化行",
+  "streamline": "流线化",
   "presentation": "列报内容",
   "selectAsset": "选择素材",
   "clearStyle": "清除样式",
   "unknownImportType": "未知导入类型",
   "sureImportTemplate": "您确定要导入模板吗？",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "播放",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "视频",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "断点",
   "presentationControls": "演示控制",
   "nextSlide": "下一张幻灯片",
@@ -476,16 +818,34 @@
     }
   },
   "code": "代码",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "引用",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "链接",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "复选框",
   "deleted": "已删除",
   "emphasis": "重点：",
   "listBullet": "列表符号",
   "strong": "强度",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "首页",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "文件",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "排序方式",
   "location": "地点",
   "whatsNew": "有什么新鲜事？",
@@ -493,12 +853,21 @@
   "star": "星标",
   "goUp": "向上移动",
   "created": "已创建",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "已修改",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "快速开始",
   "noTemplates": "目前没有可用的模板",
   "importCorePack": "导入核心包",
   "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。",
   "never": "从不使用",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "仅在更新",
   "visibility": "可见性",
   "captureThumbnail": "捕获缩略图",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "选择标签模式",
   "foreground": "前景",
   "version": "版本",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "存储库",
   "pages": "页 次",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "安排",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "置于前端",
   "sendToBack": "发送到背面",
   "bringForward": "前进中",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "仅在大屏幕上可用",
   "toolbarPosition": "工具栏位置",
   "rotate": "旋转",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "空格",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "导航铁道",
   "cut": "剪辑",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "插入前",
   "insertAfter": "在此处插入",
   "insertFirst": "先插入",
   "insertLast": "Insert last",
   "paste": "粘贴",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "升序",
   "descending": "降序",
   "imageScale": "图像缩放",
   "select": "选择",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "工具",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "纹理",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "平台主题",
   "desktop": "桌面",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "移动设备",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF 质量",
   "surface": "表面",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "图案",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "您确定要关闭文档吗？",
   "thereAreUnsavedChanges": "有未保存的更改",
   "page": "纸张",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE 服务器",
   "collaboration": "合作",
   "webRtc": "Web RTC",
   "webSocket": "Web 套接字",
   "iceServer": "ICE 服务器",
   "port": "端口",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "类型",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "侧面",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "客户端：",
+  "@client": {
+    "description": "Role"
+  },
   "server": "服务器",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "切换视图",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "隐藏界面",
   "density": "密度",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "紧凑的",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "舒适的",
   "standard": "标准的",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "锁定",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "添加元素",
   "notDefaultConnection": "不是默认连接",
   "defaultConnection": "默认连接",
   "hide": "隐藏",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "显示",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "暂停",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "停止",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "刷新",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "打印",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
-  "eyeDropper": "眼睛投射器",
+  "@dav": {
+    "description": "WebDAV"
+  },
+  "eyeDropper": "滴管",
   "users": "用户",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "实验",
   "experimentsWarning": "这些功能是实验性的，可能随时更改、中断或消失。 启用它们可能导致不稳定或数据丢失。请谨慎行事。请报告任何漏洞。",
   "address": "地址",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "扩展到页面",
   "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
   "rootDirectoryNotSpecifiedDescription": "未指定根目录。需要名称。所有高级目录路径将是绝对路径。保留空白以禁用此目录类型。",
@@ -594,25 +1065,49 @@
   "createAreas": "创建区域",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "业务活动",
   "medium": "中",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "大的",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "工具栏大小",
   "addAll": "添加全部",
   "onlyCurrentPage": "仅当前页面",
   "smoothNavigation": "平滑导航",
   "exact": "精准的",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "内联",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "工具栏行",
   "pointerTest": "指针测试",
   "pressure": "气压",
   "small": "小的",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "微调",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "选择所有",
   "overrideTools": "覆盖工具",
   "hideCursorWhileDrawing": "绘制时隐藏光标",
   "installed": "已安装",
   "install": "安装",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "取消选择",
   "changeCollection": "更改收藏",
   "collections": "A. 收款情况",
@@ -621,15 +1116,30 @@
   "collection": "收藏",
   "defaultCollection": "默认收藏",
   "scroll": "滚动",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "启动时",
   "homeScreen": "主屏幕",
   "lastNote": "最后一个笔记",
   "newNote": "新建笔记",
   "convertToLayer": "转换为图层",
   "merge": "合并",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "上移",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "向下",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "其他",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{没有元素} =1{元素} other{元素{count} 元素}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "以性能为代价最大化质量。使图像覆盖可见区域的2倍，确保无缝渲染，即使在快速滚动或缩放时也是如此。",
   "renderResolution": "渲染分辨率",
   "translate": "翻译",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "未加密",
   "encrypted": "加密的",
   "encryptDocumentMessage": "点击以加密文档",
@@ -662,8 +1175,14 @@
   "confirmPassword": "确认密码",
   "passwordMismatch": "密码不匹配",
   "action": "动作",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG 文本",
   "offset": "偏移量",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "位置依赖关系",
   "flipHorizontal": "水平翻转",
   "flipVertical": "垂直翻转",
@@ -672,9 +1191,12 @@
   "exportAllFiles": "导出所有文件",
   "restoreSettingsFromFile": "从文件恢复设置",
   "exportSettingsToFile": "导出设置到文件",
-  "barcode": "Barcode",
+  "barcode": "条形码",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "条形码类型",
-  "qrCode": "QR Code",
+  "qrCode": "二维码",
   "dataMatrix": "数据矩阵表",
   "code128": "代码 128",
   "defaultUserName": "User {index}",
@@ -690,28 +1212,53 @@
   "moveRight": "右移",
   "bundledPacks": "捆绑包",
   "component": "组件",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "选择组件",
   "bundlePackInDocument": "文档中的捆包包",
   "bundledPacksDescription": "捆绑包包含在文档中，仅用于与文档共享。 资源只有在包安装后才能在文档中使用。可以通过单击它们来安装包。",
-  "fillAlpha": "填充透明度",
+  "fillAlpha": "填充不透明度",
   "packagedFile": "封装文件",
   "rawFile": "原始文件",
   "webSocketDescription": "您的设备是服务器的主机，所以合作者只能在同一网络上或在任何地方加入，如果您转发您的路由器上的端口。",
   "swampDescription": "您的消息通过带有端到端加密的安全中继服务器路由。创建会话需要一个swamp服务器地址。",
   "createRawNote": "创建原始笔记",
   "polygon": "多边形",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "完成形状",
   "submit": "提交",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "数学数",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "忽略电压",
   "ignoreFirstPressureDescription": "在某些设备上，第一个压力值不准确。 此设置将忽略第一个压力值，然后使用第二个事件的压力。",
   "temporary": "临时的",
   "simpleToolbarVisibility": "简单工具栏可见性",
   "autosaveDelay": "自动保存延迟",
   "saved": "已保存",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "保存中...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "只读",
   "saveDelayed": "保存延迟",
   "unsaved": "未保存",
-  "pdfEmptyDescription": "目前没有要导出的区域。 请使用右上角的加号按钮选择至少一个区域，或从当前页面或从下面的整个文档中添加所有区域。"
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "目前没有要导出的区域。 请使用右上角的加号按钮选择至少一个区域，或从当前页面或从下面的整个文档中添加所有区域。",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

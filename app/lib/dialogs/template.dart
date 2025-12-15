@@ -110,7 +110,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
               },
             ),
             MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+              leadingIcon: const PhosphorIcon(
+                PhosphorIconsLight.file,
+                textDirection: TextDirection.ltr,
+              ),
               child: Text(AppLocalizations.of(context).rawFile),
               onPressed: () async {
                 await _exportTemplates(isTextBased: true);
@@ -347,6 +350,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       MenuItemButton(
                                         leadingIcon: const PhosphorIcon(
                                           PhosphorIconsLight.file,
+                                          textDirection: TextDirection.ltr,
                                         ),
                                         child: Text(
                                           AppLocalizations.of(context).rawFile,
@@ -526,7 +530,11 @@ class _TemplateItem extends StatelessWidget {
       return const SizedBox();
     }
     final thumbnail = template.getThumbnail();
-    const fallback = PhosphorIcon(PhosphorIconsLight.file, size: 48);
+    const fallback = PhosphorIcon(
+      PhosphorIconsLight.file,
+      textDirection: TextDirection.ltr,
+      size: 48,
+    );
     final leading = thumbnail != null
         ? AspectRatio(
             aspectRatio: kThumbnailRatio,

@@ -1,5 +1,8 @@
 {
   "open": "Открыть",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Настройки",
   "personalization": "Персонализация",
   "theme": "Тема",
@@ -7,10 +10,22 @@
   "lightTheme": "Светлая тема",
   "systemTheme": "Использовать системную тему по умолчанию",
   "view": "Вид",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Редактировать",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Экспорт",
   "save": "Сохранить",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Масштаб",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Увеличить",
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
@@ -18,28 +33,67 @@
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Инверсия ручки",
   "eraser": "Ластик",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Контурный ластик",
   "label": "Подпись",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Удалить",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Вы уверены?",
   "reallyDelete": "Вы действительно хотите удалить этот элемент?",
   "no": "Нет",
   "yes": "Да",
   "undo": "Отменить",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Повторить",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Общие",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Скопировано в буфер обмена",
   "loading": "Загрузка...",
   "enterText": "Введите текст",
   "size": "Размер",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Ширина",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Высота",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Счетчик",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Пространство",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Фон",
   "box": "Блок",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Язык",
   "systemLocale": "Системный язык",
   "information": "Информация",
@@ -53,19 +107,34 @@
   "existOverride": "Этот элемент уже существует. Перезаписать?",
   "description": "Описание",
   "fill": "Заполнить",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Стандартная палитра",
   "highlighter": "Выделение",
   "add": "Добавить",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Удалить",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Вы действительно хотите удалить это?",
   "resetPalette": "Сбросить палитру",
   "custom": "Пользовательский",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Оформление",
   "underline": "Подчёркивание",
   "overline": "Надчеркивание",
   "strikethrough": "Зачёркнутый",
   "thickness": "Толщина",
   "style": "Стиль",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Сплошной",
   "double": "Двойной",
   "dotted": "Точечный",
@@ -77,17 +146,41 @@
   "italic": "Курсив",
   "clipboard": "Буфер обмена",
   "file": "Файл",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Данные",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Поделиться",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Интервал",
   "image": "Изображение",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Введите URL",
   "scale": "Масштаб",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Справка",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Вы действительно хотите сбросить его?",
   "whatToDo": "Что вы хотите сделать?",
   "ignore": "Пропустить",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Резервное копирование",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Файл {fileName} был создан в более новой версии ({fileVersion}). Что нужно сделать с этим файлом?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Путевые точки",
   "origin": "Источник",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Импорт",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Новый",
   "selectElement": "Выберите элемент",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Скопировать версию",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Поведение",
   "dataDirectory": "Каталог данных",
   "defaultPath": "Путь по умолчанию",
@@ -138,16 +240,40 @@
   "rename": "Переименовать",
   "duplicate": "Дублировать",
   "hand": "Рука",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Папка",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Переместить",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Копировать",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Назад",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Зависимость от масштаба",
   "shapeDetection": "Обнаружение фигур",
   "delay": "Задержка",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Слой по умолчанию",
   "layer": "Слой",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Слои",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Не задано",
   "enterLayer": "Введите имя слоя",
   "selectElements": "Выберите элементы",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Вы действительно хотите удалить выбранные элементы?",
   "selectCustomCollection": "Выберите свою коллекцию",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Чувствительность",
   "sensitivityHint": "Чем больше значение, тем чувствительнее ввод",
   "horizontal": "Горизонтально",
   "vertical": "Вертикально",
   "plain": "Обычный",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Светлая",
   "ruled": "В линейку",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "В клетку",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Нотный стан",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Тёмная",
   "plainDark": "Тёмная",
   "ruledDark": "В линейку тёмный",
@@ -174,29 +315,56 @@
   "createTemplate": "Создать шаблон",
   "createTemplateContent": "Вы действительно хотите создать шаблон из этого документа? Оригинальный документ будет удален.",
   "replace": "Заменить",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Вы действительно хотите заменить шаблон? Это действие нельзя отменить!",
   "defaultTemplate": "Шаблон по умолчанию",
   "insert": "Вставить",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Документ",
   "camera": "Снимок",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Печать",
   "selectCamera": "Выбор камеры",
   "changeDocumentPath": "Изменить путь к документу",
   "deleteWholeStroke": "Удалить весь контур",
   "alpha": "Прозрачность",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Область",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Выберите область",
   "aspectRatio": "Соотношение сторон",
   "presets": "Пресеты",
   "pagePortrait": "Портрет",
   "pageLandscape": "Пейзаж",
   "square": "Квадрат",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Области",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Войти в область",
   "exitArea": "Выйти из области",
   "currentArea": "Текущая область",
   "design": "Дизайн",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Текст",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Эй, это Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Исправлено",
   "dynamicContent": "Динамический",
   "none": "Нет",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Включение области",
   "verticalAlignment": "Вертикальное выравнивание",
   "horizontalAlignment": "Горизонтальное выравнивание",
   "top": "Сверху",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "По центру",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Внизу",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Слева",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Справа",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "По ширине",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Ограничение",
   "length": "Длина",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Экспорт SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Выберите страницы",
   "recentFiles": "Последние файлы",
   "start": "Начальный экран",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Нет недавних файлов",
   "countPages": "{count,plural, =0{Нет страниц} =1{1 страница} other{{count} страницы}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Выход",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Нет элементов",
   "invertSelection": "Обратить выделение",
   "errorWhileImporting": "Ошибка при импорте",
@@ -268,14 +469,23 @@
   "error": "Ошибка",
   "stackTrace": "Трассировка стека",
   "laser": "Лазер",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Время видимости",
   "quality": "Качество",
   "exportPdf": "Экспорт в PDF",
   "local": "Локальный",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Добавить подключение",
   "connections": "Подключения",
   "noConnections": "Нет подключений",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Подключиться",
   "username": "Имя пользователя",
   "password": "Пароль",
@@ -288,10 +498,22 @@
   "cannotConnect": "Не удается подключиться",
   "urlNotValid": "Неправильный URL",
   "icon": "Иконка",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Обновление",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Доступно обновление",
   "stable": "Стабильная",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Ночной",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Проверить обновления",
   "checkForUpdatesWarning": "Проверка обновлений будет проходить через веб-сайт Butterfly для получения информации.",
   "usingLatestStable": "Вы используете последнюю стабильную версию",
@@ -299,10 +521,25 @@
   "currentVersion": "Текущая версия",
   "updateNow": "Обновить сейчас",
   "shape": "Фигура",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Круг",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Прямоугольник",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Треугольник",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Линия",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Радиус скругления",
   "topLeft": "Сверху слева",
   "topRight": "Сверху справа",
@@ -310,6 +547,9 @@
   "bottomRight": "Снизу справа",
   "caches": "Кеш",
   "manage": "Управлять",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Очистить кэш",
   "createCache": "Создать кэш",
   "thirdPartyLicenses": "Лицензии третьих лиц",
@@ -317,6 +557,9 @@
   "synced": "Синхронизировано",
   "notSynced": "Не синхронизировано",
   "conflict": "Конфликт",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Сохранить локально",
   "keepConnection": "Сохранять соединение",
   "keepBoth": "Оставить оба",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Не в сети",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Локальный последний",
   "connectionLatest": "Последнее подключение",
   "path": "Путь",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
@@ -346,19 +595,55 @@
   "syncMode": "Режим синхронизации",
   "connection": "Подключение",
   "always": "Всегда",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Нет мобильных устройств",
   "manual": "Ручной",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Искать",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Свойства",
   "pin": "Закрепить",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Открепить",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Элемент",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Художник",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Позиция",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Примечание",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Наборы",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Набор",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Ещё",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Запрашивать имя",
   "areaIndex": "Область {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Запуск в полноэкранном режиме",
   "inputs": "Управление",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Мышь",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Прикосновение",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Клавиатура",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Ярлыки",
   "middle": "Средний",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Первое",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Секунда",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Активный инструмент",
   "activeToolDescription": "Использовать выбранный инструмент на панели инструментов",
   "handTool": "Ручной инструмент",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Инструменты",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Показать сетку",
   "grid": "Сетка",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Линейка",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Угол",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Отчет",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Новая папка",
   "createPack": "Создать набор",
   "editPack": "Изменить набор",
   "packsDirectory": "Каталог наборов",
   "stamp": "Штамп",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Добавить в набор",
   "sureImportPack": "Вы уверены, что хотите импортировать набор?",
   "byAuthor": "от {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Добавить актив",
   "editAsset": "Редактировать актив",
   "scope": "Сфера охвата",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "На данный момент наборов нет",
   "components": "Компоненты",
   "waypoint": "Путевая точка",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Пункт 2",
   "fontFamily": "Семейство шрифтов",
   "smoothing": "Сглаживание",
@@ -449,9 +779,21 @@
   "unknownImportType": "Неизвестный тип импорта",
   "sureImportTemplate": "Вы уверены, что хотите импортировать шаблон?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Играть",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Видео",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Точка останова",
   "presentationControls": "Управление представлением",
   "nextSlide": "Следующий слайд",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Код",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Цитата",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Ссылка",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Флажок",
   "deleted": "Удалено",
   "emphasis": "Акцент",
   "listBullet": "Список пули",
   "strong": "Крепкий",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Домашний",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Файлы",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Сортировать по",
   "location": "Местоположение",
   "whatsNew": "Что нового?",
@@ -493,12 +853,21 @@
   "star": "Звезда",
   "goUp": "Вверх",
   "created": "Создано",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Изменено",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Быстрый старт",
   "noTemplates": "В настоящее время шаблонов нет",
   "importCorePack": "Импортировать пакет ядра",
   "importCorePackDescription": "Импортируйте пакет ядра, содержащий все основные медиафайлы для начала. Это переопределит текущий пакет ядра.",
   "never": "Никогда",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Только при обновлении",
   "visibility": "Видимость",
   "captureThumbnail": "Захват эскиза",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Выберите режим метки",
   "foreground": "Передний план",
   "version": "Версии",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Репозиторий",
   "pages": "Страницы",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Организовать",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Вывести на передний план",
   "sendToBack": "Отправить на задний план",
   "bringForward": "Перенос вперед",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
   "rotate": "Повернуть",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Пробел",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Навигационные рельсы",
   "cut": "Вырезать",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Вставить снизу",
   "insertAfter": "Вставить после",
   "insertFirst": "Вставить первый",
   "insertLast": "Insert last",
   "paste": "Вставить",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
   "select": "Выбрать",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Инструмент",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Текстура",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Тема платформы",
   "desktop": "Рабочий стол",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Мобильный",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Качество PDF",
   "surface": "Поверхность",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Шаблон",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Вы уверены, что хотите закрыть документ?",
   "thereAreUnsavedChanges": "Имеются несохраненные изменения",
   "page": "Страница",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE серверы",
   "collaboration": "Сотрудничество",
   "webRtc": "Web RTC",
   "webSocket": "Веб-сокет",
   "iceServer": "ICE сервер",
   "port": "Порт",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Тип",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Грань",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Клиент",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Сервер",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Переключить вид",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Скрыть UI",
   "density": "Плотность",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Компактный",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Удобный",
   "standard": "Стандартный",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Заблокировать",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Добавить элемент",
   "notDefaultConnection": "Соединение не по умолчанию",
   "defaultConnection": "Соединение по умолчанию",
   "hide": "Скрыть",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Показать",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Пауза",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Остановить",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Обновить",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Печать",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Крушитель глаз",
   "users": "Пользователи",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Эксперимент",
   "experimentsWarning": "Эти функции являются экспериментальными и могут изменить, прервать или исчезнуть в любое время. Включение их может привести к нестабильности или потере данных. Будьте осторожны. Пожалуйста, сообщите о любых ошибках.",
   "address": "Адрес",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Распространять на страницы",
   "rootDirectorySpecifiedDescription": "Указан корневой каталог. Все дополнительные пути будут относительно этой директории. Оставьте пустым, чтобы отключить этот тип каталога.",
   "rootDirectoryNotSpecifiedDescription": "Корневой каталог не указан. Имя обязательно. Все расширенные пути будут абсолютными. Оставьте пустым, чтобы отключить этот тип директории.",
@@ -594,25 +1065,49 @@
   "createAreas": "Создать области",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Операции",
   "medium": "Средний",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Большой",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Размер панели инструментов",
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
   "exact": "Точно",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Встроенный",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Строки панели",
   "pointerTest": "Тест указателя",
   "pressure": "Давление",
   "small": "Маленький",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Маленький",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Выбрать все",
   "overrideTools": "Переопределить инструменты",
   "hideCursorWhileDrawing": "Скрыть курсор во время рисования",
   "installed": "Установлено",
   "install": "Установить",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Отменить выбор",
   "changeCollection": "Изменить коллекцию",
   "collections": "Коллекции",
@@ -621,15 +1116,30 @@
   "collection": "Коллекция",
   "defaultCollection": "Коллекция по умолчанию",
   "scroll": "Прокрутка",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "При запуске",
   "homeScreen": "Домашний экран",
   "lastNote": "Последняя заметка",
   "newNote": "Новая заметка",
   "convertToLayer": "Преобразовать в слой",
   "merge": "Объединить",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Вверх",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Вниз",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Прочие вопросы",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Нет элементов} =1{1 элемент} other{{count} элементов}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Увеличивает качество за счет повышения производительности. Делает изображение, покрывающее в два раза видимую область, обеспечивая бесшовное рендеринг даже при быстрой прокрутке или масштабировании.",
   "renderResolution": "Отрисовка разрешения",
   "translate": "Перевести",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Незашифрованный",
   "encrypted": "Зашифровано",
   "encryptDocumentMessage": "Нажмите, чтобы зашифровать документ",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Подтвердите пароль",
   "passwordMismatch": "Пароли не совпадают",
   "action": "Действие",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG текст",
   "offset": "Смещение",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Зависит от позиции",
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Восстановить настройки из файла",
   "exportSettingsToFile": "Экспорт настроек в файл",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Тип штрих-кода",
   "qrCode": "QR Code",
   "dataMatrix": "Матрица данных",
@@ -690,6 +1212,9 @@
   "moveRight": "Двигаться вправо",
   "bundledPacks": "Пакеты",
   "component": "Компонент",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Выберите компонент",
   "bundlePackInDocument": "Включить пакет в документ",
   "bundledPacksDescription": "Пакеты включены в документ и используются только для обмена с документом. Активы могут использоваться только в документе, если пакет установлен. Пакеты могут быть установлены щелчком по ним.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Ваши сообщения направляются через безопасный сервер ретрансляции с сквозным шифрованием. Для создания сеанса требуется адрес сервера swamp.",
   "createRawNote": "Создать заметку",
   "polygon": "Полигон",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Закончить форму",
   "submit": "Отправить",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Математика",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Игнорировать давление",
   "ignoreFirstPressureDescription": "На некоторых устройствах первое значение давления неточно. Эта настройка будет игнорировать первое значение давления и вместо этого использовать давление второго события.",
   "temporary": "Временно",
   "simpleToolbarVisibility": "Простая видимость панели инструментов",
   "autosaveDelay": "Задержка автосохранения",
   "saved": "Сохранено",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Сохранение...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Только для чтения",
   "saveDelayed": "Сохранить с задержкой",
   "unsaved": "Не сохранено",
-  "pdfEmptyDescription": "В настоящее время нет областей для экспорта. Пожалуйста, выберите по крайней мере одну область, используя кнопку \"плюс\" в верхнем правом углу или добавьте все области с текущей страницы или из всего документа ниже."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "В настоящее время нет областей для экспорта. Пожалуйста, выберите по крайней мере одну область, используя кнопку \"плюс\" в верхнем правом углу или добавьте все области с текущей страницы или из всего документа ниже.",
+  "densityMaximize": "Развернуть",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

@@ -1,5 +1,8 @@
 {
   "open": "Megnyit",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Beállítások",
   "personalization": "Személyre szabás",
   "theme": "Kinézet",
@@ -7,10 +10,22 @@
   "lightTheme": "Világos téma",
   "systemTheme": "Rendszer téma",
   "view": "Megtekintés",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Szerkesztés",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportálás",
   "save": "Mentés",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Nagyítás",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Nagyítás",
   "zoomOut": "Kicsinyítés",
   "resetZoom": "Eredeti nagyítás visszaállítása",
@@ -18,28 +33,67 @@
   "includeEraser": "Radír?",
   "thinning": "Vékonyítás",
   "pen": "Toll",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Invertált toll",
   "eraser": "Radír",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Vonaltörlő",
   "label": "Címke",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Törlés",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Biztos vagy benne?",
   "reallyDelete": "Valóban törölni akarod ezt a tételt?",
   "no": "Nem",
   "yes": "Igen",
   "undo": "Mégse",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Újra",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Általános",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Vágólapra másolva",
   "loading": "Betöltés...",
   "enterText": "Adja meg a szöveget",
   "size": "Méret",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Szélesség",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Magasság",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Mennyiség",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Szóköz",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Háttér",
   "box": "Doboz",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "A készüléken",
   "systemLocale": "Helyi rendszer",
   "information": "Információ",
@@ -53,19 +107,34 @@
   "existOverride": "Ez az elem már létezik. Felülírja?",
   "description": "Leírás",
   "fill": "Kitöltés",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Alapértelmezett paletta",
   "highlighter": "Kiemelés",
   "add": "Hozzáadás",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Törlés",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Biztosan törölni szeretné?",
   "resetPalette": "Paletta visszaállítása",
   "custom": "Egyedi",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Díszítés",
   "underline": "Aláhúzás",
   "overline": "Felülvonás",
   "strikethrough": "Áthúzás",
   "thickness": "Vastagság",
   "style": "Stílus",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Szilárd",
   "double": "Dupla",
   "dotted": "Pontozott",
@@ -77,17 +146,41 @@
   "italic": "Dőlt",
   "clipboard": "Vágólap",
   "file": "Fájl",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Adat",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Megosztás",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Tagolás",
   "image": "Kép",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Adja meg a webcíмет",
   "scale": "Skálázás",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Súgó",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Biztosan vissza szeretné állítani?",
   "whatToDo": "Mit akar tenni?",
   "ignore": "Figyelmen kívül hagyás",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Biztonsági mentés",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "A fájl {fileName} egy újabb verzióban készült ({fileVersion}). Mit akar csinálni a fájlal?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Útvonalpontok",
   "origin": "Származás",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importálás",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Új",
   "selectElement": "Elemek kiválasztása",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Verzió másolása",
   "input": "Beviteli mód",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Viselkedés",
   "dataDirectory": "Adatmappa",
   "defaultPath": "Alapértelmezett útvonal",
@@ -138,16 +240,40 @@
   "rename": "Átnevezés",
   "duplicate": "Másolat",
   "hand": "Kéz",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Könyvtár",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Áthelyezés",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Másolás",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Vissza",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Függőleges nagyítás",
   "shapeDetection": "Forma felismerés",
   "delay": "Késleltetés",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Alapértelmezett réteg",
   "layer": "Réteg",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Rétegek",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nincs beállítva",
   "enterLayer": "Írd be az új réteg nevét",
   "selectElements": "Elemek kiválasztása",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Valóban törölni kívánja a kiválasztott elemeket?",
   "selectCustomCollection": "Egyedi kollekció kiválasztása",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Érzékenység",
   "sensitivityHint": "Minél nagyobb az érték, annál érzékenyebb a bemenet",
   "horizontal": "Vízszintes",
   "vertical": "Függőleges",
   "plain": "Sima",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Világos",
   "ruled": "Szabályzott",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Négyzetrácsos",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Zene",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Sötét",
   "plainDark": "Sötét",
   "ruledDark": "Szabályzott sötét",
@@ -174,29 +315,56 @@
   "createTemplate": "Sablon létrehozása",
   "createTemplateContent": "Tényleg szeretne sablont létrehozni ebből a dokumentumból? Az eredeti dokumentum törölve lesz.",
   "replace": "Kicserélés",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Tényleg ki akarja cserélni a sablont? ez a művelet visszavonhatatlan!",
   "defaultTemplate": "Alapértelmezett sablon",
   "insert": "Beillesztés",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokumentum",
   "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Nyomtatott dokumentum",
   "selectCamera": "Kamera kiválasztása",
   "changeDocumentPath": "Dokumentum útvonal megváltoztatása",
   "deleteWholeStroke": "Teljes vonás törlése",
   "alpha": "Áttetszőség",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Terület",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Terület kiválasztása",
   "aspectRatio": "Oldalarány",
   "presets": "Előbeállítások",
   "pagePortrait": "Álló oldal",
   "pageLandscape": "Fekvő oldal",
   "square": "Négyzet",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Területek",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Írd be a terület nevét",
   "exitArea": "Kilépés a területből",
   "currentArea": "Aktuális terület",
   "design": "Tervezés",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Szöveg",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Szia, Linwood Butterfly {codeName} vagyok",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Rögzített",
   "dynamicContent": "Dinamikus",
   "none": "Nincs",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Terület bevonása",
   "verticalAlignment": "Függőleges igazítás",
   "horizontalAlignment": "Vízszintes igazítás",
   "top": "Fent",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Közép",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Alsó",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Bal",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Jobb",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Sorkizárt",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Korlátozás",
   "length": "Hosszúság",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Exportálás SVG-be",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Válasszon ki oldalakat",
   "recentFiles": "Legutóbbi fájlok",
   "start": "Indítás",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Nincsenek legutóbbi fájlok",
   "countPages": "{count,plural, =0{Nincs oldal} =1{1 oldal} other{{count} oldal}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Kilépés",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Nincsenek elemek",
   "invertSelection": "Kijelölés megfordítása",
   "errorWhileImporting": "Hiba az importálás során",
@@ -268,14 +469,23 @@
   "error": "Hiba",
   "stackTrace": "Hívásverem",
   "laser": "Lézer",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Időtartam",
   "quality": "Minőség",
   "exportPdf": "PDF exportálása",
   "local": "Helyi",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Kapcsolat hozzáadása",
   "connections": "Kapcsolatok",
   "noConnections": "Nincsenek kapcsolatok",
   "url": "Webcím",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Csatlakozás",
   "username": "Felhasználónév",
   "password": "Jelszó",
@@ -288,10 +498,22 @@
   "cannotConnect": "Nem tud csatlakozni",
   "urlNotValid": "Az URL nem érvényes",
   "icon": "Ikon",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Frissítés",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Frissítés elérhető",
   "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Éjszakai",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Frissítések keresése",
   "checkForUpdatesWarning": "A frissítések keresése csatlakozik a Butterfly weboldalhoz az információk lekéréséhez.",
   "usingLatestStable": "A legújabb stabil verziót használja",
@@ -299,10 +521,25 @@
   "currentVersion": "Jelenlegi verzió",
   "updateNow": "Frissítés most",
   "shape": "Forma",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Kör",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Téglalap",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Háromszög",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Vonal",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Sarok sugara",
   "topLeft": "Bal felső",
   "topRight": "Jobb felső",
@@ -310,6 +547,9 @@
   "bottomRight": "Jobb alsó",
   "caches": "Gyorsítótárak",
   "manage": "Kezelés",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Gyorsítótárak törlése",
   "createCache": "Gyorsítótár létrehozása",
   "thirdPartyLicenses": "Harmadik fél licenszei",
@@ -317,6 +557,9 @@
   "synced": "Szinkronizálva",
   "notSynced": "Nincs szinkronizálva",
   "conflict": "Konfliktus",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Helyi megtartása",
   "keepConnection": "Kapcsolat megtartása",
   "keepBoth": "Mindkettő megtartása",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Legfrissebb helyi verzió",
   "connectionLatest": "Legfrissebb kapcsolati verzió",
   "path": "Útvonal",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Könyvtár szinkronizálva",
   "syncRootDirectory": "Szinkron gyökérkönyvtár",
   "penOnlyInput": "Tollal történő bevitel",
@@ -346,19 +595,55 @@
   "syncMode": "Szinkronizációs mód",
   "connection": "Kapcsolat",
   "always": "Mindig",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Mobilhálózat letiltva",
   "manual": "Kézi",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Keresés",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Tulajdonságok",
   "pin": "Rögzítés",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Rögzítés megszüntetése",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Elem",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Festő",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Pozíció",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Megjegyzés",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Csomagok",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Csomag",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Több",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Név bekérése",
   "areaIndex": "Terület {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Teljes képernyős indítás",
   "inputs": "Bemenetek",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Egér",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Érintés",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Billentyűzet",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Billentyűparancsok",
   "middle": "Középső",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Első",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Második",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktív eszköz",
   "activeToolDescription": "Használja a kiválasztott eszközt az eszköztáron",
   "handTool": "Kéz eszköz",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Eszközök",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Rács megjelenítése",
   "grid": "Rács",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Vonalzó",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Szög",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Jelentés",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Új könyvtár",
   "createPack": "Csomag létrehozása",
   "editPack": "Csomag szerkesztése",
   "packsDirectory": "Csomagok könyvtára",
   "stamp": "Bélyegző",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Hozzáadás a csomaghoz",
   "sureImportPack": "Biztosan importálni szeretné a csomagot?",
   "byAuthor": "{author} által",
@@ -419,6 +743,9 @@
   "addAsset": "Erőforrás hozzáadása",
   "editAsset": "Erőforrás szerkesztése",
   "scope": "Hatókör",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Jelenleg nincsenek elérhető csomagok",
   "components": "Komponensek",
   "waypoint": "Útvonalpont",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Stílusok",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Bekezdés",
   "fontFamily": "Betűcsalád",
   "smoothing": "Simítás",
@@ -449,9 +779,21 @@
   "unknownImportType": "Ismeretlen import típus",
   "sureImportTemplate": "Biztosan importálni szeretné a sablont?",
   "frame": "Keret",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Lejátszás",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Videó",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Töréspont",
   "presentationControls": "Prezentációvezérlők",
   "nextSlide": "Következő dia",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kód",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Idézet",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Hivatkozás",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Jelölőnégyzet",
   "deleted": "Törölve",
   "emphasis": "Kiemelés",
   "listBullet": "Felsorolásjel",
   "strong": "Félkövér",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Kezdőlap",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Fájlok",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Rendezés",
   "location": "Hely",
   "whatsNew": "Mi újdonság?",
@@ -493,12 +853,21 @@
   "star": "Csillag hozzáadása",
   "goUp": "Fel",
   "created": "Létrehozva",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Módosítva",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Gyors kezdés",
   "noTemplates": "Jelenleg nincsenek elérhető sablonok",
   "importCorePack": "Alapcsomag importálása",
   "importCorePackDescription": "Importálja az alapcsomagot, amely az összes alapvető erőforrást tartalmazza a kezdéshez. Ez felülírja a jelenlegi alapcsomagot.",
   "never": "Soha",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Csak frissítéseknél",
   "visibility": "Láthatóság",
   "captureThumbnail": "Bélyegkép készítése",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Címkemód választása",
   "foreground": "Előtér",
   "version": "Verzió",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Tároló",
   "pages": "Oldalak",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigátor",
   "arrange": "Elrendezés",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Előtérbe hozás",
   "sendToBack": "Háttérbe küldés",
   "bringForward": "Előrébb hozás",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Csak nagyobb képernyőkön érhető el",
   "toolbarPosition": "Eszköztár pozíció",
   "rotate": "Elforgatás",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Helykitöltő",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigációs sáv",
   "cut": "Kivágás",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Beszúrás elé",
   "insertAfter": "Beszúrás után",
   "insertFirst": "Beszúrás elejére",
   "insertLast": "Beszúrás végére",
   "paste": "Beillesztés",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Növekvő",
   "descending": "Csökkenő",
   "imageScale": "Kép méretezése",
   "select": "Kiválasztás",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Eszköz",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textúra",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Platform téma",
   "desktop": "Asztali",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF minőség",
   "surface": "Felület",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Minta",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Biztosan be szeretné zárni a dokumentumot?",
   "thereAreUnsavedChanges": "Mentetlen módosítások vannak",
   "page": "Oldal",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE szerverek",
   "collaboration": "Együttműködés",
   "webRtc": "WebRTC",
   "webSocket": "WebSocket",
   "iceServer": "ICE szerver",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Típus",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Oldal",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Kliens",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Szerver",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Nézet váltása",
   "lasso": "Lasszó",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Felület elrejtése",
   "density": "Sűrűség",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Tömör",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Kényelmes",
   "standard": "Normál",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Zárolás",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Elem hozzáadása",
   "notDefaultConnection": "Nem alapértelmezett kapcsolat",
   "defaultConnection": "Alapértelmezett kapcsolat",
   "hide": "Elrejtés",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Megjelenítés",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Szüneteltetés",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Megállítás",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Frissítés",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Nyomtatás",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Színpipetta",
   "users": "Felhasználók",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Kísérletek",
   "experimentsWarning": "Ezek a funkciók kísérleti jellegűek és bármikor megváltozhatnak, működésképtelenné válhatnak vagy eltűnhetnek. Bekapcsolásuk instabilitást vagy adatvesztést okozhat. Elővigyázatossággal járjon el. Kérjük, jelentsen minden hibát.",
   "address": "Cím",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Oldalakra terítés",
   "rootDirectorySpecifiedDescription": "A gyökérkönyvtár meg van adva. Az összes speciális könyvtárútvonal ehhez a könyvtárhoz lesz relatív. Hagyja üresen a könyvtártípus letiltásához.",
   "rootDirectoryNotSpecifiedDescription": "A gyökérkönyvtár nincs megadva. Név megadása szükséges. Minden speciális könyvtárútvonal abszolút lesz. Hagyja üresen a könyvtártípus letiltásához.",
@@ -594,25 +1065,49 @@
   "createAreas": "Területek létrehozása",
   "autosave": "Automatikus mentés",
   "invert": "Invertálás",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Műveletek",
   "medium": "Közepes",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Nagy",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Eszköztár méret",
   "addAll": "Összes hozzáadása",
   "onlyCurrentPage": "Csak aktuális oldal",
   "smoothNavigation": "Sima navigáció",
   "exact": "Pontos",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Beágyazott",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Eszköztár sorok",
   "pointerTest": "Mutató teszt",
   "pressure": "Nyomás",
   "small": "Kicsi",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Apró",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Mindet kijelöl",
   "overrideTools": "Eszközök felülírása",
   "hideCursorWhileDrawing": "Rajzolás közben a kurzor elrejtése",
   "installed": "Telepítve",
   "install": "Telepítés",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Kijelölés törlése",
   "changeCollection": "Gyűjtemény módosítása",
   "collections": "Gyűjtemények",
@@ -621,15 +1116,30 @@
   "collection": "Gyűjtemény",
   "defaultCollection": "Alapértelmezett gyűjtemény",
   "scroll": "Görgetés",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Indításkor",
   "homeScreen": "Kezdőképernyő",
   "lastNote": "Utolsó jegyzet",
   "newNote": "Új jegyzet",
   "convertToLayer": "Átalakítás réteggé",
   "merge": "Egyesítés",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Fel",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Le",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Egyéb",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Nincsenek elemek} =1{1 elem} other{{count} elem}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Renderelési felbontás",
   "translate": "Fordítás",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Nem titkosított",
   "encrypted": "Titkosított",
   "encryptDocumentMessage": "A dokumentum titkosításához kattintson ide",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Jelszó megerősítése",
   "passwordMismatch": "A jelszavak nem egyeznek",
   "action": "Művelet",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG szöveg",
   "offset": "Eltolás",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Pozíciófüggő",
   "flipHorizontal": "Vízszintes tükrözés",
   "flipVertical": "Függőleges tükrözés",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Beállítások visszaállítása fájlból",
   "exportSettingsToFile": "Beállítások exportálása fájlba",
   "barcode": "Vonalkód",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Vonalkód típusa",
   "qrCode": "QR-kód",
   "dataMatrix": "Adatmátrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Mozgatás jobbra",
   "bundledPacks": "Beépített csomagok",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Komponens kiválasztása",
   "bundlePackInDocument": "Csomag beágyazása dokumentumba",
   "bundledPacksDescription": "A beépített csomagok a dokumentumba vannak ágyazva, és csak a dokumentummal együtt oszthatók meg. Az erőforrások csak akkor használhatók a dokumentumban, ha a csomag telepítve van. A csomagok telepítéséhez kattintson rájuk.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Az üzeneteket egy biztonságos relé szerver továbbítja, mely végpontok közötti titkosítást biztosít. A munkamenet létrehozásához Swamp szerver címre van szükség.",
   "createRawNote": "Nyers jegyzet létrehozása",
   "polygon": "Sokszög",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Alakzat befejezése",
   "submit": "Küldés",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Teljes méret",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

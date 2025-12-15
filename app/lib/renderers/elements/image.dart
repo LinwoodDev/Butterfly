@@ -2,8 +2,14 @@ part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
   ui.Image? image;
+  bool ownsImage;
 
-  ImageRenderer(super.element, [super.layer, this.image]);
+  ImageRenderer(
+    super.element, [
+    super.layer,
+    this.image,
+    this.ownsImage = true,
+  ]);
 
   @override
   bool onAssetUpdate(
@@ -15,6 +21,12 @@ class ImageRenderer extends Renderer<ImageElement> {
     final uri = Uri.parse(element.source);
     if (uri.hasScheme && !uri.isScheme('file')) return false;
     final shouldUpdate = uri.path == path;
+    if (shouldUpdate) {
+      if (ownsImage) {
+        image?.dispose();
+      }
+      image = null;
+    }
     return shouldUpdate;
   }
 
@@ -38,7 +50,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       return;
     }
     var paint = Paint()
-      ..filterQuality = FilterQuality.high
+      ..filterQuality = FilterQuality.medium
       ..isAntiAlias = true;
 
     canvas.drawImageRect(
@@ -87,6 +99,7 @@ class ImageRenderer extends Renderer<ImageElement> {
         element.source,
         blocState.data,
       );
+      ownsImage = true;
     } catch (_) {}
   }
 
@@ -97,7 +110,9 @@ class ImageRenderer extends Renderer<ImageElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
   }
 
@@ -173,12 +188,16 @@ class ImageRenderer extends Renderer<ImageElement> {
         constraints: element.constraints.scale(scaleX, scaleY),
       ),
       layer,
+      image,
+      false,
     );
   }
 
   @override
   void dispose() {
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
   }
 

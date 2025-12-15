@@ -34,7 +34,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   String _getDensityName(BuildContext context, ThemeDensity density) =>
       switch (density) {
         ThemeDensity.system => AppLocalizations.of(context).systemTheme,
-        ThemeDensity.maximize => LeapLocalizations.of(context).maximize,
+        ThemeDensity.maximize => AppLocalizations.of(context).densityMaximize,
         ThemeDensity.desktop => AppLocalizations.of(context).desktop,
         ThemeDensity.compact => AppLocalizations.of(context).compact,
         ThemeDensity.standard => AppLocalizations.of(context).standard,

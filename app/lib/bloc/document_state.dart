@@ -88,7 +88,7 @@ abstract class DocumentLoaded extends DocumentState {
     FileMetadata? metadata,
     DocumentInfo? info,
   }) : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
-       assetService = assetService ?? AssetService(data),
+       assetService = assetService ?? AssetService(),
        metadata =
            metadata ?? data.getMetadata() ?? DocumentDefaults.createMetadata(),
        info = info ?? data.getInfo() ?? DocumentDefaults.createInfo();

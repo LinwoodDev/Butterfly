@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: 🔧 Setup java
         uses: actions/setup-java@v5
         with:
@@ -150,7 +150,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Make yq tool available on Windows runners
         run: |
           choco install yq
@@ -207,7 +207,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -253,7 +253,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -389,7 +389,7 @@ jobs:
     runs-on: ${{ matrix.arch.image }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Add snapcraft directory
         run: |
           mkdir -p snap
@@ -415,7 +415,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -468,11 +468,11 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
-          cache: true
+          #cache: true
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -502,7 +502,7 @@ jobs:
     if: github.event_name != 'pull_request'
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set Docker tag
         id: docker_tag
         run: |
@@ -548,7 +548,7 @@ jobs:
       - build-ipa
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         env:
           CI_PAT: ${{ secrets.CI_PAT }}
         with:
@@ -834,7 +834,7 @@ jobs:
       PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Setup git
@@ -888,7 +888,7 @@ jobs:
     needs: [deploy]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.CI_PAT }}
       - if: ${{ github.ref == 'refs/tags/stable' }}

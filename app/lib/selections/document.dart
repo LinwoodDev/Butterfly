@@ -112,7 +112,10 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                   ]
                   .map(
                     (e) => HorizontalTab(
-                      icon: PhosphorIcon(e[0]),
+                      icon: PhosphorIcon(
+                        e[0],
+                        textDirection: TextDirection.ltr,
+                      ),
                       label: Text(e[1]),
                     ),
                   )

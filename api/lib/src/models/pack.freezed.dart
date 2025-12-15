@@ -769,11 +769,19 @@ as double,
 
 }
 
+
 /// @nodoc
 mixin _$PackAssetLocation {
 
  String get namespace; String get key;
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PackAssetLocationCopyWith<PackAssetLocation> get copyWith => _$PackAssetLocationCopyWithImpl<PackAssetLocation>(this as PackAssetLocation, _$identity);
 
+  /// Serializes this PackAssetLocation to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -781,7 +789,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,namespace,key);
 
@@ -793,9 +801,110 @@ String toString() {
 
 }
 
+/// @nodoc
+abstract mixin class $PackAssetLocationCopyWith<$Res>  {
+  factory $PackAssetLocationCopyWith(PackAssetLocation value, $Res Function(PackAssetLocation) _then) = _$PackAssetLocationCopyWithImpl;
+@useResult
+$Res call({
+ String namespace, String key
+});
 
 
 
+
+}
+/// @nodoc
+class _$PackAssetLocationCopyWithImpl<$Res>
+    implements $PackAssetLocationCopyWith<$Res> {
+  _$PackAssetLocationCopyWithImpl(this._self, this._then);
+
+  final PackAssetLocation _self;
+  final $Res Function(PackAssetLocation) _then;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? namespace = null,Object? key = null,}) {
+  return _then(_self.copyWith(
+namespace: null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
+as String,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _PackAssetLocation implements PackAssetLocation {
+  const _PackAssetLocation(this.namespace, this.key);
+  factory _PackAssetLocation.fromJson(Map<String, dynamic> json) => _$PackAssetLocationFromJson(json);
+
+@override final  String namespace;
+@override final  String key;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PackAssetLocationCopyWith<_PackAssetLocation> get copyWith => __$PackAssetLocationCopyWithImpl<_PackAssetLocation>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PackAssetLocationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,namespace,key);
+
+@override
+String toString() {
+  return 'PackAssetLocation(namespace: $namespace, key: $key)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PackAssetLocationCopyWith<$Res> implements $PackAssetLocationCopyWith<$Res> {
+  factory _$PackAssetLocationCopyWith(_PackAssetLocation value, $Res Function(_PackAssetLocation) _then) = __$PackAssetLocationCopyWithImpl;
+@override @useResult
+$Res call({
+ String namespace, String key
+});
+
+
+
+
+}
+/// @nodoc
+class __$PackAssetLocationCopyWithImpl<$Res>
+    implements _$PackAssetLocationCopyWith<$Res> {
+  __$PackAssetLocationCopyWithImpl(this._self, this._then);
+
+  final _PackAssetLocation _self;
+  final $Res Function(_PackAssetLocation) _then;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? namespace = null,Object? key = null,}) {
+  return _then(_PackAssetLocation(
+null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
+as String,null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 
 /// @nodoc

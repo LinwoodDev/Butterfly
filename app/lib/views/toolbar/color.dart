@@ -9,6 +9,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'dart:async';
+import 'package:collection/collection.dart';
 
 import '../../bloc/document_bloc.dart';
 
@@ -49,7 +50,26 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
   void initState() {
     super.initState();
     _fileSystem = context.read<ButterflyFileSystem>();
-    _colorPalette = _fileSystem.findDefaultPalette();
+    _colorPalette = _loadPalette();
+  }
+
+  Future<PackItem<ColorPalette>?> _loadPalette() async {
+    final settings = context.read<SettingsCubit>().state;
+    final location = settings.selectedPalette;
+    if (location != null) {
+      final packSystem = _fileSystem.buildDefaultPackSystem();
+      await packSystem.initialize();
+      final pack = await packSystem.getFile(location.namespace);
+      if (pack != null) {
+        final palette = pack.getNamedPalettes().firstWhereOrNull(
+          (e) => e.name == location.key,
+        );
+        if (palette != null) {
+          return palette.toPack(pack, location.namespace);
+        }
+      }
+    }
+    return _fileSystem.findDefaultPalette();
   }
 
   @override
@@ -186,120 +206,127 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         final palette = selected?.item ?? ColorPalette();
         return Scrollbar(
           controller: _scrollController,
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            controller: _scrollController,
-            children: [
-              if (widget.actions.isNotEmpty) ...[
-                ...widget.actions,
-                const VerticalDivider(),
-              ],
-              if (widget.strokeWidth != null &&
-                  widget.onStrokeWidthChanged != null) ...[
-                Center(
-                  child: GestureDetector(
-                    onLongPress: () => _startChanging(-1),
-                    onLongPressUp: _stopChanging,
-                    child: IconButton(
-                      icon: const Icon(PhosphorIconsLight.minus),
-                      onPressed: () => widget.onStrokeWidthChanged!(
-                        widget.strokeWidth! - 0.1,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              children: [
+                if (widget.actions.isNotEmpty) ...[
+                  ...widget.actions,
+                  const VerticalDivider(),
+                ],
+                if (widget.strokeWidth != null &&
+                    widget.onStrokeWidthChanged != null) ...[
+                  Center(
+                    child: GestureDetector(
+                      onLongPress: () => _startChanging(-1),
+                      onLongPressUp: _stopChanging,
+                      child: IconButton(
+                        icon: const Icon(PhosphorIconsLight.minus),
+                        onPressed: () => widget.onStrokeWidthChanged!(
+                          widget.strokeWidth! - 0.1,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 2),
-                Center(
-                  child: TextField(
-                    controller: TextEditingController(
-                      text: widget.strokeWidth!.toStringAsFixed(1),
-                    ),
-                    decoration: const InputDecoration(
-                      filled: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 0,
+                  const SizedBox(width: 2),
+                  Center(
+                    child: TextField(
+                      controller: TextEditingController(
+                        text: widget.strokeWidth!.toStringAsFixed(1),
                       ),
-                      constraints: BoxConstraints(maxWidth: 60),
-                    ),
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    onSubmitted: (val) {
-                      final v = double.tryParse(val);
-                      if (v != null) widget.onStrokeWidthChanged!(v);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 2),
-                Center(
-                  child: GestureDetector(
-                    onLongPress: () => _startChanging(1),
-                    onLongPressUp: _stopChanging,
-                    child: IconButton(
-                      icon: const Icon(PhosphorIconsLight.plus),
-                      onPressed: () => widget.onStrokeWidthChanged!(
-                        widget.strokeWidth! + 0.1,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 0,
+                        ),
+                        constraints: BoxConstraints(maxWidth: 60),
                       ),
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      onSubmitted: (val) {
+                        final v = double.tryParse(val);
+                        if (v != null) widget.onStrokeWidthChanged!(v);
+                      },
                     ),
                   ),
-                ),
-                const VerticalDivider(),
-              ],
-              if (!palette.colors.contains(color)) ...[
-                ColorButton.srgb(
-                  color: widget.color,
-                  selected: true,
-                  onTap: _addColor,
-                ),
-                const VerticalDivider(),
-              ],
-              if (selected != null) ...[
-                ...List.generate(palette.colors.length, (index) {
-                  final value = palette.colors[index];
-
-                  return ColorButton.srgb(
-                    color: value,
-                    selected: value == color,
-                    onTap: () => widget.onChanged(value),
-                    onSecondaryTap: () => _changeColor(selected, index, value),
-                    onLongPress: () => _changeColor(selected, index, value),
-                  );
-                }),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
+                  const SizedBox(width: 2),
+                  Center(
+                    child: GestureDetector(
+                      onLongPress: () => _startChanging(1),
+                      onLongPressUp: _stopChanging,
+                      child: IconButton(
+                        icon: const Icon(PhosphorIconsLight.plus),
+                        onPressed: () => widget.onStrokeWidthChanged!(
+                          widget.strokeWidth! + 0.1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const VerticalDivider(),
+                ],
+                if (!palette.colors.contains(color)) ...[
+                  ColorButton.srgb(
+                    color: widget.color,
+                    selected: true,
                     onTap: _addColor,
-                    borderRadius: BorderRadius.circular(12),
-                    child: const AspectRatio(
-                      aspectRatio: 1,
-                      child: PhosphorIcon(PhosphorIconsLight.plus),
+                  ),
+                  const VerticalDivider(),
+                ],
+                if (selected != null) ...[
+                  ...List.generate(palette.colors.length, (index) {
+                    final value = palette.colors[index];
+
+                    return ColorButton.srgb(
+                      color: value,
+                      selected: value == color,
+                      onTap: () => widget.onChanged(value),
+                      onSecondaryTap: () =>
+                          _changeColor(selected, index, value),
+                      onLongPress: () => _changeColor(selected, index, value),
+                    );
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: _addColor,
+                      borderRadius: BorderRadius.circular(12),
+                      child: const AspectRatio(
+                        aspectRatio: 1,
+                        child: PhosphorIcon(PhosphorIconsLight.plus),
+                      ),
                     ),
+                  ),
+                ],
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: IconButton(
+                    onPressed: () async {
+                      final result = await showDialog<PackItem<ColorPalette>>(
+                        context: context,
+                        builder: (context) => SelectPackAssetDialog(
+                          selected: selected?.location,
+                          getItems: (pack) => pack.getNamedPalettes(),
+                        ),
+                      );
+
+                      if (result == null) return;
+                      context.read<SettingsCubit>().changeSelectedPalette(
+                        result.location,
+                      );
+                      setState(() {
+                        _colorPalette = Future.value(result);
+                      });
+                    },
+                    icon: const PhosphorIcon(PhosphorIconsLight.package),
+                    tooltip: AppLocalizations.of(context).selectAsset,
                   ),
                 ),
               ],
-              AspectRatio(
-                aspectRatio: 1,
-                child: IconButton(
-                  onPressed: () async {
-                    final result = await showDialog<PackItem<ColorPalette>>(
-                      context: context,
-                      builder: (context) => SelectPackAssetDialog(
-                        selected: selected?.location,
-                        getItems: (pack) => pack.getNamedPalettes(),
-                      ),
-                    );
-
-                    if (result == null) return;
-                    setState(() {
-                      _colorPalette = Future.value(result);
-                    });
-                  },
-                  icon: const PhosphorIcon(PhosphorIconsLight.package),
-                  tooltip: AppLocalizations.of(context).selectAsset,
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },

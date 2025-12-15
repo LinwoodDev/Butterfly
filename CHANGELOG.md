@@ -2,6 +2,78 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2-rc.3 (2025-12-12)
+
+* Improve ui of pdf export dialog
+* Improve image export preview
+* Improve performance of eraser and path eraser tool
+* Skip baking on pen if new element is started
+* Show untitled for empty page names in pdf select dialog
+* Change area tool to open context with double tap
+* Translate style classes ([#1006](https://github.com/LinwoodDev/Butterfly/issues/1006))
+* Fix pdf export crashes when changing quality
+* Fix image transforming incorrectly displayed
+* Fix rtl text direction in label and color toolbar
+* Fix math button in label toolbar does nothing if no text is selected
+* Add indonesian translation
+* Add tbfly file association on Windows and iOS
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.3
+
+## 2.4.2-rc.2 (2025-12-04)
+
+* Add restore current palette
+* Change navigation rail to be smaller
+* Improve performance of pen tool
+* Improve performance of rendering and tool switching
+* Improve hit calculation for line shape ([#995](https://github.com/LinwoodDev/Butterfly/issues/995))
+* Fix viewport rect is off-centered if render resolution is not on performance
+* Fix current tools not being updated after undo/redo
+* Fix changing color for shape tool resets alpha ([#996](https://github.com/LinwoodDev/Butterfly/issues/996))
+* Fix missing data in raw text file format
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.2
+
+## 2.4.2-rc.1 (2025-11-27)
+
+* Improve performance of webdav operations
+* Improve delay queue on bake
+* Prevent repeated bakes without changes
+* Improve bake queue
+* Improve bake image sizing ([#930](https://github.com/LinwoodDev/Butterfly/issues/930))
+* Fix smooth navigation ([#978](https://github.com/LinwoodDev/Butterfly/issues/978))
+* Fix stamp handler toolbar not working correctly
+* Fix temporary tool from components navigator not being removed after releasing
+* Fix full file name shown in components view and add to pack dialog
+* Fix rtl icons not displaying correctly
+* Fix pack name in select asset dialog
+* Fix adding to pack renders background in thumbnail
+* Fix page won't be saved when adding a new page ([#982](https://github.com/LinwoodDev/Butterfly/issues/982))
+* Fix ruler cannot be rotated in touch mode
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
+
+## 2.4.2-rc.0 (2025-11-20)
+
+* Improve memory usage on closing documents
+* Ignore invisible layers on export
+* Enlarge buttons in the Add dialog
+* Fix page rect does not consider whole content
+* Fix png not loading after importing
+* Fix png not updating after doing operations like flip or invert
+* Fix buttons on stylus not working correctly on some devices ([#968](https://github.com/LinwoodDev/Butterfly/issues/968))
+* Fix right to left layout issues in appbar causing menu not to open and window buttons reverse order
+* Fix renaming, duplicating and moving on native and running on deep directories
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
+
+## 2.4.1 (2025-11-13)
+
+No changes compared to version 2.4.1.
+
+This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.1
+
 ## 2.4.1-rc.4 (2025-11-10)
 
 * Add preview in snackbar after capturing thumbnail

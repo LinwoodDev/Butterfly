@@ -131,7 +131,8 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  Future<void> refresh() => getDocumentBloc().refresh();
+  Future<void> refresh({bool allowBake = true}) =>
+      getDocumentBloc().refresh(allowBake: allowBake);
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
@@ -145,6 +146,18 @@ class EventContext {
     pixelRatio: pixelRatio,
     viewportSize: viewportSize,
     reset: reset,
+  );
+
+  Future<void> delayedBake({
+    Size? viewportSize,
+    double? pixelRatio,
+    bool reset = false,
+    bool testTransform = false,
+  }) => getDocumentBloc().delayedBake(
+    pixelRatio: pixelRatio,
+    viewportSize: viewportSize,
+    reset: reset,
+    testTransform: testTransform,
   );
 
   List<BlocProvider> getProviders() => [

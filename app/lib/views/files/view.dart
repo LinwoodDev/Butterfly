@@ -561,6 +561,7 @@ class FilesViewState extends State<FilesView> {
                         ),
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.filePlus,
+                          textDirection: TextDirection.ltr,
                         ),
                         child: Text(AppLocalizations.of(context).newNote),
                       ),
@@ -569,6 +570,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.file,
+                            textDirection: TextDirection.ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {
@@ -598,6 +600,7 @@ class FilesViewState extends State<FilesView> {
                         builder: (context, snapshot) => SubmenuButton(
                           leadingIcon: const PhosphorIcon(
                             PhosphorIconsLight.fileTxt,
+                            textDirection: TextDirection.ltr,
                           ),
                           menuChildren:
                               snapshot.data?.map((e) {

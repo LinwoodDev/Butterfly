@@ -111,7 +111,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),
-                        leading: const PhosphorIcon(PhosphorIconsLight.file),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.file,
+                          textDirection: TextDirection.ltr,
+                        ),
                         onTap: () => showDialog(
                           context: context,
                           builder: (ctx) => const TemplateDialog(),

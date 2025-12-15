@@ -1,5 +1,8 @@
 {
   "open": "Åbn",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Indstillinger",
   "personalization": "Personliggørelse",
   "theme": "Tema",
@@ -7,10 +10,22 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Brug standard-systemtema",
   "view": "Vis",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Rediger",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Eksporter",
   "save": "Gem",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Zoom",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Zoom ind",
   "zoomOut": "Zoom ud",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Inverteret Pen",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Sti viskelæder",
   "label": "Etiket",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Slet",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Er du sikker?",
   "reallyDelete": "Sikker på, at du vil slette dette element?",
   "no": "Nej",
   "yes": "Ja",
   "undo": "Fortryd",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Gendan",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Generelt",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Kopieret til udklipsholder",
   "loading": "Indlæser...",
   "enterText": "Indtast teksten",
   "size": "Størrelse",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Højde",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Antal",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Mellemrum",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Baggrund",
   "box": "Boks",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Landestandard",
   "systemLocale": "System landestandard",
   "information": "Information",
@@ -53,19 +107,34 @@
   "existOverride": "Dette element eksisterer allerede. Overskriv?",
   "description": "Varebeskrivelse",
   "fill": "Udfyld",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Standard palet",
   "highlighter": "Fremhævning",
   "add": "Tilføj",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Fjern",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Vil du virkelig fjerne dette?",
   "resetPalette": "Reset palette",
   "custom": "Tilpasset",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Dekoration",
   "underline": "Understreget",
   "overline": "Overstregning",
   "strikethrough": "Gennemstreget",
   "thickness": "Tykkelse",
   "style": "Stil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Dobbelt",
   "dotted": "Stiplet",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Udklipsholder",
   "file": "Fil",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Data",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Del",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Afstand",
   "image": "Billede",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Angiv URL",
   "scale": "Skaler",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Hjælp",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Vil du virkelig nulstille den?",
   "whatToDo": "Hvad vil du gøre?",
   "ignore": "Ignorer",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Sikkerhedskopi",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Filen {fileName} blev oprettet i en nyere version ({fileVersion}). Hvad skal der gøres med denne fil?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Waypoints",
   "origin": "Oprindelse",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importér",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Ny",
   "selectElement": "Vælg element",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Kopier version",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Opførsel",
   "dataDirectory": "Data mappe",
   "defaultPath": "Standard sti",
@@ -138,16 +240,40 @@
   "rename": "Omdøb",
   "duplicate": "Duplicate",
   "hand": "Hånd",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Mappe",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Flyt",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Kopiér",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Tilbage",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Zoom afhængig",
   "shapeDetection": "Form- Detektering",
   "delay": "Forsinkelse",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Standard lag",
   "layer": "Lag",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Lag",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Ikke angivet",
   "enterLayer": "Indtast lagets navn",
   "selectElements": "Vælg elementer",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Vil du virkelig slette de valgte elementer?",
   "selectCustomCollection": "Vælg en brugerdefineret samling",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Følsomhed",
   "sensitivityHint": "Jo højere værdi, jo mere følsom input",
   "horizontal": "Horisontal",
   "vertical": "Lodret",
   "plain": "Enkelt",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Lys",
   "ruled": "Hersket",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Quad",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Musik",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Mørk",
   "plainDark": "Mørk",
   "ruledDark": "Hersket mørk",
@@ -174,29 +315,56 @@
   "createTemplate": "Opret skabelon",
   "createTemplateContent": "Vil du virkelig oprette en skabelon fra dette dokument? Originaldokumentet vil blive slettet.",
   "replace": "Erstat",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Vil du virkelig erstatte skabelonen? Denne handling kan ikke fortrydes!",
   "defaultTemplate": "Standard skabelon",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Dokument",
   "camera": "Kamera",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Udskrift",
   "selectCamera": "Vælg et kamera",
   "changeDocumentPath": "Skift dokumentsti",
   "deleteWholeStroke": "Slet hele stregen",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Område",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Vælg et område",
   "aspectRatio": "Aspekt forhold",
   "presets": "Forudindstillinger",
   "pagePortrait": "Side stående",
   "pageLandscape": "Side liggende",
   "square": "Kvadrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Områder",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Indtast området",
   "exitArea": "Afslut området",
   "currentArea": "Aktuelt område",
   "design": "Design",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Tekst",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hey, dette er Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fast",
   "dynamicContent": "Dynamisk",
   "none": "Ingen",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Inkludér område",
   "verticalAlignment": "Lodret justering",
   "horizontalAlignment": "Horisontal justering",
   "top": "Øverst",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Centreret",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Bund",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Venstre",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Højre",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Justify",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Begræns",
   "length": "Længde",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Eksporter SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Vælg sider",
   "recentFiles": "Seneste filer",
   "start": "Start",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Ingen seneste filer",
   "countPages": "{count,plural, =0{Ingen sider} =1{1 side} other{{count} sider}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Afslut",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Ingen elementer",
   "invertSelection": "Invertér valg",
   "errorWhileImporting": "Fejl under import",
@@ -268,14 +469,23 @@
   "error": "Fejl",
   "stackTrace": "Stak spor",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Varighed",
   "quality": "Kvalitet",
   "exportPdf": "Eksporter PDF",
   "local": "Lokal",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Tilføj forbindelse",
   "connections": "Forbindelser",
   "noConnections": "Ingen forbindelser",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Forbind",
   "username": "Brugernavn",
   "password": "Adgangskode",
@@ -288,10 +498,22 @@
   "cannotConnect": "Kan ikke forbinde",
   "urlNotValid": "URL ugyldig",
   "icon": "Ikon",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Opdater",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Opdatering tilgængelig",
   "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Natligt",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Søg efter opdateringer",
   "checkForUpdatesWarning": "Udførelse af en check for opdateringer vil forbinde til Butterfly hjemmeside for at få oplysningerne.",
   "usingLatestStable": "Du bruger den seneste stabile version",
@@ -299,10 +521,25 @@
   "currentVersion": "Nuværende version",
   "updateNow": "Opdater nu",
   "shape": "Form",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Cirkel",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Rektangel",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Trekant",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linje",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Øverst til venstre",
   "topRight": "Øverst til højre",
@@ -310,6 +547,9 @@
   "bottomRight": "Nederst til højre",
   "caches": "Cacher",
   "manage": "Administrer",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Ryd caches",
   "createCache": "Opret cache",
   "thirdPartyLicenses": "Tredjeparts licenser",
@@ -317,6 +557,9 @@
   "synced": "Synkroniseret",
   "notSynced": "Ikke synkroniseret",
   "conflict": "Konflikt",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Behold lokal",
   "keepConnection": "Behold forbindelse",
   "keepBoth": "Behold begge",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Lokal seneste",
   "connectionLatest": "Forbindelse seneste",
   "path": "Sti",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Mappe synkroniseret",
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
@@ -346,19 +595,55 @@
   "syncMode": "Synkroniser tilstand",
   "connection": "Forbindelse",
   "always": "Altid",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Ingen mobil",
   "manual": "Manuelt",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Søg",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Egenskaber",
   "pin": "Fastgør",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Maler",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Placering",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Bemærkning",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Pakker",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Pakke",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Mere",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Bed om navn",
   "areaIndex": "Område {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Start i fuld skærm",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Mus",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Berøring",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Genveje",
   "middle": "Midterste",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Første",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Sekund",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Aktivt Værktøj",
   "activeToolDescription": "Brug det valgte værktøj på værktøjslinjen",
   "handTool": "Håndværktøj",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Værktøjer",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Vis gitter",
   "grid": "Gitter",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Lineal",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Vinkel",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Rapport",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Ny mappe",
   "createPack": "Opret pakke",
   "editPack": "Rediger pakke",
   "packsDirectory": "Pakker mappe",
   "stamp": "Stempel",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Tilføj til pakke",
   "sureImportPack": "Er du sikker på du vil importere pakken?",
   "byAuthor": "af {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Tilføj fil",
   "editAsset": "Rediger fil",
   "scope": "Anvendelsesområde",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "Der er i øjeblikket ingen tilgængelige pakker",
   "components": "Komponenter",
   "waypoint": "Waypoint",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Afsnit",
   "fontFamily": "Skrifttype familie",
   "smoothing": "Udglatning",
@@ -449,9 +779,21 @@
   "unknownImportType": "Ukendt importtype",
   "sureImportTemplate": "Er du sikker på du vil importere skabelonen?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Afspil",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Breakpoint",
   "presentationControls": "Kontroller for præsentation",
   "nextSlide": "Næste dias",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Kode",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Tilbud",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Afkrydsningsfelt",
   "deleted": "Slettet",
   "emphasis": "Fremhævelse",
   "listBullet": "List punkt",
   "strong": "Stærk",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Hjem",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Filer",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sorter efter",
   "location": "Placering",
   "whatsNew": "Hvad er nyt?",
@@ -493,12 +853,21 @@
   "star": "Stjerne",
   "goUp": "Gå op",
   "created": "Oprettet",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Ændret",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Hurtigstart",
   "noTemplates": "Der er i øjeblikket ingen tilgængelige skabeloner",
   "importCorePack": "Importér kernepakke",
   "importCorePackDescription": "Importér kernepakken der indeholder alle grundlæggende aktiver for at komme i gang. Dette vil tilsidesætte den aktuelle kernepakke.",
   "never": "Aldrig",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Kun ved opdateringer",
   "visibility": "Synlighed",
   "captureThumbnail": "Optag miniature",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Vælg etiket tilstand",
   "foreground": "Forgrund",
   "version": "Version",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Lagre",
   "pages": "Sider",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Arrangér",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Bring til forsiden",
   "sendToBack": "Send til tilbage",
   "bringForward": "Bring fremad",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
   "rotate": "Rotér",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Mellemrum",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Navigation jernbane",
   "cut": "Klip",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Indsæt før",
   "insertAfter": "Indsæt efter",
   "insertFirst": "Indsæt først",
   "insertLast": "Insert last",
   "paste": "Indsæt",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Stigende",
   "descending": "Faldende",
   "imageScale": "Billed skala",
   "select": "Vælg",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Værktøj",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Tekstur",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Platform tema",
   "desktop": "Skrivebord",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "PDF kvalitet",
   "surface": "Overflade",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Mønster",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Er du sikker på, at du vil lukke dokumentet?",
   "thereAreUnsavedChanges": "Der er ikke-gemte ændringer",
   "page": "Side",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "ICE Servere",
   "collaboration": "Samarbejde",
   "webRtc": "Web RTC",
   "webSocket": "Web Sokkel",
   "iceServer": "Ic- Server",
   "port": "Port",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Type",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Side",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Klient",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Skift Visning",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Skjul Brugerflade",
   "density": "Tæthed",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Kompakt",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Behageligt",
   "standard": "Standard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Lås",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Tilføj element",
   "notDefaultConnection": "Ikke standard forbindelse",
   "defaultConnection": "Standard forbindelse",
   "hide": "Skjul",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Vis",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Pause",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Stop",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Opdater",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Udskriv",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Øjendråber",
   "users": "Brugere",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Eksperimenter",
   "experimentsWarning": "Disse funktioner er eksperimentelle og kan ændres, gå i stykker eller forsvinde når som helst. Aktivering af dem kan forårsage ustabilitet eller tab af data. Fortsæt med forsigtighed. Rapporter venligst eventuelle fejl.",
   "address": "Adresse",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Spred til sider",
   "rootDirectorySpecifiedDescription": "Rodmappen er angivet. Alle avancerede mappestier vil være relativt til denne mappe. Hold den tom for at deaktivere denne mappetype.",
   "rootDirectoryNotSpecifiedDescription": "Rodmappen er ikke angivet. Et navn er påkrævet. Alle avancerede mappestier vil være absolute. Hold det tomt for at deaktivere denne mappetype.",
@@ -594,25 +1065,49 @@
   "createAreas": "Opret områder",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operationer",
   "medium": "Mellem",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Stor",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
   "smoothNavigation": "Glat navigation",
   "exact": "Præcis",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Indlejret",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Værktøjslinje- rækker",
   "pointerTest": "Markør test",
   "pressure": "Tryk",
   "small": "Lille",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Lille",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Vælg alle",
   "overrideTools": "Tilsidesæt værktøjer",
   "hideCursorWhileDrawing": "Skjul markør under tegning",
   "installed": "Installeret",
   "install": "Installér",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Fravælg",
   "changeCollection": "Skift samling",
   "collections": "Samlinger",
@@ -621,15 +1116,30 @@
   "collection": "Samling",
   "defaultCollection": "Standard samling",
   "scroll": "Rul",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "Ved opstart",
   "homeScreen": "Startskærm",
   "lastNote": "Sidste note",
   "newNote": "Ny note",
   "convertToLayer": "Konvertér til lag",
   "merge": "Flet",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Op",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Ned",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Andet",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Ingen elementer} =1{1 element} other{{count} elementer}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maksimerer kvalitet på bekostning af ydeevne. Bager et billede, der dækker 2 gange det synlige område, sikrer problemfri rendering selv under hurtig rulning eller zooming.",
   "renderResolution": "Gengiv opløsning",
   "translate": "Oversæt",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Ukrypteret",
   "encrypted": "Krypteret",
   "encryptDocumentMessage": "Klik for at kryptere dokumentet",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Bekræft adgangskode",
   "passwordMismatch": "Adgangskoderne er ikke ens",
   "action": "Handling",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "SVG Tekst",
   "offset": "Forskydning",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Placering afhængig",
   "flipHorizontal": "Vend vandret",
   "flipVertical": "Vend lodret",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Gendan indstillinger fra fil",
   "exportSettingsToFile": "Eksporter indstillinger til fil",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Stregkode type",
   "qrCode": "QR Code",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "Flyt til højre",
   "bundledPacks": "Medfølgende pakker",
   "component": "Komponent",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Vælg komponent",
   "bundlePackInDocument": "Pakke i dokument",
   "bundledPacksDescription": "Medfølgende pakker er inkluderet i dokumentet og bruges kun til at dele med dokumentet. Aktiver kan kun bruges i dokumentet hvis pakken er installeret. Packs kan installeres ved at klikke på dem.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Dine beskeder sendes gennem en sikker relæserver med ende-til-ende kryptering. En sump serveradresse er påkrævet for at oprette en session.",
   "createRawNote": "Opret rå note",
   "polygon": "Polygon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Afslut form",
   "submit": "Indsend",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Matematisk",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignorér tryk",
   "ignoreFirstPressureDescription": "På nogle enheder er førstetryksværdien ikke nøjagtig. Denne indstilling vil ignorere den første trykværdi og bruge trykket på den anden begivenhed i stedet.",
   "temporary": "Midlertidig",
   "simpleToolbarVisibility": "Simpel synlighed for værktøjslinjen",
   "autosaveDelay": "Autogem forsinkelse",
   "saved": "Gemt",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Gemmer...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Læs kun",
   "saveDelayed": "Gem forsinket",
   "unsaved": "Ikke-Gemt",
-  "pdfEmptyDescription": "Der er i øjeblikket ingen områder at eksportere. Vælg mindst et område ved hjælp af plus-knappen i øverste højre hjørne eller tilføj alle områder fra den aktuelle side eller fra hele dokumentet nedenfor."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "Der er i øjeblikket ingen områder at eksportere. Vælg mindst et område ved hjælp af plus-knappen i øverste højre hjørne eller tilføj alle områder fra den aktuelle side eller fra hele dokumentet nedenfor.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

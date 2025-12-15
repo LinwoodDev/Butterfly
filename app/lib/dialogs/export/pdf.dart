@@ -1,8 +1,9 @@
+import 'dart:math';
+
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,13 +25,13 @@ class PdfExportDialog extends StatefulWidget {
 }
 
 class _PdfExportDialogState extends State<PdfExportDialog> {
-  final List<AreaPreset> areas = [];
+  final List<({Key key, AreaPreset preset})> _areas = [];
   int quality = 1;
 
   @override
   void initState() {
     super.initState();
-    areas.addAll(widget.areas);
+    _areas.addAll(widget.areas.map((e) => (key: UniqueKey(), preset: e)));
   }
 
   @override
@@ -63,13 +64,19 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           context: context,
                           builder: (ctx) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
-                            child: ExportPresetsDialog(areas: areas),
+                            child: ExportPresetsDialog(
+                              areas: _areas.map((e) => e.preset).toList(),
+                            ),
                           ),
                         );
                         if (preset != null) {
                           setState(() {
-                            areas.clear();
-                            areas.addAll(preset.areas);
+                            _areas.clear();
+                            _areas.addAll(
+                              preset.areas.map(
+                                (e) => (key: UniqueKey(), preset: e),
+                              ),
+                            );
                           });
                         }
                       },
@@ -86,7 +93,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         if (result != null) {
                           final (page, area) = result;
                           setState(() {
-                            areas.add(AreaPreset(name: area.name, page: page));
+                            _areas.add((
+                              key: UniqueKey(),
+                              preset: AreaPreset(name: area.name, page: page),
+                            ));
                           });
                         }
                       },
@@ -106,7 +116,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Flexible(
-                          child: areas.isEmpty
+                          child: _areas.isEmpty
                               ? _buildEmptyState(state)
                               : _buildAreasList(state, currentIndex),
                         ),
@@ -177,7 +187,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     try {
       final pdf = await state.currentIndexCubit.renderPDF(
         state,
-        areas: areas,
+        areas: _areas.map((e) => e.preset).toList(),
         onProgress: (progress) => loading?.setProgress(progress),
       );
       if (pdf == null) {
@@ -212,9 +222,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           ? null
           : () {
               setState(() {
-                areas.addAll(
+                _areas.addAll(
                   pageAreas.map(
-                    (e) => AreaPreset(name: e.name, page: state.pageName),
+                    (e) => (
+                      key: UniqueKey(),
+                      preset: AreaPreset(name: e.name, page: state.pageName),
+                    ),
                   ),
                 );
               });
@@ -238,12 +251,17 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         .toList();
     Widget documentButton = ElevatedButton.icon(
       label: Text(AppLocalizations.of(context).document),
-      icon: const PhosphorIcon(PhosphorIconsLight.file),
+      icon: const PhosphorIcon(
+        PhosphorIconsLight.file,
+        textDirection: TextDirection.ltr,
+      ),
       onPressed: documentAreas.isEmpty
           ? null
           : () {
               setState(() {
-                areas.addAll(documentAreas);
+                _areas.addAll(
+                  documentAreas.map((e) => (key: UniqueKey(), preset: e)),
+                );
               });
             },
     );
@@ -284,68 +302,66 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
   }
 
   Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
-    return SingleChildScrollView(
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: areas.mapIndexed((i, e) {
-          final page =
-              (e.page == state.pageName ? null : state.data.getPage(e.page)) ??
-              state.page;
-          final area = e.area ?? page.getAreaByName(e.name);
-          if (area == null) {
-            return Container();
+    return ReorderableListView.builder(
+      itemCount: _areas.length,
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
           }
-          return FutureBuilder<ByteData?>(
-            future: currentIndex.render(
-              state.data,
-              page,
-              state.info,
-              ImageExportOptions(
-                width: area.width,
-                height: area.height,
-                quality: e.quality,
-                x: area.position.x,
-                y: area.position.y,
-              ),
-            ),
-            builder: (context, snapshot) => _AreaPreview(
-              area: area,
-              page: e.page,
-              quality: e.quality,
-              onRemove: () {
-                setState(() {
-                  areas.removeAt(i);
-                });
-              },
-              onQualityChanged: (value) {
-                setState(() {
-                  areas[i] = e.copyWith(quality: value);
-                });
-              },
-              onMoveLeft: i == 0
-                  ? null
-                  : () {
-                      setState(() {
-                        final temp = areas[i - 1];
-                        areas[i - 1] = areas[i];
-                        areas[i] = temp;
-                      });
-                    },
-              onMoveRight: i >= areas.length - 1
-                  ? null
-                  : () {
-                      setState(() {
-                        final temp = areas[i + 1];
-                        areas[i + 1] = areas[i];
-                        areas[i] = temp;
-                      });
-                    },
-              image: snapshot.data?.buffer.asUint8List(),
-            ),
-          );
-        }).toList(),
-      ),
+          final item = _areas.removeAt(oldIndex);
+          _areas.insert(newIndex, item);
+        });
+      },
+      itemBuilder: (context, i) {
+        final wrapper = _areas[i];
+        final e = wrapper.preset;
+        final page =
+            (e.page == state.pageName ? null : state.data.getPage(e.page)) ??
+            state.page;
+        final area = e.area ?? page.getAreaByName(e.name);
+        if (area == null) {
+          return Container(key: wrapper.key);
+        }
+        const maxImageDimension = 1000;
+        final maxSide = max(area.width, area.height);
+        final imageFuture = currentIndex.render(
+          state.data,
+          page,
+          state.info,
+          ImageExportOptions(
+            width: area.width,
+            height: area.height,
+            quality: min(e.quality, maxImageDimension / maxSide),
+            x: area.position.x,
+            y: area.position.y,
+          ),
+        );
+        return FutureBuilder<ByteData?>(
+          key: wrapper.key,
+          future: imageFuture,
+          builder: (context, snapshot) => _AreaPreview(
+            area: area,
+            page: e.page,
+            quality: e.quality,
+            isCurrentPage: e.page == state.pageName,
+            onRemove: () {
+              setState(() {
+                _areas.removeAt(i);
+              });
+            },
+            onQualityChanged: (value) {
+              setState(() {
+                _areas[i] = (
+                  key: wrapper.key,
+                  preset: e.copyWith(quality: value),
+                );
+              });
+            },
+            image: snapshot.data?.buffer.asUint8List(),
+          ),
+        );
+      },
     );
   }
 }
@@ -355,8 +371,8 @@ class _AreaPreview extends StatelessWidget {
   final Uint8List? image;
   final String page;
   final VoidCallback onRemove;
-  final VoidCallback? onMoveLeft, onMoveRight;
   final double quality;
+  final bool isCurrentPage;
   final ValueChanged<double> onQualityChanged;
 
   const _AreaPreview({
@@ -364,59 +380,131 @@ class _AreaPreview extends StatelessWidget {
     this.image,
     required this.page,
     required this.onRemove,
-    required this.onMoveLeft,
-    required this.onMoveRight,
     required this.quality,
+    required this.isCurrentPage,
     required this.onQualityChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        width: 200,
-        height: 500,
-        child: Column(
-          children: [
-            Expanded(
-              child: image == null
-                  ? const Align(child: CircularProgressIndicator())
-                  : Image.memory(image!),
-            ),
-            const SizedBox(height: 8),
-            Text(area.name),
-            Text(page, style: TextTheme.of(context).bodySmall),
-            ExactSlider(
-              value: quality,
-              min: 1,
-              max: 10,
-              onChanged: onQualityChanged,
-              header: Text(AppLocalizations.of(context).quality),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: onMoveLeft,
-                  icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
-                  tooltip: AppLocalizations.of(context).left,
-                ),
-                IconButton.filledTonal(
-                  onPressed: onRemove,
-                  tooltip: AppLocalizations.of(context).remove,
-                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                ),
-                IconButton(
-                  onPressed: onMoveRight,
-                  icon: const PhosphorIcon(PhosphorIconsLight.arrowRight),
-                  tooltip: AppLocalizations.of(context).right,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+    var pageName = NoteData.getPageNameFromRealName(page);
+    if (pageName.isEmpty) {
+      pageName = AppLocalizations.of(context).untitled;
+    }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmall = constraints.maxWidth < 500;
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: isSmall
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: image == null
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Image.memory(image!, fit: BoxFit.contain),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  area.name.isEmpty
+                                      ? AppLocalizations.of(context).untitled
+                                      : area.name,
+                                  style: TextTheme.of(context).titleMedium,
+                                ),
+                                Text(
+                                  pageName,
+                                  style: TextTheme.of(context).bodySmall
+                                      ?.copyWith(
+                                        color: isCurrentPage
+                                            ? ColorScheme.of(context).primary
+                                            : null,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: onRemove,
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).remove,
+                          ),
+                          const SizedBox(width: 32),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      ExactSlider(
+                        value: quality,
+                        min: 1,
+                        max: 10,
+                        onChanged: onQualityChanged,
+                        contentPadding: EdgeInsets.zero,
+                        header: Text(AppLocalizations.of(context).quality),
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      SizedBox(
+                        width: 192,
+                        height: 108,
+                        child: image == null
+                            ? const Center(child: CircularProgressIndicator())
+                            : Image.memory(image!, fit: BoxFit.contain),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              area.name.isEmpty
+                                  ? AppLocalizations.of(context).untitled
+                                  : area.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              pageName,
+                              style: TextTheme.of(context).bodySmall?.copyWith(
+                                color: isCurrentPage
+                                    ? ColorScheme.of(context).primary
+                                    : null,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            ExactSlider(
+                              value: quality,
+                              min: 1,
+                              max: 10,
+                              onChanged: onQualityChanged,
+                              contentPadding: EdgeInsets.zero,
+                              header: Text(
+                                AppLocalizations.of(context).quality,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: onRemove,
+                        icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                        tooltip: AppLocalizations.of(context).remove,
+                      ),
+                      const SizedBox(width: 16),
+                    ],
+                  ),
+          ),
+        );
+      },
     );
   }
 }
@@ -484,7 +572,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                     children:
                         (_onlyCurrentPage
                                 ? [state.pageName ?? '']
-                                : widget.document.getPages())
+                                : widget.document.getPages(true))
                             .expand(
                               (page) =>
                                   (page == state.pageName
@@ -496,9 +584,28 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                                             element.name.contains(_searchQuery),
                                       )
                                       .map((e) {
+                                        final pageName =
+                                            NoteData.getPageNameFromRealName(
+                                              page,
+                                            );
                                         return ListTile(
                                           title: Text(e.name),
-                                          subtitle: Text(page),
+                                          subtitle: Text(
+                                            pageName.isEmpty
+                                                ? AppLocalizations.of(
+                                                    context,
+                                                  ).untitled
+                                                : pageName,
+                                            style: TextTheme.of(context)
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  color: page == state.pageName
+                                                      ? ColorScheme.of(
+                                                          context,
+                                                        ).primary
+                                                      : null,
+                                                ),
+                                          ),
                                           key: ObjectKey(e.name),
                                           onTap: () => Navigator.of(
                                             context,

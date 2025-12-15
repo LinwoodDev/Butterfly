@@ -197,17 +197,17 @@ class AreaHandler extends Handler<AreaTool> {
     context.refresh();
   }
 
-  bool _startLongPress = false;
+  Offset? _contextMenuOffset;
 
   @override
-  void onLongPressDown(LongPressDownDetails details, EventContext context) {
-    _startLongPress = details.kind != PointerDeviceKind.mouse;
+  void onDoubleTapDown(TapDownDetails details, EventContext context) {
+    _contextMenuOffset = details.localPosition;
   }
 
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
-    if (!_startLongPress) return;
-    _inspectArea(details.localPosition, context);
+  void onDoubleTap(EventContext context) {
+    if (_contextMenuOffset == null) return;
+    _inspectArea(_contextMenuOffset!, context);
   }
 
   @override

@@ -69,6 +69,10 @@ export default defineConfig({
               link: "/docs/v2/pack/",
             },
             {
+              ...getSidebarTranslatedLabel("Templates"),
+              link: "/docs/v2/templates/",
+            },
+            {
               ...getSidebarTranslatedLabel("Pages"),
               link: "/docs/v2/pages/",
             },
@@ -288,6 +292,9 @@ export default defineConfig({
         },
         hu: {
           label: "Hungarian",
+        },
+        id: {
+          label: "Indonesian",
         },
         it: {
           label: "Italian",

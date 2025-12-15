@@ -1,5 +1,8 @@
 {
   "open": "Deschideți",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "Setări",
   "personalization": "Personalizare",
   "theme": "Tema",
@@ -7,10 +10,22 @@
   "lightTheme": "Temă luminoasă",
   "systemTheme": "Foloseste tema de sistem implicita",
   "view": "Vizualizare",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "Editare",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "Exportă",
   "save": "Salvează",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "Mareste",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
@@ -18,28 +33,67 @@
   "includeEraser": "Includeți ștergerea?",
   "thinning": "Thinning",
   "pen": "Stiloul",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "Stiloul injector",
   "eraser": "Eraser",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "Ștergere cale",
   "label": "Etichetă",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "Ștergere",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "Ești sigur?",
   "reallyDelete": "Sunteţi sigur că doriţi să ştergeţi acest element?",
   "no": "Nr",
   "yes": "Da",
   "undo": "Anulează",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "Reface",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "Generalități",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "Copiat în clipboard",
   "loading": "Încărcare...",
   "enterText": "Introduceți textul",
   "size": "Dimensiune",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "Width",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "Înălțime",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "Număr",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "Spațiu",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "Context",
   "box": "Cutie",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "Localizare",
   "systemLocale": "Localizare sistem",
   "information": "Informare",
@@ -53,19 +107,34 @@
   "existOverride": "Acest element există deja. Suprascrieți?",
   "description": "Descriere",
   "fill": "Completează",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "Paletă implicită",
   "highlighter": "Evidențiere",
   "add": "Adăugare",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "Elimină",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "Sigur doriți să eliminați acest lucru?",
   "resetPalette": "Reset palette",
   "custom": "Personalizat",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "Decorațiune",
   "underline": "Subliniere",
   "overline": "Subliniere",
   "strikethrough": "Tăiat",
   "thickness": "Grosime",
   "style": "Stil",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "Solid",
   "double": "Dublu",
   "dotted": "Punctat",
@@ -77,17 +146,41 @@
   "italic": "Italic",
   "clipboard": "Clipboard",
   "file": "Fişier",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "Date",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "Distribuie",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "Spațiere",
   "image": "Imagine",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "Introduceți adresa URL",
   "scale": "Scala",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "Ajutor",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "Sunteți sigur că doriți să resetați?",
   "whatToDo": "Ce vrei să faci?",
   "ignore": "Ignoră",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "Backup",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "Fișierul {fileName} a fost creat într-o versiune mai nouă ({fileVersion}). Ce ar trebui să facă cu acest fișier?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "Puncte",
   "origin": "Origine",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "Importă",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "Nou",
   "selectElement": "Selectaţi elementul",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "Copiază versiunea",
   "input": "Input",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "Comportamente",
   "dataDirectory": "Director de date",
   "defaultPath": "Calea implicită",
@@ -138,16 +240,40 @@
   "rename": "Redenumire",
   "duplicate": "Duplicate",
   "hand": "Mână",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "Dosar",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "Mutare",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "Copiază",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "Înapoi",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "Depinde de zoom",
   "shapeDetection": "Detectare Formă",
   "delay": "Întârziere",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "Stratul implicit",
   "layer": "Stratul",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "Straturi",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "Nu este setat",
   "enterLayer": "Introduceți numele stratului",
   "selectElements": "Selectare elemente",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "Eşti sigur că vrei să ştergi elementele selectate?",
   "selectCustomCollection": "Selectează o colecție personalizată",
   "svg": "VSG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "Sensibilitate",
   "sensitivityHint": "Cu cât este mai mare valoarea, cu atât mai sensibilă este aportul",
   "horizontal": "Orizontal",
   "vertical": "Verticală",
   "plain": "Simplu",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "Lumină",
   "ruled": "Regulat",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "Quad",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "Muzică",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "Întunecat",
   "plainDark": "Întunecat",
   "ruledDark": "Normal întunecat",
@@ -174,29 +315,56 @@
   "createTemplate": "Creează șablon",
   "createTemplateContent": "Sigur doriți să creați un șablon din acest document? Documentul original va fi șters.",
   "replace": "Înlocuiește",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "Sigur doriți să înlocuiți șablonul? Această operațiune nu poate fi anulată!",
   "defaultTemplate": "Șablon implicit",
   "insert": "Insert",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "Document",
   "camera": "Cameră",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "Printare",
   "selectCamera": "Selectează o cameră foto",
   "changeDocumentPath": "Schimbă calea documentului",
   "deleteWholeStroke": "Ștergeți întregul strop",
   "alpha": "Alfa",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "Suprafață",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "Selectează o zonă",
   "aspectRatio": "Raport de aspect",
   "presets": "Presetări",
   "pagePortrait": "Portret pagină",
   "pageLandscape": "Pagina peisaj",
   "square": "Patrat",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "Domenii",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "Intră în zonă",
   "exitArea": "Ieșiți din zonă",
   "currentArea": "Zona curentă",
   "design": "Proiectare",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "Text",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "Hei, acesta este Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "Fixat",
   "dynamicContent": "Dinamic",
   "none": "Niciunul",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "Include zona",
   "verticalAlignment": "Aliniere verticală",
   "horizontalAlignment": "Aliniere orizontală",
   "top": "Sus",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "Centru",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "Jos",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "Stânga",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "Dreapta",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "Aliniere",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "Constrângere",
   "length": "Lungime",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "Exportă SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "Selecteaza pagini",
   "recentFiles": "Fișiere recente",
   "start": "Pornire",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "Nu există fișiere recente",
   "countPages": "{count,plural, =0{Nici o pagină} =1{1 pagină} other{{count} pagini}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "Ieșire",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "Niciun element",
   "invertSelection": "Inversează selecția",
   "errorWhileImporting": "Eroare la importare",
@@ -268,14 +469,23 @@
   "error": "Eroare",
   "stackTrace": "Urmărire stivă",
   "laser": "Laser",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "Durată",
   "quality": "Calitate",
   "exportPdf": "Exportă PDF",
   "local": "Local",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "Adăugați conexiune",
   "connections": "Conexiuni",
   "noConnections": "Nicio conexiune",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "Conectează-te",
   "username": "Nume",
   "password": "Parolă",
@@ -288,10 +498,22 @@
   "cannotConnect": "Nu se poate conecta",
   "urlNotValid": "URL incorect",
   "icon": "Iconiță",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "Actualizare",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "Actualizare disponibilă",
   "stable": "Stabil",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "Noptez",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "Verifică pentru actualizări",
   "checkForUpdatesWarning": "Verificarea actualizărilor se va conecta la site-ul Butterfly pentru a obţine informaţiile.",
   "usingLatestStable": "Folosești cea mai recentă versiune stabilă",
@@ -299,10 +521,25 @@
   "currentVersion": "Versiunea curentă",
   "updateNow": "Actualizează acum",
   "shape": "Formă",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "Cerc",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "Dreptunghi",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "Triunghi",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "Linie",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "Corner radius",
   "topLeft": "Sus stânga",
   "topRight": "Dreapta sus",
@@ -310,6 +547,9 @@
   "bottomRight": "Jos dreapta",
   "caches": "Geocutii",
   "manage": "Gestionează",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "Șterge geocutiile",
   "createCache": "Crează geocutie",
   "thirdPartyLicenses": "Licențe terțe",
@@ -317,6 +557,9 @@
   "synced": "Sincronizat",
   "notSynced": "Nu este sincronizat",
   "conflict": "Conflict",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "Păstrați local",
   "keepConnection": "Păstrează conexiunea",
   "keepBoth": "Păstrați ambele",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "Ultimul local",
   "connectionLatest": "Conexiune recentă",
   "path": "Cale",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "Dosar sincronizat",
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
@@ -346,19 +595,55 @@
   "syncMode": "Mod sincronizare",
   "connection": "Conexiune",
   "always": "Întotdeauna",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "Niciun mobil",
   "manual": "Manual",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "Caută",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "Proprietăți",
   "pin": "Fixează",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "Unpin",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "Element",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "Pictor",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "Poziție",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "Notă",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "Pachete",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "Pachet",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "Mai",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "Cere nume",
   "areaIndex": "Suprafață {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "Pornește în ecran complet",
   "inputs": "Inputs",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "Șoricel",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "Atingere",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "Keyboard",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "Scurtături",
   "middle": "Mijloc",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "Primul",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "Al doilea",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "Unealtă activă",
   "activeToolDescription": "Folosește unealta selectată în prezent în bara de instrumente",
   "handTool": "Unealta de maini",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "Unelte",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "Arată grila",
   "grid": "Grilă",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "Regulă",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "Unghiul",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "Raport",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "Dosar nou",
   "createPack": "Creare pachet",
   "editPack": "Editare pachet",
   "packsDirectory": "Directorul de pachete",
   "stamp": "Timbru",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "Adaugă la pachet",
   "sureImportPack": "Sunteţi sigur că doriţi să importați pachetul?",
   "byAuthor": "până la {author}",
@@ -419,6 +743,9 @@
   "addAsset": "Adăugare activ",
   "editAsset": "Editare activ",
   "scope": "Domeniu",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "În acest moment nu există pachete disponibile",
   "components": "Componente",
   "waypoint": "Punct",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "Styles",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "Paragraful",
   "fontFamily": "Familia de fonturi",
   "smoothing": "Amortizor",
@@ -449,9 +779,21 @@
   "unknownImportType": "Tip de import necunoscut",
   "sureImportTemplate": "Sunteți sigur că doriți să importați șablonul?",
   "frame": "Frame",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "Redare",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "Video",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "Breakpoint",
   "presentationControls": "Controale de prezentare",
   "nextSlide": "Următorul diapozitiv",
@@ -476,16 +818,34 @@
     }
   },
   "code": "Cod",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "Ofertă",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "Link-ul",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "Casuta",
   "deleted": "Șters",
   "emphasis": "Accentuarea",
   "listBullet": "Listă marcaje",
   "strong": "Puternic",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "Markdown",
   "home": "Acasă",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "Fișiere",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "Sortează după",
   "location": "Locaţie",
   "whatsNew": "Ce este nou?",
@@ -493,12 +853,21 @@
   "star": "Stea",
   "goUp": "Mergi mai sus",
   "created": "Creat",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "Modificat",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "Quickstart",
   "noTemplates": "În acest moment nu există șabloane disponibile",
   "importCorePack": "Importă pachetul de nucleu",
   "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet.",
   "never": "Niciodată",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "Numai la actualizări",
   "visibility": "Vizibilitate",
   "captureThumbnail": "Capturează miniatura",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "Alege modul etichetă",
   "foreground": "prim-plan",
   "version": "Versiune",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "Depozit",
   "pages": "Pagini",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "Navigator",
   "arrange": "Aranjare",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "Aduce în față",
   "sendToBack": "Trimite înapoi",
   "bringForward": "Adu înainte",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
   "rotate": "Rotire",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "Spatier",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "Cale de navigare",
   "cut": "Taie",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "Inserare înainte",
   "insertAfter": "Inserare după",
   "insertFirst": "Inserare prima",
   "insertLast": "Insert last",
   "paste": "Lipește",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "Crescător",
   "descending": "Descrescător",
   "imageScale": "Scala imaginii",
   "select": "Selectare",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "Unelte",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "Textură",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "Tema platformei",
   "desktop": "Birou",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "Mobil",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "Calitate PDF",
   "surface": "Suprafață",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "Model",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "Ești sigur că vrei să închizi documentul?",
   "thereAreUnsavedChanges": "Există modificări nesalvate",
   "page": "Pagină",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "Servere ICE",
   "collaboration": "Colaborare",
   "webRtc": "Web RTC",
   "webSocket": "Socket web",
   "iceServer": "Server ICE",
   "port": "Portul",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "Tip",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "Lateral",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "Client",
+  "@client": {
+    "description": "Role"
+  },
   "server": "Server",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "Comutare vizualizare",
   "lasso": "Lasso",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "Ascunde UI",
   "density": "Densitate",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "Compact",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "Comfortable",
   "standard": "Standard",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "Blocare",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "Adaugă element",
   "notDefaultConnection": "Conexiune neimplicită",
   "defaultConnection": "Conexiune implicită",
   "hide": "Ascunde",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "Afișare",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "Întrerupeți",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "Oprește",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "Împrospătează",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "Tipărește",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "Picături oftalmice",
   "users": "Utilizatori",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "Experimente",
   "experimentsWarning": "Aceste funcții sunt experimentale și pot să se schimbe, să se blocheze sau să dispară în orice moment. Activarea lor poate provoca instabilitate sau pierderi de date. Continuați cu prudență. Vă rugăm să raportați orice erori.",
   "address": "Adresa",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "Răspândește la pagini",
   "rootDirectorySpecifiedDescription": "Directorul rădăcină este specificat. Toate directoarele avansate vor fi relative la acest director. Păstrați-l gol pentru a dezactiva acest tip de directoriu.",
   "rootDirectoryNotSpecifiedDescription": "Directorul rădăcină nu este specificat. Este necesar un nume. Toate directoarele avansate vor fi absolute. Păstrați gol pentru a dezactiva acest tip de director.",
@@ -594,25 +1065,49 @@
   "createAreas": "Creează zone",
   "autosave": "Autosave",
   "invert": "Invert",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "Operațiuni",
   "medium": "Medie",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "Mare",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "Dimensiunea barei de instrumente",
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
   "exact": "Exact",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "Inline",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "Rânduri din bara de instrumente",
   "pointerTest": "Testul indicatorului",
   "pressure": "Presiune",
   "small": "Mică",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "Mică",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "Selectează tot",
   "overrideTools": "Suprascrie uneltele",
   "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării",
   "installed": "Instalat",
   "install": "Instalează",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "Deselectează",
   "changeCollection": "Schimbă colecția",
   "collections": "Colecții",
@@ -621,15 +1116,30 @@
   "collection": "Colectare",
   "defaultCollection": "Colectare implicită",
   "scroll": "Derulează",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "La pornire",
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
   "convertToLayer": "Convertește la nivel",
   "merge": "Îmbinare",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "Sus",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "Jos",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "Altele",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{Niciun element} =1{1 element} other{{count} elemente}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizează calitatea cu preţul performanţei. Bakează o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând o redare fără întreruperi chiar şi în timpul derulării sau măririi rapide.",
   "renderResolution": "Rezoluție de randare",
   "translate": "Tradu",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "Necriptat",
   "encrypted": "Criptat",
   "encryptDocumentMessage": "Click pentru a cripta documentul",
@@ -662,8 +1175,14 @@
   "confirmPassword": "Confirmă parola",
   "passwordMismatch": "Parolele nu se potrivesc",
   "action": "Acțiune",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "Text SVG",
   "offset": "Decalaj",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "Depinde de poziție",
   "flipHorizontal": "Rotire orizontală",
   "flipVertical": "Întoarce vertical",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "Restabilește setările din fișier",
   "exportSettingsToFile": "Exportă setările în fișier",
   "barcode": "Barcode",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "Tip cod de bare",
   "qrCode": "QR Code",
   "dataMatrix": "Matricea datelor",
@@ -690,6 +1212,9 @@
   "moveRight": "Mută în dreapta",
   "bundledPacks": "Pachete pachet",
   "component": "Componentă",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "Selectaţi componenta",
   "bundlePackInDocument": "Pachet pachet în document",
   "bundledPacksDescription": "Pachetele combinate sunt incluse în document și sunt utilizate numai pentru a partaja documentul. Activele pot fi utilizate în document numai dacă pachetul este instalat. Pachetele pot fi instalate cu click pe ele.",
@@ -700,18 +1225,40 @@
   "swampDescription": "Mesajele dvs. sunt transmise printr-un server de releu securizat cu criptare de la un capăt la altul. O adresă server swamp este necesară pentru a crea o sesiune.",
   "createRawNote": "Creați o notă brută",
   "polygon": "Poligon",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "Formă finală",
   "submit": "Trimiteți",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Matematică",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignoră presiunea",
   "ignoreFirstPressureDescription": "Pe unele dispozitive, prima valoare a presiunii nu este exactă. Această setare va ignora prima valoare de presiune şi va folosi presiunea celui de-al doilea eveniment.",
   "temporary": "Temporar",
   "simpleToolbarVisibility": "Vizibilitate simplă a barei de instrumente",
   "autosaveDelay": "Întârziere salvare automată",
   "saved": "Salvat",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Salvare...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Doar citire",
   "saveDelayed": "Salvare întârziată",
   "unsaved": "nesalvate",
-  "pdfEmptyDescription": "În acest moment nu există zone pentru export. Vă rugăm să selectaţi cel puţin o zonă folosind butonul plus în colţul din dreapta sus sau să adăugaţi toate zonele din pagina curentă sau din tot documentul de mai jos."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "În acest moment nu există zone pentru export. Vă rugăm să selectaţi cel puţin o zonă folosind butonul plus în colţul din dreapta sus sau să adăugaţi toate zonele din pagina curentă sau din tot documentul de mai jos.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

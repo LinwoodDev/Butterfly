@@ -3,6 +3,9 @@ title: 存储
 sidebar_position: 2
 ---
 
+There are multiple ways of storing notes in Butterfly.
+Either by using your device storage, or by using the cloud storage (WebDAV).
+
 ## 数据目录
 
 数据目录是存储文档、模板和包的目录。
@@ -54,3 +57,28 @@ sidebar_position: 2
 如果您在本地设备上，您也可以将应用程序目录与您最喜欢的平台同步。
 Google 驱动器在窗口上有[官方应用](https://www.google.com/drive/download/)并且在游戏商店上有非官方应用。
 在 Linux 上，您也可以使用本地远程存储系统并将您的数据目录更改为这个或者添加一个新的外部存储，如果您点击添加连接按钮。
+
+## Supported file types
+
+Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+### Butterfly Note (.bfly)
+
+This file type is the recommended for saving notes.
+
+It is a zip archive containing the information (mostly in JSON files) about the note.
+These included JSON files aren't optimized for being human readable.
+
+### Butterfly Raw Note (.tbfly)
+
+This file is recommended for use with version control software like git.
+
+This file is **not** a zip archive, instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+
+### SVG
+
+This file type doesn't save information about the note!
+When this file is imported into Butterfly, it is treated as a single image.
+
+Use this _ONLY_ when the note shouldn't be modified by butterfly.

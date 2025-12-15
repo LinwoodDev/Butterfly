@@ -297,12 +297,8 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitLine() {
-      final firstX = min(element.firstPosition.x, element.secondPosition.x);
-      final firstY = min(element.firstPosition.y, element.secondPosition.y);
-      final secondX = max(element.firstPosition.x, element.secondPosition.x);
-      final secondY = max(element.firstPosition.y, element.secondPosition.y);
-      final firstPos = Offset(firstX, firstY);
-      final secondPos = Offset(secondX, secondY);
+      final firstPos = element.firstPosition.toOffset();
+      final secondPos = element.secondPosition.toOffset();
       return rect.containsLine(
         firstPos.rotate(center, rotation),
         secondPos.rotate(center, rotation),
@@ -362,7 +358,6 @@ class ShapeHitCalculator extends HitCalculator {
         );
         if (full) {
           return isPolygonInPolygon(polygon, [firstPosition, secondPosition]) &&
-              isPointInPolygon(polygon, center) &&
               isPointInPolygon(polygon, firstPosition) &&
               isPointInPolygon(polygon, secondPosition);
         }
@@ -395,10 +390,10 @@ class ShapeHitCalculator extends HitCalculator {
         ]);
         if (full) {
           return polygonInPolygon &&
-              isPointInPolygon(polygon, rect.topLeft) &&
-              isPointInPolygon(polygon, rect.topRight) &&
-              isPointInPolygon(polygon, rect.bottomRight) &&
-              isPointInPolygon(polygon, rect.bottomLeft);
+              isPointInPolygon(polygon, topLeft) &&
+              isPointInPolygon(polygon, topRight) &&
+              isPointInPolygon(polygon, bottomRight) &&
+              isPointInPolygon(polygon, bottomLeft);
         }
         return polygonInPolygon;
       case TriangleShape():
@@ -412,9 +407,9 @@ class ShapeHitCalculator extends HitCalculator {
         ]);
         if (full) {
           return polygonInPolygon &&
-              isPointInPolygon(polygon, rect.topCenter) &&
-              isPointInPolygon(polygon, rect.bottomLeft) &&
-              isPointInPolygon(polygon, rect.bottomRight);
+              isPointInPolygon(polygon, topCenter) &&
+              isPointInPolygon(polygon, bottomLeft) &&
+              isPointInPolygon(polygon, bottomRight);
         }
         return polygonInPolygon;
     }

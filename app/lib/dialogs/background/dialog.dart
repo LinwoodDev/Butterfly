@@ -124,7 +124,7 @@ class _BackgroundDialogState extends State<BackgroundDialog>
                           TextureBackground() => PhosphorIconsLight.gridFour,
                           ImageBackground() => PhosphorIconsLight.image,
                           SvgBackground() => PhosphorIconsLight.fileSvg,
-                        }),
+                        }, textDirection: TextDirection.ltr),
                       ),
                     ),
                     HorizontalTab(

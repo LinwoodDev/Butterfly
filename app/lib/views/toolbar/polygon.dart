@@ -54,7 +54,10 @@ class PolygonToolbarView extends StatelessWidget
         ),
         IconButton(
           tooltip: AppLocalizations.of(context).submit,
-          icon: const Icon(PhosphorIconsLight.check),
+          icon: const Icon(
+            PhosphorIconsLight.check,
+            textDirection: TextDirection.ltr,
+          ),
           onPressed: onSubmit,
         ),
       ],

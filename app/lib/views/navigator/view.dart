@@ -59,7 +59,7 @@ class NavigatorView extends StatefulWidget {
   State<NavigatorView> createState() => _NavigatorViewState();
 }
 
-const kNavigationRailWidth = 110.0;
+const kNavigationRailWidth = 72.0;
 
 class _NavigatorViewState extends State<NavigatorView>
     with TickerProviderStateMixin {

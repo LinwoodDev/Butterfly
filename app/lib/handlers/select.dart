@@ -42,7 +42,7 @@ class SelectHandler extends Handler<SelectTool> {
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
     _selectionManager.reset();
-    await bloc.refresh();
+    await bloc.refresh(allowBake: false);
   }
 
   @override

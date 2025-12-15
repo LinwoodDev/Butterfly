@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -11,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
 
-const kSecondaryStylusButton = 0x20;
+const kFallbackSecondaryStylusButton = 0x20;
 
 class MainViewViewport extends StatefulWidget {
   const MainViewViewport({super.key});
@@ -74,6 +76,8 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   @override
   Widget build(BuildContext context) {
+    RulerHandler? ruler;
+    double previousRulerRotation = 0;
     return SizedBox.expand(
       child: RepaintBoundary(
         child: LayoutBuilder(
@@ -119,7 +123,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                   }
                 case PointerDeviceKind.stylus:
                   nextPointerMapping = config.pen;
-                  if ((buttons & kSecondaryStylusButton) != 0) {
+                  if ((buttons & kSecondaryStylusButton) != 0 ||
+                      (buttons & kFallbackSecondaryStylusButton) != 0) {
                     nextPointerMapping = config.secondPenButton;
                   } else if ((buttons & kPrimaryStylusButton) != 0) {
                     nextPointerMapping = config.firstPenButton;
@@ -237,6 +242,20 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     return;
                                   }
+                                  if (ruler != null) {
+                                    final deltaRotation =
+                                        (details.rotation -
+                                            previousRulerRotation) *
+                                        180 /
+                                        pi;
+                                    previousRulerRotation = details.rotation;
+                                    ruler?.transform(
+                                      getEventContext(),
+                                      position: details.focalPointDelta,
+                                      rotation: deltaRotation,
+                                    );
+                                    return;
+                                  }
                                   final cubit = context
                                       .read<CurrentIndexCubit>();
                                   if (openView) openView = details.scale == 1;
@@ -289,6 +308,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     );
                                     delayBake();
                                   }
+                                  ruler = null;
+                                  previousRulerRotation = 0;
                                   cubit.removeButtons();
                                   cubit.resetReleaseHandler(bloc);
                                 },
@@ -308,6 +329,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       getEventContext(),
                                     );
                                   }
+                                  ruler = RulerHandler.getFirstRuler(
+                                    currentIndex,
+                                    details.localFocalPoint,
+                                    constraints.biggest,
+                                  );
+                                  previousRulerRotation = 0;
                                   point = details.localFocalPoint;
                                   size = 1;
                                 },
@@ -507,8 +534,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
         _positionAnimation = Tween<Offset>(
           begin:
-              friction.beginPosition -
-              (_positionAnimation?.value ?? Offset.zero),
+              friction.beginOffset - (_positionAnimation?.value ?? Offset.zero),
           end: Offset.zero,
         ).animate(_animationController);
         final lastDuration = _animationController.duration?.inMilliseconds ?? 0;

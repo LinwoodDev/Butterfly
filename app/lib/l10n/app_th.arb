@@ -1,5 +1,8 @@
 {
   "open": "เปิด",
+  "@open": {
+    "description": "Open a file or dialog"
+  },
   "settings": "การตั้งค่า",
   "personalization": "ปรับแต่ง",
   "theme": "ธีม",
@@ -7,10 +10,22 @@
   "lightTheme": "ธีมสีอ่อน",
   "systemTheme": "ใช้ธีมระบบเริ่มต้น",
   "view": "ดู",
+  "@view": {
+    "description": "View mode or menu"
+  },
   "edit": "แก้ไข",
+  "@edit": {
+    "description": "Edit mode or menu"
+  },
   "export": "ส่งออก",
   "save": "บันทึก",
+  "@save": {
+    "description": "Save action"
+  },
   "zoom": "ซูม",
+  "@zoom": {
+    "description": "Zoom action or level"
+  },
   "zoomIn": "ซูมเข้า",
   "zoomOut": "ซูมออก",
   "resetZoom": "รีเซ็ตการซูม",
@@ -18,28 +33,67 @@
   "includeEraser": "รวมยางลบด้วยหรือไม่?",
   "thinning": "การลดความหนา",
   "pen": "ปากกา",
+  "@pen": {
+    "description": "Pen tool"
+  },
   "invertedPen": "ปากกากลับสี",
   "eraser": "ยางลบ",
+  "@eraser": {
+    "description": "Eraser tool"
+  },
   "pathEraser": "ยางลบเส้นทาง",
   "label": "ป้าย",
+  "@label": {
+    "description": "Label tool"
+  },
   "delete": "ลบ",
+  "@delete": {
+    "description": "Delete action"
+  },
   "areYouSure": "คุณแน่ใจหรือไม่?",
   "reallyDelete": "คุณต้องการลบรายการนี้จริงๆ หรือไม่?",
   "no": "ไม่",
   "yes": "ใช่",
   "undo": "เลิกทำ",
+  "@undo": {
+    "description": "Undo action"
+  },
   "redo": "ทำซ้ำ",
+  "@redo": {
+    "description": "Redo action"
+  },
   "general": "ทั่วไป",
+  "@general": {
+    "description": "General settings"
+  },
   "copyTitle": "คัดลอกไปยังคลิปบอร์ดแล้ว",
   "loading": "กำลังโหลด...",
   "enterText": "ป้อนข้อความ",
   "size": "ขนาด",
+  "@size": {
+    "description": "Size property"
+  },
   "width": "ความกว้าง",
+  "@width": {
+    "description": "Width property"
+  },
   "height": "ความสูง",
+  "@height": {
+    "description": "Height property"
+  },
   "count": "จำนวน",
+  "@count": {
+    "description": "Count property"
+  },
   "space": "ระยะห่าง",
+  "@space": {
+    "description": "Spacing property"
+  },
   "background": "พื้นหลัง",
   "box": "กล่อง",
+  "@box": {
+    "description": "Box shape"
+  },
   "locale": "ภาษาท้องถิ่น",
   "systemLocale": "ภาษาท้องถิ่นของระบบ",
   "information": "ข้อมูล",
@@ -53,19 +107,34 @@
   "existOverride": "องค์ประกอบนี้มีอยู่แล้ว ต้องเขียนทับหรือไม่?",
   "description": "คำอธิบาย",
   "fill": "เติม",
+  "@fill": {
+    "description": "Fill property"
+  },
   "defaultPalette": "พาเลตเริ่มต้น",
   "highlighter": "ปากกาเน้นข้อความ",
   "add": "เพิ่ม",
+  "@add": {
+    "description": "Add action"
+  },
   "remove": "นำออก",
+  "@remove": {
+    "description": "Remove action"
+  },
   "removeConfirm": "คุณต้องการนำสิ่งนี้ออกจริงๆ หรือไม่?",
   "resetPalette": "รีเซ็ตพาเลต",
   "custom": "กำหนดเอง",
+  "@custom": {
+    "description": "Custom value"
+  },
   "decoration": "การตกแต่ง",
   "underline": "ขีดเส้นใต้",
   "overline": "ขีดเส้นบน",
   "strikethrough": "ขีดฆ่า",
   "thickness": "ความหนา",
   "style": "สไตล์",
+  "@style": {
+    "description": "Style property"
+  },
   "solid": "ทึบ",
   "double": "คู่",
   "dotted": "ลายจุด",
@@ -77,17 +146,41 @@
   "italic": "ตัวเอียง",
   "clipboard": "คลิปบอร์ด",
   "file": "ไฟล์",
+  "@file": {
+    "description": "File menu or object"
+  },
   "data": "ข้อมูล",
+  "@data": {
+    "description": "Data settings"
+  },
   "share": "แชร์",
+  "@share": {
+    "description": "Share action"
+  },
   "spacing": "ระยะห่าง",
   "image": "รูปภาพ",
+  "@image": {
+    "description": "Image object or tool"
+  },
   "enterUrl": "ป้อน URL",
   "scale": "สเกล",
+  "@scale": {
+    "description": "Scale property"
+  },
   "help": "ช่วยเหลือ",
+  "@help": {
+    "description": "Help action"
+  },
   "reallyReset": "คุณต้องการรีเซ็ตสิ่งนี้จริงๆ หรือไม่?",
   "whatToDo": "คุณต้องการทำอะไร?",
   "ignore": "ละเว้น",
+  "@ignore": {
+    "description": "Ignore action"
+  },
   "backup": "สำรองข้อมูล",
+  "@backup": {
+    "description": "Backup action"
+  },
   "createdInNewerVersion": "ไฟล์ {fileName} ถูกสร้างในเวอร์ชันที่ใหม่กว่า ({fileVersion}) ควรจัดการไฟล์นี้อย่างไร?",
   "@createdInNewerVersion": {
     "placeholders": {
@@ -103,7 +196,13 @@
   },
   "waypoints": "จุดทางผ่าน",
   "origin": "จุดเริ่มต้น",
+  "@origin": {
+    "description": "Origin point"
+  },
   "import": "นำเข้า",
+  "@import": {
+    "description": "Import action"
+  },
   "newContent": "ใหม่",
   "selectElement": "เลือกองค์ประกอบ",
   "ctrlKey": "Ctrl",
@@ -111,6 +210,9 @@
   "altKey": "Alt",
   "copyVersion": "คัดลอกเวอร์ชัน",
   "input": "อินพุต",
+  "@input": {
+    "description": "Input settings"
+  },
   "behaviors": "พฤติกรรม",
   "dataDirectory": "ไดเรกทอรีข้อมูล",
   "defaultPath": "เส้นทางเริ่มต้น",
@@ -138,16 +240,40 @@
   "rename": "เปลี่ยนชื่อ",
   "duplicate": "ทำซ้ำ",
   "hand": "มือ",
+  "@hand": {
+    "description": "Hand tool"
+  },
   "folder": "โฟลเดอร์",
+  "@folder": {
+    "description": "Folder object"
+  },
   "move": "ย้าย",
+  "@move": {
+    "description": "Move action"
+  },
   "copy": "คัดลอก",
+  "@copy": {
+    "description": "Copy action"
+  },
   "back": "ย้อนกลับ",
+  "@back": {
+    "description": "Back action"
+  },
   "zoomDependent": "ขึ้นอยู่กับการซูม",
   "shapeDetection": "ตรวจจับรูปทรง",
   "delay": "หน่วงเวลา",
+  "@delay": {
+    "description": "Delay property"
+  },
   "defaultLayer": "เลเยอร์เริ่มต้น",
   "layer": "เลเยอร์",
+  "@layer": {
+    "description": "Layer object"
+  },
   "layers": "เลเยอร์",
+  "@layers": {
+    "description": "Layers list"
+  },
   "notSet": "ไม่ได้ตั้งค่า",
   "enterLayer": "ป้อนชื่อเลเยอร์",
   "selectElements": "เลือกองค์ประกอบ",
@@ -155,15 +281,30 @@
   "deleteElementsConfirm": "คุณต้องการลบองค์ประกอบที่เลือกจริงๆ หรือไม่?",
   "selectCustomCollection": "เลือกคอลเล็กชันที่กำหนดเอง",
   "svg": "SVG",
+  "@svg": {
+    "description": "SVG format"
+  },
   "sensitivity": "ความไว",
   "sensitivityHint": "ค่ายิ่งสูง อินพุตจะยิ่งไว",
   "horizontal": "แนวนอน",
   "vertical": "แนวตั้ง",
   "plain": "ไม่มีเส้น",
+  "@plain": {
+    "description": "Background pattern"
+  },
   "light": "เส้นจาง",
   "ruled": "มีเส้น",
+  "@ruled": {
+    "description": "Background pattern"
+  },
   "quad": "ตาราง",
+  "@quad": {
+    "description": "Background pattern"
+  },
   "music": "โน้ตเพลง",
+  "@music": {
+    "description": "Background pattern"
+  },
   "dark": "มืด",
   "plainDark": "ไม่มีเส้น (มืด)",
   "ruledDark": "มีเส้น (มืด)",
@@ -174,29 +315,56 @@
   "createTemplate": "สร้างแม่แบบ",
   "createTemplateContent": "คุณต้องการสร้างแม่แบบจากเอกสารนี้จริงๆ หรือไม่ เอกสารต้นฉบับจะถูกลบ",
   "replace": "แทนที่",
+  "@replace": {
+    "description": "Replace action"
+  },
   "reallyReplace": "คุณต้องการแทนที่แม่แบบจริงๆ หรือไม่ การกระทำนี้ไม่สามารถย้อนกลับได้!",
   "defaultTemplate": "แม่แบบเริ่มต้น",
   "insert": "แทรก",
+  "@insert": {
+    "description": "Insert action"
+  },
   "document": "เอกสาร",
   "camera": "กล้อง",
+  "@camera": {
+    "description": "Camera tool"
+  },
   "printout": "สำเนาที่ปริ้นต์ออก",
   "selectCamera": "เลือกกล้อง",
   "changeDocumentPath": "เปลี่ยนเส้นทางเอกสาร",
   "deleteWholeStroke": "ลบเส้นทั้งหมด",
   "alpha": "แอลฟา",
+  "@alpha": {
+    "description": "Alpha channel"
+  },
   "area": "พื้นที่",
+  "@area": {
+    "description": "Area object"
+  },
   "selectArea": "เลือกพื้นที่",
   "aspectRatio": "อัตราส่วน",
   "presets": "ค่าที่ตั้งล่วงหน้า",
   "pagePortrait": "หน้าตั้ง",
   "pageLandscape": "หน้ากว้าง",
   "square": "จัตุรัส",
+  "@square": {
+    "description": "Square shape"
+  },
   "areas": "พื้นที่",
+  "@areas": {
+    "description": "Areas list"
+  },
   "enterArea": "ป้อนพื้นที่",
   "exitArea": "ออกจากพื้นที่",
   "currentArea": "พื้นที่ปัจจุบัน",
   "design": "ออกแบบ",
+  "@design": {
+    "description": "Design mode"
+  },
   "text": "ข้อความ",
+  "@text": {
+    "description": "Text tool"
+  },
   "welcome": "สวัสดี นี่คือ Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
@@ -223,22 +391,52 @@
   "fixed": "คงที่",
   "dynamicContent": "ไดนามิก",
   "none": "ไม่มี",
+  "@none": {
+    "description": "None value"
+  },
   "includeArea": "รวมพื้นที่",
   "verticalAlignment": "การจัดแนวแนวตั้ง",
   "horizontalAlignment": "การจัดแนวแนวนอน",
   "top": "บน",
+  "@top": {
+    "description": "Alignment"
+  },
   "center": "กึ่งกลาง",
+  "@center": {
+    "description": "Alignment"
+  },
   "bottom": "ล่าง",
+  "@bottom": {
+    "description": "Alignment"
+  },
   "left": "ซ้าย",
+  "@left": {
+    "description": "Alignment"
+  },
   "right": "ขวา",
+  "@right": {
+    "description": "Alignment"
+  },
   "justify": "จัดชิด",
+  "@justify": {
+    "description": "Alignment"
+  },
   "constraint": "ข้อจำกัด",
   "length": "ความยาว",
+  "@length": {
+    "description": "Length property"
+  },
   "exportSvg": "ส่งออก SVG",
   "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF format"
+  },
   "selectPages": "เลือกหน้า",
   "recentFiles": "ไฟล์ล่าสุด",
   "start": "เริ่ม",
+  "@start": {
+    "description": "Start action"
+  },
   "noRecentFiles": "ไม่มีไฟล์ล่าสุด",
   "countPages": "{count,plural, =0{ไม่มีหน้า} =1{1 หน้า} other{{count} หน้า}}",
   "@countPages": {
@@ -259,6 +457,9 @@
     }
   },
   "exit": "ออก",
+  "@exit": {
+    "description": "Exit action"
+  },
   "noElements": "ไม่มีองค์ประกอบ",
   "invertSelection": "กลับการเลือก",
   "errorWhileImporting": "เกิดข้อผิดพลาดขณะนำเข้า",
@@ -268,14 +469,23 @@
   "error": "ข้อผิดพลาด",
   "stackTrace": "สแต็กเทรซ",
   "laser": "เลเซอร์",
+  "@laser": {
+    "description": "Laser tool"
+  },
   "duration": "ระยะเวลา",
   "quality": "คุณภาพ",
   "exportPdf": "ส่งออก PDF",
   "local": "ในเครื่อง",
+  "@local": {
+    "description": "Local storage"
+  },
   "addConnection": "เพิ่มการเชื่อมต่อ",
   "connections": "การเชื่อมต่อ",
   "noConnections": "ไม่มีการเชื่อมต่อ",
   "url": "URL",
+  "@url": {
+    "description": "URL field"
+  },
   "connect": "เชื่อมต่อ",
   "username": "ชื่อผู้ใช้",
   "password": "รหัสผ่าน",
@@ -288,10 +498,22 @@
   "cannotConnect": "ไม่สามารถเชื่อมต่อ",
   "urlNotValid": "URL ไม่ถูกต้อง",
   "icon": "ไอคอน",
+  "@icon": {
+    "description": "Icon property"
+  },
   "update": "อัปเดต",
+  "@update": {
+    "description": "Update action"
+  },
   "updateAvailable": "มีการอัปเดต",
   "stable": "เสถียร",
+  "@stable": {
+    "description": "Release channel"
+  },
   "nightly": "รุ่นรายคืน",
+  "@nightly": {
+    "description": "Release channel"
+  },
   "checkForUpdates": "ตรวจสอบการอัปเดต",
   "checkForUpdatesWarning": "การตรวจสอบการอัปเดตจะเชื่อมต่อกับเว็บไซต์ Butterfly เพื่อดึงข้อมูล",
   "usingLatestStable": "คุณกำลังใช้เวอร์ชันเสถียรล่าสุด",
@@ -299,10 +521,25 @@
   "currentVersion": "เวอร์ชันปัจจุบัน",
   "updateNow": "อัปเดตตอนนี้",
   "shape": "รูปร่าง",
+  "@shape": {
+    "description": "Shape tool"
+  },
   "circle": "วงกลม",
+  "@circle": {
+    "description": "Shape type"
+  },
   "rectangle": "สี่เหลี่ยมผืนผ้า",
+  "@rectangle": {
+    "description": "Shape type"
+  },
   "triangle": "สามเหลี่ยม",
+  "@triangle": {
+    "description": "Shape type"
+  },
   "line": "เส้น",
+  "@line": {
+    "description": "Shape type"
+  },
   "cornerRadius": "รัศมีมุม",
   "topLeft": "บนซ้าย",
   "topRight": "บนขวา",
@@ -310,6 +547,9 @@
   "bottomRight": "ล่างขวา",
   "caches": "แคช",
   "manage": "จัดการ",
+  "@manage": {
+    "description": "Manage action"
+  },
   "clearCaches": "ล้างแคช",
   "createCache": "สร้างแคช",
   "thirdPartyLicenses": "ใบอนุญาตจากบุคคลที่สาม",
@@ -317,6 +557,9 @@
   "synced": "ซิงค์แล้ว",
   "notSynced": "ยังไม่ได้ซิงค์",
   "conflict": "ความขัดแย้ง",
+  "@conflict": {
+    "description": "Conflict status"
+  },
   "keepLocal": "เก็บในเครื่อง",
   "keepConnection": "เก็บจากการเชื่อมต่อ",
   "keepBoth": "เก็บทั้งสอง",
@@ -335,9 +578,15 @@
     }
   },
   "offline": "ออฟไลน์",
+  "@offline": {
+    "description": "Offline status"
+  },
   "localLatest": "ล่าสุดในเครื่อง",
   "connectionLatest": "ล่าสุดจากการเชื่อมต่อ",
   "path": "เส้นทาง",
+  "@path": {
+    "description": "Path property"
+  },
   "folderSynced": "ซิงค์โฟลเดอร์แล้ว",
   "syncRootDirectory": "ไดเรกทอรีหลักสำหรับซิงค์",
   "penOnlyInput": "อินพุตเฉพาะปากกา",
@@ -346,19 +595,55 @@
   "syncMode": "โหมดซิงค์",
   "connection": "การเชื่อมต่อ",
   "always": "เสมอ",
+  "@always": {
+    "description": "Frequency"
+  },
   "noMobile": "ไม่ใช้งานบนมือถือ",
   "manual": "ด้วยตนเอง",
+  "@manual": {
+    "description": "Manual mode"
+  },
   "search": "ค้นหา",
+  "@search": {
+    "description": "Search action"
+  },
   "properties": "คุณสมบัติ",
   "pin": "ปักหมุด",
+  "@pin": {
+    "description": "Pin action"
+  },
   "unpin": "ยกเลิกปักหมุด",
+  "@unpin": {
+    "description": "Pin action"
+  },
   "element": "องค์ประกอบ",
+  "@element": {
+    "description": "Element object"
+  },
   "painter": "นักวาด",
+  "@painter": {
+    "description": "Painter object"
+  },
   "position": "ตำแหน่ง",
+  "@position": {
+    "description": "Position property"
+  },
   "note": "บันทึก",
+  "@note": {
+    "description": "Note object"
+  },
   "packs": "แพ็ก",
+  "@packs": {
+    "description": "Asset pack"
+  },
   "pack": "แพ็ก",
+  "@pack": {
+    "description": "Asset pack"
+  },
   "more": "เพิ่มเติม",
+  "@more": {
+    "description": "More options"
+  },
   "askForName": "ถามชื่อ",
   "areaIndex": "พื้นที่ {index}",
   "@areaIndex": {
@@ -371,13 +656,34 @@
   },
   "startInFullScreen": "เริ่มในโหมดเต็มจอ",
   "inputs": "อินพุต",
+  "@inputs": {
+    "description": "Input settings"
+  },
   "mouse": "เมาส์",
+  "@mouse": {
+    "description": "Input device"
+  },
   "touch": "สัมผัส",
+  "@touch": {
+    "description": "Input device"
+  },
   "keyboard": "คีย์บอร์ด",
+  "@keyboard": {
+    "description": "Input device"
+  },
   "shortcuts": "คีย์ลัด",
   "middle": "กลาง",
+  "@middle": {
+    "description": "Mouse button"
+  },
   "first": "แรก",
+  "@first": {
+    "description": "Mouse button"
+  },
   "second": "ที่สอง",
+  "@second": {
+    "description": "Mouse button"
+  },
   "activeTool": "เครื่องมือที่ใช้งาน",
   "activeToolDescription": "ใช้เครื่องมือที่เลือกบนแถบเครื่องมือ",
   "handTool": "เครื่องมือมือ",
@@ -394,16 +700,34 @@
     }
   },
   "tools": "เครื่องมือ",
+  "@tools": {
+    "description": "Tools list"
+  },
   "showGrid": "แสดงตาราง",
   "grid": "ตาราง",
+  "@grid": {
+    "description": "Helper tool"
+  },
   "ruler": "ไม้บรรทัด",
+  "@ruler": {
+    "description": "Helper tool"
+  },
   "angle": "มุม",
+  "@angle": {
+    "description": "Helper tool"
+  },
   "report": "รายงาน",
+  "@report": {
+    "description": "Report action"
+  },
   "newFolder": "โฟลเดอร์ใหม่",
   "createPack": "สร้างแพ็ก",
   "editPack": "แก้ไขแพ็ก",
   "packsDirectory": "ไดเรกทอรีแพ็ก",
   "stamp": "ตรา",
+  "@stamp": {
+    "description": "Stamp tool"
+  },
   "addToPack": "เพิ่มไปยังแพ็ก",
   "sureImportPack": "คุณแน่ใจว่าต้องการนำเข้าแพ็กหรือไม่?",
   "byAuthor": "โดย {author}",
@@ -419,6 +743,9 @@
   "addAsset": "เพิ่มแอสเซ็ต",
   "editAsset": "แก้ไขแอสเซ็ต",
   "scope": "ขอบเขต",
+  "@scope": {
+    "description": "Scope property"
+  },
   "noPacks": "ขณะนี้ไม่มีแพ็กที่ใช้งานได้",
   "components": "คอมโพเนนต์",
   "waypoint": "จุดทางผ่าน",
@@ -439,6 +766,9 @@
     }
   },
   "styles": "สไตล์",
+  "@styles": {
+    "description": "Styles list"
+  },
   "paragraph": "ย่อหน้า",
   "fontFamily": "ฟอนต์",
   "smoothing": "ความเรียบ",
@@ -449,9 +779,21 @@
   "unknownImportType": "ประเภทการนำเข้าไม่รู้จัก",
   "sureImportTemplate": "คุณแน่ใจว่าต้องการนำเข้าแม่แบบหรือไม่?",
   "frame": "กรอบ",
+  "@frame": {
+    "description": "Frame object"
+  },
   "play": "เล่น",
+  "@play": {
+    "description": "Play action"
+  },
   "video": "วิดีโอ",
+  "@video": {
+    "description": "Video object"
+  },
   "fps": "FPS",
+  "@fps": {
+    "description": "Frames per second"
+  },
   "breakpoint": "เบรกพอยต์",
   "presentationControls": "การควบคุมการนำเสนอ",
   "nextSlide": "สไลด์ถัดไป",
@@ -476,16 +818,34 @@
     }
   },
   "code": "โค้ด",
+  "@code": {
+    "description": "Code block"
+  },
   "quote": "อ้างอิง",
+  "@quote": {
+    "description": "Quote block"
+  },
   "link": "ลิงก์",
+  "@link": {
+    "description": "Link object"
+  },
   "checkbox": "ช่องเลือก",
   "deleted": "ถูกลบ",
   "emphasis": "เน้น",
   "listBullet": "รายการหัวข้อย่อย",
   "strong": "ตัวหนา",
+  "@strong": {
+    "description": "Strong emphasis"
+  },
   "markdown": "มาร์กดาวน์",
   "home": "หน้าหลัก",
+  "@home": {
+    "description": "Home screen"
+  },
   "files": "ไฟล์",
+  "@files": {
+    "description": "Files list"
+  },
   "sortBy": "จัดเรียงตาม",
   "location": "ตำแหน่ง",
   "whatsNew": "มีอะไรใหม่?",
@@ -493,12 +853,21 @@
   "star": "ติดดาว",
   "goUp": "เลื่อนขึ้น",
   "created": "สร้างเมื่อ",
+  "@created": {
+    "description": "Date property"
+  },
   "modified": "แก้ไขเมื่อ",
+  "@modified": {
+    "description": "Date property"
+  },
   "quickstart": "เริ่มต้นด่วน",
   "noTemplates": "ขณะนี้ไม่มีแม่แบบใดๆ",
   "importCorePack": "นำเข้าแพ็กหลัก",
   "importCorePackDescription": "นำเข้าแพ็กหลักที่มีแอสเซ็ตพื้นฐานทั้งหมดเพื่อเริ่มต้น การดำเนินการนี้จะเขียนทับแพ็กหลักปัจจุบัน",
   "never": "ไม่เคย",
+  "@never": {
+    "description": "Frequency"
+  },
   "onlyOnUpdates": "เฉพาะเมื่ออัปเดต",
   "visibility": "การมองเห็น",
   "captureThumbnail": "จับภาพย่อ",
@@ -506,10 +875,19 @@
   "chooseLabelMode": "เลือกโหมดป้าย",
   "foreground": "พื้นหน้า",
   "version": "เวอร์ชัน",
+  "@version": {
+    "description": "Version property"
+  },
   "repository": "ที่เก็บ",
   "pages": "หน้า",
+  "@pages": {
+    "description": "Pages list"
+  },
   "navigator": "ตัวนำทาง",
   "arrange": "จัดเรียง",
+  "@arrange": {
+    "description": "Arrange menu"
+  },
   "bringToFront": "นำไปข้างหน้า",
   "sendToBack": "ส่งไปข้างหลัง",
   "bringForward": "นำขึ้นข้างหน้า",
@@ -518,62 +896,155 @@
   "onlyAvailableLargerScreen": "ใช้ได้เฉพาะบนหน้าจอขนาดใหญ่",
   "toolbarPosition": "ตำแหน่งแถบเครื่องมือ",
   "rotate": "หมุน",
+  "@rotate": {
+    "description": "Rotate action"
+  },
   "spacer": "ตัวเว้นวรรค",
+  "@spacer": {
+    "description": "Spacer element"
+  },
   "navigationRail": "รางนำทาง",
   "cut": "ตัด",
+  "@cut": {
+    "description": "Clipboard action"
+  },
   "insertBefore": "แทรกก่อน",
   "insertAfter": "แทรกหลัง",
   "insertFirst": "แทรกแรก",
   "insertLast": "แทรกสุดท้าย",
   "paste": "วาง",
+  "@paste": {
+    "description": "Clipboard action"
+  },
   "ascending": "เรียงจากน้อยไปมาก",
   "descending": "เรียงจากมากไปน้อย",
   "imageScale": "สเกลรูปภาพ",
   "select": "เลือก",
+  "@select": {
+    "description": "Select action"
+  },
   "tool": "เครื่องมือ",
+  "@tool": {
+    "description": "Tool object"
+  },
   "texture": "พื้นผิว",
+  "@texture": {
+    "description": "Texture property"
+  },
   "platformTheme": "ธีมแพลตฟอร์ม",
   "desktop": "เดสก์ท็อป",
+  "@desktop": {
+    "description": "Platform"
+  },
   "mobile": "มือถือ",
+  "@mobile": {
+    "description": "Platform"
+  },
   "pdfQuality": "คุณภาพ PDF",
   "surface": "พื้นผิว",
+  "@surface": {
+    "description": "Surface tool"
+  },
   "pattern": "รูปแบบ",
+  "@pattern": {
+    "description": "Pattern property"
+  },
   "sureClose": "คุณแน่ใจว่าต้องการปิดเอกสารหรือไม่?",
   "thereAreUnsavedChanges": "มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
   "page": "หน้า",
+  "@page": {
+    "description": "Page object"
+  },
   "iceServers": "เซิร์ฟเวอร์ ICE",
   "collaboration": "ความร่วมมือ",
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "เซิร์ฟเวอร์ ICE",
   "port": "พอร์ต",
+  "@port": {
+    "description": "Port number"
+  },
   "type": "ประเภท",
+  "@type": {
+    "description": "Type property"
+  },
   "side": "ด้าน",
+  "@side": {
+    "description": "Side property"
+  },
   "client": "ไคลเอนต์",
+  "@client": {
+    "description": "Role"
+  },
   "server": "เซิร์ฟเวอร์",
+  "@server": {
+    "description": "Role"
+  },
   "switchView": "สลับมุมมอง",
   "lasso": "ลาสโซ",
+  "@lasso": {
+    "description": "Lasso tool"
+  },
   "hideUI": "ซ่อน UI",
   "density": "ความหนาแน่น",
+  "@density": {
+    "description": "Density property"
+  },
   "compact": "กะทัดรัด",
+  "@compact": {
+    "description": "Density value"
+  },
   "comfortable": "สบายตา",
   "standard": "มาตรฐาน",
+  "@standard": {
+    "description": "Density value"
+  },
   "lock": "ล็อก",
+  "@lock": {
+    "description": "Lock action"
+  },
   "addElement": "เพิ่มองค์ประกอบ",
   "notDefaultConnection": "ไม่ใช่การเชื่อมต่อเริ่มต้น",
   "defaultConnection": "การเชื่อมต่อเริ่มต้น",
   "hide": "ซ่อน",
+  "@hide": {
+    "description": "Visibility action"
+  },
   "show": "แสดง",
+  "@show": {
+    "description": "Visibility action"
+  },
   "pause": "หยุดชั่วคราว",
+  "@pause": {
+    "description": "Media action"
+  },
   "stop": "หยุด",
+  "@stop": {
+    "description": "Media action"
+  },
   "refresh": "รีเฟรช",
+  "@refresh": {
+    "description": "Refresh action"
+  },
   "print": "พิมพ์",
+  "@print": {
+    "description": "Print action"
+  },
   "dav": "DAV",
+  "@dav": {
+    "description": "WebDAV"
+  },
   "eyeDropper": "หยดสี",
   "users": "ผู้ใช้",
+  "@users": {
+    "description": "Users list"
+  },
   "experiments": "ทดลอง",
   "experimentsWarning": "คุณสมบัติเหล่านี้เป็นการทดลองและอาจเปลี่ยนแปลงเสียหายหายไปได้ตลอดเวลา การเปิดใช้งานอาจทำให้เกิดความไม่เสถียรหรือสูญหายของข้อมูล โปรดระมัดระวัง และแจ้งบั๊กที่พบ",
   "address": "ที่อยู่",
+  "@address": {
+    "description": "Address property"
+  },
   "spreadToPages": "กระจายไปยังหลายหน้า",
   "rootDirectorySpecifiedDescription": "ได้กำหนดไดเรกทอรีหลักแล้ว เส้นทางไดเรกทอรีขั้นสูงทั้งหมดจะสัมพันธ์กับไดเรกทอรีนี้ หากต้องการปิดประเภทไดเรกทอรีนี้ ให้ปล่อยว่างไว้",
   "rootDirectoryNotSpecifiedDescription": "ยังไม่ได้กำหนดไดเรกทอรีหลัก จึงต้องกำหนดชื่อ เส้นทางไดเรกทอรีขั้นสูงทั้งหมดจะเป็นเส้นทางสมบูรณ์ หากต้องการปิดประเภทไดเรกทอรีนี้ ให้ปล่อยว่างไว้",
@@ -594,25 +1065,49 @@
   "createAreas": "สร้างพื้นที่",
   "autosave": "บันทึกอัตโนมัติ",
   "invert": "กลับ",
+  "@invert": {
+    "description": "Invert action"
+  },
   "operations": "การดำเนินการ",
   "medium": "ปานกลาง",
+  "@medium": {
+    "description": "Size value"
+  },
   "large": "ใหญ่",
+  "@large": {
+    "description": "Size value"
+  },
   "toolbarSize": "ขนาดแถบเครื่องมือ",
   "addAll": "เพิ่มทั้งหมด",
   "onlyCurrentPage": "เฉพาะหน้าปัจจุบัน",
   "smoothNavigation": "การนำทางเรียบ",
   "exact": "แม่นยำ",
+  "@exact": {
+    "description": "Exact match"
+  },
   "inline": "อินไลน์",
+  "@inline": {
+    "description": "Inline position"
+  },
   "toolbarRows": "แถวของแถบเครื่องมือ",
   "pointerTest": "ทดสอบตัวชี้",
   "pressure": "ความดัน",
   "small": "เล็ก",
+  "@small": {
+    "description": "Size value"
+  },
   "tiny": "จิ๋ว",
+  "@tiny": {
+    "description": "Size value"
+  },
   "selectAll": "เลือกทั้งหมด",
   "overrideTools": "แทนที่เครื่องมือ",
   "hideCursorWhileDrawing": "ซ่อนเคอร์เซอร์ขณะวาด",
   "installed": "ติดตั้งแล้ว",
   "install": "ติดตั้ง",
+  "@install": {
+    "description": "Install action"
+  },
   "deselect": "ยกเลิกเลือก",
   "changeCollection": "เปลี่ยนคอลเล็กชัน",
   "collections": "คอลเล็กชัน",
@@ -621,15 +1116,30 @@
   "collection": "คอลเล็กชัน",
   "defaultCollection": "คอลเล็กชันเริ่มต้น",
   "scroll": "เลื่อน",
+  "@scroll": {
+    "description": "Scroll action"
+  },
   "onStartup": "เมื่อเริ่มต้น",
   "homeScreen": "หน้าจอหลัก",
   "lastNote": "บันทึกล่าสุด",
   "newNote": "บันทึกใหม่",
   "convertToLayer": "แปลงเป็นเลเยอร์",
   "merge": "รวม",
+  "@merge": {
+    "description": "Merge action"
+  },
   "up": "ขึ้น",
+  "@up": {
+    "description": "Direction"
+  },
   "down": "ลง",
+  "@down": {
+    "description": "Direction"
+  },
   "other": "อื่นๆ",
+  "@other": {
+    "description": "Other category"
+  },
   "countElements": "{count,plural, =0{ไม่มีองค์ประกอบ} =1{1 องค์ประกอบ} other{{count} องค์ประกอบ}}",
   "@countElements": {
     "placeholders": {
@@ -651,6 +1161,9 @@
   "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "ความละเอียดการเรนเดอร์",
   "translate": "แปล",
+  "@translate": {
+    "description": "Translate action"
+  },
   "unencrypted": "ไม่ได้เข้ารหัส",
   "encrypted": "เข้ารหัส",
   "encryptDocumentMessage": "คลิกเพื่อเข้ารหัสเอกสาร",
@@ -662,8 +1175,14 @@
   "confirmPassword": "ยืนยันรหัสผ่าน",
   "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
   "action": "การกระทำ",
+  "@action": {
+    "description": "Action property"
+  },
   "svgText": "ข้อความ SVG",
   "offset": "ระยะห่าง",
+  "@offset": {
+    "description": "Offset property"
+  },
   "positionDependent": "ขึ้นกับตำแหน่ง",
   "flipHorizontal": "พลิกแนวนอน",
   "flipVertical": "พลิกแนวตั้ง",
@@ -673,6 +1192,9 @@
   "restoreSettingsFromFile": "กู้คืนการตั้งค่าจากไฟล์",
   "exportSettingsToFile": "ส่งออกการตั้งค่าเป็นไฟล์",
   "barcode": "บาร์โค้ด",
+  "@barcode": {
+    "description": "Barcode object"
+  },
   "barcodeType": "ประเภทบาร์โค้ด",
   "qrCode": "คิวอาร์โค้ด",
   "dataMatrix": "Data Matrix",
@@ -690,6 +1212,9 @@
   "moveRight": "เลื่อนไปขวา",
   "bundledPacks": "แพ็กที่รวมมา",
   "component": "Component",
+  "@component": {
+    "description": "Component object"
+  },
   "selectComponent": "เลือกคอมโพเนนต์",
   "bundlePackInDocument": "ฝังแพ็กในเอกสาร",
   "bundledPacksDescription": "แพ็กที่รวมไว้จะถูกฝังในเอกสารและใช้เพื่อแชร์ไปพร้อมกับเอกสารเท่านั้น แอสเซ็ตจะใช้ได้ในเอกสารก็ต่อเมื่อแพ็กถูกติดตั้ง สามารถติดตั้งแพ็กได้โดยคลิกที่แพ็ก",
@@ -700,18 +1225,40 @@
   "swampDescription": "ข้อความของคุณจะถูกส่งผ่านเซิร์ฟเวอร์รีเลย์ที่ปลอดภัยและเข้ารหัสตั้งแต่ต้นทางถึงปลายทาง ต้องระบุที่อยู่เซิร์ฟเวอร์ swamp เพื่อสร้างเซสชัน",
   "createRawNote": "สร้างบันทึกดิบ",
   "polygon": "รูปหลายเหลี่ยม",
+  "@polygon": {
+    "description": "Polygon shape"
+  },
   "finishShape": "เสร็จสิ้นรูปทรง",
   "submit": "ส่ง",
+  "@submit": {
+    "description": "Submit action"
+  },
   "math": "Math",
+  "@math": {
+    "description": "Math tool"
+  },
   "ignorePressure": "Ignore pressure",
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
   "autosaveDelay": "Autosave delay",
   "saved": "Saved",
+  "@saved": {
+    "description": "Save status"
+  },
   "saving": "Saving...",
+  "@saving": {
+    "description": "Save status"
+  },
   "readOnly": "Read only",
   "saveDelayed": "Save delayed",
   "unsaved": "Unsaved",
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below."
+  "@unsaved": {
+    "description": "Save status"
+  },
+  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
+  "densityMaximize": "Maximize",
+  "@densityMaximize": {
+    "description": "Density value"
+  }
 }

@@ -3,6 +3,9 @@ title: Lagerplads
 sidebar_position: 2
 ---
 
+There are multiple ways of storing notes in Butterfly.
+Either by using your device storage, or by using the cloud storage (WebDAV).
+
 ## Data mappe
 
 Datamappen er den mappe, hvor dokumenter, skabeloner og pakker gemmes.
@@ -54,3 +57,28 @@ Der er et par begrænsninger:
 Hvis du er på en indfødt enhed, kan du også synkronisere programmappen med din foretrukne platform.
 Google drev har [en officiel app] (https://www.google.com/drive/download/) på vinduer, og der er uofficielle onces i spillebutikken.
 På linux kan du også bruge det indfødte fjernlagringssystem og ændre din datamappe til dette eller tilføje en ny ekstern lagring, hvis du klikker på knappen Tilføj forbindelse.
+
+## Supported file types
+
+Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+### Butterfly Note (.bfly)
+
+This file type is the recommended for saving notes.
+
+It is a zip archive containing the information (mostly in JSON files) about the note.
+These included JSON files aren't optimized for being human readable.
+
+### Butterfly Raw Note (.tbfly)
+
+This file is recommended for use with version control software like git.
+
+This file is **not** a zip archive, instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+
+### SVG
+
+This file type doesn't save information about the note!
+When this file is imported into Butterfly, it is treated as a single image.
+
+Use this _ONLY_ when the note shouldn't be modified by butterfly.
