@@ -1,4 +1,5 @@
 * Add extend selection shortcut to label handler
+* Add dot to the center of the ruler
 * Fix app crash when having invalid latex
 * Fix label handler not submitting changes on dispose
 * Fix label handler updating text handling
