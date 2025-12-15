@@ -59,7 +59,8 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   ReceivePort? port;
   StreamSubscription? subscription;
   try {
-    if (kIsWeb) {
+    final hasHeavyElements = elements.any((e) => e is SourcedElement);
+    if (kIsWeb || !hasHeavyElements) {
       return importAssets((
         data,
         elements,

@@ -1,6 +1,8 @@
+* Add extend selection shortcut to label handler
 * Fix app crash when having invalid latex
 * Fix label handler not submitting changes on dispose
 * Fix label handler updating text handling
+* Fix performance problems on creating simple elements
 * Upgrade to flutter 3.38
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
