@@ -446,7 +446,7 @@ class _AreaPreview extends StatelessWidget {
                         value: quality,
                         min: 1,
                         max: 10,
-                        onChanged: onQualityChanged,
+                        onChangeEnd: onQualityChanged,
                         contentPadding: EdgeInsets.zero,
                         header: Text(AppLocalizations.of(context).quality),
                       ),
@@ -485,7 +485,7 @@ class _AreaPreview extends StatelessWidget {
                               value: quality,
                               min: 1,
                               max: 10,
-                              onChanged: onQualityChanged,
+                              onChangeEnd: onQualityChanged,
                               contentPadding: EdgeInsets.zero,
                               header: Text(
                                 AppLocalizations.of(context).quality,
