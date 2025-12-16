@@ -25,6 +25,10 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -145,6 +149,10 @@ jobs:
         run: |
           choco install yq
           choco install innosetup
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -196,6 +204,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -266,6 +278,10 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -404,6 +420,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -457,6 +477,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
