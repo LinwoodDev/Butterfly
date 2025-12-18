@@ -1,6 +1,10 @@
+* Add extend selection shortcut to label handler
+* Add dot to the center of the ruler
 * Fix app crash when having invalid latex
 * Fix label handler not submitting changes on dispose
 * Fix label handler updating text handling
+* Fix performance problems on creating simple elements
+* Fix pdf export preview gets updated on every slider change
 * Upgrade to flutter 3.38
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.4

@@ -667,10 +667,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "071f3b05032fa62e60ca15db9939f8afbaf403b37e67747ac88f858c3e999228"
+      sha256: "8777ce60f8189cbf302e229fc458370e4a8aea6dc36133665b5fc4f9d674ad95"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.7+1"
+    version: "2.7.1"
   image:
     dependency: "direct main"
     description:
@@ -1764,5 +1764,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
+  dart: ">=3.10.0 <4.0.0"
   flutter: ">=3.38.5"
