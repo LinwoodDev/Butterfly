@@ -22,7 +22,6 @@ export default defineConfig({
       customCss: [
         // Relative path to your custom CSS file
         "./src/styles/linwood-style.scss",
-        // "./src/styles/test.scss",
         "./src/styles/custom.scss",
         "node_modules/katex/dist/katex.min.css"
       ],
