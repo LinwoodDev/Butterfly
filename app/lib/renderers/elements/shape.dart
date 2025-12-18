@@ -152,8 +152,10 @@ class ShapeRenderer extends Renderer<ShapeElement> {
             'path',
             attributes: {
               'd': d,
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
+              'fill': shape.fillColor.toHexString(alpha: false),
+              'fill-opacity': '${shape.fillColor.a / 255}',
+              'stroke': element.property.color.toHexString(alpha: false),
+              'stroke-opacity': '${element.property.color.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
             },
           );
@@ -167,8 +169,10 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'cy': '${drawRect.center.dy}',
               'rx': '${(drawRect.width / 2).abs()}',
               'ry': '${(drawRect.height / 2).abs()}',
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
+              'fill': shape.fillColor.toHexString(alpha: false),
+              'fill-opacity': '${shape.fillColor.a / 255}',
+              'stroke': element.property.color.toHexString(alpha: false),
+              'stroke-opacity': '${element.property.color.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
             },
           );
@@ -183,7 +187,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'x2': '${element.secondPosition.x}px',
               'y2': '${element.secondPosition.y}px',
               'stroke-width': '${element.property.strokeWidth}px',
-              'stroke': element.property.color.toHexString(),
+              'stroke': element.property.color.toHexString(alpha: false),
+              'stroke-opacity': '${element.property.color.a / 255}',
               'fill': 'none',
             },
           );
