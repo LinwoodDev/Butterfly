@@ -24,9 +24,9 @@ The text label tool supports **Latex** for defining mathematical formulas.
 Latex is a markup language that has many features, you can use it to **write** mathematical formulas in Butterfly
 
 
-### Why should I write math equation when I can draw them?
+### Why should I write math equations when I can draw them?
 
-It is up to you, but sometimes, you need to have a proper looking math equation, without using handwriting.
+It is up to you, but sometimes, you need to have a proper looking math equations, without using handwriting.
 
 
 ## How do I apply Latex?
