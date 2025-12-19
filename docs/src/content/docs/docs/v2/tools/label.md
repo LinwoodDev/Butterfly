@@ -20,7 +20,7 @@ LaTeX is a markup language that has many features, you can use it to **write** m
 
 ### Why should I write math equations when I can draw them?
 
-It is up to you, but sometimes, you need to have a proper looking math equation, without using handwriting.
+It is up to you, but sometimes, a properly formatted mathematical expression is preferred over handwriting.
 
 
 ## How do I apply LaTeX?
@@ -39,12 +39,12 @@ Do not worry, the syntax is easy, you only need to know some words.
 
 ### Basic guide 
 
-Everything you write isn't changed, until you insert a backslash (\\) before a command.
+A backslash (\\) must precede any LaTeX command to indicate it is a command.
 
-An example command: 
-`\int` which shows the symbol for integrating:
+An example command is `\int_{7}^{6}`, which is used to show the integral symbol:
+
 ```math
-\int_{-\infty}^{\infty} e^{-x^2}
+\int_{7}^{6}
 ```
 
 
