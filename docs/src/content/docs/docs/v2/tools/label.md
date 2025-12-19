@@ -39,7 +39,7 @@ Do not worry, the syntax is easy, you only need to know some words.
 
 ### Basic guide 
 
-Everything you write isn't changed, until you insert a backslash before a command (\)
+Everything you write isn't changed, until you insert a backslash (\\) before a command.
 
 An example command: 
 `\int` which shows the symbol for integrating:
