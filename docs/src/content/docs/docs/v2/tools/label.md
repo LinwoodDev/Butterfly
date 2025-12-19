@@ -43,7 +43,7 @@ To start using Latex, you need to know its syntax!
 Do not worry, the syntax is easy, you only need to know some words.
 
 
-### Basic guide 
+### Basic guide
 
 Everything you write isn't changed, until you insert a backslash before a command (\) (Insert image here showing it on the physical keyboard and softkeybaord because not everyone is terminally on their computers like me)
 
