@@ -1167,9 +1167,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
   }) async {
-    final realWidth = (options.width * options.quality).ceil();
-    final realHeight = (options.height * options.quality).ceil();
-    final realZoom = options.scale * options.quality;
+    final realWidth = options.width.ceil();
+    final realHeight = options.height.ceil();
+    final realZoom = options.scale;
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
@@ -1184,7 +1184,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       cameraViewport:
           cameraViewport ??
           state.cameraViewport.unbake(unbakedElements: renderers),
-      transform: CameraTransform(1, Offset(options.x, options.y), realZoom),
+      transform: CameraTransform(
+        options.quality,
+        Offset(options.x, options.y),
+        realZoom,
+      ),
     );
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();

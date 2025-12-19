@@ -1,11 +1,13 @@
 * Add extend selection shortcut to label handler
 * Add dot to the center of the ruler
+* Add processing indicator when exporting and sharing
 * Fix app crash when having invalid latex
 * Fix label handler not submitting changes on dispose
 * Fix label handler updating text handling
 * Fix performance problems on creating simple elements
 * Fix pdf export preview gets updated on every slider change
 * Fix SVG export compatibility by using fill-opacity and stroke-opacity ([#963](https://github.com/LinwoodDev/Butterfly/issues/963))
+* Fix quality changes viewport on export dialog
 * Upgrade to flutter 3.38
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
