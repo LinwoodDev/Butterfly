@@ -4,7 +4,7 @@ import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
-import rehypeKatex from 'rehype-katex'
+import rehypeKatex from "rehype-katex";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import remarkMath from "remark-math";
