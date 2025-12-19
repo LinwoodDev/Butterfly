@@ -183,7 +183,8 @@ class PenRenderer extends Renderer<PenElement> {
       points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.fill.toHexString())
+        ..setAttribute('fill', property.fill.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${property.fill.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
@@ -211,7 +212,8 @@ class PenRenderer extends Renderer<PenElement> {
 
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.color.toHexString())
+        ..setAttribute('fill', property.color.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${property.color.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');

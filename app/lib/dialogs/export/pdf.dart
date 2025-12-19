@@ -27,6 +27,7 @@ class PdfExportDialog extends StatefulWidget {
 class _PdfExportDialogState extends State<PdfExportDialog> {
   final List<({Key key, AreaPreset preset})> _areas = [];
   int quality = 1;
+  bool? _exportingShare;
 
   @override
   void initState() {
@@ -134,35 +135,71 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                             ),
                             if (widget.print) ...[
                               ElevatedButton(
-                                child: Text(
-                                  widget.print
-                                      ? AppLocalizations.of(context).share
-                                      : AppLocalizations.of(context).export,
-                                ),
-                                onPressed: () async {
-                                  await _export(true);
-                                  Navigator.of(context).pop();
-                                },
+                                onPressed: _exportingShare != null
+                                    ? null
+                                    : () async {
+                                        await _export(true);
+                                        if (mounted) {
+                                          Navigator.of(context).pop();
+                                        }
+                                      },
+                                child: _exportingShare == true
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(
+                                        widget.print
+                                            ? AppLocalizations.of(context).share
+                                            : AppLocalizations.of(
+                                                context,
+                                              ).export,
+                                      ),
                               ),
                             ] else ...[
                               if (supportsShare())
                                 ElevatedButton(
-                                  child: Text(
-                                    AppLocalizations.of(context).share,
-                                  ),
-                                  onPressed: () async {
-                                    await _export(true);
-                                    Navigator.of(context).pop();
-                                  },
+                                  onPressed: _exportingShare != null
+                                      ? null
+                                      : () async {
+                                          await _export(true);
+                                          if (mounted) {
+                                            Navigator.of(context).pop();
+                                          }
+                                        },
+                                  child: _exportingShare == true
+                                      ? const SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        )
+                                      : Text(
+                                          AppLocalizations.of(context).share,
+                                        ),
                                 ),
                               ElevatedButton(
-                                child: Text(
-                                  AppLocalizations.of(context).export,
-                                ),
-                                onPressed: () async {
-                                  await _export(false);
-                                  Navigator.of(context).pop();
-                                },
+                                onPressed: _exportingShare != null
+                                    ? null
+                                    : () async {
+                                        await _export(false);
+                                        if (mounted) {
+                                          Navigator.of(context).pop();
+                                        }
+                                      },
+                                child: _exportingShare == false
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(AppLocalizations.of(context).export),
                               ),
                             ],
                           ],
@@ -180,6 +217,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
   }
 
   Future<void> _export(bool share) async {
+    if (_exportingShare != null) return;
+    setState(() => _exportingShare = share);
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -210,6 +249,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
       );
     } finally {
       loading?.close();
+      if (mounted) setState(() => _exportingShare = null);
     }
   }
 
