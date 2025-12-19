@@ -18,10 +18,13 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.6",
+    "katex": "^0.16.27",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "rehype-katex": "^7.0.1",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
+    "remark-math": "^6.0.0",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.26.0",
