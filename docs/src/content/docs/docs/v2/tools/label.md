@@ -70,13 +70,3 @@ An example command:
 |`\in` and `\notin`| Set membership or not membership | `x\in A`, `y\notin B` |
 |`\forall` and `\exists`| Universal or existential quantifiers | `\forall x\in\mathbb{R},\ \exists y` |
 |`\to`| Right arrow (functions, limits) | `f:A\to B`, `x_n\to x` |
-
-
-
-
-
-
-
-
-
-
