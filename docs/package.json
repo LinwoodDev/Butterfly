@@ -27,10 +27,10 @@
     "remark-math": "^6.0.0",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.26.0",
+  "packageManager": "pnpm@10.26.2",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
-    "sass": "^1.97.0",
+    "sass": "^1.97.1",
     "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.2.0",
     "workbox-window": "^7.4.0"

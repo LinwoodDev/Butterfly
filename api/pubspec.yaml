@@ -1,6 +1,6 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.4.2-rc.5
+version: 2.4.2
 publish_to: none
 
 environment:
