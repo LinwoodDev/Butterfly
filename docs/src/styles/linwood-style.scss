@@ -90,7 +90,7 @@ option {
   }
 }
 
-site-search button {
+:where(site-search button):not(:where(site-search dialog button)) {
   @include lw.input-base();
   width: revert-layer;
 }

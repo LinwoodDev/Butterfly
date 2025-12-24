@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.2-rc.2+160
+version: 2.5.0-beta.0+164
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.35.7
+  flutter: 3.38.5
 
 dependencies:
   flutter:
@@ -62,7 +62,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 7d58db18bf9f420236009d9519769ec13f9404b0
+      ref: 124bb8d6fc661c8b3e11b4507438786ac209d368
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -115,6 +115,9 @@ dependencies:
   synchronized: ^3.4.0
   file_picker: ^10.3.3
   pdfrx: ^2.2.9
+  talker_flutter: ^5.1.6
+  talker: ^5.1.6
+  talker_bloc_logger: ^5.1.6
 dependency_overrides:
   irondash_engine_context:
     git:
@@ -230,6 +233,6 @@ msix_config:
   identity_name: LinwoodDevelopment.linwood-butterfly
   logo_path: images/logo.png
   capabilities: internetClientServer, webcam, documentsLibrary
-  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
-  file_extension: .bfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
+  languages: en-us, af, ar, ca, cs, da, de, el, es, fi, fr, he, hi, hu, id, it, ja, ko, nl, no, pl, pt-br, pt, ro, ru, sr-Latn, sv, th, tr, uk, vi, zh-Hans, zh-Hant
+  file_extension: .bfly, .tbfly, .pdf, .jpg, .jpeg, .png, .gif, .bmp, .ico, .md
   install_certificate: false

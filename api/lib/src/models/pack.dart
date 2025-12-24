@@ -74,14 +74,23 @@ sealed class ButterflyParameter with _$ButterflyParameter {
       _$ButterflyParameterFromJson(json);
 }
 
-@Freezed(equal: true, fromJson: false, toJson: false, copyWith: false)
-final class PackAssetLocation with _$PackAssetLocation {
-  @override
-  final String namespace;
-  @override
-  final String key;
+@freezed
+sealed class Toolbar extends PackAsset with _$Toolbar {
+  const Toolbar._();
 
-  const PackAssetLocation(this.namespace, this.key);
+  const factory Toolbar({@Default([]) List<Tool> tools}) = _Toolbar;
+
+  factory Toolbar.fromJson(Map<String, dynamic> json) =>
+      _$ToolbarFromJson(json);
+}
+
+@freezed
+sealed class PackAssetLocation with _$PackAssetLocation {
+  const factory PackAssetLocation(String namespace, String key) =
+      _PackAssetLocation;
+
+  factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
+      _$PackAssetLocationFromJson(json);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -122,4 +131,11 @@ final class PackItem<T extends PackAsset> implements PackAssetLocation {
   String get key => location.key;
 
   NamedItem<T> toNamed() => NamedItem(name: key, item: item);
+
+  @override
+  $PackAssetLocationCopyWith<PackAssetLocation> get copyWith =>
+      location.copyWith;
+
+  @override
+  Map<String, dynamic> toJson() => location.toJson();
 }

@@ -470,7 +470,10 @@ Future<ui.Image> renderWidget(Widget widget, {double pixelRatio = 1.0}) async {
     renderView.prepareInitialFrame();
     final rootElement = RenderObjectToWidgetAdapter<RenderBox>(
       container: repaintBoundary,
-      child: Directionality(textDirection: TextDirection.ltr, child: widget),
+      child: MediaQuery(
+        data: MediaQueryData(),
+        child: Directionality(textDirection: TextDirection.ltr, child: widget),
+      ),
     ).attachToRenderTree(buildOwner);
     buildOwner.buildScope(rootElement);
     buildOwner.finalizeTree();

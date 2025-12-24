@@ -194,7 +194,7 @@
       }
     }
   },
-  "waypoints": "نقطة طريق",
+  "waypoints": "نُقَط مرجعيه",
   "origin": "الأصل",
   "@origin": {
     "description": "Origin point"
@@ -344,7 +344,7 @@
   "selectArea": "حدد منطقة",
   "aspectRatio": "نسبة الجوانب",
   "presets": "الإعدادات المسبقة",
-  "pagePortrait": "صورة للصفحة",
+  "pagePortrait": "صفحه عموديه",
   "pageLandscape": "صفحة أفقيه",
   "square": "مربع",
   "@square": {
@@ -748,7 +748,7 @@
   },
   "noPacks": "لا توجد باقات متوفرة حاليا",
   "components": "المكونات",
-  "waypoint": "نقطة طريق",
+  "waypoint": "نقطة مرجعيه",
   "actions": "الإجراءات",
   "painters": "المؤمنون",
   "breakingChangesTitle": "تغييرات مخالفه",
@@ -1257,7 +1257,7 @@
     "description": "Save status"
   },
   "pdfEmptyDescription": "لا توجد حالياً أي مناطق للتصدير. يرجى تحديد منطقة واحدة على الأقل باستخدام زر الإضافة في الزاوية العلوية اليمنى أو إضافة جميع المناطق من الصفحة الحالية أو من المستند بأكمله أدناه.",
-  "densityMaximize": "Maximize",
+  "densityMaximize": "مضغوط جداً",
   "@densityMaximize": {
     "description": "Density value"
   }

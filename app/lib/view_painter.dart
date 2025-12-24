@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -129,6 +130,9 @@ class ViewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    talker.verbose(
+      'Rendering: Baked ${cameraViewport.image != null}, unbaked elements: ${cameraViewport.unbakedElements.length} with size ${cameraViewport.width}x${cameraViewport.height}',
+    );
     var areaRect = currentArea?.rect;
     final layers = page.layers;
     if (areaRect != null) {

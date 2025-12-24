@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -59,6 +61,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   ByteData? _previewImage;
   Future<ByteData?>? _regeneratingFuture;
+  bool? _exportingShare;
 
   @override
   void initState() {
@@ -79,15 +82,25 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     if (mounted) setState(() => _previewImage = image);
   }
 
-  Future<ByteData?> generateImage() async {
+  Future<ByteData?> generateImage([bool optimize = true]) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
+    var imageOptions = _options.toImageOptions();
+    const maxImageDimension = 1000;
+    if (optimize) {
+      final maxSide = max(imageOptions.width, imageOptions.height);
+      if (maxSide > maxImageDimension) {
+        imageOptions = imageOptions.copyWith(
+          quality: min(imageOptions.quality, maxImageDimension / maxSide),
+        );
+      }
+    }
     return state.currentIndexCubit.render(
       state.data,
       state.page,
       state.info,
-      _options.toImageOptions(),
+      imageOptions,
       invisibleLayers: state.invisibleLayers,
     );
   }
@@ -107,25 +120,31 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   Future<void> export(bool share) async {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) {
-      return;
+    if (_exportingShare != null) return;
+    setState(() => _exportingShare = share);
+    try {
+      final state = context.read<DocumentBloc>().state;
+      if (state is! DocumentLoadSuccess) {
+        return;
+      }
+      switch (_options) {
+        case ImageExportOptions():
+          final data = await generateImage(false);
+          if (data == null) {
+            return;
+          }
+          await exportImage(context, data.buffer.asUint8List(), share);
+        case final SvgExportOptions options:
+          final data = await generateSVG(options);
+          if (data == null) {
+            return;
+          }
+          await exportSvg(context, data, share);
+      }
+      if (mounted) Navigator.of(context).pop();
+    } finally {
+      if (mounted) setState(() => _exportingShare = null);
     }
-    switch (_options) {
-      case ImageExportOptions():
-        final data = await generateImage();
-        if (data == null) {
-          return;
-        }
-        await exportImage(context, data.buffer.asUint8List(), share);
-      case final SvgExportOptions options:
-        final data = await generateSVG(options);
-        if (data == null) {
-          return;
-        }
-        await exportSvg(context, data, share);
-    }
-    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -205,12 +224,32 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                             ),
                             if (supportsShare())
                               ElevatedButton(
-                                child: Text(AppLocalizations.of(context).share),
-                                onPressed: () => export(true),
+                                onPressed: _exportingShare != null
+                                    ? null
+                                    : () => export(true),
+                                child: _exportingShare == true
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(AppLocalizations.of(context).share),
                               ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context).export),
-                              onPressed: () => export(false),
+                              onPressed: _exportingShare != null
+                                  ? null
+                                  : () => export(false),
+                              child: _exportingShare == false
+                                  ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(AppLocalizations.of(context).export),
                             ),
                           ],
                         ),

@@ -769,11 +769,159 @@ as double,
 
 }
 
+
+/// @nodoc
+mixin _$Toolbar {
+
+ List<Tool> get tools;
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ToolbarCopyWith<Toolbar> get copyWith => _$ToolbarCopyWithImpl<Toolbar>(this as Toolbar, _$identity);
+
+  /// Serializes this Toolbar to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Toolbar&&const DeepCollectionEquality().equals(other.tools, tools));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(tools));
+
+@override
+String toString() {
+  return 'Toolbar(tools: $tools)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ToolbarCopyWith<$Res> implements $PackAssetCopyWith<$Res> {
+  factory $ToolbarCopyWith(Toolbar value, $Res Function(Toolbar) _then) = _$ToolbarCopyWithImpl;
+@useResult
+$Res call({
+ List<Tool> tools
+});
+
+
+
+
+}
+/// @nodoc
+class _$ToolbarCopyWithImpl<$Res>
+    implements $ToolbarCopyWith<$Res> {
+  _$ToolbarCopyWithImpl(this._self, this._then);
+
+  final Toolbar _self;
+  final $Res Function(Toolbar) _then;
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? tools = null,}) {
+  return _then(_self.copyWith(
+tools: null == tools ? _self.tools : tools // ignore: cast_nullable_to_non_nullable
+as List<Tool>,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _Toolbar extends Toolbar {
+  const _Toolbar({final  List<Tool> tools = const []}): _tools = tools,super._();
+  factory _Toolbar.fromJson(Map<String, dynamic> json) => _$ToolbarFromJson(json);
+
+ final  List<Tool> _tools;
+@override@JsonKey() List<Tool> get tools {
+  if (_tools is EqualUnmodifiableListView) return _tools;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tools);
+}
+
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ToolbarCopyWith<_Toolbar> get copyWith => __$ToolbarCopyWithImpl<_Toolbar>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ToolbarToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Toolbar&&const DeepCollectionEquality().equals(other._tools, _tools));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tools));
+
+@override
+String toString() {
+  return 'Toolbar(tools: $tools)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ToolbarCopyWith<$Res> implements $ToolbarCopyWith<$Res> {
+  factory _$ToolbarCopyWith(_Toolbar value, $Res Function(_Toolbar) _then) = __$ToolbarCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Tool> tools
+});
+
+
+
+
+}
+/// @nodoc
+class __$ToolbarCopyWithImpl<$Res>
+    implements _$ToolbarCopyWith<$Res> {
+  __$ToolbarCopyWithImpl(this._self, this._then);
+
+  final _Toolbar _self;
+  final $Res Function(_Toolbar) _then;
+
+/// Create a copy of Toolbar
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? tools = null,}) {
+  return _then(_Toolbar(
+tools: null == tools ? _self._tools : tools // ignore: cast_nullable_to_non_nullable
+as List<Tool>,
+  ));
+}
+
+
+}
+
+
 /// @nodoc
 mixin _$PackAssetLocation {
 
  String get namespace; String get key;
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PackAssetLocationCopyWith<PackAssetLocation> get copyWith => _$PackAssetLocationCopyWithImpl<PackAssetLocation>(this as PackAssetLocation, _$identity);
 
+  /// Serializes this PackAssetLocation to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -781,7 +929,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,namespace,key);
 
@@ -793,9 +941,110 @@ String toString() {
 
 }
 
+/// @nodoc
+abstract mixin class $PackAssetLocationCopyWith<$Res>  {
+  factory $PackAssetLocationCopyWith(PackAssetLocation value, $Res Function(PackAssetLocation) _then) = _$PackAssetLocationCopyWithImpl;
+@useResult
+$Res call({
+ String namespace, String key
+});
 
 
 
+
+}
+/// @nodoc
+class _$PackAssetLocationCopyWithImpl<$Res>
+    implements $PackAssetLocationCopyWith<$Res> {
+  _$PackAssetLocationCopyWithImpl(this._self, this._then);
+
+  final PackAssetLocation _self;
+  final $Res Function(PackAssetLocation) _then;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? namespace = null,Object? key = null,}) {
+  return _then(_self.copyWith(
+namespace: null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
+as String,key: null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _PackAssetLocation implements PackAssetLocation {
+  const _PackAssetLocation(this.namespace, this.key);
+  factory _PackAssetLocation.fromJson(Map<String, dynamic> json) => _$PackAssetLocationFromJson(json);
+
+@override final  String namespace;
+@override final  String key;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PackAssetLocationCopyWith<_PackAssetLocation> get copyWith => __$PackAssetLocationCopyWithImpl<_PackAssetLocation>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PackAssetLocationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackAssetLocation&&(identical(other.namespace, namespace) || other.namespace == namespace)&&(identical(other.key, key) || other.key == key));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,namespace,key);
+
+@override
+String toString() {
+  return 'PackAssetLocation(namespace: $namespace, key: $key)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PackAssetLocationCopyWith<$Res> implements $PackAssetLocationCopyWith<$Res> {
+  factory _$PackAssetLocationCopyWith(_PackAssetLocation value, $Res Function(_PackAssetLocation) _then) = __$PackAssetLocationCopyWithImpl;
+@override @useResult
+$Res call({
+ String namespace, String key
+});
+
+
+
+
+}
+/// @nodoc
+class __$PackAssetLocationCopyWithImpl<$Res>
+    implements _$PackAssetLocationCopyWith<$Res> {
+  __$PackAssetLocationCopyWithImpl(this._self, this._then);
+
+  final _PackAssetLocation _self;
+  final $Res Function(_PackAssetLocation) _then;
+
+/// Create a copy of PackAssetLocation
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? namespace = null,Object? key = null,}) {
+  return _then(_PackAssetLocation(
+null == namespace ? _self.namespace : namespace // ignore: cast_nullable_to_non_nullable
+as String,null == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 
 /// @nodoc

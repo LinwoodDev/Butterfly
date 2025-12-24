@@ -43,7 +43,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedTools = <int, Tool>{};
+    final updatedTools = <Tool>[];
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -53,7 +53,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
       final oldTool = this.selected[i];
       final toolIndex = oldTools.indexOf(oldTool);
       if (tool != oldTool && toolIndex >= 0) {
-        updatedTools[toolIndex] = tool;
+        updatedTools.add(tool);
       }
     }
     bloc.add(ToolsChanged(updatedTools));
@@ -68,9 +68,8 @@ class ToolSelection<T extends Tool> extends Selection<T> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final painters = state.info.tools;
     context.read<DocumentBloc>().add(
-      ToolsRemoved(selected.map((p) => painters.indexOf(p)).toList()),
+      ToolsRemoved(selected.map((p) => p.id).nonNulls.toList()),
     );
   }
 

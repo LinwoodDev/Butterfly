@@ -895,6 +895,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
+      case AssetFileType.textNote:
         exportData(context, await state.saveData());
         break;
       case AssetFileType.image:

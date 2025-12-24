@@ -76,14 +76,34 @@ extension RectHelper on Rect {
   bool containsLine(Offset first, Offset second, {bool full = false}) {
     if (full) {
       return contains(first) && contains(second);
-    } else {
-      return contains(first) ||
-          contains(second) ||
-          lineIntersectsLine(first, second, topLeft, topRight) ||
-          lineIntersectsLine(first, second, topRight, bottomRight) ||
-          lineIntersectsLine(first, second, bottomRight, bottomLeft) ||
-          lineIntersectsLine(first, second, bottomLeft, topLeft);
     }
+    double t0 = 0.0;
+    double t1 = 1.0;
+    final dx = second.dx - first.dx;
+    final dy = second.dy - first.dy;
+    bool clip(double p, double q) {
+      if (p == 0) {
+        if (q < 0) return false;
+      } else {
+        final t = q / p;
+        if (p < 0) {
+          if (t > t1) return false;
+          if (t > t0) t0 = t;
+        } else {
+          if (t < t0) return false;
+          if (t < t1) t1 = t;
+        }
+      }
+      return true;
+    }
+
+    if (clip(-dx, first.dx - left) &&
+        clip(dx, right - first.dx) &&
+        clip(-dy, first.dy - top) &&
+        clip(dy, bottom - first.dy)) {
+      return t0 <= t1;
+    }
+    return false;
   }
 }
 

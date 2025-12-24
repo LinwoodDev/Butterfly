@@ -12,6 +12,7 @@ import fr from "./fr.json";
 import he from "./he.json";
 import hi from "./hi.json";
 import hu from "./hu.json";
+import id from "./id.json";
 import it from "./it.json";
 import ja from "./ja.json";
 import ko from "./ko.json";
@@ -47,6 +48,7 @@ const locales = {
   he,
   hi,
   hu,
+  id,
   it,
   ja,
   ko,

@@ -63,10 +63,12 @@ Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesub
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\.bfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
+Root: HKA; Subkey: "Software\Classes\.tbfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".bfly"; ValueData: ""
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".tbfly"; ValueData: ""
 
 Root: HKA; Subkey: "Software\Classes\.pdf\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-PDF"; ValueData: ""; Tasks: pdf; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletekey

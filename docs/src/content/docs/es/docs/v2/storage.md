@@ -3,6 +3,9 @@ title: Almacenamiento
 sidebar_position: 2
 ---
 
+There are multiple ways of storing notes in Butterfly.
+Either by using your device storage, or by using the cloud storage (WebDAV).
+
 ## Directorio de datos
 
 El directorio de datos es el directorio donde se almacenan documentos, plantillas y paquetes.
@@ -54,3 +57,28 @@ Hay algunas limitaciones:
 Si estás en un dispositivo nativo, también puedes sincronizar el directorio de aplicaciones con tu plataforma favorita.
 Google drive tiene [una aplicación oficial](https://www.google.com/drive/download/) en Windows y hay una vez no oficial en la Play Store.
 En linux también puede utilizar el sistema de almacenamiento remoto nativo y cambiar el directorio de datos a éste o añadir un nuevo almacenamiento externo si hace clic en el botón añadir conexión.
+
+## Supported file types
+
+Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+
+### Butterfly Note (.bfly)
+
+This file type is the recommended for saving notes.
+
+It is a zip archive containing the information (mostly in JSON files) about the note.
+These included JSON files aren't optimized for being human readable.
+
+### Butterfly Raw Note (.tbfly)
+
+This file is recommended for use with version control software like git.
+
+This file is **not** a zip archive, instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+
+### SVG
+
+This file type doesn't save information about the note!
+When this file is imported into Butterfly, it is treated as a single image.
+
+Use this _ONLY_ when the note shouldn't be modified by butterfly.

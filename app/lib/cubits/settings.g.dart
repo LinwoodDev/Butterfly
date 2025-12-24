@@ -159,6 +159,12 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   swamps:
       (json['swamps'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
+  selectedPalette: json['selectedPalette'] == null
+      ? null
+      : PackAssetLocation.fromJson(
+          Map<String, dynamic>.from(json['selectedPalette'] as Map),
+        ),
+  showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -218,6 +224,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'renderResolution': _$RenderResolutionEnumMap[instance.renderResolution]!,
   'moveOnGesture': instance.moveOnGesture,
   'swamps': instance.swamps,
+  'selectedPalette': instance.selectedPalette?.toJson(),
+  'showVerboseLogs': instance.showVerboseLogs,
 };
 
 const _$ThemeModeEnumMap = {

@@ -199,38 +199,48 @@ Map<String, dynamic> _$ToolCreatedToJson(ToolCreated instance) =>
     <String, dynamic>{'tool': instance.tool.toJson(), 'type': instance.$type};
 
 ToolsChanged _$ToolsChangedFromJson(Map json) => ToolsChanged(
-  (json['tools'] as Map).map(
-    (k, e) => MapEntry(
-      int.parse(k as String),
-      Tool.fromJson(Map<String, dynamic>.from(e as Map)),
-    ),
-  ),
+  (json['tools'] as List<dynamic>)
+      .map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolsChangedToJson(ToolsChanged instance) =>
     <String, dynamic>{
-      'tools': instance.tools.map((k, e) => MapEntry(k.toString(), e.toJson())),
+      'tools': instance.tools.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
 
 ToolsRemoved _$ToolsRemovedFromJson(Map json) => ToolsRemoved(
-  (json['tools'] as List<dynamic>).map((e) => (e as num).toInt()).toList(),
+  (json['tools'] as List<dynamic>).map((e) => e as String).toList(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolsRemovedToJson(ToolsRemoved instance) =>
     <String, dynamic>{'tools': instance.tools, 'type': instance.$type};
 
+ToolsReplaced _$ToolsReplacedFromJson(Map json) => ToolsReplaced(
+  (json['tools'] as List<dynamic>)
+      .map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+      .toList(),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ToolsReplacedToJson(ToolsReplaced instance) =>
+    <String, dynamic>{
+      'tools': instance.tools.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
+
 ToolReordered _$ToolReorderedFromJson(Map json) => ToolReordered(
-  (json['oldIndex'] as num).toInt(),
+  json['id'] as String,
   (json['newIndex'] as num).toInt(),
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$ToolReorderedToJson(ToolReordered instance) =>
     <String, dynamic>{
-      'oldIndex': instance.oldIndex,
+      'id': instance.id,
       'newIndex': instance.newIndex,
       'type': instance.$type,
     };

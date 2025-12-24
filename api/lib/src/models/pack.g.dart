@@ -128,6 +128,24 @@ Map<String, dynamic> _$DoubleParameterToJson(DoubleParameter instance) =>
       'type': instance.$type,
     };
 
+_Toolbar _$ToolbarFromJson(Map json) => _Toolbar(
+  tools:
+      (json['tools'] as List<dynamic>?)
+          ?.map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList() ??
+      const [],
+);
+
+Map<String, dynamic> _$ToolbarToJson(_Toolbar instance) => <String, dynamic>{
+  'tools': instance.tools.map((e) => e.toJson()).toList(),
+};
+
+_PackAssetLocation _$PackAssetLocationFromJson(Map json) =>
+    _PackAssetLocation(json['namespace'] as String, json['key'] as String);
+
+Map<String, dynamic> _$PackAssetLocationToJson(_PackAssetLocation instance) =>
+    <String, dynamic>{'namespace': instance.namespace, 'key': instance.key};
+
 _NamedItem<T> _$NamedItemFromJson<T extends PackAsset>(
   Map json,
   T Function(Object? json) fromJsonT,

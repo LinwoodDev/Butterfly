@@ -164,7 +164,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                                       .teleportToWaypoint(
                                                         Waypoint.defaultOrigin,
                                                       );
-                                                  bloc.bake();
+                                                  bloc.delayedBake();
                                                 },
                                                 child: Text(
                                                   LeapLocalizations.of(

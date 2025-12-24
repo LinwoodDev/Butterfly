@@ -68,10 +68,25 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
               child: DropdownMenu<String?>(
                 expandedInsets: const EdgeInsets.all(4),
                 dropdownMenuEntries: [
-                  ...widget.value.paragraphProperties.entries.map(
-                    (style) =>
-                        DropdownMenuEntry(value: style.key, label: style.key),
-                  ),
+                  ...widget.value.paragraphProperties.entries.map((style) {
+                    final isSpecial = DocumentDefaults.getParagraphTranslations(
+                      context,
+                    ).containsKey(style.key);
+                    return DropdownMenuEntry(
+                      value: style.key,
+                      label: DocumentDefaults.translateParagraph(
+                        style.key,
+                        context,
+                      ),
+                      style: isSpecial
+                          ? ButtonStyle(
+                              foregroundColor: WidgetStateProperty.all(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                            )
+                          : null,
+                    );
+                  }),
                 ],
                 controller: _controller,
                 initialSelection: _currentStyle,

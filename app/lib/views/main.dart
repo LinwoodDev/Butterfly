@@ -153,8 +153,7 @@ class _ProjectPageState extends State<ProjectPage> {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
-          if (asset is FileSystemFile<NoteFile> &&
-              location.fileType == AssetFileType.note) {
+          if (asset is FileSystemFile<NoteFile>) {
             final NoteData? noteData = await globalImportService
                 .load(
                   type: widget.type.isEmpty
