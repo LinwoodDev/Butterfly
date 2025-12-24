@@ -1263,5 +1263,6 @@
   "densityMaximize": "Развернуть",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "logs": "Logs"
 }
