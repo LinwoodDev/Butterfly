@@ -11,7 +11,7 @@ Alles in diesem Abschnitt kann geändert werden.
 
 ## Einführung
 
-Seit der Version 2.0 unterstützt Butterfly die Zusammenarbeit. Dies bedeutet, dass Sie die gleiche Datei mit mehreren Personen gleichzeitig bearbeiten können. Dies ist nützlich, wenn Sie an einem Dokument zusammenarbeiten möchten.
+Since the 2.0 beta version, Butterfly supports collaboration. Dies bedeutet, dass Sie die gleiche Datei mit mehreren Personen gleichzeitig bearbeiten können. Dies ist nützlich, wenn Sie an einem Dokument zusammenarbeiten möchten.
 
 ## Swamp
 

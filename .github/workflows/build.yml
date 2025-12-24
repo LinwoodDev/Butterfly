@@ -25,6 +25,10 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -66,12 +70,12 @@ jobs:
           USE_LEGACY_PACKAGING=true flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android-legacy.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-build
           path: app/linwood-butterfly-android.apk
       - name: Archive (legacy)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-build-legacy
           path: app/linwood-butterfly-android-legacy.apk
@@ -104,32 +108,32 @@ jobs:
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64-legacy.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64-legacy.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-arm-build
           path: app/linwood-butterfly-android-arm.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-arm64-build
           path: app/linwood-butterfly-android-arm64.apk
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-x86_64-build
           path: app/linwood-butterfly-android-x86_64.apk
       - name: Archive (legacy arm)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-arm-build-legacy
           path: app/linwood-butterfly-android-arm-legacy.apk
       - name: Archive (legacy arm64)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-arm64-build-legacy
           path: app/linwood-butterfly-android-arm64-legacy.apk
       - name: Archive (legacy x86_64)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: apk-x86_64-build-legacy
           path: app/linwood-butterfly-android-x86_64-legacy.apk
@@ -145,6 +149,10 @@ jobs:
         run: |
           choco install yq
           choco install innosetup
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -176,13 +184,13 @@ jobs:
           cp scripts/start.bat build/windows/x64/runner/Release/
           cp build/windows/x64/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: windows-build
           path: |
             app/build/windows/x64/runner/Release/**
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: windows-setup
           path: |
@@ -196,6 +204,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -210,7 +222,7 @@ jobs:
         run: |
           dart run msix:create
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: msix-build
           path: app/build/windows/x64/runner/Release/butterfly.msix
@@ -266,6 +278,10 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -337,25 +353,25 @@ jobs:
           chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/release/bundle
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: linux-${{ matrix.arch.name }}-build
           path: |
             app/build/linux/${{ matrix.arch.dir }}/release/bundle/**
       - name: Archive .deb
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: linux-${{ matrix.arch.name }}-deb
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Archive .rpm
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: linux-${{ matrix.arch.name }}-rpm
           path: |
             app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: linux-${{ matrix.arch.name }}-appimage
           path: |
@@ -392,7 +408,7 @@ jobs:
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: ${{ github.ref == 'refs/heads/develop' && 'edge' || github.ref == 'refs/heads/main' && 'candidate' || github.ref == 'refs/tags/nightly' && 'beta' || 'stable' }}
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: linux-${{ matrix.arch.name }}-snap
           path: ${{ steps.build.outputs.snap }}
@@ -404,6 +420,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -436,13 +456,13 @@ jobs:
         run: |
           appdmg DmgSetup.json linwood-butterfly-macos.dmg
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: macos-build
           path: |
             app/build/macos/Build/Products/Release/linwood-butterfly-macos.zip
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: macos-dmg
           path: |
@@ -457,6 +477,10 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v6
+      - name: 🦀 Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          rust-src-dir: app
       - uses: subosito/flutter-action@v2.21.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -480,7 +504,7 @@ jobs:
           zip -vr linwood-butterfly-ios.ipa Payload/
       #          ls -l linwood-butterfly-ios.ipa
       - name: Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ipa-build
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
@@ -554,96 +578,96 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-arm-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-arm64-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-x86_64-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-arm-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-arm64-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: apk-x86_64-build-legacy
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: windows-build
           path: windows-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-x86_64-build
           path: linux-x86_64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-x86_64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-x86_64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-x86_64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-arm64-build
           path: linux-arm64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-arm64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-arm64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-arm64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-x86_64-build
           path: linux-alternative-x86_64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-x86_64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-x86_64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-x86_64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-arm64-build
           path: linux-alternative-arm64-build/
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-arm64-deb
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-arm64-rpm
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: linux-alternative-arm64-appimage
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: windows-setup
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: macos-build
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: macos-dmg
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           name: ipa-build
       - name: 📦 Zip artifacts
@@ -842,7 +866,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.7"
+          ruby-version: "3.4.8"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store
