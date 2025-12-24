@@ -10,6 +10,7 @@ import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -139,6 +140,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     CameraViewport newViewport,
     DocumentLoaded blocState,
   ) async {
+    talker.verbose('Updating visible elements');
     final currentVisible = state.cameraViewport.visibleElements.toSet();
     final newVisible = newViewport.visibleElements.where(
       (e) => !currentVisible.contains(e),
@@ -180,6 +182,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Handler<Tool>? handler,
     bool allowBake = true,
   }) async {
+    talker.verbose('Changing tool to index: $index');
     await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -305,6 +308,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentBloc bloc, [
     Map<Channel?, NetworkingUser>? current,
   ]) async {
+    talker.verbose('Updating networking state');
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final users = (current ?? state.networkingService.users).entries.toList();
@@ -359,6 +363,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   );
 
   Future<void> updateTool(DocumentBloc bloc, Tool tool) async {
+    talker.verbose('Updating tool: ${tool.runtimeType}');
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
@@ -396,6 +401,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> updateTemporaryTool(DocumentBloc bloc, Tool tool) async {
+    talker.verbose('Updating temporary tool: ${tool.runtimeType}');
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
@@ -503,6 +509,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentLoaded blocState, {
     bool allowBake = true,
   }) async {
+    talker.verbose('Refreshing CurrentIndexCubit');
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -968,6 +975,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
     final oldVisibleSet = oldVisible.toSet();
+    talker.verbose(
+      'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
+      'rendererStatesChanged: $rendererStatesChanged)',
+    );
 
     if (reset) {
       visibleElements = renderers

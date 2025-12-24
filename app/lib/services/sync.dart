@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -38,8 +39,10 @@ class SyncService {
     if (kIsWeb) return null;
     final storage = settingsCubit.state.getRemote(remote);
     if (storage == null) {
+      talker.warning('Remote storage not found: $remote');
       return null;
     }
+    talker.info('Creating sync for remote: $remote');
     final current = RemoteSync(context, fileSystem, storage);
     current.statusStream.listen((status) => _refreshStatus());
     _syncs.add(current);
@@ -48,6 +51,7 @@ class SyncService {
   }
 
   Future<void> sync() async {
+    talker.info('Syncing all remotes');
     if (kIsWeb) return;
     for (final sync in _syncs) {
       await sync.sync();

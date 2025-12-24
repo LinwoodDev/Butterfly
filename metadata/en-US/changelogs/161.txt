@@ -11,5 +11,6 @@
 * Fix math button in label toolbar does nothing if no text is selected
 * Add indonesian translation
 * Add tbfly file association on Windows and iOS
+* Fix image transforming incorrectly displayed
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.3
