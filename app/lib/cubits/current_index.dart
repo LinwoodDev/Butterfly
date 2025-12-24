@@ -1807,19 +1807,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
 
-  Future<void> updateTogglingTools(
-    DocumentBloc bloc,
-    Map<int, Tool> tools,
-  ) async {
+  Future<void> updateTogglingTools(DocumentBloc bloc, List<Tool> tools) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final newHandlers = Map<int, Handler<Tool>>.from(state.toggleableHandlers);
     final newForegrounds = Map<int, List<Renderer>>.from(
       state.toggleableForegrounds,
     );
-    for (final entry in tools.entries) {
-      final index = entry.key;
-      final tool = entry.value;
+    final currentTools = blocState.info.tools;
+    for (final tool in tools) {
+      final index = currentTools.indexWhere((element) => element.id == tool.id);
+      if (index == -1) continue;
       final old = state.toggleableHandlers[index];
       if (old == null) continue;
       if (old.data == tool) continue;

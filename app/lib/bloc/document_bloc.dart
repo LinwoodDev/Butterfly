@@ -458,14 +458,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final oldTools = current.info.tools;
       var selection = current.currentIndexCubit.state.selection;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List<Tool>.from(current.info.tools).mapIndexed((i, e) {
-              final updated = event.tools[i];
+            tools: List<Tool>.from(current.info.tools).map((e) {
+              final updated = event.tools.firstWhereOrNull(
+                (element) => element.id == e.id,
+              );
               if (updated != null) {
                 var newSelection = selection?.remove(e);
                 if (newSelection != selection && selection != null) {
@@ -484,25 +485,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
       );
-      final updatedCurrent = event.tools.entries.firstWhereOrNull(
-        (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.handler.data,
+      final currentTool = current.currentIndexCubit.state.handler.data;
+      final id = currentTool is Tool ? currentTool.id : null;
+      final updatedCurrent = event.tools.firstWhereOrNull(
+        (element) => element.id == id,
       );
       if (updatedCurrent != null) {
-        current.currentIndexCubit.updateTool(this, updatedCurrent.value);
+        current.currentIndexCubit.updateTool(this, updatedCurrent);
       }
       current.currentIndexCubit.updateTogglingTools(this, event.tools);
-      final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
+      final updatedTempCurrent = event.tools.firstWhereOrNull(
         (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.temporaryHandler?.data,
+            element.id ==
+            current.currentIndexCubit.state.temporaryHandler?.data.id,
       );
       if (updatedTempCurrent != null) {
-        current.currentIndexCubit.updateTemporaryTool(
-          this,
-          updatedTempCurrent.value,
-        );
+        current.currentIndexCubit.updateTemporaryTool(this, updatedTempCurrent);
       }
       if (selection != null) {
         current.currentIndexCubit.changeSelection(selection);
@@ -517,9 +515,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           info: current.info.copyWith(
             tools: current.info.tools
-                .whereIndexed((index, _) => !event.tools.contains(index))
+                .where((element) => !event.tools.contains(element.id))
                 .toList(),
           ),
+        ),
+        updateIndex: true,
+      );
+    });
+    on<ToolsReplaced>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      _saveState(
+        emit,
+        state: current.copyWith(
+          info: current.info.copyWith(tools: event.tools),
         ),
         updateIndex: true,
       );
@@ -529,7 +539,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var tools = List<Tool>.from(current.info.tools);
-      var oldIndex = event.oldIndex;
+      var oldIndex = tools.indexWhere((element) => element.id == event.id);
+      if (oldIndex == -1) return;
       var newIndex = event.newIndex;
       if (oldIndex < 0 ||
           newIndex < 0 ||

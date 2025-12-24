@@ -380,16 +380,18 @@ class _EditToolbarState extends State<EditToolbar> {
                 );
                 return;
               }
+              final id = tools[oldIndex].id;
+              if (id == null) return;
               final bloc = context.read<DocumentBloc>();
               final delete = newIndex > tools.length;
               if (delete) {
-                bloc.add(ToolsRemoved([oldIndex]));
+                bloc.add(ToolsRemoved([id]));
                 return;
               }
               if (oldIndex < newIndex) {
                 newIndex++;
               }
-              bloc.add(ToolReordered(oldIndex, newIndex));
+              bloc.add(ToolReordered(id, newIndex));
             },
           ),
           BlocBuilder<WindowCubit, WindowState>(
