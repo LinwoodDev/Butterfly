@@ -100,24 +100,27 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           controller: _tabController,
           isScrollable: true,
           tabs:
-              <List<dynamic>>[
-                    [
+              [
+                    (
                       PhosphorIconsLight.file,
                       AppLocalizations.of(context).file,
-                    ],
-                    [PhosphorIconsLight.toolbox, 'Toolbars'],
-                    [
+                    ),
+                    (
+                      PhosphorIconsLight.toolbox,
+                      AppLocalizations.of(context).toolbars,
+                    ),
+                    (
                       PhosphorIconsLight.camera,
                       AppLocalizations.of(context).camera,
-                    ],
+                    ),
                   ]
                   .map(
                     (e) => HorizontalTab(
                       icon: PhosphorIcon(
-                        e[0],
+                        e.$1,
                         textDirection: TextDirection.ltr,
                       ),
-                      label: Text(e[1]),
+                      label: Text(e.$2),
                     ),
                   )
                   .toList(),

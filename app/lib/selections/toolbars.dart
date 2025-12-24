@@ -1,4 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -29,6 +31,11 @@ class _ToolbarsViewState extends State<ToolbarsView> {
     _searchController.addListener(() {
       setState(() {});
     });
+  }
+
+  Future<void> _reloadToolbars() async {
+    _toolbarsFuture = _getToolbars();
+    setState(() {});
   }
 
   Future<List<PackItem<Toolbar>>> _getToolbars() async {
@@ -112,31 +119,59 @@ class _ToolbarsViewState extends State<ToolbarsView> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: filteredToolbars.length + (isCustom ? 1 : 0),
-                    itemBuilder: (context, index) {
-                      if (isCustom && index == 0) {
-                        return ListTile(
-                          title: Text(AppLocalizations.of(context).custom),
-                          leading: const Icon(PhosphorIconsLight.wrench),
-                          selected: true,
-                        );
-                      }
-                      final item = filteredToolbars[index - (isCustom ? 1 : 0)];
-                      final isSelected = item == currentToolbar;
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: filteredToolbars.length + (isCustom ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (isCustom && index == 0) {
                       return ListTile(
-                        title: Text(item.key),
-                        subtitle: Text(item.namespace),
-                        selected: isSelected,
-                        onTap: () {
-                          context.read<DocumentBloc>().add(
-                            ToolsReplaced(item.item.tools),
+                        title: Text(AppLocalizations.of(context).custom),
+                        subtitle: Text(
+                          AppLocalizations.of(context).clickToSave,
+                        ),
+                        leading: const Icon(PhosphorIconsLight.wrench),
+                        selected: true,
+                        onTap: () async {
+                          final settingsCubit = context.read<SettingsCubit>();
+                          final bloc = context.read<DocumentBloc>();
+                          final result = await showDialog<PackAssetLocation>(
+                            context: context,
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider.value(value: settingsCubit),
+                                BlocProvider.value(value: bloc),
+                              ],
+                              child: const AssetDialog(),
+                            ),
                           );
+                          if (result == null) return;
+                          var pack = await _packSystem.getFile(
+                            result.namespace,
+                          );
+                          if (pack == null) return;
+                          final toolbar = Toolbar(
+                            tools: bloc.state.info?.tools ?? [],
+                          );
+                          pack = pack.setToolbar(result.key, toolbar);
+                          await _packSystem.updateFile(result.namespace, pack);
+                          await _reloadToolbars();
                         },
                       );
-                    },
-                  ),
+                    }
+                    final item = filteredToolbars[index - (isCustom ? 1 : 0)];
+                    final isSelected = item == currentToolbar;
+                    return ListTile(
+                      title: Text(item.key),
+                      subtitle: Text(item.pack.name ?? item.namespace),
+                      selected: isSelected,
+                      onTap: () {
+                        context.read<DocumentBloc>().add(
+                          ToolsReplaced(item.item.tools),
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             );

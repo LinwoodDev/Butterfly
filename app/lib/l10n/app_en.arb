@@ -1263,5 +1263,7 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars"
 }
