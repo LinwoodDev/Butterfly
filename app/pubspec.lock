@@ -135,7 +135,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.4.2"
+    version: "2.5.0-beta.0"
   camera:
     dependency: "direct main"
     description:
