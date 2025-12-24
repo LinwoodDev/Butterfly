@@ -1263,5 +1263,6 @@
   "densityMaximize": "Maximiser",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "logs": "Logs"
 }
