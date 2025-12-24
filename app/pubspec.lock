@@ -143,7 +143,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.4.2-rc.3"
+    version: "2.5.0-beta.0"
   camera:
     dependency: "direct main"
     description:
@@ -164,10 +164,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "035b90c1e33c2efad7548f402572078f6e514d4f82be0a315cd6c6af7e855aa8"
+      sha256: "087a9fadef20325cb246b4c13344a3ce8e408acfc3e0c665ebff0ec3144d7163"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.22+6"
+    version: "0.9.22+8"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -321,14 +321,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.1"
-  dart_pubspec_licenses:
-    dependency: transitive
-    description:
-      name: dart_pubspec_licenses
-      sha256: fafb90d50c182dd3d4f441c6aea75baff1e5311aab2f6430d3f40f6e3a1f5885
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.12"
   dart_style:
     dependency: transitive
     description:
@@ -405,10 +397,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "7872545770c277236fd32b022767576c562ba28366204ff1a5628853cf8f2200"
+      sha256: d974b6ba2606371ac71dd94254beefb6fa81185bde0b59bdc1df09885da85fde
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.7"
+    version: "10.3.8"
   fixnum:
     dependency: transitive
     description:
@@ -421,18 +413,18 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "6e713c27a2ebe63393a44d4bf9cdd2ac81e112724a4c69905fc41cbf231af11d"
+      sha256: ab854146f201d2d62cc251fd525ef023b84182c4a0bfe4ae4c18ffc505b412d3
       url: "https://pub.dev"
     source: hosted
-    version: "8.3.1"
+    version: "8.4.0"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "828291a5a4d4283590541519d8b57821946660ac61d2e07d955f81cfcab22e5d"
+      sha256: a3183753bbcfc3af106224bff3ab3e1844b73f58062136b7499919f49f3667e7
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.1"
+    version: "4.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -643,18 +635,18 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "071f3b05032fa62e60ca15db9939f8afbaf403b37e67747ac88f858c3e999228"
+      sha256: b26b2ad126be411d0072d1dfc4d97ebe02121a863e4eadc635b511b9bc138489
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.7+1"
+    version: "2.7.1+2"
   image:
     dependency: "direct main"
     description:
       name: image
-      sha256: "4e973fcf4caae1a4be2fa0a13157aa38a8f9cb049db6529aa00b4d71abc4d928"
+      sha256: "492bd52f6c4fbb6ee41f781ff27765ce5f627910e1e0cbecfa3d9add5562604c"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.4"
+    version: "4.7.2"
   integration_test:
     dependency: "direct main"
     description: flutter
@@ -812,8 +804,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "7d58db18bf9f420236009d9519769ec13f9404b0"
-      resolved-ref: "7d58db18bf9f420236009d9519769ec13f9404b0"
+      ref: "124bb8d6fc661c8b3e11b4507438786ac209d368"
+      resolved-ref: "124bb8d6fc661c8b3e11b4507438786ac209d368"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -821,10 +813,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
+      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.17.0"
   mime:
     dependency: transitive
     description:
@@ -1016,18 +1008,18 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "40ab38d80af88ab58e9bab63a706a69f18f516fd0f1433f71833af236b159f42"
+      sha256: "8028b5a3d33ff189dbb968fafcce1a924b3397c923819f974f6bde483f0cf808"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.16"
+    version: "2.2.18"
   pdfrx_engine:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "6b7810d0fdd467760bf8e0afafb67140971bf297c9f9b12add5b2033bb55064f"
+      sha256: e4e942bda9f3876d34729fab8e0c5185b9384614929d82bd6efa8ef2a31b0be3
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5"
+    version: "0.3.6"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1208,10 +1200,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: c8063c3146c3c8d5f5b04230de7682c768440a575fbda2634f14d22f263197c3
+      sha256: "139cf71496105de32e7a08a4e3a1ead0f81c4a616ec9703ed07e8f0d10cdd505"
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.5+2"
+    version: "3.8.6"
   share_plus:
     dependency: "direct main"
     description:
@@ -1447,10 +1439,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "522f00f556e73044315fa4585ec3270f1808a4b186c936e612cab0b565ff1e00"
+      sha256: ab2726c1a94d3176a45960b6234466ec367179b87dd74f1611adb1f3b5fb9d55
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.7"
   tuple:
     dependency: transitive
     description:
@@ -1591,10 +1583,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "592ab6e2892f67760543fb712ff0177f4ec76c031f02f5b4ff8d3fc5eb9fb61a"
+      sha256: f52385d4f73589977c80797e60fe51014f7f2b957b5e9a62c3f6ada439889249
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.2.0"
   web:
     dependency: "direct main"
     description:
@@ -1676,5 +1668,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
-  flutter: ">=3.35.7"
+  dart: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.5"

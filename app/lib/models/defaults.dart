@@ -73,9 +73,11 @@ class DocumentDefaults {
 
   static String translate(String key, Map<String, String> translations) {
     if (key.startsWith('\\/')) return key.substring(1);
-    if (!key.startsWith('\$')) return key;
-    final keyWithoutDollar = key.substring(1);
-    return translations[keyWithoutDollar] ?? keyWithoutDollar;
+    if (key.startsWith('\$')) {
+      final keyWithoutDollar = key.substring(1);
+      return translations[keyWithoutDollar] ?? keyWithoutDollar;
+    }
+    return translations[key] ?? key;
   }
 
   static Map<String, String> getParagraphTranslations(BuildContext context) => {

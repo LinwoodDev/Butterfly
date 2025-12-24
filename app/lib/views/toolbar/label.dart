@@ -12,6 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
+import '../../models/defaults.dart';
 import '../../models/label.dart';
 import 'view.dart';
 
@@ -208,6 +209,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
+              textDirection: TextDirection.ltr,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -359,14 +361,31 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         value.isParagraph()
                             ? DropdownMenu<String>(
                                 key: _paragraphKey,
-                                dropdownMenuEntries: paragraphSelections
-                                    .map(
-                                      (e) => DropdownMenuEntry<String>(
-                                        value: e,
-                                        label: e,
-                                      ),
-                                    )
-                                    .toList(),
+                                dropdownMenuEntries: paragraphSelections.map((
+                                  e,
+                                ) {
+                                  final isSpecial =
+                                      DocumentDefaults.getParagraphTranslations(
+                                        context,
+                                      ).containsKey(e);
+                                  return DropdownMenuEntry<String>(
+                                    value: e,
+                                    label: DocumentDefaults.translateParagraph(
+                                      e,
+                                      context,
+                                    ),
+                                    style: isSpecial
+                                        ? ButtonStyle(
+                                            foregroundColor:
+                                                WidgetStateProperty.all(
+                                                  Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary,
+                                                ),
+                                          )
+                                        : null,
+                                  );
+                                }).toList(),
                                 initialSelection: paragraphSelection,
                                 onSelected: (name) {
                                   if (name == null) return;
@@ -400,14 +419,29 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               )
                             : DropdownMenu<String>(
                                 key: _spanKey,
-                                dropdownMenuEntries: spanSelections
-                                    .map(
-                                      (e) => DropdownMenuEntry<String>(
-                                        value: e,
-                                        label: e,
-                                      ),
-                                    )
-                                    .toList(),
+                                dropdownMenuEntries: spanSelections.map((e) {
+                                  final isSpecial =
+                                      DocumentDefaults.getSpanTranslations(
+                                        context,
+                                      ).containsKey(e);
+                                  return DropdownMenuEntry<String>(
+                                    value: e,
+                                    label: DocumentDefaults.translateBlock(
+                                      e,
+                                      context,
+                                    ),
+                                    style: isSpecial
+                                        ? ButtonStyle(
+                                            foregroundColor:
+                                                WidgetStateProperty.all(
+                                                  Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary,
+                                                ),
+                                          )
+                                        : null,
+                                  );
+                                }).toList(),
                                 initialSelection: spanSelection,
                                 onSelected: (name) {
                                   if (name == null) return;
@@ -519,30 +553,32 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                         ),
                         const SizedBox(width: 16),*/
-                        ToggleButtons(
-                          isSelected: text.HorizontalAlignment.values
-                              .map((e) => e == paragraph.alignment)
-                              .toList(),
-                          children: const [
-                            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
-                            PhosphorIcon(PhosphorIconsLight.textAlignCenter),
-                            PhosphorIcon(PhosphorIconsLight.textAlignRight),
-                            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
-                          ],
-                          onPressed: (current) {
-                            final newParagraph = paragraph.copyWith(
-                              alignment:
-                                  text.HorizontalAlignment.values[current],
-                            );
-                            widget.onChanged(
-                              value.copyWith(
-                                forcedProperty: newParagraph,
-                                element: value.element?.copyWith.area.paragraph(
-                                  property: newParagraph,
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: ToggleButtons(
+                            isSelected: text.HorizontalAlignment.values
+                                .map((e) => e == paragraph.alignment)
+                                .toList(),
+                            children: const [
+                              PhosphorIconsLight.textAlignLeft,
+                              PhosphorIconsLight.textAlignCenter,
+                              PhosphorIconsLight.textAlignRight,
+                              PhosphorIconsLight.textAlignJustify,
+                            ].map((e) => PhosphorIcon(e)).toList(),
+                            onPressed: (current) {
+                              final newParagraph = paragraph.copyWith(
+                                alignment:
+                                    text.HorizontalAlignment.values[current],
+                              );
+                              widget.onChanged(
+                                value.copyWith(
+                                  forcedProperty: newParagraph,
+                                  element: value.element?.copyWith.area
+                                      .paragraph(property: newParagraph),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                         const SizedBox(width: 16),
                         /*FutureBuilder<List<String>?>(
@@ -633,104 +669,107 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           },
                         ),
                         const SizedBox(width: 16),
-                        ToggleButtons(
-                          isSelected: [
-                            property.getFontWeight(paragraph) !=
-                                text.kFontWeightNormal,
-                            property.getItalic(paragraph),
-                            property.getUnderline(paragraph),
-                          ],
-                          children: [
-                            GestureDetector(
-                              child: const PhosphorIcon(
-                                PhosphorIconsLight.textB,
-                              ),
-                              onLongPressEnd: (details) {
-                                final RenderObject? overlay = Overlay.of(
-                                  context,
-                                ).context.findRenderObject();
-                                final RenderBox referenceBox =
-                                    context.findRenderObject() as RenderBox;
-                                var tapPosition = referenceBox.globalToLocal(
-                                  details.globalPosition,
-                                );
-                                showMenu(
-                                  context: context,
-                                  position: RelativeRect.fromRect(
-                                    Rect.fromLTWH(
-                                      tapPosition.dx,
-                                      tapPosition.dy,
-                                      30,
-                                      30,
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: ToggleButtons(
+                            isSelected: [
+                              property.getFontWeight(paragraph) !=
+                                  text.kFontWeightNormal,
+                              property.getItalic(paragraph),
+                              property.getUnderline(paragraph),
+                            ],
+                            children: [
+                              GestureDetector(
+                                child: const PhosphorIcon(
+                                  PhosphorIconsLight.textB,
+                                ),
+                                onLongPressEnd: (details) {
+                                  final RenderObject? overlay = Overlay.of(
+                                    context,
+                                  ).context.findRenderObject();
+                                  final RenderBox referenceBox =
+                                      context.findRenderObject() as RenderBox;
+                                  var tapPosition = referenceBox.globalToLocal(
+                                    details.globalPosition,
+                                  );
+                                  showMenu(
+                                    context: context,
+                                    position: RelativeRect.fromRect(
+                                      Rect.fromLTWH(
+                                        tapPosition.dx,
+                                        tapPosition.dy,
+                                        30,
+                                        30,
+                                      ),
+                                      Rect.fromLTWH(
+                                        0,
+                                        0,
+                                        overlay!.paintBounds.size.width,
+                                        overlay.paintBounds.size.height,
+                                      ),
                                     ),
-                                    Rect.fromLTWH(
-                                      0,
-                                      0,
-                                      overlay!.paintBounds.size.width,
-                                      overlay.paintBounds.size.height,
+                                    initialValue:
+                                        FontWeight.values[property
+                                            .getFontWeight(paragraph)],
+                                    items: List.generate(
+                                      FontWeight.values.length,
+                                      (index) {
+                                        var text = ((index + 1) * 100)
+                                            .toString();
+                                        if (index == 3) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).normal;
+                                        } else if (index == 6) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).bold;
+                                        }
+                                        return PopupMenuItem(
+                                          value: FontWeight.values[index],
+                                          child: Text(text),
+                                          onTap: () {
+                                            updateSpan(
+                                              (value) => value.copyWith(
+                                                fontWeight: index,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  initialValue:
-                                      FontWeight.values[property.getFontWeight(
-                                        paragraph,
-                                      )],
-                                  items: List.generate(
-                                    FontWeight.values.length,
-                                    (index) {
-                                      var text = ((index + 1) * 100).toString();
-                                      if (index == 3) {
-                                        text = AppLocalizations.of(
-                                          context,
-                                        ).normal;
-                                      } else if (index == 6) {
-                                        text = AppLocalizations.of(
-                                          context,
-                                        ).bold;
-                                      }
-                                      return PopupMenuItem(
-                                        value: FontWeight.values[index],
-                                        child: Text(text),
-                                        onTap: () {
-                                          updateSpan(
-                                            (value) => value.copyWith(
-                                              fontWeight: index,
-                                            ),
-                                          );
-                                          Navigator.pop(context);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                            const PhosphorIcon(PhosphorIconsLight.textItalic),
-                            const PhosphorIcon(
-                              PhosphorIconsLight.textUnderline,
-                            ),
-                          ],
-                          onPressed: (current) => switch (current) {
-                            0 => updateSpan(
-                              (value) => value.copyWith(
-                                fontWeight:
-                                    property.fontWeight ==
-                                        text.kFontWeightNormal
-                                    ? text.kFontWeightBold
-                                    : text.kFontWeightNormal,
+                                  );
+                                },
                               ),
-                            ),
-                            1 => updateSpan(
-                              (value) => value.copyWith(
-                                italic: !property.getItalic(paragraph),
+                              const PhosphorIcon(PhosphorIconsLight.textItalic),
+                              const PhosphorIcon(
+                                PhosphorIconsLight.textUnderline,
                               ),
-                            ),
-                            2 => updateSpan(
-                              (value) => value.copyWith(
-                                underline: !property.getUnderline(paragraph),
+                            ],
+                            onPressed: (current) => switch (current) {
+                              0 => updateSpan(
+                                (value) => value.copyWith(
+                                  fontWeight:
+                                      property.fontWeight ==
+                                          text.kFontWeightNormal
+                                      ? text.kFontWeightBold
+                                      : text.kFontWeightNormal,
+                                ),
                               ),
-                            ),
-                            _ => null,
-                          },
+                              1 => updateSpan(
+                                (value) => value.copyWith(
+                                  italic: !property.getItalic(paragraph),
+                                ),
+                              ),
+                              2 => updateSpan(
+                                (value) => value.copyWith(
+                                  underline: !property.getUnderline(paragraph),
+                                ),
+                              ),
+                              _ => null,
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -862,7 +901,15 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         final element = value.element;
         if (element == null) return;
         // Get selection text
-        final content = element.text.substring(selection.start, selection.end);
+        var content = element.text.substring(selection.start, selection.end);
+        var newSelection = selection;
+        if (content.isEmpty && !isMath) {
+          content = ' ';
+          newSelection = TextSelection(
+            baseOffset: selection.start,
+            extentOffset: selection.start + 1,
+          );
+        }
         // Create new span
         final newSpan = isMath
             ? text.TextSpan(text: content)
@@ -874,7 +921,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
           selection.end - selection.start,
         );
         widget.onChanged(
-          value.copyWith(element: element.copyWith.area(paragraph: paragraph)),
+          value.copyWith(
+            element: element.copyWith.area(paragraph: paragraph),
+            selection: newSelection,
+          ),
         );
       },
     );

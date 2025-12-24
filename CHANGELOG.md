@@ -2,6 +2,47 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2 (2025-12-24)
+
+No changes compared to version 2.4.2-rc.4.
+
+This is a stable release, it includes all the changes from the 2.4.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.2
+
+## 2.4.2-rc.4 (2025-12-19)
+
+* Add extend selection shortcut to label handler
+* Add dot to the center of the ruler
+* Add processing indicator when exporting and sharing
+* Fix app crash when having invalid latex
+* Fix label handler not submitting changes on dispose
+* Fix label handler updating text handling
+* Fix performance problems on creating simple elements
+* Fix pdf export preview gets updated on every slider change
+* Fix SVG export compatibility by using fill-opacity and stroke-opacity ([#963](https://github.com/LinwoodDev/Butterfly/issues/963))
+* Fix quality changes viewport on export dialog
+* Upgrade to flutter 3.38
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
+
+## 2.4.2-rc.3 (2025-12-12)
+
+* Improve ui of pdf export dialog
+* Improve image export preview
+* Improve performance of eraser and path eraser tool
+* Skip baking on pen if new element is started
+* Show untitled for empty page names in pdf select dialog
+* Change area tool to open context with double tap
+* Translate style classes ([#1006](https://github.com/LinwoodDev/Butterfly/issues/1006))
+* Fix pdf export crashes when changing quality
+* Fix image transforming incorrectly displayed
+* Fix rtl text direction in label and color toolbar
+* Fix math button in label toolbar does nothing if no text is selected
+* Add indonesian translation
+* Add tbfly file association on Windows and iOS
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.3
+
 ## 2.4.2-rc.2 (2025-12-04)
 
 * Add restore current palette
@@ -51,7 +92,7 @@ Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
 
 ## 2.4.1 (2025-11-13)
 
-No changes compared to version 2.4.1.
+No changes compared to version 2.4.1-rc.4.
 
 This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.4.1

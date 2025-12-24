@@ -154,6 +154,9 @@ class RulerRenderer extends Renderer<RulerTool> {
     canvas.drawRect(rulerRect, rulerBackgroundPaint);
     canvas.drawRect(rulerRect, rulerPaint);
 
+    // Draw center dot
+    canvas.drawCircle(rulerRect.center, 4, rulerForegroundPaint);
+
     // Paint ruler lines
     int x = steps;
     var even = (transform.position.dx ~/ (steps / transform.size)) % 2 == 0;
