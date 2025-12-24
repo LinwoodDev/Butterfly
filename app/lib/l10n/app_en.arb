@@ -1265,5 +1265,6 @@
     "description": "Density value"
   },
   "clickToSave": "Click to save",
-  "toolbars": "Toolbars"
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

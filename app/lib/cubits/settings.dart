@@ -341,6 +341,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool moveOnGesture,
     @Default([]) List<String> swamps,
     PackAssetLocation? selectedPalette,
+    @Default(false) bool showVerboseLogs,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -476,6 +477,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               json.decode(prefs.getString('selected_palette')!),
             )
           : null,
+      showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
     );
   }
 
@@ -1149,6 +1151,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeSelectedPalette(PackAssetLocation palette) {
     emit(state.copyWith(selectedPalette: palette));
+    return save();
+  }
+
+  Future<void> changeShowVerboseLogs(bool value) {
+    emit(state.copyWith(showVerboseLogs: value));
     return save();
   }
 }

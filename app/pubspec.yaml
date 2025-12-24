@@ -110,6 +110,9 @@ dependencies:
   synchronized: ^3.4.0
   file_picker: ^10.3.3
   pdfrx: ^2.2.9
+  talker_flutter: ^5.1.6
+  talker: ^5.1.6
+  talker_bloc_logger: ^5.1.6
 dependency_overrides:
   irondash_engine_context:
     git:

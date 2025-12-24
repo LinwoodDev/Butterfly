@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/main.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -42,6 +43,7 @@ String parseConnectUri(Uri uri) {
 }
 
 Future<bool> openReleaseNotes() {
+  talker.info('Opening release notes');
   return launchUrl(
     Uri(
       scheme: 'https',
