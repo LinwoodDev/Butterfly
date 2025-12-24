@@ -2,6 +2,13 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.2 (2025-12-24)
+
+No changes compared to version 2.4.2-rc.4.
+
+This is a stable release, it includes all the changes from the 2.4.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.2
+
 ## 2.4.2-rc.4 (2025-12-19)
 
 * Add extend selection shortcut to label handler
