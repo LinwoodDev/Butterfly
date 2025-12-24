@@ -314,11 +314,10 @@ abstract class Handler<T> {
   @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
     PasteTextIntent: CallbackAction<PasteTextIntent>(
-      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent()),
     ),
     SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-      onInvoke: (intent) =>
-          Actions.maybeInvoke(context, SelectAllIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, SelectAllIntent()),
     ),
   };
 

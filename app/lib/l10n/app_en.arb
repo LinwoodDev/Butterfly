@@ -1264,6 +1264,7 @@
   "@densityMaximize": {
     "description": "Density value"
   },
+  "customizeShortcuts": "Customize shortcuts",
   "clickToSave": "Click to save",
   "toolbars": "Toolbars",
   "logs": "Logs"

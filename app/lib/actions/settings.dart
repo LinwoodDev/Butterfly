@@ -2,18 +2,30 @@ import 'dart:ui';
 
 import 'package:butterfly/settings/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:keybinder/keybinder.dart';
 
 class SettingsIntent extends Intent {
-  final BuildContext context;
-
-  const SettingsIntent(this.context);
+  const SettingsIntent();
 }
 
+final settingsShortcut = ShortcutDefinition(
+  id: 'settings',
+  intent: const SettingsIntent(),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.keyS,
+    control: true,
+    alt: true,
+  ),
+);
+
 class SettingsAction extends Action<SettingsIntent> {
-  SettingsAction();
+  final BuildContext context;
+
+  SettingsAction(this.context);
 
   @override
-  Future<void> invoke(SettingsIntent intent) => openSettings(intent.context);
+  Future<void> invoke(SettingsIntent intent) => openSettings(context);
 }
 
 Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(

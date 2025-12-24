@@ -3,24 +3,45 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:keybinder/keybinder.dart';
 
 import '../dialogs/template.dart';
 
 class NewIntent extends Intent {
-  final BuildContext context;
   final bool fromTemplate;
 
-  const NewIntent(this.context, {this.fromTemplate = false});
+  const NewIntent({this.fromTemplate = false});
 }
 
+final newShortcut = ShortcutDefinition(
+  id: 'new',
+  intent: const NewIntent(fromTemplate: false),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.keyN,
+    control: true,
+  ),
+);
+
+final newFromTemplateShortcut = ShortcutDefinition(
+  id: 'new_from_template',
+  intent: const NewIntent(fromTemplate: true),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.keyN,
+    control: true,
+    shift: true,
+  ),
+);
+
 class NewAction extends Action<NewIntent> {
-  NewAction();
+  final BuildContext context;
+
+  NewAction(this.context);
 
   @override
   Future<void> invoke(NewIntent intent) async {
-    final context = intent.context;
     final bloc = context.read<DocumentBloc>();
     final settingsCubit = context.read<SettingsCubit>();
     final settings = settingsCubit.state;
