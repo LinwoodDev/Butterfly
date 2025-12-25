@@ -30,9 +30,9 @@
   "zoomOut": "Σμίκρυνση",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Πλάτος περιγράμματος",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Στυλ πινελιάς",
+  "dashLength": "Μήκος παύλας",
+  "gapLength": "Μήκος κενού",
   "includeEraser": "Συμπεριλάβετε γόμα?",
   "thinning": "Λέπτυνση",
   "pen": "Πένα",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Προσαρμογή συντομεύσεων",
+  "clickToSave": "Κλικ για αποθήκευση",
+  "toolbars": "Γραμμές Εργαλείων",
+  "logs": "Καταγραφή"
 }
