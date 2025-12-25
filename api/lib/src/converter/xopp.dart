@@ -37,14 +37,23 @@ String _exportColor(SRGBColor value) {
   PadElement? get() {
     switch (element.qualifiedName) {
       case 'stroke':
+        final tool = element.getAttribute('tool');
+        if (tool == 'eraser') return null;
+        var color = _importColor(element.getAttribute('color')!);
+        if (tool == 'highlighter') {
+          color = color.withValues(a: 128);
+        }
         return PenElement(
           property: PenProperty(
-            color: _importColor(element.getAttribute('color')!),
+            color: color,
             strokeWidth: double.parse(
               element.getAttribute('width')!.split(' ').first,
             ),
           ),
-          extra: {'xopp:width': element.getAttribute('width')!},
+          extra: {
+            'xopp:width': element.getAttribute('width')!,
+            if (tool != null) 'xopp:tool': tool,
+          },
           points: toPoints(
             element.innerText.split(' ').map((e) => double.parse(e)).toList(),
           ),
@@ -75,8 +84,12 @@ String _exportColor(SRGBColor value) {
         final imageData = UriData.parse(element.innerText);
         String path;
         (data, path) = data.importImage(imageData.contentAsBytes(), 'png');
-        final left = double.parse(element.getAttribute('x')!);
-        final top = double.parse(element.getAttribute('y')!);
+        final left = double.parse(
+          element.getAttribute('left') ?? element.getAttribute('x')!,
+        );
+        final top = double.parse(
+          element.getAttribute('top') ?? element.getAttribute('y')!,
+        );
         final right = double.parse(element.getAttribute('right')!);
         final bottom = double.parse(element.getAttribute('bottom')!);
         return ImageElement(
@@ -85,6 +98,27 @@ String _exportColor(SRGBColor value) {
           collection: collectionName,
           height: bottom - top,
           width: right - left,
+        );
+      case 'teximage':
+        final left = double.parse(
+          element.getAttribute('left') ?? element.getAttribute('x') ?? '0',
+        );
+        final top = double.parse(
+          element.getAttribute('top') ?? element.getAttribute('y') ?? '0',
+        );
+        return TextElement(
+          position: Point(left, top),
+          area: text.TextArea(
+            paragraph: text.TextParagraph(
+              textSpans: [
+                text.InlineSpan.math(
+                  text: element.innerText,
+                  property: const text.SpanProperty.defined(),
+                ),
+              ],
+            ),
+          ),
+          collection: collectionName,
         );
       default:
         return null;
@@ -105,30 +139,64 @@ NoteData xoppMigrator(Uint8List data) {
     ),
   );
   for (final entry in xournal.findElements('page').toList().asMap().entries) {
-    final elements = <PadElement>[];
+    final documentLayers = <DocumentLayer>[];
     final page = entry.value;
-    final layers = {};
+    final layersMeta = {};
+
+    final backgroundXml = page.getElement('background')!;
+    final backgroundType = backgroundXml.getAttribute('type');
+    final pageWidth = double.tryParse(page.getAttribute('width') ?? '') ?? 0.0;
+    final pageHeight =
+        double.tryParse(page.getAttribute('height') ?? '') ?? 0.0;
+
+    if (backgroundType == 'pdf') {
+      final filename = backgroundXml.getAttribute('filename');
+      final pageNo =
+          int.tryParse(backgroundXml.getAttribute('page') ?? '1') ?? 1;
+      if (filename != null) {
+        documentLayers.add(
+          DocumentLayer(
+            content: [
+              PadElement.pdf(
+                source: filename,
+                page: pageNo - 1,
+                width: pageWidth,
+                height: pageHeight,
+              ),
+            ],
+            id: createUniqueId(),
+          ),
+        );
+      }
+    }
+
     for (final (index, layer) in page.findElements('layer').indexed) {
+      final layerElements = <PadElement>[];
       final xoppLayerName = layer.getAttribute('name');
       final layerName = xoppLayerName ?? 'Layer ${index + 1}';
       for (final element in layer.childElements) {
         PadElement? current;
         (note, current) = getElement(note, element, layerName);
         if (current != null) {
-          elements.add(current);
+          layerElements.add(current);
         }
       }
-      layers[layerName] = {
+      documentLayers.add(
+        DocumentLayer(content: layerElements, id: createUniqueId()),
+      );
+      layersMeta[layerName] = {
         'hasName': xoppLayerName != null,
         'timestamp': layer.getAttribute('timestamp'),
       };
     }
-    final backgroundXml = page.getElement('background')!;
+
     final backgroundStyle = backgroundXml.getAttribute('style');
-    final backgroundColor = _importColor(
-      backgroundXml.getAttribute('color')!.substring(1),
-    );
-    final background = switch (backgroundXml.getAttribute('type')) {
+    final backgroundColorStr = backgroundXml.getAttribute('color');
+    final backgroundColor = backgroundColorStr != null
+        ? _importColor(backgroundColorStr.substring(1))
+        : SRGBColor.white;
+
+    final background = switch (backgroundType) {
       'solid' => Background.texture(
         texture: SurfaceTexture.pattern(
           boxXColor: backgroundColor,
@@ -143,14 +211,35 @@ NoteData xoppMigrator(Uint8List data) {
     };
     (note, _) = note.addPage(
       DocumentPage(
-        layers: [DocumentLayer(content: elements, id: createUniqueId())],
+        layers: documentLayers,
         backgrounds: [if (background != null) background],
-        extra: {'xopp:layers': layers},
+        extra: {'xopp:layers': layersMeta},
       ),
       '',
     );
   }
   return note;
+}
+
+void _exportLabelElement(XmlBuilder builder, LabelElement e) {
+  final styleSheet = e.styleSheet;
+  final style = e is TextElement
+      ? styleSheet?.item
+            .resolveParagraphProperty(e.area.paragraph.property)
+            ?.span
+      : styleSheet?.item.getParagraphProperty('p')?.span;
+  builder.element(
+    'text',
+    attributes: {
+      'color': _exportColor(style?.color ?? SRGBColor.black),
+      'size': (style?.size ?? 12).toString(),
+      'x': e.position.x.toString(),
+      'y': e.position.y.toString(),
+    },
+    nest: () {
+      builder.text(e.text);
+    },
+  );
 }
 
 Uint8List xoppExporter(NoteData document) {
@@ -178,76 +267,78 @@ Uint8List xoppExporter(NoteData document) {
                 'style': 'plain',
               },
             );
-            builder.element(
-              'layer',
-              nest: () {
-                for (final element in page.content) {
-                  switch (element) {
-                    case PenElement e:
-                      builder.element(
-                        'stroke',
-                        attributes: {
-                          'color': _exportColor(e.property.color),
-                          'width': e.property.strokeWidth.toString(),
-                          'tool': 'pen',
-                        },
-                        nest: () {
-                          builder.text(
-                            e.points.map((e) => '${e.x} ${e.y}').join(' '),
+            for (final layer in page.layers) {
+              builder.element(
+                'layer',
+                nest: () {
+                  for (final element in layer.content) {
+                    switch (element) {
+                      case PenElement e:
+                        final tool = e.extra['xopp:tool'] as String? ?? 'pen';
+                        builder.element(
+                          'stroke',
+                          attributes: {
+                            'color': _exportColor(e.property.color),
+                            'width': e.property.strokeWidth.toString(),
+                            'tool': tool,
+                          },
+                          nest: () {
+                            builder.text(
+                              e.points.map((e) => '${e.x} ${e.y}').join(' '),
+                            );
+                          },
+                        );
+                        break;
+                      case LabelElement e:
+                        if (e is TextElement &&
+                            e.area.paragraph.textSpans.length == 1 &&
+                            e.area.paragraph.textSpans.first
+                                is text.MathTextSpan) {
+                          final mathSpan =
+                              e.area.paragraph.textSpans.first
+                                  as text.MathTextSpan;
+                          builder.element(
+                            'teximage',
+                            attributes: {
+                              'left': e.position.x.toString(),
+                              'top': e.position.y.toString(),
+                            },
+                            nest: () {
+                              builder.text(mathSpan.text);
+                            },
                           );
-                        },
-                      );
-                      break;
-                    case LabelElement e:
-                      final styleSheet = e.styleSheet;
-                      final style = e is TextElement
-                          ? styleSheet?.item
-                                .resolveParagraphProperty(
-                                  e.area.paragraph.property,
-                                )
-                                ?.span
-                          : styleSheet?.item.getParagraphProperty('p')?.span;
-                      builder.element(
-                        'text',
-                        attributes: {
-                          'color': _exportColor(
-                            style?.color ?? SRGBColor.black,
-                          ),
-                          'size': (style?.size ?? 12).toString(),
-                          'x': e.position.x.toString(),
-                          'y': e.position.y.toString(),
-                        },
-                        nest: () {
-                          builder.text(e.text);
-                        },
-                      );
-                    case ImageElement e:
-                      final imageData = document.getAsset(
-                        Uri.parse(e.source).path,
-                      );
-                      builder.element(
-                        'image',
-                        attributes: {
-                          'left': e.position.x.toString(),
-                          'top': e.position.y.toString(),
-                          'right': (e.position.x + e.width).toString(),
-                          'bottom': (e.position.y + e.height).toString(),
-                        },
-                        nest: () {
-                          builder.text(
-                            UriData.fromBytes(
-                              imageData ?? [],
-                              mimeType: 'image/png',
-                            ).toString(),
-                          );
-                        },
-                      );
-                    default:
-                      break;
+                        } else {
+                          _exportLabelElement(builder, e);
+                        }
+                        break;
+                      case ImageElement e:
+                        final imageData = document.getAsset(
+                          Uri.parse(e.source).path,
+                        );
+                        builder.element(
+                          'image',
+                          attributes: {
+                            'left': e.position.x.toString(),
+                            'top': e.position.y.toString(),
+                            'right': (e.position.x + e.width).toString(),
+                            'bottom': (e.position.y + e.height).toString(),
+                          },
+                          nest: () {
+                            builder.text(
+                              UriData.fromBytes(
+                                imageData ?? [],
+                                mimeType: 'image/png',
+                              ).toString(),
+                            );
+                          },
+                        );
+                      default:
+                        break;
+                    }
                   }
-                }
-              },
-            );
+                },
+              );
+            }
           },
         );
       }
