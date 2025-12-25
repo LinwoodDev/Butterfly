@@ -484,26 +484,26 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_secure_storage
-      sha256: "79d53f3393ac2b73bcba45317b6c1a29002f89c680225cdea0bd6770a1682ce0"
+      sha256: da922f2aab2d733db7e011a6bcc4a825b844892d4edd6df83ff156b09a9b2e40
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.0-beta.5"
+    version: "10.0.0"
   flutter_secure_storage_darwin:
     dependency: transitive
     description:
       name: flutter_secure_storage_darwin
-      sha256: "81ef5abfb9cbeb78110d8043ba29f0b36cd7ffa989baa1b2d9482542b2200051"
+      sha256: "8878c25136a79def1668c75985e8e193d9d7d095453ec28730da0315dc69aee3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.2.0"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
       name: flutter_secure_storage_linux
-      sha256: "9b4b73127e857cd3117d43a70fa3dddadb6e0b253be62e6a6ab85caa0742182c"
+      sha256: "2b5c76dce569ab752d55a1cee6a2242bcc11fdba927078fb88c503f150767cda"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.0"
   flutter_secure_storage_platform_interface:
     dependency: transitive
     description:
@@ -516,18 +516,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_secure_storage_web
-      sha256: "4c3f233e739545c6cb09286eeec1cc4744138372b985113acc904f7263bef517"
+      sha256: "6a1137df62b84b54261dca582c1c09ea72f4f9a4b2fcee21b025964132d5d0c3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   flutter_secure_storage_windows:
     dependency: transitive
     description:
       name: flutter_secure_storage_windows
-      sha256: ff32af20f70a8d0e59b2938fc92de35b54a74671041c814275afd80e27df9f21
+      sha256: "3b7c8e068875dfd46719ff57c90d8c459c87f2302ed6b00ff006b3c9fcad1613"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -587,10 +587,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: c92d18e1fe994cb06d48aa786c46b142a5633067e8297cff6b5a3ac742620104
+      sha256: eff94d2a6fc79fa8b811dde79c7549808c2346037ee107a1121b4a644c745f2a
       url: "https://pub.dev"
     source: hosted
-    version: "17.0.0"
+    version: "17.0.1"
   graphs:
     dependency: transitive
     description:
@@ -1408,34 +1408,34 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: "8ad4e3043055f4ad6131f2362dc8617972f4f9dfad147716ba3f8c025206be06"
+      sha256: e5d4f7cce6a639037e551660ae1b93b451f107e78dabcc9f89fc52ffeb6d63d5
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.6"
+    version: "5.1.9"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       name: talker_bloc_logger
-      sha256: deb77dd9ec14d58f8dc6dcdfa2b43d6cf4f4bd62b20e8891acce968c5295253f
+      sha256: "05085bc394bdd984fc501352cbeb1434dbd21e99a52e4878d52ea69b20695806"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.6"
+    version: "5.1.9"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "0f3ed908bf3c352e5066e009d23a7f839d24219db21d70e753d670ffddcae849"
+      sha256: c4b77632e9fe9cc2c370b7ea294294973ce4d394c584f28e87f7f8b5f5f31a51
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.6"
+    version: "5.1.9"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "5377c6bbcf79b95bae8aabbcc198d65bb8f462c4eba3ff03f9be67db7b604f71"
+      sha256: "0c9f37cd17012e5f45986007340de95e9ebccb7a64c5375919cb27e2f0cc60ee"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.6"
+    version: "5.1.9"
   term_glyph:
     dependency: transitive
     description:

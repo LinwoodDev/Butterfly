@@ -433,10 +433,10 @@ class ButterflyApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Black Hairstreak';
+const applicationVersionName = 'Crimson Red';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.4';
+const applicationMinorVersion = '2.5';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');

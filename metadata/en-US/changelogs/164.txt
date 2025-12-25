@@ -1,0 +1,8 @@
+* Add loggaing
+* Add toolbar pack items
+  * Add toolbar tab to document selection view
+  * Add toolbars tab in packs dialog
+* Add custom keybinding support
+* Add dotted and dashed stroke styles to shapes
+
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
