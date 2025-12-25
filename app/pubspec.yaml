@@ -118,6 +118,7 @@ dependencies:
   talker_flutter: ^5.1.6
   talker: ^5.1.6
   talker_bloc_logger: ^5.1.6
+  flutter_native_splash: ^2.4.7
 dependency_overrides:
   irondash_engine_context:
     git:

@@ -5,5 +5,6 @@
 * Add custom keybinding support
 * Add dotted and dashed stroke styles to shapes ([#934](https://github.com/LinwoodDev/Butterfly/issues/934))
 * Add new nightly icon
+* Reimplement nightly design in web version
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
