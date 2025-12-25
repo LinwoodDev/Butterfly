@@ -30,9 +30,9 @@
   "zoomOut": "Riduci zoom",
   "resetZoom": "Reimposta zoom",
   "strokeWidth": "Spessore tratto",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Stile tratto",
+  "dashLength": "Lunghezza tratteggiatura",
+  "gapLength": "Lunghezza del gap",
   "includeEraser": "Includere la gomma?",
   "thinning": "Sottigliezza",
   "pen": "Penna",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Personalizza scorciatoie",
+  "clickToSave": "Clicca per salvare",
+  "toolbars": "Barre Strumenti",
+  "logs": "Registri"
 }
