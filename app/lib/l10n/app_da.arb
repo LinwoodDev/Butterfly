@@ -30,9 +30,9 @@
   "zoomOut": "Zoom ud",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Slaglængde",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Slagstil",
+  "dashLength": "Dash længde",
+  "gapLength": "Afstand længde",
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Tilpas genveje",
+  "clickToSave": "Klik for at gemme",
+  "toolbars": "Værktøjslinjer",
+  "logs": "Logfiler"
 }
