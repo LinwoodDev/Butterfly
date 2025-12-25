@@ -30,9 +30,9 @@
   "zoomOut": "Zoom uit",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke breedte",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Stroke stijl",
+  "dashLength": "Dash lengte",
+  "gapLength": "Lengte afstand",
   "includeEraser": "Inclusief gum",
   "thinning": "Duiken",
   "pen": "pennen",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Sneltoetsen aanpassen",
+  "clickToSave": "Klik om op te slaan",
+  "toolbars": "Werkbalken",
+  "logs": "Logboeken"
 }
