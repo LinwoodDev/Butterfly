@@ -30,9 +30,9 @@
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
   "strokeWidth": "Толщина линии",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Стиль обводки",
+  "dashLength": "Длина тире",
+  "gapLength": "Длина разрыва",
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Настроить ярлыки",
+  "clickToSave": "Нажмите, чтобы сохранить",
+  "toolbars": "Панели инструментов",
+  "logs": "Логи"
 }
