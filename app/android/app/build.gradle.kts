@@ -53,6 +53,12 @@ android {
         }
     }
 
+    sourceSets {
+        getByName("nightly") {
+            setRoot("src/development")
+        }
+    }
+
     defaultConfig {
         applicationId = "dev.linwood.butterfly"
         // You can update the following values to match your application needs.
