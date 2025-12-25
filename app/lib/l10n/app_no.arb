@@ -30,9 +30,9 @@
   "zoomOut": "Zoom ut",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Bredde på slagbredde",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Stil for stripe",
+  "dashLength": "Punkt lengde",
+  "gapLength": "Gap lengde",
   "includeEraser": "Inkluder eraser?",
   "thinning": "Tynn",
   "pen": "Penn",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Tilpass snarveier",
+  "clickToSave": "Klikk for å lagre",
+  "toolbars": "Verktøyfelt",
+  "logs": "Logger"
 }
