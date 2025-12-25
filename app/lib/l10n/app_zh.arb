@@ -30,9 +30,9 @@
   "zoomOut": "缩放",
   "resetZoom": "Reset zoom",
   "strokeWidth": "笔画宽度",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "笔画样式",
+  "dashLength": "破折号长度",
+  "gapLength": "间距长度",
   "includeEraser": "包括擦除器？",
   "thinning": "细化",
   "pen": "笔",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "自定义快捷方式",
+  "clickToSave": "单击以保存",
+  "toolbars": "工具栏",
+  "logs": "日志"
 }
