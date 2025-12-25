@@ -30,9 +30,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Lățimea conturului",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Stil stâlp",
+  "dashLength": "Lungime defrișare",
+  "gapLength": "Lungimea decalajului",
   "includeEraser": "Includeți ștergerea?",
   "thinning": "Thinning",
   "pen": "Stiloul",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Personalizare comenzi rapide",
+  "clickToSave": "Click pentru a salva",
+  "toolbars": "Bare de instrumente",
+  "logs": "Jurnale"
 }
