@@ -30,9 +30,9 @@
   "zoomOut": "Зменшити масштаб",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Ширина штриха",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Стиль обведення",
+  "dashLength": "Довжина тире",
+  "gapLength": "Довжина прогалини",
   "includeEraser": "Включати гущаду?",
   "thinning": "Думки",
   "pen": "Ручка",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Налаштування поєднання клавіш",
+  "clickToSave": "Натисніть, щоб зберегти",
+  "toolbars": "Панелі інструментів",
+  "logs": "Логи"
 }
