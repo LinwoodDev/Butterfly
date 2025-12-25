@@ -30,9 +30,9 @@
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
   "strokeWidth": "Szerokość obrysu",
-  "strokeStyle": "Stroke style",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "strokeStyle": "Styl obrysu",
+  "dashLength": "Długość kreski",
+  "gapLength": "Długość odstępu",
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
@@ -1264,8 +1264,8 @@
   "@densityMaximize": {
     "description": "Density value"
   },
-  "customizeShortcuts": "Customize shortcuts",
-  "clickToSave": "Click to save",
-  "toolbars": "Toolbars",
-  "logs": "Logs"
+  "customizeShortcuts": "Dostosuj skróty",
+  "clickToSave": "Kliknij, aby zapisać",
+  "toolbars": "Paski narzędzi",
+  "logs": "Logi"
 }
