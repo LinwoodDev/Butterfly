@@ -30,6 +30,9 @@
   "zoomOut": "הקטנה",
   "resetZoom": "איפוס זום",
   "strokeWidth": "עובי קו",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "לכלול מחק?",
   "thinning": "הידקקות",
   "pen": "עט",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

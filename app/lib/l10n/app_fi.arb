@@ -30,6 +30,9 @@
   "zoomOut": "Zoomaa ulos",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Aivojen leveys",
+  "strokeStyle": "Stroke tyyli",
+  "dashLength": "Dash pituus",
+  "gapLength": "Vaaran pituus",
   "includeEraser": "Sisällytä tyhjennys?",
   "thinning": "Hehkuminen",
   "pen": "Kynä",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Muokkaa pikakuvakkeita",
+  "clickToSave": "Tallenna napsauttamalla",
+  "toolbars": "Työkalupalkit",
+  "logs": "Lokit"
 }

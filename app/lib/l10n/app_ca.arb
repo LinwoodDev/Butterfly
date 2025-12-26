@@ -30,6 +30,9 @@
   "zoomOut": "Redueix",
   "resetZoom": "Reinicia zoom",
   "strokeWidth": "Amplada del traç",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Incloure esborrador?",
   "thinning": "Afinament",
   "pen": "Bolígraf",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

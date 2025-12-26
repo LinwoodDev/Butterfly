@@ -30,6 +30,9 @@
   "zoomOut": "ซูมออก",
   "resetZoom": "รีเซ็ตการซูม",
   "strokeWidth": "ความกว้างของเส้น",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "รวมยางลบด้วยหรือไม่?",
   "thinning": "การลดความหนา",
   "pen": "ปากกา",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

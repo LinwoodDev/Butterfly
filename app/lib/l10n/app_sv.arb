@@ -30,6 +30,9 @@
   "zoomOut": "Zooma ut",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke bredd",
+  "strokeStyle": "Stroke stil",
+  "dashLength": "Dash längd",
+  "gapLength": "Längd på gapet",
   "includeEraser": "Inkludera suddgummi?",
   "thinning": "Gallring",
   "pen": "Penna",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Anpassa genvägar",
+  "clickToSave": "Klicka för att spara",
+  "toolbars": "Verktygsfält",
+  "logs": "Loggar"
 }

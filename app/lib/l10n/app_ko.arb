@@ -30,6 +30,9 @@
   "zoomOut": "축소",
   "resetZoom": "확대/축소 초기화",
   "strokeWidth": "선 굵기",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "지우개 포함?",
   "thinning": "필압 감지",
   "pen": "펜",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

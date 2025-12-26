@@ -30,6 +30,9 @@
   "zoomOut": "Riduci zoom",
   "resetZoom": "Reimposta zoom",
   "strokeWidth": "Spessore tratto",
+  "strokeStyle": "Stile tratto",
+  "dashLength": "Lunghezza tratteggiatura",
+  "gapLength": "Lunghezza del gap",
   "includeEraser": "Includere la gomma?",
   "thinning": "Sottigliezza",
   "pen": "Penna",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Massimizza",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizza scorciatoie",
+  "clickToSave": "Clicca per salvare",
+  "toolbars": "Barre Strumenti",
+  "logs": "Registri"
 }

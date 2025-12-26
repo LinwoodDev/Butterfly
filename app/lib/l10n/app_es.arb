@@ -30,6 +30,9 @@
   "zoomOut": "Apagar",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Ancho del trazo",
+  "strokeStyle": "Estilo de trazo",
+  "dashLength": "Longitud del guión",
+  "gapLength": "Longitud del hueco",
   "includeEraser": "¿Incluye borrador?",
   "thinning": "Lanzamiento",
   "pen": "Pen",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizar atajos",
+  "clickToSave": "Clic para guardar",
+  "toolbars": "Barra de herramientas",
+  "logs": "Registros"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Büyüt",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
   "strokeWidth": "Szerokość obrysu",
+  "strokeStyle": "Styl obrysu",
+  "dashLength": "Długość kreski",
+  "gapLength": "Długość odstępu",
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Dostosuj skróty",
+  "clickToSave": "Kliknij, aby zapisać",
+  "toolbars": "Paski narzędzi",
+  "logs": "Logi"
 }

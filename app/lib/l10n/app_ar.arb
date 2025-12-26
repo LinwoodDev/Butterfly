@@ -30,6 +30,9 @@
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
   "strokeWidth": "سُمك الخط",
+  "strokeStyle": "نمط جرة القلم",
+  "dashLength": "طول الفاش",
+  "gapLength": "طول الفجوة",
   "includeEraser": "تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "مضغوط جداً",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "تخصيص الاختصارات",
+  "clickToSave": "انقر للحفظ",
+  "toolbars": "أشرطة الأدوات",
+  "logs": "السجلات"
 }

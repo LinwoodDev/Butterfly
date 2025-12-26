@@ -30,6 +30,9 @@
   "zoomOut": "Thu nhỏ",
   "resetZoom": "Đặt lại",
   "strokeWidth": "Độ dày nét",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Bao gồm công cụ tẩy?",
   "thinning": "Làm mảnh",
   "pen": "Bút vẽ",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

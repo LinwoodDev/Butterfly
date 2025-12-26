@@ -30,6 +30,9 @@
   "zoomOut": "Umanji",
   "resetZoom": "Resetuj zumiranje",
   "strokeWidth": "Debljina linije",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Uključi gumicu?",
   "thinning": "Tanjanje",
   "pen": "Olovka",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

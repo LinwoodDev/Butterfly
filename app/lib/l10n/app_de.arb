@@ -30,6 +30,9 @@
   "zoomOut": "Verkleinern",
   "resetZoom": "Vergrößerung zurücksetzen",
   "strokeWidth": "Strichbreite",
+  "strokeStyle": "Strichstil",
+  "dashLength": "Strichlänge",
+  "gapLength": "Lückenlänge",
   "includeEraser": "Löschvorrichtung einbeziehen?",
   "thinning": "Dünnheit",
   "pen": "Stift",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximieren",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Verknüpfungen anpassen",
+  "clickToSave": "Zum Speichern klicken",
+  "toolbars": "Werkzeugleisten",
+  "logs": "Logs"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Oddálit",
   "resetZoom": "Resetovat zoom",
   "strokeWidth": "Šířka",
+  "strokeStyle": "Styl tahů",
+  "dashLength": "Délka pomlčky",
+  "gapLength": "Délka mezery",
   "includeEraser": "Zahrnout gumu?",
   "thinning": "Ztenčování",
   "pen": "Tužka",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Přizpůsobit zástupce",
+  "clickToSave": "Klikněte pro uložení",
+  "toolbars": "Lišty nástrojů",
+  "logs": "Logy"
 }

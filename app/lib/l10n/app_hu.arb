@@ -30,6 +30,9 @@
   "zoomOut": "Kicsinyítés",
   "resetZoom": "Eredeti nagyítás visszaállítása",
   "strokeWidth": "Vastagság",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Radír?",
   "thinning": "Vékonyítás",
   "pen": "Toll",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Teljes méret",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }

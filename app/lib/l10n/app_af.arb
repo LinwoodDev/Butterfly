@@ -30,6 +30,9 @@
   "zoomOut": "Zoem uit",
   "resetZoom": "Stel zoem terug",
   "strokeWidth": "Lynwydte",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Sluit uitveër in?",
   "thinning": "Verdunning",
   "pen": "Pen",
@@ -1260,5 +1263,9 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs"
 }
