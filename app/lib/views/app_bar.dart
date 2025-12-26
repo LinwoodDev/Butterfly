@@ -9,6 +9,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
@@ -766,7 +767,7 @@ class _MainPopupMenu extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1,
               child: IconButton(
-                icon: Image.asset('images/logo.png'),
+                icon: Image.asset(logoAsset),
                 style: IconButton.styleFrom(
                   backgroundColor: controller.isOpen
                       ? ColorScheme.of(context).surfaceContainerHighest

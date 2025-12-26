@@ -150,7 +150,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
       mainAxisSize: MainAxisSize.min,
       spacing: 16,
       children: [
-        Image.asset('images/logo.png', width: 64),
+        Image.asset(logoAsset, width: 64),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

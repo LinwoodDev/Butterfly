@@ -437,6 +437,7 @@ const applicationVersionName = 'Crimson Red';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
 const applicationMinorVersion = '2.5';
+const logoAsset = isNightly ? 'images/nightly.png' : 'images/logo.png';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');
