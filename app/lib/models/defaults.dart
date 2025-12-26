@@ -48,11 +48,26 @@ class DocumentDefaults {
           )
           .toList();
 
-  static Future<List<NoteData>> getDefaults(BuildContext context) async {
+  static Future<List<NoteData>> getCoreTemplates(BuildContext context) async {
     return Future.wait(
       [
         (AppLocalizations.of(context).light, PatternTemplate.plain.create()),
         (AppLocalizations.of(context).dark, PatternTemplate.plainDark.create()),
+        (AppLocalizations.of(context).ruled, PatternTemplate.ruled.create()),
+        (
+          AppLocalizations.of(context).ruledDark,
+          PatternTemplate.ruledDark.create(),
+        ),
+        (AppLocalizations.of(context).quad, PatternTemplate.quad.create()),
+        (
+          AppLocalizations.of(context).quadDark,
+          PatternTemplate.quadDark.create(),
+        ),
+        (AppLocalizations.of(context).music, PatternTemplate.music.create()),
+        (
+          AppLocalizations.of(context).musicDark,
+          PatternTemplate.musicDark.create(),
+        ),
       ].map((e) async {
         final bg = Background.texture(texture: e.$2);
         final color = bg.defaultColor;
@@ -65,10 +80,12 @@ class DocumentDefaults {
     );
   }
 
+  static Future<NoteData> _loadNoteData(String name) async => NoteData.fromData(
+    Uint8List.sublistView(await rootBundle.load('defaults/$name.tbfly')),
+  );
+
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
-    );
+    return _corePack ??= await _loadNoteData('defaults/pack.tbfly');
   }
 
   static String translate(String key, Map<String, String> translations) {
