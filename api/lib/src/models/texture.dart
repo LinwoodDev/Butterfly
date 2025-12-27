@@ -7,6 +7,8 @@ import 'colors.dart';
 part 'texture.g.dart';
 part 'texture.freezed.dart';
 
+enum PatternBackground { light, dark }
+
 enum PatternTemplate {
   plain,
   ruled,
@@ -23,12 +25,16 @@ extension PatternTemplateExtension on PatternTemplate {
   String get asset =>
       'templates/${name.replaceAllMapped(RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}')}.png';
 
-  bool get dark => [
-    PatternTemplate.plainDark,
-    PatternTemplate.ruledDark,
-    PatternTemplate.quadDark,
-    PatternTemplate.musicDark,
-  ].contains(this);
+  PatternBackground get background => switch (this) {
+    PatternTemplate.plain ||
+    PatternTemplate.ruled ||
+    PatternTemplate.quad ||
+    PatternTemplate.music => PatternBackground.light,
+    PatternTemplate.plainDark ||
+    PatternTemplate.ruledDark ||
+    PatternTemplate.quadDark ||
+    PatternTemplate.musicDark => PatternBackground.dark,
+  };
 
   PatternTexture create() {
     switch (this) {

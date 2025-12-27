@@ -60,6 +60,15 @@ class _EditableListTileState extends State<EditableListTile> {
   void didUpdateWidget(covariant EditableListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    if (widget.onSaved != oldWidget.onSaved && oldWidget.onSaved != null) {
+      _onSaved();
+    }
+    if (widget.onSaved != oldWidget.onSaved) {
+      setState(() {
+        _isEditing = false;
+      });
+    }
+
     if (widget.controller == oldWidget.controller) {
       return;
     }
@@ -92,11 +101,12 @@ class _EditableListTileState extends State<EditableListTile> {
         tooltip: AppLocalizations.of(context).actions,
         builder: (context, button, controller) => _buildWidget(context, button),
         menuChildren: [
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
-            onPressed: _edit,
-            child: Text(AppLocalizations.of(context).rename),
-          ),
+          if (widget.onSaved != null)
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+              onPressed: _edit,
+              child: Text(AppLocalizations.of(context).rename),
+            ),
           ...widget.actions!,
         ],
       );

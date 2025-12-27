@@ -10,8 +10,12 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
     return ListView(
       children: [
         ...[
-          PatternTemplate.values.where((element) => !element.dark),
-          PatternTemplate.values.where((element) => element.dark),
+          PatternTemplate.values.where(
+            (element) => element.background != PatternBackground.dark,
+          ),
+          PatternTemplate.values.where(
+            (element) => element.background == PatternBackground.dark,
+          ),
         ].map(
           (e) => Wrap(
             alignment: WrapAlignment.center,

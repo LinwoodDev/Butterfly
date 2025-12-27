@@ -192,13 +192,6 @@ class ButterflyFileSystem {
     }
   }
 
-  Future<void> _createDefaultTemplates(TemplateFileSystem fs) async =>
-      Future.wait(
-        (await DocumentDefaults.getDefaults(
-          context,
-        )).map((e) => fs.createFile('${e.name}.bfly', e)),
-      );
-
   Future<void> _createDefaultPacks(PackFileSystem fs) async {
     final pack = await DocumentDefaults.getCorePack();
     await fs.createFile('${pack.name}.bfly', pack);
@@ -240,7 +233,6 @@ class ButterflyFileSystem {
       onEncode: _encode,
       onDecode: _decode,
       storage: storage,
-      createDefault: _createDefaultTemplates,
     );
     _templateCache[key] = system;
     return system;

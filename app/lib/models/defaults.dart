@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/helpers/color.dart';
+import 'package:butterfly/visualizer/preset.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -48,27 +49,31 @@ class DocumentDefaults {
           )
           .toList();
 
-  static Future<List<NoteData>> getDefaults(BuildContext context) async {
+  static Future<List<NoteData>> getCoreTemplates(
+    BuildContext context, {
+    PatternBackground? background,
+  }) async {
     return Future.wait(
-      [
-        (AppLocalizations.of(context).light, PatternTemplate.plain.create()),
-        (AppLocalizations.of(context).dark, PatternTemplate.plainDark.create()),
-      ].map((e) async {
-        final bg = Background.texture(texture: e.$2);
-        final color = bg.defaultColor;
-        return createTemplate(
-          name: e.$1,
-          thumbnail: await _createPlainThumnail(color),
-          backgrounds: [bg],
-        );
-      }),
+      PatternTemplate.values
+          .where((e) => background == null || e.background == background)
+          .map((e) async {
+            final bg = Background.texture(texture: e.create());
+            final color = bg.defaultColor;
+            return createTemplate(
+              name: e.getLocalizedName(context),
+              thumbnail: await _createPlainThumnail(color),
+              backgrounds: [bg],
+            );
+          }),
     );
   }
 
+  static Future<NoteData> _loadNoteData(String name) async => NoteData.fromData(
+    Uint8List.sublistView(await rootBundle.load('defaults/$name.tbfly')),
+  );
+
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.tbfly')),
-    );
+    return _corePack ??= await _loadNoteData('defaults/pack.tbfly');
   }
 
   static String translate(String key, Map<String, String> translations) {
