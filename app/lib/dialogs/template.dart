@@ -53,13 +53,22 @@ class _TemplateDialogState extends State<TemplateDialog> {
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
   NoteData? _clickedTemplate;
+  PatternBackground _selectedBackground = PatternBackground.light;
 
   @override
   void initState() {
     super.initState();
     _fileSystem = context.read<ButterflyFileSystem>();
     _templateSystem = _fileSystem.buildDefaultTemplateSystem();
-    WidgetsBinding.instance.addPostFrameCallback((_) => load());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final brightness = Theme.of(context).brightness;
+      setState(() {
+        _selectedBackground = brightness == Brightness.light
+            ? PatternBackground.light
+            : PatternBackground.dark;
+      });
+      load();
+    });
   }
 
   @override
@@ -74,7 +83,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
         return (await _templateSystem.getFiles()).toList();
       });
       if (context.mounted) {
-        _coreTemplatesFuture = DocumentDefaults.getCoreTemplates(context);
+        _coreTemplatesFuture = DocumentDefaults.getCoreTemplates(
+          context,
+          background: _selectedBackground,
+        );
       }
     });
   }
@@ -168,7 +180,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
           if (!isMobile)
             Expanded(
               child: detailsTemplate == null
-                  ? Center(child: Text(AppLocalizations.of(context).noElements))
+                  ? Card(
+                      child: Center(
+                        child: Text(AppLocalizations.of(context).noElements),
+                      ),
+                    )
                   : _TemplateDetailsView(
                       template: detailsTemplate,
                       onOpen: () {
@@ -241,99 +257,136 @@ class _TemplateDialogState extends State<TemplateDialog> {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        ListView(
-          padding: const EdgeInsets.only(
-            top: 64,
-            bottom: 32,
-            left: 8,
-            right: 8,
-          ),
-          children: [
+        CustomScrollView(
+          slivers: [
+            const SliverPadding(padding: EdgeInsets.only(top: 64)),
             for (final entry in groupedTemplates) ...[
               if (entry.key.isEmpty || entry.key != '/')
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                  child: Text(
-                    entry.key.isEmpty ? 'Core' : entry.key,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              for (final template in entry.value)
-                _TemplateItem(
-                  file: template,
-                  fileSystem: _templateSystem,
-                  bloc: widget.bloc,
-                  key: ValueKey(template.path),
-                  selected: _selectedTemplates.contains(template.path),
-                  isActive: _clickedTemplate == template.data,
-                  isCore: entry.key == '',
-                  onSelected: () {
-                    setState(() {
-                      _selectedTemplates.add(template.path);
-                    });
-                  },
-                  onUnselected: () {
-                    setState(() {
-                      _selectedTemplates.remove(template.path);
-                    });
-                  },
-                  onChanged: () {
-                    load();
-                  },
-                  onTap: () {
-                    if (isMobile) {
-                      showLeapBottomSheet(
-                        context: context,
-                        titleBuilder: (context) =>
-                            Text(template.data!.name ?? ''),
-                        leadingBuilder: (context) {
-                          final thumbnail = template.data!.getThumbnail();
-                          const fallback = PhosphorIcon(
-                            PhosphorIconsLight.file,
-                            textDirection: TextDirection.ltr,
-                            size: 48,
-                          );
-                          return thumbnail != null
-                              ? AspectRatio(
-                                  aspectRatio: kThumbnailRatio,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.memory(
-                                      thumbnail,
-                                      fit: BoxFit.cover,
-                                      cacheHeight: kThumbnailWidth,
-                                      cacheWidth: kThumbnailHeight,
-                                    ),
+                SliverToBoxAdapter(child: _buildHeader(context, entry.key)),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: isMobile
+                    ? SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final template = entry.value[index];
+                          return _TemplateItem(
+                            file: template,
+                            fileSystem: _templateSystem,
+                            bloc: widget.bloc,
+                            key: ValueKey(template.path),
+                            selected: _selectedTemplates.contains(
+                              template.path,
+                            ),
+                            isCore: entry.key.isEmpty,
+                            onSelected: () {
+                              setState(() {
+                                _selectedTemplates.add(template.path);
+                              });
+                            },
+                            onUnselected: () {
+                              setState(() {
+                                _selectedTemplates.remove(template.path);
+                              });
+                            },
+                            onChanged: () {
+                              load();
+                            },
+                            onTap: () {
+                              showLeapBottomSheet(
+                                context: context,
+                                titleBuilder: (context) =>
+                                    Text(template.data!.name ?? ''),
+                                leadingBuilder: (context) {
+                                  final thumbnail = template.data!
+                                      .getThumbnail();
+                                  const fallback = PhosphorIcon(
+                                    PhosphorIconsLight.file,
+                                    textDirection: TextDirection.ltr,
+                                    size: 48,
+                                  );
+                                  return thumbnail != null
+                                      ? AspectRatio(
+                                          aspectRatio: kThumbnailRatio,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            child: Image.memory(
+                                              thumbnail,
+                                              fit: BoxFit.cover,
+                                              cacheHeight: kThumbnailWidth,
+                                              cacheWidth: kThumbnailHeight,
+                                            ),
+                                          ),
+                                        )
+                                      : fallback;
+                                },
+                                leadingWidth: 128,
+                                childrenBuilder: (context) => [
+                                  const SizedBox(height: 8),
+                                  _TemplateDetailsView(
+                                    template: template.data!,
+                                    scrollable: false,
+                                    onOpen: () {
+                                      Navigator.of(context).pop();
+                                      openNewDocument(
+                                        context,
+                                        widget.bloc != null,
+                                        template.data!,
+                                        _templateSystem.storage?.identifier,
+                                      );
+                                    },
                                   ),
-                                )
-                              : fallback;
-                        },
-                        leadingWidth: 128,
-                        childrenBuilder: (context) => [
-                          _TemplateDetailsView(
-                            template: template.data!,
-                            onOpen: () {
-                              Navigator.of(context).pop();
-                              openNewDocument(
-                                context,
-                                widget.bloc != null,
-                                template.data!,
-                                _templateSystem.storage?.identifier,
+                                ],
                               );
                             },
-                          ),
-                        ],
-                      );
-                    } else {
-                      setState(() {
-                        _clickedTemplate = template.data;
-                      });
-                    }
-                  },
-                ),
+                          );
+                        }, childCount: entry.value.length),
+                      )
+                    : SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 1.1,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final template = entry.value[index];
+                          return _TemplateCard(
+                            file: template,
+                            fileSystem: _templateSystem,
+                            bloc: widget.bloc,
+                            key: ValueKey(template.path),
+                            selected: _selectedTemplates.contains(
+                              template.path,
+                            ),
+                            isActive: _clickedTemplate == template.data,
+                            isCore: entry.key == '',
+                            onSelected: () {
+                              setState(() {
+                                _selectedTemplates.add(template.path);
+                              });
+                            },
+                            onUnselected: () {
+                              setState(() {
+                                _selectedTemplates.remove(template.path);
+                              });
+                            },
+                            onChanged: () {
+                              load();
+                            },
+                            onTap: () {
+                              setState(() {
+                                _clickedTemplate = template.data;
+                              });
+                            },
+                          );
+                        }, childCount: entry.value.length),
+                      ),
+              ),
             ],
+            const SliverPadding(padding: EdgeInsets.only(bottom: 32)),
           ],
         ),
         Padding(
@@ -520,6 +573,42 @@ class _TemplateDialogState extends State<TemplateDialog> {
     );
   }
 
+  Widget _buildHeader(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              title.isEmpty ? 'Core' : title,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+
+          IconButton(
+            icon: Icon(
+              _selectedBackground == PatternBackground.light
+                  ? PhosphorIconsLight.sun
+                  : PhosphorIconsLight.moon,
+            ),
+            onPressed: () {
+              setState(() {
+                _selectedBackground =
+                    _selectedBackground == PatternBackground.light
+                    ? PatternBackground.dark
+                    : PatternBackground.light;
+                load();
+              });
+            },
+            tooltip: AppLocalizations.of(context).background,
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _showCreateDialog(DocumentBloc bloc) {
     final state = bloc.state;
     var initialName = '';
@@ -613,8 +702,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
 class _TemplateDetailsView extends StatelessWidget {
   final NoteData template;
   final VoidCallback? onOpen;
+  final bool scrollable;
 
-  const _TemplateDetailsView({required this.template, this.onOpen});
+  const _TemplateDetailsView({
+    required this.template,
+    this.onOpen,
+    this.scrollable = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -641,54 +735,43 @@ class _TemplateDetailsView extends StatelessWidget {
             ),
           )
         : fallback;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(metadata.name, style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 16),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Card.filled(
-                child: Padding(
-                  padding: EdgeInsets.all(2),
-                  child: Column(
-                    children: [
-                      thumbnailWidget,
-                      const SizedBox(height: 8),
-                      if (metadata.description.isNotEmpty)
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).description),
-                          subtitle: Text(metadata.description),
-                        ),
-                      if (metadata.directory.isNotEmpty)
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).directory),
-                          subtitle: Text(metadata.directory),
-                        ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).tools),
-                        subtitle: Wrap(
-                          alignment: WrapAlignment.center,
-                          children: [
-                            for (final tool in info?.tools ?? <Tool>[])
-                              SizedBox.square(
-                                dimension: 64,
-                                child: OptionButton(
-                                  icon: Icon(
-                                    tool.icon(PhosphorIconsStyle.light),
-                                  ),
-                                  tooltip: tool.name,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+
+    final details = [
+      if (metadata.description.isNotEmpty)
+        ListTile(
+          title: Text(AppLocalizations.of(context).description),
+          subtitle: Text(metadata.description),
+        ),
+      if (metadata.directory.isNotEmpty)
+        ListTile(
+          title: Text(AppLocalizations.of(context).directory),
+          subtitle: Text(metadata.directory),
+        ),
+      ListTile(
+        title: Text(AppLocalizations.of(context).tools),
+        subtitle: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            for (final tool in info?.tools ?? <Tool>[])
+              SizedBox.square(
+                dimension: 64,
+                child: OptionButton(
+                  icon: Icon(tool.icon(PhosphorIconsStyle.light)),
+                  tooltip: tool.name,
                 ),
               ),
+          ],
+        ),
+      ),
+    ];
+
+    if (!scrollable) {
+      return Column(
+        children: [
+          Card.filled(
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: Column(children: details),
             ),
           ),
           if (onOpen != null)
@@ -703,6 +786,51 @@ class _TemplateDetailsView extends StatelessWidget {
               ),
             ),
         ],
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        child: thumbnailWidget,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      metadata.name,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 8),
+                    ...details,
+                  ],
+                ),
+              ),
+            ),
+            if (onOpen != null)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: onOpen,
+                    child: Text(LeapLocalizations.of(context).create),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -715,7 +843,6 @@ class _TemplateItem extends StatelessWidget {
   final VoidCallback onChanged, onSelected, onUnselected;
   final bool selected;
   final VoidCallback? onTap;
-  final bool isActive;
   final bool isCore;
 
   const _TemplateItem({
@@ -728,7 +855,6 @@ class _TemplateItem extends StatelessWidget {
     required this.onSelected,
     required this.onUnselected,
     this.onTap,
-    this.isActive = false,
     this.isCore = false,
   });
 
@@ -764,7 +890,6 @@ class _TemplateItem extends StatelessWidget {
           )
         : fallback;
     return EditableListTile(
-      selected: isActive,
       showEditIcon: !isCore,
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
@@ -841,21 +966,6 @@ class _TemplateItem extends StatelessWidget {
             }
           },
         ),
-        MenuItemButton(
-          leadingIcon: const PhosphorIcon(PhosphorIconsLight.info),
-          child: Text(AppLocalizations.of(context).information),
-          onPressed: () async {
-            showLeapBottomSheet(
-              context: context,
-              titleBuilder: (context) => Text(metadata.name),
-              leadingBuilder: (context) => Center(child: leading),
-              leadingWidth: 128,
-              childrenBuilder: (context) => [
-                _TemplateDetailsView(template: template),
-              ],
-            );
-          },
-        ),
         if (!isCore)
           SubmenuButton(
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
@@ -902,6 +1012,265 @@ class _TemplateItem extends StatelessWidget {
             template,
             fileSystem.storage?.identifier,
           ),
+    );
+  }
+}
+
+class _TemplateCard extends StatelessWidget {
+  final FileSystemFile<NoteData> file;
+  final TemplateFileSystem fileSystem;
+  final DocumentBloc? bloc;
+  final VoidCallback onChanged, onSelected, onUnselected;
+  final bool selected;
+  final VoidCallback? onTap;
+  final bool isActive;
+  final bool isCore;
+
+  const _TemplateCard({
+    required this.file,
+    required this.fileSystem,
+    required this.onChanged,
+    required this.selected,
+    this.bloc,
+    super.key,
+    required this.onSelected,
+    required this.onUnselected,
+    this.onTap,
+    this.isActive = false,
+    this.isCore = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final settingsCubit = context.read<SettingsCubit>();
+    final settings = settingsCubit.state;
+    final template = file.data!;
+    final path = file.pathWithoutLeadingSlash;
+    final isDefault = settings.defaultTemplate == path;
+    final metadata = template.getMetadata();
+    if (metadata == null) {
+      return const SizedBox();
+    }
+    final thumbnail = template.getThumbnail();
+    const fallback = PhosphorIcon(
+      PhosphorIconsLight.file,
+      textDirection: TextDirection.ltr,
+      size: 48,
+    );
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: isActive
+            ? BorderSide(color: Theme.of(context).colorScheme.primary, width: 2)
+            : BorderSide.none,
+      ),
+      child: InkWell(
+        onTap:
+            onTap ??
+            () => openNewDocument(
+              context,
+              bloc != null,
+              template,
+              fileSystem.storage?.identifier,
+            ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AspectRatio(
+              aspectRatio: kThumbnailRatio,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  thumbnail != null
+                      ? Image.memory(
+                          thumbnail,
+                          fit: BoxFit.cover,
+                          cacheHeight: kThumbnailWidth,
+                          cacheWidth: kThumbnailHeight,
+                        )
+                      : Center(child: fallback),
+                  if (!isCore)
+                    Positioned(
+                      top: 4,
+                      left: 4,
+                      child: Checkbox(
+                        value: selected,
+                        onChanged: (value) {
+                          if (value == true) {
+                            onSelected();
+                          } else {
+                            onUnselected();
+                          }
+                        },
+                      ),
+                    ),
+                  if (isDefault)
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: Icon(PhosphorIconsLight.star, size: 16),
+                    ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            metadata.name,
+                            style: Theme.of(context).textTheme.titleMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          if (metadata.description.isNotEmpty)
+                            Text(
+                              metadata.description,
+                              style: Theme.of(context).textTheme.bodySmall,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                        ],
+                      ),
+                    ),
+                    MenuAnchor(
+                      builder: (context, controller, child) {
+                        return IconButton(
+                          icon: const Icon(
+                            PhosphorIconsLight.dotsThreeVertical,
+                          ),
+                          onPressed: () {
+                            if (controller.isOpen) {
+                              controller.close();
+                            } else {
+                              controller.open();
+                            }
+                          },
+                        );
+                      },
+                      menuChildren: [
+                        if (!isCore)
+                          CheckboxMenuButton(
+                            value: isDefault,
+                            child: Text(
+                              AppLocalizations.of(context).defaultTemplate,
+                            ),
+                            onChanged: (value) async {
+                              settingsCubit.changeDefaultTemplate(path);
+                              onChanged();
+                            },
+                          ),
+                        if (bloc != null && !isCore)
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.toolbox,
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context).overrideTools,
+                            ),
+                            onPressed: () async {
+                              _overrideTools(fileSystem, bloc!, [file]);
+                            },
+                          ),
+                        MenuItemButton(
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.copy,
+                          ),
+                          child: Text(AppLocalizations.of(context).duplicate),
+                          onPressed: () async {
+                            final result = await showDialog<String>(
+                              context: context,
+                              builder: (ctx) => NameDialog(
+                                value: file.fileNameWithoutExtension,
+                                validator: defaultFileNameValidator(context),
+                              ),
+                            );
+                            if (result == null) return;
+                            if (context.mounted) {
+                              await fileSystem.createFileWithName(
+                                template.setMetadata(
+                                  metadata.copyWith(name: result),
+                                ),
+                                name: result,
+                              );
+                              onChanged();
+                            }
+                          },
+                        ),
+                        if (!isCore)
+                          SubmenuButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.download,
+                            ),
+                            menuChildren: [
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.archive,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context).packagedFile,
+                                ),
+                                onPressed: () async {
+                                  await exportData(
+                                    context,
+                                    file.data!,
+                                    isTextBased: false,
+                                  );
+                                },
+                              ),
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.file,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context).rawFile,
+                                ),
+                                onPressed: () async {
+                                  await exportData(
+                                    context,
+                                    file.data!,
+                                    isTextBased: true,
+                                  );
+                                },
+                              ),
+                            ],
+                            child: Text(AppLocalizations.of(context).export),
+                          ),
+                        if (!isCore)
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.trash,
+                            ),
+                            child: Text(AppLocalizations.of(context).delete),
+                            onPressed: () async {
+                              final result = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => const DeleteDialog(),
+                              );
+                              if (result != true) return;
+                              if (context.mounted) {
+                                await fileSystem.deleteFile(path);
+                                onChanged();
+                              }
+                            },
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
