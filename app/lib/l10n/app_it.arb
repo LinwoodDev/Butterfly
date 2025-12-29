@@ -141,6 +141,7 @@
   "solid": "Solido",
   "double": "Doppio",
   "dotted": "Punteggiato",
+  "dottedDark": "Dotted dark",
   "dashed": "Tratteggiato",
   "wavy": "Ondulato",
   "fontWeight": "Dimensione carattere",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "Personalizza scorciatoie",
   "clickToSave": "Clicca per salvare",
   "toolbars": "Barre Strumenti",
-  "logs": "Registri"
+  "logs": "Registri",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
