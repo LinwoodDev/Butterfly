@@ -141,6 +141,7 @@
   "solid": "صلب",
   "double": "مزدوج",
   "dotted": "مُنَقط",
+  "dottedDark": "Dotted dark",
   "dashed": "متقطع",
   "wavy": "مموج",
   "fontWeight": "وزن الخط",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "تخصيص الاختصارات",
   "clickToSave": "انقر للحفظ",
   "toolbars": "أشرطة الأدوات",
-  "logs": "السجلات"
+  "logs": "السجلات",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
