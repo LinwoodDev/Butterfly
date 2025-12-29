@@ -254,6 +254,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (kDebugMode) {
         print(e);
       }
+      if (!mounted) return;
       setState(() {
         _transformCubit = TransformCubit(pixelRatio);
         _currentIndexCubit = CurrentIndexCubit(

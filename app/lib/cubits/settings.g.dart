@@ -6,6 +6,14 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_FavoriteLocation _$FavoriteLocationFromJson(Map json) => _FavoriteLocation(
+  remote: json['remote'] as String?,
+  path: json['path'] as String,
+);
+
+Map<String, dynamic> _$FavoriteLocationToJson(_FavoriteLocation instance) =>
+    <String, dynamic>{'remote': instance.remote, 'path': instance.path};
+
 _InputConfiguration _$InputConfigurationFromJson(Map json) =>
     _InputConfiguration(
       leftMouse: json['leftMouse'] == null

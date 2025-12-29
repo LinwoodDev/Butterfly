@@ -98,6 +98,25 @@ enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
+@freezed
+sealed class FavoriteLocation with _$FavoriteLocation {
+  const FavoriteLocation._();
+
+  const factory FavoriteLocation({String? remote, required String path}) =
+      _FavoriteLocation;
+
+  factory FavoriteLocation.fromJson(Map<String, dynamic> json) =>
+      _$FavoriteLocationFromJson(json);
+
+  factory FavoriteLocation.fromLocation(AssetLocation location) {
+    return FavoriteLocation(remote: location.remote, path: location.path);
+  }
+
+  AssetLocation toLocation([String defaultRemote = '']) {
+    return AssetLocation(path: path, remote: remote ?? defaultRemote);
+  }
+}
+
 class InputMappingDefault {
   static const InputMapping leftMouse = InputMapping(
     InputMapping.activeToolValue,
@@ -311,6 +330,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
+    @Default([])
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    List<FavoriteLocation> favoriteTemplates,
     @Default('') String defaultTemplate,
     @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
@@ -386,7 +408,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
                   return null;
                 }
               })
-              .whereType<AssetLocation>()
+              .nonNulls
               .toList() ??
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
@@ -403,6 +425,19 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
+      favoriteTemplates:
+          prefs
+              .getStringList('favorite_templates')
+              ?.map((e) {
+                try {
+                  return FavoriteLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .nonNulls
+              .toList() ??
+          [],
       defaultTemplate: prefs.getString('default_template') ?? '',
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
@@ -536,6 +571,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     );
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
+    await prefs.setStringList(
+      'favorite_templates',
+      favoriteTemplates.map((e) => json.encode(e.toJson())).toList(),
+    );
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('toolbar_position', toolbarPosition.name);
@@ -981,6 +1020,17 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeDefaultTemplate(String name) {
     emit(state.copyWith(defaultTemplate: name));
+    return save();
+  }
+
+  Future<void> toggleFavoriteTemplate(FavoriteLocation template) {
+    final favorites = state.favoriteTemplates.toList();
+    if (favorites.contains(template)) {
+      favorites.remove(template);
+    } else {
+      favorites.add(template);
+    }
+    emit(state.copyWith(favoriteTemplates: favorites));
     return save();
   }
 

@@ -18,7 +18,7 @@ class _QuickstartHomeView extends StatefulWidget {
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   final ScrollController _scrollController = ScrollController();
   late TemplateFileSystem _templateSystem;
-  Future<List<NoteData>>? _templatesFuture;
+  Future<List<({NoteData file, String remote})>>? _templatesFuture;
 
   @override
   void initState() {
@@ -26,7 +26,11 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     _templateSystem = context.read<ButterflyFileSystem>().buildTemplateSystem(
       widget.remote,
     );
-    _templatesFuture = _fetchTemplates();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _templatesFuture = _fetchTemplates();
+      });
+    });
   }
 
   @override
@@ -48,11 +52,35 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     super.dispose();
   }
 
-  Future<List<NoteData>> _fetchTemplates() => _templateSystem.initialize().then(
-    (value) => _templateSystem.getFiles().then(
-      (value) => value.map((e) => e.data!).toList(),
-    ),
-  );
+  Future<List<({NoteData file, String remote})>> _fetchTemplates() async {
+    if (!mounted) return [];
+    final settings = context.read<SettingsCubit>().state;
+    final favorites = settings.favoriteTemplates;
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final coreTemplates = await DocumentDefaults.getCoreTemplates(context);
+
+    final result = <({NoteData file, String remote})>[];
+
+    for (final location in favorites) {
+      final remote = location.remote;
+      if (remote == null) {
+        final template = coreTemplates.firstWhereOrNull(
+          (e) => e.name == location.path,
+        );
+        if (template == null) continue;
+        result.add((file: template, remote: settings.defaultRemote));
+        continue;
+      }
+      final templateSystem = fileSystem.buildTemplateSystem(
+        settings.getRemote(remote),
+      );
+      final file = await templateSystem.getFile(location.path);
+      if (file == null) continue;
+      result.add((file: file, remote: remote));
+    }
+
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +117,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
               ],
             ),
             SizedBox(height: widget.isMobile ? 8 : 16),
-            FutureBuilder<List<NoteData>>(
+            FutureBuilder<List<({NoteData file, String remote})>>(
               future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -136,18 +164,14 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   );
                 }
                 final children = templates.map((e) {
-                  final thumbnail = e.getThumbnail();
-                  final metadata = e.getMetadata()!;
+                  final data = e.file;
+                  final thumbnail = data.getThumbnail();
+                  final metadata = data.getMetadata()!;
                   return AssetCard(
                     metadata: metadata,
                     thumbnail: thumbnail,
                     onTap: () async {
-                      await openNewDocument(
-                        context,
-                        false,
-                        e,
-                        widget.remote?.identifier,
-                      );
+                      await openNewDocument(context, false, data, e.remote);
                       widget.onReload();
                     },
                   );
