@@ -141,6 +141,7 @@
   "solid": "Сплошной",
   "double": "Двойной",
   "dotted": "Точечный",
+  "dottedDark": "Dotted dark",
   "dashed": "Пунктирный",
   "wavy": "Волнистый",
   "fontWeight": "Насыщенность шрифта",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "Настроить ярлыки",
   "clickToSave": "Нажмите, чтобы сохранить",
   "toolbars": "Панели инструментов",
-  "logs": "Логи"
+  "logs": "Логи",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
