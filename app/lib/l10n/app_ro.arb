@@ -141,6 +141,7 @@
   "solid": "Solid",
   "double": "Dublu",
   "dotted": "Punctat",
+  "dottedDark": "Dotted dark",
   "dashed": "Oprită",
   "wavy": "Vrăjitor",
   "fontWeight": "Greutate font",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "Personalizare comenzi rapide",
   "clickToSave": "Click pentru a salva",
   "toolbars": "Bare de instrumente",
-  "logs": "Jurnale"
+  "logs": "Jurnale",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
