@@ -11,13 +11,15 @@ enum PatternBackground { light, dark }
 
 enum PatternTemplate {
   plain,
-  ruled,
-  quad,
-  music,
   plainDark,
+  ruled,
   ruledDark,
+  quad,
   quadDark,
+  music,
   musicDark,
+  dotted,
+  dottedDark,
 }
 
 extension PatternTemplateExtension on PatternTemplate {
@@ -29,11 +31,13 @@ extension PatternTemplateExtension on PatternTemplate {
     PatternTemplate.plain ||
     PatternTemplate.ruled ||
     PatternTemplate.quad ||
-    PatternTemplate.music => PatternBackground.light,
+    PatternTemplate.music ||
+    PatternTemplate.dotted => PatternBackground.light,
     PatternTemplate.plainDark ||
     PatternTemplate.ruledDark ||
     PatternTemplate.quadDark ||
-    PatternTemplate.musicDark => PatternBackground.dark,
+    PatternTemplate.musicDark ||
+    PatternTemplate.dottedDark => PatternBackground.dark,
   };
 
   PatternTexture create() {
@@ -56,6 +60,18 @@ extension PatternTemplateExtension on PatternTemplate {
           boxYSpace: 80,
           boxYCount: 5,
         );
+      case PatternTemplate.dotted:
+        return const PatternTexture(
+          boxColor: BasicColors.light,
+          boxWidth: 40,
+          boxHeight: 40,
+          boxXCount: 1,
+          boxYCount: 2,
+          boxXStroke: 5,
+          boxYStroke: 35,
+          boxXColor: SRGBColor.black,
+          boxYColor: BasicColors.light,
+        );
       case PatternTemplate.plainDark:
         return const PatternTexture(boxColor: BasicColors.dark);
       case PatternTemplate.ruledDark:
@@ -73,6 +89,18 @@ extension PatternTemplateExtension on PatternTemplate {
           boxHeight: 40,
           boxYSpace: 80,
           boxYCount: 5,
+        );
+      case PatternTemplate.dottedDark:
+        return const PatternTexture(
+          boxColor: BasicColors.dark,
+          boxWidth: 40,
+          boxHeight: 40,
+          boxXCount: 1,
+          boxYCount: 2,
+          boxXStroke: 5,
+          boxYStroke: 35,
+          boxXColor: SRGBColor.white,
+          boxYColor: BasicColors.dark,
         );
     }
   }

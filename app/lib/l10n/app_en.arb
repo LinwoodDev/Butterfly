@@ -141,6 +141,7 @@
   "solid": "Solid",
   "double": "Double",
   "dotted": "Dotted",
+  "dottedDark": "Dotted dark",
   "dashed": "Dashed",
   "wavy": "Wavy",
   "fontWeight": "Font weight",

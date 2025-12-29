@@ -15,6 +15,7 @@ class DocumentDefaults {
 
   DocumentDefaults._();
 
+  // ignore: unused_element
   static Future<Uint8List> _createPlainThumnail(SRGBColor color) async {
     final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
     final recorder = ui.PictureRecorder();
@@ -53,19 +54,18 @@ class DocumentDefaults {
     BuildContext context, {
     PatternBackground? background,
   }) async {
-    return Future.wait(
-      PatternTemplate.values
+    return Future.wait([
+      ...PatternTemplate.values
           .where((e) => background == null || e.background == background)
           .map((e) async {
             final bg = Background.texture(texture: e.create());
-            final color = bg.defaultColor;
             return createTemplate(
               name: e.getLocalizedName(context),
-              thumbnail: await _createPlainThumnail(color),
+              thumbnail: Uint8List.sublistView(await rootBundle.load(e.asset)),
               backgrounds: [bg],
             );
           }),
-    );
+    ]);
   }
 
   static Future<NoteData> _loadNoteData(String name) async => NoteData.fromData(

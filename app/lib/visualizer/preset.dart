@@ -10,10 +10,12 @@ extension PatternTemplateHelper on PatternTemplate {
     PatternTemplate.ruled => AppLocalizations.of(context).ruled,
     PatternTemplate.quad => AppLocalizations.of(context).quad,
     PatternTemplate.music => AppLocalizations.of(context).music,
+    PatternTemplate.dotted => AppLocalizations.of(context).dotted,
     PatternTemplate.plainDark => AppLocalizations.of(context).plainDark,
     PatternTemplate.ruledDark => AppLocalizations.of(context).ruledDark,
     PatternTemplate.quadDark => AppLocalizations.of(context).quadDark,
     PatternTemplate.musicDark => AppLocalizations.of(context).musicDark,
+    PatternTemplate.dottedDark => AppLocalizations.of(context).dottedDark,
   };
 }
 
