@@ -168,11 +168,18 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 final userTemplates =
                     snapshot.data![0] as List<FileSystemFile<NoteData>>;
                 final coreTemplates = snapshot.data![1] as List<NoteData>;
-                return _buildBody(
-                  context,
-                  userTemplates,
-                  coreTemplates,
-                  isMobile,
+                return BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.favoriteTemplates != current.favoriteTemplates,
+                  builder: (context, state) {
+                    return _buildBody(
+                      context,
+                      userTemplates,
+                      coreTemplates,
+                      isMobile,
+                      state.favoriteTemplates,
+                    );
+                  },
                 );
               },
             ),
@@ -202,11 +209,129 @@ class _TemplateDialogState extends State<TemplateDialog> {
     );
   }
 
+  Widget _buildItem(
+    BuildContext context,
+    MapEntry<String?, List<FileSystemFile<NoteData>>> entry,
+    int index,
+    bool isMobile,
+    List<FavoriteLocation> favoriteTemplates,
+  ) {
+    final template = entry.value[index];
+    final isCore = entry.key == null;
+    final location = FavoriteLocation(
+      remote: isCore ? null : template.remote,
+      path: template.pathWithoutLeadingSlash,
+    );
+    final starred = favoriteTemplates.contains(location);
+
+    if (isMobile) {
+      return _TemplateItem(
+        file: template,
+        fileSystem: _templateSystem,
+        bloc: widget.bloc,
+        key: ValueKey(template.path),
+        selected: _selectedTemplates.contains(template.path),
+        isCore: isCore,
+        starred: starred,
+        location: location,
+        onSelected: () {
+          setState(() {
+            _selectedTemplates.add(template.path);
+          });
+        },
+        onUnselected: () {
+          setState(() {
+            _selectedTemplates.remove(template.path);
+          });
+        },
+        onChanged: () {
+          load();
+        },
+        onTap: () {
+          showLeapBottomSheet(
+            context: context,
+            titleBuilder: (context) => Text(template.data!.name ?? ''),
+            leadingBuilder: (context) {
+              final thumbnail = template.data!.getThumbnail();
+              const fallback = PhosphorIcon(
+                PhosphorIconsLight.file,
+                textDirection: TextDirection.ltr,
+                size: 48,
+              );
+              return thumbnail != null
+                  ? AspectRatio(
+                      aspectRatio: kThumbnailRatio,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.memory(
+                          thumbnail,
+                          fit: BoxFit.cover,
+                          cacheHeight: kThumbnailWidth,
+                          cacheWidth: kThumbnailHeight,
+                        ),
+                      ),
+                    )
+                  : fallback;
+            },
+            leadingWidth: 128,
+            childrenBuilder: (context) => [
+              const SizedBox(height: 8),
+              _TemplateDetailsView(
+                template: template.data!,
+                scrollable: false,
+                onOpen: () {
+                  Navigator.of(context).pop();
+                  openNewDocument(
+                    context,
+                    widget.bloc != null,
+                    template.data!,
+                    _templateSystem.storage?.identifier,
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return _TemplateCard(
+        file: template,
+        fileSystem: _templateSystem,
+        bloc: widget.bloc,
+        key: ValueKey(template.path),
+        selected: _selectedTemplates.contains(template.path),
+        isActive: _clickedTemplate == template.data,
+        isCore: entry.key == '',
+        starred: starred,
+        location: location,
+        onSelected: () {
+          setState(() {
+            _selectedTemplates.add(template.path);
+          });
+        },
+        onUnselected: () {
+          setState(() {
+            _selectedTemplates.remove(template.path);
+          });
+        },
+        onChanged: () {
+          load();
+        },
+        onTap: () {
+          setState(() {
+            _clickedTemplate = template.data;
+          });
+        },
+      );
+    }
+  }
+
   Widget _buildBody(
     BuildContext context,
     List<FileSystemFile<NoteData>> userTemplates,
     List<NoteData> coreTemplates,
     bool isMobile,
+    List<FavoriteLocation> favoriteTemplates,
   ) {
     final filteredUserTemplates = userTemplates
         .where(
@@ -229,7 +354,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     final everythingSelected =
         _selectedTemplates.length == filteredUserTemplates.length;
     final groupedTemplates = filteredUserTemplates
-        .groupListsBy((element) {
+        .groupListsBy<String?>((element) {
           final parent = element.parent;
           if (parent == '/' || parent == '.') return '/';
           return parent;
@@ -237,14 +362,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
         .entries
         .toList();
     groupedTemplates.sort((a, b) {
-      if (a.key == '/') return -1;
-      if (b.key == '/') return 1;
-      return a.key.compareTo(b.key);
+      final aKey = a.key;
+      final bKey = b.key;
+      if (aKey == null) return -1;
+      if (bKey == null) return 1;
+      return aKey.compareTo(bKey);
     });
     if (filteredCoreTemplates.isNotEmpty) {
       groupedTemplates.add(
         MapEntry(
-          '',
+          null,
           filteredCoreTemplates
               .map(
                 (e) =>
@@ -261,87 +388,22 @@ class _TemplateDialogState extends State<TemplateDialog> {
           slivers: [
             const SliverPadding(padding: EdgeInsets.only(top: 64)),
             for (final entry in groupedTemplates) ...[
-              if (entry.key.isEmpty || entry.key != '/')
+              if (entry.key == null || entry.key != '/')
                 SliverToBoxAdapter(child: _buildHeader(context, entry.key)),
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 sliver: isMobile
                     ? SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          final template = entry.value[index];
-                          return _TemplateItem(
-                            file: template,
-                            fileSystem: _templateSystem,
-                            bloc: widget.bloc,
-                            key: ValueKey(template.path),
-                            selected: _selectedTemplates.contains(
-                              template.path,
-                            ),
-                            isCore: entry.key.isEmpty,
-                            onSelected: () {
-                              setState(() {
-                                _selectedTemplates.add(template.path);
-                              });
-                            },
-                            onUnselected: () {
-                              setState(() {
-                                _selectedTemplates.remove(template.path);
-                              });
-                            },
-                            onChanged: () {
-                              load();
-                            },
-                            onTap: () {
-                              showLeapBottomSheet(
-                                context: context,
-                                titleBuilder: (context) =>
-                                    Text(template.data!.name ?? ''),
-                                leadingBuilder: (context) {
-                                  final thumbnail = template.data!
-                                      .getThumbnail();
-                                  const fallback = PhosphorIcon(
-                                    PhosphorIconsLight.file,
-                                    textDirection: TextDirection.ltr,
-                                    size: 48,
-                                  );
-                                  return thumbnail != null
-                                      ? AspectRatio(
-                                          aspectRatio: kThumbnailRatio,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            child: Image.memory(
-                                              thumbnail,
-                                              fit: BoxFit.cover,
-                                              cacheHeight: kThumbnailWidth,
-                                              cacheWidth: kThumbnailHeight,
-                                            ),
-                                          ),
-                                        )
-                                      : fallback;
-                                },
-                                leadingWidth: 128,
-                                childrenBuilder: (context) => [
-                                  const SizedBox(height: 8),
-                                  _TemplateDetailsView(
-                                    template: template.data!,
-                                    scrollable: false,
-                                    onOpen: () {
-                                      Navigator.of(context).pop();
-                                      openNewDocument(
-                                        context,
-                                        widget.bloc != null,
-                                        template.data!,
-                                        _templateSystem.storage?.identifier,
-                                      );
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }, childCount: entry.value.length),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) => _buildItem(
+                            context,
+                            entry,
+                            index,
+                            isMobile,
+                            favoriteTemplates,
+                          ),
+                          childCount: entry.value.length,
+                        ),
                       )
                     : SliverGrid(
                         gridDelegate:
@@ -351,38 +413,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               crossAxisSpacing: 8,
                               mainAxisSpacing: 8,
                             ),
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          final template = entry.value[index];
-                          return _TemplateCard(
-                            file: template,
-                            fileSystem: _templateSystem,
-                            bloc: widget.bloc,
-                            key: ValueKey(template.path),
-                            selected: _selectedTemplates.contains(
-                              template.path,
-                            ),
-                            isActive: _clickedTemplate == template.data,
-                            isCore: entry.key == '',
-                            onSelected: () {
-                              setState(() {
-                                _selectedTemplates.add(template.path);
-                              });
-                            },
-                            onUnselected: () {
-                              setState(() {
-                                _selectedTemplates.remove(template.path);
-                              });
-                            },
-                            onChanged: () {
-                              load();
-                            },
-                            onTap: () {
-                              setState(() {
-                                _clickedTemplate = template.data;
-                              });
-                            },
-                          );
-                        }, childCount: entry.value.length),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) => _buildItem(
+                            context,
+                            entry,
+                            index,
+                            isMobile,
+                            favoriteTemplates,
+                          ),
+                          childCount: entry.value.length,
+                        ),
                       ),
               ),
             ],
@@ -573,14 +613,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
     );
   }
 
-  Widget _buildHeader(BuildContext context, String title) {
+  Widget _buildHeader(BuildContext context, String? title) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              title.isEmpty ? 'Core' : title,
+              title ?? 'Core',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
@@ -844,6 +884,8 @@ class _TemplateItem extends StatelessWidget {
   final bool selected;
   final VoidCallback? onTap;
   final bool isCore;
+  final bool starred;
+  final FavoriteLocation location;
 
   const _TemplateItem({
     required this.file,
@@ -856,6 +898,8 @@ class _TemplateItem extends StatelessWidget {
     required this.onUnselected,
     this.onTap,
     this.isCore = false,
+    required this.starred,
+    required this.location,
   });
 
   @override
@@ -894,7 +938,7 @@ class _TemplateItem extends StatelessWidget {
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
       leading: SizedBox(
-        width: 112,
+        width: 150,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -911,6 +955,14 @@ class _TemplateItem extends StatelessWidget {
               )
             else
               const SizedBox(width: 48),
+            IconButton(
+              icon: Icon(PhosphorIconsLight.star),
+              selectedIcon: Icon(PhosphorIconsFill.star),
+              isSelected: starred,
+              onPressed: () {
+                settingsCubit.toggleFavoriteTemplate(location);
+              },
+            ),
             const SizedBox(width: 2),
             Flexible(child: leading),
           ],
@@ -1025,6 +1077,8 @@ class _TemplateCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isActive;
   final bool isCore;
+  final bool starred;
+  final FavoriteLocation location;
 
   const _TemplateCard({
     required this.file,
@@ -1038,6 +1092,8 @@ class _TemplateCard extends StatelessWidget {
     this.onTap,
     this.isActive = false,
     this.isCore = false,
+    required this.starred,
+    required this.location,
   });
 
   @override
@@ -1091,6 +1147,18 @@ class _TemplateCard extends StatelessWidget {
                           cacheWidth: kThumbnailHeight,
                         )
                       : Center(child: fallback),
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: IconButton.filledTonal(
+                      icon: Icon(PhosphorIconsLight.star),
+                      selectedIcon: Icon(PhosphorIconsFill.star),
+                      isSelected: starred,
+                      onPressed: () {
+                        settingsCubit.toggleFavoriteTemplate(location);
+                      },
+                    ),
+                  ),
                   if (!isCore)
                     Positioned(
                       top: 4,
