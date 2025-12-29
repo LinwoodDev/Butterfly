@@ -26,7 +26,10 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   template.getLocalizedName(context),
                   textAlign: TextAlign.center,
                 ),
-                icon: Image.asset(template.asset, width: 64),
+                icon: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(template.asset, width: 64),
+                ),
                 onTap: () {
                   onChanged(Background.texture(texture: created));
                 },
