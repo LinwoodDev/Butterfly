@@ -54,6 +54,16 @@ class DocumentDefaults {
     BuildContext context, {
     PatternBackground? background,
   }) async {
+    PatternTexture createRedLinedPattern() {
+      return PatternTexture(
+        boxColor: SRGBColor.transparent,
+        boxXColor: BasicColors.red,
+        boxWidth: 1200,
+        boxXCount: 1,
+        boxXStroke: 1,
+      );
+    }
+
     return Future.wait([
       ...PatternTemplate.values
           .where((e) => background == null || e.background == background)
@@ -65,6 +75,38 @@ class DocumentDefaults {
               backgrounds: [bg],
             );
           }),
+      ...[
+        (
+          PatternTemplate.ruledSimple,
+          'templates/red_lined_ruled.png',
+          AppLocalizations.of(context).redLinedRuled,
+        ),
+        (
+          PatternTemplate.ruledSimpleDark,
+          'templates/red_lined_ruled_dark.png',
+          AppLocalizations.of(context).redLinedRuledDark,
+        ),
+        (
+          PatternTemplate.quadSimple,
+          'templates/red_lined_quad.png',
+          AppLocalizations.of(context).redLinedQuad,
+        ),
+        (
+          PatternTemplate.quadSimpleDark,
+          'templates/red_lined_quad_dark.png',
+          AppLocalizations.of(context).redLinedQuadDark,
+        ),
+      ].where((e) => background == null || e.$1.background == background).map((
+        e,
+      ) async {
+        final lined = Background.texture(texture: createRedLinedPattern());
+        final bg = Background.texture(texture: e.$1.create());
+        return createTemplate(
+          name: e.$3,
+          thumbnail: Uint8List.sublistView(await rootBundle.load(e.$2)),
+          backgrounds: [bg, lined],
+        );
+      }),
     ]);
   }
 

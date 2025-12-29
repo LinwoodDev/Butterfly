@@ -266,8 +266,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         child: Image.memory(
                           thumbnail,
                           fit: BoxFit.cover,
-                          cacheHeight: kThumbnailWidth,
-                          cacheWidth: kThumbnailHeight,
+                          cacheHeight: kThumbnailHeight,
+                          cacheWidth: kThumbnailWidth,
                         ),
                       ),
                     )
@@ -768,8 +768,8 @@ class _TemplateDetailsView extends StatelessWidget {
               child: Image.memory(
                 thumbnail,
                 fit: BoxFit.cover,
-                cacheHeight: kThumbnailWidth,
-                cacheWidth: kThumbnailHeight,
+                cacheHeight: kThumbnailHeight,
+                cacheWidth: kThumbnailWidth,
               ),
             ),
           )
@@ -924,8 +924,8 @@ class _TemplateItem extends StatelessWidget {
               child: Image.memory(
                 thumbnail,
                 fit: BoxFit.cover,
-                cacheHeight: kThumbnailWidth,
-                cacheWidth: kThumbnailHeight,
+                cacheHeight: kThumbnailHeight,
+                cacheWidth: kThumbnailWidth,
               ),
             ),
           )
@@ -1083,8 +1083,8 @@ class _TemplateCard extends StatelessWidget {
                         ? Image.memory(
                             thumbnail,
                             fit: BoxFit.cover,
-                            cacheHeight: kThumbnailWidth,
-                            cacheWidth: kThumbnailHeight,
+                            cacheHeight: kThumbnailHeight,
+                            cacheWidth: kThumbnailWidth,
                           )
                         : Center(child: fallback),
                     Positioned(

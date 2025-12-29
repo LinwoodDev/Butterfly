@@ -26,10 +26,13 @@ enum PatternTemplate {
   dottedDark,
 }
 
+const templateDirectory = 'templates/';
+
 extension PatternTemplateExtension on PatternTemplate {
   // camelCase to snake_case
-  String get asset =>
-      'templates/${name.replaceAllMapped(RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}')}.png';
+  String get asset => '$templateDirectory$assetName';
+  String get assetName =>
+      '${name.replaceAllMapped(RegExp(r'([A-Z])'), (match) => '_${match.group(1)?.toLowerCase()}')}.png';
 
   PatternBackground get background => switch (this) {
     PatternTemplate.plain ||

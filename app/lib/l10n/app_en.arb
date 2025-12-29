@@ -1272,5 +1272,9 @@
   "ruledSimple": "Ruled simple",
   "ruledSimpleDark": "Ruled simple dark",
   "quadSimple": "Quad simple",
-  "quadSimpleDark": "Quad simple dark"
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
