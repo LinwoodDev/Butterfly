@@ -1268,5 +1268,9 @@
   "customizeShortcuts": "Customize shortcuts",
   "clickToSave": "Click to save",
   "toolbars": "Toolbars",
-  "logs": "Logs"
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark"
 }

@@ -11,11 +11,19 @@ extension PatternTemplateHelper on PatternTemplate {
     PatternTemplate.quad => AppLocalizations.of(context).quad,
     PatternTemplate.music => AppLocalizations.of(context).music,
     PatternTemplate.dotted => AppLocalizations.of(context).dotted,
+    PatternTemplate.ruledSimple => AppLocalizations.of(context).ruledSimple,
+    PatternTemplate.quadSimple => AppLocalizations.of(context).quadSimple,
     PatternTemplate.plainDark => AppLocalizations.of(context).plainDark,
     PatternTemplate.ruledDark => AppLocalizations.of(context).ruledDark,
     PatternTemplate.quadDark => AppLocalizations.of(context).quadDark,
     PatternTemplate.musicDark => AppLocalizations.of(context).musicDark,
     PatternTemplate.dottedDark => AppLocalizations.of(context).dottedDark,
+    PatternTemplate.ruledSimpleDark => AppLocalizations.of(
+      context,
+    ).ruledSimpleDark,
+    PatternTemplate.quadSimpleDark => AppLocalizations.of(
+      context,
+    ).quadSimpleDark,
   };
 }
 
