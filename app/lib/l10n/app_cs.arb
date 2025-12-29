@@ -141,6 +141,7 @@
   "solid": "Pevný",
   "double": "Dvojitý",
   "dotted": "Tečkovaný",
+  "dottedDark": "Dotted dark",
   "dashed": "Přerušovaný",
   "wavy": "Zvlněný",
   "fontWeight": "Tloušťka písma",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "Přizpůsobit zástupce",
   "clickToSave": "Klikněte pro uložení",
   "toolbars": "Lišty nástrojů",
-  "logs": "Logy"
+  "logs": "Logy",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
