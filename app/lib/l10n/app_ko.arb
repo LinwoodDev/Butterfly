@@ -141,6 +141,7 @@
   "solid": "실선",
   "double": "이중선",
   "dotted": "점선",
+  "dottedDark": "Dotted dark",
   "dashed": "파선",
   "wavy": "물결선",
   "fontWeight": "글꼴 두께",
@@ -1267,5 +1268,13 @@
   "customizeShortcuts": "Customize shortcuts",
   "clickToSave": "Click to save",
   "toolbars": "Toolbars",
-  "logs": "Logs"
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad"
 }
