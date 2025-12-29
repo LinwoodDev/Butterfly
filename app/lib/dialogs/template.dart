@@ -48,8 +48,10 @@ class TemplateDialog extends StatefulWidget {
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _templateSystem;
   late final ButterflyFileSystem _fileSystem;
-  Future<List<FileSystemFile<NoteData>>>? _userTemplatesFuture;
-  Future<List<NoteData>>? _coreTemplatesFuture;
+  Future<List<dynamic>> _combinedFuture = Future.value([
+    <FileSystemFile<NoteData>>[],
+    <NoteData>[],
+  ]);
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
   NoteData? _clickedTemplate;
@@ -79,15 +81,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   void load() {
     setState(() {
-      _userTemplatesFuture = _templateSystem.initialize().then((value) async {
+      final userFuture = _templateSystem.initialize().then((value) async {
         return (await _templateSystem.getFiles()).toList();
       });
+      Future<List<NoteData>> coreFuture = Future.value([]);
       if (context.mounted) {
-        _coreTemplatesFuture = DocumentDefaults.getCoreTemplates(
+        coreFuture = DocumentDefaults.getCoreTemplates(
           context,
           background: _selectedBackground,
         );
       }
+      _combinedFuture = Future.wait([userFuture, coreFuture]);
     });
   }
 
@@ -153,11 +157,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
           Expanded(
             flex: 2,
             child: FutureBuilder<List<dynamic>>(
-              future: Future.wait([
-                _userTemplatesFuture ??
-                    Future.value(<FileSystemFile<NoteData>>[]),
-                _coreTemplatesFuture ?? Future.value(<NoteData>[]),
-              ]),
+              future: _combinedFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -384,28 +384,30 @@ class _TemplateDialogState extends State<TemplateDialog> {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        CustomScrollView(
-          slivers: [
-            const SliverPadding(padding: EdgeInsets.only(top: 64)),
+        ListView(
+          children: [
+            const SizedBox(height: 64),
             for (final entry in groupedTemplates) ...[
               if (entry.key == null || entry.key != '/')
-                SliverToBoxAdapter(child: _buildHeader(context, entry.key)),
-              SliverPadding(
+                _buildHeader(context, entry.key),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                sliver: isMobile
-                    ? SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => _buildItem(
-                            context,
-                            entry,
-                            index,
-                            isMobile,
-                            favoriteTemplates,
-                          ),
-                          childCount: entry.value.length,
+                child: isMobile
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => _buildItem(
+                          context,
+                          entry,
+                          index,
+                          isMobile,
+                          favoriteTemplates,
                         ),
+                        itemCount: entry.value.length,
                       )
-                    : SliverGrid(
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 200,
@@ -413,20 +415,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               crossAxisSpacing: 8,
                               mainAxisSpacing: 8,
                             ),
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => _buildItem(
-                            context,
-                            entry,
-                            index,
-                            isMobile,
-                            favoriteTemplates,
-                          ),
-                          childCount: entry.value.length,
+                        itemBuilder: (context, index) => _buildItem(
+                          context,
+                          entry,
+                          index,
+                          isMobile,
+                          favoriteTemplates,
                         ),
+                        itemCount: entry.value.length,
                       ),
               ),
             ],
-            const SliverPadding(padding: EdgeInsets.only(bottom: 32)),
           ],
         ),
         Padding(
@@ -905,10 +904,8 @@ class _TemplateItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
-    final settings = settingsCubit.state;
     final template = file.data!;
     final path = file.pathWithoutLeadingSlash;
-    final isDefault = settings.defaultTemplate == path;
     final metadata = template.getMetadata();
     if (metadata == null) {
       return const SizedBox();
@@ -979,83 +976,14 @@ class _TemplateItem extends StatelessWidget {
               );
               onChanged();
             },
-      actions: [
-        if (!isCore)
-          CheckboxMenuButton(
-            value: isDefault,
-            child: Text(AppLocalizations.of(context).defaultTemplate),
-            onChanged: (value) async {
-              settingsCubit.changeDefaultTemplate(path);
-              onChanged();
-            },
-          ),
-        if (bloc != null && !isCore)
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.toolbox),
-            child: Text(AppLocalizations.of(context).overrideTools),
-            onPressed: () async {
-              _overrideTools(fileSystem, bloc!, [file]);
-            },
-          ),
-        MenuItemButton(
-          leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
-          child: Text(AppLocalizations.of(context).duplicate),
-          onPressed: () async {
-            final result = await showDialog<String>(
-              context: context,
-              builder: (ctx) => NameDialog(
-                value: file.fileNameWithoutExtension,
-                validator: defaultFileNameValidator(context),
-              ),
-            );
-            if (result == null) return;
-            if (context.mounted) {
-              await fileSystem.createFileWithName(
-                template.setMetadata(metadata.copyWith(name: result)),
-                name: result,
-              );
-              onChanged();
-            }
-          },
-        ),
-        if (!isCore)
-          SubmenuButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
-            menuChildren: [
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
-                child: Text(AppLocalizations.of(context).packagedFile),
-                onPressed: () async {
-                  await exportData(context, file.data!, isTextBased: false);
-                },
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
-                child: Text(AppLocalizations.of(context).rawFile),
-                onPressed: () async {
-                  await exportData(context, file.data!, isTextBased: true);
-                },
-              ),
-            ],
-            child: Text(AppLocalizations.of(context).export),
-          ),
-        if (!isCore)
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-            child: Text(AppLocalizations.of(context).delete),
-            onPressed: () async {
-              final result = await showDialog<bool>(
-                context: context,
-                builder: (ctx) => const DeleteDialog(),
-              );
-              if (result != true) return;
-              if (context.mounted) {
-                await fileSystem.deleteFile(path);
-                onChanged();
-              }
-            },
-          ),
-      ],
+      actions: _buildTemplateMenuChildren(
+        context,
+        file: file,
+        fileSystem: fileSystem,
+        bloc: bloc,
+        onChanged: onChanged,
+        isCore: isCore,
+      ),
       onTap:
           onTap ??
           () => openNewDocument(
@@ -1114,231 +1042,217 @@ class _TemplateCard extends StatelessWidget {
       size: 48,
     );
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: isActive
-            ? BorderSide(color: Theme.of(context).colorScheme.primary, width: 2)
-            : BorderSide.none,
+    return ContextRegion(
+      menuChildren: _buildTemplateMenuChildren(
+        context,
+        file: file,
+        fileSystem: fileSystem,
+        bloc: bloc,
+        onChanged: onChanged,
+        isCore: isCore,
       ),
-      child: InkWell(
-        onTap:
-            onTap ??
-            () => openNewDocument(
-              context,
-              bloc != null,
-              template,
-              fileSystem.storage?.identifier,
-            ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AspectRatio(
-              aspectRatio: kThumbnailRatio,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  thumbnail != null
-                      ? Image.memory(
-                          thumbnail,
-                          fit: BoxFit.cover,
-                          cacheHeight: kThumbnailWidth,
-                          cacheWidth: kThumbnailHeight,
-                        )
-                      : Center(child: fallback),
-                  Positioned(
-                    top: 4,
-                    right: 4,
-                    child: IconButton.filledTonal(
-                      icon: Icon(PhosphorIconsLight.star),
-                      selectedIcon: Icon(PhosphorIconsFill.star),
-                      isSelected: starred,
-                      onPressed: () {
-                        settingsCubit.toggleFavoriteTemplate(location);
-                      },
-                    ),
-                  ),
-                  if (!isCore)
-                    Positioned(
-                      top: 4,
-                      left: 4,
-                      child: Checkbox(
-                        value: selected,
-                        onChanged: (value) {
-                          if (value == true) {
-                            onSelected();
-                          } else {
-                            onUnselected();
-                          }
-                        },
-                      ),
-                    ),
-                  if (isDefault)
+      builder: (context, button, controller) => Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: isActive
+              ? BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                )
+              : BorderSide.none,
+        ),
+        child: InkWell(
+          onTap:
+              onTap ??
+              () => openNewDocument(
+                context,
+                bloc != null,
+                template,
+                fileSystem.storage?.identifier,
+              ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              AspectRatio(
+                aspectRatio: kThumbnailRatio,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    thumbnail != null
+                        ? Image.memory(
+                            thumbnail,
+                            fit: BoxFit.cover,
+                            cacheHeight: kThumbnailWidth,
+                            cacheWidth: kThumbnailHeight,
+                          )
+                        : Center(child: fallback),
                     Positioned(
                       top: 4,
                       right: 4,
-                      child: Icon(PhosphorIconsLight.star, size: 16),
-                    ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            metadata.name,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          if (metadata.description.isNotEmpty)
-                            Text(
-                              metadata.description,
-                              style: Theme.of(context).textTheme.bodySmall,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                        ],
+                      child: IconButton.filledTonal(
+                        icon: Icon(PhosphorIconsLight.star),
+                        selectedIcon: Icon(PhosphorIconsFill.star),
+                        isSelected: starred,
+                        onPressed: () {
+                          settingsCubit.toggleFavoriteTemplate(location);
+                        },
                       ),
                     ),
-                    MenuAnchor(
-                      builder: (context, controller, child) {
-                        return IconButton(
-                          icon: const Icon(
-                            PhosphorIconsLight.dotsThreeVertical,
-                          ),
-                          onPressed: () {
-                            if (controller.isOpen) {
-                              controller.close();
+                    if (!isCore)
+                      Positioned(
+                        top: 4,
+                        left: 4,
+                        child: Checkbox(
+                          value: selected,
+                          onChanged: (value) {
+                            if (value == true) {
+                              onSelected();
                             } else {
-                              controller.open();
-                            }
-                          },
-                        );
-                      },
-                      menuChildren: [
-                        if (!isCore)
-                          CheckboxMenuButton(
-                            value: isDefault,
-                            child: Text(
-                              AppLocalizations.of(context).defaultTemplate,
-                            ),
-                            onChanged: (value) async {
-                              settingsCubit.changeDefaultTemplate(path);
-                              onChanged();
-                            },
-                          ),
-                        if (bloc != null && !isCore)
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.toolbox,
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context).overrideTools,
-                            ),
-                            onPressed: () async {
-                              _overrideTools(fileSystem, bloc!, [file]);
-                            },
-                          ),
-                        MenuItemButton(
-                          leadingIcon: const PhosphorIcon(
-                            PhosphorIconsLight.copy,
-                          ),
-                          child: Text(AppLocalizations.of(context).duplicate),
-                          onPressed: () async {
-                            final result = await showDialog<String>(
-                              context: context,
-                              builder: (ctx) => NameDialog(
-                                value: file.fileNameWithoutExtension,
-                                validator: defaultFileNameValidator(context),
-                              ),
-                            );
-                            if (result == null) return;
-                            if (context.mounted) {
-                              await fileSystem.createFileWithName(
-                                template.setMetadata(
-                                  metadata.copyWith(name: result),
-                                ),
-                                name: result,
-                              );
-                              onChanged();
+                              onUnselected();
                             }
                           },
                         ),
-                        if (!isCore)
-                          SubmenuButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.download,
-                            ),
-                            menuChildren: [
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.archive,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).packagedFile,
-                                ),
-                                onPressed: () async {
-                                  await exportData(
-                                    context,
-                                    file.data!,
-                                    isTextBased: false,
-                                  );
-                                },
-                              ),
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.file,
-                                ),
-                                child: Text(
-                                  AppLocalizations.of(context).rawFile,
-                                ),
-                                onPressed: () async {
-                                  await exportData(
-                                    context,
-                                    file.data!,
-                                    isTextBased: true,
-                                  );
-                                },
-                              ),
-                            ],
-                            child: Text(AppLocalizations.of(context).export),
-                          ),
-                        if (!isCore)
-                          MenuItemButton(
-                            leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.trash,
-                            ),
-                            child: Text(AppLocalizations.of(context).delete),
-                            onPressed: () async {
-                              final result = await showDialog<bool>(
-                                context: context,
-                                builder: (ctx) => const DeleteDialog(),
-                              );
-                              if (result != true) return;
-                              if (context.mounted) {
-                                await fileSystem.deleteFile(path);
-                                onChanged();
-                              }
-                            },
-                          ),
-                      ],
-                    ),
+                      ),
+                    if (isDefault)
+                      Positioned(
+                        top: 4,
+                        right: 4,
+                        child: Icon(PhosphorIconsLight.star, size: 16),
+                      ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              metadata.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            if (metadata.description.isNotEmpty)
+                              Text(
+                                metadata.description,
+                                style: Theme.of(context).textTheme.bodySmall,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                          ],
+                        ),
+                      ),
+                      button,
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+List<Widget> _buildTemplateMenuChildren(
+  BuildContext context, {
+  required FileSystemFile<NoteData> file,
+  required TemplateFileSystem fileSystem,
+  required DocumentBloc? bloc,
+  required VoidCallback onChanged,
+  required bool isCore,
+}) {
+  final settingsCubit = context.read<SettingsCubit>();
+  final settings = settingsCubit.state;
+  final path = file.pathWithoutLeadingSlash;
+  final isDefault = settings.defaultTemplate == path;
+  final template = file.data!;
+  final metadata = template.getMetadata()!;
+
+  return [
+    if (!isCore)
+      CheckboxMenuButton(
+        value: isDefault,
+        child: Text(AppLocalizations.of(context).defaultTemplate),
+        onChanged: (value) async {
+          settingsCubit.changeDefaultTemplate(path);
+          onChanged();
+        },
+      ),
+    if (bloc != null && !isCore)
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.toolbox),
+        child: Text(AppLocalizations.of(context).overrideTools),
+        onPressed: () async {
+          _overrideTools(fileSystem, bloc, [file]);
+        },
+      ),
+    MenuItemButton(
+      leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
+      child: Text(AppLocalizations.of(context).duplicate),
+      onPressed: () async {
+        final result = await showDialog<String>(
+          context: context,
+          builder: (ctx) => NameDialog(
+            value: file.fileNameWithoutExtension,
+            validator: defaultFileNameValidator(context),
+          ),
+        );
+        if (result == null) return;
+        if (context.mounted) {
+          await fileSystem.createFileWithName(
+            template.setMetadata(metadata.copyWith(name: result)),
+            suffix: '.bfly',
+            name: result,
+          );
+          onChanged();
+        }
+      },
+    ),
+    if (!isCore)
+      SubmenuButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.download),
+        menuChildren: [
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+            child: Text(AppLocalizations.of(context).packagedFile),
+            onPressed: () async {
+              await exportData(context, file.data!, isTextBased: false);
+            },
+          ),
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+            child: Text(AppLocalizations.of(context).rawFile),
+            onPressed: () async {
+              await exportData(context, file.data!, isTextBased: true);
+            },
+          ),
+        ],
+        child: Text(AppLocalizations.of(context).export),
+      ),
+    if (!isCore)
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+        child: Text(AppLocalizations.of(context).delete),
+        onPressed: () async {
+          final result = await showDialog<bool>(
+            context: context,
+            builder: (ctx) => const DeleteDialog(),
+          );
+          if (result != true) return;
+          if (context.mounted) {
+            await fileSystem.deleteFile(path);
+            onChanged();
+          }
+        },
+      ),
+  ];
 }
