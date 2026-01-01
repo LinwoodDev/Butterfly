@@ -87,7 +87,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     ColorPalette palette,
   ) async {
     final newPack = selected.pack.setPalette(selected.key, palette);
-    return _fileSystem.updatePack(selected.location, newPack);
+    await _fileSystem.updatePack(selected.location, newPack);
+    setState(() {
+      _colorPalette = Future.value(
+        PackItem(selected.location, newPack, palette),
+      );
+    });
   }
 
   void _startChanging(double delta) {
@@ -109,7 +114,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.dispose();
   }
 
-  void _addColor() async {
+  void _addColor(PackItem<ColorPalette>? selected) async {
     final settingsCubit = context.read<SettingsCubit>();
     final response =
         await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
@@ -147,6 +152,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       settingsCubit.addRecentColors(srgb);
       return;
     }
+    if (selected != null) {
+      _updatePalette(
+        selected,
+        selected.item.copyWith(
+          colors: List<SRGBColor>.from(selected.item.colors)..add(srgb),
+        ),
+      );
+    }
   }
 
   void _changeColor(
@@ -182,12 +195,11 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         palette,
         palette.item.copyWith(
           colors: List<SRGBColor>.from(palette.item.colors)
-            ..add(response.toSRGB()),
+            ..[index] = response.toSRGB(),
         ),
       );
     }
     widget.onChanged(response.toSRGB());
-    setState(() {});
   }
 
   @override
@@ -272,7 +284,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   ColorButton.srgb(
                     color: widget.color,
                     selected: true,
-                    onTap: _addColor,
+                    onTap: () => _addColor(selected),
                   ),
                   const VerticalDivider(),
                 ],
@@ -292,7 +304,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: _addColor,
+                      onTap: () => _addColor(selected),
                       borderRadius: BorderRadius.circular(12),
                       child: const AspectRatio(
                         aspectRatio: 1,
