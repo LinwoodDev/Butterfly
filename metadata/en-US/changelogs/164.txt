@@ -23,6 +23,7 @@
 * Improve background dialog to look consistent with the template dialog
 * Reimplement nightly design in web version
 * Fix color toolbar does not save palette changes
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
 
 Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
