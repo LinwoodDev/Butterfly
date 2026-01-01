@@ -189,7 +189,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
               child: detailsTemplate == null
                   ? Card(
                       child: Center(
-                        child: Text(AppLocalizations.of(context).noElements),
+                        child: Text(
+                          AppLocalizations.of(context).noItemSelected,
+                        ),
                       ),
                     )
                   : _TemplateDetailsView(
