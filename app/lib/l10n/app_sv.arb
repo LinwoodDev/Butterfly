@@ -1276,5 +1276,6 @@
   "redLinedRuled": "Red lined ruled",
   "redLinedRuledDark": "Red lined ruled dark",
   "redLinedQuad": "Red lined quad",
-  "redLinedQuadDark": "Red lined quad"
+  "redLinedQuadDark": "Red lined quad",
+  "noItemSelected": "No item selected"
 }
