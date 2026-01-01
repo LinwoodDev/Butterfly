@@ -115,7 +115,7 @@ class DocumentDefaults {
   );
 
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= await _loadNoteData('defaults/pack.tbfly');
+    return _corePack ??= await _loadNoteData('pack');
   }
 
   static String translate(String key, Map<String, String> translations) {

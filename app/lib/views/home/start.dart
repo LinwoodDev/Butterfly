@@ -79,6 +79,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
       result.add((file: file, remote: remote));
     }
 
+    if (result.isEmpty) {
+      for (final template in coreTemplates.take(2)) {
+        result.add((file: template, remote: settings.defaultRemote));
+      }
+    }
+
     return result;
   }
 

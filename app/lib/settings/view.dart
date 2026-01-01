@@ -78,6 +78,7 @@ class ViewSettingsPage extends StatelessWidget {
                       ExactSlider(
                         header: Text(AppLocalizations.of(context).toolbarRows),
                         value: state.toolbarRows.toDouble(),
+                        leading: const PhosphorIcon(PhosphorIconsLight.rows),
                         defaultValue: 1,
                         min: 1,
                         max: 4,
