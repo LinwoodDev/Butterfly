@@ -75,7 +75,8 @@ typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
 
 class ButterflyFileSystem {
-  final BuildContext context;
+  // ignore: unused_field
+  final BuildContext _context;
   final SettingsCubit settingsCubit;
   final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
@@ -83,7 +84,7 @@ class ButterflyFileSystem {
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
 
-  ButterflyFileSystem(this.context, this.settingsCubit)
+  ButterflyFileSystem(this._context, this.settingsCubit)
     : _documentConfig = FileSystemConfig(
         passwordStorage: passwordStorage,
         storeName: 'documents',
