@@ -14,11 +14,12 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Uint8List _encode(NoteData data) => Uint8List.fromList(data.exportAsBytes());
-NoteData _decode(Uint8List data) => NoteData.fromData(data);
+Uint8List encodeNoteData(NoteData data) =>
+    Uint8List.fromList(data.exportAsBytes());
+NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
 
-Uint8List _encodeFile(NoteFile file) => file.data;
-NoteFile _decodeFile(Uint8List data) => NoteFile(data);
+Uint8List encodeNoteFile(NoteFile file) => file.data;
+NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);
 
 const butterflySubDirectory = '/Linwood/Butterfly';
 
@@ -210,8 +211,8 @@ class ButterflyFileSystem {
     }
     final system = TypedDirectoryFileSystem.build(
       _documentConfig,
-      onEncode: _encodeFile,
-      onDecode: _decodeFile,
+      onEncode: encodeNoteFile,
+      onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
     );
@@ -230,8 +231,8 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _templateConfig,
-      onEncode: _encode,
-      onDecode: _decode,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
       storage: storage,
     );
     _templateCache[key] = system;
@@ -249,8 +250,8 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _packConfig,
-      onEncode: _encode,
-      onDecode: _decode,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
       storage: storage,
       createDefault: _createDefaultPacks,
     );
