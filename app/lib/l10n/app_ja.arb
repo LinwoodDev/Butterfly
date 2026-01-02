@@ -1269,13 +1269,13 @@
   "clickToSave": "クリックして保存",
   "toolbars": "ツールバー",
   "logs": "ログ",
-  "ruledSimple": "Ruled simple",
-  "ruledSimpleDark": "Ruled simple dark",
-  "quadSimple": "Quad simple",
-  "quadSimpleDark": "Quad simple dark",
-  "redLinedRuled": "Red lined ruled",
-  "redLinedRuledDark": "Red lined ruled dark",
-  "redLinedQuad": "Red lined quad",
-  "redLinedQuadDark": "Red lined quad",
-  "noItemSelected": "No item selected"
+  "ruledSimple": "簡単なルール",
+  "ruledSimpleDark": "ルール化されたシンプルなダーク",
+  "quadSimple": "シンプルなクワッド",
+  "quadSimpleDark": "クワッド単純なダーク",
+  "redLinedRuled": "赤色の線が引かれた",
+  "redLinedRuledDark": "赤色の線が暗くなっています",
+  "redLinedQuad": "赤色のラインナップクワッド",
+  "redLinedQuadDark": "赤色のラインナップクワッド",
+  "noItemSelected": "アイテムが選択されていません"
 }
