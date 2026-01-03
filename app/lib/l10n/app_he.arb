@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "כהה",
-  "plainDark": "כהה",
+  "plainDark": "Plain dark",
   "ruledDark": "עם שורות כהה",
   "quadDark": "משובץ כהה",
   "musicDark": "מוזיקה כהה",
