@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "暗",
-  "plainDark": "暗",
+  "plainDark": "Plain dark",
   "ruledDark": "直紋 - 暗",
   "quadDark": "方格 - 暗",
   "musicDark": "樂譜 - 暗",
