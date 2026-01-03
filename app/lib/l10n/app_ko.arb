@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "어두움",
-  "plainDark": "어두운 무지",
+  "plainDark": "Plain dark",
   "ruledDark": "어두운 줄무늬",
   "quadDark": "어두운 격자",
   "musicDark": "어두운 오선지",
