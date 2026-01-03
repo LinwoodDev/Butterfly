@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Escuro",
-  "plainDark": "Plain dark",
+  "plainDark": "Simples escuro",
   "ruledDark": "Pautado (escuro)",
   "quadDark": "Quadriculado (escuro)",
   "musicDark": "Partitura (escuro)",
