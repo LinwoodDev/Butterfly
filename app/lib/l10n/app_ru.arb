@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Тёмная",
-  "plainDark": "Тёмная",
+  "plainDark": "Тёмный",
   "ruledDark": "В линейку тёмный",
   "quadDark": "В клетку тёмный",
   "musicDark": "Нотный стан тёмный",
