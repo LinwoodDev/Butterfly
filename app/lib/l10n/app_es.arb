@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Oscuro",
-  "plainDark": "Oscuro",
+  "plainDark": "Plain dark",
   "ruledDark": "Reglas oscuras",
   "quadDark": "Cuadro oscuro",
   "musicDark": "Música oscura",
