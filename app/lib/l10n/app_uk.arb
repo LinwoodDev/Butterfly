@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Темна",
-  "plainDark": "Темна",
+  "plainDark": "Plain dark",
   "ruledDark": "Лінійчата темна",
   "quadDark": "Квад темний",
   "musicDark": "Музика темна",
