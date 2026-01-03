@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Donker",
-  "plainDark": "Donker",
+  "plainDark": "Plain dark",
   "ruledDark": "Geruïneerd donker",
   "quadDark": "Quad donker",
   "musicDark": "Muziek donker",
