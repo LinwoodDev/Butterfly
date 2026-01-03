@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "ダーク",
-  "plainDark": "ダーク",
+  "plainDark": "Plain dark",
   "ruledDark": "規則のあるダーク",
   "quadDark": "クワッドダーク",
   "musicDark": "暗い音楽",
