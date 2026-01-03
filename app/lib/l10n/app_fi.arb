@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tumma",
-  "plainDark": "Plain dark",
+  "plainDark": "Tavallinen tumma",
   "ruledDark": "Vedetty tumma",
   "quadDark": "Quad tumma",
   "musicDark": "Musiikki tumma",
