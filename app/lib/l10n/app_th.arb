@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "มืด",
-  "plainDark": "ไม่มีเส้น (มืด)",
+  "plainDark": "Plain dark",
   "ruledDark": "มีเส้น (มืด)",
   "quadDark": "ตาราง (มืด)",
   "musicDark": "โน้ตเพลง (มืด)",
