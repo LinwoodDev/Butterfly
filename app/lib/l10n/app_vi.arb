@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tối",
-  "plainDark": "Trơn tối",
+  "plainDark": "Plain dark",
   "ruledDark": "Dòng tối",
   "quadDark": "Lưới tối",
   "musicDark": "Âm nhạc tối",
