@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Mørk",
-  "plainDark": "Mørk",
+  "plainDark": "Plain dark",
   "ruledDark": "Hersket mørk",
   "quadDark": "Quad mørk",
   "musicDark": "Mørk musik",
