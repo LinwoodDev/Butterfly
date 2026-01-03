@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Fosc",
-  "plainDark": "Pla fosc",
+  "plainDark": "Plain dark",
   "ruledDark": "Ratllat fosc",
   "quadDark": "Quadrícula fosca",
   "musicDark": "Música fosca",
