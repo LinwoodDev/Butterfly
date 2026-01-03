@@ -24,6 +24,8 @@
 * Reimplement nightly design in web version
 * Fix color toolbar does not save palette changes
 * Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix plain dark has wrong name
+* Fix exporting not working on web
 
 Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
