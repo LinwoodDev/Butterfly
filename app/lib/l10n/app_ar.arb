@@ -30,9 +30,9 @@
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
   "strokeWidth": "سُمك الخط",
-  "strokeStyle": "نمط جرة القلم",
-  "dashLength": "طول الفاش",
-  "gapLength": "طول الفجوة",
+  "strokeStyle": "نمط الخط",
+  "dashLength": "طول الفاصل",
+  "gapLength": "طول الفاصل",
   "includeEraser": "تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
@@ -107,7 +107,7 @@
   "documentation": "إرشادات الإستخدام",
   "changelog": "سِجل التغييرات",
   "source": "المصدر",
-  "existOverride": "هذا العنصر موجود بالفعل. استبدال؟",
+  "existOverride": "هذا العنصر موجود فعلًا. أأستبدله؟",
   "description": "الوصف",
   "fill": "تعبئة",
   "@fill": {
@@ -867,7 +867,7 @@
   "quickstart": "البداية السريعة",
   "noTemplates": "لا توجد حاليا قوالب متاحة",
   "importCorePack": "استيراد الباقة الأساسية",
-  "importCorePackDescription": "استورد الباقة الأساسية التي تحتوي على جميع الموارد الأساسية للبدء. سيؤدي ذلك إلى استبدال الباقة الأساسية الحالية.",
+  "importCorePackDescription": "استورد الباقة الأساسية التي تحتوي على جميع الموارد البدائية. سيؤدي ذلك إلى استبدال الباقة الأساسية الحالية.",
   "never": "مطلقًا",
   "@never": {
     "description": "Frequency"
@@ -1105,7 +1105,7 @@
     "description": "Size value"
   },
   "selectAll": "حدد الكل",
-  "overrideTools": "أدوات التجاوز",
+  "overrideTools": "استبدال اﻷدوات",
   "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم",
   "installed": "مثبت",
   "install": "تثبيت",
