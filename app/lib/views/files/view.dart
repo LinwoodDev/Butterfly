@@ -4,7 +4,7 @@ import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/entity.dart';
-import 'package:butterfly/views/files/recently.dart';
+import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
