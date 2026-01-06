@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -74,6 +75,31 @@ class _PacksDialogState extends State<PacksDialog>
               );
             },
           ),
+        MenuAnchor(
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
+              child: Text(AppLocalizations.of(context).packagedFile),
+              onPressed: () async {
+                await _exportPacks();
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(
+                PhosphorIconsLight.file,
+                textDirection: TextDirection.ltr,
+              ),
+              child: Text(AppLocalizations.of(context).rawFile),
+              onPressed: () async {
+                await _exportPacks(isTextBased: true);
+              },
+            ),
+          ],
+          builder: defaultMenuButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.export),
+            tooltip: AppLocalizations.of(context).export,
+          ),
+        ),
         ConnectionButton(
           currentRemote: _packSystem.storage?.identifier ?? '',
           onChanged: (value) {
@@ -223,6 +249,24 @@ class _PacksDialogState extends State<PacksDialog>
       suffix: '.bfly',
     );
     _refresh();
+  }
+
+  Future<void> _exportPacks({bool isTextBased = false}) async {
+    final archive = Archive();
+    final files = await _packSystem.getFiles();
+    for (final template in files) {
+      final data = template.data!.toFile(isTextBased: isTextBased).data;
+      archive.addFile(
+        ArchiveFile(
+          '${template.fileNameWithoutExtension}.${isTextBased ? 'tbfly' : 'bfly'}',
+          data.length,
+          data,
+        ),
+      );
+    }
+    final encoder = ZipEncoder();
+    final bytes = encoder.encodeBytes(archive);
+    await exportZip(context, bytes);
   }
 }
 

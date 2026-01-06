@@ -20,6 +20,7 @@
 * Add dotted and dashed stroke styles to shapes ([#934](https://github.com/LinwoodDev/Butterfly/issues/934))
 * Add new nightly icon
 * Add icon to toolbar rows setting
+* Add export all packs to dialog
 * Improve background dialog to look consistent with the template dialog
 * Reimplement nightly design in web version
 * Fix color toolbar does not save palette changes
