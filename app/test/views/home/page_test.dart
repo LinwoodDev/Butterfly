@@ -1,7 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/home/page.dart';
 import 'package:butterfly/views/files/view.dart';
-import 'package:butterfly/views/files/recently.dart';
+import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';

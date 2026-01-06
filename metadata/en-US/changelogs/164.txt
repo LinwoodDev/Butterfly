@@ -22,11 +22,13 @@
 * Add icon to toolbar rows setting
 * Add export all packs to dialog
 * Improve background dialog to look consistent with the template dialog
+* Improve long name and tooltip in recent files on other storages
 * Reimplement nightly design in web version
 * Fix color toolbar does not save palette changes
 * Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
 * Fix plain dark has wrong name
 * Fix exporting not working on web
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
 
 Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!

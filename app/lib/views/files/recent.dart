@@ -59,7 +59,8 @@ class RecentFilesViewState extends State<RecentFilesView> {
     return AssetCard(
       metadata: metadata,
       thumbnail: thumbnail,
-      name: entity.location.identifier,
+      name: entity.location.pathWithoutLeadingSlash,
+      tooltip: entity.identifier,
       height: double.infinity,
       onTap: () => widget.onFileTap == null
           ? openFile(context, widget.replace, entity.location)

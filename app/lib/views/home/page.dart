@@ -8,7 +8,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/settings/home.dart';
 import 'package:butterfly/views/files/card.dart';
-import 'package:butterfly/views/files/recently.dart';
+import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
