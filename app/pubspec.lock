@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_web
-      sha256: "3bc7bb1657a0f29c34116453c5d5e528c23efcf5e75aac0a3387cf108040bf65"
+      sha256: "57f49a635c8bf249d07fb95eb693d7e4dda6796dedb3777f9127fb54847beba7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5+2"
+    version: "0.3.5+3"
   camera_windows:
     dependency: "direct main"
     description:
@@ -389,10 +389,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "289279317b4b16eb2bb7e271abccd4bf84ec9bdcbe999e278a94b804f5630418"
+      sha256: d07d37192dbf97461359c1518788f203b0c9102cfd2c35a716b823741219542c
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   file:
     dependency: transitive
     description:
@@ -1041,26 +1041,26 @@ packages:
     dependency: transitive
     description:
       name: pdfium_flutter
-      sha256: "8b3f79c61a5e84f0ec43efb5708b42d032e72cb024244e050896eb5a31665ea5"
+      sha256: "0c8b7d5d11d20a1486eade599648e907067568955bd14a1b06de076a968b60a1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.7"
+    version: "0.1.9"
   pdfrx:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "8028b5a3d33ff189dbb968fafcce1a924b3397c923819f974f6bde483f0cf808"
+      sha256: "82e719f7e7994cb78344a1d3c0e204ffdf86ddf9364ff495368acdae6e3f489f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.18"
+    version: "2.2.20"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: e4e942bda9f3876d34729fab8e0c5185b9384614929d82bd6efa8ef2a31b0be3
+      sha256: a28e9d4436dcb9a659b50f71ca1eed72f30b5c45340a9b68299fa904e735128c
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.6"
+    version: "0.3.7"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1632,10 +1632,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: f52385d4f73589977c80797e60fe51014f7f2b957b5e9a62c3f6ada439889249
+      sha256: "1398c9f081a753f9226febe8900fce8f7d0a67163334e1c94a2438339d79d635"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   web:
     dependency: "direct main"
     description:
