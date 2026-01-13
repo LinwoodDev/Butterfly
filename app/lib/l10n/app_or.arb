@@ -30,6 +30,9 @@
   "zoomOut": "ଜୁମ୍ ଛୋଟ କରନ୍ତୁ",
   "resetZoom": "ଜୁମ୍ ପୁନଃସ୍ଥାପନ",
   "strokeWidth": "ଲାଇନ୍ ପ୍ରସ୍ଥ",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "ଇରେଜର୍ ସମ୍ମିଳିତ କରିବେ?",
   "thinning": "ଚିରକରଣ",
   "pen": "କଳମ",
@@ -138,6 +141,7 @@
   "solid": "ଦୃଢ",
   "double": "ଦ୍ୱିତୀୟ",
   "dotted": "ଛିଇଆ",
+  "dottedDark": "Dotted dark",
   "dashed": "ଲାଇଆ",
   "wavy": "ତରଙ୍ଗାକାର",
   "fontWeight": "ଫଣ୍ଟ ଓଜନ",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "ଅନ୍ଧକାର",
-  "plainDark": "ସାଧାରଣ ଅନ୍ଧକାର",
+  "plainDark": "Plain dark",
   "ruledDark": "ରୂଲ୍ଡ ଅନ୍ଧକାର",
   "quadDark": "ଚତୁର୍ଭୁଜ ଅନ୍ଧକାର",
   "musicDark": "ସଙ୍ଗୀତ ଅନ୍ଧକାର",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

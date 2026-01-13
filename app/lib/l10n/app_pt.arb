@@ -30,6 +30,9 @@
   "zoomOut": "Reduzir",
   "resetZoom": "Redefinir a ampliação",
   "strokeWidth": "Largura do traço",
+  "strokeStyle": "Estilo de traço",
+  "dashLength": "Comprimento do Traço",
+  "gapLength": "Comprimento da lacuna",
   "includeEraser": "Incluir borracha?",
   "thinning": "Espessura",
   "pen": "Caneta",
@@ -138,6 +141,7 @@
   "solid": "Sólido",
   "double": "Duplo",
   "dotted": "Pontilhado",
+  "dottedDark": "Pontilhado escuro",
   "dashed": "Tracejado",
   "wavy": "Ondulado",
   "fontWeight": "Espessura da Fonte",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Escuro",
-  "plainDark": "Escuro",
+  "plainDark": "Simples escuro",
   "ruledDark": "Pautado (escuro)",
   "quadDark": "Quadriculado (escuro)",
   "musicDark": "Partitura (escuro)",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizar Atalhos",
+  "clickToSave": "Clique para salvar",
+  "toolbars": "Barras",
+  "logs": "Registros",
+  "ruledSimple": "Rendimento simples",
+  "ruledSimpleDark": "Rendimento simples escuro",
+  "quadSimple": "Quadril simples",
+  "quadSimpleDark": "Quadril escuro",
+  "redLinedRuled": "Linha vermelha governada",
+  "redLinedRuledDark": "Vermelho apertado escuro",
+  "redLinedQuad": "quadril alinhado vermelho",
+  "redLinedQuadDark": "Traseiro alinhado vermelho escuro",
+  "noItemSelected": "Nenhum item selecionado"
 }

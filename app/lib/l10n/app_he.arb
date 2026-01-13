@@ -30,6 +30,9 @@
   "zoomOut": "הקטנה",
   "resetZoom": "איפוס זום",
   "strokeWidth": "עובי קו",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "לכלול מחק?",
   "thinning": "הידקקות",
   "pen": "עט",
@@ -138,6 +141,7 @@
   "solid": "אחיד",
   "double": "כפול",
   "dotted": "מנוקד",
+  "dottedDark": "Dotted dark",
   "dashed": "מקווקו",
   "wavy": "גלי",
   "fontWeight": "משקל גופן",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "כהה",
-  "plainDark": "כהה",
+  "plainDark": "Plain dark",
   "ruledDark": "עם שורות כהה",
   "quadDark": "משובץ כהה",
   "musicDark": "מוזיקה כהה",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

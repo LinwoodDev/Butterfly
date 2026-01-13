@@ -30,6 +30,9 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
@@ -138,6 +141,7 @@
   "solid": "Katı",
   "double": "Çift",
   "dotted": "Noktalı",
+  "dottedDark": "Dotted dark",
   "dashed": "Kesik çizgili",
   "wavy": "Dalgalı",
   "fontWeight": "Yazı tipi kalınlığı",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Koyu",
-  "plainDark": "Koyu",
+  "plainDark": "Sade koyu",
   "ruledDark": "Çizgili koyu",
   "quadDark": "Kareli koyu",
   "musicDark": "Müzik koyu",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Büyüt",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Zoem uit",
   "resetZoom": "Stel zoem terug",
   "strokeWidth": "Lynwydte",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Sluit uitveër in?",
   "thinning": "Verdunning",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solied",
   "double": "Dubbel",
   "dotted": "Gestippel",
+  "dottedDark": "Dotted dark",
   "dashed": "Gestreep",
   "wavy": "Golwend",
   "fontWeight": "Fontgewig",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Donker",
-  "plainDark": "Donker",
+  "plainDark": "Plain dark",
   "ruledDark": "Gelinieer donker",
   "quadDark": "Geruit donker",
   "musicDark": "Musiek donker",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Kicsinyítés",
   "resetZoom": "Eredeti nagyítás visszaállítása",
   "strokeWidth": "Vastagság",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Radír?",
   "thinning": "Vékonyítás",
   "pen": "Toll",
@@ -138,6 +141,7 @@
   "solid": "Szilárd",
   "double": "Dupla",
   "dotted": "Pontozott",
+  "dottedDark": "Dotted dark",
   "dashed": "Szaggatott",
   "wavy": "Hullámos",
   "fontWeight": "Betűvastagság",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Sötét",
-  "plainDark": "Sötét",
+  "plainDark": "Plain dark",
   "ruledDark": "Szabályzott sötét",
   "quadDark": "Négyzetrácsos sötét",
   "musicDark": "Zene sötét",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Teljes méret",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

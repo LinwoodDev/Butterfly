@@ -30,6 +30,9 @@
   "zoomOut": "Pomniejsz",
   "resetZoom": "Resetuj powiększenie",
   "strokeWidth": "Szerokość obrysu",
+  "strokeStyle": "Styl obrysu",
+  "dashLength": "Długość kreski",
+  "gapLength": "Długość odstępu",
   "includeEraser": "Dołącz wymazywanie?",
   "thinning": "Miażdżenie",
   "pen": "Długopis",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Podwójny",
   "dotted": "Kropkowy",
+  "dottedDark": "Kropkowy ciemny",
   "dashed": "Kreskowane",
   "wavy": "Fala",
   "fontWeight": "Waga czcionki",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Ciemny",
-  "plainDark": "Ciemny",
+  "plainDark": "Zwykły ciemny",
   "ruledDark": "Ciemny wieszak",
   "quadDark": "Czterociemny",
   "musicDark": "Ciemna muzyka",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Dostosuj skróty",
+  "clickToSave": "Kliknij, aby zapisać",
+  "toolbars": "Paski narzędzi",
+  "logs": "Logi",
+  "ruledSimple": "Obroty proste",
+  "ruledSimpleDark": "Ciemny ciemny wieszak",
+  "quadSimple": "Poczwórne proste",
+  "quadSimpleDark": "Czteroprosty ciemny",
+  "redLinedRuled": "Czerwony liniowy",
+  "redLinedRuledDark": "ciemny z prawej czerwonej linii.",
+  "redLinedQuad": "Czerwony kwadrat",
+  "redLinedQuadDark": "Czerwony kwadrat ciemny",
+  "noItemSelected": "Nie wybrano elementu"
 }

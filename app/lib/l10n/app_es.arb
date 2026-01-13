@@ -30,6 +30,9 @@
   "zoomOut": "Apagar",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Ancho del trazo",
+  "strokeStyle": "Estilo de trazo",
+  "dashLength": "Longitud del guión",
+  "gapLength": "Longitud del hueco",
   "includeEraser": "¿Incluye borrador?",
   "thinning": "Lanzamiento",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Doble",
   "dotted": "Punteado",
+  "dottedDark": "Punteado oscuro",
   "dashed": "Limpiado",
   "wavy": "Onda",
   "fontWeight": "Peso de fuente",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Oscuro",
-  "plainDark": "Oscuro",
+  "plainDark": "Oscuro simple",
   "ruledDark": "Reglas oscuras",
   "quadDark": "Cuadro oscuro",
   "musicDark": "Música oscura",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizar atajos",
+  "clickToSave": "Clic para guardar",
+  "toolbars": "Barra de herramientas",
+  "logs": "Registros",
+  "ruledSimple": "Reglas sencillas",
+  "ruledSimpleDark": "Regla oscuridad simple",
+  "quadSimple": "Cuadro simple",
+  "quadSimpleDark": "Cuádruple oscuro",
+  "redLinedRuled": "Rojo dominado",
+  "redLinedRuledDark": "Rojo revestido oscuro",
+  "redLinedQuad": "Cuadrante rojo",
+  "redLinedQuadDark": "Cuadrilátero rojo oscuro",
+  "noItemSelected": "Ningún elemento seleccionado"
 }

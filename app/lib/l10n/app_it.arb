@@ -30,6 +30,9 @@
   "zoomOut": "Riduci zoom",
   "resetZoom": "Reimposta zoom",
   "strokeWidth": "Spessore tratto",
+  "strokeStyle": "Stile tratto",
+  "dashLength": "Lunghezza tratteggiatura",
+  "gapLength": "Lunghezza del gap",
   "includeEraser": "Includere la gomma?",
   "thinning": "Sottigliezza",
   "pen": "Penna",
@@ -138,6 +141,7 @@
   "solid": "Solido",
   "double": "Doppio",
   "dotted": "Punteggiato",
+  "dottedDark": "Punteggiato scuro",
   "dashed": "Tratteggiato",
   "wavy": "Ondulato",
   "fontWeight": "Dimensione carattere",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Scuro",
-  "plainDark": "Scuro",
+  "plainDark": "Scuro semplice",
   "ruledDark": "Scuro a righe",
   "quadDark": "Scuro a quadretti",
   "musicDark": "Spartito scuro",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Massimizza",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizza scorciatoie",
+  "clickToSave": "Clicca per salvare",
+  "toolbars": "Barre Strumenti",
+  "logs": "Registri",
+  "ruledSimple": "Regola semplice",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad semplice",
+  "quadSimpleDark": "Quad semplice scuro",
+  "redLinedRuled": "Regola lineata rossa",
+  "redLinedRuledDark": "Rosso allineato governato scuro",
+  "redLinedQuad": "Quad foderato rosso",
+  "redLinedQuadDark": "Quad foderato rosso scuro",
+  "noItemSelected": "Nessun elemento selezionato"
 }

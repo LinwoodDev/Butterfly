@@ -30,6 +30,9 @@
   "zoomOut": "Zooma ut",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke bredd",
+  "strokeStyle": "Stroke stil",
+  "dashLength": "Dash längd",
+  "gapLength": "Längd på gapet",
   "includeEraser": "Inkludera suddgummi?",
   "thinning": "Gallring",
   "pen": "Penna",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dubbel",
   "dotted": "Prickad",
+  "dottedDark": "Prickad mörk",
   "dashed": "Streckad",
   "wavy": "Vågig",
   "fontWeight": "Teckensnittets vikt",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Mörk",
-  "plainDark": "Mörk",
+  "plainDark": "Oklanderligt mörkt",
   "ruledDark": "Reglerat mörkt",
   "quadDark": "Fyrtal mörkt",
   "musicDark": "Mörk musik",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Anpassa genvägar",
+  "clickToSave": "Klicka för att spara",
+  "toolbars": "Verktygsfält",
+  "logs": "Loggar",
+  "ruledSimple": "Reglerad enkel",
+  "ruledSimpleDark": "Reglerad enkel mörk",
+  "quadSimple": "Fyrfaldig enkel",
+  "quadSimpleDark": "Fyrfaldig enkel mörk",
+  "redLinedRuled": "Röd linjerad styrd",
+  "redLinedRuledDark": "Röd fodrad styrd mörk",
+  "redLinedQuad": "Röd fodrad quad",
+  "redLinedQuadDark": "Röd fodrad quad mörk",
+  "noItemSelected": "Inget objekt valt"
 }

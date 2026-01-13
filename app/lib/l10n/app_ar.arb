@@ -30,6 +30,9 @@
   "zoomOut": "تصغير",
   "resetZoom": "إعادة ضبط التكبير",
   "strokeWidth": "سُمك الخط",
+  "strokeStyle": "نمط الخط",
+  "dashLength": "طول الخط",
+  "gapLength": "طول الفاصل",
   "includeEraser": "تضمين الممحاة؟",
   "thinning": "الترقيق",
   "pen": "القلم",
@@ -104,7 +107,7 @@
   "documentation": "إرشادات الإستخدام",
   "changelog": "سِجل التغييرات",
   "source": "المصدر",
-  "existOverride": "هذا العنصر موجود بالفعل. استبدال؟",
+  "existOverride": "هذا العنصر موجود فعلًا. أأستبدله؟",
   "description": "الوصف",
   "fill": "تعبئة",
   "@fill": {
@@ -138,6 +141,7 @@
   "solid": "صلب",
   "double": "مزدوج",
   "dotted": "مُنَقط",
+  "dottedDark": "منقط داكن",
   "dashed": "متقطع",
   "wavy": "مموج",
   "fontWeight": "وزن الخط",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "داكن",
-  "plainDark": "داكن",
+  "plainDark": "منقط عادي",
   "ruledDark": "مخطط داكن",
   "quadDark": "رباعي داكن",
   "musicDark": "موسيقى داكن",
@@ -863,7 +867,7 @@
   "quickstart": "البداية السريعة",
   "noTemplates": "لا توجد حاليا قوالب متاحة",
   "importCorePack": "استيراد الباقة الأساسية",
-  "importCorePackDescription": "استورد الباقة الأساسية التي تحتوي على جميع الموارد الأساسية للبدء. سيؤدي ذلك إلى استبدال الباقة الأساسية الحالية.",
+  "importCorePackDescription": "استورد الباقة الأساسية التي تحتوي على جميع الموارد البدائية. سيؤدي ذلك إلى استبدال الباقة الأساسية الحالية.",
   "never": "مطلقًا",
   "@never": {
     "description": "Frequency"
@@ -1101,7 +1105,7 @@
     "description": "Size value"
   },
   "selectAll": "حدد الكل",
-  "overrideTools": "أدوات التجاوز",
+  "overrideTools": "استبدال اﻷدوات",
   "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم",
   "installed": "مثبت",
   "install": "تثبيت",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "مضغوط جداً",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "تغيير الاختصارات",
+  "clickToSave": "اضغط للحفظ",
+  "toolbars": "شرائط الأدوات",
+  "logs": "السجلات",
+  "ruledSimple": "مخطط عادي",
+  "ruledSimpleDark": "مخطط داكن",
+  "quadSimple": "مربعات عادي",
+  "quadSimpleDark": "مربعات داكن",
+  "redLinedRuled": "مخطط بفاصل احمر عادي",
+  "redLinedRuledDark": "مخطط بفاصل احمر داكن",
+  "redLinedQuad": "مربعات بفاصل احمر",
+  "redLinedQuadDark": "ظلام رباعي مبطن أحمر",
+  "noItemSelected": "لا توجد عناصر محددة"
 }

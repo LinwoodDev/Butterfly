@@ -30,6 +30,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Lățimea conturului",
+  "strokeStyle": "Stil stâlp",
+  "dashLength": "Lungime defrișare",
+  "gapLength": "Lungimea decalajului",
   "includeEraser": "Includeți ștergerea?",
   "thinning": "Thinning",
   "pen": "Stiloul",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dublu",
   "dotted": "Punctat",
+  "dottedDark": "Punctat întunecat",
   "dashed": "Oprită",
   "wavy": "Vrăjitor",
   "fontWeight": "Greutate font",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Întunecat",
-  "plainDark": "Întunecat",
+  "plainDark": "Inchis intunecat",
   "ruledDark": "Normal întunecat",
   "quadDark": "Quad întunecat",
   "musicDark": "Muzică întunecată",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personalizare comenzi rapide",
+  "clickToSave": "Click pentru a salva",
+  "toolbars": "Bare de instrumente",
+  "logs": "Jurnale",
+  "ruledSimple": "Reglementat simplu",
+  "ruledSimpleDark": "Întunecată simplă",
+  "quadSimple": "Quad simplu",
+  "quadSimpleDark": "Quad simplu întunecat",
+  "redLinedRuled": "Căptușit roșu",
+  "redLinedRuledDark": "Roșu căptușit întunecat",
+  "redLinedQuad": "Quad roșu",
+  "redLinedQuadDark": "Quad roșu închis",
+  "noItemSelected": "Niciun element selectat"
 }

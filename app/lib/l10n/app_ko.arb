@@ -30,6 +30,9 @@
   "zoomOut": "축소",
   "resetZoom": "확대/축소 초기화",
   "strokeWidth": "선 굵기",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "지우개 포함?",
   "thinning": "필압 감지",
   "pen": "펜",
@@ -138,6 +141,7 @@
   "solid": "실선",
   "double": "이중선",
   "dotted": "점선",
+  "dottedDark": "Dotted dark",
   "dashed": "파선",
   "wavy": "물결선",
   "fontWeight": "글꼴 두께",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "어두움",
-  "plainDark": "어두운 무지",
+  "plainDark": "Plain dark",
   "ruledDark": "어두운 줄무늬",
   "quadDark": "어두운 격자",
   "musicDark": "어두운 오선지",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

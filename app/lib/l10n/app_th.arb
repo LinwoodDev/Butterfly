@@ -30,6 +30,9 @@
   "zoomOut": "ซูมออก",
   "resetZoom": "รีเซ็ตการซูม",
   "strokeWidth": "ความกว้างของเส้น",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "รวมยางลบด้วยหรือไม่?",
   "thinning": "การลดความหนา",
   "pen": "ปากกา",
@@ -138,6 +141,7 @@
   "solid": "ทึบ",
   "double": "คู่",
   "dotted": "ลายจุด",
+  "dottedDark": "Dotted dark",
   "dashed": "ลายขีด",
   "wavy": "ลายคลื่น",
   "fontWeight": "ความหนาของฟอนต์",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "มืด",
-  "plainDark": "ไม่มีเส้น (มืด)",
+  "plainDark": "Plain dark",
   "ruledDark": "มีเส้น (มืด)",
   "quadDark": "ตาราง (มืด)",
   "musicDark": "โน้ตเพลง (มืด)",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

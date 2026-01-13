@@ -30,6 +30,9 @@
   "zoomOut": "Redueix",
   "resetZoom": "Reinicia zoom",
   "strokeWidth": "Amplada del traç",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Incloure esborrador?",
   "thinning": "Afinament",
   "pen": "Bolígraf",
@@ -138,6 +141,7 @@
   "solid": "Sòlid",
   "double": "Doble",
   "dotted": "Puntejat",
+  "dottedDark": "Dotted dark",
   "dashed": "Guionet",
   "wavy": "Ondulat",
   "fontWeight": "Gruix de la font",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Fosc",
-  "plainDark": "Pla fosc",
+  "plainDark": "Plain dark",
   "ruledDark": "Ratllat fosc",
   "quadDark": "Quadrícula fosca",
   "musicDark": "Música fosca",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

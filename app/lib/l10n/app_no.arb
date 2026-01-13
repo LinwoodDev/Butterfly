@@ -30,6 +30,9 @@
   "zoomOut": "Zoom ut",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Bredde på slagbredde",
+  "strokeStyle": "Stil for stripe",
+  "dashLength": "Punkt lengde",
+  "gapLength": "Gap lengde",
   "includeEraser": "Inkluder eraser?",
   "thinning": "Tynn",
   "pen": "Penn",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dobbel",
   "dotted": "Prikket",
+  "dottedDark": "Prikket mørkt",
   "dashed": "Stiplet",
   "wavy": "Bølgefull",
   "fontWeight": "Skriftens vekt",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Mørk",
-  "plainDark": "Mørk",
+  "plainDark": "Enkel mørk",
   "ruledDark": "Rulert mørk",
   "quadDark": "Quad dark",
   "musicDark": "Musikk mørkt",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Tilpass snarveier",
+  "clickToSave": "Klikk for å lagre",
+  "toolbars": "Verktøyfelt",
+  "logs": "Logger",
+  "ruledSimple": "Linjert enkel",
+  "ruledSimpleDark": "Regnet enkelt, mørkt",
+  "quadSimple": "Rull enkelt",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Rød påslått",
+  "redLinedRuledDark": "Rødt avrundet mørkt",
+  "redLinedQuad": "Rød tauset avslutning",
+  "redLinedQuadDark": "Rødfarget murt mørkt",
+  "noItemSelected": "Ingen elementer er valgt"
 }
