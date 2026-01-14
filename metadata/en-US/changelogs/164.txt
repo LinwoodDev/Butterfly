@@ -35,6 +35,7 @@
 * Fix plain dark has wrong name
 * Fix exporting not working on web
 * Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix on entering area outside has white background in dark mode
 
 Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!

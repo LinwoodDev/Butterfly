@@ -560,7 +560,7 @@ class _MainViewViewportState extends State<MainViewViewport>
             );
             return Stack(
               children: [
-                Container(color: Colors.white),
+                Container(color: ColorScheme.of(context).surfaceDim),
                 CustomPaint(
                   size: Size.infinite,
                   foregroundPainter: ForegroundPainter(
