@@ -2,6 +2,53 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-beta.0 (2026-01-14)
+
+* Rebuild template system
+  * Categorize templates in dialog by directory
+  * Core templates will be shown in core category instead of created on start
+  * Add new templates ([#933](https://github.com/LinwoodDev/Butterfly/issues/933))
+    * Dotted (+ dark)
+    * Ruled simple (+ dark)
+    * Quad simple (+ dark)
+    * Red lined ruled (+ dark)
+    * Red lined quad (+ dark) 
+  * Add new background presets ([#933](https://github.com/LinwoodDev/Butterfly/issues/933))
+    * Dotted (+ dark)
+    * Ruled simple (+ dark)
+    * Quad simple (+ dark)
+  * Change current templates to have black instead of dark and white instead of light backgrounds
+* Add logging
+* Add toolbar pack items
+  * Add toolbar tab to document selection view
+  * Add toolbars tab in packs dialog
+* Add custom keybinding support
+* Add dotted and dashed stroke styles to shapes ([#934](https://github.com/LinwoodDev/Butterfly/issues/934))
+* Add new nightly icon
+* Add icon to toolbar rows setting
+* Add export all packs to dialog
+* Improve stable icon on android
+* Improve background dialog to look consistent with the template dialog
+* Improve long name and tooltip in recent files on other storages
+* Improve edit toolbar experience
+  * Improve toolbar item size
+  * Improve drag and drop experience
+  * Use double tap to toggle selection
+  * Fix removing by drag behind plus icon not working
+  * Remove divider line on toolbar
+* Reimplement nightly design in web version
+* Fix color toolbar does not save palette changes
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix plain dark has wrong name
+* Fix exporting not working on web
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix on entering area outside has white background in dark mode
+* Fix company name on windows build
+
+Thanks for @JerryMerweather for contributing the new templates!
+Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
+
 ## 2.4.2 (2025-12-24)
 
 No changes compared to version 2.4.2-rc.4.
