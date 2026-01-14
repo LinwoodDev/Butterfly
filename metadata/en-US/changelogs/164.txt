@@ -21,6 +21,7 @@
 * Add new nightly icon
 * Add icon to toolbar rows setting
 * Add export all packs to dialog
+* Improve stable icon on android
 * Improve background dialog to look consistent with the template dialog
 * Improve long name and tooltip in recent files on other storages
 * Improve edit toolbar experience
