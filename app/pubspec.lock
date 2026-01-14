@@ -93,10 +93,10 @@ packages:
     dependency: transitive
     description:
       name: build
-      sha256: c1668065e9ba04752570ad7e038288559d1e2ca5c6d0131c0f5f55e39e777413
+      sha256: "275bf6bb2a00a9852c28d4e0b410da1d833a734d57d39d44f94bfc895a484ec3"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.3"
+    version: "4.0.4"
   build_config:
     dependency: transitive
     description:
@@ -117,10 +117,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "110c56ef29b5eb367b4d17fc79375fa8c18a6cd7acd92c05bb3986c17a079057"
+      sha256: b4d854962a32fd9f8efc0b76f98214790b833af8b2e9b2df6bfc927c0415a072
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.4"
+    version: "2.10.5"
   built_collection:
     dependency: transitive
     description:
@@ -156,10 +156,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "474d8355961658d43f1c976e2fa1ca715505bea1adbd56df34c581aaa70ec41f"
+      sha256: bc7a96998258adddd0b653dd693b0874537707d58b0489708f2a646e4f124246
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.26+2"
+    version: "0.6.27"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -1049,18 +1049,18 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "82e719f7e7994cb78344a1d3c0e204ffdf86ddf9364ff495368acdae6e3f489f"
+      sha256: e32e0c786528eec2b3c56b43f59ef1debce3a27c7accd862b95413f949afcfa9
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.20"
+    version: "2.2.24"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: a28e9d4436dcb9a659b50f71ca1eed72f30b5c45340a9b68299fa904e735128c
+      sha256: a8914433d1f6188b903c53d36b9d7dc908bfa89131591a9db22f1a22470d3a48
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.7"
+    version: "0.3.9"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1440,34 +1440,34 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: e5d4f7cce6a639037e551660ae1b93b451f107e78dabcc9f89fc52ffeb6d63d5
+      sha256: "201912ce7d762fd3acc6e49f61328abd121ff7eb8093b0ad6e5835c941322343"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.9"
+    version: "5.1.10"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       name: talker_bloc_logger
-      sha256: "05085bc394bdd984fc501352cbeb1434dbd21e99a52e4878d52ea69b20695806"
+      sha256: "009a6fde577d2af654027f123d87b671587d14717bf215f96c6e5fdb3f12b82f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.9"
+    version: "5.1.10"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: c4b77632e9fe9cc2c370b7ea294294973ce4d394c584f28e87f7f8b5f5f31a51
+      sha256: "261f6aa03fd87e226f920f5726b04d221a3f09223215dfe4fed82fa571bd2929"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.9"
+    version: "5.1.10"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "0c9f37cd17012e5f45986007340de95e9ebccb7a64c5375919cb27e2f0cc60ee"
+      sha256: "9603aa89d570b9090e0b204fefc9a61a8d77ecab3fe76de7b70374c63bbc558b"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.9"
+    version: "5.1.10"
   term_glyph:
     dependency: transitive
     description:
@@ -1718,4 +1718,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.10.0 <4.0.0"
-  flutter: ">=3.38.5"
+  flutter: ">=3.38.6"

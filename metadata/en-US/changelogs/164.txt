@@ -23,6 +23,12 @@
 * Add export all packs to dialog
 * Improve background dialog to look consistent with the template dialog
 * Improve long name and tooltip in recent files on other storages
+* Improve edit toolbar experience
+  * Improve toolbar item size
+  * Improve drag and drop experience
+  * Use double tap to toggle selection
+  * Fix removing by drag behind plus icon not working
+  * Remove divider line on toolbar
 * Reimplement nightly design in web version
 * Fix color toolbar does not save palette changes
 * Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))

@@ -60,7 +60,7 @@ class _EditableListTileState extends State<EditableListTile> {
   void didUpdateWidget(covariant EditableListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.onSaved != oldWidget.onSaved && oldWidget.onSaved != null) {
+    if ((widget.onSaved == null) != (oldWidget.onSaved == null) && oldWidget.onSaved != null) {
       _onSaved();
     }
     if (widget.onSaved != oldWidget.onSaved) {

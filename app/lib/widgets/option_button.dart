@@ -4,7 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class OptionButton extends StatefulWidget {
   final Widget icon;
   final Widget? selectedIcon, bottomIcon, leadingIcon;
-  final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
+  final VoidCallback? onPressed, onSecondaryPressed, onLongPressed, onDoubleTap;
   final bool selected, highlighted, focussed, showBottom;
   final String tooltip;
 
@@ -18,6 +18,7 @@ class OptionButton extends StatefulWidget {
     this.onPressed,
     this.onSecondaryPressed,
     this.onLongPressed,
+    this.onDoubleTap,
     this.selected = false,
     this.highlighted = false,
     this.focussed = false,
@@ -90,6 +91,7 @@ class _OptionButtonState extends State<OptionButton>
           radius: 12,
           borderRadius: BorderRadius.circular(12),
           onTap: widget.onPressed,
+          onDoubleTap: widget.onDoubleTap,
           onSecondaryTap: widget.onSecondaryPressed,
           onLongPress: widget.onLongPressed == null
               ? null

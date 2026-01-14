@@ -27,7 +27,7 @@
     "remark-math": "^6.0.0",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@10.28.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.97.2",
