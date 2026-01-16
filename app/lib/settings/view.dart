@@ -75,6 +75,14 @@ class ViewSettingsPage extends StatelessWidget {
                         ),
                         onTap: () => _openToolbarPositionModal(context),
                       ),
+                      ListTile(
+                        leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
+                        title: Text(AppLocalizations.of(context).toolbarSize),
+                        subtitle: Text(
+                          state.toolbarSize.getLocalizedName(context),
+                        ),
+                        onTap: () => _openToolbarSizeModal(context),
+                      ),
                       ExactSlider(
                         header: Text(AppLocalizations.of(context).toolbarRows),
                         value: state.toolbarRows.toDouble(),
@@ -239,6 +247,27 @@ class ViewSettingsPage extends StatelessWidget {
               }),
               onTap: () {
                 cubit.changeOptionsPanelPosition(e);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _openToolbarSizeModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentSize = cubit.state.toolbarSize;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) => Text(AppLocalizations.of(context).toolbarSize),
+      childrenBuilder: (context) => ToolbarSize.values
+          .map(
+            (e) => ListTile(
+              title: Text(e.getLocalizedName(context)),
+              selected: currentSize == e,
+              onTap: () {
+                cubit.changeToolbarSize(e);
                 Navigator.of(context).pop();
               },
             ),

@@ -1,4 +1,3 @@
-import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/home.dart';
 import 'package:butterfly/settings/data.dart';
@@ -67,85 +66,11 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   SettingsView _view = SettingsView.general;
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _scrollController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final isMobile = size.width < LeapBreakpoints.compact;
-    final body = _buildBody(context, isMobile);
-    if (widget.isDialog) {
-      return body;
-    }
-    return Scaffold(
-      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-        title: Text(AppLocalizations.of(context).settings),
-      ),
-      body: body,
-    );
-  }
-
-  Widget _buildBody(BuildContext context, bool isMobile) {
-    void navigateTo(SettingsView view) {
-      if (isMobile) {
-        context.push(view.path);
-      } else {
-        setState(() {
-          _view = view;
-        });
-      }
-    }
-
-    var navigation = Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (widget.isDialog)
-          Header(
-            title: Text(AppLocalizations.of(context).settings),
-            leading: IconButton.outlined(
-              icon: const PhosphorIcon(PhosphorIconsLight.x),
-              onPressed: () => Navigator.of(context).pop(),
-              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-            ),
-          ),
-        Flexible(
-          child: Material(
-            type: MaterialType.transparency,
-            child: ListView(
-              controller: _scrollController,
-              shrinkWrap: true,
-              children: [
-                ...SettingsView.values.where((e) => e.isEnabled).map((view) {
-                  final selected = _view == view && !isMobile;
-                  return ListTile(
-                    leading: PhosphorIcon(
-                      view.icon(
-                        selected
-                            ? PhosphorIconsStyle.fill
-                            : PhosphorIconsStyle.light,
-                      ),
-                    ),
-                    title: Text(view.getLocalizedName(context)),
-                    onTap: () => navigateTo(view),
-                    selected: selected,
-                  );
-                }),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-    if (isMobile) {
-      return navigation;
-    }
     final content = switch (_view) {
       SettingsView.general => const GeneralSettingsPage(inView: true),
       SettingsView.data => const DataSettingsPage(inView: true),
@@ -159,10 +84,85 @@ class _SettingsPageState extends State<SettingsPage> {
       SettingsView.experiments => const ExperimentsSettingsPage(inView: true),
       SettingsView.logs => const LogsSettingsPage(inView: true),
     };
+
+    final drawer = NavigationDrawer(
+      selectedIndex: SettingsView.values
+          .where((e) => e.isEnabled)
+          .toList()
+          .indexOf(_view),
+      onDestinationSelected: (index) {
+        final view = SettingsView.values
+            .where((e) => e.isEnabled)
+            .toList()[index];
+        setState(() {
+          _view = view;
+        });
+        if (isMobile) {
+          Navigator.of(context).pop();
+        }
+      },
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(28, 16, 16, 16),
+          child: Row(
+            spacing: 16,
+            children: [
+              if (widget.isDialog && !isMobile)
+                IconButton.outlined(
+                  icon: const PhosphorIcon(PhosphorIconsLight.x),
+                  onPressed: () => Navigator.of(context).pop(),
+                  tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+                ),
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context).settings,
+                  style: TextTheme.of(context).headlineSmall,
+                ),
+              ),
+            ],
+          ),
+        ),
+        ...SettingsView.values.where((e) => e.isEnabled).map((view) {
+          return NavigationDrawerDestination(
+            icon: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
+            selectedIcon: PhosphorIcon(view.icon(PhosphorIconsStyle.fill)),
+            label: Text(view.getLocalizedName(context)),
+          );
+        }),
+      ],
+    );
+
+    if (isMobile) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Header(
+            leading: IconButton.outlined(
+              icon: const PhosphorIcon(PhosphorIconsLight.x),
+              onPressed: () => Navigator.of(context).pop(),
+              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+            ),
+            title: Text(AppLocalizations.of(context).settings),
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: SettingsView.values.where((e) => e.isEnabled).map((view) {
+              return ListTile(
+                leading: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
+                title: Text(view.getLocalizedName(context)),
+                onTap: () => context.push(view.path),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 16),
+        ],
+      );
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(width: 300, child: navigation),
+        drawer,
         Expanded(child: content),
       ],
     );
