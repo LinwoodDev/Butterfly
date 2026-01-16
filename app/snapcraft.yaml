@@ -61,6 +61,11 @@ parts:
       - curl
       - libsecret-1-dev
       - libjsoncpp-dev
+      - clang
+      - ninja-build
+      - pkg-config
+      - lld
+      - llvm
     override-build: |
       craftctl default
       set -eux
