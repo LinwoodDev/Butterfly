@@ -522,21 +522,20 @@ class LabelHandler extends Handler<LabelTool>
     final selectionReplacement = !lastValue.selection.isCollapsed;
     final useComposing =
         replace && !selectionReplacement && lastValue.composing.isValid;
-    final start = useComposing
+    var start = useComposing
         ? lastValue.composing.start
         : lastValue.selection.start;
-    final length = useComposing ? null : lastValue.selection.end - start;
+    var length = useComposing ? null : lastValue.selection.end - start;
+    final diff = value.length - lastValue.text.length;
+    final end = start + diff + (length ?? (lastValue.composing.end - start));
+    if (replace && end < start) {
+      length = (length ?? 0) + start - end;
+      start = end;
+    }
     final newIndex = replace
-        ? lastValue.selection.end - lastValue.text.length + value.length
+        ? lastValue.selection.end + diff
         : start + value.length;
-    final currentText = replace
-        ? value.substring(
-            start,
-            value.length -
-                lastValue.text.length +
-                (length == null ? lastValue.composing.end : (start + length)),
-          )
-        : value;
+    final currentText = replace ? value.substring(start, end) : value;
     if (_context == null) return;
     final selection = newSelection ?? TextSelection.collapsed(offset: newIndex);
     switch (_context!) {
