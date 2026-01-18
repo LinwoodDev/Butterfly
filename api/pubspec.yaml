@@ -1,6 +1,6 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.4.2
+version: 2.4.3
 publish_to: none
 
 environment:
@@ -19,7 +19,7 @@ dependencies:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       path: packages/lw_file_system_api
-      ref: ddd0761c3ed5a48108bddd0448df76d77eeb9da0
+      ref: 05c726ca745112dec80c6d30a27478e1556367b7
   dart_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
@@ -32,4 +32,4 @@ dev_dependencies:
   build_runner: ^2.4.9
   freezed: ^3.0.2
   lints: ^6.0.0
-  analyzer: ^8.1.1
+  analyzer: ^9.0.0
