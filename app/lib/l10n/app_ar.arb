@@ -140,7 +140,7 @@
   },
   "solid": "صلب",
   "double": "مزدوج",
-  "dotted": "مُنَقط",
+  "dotted": "منقط",
   "dottedDark": "منقط داكن",
   "dashed": "متقطع",
   "wavy": "مموج",
@@ -265,7 +265,7 @@
   },
   "zoomDependent": "يتغير حسب التكبير",
   "shapeDetection": "اكتشاف الشكل",
-  "delay": "التأخير",
+  "delay": "مؤخر",
   "@delay": {
     "description": "Delay property"
   },
@@ -301,7 +301,7 @@
   "@ruled": {
     "description": "Background pattern"
   },
-  "quad": "رباعي",
+  "quad": "مربعات",
   "@quad": {
     "description": "Background pattern"
   },
@@ -312,7 +312,7 @@
   "dark": "داكن",
   "plainDark": "منقط عادي",
   "ruledDark": "مخطط داكن",
-  "quadDark": "رباعي داكن",
+  "quadDark": "مربعات داكن",
   "musicDark": "موسيقى داكن",
   "templates": "قوالب",
   "untitled": "بلا عنوان",
@@ -413,7 +413,7 @@
   "@bottom": {
     "description": "Alignment"
   },
-  "left": "اليسار",
+  "left": "يسار",
   "@left": {
     "description": "Alignment"
   },
@@ -640,7 +640,7 @@
   "@packs": {
     "description": "Asset pack"
   },
-  "pack": "باقة",
+  "pack": "حُزْمَة",
   "@pack": {
     "description": "Asset pack"
   },
@@ -726,14 +726,14 @@
   },
   "newFolder": "مجلد جديد",
   "createPack": "إنشاء باقة",
-  "editPack": "تحرير باقة",
+  "editPack": "تحرير حُزْمَة",
   "packsDirectory": "مجلد الباقات",
   "stamp": "ختم",
   "@stamp": {
     "description": "Stamp tool"
   },
-  "addToPack": "إضافة إلى باقة",
-  "sureImportPack": "هل أنت متأكد من أنك تريد استيراد الباقة؟",
+  "addToPack": "إضافة إلى حُزْمَة",
+  "sureImportPack": "هل أنت متأكد من أنك تريد استيراد الحُزْمَة؟",
   "byAuthor": "من قِبل {author}",
   "@byAuthor": {
     "placeholders": {
@@ -856,7 +856,7 @@
   "unstar": "إلغاء التمييز",
   "star": "تمييز",
   "goUp": "اذهب للأعلى",
-  "created": "أنشئ",
+  "created": "الإنشاء",
   "@created": {
     "description": "Date property"
   },
@@ -866,8 +866,8 @@
   },
   "quickstart": "البداية السريعة",
   "noTemplates": "لا توجد حاليا قوالب متاحة",
-  "importCorePack": "استيراد الباقة الأساسية",
-  "importCorePackDescription": "استورد الباقة الأساسية التي تحتوي على جميع الموارد البدائية. سيؤدي ذلك إلى استبدال الباقة الأساسية الحالية.",
+  "importCorePack": "استيراد الحُزْمَة الأساسية",
+  "importCorePackDescription": "استورد الحُزْمَة الأساسية التي تحتوي على جميع الموارد البدائية. سيؤدي ذلك إلى استبدال الحُزْمَة الأساسية الحالية.",
   "never": "مطلقًا",
   "@never": {
     "description": "Frequency"
@@ -1049,7 +1049,7 @@
   "@address": {
     "description": "Address property"
   },
-  "spreadToPages": "نشر إلى الصفحات",
+  "spreadToPages": "النشر إلى صفحات",
   "rootDirectorySpecifiedDescription": "تم تحديد مجلد الجذر. ستكون جميع المجلدات المتقدمة نسبية لهذا المجلد. اتركه فارغًا لتعطيل هذا النوع من المجلدات.",
   "rootDirectoryNotSpecifiedDescription": "لم يتم تحديد المجلد الجذر. يجب إدخال اسم. ستكون جميع مسارات المجلدات المتقدمة مُطلقة. اتركه فارغًا لتعطيل هذا النوع من المجلدات.",
   "unsecureConnectionTitle": "اتصال غير آمن",
@@ -1220,8 +1220,8 @@
     "description": "Component object"
   },
   "selectComponent": "حدد المكون",
-  "bundlePackInDocument": "اجمع الباقة في المستند",
-  "bundledPacksDescription": "يتم تضمين الباقات في المستند ولا يمكن استخدامها إلا للمشاركة مع المستند. لا يمكن استخدام الموارد في المستند إلا إذا تم تثبيت الباقة. يمكن تثبيت الباقات بالنقر عليها.",
+  "bundlePackInDocument": "اجمع الحُزْمَة في المستند",
+  "bundledPacksDescription": "يتم تضمين الحزم في المستند ولا يمكن استخدامها إلا للمشاركة مع المستند. لا يمكن استخدام الموارد في المستند إلا إذا تم تثبيت الحُزْمَة. يمكن تثبيت الحزم بالنقر عليها.",
   "fillAlpha": "شفافية التعبئة",
   "packagedFile": "ملف الحزمة",
   "rawFile": "ملف خام",
@@ -1244,8 +1244,8 @@
   "ignorePressure": "تجاهل الضغط",
   "ignoreFirstPressureDescription": "في بعض الأجهزة، قيمة الضغط الأولى غير دقيقة. سيتجاهل هذا الإعداد قيمة الضغط الأولى ويستخدم ضغط الحدث الثاني بدلاً منها.",
   "temporary": "مؤقت",
-  "simpleToolbarVisibility": "عرض شريط الأدوات البسيطة",
-  "autosaveDelay": "تأخير الحفظ التلقائي",
+  "simpleToolbarVisibility": "عرض شريط الأدوات البسيط",
+  "autosaveDelay": "تأخر الحفظ التلقائي",
   "saved": "محفوظ",
   "@saved": {
     "description": "Save status"
@@ -1270,12 +1270,12 @@
   "toolbars": "شرائط الأدوات",
   "logs": "السجلات",
   "ruledSimple": "مخطط عادي",
-  "ruledSimpleDark": "مخطط داكن",
+  "ruledSimpleDark": "مخطط عادي داكن",
   "quadSimple": "مربعات عادي",
   "quadSimpleDark": "مربعات داكن",
-  "redLinedRuled": "مخطط بفاصل احمر عادي",
-  "redLinedRuledDark": "مخطط بفاصل احمر داكن",
+  "redLinedRuled": "مخطط بفاصل احمر",
+  "redLinedRuledDark": "مخطط داكن بفاصل احمر",
   "redLinedQuad": "مربعات بفاصل احمر",
-  "redLinedQuadDark": "ظلام رباعي مبطن أحمر",
+  "redLinedQuadDark": "مربعات داكن بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة"
 }
