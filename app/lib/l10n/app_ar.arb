@@ -1100,7 +1100,7 @@
   "@small": {
     "description": "Size value"
   },
-  "tiny": "صغير",
+  "tiny": "صغير جدًا",
   "@tiny": {
     "description": "Size value"
   },
