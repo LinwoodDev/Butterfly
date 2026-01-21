@@ -1273,9 +1273,9 @@
   "ruledSimpleDark": "مخطط عادي داكن",
   "quadSimple": "مربعات عادي",
   "quadSimpleDark": "مربعات داكن",
-  "redLinedRuled": "مخطط بفاصل احمر",
-  "redLinedRuledDark": "مخطط داكن بفاصل احمر",
-  "redLinedQuad": "مربعات بفاصل احمر",
+  "redLinedRuled": "مخطط بفاصل أحمر",
+  "redLinedRuledDark": "مخطط داكن بفاصل أحمر",
+  "redLinedQuad": "مربعات بفاصل أحمر",
   "redLinedQuadDark": "مربعات داكن بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة"
 }
