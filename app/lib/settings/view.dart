@@ -209,7 +209,7 @@ class ViewSettingsPage extends StatelessWidget {
                 ToolbarPosition.bottom => PhosphorIconsLight.arrowLineDown,
                 ToolbarPosition.left => PhosphorIconsLight.arrowLineLeft,
                 ToolbarPosition.right => PhosphorIconsLight.arrowLineRight,
-              }),
+              }, textDirection: TextDirection.ltr),
               onTap: () {
                 cubit.changeToolbarPosition(e);
                 Navigator.of(context).pop();
