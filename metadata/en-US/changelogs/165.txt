@@ -1,6 +1,7 @@
 This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.0 nightly release.
 
 * Fix toolbar position icon direction issue on rtl layouts
+* Fix foreground will be reset if temporary tool is added
 
 Cherry picks:
 * Add export all packs to dialog

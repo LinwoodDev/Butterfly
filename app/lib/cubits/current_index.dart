@@ -103,7 +103,8 @@ sealed class CurrentIndex with _$CurrentIndex {
   };
 
   List<Renderer> getAllForegrounds([bool networking = true]) => [
-    ...(temporaryForegrounds ?? foregrounds),
+    ...foregrounds,
+    ...?temporaryForegrounds,
     ...toggleableForegrounds.values.expand((e) => e),
     if (networking) ...networkingForegrounds,
   ];

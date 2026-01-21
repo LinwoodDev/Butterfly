@@ -635,10 +635,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: b26b2ad126be411d0072d1dfc4d97ebe02121a863e4eadc635b511b9bc138489
+      sha256: "532a6a39ddf03271954b2b4d4551d5bb1160fa17cb11330cf2fd6d57a1f0ea1f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1+2"
+    version: "2.8.0"
   image:
     dependency: "direct main"
     description:
@@ -1543,10 +1543,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: d354a7ec6931e6047785f4db12a1f61ec3d43b207fc0790f863818543f8ff0dc
+      sha256: "201e876b5d52753626af64b6359cd13ac6011b80728731428fd34bc840f71c9b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.19"
+    version: "1.1.20"
   vector_math:
     dependency: transitive
     description:
