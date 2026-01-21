@@ -725,9 +725,9 @@
     "description": "Report action"
   },
   "newFolder": "مجلد جديد",
-  "createPack": "إنشاء باقة",
+  "createPack": "إنشاء حُزْمَة",
   "editPack": "تحرير حُزْمَة",
-  "packsDirectory": "مجلد الباقات",
+  "packsDirectory": "مجلد الحُزم",
   "stamp": "ختم",
   "@stamp": {
     "description": "Stamp tool"
@@ -750,7 +750,7 @@
   "@scope": {
     "description": "Scope property"
   },
-  "noPacks": "لا توجد باقات متوفرة حاليا",
+  "noPacks": "لا توجد حُزم متوفرة حاليا",
   "components": "المكونات",
   "waypoint": "نقطة مرجعيه",
   "actions": "الإجراءات",
@@ -1214,16 +1214,16 @@
   },
   "moveLeft": "تحريك لليسار",
   "moveRight": "تحريك لليمين",
-  "bundledPacks": "الباقات المجمعة",
+  "bundledPacks": "الحُزم المجمعة",
   "component": "المكون",
   "@component": {
     "description": "Component object"
   },
   "selectComponent": "حدد المكون",
   "bundlePackInDocument": "اجمع الحُزْمَة في المستند",
-  "bundledPacksDescription": "يتم تضمين الحزم في المستند ولا يمكن استخدامها إلا للمشاركة مع المستند. لا يمكن استخدام الموارد في المستند إلا إذا تم تثبيت الحُزْمَة. يمكن تثبيت الحزم بالنقر عليها.",
+  "bundledPacksDescription": "يتم تضمين الحُزم في المستند ولا يمكن استخدامها إلا للمشاركة مع المستند. لا يمكن استخدام الموارد في المستند إلا إذا تم تثبيت الحُزْمَة. يمكن تثبيت الحُزم بالنقر عليها.",
   "fillAlpha": "شفافية التعبئة",
-  "packagedFile": "ملف الحزمة",
+  "packagedFile": "ملف الحُزْمَة",
   "rawFile": "ملف خام",
   "webSocketDescription": "يقوم جهازك باستضافة الخادم، لذا لا يمكن للمتعاونين الانضمام إلا من الشبكة نفسها أو من أيّ مكان آخر إذا قمت بتوجيه المنفذ على جهاز التوجيه الخاص بك.",
   "swampDescription": "يتم توجيه رسائلك عبر خادم ترحيل آمن مع تشفير من طرف إلى طرف. يلزم وجود عنوان خادم swamp لإنشاء جلسة.",
