@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.3 (2026-01-22)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.0 nightly release.
+
+* Fix toolbar position icon direction issue on rtl layouts
+* Fix foreground will be reset if temporary tool is added
+
+Cherry picks:
+* Add export all packs to dialog
+* Improve long name and tooltip in recent files on other storages
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix color toolbar does not save palette changes
+
+Read more here: https://linwood.dev/butterfly/2.4.3
+
 ## 2.4.2 (2025-12-24)
 
 No changes compared to version 2.4.2-rc.4.
