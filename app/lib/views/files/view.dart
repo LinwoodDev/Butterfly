@@ -311,6 +311,8 @@ class FilesViewState extends State<FilesView> {
                     .toList(),
               ),
               orderButton,
+              if (state.connections.any((e) => e is RemoteStorage))
+                const SyncButton(),
             ];
             final mobileActions = OverflowBar(
               spacing: 4,
