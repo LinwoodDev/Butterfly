@@ -150,22 +150,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (isClosed) return;
     final unbaked = state.cameraViewport.unbakedElements;
     if (unbaked.isEmpty) return;
-    
+
     final rect = getViewportRect();
     final currentVisible = state.cameraViewport.visibleElements;
-    
+
     // Fast path: check if counts match before detailed comparison
     final visible = unbaked.where((e) => e.isVisible(rect)).toList();
     if (visible.length == currentVisible.length &&
         visible.length == unbaked.length) {
       return;
     }
-    
+
     // Use cached equality instance for comparison
     if (_listEquality.equals(visible, currentVisible)) {
       return;
     }
-    
+
     emit(
       state.copyWith(
         cameraViewport: state.cameraViewport.withUnbaked(unbaked, visible),
@@ -184,20 +184,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   ) async {
     final newVisibleList = newViewport.visibleElements;
     if (newVisibleList.isEmpty) return;
-    
+
     final currentVisible = state.cameraViewport.visibleElements.toSet();
-    final newVisible = newVisibleList.where(
-      (e) => !currentVisible.contains(e),
-    ).toList();
-    
+    final newVisible = newVisibleList
+        .where((e) => !currentVisible.contains(e))
+        .toList();
+
     if (newVisible.isEmpty) return;
-    
+
     talker.verbose('Updating visible elements: ${newVisible.length} new');
     final transform = state.transformCubit.state;
     final size = newViewport.toSize();
     await Future.wait(
       newVisible.map(
-        (element) async => await element.onVisible(this, blocState, transform, size),
+        (element) async =>
+            await element.onVisible(this, blocState, transform, size),
       ),
     );
   }
@@ -313,7 +314,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     super.onChange(change);
     final current = change.currentState;
     final next = change.nextState;
-    
+
     // Debounce networking state updates to avoid flooding the network
     if (next.foregrounds != current.foregrounds ||
         next.temporaryForegrounds != current.temporaryForegrounds ||
@@ -324,17 +325,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (!isClosed) _sendNetworkingState();
       });
     }
-    
+
     final currentViewport = current.cameraViewport;
     final newViewport = next.cameraViewport;
-    
+
     // Only notify handlers if viewport actually changed
     if (!identical(currentViewport, newViewport) &&
         currentViewport != newViewport) {
       next.handler.onViewportUpdated(currentViewport, newViewport);
       next.temporaryHandler?.onViewportUpdated(currentViewport, newViewport);
     }
-    
+
     // Schedule image disposal if changed
     final oldImage = currentViewport.image;
     if (oldImage != null && oldImage != newViewport.image) {
@@ -711,12 +712,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.temporaryHandler?.setupForegrounds == true) {
       await Future.wait(
         temporaryForegrounds.map(
-          (e) async => await e.setup(
-            state.transformCubit,
-            document,
-            assetService,
-            page,
-          ),
+          (e) async =>
+              await e.setup(state.transformCubit, document, assetService, page),
         ),
       );
     }
@@ -731,15 +728,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (foregrounds.isNotEmpty && state.handler.setupForegrounds) {
       await Future.wait(
         foregrounds.map(
-          (e) async => await e.setup(
-            state.transformCubit,
-            document,
-            assetService,
-            page,
-          ),
+          (e) async =>
+              await e.setup(state.transformCubit, document, assetService, page),
         ),
       );
     }
+
+    // Check if rendererStates changed and need a bake
+    const mapEq = MapEquality<String, RendererState>();
+    final rendererStates = state.handler.rendererStates;
+    final temporaryRendererStates = state.temporaryHandler?.rendererStates;
+    final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
+    final temporaryStatesChanged = !mapEq.equals(
+      state.temporaryRendererStates,
+      temporaryRendererStates,
+    );
 
     emit(
       state.copyWith(
@@ -747,8 +750,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryForegrounds: temporaryForegrounds,
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
+        rendererStates: statesChanged ? rendererStates : state.rendererStates,
+        temporaryRendererStates: temporaryStatesChanged
+            ? temporaryRendererStates
+            : state.temporaryRendererStates,
       ),
     );
+
+    // If renderer states changed, we need to bake to hide/show original elements
+    if (statesChanged || temporaryStatesChanged) {
+      await bake(blocState, reset: true);
+    }
   }
 
   /// Ultra-lightweight update for cursor changes only.
@@ -899,7 +911,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void removePointer(int pointer) {
     final pointers = state.pointers;
     if (!pointers.contains(pointer)) return;
-    emit(state.copyWith(pointers: pointers.where((p) => p != pointer).toList()));
+    emit(
+      state.copyWith(pointers: pointers.where((p) => p != pointer).toList()),
+    );
   }
 
   Future<Handler?> changeTemporaryHandlerIndex(
@@ -1146,7 +1160,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       );
     }
-    
+
     final newlyHidden = oldVisible
         .where((element) => !visibleElementsSet.contains(element))
         .toList();
@@ -1480,13 +1494,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (var i = 0; i < layersList.length; i++) {
       layerIndexMap[layersList[i]] = i;
     }
-    
+
     // Build element index map for O(1) lookups
     final elementIndexMap = <PadElement, int>{};
     for (var i = 0; i < elements.length; i++) {
       elementIndexMap[elements[i].$1] = i;
     }
-    
+
     final combined = [...reusable, ...newRenderers]
       ..sort((a, b) {
         final layerA = layerIndexMap[a.layer] ?? layersList.length;

@@ -278,7 +278,11 @@ class PenRenderer extends Renderer<PenElement> {
 
   @override
   PathHitCalculator getHitCalculator() {
-    _cachedHitCalculator ??= PathHitCalculator(rect, element.points, rotation * pi / 180);
+    _cachedHitCalculator ??= PathHitCalculator(
+      rect,
+      element.points,
+      rotation * pi / 180,
+    );
     return _cachedHitCalculator!;
   }
 }
@@ -299,17 +303,17 @@ class PathHitCalculator extends HitCalculator {
         (p1.dy > rect.bottom && p2.dy > rect.bottom)) {
       return false;
     }
-    
+
     // Check if either endpoint is inside the rect
     if (rect.contains(p1) || rect.contains(p2)) {
       return true;
     }
-    
+
     // Check intersection with each edge of the rectangle
     // Using parametric line intersection
     final dx = p2.dx - p1.dx;
     final dy = p2.dy - p1.dy;
-    
+
     // Check left edge (x = rect.left)
     if (dx != 0) {
       final t = (rect.left - p1.dx) / dx;
@@ -324,7 +328,7 @@ class PathHitCalculator extends HitCalculator {
         if (y >= rect.top && y <= rect.bottom) return true;
       }
     }
-    
+
     // Check top edge (y = rect.top)
     if (dy != 0) {
       final t = (rect.top - p1.dy) / dy;
@@ -339,7 +343,7 @@ class PathHitCalculator extends HitCalculator {
         if (x >= rect.left && x <= rect.right) return true;
       }
     }
-    
+
     return false;
   }
 
@@ -367,14 +371,14 @@ class PathHitCalculator extends HitCalculator {
     if (!elementRect.overlaps(rect)) {
       return false;
     }
-    
+
     if (points.isEmpty) return false;
-    
+
     if (points.length == 1) {
       final rotated = _rotatePoint(points.first);
       return rect.contains(rotated);
     }
-    
+
     if (full) {
       // All segments must be fully inside the rect
       for (int i = 0; i < points.length - 1; i++) {
@@ -402,7 +406,7 @@ class PathHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     if (points.isEmpty) return false;
-    
+
     if (full) {
       // All points must be inside the polygon
       for (final point in points) {

@@ -1387,7 +1387,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final renderers = state.cameraViewport.visibleElements;
     if (renderers.isEmpty) return {};
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    
+
     final params = _RayCastParams(
       state.invisibleLayers,
       renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
@@ -1397,7 +1397,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       useLayer ? state.currentLayer : null,
       full,
     );
-    
+
     // Use synchronous execution for small element counts to avoid isolate overhead
     final Set<int> result;
     if (renderers.length < 100) {
@@ -1421,7 +1421,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (renderers.isEmpty) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    
+
     final params = _RayCastPolygonParams(
       state.invisibleLayers,
       renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
@@ -1431,7 +1431,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       useLayer ? state.currentLayer : null,
       full,
     );
-    
+
     // Use synchronous execution for small element counts to avoid isolate overhead
     final Set<int> result;
     if (renderers.length < 100) {

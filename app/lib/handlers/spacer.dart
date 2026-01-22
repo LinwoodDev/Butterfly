@@ -66,7 +66,10 @@ class SpacerHandler extends Handler<SpacerTool> {
     _startPosition = (data.axis == Axis2D.horizontal
         ? Offset(_startPosition!.dx, globalPos.dy)
         : Offset(globalPos.dx, _startPosition!.dy));
-    _refreshRenderers(_startPosition!, context).whenComplete(context.refreshForegrounds);
+    _refreshRenderers(
+      _startPosition!,
+      context,
+    ).whenComplete(context.refreshForegrounds);
   }
 
   @override
