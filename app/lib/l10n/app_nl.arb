@@ -30,6 +30,9 @@
   "zoomOut": "Zoom uit",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke breedte",
+  "strokeStyle": "Stroke stijl",
+  "dashLength": "Dash lengte",
+  "gapLength": "Lengte afstand",
   "includeEraser": "Inclusief gum",
   "thinning": "Duiken",
   "pen": "pennen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dubbel",
   "dotted": "Gestippeld",
+  "dottedDark": "Gestippelde donker",
   "dashed": "Onderbroken",
   "wavy": "Golf",
   "fontWeight": "Lettertype gewicht",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Donker",
-  "plainDark": "Donker",
+  "plainDark": "Eenvoudig donker",
   "ruledDark": "Geruïneerd donker",
   "quadDark": "Quad donker",
   "musicDark": "Muziek donker",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Sneltoetsen aanpassen",
+  "clickToSave": "Klik om op te slaan",
+  "toolbars": "Werkbalken",
+  "logs": "Logboeken",
+  "ruledSimple": "Gerecht simpel",
+  "ruledSimpleDark": "Geroegeld simpel donker",
+  "quadSimple": "Quad eenvoudig",
+  "quadSimpleDark": "Quad simpel donker",
+  "redLinedRuled": "Rood lijn geregeerd",
+  "redLinedRuledDark": "Rood lijnd geregeerd donker",
+  "redLinedQuad": "Rode krijt quad",
+  "redLinedQuadDark": "Rode gelederen quad donker",
+  "noItemSelected": "Geen item geselecteerd"
 }

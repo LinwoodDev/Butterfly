@@ -30,6 +30,9 @@
   "zoomOut": "Zoom arrière",
   "resetZoom": "Réinitialiser le zoom",
   "strokeWidth": "Largeur du trait",
+  "strokeStyle": "Style de trait",
+  "dashLength": "Longueur du tiret",
+  "gapLength": "Longueur de l'écartement",
   "includeEraser": "Inclure la gomme ?",
   "thinning": "Amincissement",
   "pen": "Stylo",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Double",
   "dotted": "Pointillé",
+  "dottedDark": "Pointillé foncé",
   "dashed": "Tiret",
   "wavy": "Vague",
   "fontWeight": "Poids de la police",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Sombre",
-  "plainDark": "Sombre",
+  "plainDark": "Assombrir",
   "ruledDark": "Sombre en ruine",
   "quadDark": "Quad sombre",
   "musicDark": "Musique sombre",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximiser",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Personnaliser les raccourcis",
+  "clickToSave": "Cliquez pour enregistrer",
+  "toolbars": "Barres d'outils",
+  "logs": "Journaux",
+  "ruledSimple": "Simplifiez-vous",
+  "ruledSimpleDark": "Noir ruiné simple",
+  "quadSimple": "Quadruple simple",
+  "quadSimpleDark": "Quad simple foncé",
+  "redLinedRuled": "Règle en ligne rouge",
+  "redLinedRuledDark": "La ligne rouge a régné sombre",
+  "redLinedQuad": "Quad en ligne rouge",
+  "redLinedQuadDark": "Quad rouge foncé",
+  "noItemSelected": "Aucun élément sélectionné"
 }

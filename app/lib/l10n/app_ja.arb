@@ -30,6 +30,9 @@
   "zoomOut": "ズームアウト",
   "resetZoom": "Reset zoom",
   "strokeWidth": "ストロークの幅",
+  "strokeStyle": "ストロークのスタイル",
+  "dashLength": "ダッシュの長さ",
+  "gapLength": "ギャップの長さ",
   "includeEraser": "消去を含めますか？",
   "thinning": "薄肉化",
   "pen": "ペン",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "倍精度",
   "dotted": "点線",
+  "dottedDark": "Dotted dark",
   "dashed": "破線",
   "wavy": "Wavy",
   "fontWeight": "フォントの重量",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "ダーク",
-  "plainDark": "ダーク",
+  "plainDark": "真っ暗な",
   "ruledDark": "規則のあるダーク",
   "quadDark": "クワッドダーク",
   "musicDark": "暗い音楽",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "ショートカットのカスタマイズ",
+  "clickToSave": "クリックして保存",
+  "toolbars": "ツールバー",
+  "logs": "ログ",
+  "ruledSimple": "簡単なルール",
+  "ruledSimpleDark": "ルール化されたシンプルなダーク",
+  "quadSimple": "シンプルなクワッド",
+  "quadSimpleDark": "クワッド単純なダーク",
+  "redLinedRuled": "赤色の線が引かれた",
+  "redLinedRuledDark": "赤色の線が暗くなっています",
+  "redLinedQuad": "赤色のラインナップクワッド",
+  "redLinedQuadDark": "赤色のクワッドダーク",
+  "noItemSelected": "アイテムが選択されていません"
 }

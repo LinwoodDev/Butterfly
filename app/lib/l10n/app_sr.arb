@@ -30,6 +30,9 @@
   "zoomOut": "Umanji",
   "resetZoom": "Resetuj zumiranje",
   "strokeWidth": "Debljina linije",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Uključi gumicu?",
   "thinning": "Tanjanje",
   "pen": "Olovka",
@@ -138,6 +141,7 @@
   "solid": "Puna",
   "double": "Dvostruka",
   "dotted": "Tačkasta",
+  "dottedDark": "Dotted dark",
   "dashed": "Isprekidana",
   "wavy": "Talasasta",
   "fontWeight": "Debljina fonta",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tamno",
-  "plainDark": "Tamno",
+  "plainDark": "Plain dark",
   "ruledDark": "Tamne linije",
   "quadDark": "Tamni kvadrati",
   "musicDark": "Tamna muzika",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

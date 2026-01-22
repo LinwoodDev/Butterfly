@@ -30,6 +30,9 @@
   "zoomOut": "Zoom ud",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Slaglængde",
+  "strokeStyle": "Slagstil",
+  "dashLength": "Dash længde",
+  "gapLength": "Afstand længde",
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dobbelt",
   "dotted": "Stiplet",
+  "dottedDark": "Stiftet mørk",
   "dashed": "Stiplet",
   "wavy": "Bølget",
   "fontWeight": "Skrifttype vægt",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Mørk",
-  "plainDark": "Mørk",
+  "plainDark": "Almindelig mørk",
   "ruledDark": "Hersket mørk",
   "quadDark": "Quad mørk",
   "musicDark": "Mørk musik",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Tilpas genveje",
+  "clickToSave": "Klik for at gemme",
+  "toolbars": "Værktøjslinjer",
+  "logs": "Logfiler",
+  "ruledSimple": "Ruleret enkel",
+  "ruledSimpleDark": "Ruleret simpel mørk",
+  "quadSimple": "Quad simpel",
+  "quadSimpleDark": "Quad simpel mørk",
+  "redLinedRuled": "Rød foret regnede",
+  "redLinedRuledDark": "Rød foret regerede mørk",
+  "redLinedQuad": "Rød foret quad",
+  "redLinedQuadDark": "Rød foret quad mørk",
+  "noItemSelected": "Intet element valgt"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "缩放",
   "resetZoom": "Reset zoom",
   "strokeWidth": "笔画宽度",
+  "strokeStyle": "笔画样式",
+  "dashLength": "破折号长度",
+  "gapLength": "间距长度",
   "includeEraser": "包括擦除器？",
   "thinning": "细化",
   "pen": "笔",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "双精度",
   "dotted": "虚线",
+  "dottedDark": "虚线暗色",
   "dashed": "虚线",
   "wavy": "瓦维文",
   "fontWeight": "字体权重",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "深色",
-  "plainDark": "深色",
+  "plainDark": "纯黑色",
   "ruledDark": "限定的暗色",
   "quadDark": "四极暗色",
   "musicDark": "音乐黑色",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "自定义快捷方式",
+  "clickToSave": "单击以保存",
+  "toolbars": "工具栏",
+  "logs": "日志",
+  "ruledSimple": "规则简单的",
+  "ruledSimpleDark": "限定的简单暗色",
+  "quadSimple": "四极简单的",
+  "quadSimpleDark": "四面简单的暗色",
+  "redLinedRuled": "红色下划线",
+  "redLinedRuledDark": "红色下划线暗色",
+  "redLinedQuad": "红线四面体",
+  "redLinedQuadDark": "红线四极暗色",
+  "noItemSelected": "没有选中项目"
 }

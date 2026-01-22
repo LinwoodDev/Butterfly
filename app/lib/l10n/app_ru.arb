@@ -30,6 +30,9 @@
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
   "strokeWidth": "Толщина линии",
+  "strokeStyle": "Стиль обводки",
+  "dashLength": "Длина тире",
+  "gapLength": "Длина разрыва",
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
@@ -138,6 +141,7 @@
   "solid": "Сплошной",
   "double": "Двойной",
   "dotted": "Точечный",
+  "dottedDark": "Точечная темнота",
   "dashed": "Пунктирный",
   "wavy": "Волнистый",
   "fontWeight": "Насыщенность шрифта",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Тёмная",
-  "plainDark": "Тёмная",
+  "plainDark": "Тёмный",
   "ruledDark": "В линейку тёмный",
   "quadDark": "В клетку тёмный",
   "musicDark": "Нотный стан тёмный",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Развернуть",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Настроить ярлыки",
+  "clickToSave": "Нажмите, чтобы сохранить",
+  "toolbars": "Панели инструментов",
+  "logs": "Логи",
+  "ruledSimple": "Простые правила",
+  "ruledSimpleDark": "Простая темнота",
+  "quadSimple": "Простой квад",
+  "quadSimpleDark": "Простой квадрат темный",
+  "redLinedRuled": "Красный выдержанный",
+  "redLinedRuledDark": "Красный выложенный цвет - тёмный",
+  "redLinedQuad": "Красный квадрат",
+  "redLinedQuadDark": "Темный красный квадрат",
+  "noItemSelected": "Не выбрано ни одного элемента"
 }

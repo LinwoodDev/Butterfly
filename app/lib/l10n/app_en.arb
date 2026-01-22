@@ -30,6 +30,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke width",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Double",
   "dotted": "Dotted",
+  "dottedDark": "Dotted dark",
   "dashed": "Dashed",
   "wavy": "Wavy",
   "fontWeight": "Font weight",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Dark",
-  "plainDark": "Dark",
+  "plainDark": "Plain dark",
   "ruledDark": "Ruled dark",
   "quadDark": "Quad dark",
   "musicDark": "Music dark",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

@@ -30,6 +30,9 @@
   "zoomOut": "Perbesar Keluar",
   "resetZoom": "Atur Ulang Pembesaran",
   "strokeWidth": "Lebar Goresan ",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Sertakan Penghapus ",
   "thinning": "Penipisan",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Padat",
   "double": "Ganda",
   "dotted": "Titik-Titik",
+  "dottedDark": "Dotted dark",
   "dashed": "Garis Putus-Putus",
   "wavy": "Berombak",
   "fontWeight": "Ketebalan Huruf",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Dark",
-  "plainDark": "Dark",
+  "plainDark": "Plain dark",
   "ruledDark": "Ruled dark",
   "quadDark": "Quad dark",
   "musicDark": "Music dark",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

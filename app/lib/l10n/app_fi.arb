@@ -30,6 +30,9 @@
   "zoomOut": "Zoomaa ulos",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Aivojen leveys",
+  "strokeStyle": "Stroke tyyli",
+  "dashLength": "Dash pituus",
+  "gapLength": "Vaaran pituus",
   "includeEraser": "Sisällytä tyhjennys?",
   "thinning": "Hehkuminen",
   "pen": "Kynä",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Kaksinkertainen",
   "dotted": "Pisteytetty",
+  "dottedDark": "Pilkullinen tumma",
   "dashed": "Katkoviiva",
   "wavy": "Wavy",
   "fontWeight": "Kirjasimen paino",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tumma",
-  "plainDark": "Tumma",
+  "plainDark": "Tavallinen tumma",
   "ruledDark": "Vedetty tumma",
   "quadDark": "Quad tumma",
   "musicDark": "Musiikki tumma",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Muokkaa pikakuvakkeita",
+  "clickToSave": "Tallenna napsauttamalla",
+  "toolbars": "Työkalupalkit",
+  "logs": "Lokit",
+  "ruledSimple": "Merkitty yksinkertaiseksi",
+  "ruledSimpleDark": "Riisu yksinkertainen tumma",
+  "quadSimple": "Yksinkertainen Quad",
+  "quadSimpleDark": "Quad yksinkertainen tumma",
+  "redLinedRuled": "Punainen vuorattu",
+  "redLinedRuledDark": "Punainen vuorattu hallittu tumma",
+  "redLinedQuad": "Punainen vuorattu quad",
+  "redLinedQuadDark": "Punainen vuorattu quad tumma",
+  "noItemSelected": "Kohdetta ei ole valittu"
 }

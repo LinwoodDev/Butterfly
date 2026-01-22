@@ -30,6 +30,9 @@
   "zoomOut": "Зменшити масштаб",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Ширина штриха",
+  "strokeStyle": "Стиль обведення",
+  "dashLength": "Довжина тире",
+  "gapLength": "Довжина прогалини",
   "includeEraser": "Включати гущаду?",
   "thinning": "Думки",
   "pen": "Ручка",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Подвійний",
   "dotted": "Пунктирна",
+  "dottedDark": "Пунктирна темна",
   "dashed": "Пунктирна",
   "wavy": "Хвилі",
   "fontWeight": "Вага Шрифту",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Темна",
-  "plainDark": "Темна",
+  "plainDark": "Просто темна",
   "ruledDark": "Лінійчата темна",
   "quadDark": "Квад темний",
   "musicDark": "Музика темна",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Налаштування поєднання клавіш",
+  "clickToSave": "Натисніть, щоб зберегти",
+  "toolbars": "Панелі інструментів",
+  "logs": "Логи",
+  "ruledSimple": "Простий",
+  "ruledSimpleDark": "Звичайна темна",
+  "quadSimple": "Простий квадрат",
+  "quadSimpleDark": "Чотирикратна темна",
+  "redLinedRuled": "Рудий вистелений",
+  "redLinedRuledDark": "Червоний колір",
+  "redLinedQuad": "Червоний квад",
+  "redLinedQuadDark": "Темно-червоний квад",
+  "noItemSelected": "Жоден елемент не вибрано"
 }

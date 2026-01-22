@@ -30,6 +30,9 @@
   "zoomOut": "Thu nhỏ",
   "resetZoom": "Đặt lại",
   "strokeWidth": "Độ dày nét",
+  "strokeStyle": "Kiểu gạch",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Bao gồm công cụ tẩy?",
   "thinning": "Làm mảnh",
   "pen": "Bút vẽ",
@@ -138,6 +141,7 @@
   "solid": "Khối",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
+  "dottedDark": "Dotted dark",
   "dashed": "Cắt khúc",
   "wavy": "Dợn sóng",
   "fontWeight": "Kích cỡ phông chữ",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tối",
-  "plainDark": "Trơn tối",
+  "plainDark": "Plain dark",
   "ruledDark": "Dòng tối",
   "quadDark": "Lưới tối",
   "musicDark": "Âm nhạc tối",
@@ -1260,5 +1264,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }
