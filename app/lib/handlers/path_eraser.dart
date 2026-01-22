@@ -29,7 +29,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     _currentPos = event.localPosition;
-    context.refresh(allowBake: false);
+    context.refreshForegrounds();
   }
 
   @override
@@ -49,7 +49,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     EventContext context,
   ) async {
     _currentPos = event.localPosition;
-    context.refresh(allowBake: false);
+    context.refreshForegrounds();
     await _erase(event.localPosition, context);
   }
 

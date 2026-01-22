@@ -134,6 +134,14 @@ class EventContext {
   Future<void> refresh({bool allowBake = true}) =>
       getDocumentBloc().refresh(allowBake: allowBake);
 
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() => getDocumentBloc().refreshForegrounds();
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) =>
+      getDocumentBloc().updateCursor(cursor);
+
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
   ButterflySettings getSettings() => getSettingsCubit().state;

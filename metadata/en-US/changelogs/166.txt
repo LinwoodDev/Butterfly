@@ -1,5 +1,14 @@
 * Improve settings design
 * Move toolbar size setting to view settings
 * Fix deleting characters not working in label tool on some keyboards on android
+* Improve rendering performance on larger documents
+  * Cache paths in PenRenderer and PolygonRenderer during setup
+  * Use lightweight foreground refresh for handlers instead of full rebake
+  * Remove redundant per-frame sorting in ViewPainter
+  * Add early returns for empty renderer lists
+* Improve eraser performance
+  * Replace point interpolation with line segment intersection for hit testing
+  * Cache HitCalculator instances in PenRenderer
+  * Use synchronous rayCast for small element counts
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.1

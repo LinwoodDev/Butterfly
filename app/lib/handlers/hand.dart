@@ -8,13 +8,13 @@ class GeneralHandHandler<T> extends Handler<T> {
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) {
     _moved = false;
-    context.refresh();
+    context.updateCursor(cursor);
   }
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     _moved = true;
-    context.refresh();
+    context.updateCursor(cursor);
     return false;
   }
 

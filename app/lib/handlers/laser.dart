@@ -25,7 +25,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
         _stopTimer();
       }
       // Fade out the elements
-      bloc.refresh();
+      bloc.refreshForegrounds();
     });
   }
 
@@ -94,7 +94,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final elements = indexes.map((e) => _elements.remove(e)).nonNulls.toList();
     if (elements.isEmpty) return;
     _submittedElements.addAll(elements);
-    bloc.refresh();
+    bloc.refreshForegrounds();
   }
 
   @override
@@ -159,7 +159,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
           ),
         ),
     );
-    bloc.refresh();
+    bloc.refreshForegrounds();
     _startTimer(bloc);
   }
 
@@ -167,7 +167,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   void onPointerDown(PointerDownEvent event, EventContext context) {
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    context.refresh();
+    context.refreshForegrounds();
     final currentIndex = context.getCurrentIndex();
     if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       _elements.clear();

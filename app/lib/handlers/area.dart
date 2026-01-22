@@ -80,13 +80,13 @@ class AreaHandler extends Handler<AreaTool> {
       transform.size,
       context.getSettings().touchSensitivity,
     );
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
     _start = null;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -111,7 +111,7 @@ class AreaHandler extends Handler<AreaTool> {
         transform.size,
         context.getSettings().touchSensitivity,
       );
-      context.refresh();
+      context.refreshForegrounds();
       return true;
     }
 
@@ -134,7 +134,7 @@ class AreaHandler extends Handler<AreaTool> {
     if (_selectionManager.isValid) {
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
-      context.refresh();
+      context.refreshForegrounds();
       return;
     }
     final start = _start;
@@ -157,7 +157,7 @@ class AreaHandler extends Handler<AreaTool> {
       }
     }
     _end = globalPos;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override

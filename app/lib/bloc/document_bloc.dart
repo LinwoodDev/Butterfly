@@ -1230,6 +1230,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return current.currentIndexCubit.refresh(current, allowBake: allowBake);
   }
 
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    return current.currentIndexCubit.refreshForegrounds(current);
+  }
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) {
+    state.currentIndexCubit?.updateCursor(cursor);
+  }
+
   Future<void> refreshToolbar() =>
       state.currentIndexCubit?.refreshToolbar(this) ?? Future.value();
 
@@ -1372,19 +1385,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (state is! DocumentLoadSuccess) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     final renderers = state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCast,
-      _RayCastParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        rect,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+    
+    final params = _RayCastParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      rect,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      full,
+    );
+    
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCast(params);
+    } else {
+      result = await compute(_executeRayCast, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
@@ -1397,20 +1418,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     final renderers = state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCastPolygon,
-      _RayCastPolygonParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        points,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+    
+    final params = _RayCastPolygonParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      points,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      full,
+    );
+    
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCastPolygon(params);
+    } else {
+      result = await compute(_executeRayCastPolygon, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   void sendUndo() {

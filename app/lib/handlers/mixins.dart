@@ -75,14 +75,14 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     _currentPos = event.localPosition;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @mustCallSuper
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     _currentPos = event.localPosition;
-    context.refresh();
+    context.refreshForegrounds();
   }
 }
 
@@ -202,7 +202,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     _center = context.isShiftPressed ^ drawFromCenter;
     _currentCollection = context.getState()?.currentCollection ?? '';
 
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -230,7 +230,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
     _firstPos = null;
     _secondPos = null;
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   double get constraintedAspectRatio => 0;

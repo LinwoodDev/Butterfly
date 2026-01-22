@@ -157,7 +157,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       points[0] = points[0].copyWith(pressure: pressure);
     }
     elements[pointer] = element.copyWith(points: points);
-    if (refresh) bloc.refresh();
+    if (refresh) bloc.refreshForegrounds();
   }
 
   // This function is called when the pointer is pressed down.
@@ -171,7 +171,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     startPosition[event.pointer] = event.localPosition;
     if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
-      context.refresh();
+      context.refreshForegrounds();
       return;
     }
     elements.remove(event.pointer);

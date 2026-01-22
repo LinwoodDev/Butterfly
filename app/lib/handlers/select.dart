@@ -443,7 +443,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
-      context.refresh();
+      context.refreshForegrounds();
       return;
     }
     final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
@@ -456,7 +456,7 @@ class SelectHandler extends Handler<SelectTool> {
     } else {
       _lassoFreeSelection = null;
     }
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -511,7 +511,7 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager
       ..updateCurrentPosition(globalPos)
       ..updateCursor(transform.size, context.getSettings().touchSensitivity);
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -573,7 +573,7 @@ class SelectHandler extends Handler<SelectTool> {
     _selected.clear();
     _selected.addAll(state.renderers.where((e) => filter?.call(e) ?? true));
     _updateSelectionRect();
-    bloc.refresh();
+    bloc.refreshForegrounds();
   }
 
   @override
@@ -596,7 +596,7 @@ class SelectHandler extends Handler<SelectTool> {
             ),
           );
           _selected.clear();
-          bloc.refresh();
+          bloc.refreshForegrounds();
           return null;
         },
       ),

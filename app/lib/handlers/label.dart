@@ -117,7 +117,7 @@ class LabelHandler extends Handler<LabelTool>
       _context = _context!.copyWith(
         selection: TextSelection.collapsed(offset: position.offset),
       );
-      context.refresh();
+      context.refreshForegrounds();
     }
     return true;
   }
@@ -140,7 +140,7 @@ class LabelHandler extends Handler<LabelTool>
         ),
       );
       _refreshToolbar(context.getDocumentBloc());
-      context.refresh();
+      context.refreshForegrounds();
     }
   }
 

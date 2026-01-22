@@ -52,7 +52,7 @@ class ImportHandler extends Handler<ImportTool> {
     final state = context.getState();
     if (state == null) return;
     await _load(state.data, state.assetService, state.page);
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override

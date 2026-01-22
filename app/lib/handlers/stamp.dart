@@ -41,7 +41,7 @@ class StampHandler extends PastingHandler<StampTool> {
       );
     }
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
