@@ -549,6 +549,7 @@
   "topRight": "Överst till höger",
   "bottomLeft": "Nere till vänster",
   "bottomRight": "Nere till höger",
+  "zoomPosition": "Zoom control position",
   "caches": "Cacher",
   "manage": "Hantera",
   "@manage": {
