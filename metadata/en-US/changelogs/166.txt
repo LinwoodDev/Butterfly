@@ -2,6 +2,7 @@
 * Move toolbar size setting to view settings
 * Fix deleting characters not working in label tool on some keyboards on android
 * Fix sync button not visible on small screens
+* Remove autofocus from add dialog search to prevent virtual keyboard on mobile
 * Improve rendering performance on larger documents
   * Cache paths in PenRenderer and PolygonRenderer during setup
   * Use lightweight foreground refresh for handlers instead of full rebake

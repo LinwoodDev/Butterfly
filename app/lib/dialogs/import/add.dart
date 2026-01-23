@@ -6,6 +6,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -23,126 +24,147 @@ class AddDialog extends StatefulWidget {
 class _AddDialogState extends State<AddDialog> {
   final ScrollController _filterScrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
   ToolCategory? _category;
 
   @override
   void dispose() {
     _searchController.dispose();
     _filterScrollController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
+  }
+
+  void _handleKeyEvent(KeyEvent event) {
+    if (event is! KeyDownEvent) return;
+    if (_searchFocusNode.hasFocus) return;
+    final character = event.character;
+    if (character != null &&
+        character.isNotEmpty &&
+        !event.logicalKey.keyLabel.startsWith('Arrow')) {
+      _searchFocusNode.requestFocus();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final search = SearchBar(
-      autoFocus: true,
+      focusNode: _searchFocusNode,
       constraints: const BoxConstraints(maxWidth: 350, minHeight: 50),
       leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
       hintText: AppLocalizations.of(context).search,
       controller: _searchController,
     );
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
-          return ResponsiveDialog(
-            constraints: const BoxConstraints(maxWidth: 1050, maxHeight: 1000),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SizedBox(
-                    height: 48,
-                    child: NavigationToolbar(
-                      leading: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton.outlined(
-                            onPressed: () => Navigator.of(context).pop(),
-                            icon: const PhosphorIcon(PhosphorIconsLight.x),
-                            tooltip: MaterialLocalizations.of(
-                              context,
-                            ).closeButtonTooltip,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            AppLocalizations.of(context).add,
-                            style: TextTheme.of(context).headlineSmall,
-                          ),
-                        ],
-                      ),
-                      middle: isMobile ? null : search,
-                      trailing: IconButton(
-                        onPressed: () => openHelp(['add']),
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.sealQuestion,
-                        ),
-                        tooltip: AppLocalizations.of(context).help,
-                      ),
-                    ),
-                  ),
-                ),
-                if (isMobile)
+    return KeyboardListener(
+      onKeyEvent: _handleKeyEvent,
+      focusNode: FocusNode(),
+      autofocus: true,
+      child: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
+            return ResponsiveDialog(
+              constraints: const BoxConstraints(
+                maxWidth: 1050,
+                maxHeight: 1000,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    child: search,
-                  ),
-                const SizedBox(height: 4),
-                Scrollbar(
-                  controller: _filterScrollController,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8,
-                        right: 8,
-                        top: 2,
-                        bottom: 4,
-                      ),
-                      child: SizedBox(
-                        height: 48,
-                        child: ListView(
-                          controller: _filterScrollController,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
+                    padding: const EdgeInsets.all(8),
+                    child: SizedBox(
+                      height: 48,
+                      child: NavigationToolbar(
+                        leading: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            ...ToolCategory.values.map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: ChoiceChip(
-                                  label: Text(e.getLocalizedName(context)),
-                                  showCheckmark: false,
-                                  avatar: PhosphorIcon(
-                                    e.icon(PhosphorIconsStyle.light),
-                                  ),
-                                  onSelected: (selected) => setState(() {
-                                    _category = selected ? e : null;
-                                  }),
-                                  selected: _category == e,
-                                ),
-                              ),
+                            IconButton.outlined(
+                              onPressed: () => Navigator.of(context).pop(),
+                              icon: const PhosphorIcon(PhosphorIconsLight.x),
+                              tooltip: MaterialLocalizations.of(
+                                context,
+                              ).closeButtonTooltip,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              AppLocalizations.of(context).add,
+                              style: TextTheme.of(context).headlineSmall,
                             ),
                           ],
                         ),
+                        middle: isMobile ? null : search,
+                        trailing: IconButton(
+                          onPressed: () => openHelp(['add']),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.sealQuestion,
+                          ),
+                          tooltip: AppLocalizations.of(context).help,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: _buildBody(isMobile),
+                  if (isMobile)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: search,
+                    ),
+                  const SizedBox(height: 4),
+                  Scrollbar(
+                    controller: _filterScrollController,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 2,
+                          bottom: 4,
+                        ),
+                        child: SizedBox(
+                          height: 48,
+                          child: ListView(
+                            controller: _filterScrollController,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              ...ToolCategory.values.map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                  ),
+                                  child: ChoiceChip(
+                                    label: Text(e.getLocalizedName(context)),
+                                    showCheckmark: false,
+                                    avatar: PhosphorIcon(
+                                      e.icon(PhosphorIconsStyle.light),
+                                    ),
+                                    onSelected: (selected) => setState(() {
+                                      _category = selected ? e : null;
+                                    }),
+                                    selected: _category == e,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      child: _buildBody(isMobile),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
