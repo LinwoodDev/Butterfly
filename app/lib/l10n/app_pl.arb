@@ -549,6 +549,7 @@
   "topRight": "Prawy górny róg",
   "bottomLeft": "Lewy dolny róg",
   "bottomRight": "Dolny prawy róg",
+  "zoomPosition": "Zoom control position",
   "caches": "Skrzynki",
   "manage": "Zarządzaj",
   "@manage": {
