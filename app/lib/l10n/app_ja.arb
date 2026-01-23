@@ -549,6 +549,7 @@
   "topRight": "右上へ",
   "bottomLeft": "左下",
   "bottomRight": "右下",
+  "zoomPosition": "Zoom control position",
   "caches": "キャッシュ",
   "manage": "管理",
   "@manage": {
