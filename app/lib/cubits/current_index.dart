@@ -88,7 +88,18 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(false) bool isCreating,
     @Default('') String userName,
+    @Default(false) bool penDetected,
+    @Default(false) bool sessionPenOnlyInput,
   }) = _CurrentIndex;
+
+  /// Returns the effective pen-only input state.
+  /// If the setting is null (auto), uses the session-based state.
+  /// Otherwise uses the persisted setting.
+  bool get effectivePenOnlyInput {
+    final setting = settingsCubit.state.penOnlyInput;
+    if (setting != null) return setting;
+    return sessionPenOnlyInput;
+  }
 
   bool get moveEnabled =>
       (settingsCubit.state.inputGestures && pointers.length > 1) &&
@@ -176,6 +187,28 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void init(DocumentBloc bloc) {
     changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
+  }
+
+  void setPenDetected(bool detected) {
+    if (state.penDetected == detected) return;
+    // When pen is detected and setting is auto (null), enable session pen-only
+    final shouldEnableSessionPenOnly =
+        detected &&
+        state.settingsCubit.state.penOnlyInput == null &&
+        !state.sessionPenOnlyInput;
+    emit(
+      state.copyWith(
+        penDetected: detected,
+        sessionPenOnlyInput: shouldEnableSessionPenOnly
+            ? true
+            : state.sessionPenOnlyInput,
+      ),
+    );
+  }
+
+  void setSessionPenOnlyInput(bool value) {
+    if (state.sessionPenOnlyInput == value) return;
+    emit(state.copyWith(sessionPenOnlyInput: value));
   }
 
   Future<void> _updateOnVisible(

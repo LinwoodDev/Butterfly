@@ -309,7 +309,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
-    @Default(false) bool penOnlyInput,
+    bool? penOnlyInput,
+    @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
@@ -378,7 +379,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
         const [];
     return ButterflySettings(
       localeTag: prefs.getString('locale') ?? '',
-      penOnlyInput: prefs.getBool('pen_only_input') ?? false,
+      penOnlyInput: prefs.containsKey('pen_only_input')
+          ? prefs.getBool('pen_only_input')
+          : null,
+      showPenOnlyToggle: prefs.getBool('show_pen_only_toggle') ?? true,
       inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
@@ -538,7 +542,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setBool('pen_only_input', penOnlyInput);
+    if (penOnlyInput != null) {
+      await prefs.setBool('pen_only_input', penOnlyInput!);
+    }
+    await prefs.setBool('show_pen_only_toggle', showPenOnlyToggle);
     await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
@@ -736,13 +743,19 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changePenOnlyInput(bool penOnlyInput) {
+  Future<void> changePenOnlyInput(bool? penOnlyInput) {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
     return save();
   }
 
-  Future<void> resetPenOnlyInput() {
-    emit(state.copyWith(penOnlyInput: false));
+  Future<void> resetPenOnlyInput() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('pen_only_input');
+    emit(state.copyWith(penOnlyInput: null));
+  }
+
+  Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
+    emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));
     return save();
   }
 

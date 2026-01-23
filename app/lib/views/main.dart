@@ -34,6 +34,7 @@ import '../actions/color_palette.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
 import '../api/changes.dart';
+import 'pen_only_toggle.dart';
 import 'view.dart';
 import 'zoom.dart';
 
@@ -565,7 +566,19 @@ class _MainBody extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
-                                              ZoomView(isMobile: isMobile),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  const PenOnlyToggle(),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: ZoomView(
+                                                      isMobile: isMobile,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                               if (currentIndex.hideUi ==
                                                   HideState.touch)
                                                 FloatingActionButton.small(
