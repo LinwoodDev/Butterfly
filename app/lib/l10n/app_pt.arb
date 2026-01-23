@@ -549,6 +549,7 @@
   "topRight": "Superior direito",
   "bottomLeft": "Inferior esquerdo",
   "bottomRight": "Inferior direito",
+  "zoomPosition": "Zoom control position",
   "caches": "Arquivos temporários",
   "manage": "Gerir",
   "@manage": {
