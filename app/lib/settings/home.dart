@@ -132,39 +132,49 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     );
 
-    if (isMobile) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Header(
-            leading: IconButton.outlined(
-              icon: const PhosphorIcon(PhosphorIconsLight.x),
-              onPressed: () => Navigator.of(context).pop(),
-              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-            ),
-            title: Text(AppLocalizations.of(context).settings),
-          ),
-          ListView(
-            shrinkWrap: true,
-            children: SettingsView.values.where((e) => e.isEnabled).map((view) {
-              return ListTile(
-                leading: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
-                title: Text(view.getLocalizedName(context)),
-                onTap: () => context.push(view.path),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 16),
-        ],
-      );
-    }
+    final child = isMobile
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.isDialog)
+                Header(
+                  leading: IconButton.outlined(
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
+                    onPressed: () => Navigator.of(context).pop(),
+                    tooltip: MaterialLocalizations.of(
+                      context,
+                    ).closeButtonTooltip,
+                  ),
+                  title: Text(AppLocalizations.of(context).settings),
+                ),
+              ListView(
+                shrinkWrap: true,
+                children: SettingsView.values.where((e) => e.isEnabled).map((
+                  view,
+                ) {
+                  return ListTile(
+                    leading: PhosphorIcon(view.icon(PhosphorIconsStyle.light)),
+                    title: Text(view.getLocalizedName(context)),
+                    onTap: () => context.push(view.path),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 16),
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              drawer,
+              Expanded(child: content),
+            ],
+          );
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        drawer,
-        Expanded(child: content),
-      ],
+    if (widget.isDialog) return child;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(AppLocalizations.of(context).settings)),
+      body: child,
     );
   }
 }
