@@ -152,6 +152,7 @@ class ViewPainter extends CustomPainter {
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
+      canvas.drawColor(Colors.white, BlendMode.src);
       for (final e in cameraViewport.backgrounds) {
         e.build(canvas, size, document, page, info, transform, colorScheme);
       }

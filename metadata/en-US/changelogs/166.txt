@@ -1,3 +1,4 @@
+* Fix non-zero exit code when app closes
 * Improve settings design
 * Add option to move the zoom view and add reset zoom button
 * Move toolbar size setting to view settings
@@ -17,6 +18,7 @@
   * Add pen-only input toggle button that appears when a pen is detected
   * Make pen-only input setting tri-state (Automatic, Always on, Always off)
   * Auto-enable pen-only mode for the current session when a stylus is detected in automatic mode
+* Reintroduce white background if no background is set
 
 Changes merged from 2.4.3 hotfix:
 * Fix toolbar position icon direction issue on rtl layouts
