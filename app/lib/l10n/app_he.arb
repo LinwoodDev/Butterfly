@@ -549,6 +549,7 @@
   "topRight": "ימין למעלה",
   "bottomLeft": "שמאל למטה",
   "bottomRight": "ימין למטה",
+  "zoomPosition": "Zoom control position",
   "caches": "מטמונים",
   "manage": "נהל",
   "@manage": {
