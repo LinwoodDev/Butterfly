@@ -549,6 +549,7 @@
   "topRight": "Arriba derecha",
   "bottomLeft": "Bottom izquierdo",
   "bottomRight": "Botón derecho",
+  "zoomPosition": "Zoom control position",
   "caches": "Cachés",
   "manage": "Gestionar",
   "@manage": {
