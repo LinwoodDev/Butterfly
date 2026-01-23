@@ -257,6 +257,20 @@ enum ToolbarPosition {
   };
 }
 
+enum ZoomPosition {
+  topRight,
+  topLeft,
+  bottomRight,
+  bottomLeft;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    ZoomPosition.topRight => AppLocalizations.of(context).topRight,
+    ZoomPosition.topLeft => AppLocalizations.of(context).topLeft,
+    ZoomPosition.bottomRight => AppLocalizations.of(context).bottomRight,
+    ZoomPosition.bottomLeft => AppLocalizations.of(context).bottomLeft,
+  };
+}
+
 enum OptionsPanelPosition {
   top,
   bottom;
@@ -318,6 +332,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @JsonKey(includeFromJson: false, includeToJson: false)
     List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
+    @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
     String? lastVersion,
     @Default([])
     @JsonKey(includeFromJson: false, includeToJson: false)
@@ -728,6 +743,14 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> resetOptionsPanelPosition() =>
       changeOptionsPanelPosition(OptionsPanelPosition.top);
+
+  Future<void> changeZoomPosition(ZoomPosition position) {
+    emit(state.copyWith(zoomPosition: position));
+    return save();
+  }
+
+  Future<void> resetZoomPosition() =>
+      changeZoomPosition(ZoomPosition.bottomRight);
 
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));

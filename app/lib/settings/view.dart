@@ -41,6 +41,19 @@ class ViewSettingsPage extends StatelessWidget {
                             .read<SettingsCubit>()
                             .changeZoomEnabled(value),
                       ),
+                      if (state.zoomEnabled)
+                        ListTile(
+                          leading: const PhosphorIcon(
+                            PhosphorIconsLight.cornersOut,
+                          ),
+                          title: Text(
+                            AppLocalizations.of(context).zoomPosition,
+                          ),
+                          subtitle: Text(
+                            state.zoomPosition.getLocalizedName(context),
+                          ),
+                          onTap: () => _openZoomPositionModal(context),
+                        ),
                       SwitchListTile(
                         value: state.startInFullScreen,
                         onChanged: (value) => context
@@ -295,6 +308,34 @@ class ViewSettingsPage extends StatelessWidget {
               }),
               onTap: () {
                 cubit.changeSimpleToolbarVisibility(e);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _openZoomPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.zoomPosition;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).zoomPosition),
+      childrenBuilder: (context) => ZoomPosition.values
+          .map(
+            (e) => ListTile(
+              title: Text(e.getLocalizedName(context)),
+              selected: currentPos == e,
+              leading: Icon(switch (e) {
+                ZoomPosition.topRight => PhosphorIconsLight.arrowUpRight,
+                ZoomPosition.topLeft => PhosphorIconsLight.arrowUpLeft,
+                ZoomPosition.bottomRight => PhosphorIconsLight.arrowDownRight,
+                ZoomPosition.bottomLeft => PhosphorIconsLight.arrowDownLeft,
+              }, textDirection: TextDirection.ltr),
+              onTap: () {
+                cubit.changeZoomPosition(e);
                 Navigator.of(context).pop();
               },
             ),

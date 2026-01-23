@@ -78,6 +78,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       BannerVisibility.always,
   zoomEnabled: json['zoomEnabled'] as bool? ?? true,
+  zoomPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
+      ZoomPosition.bottomRight,
   lastVersion: json['lastVersion'] as String?,
   defaultRemote: json['defaultRemote'] as String? ?? '',
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
@@ -193,6 +196,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
+  'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
   'lastVersion': instance.lastVersion,
   'defaultRemote': instance.defaultRemote,
   'nativeTitleBar': instance.nativeTitleBar,
@@ -257,6 +261,13 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$ZoomPositionEnumMap = {
+  ZoomPosition.topRight: 'topRight',
+  ZoomPosition.topLeft: 'topLeft',
+  ZoomPosition.bottomRight: 'bottomRight',
+  ZoomPosition.bottomLeft: 'bottomLeft',
 };
 
 const _$IgnorePressureEnumMap = {

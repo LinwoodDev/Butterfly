@@ -5,6 +5,8 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
@@ -142,6 +144,21 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                         },
                                         onFieldSubmitted: (value) =>
                                             zoom(scale),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Tooltip(
+                                      message: AppLocalizations.of(
+                                        context,
+                                      ).resetZoom,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          PhosphorIconsLight
+                                              .clockCounterClockwise,
+                                        ),
+                                        onPressed: () {
+                                          zoom(1.0);
+                                        },
                                       ),
                                     ),
                                     if (!widget.isMobile) ...[

@@ -1,4 +1,5 @@
 * Improve settings design
+* Add option to move the zoom view and add reset zoom button
 * Move toolbar size setting to view settings
 * Fix deleting characters not working in label tool on some keyboards on android
 * Fix sync button not visible on small screens

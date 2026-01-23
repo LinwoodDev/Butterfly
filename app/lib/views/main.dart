@@ -466,168 +466,201 @@ class _MainBody extends StatelessWidget {
             previous.selection != current.selection ||
             previous.hideUi != current.hideUi,
         builder: (context, currentIndex) => BlocBuilder<WindowCubit, WindowState>(
-          builder: (context, windowState) =>
-              BlocBuilder<SettingsCubit, ButterflySettings>(
-                buildWhen: (previous, current) =>
-                    previous.toolbarPosition != current.toolbarPosition ||
-                    previous.toolbarSize != current.toolbarSize ||
-                    previous.toolbarRows != current.toolbarRows ||
-                    previous.navigationRail != current.navigationRail ||
-                    previous.navigatorPosition != current.navigatorPosition ||
-                    previous.optionsPanelPosition !=
-                        current.optionsPanelPosition,
-                builder: (context, settings) {
-                  final pos = settings.toolbarPosition;
-                  final optPos = settings.optionsPanelPosition;
-                  return LayoutBuilder(
-                    builder: (context, constraints) {
-                      // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
-                      final Iterable<FlutterView> windowViews =
-                          PlatformDispatcher.instance.views;
-                      final double bottomInset = windowViews.isEmpty
-                          ? 0
-                          : windowViews.first.viewInsets.bottom /
-                                windowViews.first.devicePixelRatio;
-                      final bool isMobile =
-                          constraints.maxWidth < LeapBreakpoints.compact;
-                      final bool isLarge =
-                          constraints.maxWidth >= LeapBreakpoints.expanded &&
-                          (constraints.maxHeight + bottomInset) >= 400;
-                      final toolbar = EditToolbar(
-                        isMobile: isMobile,
-                        centered: true,
-                        direction: pos.axis,
-                      );
-                      final showNavigator =
-                          isLarge &&
-                          settings.navigationRail &&
-                          !windowState.fullScreen &&
-                          state is DocumentLoadSuccess &&
-                          currentIndex.hideUi == HideState.visible;
-                      return Stack(
+          builder: (context, windowState) => BlocBuilder<SettingsCubit, ButterflySettings>(
+            buildWhen: (previous, current) =>
+                previous.toolbarPosition != current.toolbarPosition ||
+                previous.toolbarSize != current.toolbarSize ||
+                previous.toolbarRows != current.toolbarRows ||
+                previous.navigationRail != current.navigationRail ||
+                previous.navigatorPosition != current.navigatorPosition ||
+                previous.optionsPanelPosition != current.optionsPanelPosition ||
+                previous.zoomPosition != current.zoomPosition,
+            builder: (context, settings) {
+              final pos = settings.toolbarPosition;
+              final optPos = settings.optionsPanelPosition;
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
+                  final Iterable<FlutterView> windowViews =
+                      PlatformDispatcher.instance.views;
+                  final double bottomInset = windowViews.isEmpty
+                      ? 0
+                      : windowViews.first.viewInsets.bottom /
+                            windowViews.first.devicePixelRatio;
+                  final bool isMobile =
+                      constraints.maxWidth < LeapBreakpoints.compact;
+                  final bool isLarge =
+                      constraints.maxWidth >= LeapBreakpoints.expanded &&
+                      (constraints.maxHeight + bottomInset) >= 400;
+                  final toolbar = EditToolbar(
+                    isMobile: isMobile,
+                    centered: true,
+                    direction: pos.axis,
+                  );
+                  final showNavigator =
+                      isLarge &&
+                      settings.navigationRail &&
+                      !windowState.fullScreen &&
+                      state is DocumentLoadSuccess &&
+                      currentIndex.hideUi == HideState.visible;
+                  return Stack(
+                    children: [
+                      const MainViewViewport(),
+                      Listener(
+                        behavior:
+                            currentIndex.pinned ||
+                                currentIndex.selection == null
+                            ? HitTestBehavior.translucent
+                            : HitTestBehavior.opaque,
+                        onPointerUp: (details) {
+                          if (currentIndex.pinned) return;
+                          context.read<CurrentIndexCubit>().resetSelection();
+                        },
+                      ),
+                      Row(
+                        textDirection: TextDirection.ltr,
                         children: [
-                          const MainViewViewport(),
-                          Listener(
-                            behavior:
-                                currentIndex.pinned ||
-                                    currentIndex.selection == null
-                                ? HitTestBehavior.translucent
-                                : HitTestBehavior.opaque,
-                            onPointerUp: (details) {
-                              if (currentIndex.pinned) return;
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .resetSelection();
-                            },
-                          ),
-                          Row(
-                            textDirection: TextDirection.ltr,
-                            children: [
-                              if (showNavigator &&
-                                  settings.navigatorPosition ==
-                                      NavigatorPosition.left)
-                                const NavigatorView(),
-                              if (pos == ToolbarPosition.left &&
-                                  !isMobile &&
-                                  currentIndex.hideUi == HideState.visible)
-                                toolbar,
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    if ((((windowState.fullScreen ||
-                                                        settings.toolbarRows >
-                                                            1) &&
-                                                    pos ==
-                                                        ToolbarPosition
-                                                            .inline ||
-                                                pos == ToolbarPosition.top) &&
-                                            !isMobile) &&
-                                        currentIndex.hideUi ==
-                                            HideState.visible)
-                                      toolbar,
-                                    if (optPos == OptionsPanelPosition.top &&
-                                        currentIndex.hideUi ==
-                                            HideState.visible)
-                                      const ToolbarView(),
-                                    const Expanded(
-                                      child: Align(
+                          if (showNavigator &&
+                              settings.navigatorPosition ==
+                                  NavigatorPosition.left)
+                            const NavigatorView(),
+                          if (pos == ToolbarPosition.left &&
+                              !isMobile &&
+                              currentIndex.hideUi == HideState.visible)
+                            toolbar,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                if ((((windowState.fullScreen ||
+                                                    settings.toolbarRows > 1) &&
+                                                pos == ToolbarPosition.inline ||
+                                            pos == ToolbarPosition.top) &&
+                                        !isMobile) &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  toolbar,
+                                if (optPos == OptionsPanelPosition.top &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  const ToolbarView(),
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      const Align(
                                         alignment: Alignment.topRight,
                                         child: PropertyView(),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: SizedBox(
-                                          width: isMobile ? 100 : 400,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  const PenOnlyToggle(),
-                                                  const SizedBox(width: 8),
-                                                  Expanded(
-                                                    child: ZoomView(
-                                                      isMobile: isMobile,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              if (currentIndex.hideUi ==
-                                                  HideState.touch)
-                                                FloatingActionButton.small(
-                                                  tooltip: AppLocalizations.of(
-                                                    context,
-                                                  ).exit,
-                                                  child: const Icon(
-                                                    PhosphorIconsLight.door,
-                                                  ),
-                                                  onPressed: () {
-                                                    context
-                                                        .read<
-                                                          CurrentIndexCubit
-                                                        >()
-                                                        .exitHideUI();
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Align(
+                                          alignment:
+                                              switch (settings.zoomPosition) {
+                                                ZoomPosition.topRight =>
+                                                  Alignment.topRight,
+                                                ZoomPosition.topLeft =>
+                                                  Alignment.topLeft,
+                                                ZoomPosition.bottomRight =>
+                                                  Alignment.bottomRight,
+                                                ZoomPosition.bottomLeft =>
+                                                  Alignment.bottomLeft,
+                                              },
+                                          child: SizedBox(
+                                            width: isMobile ? 100 : 400,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  switch (settings
+                                                      .zoomPosition) {
+                                                    ZoomPosition.topRight ||
+                                                    ZoomPosition.bottomRight =>
+                                                      CrossAxisAlignment.end,
+                                                    ZoomPosition.topLeft ||
+                                                    ZoomPosition.bottomLeft =>
+                                                      CrossAxisAlignment.start,
+                                                  },
+                                              children: [
+                                                Builder(
+                                                  builder: (context) {
+                                                    final isLeft =
+                                                        settings.zoomPosition ==
+                                                            ZoomPosition
+                                                                .topLeft ||
+                                                        settings.zoomPosition ==
+                                                            ZoomPosition
+                                                                .bottomLeft;
+                                                    final children = [
+                                                      const PenOnlyToggle(),
+                                                      const SizedBox(width: 8),
+                                                      Expanded(
+                                                        child: ZoomView(
+                                                          isMobile: isMobile,
+                                                        ),
+                                                      ),
+                                                    ];
+                                                    return Row(
+                                                      mainAxisAlignment: isLeft
+                                                          ? MainAxisAlignment
+                                                                .start
+                                                          : MainAxisAlignment
+                                                                .end,
+                                                      children: isLeft
+                                                          ? children.reversed
+                                                                .toList()
+                                                          : children,
+                                                    );
                                                   },
                                                 ),
-                                            ],
+                                                if (currentIndex.hideUi ==
+                                                    HideState.touch)
+                                                  FloatingActionButton.small(
+                                                    tooltip:
+                                                        AppLocalizations.of(
+                                                          context,
+                                                        ).exit,
+                                                    child: const Icon(
+                                                      PhosphorIconsLight.door,
+                                                    ),
+                                                    onPressed: () {
+                                                      context
+                                                          .read<
+                                                            CurrentIndexCubit
+                                                          >()
+                                                          .exitHideUI();
+                                                    },
+                                                  ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    if (optPos == OptionsPanelPosition.bottom &&
-                                        currentIndex.hideUi ==
-                                            HideState.visible)
-                                      const ToolbarView(),
-                                    if ((isMobile ||
-                                            pos == ToolbarPosition.bottom) &&
-                                        currentIndex.hideUi ==
-                                            HideState.visible)
-                                      toolbar,
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              if (pos == ToolbarPosition.right &&
-                                  currentIndex.hideUi == HideState.visible)
-                                toolbar,
-                              if (showNavigator &&
-                                  settings.navigatorPosition ==
-                                      NavigatorPosition.right)
-                                const NavigatorView(),
-                            ],
+
+                                if (optPos == OptionsPanelPosition.bottom &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  const ToolbarView(),
+                                if ((isMobile ||
+                                        pos == ToolbarPosition.bottom) &&
+                                    currentIndex.hideUi == HideState.visible)
+                                  toolbar,
+                              ],
+                            ),
                           ),
+                          if (pos == ToolbarPosition.right &&
+                              currentIndex.hideUi == HideState.visible)
+                            toolbar,
+                          if (showNavigator &&
+                              settings.navigatorPosition ==
+                                  NavigatorPosition.right)
+                            const NavigatorView(),
                         ],
-                      );
-                    },
+                      ),
+                    ],
                   );
                 },
-              ),
+              );
+            },
+          ),
         ),
       ),
     );
