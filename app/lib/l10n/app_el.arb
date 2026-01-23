@@ -549,6 +549,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
+  "zoomPosition": "Zoom control position",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
   "@manage": {
