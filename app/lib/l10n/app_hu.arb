@@ -549,6 +549,7 @@
   "topRight": "Jobb felső",
   "bottomLeft": "Bal alsó",
   "bottomRight": "Jobb alsó",
+  "zoomPosition": "Zoom control position",
   "caches": "Gyorsítótárak",
   "manage": "Kezelés",
   "@manage": {
