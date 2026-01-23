@@ -164,10 +164,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "087a9fadef20325cb246b4c13344a3ce8e408acfc3e0c665ebff0ec3144d7163"
+      sha256: a600b60a7752cc5fa9de476cd0055539d7a3b9d62662f4f446bae49eba2267df
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.22+8"
+    version: "0.9.22+9"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -228,10 +228,10 @@ packages:
     dependency: transitive
     description:
       name: code_assets
-      sha256: ae0db647e668cbb295a3527f0938e4039e004c80099dce2f964102373f5ce0b5
+      sha256: "83ccdaa064c980b5596c35dd64a8d3ecc68620174ab9b90b6343b753aa721687"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.10"
+    version: "1.0.0"
   code_builder:
     dependency: transitive
     description:
@@ -635,10 +635,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: "5410b9f4f6c9f01e8ff0eb81c9801ea13a3c3d39f8f0b1613cda08e27eab3c18"
+      sha256: "5d309c86e7ce34cd8e37aa71cb30cb652d3829b900ab145e4d9da564b31d59f7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.20.5"
+    version: "1.0.0"
   html:
     dependency: transitive
     description:
@@ -675,10 +675,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "532a6a39ddf03271954b2b4d4551d5bb1160fa17cb11330cf2fd6d57a1f0ea1f"
+      sha256: "7dcec5fa6bef3be4666384a28527e1476a84e0e3b72c44d9cfde9d2417bd1769"
       url: "https://pub.dev"
     source: hosted
-    version: "2.8.0"
+    version: "2.8.1"
   image:
     dependency: "direct main"
     description:
@@ -894,10 +894,10 @@ packages:
     dependency: transitive
     description:
       name: native_toolchain_c
-      sha256: f8872ea6c7a50ce08db9ae280ca2b8efdd973157ce462826c82f3c3051d154ce
+      sha256: "89e83885ba09da5fdf2cdacc8002a712ca238c28b7f717910b34bcd27b0d03ac"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.2"
+    version: "0.17.4"
   nested:
     dependency: transitive
     description:
@@ -961,10 +961,10 @@ packages:
     dependency: transitive
     description:
       name: objective_c
-      sha256: "55eb67ede1002d9771b3f9264d2c9d30bc364f0267bc1c6cc0883280d5f0c7cb"
+      sha256: "7fd0c4d8ac8980011753b9bdaed2bf15111365924cdeeeaeb596214ea2b03537"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.2"
+    version: "9.2.4"
   one_dollar_unistroke_recognizer:
     dependency: "direct main"
     description:
@@ -1374,10 +1374,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "585bc140f20da42c584ece2df28f4d9ef2566955332b626f655957b3a8c8ad54"
+      sha256: "1d562a3c1f713904ebbed50d2760217fd8a51ca170ac4b05b0db490699dbac17"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.2"
+    version: "4.2.0"
   source_helper:
     dependency: transitive
     description:
@@ -1472,34 +1472,34 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: c300f9ea5f5433b2db03b6ff61224f25e024ad94b0b6ed996f61686118ae68ec
+      sha256: a9a76f677905bc5cf62ace21a6eea49303cf06ac187bcad52b2004f0b9623fd7
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.11"
+    version: "5.1.12"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       name: talker_bloc_logger
-      sha256: "07d7af1c1263ed27eeefebb14028e098754690062656bc6ded092c4a3a2d70f2"
+      sha256: "8b74e5dc1ff24f935d012f4930bbfc1f963e51a1691f16e2a6941e6615fbe7fc"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.11"
+    version: "5.1.12"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "5010a5309c8ff2910407634d38415576a52e689bd631378d0882db5d2e129a31"
+      sha256: "93a287fd7f5a898de6b4b02a5def9acd1cda73ff3f2aa9873877a0cefa943281"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.11"
+    version: "5.1.12"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "6ae95df093f1eabd2827b2e2d72c96ca881acb47dd19456beb1b1e589304916e"
+      sha256: da3d91c36bad10838cba5123b6bdf7d4310411f8f7500539ce364deda3550ac6
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.11"
+    version: "5.1.12"
   term_glyph:
     dependency: transitive
     description:

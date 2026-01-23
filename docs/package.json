@@ -12,12 +12,12 @@
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
-    "@astrojs/starlight": "^0.37.2",
+    "@astrojs/starlight": "^0.37.3",
     "@linwooddev/style": "github:LinwoodDev/style#efbdf8f05d4ef1cf6fec65c90194d30b68b3c64e&path:/packages/web",
     "@phosphor-icons/react": "^2.1.10",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.9",
+    "astro": "^5.16.14",
     "katex": "^0.16.27",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
@@ -27,10 +27,10 @@
     "remark-math": "^6.0.0",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@10.28.1",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
-    "sass": "^1.97.2",
+    "sass": "^1.97.3",
     "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.2.0",
     "workbox-window": "^7.4.0"

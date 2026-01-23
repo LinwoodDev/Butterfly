@@ -49,12 +49,32 @@ Thanks for @JerryMerweather for contributing the new templates!
 Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
 
+## 2.4.3 (2026-01-22)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.0 nightly release.
+
+* Fix toolbar position icon direction issue on rtl layouts
+* Fix foreground will be reset if temporary tool is added
+
+Cherry picks:
+* Add export all packs to dialog
+* Improve long name and tooltip in recent files on other storages
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix color toolbar does not save palette changes
+
+Read more here: https://linwood.dev/butterfly/2.4.3
+
 ## 2.4.2 (2025-12-24)
 
 No changes compared to version 2.4.2-rc.4.
 
 This is a stable release, it includes all the changes from the 2.4.2 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.4.2
+
+
+<details>
+ <summary>2.4.2 Nightly Changelog</summary>
 
 ## 2.4.2-rc.4 (2025-12-19)
 
@@ -137,12 +157,17 @@ Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
 
+</details>
+
 ## 2.4.1 (2025-11-13)
 
 No changes compared to version 2.4.1-rc.4.
 
 This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.4.1
+
+<details>
+ <summary>2.4.1 Nightly Changelog</summary>
 
 ## 2.4.1-rc.4 (2025-11-10)
 
@@ -234,6 +259,8 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.0
 
+</details>
+
 ## 2.4.0 (2025-09-22)
 
 Changes since 2.3.0-rc.1:
@@ -241,6 +268,9 @@ Changes since 2.3.0-rc.1:
 
 This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3
+
+<details>
+ <summary>2.4 Nightly Changelog</summary>
 
 ## 2.4.0-rc.4 (2025-09-19)
 
@@ -371,6 +401,8 @@ Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
 
+</details>
+
 ## 2.3.4 (2025-08-21)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
@@ -423,6 +455,9 @@ Changes since 2.3.1-rc.1:
 This is a stable release, it includes all the changes from the 2.3.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3.1
 
+<details>
+ <summary>2.3.1 Nightly Changelog</summary>
+
 ## 2.3.1-rc.1 (2025-05-12)
 
 * Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
@@ -457,6 +492,8 @@ Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.3.1-rc.0
 
+</details>
+
 ## 2.3.0 (2025-04-20)
 
 Happy Easter! 🐰
@@ -466,6 +503,9 @@ Changes since 2.3.0-rc.1:
 
 This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3
+
+<details>
+ <summary>2.3 Nightly Changelog</summary>
 
 ## 2.3.0-rc.1 (2025-04-16)
 
@@ -663,6 +703,8 @@ Read more here: https://linwood.dev/butterfly/2.3.0-beta.1
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
 
+</details>
+
 ## 2.2.4 (2025-01-13)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.3.0-beta.0 nightly release.
@@ -689,6 +731,9 @@ Merry Christmas! 🎄
 
 This is a stable release, it includes all the changes from the 2.2.3 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.3
+
+<details>
+ <summary>2.2.3 Nightly Changelog</summary>
 
 ## 2.2.3-rc.2 (2024-12-20)
 
@@ -764,6 +809,8 @@ Read more here: https://linwood.dev/butterfly/2.2.3-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.0
 
+</details>
+
 ## 2.2.2 (2024-11-11)
 
 * Fix loading screen showing after error
@@ -772,6 +819,9 @@ Read more here: https://linwood.dev/butterfly/2.2.3-rc.0
 
 This is a stable release, it includes all the changes from the 2.2.2 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.2
+
+<details>
+ <summary>2.2.2 Nightly Changelog</summary>
 
 ## 2.2.2-rc.1 (2024-11-04)
 
@@ -810,10 +860,16 @@ Read more here: https://linwood.dev/butterfly/2.2.2-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.2.2-rc.0
 
+</details>
+
 ## 2.2.1 (2024-10-17)
 
 This is a stable release, it includes all the changes from the 2.2.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.1
+
+
+<details>
+ <summary>2.2.1 Nightly Changelog</summary>
 
 ## 2.2.1-rc.1 (2024-10-14)
 
@@ -852,6 +908,8 @@ Read more here: https://linwood.dev/butterfly/2.2.1-rc.1
 * Fix selection not updated when elements changed
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
+
+</details>
 
 ## 2.2.0 (2024-09-28)
 
@@ -989,6 +1047,9 @@ Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.1.1
 
+<details>
+ <summary>2.1.1 Nightly Changelog</summary>
+
 ## 2.1.1-rc.2 (2024-06-03)
 
 * Show no elements message when document search is empty
@@ -1042,6 +1103,8 @@ Visit the new docs here: https://butterfly.linwood.dev
 * Fix context buttons in template dialog closes the dialog
 
 Read more here: https://linwood.dev/butterfly/2.1.1-rc.0
+
+</details>
 
 ## 2.1.0 (2024-05-10)
 
@@ -1240,6 +1303,9 @@ Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.3
 
+<details>
+ <summary>2.0.3 Nightly Changelog</summary>
+
 ## 2.0.3-rc.1 (2024-02-12)
 
 * Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))
@@ -1265,11 +1331,16 @@ Read more here: https://linwood.dev/butterfly/2.0.3-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
 
+</details>
+
 ## 2.0.2 (2024-01-29)
 
 Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
+
+<details>
+ <summary>2.0.2 Nightly Changelog</summary>
 
 ## 2.0.2-rc.0 (2024-01-22)
 
@@ -1282,11 +1353,16 @@ See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
 
 Read more here: https://linwood.dev/butterfly/2.0.2-rc.0
 
+</details>
+
 ## 2.0.1 (2024-01-15)
 
 Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.1
+
+<details>
+ <summary>2.0.1 Nightly Changelog</summary>
 
 ## 2.0.1-rc.1 (2024-01-08)
 
@@ -1322,6 +1398,8 @@ See all changes since the last stable here: https://linwood.dev/butterfly/2.0.1
 * Fix display icon
 * Fix spread pages settings not being saved
 * Fix app link on android
+
+</details>
 
 ## 2.0.0 (2023-12-24)
 
