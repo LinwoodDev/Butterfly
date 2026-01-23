@@ -549,6 +549,7 @@
   "topRight": "Øverst til høyre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til høyre",
+  "zoomPosition": "Zoom control position",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
