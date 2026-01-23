@@ -549,6 +549,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
+  "zoomPosition": "Zoom control position",
   "caches": "المخبآت",
   "manage": "إدارة",
   "@manage": {
