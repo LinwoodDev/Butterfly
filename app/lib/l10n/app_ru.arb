@@ -549,6 +549,7 @@
   "topRight": "Сверху справа",
   "bottomLeft": "Снизу слева",
   "bottomRight": "Снизу справа",
+  "zoomPosition": "Zoom control position",
   "caches": "Кеш",
   "manage": "Управлять",
   "@manage": {
