@@ -549,6 +549,7 @@
   "topRight": "Bo regs",
   "bottomLeft": "Onder links",
   "bottomRight": "Onder regs",
+  "zoomPosition": "Zoom control position",
   "caches": "Kasse",
   "manage": "Bestuur",
   "@manage": {
