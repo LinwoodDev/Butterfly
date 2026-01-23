@@ -549,6 +549,7 @@
   "topRight": "Sağ üst",
   "bottomLeft": "Sol alt",
   "bottomRight": "Sağ alt",
+  "zoomPosition": "Zoom control position",
   "caches": "Önbellek",
   "manage": "Yönet",
   "@manage": {
