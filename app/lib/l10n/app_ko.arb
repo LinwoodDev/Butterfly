@@ -549,6 +549,7 @@
   "topRight": "오른쪽 위",
   "bottomLeft": "왼쪽 아래",
   "bottomRight": "오른쪽 아래",
+  "zoomPosition": "Zoom control position",
   "caches": "캐시",
   "manage": "관리",
   "@manage": {
