@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:butterfly/api/close.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +34,8 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
   void onWindowClose() async {
     final message = _onClose();
     if (message == null) {
-      windowManager.destroy();
-      return;
+      await windowManager.destroy();
+      exit(0);
     }
     final result = await showDialog<bool>(
       context: context,
@@ -54,6 +55,7 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
       ),
     );
     if (result != true) return;
-    windowManager.destroy();
+    await windowManager.destroy();
+    exit(0);
   }
 }
