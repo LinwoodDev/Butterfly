@@ -549,6 +549,7 @@
   "topRight": "บนขวา",
   "bottomLeft": "ล่างซ้าย",
   "bottomRight": "ล่างขวา",
+  "zoomPosition": "Zoom control position",
   "caches": "แคช",
   "manage": "จัดการ",
   "@manage": {
