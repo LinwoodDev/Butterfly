@@ -549,6 +549,7 @@
   "topRight": "Gore desno",
   "bottomLeft": "Dole levo",
   "bottomRight": "Dole desno",
+  "zoomPosition": "Zoom control position",
   "caches": "Keš memorije",
   "manage": "Upravljaj",
   "@manage": {
