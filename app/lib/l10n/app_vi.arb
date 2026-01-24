@@ -549,6 +549,7 @@
   "topRight": "Trên phải",
   "bottomLeft": "Dưới trái",
   "bottomRight": "Dưới phải",
+  "zoomPosition": "Zoom control position",
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
   "@manage": {
