@@ -549,6 +549,7 @@
   "topRight": "ऊपर दाएँ",
   "bottomLeft": "नीचे बाएँ",
   "bottomRight": "नीचे दाएँ",
+  "zoomPosition": "Zoom control position",
   "caches": "कैश",
   "manage": "प्रबंधित करें",
   "@manage": {
