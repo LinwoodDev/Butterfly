@@ -221,6 +221,13 @@ class ButterflyFileSystem {
     return system;
   }
 
+  ExternalStorage? _cacheAllStorage(ExternalStorage? storage, String variant) {
+    if (storage is! RemoteStorage) {
+      return storage;
+    }
+    return storage.copyWith.pinnedPaths.put(variant, ['/']);
+  }
+
   TypedKeyFileSystem<NoteData> buildTemplateSystem([
     ExternalStorage? storage,
     bool forceRecreate = false,
@@ -234,7 +241,7 @@ class ButterflyFileSystem {
       _templateConfig,
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
-      storage: storage,
+      storage: _cacheAllStorage(storage, _templateConfig.variant),
     );
     _templateCache[key] = system;
     return system;
@@ -253,7 +260,7 @@ class ButterflyFileSystem {
       _packConfig,
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
-      storage: storage,
+      storage: _cacheAllStorage(storage, _packConfig.variant),
       createDefault: _createDefaultPacks,
     );
     _packCache[key] = system;

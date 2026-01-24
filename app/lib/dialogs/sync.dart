@@ -67,7 +67,7 @@ class _SyncDialogState extends State<SyncDialog> {
                           canTapOnHeader: true,
                           isExpanded: _openedPanels.contains(entry.key),
                           headerBuilder: (context, isExpanded) => ListTile(
-                            title: Text(entry.value.remoteStorage.identifier),
+                            title: Text(entry.value.storage.identifier),
                             leading: StreamBuilder<SyncStatus>(
                               stream: entry.value.statusStream,
                               builder: (context, snapshot) => IconButton(
@@ -101,8 +101,8 @@ class _RemoteSyncView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<SyncFile>>(
-      stream: sync.filesStream,
+    return StreamBuilder<RemoteSyncState>(
+      stream: sync.stateStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
@@ -113,71 +113,109 @@ class _RemoteSyncView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        if (!snapshot.hasData) {
+        final state = snapshot.data;
+        if (state == null) {
           return Align(
             alignment: Alignment.center,
             child: Text(AppLocalizations.of(context).noElements),
           );
         }
-        final files = snapshot.data!;
+
+        // Collect all files from all file system types
+        final allFiles = <(SyncFileSystemType, SyncFile)>[];
+        for (final type in SyncFileSystemType.values) {
+          for (final file in state.files[type] ?? <SyncFile>[]) {
+            allFiles.add((type, file));
+          }
+        }
+
+        if (allFiles.isEmpty) {
+          return Align(
+            alignment: Alignment.center,
+            child: Text(AppLocalizations.of(context).synced),
+          );
+        }
+
         return ListView.builder(
-          itemCount: files.length,
+          itemCount: allFiles.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            final file = files[index];
-            return Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    title: Text(file.location.path),
-                    subtitle: Text(file.status.getLocalizedName(context)),
-                    leading: PhosphorIcon(file.status.getIcon()),
-                  ),
-                  if (file.status == FileSyncStatus.conflict) ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            sync.resolve(
-                              file.location.path,
-                              FileSyncStatus.localLatest,
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context).keepLocal),
-                        ),
-                        const SizedBox(width: 8),
-                        TextButton(
-                          onPressed: () {
-                            sync.resolve(
-                              file.location.path,
-                              FileSyncStatus.remoteLatest,
-                            );
-                          },
-                          child: Text(
-                            AppLocalizations.of(context).keepConnection,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        TextButton(
-                          onPressed: () {
-                            sync.resolve(
-                              file.location.path,
-                              FileSyncStatus.conflict,
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context).keepBoth),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            );
+            final (type, file) = allFiles[index];
+            return _SyncFileCard(sync: sync, fileSystemType: type, file: file);
           },
         );
       },
+    );
+  }
+}
+
+class _SyncFileCard extends StatelessWidget {
+  final RemoteSync sync;
+  final SyncFileSystemType fileSystemType;
+  final SyncFile file;
+
+  const _SyncFileCard({
+    required this.sync,
+    required this.fileSystemType,
+    required this.file,
+  });
+
+  String _getFileSystemTypeLabel(BuildContext context) {
+    return switch (fileSystemType) {
+      SyncFileSystemType.documents => AppLocalizations.of(context).document,
+      SyncFileSystemType.templates => AppLocalizations.of(context).templates,
+      SyncFileSystemType.packs => AppLocalizations.of(context).packs,
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: Text(file.location.path),
+            subtitle: Text(
+              '${_getFileSystemTypeLabel(context)} • ${file.status.getLocalizedName(context)}',
+            ),
+            leading: PhosphorIcon(file.status.getIcon()),
+          ),
+          if (file.status == FileSyncStatus.conflict) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => sync.resolveConflict(
+                    fileSystemType,
+                    file.location.path,
+                    ConflictResolution.keepLocal,
+                  ),
+                  child: Text(AppLocalizations.of(context).keepLocal),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  onPressed: () => sync.resolveConflict(
+                    fileSystemType,
+                    file.location.path,
+                    ConflictResolution.keepRemote,
+                  ),
+                  child: Text(AppLocalizations.of(context).keepConnection),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  onPressed: () => sync.resolveConflict(
+                    fileSystemType,
+                    file.location.path,
+                    ConflictResolution.keepBoth,
+                  ),
+                  child: Text(AppLocalizations.of(context).keepBoth),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

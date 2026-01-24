@@ -64,7 +64,6 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  ExternalStorage? _remote;
   ImportService? _importService;
   ExportService? _exportService;
   final SearchController _searchController = SearchController();
@@ -92,7 +91,12 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final windowCubit = context.read<WindowCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
-    final documentSystem = fileSystem.buildDocumentSystem(_remote);
+    var location = widget.location;
+    final absolute = widget.absolute;
+    final remote = location != null
+        ? settingsCubit.state.getRemote(location.remote)
+        : settingsCubit.state.getDefaultRemote();
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     final embedding = widget.embedding;
     if (embedding != null) {
       var language = embedding.language;
@@ -107,11 +111,6 @@ class _ProjectPageState extends State<ProjectPage> {
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
       final globalImportService = ImportService(context);
-      var location = widget.location;
-      final absolute = widget.absolute;
-      _remote = location != null
-          ? settingsCubit.state.getRemote(location.remote)
-          : settingsCubit.state.getDefaultRemote();
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
@@ -139,7 +138,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final defaultTemplate = settingsCubit.state.defaultTemplate;
       if (document == null) {
         var template = await fileSystem
-            .buildTemplateSystem(_remote)
+            .buildTemplateSystem(remote)
             .getDefaultFile(defaultTemplate);
         if (template != null && mounted) {
           defaultDocument = template.createDocument(
@@ -193,7 +192,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (document == null) {
         final template =
             await fileSystem
-                .buildTemplateSystem(_remote)
+                .buildTemplateSystem(remote)
                 .getDefaultFile(defaultTemplate) ??
             await DocumentDefaults.createTemplate();
         document = template.createDocument(
@@ -223,7 +222,7 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
-        remote: _remote?.identifier ?? '',
+        remote: remote?.identifier ?? '',
       );
       setState(() {
         _transformCubit = transformCubit;

@@ -1,3 +1,4 @@
+* Rewrite remote webdav file system
 * Fix non-zero exit code when app closes
 * Improve settings design
 * Add option to move the zoom view and add reset zoom button

@@ -1877,6 +1877,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return _savingLock.synchronized(() async {
       var current = location ?? state.location;
+      if (isClosed) {
+        return current;
+      }
       emit(
         state.copyWith(
           saved: SaveState.saving,
@@ -1886,6 +1889,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       final blocState = bloc.state;
       final currentData = await blocState.saveData();
+      if (isClosed) {
+        return current;
+      }
       if (currentData == null || blocState.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
         return AssetLocation.empty;
@@ -1911,6 +1917,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await fileSystem.updateFile(current.path, file);
       }
       state.settingsCubit.addRecentHistory(current);
+      if (isClosed) {
+        return current;
+      }
       emit(
         state.copyWith(
           saved: state.saved == SaveState.saving

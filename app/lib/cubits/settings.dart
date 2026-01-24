@@ -924,10 +924,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            final documents = List<String>.from(
+              e.pinnedPaths['documents'] ?? [],
+            );
             return e.copyWith(
-              cachedDocuments: {
-                '': documents
+              pinnedPaths: {
+                'documents': documents
                   ..removeWhere((element) => element == current)
                   ..add(current),
               },
@@ -945,10 +947,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            final documents = List<String>.from(
+              e.pinnedPaths['documents'] ?? [],
+            );
             return e.copyWith(
-              cachedDocuments: {
-                '': documents..removeWhere((element) => element == current),
+              pinnedPaths: {
+                'documents': documents
+                  ..removeWhere((element) => element == current),
               },
             );
           }

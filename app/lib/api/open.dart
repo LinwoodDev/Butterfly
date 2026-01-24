@@ -103,12 +103,15 @@ Future<void> openFile(
   AssetLocation location, [
   Object? data,
 ]) {
+  final fileType = location.fileType?.name;
   if (location.isRemote) {
     final pathParams = {
       'remote': location.remote,
       'path': location.pathWithoutLeadingSlash,
     };
-    final queryParams = {'type': location.fileType?.name};
+    final queryParams = <String, String>{
+      if (fileType != null) 'type': fileType,
+    };
     if (replace) {
       return GoRouter.of(context).pushReplacementNamed(
         'remote',
@@ -126,7 +129,9 @@ Future<void> openFile(
     }
   }
   final pathParams = {'path': location.pathWithoutLeadingSlash};
-  final queryParams = {'type': location.fileType?.name};
+  final queryParams = <String, String>{
+    if (fileType != null) 'type': fileType,
+  };
   if (replace) {
     return GoRouter.of(context).pushReplacementNamed(
       'local',

@@ -163,7 +163,9 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                           final storage =
                               state.getRemote(identifier) as RemoteStorage?;
                           final isRootCached =
-                              storage?.cachedDocuments['']?.contains('/') ??
+                              storage?.pinnedPaths['documents']?.contains(
+                                '/',
+                              ) ??
                               false;
                           return CheckboxListTile(
                             value: isRootCached,
@@ -230,7 +232,7 @@ class _CachesConnectionSettingsView extends StatelessWidget {
         if (storage == null || storage is! RemoteStorage) {
           return Center(child: Text(AppLocalizations.of(context).noElements));
         }
-        final cached = storage.cachedDocuments[''] ?? <String>[];
+        final cached = storage.pinnedPaths['documents'] ?? <String>[];
         return Align(
           alignment: Alignment.center,
           child: ConstrainedBox(
