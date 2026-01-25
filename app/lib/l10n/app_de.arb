@@ -549,7 +549,7 @@
   "topRight": "Oben rechts",
   "bottomLeft": "Unten links",
   "bottomRight": "Unten rechts",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Position der Zoomkontrolle",
   "caches": "Caches",
   "manage": "Verwalten",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Automatisch aktivieren, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
+  "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
+  "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Immer an",
+  "alwaysOff": "Immer aus",
+  "showPenOnlyToggle": "Nur Stift anzeigen",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
