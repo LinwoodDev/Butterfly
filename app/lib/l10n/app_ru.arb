@@ -549,7 +549,7 @@
   "topRight": "Сверху справа",
   "bottomLeft": "Снизу слева",
   "bottomRight": "Снизу справа",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Управлять масштабом",
   "caches": "Кеш",
   "manage": "Управлять",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
+  "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
+  "automatic": "Автоматически",
+  "alwaysOn": "Всегда включен",
+  "alwaysOff": "Всегда выкл",
+  "showPenOnlyToggle": "Показывать переключатель только пера",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
