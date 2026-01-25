@@ -549,7 +549,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Θέση ελέγχου εστίασης",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας μόνο στυλό όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
+  "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
+  "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
+  "automatic": "Αυτόματο",
+  "alwaysOn": "Πάντα ενεργό",
+  "alwaysOff": "Πάντα ανενεργό",
+  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο πένας",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
