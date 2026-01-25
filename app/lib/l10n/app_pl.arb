@@ -549,7 +549,7 @@
   "topRight": "Prawy górny róg",
   "bottomLeft": "Lewy dolny róg",
   "bottomRight": "Dolny prawy róg",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Pozycja sterowania powiększeniem",
   "caches": "Skrzynki",
   "manage": "Zarządzaj",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko piór, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
+  "penOnlyInputOnDescription": "Zawsze odrzucaj dane wejściowe dotyku i myszki, akceptuj tylko dane wejściowe rysika.",
+  "penOnlyInputOffDescription": "Akceptuj wszystkie typy danych wejściowych, w tym dotyk, mysz i styl.",
+  "automatic": "Automatyczne",
+  "alwaysOn": "Zawsze włączony",
+  "alwaysOff": "Zawsze wyłączone",
+  "showPenOnlyToggle": "Pokaż tylko pióro",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
