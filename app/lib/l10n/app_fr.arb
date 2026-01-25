@@ -549,7 +549,7 @@
   "topRight": "En haut à droite",
   "bottomLeft": "En bas à gauche",
   "bottomRight": "En bas à droite",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Position de contrôle du zoom",
   "caches": "Caches",
   "manage": "Gérer",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Active automatiquement le mode stylet uniquement quand un stylet est détecté. Ce paramètre ne dure que pour la session en cours.",
+  "penOnlyInputOnDescription": "Toujours rejeter la touche et la souris, n'accepter que l'entrée stylet.",
+  "penOnlyInputOffDescription": "Accepter tous les types d'entrée, y compris le toucher, la souris et le stylet.",
+  "automatic": "Automatique",
+  "alwaysOn": "Toujours allumé",
+  "alwaysOff": "Toujours éteint",
+  "showPenOnlyToggle": "Afficher uniquement le bouton du stylet",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
