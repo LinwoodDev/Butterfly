@@ -549,7 +549,7 @@
   "topRight": "Vpravo nahoře",
   "bottomLeft": "Vlevo dole",
   "bottomRight": "Vpravo dole",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Poloha ovládání přiblížení",
   "caches": "Cache",
   "manage": "Spravovat",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Automaticky povolit režim pouze pro pen-only pokud je rozpoznán perus. Toto nastavení trvá pouze pro aktuální relaci.",
+  "penOnlyInputOnDescription": "Vždy odmítnout dotyk a vstup myši, přijmout pouze stylus vstupu.",
+  "penOnlyInputOffDescription": "Přijmout všechny typy vstupů včetně dotyku, myši a stylu.",
+  "automatic": "Automaticky",
+  "alwaysOn": "Vždy zapnuto",
+  "alwaysOff": "Vždy vypnuto",
+  "showPenOnlyToggle": "Zobrazit pouze přepínač pera",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
