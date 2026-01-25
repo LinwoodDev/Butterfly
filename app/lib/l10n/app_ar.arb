@@ -549,7 +549,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "تكبير موقع التحكم",
   "caches": "المخبآت",
   "manage": "إدارة",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "تمكين وضع p-فقط تلقائياً عندما يتم الكشف عن قوة. هذا الإعداد يدوم فقط للدورة الحالية.",
+  "penOnlyInputOnDescription": "رفض دائماً مدخلات اللمس والفأرة ، وقبول مدخلات الأسلاك فقط.",
+  "penOnlyInputOffDescription": "قبول جميع أنواع الإدخال بما في ذلك اللمس والفأرة والأسلوب.",
+  "automatic": "تلقائي",
+  "alwaysOn": "دائماً مفعل",
+  "alwaysOff": "إيقاف دائمًا",
+  "showPenOnlyToggle": "إظهار تبديل القلم فقط",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
