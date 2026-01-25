@@ -549,7 +549,7 @@
   "topRight": "Dreapta sus",
   "bottomLeft": "Stânga jos",
   "bottomRight": "Jos dreapta",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Poziție control zoom",
   "caches": "Geocutii",
   "manage": "Gestionează",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Activează automat modul pen-only atunci când un stylus este detectat. Această setare durează numai pentru sesiunea curentă.",
+  "penOnlyInputOnDescription": "Respingeți întotdeauna intrarea tactilei și a mouse-ului, acceptă doar input de stylus.",
+  "penOnlyInputOffDescription": "Acceptă toate tipurile de intrare, inclusiv atingerea, mouse-ul și stylusul.",
+  "automatic": "Automat",
+  "alwaysOn": "Mereu activ",
+  "alwaysOff": "Întotdeauna oprit",
+  "showPenOnlyToggle": "Arată doar comutator pentru stilou",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
