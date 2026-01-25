@@ -549,7 +549,7 @@
   "topRight": "Arriba derecha",
   "bottomLeft": "Bottom izquierdo",
   "bottomRight": "Botón derecho",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Posición de control de zoom",
   "caches": "Cachés",
   "manage": "Gestionar",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Activa automáticamente el modo de solo pluma cuando se detecta un código. Este ajuste solo dura la sesión actual.",
+  "penOnlyInputOnDescription": "Siempre rechazar el toque y la entrada del ratón, sólo aceptar la entrada del estilo.",
+  "penOnlyInputOffDescription": "Acepta todos los tipos de entrada, incluyendo toque, ratón y estilo.",
+  "automatic": "Automático",
+  "alwaysOn": "Siempre encendido",
+  "alwaysOff": "Siempre apagado",
+  "showPenOnlyToggle": "Mostrar sólo alternar lápiz",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
