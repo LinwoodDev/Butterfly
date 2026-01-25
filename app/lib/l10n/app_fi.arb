@@ -549,7 +549,7 @@
   "topRight": "Oikea yläreuna",
   "bottomLeft": "Vasen alareuna",
   "bottomRight": "Oikea alareuna",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Zoomauksen ohjauksen sijainti",
   "caches": "Kätköt",
   "manage": "Hallitse",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Ota käyttöön automaattisesti vain kynä-tila kun stylus havaitaan. Tämä asetus kestää vain nykyisen istunnon.",
+  "penOnlyInputOnDescription": "Hylkää aina kosketus ja hiiren syöte, vain hyväksy stylus syöte.",
+  "penOnlyInputOffDescription": "Hyväksy kaikki syöttötyypit, mukaan lukien kosketus, hiiri ja tyyli.",
+  "automatic": "Automaattinen",
+  "alwaysOn": "Aina päällä",
+  "alwaysOff": "Aina pois",
+  "showPenOnlyToggle": "Näytä vain kynän vaihto",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
