@@ -549,7 +549,7 @@
   "topRight": "Överst till höger",
   "bottomLeft": "Nere till vänster",
   "bottomRight": "Nere till höger",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Zooma kontrollposition",
   "caches": "Cacher",
   "manage": "Hantera",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Aktivera automatiskt pennläge när en penna upptäcks. Denna inställning varar endast för den aktuella sessionen.",
+  "penOnlyInputOnDescription": "Avvisa alltid beröring och musinmatning, acceptera bara stylus ingång.",
+  "penOnlyInputOffDescription": "Acceptera alla inmatningstyper inklusive touch, mus och penna.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Alltid på",
+  "alwaysOff": "Alltid av",
+  "showPenOnlyToggle": "Visa endast penna",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
