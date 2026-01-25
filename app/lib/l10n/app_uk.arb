@@ -549,7 +549,7 @@
   "topRight": "Зверху праворуч",
   "bottomLeft": "Внизу ліворуч",
   "bottomRight": "Нижній правий",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Позиція керування масштабом",
   "caches": "Кеш",
   "manage": "Керування",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Автоматично вмикати режим тільки, коли виявлено стиль. Це налаштування триває лише для поточного сесії.",
+  "penOnlyInputOnDescription": "Завжди відхиляти дотик та мишу, приймати лише перус введення.",
+  "penOnlyInputOffDescription": "Приймати всі типи вводу, включаючи дотик, мишу та стилюс.",
+  "automatic": "Автоматично",
+  "alwaysOn": "Завжди увімкнено",
+  "alwaysOff": "Завжди вимкнено",
+  "showPenOnlyToggle": "Показати тільки переключити ручку",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
