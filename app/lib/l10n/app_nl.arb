@@ -549,7 +549,7 @@
   "topRight": "Boven rechts",
   "bottomLeft": "Links onder",
   "bottomRight": "Onder rechts",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Zoom bedieningspositie",
   "caches": "Caches",
   "manage": "Beheren",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Schakel 'Alleen pen-modus' automatisch in wanneer een stylus wordt gedetecteerd. Deze instelling geldt alleen voor de huidige sessie.",
+  "penOnlyInputOnDescription": "Aanraken en muisaanvoer altijd weigeren, alleen stylus invoeren.",
+  "penOnlyInputOffDescription": "Accepteer alle invoertypes zoals aanraken, muis en stijlus.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Altijd aan",
+  "alwaysOff": "Altijd uitgeschakeld",
+  "showPenOnlyToggle": "Toon alleen penschakelaar",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
