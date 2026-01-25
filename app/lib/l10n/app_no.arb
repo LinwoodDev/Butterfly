@@ -549,7 +549,7 @@
   "topRight": "Øverst til høyre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til høyre",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Zoom kontrollposisjon",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Aktiverer pennemodus automatisk når en penn oppdages. Denne innstillingen varer bare for den gjeldende økten.",
+  "penOnlyInputOnDescription": "Alltid avvis berøring og museinngang, bare godta penneinndata.",
+  "penOnlyInputOffDescription": "Godta alle inndatatyper, inkludert berøring, mus og stil.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Alltid på",
+  "alwaysOff": "Alltid av",
+  "showPenOnlyToggle": "Vis kun penn",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
