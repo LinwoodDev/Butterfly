@@ -549,7 +549,7 @@
   "topRight": "右上",
   "bottomLeft": "左下",
   "bottomRight": "右下",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "缩放控制位置",
   "caches": "缓存",
   "manage": "管理",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "检测到触发笔时自动启用纯笔模式。此设置仅持续当前会话。",
+  "penOnlyInputOnDescription": "总是拒绝触摸和鼠标输入，只接受触摸笔输入。",
+  "penOnlyInputOffDescription": "接受所有输入类型，包括触摸、鼠标和样式。",
+  "automatic": "自动的",
+  "alwaysOn": "总是开启",
+  "alwaysOff": "总是关闭",
+  "showPenOnlyToggle": "只显示画笔开关",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
