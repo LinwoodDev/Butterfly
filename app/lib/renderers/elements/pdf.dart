@@ -58,12 +58,6 @@ class PdfRenderer extends Renderer<PdfElement> {
         renderRect,
         paint,
       );
-      canvas.drawRect(
-        rect,
-        paint
-          ..strokeWidth = 5
-          ..style = PaintingStyle.stroke,
-      );
     }
   }
 

@@ -26,7 +26,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -85,7 +84,6 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  ExternalStorage? _remote;
   ImportService? _importService;
   ExportService? _exportService;
   final SearchController _searchController = SearchController();
@@ -137,7 +135,12 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final windowCubit = context.read<WindowCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
-    final documentSystem = fileSystem.buildDocumentSystem(_remote);
+    var location = widget.location;
+    final absolute = widget.absolute;
+    final remote = location != null
+        ? settingsCubit.state.getRemote(location.remote)
+        : settingsCubit.state.getDefaultRemote();
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     final embedding = widget.embedding;
     if (embedding != null) {
       var language = embedding.language;
@@ -152,11 +155,6 @@ class _ProjectPageState extends State<ProjectPage> {
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
       final globalImportService = ImportService(context);
-      var location = widget.location;
-      final absolute = widget.absolute;
-      _remote = location != null
-          ? settingsCubit.state.getRemote(location.remote)
-          : settingsCubit.state.getDefaultRemote();
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
@@ -171,30 +169,24 @@ class _ProjectPageState extends State<ProjectPage> {
         data = await networkingService.createClient(uri, connectionTechnology);
         type = '';
       }
-      if (data != null) {
-        document ??= await globalImportService
-            .load(type: type, data: data)
-            .then((e) => e?.export());
-        if (document == null) {
-          GoRouter.of(context).pop();
-        }
-      }
       final name = absolute ? location!.fileNameWithoutExtension : '';
       NoteData? defaultDocument;
       final defaultTemplate = settingsCubit.state.defaultTemplate;
-      if (document == null) {
-        var template = await fileSystem
-            .buildTemplateSystem(_remote)
-            .getDefaultFile(defaultTemplate);
-        if (template != null && mounted) {
-          defaultDocument = template.createDocument(
-            name: name,
-            createdAt: DateTime.now(),
-            disablePages: true,
-          );
-        }
+      final template = await fileSystem.buildTemplateSystem().getDefaultFile(
+        defaultTemplate,
+      );
+      if (template != null && mounted) {
+        defaultDocument = template.createDocument(
+          name: name,
+          createdAt: DateTime.now(),
+        );
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      if (data != null) {
+        document ??= await globalImportService
+            .load(type: type, data: data, document: defaultDocument)
+            .then((e) => e?.export());
+      }
       if (location != null && location.path.isNotEmpty && document == null) {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
@@ -202,6 +194,7 @@ class _ProjectPageState extends State<ProjectPage> {
           if (asset is FileSystemFile<NoteFile>) {
             final NoteData? noteData = await globalImportService
                 .load(
+                  document: defaultDocument,
                   type: widget.type.isEmpty
                       ? (fileType ?? widget.type)
                       : widget.type,
@@ -238,7 +231,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (document == null) {
         final template =
             await fileSystem
-                .buildTemplateSystem(_remote)
+                .buildTemplateSystem(remote)
                 .getDefaultFile(defaultTemplate) ??
             await DocumentDefaults.createTemplate();
         document = template.createDocument(
@@ -268,7 +261,7 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
-        remote: _remote?.identifier ?? '',
+        remote: remote?.identifier ?? '',
       );
       setState(() {
         _transformCubit = transformCubit;
@@ -300,6 +293,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (kDebugMode) {
         print(e);
       }
+      if (!mounted) return;
       setState(() {
         _transformCubit = TransformCubit(pixelRatio);
         _currentIndexCubit = CurrentIndexCubit(

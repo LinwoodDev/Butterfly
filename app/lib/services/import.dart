@@ -815,6 +815,10 @@ class ImportService {
       final documentPages = <(String?, DocumentPage)>[];
       var y = firstPos.dy;
       var current = 0;
+      final state = bloc?.state;
+      final backgrounds = state is DocumentLoadSuccess
+          ? state.page.backgrounds
+          : (document.getPage()?.backgrounds ?? const <Background>[]);
 
       for (var i = 0; i < pages.length; i++) {
         var raster = elements[pages[i]];
@@ -848,6 +852,7 @@ class ImportService {
                   DocumentLayer(content: [element], id: createUniqueId()),
                 ],
                 areas: [if (createAreas) area],
+                backgrounds: backgrounds,
               ),
             ));
           } else {
