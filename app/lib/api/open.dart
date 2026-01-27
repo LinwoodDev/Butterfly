@@ -129,9 +129,7 @@ Future<void> openFile(
     }
   }
   final pathParams = {'path': location.pathWithoutLeadingSlash};
-  final queryParams = <String, String>{
-    if (fileType != null) 'type': fileType,
-  };
+  final queryParams = <String, String>{if (fileType != null) 'type': fileType};
   if (replace) {
     return GoRouter.of(context).pushReplacementNamed(
       'local',

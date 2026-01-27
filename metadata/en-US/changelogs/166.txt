@@ -21,6 +21,8 @@
   * Auto-enable pen-only mode for the current session when a stylus is detected in automatic mode
 * Reintroduce white background if no background is set
 * Fix Android intent handling causing empty documents on resume and not updating on new intent
+* Fix importing assets does not use default template
+* Remove border for pdf pages
 
 Changes merged from 2.4.3 hotfix:
 * Fix toolbar position icon direction issue on rtl layouts

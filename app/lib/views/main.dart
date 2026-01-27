@@ -25,7 +25,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -125,30 +124,24 @@ class _ProjectPageState extends State<ProjectPage> {
         data = await networkingService.createClient(uri, connectionTechnology);
         type = '';
       }
-      if (data != null) {
-        document ??= await globalImportService
-            .load(type: type, data: data)
-            .then((e) => e?.export());
-        if (document == null) {
-          GoRouter.of(context).pop();
-        }
-      }
       final name = absolute ? location!.fileNameWithoutExtension : '';
       NoteData? defaultDocument;
       final defaultTemplate = settingsCubit.state.defaultTemplate;
-      if (document == null) {
-        var template = await fileSystem
-            .buildTemplateSystem(remote)
-            .getDefaultFile(defaultTemplate);
-        if (template != null && mounted) {
-          defaultDocument = template.createDocument(
-            name: name,
-            createdAt: DateTime.now(),
-            disablePages: true,
-          );
-        }
+      final template = await fileSystem
+          .buildTemplateSystem(remote)
+          .getDefaultFile(defaultTemplate);
+      if (template != null && mounted) {
+        defaultDocument = template.createDocument(
+          name: name,
+          createdAt: DateTime.now(),
+        );
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      if (data != null) {
+        document ??= await globalImportService
+            .load(type: type, data: data, document: defaultDocument)
+            .then((e) => e?.export());
+      }
       if (location != null && location.path.isNotEmpty && document == null) {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
@@ -156,6 +149,7 @@ class _ProjectPageState extends State<ProjectPage> {
           if (asset is FileSystemFile<NoteFile>) {
             final NoteData? noteData = await globalImportService
                 .load(
+                  document: defaultDocument,
                   type: widget.type.isEmpty
                       ? (fileType ?? widget.type)
                       : widget.type,
