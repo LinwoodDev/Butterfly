@@ -549,6 +549,7 @@
   "topRight": "Øverst til høyre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til høyre",
+  "zoomPosition": "Zoom kontrollposisjon",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Mappe synkronisert",
   "syncRootDirectory": "Synkroniser rotkatalogen",
   "penOnlyInput": "Pennen er kun inndata",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Aktiverer pennemodus automatisk når en penn oppdages. Denne innstillingen varer bare for den gjeldende økten.",
+  "penOnlyInputOnDescription": "Alltid avvis berøring og museinngang, bare godta penneinndata.",
+  "penOnlyInputOffDescription": "Godta alle inndatatyper, inkludert berøring, mus og stil.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Alltid på",
+  "alwaysOff": "Alltid av",
+  "showPenOnlyToggle": "Vis kun penn",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Native tittellinjen",
   "syncMode": "Synk modus",

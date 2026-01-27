@@ -549,6 +549,7 @@
   "topRight": "Trên phải",
   "bottomLeft": "Dưới trái",
   "bottomRight": "Dưới phải",
+  "zoomPosition": "Zoom control position",
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Thư mục đã đồng bộ",
   "syncRootDirectory": "Thư mục gốc đồng bộ",
   "penOnlyInput": "Chỉ nhận đầu vào bằng bút",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Cử chỉ đầu vào",
   "nativeTitleBar": "Thanh tiêu đề gốc",
   "syncMode": "Chế độ đồng bộ",

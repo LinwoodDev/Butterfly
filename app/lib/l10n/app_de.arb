@@ -549,6 +549,7 @@
   "topRight": "Oben rechts",
   "bottomLeft": "Unten links",
   "bottomRight": "Unten rechts",
+  "zoomPosition": "Position der Zoomkontrolle",
   "caches": "Caches",
   "manage": "Verwalten",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
   "penOnlyInput": "Nur-Pen-Eingabe",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatisch aktivieren, wenn ein Stift erkannt wird. Diese Einstellung dauert nur für die aktuelle Sitzung.",
+  "penOnlyInputOnDescription": "Tipp- und Mauseingabe immer ablehnen, nur Stift-Eingaben akzeptieren.",
+  "penOnlyInputOffDescription": "Akzeptieren Sie alle Eingabetypen, einschließlich Berührung, Maus und Stil.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Immer an",
+  "alwaysOff": "Immer aus",
+  "showPenOnlyToggle": "Nur Stift anzeigen",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Eingabegesten",
   "nativeTitleBar": "Native Titelleiste",
   "syncMode": "Sync-Modus",

@@ -549,6 +549,7 @@
   "topRight": "Prawy górny róg",
   "bottomLeft": "Lewy dolny róg",
   "bottomRight": "Dolny prawy róg",
+  "zoomPosition": "Pozycja sterowania powiększeniem",
   "caches": "Skrzynki",
   "manage": "Zarządzaj",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Folder zsynchronizowany",
   "syncRootDirectory": "Synchronizuj główny katalog",
   "penOnlyInput": "Wprowadzanie tylko pióra",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatycznie włącza tryb tylko piór, gdy rysik jest wykryty. To ustawienie trwa tylko dla bieżącej sesji.",
+  "penOnlyInputOnDescription": "Zawsze odrzucaj dane wejściowe dotyku i myszki, akceptuj tylko dane wejściowe rysika.",
+  "penOnlyInputOffDescription": "Akceptuj wszystkie typy danych wejściowych, w tym dotyk, mysz i styl.",
+  "automatic": "Automatyczne",
+  "alwaysOn": "Zawsze włączony",
+  "alwaysOff": "Zawsze wyłączone",
+  "showPenOnlyToggle": "Pokaż tylko pióro",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Natywny pasek tytułu",
   "syncMode": "Tryb synchronizacji",

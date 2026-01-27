@@ -549,6 +549,7 @@
   "topRight": "Øverst til højre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til højre",
+  "zoomPosition": "Zoom kontrolposition",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Mappe synkroniseret",
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Aktivér automatisk kun pen-tilstand når en stylus detekteres. Denne indstilling varer kun for den aktuelle session.",
+  "penOnlyInputOnDescription": "Afvis altid berøring og mus input, kun acceptere stylus input.",
+  "penOnlyInputOffDescription": "Accepter alle inputtyper, herunder touch, mus og stylus.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Altid tændt",
+  "alwaysOff": "Altid slukket",
+  "showPenOnlyToggle": "Vis kun pen skiftende",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Lokal titellinje",
   "syncMode": "Synkroniser tilstand",

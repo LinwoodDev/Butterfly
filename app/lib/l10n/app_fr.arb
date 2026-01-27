@@ -296,7 +296,7 @@
   "@plain": {
     "description": "Background pattern"
   },
-  "light": "Lumière",
+  "light": "Clair",
   "ruled": "Recommandé",
   "@ruled": {
     "description": "Background pattern"
@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Sombre",
-  "plainDark": "Assombrir",
+  "plainDark": "Sombre simple",
   "ruledDark": "Sombre en ruine",
   "quadDark": "Quad sombre",
   "musicDark": "Musique sombre",
@@ -369,7 +369,7 @@
   "@text": {
     "description": "Text tool"
   },
-  "welcome": "Hé, c'est le Papillon de bois de Linwood {codeName}",
+  "welcome": "Hé, voici Butterfly par Linwood {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
@@ -549,6 +549,7 @@
   "topRight": "En haut à droite",
   "bottomLeft": "En bas à gauche",
   "bottomRight": "En bas à droite",
+  "zoomPosition": "Position de contrôle du zoom",
   "caches": "Caches",
   "manage": "Gérer",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
   "penOnlyInput": "Seules les entrées du stylet",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Active automatiquement le mode stylet uniquement quand un stylet est détecté. Ce paramètre ne dure que pour la session en cours.",
+  "penOnlyInputOnDescription": "Toujours rejeter la touche et la souris, n'accepter que l'entrée stylet.",
+  "penOnlyInputOffDescription": "Accepter tous les types d'entrée, y compris le toucher, la souris et le stylet.",
+  "automatic": "Automatique",
+  "alwaysOn": "Toujours allumé",
+  "alwaysOff": "Toujours éteint",
+  "showPenOnlyToggle": "Afficher uniquement le bouton du stylet",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Barre de titre native",
   "syncMode": "Mode de synchronisation",

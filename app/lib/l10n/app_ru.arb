@@ -549,6 +549,7 @@
   "topRight": "Сверху справа",
   "bottomLeft": "Снизу слева",
   "bottomRight": "Снизу справа",
+  "zoomPosition": "Управлять масштабом",
   "caches": "Кеш",
   "manage": "Управлять",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
+  "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
+  "automatic": "Автоматически",
+  "alwaysOn": "Всегда включен",
+  "alwaysOff": "Всегда выкл",
+  "showPenOnlyToggle": "Показывать переключатель только пера",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Жесты ввода",
   "nativeTitleBar": "Родной заголовок",
   "syncMode": "Режим синхронизации",

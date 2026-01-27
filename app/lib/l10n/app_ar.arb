@@ -549,6 +549,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
+  "zoomPosition": "تكبير موقع التحكم",
   "caches": "المخبآت",
   "manage": "إدارة",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة مجلد الجذر",
   "penOnlyInput": "الرسم باستخدام القلم فقط",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "تمكين وضع p-فقط تلقائياً عندما يتم الكشف عن قوة. هذا الإعداد يدوم فقط للدورة الحالية.",
+  "penOnlyInputOnDescription": "رفض دائماً مدخلات اللمس والفأرة ، وقبول مدخلات الأسلاك فقط.",
+  "penOnlyInputOffDescription": "قبول جميع أنواع الإدخال بما في ذلك اللمس والفأرة والأسلوب.",
+  "automatic": "تلقائي",
+  "alwaysOn": "دائماً مفعل",
+  "alwaysOff": "إيقاف دائمًا",
+  "showPenOnlyToggle": "إظهار تبديل القلم فقط",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "إيماءات الإدخال",
   "nativeTitleBar": "استخدم شريط عنوان النظام",
   "syncMode": "وضع المزامنة",

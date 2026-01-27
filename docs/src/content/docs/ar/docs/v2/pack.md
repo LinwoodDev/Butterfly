@@ -1,5 +1,5 @@
 ---
-title: باقة
+title: حُزْمَة
 ---
 
 A pack is a collection of components that can be used in the stamp tool. يمكنك إنشاء حزمة خاصة بك أو استيراد حزمة موجودة. لهذا انقر فوق الزاوية اليسرى العلوية وانقر على "الحزم".

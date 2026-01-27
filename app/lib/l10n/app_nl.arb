@@ -549,6 +549,7 @@
   "topRight": "Boven rechts",
   "bottomLeft": "Links onder",
   "bottomRight": "Onder rechts",
+  "zoomPosition": "Zoom bedieningspositie",
   "caches": "Caches",
   "manage": "Beheren",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Map gesynchroniseerd",
   "syncRootDirectory": "Synchroniseer hoofdmap",
   "penOnlyInput": "Alleen invoer pen",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Schakel 'Alleen pen-modus' automatisch in wanneer een stylus wordt gedetecteerd. Deze instelling geldt alleen voor de huidige sessie.",
+  "penOnlyInputOnDescription": "Aanraken en muisaanvoer altijd weigeren, alleen stylus invoeren.",
+  "penOnlyInputOffDescription": "Accepteer alle invoertypes zoals aanraken, muis en stijlus.",
+  "automatic": "Automatisch",
+  "alwaysOn": "Altijd aan",
+  "alwaysOff": "Altijd uitgeschakeld",
+  "showPenOnlyToggle": "Toon alleen penschakelaar",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Oorspronkelijke titelbalk",
   "syncMode": "Synchronisatie modus",
