@@ -3,6 +3,7 @@ import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly/views/files/recent.dart';
 import 'package:butterfly/widgets/connection_button.dart';
@@ -635,7 +636,6 @@ class FilesViewState extends State<FilesView> {
                           PhosphorIconsLight.arrowSquareIn,
                         ),
                         onPressed: () async {
-                          final router = GoRouter.of(context);
                           var (result, fileExtension) = await importFile(
                             context,
                           );
@@ -644,17 +644,29 @@ class FilesViewState extends State<FilesView> {
                             // see https://github.com/LinwoodDev/Butterfly/issues/839
                             fileExtension = null;
                           }
+                          final importService = ImportService(
+                            context,
+                            storage: _remote,
+                            path: _locationController.text,
+                            useDefaultStorage: false,
+                          );
+                          final importResult = await importService.load(
+                            data: result,
+                            type: fileExtension ?? '',
+                          );
+                          if (importResult == null) {
+                            reloadFileSystem();
+                            return;
+                          }
+                          final document = await importResult.export();
                           setNativeData(result, fileExtension);
-                          router.goNamed(
-                            'native',
+                          await context.pushNamed(
+                            'new',
                             queryParameters: {
-                              'name': 'document.bfly',
-                              'path': AssetLocation(
-                                path: _locationController.text,
-                                remote: _remote?.identifier ?? '',
-                              ).identifier,
-                              'type': fileExtension ?? 'note',
+                              'remote': _remote?.identifier ?? '',
+                              'path': _locationController.text,
                             },
+                            extra: document,
                           );
                           if (!widget.collapsed) {
                             reloadFileSystem();

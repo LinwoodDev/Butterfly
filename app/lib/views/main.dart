@@ -109,7 +109,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final networkingService = NetworkingService();
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
-      final globalImportService = ImportService(context);
+      final globalImportService = ImportService(context, storage: remote, useDefaultStorage: false);
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
