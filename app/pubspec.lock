@@ -397,10 +397,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d974b6ba2606371ac71dd94254beefb6fa81185bde0b59bdc1df09885da85fde
+      sha256: "57d9a1dd5063f85fa3107fb42d1faffda52fdc948cefd5fe5ea85267a5fc7343"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.8"
+    version: "10.3.10"
   fixnum:
     dependency: transitive
     description:
@@ -1040,10 +1040,10 @@ packages:
     dependency: "direct main"
     description:
       name: perfect_freehand
-      sha256: "7a6a591832be33fe82d8ecab68562a794d39837af16e7413fe0ccebdd0c3e3c0"
+      sha256: f42b8164c4e7e689b278f4e2e8e8f5006e716f8c127eb44404f21bd73b1d3b56
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.2+1"
   petitparser:
     dependency: transitive
     description:
@@ -1248,10 +1248,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "83af5c682796c0f7719c2bbf74792d113e40ae97981b8f266fa84574573556bc"
+      sha256: cbc40be9be1c5af4dab4d6e0de4d5d3729e6f3d65b89d21e1815d57705644a6f
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.18"
+    version: "2.4.20"
   shared_preferences_foundation:
     dependency: transitive
     description:
