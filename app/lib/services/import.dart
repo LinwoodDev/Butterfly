@@ -28,6 +28,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
@@ -139,12 +140,14 @@ class ImportService {
   final DocumentBloc? bloc;
   final BuildContext context;
   final ExternalStorage? storage;
+  final String? path;
   final bool useDefaultStorage;
 
   ImportService(
     this.context, {
     this.bloc,
     this.storage,
+    this.path,
     this.useDefaultStorage = true,
   });
 
@@ -961,7 +964,10 @@ class ImportService {
       fileSystem ??= getDocumentSystem();
       final document = await (await importBfly(bytes))?.export();
       if (document != null) {
-        fileSystem.createFile(document.name ?? '', document.toFile());
+        fileSystem.createFile(
+          p.join(path ?? '', document.name ?? ''),
+          document.toFile(),
+        );
       }
       return document != null;
     }
@@ -984,7 +990,10 @@ class ImportService {
           advanced: false,
         ))?.export();
         if (document != null) {
-          fileSystem.createFile(file.name, document.toFile());
+          fileSystem.createFile(
+            p.join(path ?? '', file.name),
+            document.toFile(),
+          );
         }
       }
       return true;
