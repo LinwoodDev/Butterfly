@@ -24,6 +24,7 @@
 * Fix importing assets does not use default template
 * Fix importing does not use selected storage
 * Fix importing archives opening empty documents
+* Fix spread to pages breaks pdf import
 * Remove border for pdf pages
 
 Changes merged from 2.4.3 hotfix:

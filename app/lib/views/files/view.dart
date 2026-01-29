@@ -105,7 +105,7 @@ class FilesViewState extends State<FilesView> {
   };
 
   void _setFilesStream() {
-    _templateSystem = _fileSystem.buildTemplateSystem(_remote);
+    _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
     _filesStream = ValueConnectableStream(
       _documentSystem.fetchAsset(_locationController.text),
@@ -644,6 +644,10 @@ class FilesViewState extends State<FilesView> {
                             // see https://github.com/LinwoodDev/Butterfly/issues/839
                             fileExtension = null;
                           }
+                          final defaultTemplate =
+                              _settingsCubit.state.defaultTemplate;
+                          final templateFile = await _templateSystem
+                              .getDefaultFile(defaultTemplate);
                           final importService = ImportService(
                             context,
                             storage: _remote,
@@ -653,6 +657,7 @@ class FilesViewState extends State<FilesView> {
                           final importResult = await importService.load(
                             data: result,
                             type: fileExtension ?? '',
+                            document: templateFile,
                           );
                           if (importResult == null) {
                             reloadFileSystem();

@@ -1180,7 +1180,7 @@ List<Widget> _buildTemplateMenuChildren(
   final metadata = template.getMetadata()!;
 
   return [
-    if (!isCore)
+    if (!isCore && fileSystem.storage == null)
       CheckboxMenuButton(
         value: isDefault,
         child: Text(AppLocalizations.of(context).defaultTemplate),

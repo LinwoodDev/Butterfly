@@ -109,7 +109,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final networkingService = NetworkingService();
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
-      final globalImportService = ImportService(context, storage: remote, useDefaultStorage: false);
+      final globalImportService = ImportService(context);
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
@@ -127,9 +127,9 @@ class _ProjectPageState extends State<ProjectPage> {
       final name = absolute ? location!.fileNameWithoutExtension : '';
       NoteData? defaultDocument;
       final defaultTemplate = settingsCubit.state.defaultTemplate;
-      final template = await fileSystem
-          .buildTemplateSystem(remote)
-          .getDefaultFile(defaultTemplate);
+      final template = await fileSystem.buildTemplateSystem().getDefaultFile(
+        defaultTemplate,
+      );
       if (template != null && mounted) {
         defaultDocument = template.createDocument(
           name: name,

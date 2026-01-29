@@ -58,12 +58,24 @@ class ImportResult {
     this.packs = const [],
     this.choosePosition = false,
   }) : documentReady = false;
-  ImportResult.ready({required this.service, required this.document})
+  ImportResult.ready({required this.service, required NoteData this.document})
     : elements = const [],
-      assets = const {},
-      pages = const [],
+      assets = document.getAllAssets(),
+      pages = document
+          .getPages(true)
+          .map((e) {
+            final page = document.getPage(e);
+            if (page == null) return null;
+            return (e, page);
+          })
+          .nonNulls
+          .toList(),
+      packs = document
+          .getBundledPacks()
+          .map((e) => document.getBundledPack(e))
+          .nonNulls
+          .toList(),
       areas = const [],
-      packs = const [],
       choosePosition = false,
       documentReady = true;
 
@@ -96,7 +108,20 @@ class ImportResult {
       document = document.setPage(page).$1;
     }
     for (final (name, page) in pages) {
-      (document, _) = document.addPage(page, name ?? '');
+      final layers = <DocumentLayer>[];
+      for (final layer in page.layers) {
+        List<PadElement> imported;
+        (document, imported) = await importAssetsAsync(
+          document,
+          layer.content,
+          assets: assets,
+        );
+        layers.add(layer.copyWith(content: imported));
+      }
+      (document, _) = document.addPage(
+        page.copyWith(layers: layers),
+        name ?? '',
+      );
     }
     for (final pack in packs) {
       document = document.setBundledPack(pack);
@@ -438,22 +463,8 @@ class ImportService {
       if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
-    } else if (document == null) {
-      return ImportResult.ready(service: this, document: data);
     }
-    return ImportResult(
-      service: this,
-      document: document,
-      pages: pages
-          .map((e) {
-            final page = data.getPage(e);
-            if (page == null) return null;
-            return (e, page);
-          })
-          .nonNulls
-          .toList(),
-      packs: packs.map((e) => data.getBundledPack(e)).nonNulls.toList(),
-    );
+    return ImportResult.ready(service: this, document: data);
   }
 
   @useResult

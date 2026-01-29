@@ -229,7 +229,12 @@ final class NoteData extends ArchiveData<NoteData> {
     if (pages.contains(name)) {
       return name;
     }
-    return getPageNameFromRealName(name);
+    for (final page in pages) {
+      if (getPageNameFromRealName(page) == name) {
+        return page;
+      }
+    }
+    return null;
   }
 
   @useResult
@@ -387,6 +392,20 @@ final class NoteData extends ArchiveData<NoteData> {
 
   Iterable<String> getValidAssets() =>
       validAssetPaths.expand((e) => getAssets(e)).toList();
+
+  Map<String, Uint8List> getAllAssets() {
+    final Map<String, Uint8List> assets = {};
+    for (final path in validAssetPaths) {
+      for (final assetName in getAssets(path)) {
+        final fullPath = '$path/$assetName';
+        final data = getAsset(fullPath);
+        if (data != null) {
+          assets[fullPath] = data;
+        }
+      }
+    }
+    return assets;
+  }
 
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
