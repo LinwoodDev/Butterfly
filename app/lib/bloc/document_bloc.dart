@@ -449,7 +449,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List.from(current.info.tools)..add(event.tool),
+            tools: List.from(current.info.tools)
+              ..add(event.tool.copyWith(id: event.tool.id ?? createUniqueId())),
           ),
         ),
       );
@@ -464,9 +465,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           info: current.info.copyWith(
             tools: List<Tool>.from(current.info.tools).map((e) {
-              final updated = event.tools.firstWhereOrNull(
-                (element) => element.id == e.id,
-              );
+              final updated = e.id != null
+                  ? event.tools.firstWhereOrNull(
+                      (element) => element.id == e.id,
+                    )
+                  : null;
               if (updated != null) {
                 var newSelection = selection?.remove(e);
                 if (newSelection != selection && selection != null) {
@@ -487,20 +490,26 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
       final currentTool = current.currentIndexCubit.state.handler.data;
       final id = currentTool is Tool ? currentTool.id : null;
-      final updatedCurrent = event.tools.firstWhereOrNull(
-        (element) => element.id == id,
-      );
-      if (updatedCurrent != null) {
-        current.currentIndexCubit.updateTool(this, updatedCurrent);
+      if (id != null) {
+        final updatedCurrent = event.tools.firstWhereOrNull(
+          (element) => element.id == id,
+        );
+        if (updatedCurrent != null) {
+          current.currentIndexCubit.updateTool(this, updatedCurrent);
+        }
       }
       current.currentIndexCubit.updateTogglingTools(this, event.tools);
-      final updatedTempCurrent = event.tools.firstWhereOrNull(
-        (element) =>
-            element.id ==
-            current.currentIndexCubit.state.temporaryHandler?.data.id,
-      );
-      if (updatedTempCurrent != null) {
-        current.currentIndexCubit.updateTemporaryTool(this, updatedTempCurrent);
+      final tempHandler = current.currentIndexCubit.state.temporaryHandler;
+      if (tempHandler != null && tempHandler.data.id != null) {
+        final updatedTempCurrent = event.tools.firstWhereOrNull(
+          (element) => element.id == tempHandler.data.id,
+        );
+        if (updatedTempCurrent != null) {
+          current.currentIndexCubit.updateTemporaryTool(
+            this,
+            updatedTempCurrent,
+          );
+        }
       }
       if (selection != null) {
         current.currentIndexCubit.changeSelection(selection);
@@ -529,7 +538,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(
-          info: current.info.copyWith(tools: event.tools),
+          info: current.info.copyWith(
+            tools: event.tools
+                .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+                .toList(),
+          ),
         ),
         updateIndex: true,
       );

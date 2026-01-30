@@ -26,6 +26,7 @@
 * Fix importing archives opening empty documents
 * Fix spread to pages breaks pdf import
 * Remove border for pdf pages
+* Fix an issue where tools sometimes lacked a unique ID
 
 Changes merged from 2.4.3 hotfix:
 * Fix toolbar position icon direction issue on rtl layouts

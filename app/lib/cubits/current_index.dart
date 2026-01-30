@@ -2032,6 +2032,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     final currentTools = blocState.info.tools;
     for (final tool in tools) {
+      if (tool.id == null) continue;
       final index = currentTools.indexWhere((element) => element.id == tool.id);
       if (index == -1) continue;
       final old = state.toggleableHandlers[index];

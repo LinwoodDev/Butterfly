@@ -37,12 +37,12 @@ class DocumentDefaults {
 
   static List<Tool> createTools([SRGBColor? background]) =>
       [
-            SelectTool(mode: SelectMode.lasso),
-            PenTool(),
-            PathEraserTool(),
-            UndoTool(),
-            RedoTool(),
-            HandTool(),
+            SelectTool(mode: SelectMode.lasso, id: createUniqueId()),
+            PenTool(id: createUniqueId()),
+            PathEraserTool(id: createUniqueId()),
+            UndoTool(id: createUniqueId()),
+            RedoTool(id: createUniqueId()),
+            HandTool(id: createUniqueId()),
           ]
           .map(
             (e) =>
