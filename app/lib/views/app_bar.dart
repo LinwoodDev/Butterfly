@@ -690,6 +690,14 @@ class _MainPopupMenu extends StatelessWidget {
                 },
                 child: Text(AppLocalizations.of(context).hideUI),
               ),
+              MenuItemButton(
+                leadingIcon: state.wireframeMode
+                    ? const PhosphorIcon(PhosphorIconsFill.frameCorners)
+                    : const PhosphorIcon(PhosphorIconsLight.frameCorners),
+                onPressed: () =>
+                    context.read<CurrentIndexCubit>().toggleWireframeMode(),
+                child: const Text('Wireframe Mode'),
+              ),
               BlocBuilder<WindowCubit, WindowState>(
                 buildWhen: (previous, current) =>
                     previous.fullScreen != current.fullScreen,

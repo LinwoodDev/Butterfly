@@ -19,7 +19,17 @@ class TextureRenderer extends Renderer<TextureElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
-  ]) => drawSurfaceTextureOnCanvas(
+    bool wireframeMode = false,
+  ]) {
+    if (wireframeMode) {
+      final paint = Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size;
+      canvas.drawRect(rect, paint);
+      return;
+    }
+    drawSurfaceTextureOnCanvas(
     element.texture,
     canvas,
     1,
@@ -27,6 +37,7 @@ class TextureRenderer extends Renderer<TextureElement> {
     rect.size,
     rect.topLeft,
   );
+  }
 
   @override
   void buildSvg(

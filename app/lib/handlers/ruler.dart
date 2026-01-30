@@ -123,6 +123,7 @@ class RulerRenderer extends Renderer<RulerTool> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     canvas.save();
     canvas.translate(transform.position.dx, transform.position.dy);

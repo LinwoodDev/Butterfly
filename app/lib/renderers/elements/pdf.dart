@@ -36,7 +36,16 @@ class PdfRenderer extends Renderer<PdfElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
+    if (wireframeMode) {
+      final paint = Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size;
+      canvas.drawRect(rect, paint);
+      return;
+    }
     if (this.image == null || element.background.a > 0) {
       // Render placeholder
       final paint = Paint()

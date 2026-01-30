@@ -16,6 +16,7 @@ class AreaForegroundRenderer extends Renderer<Area> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final paint = Paint()
       ..style = PaintingStyle.stroke

@@ -28,6 +28,7 @@ class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final radius = element.tool.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);

@@ -23,6 +23,7 @@ class UserCursor extends Renderer<NetworkingUser> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final position = element.cursor?.toOffset();
     if (position == null) {

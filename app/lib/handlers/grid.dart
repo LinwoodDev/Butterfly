@@ -64,6 +64,7 @@ class GridRenderer extends Renderer<GridTool> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (element.xSize > 0) {
       double x = -element.xSize + element.xOffset % element.xSize;

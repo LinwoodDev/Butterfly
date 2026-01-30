@@ -29,6 +29,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     const icon = PhosphorIconsLight.cursorText;
     final property = switch (element.context) {
@@ -80,6 +81,7 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line

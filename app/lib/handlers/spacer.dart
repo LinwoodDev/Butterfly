@@ -143,6 +143,7 @@ class SpacerRenderer extends Renderer {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final paint = Paint()
       ..color = colorScheme?.primary ?? Colors.black

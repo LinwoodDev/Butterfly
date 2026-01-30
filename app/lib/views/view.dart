@@ -580,6 +580,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                     frictionTransform,
                     cubit.state.selection,
                     state.settingsCubit.state.navigatorPosition,
+                    currentIndex.wireframeMode,
                   ),
                   painter: ViewPainter(
                     state.data,
@@ -590,6 +591,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                     invisibleLayers: state.invisibleLayers,
                     currentArea: state.currentArea,
                     colorScheme: ColorScheme.of(context),
+                    wireframeMode: currentIndex.wireframeMode,
                   ),
                   isComplex: true,
                   willChange: true,

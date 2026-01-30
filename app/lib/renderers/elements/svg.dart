@@ -15,8 +15,17 @@ class SvgRenderer extends Renderer<SvgElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final rect = this.rect;
+    if (wireframeMode) {
+      final paint = Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size;
+      canvas.drawRect(rect, paint);
+      return;
+    }
     if (pictureInfo == null) {
       // Render placeholder
       final paint = Paint()

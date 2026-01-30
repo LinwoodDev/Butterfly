@@ -21,6 +21,7 @@ class ForegroundPainter extends CustomPainter {
   final CameraTransform transform;
   final Selection? selection;
   final NavigatorPosition navigatorPosition;
+  final bool wireframeMode;
 
   ForegroundPainter(
     this.renderers,
@@ -31,6 +32,7 @@ class ForegroundPainter extends CustomPainter {
     this.transform = const CameraTransform(),
     this.selection,
     this.navigatorPosition = NavigatorPosition.left,
+    this.wireframeMode = false,
   ]);
 
   @override
@@ -58,6 +60,7 @@ class ForegroundPainter extends CustomPainter {
         transform,
         colorScheme,
         true,
+        wireframeMode,
       );
       if (center != null) {
         canvas.translate(center.dx, center.dy);
@@ -99,7 +102,8 @@ class ForegroundPainter extends CustomPainter {
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
       oldDelegate.selection != selection ||
-      oldDelegate.colorScheme != colorScheme;
+      oldDelegate.colorScheme != colorScheme ||
+      oldDelegate.wireframeMode != wireframeMode;
 }
 
 class ViewPainter extends CustomPainter {
@@ -112,6 +116,7 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final ColorScheme? colorScheme;
   final Set<String>? invisibleLayers;
+  final bool wireframeMode;
 
   const ViewPainter(
     this.document,
@@ -125,6 +130,7 @@ class ViewPainter extends CustomPainter {
     required this.cameraViewport,
     this.colorScheme,
     this.transform = const CameraTransform(),
+    this.wireframeMode = false,
   });
 
   @override
@@ -213,6 +219,7 @@ class ViewPainter extends CustomPainter {
           transform,
           colorScheme,
           false,
+          wireframeMode,
         );
         if (center != null) {
           canvas.translate(center.dx, center.dy);
@@ -247,7 +254,8 @@ class ViewPainter extends CustomPainter {
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
-        colorScheme != oldDelegate.colorScheme;
+        colorScheme != oldDelegate.colorScheme ||
+        wireframeMode != oldDelegate.wireframeMode;
     return shouldRepaint;
   }
 }

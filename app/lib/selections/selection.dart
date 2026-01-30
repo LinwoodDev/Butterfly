@@ -10,6 +10,8 @@ import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/helpers/boolean_ops.dart';
+import 'dart:ui' as ui;
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';

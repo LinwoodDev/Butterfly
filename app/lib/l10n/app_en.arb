@@ -1291,5 +1291,21 @@
   "redLinedRuledDark": "Red lined ruled dark",
   "redLinedQuad": "Red lined quad",
   "redLinedQuadDark": "Red lined quad dark",
-  "noItemSelected": "No item selected"
+  "noItemSelected": "No item selected",
+  "union": "Union",
+  "@union": {
+    "description": "Union boolean operation"
+  },
+  "difference": "Difference",
+  "@difference": {
+    "description": "Difference boolean operation"
+  },
+  "intersect": "Intersect",
+  "@intersect": {
+    "description": "Intersect boolean operation"
+  },
+  "xor": "XOR",
+  "@xor": {
+    "description": "XOR boolean operation"
+  }
 }
