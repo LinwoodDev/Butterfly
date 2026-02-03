@@ -549,6 +549,7 @@
   "topRight": "Superior direito",
   "bottomLeft": "Inferior esquerdo",
   "bottomRight": "Inferior direito",
+  "zoomPosition": "Posição de controle",
   "caches": "Arquivos temporários",
   "manage": "Gerir",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Pasta sincronizada",
   "syncRootDirectory": "Sincronizar diretório raiz",
   "penOnlyInput": "Entrada apenas de caneta",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Ativar automaticamente o modo de caneta quando uma caneta é detectada. Esta configuração só dura a sessão atual.",
+  "penOnlyInputOnDescription": "Sempre rejeitar toque e entrada do mouse, só aceitar a entrada do stylus",
+  "penOnlyInputOffDescription": "Aceite todos os tipos de entrada, incluindo toque, mouse e estilo.",
+  "automatic": "Automático",
+  "alwaysOn": "Sempre Ligado",
+  "alwaysOff": "Sempre desligado",
+  "showPenOnlyToggle": "Mostrar somente a caneta",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gestos de Entrada",
   "nativeTitleBar": "Barra de título nativa",
   "syncMode": "Modo de sincronização",

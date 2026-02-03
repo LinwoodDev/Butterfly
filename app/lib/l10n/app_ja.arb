@@ -549,6 +549,7 @@
   "topRight": "右上へ",
   "bottomLeft": "左下",
   "bottomRight": "右下",
+  "zoomPosition": "ズーム制御位置",
   "caches": "キャッシュ",
   "manage": "管理",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "スタイラスが検出されたときにペンオンリーモードを自動的に有効にします。この設定は現在のセッションでのみ有効です。",
+  "penOnlyInputOnDescription": "タッチとマウスの入力を常に拒否し、スタイラスの入力のみを受け付けます。",
+  "penOnlyInputOffDescription": "タッチ、マウス、スタイラスを含むすべての入力タイプを受け入れます。",
+  "automatic": "自動",
+  "alwaysOn": "常にオン",
+  "alwaysOff": "常にオフ",
+  "showPenOnlyToggle": "ペンのみのトグル表示",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "ネイティブのタイトルバー",
   "syncMode": "同期モード",

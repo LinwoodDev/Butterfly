@@ -549,6 +549,7 @@
   "topRight": "오른쪽 위",
   "bottomLeft": "왼쪽 아래",
   "bottomRight": "오른쪽 아래",
+  "zoomPosition": "Zoom control position",
   "caches": "캐시",
   "manage": "관리",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "폴더 동기화됨",
   "syncRootDirectory": "루트 디렉터리 동기화",
   "penOnlyInput": "펜 전용 입력",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "입력 제스처",
   "nativeTitleBar": "네이티브 제목 표시줄",
   "syncMode": "동기화 모드",

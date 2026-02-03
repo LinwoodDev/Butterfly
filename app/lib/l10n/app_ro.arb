@@ -549,6 +549,7 @@
   "topRight": "Dreapta sus",
   "bottomLeft": "Stânga jos",
   "bottomRight": "Jos dreapta",
+  "zoomPosition": "Poziție control zoom",
   "caches": "Geocutii",
   "manage": "Gestionează",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Dosar sincronizat",
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Activează automat modul pen-only atunci când un stylus este detectat. Această setare durează numai pentru sesiunea curentă.",
+  "penOnlyInputOnDescription": "Respingeți întotdeauna intrarea tactilei și a mouse-ului, acceptă doar input de stylus.",
+  "penOnlyInputOffDescription": "Acceptă toate tipurile de intrare, inclusiv atingerea, mouse-ul și stylusul.",
+  "automatic": "Automat",
+  "alwaysOn": "Mereu activ",
+  "alwaysOff": "Întotdeauna oprit",
+  "showPenOnlyToggle": "Arată doar comutator pentru stilou",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Bară titlu nativ",
   "syncMode": "Mod sincronizare",
