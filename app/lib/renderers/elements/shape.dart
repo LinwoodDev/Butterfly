@@ -210,7 +210,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'stroke': element.property.color.toHexString(alpha: false),
               'stroke-opacity': '${element.property.color.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
-              if (dashArray != null) 'stroke-dasharray': dashArray,
+              'stroke-dasharray': ?dashArray,
             },
           );
     } else if (shape is CircleShape) {
@@ -228,7 +228,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'stroke': element.property.color.toHexString(alpha: false),
               'stroke-opacity': '${element.property.color.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
-              if (dashArray != null) 'stroke-dasharray': dashArray,
+              'stroke-dasharray': ?dashArray,
             },
           );
     } else if (shape is LineShape) {
@@ -245,7 +245,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'stroke': element.property.color.toHexString(alpha: false),
               'stroke-opacity': '${element.property.color.a / 255}',
               'fill': 'none',
-              if (dashArray != null) 'stroke-dasharray': dashArray,
+              'stroke-dasharray': ?dashArray,
             },
           );
     } else if (shape is TriangleShape) {
@@ -263,7 +263,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'fill': shape.fillColor.toHexString(),
               'stroke': element.property.color.toHexString(),
               'stroke-width': '${element.property.strokeWidth}px',
-              if (dashArray != null) 'stroke-dasharray': dashArray,
+              'stroke-dasharray': ?dashArray,
             },
           );
     }

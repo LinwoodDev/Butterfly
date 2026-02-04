@@ -19,6 +19,7 @@
   * Add pen-only input toggle button that appears when a pen is detected
   * Make pen-only input setting tri-state (Automatic, Always on, Always off)
   * Auto-enable pen-only mode for the current session when a stylus is detected in automatic mode
+* Improve performance of pen hit testing
 * Reintroduce white background if no background is set
 * Fix Android intent handling causing empty documents on resume and not updating on new intent
 * Fix importing assets does not use default template
@@ -27,6 +28,7 @@
 * Fix spread to pages breaks pdf import
 * Remove border for pdf pages
 * Fix an issue where tools sometimes lacked a unique ID
+* Fix path eraser and eraser not correctly working if full selection is enabled
 
 Changes merged from 2.4.3 hotfix:
 * Fix toolbar position icon direction issue on rtl layouts

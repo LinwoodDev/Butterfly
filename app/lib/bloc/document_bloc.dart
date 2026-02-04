@@ -1378,12 +1378,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
+    bool? full,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
       useCollection: useCollection,
       useLayer: useLayer,
+      full: full,
     );
   }
 

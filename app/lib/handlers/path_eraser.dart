@@ -76,6 +76,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
             size,
             useCollection: utilities.lockCollection,
             useLayer: utilities.lockLayer,
+            full: false,
           );
       final page = state?.page;
       if (page == null) return;

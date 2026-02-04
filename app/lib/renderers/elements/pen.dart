@@ -291,8 +291,12 @@ class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
   final List<PathPoint> points;
   final double rotation;
+  final double _cos;
+  final double _sin;
 
-  PathHitCalculator(this.elementRect, this.points, this.rotation);
+  PathHitCalculator(this.elementRect, this.points, this.rotation)
+    : _cos = rotation == 0 ? 1 : cos(rotation),
+      _sin = rotation == 0 ? 0 : sin(rotation);
 
   /// Check if a line segment intersects with a rectangle
   bool _lineIntersectsRect(Offset p1, Offset p2, Rect rect) {
@@ -347,21 +351,14 @@ class PathHitCalculator extends HitCalculator {
     return false;
   }
 
-  /// Check if a point is inside the rectangle with some tolerance for lines
-  bool _segmentFullyInRect(Offset p1, Offset p2, Rect rect) {
-    return rect.contains(p1) && rect.contains(p2);
-  }
-
   Offset _rotatePoint(PathPoint point) {
     if (rotation == 0) return point.toOffset();
     final center = elementRect.center;
-    final cosR = cos(rotation);
-    final sinR = sin(rotation);
     final dx = point.x - center.dx;
     final dy = point.y - center.dy;
     return Offset(
-      center.dx + dx * cosR - dy * sinR,
-      center.dy + dx * sinR + dy * cosR,
+      center.dx + dx * _cos - dy * _sin,
+      center.dy + dx * _sin + dy * _cos,
     );
   }
 
@@ -379,33 +376,37 @@ class PathHitCalculator extends HitCalculator {
       return rect.contains(rotated);
     }
 
+    var p1 = _rotatePoint(points[0]);
+
     if (full) {
+      if (!rect.contains(p1)) return false;
+
       // All segments must be fully inside the rect
       for (int i = 0; i < points.length - 1; i++) {
-        final p1 = _rotatePoint(points[i]);
         final p2 = _rotatePoint(points[i + 1]);
-        if (!_segmentFullyInRect(p1, p2, rect)) {
+        if (!rect.contains(p2)) {
           return false;
         }
+        p1 = p2;
       }
       return true;
     } else {
       // Any segment intersects the rect
       for (int i = 0; i < points.length - 1; i++) {
-        final p1 = _rotatePoint(points[i]);
         final p2 = _rotatePoint(points[i + 1]);
         if (_lineIntersectsRect(p1, p2, rect)) {
           return true;
         }
+        p1 = p2;
       }
-      // Also check if the last point is in the rect
-      return rect.contains(_rotatePoint(points.last));
+      return false;
     }
   }
 
   @override
   bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     if (points.isEmpty) return false;
+    if (!_rectIntersectsPolygonBounds(elementRect, polygon)) return false;
 
     if (full) {
       // All points must be inside the polygon
@@ -426,5 +427,23 @@ class PathHitCalculator extends HitCalculator {
       }
       return false;
     }
+  }
+
+  bool _rectIntersectsPolygonBounds(Rect rect, List<ui.Offset> polygon) {
+    if (polygon.isEmpty) return false;
+    double minX = polygon[0].dx;
+    double maxX = polygon[0].dx;
+    double minY = polygon[0].dy;
+    double maxY = polygon[0].dy;
+
+    for (int i = 1; i < polygon.length; i++) {
+      final p = polygon[i];
+      if (p.dx < minX) minX = p.dx;
+      if (p.dx > maxX) maxX = p.dx;
+      if (p.dy < minY) minY = p.dy;
+      if (p.dy > maxY) maxY = p.dy;
+    }
+
+    return rect.overlaps(Rect.fromLTRB(minX, minY, maxX, maxY));
   }
 }

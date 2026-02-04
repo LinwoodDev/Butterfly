@@ -32,7 +32,7 @@ Uri getLaunchUri({
 
 Uri getConnectUri(String url, [String? type]) => getLaunchUri(
   pathSegments: ['connect'],
-  queryParameters: {'url': url, if (type != null) 'type': type},
+  queryParameters: {'url': url, 'type': ?type},
 );
 
 String parseConnectUri(Uri uri) {
@@ -109,9 +109,7 @@ Future<void> openFile(
       'remote': location.remote,
       'path': location.pathWithoutLeadingSlash,
     };
-    final queryParams = <String, String>{
-      if (fileType != null) 'type': fileType,
-    };
+    final queryParams = <String, String>{'type': ?fileType};
     if (replace) {
       return GoRouter.of(context).pushReplacementNamed(
         'remote',
@@ -129,7 +127,7 @@ Future<void> openFile(
     }
   }
   final pathParams = {'path': location.pathWithoutLeadingSlash};
-  final queryParams = <String, String>{if (fileType != null) 'type': fileType};
+  final queryParams = <String, String>{'type': ?fileType};
   if (replace) {
     return GoRouter.of(context).pushReplacementNamed(
       'local',
