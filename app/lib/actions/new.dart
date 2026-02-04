@@ -56,7 +56,7 @@ Future<void> openNewDocument(
       path = metadata.directory;
     }
   }
-  final queryParams = {'path': path, 'remote': remote};
+  final queryParams = <String, String>{'path': ?path, 'remote': ?remote};
   if (replace) {
     return GoRouter.of(context).pushReplacementNamed(
       'new',
