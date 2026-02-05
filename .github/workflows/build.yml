@@ -342,7 +342,11 @@ jobs:
           ln -s usr/bin/butterfly AppDir/AppRun
           ln -s usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png AppDir/dev.linwood.butterfly.png
           # Build AppImage
-          ./appimagetool.AppImage AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
+          UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|stable|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          if [[ "${{ github.ref }}" == "refs/tags/nightly" ]]; then
+            UPDATE_INFO="gh-releases-zsync|LinwoodDev|butterfly|nightly|linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync"
+          fi
+          ./appimagetool.AppImage -u "$UPDATE_INFO" AppDir linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
@@ -376,6 +380,7 @@ jobs:
           name: linux-${{ matrix.arch.name }}-appimage
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage.zsync
   build-snap:
     name: build-snap
     strategy:
@@ -717,18 +722,22 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -757,18 +766,22 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -795,18 +808,22 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-x86_64.AppImage.zsync
             linwood-butterfly-linux-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
+            linwood-butterfly-linux-arm64.AppImage.zsync
             linwood-butterfly-linux-alternative-x86_64.tar.gz
             linwood-butterfly-linux-alternative-x86_64.deb
             linwood-butterfly-linux-alternative-x86_64.rpm
             linwood-butterfly-linux-alternative-x86_64.AppImage
+            linwood-butterfly-linux-alternative-x86_64.AppImage.zsync
             linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-alternative-arm64.deb
             linwood-butterfly-linux-alternative-arm64.rpm
             linwood-butterfly-linux-alternative-arm64.AppImage
+            linwood-butterfly-linux-alternative-arm64.AppImage.zsync
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
