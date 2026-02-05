@@ -54,6 +54,7 @@ class _LogsSettingsPageState extends State<LogsSettingsPage> {
                 tooltip: AppLocalizations.of(context).delete,
                 onPressed: () {
                   talker.cleanHistory();
+                  clearPersistedLogs();
                   setState(() {});
                 },
               ),
