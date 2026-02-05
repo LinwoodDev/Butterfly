@@ -144,7 +144,7 @@ NoteData xoppMigrator(Uint8List data) {
     (note, _) = note.addPage(
       DocumentPage(
         layers: [DocumentLayer(content: elements, id: createUniqueId())],
-        backgrounds: [if (background != null) background],
+        backgrounds: [?background],
         extra: {'xopp:layers': layers},
       ),
       '',
