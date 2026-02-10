@@ -117,10 +117,18 @@ class SelectHandler extends Handler<SelectTool> {
     final Offset transformedPivot = applyScaleAndTranslate(pivot);
 
     return _selected.map((renderer) {
-      final elementRect = renderer.rect ?? renderer.expandedRect ?? Rect.zero;
+      // Use expandedRect for position computation because the selection
+      // rectangle is built from expanded (AABB) rects. This ensures
+      // rotated elements scale and reposition consistently.
+      final elementExpandedRect =
+          renderer.expandedRect ?? renderer.rect ?? Rect.zero;
+      final elementRect = renderer.rect ?? Rect.zero;
 
-      final originalTopLeft = elementRect.topLeft;
+      final originalTopLeft = elementExpandedRect.topLeft;
       final translatedTopLeft = applyScaleAndTranslate(originalTopLeft);
+      // Delta relative to expandedRect.topLeft so it's zero at identity.
+      // The position compensation inside transform() converts from the
+      // expandedRect reference frame to the rect reference frame.
       var delta = translatedTopLeft - originalTopLeft;
 
       if (rotation != 0) {
@@ -154,7 +162,13 @@ class SelectHandler extends Handler<SelectTool> {
     Area? currentArea,
   ]) {
     final foregrounds = <Renderer>[];
-    foregrounds.addAll(_getTransformed() ?? []);
+    // When transform just started but the pointer hasn't moved yet,
+    // _getTransformed() returns null. Show originals as foregrounds
+    // since rendererStates already hides them from the main layer.
+    foregrounds.addAll(
+      _getTransformed() ??
+          (_selectionManager.isTransforming && !_duplicate ? _selected : []),
+    );
     final selectionRect = getSelectionRect();
     final scheme = currentIndexCubit.getTheme(false).colorScheme;
     if (selectionRect != null) {

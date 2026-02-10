@@ -356,7 +356,6 @@ abstract class Renderer<T> {
     // Determine position (absolute for _transform)
     position ??= relative ? Offset.zero : rect.topLeft;
     var nextPosition = relative ? position + rect.topLeft : position;
-    final expandedRect = this.expandedRect ?? rect;
 
     final radians = (this.rotation % 360) * (pi / 180);
     // Keep original rotatePosition behavior (rotate relative movement by current rotation)
@@ -366,30 +365,70 @@ abstract class Renderer<T> {
       nextPosition = relativePosition + rect.topLeft;
     }
 
-    // Convert world axis-aligned scaling (expandedRect-based) into local axes
-    // using the diagonal of R^-1 * S_world * R (ignore shear off-diagonals).
+    // Convert world axis-aligned scaling into local-space scaling.
+    // The expanded (AABB) rect is what gets scaled in world space, so we solve
+    // for the local scale factors that produce the desired AABB dimensions.
+    //
+    // The AABB dimensions of a rect (w, h) rotated by θ are:
+    //   EW = w·|cosθ| + h·|sinθ|
+    //   EH = w·|sinθ| + h·|cosθ|
+    //
+    // After applying local scales (sx, sy), the new AABB must satisfy:
+    //   sx·w·|cosθ| + sy·h·|sinθ| = scaleX · EW
+    //   sx·w·|sinθ| + sy·h·|cosθ| = scaleY · EH
+    //
+    // This 2×2 system has determinant w·h·cos(2θ). When cos(2θ) ≈ 0
+    // (rotation near 45°/135°) or the exact solution yields negative local
+    // scales, we fall back to the diagonal projection of the world-space
+    // scale matrix onto the local axes.
     double sx = scaleX;
     double sy = scaleY;
-    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
-      final c = cos(radians);
-      final s = sin(radians);
-      // Use column norms as effective local scales.
-      final sxLocal = sqrt((sx * c) * (sx * c) + (sy * s) * (sy * s));
-      final syLocal = sqrt((sx * s) * (sx * s) + (sy * c) * (sy * c));
+    if ((scaleX != 1 || scaleY != 1) && (this.rotation % 360) != 0) {
+      final w = rect.width;
+      final h = rect.height;
+      final expandedRect = this.expandedRect ?? rect;
 
-      sx = sxLocal;
-      sy = syLocal;
-    }
+      if (w > 0 && h > 0) {
+        final absC = cos(radians).abs();
+        final absS = sin(radians).abs();
+        final cos2theta = absC * absC - absS * absS; // cos(2θ)
 
-    // Position compensation for scaling rotated elements so that the element's
-    // expanded AABB appears to move as expected when scaling around its top-left.
-    if ((sx != 1 || sy != 1) && (this.rotation % 360) != 0) {
-      final double w = rect.width;
-      final double h = rect.height;
+        if (cos2theta.abs() > 1e-10) {
+          // Expanded AABB dimensions of the current (unscaled) element.
+          final ew = w * absC + h * absS;
+          final eh = w * absS + h * absC;
 
+          // Solve the 2×2 linear system for exact local scales.
+          final exactSx =
+              (absC * scaleX * ew - absS * scaleY * eh) / (w * cos2theta);
+          final exactSy =
+              (absC * scaleY * eh - absS * scaleX * ew) / (h * cos2theta);
+
+          if (exactSx > 0 && exactSy > 0) {
+            sx = exactSx;
+            sy = exactSy;
+          } else {
+            // Exact solution requires a negative local scale (not
+            // representable). Fall back to diagonal projection.
+            final c2 = cos(radians) * cos(radians);
+            final s2 = sin(radians) * sin(radians);
+            sx = scaleX * c2 + scaleY * s2;
+            sy = scaleX * s2 + scaleY * c2;
+          }
+        } else {
+          // Near 45°/135°: system is ill-conditioned. Use diagonal
+          // projection (weighted average of world scales).
+          final c2 = cos(radians) * cos(radians);
+          final s2 = sin(radians) * sin(radians);
+          sx = scaleX * c2 + scaleY * s2;
+          sy = scaleX * s2 + scaleY * c2;
+        }
+      }
+
+      // Position compensation: the offset between rect.topLeft and its
+      // expanded AABB changes when local scales change. Adjust so the
+      // expanded AABB stays anchored correctly.
       final Offset fOld = expandedRect.topLeft - rect.topLeft;
-
-      // New offset computed from the expanded AABB of the scaled rect.
       final Rect scaledRect = Rect.fromLTWH(
         rect.left,
         rect.top,
