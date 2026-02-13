@@ -266,6 +266,23 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'stroke-dasharray': ?dashArray,
             },
           );
+    } else if (shape is TriangleShape) {
+      final topCenter = drawRect.topCenter;
+      final d =
+          'M${topCenter.dx} ${topCenter.dy} '
+          'L${drawRect.right} ${drawRect.bottom} '
+          'L${drawRect.left} ${drawRect.bottom} Z';
+      xml
+          .getElement('svg')
+          ?.createElement(
+            'path',
+            attributes: {
+              'd': d,
+              'fill': shape.fillColor.toHexString(),
+              'stroke': element.property.color.toHexString(),
+              'stroke-width': '${element.property.strokeWidth}px',
+            },
+          );
     }
   }
 
