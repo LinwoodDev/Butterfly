@@ -452,7 +452,9 @@ abstract class Renderer<T> {
   Renderer<T>? _transform({
     required Offset position,
     required double rotation,
+    // ignore: unused_element_parameter
     double scaleX = 1,
+    // ignore: unused_element_parameter
     double scaleY = 1,
   }) => null;
 
