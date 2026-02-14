@@ -1260,22 +1260,22 @@
   "temporary": "Tạm thời",
   "simpleToolbarVisibility": "Khả năng hiển thị thanh công cụ đơn giản",
   "autosaveDelay": "Độ trễ tự động lưu",
-  "saved": "Saved",
+  "saved": "Đã lưu",
   "@saved": {
     "description": "Save status"
   },
-  "saving": "Saving...",
+  "saving": "Đang lưu...",
   "@saving": {
     "description": "Save status"
   },
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved",
+  "readOnly": "Chỉ đọc",
+  "saveDelayed": "Lưu bị trì hoãn",
+  "unsaved": "Chưa lưu",
   "@unsaved": {
     "description": "Save status"
   },
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
-  "densityMaximize": "Maximize",
+  "pdfEmptyDescription": "Hiện tại không có khu vực nào để xuất. Vui lòng chọn ít nhất một khu vực bằng nút dấu cộng ở góc trên bên phải hoặc thêm tất cả các khu vực từ trang hiện tại hoặc từ toàn bộ tài liệu bên dưới.",
+  "densityMaximize": "Phóng to",
   "@densityMaximize": {
     "description": "Density value"
   },
