@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Herramienta láser
 ---
 
-With this tool you can draw on this paper temporarily. Después de un tiempo, el dibujo se desvanece. Añade un nuevo dibujo al papel para hacerlo cancelar.
+Con esta herramienta se puede dibujar temporalmente sobre este papel. Después de un tiempo, el dibujo se desvanece. Añade un nuevo dibujo al papel para hacerlo cancelar.
 
 ## Configuración
 
