@@ -705,7 +705,7 @@
   "activeTool": "الأداة المفعلة",
   "activeToolDescription": "استخدام الأداة المحددة حاليًا على شريط الأدوات",
   "handTool": "أداة اليد",
-  "handToolDescription": "اسحب للتحرك حول اللوحه",
+  "handToolDescription": "اسحب للتحريك اللوحة",
   "toolOnToolbar": "أداة محددة على شريط الأدوات",
   "toolOnToolbarDescription": "استخدام الأداة في الموضع المحدد على شريط الأدوات، بدءاً من اليسار",
   "toolOnToolbarShort": "موضع شريط الأدوات: {display_position}",
@@ -1188,11 +1188,11 @@
   "unencryptDocumentMessage": "انقر لإلغاء تشفير المستند",
   "unencrypt": "إلغاء التشفير",
   "encrypt": "تشفير",
-  "encryptWarning": "سيؤدي هذا إلى تشفير المستند. ستحتاج إلى تذكر كلمة المرور لفك تشفيرها.",
-  "unencryptWarning": "سيؤدي هذا إلى إلغاء تشفير المستند. سيتم إزالة كلمة المرور وسيتمكن كل من لديه حق الوصول من فتحها.",
+  "encryptWarning": "أأنت متأكد من تشفير المستند؟ ستحتاج إلى تذكر كلمة المرور لفك تشفيرها.",
+  "unencryptWarning": "هل تريد إلغاء تشفير المستند؟ سيتم إزالة كلمة المرور وسيتمكن كل من لديه حق الوصول من فتحها.",
   "confirmPassword": "تأكيد كلمة المرور",
   "passwordMismatch": "كلمات المرور لا تتطابق",
-  "action": "اجراء",
+  "action": "إجراء",
   "@action": {
     "description": "Action property"
   },
@@ -1207,7 +1207,7 @@
   "grayscale": "تدرّج الرمادي",
   "moveOnGesture": "إيماءة التحريك",
   "exportAllFiles": "تصدير جميع الملفات",
-  "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
+  "restoreSettingsFromFile": "استعادة الإعدادات من ملف",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "الرمز الشريطي (الباركود)",
   "@barcode": {
