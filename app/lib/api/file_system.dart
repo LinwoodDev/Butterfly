@@ -14,11 +14,12 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Uint8List _encode(NoteData data) => Uint8List.fromList(data.exportAsBytes());
-NoteData _decode(Uint8List data) => NoteData.fromData(data);
+Uint8List encodeNoteData(NoteData data) =>
+    Uint8List.fromList(data.exportAsBytes());
+NoteData decodeNoteData(Uint8List data) => NoteData.fromData(data);
 
-Uint8List _encodeFile(NoteFile file) => file.data;
-NoteFile _decodeFile(Uint8List data) => NoteFile(data);
+Uint8List encodeNoteFile(NoteFile file) => file.data;
+NoteFile decodeNoteFile(Uint8List data) => NoteFile(data);
 
 const butterflySubDirectory = '/Linwood/Butterfly';
 
@@ -74,7 +75,8 @@ typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
 
 class ButterflyFileSystem {
-  final BuildContext context;
+  // ignore: unused_field
+  final BuildContext _context;
   final SettingsCubit settingsCubit;
   final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
@@ -82,7 +84,7 @@ class ButterflyFileSystem {
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
 
-  ButterflyFileSystem(this.context, this.settingsCubit)
+  ButterflyFileSystem(this._context, this.settingsCubit)
     : _documentConfig = FileSystemConfig(
         passwordStorage: passwordStorage,
         storeName: 'documents',
@@ -192,13 +194,6 @@ class ButterflyFileSystem {
     }
   }
 
-  Future<void> _createDefaultTemplates(TemplateFileSystem fs) async =>
-      Future.wait(
-        (await DocumentDefaults.getDefaults(
-          context,
-        )).map((e) => fs.createFile('${e.name}.bfly', e)),
-      );
-
   Future<void> _createDefaultPacks(PackFileSystem fs) async {
     final pack = await DocumentDefaults.getCorePack();
     await fs.createFile('${pack.name}.bfly', pack);
@@ -217,13 +212,20 @@ class ButterflyFileSystem {
     }
     final system = TypedDirectoryFileSystem.build(
       _documentConfig,
-      onEncode: _encodeFile,
-      onDecode: _decodeFile,
+      onEncode: encodeNoteFile,
+      onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
     );
     _documentCache[key] = system;
     return system;
+  }
+
+  ExternalStorage? _cacheAllStorage(ExternalStorage? storage, String variant) {
+    if (storage is! RemoteStorage) {
+      return storage;
+    }
+    return storage.copyWith.pinnedPaths.put(variant, ['/']);
   }
 
   TypedKeyFileSystem<NoteData> buildTemplateSystem([
@@ -237,10 +239,9 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _templateConfig,
-      onEncode: _encode,
-      onDecode: _decode,
-      storage: storage,
-      createDefault: _createDefaultTemplates,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
+      storage: _cacheAllStorage(storage, _templateConfig.variant),
     );
     _templateCache[key] = system;
     return system;
@@ -257,9 +258,9 @@ class ButterflyFileSystem {
     }
     final system = TypedKeyFileSystem.build(
       _packConfig,
-      onEncode: _encode,
-      onDecode: _decode,
-      storage: storage,
+      onEncode: encodeNoteData,
+      onDecode: decodeNoteData,
+      storage: _cacheAllStorage(storage, _packConfig.variant),
       createDefault: _createDefaultPacks,
     );
     _packCache[key] = system;

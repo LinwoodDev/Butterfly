@@ -6,6 +6,14 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_FavoriteLocation _$FavoriteLocationFromJson(Map json) => _FavoriteLocation(
+  remote: json['remote'] as String?,
+  path: json['path'] as String,
+);
+
+Map<String, dynamic> _$FavoriteLocationToJson(_FavoriteLocation instance) =>
+    <String, dynamic>{'remote': instance.remote, 'path': instance.path};
+
 _InputConfiguration _$InputConfigurationFromJson(Map json) =>
     _InputConfiguration(
       leftMouse: json['leftMouse'] == null
@@ -59,7 +67,8 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   touchSensitivity: (json['touchSensitivity'] as num?)?.toDouble() ?? 1,
   selectSensitivity: (json['selectSensitivity'] as num?)?.toDouble() ?? 1,
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
-  penOnlyInput: json['penOnlyInput'] as bool? ?? false,
+  penOnlyInput: json['penOnlyInput'] as bool?,
+  showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
   inputGestures: json['inputGestures'] as bool? ?? true,
   design: json['design'] as String? ?? '',
   bannerVisibility:
@@ -69,6 +78,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       ) ??
       BannerVisibility.always,
   zoomEnabled: json['zoomEnabled'] as bool? ?? true,
+  zoomPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
+      ZoomPosition.bottomRight,
   lastVersion: json['lastVersion'] as String?,
   defaultRemote: json['defaultRemote'] as String? ?? '',
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
@@ -164,6 +176,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       : PackAssetLocation.fromJson(
           Map<String, dynamic>.from(json['selectedPalette'] as Map),
         ),
+  showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -178,10 +191,12 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectSensitivity': instance.selectSensitivity,
   'scrollSensitivity': instance.scrollSensitivity,
   'penOnlyInput': instance.penOnlyInput,
+  'showPenOnlyToggle': instance.showPenOnlyToggle,
   'inputGestures': instance.inputGestures,
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
+  'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
   'lastVersion': instance.lastVersion,
   'defaultRemote': instance.defaultRemote,
   'nativeTitleBar': instance.nativeTitleBar,
@@ -224,6 +239,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'moveOnGesture': instance.moveOnGesture,
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
+  'showVerboseLogs': instance.showVerboseLogs,
 };
 
 const _$ThemeModeEnumMap = {
@@ -245,6 +261,13 @@ const _$BannerVisibilityEnumMap = {
   BannerVisibility.always: 'always',
   BannerVisibility.never: 'never',
   BannerVisibility.onlyOnUpdates: 'onlyOnUpdates',
+};
+
+const _$ZoomPositionEnumMap = {
+  ZoomPosition.topRight: 'topRight',
+  ZoomPosition.topLeft: 'topLeft',
+  ZoomPosition.bottomRight: 'bottomRight',
+  ZoomPosition.bottomLeft: 'bottomLeft',
 };
 
 const _$IgnorePressureEnumMap = {

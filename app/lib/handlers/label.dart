@@ -5,6 +5,7 @@ class LabelHandler extends Handler<LabelTool>
   LabelContext? _context;
   DocumentBloc? _bloc;
   bool _isSelecting = false;
+  TextRange _composing = TextRange.empty;
 
   bool get isCurrentlyEditing => _context?.element != null;
 
@@ -116,7 +117,7 @@ class LabelHandler extends Handler<LabelTool>
       _context = _context!.copyWith(
         selection: TextSelection.collapsed(offset: position.offset),
       );
-      context.refresh();
+      context.refreshForegrounds();
     }
     return true;
   }
@@ -139,7 +140,7 @@ class LabelHandler extends Handler<LabelTool>
         ),
       );
       _refreshToolbar(context.getDocumentBloc());
-      context.refresh();
+      context.refreshForegrounds();
     }
   }
 
@@ -232,6 +233,7 @@ class LabelHandler extends Handler<LabelTool>
       );
     }
     final viewId = View.of(context.buildContext).viewId;
+    _composing = TextRange.empty;
     if (!(_connection?.attached ?? false)) {
       _connection =
           TextInput.attach(
@@ -427,27 +429,6 @@ class LabelHandler extends Handler<LabelTool>
     final element = context.element;
     final text = context.text;
     if (element == null || text == null) return const TextEditingValue();
-    (int, int) getTextProperty(TextElement e) {
-      final indexed = e.area.paragraph.getIndexedSpan(
-        context.selection.start,
-        false,
-      );
-      if (indexed == null) return (0, text.length);
-      return (indexed.index, indexed.model.length);
-    }
-
-    var (indexed, length) = switch (element) {
-      TextElement e => getTextProperty(e),
-      _ => (0, text.length),
-    };
-    if (switch (context) {
-      TextContext e => e.shouldNewSpan(state.data),
-      _ => false,
-    }) {
-      indexed = min(context.selection.start, text.length);
-      length = 0;
-    }
-    final end = min(indexed + length, text.length);
 
     return TextEditingValue(
       text: text,
@@ -457,7 +438,7 @@ class LabelHandler extends Handler<LabelTool>
         affinity: context.selection.affinity,
         isDirectional: context.selection.isDirectional,
       ),
-      composing: TextRange(start: indexed, end: end),
+      composing: _composing,
     );
   }
 
@@ -524,6 +505,7 @@ class LabelHandler extends Handler<LabelTool>
       _bloc?.refresh();
       if (_bloc != null) _refreshToolbar(_bloc!);
     }
+    _composing = value.composing;
   }
 
   Future<void> _updateText(
@@ -540,21 +522,20 @@ class LabelHandler extends Handler<LabelTool>
     final selectionReplacement = !lastValue.selection.isCollapsed;
     final useComposing =
         replace && !selectionReplacement && lastValue.composing.isValid;
-    final start = useComposing
+    var start = useComposing
         ? lastValue.composing.start
         : lastValue.selection.start;
-    final length = useComposing ? null : lastValue.selection.end - start;
+    var length = useComposing ? null : lastValue.selection.end - start;
+    final diff = value.length - lastValue.text.length;
+    final end = start + diff + (length ?? (lastValue.composing.end - start));
+    if (replace && end < start) {
+      length = (length ?? 0) + start - end;
+      start = end;
+    }
     final newIndex = replace
-        ? lastValue.selection.end - lastValue.text.length + value.length
+        ? lastValue.selection.end + diff
         : start + value.length;
-    final currentText = replace
-        ? value.substring(
-            start,
-            value.length -
-                lastValue.text.length +
-                (length == null ? lastValue.composing.end : (start + length)),
-          )
-        : value;
+    final currentText = replace ? value.substring(start, end) : value;
     if (_context == null) return;
     final selection = newSelection ?? TextSelection.collapsed(offset: newIndex);
     switch (_context!) {

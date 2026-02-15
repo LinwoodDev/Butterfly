@@ -64,6 +64,7 @@ jobs:
         run: |
           echo "SETONIX_FLAVOR=nightly" >> $GITHUB_ENV
           echo "WEB_DIR=preview" >> $GITHUB_ENV
+          cp -rf web_nightly/* web/
       - name: Set flavor
         if: github.ref == 'refs/heads/main'
         run: |

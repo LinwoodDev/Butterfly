@@ -30,6 +30,9 @@
   "zoomOut": "Σμίκρυνση",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Πλάτος περιγράμματος",
+  "strokeStyle": "Στυλ πινελιάς",
+  "dashLength": "Μήκος παύλας",
+  "gapLength": "Μήκος κενού",
   "includeEraser": "Συμπεριλάβετε γόμα?",
   "thinning": "Λέπτυνση",
   "pen": "Πένα",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Διπλό",
   "dotted": "Διακεκομμένη",
+  "dottedDark": "Διακεκομμένο σκούρο",
   "dashed": "Διακεκομμένη",
   "wavy": "Κυματιστό",
   "fontWeight": "Βάρος γραμματοσειράς",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Σκοτεινό",
-  "plainDark": "Σκοτεινό",
+  "plainDark": "Απλό σκοτεινό",
   "ruledDark": "Τυχόν σκούρο",
   "quadDark": "Τετραπλή σκοτεινή",
   "musicDark": "Σκοτεινή μουσική",
@@ -545,6 +549,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
+  "zoomPosition": "Θέση ελέγχου εστίασης",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας μόνο στυλό όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
+  "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
+  "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
+  "automatic": "Αυτόματο",
+  "alwaysOn": "Πάντα ενεργό",
+  "alwaysOff": "Πάντα ανενεργό",
+  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο πένας",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Εγγενής γραμμή τίτλου",
   "syncMode": "Λειτουργία συγχρονισμού",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Προσαρμογή συντομεύσεων",
+  "clickToSave": "Κλικ για αποθήκευση",
+  "toolbars": "Γραμμές Εργαλείων",
+  "logs": "Καταγραφή",
+  "ruledSimple": "Απλό τυποποιημένο",
+  "ruledSimpleDark": "Τυχόν απλό σκούρο",
+  "quadSimple": "Quad απλό",
+  "quadSimpleDark": "Quad απλό σκούρο",
+  "redLinedRuled": "Κόκκινη επένδυση κυβερνάται",
+  "redLinedRuledDark": "Κόκκινο επενδεδυμένο κυβερνώντα σκούρο",
+  "redLinedQuad": "Κόκκινο τεταρτημόριο",
+  "redLinedQuadDark": "Κόκκινο επενδεδυμένο τετράγωνο σκούρο",
+  "noItemSelected": "Δεν επιλέχθηκε στοιχείο"
 }

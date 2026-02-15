@@ -30,6 +30,9 @@
   "zoomOut": "ズームアウト",
   "resetZoom": "Reset zoom",
   "strokeWidth": "ストロークの幅",
+  "strokeStyle": "ストロークのスタイル",
+  "dashLength": "ダッシュの長さ",
+  "gapLength": "ギャップの長さ",
   "includeEraser": "消去を含めますか？",
   "thinning": "薄肉化",
   "pen": "ペン",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "倍精度",
   "dotted": "点線",
+  "dottedDark": "Dotted dark",
   "dashed": "破線",
   "wavy": "Wavy",
   "fontWeight": "フォントの重量",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "ダーク",
-  "plainDark": "ダーク",
+  "plainDark": "真っ暗な",
   "ruledDark": "規則のあるダーク",
   "quadDark": "クワッドダーク",
   "musicDark": "暗い音楽",
@@ -545,6 +549,7 @@
   "topRight": "右上へ",
   "bottomLeft": "左下",
   "bottomRight": "右下",
+  "zoomPosition": "ズーム制御位置",
   "caches": "キャッシュ",
   "manage": "管理",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "スタイラスが検出されたときにペンオンリーモードを自動的に有効にします。この設定は現在のセッションでのみ有効です。",
+  "penOnlyInputOnDescription": "タッチとマウスの入力を常に拒否し、スタイラスの入力のみを受け付けます。",
+  "penOnlyInputOffDescription": "タッチ、マウス、スタイラスを含むすべての入力タイプを受け入れます。",
+  "automatic": "自動",
+  "alwaysOn": "常にオン",
+  "alwaysOff": "常にオフ",
+  "showPenOnlyToggle": "ペンのみのトグル表示",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "ネイティブのタイトルバー",
   "syncMode": "同期モード",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "ショートカットのカスタマイズ",
+  "clickToSave": "クリックして保存",
+  "toolbars": "ツールバー",
+  "logs": "ログ",
+  "ruledSimple": "簡単なルール",
+  "ruledSimpleDark": "ルール化されたシンプルなダーク",
+  "quadSimple": "シンプルなクワッド",
+  "quadSimpleDark": "クワッド単純なダーク",
+  "redLinedRuled": "赤色の線が引かれた",
+  "redLinedRuledDark": "赤色の線が暗くなっています",
+  "redLinedQuad": "赤色のラインナップクワッド",
+  "redLinedQuadDark": "赤色のクワッドダーク",
+  "noItemSelected": "アイテムが選択されていません"
 }

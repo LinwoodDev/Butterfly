@@ -30,6 +30,9 @@
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Stroke width",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Include eraser?",
   "thinning": "Thinning",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Double",
   "dotted": "Dotted",
+  "dottedDark": "Dotted dark",
   "dashed": "Dashed",
   "wavy": "Wavy",
   "fontWeight": "Font weight",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Dark",
-  "plainDark": "Dark",
+  "plainDark": "Plain dark",
   "ruledDark": "Ruled dark",
   "quadDark": "Quad dark",
   "musicDark": "Music dark",
@@ -545,6 +549,7 @@
   "topRight": "Top right",
   "bottomLeft": "Bottom left",
   "bottomRight": "Bottom right",
+  "zoomPosition": "Zoom control position",
   "caches": "Caches",
   "manage": "Manage",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Native title bar",
   "syncMode": "Sync mode",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

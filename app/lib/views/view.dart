@@ -405,6 +405,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   },
                                   onPointerDown:
                                       (PointerDownEvent event) async {
+                                        // Detect pen/stylus input
+                                        if (event.kind ==
+                                                PointerDeviceKind.stylus ||
+                                            event.kind ==
+                                                PointerDeviceKind
+                                                    .invertedStylus) {
+                                          cubit.setPenDetected(true);
+                                        }
                                         _isScalingDisabled =
                                             event.kind ==
                                                 PointerDeviceKind.trackpad
@@ -560,7 +568,7 @@ class _MainViewViewportState extends State<MainViewViewport>
             );
             return Stack(
               children: [
-                Container(color: Colors.white),
+                Container(color: ColorScheme.of(context).surfaceDim),
                 CustomPaint(
                   size: Size.infinite,
                   foregroundPainter: ForegroundPainter(

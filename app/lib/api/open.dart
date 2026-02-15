@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/main.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -31,7 +32,7 @@ Uri getLaunchUri({
 
 Uri getConnectUri(String url, [String? type]) => getLaunchUri(
   pathSegments: ['connect'],
-  queryParameters: {'url': url, if (type != null) 'type': type},
+  queryParameters: {'url': url, 'type': ?type},
 );
 
 String parseConnectUri(Uri uri) {
@@ -42,6 +43,7 @@ String parseConnectUri(Uri uri) {
 }
 
 Future<bool> openReleaseNotes() {
+  talker.info('Opening release notes');
   return launchUrl(
     Uri(
       scheme: 'https',
@@ -101,12 +103,13 @@ Future<void> openFile(
   AssetLocation location, [
   Object? data,
 ]) {
+  final fileType = location.fileType?.name;
   if (location.isRemote) {
     final pathParams = {
       'remote': location.remote,
       'path': location.pathWithoutLeadingSlash,
     };
-    final queryParams = {'type': location.fileType?.name};
+    final queryParams = <String, String>{'type': ?fileType};
     if (replace) {
       return GoRouter.of(context).pushReplacementNamed(
         'remote',
@@ -124,7 +127,7 @@ Future<void> openFile(
     }
   }
   final pathParams = {'path': location.pathWithoutLeadingSlash};
-  final queryParams = {'type': location.fileType?.name};
+  final queryParams = <String, String>{'type': ?fileType};
   if (replace) {
     return GoRouter.of(context).pushReplacementNamed(
       'local',

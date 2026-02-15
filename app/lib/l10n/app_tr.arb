@@ -30,6 +30,9 @@
   "zoomOut": "Uzaklaştır",
   "resetZoom": "Yakınlaştırmayı sıfırla",
   "strokeWidth": "Kontur genişliği",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Dahili silgi?",
   "thinning": "Kalinlik",
   "pen": "Kalem",
@@ -138,6 +141,7 @@
   "solid": "Katı",
   "double": "Çift",
   "dotted": "Noktalı",
+  "dottedDark": "Dotted dark",
   "dashed": "Kesik çizgili",
   "wavy": "Dalgalı",
   "fontWeight": "Yazı tipi kalınlığı",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Koyu",
-  "plainDark": "Koyu",
+  "plainDark": "Sade koyu",
   "ruledDark": "Çizgili koyu",
   "quadDark": "Kareli koyu",
   "musicDark": "Müzik koyu",
@@ -545,6 +549,7 @@
   "topRight": "Sağ üst",
   "bottomLeft": "Sol alt",
   "bottomRight": "Sağ alt",
+  "zoomPosition": "Zoom control position",
   "caches": "Önbellek",
   "manage": "Yönet",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Klasör eşitlendi",
   "syncRootDirectory": "Kök dizini eşitle",
   "penOnlyInput": "Sadece kalem girişi",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Giriş hareketleri",
   "nativeTitleBar": "Yerel başlık çubuğu",
   "syncMode": "Eşitleme kipi",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Büyüt",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

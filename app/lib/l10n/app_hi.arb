@@ -30,6 +30,9 @@
   "zoomOut": "ज़ूम आउट करें",
   "resetZoom": "ज़ूम रीसेट करें",
   "strokeWidth": "स्ट्रोक की चौड़ाई",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "इरेज़र शामिल करें?",
   "thinning": "पतलापन",
   "pen": "पेन",
@@ -138,6 +141,7 @@
   "solid": "ठोस",
   "double": "दोहरा",
   "dotted": "बिंदीदार",
+  "dottedDark": "Dotted dark",
   "dashed": "डैशयुक्त",
   "wavy": "लहरदार",
   "fontWeight": "फ़ॉन्ट का वज़न",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "डार्क",
-  "plainDark": "डार्क",
+  "plainDark": "Plain dark",
   "ruledDark": "रेखित डार्क",
   "quadDark": "क्वाड डार्क",
   "musicDark": "संगीत डार्क",
@@ -545,6 +549,7 @@
   "topRight": "ऊपर दाएँ",
   "bottomLeft": "नीचे बाएँ",
   "bottomRight": "नीचे दाएँ",
+  "zoomPosition": "Zoom control position",
   "caches": "कैश",
   "manage": "प्रबंधित करें",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "फ़ोल्डर सिंक हो गया",
   "syncRootDirectory": "रूट डायरेक्टरी सिंक करें",
   "penOnlyInput": "केवल पेन इनपुट",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "इनपुट जेस्चर",
   "nativeTitleBar": "नेटिव टाइटल बार",
   "syncMode": "सिंक मोड",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

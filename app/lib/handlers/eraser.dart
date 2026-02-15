@@ -42,14 +42,14 @@ class EraserHandler extends Handler<EraserTool> {
     EventContext context,
   ) async {
     _currentPos = event.localPosition;
-    await context.refresh(allowBake: false);
+    context.refreshForegrounds();
     await _changeElement(event.localPosition, context);
   }
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
     _currentPos = event.localPosition;
-    context.refresh(allowBake: false);
+    context.refreshForegrounds();
   }
 
   //method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
@@ -74,6 +74,7 @@ class EraserHandler extends Handler<EraserTool> {
         size,
         useCollection: utilities.lockCollection,
         useLayer: utilities.lockLayer,
+        full: false,
       );
       var elements = ray.map((e) => e.element);
       if (!data.eraseElements) {
@@ -127,7 +128,7 @@ class EraserHandler extends Handler<EraserTool> {
       }
 
       if (anyChanged) {
-        await context.refresh();
+        context.refreshForegrounds();
       }
     }();
     _erasingFuture = future;

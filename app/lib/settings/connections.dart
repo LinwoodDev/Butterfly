@@ -333,8 +333,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         },
         certificateSha1: _certificateSha1,
         icon: icon,
-        cachedDocuments: {
-          '': [if (_syncRootDirectory) '/'],
+        pinnedPaths: {
+          'documents': [if (_syncRootDirectory) '/'],
         },
       ),
       LocalStorage() => LocalStorage(

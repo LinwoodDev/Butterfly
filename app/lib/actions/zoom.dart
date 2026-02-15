@@ -1,20 +1,41 @@
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keybinder/keybinder.dart';
 
 class ZoomIntent extends Intent {
-  final BuildContext context;
   final bool reverse;
 
-  const ZoomIntent(this.context, [this.reverse = false]);
+  const ZoomIntent({this.reverse = false});
 }
 
+final zoomInShortcut = ShortcutDefinition(
+  id: 'zoom_in',
+  intent: const ZoomIntent(reverse: false),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.add,
+    control: true,
+  ),
+);
+
+final zoomOutShortcut = ShortcutDefinition(
+  id: 'zoom_out',
+  intent: const ZoomIntent(reverse: true),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.minus,
+    control: true,
+  ),
+);
+
 class ZoomAction extends Action<ZoomIntent> {
-  ZoomAction();
+  final BuildContext context;
+
+  ZoomAction(this.context);
 
   @override
   void invoke(ZoomIntent intent) {
-    final currentIndex = intent.context.read<CurrentIndexCubit>().state;
+    final currentIndex = context.read<CurrentIndexCubit>().state;
     final viewport = currentIndex.cameraViewport;
     final center = Offset(
       (viewport.width ?? 0) / 2,

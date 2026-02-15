@@ -9,6 +9,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
@@ -388,10 +389,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   icon: icon,
                   tooltip: tooltip,
                   onPressed: () {
-                    Actions.maybeInvoke<SaveIntent>(
-                      context,
-                      SaveIntent(context),
-                    );
+                    Actions.maybeInvoke<SaveIntent>(context, SaveIntent());
                   },
                 );
               },
@@ -420,7 +418,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             onPressed: () {
               Actions.maybeInvoke<ChangePathIntent>(
                 context,
-                ChangePathIntent(context),
+                ChangePathIntent(),
               );
             },
             tooltip: AppLocalizations.of(context).changeDocumentPath,
@@ -510,7 +508,7 @@ class _MainPopupMenu extends StatelessWidget {
                 onPressed: () {
                   Actions.maybeInvoke<BackgroundIntent>(
                     context,
-                    BackgroundIntent(context),
+                    BackgroundIntent(),
                   );
                 },
                 child: Text(AppLocalizations.of(context).background),
@@ -526,7 +524,7 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () async {
                       Actions.maybeInvoke<ExportIntent>(
                         context,
-                        ExportIntent(context),
+                        ExportIntent(),
                       );
                     },
                     child: Text(AppLocalizations.of(context).packagedFile),
@@ -544,7 +542,7 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () async {
                       Actions.maybeInvoke<ExportIntent>(
                         context,
-                        ExportIntent(context, isText: true),
+                        ExportIntent(isText: true),
                       );
                     },
                     child: Text(AppLocalizations.of(context).rawFile),
@@ -562,7 +560,7 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () async {
                       Actions.maybeInvoke<SvgExportIntent>(
                         context,
-                        SvgExportIntent(context),
+                        SvgExportIntent(),
                       );
                     },
                     child: Text(AppLocalizations.of(context).svg),
@@ -581,7 +579,7 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () {
                       Actions.maybeInvoke<ImageExportIntent>(
                         context,
-                        ImageExportIntent(context),
+                        ImageExportIntent(),
                       );
                     },
                     child: Text(AppLocalizations.of(context).image),
@@ -599,7 +597,7 @@ class _MainPopupMenu extends StatelessWidget {
                     onPressed: () {
                       Actions.maybeInvoke<PdfExportIntent>(
                         context,
-                        PdfExportIntent(context),
+                        PdfExportIntent(),
                       );
                     },
                     child: Text(AppLocalizations.of(context).pdf),
@@ -623,10 +621,7 @@ class _MainPopupMenu extends StatelessWidget {
                   alt: true,
                 ),
                 onPressed: () {
-                  Actions.maybeInvoke<PacksIntent>(
-                    context,
-                    PacksIntent(context),
-                  );
+                  Actions.maybeInvoke<PacksIntent>(context, PacksIntent());
                 },
                 child: Text(AppLocalizations.of(context).packs),
               ),
@@ -641,7 +636,7 @@ class _MainPopupMenu extends StatelessWidget {
                   control: true,
                 ),
                 onPressed: () {
-                  Actions.maybeInvoke<NewIntent>(context, NewIntent(context));
+                  Actions.maybeInvoke<NewIntent>(context, NewIntent());
                 },
                 child: Text(AppLocalizations.of(context).newContent),
               ),
@@ -658,7 +653,7 @@ class _MainPopupMenu extends StatelessWidget {
                 onPressed: () {
                   Actions.maybeInvoke<NewIntent>(
                     context,
-                    NewIntent(context, fromTemplate: true),
+                    NewIntent(fromTemplate: true),
                   );
                 },
                 child: Text(AppLocalizations.of(context).templates),
@@ -772,7 +767,7 @@ class _MainPopupMenu extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1,
               child: IconButton(
-                icon: Image.asset('images/logo.png'),
+                icon: Image.asset(logoAsset),
                 style: IconButton.styleFrom(
                   backgroundColor: controller.isOpen
                       ? ColorScheme.of(context).surfaceContainerHighest

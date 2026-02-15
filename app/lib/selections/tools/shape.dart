@@ -108,6 +108,10 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
               .toList(),
         ),
       ),
+      _StrokeStyleSection(
+        property: property,
+        onPropertyChanged: updateProperty,
+      ),
       ColorField(
         value: property.color.withValues(a: 255),
         onChanged: (color) => update(
@@ -439,6 +443,89 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+class _StrokeStyleSection extends StatefulWidget {
+  final ShapeProperty property;
+  final ValueChanged<ShapeProperty> onPropertyChanged;
+
+  const _StrokeStyleSection({
+    required this.property,
+    required this.onPropertyChanged,
+  });
+
+  @override
+  State<_StrokeStyleSection> createState() => _StrokeStyleSectionState();
+}
+
+class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
+  bool _advancedExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final property = widget.property;
+    final isStyled = property.strokeStyle != StrokeStyle.solid;
+
+    return ExpansionPanelList(
+      expansionCallback: (index, isExpanded) {
+        setState(() {
+          _advancedExpanded = isExpanded;
+        });
+      },
+      children: [
+        ExpansionPanel(
+          canTapOnHeader: true,
+          isExpanded: _advancedExpanded,
+          headerBuilder: (context, isExpanded) => ListTile(
+            title: Text(AppLocalizations.of(context).strokeStyle),
+            trailing: DropdownMenu<StrokeStyle>(
+              initialSelection: property.strokeStyle,
+              dropdownMenuEntries: StrokeStyle.values
+                  .map(
+                    (e) => DropdownMenuEntry(
+                      label: e.getLocalizedName(context),
+                      value: e,
+                      leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                    ),
+                  )
+                  .toList(),
+              onSelected: (value) => widget.onPropertyChanged(
+                property.copyWith(strokeStyle: value ?? StrokeStyle.solid),
+              ),
+            ),
+          ),
+          body: Column(
+            children: [
+              ExactSlider(
+                header: Text(AppLocalizations.of(context).dashLength),
+                value: property.dashMultiplier,
+                min: 0.1,
+                max: 5,
+                defaultValue: 1,
+                onChangeEnd: isStyled
+                    ? (value) => widget.onPropertyChanged(
+                        property.copyWith(dashMultiplier: value),
+                      )
+                    : null,
+              ),
+              ExactSlider(
+                header: Text(AppLocalizations.of(context).gapLength),
+                value: property.gapMultiplier,
+                min: 0.1,
+                max: 5,
+                defaultValue: 1,
+                onChangeEnd: isStyled
+                    ? (value) => widget.onPropertyChanged(
+                        property.copyWith(gapMultiplier: value),
+                      )
+                    : null,
+              ),
+            ],
+          ),
         ),
       ],
     );

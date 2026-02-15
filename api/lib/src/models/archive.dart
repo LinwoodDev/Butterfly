@@ -19,3 +19,4 @@ const kPagesArchiveDirectory = '$kBflyArchiveDirectory/pages';
 const kComponentsArchiveDirectory = '$kBflyArchiveDirectory/components';
 const kStylesArchiveDirectory = '$kBflyArchiveDirectory/styles';
 const kPalettesArchiveDirectory = '$kBflyArchiveDirectory/palettes';
+const kToolbarsArchiveDirectory = '$kBflyArchiveDirectory/toolbars';

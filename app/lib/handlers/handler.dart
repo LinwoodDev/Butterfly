@@ -134,6 +134,14 @@ class EventContext {
   Future<void> refresh({bool allowBake = true}) =>
       getDocumentBloc().refresh(allowBake: allowBake);
 
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() => getDocumentBloc().refreshForegrounds();
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) =>
+      getDocumentBloc().updateCursor(cursor);
+
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
   ButterflySettings getSettings() => getSettingsCubit().state;
@@ -314,11 +322,10 @@ abstract class Handler<T> {
   @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
     PasteTextIntent: CallbackAction<PasteTextIntent>(
-      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, PasteIntent()),
     ),
     SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-      onInvoke: (intent) =>
-          Actions.maybeInvoke(context, SelectAllIntent(context)),
+      onInvoke: (intent) => Actions.maybeInvoke(context, SelectAllIntent()),
     ),
   };
 
@@ -339,7 +346,6 @@ extension ToolHandler<T extends Tool> on Handler<T> {
   void changeTool(DocumentBloc bloc, T newTool) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final index = state.info.tools.indexOf(data);
-    bloc.add(ToolsChanged({index: newTool}));
+    bloc.add(ToolsChanged([newTool]));
   }
 }

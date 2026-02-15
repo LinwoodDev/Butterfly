@@ -2,22 +2,29 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keybinder/keybinder.dart';
 
 import '../cubits/settings.dart';
 
 class ChangePathIntent extends Intent {
-  final BuildContext context;
-
-  const ChangePathIntent(this.context);
+  const ChangePathIntent();
 }
 
+final changePathShortcut = ShortcutDefinition(
+  id: 'change_path',
+  intent: const ChangePathIntent(),
+  defaultActivator: const SingleActivator(LogicalKeyboardKey.keyS, alt: true),
+);
+
 class ChangePathAction extends Action<ChangePathIntent> {
-  ChangePathAction();
+  final BuildContext context;
+
+  ChangePathAction(this.context);
 
   @override
   Future<void> invoke(ChangePathIntent intent) async {
-    final context = intent.context;
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess || state.location.path == '') return;

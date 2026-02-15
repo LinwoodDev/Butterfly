@@ -2,6 +2,136 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-beta.1 (2026-02-04)
+
+* Rewrite remote webdav file system
+* Fix non-zero exit code when app closes
+* Improve settings design
+* Add option to move the zoom view and add reset zoom button
+* Move toolbar size setting to view settings
+* Fix deleting characters not working in label tool on some keyboards on android
+* Fix sync button not visible on small screens
+* Remove autofocus from add dialog search to prevent virtual keyboard on mobile
+* Improve rendering performance on larger documents
+  * Cache paths in PenRenderer and PolygonRenderer during setup
+  * Use lightweight foreground refresh for handlers instead of full rebake
+  * Remove redundant per-frame sorting in ViewPainter
+  * Add early returns for empty renderer lists
+* Improve eraser performance
+  * Replace point interpolation with line segment intersection for hit testing
+  * Cache HitCalculator instances in PenRenderer
+  * Use synchronous rayCast for small element counts
+* Improve pen input experience
+  * Add pen-only input toggle button that appears when a pen is detected
+  * Make pen-only input setting tri-state (Automatic, Always on, Always off)
+  * Auto-enable pen-only mode for the current session when a stylus is detected in automatic mode
+* Improve performance of pen hit testing
+* Reintroduce white background if no background is set
+* Fix Android intent handling causing empty documents on resume and not updating on new intent
+* Fix importing assets does not use default template
+* Fix importing does not use selected storage
+* Fix importing archives opening empty documents
+* Fix spread to pages breaks pdf import
+* Remove border for pdf pages
+* Fix an issue where tools sometimes lacked a unique ID
+* Fix path eraser and eraser not correctly working if full selection is enabled
+
+Changes merged from 2.4.3 hotfix:
+* Fix toolbar position icon direction issue on rtl layouts
+* Fix foreground will be reset if temporary tool is added
+
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.1
+
+## 2.5.0-beta.0 (2026-01-14)
+
+* Rebuild template system
+  * Categorize templates in dialog by directory
+  * Core templates will be shown in core category instead of created on start
+  * Add new templates ([#933](https://github.com/LinwoodDev/Butterfly/issues/933))
+    * Dotted (+ dark)
+    * Ruled simple (+ dark)
+    * Quad simple (+ dark)
+    * Red lined ruled (+ dark)
+    * Red lined quad (+ dark) 
+  * Add new background presets ([#933](https://github.com/LinwoodDev/Butterfly/issues/933))
+    * Dotted (+ dark)
+    * Ruled simple (+ dark)
+    * Quad simple (+ dark)
+  * Change current templates to have black instead of dark and white instead of light backgrounds
+* Add logging
+* Add toolbar pack items
+  * Add toolbar tab to document selection view
+  * Add toolbars tab in packs dialog
+* Add custom keybinding support
+* Add dotted and dashed stroke styles to shapes ([#934](https://github.com/LinwoodDev/Butterfly/issues/934))
+* Add new nightly icon
+* Add icon to toolbar rows setting
+* Add export all packs to dialog
+* Improve stable icon on android
+* Improve background dialog to look consistent with the template dialog
+* Improve long name and tooltip in recent files on other storages
+* Improve edit toolbar experience
+  * Improve toolbar item size
+  * Improve drag and drop experience
+  * Use double tap to toggle selection
+  * Fix removing by drag behind plus icon not working
+  * Remove divider line on toolbar
+* Reimplement nightly design in web version
+* Fix color toolbar does not save palette changes
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix plain dark has wrong name
+* Fix exporting not working on web
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix on entering area outside has white background in dark mode
+* Fix company name on windows build
+
+Thanks for @JerryMerweather for contributing the new templates!
+Thanks for @tnswo561412 for contributing the dotted and dashed stroke styles!
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.0
+
+## 2.4.3 (2026-01-22)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.0 nightly release.
+
+* Fix toolbar position icon direction issue on rtl layouts
+* Fix foreground will be reset if temporary tool is added
+
+Cherry picks:
+* Add export all packs to dialog
+* Improve long name and tooltip in recent files on other storages
+* Fix text disappear if closing keyboard ([#1014](https://github.com/LinwoodDev/Butterfly/issues/1014))
+* Fix initialize check on local storage ([#1022](https://github.com/LinwoodDev/Butterfly/issues/1022))
+* Fix color toolbar does not save palette changes
+
+Read more here: https://linwood.dev/butterfly/2.4.3
+
+## 2.4.2 (2025-12-24)
+
+No changes compared to version 2.4.2-rc.4.
+
+This is a stable release, it includes all the changes from the 2.4.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4.2
+
+
+<details>
+ <summary>2.4.2 Nightly Changelog</summary>
+
+## 2.4.2-rc.4 (2025-12-19)
+
+* Add extend selection shortcut to label handler
+* Add dot to the center of the ruler
+* Add processing indicator when exporting and sharing
+* Fix app crash when having invalid latex
+* Fix label handler not submitting changes on dispose
+* Fix label handler updating text handling
+* Fix performance problems on creating simple elements
+* Fix pdf export preview gets updated on every slider change
+* Fix SVG export compatibility by using fill-opacity and stroke-opacity ([#963](https://github.com/LinwoodDev/Butterfly/issues/963))
+* Fix quality changes viewport on export dialog
+* Upgrade to flutter 3.38
+
+Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
+
 ## 2.4.2-rc.3 (2025-12-12)
 
 * Improve ui of pdf export dialog
@@ -67,12 +197,17 @@ Read more here: https://linwood.dev/butterfly/2.4.2-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.0
 
+</details>
+
 ## 2.4.1 (2025-11-13)
 
-No changes compared to version 2.4.1.
+No changes compared to version 2.4.1-rc.4.
 
 This is a stable release, it includes all the changes from the 2.4.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.4.1
+
+<details>
+ <summary>2.4.1 Nightly Changelog</summary>
 
 ## 2.4.1-rc.4 (2025-11-10)
 
@@ -164,6 +299,8 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.4.1-rc.0
 
+</details>
+
 ## 2.4.0 (2025-09-22)
 
 Changes since 2.3.0-rc.1:
@@ -171,6 +308,9 @@ Changes since 2.3.0-rc.1:
 
 This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3
+
+<details>
+ <summary>2.4 Nightly Changelog</summary>
 
 ## 2.4.0-rc.4 (2025-09-19)
 
@@ -301,6 +441,8 @@ Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
 
 Read more here: https://linwood.dev/butterfly/2.4.0-beta.0
 
+</details>
+
 ## 2.3.4 (2025-08-21)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.2 nightly release.
@@ -353,6 +495,9 @@ Changes since 2.3.1-rc.1:
 This is a stable release, it includes all the changes from the 2.3.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3.1
 
+<details>
+ <summary>2.3.1 Nightly Changelog</summary>
+
 ## 2.3.1-rc.1 (2025-05-12)
 
 * Add input mapping for inverted stylus ([#850](https://github.com/LinwoodDev/Butterfly/pull/850))
@@ -387,6 +532,8 @@ Read more here: https://linwood.dev/butterfly/2.3.1-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.3.1-rc.0
 
+</details>
+
 ## 2.3.0 (2025-04-20)
 
 Happy Easter! 🐰
@@ -396,6 +543,9 @@ Changes since 2.3.0-rc.1:
 
 This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.3
+
+<details>
+ <summary>2.3 Nightly Changelog</summary>
 
 ## 2.3.0-rc.1 (2025-04-16)
 
@@ -593,6 +743,8 @@ Read more here: https://linwood.dev/butterfly/2.3.0-beta.1
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
 
+</details>
+
 ## 2.2.4 (2025-01-13)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.3.0-beta.0 nightly release.
@@ -619,6 +771,9 @@ Merry Christmas! 🎄
 
 This is a stable release, it includes all the changes from the 2.2.3 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.3
+
+<details>
+ <summary>2.2.3 Nightly Changelog</summary>
 
 ## 2.2.3-rc.2 (2024-12-20)
 
@@ -694,6 +849,8 @@ Read more here: https://linwood.dev/butterfly/2.2.3-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.0
 
+</details>
+
 ## 2.2.2 (2024-11-11)
 
 * Fix loading screen showing after error
@@ -702,6 +859,9 @@ Read more here: https://linwood.dev/butterfly/2.2.3-rc.0
 
 This is a stable release, it includes all the changes from the 2.2.2 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.2
+
+<details>
+ <summary>2.2.2 Nightly Changelog</summary>
 
 ## 2.2.2-rc.1 (2024-11-04)
 
@@ -740,10 +900,16 @@ Read more here: https://linwood.dev/butterfly/2.2.2-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.2.2-rc.0
 
+</details>
+
 ## 2.2.1 (2024-10-17)
 
 This is a stable release, it includes all the changes from the 2.2.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.2.1
+
+
+<details>
+ <summary>2.2.1 Nightly Changelog</summary>
 
 ## 2.2.1-rc.1 (2024-10-14)
 
@@ -782,6 +948,8 @@ Read more here: https://linwood.dev/butterfly/2.2.1-rc.1
 * Fix selection not updated when elements changed
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
+
+</details>
 
 ## 2.2.0 (2024-09-28)
 
@@ -919,6 +1087,9 @@ Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.1.1
 
+<details>
+ <summary>2.1.1 Nightly Changelog</summary>
+
 ## 2.1.1-rc.2 (2024-06-03)
 
 * Show no elements message when document search is empty
@@ -972,6 +1143,8 @@ Visit the new docs here: https://butterfly.linwood.dev
 * Fix context buttons in template dialog closes the dialog
 
 Read more here: https://linwood.dev/butterfly/2.1.1-rc.0
+
+</details>
 
 ## 2.1.0 (2024-05-10)
 
@@ -1170,6 +1343,9 @@ Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.3
 
+<details>
+ <summary>2.0.3 Nightly Changelog</summary>
+
 ## 2.0.3-rc.1 (2024-02-12)
 
 * Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))
@@ -1195,11 +1371,16 @@ Read more here: https://linwood.dev/butterfly/2.0.3-rc.1
 
 Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
 
+</details>
+
 ## 2.0.2 (2024-01-29)
 
 Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
+
+<details>
+ <summary>2.0.2 Nightly Changelog</summary>
 
 ## 2.0.2-rc.0 (2024-01-22)
 
@@ -1212,11 +1393,16 @@ See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
 
 Read more here: https://linwood.dev/butterfly/2.0.2-rc.0
 
+</details>
+
 ## 2.0.1 (2024-01-15)
 
 Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.1
+
+<details>
+ <summary>2.0.1 Nightly Changelog</summary>
 
 ## 2.0.1-rc.1 (2024-01-08)
 
@@ -1252,6 +1438,8 @@ See all changes since the last stable here: https://linwood.dev/butterfly/2.0.1
 * Fix display icon
 * Fix spread pages settings not being saved
 * Fix app link on android
+
+</details>
 
 ## 2.0.0 (2023-12-24)
 

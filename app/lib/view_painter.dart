@@ -7,7 +7,6 @@ import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
@@ -36,6 +35,8 @@ class ForegroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final sel = selection;
+    if (renderers.isEmpty && sel == null) return;
     canvas.scale(transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
     for (var renderer in renderers) {
@@ -66,9 +67,8 @@ class ForegroundPainter extends CustomPainter {
         canvas.translate(-center.dx, -center.dy);
       }
     }
-    final selection = this.selection;
-    if (selection is ElementSelection) {
-      _drawSelection(canvas, size, selection);
+    if (sel is ElementSelection) {
+      _drawSelection(canvas, size, sel);
     }
   }
 
@@ -129,11 +129,7 @@ class ViewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    /*debugPrint(
-      'Baked ${cameraViewport.image != null}, unbaked elements: ${cameraViewport.unbakedElements.length} with size ${cameraViewport.width}x${cameraViewport.height}',
-    );*/
     var areaRect = currentArea?.rect;
-    final layers = page.layers;
     if (areaRect != null) {
       areaRect = Rect.fromPoints(
         transform.globalToLocal(areaRect.topLeft),
@@ -152,6 +148,7 @@ class ViewPainter extends CustomPainter {
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
+      canvas.drawColor(Colors.white, BlendMode.src);
       for (final e in cameraViewport.backgrounds) {
         e.build(canvas, size, document, page, info, transform, colorScheme);
       }
@@ -191,26 +188,9 @@ class ViewPainter extends CustomPainter {
     }
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
-    // Sort by layer order, if null layer is at the end.
-    final renderers = cameraViewport.unbakedElements.sorted((a, b) {
-      final aLayer = a.layer;
-      final bLayer = b.layer;
-      if (aLayer == null) {
-        return 1;
-      }
-      if (bLayer == null) {
-        return -1;
-      }
-      final compared = layers
-          .indexWhere((e) => e.id == aLayer)
-          .compareTo(layers.indexWhere((e) => e.id == bLayer));
-      if (compared != 0) return compared;
-      return cameraViewport.unbakedElements
-          .indexWhere((e) => e.id == a.id)
-          .compareTo(
-            cameraViewport.unbakedElements.indexWhere((e) => e.id == b.id),
-          );
-    });
+
+    // Use unbaked elements directly - they should already be sorted by loadElements
+    final renderers = cameraViewport.unbakedElements;
     for (final renderer in renderers) {
       final state = cameraViewport.rendererStates[renderer.id];
       if (!(invisibleLayers?.contains(renderer.layer) ?? false) &&

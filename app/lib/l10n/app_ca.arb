@@ -30,6 +30,9 @@
   "zoomOut": "Redueix",
   "resetZoom": "Reinicia zoom",
   "strokeWidth": "Amplada del traç",
+  "strokeStyle": "Stroke style",
+  "dashLength": "Dash length",
+  "gapLength": "Gap length",
   "includeEraser": "Incloure esborrador?",
   "thinning": "Afinament",
   "pen": "Bolígraf",
@@ -138,6 +141,7 @@
   "solid": "Sòlid",
   "double": "Doble",
   "dotted": "Puntejat",
+  "dottedDark": "Dotted dark",
   "dashed": "Guionet",
   "wavy": "Ondulat",
   "fontWeight": "Gruix de la font",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Fosc",
-  "plainDark": "Pla fosc",
+  "plainDark": "Plain dark",
   "ruledDark": "Ratllat fosc",
   "quadDark": "Quadrícula fosca",
   "musicDark": "Música fosca",
@@ -545,6 +549,7 @@
   "topRight": "Superior dreta",
   "bottomLeft": "Inferior esquerra",
   "bottomRight": "Inferior dreta",
+  "zoomPosition": "Zoom control position",
   "caches": "Cachés",
   "manage": "Gestiona",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Carpeta sincronitzada",
   "syncRootDirectory": "Directori arrel de sincronització",
   "penOnlyInput": "Entrada només bolígraf",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
+  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
+  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
+  "automatic": "Automatic",
+  "alwaysOn": "Always on",
+  "alwaysOff": "Always off",
+  "showPenOnlyToggle": "Show pen only toggle",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gestos d'entrada",
   "nativeTitleBar": "Barra de títol nativa",
   "syncMode": "Mode de sincronització",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Customize shortcuts",
+  "clickToSave": "Click to save",
+  "toolbars": "Toolbars",
+  "logs": "Logs",
+  "ruledSimple": "Ruled simple",
+  "ruledSimpleDark": "Ruled simple dark",
+  "quadSimple": "Quad simple",
+  "quadSimpleDark": "Quad simple dark",
+  "redLinedRuled": "Red lined ruled",
+  "redLinedRuledDark": "Red lined ruled dark",
+  "redLinedQuad": "Red lined quad",
+  "redLinedQuadDark": "Red lined quad dark",
+  "noItemSelected": "No item selected"
 }

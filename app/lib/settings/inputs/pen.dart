@@ -12,6 +12,13 @@ import '../../cubits/settings.dart';
 class PenInputSettings extends StatelessWidget {
   const PenInputSettings({super.key});
 
+  String _getPenOnlyInputName(bool? value, BuildContext context) {
+    if (value == null) return AppLocalizations.of(context).automatic;
+    return value
+        ? AppLocalizations.of(context).alwaysOn
+        : AppLocalizations.of(context).alwaysOff;
+  }
+
   String _getIgnorePressureName(
     IgnorePressure ignorePressure,
     BuildContext context,
@@ -53,17 +60,88 @@ class PenInputSettings extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SwitchListTile(
-                            value: state.penOnlyInput,
+                          ListTile(
                             title: Text(
                               AppLocalizations.of(context).penOnlyInput,
                             ),
-                            secondary: const PhosphorIcon(
+                            subtitle: Text(
+                              _getPenOnlyInputName(state.penOnlyInput, context),
+                            ),
+                            leading: const PhosphorIcon(
                               PhosphorIconsLight.pencilSimpleLine,
+                            ),
+                            onTap: () {
+                              final cubit = context.read<SettingsCubit>();
+                              final current = cubit.state.penOnlyInput;
+
+                              showLeapBottomSheet(
+                                context: context,
+                                titleBuilder: (context) => Text(
+                                  AppLocalizations.of(context).penOnlyInput,
+                                ),
+                                childrenBuilder: (context) {
+                                  return [
+                                    ListTile(
+                                      title: Text(
+                                        AppLocalizations.of(context).automatic,
+                                      ),
+                                      subtitle: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).penOnlyInputAutoDescription,
+                                      ),
+                                      selected: current == null,
+                                      onTap: () {
+                                        cubit.changePenOnlyInput(null);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    ListTile(
+                                      title: Text(
+                                        AppLocalizations.of(context).alwaysOn,
+                                      ),
+                                      subtitle: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).penOnlyInputOnDescription,
+                                      ),
+                                      selected: current == true,
+                                      onTap: () {
+                                        cubit.changePenOnlyInput(true);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    ListTile(
+                                      title: Text(
+                                        AppLocalizations.of(context).alwaysOff,
+                                      ),
+                                      subtitle: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).penOnlyInputOffDescription,
+                                      ),
+                                      selected: current == false,
+                                      onTap: () {
+                                        cubit.changePenOnlyInput(false);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ];
+                                },
+                              );
+                            },
+                          ),
+                          SwitchListTile(
+                            value: state.showPenOnlyToggle,
+                            title: Text(
+                              AppLocalizations.of(context).showPenOnlyToggle,
+                            ),
+                            secondary: const PhosphorIcon(
+                              PhosphorIconsLight.toggleRight,
                             ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changePenOnlyInput(value),
+                                .changeShowPenOnlyToggle(value),
                           ),
                           ListTile(
                             title: Text(

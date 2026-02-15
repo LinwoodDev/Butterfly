@@ -23,36 +23,53 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handleIntent(getIntent());
+    }
 
-        Intent intent = getIntent();
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
         String action = intent.getAction();
         String type = intent.getType();
 
-        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) && type != null) {
-            intentType = type;
+        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action) || Intent.ACTION_SEND.equals(action)) && type != null) {
             Uri uri = intent.getData();
+            if (uri == null && intent.getClipData() != null && intent.getClipData().getItemCount() > 0) {
+                uri = intent.getClipData().getItemAt(0).getUri();
+            }
             if (uri != null) {
+                intentType = type;
                 try {
-                    // Open an InputStream to read data from the URI
                     InputStream inputStream = getContentResolver().openInputStream(uri);
-
-                    // Read data from the InputStream into a byte array
-                    intentData = new byte[inputStream.available()];
-                    inputStream.read(intentData);
-
-                    // Now, you have the data as a byte array in 'byteArray'
-                    // You can use it as needed, e.g., display an image or process the data.
-
-                    // Don't forget to close the input stream
-                    inputStream.close();
+                    if (inputStream != null) {
+                        intentData = getBytes(inputStream);
+                        inputStream.close();
+                    }
                 } catch (IOException e) {
+                    e.printStackTrace();
                     intentData = null;
                     intentType = null;
                 }
-
             }
         }
     }
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        java.io.ByteArrayOutputStream byteBuffer = new java.io.ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
     @Override
     public void configureFlutterEngine(@NonNull io.flutter.embedding.engine.FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
@@ -63,8 +80,6 @@ public class MainActivity extends FlutterActivity {
                                 result.success(intentType);
                             } else if (call.method.equals("getIntentData")) {
                                 result.success(intentData);
-                                intentType = null;
-                                intentData = null;
                             } else {
                                 result.notImplemented();
                             }

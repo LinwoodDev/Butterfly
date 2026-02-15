@@ -13,11 +13,11 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.4.2-rc.4+162
+version: 2.5.0-beta.2+167
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.38.5
+  sdk: ">=3.9.0 <4.0.0"
+  flutter: 3.41.1
 
 dependencies:
   flutter:
@@ -62,12 +62,12 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 124bb8d6fc661c8b3e11b4507438786ac209d368
+      ref: 70a158c337c98612eb5ae95836c0b518a912d57e
       path: packages/material_leap
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 38fd0a6df52bf4115a6926271734d36e601af9cf
+      ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
       path: packages/lw_sysapi
   networker:
     git:
@@ -92,8 +92,13 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 42bd9fde81a3692711862cdb0c60f05f648241a9
+      ref: c9e3d4e08e94e1d21ac8490323bf9c521e21428f
       path: packages/lw_file_system
+  keybinder:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 13e4ec78ac3bad73c56752fdee13329317cee115
+      path: packages/keybinder
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^2.3.4
   dynamic_color: ^1.7.0
@@ -110,6 +115,10 @@ dependencies:
   synchronized: ^3.4.0
   file_picker: ^10.3.3
   pdfrx: ^2.2.9
+  talker_flutter: ^5.1.6
+  talker: ^5.1.6
+  talker_bloc_logger: ^5.1.6
+  flutter_native_splash: ^2.4.7
 dependency_overrides:
   irondash_engine_context:
     git:
@@ -132,6 +141,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   freezed: ^3.0.2
   msix: ^3.16.9
+  mocktail: ^1.0.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

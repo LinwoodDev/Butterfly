@@ -30,6 +30,9 @@
   "zoomOut": "Zoom ud",
   "resetZoom": "Reset zoom",
   "strokeWidth": "Slaglængde",
+  "strokeStyle": "Slagstil",
+  "dashLength": "Dash længde",
+  "gapLength": "Afstand længde",
   "includeEraser": "Inkludér viskelæder?",
   "thinning": "Udtynding",
   "pen": "Pen",
@@ -138,6 +141,7 @@
   "solid": "Solid",
   "double": "Dobbelt",
   "dotted": "Stiplet",
+  "dottedDark": "Stiftet mørk",
   "dashed": "Stiplet",
   "wavy": "Bølget",
   "fontWeight": "Skrifttype vægt",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Mørk",
-  "plainDark": "Mørk",
+  "plainDark": "Almindelig mørk",
   "ruledDark": "Hersket mørk",
   "quadDark": "Quad mørk",
   "musicDark": "Mørk musik",
@@ -545,6 +549,7 @@
   "topRight": "Øverst til højre",
   "bottomLeft": "Nederst til venstre",
   "bottomRight": "Nederst til højre",
+  "zoomPosition": "Zoom kontrolposition",
   "caches": "Cacher",
   "manage": "Administrer",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Mappe synkroniseret",
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Aktivér automatisk kun pen-tilstand når en stylus detekteres. Denne indstilling varer kun for den aktuelle session.",
+  "penOnlyInputOnDescription": "Afvis altid berøring og mus input, kun acceptere stylus input.",
+  "penOnlyInputOffDescription": "Accepter alle inputtyper, herunder touch, mus og stylus.",
+  "automatic": "Automatisk",
+  "alwaysOn": "Altid tændt",
+  "alwaysOff": "Altid slukket",
+  "showPenOnlyToggle": "Vis kun pen skiftende",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Lokal titellinje",
   "syncMode": "Synkroniser tilstand",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Maximize",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Tilpas genveje",
+  "clickToSave": "Klik for at gemme",
+  "toolbars": "Værktøjslinjer",
+  "logs": "Logfiler",
+  "ruledSimple": "Ruleret enkel",
+  "ruledSimpleDark": "Ruleret simpel mørk",
+  "quadSimple": "Quad simpel",
+  "quadSimpleDark": "Quad simpel mørk",
+  "redLinedRuled": "Rød foret regnede",
+  "redLinedRuledDark": "Rød foret regerede mørk",
+  "redLinedQuad": "Rød foret quad",
+  "redLinedQuadDark": "Rød foret quad mørk",
+  "noItemSelected": "Intet element valgt"
 }

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:keybinder/keybinder.dart';
 import 'package:material_leap/material_leap.dart';
 
 class FullScreenIntent extends Intent {
-  final BuildContext context;
-
-  const FullScreenIntent(this.context);
+  const FullScreenIntent();
 }
 
+final fullScreenShortcut = ShortcutDefinition(
+  id: 'full_screen',
+  intent: const FullScreenIntent(),
+  defaultActivator: const SingleActivator(LogicalKeyboardKey.f11),
+);
+
 class FullScreenAction extends Action<FullScreenIntent> {
-  FullScreenAction();
+  final BuildContext context;
+
+  FullScreenAction(this.context);
 
   @override
   Future<void> invoke(FullScreenIntent intent) async {

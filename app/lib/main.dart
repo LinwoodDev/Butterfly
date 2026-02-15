@@ -23,6 +23,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:keybinder/keybinder.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
@@ -41,11 +43,16 @@ import 'theme.dart';
 import 'views/error.dart';
 import 'views/home/page.dart';
 import 'views/main.dart';
+import 'settings/logs.dart';
+import 'services/logger.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
+  initLogger();
+  await loadPersistedLogs();
+  talker.info('App started');
   usePathUrlStrategy();
 
   await setup();
@@ -137,6 +144,7 @@ class ButterflyApp extends StatelessWidget {
     initialLocation: initialLocation,
     initialExtra: initialExtra,
     restorationScopeId: 'router',
+    observers: [TalkerRouteObserver(talker)],
     errorBuilder: (context, state) =>
         ErrorPage(message: state.error.toString()),
     routes: [
@@ -210,6 +218,10 @@ class ButterflyApp extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: 'logs',
+                builder: (context, state) => const LogsSettingsPage(),
               ),
             ],
           ),
@@ -382,6 +394,7 @@ class ButterflyApp extends StatelessWidget {
           ...AppLocalizations.localizationsDelegates,
           LocaleNamesLocalizationsDelegate(),
           LeapLocalizations.delegate,
+          KeybinderLocalizations.delegate,
         ],
         builder: (context, child) {
           if (!state.nativeTitleBar) {
@@ -421,10 +434,11 @@ class ButterflyApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Black Hairstreak';
+const applicationVersionName = 'Crimson Red';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.4';
+const applicationMinorVersion = '2.5';
+const logoAsset = isNightly ? 'images/nightly.png' : 'images/logo.png';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');

@@ -53,7 +53,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -100,23 +100,27 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           controller: _tabController,
           isScrollable: true,
           tabs:
-              <List<dynamic>>[
-                    [
+              [
+                    (
                       PhosphorIconsLight.file,
                       AppLocalizations.of(context).file,
-                    ],
-                    [
+                    ),
+                    (
+                      PhosphorIconsLight.toolbox,
+                      AppLocalizations.of(context).toolbars,
+                    ),
+                    (
                       PhosphorIconsLight.camera,
                       AppLocalizations.of(context).camera,
-                    ],
+                    ),
                   ]
                   .map(
                     (e) => HorizontalTab(
                       icon: PhosphorIcon(
-                        e[0],
+                        e.$1,
                         textDirection: TextDirection.ltr,
                       ),
-                      label: Text(e[1]),
+                      label: Text(e.$2),
                     ),
                   )
                   .toList(),
@@ -361,6 +365,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ),
               ],
             ),
+            const ToolbarsView(),
             Column(
               children: [
                 OffsetListTile(

@@ -59,7 +59,8 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   ReceivePort? port;
   StreamSubscription? subscription;
   try {
-    if (kIsWeb) {
+    final hasHeavyElements = elements.any((e) => e is SourcedElement);
+    if (kIsWeb || !hasHeavyElements) {
       return importAssets((
         data,
         elements,
@@ -448,7 +449,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List.from(current.info.tools)..add(event.tool),
+            tools: List.from(current.info.tools)
+              ..add(event.tool.copyWith(id: event.tool.id ?? createUniqueId())),
           ),
         ),
       );
@@ -457,14 +459,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final oldTools = current.info.tools;
       var selection = current.currentIndexCubit.state.selection;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List<Tool>.from(current.info.tools).mapIndexed((i, e) {
-              final updated = event.tools[i];
+            tools: List<Tool>.from(current.info.tools).map((e) {
+              final updated = e.id != null
+                  ? event.tools.firstWhereOrNull(
+                      (element) => element.id == e.id,
+                    )
+                  : null;
               if (updated != null) {
                 var newSelection = selection?.remove(e);
                 if (newSelection != selection && selection != null) {
@@ -483,25 +488,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
       );
-      final updatedCurrent = event.tools.entries.firstWhereOrNull(
-        (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.handler.data,
-      );
-      if (updatedCurrent != null) {
-        current.currentIndexCubit.updateTool(this, updatedCurrent.value);
+      final currentTool = current.currentIndexCubit.state.handler.data;
+      final id = currentTool is Tool ? currentTool.id : null;
+      if (id != null) {
+        final updatedCurrent = event.tools.firstWhereOrNull(
+          (element) => element.id == id,
+        );
+        if (updatedCurrent != null) {
+          current.currentIndexCubit.updateTool(this, updatedCurrent);
+        }
       }
       current.currentIndexCubit.updateTogglingTools(this, event.tools);
-      final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
-        (element) =>
-            oldTools.elementAtOrNull(element.key) ==
-            current.currentIndexCubit.state.temporaryHandler?.data,
-      );
-      if (updatedTempCurrent != null) {
-        current.currentIndexCubit.updateTemporaryTool(
-          this,
-          updatedTempCurrent.value,
+      final tempHandler = current.currentIndexCubit.state.temporaryHandler;
+      if (tempHandler != null && tempHandler.data.id != null) {
+        final updatedTempCurrent = event.tools.firstWhereOrNull(
+          (element) => element.id == tempHandler.data.id,
         );
+        if (updatedTempCurrent != null) {
+          current.currentIndexCubit.updateTemporaryTool(
+            this,
+            updatedTempCurrent,
+          );
+        }
       }
       if (selection != null) {
         current.currentIndexCubit.changeSelection(selection);
@@ -516,7 +524,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           info: current.info.copyWith(
             tools: current.info.tools
-                .whereIndexed((index, _) => !event.tools.contains(index))
+                .where((element) => !event.tools.contains(element.id))
+                .toList(),
+          ),
+        ),
+        updateIndex: true,
+      );
+    });
+    on<ToolsReplaced>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      _saveState(
+        emit,
+        state: current.copyWith(
+          info: current.info.copyWith(
+            tools: event.tools
+                .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
                 .toList(),
           ),
         ),
@@ -528,7 +552,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var tools = List<Tool>.from(current.info.tools);
-      var oldIndex = event.oldIndex;
+      var oldIndex = tools.indexWhere((element) => element.id == event.id);
+      if (oldIndex == -1) return;
       var newIndex = event.newIndex;
       if (oldIndex < 0 ||
           newIndex < 0 ||
@@ -1218,6 +1243,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return current.currentIndexCubit.refresh(current, allowBake: allowBake);
   }
 
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds() async {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    return current.currentIndexCubit.refreshForegrounds(current);
+  }
+
+  /// Ultra-lightweight update for cursor changes only.
+  void updateCursor(MouseCursor cursor) {
+    state.currentIndexCubit?.updateCursor(cursor);
+  }
+
   Future<void> refreshToolbar() =>
       state.currentIndexCubit?.refreshToolbar(this) ?? Future.value();
 
@@ -1340,12 +1378,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
+    bool? full,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
       useCollection: useCollection,
       useLayer: useLayer,
+      full: full,
     );
   }
 
@@ -1360,19 +1400,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (state is! DocumentLoadSuccess) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     final renderers = state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCast,
-      _RayCastParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        rect,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+
+    final params = _RayCastParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      rect,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      full,
+    );
+
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCast(params);
+    } else {
+      result = await compute(_executeRayCast, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
@@ -1385,20 +1433,28 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     final renderers = state.cameraViewport.visibleElements;
+    if (renderers.isEmpty) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     full ??= state.currentIndexCubit.state.utilities.fullSelection;
-    return compute(
-      _executeRayCastPolygon,
-      _RayCastPolygonParams(
-        state.invisibleLayers,
-        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-        points,
-        transform.size,
-        useCollection ? state.currentCollection : null,
-        useLayer ? state.currentLayer : null,
-        full,
-      ),
-    ).then((value) => value.map((e) => renderers[e]).toSet());
+
+    final params = _RayCastPolygonParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      points,
+      transform.size,
+      useCollection ? state.currentCollection : null,
+      useLayer ? state.currentLayer : null,
+      full,
+    );
+
+    // Use synchronous execution for small element counts to avoid isolate overhead
+    final Set<int> result;
+    if (renderers.length < 100) {
+      result = _executeRayCastPolygon(params);
+    } else {
+      result = await compute(_executeRayCastPolygon, params);
+    }
+    return result.map((e) => renderers[e]).toSet();
   }
 
   void sendUndo() {

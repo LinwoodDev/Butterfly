@@ -229,7 +229,12 @@ final class NoteData extends ArchiveData<NoteData> {
     if (pages.contains(name)) {
       return name;
     }
-    return getPageNameFromRealName(name);
+    for (final page in pages) {
+      if (getPageNameFromRealName(page) == name) {
+        return page;
+      }
+    }
+    return null;
   }
 
   @useResult
@@ -387,6 +392,20 @@ final class NoteData extends ArchiveData<NoteData> {
 
   Iterable<String> getValidAssets() =>
       validAssetPaths.expand((e) => getAssets(e)).toList();
+
+  Map<String, Uint8List> getAllAssets() {
+    final Map<String, Uint8List> assets = {};
+    for (final path in validAssetPaths) {
+      for (final assetName in getAssets(path)) {
+        final fullPath = '$path/$assetName';
+        final data = getAsset(fullPath);
+        if (data != null) {
+          assets[fullPath] = data;
+        }
+      }
+    }
+    return assets;
+  }
 
   (NoteData, String) importImage(Uint8List data, String fileExtension) =>
       importAsset(kImagesArchiveDirectory, data, fileExtension);
@@ -551,6 +570,45 @@ final class NoteData extends ArchiveData<NoteData> {
   @useResult
   NoteData removePalette(String name) =>
       removeAsset('$kPalettesArchiveDirectory/$name.json');
+
+  @useResult
+  Iterable<String> getToolbars() =>
+      getAssets('$kToolbarsArchiveDirectory/', true);
+
+  @useResult
+  Iterable<NamedItem<Toolbar>> getNamedToolbars() => getToolbars().map((e) {
+    final toolbar = getToolbar(e);
+    if (toolbar == null) return null;
+    return NamedItem<Toolbar>(name: e, item: toolbar);
+  }).nonNulls;
+
+  @useResult
+  Toolbar? getToolbar(String toolbarName) {
+    final data = getAsset('$kToolbarsArchiveDirectory/$toolbarName.json');
+    if (data == null) {
+      return null;
+    }
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return Toolbar.fromJson(json);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @useResult
+  NoteData setToolbar(String name, Toolbar toolbar) {
+    final content = jsonEncode(toolbar.toJson());
+    return setAsset(
+      '$kToolbarsArchiveDirectory/$name.json',
+      utf8.encode(content),
+    );
+  }
+
+  @useResult
+  NoteData removeToolbar(String name) =>
+      removeAsset('$kToolbarsArchiveDirectory/$name.json');
 
   @useResult
   String toJson() {

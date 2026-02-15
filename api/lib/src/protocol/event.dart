@@ -75,11 +75,13 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.toolCreated(Tool tool) = ToolCreated;
 
-  const factory DocumentEvent.toolsChanged(Map<int, Tool> tools) = ToolsChanged;
+  const factory DocumentEvent.toolsChanged(List<Tool> tools) = ToolsChanged;
 
-  const factory DocumentEvent.toolsRemoved(List<int> tools) = ToolsRemoved;
+  const factory DocumentEvent.toolsRemoved(List<String> tools) = ToolsRemoved;
 
-  const factory DocumentEvent.toolReordered(int oldIndex, int newIndex) =
+  const factory DocumentEvent.toolsReplaced(List<Tool> tools) = ToolsReplaced;
+
+  const factory DocumentEvent.toolReordered(String id, int newIndex) =
       ToolReordered;
 
   const factory DocumentEvent.documentBackgroundsChanged(

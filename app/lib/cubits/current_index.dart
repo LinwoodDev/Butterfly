@@ -10,6 +10,7 @@ import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -87,7 +88,18 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(false) bool isCreating,
     @Default('') String userName,
+    @Default(false) bool penDetected,
+    @Default(false) bool sessionPenOnlyInput,
   }) = _CurrentIndex;
+
+  /// Returns the effective pen-only input state.
+  /// If the setting is null (auto), uses the session-based state.
+  /// Otherwise uses the persisted setting.
+  bool get effectivePenOnlyInput {
+    final setting = settingsCubit.state.penOnlyInput;
+    if (setting != null) return setting;
+    return sessionPenOnlyInput;
+  }
 
   bool get moveEnabled =>
       (settingsCubit.state.inputGestures && pointers.length > 1) &&
@@ -103,7 +115,8 @@ sealed class CurrentIndex with _$CurrentIndex {
   };
 
   List<Renderer> getAllForegrounds([bool networking = true]) => [
-    ...(temporaryForegrounds ?? foregrounds),
+    ...foregrounds,
+    ...?temporaryForegrounds,
     ...toggleableForegrounds.values.expand((e) => e),
     if (networking) ...networkingForegrounds,
   ];
@@ -128,29 +141,97 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
            embedding: embedding,
            saved: absolute ? SaveState.absoluteRead : SaveState.saved,
          ),
-       );
+       ) {
+    _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
+  }
+
+  StreamSubscription? _transformSubscription;
+  Timer? _transformDebounceTimer;
+  static const _listEquality = ListEquality<Renderer<PadElement>>();
+
+  void _onTransformChanged(CameraTransform transform) {
+    // Debounce transform changes to avoid excessive updates during pan/zoom
+    _transformDebounceTimer?.cancel();
+    _transformDebounceTimer = Timer(const Duration(milliseconds: 16), () {
+      _updateVisibleElements();
+    });
+  }
+
+  void _updateVisibleElements() {
+    if (isClosed) return;
+    final unbaked = state.cameraViewport.unbakedElements;
+    if (unbaked.isEmpty) return;
+
+    final rect = getViewportRect();
+    final currentVisible = state.cameraViewport.visibleElements;
+
+    // Fast path: check if counts match before detailed comparison
+    final visible = unbaked.where((e) => e.isVisible(rect)).toList();
+    if (visible.length == currentVisible.length &&
+        visible.length == unbaked.length) {
+      return;
+    }
+
+    // Use cached equality instance for comparison
+    if (_listEquality.equals(visible, currentVisible)) {
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        cameraViewport: state.cameraViewport.withUnbaked(unbaked, visible),
+      ),
+    );
+  }
 
   void init(DocumentBloc bloc) {
     changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
   }
 
+  void setPenDetected(bool detected) {
+    if (state.penDetected == detected) return;
+    // When pen is detected and setting is auto (null), enable session pen-only
+    final shouldEnableSessionPenOnly =
+        detected &&
+        state.settingsCubit.state.penOnlyInput == null &&
+        !state.sessionPenOnlyInput;
+    emit(
+      state.copyWith(
+        penDetected: detected,
+        sessionPenOnlyInput: shouldEnableSessionPenOnly
+            ? true
+            : state.sessionPenOnlyInput,
+      ),
+    );
+  }
+
+  void setSessionPenOnlyInput(bool value) {
+    if (state.sessionPenOnlyInput == value) return;
+    emit(state.copyWith(sessionPenOnlyInput: value));
+  }
+
   Future<void> _updateOnVisible(
     CameraViewport newViewport,
     DocumentLoaded blocState,
   ) async {
+    final newVisibleList = newViewport.visibleElements;
+    if (newVisibleList.isEmpty) return;
+
     final currentVisible = state.cameraViewport.visibleElements.toSet();
-    final newVisible = newViewport.visibleElements.where(
-      (e) => !currentVisible.contains(e),
-    );
+    final newVisible = newVisibleList
+        .where((e) => !currentVisible.contains(e))
+        .toList();
+
+    if (newVisible.isEmpty) return;
+
+    talker.verbose('Updating visible elements: ${newVisible.length} new');
+    final transform = state.transformCubit.state;
+    final size = newViewport.toSize();
     await Future.wait(
       newVisible.map(
-        (element) async => await element.onVisible(
-          this,
-          blocState,
-          state.transformCubit.state,
-          newViewport.toSize(),
-        ),
+        (element) async =>
+            await element.onVisible(this, blocState, transform, size),
       ),
     );
   }
@@ -180,6 +261,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Handler<Tool>? handler,
     bool allowBake = true,
   }) async {
+    talker.verbose('Changing tool to index: $index');
     await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -258,29 +340,39 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
+  Timer? _networkingDebounceTimer;
+
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
-    if (change.nextState.foregrounds != change.currentState.foregrounds ||
-        change.nextState.temporaryForegrounds !=
-            change.currentState.temporaryForegrounds ||
-        change.nextState.lastPosition != change.currentState.lastPosition ||
-        change.nextState.userName != change.currentState.userName) {
-      _sendNetworkingState();
+    final current = change.currentState;
+    final next = change.nextState;
+
+    // Debounce networking state updates to avoid flooding the network
+    if (next.foregrounds != current.foregrounds ||
+        next.temporaryForegrounds != current.temporaryForegrounds ||
+        next.lastPosition != current.lastPosition ||
+        next.userName != current.userName) {
+      _networkingDebounceTimer?.cancel();
+      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
+        if (!isClosed) _sendNetworkingState();
+      });
     }
-    final newViewport = change.nextState.cameraViewport;
-    final currentViewport = change.currentState.cameraViewport;
-    if (change.currentState.cameraViewport != change.nextState.cameraViewport) {
-      change.nextState.handler.onViewportUpdated(currentViewport, newViewport);
-      change.nextState.temporaryHandler?.onViewportUpdated(
-        currentViewport,
-        newViewport,
-      );
+
+    final currentViewport = current.cameraViewport;
+    final newViewport = next.cameraViewport;
+
+    // Only notify handlers if viewport actually changed
+    if (!identical(currentViewport, newViewport) &&
+        currentViewport != newViewport) {
+      next.handler.onViewportUpdated(currentViewport, newViewport);
+      next.temporaryHandler?.onViewportUpdated(currentViewport, newViewport);
     }
-    if (change.currentState.cameraViewport.image !=
-        change.nextState.cameraViewport.image) {
-      final image = change.currentState.cameraViewport.image;
-      Future.delayed(const Duration(seconds: 2), () => image?.dispose());
+
+    // Schedule image disposal if changed
+    final oldImage = currentViewport.image;
+    if (oldImage != null && oldImage != newViewport.image) {
+      Future.delayed(const Duration(seconds: 2), () => oldImage.dispose());
     }
   }
 
@@ -305,6 +397,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentBloc bloc, [
     Map<Channel?, NetworkingUser>? current,
   ]) async {
+    talker.verbose('Updating networking state');
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final users = (current ?? state.networkingService.users).entries.toList();
@@ -346,8 +439,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(networkingForegrounds: foregrounds));
   }
 
-  void updateLastPosition(Offset position) =>
-      emit(state.copyWith(lastPosition: position));
+  void updateLastPosition(Offset position) {
+    // Only emit if position changed by more than 1 pixel to reduce state updates
+    final lastPos = state.lastPosition;
+    if (lastPos != null) {
+      final dx = (position.dx - lastPos.dx).abs();
+      final dy = (position.dy - lastPos.dy).abs();
+      if (dx < 1 && dy < 1) return;
+    }
+    emit(state.copyWith(lastPosition: position));
+  }
 
   Future<void> updateHandler(DocumentBloc bloc, Handler handler) async => emit(
     state.copyWith(
@@ -359,6 +460,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   );
 
   Future<void> updateTool(DocumentBloc bloc, Tool tool) async {
+    talker.verbose('Updating tool: ${tool.runtimeType}');
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
@@ -396,6 +498,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> updateTemporaryTool(DocumentBloc bloc, Tool tool) async {
+    talker.verbose('Updating temporary tool: ${tool.runtimeType}');
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
@@ -503,6 +606,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentLoaded blocState, {
     bool allowBake = true,
   }) async {
+    talker.verbose('Refreshing CurrentIndexCubit');
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -613,6 +717,90 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(
         state.copyWith(toolbar: toolbar, temporaryToolbar: temporaryToolbar),
       );
+    }
+  }
+
+  /// Lightweight refresh that only updates foregrounds without rebaking.
+  /// Use this when handler internal state changes but document hasn't changed.
+  Future<void> refreshForegrounds(DocumentLoaded blocState) async {
+    if (isClosed) return;
+    final document = blocState.data;
+    final page = blocState.page;
+    final info = blocState.info;
+    final assetService = blocState.assetService;
+    final currentArea = blocState.currentArea;
+
+    _disposeForegrounds();
+    _disposeTemporaryForegrounds();
+
+    final temporaryForegrounds = state.temporaryHandler?.createForegrounds(
+      this,
+      document,
+      page,
+      info,
+      currentArea,
+    );
+    if (temporaryForegrounds != null &&
+        temporaryForegrounds.isNotEmpty &&
+        state.temporaryHandler?.setupForegrounds == true) {
+      await Future.wait(
+        temporaryForegrounds.map(
+          (e) async =>
+              await e.setup(state.transformCubit, document, assetService, page),
+        ),
+      );
+    }
+
+    final foregrounds = state.handler.createForegrounds(
+      this,
+      document,
+      page,
+      info,
+      currentArea,
+    );
+    if (foregrounds.isNotEmpty && state.handler.setupForegrounds) {
+      await Future.wait(
+        foregrounds.map(
+          (e) async =>
+              await e.setup(state.transformCubit, document, assetService, page),
+        ),
+      );
+    }
+
+    // Check if rendererStates changed and need a bake
+    const mapEq = MapEquality<String, RendererState>();
+    final rendererStates = state.handler.rendererStates;
+    final temporaryRendererStates = state.temporaryHandler?.rendererStates;
+    final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
+    final temporaryStatesChanged = !mapEq.equals(
+      state.temporaryRendererStates,
+      temporaryRendererStates,
+    );
+
+    emit(
+      state.copyWith(
+        foregrounds: foregrounds,
+        temporaryForegrounds: temporaryForegrounds,
+        cursor: state.handler.cursor ?? MouseCursor.defer,
+        temporaryCursor: state.temporaryHandler?.cursor,
+        rendererStates: statesChanged ? rendererStates : state.rendererStates,
+        temporaryRendererStates: temporaryStatesChanged
+            ? temporaryRendererStates
+            : state.temporaryRendererStates,
+      ),
+    );
+
+    // If renderer states changed, we need to bake to hide/show original elements
+    if (statesChanged || temporaryStatesChanged) {
+      await bake(blocState, reset: true);
+    }
+  }
+
+  /// Ultra-lightweight update for cursor changes only.
+  /// Use this when only the cursor appearance needs to change.
+  void updateCursor(MouseCursor cursor) {
+    if (state.cursor != cursor) {
+      emit(state.copyWith(cursor: cursor));
     }
   }
 
@@ -748,13 +936,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void addPointer(int pointer) {
-    emit(
-      state.copyWith(pointers: (state.pointers.toSet()..add(pointer)).toList()),
-    );
+    final pointers = state.pointers;
+    if (pointers.contains(pointer)) return;
+    emit(state.copyWith(pointers: [...pointers, pointer]));
   }
 
   void removePointer(int pointer) {
-    emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
+    final pointers = state.pointers;
+    if (!pointers.contains(pointer)) return;
+    emit(
+      state.copyWith(pointers: pointers.where((p) => p != pointer).toList()),
+    );
   }
 
   Future<Handler?> changeTemporaryHandlerIndex(
@@ -968,6 +1160,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
     final oldVisibleSet = oldVisible.toSet();
+    talker.verbose(
+      'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
+      'rendererStatesChanged: $rendererStatesChanged)',
+    );
 
     if (reset) {
       visibleElements = renderers
@@ -985,27 +1181,34 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final visibleElementsSet = visibleElements.toSet();
 
-    // call onVisible for any newly visible elements
-    await Future.wait(
-      visibleElements
-          .where((element) => !oldVisibleSet.contains(element))
-          .map(
-            (element) async =>
-                await element.onVisible(this, blocState, renderTransform, size),
-          ),
-    );
-    await Future.wait(
-      oldVisible
-          .where((element) => !visibleElementsSet.contains(element))
-          .map(
-            (element) async =>
-                await element.onHidden(this, blocState, renderTransform, size),
-          ),
-    );
+    // call onVisible for any newly visible elements (skip if empty)
+    final newlyVisible = visibleElements
+        .where((element) => !oldVisibleSet.contains(element))
+        .toList();
+    if (newlyVisible.isNotEmpty) {
+      await Future.wait(
+        newlyVisible.map(
+          (element) async =>
+              await element.onVisible(this, blocState, renderTransform, size),
+        ),
+      );
+    }
+
+    final newlyHidden = oldVisible
+        .where((element) => !visibleElementsSet.contains(element))
+        .toList();
+    if (newlyHidden.isNotEmpty) {
+      await Future.wait(
+        newlyHidden.map(
+          (element) async =>
+              await element.onHidden(this, blocState, renderTransform, size),
+        ),
+      );
+    }
 
     canvas.scale(ratio);
 
-    if (viewChanged) {
+    if (viewChanged && visibleElements.isNotEmpty) {
       await Future.wait(
         visibleElements.map(
           (e) async =>
@@ -1167,9 +1370,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
   }) async {
-    final realWidth = (options.width * options.quality).ceil();
-    final realHeight = (options.height * options.quality).ceil();
-    final realZoom = options.scale * options.quality;
+    final realWidth = options.width.ceil();
+    final realHeight = options.height.ceil();
+    final realZoom = options.scale;
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
@@ -1184,7 +1387,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       cameraViewport:
           cameraViewport ??
           state.cameraViewport.unbake(unbakedElements: renderers),
-      transform: CameraTransform(1, Offset(options.x, options.y), realZoom),
+      transform: CameraTransform(
+        options.quality,
+        Offset(options.x, options.y),
+        realZoom,
+      ),
     );
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
@@ -1314,14 +1521,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             await e.setup(state.transformCubit, document, assetService, page),
       ),
     );
-    final layers = page.layers.map((e) => e.id).toSet();
+    // Build layer index map for O(1) lookups instead of O(n) indexOf calls
+    final layersList = page.layers.map((e) => e.id).toList();
+    final layerIndexMap = <String?, int>{};
+    for (var i = 0; i < layersList.length; i++) {
+      layerIndexMap[layersList[i]] = i;
+    }
+
+    // Build element index map for O(1) lookups
+    final elementIndexMap = <PadElement, int>{};
+    for (var i = 0; i < elements.length; i++) {
+      elementIndexMap[elements[i].$1] = i;
+    }
+
     final combined = [...reusable, ...newRenderers]
       ..sort((a, b) {
-        final layerA = layers.toList().indexOf(a.layer);
-        final layerB = layers.toList().indexOf(b.layer);
+        final layerA = layerIndexMap[a.layer] ?? layersList.length;
+        final layerB = layerIndexMap[b.layer] ?? layersList.length;
         if (layerA != layerB) return layerA.compareTo(layerB);
-        final indexA = elements.indexWhere((e) => e.$1 == a.element);
-        final indexB = elements.indexWhere((e) => e.$1 == b.element);
+        final indexA = elementIndexMap[a.element] ?? -1;
+        final indexB = elementIndexMap[b.element] ?? -1;
         return indexA.compareTo(indexB);
       });
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
@@ -1658,6 +1877,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return _savingLock.synchronized(() async {
       var current = location ?? state.location;
+      if (isClosed) {
+        return current;
+      }
       emit(
         state.copyWith(
           saved: SaveState.saving,
@@ -1667,6 +1889,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       final blocState = bloc.state;
       final currentData = await blocState.saveData();
+      if (isClosed) {
+        return current;
+      }
       if (currentData == null || blocState.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
         return AssetLocation.empty;
@@ -1692,6 +1917,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await fileSystem.updateFile(current.path, file);
       }
       state.settingsCubit.addRecentHistory(current);
+      if (isClosed) {
+        return current;
+      }
       emit(
         state.copyWith(
           saved: state.saved == SaveState.saving
@@ -1706,6 +1934,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   @override
   Future<void> close() async {
+    _transformSubscription?.cancel();
+    _transformDebounceTimer?.cancel();
+    _networkingDebounceTimer?.cancel();
     if (!state.networkingService.isClosed) {
       await state.networkingService.close();
     }
@@ -1792,19 +2023,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
 
-  Future<void> updateTogglingTools(
-    DocumentBloc bloc,
-    Map<int, Tool> tools,
-  ) async {
+  Future<void> updateTogglingTools(DocumentBloc bloc, List<Tool> tools) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final newHandlers = Map<int, Handler<Tool>>.from(state.toggleableHandlers);
     final newForegrounds = Map<int, List<Renderer>>.from(
       state.toggleableForegrounds,
     );
-    for (final entry in tools.entries) {
-      final index = entry.key;
-      final tool = entry.value;
+    final currentTools = blocState.info.tools;
+    for (final tool in tools) {
+      if (tool.id == null) continue;
+      final index = currentTools.indexWhere((element) => element.id == tool.id);
+      if (index == -1) continue;
       final old = state.toggleableHandlers[index];
       if (old == null) continue;
       if (old.data == tool) continue;

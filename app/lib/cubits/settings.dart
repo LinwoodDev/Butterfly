@@ -98,6 +98,25 @@ enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
+@freezed
+sealed class FavoriteLocation with _$FavoriteLocation {
+  const FavoriteLocation._();
+
+  const factory FavoriteLocation({String? remote, required String path}) =
+      _FavoriteLocation;
+
+  factory FavoriteLocation.fromJson(Map<String, dynamic> json) =>
+      _$FavoriteLocationFromJson(json);
+
+  factory FavoriteLocation.fromLocation(AssetLocation location) {
+    return FavoriteLocation(remote: location.remote, path: location.path);
+  }
+
+  AssetLocation toLocation([String defaultRemote = '']) {
+    return AssetLocation(path: path, remote: remote ?? defaultRemote);
+  }
+}
+
 class InputMappingDefault {
   static const InputMapping leftMouse = InputMapping(
     InputMapping.activeToolValue,
@@ -238,6 +257,20 @@ enum ToolbarPosition {
   };
 }
 
+enum ZoomPosition {
+  topRight,
+  topLeft,
+  bottomRight,
+  bottomLeft;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    ZoomPosition.topRight => AppLocalizations.of(context).topRight,
+    ZoomPosition.topLeft => AppLocalizations.of(context).topLeft,
+    ZoomPosition.bottomRight => AppLocalizations.of(context).bottomRight,
+    ZoomPosition.bottomLeft => AppLocalizations.of(context).bottomLeft,
+  };
+}
+
 enum OptionsPanelPosition {
   top,
   bottom;
@@ -290,7 +323,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double touchSensitivity,
     @Default(1) double selectSensitivity,
     @Default(1) double scrollSensitivity,
-    @Default(false) bool penOnlyInput,
+    bool? penOnlyInput,
+    @Default(true) bool showPenOnlyToggle,
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
@@ -298,6 +332,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @JsonKey(includeFromJson: false, includeToJson: false)
     List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
+    @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
     String? lastVersion,
     @Default([])
     @JsonKey(includeFromJson: false, includeToJson: false)
@@ -311,6 +346,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
+    @Default([])
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    List<FavoriteLocation> favoriteTemplates,
     @Default('') String defaultTemplate,
     @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
@@ -341,6 +379,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool moveOnGesture,
     @Default([]) List<String> swamps,
     PackAssetLocation? selectedPalette,
+    @Default(false) bool showVerboseLogs,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -355,7 +394,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
         const [];
     return ButterflySettings(
       localeTag: prefs.getString('locale') ?? '',
-      penOnlyInput: prefs.getBool('pen_only_input') ?? false,
+      penOnlyInput: prefs.containsKey('pen_only_input')
+          ? prefs.getBool('pen_only_input')
+          : null,
+      showPenOnlyToggle: prefs.getBool('show_pen_only_toggle') ?? true,
       inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
@@ -385,7 +427,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
                   return null;
                 }
               })
-              .whereType<AssetLocation>()
+              .nonNulls
               .toList() ??
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
@@ -402,6 +444,19 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
+      favoriteTemplates:
+          prefs
+              .getStringList('favorite_templates')
+              ?.map((e) {
+                try {
+                  return FavoriteLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .nonNulls
+              .toList() ??
+          [],
       defaultTemplate: prefs.getString('default_template') ?? '',
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
@@ -476,6 +531,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               json.decode(prefs.getString('selected_palette')!),
             )
           : null,
+      showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
     );
   }
 
@@ -501,7 +557,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
-    await prefs.setBool('pen_only_input', penOnlyInput);
+    if (penOnlyInput != null) {
+      await prefs.setBool('pen_only_input', penOnlyInput!);
+    }
+    await prefs.setBool('show_pen_only_toggle', showPenOnlyToggle);
     await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
@@ -534,6 +593,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     );
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
+    await prefs.setStringList(
+      'favorite_templates',
+      favoriteTemplates.map((e) => json.encode(e.toJson())).toList(),
+    );
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('toolbar_position', toolbarPosition.name);
@@ -681,6 +744,14 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> resetOptionsPanelPosition() =>
       changeOptionsPanelPosition(OptionsPanelPosition.top);
 
+  Future<void> changeZoomPosition(ZoomPosition position) {
+    emit(state.copyWith(zoomPosition: position));
+    return save();
+  }
+
+  Future<void> resetZoomPosition() =>
+      changeZoomPosition(ZoomPosition.bottomRight);
+
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));
   }
@@ -695,13 +766,19 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> changePenOnlyInput(bool penOnlyInput) {
+  Future<void> changePenOnlyInput(bool? penOnlyInput) {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
     return save();
   }
 
-  Future<void> resetPenOnlyInput() {
-    emit(state.copyWith(penOnlyInput: false));
+  Future<void> resetPenOnlyInput() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('pen_only_input');
+    emit(state.copyWith(penOnlyInput: null));
+  }
+
+  Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
+    emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));
     return save();
   }
 
@@ -847,10 +924,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            final documents = List<String>.from(
+              e.pinnedPaths['documents'] ?? [],
+            );
             return e.copyWith(
-              cachedDocuments: {
-                '': documents
+              pinnedPaths: {
+                'documents': documents
                   ..removeWhere((element) => element == current)
                   ..add(current),
               },
@@ -868,10 +947,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            final documents = List<String>.from(e.cachedDocuments[''] ?? []);
+            final documents = List<String>.from(
+              e.pinnedPaths['documents'] ?? [],
+            );
             return e.copyWith(
-              cachedDocuments: {
-                '': documents..removeWhere((element) => element == current),
+              pinnedPaths: {
+                'documents': documents
+                  ..removeWhere((element) => element == current),
               },
             );
           }
@@ -979,6 +1061,17 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeDefaultTemplate(String name) {
     emit(state.copyWith(defaultTemplate: name));
+    return save();
+  }
+
+  Future<void> toggleFavoriteTemplate(FavoriteLocation template) {
+    final favorites = state.favoriteTemplates.toList();
+    if (favorites.contains(template)) {
+      favorites.remove(template);
+    } else {
+      favorites.add(template);
+    }
+    emit(state.copyWith(favoriteTemplates: favorites));
     return save();
   }
 
@@ -1149,6 +1242,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeSelectedPalette(PackAssetLocation palette) {
     emit(state.copyWith(selectedPalette: palette));
+    return save();
+  }
+
+  Future<void> changeShowVerboseLogs(bool value) {
+    emit(state.copyWith(showVerboseLogs: value));
     return save();
   }
 }

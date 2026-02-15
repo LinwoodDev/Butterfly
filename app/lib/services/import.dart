@@ -28,6 +28,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
@@ -57,12 +58,24 @@ class ImportResult {
     this.packs = const [],
     this.choosePosition = false,
   }) : documentReady = false;
-  ImportResult.ready({required this.service, required this.document})
+  ImportResult.ready({required this.service, required NoteData this.document})
     : elements = const [],
-      assets = const {},
-      pages = const [],
+      assets = document.getAllAssets(),
+      pages = document
+          .getPages(true)
+          .map((e) {
+            final page = document.getPage(e);
+            if (page == null) return null;
+            return (e, page);
+          })
+          .nonNulls
+          .toList(),
+      packs = document
+          .getBundledPacks()
+          .map((e) => document.getBundledPack(e))
+          .nonNulls
+          .toList(),
       areas = const [],
-      packs = const [],
       choosePosition = false,
       documentReady = true;
 
@@ -95,7 +108,20 @@ class ImportResult {
       document = document.setPage(page).$1;
     }
     for (final (name, page) in pages) {
-      (document, _) = document.addPage(page, name ?? '');
+      final layers = <DocumentLayer>[];
+      for (final layer in page.layers) {
+        List<PadElement> imported;
+        (document, imported) = await importAssetsAsync(
+          document,
+          layer.content,
+          assets: assets,
+        );
+        layers.add(layer.copyWith(content: imported));
+      }
+      (document, _) = document.addPage(
+        page.copyWith(layers: layers),
+        name ?? '',
+      );
     }
     for (final pack in packs) {
       document = document.setBundledPack(pack);
@@ -139,12 +165,14 @@ class ImportService {
   final DocumentBloc? bloc;
   final BuildContext context;
   final ExternalStorage? storage;
+  final String? path;
   final bool useDefaultStorage;
 
   ImportService(
     this.context, {
     this.bloc,
     this.storage,
+    this.path,
     this.useDefaultStorage = true,
   });
 
@@ -435,22 +463,8 @@ class ImportService {
       if (callback == null) return null;
       pages = callback.pages;
       packs = callback.packs;
-    } else if (document == null) {
-      return ImportResult.ready(service: this, document: data);
     }
-    return ImportResult(
-      service: this,
-      document: document,
-      pages: pages
-          .map((e) {
-            final page = data.getPage(e);
-            if (page == null) return null;
-            return (e, page);
-          })
-          .nonNulls
-          .toList(),
-      packs: packs.map((e) => data.getBundledPack(e)).nonNulls.toList(),
-    );
+    return ImportResult.ready(service: this, document: data);
   }
 
   @useResult
@@ -815,6 +829,10 @@ class ImportService {
       final documentPages = <(String?, DocumentPage)>[];
       var y = firstPos.dy;
       var current = 0;
+      final state = bloc?.state;
+      final backgrounds = state is DocumentLoadSuccess
+          ? state.page.backgrounds
+          : (document.getPage()?.backgrounds ?? const <Background>[]);
 
       for (var i = 0; i < pages.length; i++) {
         var raster = elements[pages[i]];
@@ -848,6 +866,7 @@ class ImportService {
                   DocumentLayer(content: [element], id: createUniqueId()),
                 ],
                 areas: [if (createAreas) area],
+                backgrounds: backgrounds,
               ),
             ));
           } else {
@@ -956,7 +975,10 @@ class ImportService {
       fileSystem ??= getDocumentSystem();
       final document = await (await importBfly(bytes))?.export();
       if (document != null) {
-        fileSystem.createFile(document.name ?? '', document.toFile());
+        fileSystem.createFile(
+          p.join(path ?? '', document.name ?? ''),
+          document.toFile(),
+        );
       }
       return document != null;
     }
@@ -979,7 +1001,10 @@ class ImportService {
           advanced: false,
         ))?.export();
         if (document != null) {
-          fileSystem.createFile(file.name, document.toFile());
+          fileSystem.createFile(
+            p.join(path ?? '', file.name),
+            document.toFile(),
+          );
         }
       }
       return true;

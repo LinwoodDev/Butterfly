@@ -107,14 +107,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         subtitle: Text(_getDensityName(context, state.density)),
                         onTap: () => _openDensityModal(context),
                       ),
-                      ListTile(
-                        leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
-                        title: Text(AppLocalizations.of(context).toolbarSize),
-                        subtitle: Text(
-                          state.toolbarSize.getLocalizedName(context),
-                        ),
-                        onTap: () => _openToolbarSizeModal(context),
-                      ),
                       SwitchListTile(
                         secondary: const PhosphorIcon(
                           PhosphorIconsLight.circleHalf,
@@ -296,27 +288,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
               selected: currentTheme == e,
               onTap: () {
                 cubit.changePlatformTheme(e);
-                Navigator.of(context).pop();
-              },
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  void _openToolbarSizeModal(BuildContext context) {
-    final cubit = context.read<SettingsCubit>();
-    var currentSize = cubit.state.toolbarSize;
-    showLeapBottomSheet(
-      context: context,
-      titleBuilder: (context) => Text(AppLocalizations.of(context).toolbarSize),
-      childrenBuilder: (context) => ToolbarSize.values
-          .map(
-            (e) => ListTile(
-              title: Text(e.getLocalizedName(context)),
-              selected: currentSize == e,
-              onTap: () {
-                cubit.changeToolbarSize(e);
                 Navigator.of(context).pop();
               },
             ),

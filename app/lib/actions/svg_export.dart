@@ -1,23 +1,34 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/export/general.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../cubits/transform.dart';
+import 'package:keybinder/keybinder.dart';
 
 class SvgExportIntent extends Intent {
-  final BuildContext context;
-
-  const SvgExportIntent(this.context);
+  const SvgExportIntent();
 }
 
+final svgExportShortcut = ShortcutDefinition(
+  id: 'svg_export',
+  intent: const SvgExportIntent(),
+  defaultActivator: const SingleActivator(
+    LogicalKeyboardKey.keyE,
+    control: true,
+    alt: true,
+  ),
+);
+
 class SvgExportAction extends Action<SvgExportIntent> {
-  SvgExportAction();
+  final BuildContext context;
+
+  SvgExportAction(this.context);
 
   @override
   Future<void> invoke(SvgExportIntent intent) async {
-    final bloc = intent.context.read<DocumentBloc>();
-    final transform = intent.context.read<TransformCubit>().state;
+    final bloc = context.read<DocumentBloc>();
+    final transform = context.read<TransformCubit>().state;
     showDialog<void>(
       builder: (context) => BlocProvider.value(
         value: bloc,
@@ -26,7 +37,7 @@ class SvgExportAction extends Action<SvgExportIntent> {
           options: getDefaultSvgExportOptions(context, transform: transform),
         ),
       ),
-      context: intent.context,
+      context: context,
     );
   }
 }

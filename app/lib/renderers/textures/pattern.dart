@@ -93,7 +93,8 @@ void drawPatternTextureOnSvg(
       'y': '${translation.dy}px',
       'width': '${size.width}px',
       'height': '${size.height}px',
-      'fill': texture.boxColor.toHexString(),
+      'fill': texture.boxColor.toHexString(alpha: false),
+      'fill-opacity': '${texture.boxColor.a / 255}',
     },
   );
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
@@ -113,7 +114,8 @@ void drawPatternTextureOnSvg(
           'y1': '${translation.dy}px',
           'x2': '${currentX}px',
           'y2': '${translation.dy + size.height}px',
-          'stroke': texture.boxXColor.toHexString(),
+          'stroke': texture.boxXColor.toHexString(alpha: false),
+          'stroke-opacity': '${texture.boxXColor.a / 255}',
           'stroke-width': '${texture.boxXStroke}',
         },
       );
@@ -142,7 +144,8 @@ void drawPatternTextureOnSvg(
           'y1': '${currentY}px',
           'x2': '${translation.dx + size.width}px',
           'y2': '${currentY}px',
-          'stroke': texture.boxYColor.toHexString(),
+          'stroke': texture.boxYColor.toHexString(alpha: false),
+          'stroke-opacity': '${texture.boxYColor.a / 255}',
           'stroke-width': '${texture.boxYStroke}',
         },
       );

@@ -11,9 +11,11 @@ class AssetCard extends StatelessWidget {
     required this.thumbnail,
     required this.onTap,
     this.name,
+    this.tooltip,
     this.height = 128,
   });
   final String? name;
+  final String? tooltip;
   final FileMetadata? metadata;
   final Uint8List? thumbnail;
   final VoidCallback onTap;
@@ -25,38 +27,39 @@ class AssetCard extends StatelessWidget {
     final textStyle = TextTheme.of(
       context,
     ).bodyLarge?.copyWith(color: colorScheme.onSurface);
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: height),
-      child: AspectRatio(
-        aspectRatio: kThumbnailRatio,
-        child: Card(
-          elevation: 5,
-          clipBehavior: Clip.hardEdge,
-          child: Stack(
-            children: [
-              if (thumbnail?.isNotEmpty ?? false)
-                Align(
-                  child: Image.memory(
-                    thumbnail!,
-                    fit: BoxFit.cover,
-                    width: 640,
-                    alignment: Alignment.center,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Center(
-                        child: Icon(
-                          PhosphorIconsLight.warningCircle,
-                          color: colorScheme.onSurface,
-                        ),
-                      );
-                    },
+    return Tooltip(
+      message: tooltip ?? name ?? metadata?.name,
+      waitDuration: const Duration(seconds: 1),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: height),
+        child: AspectRatio(
+          aspectRatio: kThumbnailRatio,
+          child: Card(
+            elevation: 5,
+            clipBehavior: Clip.hardEdge,
+            child: Stack(
+              children: [
+                if (thumbnail?.isNotEmpty ?? false)
+                  Align(
+                    child: Image.memory(
+                      thumbnail!,
+                      fit: BoxFit.cover,
+                      width: 640,
+                      alignment: Alignment.center,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Icon(
+                            PhosphorIconsLight.warningCircle,
+                            color: colorScheme.onSurface,
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              if ((metadata?.name.isNotEmpty ?? false) ||
-                  (name?.isNotEmpty ?? false))
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Tooltip(
-                    message: name ?? metadata!.name,
+                if ((metadata?.name.isNotEmpty ?? false) ||
+                    (name?.isNotEmpty ?? false))
+                  Align(
+                    alignment: Alignment.bottomLeft,
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.all(8),
@@ -72,14 +75,14 @@ class AssetCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                Positioned.fill(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(onTap: onTap),
+                  ),
                 ),
-              Positioned.fill(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(onTap: onTap),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

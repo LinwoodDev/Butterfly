@@ -4,14 +4,17 @@ import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
 import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
+import rehypeKatex from "rehype-katex";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
+import remarkMath from "remark-math";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
-    remarkPlugins: [remarkHeadingID, remarkGemoji],
+    remarkPlugins: [remarkHeadingID, remarkGemoji, remarkMath],
+    rehypePlugins: [rehypeKatex]
   },
   integrations: [
     starlight({
@@ -20,6 +23,7 @@ export default defineConfig({
         // Relative path to your custom CSS file
         "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
+        "node_modules/katex/dist/katex.min.css"
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',

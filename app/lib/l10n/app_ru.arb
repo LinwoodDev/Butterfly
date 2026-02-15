@@ -30,6 +30,9 @@
   "zoomOut": "Уменьшить",
   "resetZoom": "Сбросить",
   "strokeWidth": "Толщина линии",
+  "strokeStyle": "Стиль обводки",
+  "dashLength": "Длина тире",
+  "gapLength": "Длина разрыва",
   "includeEraser": "Включить ластик?",
   "thinning": "Утончение",
   "pen": "Перо",
@@ -138,6 +141,7 @@
   "solid": "Сплошной",
   "double": "Двойной",
   "dotted": "Точечный",
+  "dottedDark": "Точечная темнота",
   "dashed": "Пунктирный",
   "wavy": "Волнистый",
   "fontWeight": "Насыщенность шрифта",
@@ -306,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Тёмная",
-  "plainDark": "Тёмная",
+  "plainDark": "Тёмный",
   "ruledDark": "В линейку тёмный",
   "quadDark": "В клетку тёмный",
   "musicDark": "Нотный стан тёмный",
@@ -545,6 +549,7 @@
   "topRight": "Сверху справа",
   "bottomLeft": "Снизу слева",
   "bottomRight": "Снизу справа",
+  "zoomPosition": "Управлять масштабом",
   "caches": "Кеш",
   "manage": "Управлять",
   "@manage": {
@@ -590,6 +595,19 @@
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Автоматически включать режим \"только ручкой\" при обнаружении стилуса. Этот параметр длится только для текущей сессии.",
+  "penOnlyInputOnDescription": "Всегда отклонять ввод касания и мыши, принимать только ввод стилуса.",
+  "penOnlyInputOffDescription": "Принимать все типы ввода, включая касание, мышь и стиль.",
+  "automatic": "Автоматически",
+  "alwaysOn": "Всегда включен",
+  "alwaysOff": "Всегда выкл",
+  "showPenOnlyToggle": "Показывать переключатель только пера",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Жесты ввода",
   "nativeTitleBar": "Родной заголовок",
   "syncMode": "Режим синхронизации",
@@ -1260,5 +1278,18 @@
   "densityMaximize": "Развернуть",
   "@densityMaximize": {
     "description": "Density value"
-  }
+  },
+  "customizeShortcuts": "Настроить ярлыки",
+  "clickToSave": "Нажмите, чтобы сохранить",
+  "toolbars": "Панели инструментов",
+  "logs": "Логи",
+  "ruledSimple": "Простые правила",
+  "ruledSimpleDark": "Простая темнота",
+  "quadSimple": "Простой квад",
+  "quadSimpleDark": "Простой квадрат темный",
+  "redLinedRuled": "Красный выдержанный",
+  "redLinedRuledDark": "Красный выложенный цвет - тёмный",
+  "redLinedQuad": "Красный квадрат",
+  "redLinedQuadDark": "Темный красный квадрат",
+  "noItemSelected": "Не выбрано ни одного элемента"
 }

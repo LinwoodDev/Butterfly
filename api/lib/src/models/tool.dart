@@ -6,6 +6,7 @@ import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/core.dart';
+import '../converter/id.dart';
 import 'area.dart';
 import 'colors.dart';
 import 'element.dart';
@@ -61,17 +62,20 @@ sealed class Tool with _$Tool {
   factory Tool.select({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(SelectMode.rectangle) SelectMode mode,
   }) = SelectTool;
 
   factory Tool.hand({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = HandTool;
 
   factory Tool.import({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     required List<PadElement> elements,
     required List<Area> areas,
     @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
@@ -80,16 +84,19 @@ sealed class Tool with _$Tool {
   factory Tool.undo({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = UndoTool;
 
   factory Tool.redo({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = RedoTool;
 
   factory Tool.label({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(LabelMode.text) LabelMode mode,
     @Default(false) bool zoomDependent,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
@@ -100,6 +107,7 @@ sealed class Tool with _$Tool {
   factory Tool.pen({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(false) bool zoomDependent,
     @Default(0.5) double shapeDetectionTime,
     @Default(false) bool shapeDetectionEnabled,
@@ -109,6 +117,7 @@ sealed class Tool with _$Tool {
   factory Tool.eraser({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(5) double strokeWidth,
     @Default(false) bool eraseElements,
   }) = EraserTool;
@@ -116,6 +125,7 @@ sealed class Tool with _$Tool {
   factory Tool.pathEraser({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(5) double strokeWidth,
     @Default(false) bool eraseElements,
   }) = PathEraserTool;
@@ -123,12 +133,14 @@ sealed class Tool with _$Tool {
   factory Tool.collection({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(5) double strokeWidth,
   }) = CollectionTool;
 
   factory Tool.area({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
@@ -138,6 +150,7 @@ sealed class Tool with _$Tool {
   factory Tool.laser({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(5) double duration,
     @Default(0.5) double hideDuration,
     @Default(5) double strokeWidth,
@@ -149,6 +162,7 @@ sealed class Tool with _$Tool {
   factory Tool.shape({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(false) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
@@ -160,17 +174,20 @@ sealed class Tool with _$Tool {
   factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     NamedItem<ButterflyComponent>? component,
   }) = StampTool;
 
   factory Tool.presentation({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = PresentationTool;
 
   factory Tool.spacer({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(Axis2D.horizontal) Axis2D axis,
   }) = SpacerTool;
 
@@ -178,11 +195,13 @@ sealed class Tool with _$Tool {
   factory Tool.fullScreen({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = FullScreenTool;
 
   factory Tool.asset({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(ImportType.document) ImportType importType,
     @Default(true) bool advanced,
   }) = AssetTool;
@@ -190,12 +209,14 @@ sealed class Tool with _$Tool {
   factory Tool.export({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     required ExportOptions options,
   }) = ExportTool;
 
   factory Tool.texture({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(false) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
@@ -206,6 +227,7 @@ sealed class Tool with _$Tool {
   factory Tool.ruler({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @ColorJsonConverter() SRGBColor? color,
     @Default(100) int size,
   }) = RulerTool;
@@ -213,6 +235,7 @@ sealed class Tool with _$Tool {
   factory Tool.grid({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
     @Default(20) double xSize,
     @Default(20) double ySize,
@@ -226,11 +249,13 @@ sealed class Tool with _$Tool {
   factory Tool.eyeDropper({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
   }) = EyeDropperTool;
 
   factory Tool.barcode({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(BarcodeType.qrCode) BarcodeType barcodeType,
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
   }) = BarcodeTool;
@@ -238,6 +263,7 @@ sealed class Tool with _$Tool {
   factory Tool.polygon({
     @Default('') String name,
     @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
     @Default(false) bool zoomDependent,
     @Default(PolygonProperty()) PolygonProperty property,
   }) = PolygonTool;

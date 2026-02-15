@@ -29,7 +29,37 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   @override
   Rect rect;
 
+  ui.Path? _cachedPath;
+
   PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
+
+  void _computePath() {
+    final points = element.points;
+    if (points.isEmpty) {
+      _cachedPath = null;
+      return;
+    }
+    _cachedPath = ui.Path();
+    final first = points.first;
+    _cachedPath!.moveTo(first.x, first.y);
+    for (var i = 1; i < points.length; i++) {
+      final point = points[i];
+      final prev = points[i - 1];
+
+      if (prev.handleOut != null || point.handleIn != null) {
+        _cachedPath!.cubicTo(
+          prev.handleOut?.x ?? prev.x,
+          prev.handleOut?.y ?? prev.y,
+          point.handleIn?.x ?? point.x,
+          point.handleIn?.y ?? point.y,
+          point.x,
+          point.y,
+        );
+      } else {
+        _cachedPath!.lineTo(point.x, point.y);
+      }
+    }
+  }
 
   @override
   void setup(
@@ -39,6 +69,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     DocumentPage page,
   ) async {
     rect = calculatePolygonRect(element.points);
+    _computePath();
 
     super.setup(transformCubit, document, assetService, page);
   }
@@ -54,28 +85,15 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    final points = element.points;
-    if (points.isEmpty) return;
-    final path = ui.Path();
-    final first = points.first;
-    path.moveTo(first.x, first.y);
-    for (var i = 1; i < points.length; i++) {
-      final point = points[i];
-      final prev = points[i - 1];
+    if (element.points.isEmpty) return;
 
-      if (prev.handleOut != null || point.handleIn != null) {
-        path.cubicTo(
-          prev.handleOut?.x ?? prev.x,
-          prev.handleOut?.y ?? prev.y,
-          point.handleIn?.x ?? point.x,
-          point.handleIn?.y ?? point.y,
-          point.x,
-          point.y,
-        );
-      } else {
-        path.lineTo(point.x, point.y);
-      }
+    // Compute path if not cached (e.g., for foreground renderers)
+    if (_cachedPath == null) {
+      _computePath();
     }
+    final path = _cachedPath;
+    if (path == null) return;
+
     final property = element.property;
 
     if (property.color.a > 0) {

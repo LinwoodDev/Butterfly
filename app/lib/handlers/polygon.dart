@@ -146,7 +146,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     );
     _element = element;
     _selectedPointIndex = element.points.length - 1;
-    context.refresh();
+    context.refreshForegrounds();
     context.getDocumentBloc().refreshToolbar();
   }
 
@@ -194,7 +194,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     });
     if (closestIndex == -1) return false;
     _selectedPointIndex = closestIndex;
-    context.refresh();
+    context.refreshForegrounds();
     return true;
   }
 
@@ -217,7 +217,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final updatedPoints = List<PolygonPoint>.from(element.points)
       ..[selectedIndex] = updatedPoint;
     _element = element.copyWith(points: updatedPoints);
-    context.refresh();
+    context.refreshForegrounds();
   }
 
   @override
@@ -231,7 +231,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final updatedPoints = List<PolygonPoint>.from(element.points)
       ..[selectedIndex] = updatedPoint;
     _element = element.copyWith(points: updatedPoints);
-    context.refresh();
+    context.refreshForegrounds();
     context.getDocumentBloc().refreshToolbar();
   }
 
@@ -293,7 +293,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     } else {
       _selectedPointIndex = max(0, selectedIndex - 1);
     }
-    bloc.refresh();
+    bloc.refreshForegrounds();
     bloc.refreshToolbar();
   }
 

@@ -140,7 +140,7 @@ class _TextStyleViewState extends State<TextStyleView> {
               ),
             ],
             onSelected: (weight) => widget.onChanged(
-              widget.value.copyWith(fontWeight: weight?.index),
+              widget.value.copyWith(fontWeight: weight?.value),
             ),
           ),
         ),
