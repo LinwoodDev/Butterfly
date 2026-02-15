@@ -549,7 +549,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
-  "zoomPosition": "تكبير موقع التحكم",
+  "zoomPosition": "موقع أداة التكبير",
   "caches": "المخبآت",
   "manage": "إدارة",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "تمكين وضع p-فقط تلقائياً عندما يتم الكشف عن قوة. هذا الإعداد يدوم فقط للدورة الحالية.",
-  "penOnlyInputOnDescription": "رفض دائماً مدخلات اللمس والفأرة ، وقبول مدخلات الأسلاك فقط.",
-  "penOnlyInputOffDescription": "قبول جميع أنواع الإدخال بما في ذلك اللمس والفأرة والأسلوب.",
+  "penOnlyInputAutoDescription": "شغّل وضع \"الإدخال بالقلم فقط\" عند رصد القلم.\nهذا الإعداد لن يحفظ و سيتغير في الجَلسة القادمة.",
+  "penOnlyInputOnDescription": "تجاهل دائمًا الإدخال باللمس والفأرة، واسمح فقط بالكتابة بالقلم.",
+  "penOnlyInputOffDescription": "اقبل جميع أنواع الإدخال بما في ذلك اللمس والفأرة و القلم.",
   "automatic": "تلقائي",
-  "alwaysOn": "دائماً مفعل",
-  "alwaysOff": "إيقاف دائمًا",
-  "showPenOnlyToggle": "إظهار تبديل القلم فقط",
+  "alwaysOn": "مفعل",
+  "alwaysOff": "معطل",
+  "showPenOnlyToggle": "إظهار زر الإدخال بالقلم فقط",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
@@ -808,7 +808,7 @@
   "@video": {
     "description": "Video object"
   },
-  "fps": "الإطارات في الثانية",
+  "fps": "إطار في الثانية",
   "@fps": {
     "description": "Frames per second"
   },
@@ -1286,10 +1286,10 @@
   "ruledSimple": "مخطط عادي",
   "ruledSimpleDark": "مخطط عادي داكن",
   "quadSimple": "مربعات عادي",
-  "quadSimpleDark": "مربعات داكن",
+  "quadSimpleDark": "مربعات داكنه",
   "redLinedRuled": "مخطط بفاصل أحمر",
   "redLinedRuledDark": "مخطط داكن بفاصل أحمر",
   "redLinedQuad": "مربعات بفاصل أحمر",
-  "redLinedQuadDark": "مربعات داكن بفاصل أحمر",
+  "redLinedQuadDark": "مربعات داكنه بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة"
 }
