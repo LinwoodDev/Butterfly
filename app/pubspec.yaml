@@ -62,7 +62,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 70a158c337c98612eb5ae95836c0b518a912d57e
+      ref: a6859b573815a6ebb3075efa340a8d48b73b5380
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -72,22 +72,22 @@ dependencies:
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 4f221c5943ceb786eb7bd427eb71a8cc1346b9b8
+      ref: 54d35ef572172ac74d853d47af0140a89b36d714
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: 1ab8146be49b208ba5890935561b93af71702858
       path: packages/networker/networker_socket
   networker_crypto:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: 1ab8146be49b208ba5890935561b93af71702858
       path: packages/networker/networker_crypto
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: 1c15259fc8c5e043997ffcaafbf45348a77e3003
+      ref: 554e2e974ca4671b33a5fe5ab9b7702436eba838
       path: api
   lw_file_system:
     git:

@@ -87,7 +87,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                   onPressed: () =>
                       widget.onChanged(widget.value.copyWith(size: null)),
                 ),
-          value: widget.value.size,
+          value: widget.value.size ?? 12,
           defaultValue: 12,
           min: 6,
           max: 512,
@@ -108,7 +108,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                     widget.value.copyWith(letterSpacing: null),
                   ),
                 ),
-          value: widget.value.letterSpacing,
+          value: widget.value.letterSpacing ?? 0,
           defaultValue: 0,
           min: 0,
           max: 20,
@@ -238,7 +238,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                     ExactSlider(
                       header: Text(AppLocalizations.of(context).thickness),
                       defaultValue: 1,
-                      value: widget.value.decorationThickness,
+                      value: widget.value.decorationThickness ?? 1,
                       bottom: widget.value.decorationThickness == null
                           ? Text(AppLocalizations.of(context).notSet)
                           : null,

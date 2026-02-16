@@ -861,8 +861,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "70a158c337c98612eb5ae95836c0b518a912d57e"
-      resolved-ref: "70a158c337c98612eb5ae95836c0b518a912d57e"
+      ref: a6859b573815a6ebb3075efa340a8d48b73b5380
+      resolved-ref: a6859b573815a6ebb3075efa340a8d48b73b5380
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -934,8 +934,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "4f221c5943ceb786eb7bd427eb71a8cc1346b9b8"
-      resolved-ref: "4f221c5943ceb786eb7bd427eb71a8cc1346b9b8"
+      ref: "54d35ef572172ac74d853d47af0140a89b36d714"
+      resolved-ref: "54d35ef572172ac74d853d47af0140a89b36d714"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -943,8 +943,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_crypto"
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
-      resolved-ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: "1ab8146be49b208ba5890935561b93af71702858"
+      resolved-ref: "1ab8146be49b208ba5890935561b93af71702858"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -952,8 +952,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
-      resolved-ref: ec6f31ba3eb0da17bdef6a8d66ef6caafcabd908
+      ref: "1ab8146be49b208ba5890935561b93af71702858"
+      resolved-ref: "1ab8146be49b208ba5890935561b93af71702858"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1113,10 +1113,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: "1a97266a94f7350d30ae522c0af07890c70b8e62c71e8e3920d1db4d23c057d1"
+      sha256: "91bd59303e9f769f108f8df05e371341b15d59e995e6806aefab827b58336675"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.1"
+    version: "7.0.2"
   phosphor_flutter:
     dependency: "direct main"
     description:
@@ -1471,11 +1471,11 @@ packages:
     dependency: "direct main"
     description:
       path: api
-      ref: "1c15259fc8c5e043997ffcaafbf45348a77e3003"
-      resolved-ref: "1c15259fc8c5e043997ffcaafbf45348a77e3003"
+      ref: "554e2e974ca4671b33a5fe5ab9b7702436eba838"
+      resolved-ref: "554e2e974ca4671b33a5fe5ab9b7702436eba838"
       url: "https://github.com/LinwoodDev/Swamp.git"
     source: git
-    version: "1.0.0"
+    version: "0.2.0"
   sync_http:
     dependency: transitive
     description:
