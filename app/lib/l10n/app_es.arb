@@ -549,6 +549,7 @@
   "topRight": "Arriba derecha",
   "bottomLeft": "Bottom izquierdo",
   "bottomRight": "Botón derecho",
+  "zoomPosition": "Posición de control de zoom",
   "caches": "Cachés",
   "manage": "Gestionar",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Carpeta sincronizada",
   "syncRootDirectory": "Directorio raíz de sincronización",
   "penOnlyInput": "Entrada de Pen sólo",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Activa automáticamente el modo de solo pluma cuando se detecta un código. Este ajuste solo dura la sesión actual.",
+  "penOnlyInputOnDescription": "Siempre rechazar el toque y la entrada del ratón, sólo aceptar la entrada del estilo.",
+  "penOnlyInputOffDescription": "Acepta todos los tipos de entrada, incluyendo toque, ratón y estilo.",
+  "automatic": "Automático",
+  "alwaysOn": "Siempre encendido",
+  "alwaysOff": "Siempre apagado",
+  "showPenOnlyToggle": "Mostrar sólo alternar lápiz",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Barra de título nativa",
   "syncMode": "Modo de sincronización",

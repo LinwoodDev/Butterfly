@@ -549,6 +549,7 @@
   "topRight": "Oikea yläreuna",
   "bottomLeft": "Vasen alareuna",
   "bottomRight": "Oikea alareuna",
+  "zoomPosition": "Zoomauksen ohjauksen sijainti",
   "caches": "Kätköt",
   "manage": "Hallitse",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Kansio synkronoitu",
   "syncRootDirectory": "Synkronoi juurikansio",
   "penOnlyInput": "Vain kynä syöttö",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Ota käyttöön automaattisesti vain kynä-tila kun stylus havaitaan. Tämä asetus kestää vain nykyisen istunnon.",
+  "penOnlyInputOnDescription": "Hylkää aina kosketus ja hiiren syöte, vain hyväksy stylus syöte.",
+  "penOnlyInputOffDescription": "Hyväksy kaikki syöttötyypit, mukaan lukien kosketus, hiiri ja tyyli.",
+  "automatic": "Automaattinen",
+  "alwaysOn": "Aina päällä",
+  "alwaysOff": "Aina pois",
+  "showPenOnlyToggle": "Näytä vain kynän vaihto",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Alkuperäinen otsikkopalkki",
   "syncMode": "Synkronoinnin tila",

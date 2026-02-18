@@ -549,6 +549,7 @@
   "topRight": "أعلى اليمين",
   "bottomLeft": "أسفل اليسار",
   "bottomRight": "أسفل اليمين",
+  "zoomPosition": "موقع أداة التكبير",
   "caches": "المخبآت",
   "manage": "إدارة",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة مجلد الجذر",
   "penOnlyInput": "الرسم باستخدام القلم فقط",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "شغّل وضع \"الإدخال بالقلم فقط\" عند رصد القلم.\nهذا الإعداد لن يحفظ و سيتغير في الجَلسة القادمة.",
+  "penOnlyInputOnDescription": "تجاهل دائمًا الإدخال باللمس والفأرة، واسمح فقط بالكتابة بالقلم.",
+  "penOnlyInputOffDescription": "اقبل جميع أنواع الإدخال بما في ذلك اللمس والفأرة و القلم.",
+  "automatic": "تلقائي",
+  "alwaysOn": "مفعل",
+  "alwaysOff": "معطل",
+  "showPenOnlyToggle": "إظهار زر الإدخال بالقلم فقط",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "إيماءات الإدخال",
   "nativeTitleBar": "استخدم شريط عنوان النظام",
   "syncMode": "وضع المزامنة",
@@ -691,7 +705,7 @@
   "activeTool": "الأداة المفعلة",
   "activeToolDescription": "استخدام الأداة المحددة حاليًا على شريط الأدوات",
   "handTool": "أداة اليد",
-  "handToolDescription": "اسحب للتحرك حول اللوحه",
+  "handToolDescription": "اسحب للتحريك اللوحة",
   "toolOnToolbar": "أداة محددة على شريط الأدوات",
   "toolOnToolbarDescription": "استخدام الأداة في الموضع المحدد على شريط الأدوات، بدءاً من اليسار",
   "toolOnToolbarShort": "موضع شريط الأدوات: {display_position}",
@@ -794,7 +808,7 @@
   "@video": {
     "description": "Video object"
   },
-  "fps": "الإطارات في الثانية",
+  "fps": "إطار في الثانية",
   "@fps": {
     "description": "Frames per second"
   },
@@ -1174,11 +1188,11 @@
   "unencryptDocumentMessage": "انقر لإلغاء تشفير المستند",
   "unencrypt": "إلغاء التشفير",
   "encrypt": "تشفير",
-  "encryptWarning": "سيؤدي هذا إلى تشفير المستند. ستحتاج إلى تذكر كلمة المرور لفك تشفيرها.",
-  "unencryptWarning": "سيؤدي هذا إلى إلغاء تشفير المستند. سيتم إزالة كلمة المرور وسيتمكن كل من لديه حق الوصول من فتحها.",
+  "encryptWarning": "أأنت متأكد من تشفير المستند؟ ستحتاج إلى تذكر كلمة المرور لفك تشفيرها.",
+  "unencryptWarning": "هل تريد إلغاء تشفير المستند؟ سيتم إزالة كلمة المرور وسيتمكن كل من لديه حق الوصول من فتحها.",
   "confirmPassword": "تأكيد كلمة المرور",
   "passwordMismatch": "كلمات المرور لا تتطابق",
-  "action": "اجراء",
+  "action": "إجراء",
   "@action": {
     "description": "Action property"
   },
@@ -1193,7 +1207,7 @@
   "grayscale": "تدرّج الرمادي",
   "moveOnGesture": "إيماءة التحريك",
   "exportAllFiles": "تصدير جميع الملفات",
-  "restoreSettingsFromFile": "استعادة الإعدادات من الملف",
+  "restoreSettingsFromFile": "استعادة الإعدادات من ملف",
   "exportSettingsToFile": "تصدير الإعدادات إلى ملف",
   "barcode": "الرمز الشريطي (الباركود)",
   "@barcode": {
@@ -1272,10 +1286,10 @@
   "ruledSimple": "مخطط عادي",
   "ruledSimpleDark": "مخطط عادي داكن",
   "quadSimple": "مربعات عادي",
-  "quadSimpleDark": "مربعات داكن",
+  "quadSimpleDark": "مربعات داكنه",
   "redLinedRuled": "مخطط بفاصل أحمر",
   "redLinedRuledDark": "مخطط داكن بفاصل أحمر",
   "redLinedQuad": "مربعات بفاصل أحمر",
-  "redLinedQuadDark": "مربعات داكن بفاصل أحمر",
+  "redLinedQuadDark": "مربعات داكنه بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة"
 }

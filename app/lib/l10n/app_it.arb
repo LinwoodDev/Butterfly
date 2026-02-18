@@ -549,6 +549,7 @@
   "topRight": "Alto a destra",
   "bottomLeft": "Basso a sinistra",
   "bottomRight": "Basso a destra",
+  "zoomPosition": "Posizione controllo zoom",
   "caches": "Cache",
   "manage": "Gestisci",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Cartella sincronizzata",
   "syncRootDirectory": "Sincronizza directory root",
   "penOnlyInput": "Input solo penna",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Abilita automaticamente la modalità di sola penna quando viene rilevato uno stilo. Questa impostazione dura solo per la sessione corrente.",
+  "penOnlyInputOnDescription": "Rifiuta sempre il tocco e l'ingresso del mouse, accetta solo l'input stilo.",
+  "penOnlyInputOffDescription": "Accetta tutti i tipi di input, tra cui tocco, mouse, e stilo.",
+  "automatic": "Automatico",
+  "alwaysOn": "Sempre acceso",
+  "alwaysOff": "Sempre spento",
+  "showPenOnlyToggle": "Mostra solo penna attiva/disattiva",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gestures di input",
   "nativeTitleBar": "Barra del titolo nativo",
   "syncMode": "Modalità sincronizzazione",

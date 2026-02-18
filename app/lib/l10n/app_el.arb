@@ -549,6 +549,7 @@
   "topRight": "Πάνω δεξιά",
   "bottomLeft": "Κάτω αριστερά",
   "bottomRight": "Κάτω δεξιά",
+  "zoomPosition": "Θέση ελέγχου εστίασης",
   "caches": "Κρύπτες",
   "manage": "Διαχείριση",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Αυτόματη ενεργοποίηση λειτουργίας μόνο στυλό όταν εντοπιστεί μια γραφίδα. Αυτή η ρύθμιση διαρκεί μόνο για την τρέχουσα συνεδρία.",
+  "penOnlyInputOnDescription": "Πάντα απορρίπτει την είσοδο αφής και ποντικιού, δέχεται μόνο γραφίδα εισόδου.",
+  "penOnlyInputOffDescription": "Αποδεχτείτε όλους τους τύπους εισόδου, συμπεριλαμβανομένης της αφής, του ποντικιού και της γραφίδας.",
+  "automatic": "Αυτόματο",
+  "alwaysOn": "Πάντα ενεργό",
+  "alwaysOff": "Πάντα ανενεργό",
+  "showPenOnlyToggle": "Εμφάνιση εναλλαγής μόνο πένας",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Εγγενής γραμμή τίτλου",
   "syncMode": "Λειτουργία συγχρονισμού",

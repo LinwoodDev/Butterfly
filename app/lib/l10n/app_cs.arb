@@ -549,6 +549,7 @@
   "topRight": "Vpravo nahoře",
   "bottomLeft": "Vlevo dole",
   "bottomRight": "Vpravo dole",
+  "zoomPosition": "Poloha ovládání přiblížení",
   "caches": "Cache",
   "manage": "Spravovat",
   "@manage": {
@@ -594,6 +595,19 @@
   "folderSynced": "Složka synchronizována",
   "syncRootDirectory": "Synchronizovat kořenový adresář",
   "penOnlyInput": "Používat pouze tužku",
+  "@penOnlyInput": {
+    "description": "Setting to enable pen only input mode"
+  },
+  "penOnlyInputAutoDescription": "Automaticky povolit režim pouze pro pen-only pokud je rozpoznán perus. Toto nastavení trvá pouze pro aktuální relaci.",
+  "penOnlyInputOnDescription": "Vždy odmítnout dotyk a vstup myši, přijmout pouze stylus vstupu.",
+  "penOnlyInputOffDescription": "Přijmout všechny typy vstupů včetně dotyku, myši a stylu.",
+  "automatic": "Automaticky",
+  "alwaysOn": "Vždy zapnuto",
+  "alwaysOff": "Vždy vypnuto",
+  "showPenOnlyToggle": "Zobrazit pouze přepínač pera",
+  "@showPenOnlyToggle": {
+    "description": "Setting to show pen only toggle button when pen is detected"
+  },
   "inputGestures": "Gesta",
   "nativeTitleBar": "Nativní titulek",
   "syncMode": "Režim synchronizace",
