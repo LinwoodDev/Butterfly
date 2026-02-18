@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.4.4 (2026-02-18)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.1 nightly release.
+
+Cherry picks:
+* Improve performance of pen hit testing
+* Remove autofocus from add dialog search to prevent virtual keyboard on mobile
+* Fix sync button not visible on small screens
+* Fix non-zero exit code when app closes
+* Fix Android intent handling causing empty documents on resume and not updating on new intent
+* Fix importing assets does not use default template
+* Fix importing does not use selected storage
+* Fix importing archives opening empty documents
+* Fix spread to pages breaks pdf import
+* Fix path eraser and eraser not correctly working if full selection is enabled
+* Fix triangle shape not exported on svg export
+* Remove border for pdf pages
+
+Read more here: https://linwood.dev/butterfly/2.4.4
+
 ## 2.4.3 (2026-01-22)
 
 This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.0 nightly release.
