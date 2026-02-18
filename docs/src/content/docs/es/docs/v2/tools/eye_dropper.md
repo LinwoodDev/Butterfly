@@ -1,7 +1,7 @@
 ---
-title: Eye dropper tool
+title: Herramienta de soltador de ojos
 ---
 
-When clicking on this tool you can find the color of the part you clicked on. The color will be copied to the clipboard.
+Al hacer clic con esta herramienta puedes encontrar el color de la parte en la que hiciste clic. El color será copiado al portapapeles.
 
-If used as a temporary tool, the color will be applied to the primary selected tool.
+Si es usado cómo una herramienta temporal, el color será aplicado a la herramienta primaria elegida.

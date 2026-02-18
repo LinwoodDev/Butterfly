@@ -1,29 +1,29 @@
 ---
-title: Area tool
+title: Herramienta de área
 ---
 
-The area tool allows you to create, edit and remove areas.
+La herramienta de área te permite crear, editar y remover áreas.
 
-For an overview of how areas work, see [Areas](../areas).
+Para una descripción general de cómo funcionan las áreas, véase [Áreas](../areas).
 
 ## Acciones
 
-|           Ratón           |      Pulsar     |        Accin        |
-| :-----------------------: | :-------------: | :-----------------: |
-| Clic izquierdo y arrastre | Toca y arrastra | Crear un nuevo área |
-|        Clic central       |    Dos dedos    |     Mover lienzo    |
-|        Clic derecho       | Pulsación larga |     Editar área     |
+|           Ratón           |      Pulsar     |        Acción        |
+| :-----------------------: | :-------------: | :------------------: |
+| Clic izquierdo y arrastre | Toca y arrastra | Crear una nueva área |
+|        Clic central       |    Dos dedos    |     Mover lienzo     |
+|        Clic derecho       | Pulsación larga |      Editar área     |
 
 ## Configuración
 
-|           Propiedad | Por defecto | Descripción                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------: | :---------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|               Width |     `0`     | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
-|              Altura |     `0`     | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
-| Relación de aspecto |     `0`     | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
+|           Propiedad | Por defecto | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------: | :---------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|               Ancho |      0      | El ancho fijo de nuevas áreas. Si puesto en 0, esta configuración será ignorada.                                                                                                                                                                                                                                                                                                                                                    |
+|              Altura |      0      | La altura fija para nuevas áreas. Si puesto en 0, esta configuración será ignorada.                                                                                                                                                                                                                                                                                                                                                 |
+| Relación de aspecto |      0      | La relación de aspecto fija para nuevas áreas. Presiona el botón de <DotsThreeVertical className="inline-icon"/> para acceder a algunos ajustes predeterminados comunes. Una relación de aspecto está definida cómo ancho / altura, así que valores menores que 1 serán más altos que anchos, y valores mayores que 1 serán más anchos que altos. Si puesto en 0, esta configuración será ignorada. |
 
 Hay tres ajustes predeterminados de relación de aspecto:
 
 - Cuadrado (1:1)
-- Portrait de página (sqrt(2)) - Esta es la relación de aspecto predeterminada de una página A4 en modo vertical.
+- Retrato de página (sqrt(2)) - Esta es la relación de aspecto predeterminada de una página A4 en modo vertical.
 - Paisaje de página (1/sqrt(2)) - Esta es la relación de aspecto predeterminada de una página A4 en modo horizontal.

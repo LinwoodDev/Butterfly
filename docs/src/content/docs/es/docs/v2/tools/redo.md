@@ -2,9 +2,9 @@
 title: Redo tool
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Herramienta de acción
 
-This is a special tool.
+Esta es una herramienta especial.
 No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
 
 :::

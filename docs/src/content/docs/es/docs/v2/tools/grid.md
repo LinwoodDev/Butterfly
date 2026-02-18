@@ -1,21 +1,21 @@
 ---
-title: Grid tool
+title: Herramienta de cuadrícula
 ---
 
-:::note[🔘 Toggleable tool]
+:::note[🔘 Herramienta conmutable
 
-This is a special tool.
-You can't select it and it gets toggled if you click on it.
+Esta es una herramienta especial.
+No puedes seleccionarla y se activa al presionarse.
 
 :::
 
-With this tool you can show a grid over the canvas.
+Con esta herramienta puedes mostrar una cuadrícula sobre el lienzo.
 Inputs get snapped to the grid.
 
 ## Configuración
 
-| Propiedad |         Por defecto         | Descripción            |
-| --------: | :-------------------------: | :--------------------- |
-|    Tamaño | (20, 20) | The size of grid cells |
-|    Offset |  (0, 0)  | The offset of the grid |
-|     Color |            Negro            | The color of the grid  |
+| Propiedad |         Por defecto         | Descripción                              |
+| --------: | :-------------------------: | :--------------------------------------- |
+|    Tamaño | (20, 20) | El tamaño de las celdas de la cuadrícula |
+|    Offset |  (0, 0)  | The offset of the grid                   |
+|     Color |            Negro            | El color de la cuadrícula                |

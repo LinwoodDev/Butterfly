@@ -31,8 +31,8 @@
   "resetZoom": "Đặt lại",
   "strokeWidth": "Độ dày nét",
   "strokeStyle": "Kiểu gạch",
-  "dashLength": "Dash length",
-  "gapLength": "Gap length",
+  "dashLength": "Độ dài dấu gạch ngang",
+  "gapLength": "Chiều dài khoảng trống",
   "includeEraser": "Bao gồm công cụ tẩy?",
   "thinning": "Làm mảnh",
   "pen": "Bút vẽ",
@@ -141,7 +141,7 @@
   "solid": "Khối",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
-  "dottedDark": "Dotted dark",
+  "dottedDark": "Chấm đen",
   "dashed": "Cắt khúc",
   "wavy": "Dợn sóng",
   "fontWeight": "Kích cỡ phông chữ",
@@ -310,7 +310,7 @@
     "description": "Background pattern"
   },
   "dark": "Tối",
-  "plainDark": "Plain dark",
+  "plainDark": "Máu tối trơn",
   "ruledDark": "Dòng tối",
   "quadDark": "Lưới tối",
   "musicDark": "Âm nhạc tối",
@@ -329,7 +329,7 @@
     "description": "Insert action"
   },
   "document": "Tài liệu",
-  "camera": "Camera",
+  "camera": "Máy ảnh",
   "@camera": {
     "description": "Camera tool"
   },
@@ -549,7 +549,7 @@
   "topRight": "Trên phải",
   "bottomLeft": "Dưới trái",
   "bottomRight": "Dưới phải",
-  "zoomPosition": "Zoom control position",
+  "zoomPosition": "Vị trí điều khiển thu phóng",
   "caches": "Bộ nhớ đệm",
   "manage": "Quản lý",
   "@manage": {
@@ -598,13 +598,13 @@
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
-  "penOnlyInputAutoDescription": "Automatically enables pen-only mode when a stylus is detected. This setting only lasts for the current session.",
-  "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
-  "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
-  "automatic": "Automatic",
-  "alwaysOn": "Always on",
-  "alwaysOff": "Always off",
-  "showPenOnlyToggle": "Show pen only toggle",
+  "penOnlyInputAutoDescription": "Tự động bật chế độ chỉ dùng bút khi phát hiện thấy bút cảm ứng. Cài đặt này chỉ kéo dài cho phiên hiện tại.",
+  "penOnlyInputOnDescription": "Luôn từ chối đầu vào bằng cảm ứng và chuột, chỉ chấp nhận đầu vào bằng bút cảm ứng.",
+  "penOnlyInputOffDescription": "Chấp nhận tất cả các loại đầu vào bao gồm cảm ứng, chuột và bút cảm ứng.",
+  "automatic": "Tự động",
+  "alwaysOn": "Luôn bật",
+  "alwaysOff": "Luôn tắt",
+  "showPenOnlyToggle": "Chỉ hiển thị bút khi chuyển đổi",
   "@showPenOnlyToggle": {
     "description": "Setting to show pen only toggle button when pen is detected"
   },
@@ -1176,7 +1176,7 @@
   "performanceDescription": "Tối ưu cho tốc độ và bộ nhớ. Chỉ phần hiển thị được nướng thành hình ảnh.",
   "normalDescription": "Cân bằng chất lượng và hiệu năng. Nướng hình ảnh phủ 1.5 lần vùng hiển thị, mượt hơn khi cuộn.",
   "high": "Cao",
-  "highDescription": "Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "highDescription": "Tối đa hóa chất lượng với chi phí hiệu suất. Nướng một hình ảnh bao phủ gấp 2 lần vùng hiển thị, đảm bảo hiển thị liền mạch ngay cả khi cuộn hoặc thu phóng nhanh.",
   "renderResolution": "Độ phân giải render",
   "translate": "Dịch",
   "@translate": {
@@ -1215,7 +1215,7 @@
   },
   "barcodeType": "Loại mã vạch",
   "qrCode": "Mã QR",
-  "dataMatrix": "Data Matrix",
+  "dataMatrix": "Ma trận dữ liệu",
   "code128": "Code 128",
   "defaultUserName": "Người dùng {index}",
   "@defaultUserName": {
@@ -1251,31 +1251,31 @@
   "@submit": {
     "description": "Submit action"
   },
-  "math": "Math",
+  "math": "Toán học",
   "@math": {
     "description": "Math tool"
   },
-  "ignorePressure": "Ignore pressure",
-  "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
-  "temporary": "Temporary",
-  "simpleToolbarVisibility": "Simple toolbar visibility",
-  "autosaveDelay": "Autosave delay",
-  "saved": "Saved",
+  "ignorePressure": "Bỏ qua áp lực",
+  "ignoreFirstPressureDescription": "Trên một số thiết bị, giá trị áp suất đầu tiên không chính xác. Cài đặt này sẽ bỏ qua giá trị áp suất đầu tiên và thay vào đó sử dụng áp suất của sự kiện thứ hai.",
+  "temporary": "Tạm thời",
+  "simpleToolbarVisibility": "Khả năng hiển thị thanh công cụ đơn giản",
+  "autosaveDelay": "Độ trễ tự động lưu",
+  "saved": "Đã lưu",
   "@saved": {
     "description": "Save status"
   },
-  "saving": "Saving...",
+  "saving": "Đang lưu...",
   "@saving": {
     "description": "Save status"
   },
-  "readOnly": "Read only",
-  "saveDelayed": "Save delayed",
-  "unsaved": "Unsaved",
+  "readOnly": "Chỉ đọc",
+  "saveDelayed": "Lưu bị trì hoãn",
+  "unsaved": "Chưa lưu",
   "@unsaved": {
     "description": "Save status"
   },
-  "pdfEmptyDescription": "There are currently no areas to export. Please select at least one area using the plus button in the top right corner or add all areas from the current page or from the whole document below.",
-  "densityMaximize": "Maximize",
+  "pdfEmptyDescription": "Hiện tại không có khu vực nào để xuất. Vui lòng chọn ít nhất một khu vực bằng nút dấu cộng ở góc trên bên phải hoặc thêm tất cả các khu vực từ trang hiện tại hoặc từ toàn bộ tài liệu bên dưới.",
+  "densityMaximize": "Phóng to",
   "@densityMaximize": {
     "description": "Density value"
   },

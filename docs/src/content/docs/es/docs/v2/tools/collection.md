@@ -1,13 +1,13 @@
 ---
-title: Collection tool
+title: Herramienta de colección
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Herramienta de acción
 
-This is a special tool.
+Esta es una herramienta especial.
 No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
 
 :::
 
-With this tool you can change the collection of multiple objects. Read more about collections [here](../collections.md).
-When you click on an object, the collection of the object will be changed to the collection set in the configuration. Leaving the collection field empty will set the collection to the default collection.
+Con esta herramienta puedes cambiar la colección de múltiples objetos. Lee más sobre las colecciones [aquí](../collections.md).
+Cuando haces clic en un objeto, la colección del objeto será cambiada a la colección puesta en la configuración. Dejar el campo de colección vacío pondrá la colección a la colección por defecto.
