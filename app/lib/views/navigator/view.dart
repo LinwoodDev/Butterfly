@@ -224,10 +224,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             ],
           ),
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(alignment: Alignment.topCenter, child: body),
-            ),
+            child: Align(alignment: Alignment.topCenter, child: body),
           ),
         );
         if (widget.asDialog) {

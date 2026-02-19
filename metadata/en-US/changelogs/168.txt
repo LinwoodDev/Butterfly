@@ -1,6 +1,7 @@
 * Add area creation dialog in area navigator if no areas exist
 * Add area teleportion after entering area
 * Show other areas if inside an area
+* Improve bottom bar in area and page navigator
 * Fix area teleporting has offset on render resolutions other than fast
 * Upgrade to flutter 3.41
 

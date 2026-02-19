@@ -135,63 +135,85 @@ class _PagesViewState extends State<PagesView> {
                 },
               ),
             ),
-            BottomAppBar(
-              child: Row(
-                spacing: 8,
-                children: [
-                  Row(
-                    children: [
-                      const PhosphorIcon(PhosphorIconsLight.plus),
-                      const SizedBox(width: 8),
-                      Text(LeapLocalizations.of(context).create),
-                    ],
+            Card.filled(
+              child: SizedBox(
+                height: 64,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 8,
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Row(
+                          spacing: 8,
                           children: [
-                            IconButton.filledTonal(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowUp,
-                              ),
-                              tooltip: AppLocalizations.of(
-                                context,
-                              ).insertBefore,
-                              onPressed: () => addPage(index),
-                            ),
-                            const SizedBox(width: 8),
-                            IconButton.filledTonal(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowDown,
-                              ),
-                              tooltip: AppLocalizations.of(context).insertAfter,
-                              onPressed: () => addPage((index ?? -1) + 1),
-                            ),
-                            const SizedBox(width: 8),
-                            IconButton.filledTonal(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowLineUp,
-                              ),
-                              tooltip: AppLocalizations.of(context).insertFirst,
-                              onPressed: () => addPage(0),
-                            ),
-                            const SizedBox(width: 8),
-                            IconButton.filledTonal(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowLineDown,
-                              ),
-                              tooltip: AppLocalizations.of(context).insertLast,
-                              onPressed: () => addPage(),
+                            const PhosphorIcon(PhosphorIconsLight.plus),
+                            Text(
+                              LeapLocalizations.of(context).create,
+                              style: TextTheme.of(context).titleMedium,
                             ),
                           ],
                         ),
                       ),
-                    ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                IconButton.filledTonal(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.arrowUp,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).insertBefore,
+                                  onPressed: () => addPage(index),
+                                ),
+                                const SizedBox(width: 8),
+                                IconButton.filledTonal(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.arrowDown,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).insertAfter,
+                                  onPressed: () => addPage((index ?? -1) + 1),
+                                ),
+                                const SizedBox(width: 8),
+                                IconButton.filledTonal(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.arrowLineUp,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).insertFirst,
+                                  onPressed: () => addPage(0),
+                                ),
+                                const SizedBox(width: 8),
+                                IconButton.filledTonal(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.arrowLineDown,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).insertLast,
+                                  onPressed: () => addPage(),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ],

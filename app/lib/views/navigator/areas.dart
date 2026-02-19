@@ -90,7 +90,7 @@ class _AreasViewState extends State<AreasView> {
             bool selectedButton(int dx, int dy) =>
                 overlap(getRect(dx, dy), true) != null;
 
-            Future<void> move(int dx, int dy) async {
+            Future<void> navigateToRelativeArea(int dx, int dy) async {
               final rect = getRect(dx, dy);
               if (rect == null) return;
               var area = overlap(rect);
@@ -147,6 +147,11 @@ class _AreasViewState extends State<AreasView> {
                               ),
                             )
                             .toList();
+                        if (areas.isEmpty) {
+                          return Center(
+                            child: Text(AppLocalizations.of(context).none),
+                          );
+                        }
                         return ReorderableListView.builder(
                           itemCount: areas.length,
                           onReorder: (oldIndex, newIndex) =>
@@ -248,119 +253,129 @@ class _AreasViewState extends State<AreasView> {
                   ),
                 ),
                 if (current != null)
-                  BottomAppBar(
-                    height: 120,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorCreate,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorCreate(
-                                    !currentIndex.areaNavigatorCreate,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.plusCircle,
-                              ),
-                              tooltip: LeapLocalizations.of(context).create,
-                            ),
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorExact,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorExact(
-                                    !currentIndex.areaNavigatorExact,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.square,
-                              ),
-                              tooltip: AppLocalizations.of(context).exact,
-                            ),
-                            IconButton(
-                              isSelected: currentIndex.areaNavigatorAsk,
-                              onPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAreaNavigatorAsk(
-                                    !currentIndex.areaNavigatorAsk,
-                                  ),
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.textT,
-                              ),
-                              tooltip: AppLocalizations.of(context).askForName,
-                            ),
-                          ],
+                  Card.filled(
+                    child: SizedBox(
+                      height: 64,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 8,
                         ),
-                        Row(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Expanded(
-                              child: Row(
-                                children: [
-                                  const PhosphorIcon(
-                                    PhosphorIconsLight.arrowsOutCardinal,
+                              child: MenuAnchor(
+                                menuChildren: [
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorCreate,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorCreate(value ?? false),
+                                    child: Text(
+                                      LeapLocalizations.of(context).create,
+                                    ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  Text(AppLocalizations.of(context).move),
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorExact,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorExact(value ?? false),
+                                    child: Text(
+                                      AppLocalizations.of(context).exact,
+                                    ),
+                                  ),
+                                  CheckboxMenuButton(
+                                    value: currentIndex.areaNavigatorAsk,
+                                    onChanged: (value) => context
+                                        .read<CurrentIndexCubit>()
+                                        .setAreaNavigatorAsk(value ?? false),
+                                    child: Text(
+                                      AppLocalizations.of(context).askForName,
+                                    ),
+                                  ),
                                 ],
+                                builder: (context, controller, child) =>
+                                    InkWell(
+                                      borderRadius: BorderRadius.circular(8),
+                                      onTap: controller.toggle,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          spacing: 8,
+                                          children: [
+                                            PhosphorIcon(
+                                              PhosphorIconsLight.compass,
+                                              color: controller.isOpen
+                                                  ? ColorScheme.of(
+                                                      context,
+                                                    ).primary
+                                                  : null,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).navigator,
+                                              style: TextTheme.of(context)
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                    color: controller.isOpen
+                                                        ? ColorScheme.of(
+                                                            context,
+                                                          ).primary
+                                                        : null,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                               ),
                             ),
-                            Wrap(
-                              spacing: 8,
-                              children:
-                                  [
-                                        (
-                                          (-1, 0),
-                                          AppLocalizations.of(context).left,
-                                          PhosphorIcons.arrowLeft,
-                                        ),
-                                        (
-                                          (0, -1),
-                                          AppLocalizations.of(context).top,
-                                          PhosphorIcons.arrowUp,
-                                        ),
-                                        (
-                                          (0, 1),
-                                          AppLocalizations.of(context).bottom,
-                                          PhosphorIcons.arrowDown,
-                                        ),
-                                        (
-                                          (1, 0),
-                                          AppLocalizations.of(context).right,
-                                          PhosphorIcons.arrowRight,
-                                        ),
-                                      ]
-                                      .map(
-                                        (data) => IconButton.filledTonal(
-                                          icon: PhosphorIcon(
-                                            data.$3(PhosphorIconsStyle.light),
-                                          ),
-                                          tooltip: data.$2,
-                                          onPressed:
-                                              enableButton(
-                                                data.$1.$1,
-                                                data.$1.$2,
-                                              )
-                                              ? () =>
-                                                    move(data.$1.$1, data.$1.$2)
-                                              : null,
-                                          selectedIcon: PhosphorIcon(
-                                            data.$3(PhosphorIconsStyle.light),
-                                          ),
-                                          isSelected: selectedButton(
-                                            data.$1.$1,
-                                            data.$1.$2,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
+                            Row(
+                              children: [
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowLeft,
+                                  tooltip: AppLocalizations.of(context).left,
+                                  enabled: enableButton(-1, 0),
+                                  selected: selectedButton(-1, 0),
+                                  onPressed: () =>
+                                      navigateToRelativeArea(-1, 0),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowUp,
+                                  tooltip: AppLocalizations.of(context).top,
+                                  enabled: enableButton(0, -1),
+                                  selected: selectedButton(0, -1),
+                                  onPressed: () =>
+                                      navigateToRelativeArea(0, -1),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowDown,
+                                  tooltip: AppLocalizations.of(context).bottom,
+                                  enabled: enableButton(0, 1),
+                                  selected: selectedButton(0, 1),
+                                  onPressed: () => navigateToRelativeArea(0, 1),
+                                ),
+                                const SizedBox(width: 2),
+                                _AreaDirectionButton(
+                                  icon: PhosphorIcons.arrowRight,
+                                  tooltip: AppLocalizations.of(context).right,
+                                  enabled: enableButton(1, 0),
+                                  selected: selectedButton(1, 0),
+                                  onPressed: () => navigateToRelativeArea(1, 0),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
               ],
@@ -570,3 +585,30 @@ class _AreasInitializationViewState extends State<_AreasInitializationView> {
 }
 
 enum _AreaPositionMode { origin, currentCenter }
+
+class _AreaDirectionButton extends StatelessWidget {
+  final IconData Function(PhosphorIconsStyle) icon;
+  final String tooltip;
+  final bool enabled;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  const _AreaDirectionButton({
+    required this.icon,
+    required this.tooltip,
+    required this.enabled,
+    required this.selected,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton.filledTonal(
+      icon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      tooltip: tooltip,
+      onPressed: enabled ? onPressed : null,
+      selectedIcon: PhosphorIcon(icon(PhosphorIconsStyle.light)),
+      isSelected: selected,
+    );
+  }
+}
