@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -144,18 +145,22 @@ class TransformCubit extends Cubit<CameraTransform> {
   void teleportToWaypoint(Waypoint waypoint) =>
       teleport(waypoint.position.toOffset(), waypoint.scale ?? state.size);
 
-  void teleportToArea(Area area, [Size? screen]) {
-    double? size;
-    var position = area.position.toOffset();
-    if (screen != null) {
-      final width = screen.width / area.width;
-      final height = screen.height / area.height;
-      size = min(width, height).clamp(kMinZoom, kMaxZoom);
-      position += Offset(
-        (area.width - screen.width / size) / 2,
-        (area.height - screen.height / size) / 2,
-      );
+  void teleportToArea(
+    Area area, [
+    Size? screen,
+    RenderResolution resolution = RenderResolution.performance,
+  ]) {
+    if (screen == null || area.width <= 0 || area.height <= 0) {
+      teleport(area.position.toOffset(), state.size);
+      return;
     }
+
+    final effectiveScreen = screen / resolution.multiplier;
+    final width = effectiveScreen.width / area.width;
+    final height = effectiveScreen.height / area.height;
+    final size = min(width, height).clamp(kMinZoom, kMaxZoom);
+    final position =
+        area.rect.center - effectiveScreen.center(Offset.zero) / size;
     teleport(position, size);
   }
 

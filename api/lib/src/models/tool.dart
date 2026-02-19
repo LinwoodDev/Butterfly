@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:butterfly_api/src/converter/color.dart';
@@ -18,20 +17,6 @@ import 'texture.dart';
 
 part 'tool.freezed.dart';
 part 'tool.g.dart';
-
-const double _kSquareRatio = 1.0;
-const double _kAPortraitRatio = 1 / sqrt2;
-const double _kLandscapeRatio = sqrt2;
-
-enum AspectRatioPreset { square, portrait, landscape }
-
-extension RatioPresetExtension on AspectRatioPreset {
-  double get ratio => switch (this) {
-    AspectRatioPreset.square => _kSquareRatio,
-    AspectRatioPreset.portrait => _kAPortraitRatio,
-    AspectRatioPreset.landscape => _kLandscapeRatio,
-  };
-}
 
 enum LabelMode { markdown, text }
 

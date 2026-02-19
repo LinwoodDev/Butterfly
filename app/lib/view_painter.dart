@@ -7,6 +7,7 @@ import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
@@ -136,17 +137,6 @@ class ViewPainter extends CustomPainter {
         transform.globalToLocal(areaRect.bottomRight),
       );
     }
-    if (areaRect != null) {
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(areaRect.inflate(5), const Radius.circular(5)),
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..color = colorScheme?.primary ?? Colors.black
-          ..strokeWidth = 5 * transform.size
-          ..blendMode = BlendMode.srcOver,
-      );
-      canvas.clipRect(areaRect.inflate(5));
-    }
     if (renderBackground) {
       canvas.drawColor(Colors.white, BlendMode.src);
       for (final e in cameraViewport.backgrounds) {
@@ -170,6 +160,31 @@ class ViewPainter extends CustomPainter {
         bakedDst,
         Paint(),
       );
+    }
+    final areaSelectionWidth = 5 * transform.size;
+    if (areaRect != null) {
+      final paint = Paint()
+        ..style = PaintingStyle.stroke
+        ..color = colorScheme?.primary ?? Colors.green
+        ..strokeWidth = areaSelectionWidth;
+      canvas.drawRect(areaRect.inflate(areaSelectionWidth / 2), paint);
+      final otherPaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..color = (colorScheme?.secondary ?? Colors.grey)
+        ..strokeWidth = areaSelectionWidth;
+      for (final area in page.areas.sortedBy((a) => a == currentArea ? 1 : 0)) {
+        if (areaRect.overlaps(area.rect)) continue;
+        var rect = area.rect;
+        rect = Rect.fromPoints(
+          transform.globalToLocal(rect.topLeft),
+          transform.globalToLocal(rect.bottomRight),
+        );
+        canvas.drawRect(
+          rect.inflate(areaSelectionWidth / 2),
+          area == currentArea ? paint : otherPaint,
+        );
+      }
+      canvas.clipRect(areaRect);
     }
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
       final image = cameraViewport.image;

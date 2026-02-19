@@ -1,3 +1,7 @@
+* Add area creation dialog in area navigator if no areas exist
+* Add area teleportion after entering area
+* Show other areas if inside an area
+* Fix area teleporting has offset on render resolutions other than fast
 * Upgrade to flutter 3.41
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.2

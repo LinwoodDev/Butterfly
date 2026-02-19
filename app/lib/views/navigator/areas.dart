@@ -116,6 +116,10 @@ class _AreasViewState extends State<AreasView> {
                 ..add(CurrentAreaChanged(name));
             }
 
+            if (state.page.areas.isEmpty) {
+              return const _AreasInitializationView();
+            }
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -162,31 +166,28 @@ class _AreasViewState extends State<AreasView> {
                                       : PhosphorIconsLight.signIn,
                                 ),
                                 onPressed: () {
-                                  bloc.add(
-                                    CurrentAreaChanged(
-                                      selected ? '' : area.name,
-                                    ),
+                                  if (selected) {
+                                    bloc.add(CurrentAreaChanged(''));
+                                    return;
+                                  }
+                                  context.read<TransformCubit>().teleportToArea(
+                                    area,
+                                    viewport.toSize(),
+                                    viewport.resolution,
                                   );
+                                  bloc.add(CurrentAreaChanged(area.name));
                                 },
                                 tooltip: selected
                                     ? AppLocalizations.of(context).exitArea
                                     : AppLocalizations.of(context).enterArea,
                               ),
                               onTap: () {
-                                final screen = context
-                                    .read<CurrentIndexCubit>()
-                                    .state
-                                    .cameraViewport
-                                    .toSize();
                                 context.read<TransformCubit>().teleportToArea(
                                   area,
-                                  screen,
+                                  viewport.toSize(),
+                                  viewport.resolution,
                                 );
-                                if (current != null) {
-                                  bloc.add(CurrentAreaChanged(area.name));
-                                } else {
-                                  bloc.bake();
-                                }
+                                bloc.add(CurrentAreaChanged(area.name));
                               },
                               onSaved: (value) =>
                                   context.read<DocumentBloc>().add(
@@ -370,3 +371,202 @@ class _AreasViewState extends State<AreasView> {
     );
   }
 }
+
+class _AreasInitializationView extends StatefulWidget {
+  const _AreasInitializationView();
+
+  @override
+  State<_AreasInitializationView> createState() =>
+      _AreasInitializationViewState();
+}
+
+class _AreasInitializationViewState extends State<_AreasInitializationView> {
+  late final TextEditingController _widthController;
+  late final TextEditingController _heightController;
+  late AreaSizePreset _selectedPreset;
+  _AreaPositionMode _positionMode = _AreaPositionMode.currentCenter;
+
+  @override
+  void initState() {
+    super.initState();
+    final preset = AreaSizePreset.values.first;
+    _selectedPreset = preset;
+    _widthController = TextEditingController(text: preset.width.toString());
+    _heightController = TextEditingController(text: preset.height.toString());
+  }
+
+  @override
+  void dispose() {
+    _widthController.dispose();
+    _heightController.dispose();
+    super.dispose();
+  }
+
+  double? _parseNumber(String value) =>
+      double.tryParse(value.trim().replaceAll(',', '.'));
+
+  void _applyPreset(AreaSizePreset preset) {
+    _selectedPreset = preset;
+    _widthController.text = preset.width.toString();
+    _heightController.text = preset.height.toString();
+  }
+
+  void _flipSize() {
+    final width = _widthController.text;
+    _widthController.text = _heightController.text;
+    _heightController.text = width;
+  }
+
+  Future<void> _createArea() async {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+
+    final width = _parseNumber(_widthController.text);
+    final height = _parseNumber(_heightController.text);
+    if (width == null || height == null || width <= 0 || height <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).error)),
+      );
+      return;
+    }
+
+    final name = await createAreaName(context, state.page, false);
+    if (name == null) return;
+
+    Offset position;
+    if (_positionMode == _AreaPositionMode.currentCenter) {
+      final center = context
+          .read<CurrentIndexCubit>()
+          .state
+          .cameraViewport
+          .toRect()
+          .center;
+      position = center - Offset(width / 2, height / 2);
+    } else {
+      position = Offset.zero;
+    }
+
+    bloc
+      ..add(
+        AreasCreated([
+          Area(
+            name: name,
+            width: width,
+            height: height,
+            position: position.toPoint(),
+          ),
+        ]),
+      )
+      ..add(CurrentAreaChanged(name));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  locale.createAreas,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                DropdownMenuFormField<AreaSizePreset>(
+                  initialSelection: _selectedPreset,
+                  dropdownMenuEntries: AreaSizePreset.values
+                      .map(
+                        (preset) => DropdownMenuEntry<AreaSizePreset>(
+                          value: preset,
+                          label:
+                              '${preset.label} (${preset.width.toInt()}×${preset.height.toInt()})',
+                        ),
+                      )
+                      .toList(),
+                  label: Text(locale.presets),
+                  onSelected: (preset) {
+                    if (preset == null) return;
+                    setState(() => _applyPreset(preset));
+                  },
+                ),
+                const SizedBox(height: 8),
+                Divider(),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _widthController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        decoration: InputDecoration(labelText: locale.width),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      onPressed: _flipSize,
+                      tooltip: locale.rotate,
+                      icon: const Icon(PhosphorIconsLight.swap),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextField(
+                        controller: _heightController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        decoration: InputDecoration(labelText: locale.height),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  locale.position,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(height: 8),
+                SegmentedButton<_AreaPositionMode>(
+                  segments: [
+                    ButtonSegment<_AreaPositionMode>(
+                      value: _AreaPositionMode.origin,
+                      label: Text(locale.origin),
+                    ),
+                    ButtonSegment<_AreaPositionMode>(
+                      value: _AreaPositionMode.currentCenter,
+                      label: Text(locale.center),
+                    ),
+                  ],
+                  selected: {_positionMode},
+                  onSelectionChanged: (selection) {
+                    if (selection.isEmpty) return;
+                    setState(() => _positionMode = selection.first);
+                  },
+                ),
+                const SizedBox(height: 16),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton.icon(
+                    onPressed: _createArea,
+                    icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                    label: Text(LeapLocalizations.of(context).create),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+enum _AreaPositionMode { origin, currentCenter }
