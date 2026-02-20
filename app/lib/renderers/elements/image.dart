@@ -40,7 +40,16 @@ class ImageRenderer extends Renderer<ImageElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
+    if (wireframeMode) {
+      final paint = Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size;
+      canvas.drawRect(rect, paint);
+      return;
+    }
     if (image == null) {
       // Render placeholder
       final paint = Paint()

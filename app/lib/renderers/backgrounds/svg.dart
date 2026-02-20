@@ -29,6 +29,7 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (_pictureInfo == null) return;
     final sizeX = element.width * element.scaleX * transform.size;

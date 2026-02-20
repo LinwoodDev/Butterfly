@@ -84,6 +84,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (element.points.isEmpty) return;
 
@@ -96,7 +97,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
 
     final property = element.property;
 
-    if (property.color.a > 0) {
+    if (property.color.a > 0 || wireframeMode) {
       final paint = Paint()
         ..color = property.color.toColor()
         ..style = PaintingStyle.stroke
@@ -105,7 +106,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
         ..strokeJoin = StrokeJoin.round;
       canvas.drawPath(path, paint);
     }
-    if (property.fill.a > 0) {
+    if (property.fill.a > 0 && !wireframeMode) {
       final fillPaint = Paint()
         ..color = property.fill.toColor()
         ..style = PaintingStyle.fill;

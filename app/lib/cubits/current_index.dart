@@ -90,6 +90,7 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default('') String userName,
     @Default(false) bool penDetected,
     @Default(false) bool sessionPenOnlyInput,
+    @Default(false) bool wireframeMode,
   }) = _CurrentIndex;
 
   /// Returns the effective pen-only input state.
@@ -209,6 +210,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void setSessionPenOnlyInput(bool value) {
     if (state.sessionPenOnlyInput == value) return;
     emit(state.copyWith(sessionPenOnlyInput: value));
+  }
+
+  void toggleWireframeMode() {
+    emit(state.copyWith(wireframeMode: !state.wireframeMode));
   }
 
   Future<void> _updateOnVisible(

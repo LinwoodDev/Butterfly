@@ -171,7 +171,16 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
+    if (wireframeMode) {
+      final paint = Paint()
+        ..color = Colors.blue
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2 / transform.size;
+      canvas.drawRect(rect, paint);
+      return;
+    }
     final tp = _tp;
     if (tp == null || tp.text == null) return;
     tp.layout(maxWidth: rect.width);

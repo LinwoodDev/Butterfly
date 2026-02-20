@@ -128,6 +128,7 @@ class PenRenderer extends Renderer<PenElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final points = element.points;
     if (points.isEmpty) return;
@@ -137,18 +138,23 @@ class PenRenderer extends Renderer<PenElement> {
       _computePaths();
     }
 
-    if (property.fill.a > 0 && _cachedFillPath != null) {
+    if (property.fill.a > 0 && _cachedFillPath != null && !wireframeMode) {
       final paint = Paint()
         ..color = property.fill.toColor()
         ..style = PaintingStyle.fill
         ..strokeCap = StrokeCap.round;
       canvas.drawPath(_cachedFillPath!, paint);
     }
-    if (property.color.a > 0 && _cachedStrokePath != null) {
+    if ((property.color.a > 0 || wireframeMode) && _cachedStrokePath != null) {
       final paint = Paint()
         ..color = property.color.toColor()
-        ..style = PaintingStyle.fill
+        ..style = PaintingStyle.fill // Pen stroke is a filled path
         ..strokeCap = StrokeCap.round;
+      if (wireframeMode) {
+        paint.style = PaintingStyle.stroke;
+        paint.strokeWidth = 1 / transform.size;
+        paint.color = Colors.black; // Ensure visibility in wireframe
+      }
       canvas.drawPath(_cachedStrokePath!, paint);
     }
   }

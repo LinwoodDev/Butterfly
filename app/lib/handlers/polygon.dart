@@ -17,6 +17,7 @@ class PolygonSelectionRenderer extends Renderer<PolygonElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (element.points.isEmpty) return;
     final strokeWidth = element.property.strokeWidth;

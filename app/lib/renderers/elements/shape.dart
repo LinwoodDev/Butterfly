@@ -58,6 +58,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
@@ -77,20 +78,22 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       final bottomRightCornerRadius = Radius.circular(
         shape.bottomRightCornerRadius / 100 * drawRect.shortestSide,
       );
-      canvas.drawRRect(
-        RRect.fromRectAndCorners(
-          drawRect,
-          topLeft: topLeftCornerRadius,
-          topRight: topRightCornerRadius,
-          bottomLeft: bottomLeftCornerRadius,
-          bottomRight: bottomRightCornerRadius,
-        ),
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
-      );
-      if (strokeWidth > 0) {
+      if (!wireframeMode) {
+        canvas.drawRRect(
+          RRect.fromRectAndCorners(
+            drawRect,
+            topLeft: topLeftCornerRadius,
+            topRight: topRightCornerRadius,
+            bottomLeft: bottomLeftCornerRadius,
+            bottomRight: bottomRightCornerRadius,
+          ),
+          _buildPaint(
+            color: shape.fillColor.toColor(),
+            style: PaintingStyle.fill,
+          ),
+        );
+      }
+      if (strokeWidth > 0 || wireframeMode) {
         final rrect = RRect.fromRectAndCorners(
           drawRect,
           topLeft: topLeftCornerRadius,
@@ -102,14 +105,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         _drawStyledPath(canvas, path, paint);
       }
     } else if (shape is CircleShape) {
-      canvas.drawOval(
-        drawRect,
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
-      );
-      if (strokeWidth > 0) {
+      if (!wireframeMode) {
+        canvas.drawOval(
+          drawRect,
+          _buildPaint(
+            color: shape.fillColor.toColor(),
+            style: PaintingStyle.fill,
+          ),
+        );
+      }
+      if (strokeWidth > 0 || wireframeMode) {
         final path = Path()..addOval(drawRect);
         _drawStyledPath(canvas, path, paint);
       }
@@ -125,14 +130,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ..lineTo(drawRect.right, drawRect.bottom)
         ..lineTo(drawRect.left, drawRect.bottom)
         ..close();
-      canvas.drawPath(
-        path,
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
-      );
-      if (strokeWidth > 0) {
+      if (!wireframeMode) {
+        canvas.drawPath(
+          path,
+          _buildPaint(
+            color: shape.fillColor.toColor(),
+            style: PaintingStyle.fill,
+          ),
+        );
+      }
+      if (strokeWidth > 0 || wireframeMode) {
         _drawStyledPath(canvas, path, paint);
       }
     }

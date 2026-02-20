@@ -24,6 +24,7 @@ class LassoSelectionForegroundRenderer extends Renderer<List<Offset>> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     final paint = Paint()
       ..color = scheme.primaryContainer
@@ -269,6 +270,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (element.isEmpty || isTransforming) return;
     final paint = Paint()

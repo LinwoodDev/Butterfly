@@ -15,6 +15,7 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) {
     if (image == null) return;
     final sizeX = element.width * element.scaleX * transform.size;

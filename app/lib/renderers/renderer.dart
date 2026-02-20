@@ -328,6 +328,7 @@ abstract class Renderer<T> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]);
 
   HitCalculator getHitCalculator() =>

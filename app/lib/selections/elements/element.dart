@@ -46,8 +46,44 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
           (p, e) => p + (e.rect?.topLeft ?? Offset.zero),
         ) /
         selected.length.toDouble();
+    final canPerformBooleanOp =
+        elements.length > 1 &&
+        elements.every((e) => e is ShapeElement || e is PolygonElement);
     return [
       ...super.buildProperties(context),
+      if (canPerformBooleanOp)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed: () =>
+                    _performBooleanOp(context, ui.PathOperation.union),
+                icon: const PhosphorIcon(PhosphorIconsLight.squaresFour),
+                tooltip: AppLocalizations.of(context).union,
+              ),
+              IconButton(
+                onPressed: () =>
+                    _performBooleanOp(context, ui.PathOperation.difference),
+                icon: const PhosphorIcon(PhosphorIconsLight.subtract),
+                tooltip: AppLocalizations.of(context).difference,
+              ),
+              IconButton(
+                onPressed: () =>
+                    _performBooleanOp(context, ui.PathOperation.intersect),
+                icon: const PhosphorIcon(PhosphorIconsLight.intersect),
+                tooltip: AppLocalizations.of(context).intersect,
+              ),
+              IconButton(
+                onPressed: () =>
+                    _performBooleanOp(context, ui.PathOperation.xor),
+                icon: const PhosphorIcon(PhosphorIconsLight.exclude),
+                tooltip: AppLocalizations.of(context).xor,
+              ),
+            ],
+          ),
+        ),
       OffsetListTile(
         value: position,
         title: Text(AppLocalizations.of(context).position),
@@ -178,6 +214,17 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       selection = selection.insert(selections[i]);
     }
     return selection;
+  }
+
+  void _performBooleanOp(BuildContext context, ui.PathOperation op) {
+    final elements = this.elements;
+    final newElements = performPathOperation(elements, op);
+    if (newElements.isNotEmpty) {
+      final bloc = context.read<DocumentBloc>();
+      final idsToRemove = elements.map((e) => e.id!).toList();
+      bloc.add(ElementsRemoved(idsToRemove));
+      bloc.add(ElementsCreated(newElements));
+    }
   }
 
   @override

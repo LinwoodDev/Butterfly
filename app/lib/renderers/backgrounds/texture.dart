@@ -15,6 +15,7 @@ class TextureBackgroundRenderer extends Renderer<TextureBackground> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
+    bool wireframeMode = false,
   ]) => drawSurfaceTextureOnCanvas(
     texture,
     canvas,
