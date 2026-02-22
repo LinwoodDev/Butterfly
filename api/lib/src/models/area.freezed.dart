@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Area {
 
- String get name; double get width; double get height;@DoublePointJsonConverter() Point<double> get position; Map<String, dynamic> get extra;
+ String get name; double get width; double get height;@DoublePointJsonConverter() Point<double> get position; bool get isInitial; Map<String, dynamic> get extra;
 /// Create a copy of Area
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AreaCopyWith<Area> get copyWith => _$AreaCopyWithImpl<Area>(this as Area, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&const DeepCollectionEquality().equals(other.extra, extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&(identical(other.isInitial, isInitial) || other.isInitial == isInitial)&&const DeepCollectionEquality().equals(other.extra, extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,width,height,position,const DeepCollectionEquality().hash(extra));
+int get hashCode => Object.hash(runtimeType,name,width,height,position,isInitial,const DeepCollectionEquality().hash(extra));
 
 @override
 String toString() {
-  return 'Area(name: $name, width: $width, height: $height, position: $position, extra: $extra)';
+  return 'Area(name: $name, width: $width, height: $height, position: $position, isInitial: $isInitial, extra: $extra)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AreaCopyWith<$Res>  {
   factory $AreaCopyWith(Area value, $Res Function(Area) _then) = _$AreaCopyWithImpl;
 @useResult
 $Res call({
- String name, double width, double height,@DoublePointJsonConverter() Point<double> position, Map<String, dynamic> extra
+ String name, double width, double height,@DoublePointJsonConverter() Point<double> position, bool isInitial, Map<String, dynamic> extra
 });
 
 
@@ -65,13 +65,14 @@ class _$AreaCopyWithImpl<$Res>
 
 /// Create a copy of Area
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? width = null,Object? height = null,Object? position = null,Object? extra = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? width = null,Object? height = null,Object? position = null,Object? isInitial = null,Object? extra = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as Point<double>,extra: null == extra ? _self.extra : extra // ignore: cast_nullable_to_non_nullable
+as Point<double>,isInitial: null == isInitial ? _self.isInitial : isInitial // ignore: cast_nullable_to_non_nullable
+as bool,extra: null == extra ? _self.extra : extra // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }
@@ -84,13 +85,14 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class _Area extends Area {
-  const _Area({this.name = '', required this.width, required this.height, @DoublePointJsonConverter() required this.position, final  Map<String, dynamic> extra = const {}}): _extra = extra,super._();
+  const _Area({this.name = '', required this.width, required this.height, @DoublePointJsonConverter() required this.position, this.isInitial = false, final  Map<String, dynamic> extra = const {}}): _extra = extra,super._();
   factory _Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
 
 @override@JsonKey() final  String name;
 @override final  double width;
 @override final  double height;
 @override@DoublePointJsonConverter() final  Point<double> position;
+@override@JsonKey() final  bool isInitial;
  final  Map<String, dynamic> _extra;
 @override@JsonKey() Map<String, dynamic> get extra {
   if (_extra is EqualUnmodifiableMapView) return _extra;
@@ -112,16 +114,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&const DeepCollectionEquality().equals(other._extra, _extra));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Area&&(identical(other.name, name) || other.name == name)&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.position, position) || other.position == position)&&(identical(other.isInitial, isInitial) || other.isInitial == isInitial)&&const DeepCollectionEquality().equals(other._extra, _extra));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,width,height,position,const DeepCollectionEquality().hash(_extra));
+int get hashCode => Object.hash(runtimeType,name,width,height,position,isInitial,const DeepCollectionEquality().hash(_extra));
 
 @override
 String toString() {
-  return 'Area(name: $name, width: $width, height: $height, position: $position, extra: $extra)';
+  return 'Area(name: $name, width: $width, height: $height, position: $position, isInitial: $isInitial, extra: $extra)';
 }
 
 
@@ -132,7 +134,7 @@ abstract mixin class _$AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
   factory _$AreaCopyWith(_Area value, $Res Function(_Area) _then) = __$AreaCopyWithImpl;
 @override @useResult
 $Res call({
- String name, double width, double height,@DoublePointJsonConverter() Point<double> position, Map<String, dynamic> extra
+ String name, double width, double height,@DoublePointJsonConverter() Point<double> position, bool isInitial, Map<String, dynamic> extra
 });
 
 
@@ -149,13 +151,14 @@ class __$AreaCopyWithImpl<$Res>
 
 /// Create a copy of Area
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? width = null,Object? height = null,Object? position = null,Object? extra = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? width = null,Object? height = null,Object? position = null,Object? isInitial = null,Object? extra = null,}) {
   return _then(_Area(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
 as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
 as double,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as Point<double>,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
+as Point<double>,isInitial: null == isInitial ? _self.isInitial : isInitial // ignore: cast_nullable_to_non_nullable
+as bool,extra: null == extra ? _self._extra : extra // ignore: cast_nullable_to_non_nullable
 as Map<String, dynamic>,
   ));
 }

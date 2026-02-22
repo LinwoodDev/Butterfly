@@ -115,6 +115,7 @@ class CameraViewport extends Equatable {
     position: toPoint(),
     width: (width?.toDouble() ?? 0) / scale,
     height: (height?.toDouble() ?? 0) / scale,
+    isInitial: false,
   );
 
   bool hasSameViewport(CameraViewport other) {

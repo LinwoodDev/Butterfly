@@ -1,6 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,11 +68,19 @@ Future<void> openNewDocument(
   bool replace, [
   NoteData? template,
   String? remote,
+  Area? initialArea,
 ]) {
   NoteData? document;
   String? path;
   if (template != null) {
     document = template.createDocument();
+    if (initialArea != null) {
+      final page = document.getPage() ?? DocumentDefaults.createPage();
+      document =
+          document.setPage(
+            page.copyWith(areas: [...page.areas, initialArea]),
+          ).$1;
+    }
     final metadata = document.getMetadata();
     if (metadata != null) {
       path = metadata.directory;

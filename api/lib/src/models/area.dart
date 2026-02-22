@@ -66,6 +66,7 @@ sealed class Area with _$Area {
     required double width,
     required double height,
     @DoublePointJsonConverter() required Point<double> position,
+    @Default(false) bool isInitial,
     @Default({}) Map<String, dynamic> extra,
   }) = _Area;
 
@@ -102,10 +103,26 @@ sealed class Area with _$Area {
       height: realHeight,
       position: position,
       name: name,
+      isInitial: false,
     );
   }
 
   Point get second => Point(position.x + width, position.y + height);
 
   Area moveBy(Point<double> offset) => copyWith(position: position + offset);
+
+  List<String> get parts => name.split('/');
+
+  List<String> get groups {
+    final parts = this.parts;
+    if (parts.length <= 1) return [];
+    return parts.sublist(0, parts.length - 1);
+  }
+
+  String get group => groups.join('/');
+
+  String get shortName {
+    final parts = this.parts;
+    return parts.isEmpty ? '' : parts.last;
+  }
 }

@@ -111,6 +111,10 @@ abstract class DocumentLoaded extends DocumentState {
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
+  CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
+
+  List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
+
   @override
   Future<NoteData> saveData([NoteData? current]) async {
     current ??= data;
@@ -174,11 +178,17 @@ class DocumentLoadSuccess extends DocumentLoaded {
     bool absolute = false,
     this.storageType = StorageType.local,
     required this.currentIndexCubit,
-    this.currentAreaName = '',
+    String? currentAreaName,
     this.currentCollection = '',
     String? currentLayer,
     this.invisibleLayers = const {},
-  }) : currentLayer =
+  }) : currentAreaName =
+           currentAreaName ??
+           (page ?? data.getPage(pageName))?.areas
+               .firstWhereOrNull((e) => e.isInitial)
+               ?.name ??
+           '',
+       currentLayer =
            currentLayer ??
            (page ?? data.getPage(pageName))?.layers.lastOrNull?.id ??
            createUniqueId() {
@@ -206,10 +216,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
   Area? get currentArea {
     return page.getAreaByName(currentAreaName);
   }
-
-  CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
-
-  List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
   DocumentLoadSuccess copyWith({
     NoteData? data,

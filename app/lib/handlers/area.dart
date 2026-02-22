@@ -182,7 +182,7 @@ class AreaHandler extends Handler<AreaTool> {
       state.page,
       data.askForName,
     );
-    if (name == null) return;
+    if (name == null || name.isEmpty) return;
     currentRect = null;
     context.getDocumentBloc().add(
       AreasCreated([

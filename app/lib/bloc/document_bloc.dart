@@ -894,6 +894,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final areas = event.areas.map((e) {
         var name = e.name;
         var count = 1;
+        if (name.isEmpty) {
+          name = 'Area';
+        }
         while (current.page.areas.any((element) => element.name == name)) {
           name = '${e.name} (${count++})';
         }
@@ -908,8 +911,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           shouldRepaint = true;
         }
       }
+
+      final hasInitial = areas.any((e) => e.isInitial);
+      final existingAreas = current.page.areas.map((e) {
+        if (hasInitial && e.isInitial) {
+          return e.copyWith(isInitial: false);
+        }
+        return e;
+      }).toList();
+
       final currentDocument = current.page.copyWith(
-        areas: [...current.page.areas, ...areas],
+        areas: [...existingAreas, ...areas],
       );
       return _saveState(
         emit,
@@ -943,9 +955,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
+      final hasInitial = event.area.isInitial;
       final areas = current.page.areas.map((e) {
         if (e.name == event.name) {
           return event.area;
+        }
+        if (hasInitial && e.isInitial) {
+          return e.copyWith(isInitial: false);
         }
         return e;
       }).toList();

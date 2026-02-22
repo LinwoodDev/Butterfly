@@ -39,6 +39,19 @@ class AreaSelection extends Selection<Area> {
           );
         },
       ),
+      const SizedBox(height: 8),
+      SwitchListTile(
+        title: Text(AppLocalizations.of(context).areaAsInitial),
+        value: selected.first.isInitial,
+        onChanged: (value) {
+          context.read<DocumentBloc>().add(
+            AreaChanged(
+              selected.first.name,
+              selected.first.copyWith(isInitial: value),
+            ),
+          );
+        },
+      ),
     ];
   }
 

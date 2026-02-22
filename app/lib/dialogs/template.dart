@@ -1,3 +1,5 @@
+import 'dart:math' show Point;
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -18,6 +20,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../bloc/document_bloc.dart';
 import '../widgets/editable_list_tile.dart';
+import 'area/init.dart';
 import 'delete.dart';
 
 Future<void> _overrideTools(
@@ -196,12 +199,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     )
                   : _TemplateDetailsView(
                       template: detailsTemplate,
-                      onOpen: () {
+                      onOpen: (area) {
                         openNewDocument(
                           context,
                           widget.bloc != null,
                           detailsTemplate,
                           _templateSystem.storage?.identifier,
+                          area,
                         );
                       },
                     ),
@@ -281,13 +285,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
               _TemplateDetailsView(
                 template: template.data!,
                 scrollable: false,
-                onOpen: () {
+                onOpen: (area) {
                   Navigator.of(context).pop();
                   openNewDocument(
                     context,
                     widget.bloc != null,
                     template.data!,
                     _templateSystem.storage?.identifier,
+                    area,
                   );
                 },
               ),
@@ -740,9 +745,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
   }
 }
 
-class _TemplateDetailsView extends StatelessWidget {
+class _TemplateDetailsView extends StatefulWidget {
   final NoteData template;
-  final VoidCallback? onOpen;
+  final void Function(Area? area)? onOpen;
   final bool scrollable;
 
   const _TemplateDetailsView({
@@ -752,11 +757,20 @@ class _TemplateDetailsView extends StatelessWidget {
   });
 
   @override
+  State<_TemplateDetailsView> createState() => _TemplateDetailsViewState();
+}
+
+class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
+  bool _createArea = false;
+  AreaConfig? _areaConfig;
+
+  @override
   Widget build(BuildContext context) {
     final metadata =
-        template.getMetadata() ?? FileMetadata(type: NoteFileType.template);
-    final info = template.getInfo();
-    final thumbnail = template.getThumbnail();
+        widget.template.getMetadata() ??
+        FileMetadata(type: NoteFileType.template);
+    final info = widget.template.getInfo();
+    final thumbnail = widget.template.getThumbnail();
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
       textDirection: TextDirection.ltr,
@@ -790,38 +804,96 @@ class _TemplateDetailsView extends StatelessWidget {
         ),
       ListTile(
         title: Text(AppLocalizations.of(context).tools),
-        subtitle: Wrap(
-          alignment: WrapAlignment.center,
-          children: [
-            for (final tool in info?.tools ?? <Tool>[])
-              SizedBox.square(
-                dimension: 64,
-                child: OptionButton(
-                  icon: Icon(tool.icon(PhosphorIconsStyle.light)),
-                  tooltip: tool.name,
-                ),
-              ),
-          ],
+        subtitle: Card.outlined(
+          child: SizedBox(
+            height: 42,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                for (final tool in info?.tools ?? <Tool>[])
+                  SizedBox.square(
+                    dimension: 64,
+                    child: OptionButton(
+                      icon: Icon(tool.icon(PhosphorIconsStyle.light)),
+                      tooltip: tool.name,
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     ];
 
-    if (!scrollable) {
+    Widget buildAreaConfig() {
+      return ExpansionTile(
+        leading: IgnorePointer(
+          child: Checkbox(value: _createArea, onChanged: (_) {}),
+        ),
+        title: Text(AppLocalizations.of(context).createAreas),
+        initiallyExpanded: _createArea,
+        onExpansionChanged: (value) {
+          setState(() {
+            _createArea = value;
+          });
+        },
+        children: [
+          const SizedBox(height: 4),
+          AreasInitializationView(
+            showPosition: false,
+            insideDocument: false,
+            scrollable: false,
+            onChanged: (config) {
+              _areaConfig = config;
+            },
+          ),
+        ],
+      );
+    }
+
+    void handleCreate() {
+      Area? area;
+      if (_createArea) {
+        if (_areaConfig == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(AppLocalizations.of(context).error)),
+          );
+          return;
+        }
+        var name = _areaConfig!.name;
+        if (name.isEmpty) {
+          name = AppLocalizations.of(context).area;
+        }
+        area = Area(
+          name: name,
+          width: _areaConfig!.width,
+          height: _areaConfig!.height,
+          position: const Point(0, 0),
+          isInitial: true,
+        );
+      }
+      widget.onOpen?.call(area);
+    }
+
+    if (!widget.scrollable) {
       return Column(
         children: [
-          Card.filled(
+          Card.outlined(
             child: Padding(
               padding: const EdgeInsets.all(2),
               child: Column(children: details),
             ),
           ),
-          if (onOpen != null)
+          const SizedBox(height: 8),
+          const Divider(),
+          buildAreaConfig(),
+          if (widget.onOpen != null)
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: onOpen,
+                  onPressed: handleCreate,
                   child: Text(LeapLocalizations.of(context).create),
                 ),
               ),
@@ -855,17 +927,20 @@ class _TemplateDetailsView extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     ...details,
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    buildAreaConfig(),
                   ],
                 ),
               ),
             ),
-            if (onOpen != null)
+            if (widget.onOpen != null)
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed: onOpen,
+                    onPressed: handleCreate,
                     child: Text(LeapLocalizations.of(context).create),
                   ),
                 ),
