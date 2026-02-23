@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "赤色の線が暗くなっています",
   "redLinedQuad": "赤色のラインナップクワッド",
   "redLinedQuadDark": "赤色のクワッドダーク",
-  "noItemSelected": "アイテムが選択されていません"
+  "noItemSelected": "アイテムが選択されていません",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
