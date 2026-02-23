@@ -76,10 +76,9 @@ Future<void> openNewDocument(
     document = template.createDocument();
     if (initialArea != null) {
       final page = document.getPage() ?? DocumentDefaults.createPage();
-      document =
-          document.setPage(
-            page.copyWith(areas: [...page.areas, initialArea]),
-          ).$1;
+      document = document
+          .setPage(page.copyWith(areas: [...page.areas, initialArea]))
+          .$1;
     }
     final metadata = document.getMetadata();
     if (metadata != null) {
