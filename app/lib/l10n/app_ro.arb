@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Roșu căptușit întunecat",
   "redLinedQuad": "Quad roșu",
   "redLinedQuadDark": "Quad roșu închis",
-  "noItemSelected": "Niciun element selectat"
+  "noItemSelected": "Niciun element selectat",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
