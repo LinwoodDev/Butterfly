@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "La ligne rouge a régné sombre",
   "redLinedQuad": "Quad en ligne rouge",
   "redLinedQuadDark": "Quad rouge foncé",
-  "noItemSelected": "Aucun élément sélectionné"
+  "noItemSelected": "Aucun élément sélectionné",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
