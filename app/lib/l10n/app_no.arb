@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Rødt avrundet mørkt",
   "redLinedQuad": "Rød tauset avslutning",
   "redLinedQuadDark": "Rødfarget murt mørkt",
-  "noItemSelected": "Ingen elementer er valgt"
+  "noItemSelected": "Ingen elementer er valgt",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
