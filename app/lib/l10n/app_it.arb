@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Rosso allineato governato scuro",
   "redLinedQuad": "Quad foderato rosso",
   "redLinedQuadDark": "Quad foderato rosso scuro",
-  "noItemSelected": "Nessun elemento selezionato"
+  "noItemSelected": "Nessun elemento selezionato",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
