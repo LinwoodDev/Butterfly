@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Punainen vuorattu hallittu tumma",
   "redLinedQuad": "Punainen vuorattu quad",
   "redLinedQuadDark": "Punainen vuorattu quad tumma",
-  "noItemSelected": "Kohdetta ei ole valittu"
+  "noItemSelected": "Kohdetta ei ole valittu",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
