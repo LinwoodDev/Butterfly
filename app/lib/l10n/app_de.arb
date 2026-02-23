@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Rot gestreift beherrscht dunkel",
   "redLinedQuad": "Rot gesäumtes Quadrat",
   "redLinedQuadDark": "Rot gesäumtes Viertel dunkel",
-  "noItemSelected": "Kein Element ausgewählt"
+  "noItemSelected": "Kein Element ausgewählt",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
