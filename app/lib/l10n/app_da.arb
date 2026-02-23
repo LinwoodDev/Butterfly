@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Rød foret regerede mørk",
   "redLinedQuad": "Rød foret quad",
   "redLinedQuadDark": "Rød foret quad mørk",
-  "noItemSelected": "Intet element valgt"
+  "noItemSelected": "Intet element valgt",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
