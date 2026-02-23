@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Червоний колір",
   "redLinedQuad": "Червоний квад",
   "redLinedQuadDark": "Темно-червоний квад",
-  "noItemSelected": "Жоден елемент не вибрано"
+  "noItemSelected": "Жоден елемент не вибрано",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
