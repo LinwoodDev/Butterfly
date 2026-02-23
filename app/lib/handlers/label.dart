@@ -242,11 +242,11 @@ class LabelHandler extends Handler<LabelTool>
                 viewId: viewId,
                 inputType: TextInputType.multiline,
                 obscureText: false,
-                autocorrect: false,
+                autocorrect: true,
                 inputAction: TextInputAction.newline,
                 keyboardAppearance: theme.brightness,
                 enableDeltaModel: false,
-                enableSuggestions: false,
+                enableSuggestions: true,
                 enableInteractiveSelection: true,
               ),
             )
