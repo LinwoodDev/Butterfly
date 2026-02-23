@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "ciemny z prawej czerwonej linii.",
   "redLinedQuad": "Czerwony kwadrat",
   "redLinedQuadDark": "Czerwony kwadrat ciemny",
-  "noItemSelected": "Nie wybrano elementu"
+  "noItemSelected": "Nie wybrano elementu",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
