@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "مخطط داكن بفاصل أحمر",
   "redLinedQuad": "مربعات بفاصل أحمر",
   "redLinedQuadDark": "مربعات داكنه بفاصل أحمر",
-  "noItemSelected": "لا توجد عناصر محددة"
+  "noItemSelected": "لا توجد عناصر محددة",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
