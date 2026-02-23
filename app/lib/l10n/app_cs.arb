@@ -1291,5 +1291,10 @@
   "redLinedRuledDark": "Červená podšívaná tmavá",
   "redLinedQuad": "Červená čtyřkolka",
   "redLinedQuadDark": "Červená čtyřvrstvá tmavá",
-  "noItemSelected": "Nebyla vybrána žádná položka"
+  "noItemSelected": "Nebyla vybrána žádná položka",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  }
 }
