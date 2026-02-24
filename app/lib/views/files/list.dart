@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/file_name_display.dart';
 
 class FileEntityListTile extends StatelessWidget {
   final String? modifiedText, createdText;
@@ -217,10 +218,8 @@ class FileEntityListTile extends StatelessWidget {
                                         children: [
                                           Tooltip(
                                             message: entity.fileName,
-                                            child: Text(
-                                              entity.fileName,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
+                                            child: FileNameDisplay(
+                                              entity: entity,
                                               style: TextTheme.of(
                                                 context,
                                               ).labelLarge,

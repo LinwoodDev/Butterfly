@@ -363,6 +363,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
+    @Default(false) bool hideExtension,
     @Default(true) bool autosave,
     @Default(true) bool showSaveButton,
     @Default(1) int toolbarRows,
@@ -532,6 +533,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             )
           : null,
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
+      hideExtension: prefs.getBool('hide_extension') ?? false,
     );
   }
 
@@ -641,6 +643,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     } else {
       await prefs.remove('selected_palette');
     }
+    await prefs.setBool('show_verbose_logs', showVerboseLogs);
+    await prefs.setBool('hide_extension', hideExtension);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1158,6 +1162,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
+
+  Future<void> changeHideExtension(bool value) {
+    emit(state.copyWith(hideExtension: value));
+    return save();
+  }
 
   Future<void> changeAutosave(bool? value, {bool delayed = false}) {
     emit(

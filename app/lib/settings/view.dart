@@ -178,6 +178,18 @@ class ViewSettingsPage extends StatelessWidget {
                             .read<SettingsCubit>()
                             .changeNavigationRail(value),
                       ),
+                      SwitchListTile(
+                        value: state.hideExtension,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeHideExtension(value),
+                        title: Text(
+                          AppLocalizations.of(context).hideFileExtension,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.fileText,
+                        ),
+                      ),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.archive),
                         title: Text(

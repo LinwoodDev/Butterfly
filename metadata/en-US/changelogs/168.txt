@@ -2,9 +2,11 @@
 * Add support for creating an initial area when creating a document inside the template dialog
 * Add area creation dialog in area navigator if no areas exist
 * Add area teleportion after entering area
+* Add option to hide file extension ([#942](https://github.com/LinwoodDev/Butterfly/issues/942))
 * Show other areas if inside an area
 * Improve label mode change
 * Improve bottom bar in area and page navigator
+* Fix file extension is being hidden if the file name is too long
 * Fix memory leaks in pdf and svg renderer, import and baking
 * Fix area teleporting has offset on render resolutions other than fast
 * Fix handwriting, suggestions and emoji input not working for text fields ([#936](https://github.com/LinwoodDev/Butterfly/issues/936))

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:butterfly/widgets/file_name_display.dart';
 
 class FileEntityGridItem extends StatelessWidget {
   final String? modifiedText, createdText;
@@ -223,16 +224,14 @@ class FileEntityGridItem extends StatelessWidget {
                                 child: Tooltip(
                                   message: entity.fileName,
                                   child: GestureDetector(
-                                    child: Text(
-                                      entity.fileName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextTheme.of(context).labelLarge,
-                                    ),
                                     onDoubleTap: () {
                                       onEdit(true);
                                       nameController.text = entity.fileName;
                                     },
+                                    child: FileNameDisplay(
+                                      entity: entity,
+                                      style: TextTheme.of(context).labelLarge,
+                                    ),
                                   ),
                                 ),
                               ),
