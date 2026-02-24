@@ -288,11 +288,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                   e.icon(PhosphorIconsStyle.light),
                                 ),
                                 child: Text(e.getLocalizedName(context)),
-                                onPressed: () => widget.onChanged(
-                                  value.copyWith(
-                                    tool: value.tool.copyWith(mode: e),
-                                  ),
-                                ),
+                                onPressed: () =>
+                                    widget.onChanged(value.toMode(e)),
                               ),
                             )
                             .toList(),
