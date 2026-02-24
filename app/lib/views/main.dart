@@ -582,8 +582,7 @@ class _MainBody extends StatelessWidget {
                                                                 .bottomLeft;
                                                     final children = [
                                                       const PenOnlyToggle(),
-                                                      const SizedBox(width: 8),
-                                                      Expanded(
+                                                      Flexible(
                                                         child: ZoomView(
                                                           isMobile: isMobile,
                                                         ),
@@ -595,6 +594,7 @@ class _MainBody extends StatelessWidget {
                                                                 .start
                                                           : MainAxisAlignment
                                                                 .end,
+                                                      spacing: 8,
                                                       children: isLeft
                                                           ? children.reversed
                                                                 .toList()
