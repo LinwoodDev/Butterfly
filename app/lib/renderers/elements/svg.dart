@@ -138,10 +138,10 @@ class SvgRenderer extends Renderer<SvgElement> {
     }
   }
 
-  /*@override
+  @override
   void dispose() {
-    info?.picture.dispose();
-  }*/
+    pictureInfo?.picture.dispose();
+  }
 
   @override
   SvgRenderer _transform({

@@ -20,6 +20,11 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
   }
 
   @override
+  void dispose() {
+    _pictureInfo?.picture.dispose();
+  }
+
+  @override
   void build(
     Canvas canvas,
     Size size,

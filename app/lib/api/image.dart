@@ -53,5 +53,9 @@ Future<ui.Image> convertImageToFlutterUi(img.Image image) async {
   ui.FrameInfo fi = await codec.getNextFrame();
   ui.Image uiImage = fi.image;
 
+  codec.dispose();
+  id.dispose();
+  buffer.dispose();
+
   return uiImage;
 }

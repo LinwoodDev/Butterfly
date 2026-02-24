@@ -374,6 +374,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (oldImage != null && oldImage != newViewport.image) {
       Future.delayed(const Duration(seconds: 2), () => oldImage.dispose());
     }
+    final oldBelowImage = currentViewport.belowLayerImage;
+    if (oldBelowImage != null && oldBelowImage != newViewport.belowLayerImage) {
+      Future.delayed(const Duration(seconds: 2), () => oldBelowImage.dispose());
+    }
+    final oldAboveImage = currentViewport.aboveLayerImage;
+    if (oldAboveImage != null && oldAboveImage != newViewport.aboveLayerImage) {
+      Future.delayed(const Duration(seconds: 2), () => oldAboveImage.dispose());
+    }
   }
 
   void _sendNetworkingState({

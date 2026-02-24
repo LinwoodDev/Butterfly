@@ -305,6 +305,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     CameraTransform renderTransform,
     ui.Size size,
   ) async {
+    for (final (image, _) in _renderedLatex.values) {
+      image.dispose();
+    }
     _renderedLatex.clear();
     final paragraph = getParagraph(blocState.data);
     await _renderLatex(paragraph, renderTransform);

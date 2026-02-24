@@ -25,14 +25,15 @@ class DocumentDefaults {
       Paint()..color = color.toColor(),
     );
     final picture = recorder.endRecording();
-    final image = await picture.toImage(
-      size.width.toInt(),
-      size.height.toInt(),
-    );
-    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-    image.dispose();
-    picture.dispose();
-    return bytes!.buffer.asUint8List();
+    ui.Image? image;
+    try {
+      image = await picture.toImage(size.width.toInt(), size.height.toInt());
+      final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+      return bytes!.buffer.asUint8List();
+    } finally {
+      image?.dispose();
+      picture.dispose();
+    }
   }
 
   static List<Tool> createTools([SRGBColor? background]) =>

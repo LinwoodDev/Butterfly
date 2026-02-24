@@ -5,6 +5,7 @@
 * Show other areas if inside an area
 * Improve label mode change
 * Improve bottom bar in area and page navigator
+* Fix memory leaks in pdf and svg renderer, import and baking
 * Fix area teleporting has offset on render resolutions other than fast
 * Fix handwriting, suggestions and emoji input not working for text fields ([#936](https://github.com/LinwoodDev/Butterfly/issues/936))
 * Fix spacing of pen only toggle if zoom view is disabled ([#1043](https://github.com/LinwoodDev/Butterfly/issues/1043))

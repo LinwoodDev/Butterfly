@@ -579,6 +579,7 @@ class ImportService {
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
       final image = frame.image;
+      codec.dispose();
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
@@ -657,50 +658,57 @@ class ImportService {
       final contentString = String.fromCharCodes(bytes);
       try {
         var info = await vg.loadPicture(SvgStringLoader(contentString), null);
-        final size = info.size;
-        var height = size.height, width = size.width;
-        if (!height.isFinite) height = 0;
-        if (!width.isFinite) width = 0;
-        final state = _getState();
-        String dataPath;
-        if (state != null) {
-          dataPath = Uri.dataFromBytes(
-            bytes,
-            mimeType: 'image/svg+xml',
-          ).toString();
-        } else {
-          dataPath = UriData.fromBytes(
-            bytes,
-            mimeType: 'image/svg+xml',
-          ).toString();
+        try {
+          final size = info.size;
+          var height = size.height, width = size.width;
+          if (!height.isFinite) height = 0;
+          if (!width.isFinite) width = 0;
+          final state = _getState();
+          String dataPath;
+          if (state != null) {
+            dataPath = Uri.dataFromBytes(
+              bytes,
+              mimeType: 'image/svg+xml',
+            ).toString();
+          } else {
+            dataPath = UriData.fromBytes(
+              bytes,
+              mimeType: 'image/svg+xml',
+            ).toString();
+          }
+          final settingsScale = getSettingsCubit().state.imageScale;
+          ElementConstraints? constraints;
+          if (position == null &&
+              currentIndexCubit != null &&
+              settingsScale > 0) {
+            final scale =
+                min(
+                  (screen.width * settingsScale) / width,
+                  (screen.height * settingsScale) / height,
+                ) /
+                currentIndexCubit!.state.cameraViewport.scale;
+            constraints = ElementConstraints.scaled(
+              scaleX: scale,
+              scaleY: scale,
+            );
+          }
+          return ImportResult(
+            service: this,
+            document: document,
+            elements: [
+              SvgElement(
+                width: width,
+                height: height,
+                source: dataPath,
+                constraints: constraints,
+                position: firstPos.toPoint(),
+              ),
+            ],
+            choosePosition: position == null,
+          );
+        } finally {
+          info.picture.dispose();
         }
-        final settingsScale = getSettingsCubit().state.imageScale;
-        ElementConstraints? constraints;
-        if (position == null &&
-            currentIndexCubit != null &&
-            settingsScale > 0) {
-          final scale =
-              min(
-                (screen.width * settingsScale) / width,
-                (screen.height * settingsScale) / height,
-              ) /
-              currentIndexCubit!.state.cameraViewport.scale;
-          constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
-        }
-        return ImportResult(
-          service: this,
-          document: document,
-          elements: [
-            SvgElement(
-              width: width,
-              height: height,
-              source: dataPath,
-              constraints: constraints,
-              position: firstPos.toPoint(),
-            ),
-          ],
-          choosePosition: position == null,
-        );
       } catch (e) {
         showDialog<void>(
           context: context,
@@ -799,6 +807,7 @@ class ImportService {
           final pdfImage = await raster.render();
           if (pdfImage == null) continue;
           images.add(await pdfImage.createImage());
+          pdfImage.dispose();
         }
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(

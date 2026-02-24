@@ -177,6 +177,7 @@ class PdfRenderer extends Renderer<PdfElement> {
           );
       if (raster == null) return;
       var imgImage = raster.createImageNF();
+      raster.dispose();
       if (element.invert) {
         final cmd = img.Command()
           ..image(imgImage)
