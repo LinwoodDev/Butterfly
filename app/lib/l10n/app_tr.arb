@@ -1296,5 +1296,6 @@
   "swap": "Swap",
   "@swap": {
     "description": "Two elements swap their positions"
-  }
+  },
+  "hideFileExtension": "Hide file extension"
 }
