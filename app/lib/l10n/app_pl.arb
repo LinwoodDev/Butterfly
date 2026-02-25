@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "ciemny z prawej czerwonej linii.",
   "redLinedQuad": "Czerwony kwadrat",
   "redLinedQuadDark": "Czerwony kwadrat ciemny",
-  "noItemSelected": "Nie wybrano elementu"
+  "noItemSelected": "Nie wybrano elementu",
+  "areaAsInitial": "Otwórz obszar jako widok początkowy",
+  "swap": "Zamień",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Ukryj rozszerzenie pliku"
 }

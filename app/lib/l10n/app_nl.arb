@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Rood lijnd geregeerd donker",
   "redLinedQuad": "Rode krijt quad",
   "redLinedQuadDark": "Rode gelederen quad donker",
-  "noItemSelected": "Geen item geselecteerd"
+  "noItemSelected": "Geen item geselecteerd",
+  "areaAsInitial": "Open gebied als eerste weergave",
+  "swap": "Wisselen",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Bestandsextensie verbergen"
 }

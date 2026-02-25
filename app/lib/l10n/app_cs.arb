@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Červená podšívaná tmavá",
   "redLinedQuad": "Červená čtyřkolka",
   "redLinedQuadDark": "Červená čtyřvrstvá tmavá",
-  "noItemSelected": "Nebyla vybrána žádná položka"
+  "noItemSelected": "Nebyla vybrána žádná položka",
+  "areaAsInitial": "Otevřená oblast jako počáteční zobrazení",
+  "swap": "Prohodit",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Skrýt příponu souboru"
 }

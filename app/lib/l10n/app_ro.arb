@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Roșu căptușit întunecat",
   "redLinedQuad": "Quad roșu",
   "redLinedQuadDark": "Quad roșu închis",
-  "noItemSelected": "Niciun element selectat"
+  "noItemSelected": "Niciun element selectat",
+  "areaAsInitial": "Deschideți zona ca vizualizare inițială",
+  "swap": "Schimbă",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Ascunde extensia fișierului"
 }

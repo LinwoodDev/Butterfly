@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Vermelho apertado escuro",
   "redLinedQuad": "quadril alinhado vermelho",
   "redLinedQuadDark": "Traseiro alinhado vermelho escuro",
-  "noItemSelected": "Nenhum item selecionado"
+  "noItemSelected": "Nenhum item selecionado",
+  "areaAsInitial": "Área aberta como vista inicial",
+  "swap": "Trocar",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Ocultar extensão do arquivo"
 }

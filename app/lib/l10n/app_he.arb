@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Red lined ruled dark",
   "redLinedQuad": "Red lined quad",
   "redLinedQuadDark": "Red lined quad dark",
-  "noItemSelected": "No item selected"
+  "noItemSelected": "No item selected",
+  "areaAsInitial": "Open area as initial view",
+  "swap": "Swap",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Hide file extension"
 }

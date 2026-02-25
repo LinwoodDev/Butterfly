@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Красный выложенный цвет - тёмный",
   "redLinedQuad": "Красный квадрат",
   "redLinedQuadDark": "Темный красный квадрат",
-  "noItemSelected": "Не выбрано ни одного элемента"
+  "noItemSelected": "Не выбрано ни одного элемента",
+  "areaAsInitial": "Открыть область как начальный вид",
+  "swap": "Поменять",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Скрыть расширение файла"
 }

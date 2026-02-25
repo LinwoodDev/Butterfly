@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Rot gestreift beherrscht dunkel",
   "redLinedQuad": "Rot gesäumtes Quadrat",
   "redLinedQuadDark": "Rot gesäumtes Viertel dunkel",
-  "noItemSelected": "Kein Element ausgewählt"
+  "noItemSelected": "Kein Element ausgewählt",
+  "areaAsInitial": "Bereich als Ausgangsansicht öffnen",
+  "swap": "Tausch",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Dateiendung ausblenden"
 }

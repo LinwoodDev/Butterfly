@@ -1291,5 +1291,11 @@
   "redLinedRuledDark": "Κόκκινο επενδεδυμένο κυβερνώντα σκούρο",
   "redLinedQuad": "Κόκκινο τεταρτημόριο",
   "redLinedQuadDark": "Κόκκινο επενδεδυμένο τετράγωνο σκούρο",
-  "noItemSelected": "Δεν επιλέχθηκε στοιχείο"
+  "noItemSelected": "Δεν επιλέχθηκε στοιχείο",
+  "areaAsInitial": "Άνοιγμα περιοχής ως αρχική προβολή",
+  "swap": "Εναλλαγή",
+  "@swap": {
+    "description": "Two elements swap their positions"
+  },
+  "hideFileExtension": "Απόκρυψη επέκτασης αρχείου"
 }
