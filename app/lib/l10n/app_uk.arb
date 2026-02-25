@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Червоний квад",
   "redLinedQuadDark": "Темно-червоний квад",
   "noItemSelected": "Жоден елемент не вибрано",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Відкрити область як початковий вигляд",
+  "swap": "Поміняти",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Сховати розширення файлу"
 }
