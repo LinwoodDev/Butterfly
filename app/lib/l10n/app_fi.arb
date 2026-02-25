@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Punainen vuorattu quad",
   "redLinedQuadDark": "Punainen vuorattu quad tumma",
   "noItemSelected": "Kohdetta ei ole valittu",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Avaa alue alustavana näkymänä",
+  "swap": "Vaihda",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Piilota tiedostopääte"
 }
