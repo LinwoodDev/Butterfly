@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Rode krijt quad",
   "redLinedQuadDark": "Rode gelederen quad donker",
   "noItemSelected": "Geen item geselecteerd",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Open gebied als eerste weergave",
+  "swap": "Wisselen",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Bestandsextensie verbergen"
 }
