@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Quad en ligne rouge",
   "redLinedQuadDark": "Quad rouge foncé",
   "noItemSelected": "Aucun élément sélectionné",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Ouvrir la zone en vue initiale",
+  "swap": "Permuter",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Masquer l'extension de fichier"
 }
