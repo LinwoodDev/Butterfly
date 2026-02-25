@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Rot gesäumtes Quadrat",
   "redLinedQuadDark": "Rot gesäumtes Viertel dunkel",
   "noItemSelected": "Kein Element ausgewählt",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Bereich als Ausgangsansicht öffnen",
+  "swap": "Tausch",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Dateiendung ausblenden"
 }
