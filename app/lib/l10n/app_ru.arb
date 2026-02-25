@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Красный квадрат",
   "redLinedQuadDark": "Темный красный квадрат",
   "noItemSelected": "Не выбрано ни одного элемента",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Открыть область как начальный вид",
+  "swap": "Поменять",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Скрыть расширение файла"
 }
