@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Κόκκινο τεταρτημόριο",
   "redLinedQuadDark": "Κόκκινο επενδεδυμένο τετράγωνο σκούρο",
   "noItemSelected": "Δεν επιλέχθηκε στοιχείο",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Άνοιγμα περιοχής ως αρχική προβολή",
+  "swap": "Εναλλαγή",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Απόκρυψη επέκτασης αρχείου"
 }
