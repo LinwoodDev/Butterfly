@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Červená čtyřkolka",
   "redLinedQuadDark": "Červená čtyřvrstvá tmavá",
   "noItemSelected": "Nebyla vybrána žádná položka",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Otevřená oblast jako počáteční zobrazení",
+  "swap": "Prohodit",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Skrýt příponu souboru"
 }
