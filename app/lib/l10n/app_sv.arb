@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Röd fodrad quad",
   "redLinedQuadDark": "Röd fodrad quad mörk",
   "noItemSelected": "Inget objekt valt",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Öppet område som första vy",
+  "swap": "Byt",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Dölj filtillägg"
 }
