@@ -20,4 +20,4 @@
 * Fix spacing of pen only toggle if zoom view is disabled ([#1043](https://github.com/LinwoodDev/Butterfly/issues/1043))
 * Upgrade to flutter 3.41
 
-Read more here: https://linwood.dev/butterfly/2.5.0-beta.2 Add ability to create initial area in templates
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.2
