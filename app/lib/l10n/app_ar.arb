@@ -1292,10 +1292,10 @@
   "redLinedQuad": "مربعات بفاصل أحمر",
   "redLinedQuadDark": "مربعات داكنه بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "فتح المنطقة كعرض أولي",
+  "swap": "تبديل",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "إخفاء ملحق الملف"
 }
