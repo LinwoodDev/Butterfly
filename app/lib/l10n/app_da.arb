@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Rød foret quad",
   "redLinedQuadDark": "Rød foret quad mørk",
   "noItemSelected": "Intet element valgt",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Åben område som første visning",
+  "swap": "Byt",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Skjul filendelse"
 }
