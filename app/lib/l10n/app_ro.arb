@@ -1292,10 +1292,10 @@
   "redLinedQuad": "Quad roșu",
   "redLinedQuadDark": "Quad roșu închis",
   "noItemSelected": "Niciun element selectat",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "Deschideți zona ca vizualizare inițială",
+  "swap": "Schimbă",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "Ascunde extensia fișierului"
 }
