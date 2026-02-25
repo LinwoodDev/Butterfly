@@ -1292,10 +1292,10 @@
   "redLinedQuad": "赤色のラインナップクワッド",
   "redLinedQuadDark": "赤色のクワッドダーク",
   "noItemSelected": "アイテムが選択されていません",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "初期ビューとして領域を開く",
+  "swap": "入れ替え",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "ファイル拡張子を非表示"
 }
