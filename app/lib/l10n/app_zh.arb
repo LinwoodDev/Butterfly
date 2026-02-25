@@ -1292,10 +1292,10 @@
   "redLinedQuad": "红线四面体",
   "redLinedQuadDark": "红线四极暗色",
   "noItemSelected": "没有选中项目",
-  "areaAsInitial": "Open area as initial view",
-  "swap": "Swap",
+  "areaAsInitial": "以初始视图打开区域",
+  "swap": "切换",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Hide file extension"
+  "hideFileExtension": "隐藏文件扩展名"
 }
