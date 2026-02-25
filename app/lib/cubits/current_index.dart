@@ -1517,6 +1517,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           (e) => elements.any((el) => el.$1 == e.element && el.$2 == e.layer),
         )
         .toList();
+    final dropped = existing.where((e) => !reusable.contains(e)).toList();
+    for (final e in dropped) {
+      e.dispose();
+    }
     final newRenderers = elements
         .where(
           (e) => !reusable.any((r) => r.element == e.$1 && r.layer == e.$2),
@@ -1942,6 +1946,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   @override
   Future<void> close() async {
+    for (final renderer in renderers) {
+      renderer.dispose();
+    }
+    state.cameraViewport.image?.dispose();
+    state.cameraViewport.aboveLayerImage?.dispose();
+    state.cameraViewport.belowLayerImage?.dispose();
     _transformSubscription?.cancel();
     _transformDebounceTimer?.cancel();
     _networkingDebounceTimer?.cancel();

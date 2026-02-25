@@ -7,10 +7,17 @@
 * Improve label mode change
 * Improve bottom bar in area and page navigator
 * Fix file extension is being hidden if the file name is too long
-* Fix memory leaks in pdf and svg renderer, import and baking
+* Fix memory leaks
+  * PDF and SVG renderer
+  * Importing elements
+  * Baking viewport
+  * Concurrent asset system
+  * Document closing
+  * Undoing and loading documents
+  * Elements changed and removed events
 * Fix area teleporting has offset on render resolutions other than fast
 * Fix handwriting, suggestions and emoji input not working for text fields ([#936](https://github.com/LinwoodDev/Butterfly/issues/936))
 * Fix spacing of pen only toggle if zoom view is disabled ([#1043](https://github.com/LinwoodDev/Butterfly/issues/1043))
 * Upgrade to flutter 3.41
 
-Read more here: https://linwood.dev/butterfly/2.5.0-beta.2* Add ability to create initial area in templates
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.2 Add ability to create initial area in templates

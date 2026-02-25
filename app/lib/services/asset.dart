@@ -9,17 +9,19 @@ Uint8List? _getDataFromSource((NoteData, String) message) =>
     element_helper.getDataFromSource(message.$1, message.$2);
 
 class AssetService {
-  final Map<String, ui.Image> _images = {};
+  final Map<String, Future<ui.Image?>> _images = {};
   final Map<String, Future<Uint8List?>> _dataCache = {};
-  final Map<String, PdfDocument> _pdfDocumentCache = {};
+  final Map<String, Future<PdfDocument?>> _pdfs = {};
 
   AssetService();
 
   Future<ui.Image?> getImage(String path, NoteData document) async {
     if (_images.containsKey(path)) {
-      return _images[path]!.clone();
+      return _images[path]!.then((img) => img?.clone());
     }
-    return _importImage(path, document);
+    final future = _importImage(path, document);
+    _images[path] = future;
+    return await future.then((img) => img?.clone());
   }
 
   Future<ui.Image?> _importImage(String path, NoteData document) async {
@@ -29,16 +31,19 @@ class AssetService {
     try {
       final frameInfo = await codec.getNextFrame();
       final image = frameInfo.image;
-      _images[path] = image;
-      return image.clone();
+      return image;
     } finally {
       codec.dispose();
     }
   }
 
-  void invalidateImage(String path) {
+  Future<void> invalidateImage(String path) async {
     try {
-      _images[path]?.dispose();
+      final imageFuture = _images.remove(path);
+      if (imageFuture != null) {
+        final image = await imageFuture;
+        image?.dispose();
+      }
     } catch (_) {}
     _images.remove(path);
   }
@@ -57,31 +62,39 @@ class AssetService {
   }
 
   Future<PdfDocument?> getPdfDocument(String source, NoteData document) async {
-    if (_pdfDocumentCache.containsKey(source)) {
-      return _pdfDocumentCache[source];
+    if (_pdfs.containsKey(source)) {
+      return _pdfs[source]!;
     }
+    final future = _loadPdfDocument(source, document);
+    _pdfs[source] = future;
+    return await future;
+  }
+
+  Future<PdfDocument?> _loadPdfDocument(
+    String source,
+    NoteData document,
+  ) async {
     final data = await computeDataFromSource(source, document);
     if (data == null) return null;
     final pdfDocument = await PdfDocument.openData(data);
-    _pdfDocumentCache[source] = pdfDocument;
     return pdfDocument;
   }
 
-  void invalidatePdfDocument(String source) {
-    _pdfDocumentCache.remove(source)?.dispose();
+  Future<void> invalidatePdfDocument(String source) async {
+    return _pdfs.remove(source)?.then((pdf) => pdf?.dispose());
   }
 
-  void invalidate(String source) {
-    invalidateImage(source);
+  Future<void> invalidate(String source) async {
     invalidateData(source);
-    invalidatePdfDocument(source);
+    await invalidateImage(source);
+    await invalidatePdfDocument(source);
   }
 
   void dispose() {
     _images.keys.toList().forEach(invalidateImage);
     _images.clear();
     _dataCache.clear();
-    _pdfDocumentCache.keys.toList().forEach(invalidatePdfDocument);
-    _pdfDocumentCache.clear();
+    _pdfs.keys.toList().forEach(invalidatePdfDocument);
+    _pdfs.clear();
   }
 }

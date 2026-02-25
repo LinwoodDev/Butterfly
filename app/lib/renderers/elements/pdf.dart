@@ -185,8 +185,9 @@ class PdfRenderer extends Renderer<PdfElement> {
         final converted = await cmd.getImage();
         if (converted != null) imgImage = converted;
       }
+      final uiImage = await convertImageToFlutterUi(imgImage);
       image?.dispose();
-      image = await convertImageToFlutterUi(imgImage);
+      image = uiImage;
       renderedScale = scale;
       _lastRenderedRect = renderRect;
     } catch (_) {}

@@ -258,7 +258,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             .onRenderersCreated(current.page, renderers),
       );
     });
-    on<ElementsChanged>((event, emit) {
+    on<ElementsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -267,12 +267,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final selected = cubit.state.selection?.selected.toList();
       final page = current.page;
       final oldRenderers = current.renderers;
-      final elements = event.elements.map(
-        (key, value) => MapEntry(
-          key,
-          value.map((e) => e.copyWith(id: e.id ?? createUniqueId())).toList(),
-        ),
-      );
+      var data = current.data;
+      final imported = <String, String>{};
+      final elements = <String, List<PadElement>>{};
+      for (final entry in event.elements.entries) {
+        final sourceElements = entry.value
+            .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+            .toList();
+        List<PadElement> importedElements;
+        (data, importedElements) = await importAssetsAsync(
+          data,
+          sourceElements,
+          alreadyImported: imported,
+          onInvalidate: current.assetService.invalidate,
+        );
+        elements[entry.key] = importedElements;
+      }
       final replacedRenderers =
           <Renderer<PadElement>, List<Renderer<PadElement>>>{};
       for (final renderer in oldRenderers) {
@@ -309,10 +319,29 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }).toList(),
         ),
       );
+
+      final unusedAssets = <String>{};
+      for (final renderer in oldRenderers) {
+        final id = renderer.element.id;
+        final updated = elements[id];
+        if (updated != null) {
+          final oldElement = renderer.element;
+          if (oldElement is SourcedElement) {
+            final source = (oldElement as SourcedElement).source;
+            final uri = Uri.tryParse(source);
+            if (uri?.scheme == '' && !newPage.usesSource(source)) {
+              unusedAssets.add(source);
+              current.assetService.invalidate(source);
+            }
+          }
+        }
+      }
+      data = data.removeAssets(unusedAssets.toList());
+
       cubit.changeSelection(Selection.fromList(selected), false);
       _saveState(
         emit,
-        state: current.copyWith(page: newPage),
+        state: current.copyWith(page: newPage, data: data),
         replacedElements: renderers,
         shouldRefresh: () => replacedRenderers.entries
             .map(
@@ -416,9 +445,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final uri = Uri.tryParse(element.source);
         if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
           unusedAssets.add(element.source);
+          current.assetService.invalidate(element.source);
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
+      final removedRenderers = current.renderers
+          .where((e) => event.elements.contains(e.element.id))
+          .toList();
+      for (final renderer in removedRenderers) {
+        renderer.dispose();
+      }
       return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
@@ -600,6 +636,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
+      for (final bg in current.cameraViewport.backgrounds) {
+        bg.dispose();
+      }
       _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
