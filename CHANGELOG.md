@@ -2,6 +2,35 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-beta.2 (2026-02-26)
+
+* Add support for opening an area as initial view
+* Add support for creating an initial area when creating a document inside the template dialog
+* Add area creation dialog in area navigator if no areas exist
+* Add area teleportion after entering area
+* Add option to hide file extension ([#942](https://github.com/LinwoodDev/Butterfly/issues/942))
+* Show other areas if inside an area
+* Improve label mode change
+* Improve bottom bar in area and page navigator
+* Improve what's new button styling and live update on the home page
+* Use import file name as default name when importing documents and add option to import multiple files
+* Fix file extension is being hidden if the file name is too long
+* Fix memory leaks
+  * PDF and SVG renderer
+  * Importing elements
+  * Baking viewport
+  * Concurrent asset system
+  * Document closing
+  * Undoing and loading documents
+  * Elements changed and removed events
+* Fix area teleporting has offset on render resolutions other than fast
+* Fix handwriting, suggestions and emoji input not working for text fields ([#936](https://github.com/LinwoodDev/Butterfly/issues/936))
+* Fix spacing of pen only toggle if zoom view is disabled ([#1043](https://github.com/LinwoodDev/Butterfly/issues/1043))
+* Fix importing a file inside a subdirectory having unexpected behavior
+* Upgrade to flutter 3.41
+
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.2
+
 ## 2.5.0-beta.1 (2026-02-04)
 
 * Rewrite remote webdav file system
