@@ -58,7 +58,8 @@ class _HomePageState extends State<HomePage> {
     final isMobile = size.width < LeapBreakpoints.compact;
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.bannerVisibility != current.bannerVisibility,
+          previous.bannerVisibility != current.bannerVisibility ||
+          previous.lastVersion != current.lastVersion,
       builder: (context, settings) {
         return FutureBuilder<bool>(
           future: context.read<SettingsCubit>().hasNewerVersion(),

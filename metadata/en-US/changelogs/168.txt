@@ -6,6 +6,7 @@
 * Show other areas if inside an area
 * Improve label mode change
 * Improve bottom bar in area and page navigator
+* Improve what's new button styling and live update on the home page
 * Fix file extension is being hidden if the file name is too long
 * Fix memory leaks
   * PDF and SVG renderer
