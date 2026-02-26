@@ -164,7 +164,7 @@ class _PacksDialogState extends State<PacksDialog>
                               ),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final (data, _) = await importFile(context, [
+                                final (data, _, _) = await importFile(context, [
                                   AssetFileType.note,
                                   AssetFileType.textNote,
                                 ]);

@@ -64,9 +64,22 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   );
 }
 
-Future<(Uint8List?, String?)> importFile(
+Future<(Uint8List?, String?, String?)> importFile(
   BuildContext context, [
   List<AssetFileType>? types,
+]) async {
+  final files = await importFiles(context, types, false);
+  final file = files.firstOrNull;
+  if (file == null) {
+    return (null, null, null);
+  }
+  return file;
+}
+
+Future<List<(Uint8List, String, String)>> importFiles(
+  BuildContext context, [
+  List<AssetFileType>? types,
+  bool allowMultiple = true,
 ]) async {
   final result = await FilePicker.platform.pickFiles(
     allowedExtensions: (types ?? AssetFileType.values)
@@ -75,26 +88,40 @@ Future<(Uint8List?, String?)> importFile(
     type: FileType.custom,
     withData: kIsWeb,
     withReadStream: !kIsWeb,
+    allowMultiple: allowMultiple,
   );
-  final file = result?.files.firstOrNull;
-  if (file == null) {
-    return (null, null);
+  if (result == null) {
+    return [];
   }
-  Uint8List? data = file.bytes;
-  if (!kIsWeb) {
-    final stream = file.readStream;
-    final size = file.size;
-    if (stream != null) {
-      // Allocate size
-      data = Uint8List(size);
-      int offset = 0;
-      await for (final chunk in stream) {
-        data.setRange(offset, offset + chunk.length, chunk);
-        offset += chunk.length;
+  final files = <(Uint8List, String, String)>[];
+  for (final file in result.files) {
+    Uint8List? data = file.bytes;
+    if (!kIsWeb) {
+      final stream = file.readStream;
+      final size = file.size;
+      if (stream != null) {
+        // Allocate size
+        data = Uint8List(size);
+        int offset = 0;
+        await for (final chunk in stream) {
+          data.setRange(offset, offset + chunk.length, chunk);
+          offset += chunk.length;
+        }
       }
     }
+    if (data != null) {
+      final fileName = file.name;
+      final nameWithoutExtension = fileName.contains('.')
+          ? fileName.substring(0, fileName.lastIndexOf('.'))
+          : fileName;
+      files.add((
+        data,
+        fileName.split('.').lastOrNull ?? '',
+        nameWithoutExtension,
+      ));
+    }
   }
-  return (data, file.name.split('.').lastOrNull);
+  return files;
 }
 
 Future<void> openFile(

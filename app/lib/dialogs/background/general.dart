@@ -85,7 +85,7 @@ class _GeneralBackgroundPropertiesViewState
                 onTap: () async {
                   final state = context.read<DocumentBloc>().state;
                   if (state is! DocumentLoaded) return;
-                  final (result, _) = await importFile(context, [
+                  final (result, _, _) = await importFile(context, [
                     AssetFileType.image,
                   ]);
                   if (result == null) return;
@@ -119,7 +119,7 @@ class _GeneralBackgroundPropertiesViewState
                 onTap: () async {
                   final state = context.read<DocumentBloc>().state;
                   if (state is! DocumentLoaded) return;
-                  final (result, _) = await importFile(context, [
+                  final (result, _, _) = await importFile(context, [
                     AssetFileType.svg,
                   ]);
                   if (result == null) return;

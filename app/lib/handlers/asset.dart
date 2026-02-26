@@ -42,7 +42,7 @@ Future<void> showImportAssetWizard(
   }
 
   Future<void> importWithDialog(List<AssetFileType> type) async {
-    final (result, fileExtension) = await importFile(context, type);
+    final (result, fileExtension, _) = await importFile(context, type);
     if (result == null) return;
     return importAsset(
       AssetFileTypeHelper.fromFileExtension(fileExtension) ??

@@ -7,6 +7,7 @@
 * Improve label mode change
 * Improve bottom bar in area and page navigator
 * Improve what's new button styling and live update on the home page
+* Use import file name as default name when importing documents and add option to import multiple files
 * Fix file extension is being hidden if the file name is too long
 * Fix memory leaks
   * PDF and SVG renderer
@@ -19,6 +20,7 @@
 * Fix area teleporting has offset on render resolutions other than fast
 * Fix handwriting, suggestions and emoji input not working for text fields ([#936](https://github.com/LinwoodDev/Butterfly/issues/936))
 * Fix spacing of pen only toggle if zoom view is disabled ([#1043](https://github.com/LinwoodDev/Butterfly/issues/1043))
+* Fix importing a file inside a subdirectory having unexpected behavior
 * Upgrade to flutter 3.41
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.2

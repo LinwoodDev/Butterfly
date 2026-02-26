@@ -11,7 +11,6 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -636,43 +635,68 @@ class FilesViewState extends State<FilesView> {
                           PhosphorIconsLight.arrowSquareIn,
                         ),
                         onPressed: () async {
-                          var (result, fileExtension) = await importFile(
-                            context,
-                          );
-                          if (result == null) return;
-                          if (fileExtension == 'bin') {
-                            // see https://github.com/LinwoodDev/Butterfly/issues/839
-                            fileExtension = null;
-                          }
+                          final files = await importFiles(context);
+                          if (files.isEmpty) return;
+
                           final defaultTemplate =
                               _settingsCubit.state.defaultTemplate;
                           final templateFile = await _templateSystem
                               .getDefaultFile(defaultTemplate);
-                          final importService = ImportService(
-                            context,
-                            storage: _remote,
-                            path: _locationController.text,
-                            useDefaultStorage: false,
-                          );
-                          final importResult = await importService.load(
-                            data: result,
-                            type: fileExtension ?? '',
-                            document: templateFile,
-                          );
-                          if (importResult == null) {
-                            reloadFileSystem();
-                            return;
+
+                          for (final file in files) {
+                            var result = file.$1;
+                            var fileExtension = file.$2;
+
+                            if (fileExtension == 'bin') {
+                              // see https://github.com/LinwoodDev/Butterfly/issues/839
+                              fileExtension = '';
+                            }
+
+                            final importService = ImportService(
+                              context,
+                              storage: _remote,
+                              path: _locationController.text,
+                              useDefaultStorage: false,
+                            );
+                            final importResult = await importService.load(
+                              data: result,
+                              type: fileExtension,
+                              document: templateFile,
+                            );
+                            if (importResult == null) {
+                              continue;
+                            }
+                            final document = await importResult.export();
+                            setNativeData(result, fileExtension);
+
+                            final nameWithoutExtension = file.$3;
+
+                            var docName = document.getMetadata()?.name;
+                            if (docName == null || docName.trim().isEmpty) {
+                              docName = nameWithoutExtension;
+                            }
+                            if (docName.trim().isEmpty) {
+                              docName = null;
+                            }
+
+                            final newFile = await _documentSystem
+                                .createFileWithName(
+                                  directory: _locationController.text,
+                                  name: docName,
+                                  suffix: '.bfly',
+                                  document.toFile(),
+                                );
+
+                            if (files.length == 1 && context.mounted) {
+                              await openFile(
+                                context,
+                                false,
+                                newFile.location,
+                                document,
+                              );
+                            }
                           }
-                          final document = await importResult.export();
-                          setNativeData(result, fileExtension);
-                          await context.pushNamed(
-                            'new',
-                            queryParameters: {
-                              'remote': _remote?.identifier ?? '',
-                              'path': _locationController.text,
-                            },
-                            extra: document,
-                          );
+
                           if (!widget.collapsed) {
                             reloadFileSystem();
                           }
