@@ -20,9 +20,7 @@ class FileNameDisplay extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                state.hideExtension
-                    ? entity.fileNameWithoutExtension
-                    : entity.fileName,
+                entity.fileNameWithoutExtension,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: style,
