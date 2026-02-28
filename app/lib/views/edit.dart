@@ -15,6 +15,7 @@ import 'package:reorderable_grid/reorderable_grid.dart';
 
 import '../cubits/settings.dart';
 import '../handlers/handler.dart';
+import 'app_bar.dart';
 
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
@@ -424,14 +425,10 @@ class _EditToolbarState extends State<EditToolbar> {
                           cubit.changeSelection(cubit);
                         },
                       ),
-                      if (windowState.fullScreen &&
-                          tools.every((e) => e is! FullScreenTool))
-                        IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
-                          tooltip: LeapLocalizations.of(context).exitFullScreen,
-                          onPressed: () {
-                            context.read<WindowCubit>().changeFullScreen(false);
-                          },
+                      if (windowState.fullScreen)
+                        MainPopupMenu(
+                          viewportKey: GlobalKey(),
+                          isLarge: !isMobile,
                         ),
                       BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                         builder: (context, currentIndex) {

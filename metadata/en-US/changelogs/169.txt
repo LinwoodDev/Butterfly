@@ -1,4 +1,5 @@
 * Add default name when creating new areas
+* Add main menu to the edit toolbar in full screen mode
 * Fix files are overwritten if importing failed
 * Fix web embedding system
 * Fix controls at the bottom being cut out on some devices

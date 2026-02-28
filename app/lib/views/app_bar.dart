@@ -83,7 +83,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
                 final isLarge =
                     MediaQuery.of(context).size.width <
                     LeapBreakpoints.expanded;
-                return _MainPopupMenu(
+                return MainPopupMenu(
                   viewportKey: viewportKey,
                   isLarge: isLarge,
                   padding: padding,
@@ -429,12 +429,13 @@ class _AppBarTitleState extends State<_AppBarTitle> {
   );
 }
 
-class _MainPopupMenu extends StatelessWidget {
+class MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
   final bool isLarge;
   final EdgeInsets? padding;
 
-  const _MainPopupMenu({
+  const MainPopupMenu({
+    super.key,
     required this.viewportKey,
     required this.isLarge,
     this.padding,
