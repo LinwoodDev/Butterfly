@@ -1,6 +1,7 @@
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:butterfly/widgets/area_size_picker.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -51,9 +52,8 @@ class AreasInitializationView extends StatefulWidget {
 
 class _AreasInitializationViewState extends State<AreasInitializationView> {
   late final TextEditingController _nameController;
-  late final TextEditingController _widthController;
-  late final TextEditingController _heightController;
-  late AreaSizePreset _selectedPreset;
+  double _width = AreaSizePreset.a4.width;
+  double _height = AreaSizePreset.a4.height;
   bool _areaAsInitial = false;
   AreaPositionMode _positionMode = AreaPositionMode.currentCenter;
 
@@ -61,41 +61,24 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.initialName ?? '');
-    final preset = AreaSizePreset.values.firstWhere(
-      (element) => element == AreaSizePreset.a4,
-      orElse: () => AreaSizePreset.values.first,
-    );
-    _selectedPreset = preset;
-    _widthController = TextEditingController(text: preset.width.toString());
-    _heightController = TextEditingController(text: preset.height.toString());
-    _widthController.addListener(_notifyChanged);
-    _heightController.addListener(_notifyChanged);
     _nameController.addListener(_notifyChanged);
     _notifyChanged();
   }
 
   @override
   void dispose() {
-    _widthController.dispose();
-    _heightController.dispose();
     _nameController.dispose();
     super.dispose();
   }
 
   AreaConfig? _buildConfig() {
-    final width = _parseNumber(_widthController.text);
-    final height = _parseNumber(_heightController.text);
-    if (width == null ||
-        height == null ||
-        width <= 0 ||
-        height <= 0 ||
-        _nameController.text.trim().isEmpty) {
+    if (_width <= 0 || _height <= 0 || _nameController.text.trim().isEmpty) {
       return null;
     }
     return AreaConfig(
       name: _nameController.text.trim(),
-      width: width,
-      height: height,
+      width: _width,
+      height: _height,
       positionMode: _positionMode,
       areaAsInitial: _areaAsInitial,
     );
@@ -118,21 +101,6 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
       return;
     }
     widget.onCreate?.call(config);
-  }
-
-  double? _parseNumber(String value) =>
-      double.tryParse(value.trim().replaceAll(',', '.'));
-
-  void _applyPreset(AreaSizePreset preset) {
-    _selectedPreset = preset;
-    _widthController.text = preset.width.toString();
-    _heightController.text = preset.height.toString();
-  }
-
-  void _flipSize() {
-    final width = _widthController.text;
-    _widthController.text = _heightController.text;
-    _heightController.text = width;
   }
 
   @override
@@ -160,56 +128,16 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
             ),
           ),
           const SizedBox(height: 16),
-          DropdownMenuFormField<AreaSizePreset>(
-            initialSelection: _selectedPreset,
-            dropdownMenuEntries: AreaSizePreset.values
-                .map(
-                  (preset) => DropdownMenuEntry<AreaSizePreset>(
-                    value: preset,
-                    label:
-                        '${preset.label} (${preset.width.toInt()}×${preset.height.toInt()})',
-                  ),
-                )
-                .toList(),
-            label: Text(locale.presets),
-            expandedInsets: EdgeInsets.zero,
-            onSelected: (preset) {
-              if (preset == null) return;
-              setState(() => _applyPreset(preset));
+          AreaSizePicker(
+            width: _width,
+            height: _height,
+            onChanged: (size) {
+              setState(() {
+                _width = size.width;
+                _height = size.height;
+              });
               _notifyChanged();
             },
-          ),
-          const SizedBox(height: 8),
-          Divider(),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _widthController,
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                  ),
-                  decoration: InputDecoration(labelText: locale.width),
-                ),
-              ),
-              const SizedBox(width: 8),
-              IconButton.filledTonal(
-                onPressed: _flipSize,
-                tooltip: locale.swap,
-                icon: const Icon(PhosphorIconsLight.swap),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextField(
-                  controller: _heightController,
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                  ),
-                  decoration: InputDecoration(labelText: locale.height),
-                ),
-              ),
-            ],
           ),
           if (widget.showAsInitial)
             CheckboxListTile(

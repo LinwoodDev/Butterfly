@@ -140,20 +140,32 @@ class AreaHandler extends Handler<AreaTool> {
     final start = _start;
     if (start == null) return;
     if (data.constrainedWidth != 0) {
-      globalPos = Offset(data.constrainedWidth + _start!.dx, globalPos.dy);
+      final direction = (globalPos.dx - start.dx).sign;
+      final width = data.constrainedWidth * (direction == 0 ? 1 : direction);
+      globalPos = Offset(width + start.dx, globalPos.dy);
     }
     if (data.constrainedHeight != 0) {
-      globalPos = Offset(globalPos.dx, data.constrainedHeight + _start!.dy);
+      final direction = (globalPos.dy - start.dy).sign;
+      final height = data.constrainedHeight * (direction == 0 ? 1 : direction);
+      globalPos = Offset(globalPos.dx, height + start.dy);
     }
     if (data.constrainedAspectRatio != 0) {
       final aspectRatio = data.constrainedAspectRatio;
-      final width = globalPos.dx - start.dx;
-      final height = globalPos.dy - start.dy;
+      final width = (globalPos.dx - start.dx).abs();
+      final height = (globalPos.dy - start.dy).abs();
       final currentAspectRatio = width / height;
+      final xDirection = (globalPos.dx - start.dx).sign;
+      final yDirection = (globalPos.dy - start.dy).sign;
       if (currentAspectRatio < aspectRatio) {
-        globalPos = Offset(_start!.dx + height * aspectRatio, globalPos.dy);
+        globalPos = Offset(
+          start.dx + height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
+          globalPos.dy,
+        );
       } else {
-        globalPos = Offset(globalPos.dx, _start!.dy + width / aspectRatio);
+        globalPos = Offset(
+          globalPos.dx,
+          start.dy + width / aspectRatio * (yDirection == 0 ? 1 : yDirection),
+        );
       }
     }
     _end = globalPos;

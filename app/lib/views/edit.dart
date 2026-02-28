@@ -425,11 +425,6 @@ class _EditToolbarState extends State<EditToolbar> {
                           cubit.changeSelection(cubit);
                         },
                       ),
-                      if (windowState.fullScreen)
-                        MainPopupMenu(
-                          viewportKey: GlobalKey(),
-                          isLarge: !isMobile,
-                        ),
                       BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                         builder: (context, currentIndex) {
                           final utilitiesState = currentIndex.utilities;
@@ -504,6 +499,11 @@ class _EditToolbarState extends State<EditToolbar> {
                           );
                         },
                       ),
+                      if (windowState.fullScreen)
+                        MainPopupMenu(
+                          viewportKey: GlobalKey(),
+                          isLarge: !isMobile,
+                        ),
                     ];
                     if (direction == Axis.horizontal) {
                       return Row(

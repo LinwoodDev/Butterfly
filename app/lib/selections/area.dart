@@ -27,19 +27,25 @@ class AreaSelection extends Selection<Area> {
         },
       ),
       const SizedBox(height: 8),
-      OffsetListTile(
-        value: Offset(selected.first.width, selected.first.height),
-        title: Text(AppLocalizations.of(context).size),
-        onChanged: (value) {
-          context.read<DocumentBloc>().add(
-            AreaChanged(
-              selected.first.name,
-              selected.first.copyWith(width: value.dx, height: value.dy),
-            ),
-          );
-        },
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: AreaSizePicker(
+          width: selected.first.width,
+          height: selected.first.height,
+          onChanged: (value) {
+            context.read<DocumentBloc>().add(
+              AreaChanged(
+                selected.first.name,
+                selected.first.copyWith(
+                  width: value.width,
+                  height: value.height,
+                ),
+              ),
+            );
+          },
+        ),
       ),
-      const SizedBox(height: 8),
+      const SizedBox(height: 16),
       SwitchListTile(
         title: Text(AppLocalizations.of(context).areaAsInitial),
         value: selected.first.isInitial,
