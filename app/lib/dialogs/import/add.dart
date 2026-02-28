@@ -177,7 +177,8 @@ class _AddDialogState extends State<AddDialog> {
       if (state is! DocumentLoaded) return;
       final background =
           state.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
-      final defaultTool = updateToolDefaultColor(tool, background);
+      final copyTool = tool.copyWith(id: tool.id ?? createUniqueId());
+      final defaultTool = updateToolDefaultColor(copyTool, background);
       bloc.add(ToolCreated(defaultTool));
       if (!defaultTool.isAction()) {
         currentIndexCubit.changeTool(

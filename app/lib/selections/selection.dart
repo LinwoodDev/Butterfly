@@ -101,7 +101,7 @@ abstract class Selection<T> {
 
   @mustCallSuper
   void update(BuildContext context, List<T> selected) {
-    selected = selected;
+    _selected = selected;
   }
 
   bool get showDeleteButton => false;

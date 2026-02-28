@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class AspectRatioInput extends StatefulWidget {
@@ -46,26 +49,32 @@ class _AspectRatioInputState extends State<AspectRatioInput> {
     final currentAspect = _parseInput(_controller.text);
 
     if (currentAspect == null || (currentAspect - aspect).abs() > 0.001) {
-      // Find a clean representation if possible
-      bool foundClean = false;
-      for (int y = 1; y <= 32; y++) {
-        final x = aspect * y;
-        if ((x - x.round()).abs() < 0.01) {
-          if (y == 1) {
-            _controller.text = x.round().toString();
-          } else {
-            _controller.text = '${x.round()}:$y';
+      if ((aspect - sqrt2).abs() < 0.001) {
+        _controller.text = '√2:1';
+      } else if ((aspect - 1 / sqrt2).abs() < 0.001) {
+        _controller.text = '1:√2';
+      } else {
+        // Find a clean representation if possible
+        bool foundClean = false;
+        for (int y = 1; y <= 32; y++) {
+          final x = aspect * y;
+          if ((x - x.round()).abs() < 0.01) {
+            if (y == 1) {
+              _controller.text = x.round().toString();
+            } else {
+              _controller.text = '${x.round()}:$y';
+            }
+            foundClean = true;
+            break;
           }
-          foundClean = true;
-          break;
         }
-      }
 
-      if (!foundClean) {
-        _controller.text = aspect
-            .toStringAsFixed(3)
-            .replaceAll(RegExp(r'0+$'), '')
-            .replaceAll(RegExp(r'\.$'), '');
+        if (!foundClean) {
+          _controller.text = aspect
+              .toStringAsFixed(3)
+              .replaceAll(RegExp(r'0+$'), '')
+              .replaceAll(RegExp(r'\.$'), '');
+        }
       }
     }
   }
@@ -77,6 +86,11 @@ class _AspectRatioInputState extends State<AspectRatioInput> {
   }
 
   double? _parseInput(String input) {
+    if (input == '√2:1' || input == 'sqrt(2)' || input == 'sqrt2') return sqrt2;
+    if (input == '1:√2' || input == '1/sqrt(2)' || input == '1/sqrt2') {
+      return 1 / sqrt2;
+    }
+
     final cleanInput = input.replaceAll(' ', '').replaceAll(',', '.');
     if (cleanInput.isEmpty) return null;
 
@@ -114,10 +128,9 @@ class _AspectRatioInputState extends State<AspectRatioInput> {
       controller: _controller,
       keyboardType: TextInputType.text,
       textAlign: TextAlign.center,
-      decoration: const InputDecoration(
-        isDense: true,
+      decoration: InputDecoration(
         filled: true,
-        hintText: '16:9, 1.5',
+        hintText: AppLocalizations.of(context).aspectRatioHint,
       ),
     );
   }

@@ -47,14 +47,11 @@ class ToolSelection<T extends Tool> extends Selection<T> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final oldTools = state.info.tools;
     for (var i = 0; i < selected.length; i++) {
       final tool = selected[i];
-      final oldTool = this.selected[i];
-      final toolIndex = oldTools.indexOf(oldTool);
-      if (tool != oldTool && toolIndex >= 0) {
-        updatedTools.add(tool);
-      }
+      final oldTool = this.selected.elementAtOrNull(i);
+      if (tool == oldTool) continue;
+      updatedTools.add(tool);
     }
     bloc.add(ToolsChanged(updatedTools));
     super.update(context, selected);

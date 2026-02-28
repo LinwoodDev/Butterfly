@@ -512,7 +512,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   if (newSelection == null) {
                     newSelection = Selection.from(updated);
                   } else {
-                    newSelection.insert(updated);
+                    newSelection = newSelection.insert(updated);
                   }
                   selection = newSelection;
                 }
