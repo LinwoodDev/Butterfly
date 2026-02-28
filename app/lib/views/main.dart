@@ -541,143 +541,150 @@ class _MainBody extends StatelessWidget {
                           context.read<CurrentIndexCubit>().resetSelection();
                         },
                       ),
-                      Row(
-                        textDirection: TextDirection.ltr,
-                        children: [
-                          if (showNavigator &&
-                              settings.navigatorPosition ==
-                                  NavigatorPosition.left)
-                            const NavigatorView(),
-                          if (pos == ToolbarPosition.left &&
-                              !isMobile &&
-                              currentIndex.hideUi == HideState.visible)
-                            toolbar,
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                if ((((windowState.fullScreen ||
-                                                    settings.toolbarRows > 1) &&
-                                                pos == ToolbarPosition.inline ||
-                                            pos == ToolbarPosition.top) &&
-                                        !isMobile) &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  toolbar,
-                                if (optPos == OptionsPanelPosition.top &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  const ToolbarView(),
-                                Expanded(
-                                  child: Stack(
-                                    children: [
-                                      const Align(
-                                        alignment: Alignment.topRight,
-                                        child: PropertyView(),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                          alignment:
-                                              switch (settings.zoomPosition) {
-                                                ZoomPosition.topRight =>
-                                                  Alignment.topRight,
-                                                ZoomPosition.topLeft =>
-                                                  Alignment.topLeft,
-                                                ZoomPosition.bottomRight =>
-                                                  Alignment.bottomRight,
-                                                ZoomPosition.bottomLeft =>
-                                                  Alignment.bottomLeft,
-                                              },
-                                          child: SizedBox(
-                                            width: isMobile ? 100 : 400,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  switch (settings
-                                                      .zoomPosition) {
-                                                    ZoomPosition.topRight ||
-                                                    ZoomPosition.bottomRight =>
-                                                      CrossAxisAlignment.end,
-                                                    ZoomPosition.topLeft ||
-                                                    ZoomPosition.bottomLeft =>
-                                                      CrossAxisAlignment.start,
-                                                  },
-                                              children: [
-                                                Builder(
-                                                  builder: (context) {
-                                                    final isLeft =
-                                                        settings.zoomPosition ==
-                                                            ZoomPosition
-                                                                .topLeft ||
-                                                        settings.zoomPosition ==
-                                                            ZoomPosition
-                                                                .bottomLeft;
-                                                    final children = [
-                                                      const PenOnlyToggle(),
-                                                      Flexible(
-                                                        child: ZoomView(
-                                                          isMobile: isMobile,
+                      SafeArea(
+                        child: Row(
+                          textDirection: TextDirection.ltr,
+                          children: [
+                            if (showNavigator &&
+                                settings.navigatorPosition ==
+                                    NavigatorPosition.left)
+                              const NavigatorView(),
+                            if (pos == ToolbarPosition.left &&
+                                !isMobile &&
+                                currentIndex.hideUi == HideState.visible)
+                              toolbar,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if ((((windowState.fullScreen ||
+                                                      settings.toolbarRows >
+                                                          1) &&
+                                                  pos ==
+                                                      ToolbarPosition.inline ||
+                                              pos == ToolbarPosition.top) &&
+                                          !isMobile) &&
+                                      currentIndex.hideUi == HideState.visible)
+                                    toolbar,
+                                  if (optPos == OptionsPanelPosition.top &&
+                                      currentIndex.hideUi == HideState.visible)
+                                    const ToolbarView(),
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        const Align(
+                                          alignment: Alignment.topRight,
+                                          child: PropertyView(),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Align(
+                                            alignment:
+                                                switch (settings.zoomPosition) {
+                                                  ZoomPosition.topRight =>
+                                                    Alignment.topRight,
+                                                  ZoomPosition.topLeft =>
+                                                    Alignment.topLeft,
+                                                  ZoomPosition.bottomRight =>
+                                                    Alignment.bottomRight,
+                                                  ZoomPosition.bottomLeft =>
+                                                    Alignment.bottomLeft,
+                                                },
+                                            child: SizedBox(
+                                              width: isMobile ? 100 : 400,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    switch (settings
+                                                        .zoomPosition) {
+                                                      ZoomPosition.topRight ||
+                                                      ZoomPosition
+                                                          .bottomRight =>
+                                                        CrossAxisAlignment.end,
+                                                      ZoomPosition.topLeft ||
+                                                      ZoomPosition.bottomLeft =>
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    },
+                                                children: [
+                                                  Builder(
+                                                    builder: (context) {
+                                                      final isLeft =
+                                                          settings.zoomPosition ==
+                                                              ZoomPosition
+                                                                  .topLeft ||
+                                                          settings.zoomPosition ==
+                                                              ZoomPosition
+                                                                  .bottomLeft;
+                                                      final children = [
+                                                        const PenOnlyToggle(),
+                                                        Flexible(
+                                                          child: ZoomView(
+                                                            isMobile: isMobile,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ];
-                                                    return Row(
-                                                      mainAxisAlignment: isLeft
-                                                          ? MainAxisAlignment
-                                                                .start
-                                                          : MainAxisAlignment
-                                                                .end,
-                                                      spacing: 8,
-                                                      children: isLeft
-                                                          ? children.reversed
-                                                                .toList()
-                                                          : children,
-                                                    );
-                                                  },
-                                                ),
-                                                if (currentIndex.hideUi ==
-                                                    HideState.touch)
-                                                  FloatingActionButton.small(
-                                                    tooltip:
-                                                        AppLocalizations.of(
-                                                          context,
-                                                        ).exit,
-                                                    child: const Icon(
-                                                      PhosphorIconsLight.door,
-                                                    ),
-                                                    onPressed: () {
-                                                      context
-                                                          .read<
-                                                            CurrentIndexCubit
-                                                          >()
-                                                          .exitHideUI();
+                                                      ];
+                                                      return Row(
+                                                        mainAxisAlignment:
+                                                            isLeft
+                                                            ? MainAxisAlignment
+                                                                  .start
+                                                            : MainAxisAlignment
+                                                                  .end,
+                                                        spacing: 8,
+                                                        children: isLeft
+                                                            ? children.reversed
+                                                                  .toList()
+                                                            : children,
+                                                      );
                                                     },
                                                   ),
-                                              ],
+                                                  if (currentIndex.hideUi ==
+                                                      HideState.touch)
+                                                    FloatingActionButton.small(
+                                                      tooltip:
+                                                          AppLocalizations.of(
+                                                            context,
+                                                          ).exit,
+                                                      child: const Icon(
+                                                        PhosphorIconsLight.door,
+                                                      ),
+                                                      onPressed: () {
+                                                        context
+                                                            .read<
+                                                              CurrentIndexCubit
+                                                            >()
+                                                            .exitHideUI();
+                                                      },
+                                                    ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
 
-                                if (optPos == OptionsPanelPosition.bottom &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  const ToolbarView(),
-                                if ((isMobile ||
-                                        pos == ToolbarPosition.bottom) &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  toolbar,
-                              ],
+                                  if (optPos == OptionsPanelPosition.bottom &&
+                                      currentIndex.hideUi == HideState.visible)
+                                    const ToolbarView(),
+                                  if ((isMobile ||
+                                          pos == ToolbarPosition.bottom) &&
+                                      currentIndex.hideUi == HideState.visible)
+                                    toolbar,
+                                ],
+                              ),
                             ),
-                          ),
-                          if (pos == ToolbarPosition.right &&
-                              currentIndex.hideUi == HideState.visible)
-                            toolbar,
-                          if (showNavigator &&
-                              settings.navigatorPosition ==
-                                  NavigatorPosition.right)
-                            const NavigatorView(),
-                        ],
+                            if (pos == ToolbarPosition.right &&
+                                currentIndex.hideUi == HideState.visible)
+                              toolbar,
+                            if (showNavigator &&
+                                settings.navigatorPosition ==
+                                    NavigatorPosition.right)
+                              const NavigatorView(),
+                          ],
+                        ),
                       ),
                     ],
                   );

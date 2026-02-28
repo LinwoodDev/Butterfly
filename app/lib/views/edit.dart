@@ -68,51 +68,48 @@ class _EditToolbarState extends State<EditToolbar> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: SafeArea(
-        child: BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) =>
-              previous.inputConfiguration != current.inputConfiguration ||
-              previous.toolbarSize != current.toolbarSize ||
-              previous.toolbarRows != current.toolbarRows ||
-              previous.toolbarPosition != current.toolbarPosition,
-          builder: (context, settings) {
-            final shortcuts = settings.inputConfiguration.getShortcuts();
-            final size = settings.toolbarSize.size;
-            return BlocBuilder<DocumentBloc, DocumentState>(
-              buildWhen: (previous, current) =>
-                  previous is! DocumentLoadSuccess ||
-                  current is! DocumentLoadSuccess ||
-                  (previous.info.tools != current.info.tools),
-              builder: (context, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                final tools = state.info.tools;
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.inputConfiguration != current.inputConfiguration ||
+            previous.toolbarSize != current.toolbarSize ||
+            previous.toolbarRows != current.toolbarRows ||
+            previous.toolbarPosition != current.toolbarPosition,
+        builder: (context, settings) {
+          final shortcuts = settings.inputConfiguration.getShortcuts();
+          final size = settings.toolbarSize.size;
+          return BlocBuilder<DocumentBloc, DocumentState>(
+            buildWhen: (previous, current) =>
+                previous is! DocumentLoadSuccess ||
+                current is! DocumentLoadSuccess ||
+                (previous.info.tools != current.info.tools),
+            builder: (context, state) {
+              if (state is! DocumentLoadSuccess) return Container();
+              final tools = state.info.tools;
 
-                return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  buildWhen: (previous, current) =>
-                      previous.index != current.index ||
-                      previous.handler != current.handler ||
-                      previous.toggleableHandlers !=
-                          current.toggleableHandlers ||
-                      previous.temporaryHandler != current.temporaryHandler ||
-                      previous.selection != current.selection,
-                  builder: (context, currentIndex) {
-                    return Card(
-                      elevation: 10,
-                      child: _buildBody(
-                        state,
-                        currentIndex,
-                        settings,
-                        tools,
-                        shortcuts,
-                        size,
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          },
-        ),
+              return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                buildWhen: (previous, current) =>
+                    previous.index != current.index ||
+                    previous.handler != current.handler ||
+                    previous.toggleableHandlers != current.toggleableHandlers ||
+                    previous.temporaryHandler != current.temporaryHandler ||
+                    previous.selection != current.selection,
+                builder: (context, currentIndex) {
+                  return Card(
+                    elevation: 10,
+                    child: _buildBody(
+                      state,
+                      currentIndex,
+                      settings,
+                      tools,
+                      shortcuts,
+                      size,
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
