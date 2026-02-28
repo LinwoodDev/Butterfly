@@ -25,13 +25,16 @@ class AreaConfig {
 class AreasInitializationView extends StatefulWidget {
   final bool insideDocument;
   final void Function(AreaConfig)? onCreate;
-  final ValueChanged<AreaConfig?>? onChanged;
+  final ValueChanged<AreaConfig>? onChanged;
   final bool scrollable;
   final bool showAsInitial;
   final bool showPosition;
 
+  final String? initialName;
+
   const AreasInitializationView({
     super.key,
+    this.initialName,
     this.onCreate,
     this.onChanged,
     this.insideDocument = false,
@@ -47,7 +50,7 @@ class AreasInitializationView extends StatefulWidget {
 }
 
 class _AreasInitializationViewState extends State<AreasInitializationView> {
-  final TextEditingController _nameController = TextEditingController();
+  late final TextEditingController _nameController;
   late final TextEditingController _widthController;
   late final TextEditingController _heightController;
   late AreaSizePreset _selectedPreset;
@@ -57,6 +60,7 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController(text: widget.initialName ?? '');
     final preset = AreaSizePreset.values.firstWhere(
       (element) => element == AreaSizePreset.a4,
       orElse: () => AreaSizePreset.values.first,
@@ -66,6 +70,7 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
     _heightController = TextEditingController(text: preset.height.toString());
     _widthController.addListener(_notifyChanged);
     _heightController.addListener(_notifyChanged);
+    _nameController.addListener(_notifyChanged);
     _notifyChanged();
   }
 
@@ -80,13 +85,12 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
   AreaConfig? _buildConfig() {
     final width = _parseNumber(_widthController.text);
     final height = _parseNumber(_heightController.text);
-    if (width == null || height == null || width <= 0 || height <= 0) {
-      return AreaConfig(
-        name: '',
-        width: 0,
-        height: 0,
-        positionMode: _positionMode,
-      );
+    if (width == null ||
+        height == null ||
+        width <= 0 ||
+        height <= 0 ||
+        _nameController.text.trim().isEmpty) {
+      return null;
     }
     return AreaConfig(
       name: _nameController.text.trim(),
@@ -99,13 +103,10 @@ class _AreasInitializationViewState extends State<AreasInitializationView> {
 
   void _notifyChanged() {
     if (widget.onChanged == null) return;
-    final width = _parseNumber(_widthController.text);
-    final height = _parseNumber(_heightController.text);
-    if (width == null || height == null || width <= 0 || height <= 0) {
-      widget.onChanged!(null);
-      return;
+    final config = _buildConfig();
+    if (config != null) {
+      widget.onChanged!(config);
     }
-    widget.onChanged!(_buildConfig());
   }
 
   void _createArea() {

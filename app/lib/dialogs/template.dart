@@ -843,6 +843,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
             showPosition: false,
             insideDocument: false,
             scrollable: false,
+            initialName: AppLocalizations.of(context).areaIndex(1),
             onChanged: (config) {
               _areaConfig = config;
             },

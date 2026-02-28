@@ -4,6 +4,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/area/init.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
@@ -279,6 +280,7 @@ class _AreasViewState extends State<AreasView> {
               return AreasInitializationView(
                 onCreate: _createArea,
                 insideDocument: true,
+                initialName: state.page.createAreaName(context),
               );
             }
 

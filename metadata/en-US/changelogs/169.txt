@@ -1,3 +1,4 @@
+* Add default name when creating new areas
 * Fix files are overwritten if importing failed
 * Fix web embedding system
 
