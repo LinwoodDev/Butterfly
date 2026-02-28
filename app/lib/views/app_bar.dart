@@ -759,8 +759,9 @@ class MainPopupMenu extends StatelessWidget {
             ),
             maximumSize: WidgetStateProperty.all(
               Size(
-                min(size.width - 32, 300),
-                size.height - 70 - (padding?.bottom ?? 0) * 1.5 - currentX * 2,
+                (size.width - 32).clamp(100.0, 300.0),
+                (size.height - 70 - (padding?.bottom ?? 0) * 1.5 - currentX * 2)
+                    .clamp(100.0, double.infinity),
               ),
             ),
           ),

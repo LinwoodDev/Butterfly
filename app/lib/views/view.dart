@@ -461,22 +461,33 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   },
                                   onPointerMove:
                                       (PointerMoveEvent event) async {
-                                        RenderObject? box = context
+                                        final renderObject = context
                                             .findRenderObject();
-                                        if (!box!.paintBounds.contains(
-                                              event.localPosition,
-                                            ) &&
-                                            kIsWeb) {
-                                          return;
+                                        if (kIsWeb) {
+                                          if (renderObject is! RenderBox) {
+                                            return;
+                                          }
+                                          if (!renderObject.paintBounds
+                                              .contains(event.localPosition)) {
+                                            return;
+                                          }
                                         }
                                         cubit.updateLastPosition(
                                           event.localPosition,
                                         );
-                                        if (cubit.state.moveEnabled &&
+                                        final currentIndexState = cubit.state;
+                                        if (currentIndexState.moveEnabled &&
                                             event.kind !=
                                                 PointerDeviceKind.stylus) {
+                                          if (currentIndexState
+                                              .pointers
+                                              .isEmpty) {
+                                            return;
+                                          }
                                           if (event.pointer ==
-                                              cubit.state.pointers.first) {
+                                              currentIndexState
+                                                  .pointers
+                                                  .first) {
                                             final transform = context
                                                 .read<TransformCubit>()
                                                 .state;
