@@ -1297,5 +1297,9 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Скрыть расширение файла"
+  "hideFileExtension": "Скрыть расширение файла",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  }
 }
