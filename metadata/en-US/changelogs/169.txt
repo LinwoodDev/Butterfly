@@ -1,0 +1,4 @@
+* Fix files are overwritten if importing failed
+* Fix web embedding system
+
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.3

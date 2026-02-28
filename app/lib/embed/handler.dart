@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,8 +16,28 @@ class EmbedHandler {
       setDataListener,
       renderListener,
       renderSVGListener;
+  StreamSubscription? _blocSubscription;
+  Timer? _changeDebounceTimer;
 
   void register(BuildContext context, DocumentBloc bloc) {
+    _blocSubscription ??= bloc.stream.listen((state) {
+      if (state is DocumentLoadSuccess && state.saved == SaveState.unsaved) {
+        _changeDebounceTimer?.cancel();
+        _changeDebounceTimer = Timer(
+          const Duration(milliseconds: 500),
+          () async {
+            final currentState = bloc.state;
+            if (currentState is DocumentLoadSuccess) {
+              sendEmbedMessage(
+                'change',
+                (await currentState.saveData()).exportAsBytes(),
+              );
+            }
+          },
+        );
+      }
+    });
+
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
@@ -109,6 +131,10 @@ class EmbedHandler {
   }
 
   void unregister() {
+    _blocSubscription?.cancel();
+    _blocSubscription = null;
+    _changeDebounceTimer?.cancel();
+    _changeDebounceTimer = null;
     if (getDataListener != null) {
       removeEmbedMessageListener(getDataListener!);
       getDataListener = null;

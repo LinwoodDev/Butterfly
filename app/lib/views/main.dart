@@ -137,12 +137,19 @@ class _ProjectPageState extends State<ProjectPage> {
         );
       }
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      bool failedToLoad = false;
       if (data != null) {
         document ??= await globalImportService
             .load(type: type, data: data, document: defaultDocument)
             .then((e) => e?.export());
+        if (document == null) {
+          failedToLoad = true;
+        }
       }
-      if (location != null && location.path.isNotEmpty && document == null) {
+      if (location != null &&
+          location.path.isNotEmpty &&
+          document == null &&
+          !failedToLoad) {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
@@ -158,6 +165,8 @@ class _ProjectPageState extends State<ProjectPage> {
                 .then((e) => e?.export());
             if (noteData != null) {
               document = await checkFileChanges(context, noteData);
+            } else {
+              failedToLoad = true;
             }
           }
         } else {
@@ -172,10 +181,32 @@ class _ProjectPageState extends State<ProjectPage> {
                   data: data,
                 )
                 .then((e) => e?.export());
+            if (document == null) {
+              failedToLoad = true;
+            }
           }
         }
       }
       if (!mounted) return;
+      if (failedToLoad) {
+        setState(() {
+          _transformCubit = TransformCubit(pixelRatio);
+          _currentIndexCubit = CurrentIndexCubit(
+            settingsCubit,
+            _transformCubit!,
+            CameraViewport.unbaked(),
+            networkingService: networkingService,
+          );
+          _bloc = DocumentBloc.error(
+            fileSystem,
+            windowCubit,
+            AppLocalizations.of(context).errorWhileImportingContent,
+          );
+          _importService = ImportService(context, bloc: _bloc);
+          _exportService = ExportService(context, _bloc);
+        });
+        return;
+      }
       var documentOpened = document != null;
       if (!documentOpened && !absolute) {
         location = null;
