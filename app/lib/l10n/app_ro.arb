@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Ascunde extensia fișierului"
+  "hideFileExtension": "Ascunde extensia fișierului",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "New from template",
+  "exportAsTextShortcut": "Export as text",
+  "exportAsImageShortcut": "Export as image",
+  "exportAsPdfShortcut": "Export as PDF",
+  "exportAsSvgShortcut": "Export as SVG",
+  "changePathShortcut": "Change path",
+  "fullScreenShortcut": "Ecran complet",
+  "doublePressAction": "Double press action",
+  "triplePressAction": "Triple press action",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }
