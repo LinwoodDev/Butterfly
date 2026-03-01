@@ -17,19 +17,16 @@ class NewIntent extends Intent {
   const NewIntent({this.fromTemplate = false});
 }
 
-final newShortcut = ShortcutDefinition(
+const newShortcut = ShortcutDefinition(
   id: 'new',
-  intent: const NewIntent(fromTemplate: false),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyN,
-    control: true,
-  ),
+  intent: NewIntent(fromTemplate: false),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyN, control: true),
 );
 
-final newFromTemplateShortcut = ShortcutDefinition(
+const newFromTemplateShortcut = ShortcutDefinition(
   id: 'new_from_template',
-  intent: const NewIntent(fromTemplate: true),
-  defaultActivator: const SingleActivator(
+  intent: NewIntent(fromTemplate: true),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyN,
     control: true,
     shift: true,

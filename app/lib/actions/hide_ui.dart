@@ -8,10 +8,10 @@ class HideUIIntent extends Intent {
   const HideUIIntent();
 }
 
-final hideUIShortcut = ShortcutDefinition(
+const hideUIShortcut = ShortcutDefinition(
   id: 'hide_ui',
-  intent: const HideUIIntent(),
-  defaultActivator: const SingleActivator(LogicalKeyboardKey.f12),
+  intent: HideUIIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.f12),
 );
 
 class HideUIAction extends Action<HideUIIntent> {

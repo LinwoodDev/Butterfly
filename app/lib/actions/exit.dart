@@ -9,10 +9,10 @@ class ExitIntent extends Intent {
   const ExitIntent();
 }
 
-final exitShortcut = ShortcutDefinition(
+const exitShortcut = ShortcutDefinition(
   id: 'exit',
-  intent: const ExitIntent(),
-  defaultActivator: const SingleActivator(LogicalKeyboardKey.escape),
+  intent: ExitIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.escape),
 );
 
 class ExitAction extends Action<ExitIntent> {

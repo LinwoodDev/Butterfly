@@ -1949,9 +1949,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final renderer in renderers) {
       renderer.dispose();
     }
-    state.cameraViewport.image?.dispose();
-    state.cameraViewport.aboveLayerImage?.dispose();
-    state.cameraViewport.belowLayerImage?.dispose();
+    try {
+      state.cameraViewport.image?.dispose();
+    } catch (_) {}
+    try {
+      state.cameraViewport.belowLayerImage?.dispose();
+    } catch (_) {}
+    try {
+      state.cameraViewport.aboveLayerImage?.dispose();
+    } catch (_) {}
+    try {
+      state.cameraViewport.belowLayerImage?.dispose();
+    } catch (_) {}
     _transformSubscription?.cancel();
     _transformDebounceTimer?.cancel();
     _networkingDebounceTimer?.cancel();

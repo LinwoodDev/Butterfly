@@ -206,6 +206,8 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
+    String? doubleTouchShortcut,
+    String? tripleTouchShortcut,
   }) = _InputConfiguration;
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>

@@ -11,10 +11,10 @@ class PdfExportIntent extends Intent {
   const PdfExportIntent();
 }
 
-final pdfExportShortcut = ShortcutDefinition(
+const pdfExportShortcut = ShortcutDefinition(
   id: 'pdf_export',
-  intent: const PdfExportIntent(),
-  defaultActivator: const SingleActivator(
+  intent: PdfExportIntent(),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyP,
     control: true,
     shift: true,

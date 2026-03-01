@@ -40,6 +40,8 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
       touch: json['touch'] == null
           ? InputMappingDefault.touch
           : InputMapping.fromJson((json['touch'] as num).toInt()),
+      doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
+      tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
     );
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
@@ -52,6 +54,8 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'firstPenButton': instance.firstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),
       'touch': instance.touch.toJson(),
+      'doubleTouchShortcut': instance.doubleTouchShortcut,
+      'tripleTouchShortcut': instance.tripleTouchShortcut,
     };
 
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(

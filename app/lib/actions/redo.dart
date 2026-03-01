@@ -9,13 +9,10 @@ class RedoIntent extends Intent {
   const RedoIntent();
 }
 
-final redoShortcut = ShortcutDefinition(
+const redoShortcut = ShortcutDefinition(
   id: 'redo',
-  intent: const RedoIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyY,
-    control: true,
-  ),
+  intent: RedoIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyY, control: true),
 );
 
 class RedoAction extends Action<RedoIntent> {

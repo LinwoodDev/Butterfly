@@ -12,10 +12,10 @@ class ChangePathIntent extends Intent {
   const ChangePathIntent();
 }
 
-final changePathShortcut = ShortcutDefinition(
+const changePathShortcut = ShortcutDefinition(
   id: 'change_path',
-  intent: const ChangePathIntent(),
-  defaultActivator: const SingleActivator(LogicalKeyboardKey.keyS, alt: true),
+  intent: ChangePathIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyS, alt: true),
 );
 
 class ChangePathAction extends Action<ChangePathIntent> {

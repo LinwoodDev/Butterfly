@@ -156,16 +156,6 @@ class LabelHandler extends Handler<LabelTool>
   void onTapUp(TapUpDetails details, EventContext context) =>
       create(context, details.localPosition, context.isShiftPressed);
 
-  Offset _doubleTapPos = Offset.zero;
-
-  @override
-  void onDoubleTapDown(TapDownDetails details, EventContext context) =>
-      _doubleTapPos = details.localPosition;
-
-  @override
-  void onDoubleTap(EventContext context) =>
-      create(context, _doubleTapPos, true);
-
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
       event.kind == PointerDeviceKind.mouse &&
@@ -368,7 +358,11 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {
     if (!_startLongPress) return;
-    _onContextMenu(details.localPosition, context);
+    if (_context == null) {
+      create(context, details.localPosition, true);
+    } else {
+      _onContextMenu(details.localPosition, context);
+    }
   }
 
   Future<void> _onContextMenu(

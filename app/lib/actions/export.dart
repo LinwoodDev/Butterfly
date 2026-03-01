@@ -11,19 +11,16 @@ class ExportIntent extends Intent {
   const ExportIntent({this.isText = false});
 }
 
-final exportShortcut = ShortcutDefinition(
+const exportShortcut = ShortcutDefinition(
   id: 'export',
-  intent: const ExportIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyE,
-    control: true,
-  ),
+  intent: ExportIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyE, control: true),
 );
 
-final exportTextShortcut = ShortcutDefinition(
+const exportTextShortcut = ShortcutDefinition(
   id: 'export_text',
-  intent: const ExportIntent(isText: true),
-  defaultActivator: const SingleActivator(
+  intent: ExportIntent(isText: true),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyE,
     control: true,
     shift: true,

@@ -16,13 +16,10 @@ class SearchIntent extends Intent {
   const SearchIntent();
 }
 
-final searchShortcut = ShortcutDefinition(
+const searchShortcut = ShortcutDefinition(
   id: 'search',
-  intent: const SearchIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyK,
-    control: true,
-  ),
+  intent: SearchIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyK, control: true),
 );
 
 Future<List<SearchResult>> _searchIsolate(

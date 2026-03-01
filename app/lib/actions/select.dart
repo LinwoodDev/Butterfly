@@ -13,13 +13,10 @@ class SelectAllIntent extends Intent {
   const SelectAllIntent();
 }
 
-final selectAllShortcut = ShortcutDefinition(
+const selectAllShortcut = ShortcutDefinition(
   id: 'select_all',
-  intent: const SelectAllIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyA,
-    control: true,
-  ),
+  intent: SelectAllIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyA, control: true),
 );
 
 class SelectAllAction extends Action<SelectAllIntent> {

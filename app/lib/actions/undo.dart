@@ -9,13 +9,10 @@ class UndoIntent extends Intent {
   const UndoIntent();
 }
 
-final undoShortcut = ShortcutDefinition(
+const undoShortcut = ShortcutDefinition(
   id: 'undo',
-  intent: const UndoIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyZ,
-    control: true,
-  ),
+  intent: UndoIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyZ, control: true),
 );
 
 class UndoAction extends Action<UndoIntent> {

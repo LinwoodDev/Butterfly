@@ -4,7 +4,6 @@ class SelectHandler extends Handler<SelectTool> {
   final _selectionManager = RectSelectionForegroundManager();
   List<Renderer<PadElement>> _selected = [];
   bool _duplicate = false;
-  Offset? _contextMenuOffset;
   Rect? _rectangleFreeSelection;
   List<Offset>? _lassoFreeSelection;
 
@@ -225,26 +224,18 @@ class SelectHandler extends Handler<SelectTool> {
       _selected = _submitTransform(context.getDocumentBloc()) ?? _selected;
       return;
     }
-    final noSelection = _selected.isEmpty;
     await _onSelectionAdd(context, details.localPosition, false);
+  }
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(details.localPosition);
     final selectionRect = getSelectionRect();
-    if (noSelection &&
-        (selectionRect == null || !selectionRect.contains(globalPos))) {
-      _onSelectionContext(context, details.localPosition);
+    if (!(selectionRect?.contains(globalPos) ?? false)) {
+      await _onSelectionAdd(context, details.localPosition, true);
     }
-  }
-
-  bool _startLongPress = false;
-
-  @override
-  void onLongPressDown(LongPressDownDetails details, EventContext context) {
-    _startLongPress = details.kind != PointerDeviceKind.mouse;
-  }
-
-  @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
-    if (!_startLongPress) return;
-    _onSelectionAdd(context, details.localPosition, true);
+    _onSelectionContext(context, details.localPosition);
   }
 
   Future<void> _onSelectionAdd(
@@ -299,17 +290,6 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) async {
     _onSelectionContext(context, details.localPosition);
-  }
-
-  @override
-  void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset = details.localPosition;
-  }
-
-  @override
-  void onDoubleTap(EventContext context) {
-    if (_contextMenuOffset == null) return;
-    _onSelectionContext(context, _contextMenuOffset!);
   }
 
   Future<void> _onSelectionContext(

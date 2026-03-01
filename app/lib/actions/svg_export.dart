@@ -10,10 +10,10 @@ class SvgExportIntent extends Intent {
   const SvgExportIntent();
 }
 
-final svgExportShortcut = ShortcutDefinition(
+const svgExportShortcut = ShortcutDefinition(
   id: 'svg_export',
-  intent: const SvgExportIntent(),
-  defaultActivator: const SingleActivator(
+  intent: SvgExportIntent(),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyE,
     control: true,
     alt: true,

@@ -7,10 +7,10 @@ class FullScreenIntent extends Intent {
   const FullScreenIntent();
 }
 
-final fullScreenShortcut = ShortcutDefinition(
+const fullScreenShortcut = ShortcutDefinition(
   id: 'full_screen',
-  intent: const FullScreenIntent(),
-  defaultActivator: const SingleActivator(LogicalKeyboardKey.f11),
+  intent: FullScreenIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.f11),
 );
 
 class FullScreenAction extends Action<FullScreenIntent> {

@@ -253,10 +253,6 @@ abstract class Handler<T> {
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}
 
-  void onDoubleTapDown(TapDownDetails details, EventContext context) {}
-
-  void onDoubleTap(EventContext context) {}
-
   void onLongPressStart(
     LongPressStartDetails details,
     EventContext eventContext,

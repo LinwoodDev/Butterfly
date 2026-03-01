@@ -16,36 +16,34 @@ class KeyboardInputSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generalShortcuts = [
-      (newShortcut, AppLocalizations.of(context).newNote),
-      (newFromTemplateShortcut, 'New from template'),
-      (exportShortcut, AppLocalizations.of(context).export),
-      (exportTextShortcut, 'Export as text'),
-      (imageExportShortcut, 'Export as image'),
-      (pdfExportShortcut, 'Export as PDF'),
-      (svgExportShortcut, 'Export as SVG'),
-      (packsShortcut, AppLocalizations.of(context).packs),
-      (settingsShortcut, AppLocalizations.of(context).settings),
-      (exitShortcut, AppLocalizations.of(context).exit),
+      newShortcut,
+      newFromTemplateShortcut,
+      exportShortcut,
+      exportTextShortcut,
+      imageExportShortcut,
+      pdfExportShortcut,
+      svgExportShortcut,
+      packsShortcut,
+      settingsShortcut,
+      exitShortcut,
     ];
 
     final projectShortcuts = [
-      (searchShortcut, AppLocalizations.of(context).search),
-      (undoShortcut, AppLocalizations.of(context).undo),
-      (redoShortcut, AppLocalizations.of(context).redo),
-      (backgroundShortcut, AppLocalizations.of(context).background),
-      (saveShortcut, AppLocalizations.of(context).save),
-      (changePathShortcut, 'Change path'),
-      (zoomInShortcut, AppLocalizations.of(context).zoomIn),
-      (zoomOutShortcut, AppLocalizations.of(context).zoomOut),
-      (fullScreenShortcut, 'Full screen'),
-      (hideUIShortcut, AppLocalizations.of(context).hideUI),
-      (nextShortcut, AppLocalizations.of(context).nextSlide),
-      (previousShortcut, AppLocalizations.of(context).previousSlide),
-      (selectAllShortcut, AppLocalizations.of(context).selectAll),
-      (pasteShortcut, AppLocalizations.of(context).paste),
-      ...changeToolShortcuts.map(
-        (e) => (e, 'Tool ${int.parse(e.id.split('_').last) + 1}'),
-      ),
+      searchShortcut,
+      undoShortcut,
+      redoShortcut,
+      backgroundShortcut,
+      saveShortcut,
+      changePathShortcut,
+      zoomInShortcut,
+      zoomOutShortcut,
+      fullScreenShortcut,
+      hideUIShortcut,
+      nextShortcut,
+      previousShortcut,
+      selectAllShortcut,
+      pasteShortcut,
+      ...changeToolShortcuts,
     ];
 
     return Scaffold(
@@ -100,7 +98,7 @@ class KeyboardInputSettings extends StatelessWidget {
   Widget _buildSection(
     BuildContext context,
     String title,
-    List<(ShortcutDefinition, String)> shortcuts,
+    List<ShortcutDefinition> shortcuts,
   ) {
     return Card(
       margin: settingsCardMargin,
@@ -125,7 +123,11 @@ class KeyboardInputSettings extends StatelessWidget {
                       .map(
                         (e) => SizedBox(
                           width: itemWidth,
-                          child: _buildShortcutTile(context, e.$1, e.$2),
+                          child: _buildShortcutTile(
+                            context,
+                            e,
+                            e.getLocalizedName(context),
+                          ),
                         ),
                       )
                       .toList(),

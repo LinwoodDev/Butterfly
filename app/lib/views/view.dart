@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,236 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
   Animation<Offset>? _positionAnimation;
+
+  // Touch gesture buffering
+  final List<PointerEvent> _bufferedEvents = [];
+  final Map<int, Offset> _touchStartPositions = {};
+  int _fingersInvolved = 0;
+  bool _isTouchTapGesture = false;
+  Timer? _touchTapTimer;
+
+  void _resetTouchTap() {
+    _bufferedEvents.clear();
+    _touchStartPositions.clear();
+    _isTouchTapGesture = false;
+    _fingersInvolved = 0;
+  }
+
+  Future<void> _flushBufferedEvents(
+    CurrentIndexCubit cubit,
+    Handler Function() getHandler,
+    EventContext Function() getEventContext,
+    Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
+  ) async {
+    for (final e in _bufferedEvents) {
+      if (e is PointerDownEvent) {
+        _isScalingDisabled = e.kind == PointerDeviceKind.trackpad
+            ? false
+            : null;
+        cubit.addPointer(e.pointer);
+        cubit.setButtons(e.buttons);
+        final handler = getHandler();
+        if (handler.canChange(e, getEventContext())) {
+          await changeTemporaryTool(e.kind, e.buttons);
+        }
+        if (_isScalingDisabled ?? true) {
+          getHandler().onPointerDown(e, getEventContext());
+        }
+      } else if (e is PointerMoveEvent) {
+        cubit.updateLastPosition(e.localPosition);
+        if (_isScalingDisabled ?? true) {
+          getHandler().onPointerMove(e, getEventContext());
+        }
+      } else if (e is PointerUpEvent) {
+        cubit.updateLastPosition(e.localPosition);
+        if (_isScalingDisabled ?? true) {
+          await getHandler().onPointerUp(e, getEventContext());
+        }
+        cubit.removePointer(e.pointer);
+      } else if (e is PointerCancelEvent) {
+        cubit.removePointer(e.pointer);
+        cubit.removeButtons();
+        if (cubit.state.pointers.isEmpty) {
+          _isScalingDisabled = null;
+        }
+      }
+    }
+  }
+
+  Future<void> _handlePointerDown(
+    PointerDownEvent event,
+    CurrentIndexCubit cubit,
+    Handler Function() getHandler,
+    EventContext Function() getEventContext,
+    Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
+  ) async {
+    // Detect pen/stylus input
+    if (event.kind == PointerDeviceKind.stylus ||
+        event.kind == PointerDeviceKind.invertedStylus) {
+      cubit.setPenDetected(true);
+    }
+    if (event.kind == PointerDeviceKind.touch) {
+      final config = context.read<SettingsCubit>().state.inputConfiguration;
+      if (config.doubleTouchShortcut != null ||
+          config.tripleTouchShortcut != null) {
+        if (_bufferedEvents.isEmpty) {
+          _touchTapTimer?.cancel();
+          _fingersInvolved = 0;
+          _isTouchTapGesture = true;
+        }
+        if (_isTouchTapGesture) {
+          _bufferedEvents.add(event);
+          _touchStartPositions[event.pointer] = event.position;
+          _fingersInvolved++;
+          return;
+        }
+      }
+    }
+
+    _isScalingDisabled = event.kind == PointerDeviceKind.trackpad
+        ? false
+        : null;
+    cubit.addPointer(event.pointer);
+    cubit.setButtons(event.buttons);
+    final handler = getHandler();
+    if (handler.canChange(event, getEventContext())) {
+      await changeTemporaryTool(event.kind, event.buttons);
+    }
+    if (_isScalingDisabled ?? true) {
+      getHandler().onPointerDown(event, getEventContext());
+    }
+  }
+
+  Future<void> _handlePointerMove(
+    PointerMoveEvent event,
+    CurrentIndexCubit cubit,
+    Handler Function() getHandler,
+    EventContext Function() getEventContext,
+    Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
+    VoidCallback delayBake,
+  ) async {
+    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
+      _bufferedEvents.add(event);
+      final startPos = _touchStartPositions[event.pointer];
+      if (startPos != null && (event.position - startPos).distance > 8.0) {
+        _isTouchTapGesture = false;
+        _touchTapTimer?.cancel();
+        await _flushBufferedEvents(
+          cubit,
+          getHandler,
+          getEventContext,
+          changeTemporaryTool,
+        );
+        _resetTouchTap();
+      }
+      return;
+    }
+
+    final renderObject = context.findRenderObject();
+    if (kIsWeb) {
+      if (renderObject is! RenderBox) {
+        return;
+      }
+      if (!renderObject.paintBounds.contains(event.localPosition)) {
+        return;
+      }
+    }
+    cubit.updateLastPosition(event.localPosition);
+    final currentIndexState = cubit.state;
+    if (currentIndexState.moveEnabled &&
+        event.kind != PointerDeviceKind.stylus) {
+      if (currentIndexState.pointers.isEmpty) {
+        return;
+      }
+      if (event.pointer == currentIndexState.pointers.first) {
+        final transform = context.read<TransformCubit>().state;
+        cubit.move(-event.delta / transform.size);
+        delayBake();
+      }
+      return;
+    }
+    if (_isScalingDisabled ?? true) {
+      getHandler().onPointerMove(event, getEventContext());
+    }
+  }
+
+  Future<void> _handlePointerUp(
+    PointerUpEvent event,
+    CurrentIndexCubit cubit,
+    Handler Function() getHandler,
+    EventContext Function() getEventContext,
+    Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
+  ) async {
+    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
+      _bufferedEvents.add(event);
+      _touchStartPositions.remove(event.pointer);
+      if (_touchStartPositions.isEmpty) {
+        _touchTapTimer?.cancel();
+        _touchTapTimer = Timer(const Duration(milliseconds: 250), () async {
+          if (!_isTouchTapGesture) return;
+          final config = context.read<SettingsCubit>().state.inputConfiguration;
+          String? shortcutId;
+          if (_fingersInvolved == 2) {
+            shortcutId = config.doubleTouchShortcut;
+          } else if (_fingersInvolved >= 3) {
+            shortcutId = config.tripleTouchShortcut;
+          }
+
+          if (shortcutId != null && shortcutId.isNotEmpty) {
+            final def = keybinder.definitions.firstWhereOrNull(
+              (d) => d.id == shortcutId,
+            );
+            if (def != null) {
+              Actions.maybeInvoke(context, def.intent);
+            }
+          } else {
+            await _flushBufferedEvents(
+              cubit,
+              getHandler,
+              getEventContext,
+              changeTemporaryTool,
+            );
+          }
+          _resetTouchTap();
+        });
+      }
+      return;
+    }
+
+    cubit.updateLastPosition(event.localPosition);
+    if (_isScalingDisabled ?? true) {
+      await getHandler().onPointerUp(event, getEventContext());
+    }
+    cubit.removePointer(event.pointer);
+  }
+
+  Future<void> _handlePointerCancel(
+    PointerCancelEvent event,
+    CurrentIndexCubit cubit,
+    Handler Function() getHandler,
+    EventContext Function() getEventContext,
+    Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
+  ) async {
+    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
+      _isTouchTapGesture = false;
+      _touchTapTimer?.cancel();
+      _bufferedEvents.add(event);
+      await _flushBufferedEvents(
+        cubit,
+        getHandler,
+        getEventContext,
+        changeTemporaryTool,
+      );
+      _resetTouchTap();
+      return;
+    }
+
+    cubit.removePointer(event.pointer);
+    cubit.removeButtons();
+    if (cubit.state.pointers.isEmpty) {
+      _isScalingDisabled = null;
+    }
+  }
 
   @override
   void initState() {
@@ -338,13 +571,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   point = details.localFocalPoint;
                                   size = 1;
                                 },
-                                onDoubleTapDown: (details) =>
-                                    getHandler().onDoubleTapDown(
-                                      details,
-                                      getEventContext(),
-                                    ),
-                                onDoubleTap: () =>
-                                    getHandler().onDoubleTap(getEventContext()),
                                 onLongPressStart: (details) =>
                                     getHandler().onLongPressStart(
                                       details,
@@ -403,52 +629,20 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   onPointerPanZoomStart: (event) {
                                     _isScalingDisabled = false;
                                   },
-                                  onPointerDown:
-                                      (PointerDownEvent event) async {
-                                        // Detect pen/stylus input
-                                        if (event.kind ==
-                                                PointerDeviceKind.stylus ||
-                                            event.kind ==
-                                                PointerDeviceKind
-                                                    .invertedStylus) {
-                                          cubit.setPenDetected(true);
-                                        }
-                                        _isScalingDisabled =
-                                            event.kind ==
-                                                PointerDeviceKind.trackpad
-                                            ? false
-                                            : null;
-                                        cubit.addPointer(event.pointer);
-                                        cubit.setButtons(event.buttons);
-                                        final handler = getHandler();
-                                        if (handler.canChange(
-                                          event,
-                                          getEventContext(),
-                                        )) {
-                                          await changeTemporaryTool(
-                                            event.kind,
-                                            event.buttons,
-                                          );
-                                        }
-                                        if (_isScalingDisabled ?? true) {
-                                          getHandler().onPointerDown(
-                                            event,
-                                            getEventContext(),
-                                          );
-                                        }
-                                      },
-                                  onPointerUp: (PointerUpEvent event) async {
-                                    cubit.updateLastPosition(
-                                      event.localPosition,
-                                    );
-                                    if (_isScalingDisabled ?? true) {
-                                      await getHandler().onPointerUp(
-                                        event,
-                                        getEventContext(),
-                                      );
-                                    }
-                                    cubit.removePointer(event.pointer);
-                                  },
+                                  onPointerDown: (event) => _handlePointerDown(
+                                    event,
+                                    cubit,
+                                    getHandler,
+                                    getEventContext,
+                                    changeTemporaryTool,
+                                  ),
+                                  onPointerUp: (event) => _handlePointerUp(
+                                    event,
+                                    cubit,
+                                    getHandler,
+                                    getEventContext,
+                                    changeTemporaryTool,
+                                  ),
                                   behavior: HitTestBehavior.translucent,
                                   onPointerHover: (event) {
                                     cubit.updateLastPosition(
@@ -459,61 +653,22 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       getEventContext(),
                                     );
                                   },
-                                  onPointerMove:
-                                      (PointerMoveEvent event) async {
-                                        final renderObject = context
-                                            .findRenderObject();
-                                        if (kIsWeb) {
-                                          if (renderObject is! RenderBox) {
-                                            return;
-                                          }
-                                          if (!renderObject.paintBounds
-                                              .contains(event.localPosition)) {
-                                            return;
-                                          }
-                                        }
-                                        cubit.updateLastPosition(
-                                          event.localPosition,
-                                        );
-                                        final currentIndexState = cubit.state;
-                                        if (currentIndexState.moveEnabled &&
-                                            event.kind !=
-                                                PointerDeviceKind.stylus) {
-                                          if (currentIndexState
-                                              .pointers
-                                              .isEmpty) {
-                                            return;
-                                          }
-                                          if (event.pointer ==
-                                              currentIndexState
-                                                  .pointers
-                                                  .first) {
-                                            final transform = context
-                                                .read<TransformCubit>()
-                                                .state;
-                                            final cubit = context
-                                                .read<CurrentIndexCubit>();
-                                            cubit.move(
-                                              -event.delta / transform.size,
-                                            );
-                                            delayBake();
-                                          }
-                                          return;
-                                        }
-                                        if (_isScalingDisabled ?? true) {
-                                          getHandler().onPointerMove(
-                                            event,
-                                            getEventContext(),
-                                          );
-                                        }
-                                      },
-                                  onPointerCancel: (event) {
-                                    cubit.removePointer(event.pointer);
-                                    cubit.removeButtons();
-                                    if (cubit.state.pointers.isEmpty) {
-                                      _isScalingDisabled = null;
-                                    }
-                                  },
+                                  onPointerMove: (event) => _handlePointerMove(
+                                    event,
+                                    cubit,
+                                    getHandler,
+                                    getEventContext,
+                                    changeTemporaryTool,
+                                    delayBake,
+                                  ),
+                                  onPointerCancel: (event) =>
+                                      _handlePointerCancel(
+                                        event,
+                                        cubit,
+                                        getHandler,
+                                        getEventContext,
+                                        changeTemporaryTool,
+                                      ),
                                   child: _buildCanvas(
                                     currentIndex,
                                     cubit,

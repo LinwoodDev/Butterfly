@@ -8,10 +8,10 @@ class NextIntent extends Intent {
   const NextIntent();
 }
 
-final nextShortcut = ShortcutDefinition(
+const nextShortcut = ShortcutDefinition(
   id: 'next',
-  intent: const NextIntent(),
-  defaultActivator: const SingleActivator(LogicalKeyboardKey.arrowRight),
+  intent: NextIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.arrowRight),
 );
 
 class NextAction extends Action<NextIntent> {

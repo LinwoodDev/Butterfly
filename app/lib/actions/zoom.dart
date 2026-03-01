@@ -10,22 +10,16 @@ class ZoomIntent extends Intent {
   const ZoomIntent({this.reverse = false});
 }
 
-final zoomInShortcut = ShortcutDefinition(
+const zoomInShortcut = ShortcutDefinition(
   id: 'zoom_in',
-  intent: const ZoomIntent(reverse: false),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.add,
-    control: true,
-  ),
+  intent: ZoomIntent(reverse: false),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.add, control: true),
 );
 
-final zoomOutShortcut = ShortcutDefinition(
+const zoomOutShortcut = ShortcutDefinition(
   id: 'zoom_out',
-  intent: const ZoomIntent(reverse: true),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.minus,
-    control: true,
-  ),
+  intent: ZoomIntent(reverse: true),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.minus, control: true),
 );
 
 class ZoomAction extends Action<ZoomIntent> {

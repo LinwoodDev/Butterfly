@@ -221,21 +221,6 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   }
 
   @override
-  void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    changeStartedDrawing(context);
-    final selectedIndex = _selectedPointIndex;
-    final element = _element;
-    if (selectedIndex == null || element == null) return;
-    final point = element.points[selectedIndex];
-    final updatedPoint = point.copyWith(handleIn: null, handleOut: null);
-    final updatedPoints = List<PolygonPoint>.from(element.points)
-      ..[selectedIndex] = updatedPoint;
-    _element = element.copyWith(points: updatedPoints);
-    context.refreshForegrounds();
-    context.getDocumentBloc().refreshToolbar();
-  }
-
-  @override
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {
     changeStartedDrawing(context);
     final localPos = details.localPosition;
@@ -247,7 +232,18 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       _submitElement(context.getDocumentBloc());
       return;
     }
-    _editPoint(globalPos, context);
+    if (_editPoint(globalPos, context)) {
+      final selectedIndex = _selectedPointIndex;
+      final element = _element;
+      if (selectedIndex == null || element == null) return;
+      final point = element.points[selectedIndex];
+      final updatedPoint = point.copyWith(handleIn: null, handleOut: null);
+      final updatedPoints = List<PolygonPoint>.from(element.points)
+        ..[selectedIndex] = updatedPoint;
+      _element = element.copyWith(points: updatedPoints);
+      context.refreshForegrounds();
+      context.getDocumentBloc().refreshToolbar();
+    }
   }
 
   @override

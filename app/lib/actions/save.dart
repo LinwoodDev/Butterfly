@@ -11,13 +11,10 @@ class SaveIntent extends Intent {
   const SaveIntent();
 }
 
-final saveShortcut = ShortcutDefinition(
+const saveShortcut = ShortcutDefinition(
   id: 'save',
-  intent: const SaveIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyS,
-    control: true,
-  ),
+  intent: SaveIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyS, control: true),
 );
 
 class SaveAction extends Action<SaveIntent> {

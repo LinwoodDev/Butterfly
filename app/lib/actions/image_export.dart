@@ -10,10 +10,10 @@ class ImageExportIntent extends Intent {
   const ImageExportIntent();
 }
 
-final imageExportShortcut = ShortcutDefinition(
+const imageExportShortcut = ShortcutDefinition(
   id: 'image_export',
-  intent: const ImageExportIntent(),
-  defaultActivator: const SingleActivator(
+  intent: ImageExportIntent(),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyE,
     control: true,
     alt: true,

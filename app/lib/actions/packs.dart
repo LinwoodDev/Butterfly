@@ -13,10 +13,10 @@ class PacksIntent extends Intent {
   const PacksIntent({this.showDocument = true});
 }
 
-final packsShortcut = ShortcutDefinition(
+const packsShortcut = ShortcutDefinition(
   id: 'packs',
-  intent: const PacksIntent(),
-  defaultActivator: const SingleActivator(
+  intent: PacksIntent(),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyP,
     control: true,
     alt: true,

@@ -9,10 +9,10 @@ class SettingsIntent extends Intent {
   const SettingsIntent();
 }
 
-final settingsShortcut = ShortcutDefinition(
+const settingsShortcut = ShortcutDefinition(
   id: 'settings',
-  intent: const SettingsIntent(),
-  defaultActivator: const SingleActivator(
+  intent: SettingsIntent(),
+  defaultActivator: SingleActivator(
     LogicalKeyboardKey.keyS,
     control: true,
     alt: true,

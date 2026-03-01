@@ -9,13 +9,10 @@ class BackgroundIntent extends Intent {
   const BackgroundIntent();
 }
 
-final backgroundShortcut = ShortcutDefinition(
+const backgroundShortcut = ShortcutDefinition(
   id: 'background',
-  intent: const BackgroundIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyB,
-    control: true,
-  ),
+  intent: BackgroundIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyB, control: true),
 );
 
 class BackgroundAction extends Action<BackgroundIntent> {

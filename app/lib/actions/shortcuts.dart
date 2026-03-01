@@ -46,6 +46,50 @@ export 'package:butterfly/actions/undo.dart';
 export 'package:butterfly/actions/zoom.dart';
 export 'package:butterfly/widgets/search.dart';
 
+import 'package:flutter/widgets.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+
+extension ShortcutDefinitionLocalization on ShortcutDefinition {
+  String getLocalizedName(BuildContext context) {
+    if (id.startsWith('tool_')) {
+      final num = int.tryParse(id.split('_').last);
+      if (num != null) {
+        return AppLocalizations.of(context).toolNumber(num + 1);
+      }
+    }
+
+    return switch (this) {
+      newShortcut => AppLocalizations.of(context).newNote,
+      newFromTemplateShortcut => AppLocalizations.of(
+        context,
+      ).newFromTemplateShortcut,
+      exportShortcut => AppLocalizations.of(context).export,
+      exportTextShortcut => AppLocalizations.of(context).exportAsTextShortcut,
+      imageExportShortcut => AppLocalizations.of(context).exportAsImageShortcut,
+      pdfExportShortcut => AppLocalizations.of(context).exportAsPdfShortcut,
+      svgExportShortcut => AppLocalizations.of(context).exportAsSvgShortcut,
+      packsShortcut => AppLocalizations.of(context).packs,
+      settingsShortcut => AppLocalizations.of(context).settings,
+      exitShortcut => AppLocalizations.of(context).exit,
+      searchShortcut => AppLocalizations.of(context).search,
+      undoShortcut => AppLocalizations.of(context).undo,
+      redoShortcut => AppLocalizations.of(context).redo,
+      backgroundShortcut => AppLocalizations.of(context).background,
+      saveShortcut => AppLocalizations.of(context).save,
+      changePathShortcut => AppLocalizations.of(context).changePathShortcut,
+      zoomInShortcut => AppLocalizations.of(context).zoomIn,
+      zoomOutShortcut => AppLocalizations.of(context).zoomOut,
+      fullScreenShortcut => AppLocalizations.of(context).fullScreenShortcut,
+      hideUIShortcut => AppLocalizations.of(context).hideUI,
+      nextShortcut => AppLocalizations.of(context).nextSlide,
+      previousShortcut => AppLocalizations.of(context).previousSlide,
+      selectAllShortcut => AppLocalizations.of(context).selectAll,
+      pasteShortcut => AppLocalizations.of(context).paste,
+      _ => id,
+    };
+  }
+}
+
 final keybinder = Keybinder(
   store: SharedPreferencesKeybinderStore(),
   definitions: [

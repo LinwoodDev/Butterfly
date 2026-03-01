@@ -10,13 +10,10 @@ class PasteIntent extends Intent {
   const PasteIntent();
 }
 
-final pasteShortcut = ShortcutDefinition(
+const pasteShortcut = ShortcutDefinition(
   id: 'paste',
-  intent: const PasteIntent(),
-  defaultActivator: const SingleActivator(
-    LogicalKeyboardKey.keyV,
-    control: true,
-  ),
+  intent: PasteIntent(),
+  defaultActivator: SingleActivator(LogicalKeyboardKey.keyV, control: true),
 );
 
 class PasteAction extends Action<PasteIntent> {
