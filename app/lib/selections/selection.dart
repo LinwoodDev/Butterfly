@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/dialogs/texture.dart';
+import 'package:butterfly/dialogs/export/thumbnail.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/visualizer/tool.dart';

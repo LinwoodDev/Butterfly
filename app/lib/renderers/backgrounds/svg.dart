@@ -46,19 +46,16 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
     if (offsetY > 0) {
       offsetY -= sizeY;
     }
-    for (var x = offsetX; x < size.width; x += sizeX) {
-      for (var y = offsetY; y < size.height; y += sizeY) {
+    for (var x = offsetX - sizeX; x < size.width + sizeX; x += sizeX) {
+      for (var y = offsetY - sizeY; y < size.height + sizeY; y += sizeY) {
+        canvas.save();
         canvas.translate(x, y);
         canvas.scale(
           element.scaleX * transform.size,
           element.scaleY * transform.size,
         );
         canvas.drawPicture(_pictureInfo!.picture);
-        canvas.scale(
-          1 / (element.scaleX * transform.size),
-          1 / (element.scaleY * transform.size),
-        );
-        canvas.translate(-x, -y);
+        canvas.restore();
       }
     }
   }

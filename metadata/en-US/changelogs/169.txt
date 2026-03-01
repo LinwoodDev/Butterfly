@@ -1,9 +1,11 @@
 * Add default name when creating new areas
 * Add main menu to the edit toolbar in full screen mode
 * Add double and triple press shortcuts for touch input ([#976](https://github.com/LinwoodDev/Butterfly/issues/976))
+* Add thumbnail capturing setting with interactive selection dialog ([#944](https://github.com/LinwoodDev/Butterfly/issues/944))
 * Change double tap context menu shortcut to long press to avoid conflicts with new shortcuts
 * Improve area size selection UI by having simple width/height inputs and a preset selector
 * Improve aspect ratio selection UI with presets and ratio text support
+* Improve svg and image background rendering
 * Fix area tool aspect ratio constraint resizing issue
 * Fix files are overwritten if importing failed
 * Fix web embedding system

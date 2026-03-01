@@ -199,6 +199,19 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     }
                   },
                   title: Text(AppLocalizations.of(context).captureThumbnail),
+                  trailing: IconButton(
+                    icon: const PhosphorIcon(PhosphorIconsLight.crop),
+                    tooltip: AppLocalizations.of(context).captureThumbnail,
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: ThumbnailCaptureDialog(state: state),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 ListTile(
                   leading: Icon(
