@@ -1302,15 +1302,15 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Νέο από πρότυπο",
+  "exportAsTextShortcut": "Εξαγωγή ως κείμενο",
+  "exportAsImageShortcut": "Εξαγωγή ως εικόνα",
+  "exportAsPdfShortcut": "Εξαγωγή ως PDF",
+  "exportAsSvgShortcut": "Εξαγωγή ως SVG",
+  "changePathShortcut": "Αλλαγή διαδρομής",
   "fullScreenShortcut": "Πλήρης οθόνη",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
+  "doublePressAction": "Ενέργεια διπλού πατήματος",
+  "triplePressAction": "Ενέργεια τριπλού πατήματος",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
