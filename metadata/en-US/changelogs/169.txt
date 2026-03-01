@@ -8,5 +8,6 @@
 * Fix controls at the bottom being cut out on some devices
 * Fix tool properties not updating if tool was newly created or updated
 * Fix top corner menu could have invalid size
+* Improve WebDAV implementation and performance (sorting, directory caching)
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.3

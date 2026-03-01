@@ -908,22 +908,16 @@ class FilesViewState extends State<FilesView> {
       try {
         bInfo = bFile.data?.load()?.getMetadata();
       } catch (_) {}
-      if (aInfo == null) {
-        if (bInfo == null) {
-          return aFile.fileName.compareTo(bFile.fileName);
-        }
-        return 1;
-      }
-      if (bInfo == null) {
-        return -1;
-      }
       switch (_sortBy) {
         case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
-          final aCreatedAt = aInfo.createdAt;
-          final bCreatedAt = bInfo.createdAt;
+          final aCreatedAt = aFile.creationTime ?? aInfo?.createdAt;
+          final bCreatedAt = bFile.creationTime ?? bInfo?.createdAt;
+          if (aCreatedAt == null && bCreatedAt == null) {
+            return aFile.fileName.compareTo(bFile.fileName);
+          }
           if (aCreatedAt == null) {
             return 1;
           }
@@ -933,8 +927,11 @@ class FilesViewState extends State<FilesView> {
           final compared = bCreatedAt.compareTo(aCreatedAt);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
-          final aModifiedAt = aInfo.updatedAt;
-          final bModifiedAt = bInfo.updatedAt;
+          final aModifiedAt = aFile.lastModified ?? aInfo?.updatedAt;
+          final bModifiedAt = bFile.lastModified ?? bInfo?.updatedAt;
+          if (aModifiedAt == null && bModifiedAt == null) {
+            return aFile.fileName.compareTo(bFile.fileName);
+          }
           if (aModifiedAt == null) {
             return 1;
           }
