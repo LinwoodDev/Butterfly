@@ -1302,16 +1302,16 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Uusi mallista",
+  "exportAsTextShortcut": "Vie tekstinä",
+  "exportAsImageShortcut": "Vie kuvana",
+  "exportAsPdfShortcut": "Vie PDF:nä",
+  "exportAsSvgShortcut": "Vie SVG:nä",
+  "changePathShortcut": "Muuta polkua",
   "fullScreenShortcut": "Koko näyttö",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
-  "toolNumber": "Tool {number}",
+  "doublePressAction": "Kaksoispainalluksen tehtävä",
+  "triplePressAction": "Kolmen painalluksen tehtävä",
+  "toolNumber": "Työkalu {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
