@@ -1302,16 +1302,16 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Nový ze šablony",
+  "exportAsTextShortcut": "Exportovat jako text",
+  "exportAsImageShortcut": "Exportovat jako obrázek",
+  "exportAsPdfShortcut": "Exportovat do PDF",
+  "exportAsSvgShortcut": "Exportovat jako SVG",
+  "changePathShortcut": "Změnit cestu",
   "fullScreenShortcut": "Celá obrazovka",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
-  "toolNumber": "Tool {number}",
+  "doublePressAction": "Akce dvojím stisknutím",
+  "triplePressAction": "Akce trojím stisknutím",
+  "toolNumber": "Nástroj {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
