@@ -1302,16 +1302,16 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Нова з шаблону",
+  "exportAsTextShortcut": "Експортувати як текст",
+  "exportAsImageShortcut": "Експортувати як зображення",
+  "exportAsPdfShortcut": "Експорт в PDF",
+  "exportAsSvgShortcut": "Експортувати як SVG",
+  "changePathShortcut": "Змінити шлях",
   "fullScreenShortcut": "На весь екран",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
-  "toolNumber": "Tool {number}",
+  "doublePressAction": "Дії подвійного натискання",
+  "triplePressAction": "Дія потрійного натискання",
+  "toolNumber": "Інструмент {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
