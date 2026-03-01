@@ -1302,16 +1302,16 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Nou din șablon",
+  "exportAsTextShortcut": "Exportă ca text",
+  "exportAsImageShortcut": "Exportă ca imagine",
+  "exportAsPdfShortcut": "Exportă ca PDF",
+  "exportAsSvgShortcut": "Exportă ca SVG",
+  "changePathShortcut": "Schimbă calea",
   "fullScreenShortcut": "Ecran complet",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
-  "toolNumber": "Tool {number}",
+  "doublePressAction": "Acțiune la apăsare dublă",
+  "triplePressAction": "Acțiune apăsare triplă",
+  "toolNumber": "Unelte {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
