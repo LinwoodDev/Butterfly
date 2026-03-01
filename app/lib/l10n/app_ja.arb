@@ -1302,16 +1302,16 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "テンプレートから新規作成",
+  "exportAsTextShortcut": "テキストとしてエクスポート",
+  "exportAsImageShortcut": "画像としてエクスポート",
+  "exportAsPdfShortcut": "PDF としてエクスポート",
+  "exportAsSvgShortcut": "SVGとしてエクスポート",
+  "changePathShortcut": "パスの変更",
   "fullScreenShortcut": "全画面",
   "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
-  "toolNumber": "Tool {number}",
+  "triplePressAction": "トリプルプレスアクション",
+  "toolNumber": "ツール {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
