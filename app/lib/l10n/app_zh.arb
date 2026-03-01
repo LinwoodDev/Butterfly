@@ -1302,15 +1302,15 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "新建模板",
+  "exportAsTextShortcut": "导出为文本",
+  "exportAsImageShortcut": "导出为图像",
+  "exportAsPdfShortcut": "导出为 PDF",
+  "exportAsSvgShortcut": "导出为 SVG",
+  "changePathShortcut": "更改路径",
   "fullScreenShortcut": "全屏",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
+  "doublePressAction": "双击动作",
+  "triplePressAction": "三次按下",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
