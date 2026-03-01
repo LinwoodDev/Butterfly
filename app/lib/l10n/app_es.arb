@@ -1302,15 +1302,15 @@
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "New from template",
-  "exportAsTextShortcut": "Export as text",
-  "exportAsImageShortcut": "Export as image",
-  "exportAsPdfShortcut": "Export as PDF",
-  "exportAsSvgShortcut": "Export as SVG",
-  "changePathShortcut": "Change path",
+  "newFromTemplateShortcut": "Nuevo desde plantilla",
+  "exportAsTextShortcut": "Exportar como texto",
+  "exportAsImageShortcut": "Exportar como imagen",
+  "exportAsPdfShortcut": "Exportar como PDF",
+  "exportAsSvgShortcut": "Exportar como SVG",
+  "changePathShortcut": "Cambiar ruta",
   "fullScreenShortcut": "Pantalla completa",
-  "doublePressAction": "Double press action",
-  "triplePressAction": "Triple press action",
+  "doublePressAction": "Acción de doble pulsación",
+  "triplePressAction": "Acción de triple pulsación",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
