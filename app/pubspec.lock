@@ -300,18 +300,18 @@ packages:
     dependency: "direct main"
     description:
       name: cryptography_flutter_plus
-      sha256: "35a8c270aae0abaac7125a6b6b33c2b3daa0ea90d85320aa7d588b6dd6c2edc9"
+      sha256: "65bc0a78c2104cdb02f4b69e3a03abef093e660d9d9208bc81942b058b49deb2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "3.0.0"
   cryptography_plus:
     dependency: "direct main"
     description:
       name: cryptography_plus
-      sha256: "34db787df4f4740a39474b6fb0a610aa6dc13a5b5b68754b4787a79939ac0454"
+      sha256: edf96fc96518368b11bb1ba33b515f59aa5a55b0aa7533c0e1813399cf81130e
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.1"
+    version: "3.0.0"
   csslib:
     dependency: transitive
     description:
@@ -725,14 +725,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.2"
   json_annotation:
     dependency: "direct main"
     description:
@@ -935,8 +927,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_crypto"
-      ref: "1ab8146be49b208ba5890935561b93af71702858"
-      resolved-ref: "1ab8146be49b208ba5890935561b93af71702858"
+      ref: "12e0f6d0071deb7a68274dfc13f9e36360432eff"
+      resolved-ref: "12e0f6d0071deb7a68274dfc13f9e36360432eff"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1447,8 +1439,8 @@ packages:
     dependency: "direct main"
     description:
       path: api
-      ref: "554e2e974ca4671b33a5fe5ab9b7702436eba838"
-      resolved-ref: "554e2e974ca4671b33a5fe5ab9b7702436eba838"
+      ref: "88af0f2fe2a99e0cf121662f9fb87ed6deef7987"
+      resolved-ref: "88af0f2fe2a99e0cf121662f9fb87ed6deef7987"
       url: "https://github.com/LinwoodDev/Swamp.git"
     source: git
     version: "0.2.0"
@@ -1750,4 +1742,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.10.3 <4.0.0"
-  flutter: "3.41.2"
+  flutter: "3.41.3"

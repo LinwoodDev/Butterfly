@@ -18,6 +18,7 @@ import 'package:butterfly/actions/save.dart';
 import 'package:butterfly/actions/select.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/actions/toggle_presentation.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/zoom.dart';
 import 'package:butterfly/widgets/search.dart';
@@ -42,6 +43,7 @@ export 'package:butterfly/actions/save.dart';
 export 'package:butterfly/actions/select.dart';
 export 'package:butterfly/actions/settings.dart';
 export 'package:butterfly/actions/svg_export.dart';
+export 'package:butterfly/actions/toggle_presentation.dart';
 export 'package:butterfly/actions/undo.dart';
 export 'package:butterfly/actions/zoom.dart';
 export 'package:butterfly/widgets/search.dart';
@@ -83,6 +85,9 @@ extension ShortcutDefinitionLocalization on ShortcutDefinition {
       hideUIShortcut => AppLocalizations.of(context).hideUI,
       nextShortcut => AppLocalizations.of(context).nextSlide,
       previousShortcut => AppLocalizations.of(context).previousSlide,
+      togglePresentationShortcut => AppLocalizations.of(
+        context,
+      ).pausePresentation,
       selectAllShortcut => AppLocalizations.of(context).selectAll,
       pasteShortcut => AppLocalizations.of(context).paste,
       _ => id,
@@ -103,6 +108,7 @@ final keybinder = Keybinder(
     hideUIShortcut,
     nextShortcut,
     previousShortcut,
+    togglePresentationShortcut,
     selectAllShortcut,
     searchShortcut,
     exportShortcut,

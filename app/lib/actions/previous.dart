@@ -24,6 +24,6 @@ class PreviousAction extends Action<PreviousIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentPresentationState) return;
-    state.handler.playReverse(bloc);
+    state.handler.previous(bloc, context);
   }
 }

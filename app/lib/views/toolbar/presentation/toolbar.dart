@@ -165,7 +165,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         DropdownMenu<String>(
-                          width: 200,
+                          width: 150,
                           key: UniqueKey(),
                           inputDecorationTheme: const InputDecorationTheme(
                             filled: true,
@@ -456,15 +456,20 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   ? null
                                   : () {
                                       final bloc = context.read<DocumentBloc>();
+                                      final updated = _animation!.copyWith(
+                                        keys: Map.from(_animation!.keys)
+                                          ..remove(_frame),
+                                      );
                                       bloc.add(
                                         AnimationUpdated(
                                           _animation!.name,
-                                          _animation!.copyWith(
-                                            keys: Map.from(_animation!.keys)
-                                              ..remove(_frame),
-                                          ),
+                                          updated,
                                         ),
                                       );
+                                      setState(() {
+                                        _animation = updated;
+                                        _key = null;
+                                      });
                                     },
                               child: Text(AppLocalizations.of(context).delete),
                             ),
@@ -476,79 +481,125 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(
-                            width: 100,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                filled: true,
-                                labelText: AppLocalizations.of(context).fps,
-                                floatingLabelAlignment:
-                                    FloatingLabelAlignment.center,
+                          MenuAnchor(
+                            builder: defaultMenuButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.faders,
                               ),
-                              controller: _fpsController,
-                              textAlign: TextAlign.center,
-                              onEditingComplete: () {},
-                              onChanged: (value) {},
+                              tooltip: AppLocalizations.of(context).settings,
                             ),
+                            menuChildren: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 300,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).fps,
+                                          ),
+                                          controller: _fpsController,
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final fps = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            if (fps != null && fps > 0) {
+                                              final updated = _animation!
+                                                  .copyWith(fps: fps);
+                                              context.read<DocumentBloc>().add(
+                                                AnimationUpdated(
+                                                  _animation!.name,
+                                                  updated,
+                                                ),
+                                              );
+                                              setState(
+                                                () => _animation = updated,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).frame,
+                                          ),
+                                          controller: _frameController,
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final frame = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            if (frame != null) {
+                                              _setFrame(frame);
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            labelText: AppLocalizations.of(
+                                              context,
+                                            ).duration,
+                                          ),
+                                          controller: _durationController,
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.number,
+                                          onFieldSubmitted: (value) {
+                                            final duration = int.tryParse(
+                                              value.trim(),
+                                            );
+                                            if (duration != null &&
+                                                duration > 0) {
+                                              final updated = _animation!
+                                                  .copyWith(duration: duration);
+                                              context.read<DocumentBloc>().add(
+                                                AnimationUpdated(
+                                                  _animation!.name,
+                                                  updated,
+                                                ),
+                                              );
+                                              setState(
+                                                () => _animation = updated,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(width: 8),
                           SizedBox(
-                            width: 100,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                filled: true,
-                                labelText: AppLocalizations.of(context).frame,
-                                floatingLabelAlignment:
-                                    FloatingLabelAlignment.center,
-                              ),
-                              controller: _frameController,
-                              textAlign: TextAlign.center,
-                              onFieldSubmitted: (value) {
-                                final frame = int.tryParse(value.trim());
-                                if (frame != null) {
-                                  _setFrame(frame);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          SizedBox(
-                            width: max(200, constraints.maxWidth * 0.25),
+                            width: max(150, constraints.maxWidth * 0.4),
                             child: PresentationTimelineView(
                               animationKeys: _animation!.keys.keys.toList(),
                               currentFrame: _frame,
                               duration: _animation!.duration,
                               onFrameChanged: _setFrame,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          SizedBox(
-                            width: 100,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                filled: true,
-                                labelText: AppLocalizations.of(
-                                  context,
-                                ).duration,
-                                floatingLabelAlignment:
-                                    FloatingLabelAlignment.center,
-                              ),
-                              controller: _durationController,
-                              textAlign: TextAlign.center,
-                              onFieldSubmitted: (value) {
-                                final duration = int.tryParse(value.trim());
-                                if (duration != null && duration > 0) {
-                                  final updated = _animation!.copyWith(
-                                    duration: duration,
-                                  );
-                                  context.read<DocumentBloc>().add(
-                                    AnimationUpdated(_animation!.name, updated),
-                                  );
-                                  setState(() {
-                                    _animation = updated;
-                                  });
-                                }
-                              },
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -638,7 +689,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                               return AreaPreset(
                                                 name: e.toString(),
                                                 area: Area(
-                                                  position: -position,
+                                                  position: position,
                                                   height: size.height / zoom,
                                                   width: size.width / zoom,
                                                 ),

@@ -21,14 +21,44 @@ mixin GeneralPresentationHandler {
 
   void _onStateChange(DocumentBloc bloc) {}
 
+  void next(DocumentBloc bloc, BuildContext context) {
+    final animation = getAnimation(bloc);
+    if (animation == null) return;
+    if (currentFrame >= animation.duration) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).endOfPresentation)),
+      );
+    } else {
+      play(bloc);
+    }
+  }
+
+  void previous(DocumentBloc bloc, BuildContext context) {
+    if (currentFrame <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).startOfPresentation),
+        ),
+      );
+    } else {
+      playReverse(bloc);
+    }
+  }
+
   void play(DocumentBloc bloc) {
+    if (_state == PresentationRunningState.running) return;
     _state = PresentationRunningState.running;
+    _timer?.cancel();
+    _timer = null;
     _createTimer(bloc);
     _onStateChange(bloc);
   }
 
   void playReverse(DocumentBloc bloc) {
+    if (_state == PresentationRunningState.reversed) return;
     _state = PresentationRunningState.reversed;
+    _timer?.cancel();
+    _timer = null;
     _createTimer(bloc);
     _onStateChange(bloc);
   }
@@ -60,11 +90,15 @@ mixin GeneralPresentationHandler {
       case PresentationRunningState.running:
         if (frame < animation.duration) {
           frame++;
+        } else {
+          pause(bloc);
         }
         break;
       case PresentationRunningState.reversed:
         if (frame > 0) {
           frame--;
+        } else {
+          pause(bloc);
         }
         break;
       case PresentationRunningState.paused:
@@ -79,7 +113,10 @@ mixin GeneralPresentationHandler {
   void changeFrame(DocumentBloc bloc, AnimationTrack animation, int frame);
 
   void pause(DocumentBloc bloc) {
+    if (_state == PresentationRunningState.paused) return;
     _state = PresentationRunningState.paused;
+    _timer?.cancel();
+    _timer = null;
     _onStateChange(bloc);
   }
 
@@ -103,7 +140,7 @@ mixin GeneralPresentationHandler {
     if (position == null && zoom == null) return;
     if (position != null) transformCubit.teleport(position.toOffset());
     if (zoom != null) transformCubit.size(zoom);
-    bloc.bake();
+    bloc.delayedBake(testTransform: true);
   }
 
   void _applyAnimationFromBloc(DocumentBloc bloc) {
@@ -220,35 +257,26 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   }
 
   @override
-  void onTapUp(TapUpDetails details, EventContext context) => toggle(bloc);
+  void onTapUp(TapUpDetails details, EventContext context) {
+    if (details.kind == PointerDeviceKind.mouse) {
+      if (_state == PresentationRunningState.reversed ||
+          _state == PresentationRunningState.paused) {
+        play(bloc);
+      } else {
+        pause(bloc);
+      }
+      return;
+    }
+    toggle(bloc);
+  }
 
   bool _checkSlideChange(ScaleEndDetails details, EventContext context) {
     final dx = details.velocity.pixelsPerSecond.dx;
     if (dx.abs() < 100) return false;
     if (dx < 0) {
-      if (currentFrame >= data.duration) {
-        ScaffoldMessenger.of(context.buildContext).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(context.buildContext).endOfPresentation,
-            ),
-          ),
-        );
-      } else {
-        play(bloc);
-      }
+      next(bloc, context.buildContext);
     } else {
-      if (currentFrame <= 0) {
-        ScaffoldMessenger.of(context.buildContext).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(context.buildContext).startOfPresentation,
-            ),
-          ),
-        );
-      } else {
-        playReverse(bloc);
-      }
+      previous(bloc, context.buildContext);
     }
     return true;
   }
@@ -256,7 +284,7 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   void _checkStateChange(ScaleEndDetails details, EventContext context) {
     final dy = details.velocity.pixelsPerSecond.dy;
     if (dy.abs() < 100) return;
-    if (dy < 0) {
+    if (dy > 0) {
       _exitPresentation(context);
     }
   }

@@ -379,6 +379,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                 HideUIIntent: HideUIAction(context),
                                 NextIntent: NextAction(context),
                                 PreviousIntent: PreviousAction(context),
+                                TogglePresentationIntent:
+                                    TogglePresentationAction(context),
                                 PasteIntent: PasteAction(context),
                                 SelectAllIntent: SelectAllAction(context),
                                 ZoomIntent: ZoomAction(context),

@@ -17,7 +17,7 @@ version: 2.5.0-beta.3+169
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
-  flutter: 3.41.2
+  flutter: 3.41.3
 
 dependencies:
   flutter:
@@ -82,12 +82,12 @@ dependencies:
   networker_crypto:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 1ab8146be49b208ba5890935561b93af71702858
+      ref: 12e0f6d0071deb7a68274dfc13f9e36360432eff
       path: packages/networker/networker_crypto
   swamp_api:
     git:
       url: https://github.com/LinwoodDev/Swamp.git
-      ref: 554e2e974ca4671b33a5fe5ab9b7702436eba838
+      ref: 88af0f2fe2a99e0cf121662f9fb87ed6deef7987
       path: api
   lw_file_system:
     git:
@@ -100,7 +100,7 @@ dependencies:
       ref: 13e4ec78ac3bad73c56752fdee13329317cee115
       path: packages/keybinder
   flutter_localized_locales: ^2.0.5
-  cryptography_flutter_plus: ^2.3.4
+  cryptography_flutter_plus: ^3.0.0
   dynamic_color: ^1.7.0
   popover: ^0.4.0
   markdown: ^7.2.2
@@ -108,7 +108,7 @@ dependencies:
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.9.0-dev.4
   web: ^1.0.0
-  cryptography_plus: ^2.7.1
+  cryptography_plus: ^3.0.0
   barcode: ^2.2.9
   network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4

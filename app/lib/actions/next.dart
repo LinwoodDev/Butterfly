@@ -24,6 +24,6 @@ class NextAction extends Action<NextIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentPresentationState) return;
-    state.handler.play(bloc);
+    state.handler.next(bloc, context);
   }
 }

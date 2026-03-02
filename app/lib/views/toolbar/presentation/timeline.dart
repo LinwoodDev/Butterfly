@@ -21,7 +21,8 @@ class PresentationTimelineView extends StatefulWidget {
 }
 
 class _PresentationTimelineViewState extends State<PresentationTimelineView> {
-  double _zoom = 1;
+  double? _zoom;
+  double _baseZoom = 1;
   double _position = 0;
 
   @override
@@ -29,6 +30,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
     super.didUpdateWidget(oldWidget);
     if (widget.currentFrame != oldWidget.currentFrame ||
         widget.duration != oldWidget.duration) {
+      if (widget.duration != oldWidget.duration) _zoom = null;
       setState(() {});
     }
   }
@@ -43,44 +45,58 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
         borderRadius: BorderRadius.circular(4),
       ),
       padding: const EdgeInsets.all(2),
-      child: Listener(
-        onPointerSignal: (event) {
-          if (event is! PointerScrollEvent) {
-            return;
-          }
-          final delta = event.scrollDelta.dx + event.scrollDelta.dy;
-          if (delta == 0) {
-            return;
-          }
-          setState(() => _zoom *= 1 - delta / 100 / 10);
-        },
-        child: GestureDetector(
-          child: ClipRect(
-            child: CustomPaint(
-              painter: PresentationTimelinePainter(
-                animationKeys: widget.animationKeys,
-                currentFrame: widget.currentFrame,
-                duration: widget.duration,
-                zoom: _zoom,
-                position: _position,
-                cursorColor: colorScheme.primary,
-                keyColor: colorScheme.secondary,
-                backgroundColor: colorScheme.surface,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final computedZoom =
+              _zoom ??
+              (widget.duration > 0
+                  ? constraints.maxWidth / widget.duration
+                  : 1.0);
+          return Listener(
+            onPointerSignal: (event) {
+              if (event is! PointerScrollEvent) {
+                return;
+              }
+              final delta = event.scrollDelta.dx + event.scrollDelta.dy;
+              if (delta == 0) {
+                return;
+              }
+              setState(() => _zoom = computedZoom * (1 - delta / 100 / 10));
+            },
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              child: ClipRect(
+                child: CustomPaint(
+                  size: Size.infinite,
+                  painter: PresentationTimelinePainter(
+                    animationKeys: widget.animationKeys,
+                    currentFrame: widget.currentFrame,
+                    duration: widget.duration,
+                    zoom: computedZoom,
+                    position: _position,
+                    cursorColor: colorScheme.primary,
+                    keyColor: colorScheme.secondary,
+                    backgroundColor: colorScheme.surface,
+                  ),
+                ),
               ),
+              onHorizontalDragUpdate: (details) {
+                setState(() => _position += details.delta.dx);
+              },
+              onScaleStart: (details) {
+                _baseZoom = computedZoom;
+              },
+              onScaleUpdate: (details) {
+                setState(() => _zoom = _baseZoom * details.scale);
+              },
+              onTapUp: (details) {
+                final x = details.localPosition.dx - _position;
+                final frame = (x / computedZoom).round();
+                widget.onFrameChanged?.call(frame.clamp(0, widget.duration));
+              },
             ),
-          ),
-          onHorizontalDragUpdate: (details) {
-            setState(() => _position += details.delta.dx);
-          },
-          onScaleUpdate: (details) {
-            setState(() => _zoom *= details.scale);
-          },
-          onTapUp: (details) {
-            final x = details.localPosition.dx - _position;
-            final frame = (x / _zoom).round();
-            widget.onFrameChanged?.call(frame);
-          },
-        ),
+          );
+        },
       ),
     );
   }
