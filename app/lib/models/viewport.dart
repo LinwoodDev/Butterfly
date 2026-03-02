@@ -266,4 +266,16 @@ class CameraViewport extends Equatable {
   ];
 
   bool get baked => image != null;
+
+  void disposeImages() {
+    try {
+      image?.dispose();
+    } catch (_) {}
+    try {
+      belowLayerImage?.dispose();
+    } catch (_) {}
+    try {
+      aboveLayerImage?.dispose();
+    } catch (_) {}
+  }
 }

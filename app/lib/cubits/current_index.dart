@@ -1338,7 +1338,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             .where(
               (element) =>
                   !bakedElementsSet.contains(element.element) &&
-                  !unbakedElementsSet.contains(element.element),
+                  !unbakedElementsSet.contains(element.element) &&
+                  !visibleElementsSet.contains(element),
             )
             .toList();
     for (final u in newlyUnbaked) {
@@ -1949,18 +1950,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final renderer in renderers) {
       renderer.dispose();
     }
-    try {
-      state.cameraViewport.image?.dispose();
-    } catch (_) {}
-    try {
-      state.cameraViewport.belowLayerImage?.dispose();
-    } catch (_) {}
-    try {
-      state.cameraViewport.aboveLayerImage?.dispose();
-    } catch (_) {}
-    try {
-      state.cameraViewport.belowLayerImage?.dispose();
-    } catch (_) {}
+    state.cameraViewport.disposeImages();
     _transformSubscription?.cancel();
     _transformDebounceTimer?.cancel();
     _networkingDebounceTimer?.cancel();

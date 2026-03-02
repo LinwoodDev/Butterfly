@@ -13,5 +13,7 @@
 * Fix tool properties not updating if tool was newly created or updated
 * Fix top corner menu could have invalid size
 * Improve WebDAV implementation and performance (sorting, directory caching)
+* Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
+* Fix a rendering issue related to element baking
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.3

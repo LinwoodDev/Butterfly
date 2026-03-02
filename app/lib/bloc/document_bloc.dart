@@ -439,22 +439,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       current.currentIndexCubit.removeSelection(event.elements);
-      // Remove unused assets
       final unusedAssets = <String>{};
-      event.elements.whereType<SourcedElement>().forEach((element) {
-        final uri = Uri.tryParse(element.source);
-        if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
-          unusedAssets.add(element.source);
-          current.assetService.invalidate(element.source);
-        }
-      });
-      final data = current.data.removeAssets(unusedAssets.toList());
       final removedRenderers = current.renderers
           .where((e) => event.elements.contains(e.element.id))
           .toList();
       for (final renderer in removedRenderers) {
+        final element = renderer.element;
+        if (element is SourcedElement) {
+          final source = (element as SourcedElement).source;
+          final uri = Uri.tryParse(source);
+          if (uri?.scheme == '' && !newPage.usesSource(source)) {
+            unusedAssets.add(source);
+            current.assetService.invalidate(source);
+          }
+        }
         renderer.dispose();
       }
+      final data = current.data.removeAssets(unusedAssets.toList());
       return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
@@ -633,6 +634,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final uri = Uri.tryParse(element.source);
         if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
           unusedAssets.add(element.source);
+          current.assetService.invalidate(element.source);
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
