@@ -34,7 +34,7 @@ Alguns deles estão escritos abaixo dos botões.
 
 ## Caneta
 
-Por padrão, a caneta está configurada para funcionar como o seguinte:
+By default, the pen is configured to function as the following:
 
 - `Pen`: configurado como caneta.
 - `Primeiro` (botão principal, se suportado): Mude a ferramenta enquanto pressionado.
