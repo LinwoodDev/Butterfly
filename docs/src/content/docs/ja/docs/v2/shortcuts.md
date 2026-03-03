@@ -34,7 +34,7 @@ title: ショートカット
 
 ## ペン
 
-デフォルトでは、ペンは次のように機能するように設定されています。
+By default, the pen is configured to function as the following:
 
 - `Pen`: ペンとして設定されています。
 - `First` (サポートされている場合はプライマリボタン): 押したまま手動ツールに変更します。
