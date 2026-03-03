@@ -26,5 +26,6 @@
 * Fix desyncronization of renderers when concurrently changing elements
 * Fix property view overlapping with zoom and pen only toggle controls
 * Fix zoom control position preference not saving properly
+* Fix keybinder recording not toggling
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.3
