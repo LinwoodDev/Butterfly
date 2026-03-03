@@ -8,8 +8,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## Каталог даних
 
-Каталог даних є каталогом, де зберігаються документи, шаблони і пакети.
-На комп'ютері ви можете знайти його в `~/Documents/Linwood/Butterfly`.
+The data directory is the directory where documents, templates, and packs are stored.
+On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 На мобільному телефоні він (getExternalFilesDir(null)/Linwood/Butterfly\`.
 Ви також можете змінити його в налаштуваннях в розділі "Data".
 
@@ -22,7 +22,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## Самородні платформи
 
-Як за замовчуванням програма зберігає дані у папці ваших документів у підпапці під назвою "Linwood/Butterfly". Ця папка створюється під час збереження перших даних. Цю папку можна змінити в налаштуваннях.
+By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. Цю папку можна змінити в налаштуваннях.
 
 ## Віддалене сховище {#remote}
 
@@ -32,12 +32,12 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 :::
 
-Програму можна зберегти на віддаленому сервері. Це корисно, якщо ви хочете поділитись даними з іншими людьми або якщо у вас є декілька комп'ютерів. На даний момент підтримується тільки протокол WebDAV.
+The application data can be stored on a remote server. Це корисно, якщо ви хочете поділитись даними з іншими людьми або якщо у вас є декілька комп'ютерів. На даний момент підтримується тільки протокол WebDAV.
 
 Щоб додати віддалений сервер, перейдіть до налаштувань та натисніть `Remotes`. Потім натисніть "Додати пульт".
 Додайте URL-адресу віддаленого сервера, ім'я користувача і пароль. Після цього ви можете вказати папку, де зберігаються дані.
 
-Щоб отримати адресу webdav url, будь ласка, відвідайте документацію:
+To get the WebDAV URL, please visit the documentation:
 
 - [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (це має виглядати так: `https://nextcloud.example.com/remote.php/dav/files/username/`, замінити `username` і `nextcloud.example.com` з правильними значеннями)
 
@@ -55,8 +55,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 ## Інші методи зберігання
 
 Якщо ви на рідному пристрої, ви також можете синхронізувати каталог програми з вашою улюбленою платформою.
-У Google drive [офіційний додаток](https://www.google.com/drive/download/) у вікнах, і в магазині ігор є неофіційні.
-На linux ви також можете використовувати систему віддаленого сховища та змінити ваш каталог даних на це або додати нове зовнішнє сховище, якщо натиснути кнопку додавання підключення.
+Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
+On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
 ## Supported file types
 
@@ -64,21 +64,21 @@ Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.t
 
 ### Butterfly Note (.bfly)
 
-This file type is the recommended for saving notes.
+This file type is the recommended format for saving notes.
 
 It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for being human readable.
+These included JSON files aren't optimized for human readability.
 
 ### Butterfly Raw Note (.tbfly)
 
 This file is recommended for use with version control software like git.
 
-This file is **not** a zip archive, instead it is a _JSON_ file.
-It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+This file is **not** a zip archive; instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
 
 ### SVG
 
 This file type doesn't save information about the note!
 When this file is imported into Butterfly, it is treated as a single image.
 
-Use this _ONLY_ when the note shouldn't be modified by butterfly.
+Use this _ONLY_ when the note shouldn't be modified by Butterfly.
