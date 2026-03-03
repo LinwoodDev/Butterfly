@@ -34,7 +34,7 @@ title: 快捷键
 
 ## 笔
 
-默认情况下，钢笔配置为如下功能：
+By default, the pen is configured to function as the following:
 
 - “Pen\`：被配置为笔”。
 - `First` (主按钮，如果支持的话)：按住时更改为手工具。
