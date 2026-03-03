@@ -8,8 +8,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## Data mappe
 
-Datamappen er den mappe, hvor dokumenter, skabeloner og pakker gemmes.
-På skrivebordet kan du finde det i `~/Documents/Linwood/Butterfly`.
+The data directory is the directory where documents, templates, and packs are stored.
+On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 På mobil det er i `getExternalFilesDir(null)/Linwood/Butterfly`.
 Du kan også ændre det i indstillingerne under `Data`.
 
@@ -22,7 +22,7 @@ Applikationsdataene er gemt i din browser. Det opbevares på et lokalt lager.
 
 ## Indfødte platforme
 
-Som standard gemmer programmet data i dine dokumenter mappe i en undermappe kaldet "Linwood/Butterfly". Denne mappe oprettes, når du gemmer de første data. Denne mappe kan ændres i indstillingerne.
+By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. Denne mappe kan ændres i indstillingerne.
 
 ## Ekstern lagerplads {#remote}
 
@@ -32,12 +32,12 @@ Denne funktion er ikke tilgængelig på nettet.
 
 :::
 
-Programmet kan gemmes på en ekstern server. Dette er nyttigt, hvis du ønsker at dele data med andre mennesker, eller hvis du har flere computere. I øjeblikket er kun 'WebDAV'-protokollen understøttet.
+The application data can be stored on a remote server. Dette er nyttigt, hvis du ønsker at dele data med andre mennesker, eller hvis du har flere computere. I øjeblikket er kun 'WebDAV'-protokollen understøttet.
 
 For at tilføje en fjernserver, gå til indstillingerne og klik på `Remotes`. Klik derefter på `Tilføj fjern`.
 Tilføj webadressen på den eksterne server og brugernavn og adgangskode. Derefter kan du angive mappen, hvor dataene er gemt.
 
-For at få webdav url, besøg dokumentationen:
+To get the WebDAV URL, please visit the documentation:
 
 - [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (det skal se sådan ud: `https://nextcloud.example.com/remote.php/dav/files/username/`, erstat `username` og `nextcloud.example.com` med de korrekte værdier)
 
@@ -55,8 +55,8 @@ Der er et par begrænsninger:
 ## Andre oplagringsmetoder
 
 Hvis du er på en indfødt enhed, kan du også synkronisere programmappen med din foretrukne platform.
-Google drev har [en officiel app] (https://www.google.com/drive/download/) på vinduer, og der er uofficielle onces i spillebutikken.
-På linux kan du også bruge det indfødte fjernlagringssystem og ændre din datamappe til dette eller tilføje en ny ekstern lagring, hvis du klikker på knappen Tilføj forbindelse.
+Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
+On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
 ## Supported file types
 
@@ -64,21 +64,21 @@ Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.t
 
 ### Butterfly Note (.bfly)
 
-This file type is the recommended for saving notes.
+This file type is the recommended format for saving notes.
 
 It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for being human readable.
+These included JSON files aren't optimized for human readability.
 
 ### Butterfly Raw Note (.tbfly)
 
 This file is recommended for use with version control software like git.
 
-This file is **not** a zip archive, instead it is a _JSON_ file.
-It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+This file is **not** a zip archive; instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
 
 ### SVG
 
 This file type doesn't save information about the note!
 When this file is imported into Butterfly, it is treated as a single image.
 
-Use this _ONLY_ when the note shouldn't be modified by butterfly.
+Use this _ONLY_ when the note shouldn't be modified by Butterfly.
