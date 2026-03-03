@@ -34,7 +34,7 @@ Alcuni di loro sono scritti sotto i pulsanti.
 
 ## Penna
 
-Per impostazione predefinita, la penna è configurata per funzionare come segue:
+By default, the pen is configured to function as the following:
 
 - `Penna`: configurato come penna.
 - `First` (pulsante primario, se supportato): Cambia a mano mentre premuto lo strumento.
