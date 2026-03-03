@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Ocultar extensão do arquivo"
+  "hideFileExtension": "Ocultar extensão do arquivo",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Novo modelo",
+  "exportAsTextShortcut": "Exportar como texto",
+  "exportAsImageShortcut": "Exportar como imagem",
+  "exportAsPdfShortcut": "Exportar como PDF",
+  "exportAsSvgShortcut": "Exportar como SVG",
+  "changePathShortcut": "Alterar caminho",
+  "fullScreenShortcut": "Tela cheia",
+  "doublePressAction": "Ação de toque duplo",
+  "triplePressAction": "Ação de toque triplo",
+  "toolNumber": "Ferramenta {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

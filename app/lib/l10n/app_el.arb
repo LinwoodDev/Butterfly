@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Απόκρυψη επέκτασης αρχείου"
+  "hideFileExtension": "Απόκρυψη επέκτασης αρχείου",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Νέο από πρότυπο",
+  "exportAsTextShortcut": "Εξαγωγή ως κείμενο",
+  "exportAsImageShortcut": "Εξαγωγή ως εικόνα",
+  "exportAsPdfShortcut": "Εξαγωγή ως PDF",
+  "exportAsSvgShortcut": "Εξαγωγή ως SVG",
+  "changePathShortcut": "Αλλαγή διαδρομής",
+  "fullScreenShortcut": "Πλήρης οθόνη",
+  "doublePressAction": "Ενέργεια διπλού πατήματος",
+  "triplePressAction": "Ενέργεια τριπλού πατήματος",
+  "toolNumber": "Tool {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Скрыть расширение файла"
+  "hideFileExtension": "Скрыть расширение файла",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Новый из шаблона",
+  "exportAsTextShortcut": "Экспортировать как текст",
+  "exportAsImageShortcut": "Экспортировать как изображение",
+  "exportAsPdfShortcut": "Экспорт в PDF",
+  "exportAsSvgShortcut": "Экспорт в SVG",
+  "changePathShortcut": "Изменить путь",
+  "fullScreenShortcut": "На весь экран",
+  "doublePressAction": "Действие двойного нажатия",
+  "triplePressAction": "Действие с тройным нажатием",
+  "toolNumber": "Инструмент {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

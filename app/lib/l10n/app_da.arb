@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Skjul filendelse"
+  "hideFileExtension": "Skjul filendelse",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Ny fra skabelon",
+  "exportAsTextShortcut": "Eksporter som tekst",
+  "exportAsImageShortcut": "Eksporter som billede",
+  "exportAsPdfShortcut": "Eksporter som PDF",
+  "exportAsSvgShortcut": "Eksporter som SVG",
+  "changePathShortcut": "Skift sti",
+  "fullScreenShortcut": "Fuld skærm",
+  "doublePressAction": "Dobbelt tryk-handling",
+  "triplePressAction": "Tredobbelt tryk-handling",
+  "toolNumber": "Værktøj {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

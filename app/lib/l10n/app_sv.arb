@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Dölj filtillägg"
+  "hideFileExtension": "Dölj filtillägg",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Ny från mall",
+  "exportAsTextShortcut": "Exportera som text",
+  "exportAsImageShortcut": "Exportera som bild",
+  "exportAsPdfShortcut": "Exportera som PDF",
+  "exportAsSvgShortcut": "Exportera som SVG",
+  "changePathShortcut": "Ändra sökväg",
+  "fullScreenShortcut": "Helskärm",
+  "doublePressAction": "Åtgärd vid dubbeltryck",
+  "triplePressAction": "Trippel tryck åtgärd",
+  "toolNumber": "Verktyg {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

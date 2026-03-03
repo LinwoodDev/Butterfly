@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Bestandsextensie verbergen"
+  "hideFileExtension": "Bestandsextensie verbergen",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Nieuw van template",
+  "exportAsTextShortcut": "Exporteer als tekst",
+  "exportAsImageShortcut": "Exporteren als afbeelding",
+  "exportAsPdfShortcut": "Exporteren als PDF",
+  "exportAsSvgShortcut": "Exporteren als SVG",
+  "changePathShortcut": "Pad wijzigen",
+  "fullScreenShortcut": "Volledig scherm",
+  "doublePressAction": "Dubbel-klik actie",
+  "triplePressAction": "Drievoudig indrukken actie",
+  "toolNumber": "Gereedschap {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -1297,5 +1297,26 @@
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "Piilota tiedostopääte"
+  "hideFileExtension": "Piilota tiedostopääte",
+  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "@aspectRatioHint": {
+    "description": "Hint text for aspect ratio input"
+  },
+  "newFromTemplateShortcut": "Uusi mallista",
+  "exportAsTextShortcut": "Vie tekstinä",
+  "exportAsImageShortcut": "Vie kuvana",
+  "exportAsPdfShortcut": "Vie PDF:nä",
+  "exportAsSvgShortcut": "Vie SVG:nä",
+  "changePathShortcut": "Muuta polkua",
+  "fullScreenShortcut": "Koko näyttö",
+  "doublePressAction": "Kaksoispainalluksen tehtävä",
+  "triplePressAction": "Kolmen painalluksen tehtävä",
+  "toolNumber": "Työkalu {number}",
+  "@toolNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  }
 }
