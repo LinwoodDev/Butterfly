@@ -339,7 +339,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       data = data.removeAssets(unusedAssets.toList());
 
       cubit.changeSelection(Selection.fromList(selected), false);
-      _saveState(
+      return _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
         replacedElements: renderers,
