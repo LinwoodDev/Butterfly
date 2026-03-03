@@ -8,7 +8,7 @@ Die Ebenen werden von unten nach oben gezeichnet, so dass die obere Ebene vor al
 
 :::note\[Note]
 
-[Collections](../tools/collection) ist nicht dasselbe wie Ebenen. Sammlungen sind ein leichtgewichtiger Weg, um Elemente zu gruppieren, wirken sich aber nicht auf die Reihenfolge aus, in der sie dargestellt werden.
+[Collections](../tools/collection) ist nicht dasselbe wie Ebenen. Collections are a lightweight way to group elements, but do not affect the order in which they are rendered.
 
 :::
 
