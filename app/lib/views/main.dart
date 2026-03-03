@@ -359,62 +359,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                 previous.toolbarSize != current.toolbarSize ||
                                 previous.isInline != current.isInline,
                             builder: (context, settings) {
-                              final actions = <Type, Action<Intent>>{
-                                UndoIntent: UndoAction(context),
-                                RedoIntent: RedoAction(context),
-                                NewIntent: NewAction(context),
-                                SvgExportIntent: SvgExportAction(context),
-                                ImageExportIntent: ImageExportAction(context),
-                                PdfExportIntent: PdfExportAction(context),
-                                ExportIntent: ExportAction(context),
-                                SettingsIntent: SettingsAction(context),
-                                ColorPaletteIntent: ColorPaletteAction(context),
-                                BackgroundIntent: BackgroundAction(context),
-                                ChangePathIntent: ChangePathAction(context),
-                                SaveIntent: SaveAction(context),
-                                ChangeToolIntent: ChangeToolAction(context),
-                                PacksIntent: PacksAction(context),
-                                ExitIntent: ExitAction(context),
-                                FullScreenIntent: FullScreenAction(context),
-                                HideUIIntent: HideUIAction(context),
-                                NextIntent: NextAction(context),
-                                PreviousIntent: PreviousAction(context),
-                                TogglePresentationIntent:
-                                    TogglePresentationAction(context),
-                                PasteIntent: PasteAction(context),
-                                SelectAllIntent: SelectAllAction(context),
-                                ZoomIntent: ZoomAction(context),
-                                SearchIntent: CallbackAction<SearchIntent>(
-                                  onInvoke: (_) {
-                                    if (_searchController.isOpen) {
-                                      _searchController.closeView(null);
-                                      return null;
-                                    }
-                                    _searchController.openView();
-                                    return null;
-                                  },
-                                ),
-                              };
+                              final actions = _buildActions(context);
 
                               return ListenableBuilder(
                                 listenable: keybinder,
                                 builder: (context, child) {
-                                  var shortcuts = keybinder.getShortcuts();
-                                  if (widget.embedding != null) {
-                                    shortcuts = Map.from(shortcuts)
-                                      ..removeWhere((key, intent) {
-                                        return intent is ExportIntent ||
-                                            intent is ImageExportIntent ||
-                                            intent is PdfExportIntent ||
-                                            intent is SvgExportIntent ||
-                                            intent is SettingsIntent ||
-                                            intent is ChangePathIntent ||
-                                            intent is SaveIntent ||
-                                            intent is PacksIntent ||
-                                            intent is ZoomIntent ||
-                                            intent is ChangeToolIntent;
-                                      });
-                                  }
+                                  final shortcuts = _buildShortcuts();
                                   return Actions(
                                     actions: actions,
                                     child: Shortcuts(
@@ -474,6 +424,64 @@ class _ProjectPageState extends State<ProjectPage> {
         ? null
         : AppLocalizations.of(context).thereAreUnsavedChanges;
   }
+
+  Map<Type, Action<Intent>> _buildActions(BuildContext context) {
+    return <Type, Action<Intent>>{
+      UndoIntent: UndoAction(context),
+      RedoIntent: RedoAction(context),
+      NewIntent: NewAction(context),
+      SvgExportIntent: SvgExportAction(context),
+      ImageExportIntent: ImageExportAction(context),
+      PdfExportIntent: PdfExportAction(context),
+      ExportIntent: ExportAction(context),
+      SettingsIntent: SettingsAction(context),
+      ColorPaletteIntent: ColorPaletteAction(context),
+      BackgroundIntent: BackgroundAction(context),
+      ChangePathIntent: ChangePathAction(context),
+      SaveIntent: SaveAction(context),
+      ChangeToolIntent: ChangeToolAction(context),
+      PacksIntent: PacksAction(context),
+      ExitIntent: ExitAction(context),
+      FullScreenIntent: FullScreenAction(context),
+      HideUIIntent: HideUIAction(context),
+      NextIntent: NextAction(context),
+      PreviousIntent: PreviousAction(context),
+      TogglePresentationIntent: TogglePresentationAction(context),
+      PasteIntent: PasteAction(context),
+      SelectAllIntent: SelectAllAction(context),
+      ZoomIntent: ZoomAction(context),
+      SearchIntent: CallbackAction<SearchIntent>(
+        onInvoke: (_) {
+          if (_searchController.isOpen) {
+            _searchController.closeView(null);
+            return null;
+          }
+          _searchController.openView();
+          return null;
+        },
+      ),
+    };
+  }
+
+  Map<ShortcutActivator, Intent> _buildShortcuts() {
+    var shortcuts = keybinder.getShortcuts();
+    if (widget.embedding != null) {
+      shortcuts = Map.from(shortcuts)
+        ..removeWhere((key, intent) {
+          return intent is ExportIntent ||
+              intent is ImageExportIntent ||
+              intent is PdfExportIntent ||
+              intent is SvgExportIntent ||
+              intent is SettingsIntent ||
+              intent is ChangePathIntent ||
+              intent is SaveIntent ||
+              intent is PacksIntent ||
+              intent is ZoomIntent ||
+              intent is ChangeToolIntent;
+        });
+    }
+    return shortcuts;
+  }
 }
 
 class _MainBody extends StatelessWidget {
@@ -491,208 +499,220 @@ class _MainBody extends StatelessWidget {
             previous.pinned != current.pinned ||
             previous.selection != current.selection ||
             previous.hideUi != current.hideUi,
-        builder: (context, currentIndex) => BlocBuilder<WindowCubit, WindowState>(
-          builder: (context, windowState) => BlocBuilder<SettingsCubit, ButterflySettings>(
-            buildWhen: (previous, current) =>
-                previous.toolbarPosition != current.toolbarPosition ||
-                previous.toolbarSize != current.toolbarSize ||
-                previous.toolbarRows != current.toolbarRows ||
-                previous.navigationRail != current.navigationRail ||
-                previous.navigatorPosition != current.navigatorPosition ||
-                previous.optionsPanelPosition != current.optionsPanelPosition ||
-                previous.zoomPosition != current.zoomPosition,
-            builder: (context, settings) {
-              final pos = settings.toolbarPosition;
-              final optPos = settings.optionsPanelPosition;
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
-                  final Iterable<FlutterView> windowViews =
-                      PlatformDispatcher.instance.views;
-                  final double bottomInset = windowViews.isEmpty
-                      ? 0
-                      : windowViews.first.viewInsets.bottom /
-                            windowViews.first.devicePixelRatio;
-                  final bool isMobile =
-                      constraints.maxWidth < LeapBreakpoints.compact;
-                  final bool isLarge =
-                      constraints.maxWidth >= LeapBreakpoints.expanded &&
-                      (constraints.maxHeight + bottomInset) >= 400;
-                  final toolbar = EditToolbar(
-                    isMobile: isMobile,
-                    centered: true,
-                    direction: pos.axis,
-                  );
-                  final showNavigator =
-                      isLarge &&
-                      settings.navigationRail &&
-                      !windowState.fullScreen &&
-                      state is DocumentLoadSuccess &&
-                      currentIndex.hideUi == HideState.visible;
-                  return Stack(
-                    children: [
-                      const MainViewViewport(),
-                      Listener(
-                        behavior:
-                            currentIndex.pinned ||
-                                currentIndex.selection == null
-                            ? HitTestBehavior.translucent
-                            : HitTestBehavior.opaque,
-                        onPointerUp: (details) {
-                          if (currentIndex.pinned) return;
-                          context.read<CurrentIndexCubit>().resetSelection();
-                        },
-                      ),
-                      SafeArea(
-                        child: Row(
-                          textDirection: TextDirection.ltr,
-                          children: [
-                            if (showNavigator &&
-                                settings.navigatorPosition ==
-                                    NavigatorPosition.left)
-                              const NavigatorView(),
-                            if (pos == ToolbarPosition.left &&
-                                !isMobile &&
-                                currentIndex.hideUi == HideState.visible)
-                              toolbar,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  if ((((windowState.fullScreen ||
-                                                      settings.toolbarRows >
-                                                          1) &&
-                                                  pos ==
-                                                      ToolbarPosition.inline ||
-                                              pos == ToolbarPosition.top) &&
-                                          !isMobile) &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    toolbar,
-                                  if (optPos == OptionsPanelPosition.top &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    const ToolbarView(),
-                                  Expanded(
-                                    child: Stack(
-                                      children: [
-                                        const Align(
-                                          alignment: Alignment.topRight,
-                                          child: PropertyView(),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Align(
-                                            alignment:
-                                                switch (settings.zoomPosition) {
-                                                  ZoomPosition.topRight =>
-                                                    Alignment.topRight,
-                                                  ZoomPosition.topLeft =>
-                                                    Alignment.topLeft,
-                                                  ZoomPosition.bottomRight =>
-                                                    Alignment.bottomRight,
-                                                  ZoomPosition.bottomLeft =>
-                                                    Alignment.bottomLeft,
-                                                },
-                                            child: SizedBox(
-                                              width: isMobile ? 100 : 400,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    switch (settings
-                                                        .zoomPosition) {
-                                                      ZoomPosition.topRight ||
-                                                      ZoomPosition
-                                                          .bottomRight =>
-                                                        CrossAxisAlignment.end,
-                                                      ZoomPosition.topLeft ||
-                                                      ZoomPosition.bottomLeft =>
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    },
-                                                children: [
-                                                  Builder(
-                                                    builder: (context) {
-                                                      final isLeft =
-                                                          settings.zoomPosition ==
-                                                              ZoomPosition
-                                                                  .topLeft ||
-                                                          settings.zoomPosition ==
-                                                              ZoomPosition
-                                                                  .bottomLeft;
-                                                      final children = [
-                                                        const PenOnlyToggle(),
-                                                        Flexible(
-                                                          child: ZoomView(
-                                                            isMobile: isMobile,
-                                                          ),
-                                                        ),
-                                                      ];
-                                                      return Row(
-                                                        mainAxisAlignment:
-                                                            isLeft
-                                                            ? MainAxisAlignment
-                                                                  .start
-                                                            : MainAxisAlignment
-                                                                  .end,
-                                                        spacing: 8,
-                                                        children: isLeft
-                                                            ? children.reversed
-                                                                  .toList()
-                                                            : children,
-                                                      );
-                                                    },
-                                                  ),
-                                                  if (currentIndex.hideUi ==
-                                                      HideState.touch)
-                                                    FloatingActionButton.small(
-                                                      tooltip:
-                                                          AppLocalizations.of(
-                                                            context,
-                                                          ).exit,
-                                                      child: const Icon(
-                                                        PhosphorIconsLight.door,
-                                                      ),
-                                                      onPressed: () {
-                                                        context
-                                                            .read<
-                                                              CurrentIndexCubit
-                                                            >()
-                                                            .exitHideUI();
-                                                      },
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  if (optPos == OptionsPanelPosition.bottom &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    const ToolbarView(),
-                                  if ((isMobile ||
-                                          pos == ToolbarPosition.bottom) &&
-                                      currentIndex.hideUi == HideState.visible)
-                                    toolbar,
-                                ],
-                              ),
-                            ),
-                            if (pos == ToolbarPosition.right &&
-                                currentIndex.hideUi == HideState.visible)
-                              toolbar,
-                            if (showNavigator &&
-                                settings.navigatorPosition ==
-                                    NavigatorPosition.right)
-                              const NavigatorView(),
-                          ],
+        builder: (context, currentIndex) =>
+            BlocBuilder<WindowCubit, WindowState>(
+              builder: (context, windowState) =>
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                    buildWhen: (previous, current) =>
+                        previous.toolbarPosition != current.toolbarPosition ||
+                        previous.toolbarSize != current.toolbarSize ||
+                        previous.toolbarRows != current.toolbarRows ||
+                        previous.navigationRail != current.navigationRail ||
+                        previous.navigatorPosition !=
+                            current.navigatorPosition ||
+                        previous.optionsPanelPosition !=
+                            current.optionsPanelPosition ||
+                        previous.zoomPosition != current.zoomPosition,
+                    builder: (context, settings) {
+                      return LayoutBuilder(
+                        builder: (context, constraints) => _buildLayout(
+                          context,
+                          constraints,
+                          state,
+                          currentIndex,
+                          windowState,
+                          settings,
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                  ),
+            ),
+      ),
+    );
+  }
+
+  Widget _buildLayout(
+    BuildContext context,
+    BoxConstraints constraints,
+    DocumentState state,
+    CurrentIndex currentIndex,
+    WindowState windowState,
+    ButterflySettings settings,
+  ) {
+    // Use PlatformDispatcher as a workaround for MediaQuery.viewInsets not updating fast enough. See: https://stackoverflow.com/a/64473806
+    final Iterable<FlutterView> windowViews = PlatformDispatcher.instance.views;
+    final double bottomInset = windowViews.isEmpty
+        ? 0
+        : windowViews.first.viewInsets.bottom /
+              windowViews.first.devicePixelRatio;
+    final bool isMobile = constraints.maxWidth < LeapBreakpoints.compact;
+    final bool isLarge =
+        constraints.maxWidth >= LeapBreakpoints.expanded &&
+        (constraints.maxHeight + bottomInset) >= 400;
+
+    final toolbar = EditToolbar(
+      isMobile: isMobile,
+      centered: true,
+      direction: settings.toolbarPosition.axis,
+    );
+    final showNavigator =
+        isLarge &&
+        settings.navigationRail &&
+        !windowState.fullScreen &&
+        state is DocumentLoadSuccess &&
+        currentIndex.hideUi == HideState.visible;
+
+    return Stack(
+      children: [
+        const MainViewViewport(),
+        _buildSelectionListener(context, currentIndex),
+        SafeArea(
+          child: Row(
+            textDirection: TextDirection.ltr,
+            children: [
+              if (showNavigator &&
+                  settings.navigatorPosition == NavigatorPosition.left)
+                const NavigatorView(),
+              if (settings.toolbarPosition == ToolbarPosition.left &&
+                  !isMobile &&
+                  currentIndex.hideUi == HideState.visible)
+                toolbar,
+              _buildCenterColumn(
+                context,
+                settings,
+                windowState,
+                currentIndex,
+                isMobile,
+                toolbar,
+              ),
+              if (settings.toolbarPosition == ToolbarPosition.right &&
+                  currentIndex.hideUi == HideState.visible)
+                toolbar,
+              if (showNavigator &&
+                  settings.navigatorPosition == NavigatorPosition.right)
+                const NavigatorView(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSelectionListener(
+    BuildContext context,
+    CurrentIndex currentIndex,
+  ) {
+    return Listener(
+      behavior: currentIndex.pinned || currentIndex.selection == null
+          ? HitTestBehavior.translucent
+          : HitTestBehavior.opaque,
+      onPointerUp: (details) {
+        if (currentIndex.pinned) return;
+        context.read<CurrentIndexCubit>().resetSelection();
+      },
+    );
+  }
+
+  Widget _buildCenterColumn(
+    BuildContext context,
+    ButterflySettings settings,
+    WindowState windowState,
+    CurrentIndex currentIndex,
+    bool isMobile,
+    Widget toolbar,
+  ) {
+    final pos = settings.toolbarPosition;
+    final optPos = settings.optionsPanelPosition;
+    final showToolbar =
+        (((windowState.fullScreen || settings.toolbarRows > 1) &&
+                    pos == ToolbarPosition.inline ||
+                pos == ToolbarPosition.top) &&
+            !isMobile) &&
+        currentIndex.hideUi == HideState.visible;
+
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (showToolbar) toolbar,
+          if (optPos == OptionsPanelPosition.top &&
+              currentIndex.hideUi == HideState.visible)
+            const ToolbarView(),
+          Expanded(
+            child: Stack(
+              children: [
+                _buildZoomAndTools(context, settings, isMobile, currentIndex),
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: PropertyView(),
+                ),
+              ],
+            ),
+          ),
+          if (optPos == OptionsPanelPosition.bottom &&
+              currentIndex.hideUi == HideState.visible)
+            const ToolbarView(),
+          if ((isMobile || pos == ToolbarPosition.bottom) &&
+              currentIndex.hideUi == HideState.visible)
+            toolbar,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildZoomAndTools(
+    BuildContext context,
+    ButterflySettings settings,
+    bool isMobile,
+    CurrentIndex currentIndex,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Align(
+        alignment: switch (settings.zoomPosition) {
+          ZoomPosition.topRight => Alignment.topRight,
+          ZoomPosition.topLeft => Alignment.topLeft,
+          ZoomPosition.bottomRight => Alignment.bottomRight,
+          ZoomPosition.bottomLeft => Alignment.bottomLeft,
+        },
+        child: SizedBox(
+          width: isMobile ? 100 : 400,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: switch (settings.zoomPosition) {
+              ZoomPosition.topRight ||
+              ZoomPosition.bottomRight => CrossAxisAlignment.end,
+              ZoomPosition.topLeft ||
+              ZoomPosition.bottomLeft => CrossAxisAlignment.start,
+            },
+            children: [
+              Builder(
+                builder: (context) {
+                  final isLeft =
+                      settings.zoomPosition == ZoomPosition.topLeft ||
+                      settings.zoomPosition == ZoomPosition.bottomLeft;
+                  final children = [
+                    const PenOnlyToggle(),
+                    Flexible(child: ZoomView(isMobile: isMobile)),
+                  ];
+                  return Row(
+                    mainAxisAlignment: isLeft
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.end,
+                    spacing: 8,
+                    children: isLeft ? children.reversed.toList() : children,
                   );
                 },
-              );
-            },
+              ),
+              if (currentIndex.hideUi == HideState.touch)
+                FloatingActionButton.small(
+                  tooltip: AppLocalizations.of(context).exit,
+                  child: const Icon(PhosphorIconsLight.door),
+                  onPressed: () {
+                    context.read<CurrentIndexCubit>().exitHideUI();
+                  },
+                ),
+            ],
           ),
         ),
       ),

@@ -24,5 +24,7 @@
 * Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
 * Fix a rendering issue related to element baking
 * Fix desyncronization of renderers when concurrently changing elements
+* Fix property view overlapping with zoom and pen only toggle controls
+* Fix zoom control position preference not saving properly
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.3

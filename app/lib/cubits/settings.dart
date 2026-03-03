@@ -434,6 +434,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               .toList() ??
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
+      zoomPosition: prefs.containsKey('zoom_position')
+          ? ZoomPosition.values.byName(prefs.getString('zoom_position')!)
+          : ZoomPosition.bottomRight,
       lastVersion: prefs.getString('last_version'),
       connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
@@ -578,6 +581,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       history.map((e) => e.toJson()).toList(),
     );
     await prefs.setBool('zoom_enabled', zoomEnabled);
+    await prefs.setString('zoom_position', zoomPosition.name);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
