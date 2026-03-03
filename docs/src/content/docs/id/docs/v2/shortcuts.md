@@ -34,7 +34,7 @@ Some of them are written below the buttons.
 
 ## Pen
 
-By default, the the pen is configured to function as the following:
+By default, the pen is configured to function as the following:
 
 - `Pen`: configured as pen.
 - `First` (Primary button, if supported): Change to hand tool while pressed.
