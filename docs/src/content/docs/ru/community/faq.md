@@ -23,6 +23,8 @@ Brave Пользователи, которые установили параме
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 Я использую вход, предоставленный флэттер.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### Ввод Stylus не распознан
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Я использую вход, предоставленный флэттер.
 There are already issues to track it:
