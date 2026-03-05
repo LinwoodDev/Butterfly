@@ -6,7 +6,7 @@
 	* Increase performance by avoiding redundant viewport baking
 	* Add missing pause shortcut configuration via space bar
 	* Automatically pause properly when hitting begin or end of presentation slider bounds
-	* Optimize toolbar layout and timeline visualization to fit cleanly on narrow mobile devices 
+	* Optimize toolbar layout and timeline visualization to fit cleanly on narrow mobile devices
 	* Improve mouse click interactions on slides vs natural touch inputs
 	* Fix swipe down action to exit presentation
   * Fix pdf export not showing the correct position
