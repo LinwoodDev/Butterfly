@@ -1,5 +1,6 @@
 * Add selective exporting in data settings
 * Add hold shortcuts ([#992](https://github.com/LinwoodDev/Butterfly/issues/992))
+* Add option to enable/disable thumbnails for notes ([#984](https://github.com/LinwoodDev/Butterfly/issues/984))
 * Fix undo/redo state not updating in toolbar
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.0

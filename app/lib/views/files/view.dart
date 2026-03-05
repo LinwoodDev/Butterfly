@@ -578,7 +578,13 @@ class FilesViewState extends State<FilesView> {
                               snapshot.data?.map((e) {
                                 final data = e.data!;
                                 final metadata = data.getMetadata();
-                                final thumbnail = data.getThumbnail();
+                                final thumbnail =
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .showThumbnails
+                                    ? data.getThumbnail()
+                                    : null;
                                 return MenuItemButton(
                                   leadingIcon: thumbnail == null
                                       ? null
@@ -608,7 +614,13 @@ class FilesViewState extends State<FilesView> {
                               snapshot.data?.map((e) {
                                 final data = e.data!;
                                 final metadata = data.getMetadata();
-                                final thumbnail = data.getThumbnail();
+                                final thumbnail =
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .showThumbnails
+                                    ? data.getThumbnail()
+                                    : null;
                                 return MenuItemButton(
                                   leadingIcon: thumbnail == null
                                       ? null

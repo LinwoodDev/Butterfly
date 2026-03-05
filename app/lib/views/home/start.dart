@@ -171,7 +171,10 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 }
                 final children = templates.map((e) {
                   final data = e.file;
-                  final thumbnail = data.getThumbnail();
+                  final thumbnail =
+                      context.read<SettingsCubit>().state.showThumbnails
+                      ? data.getThumbnail()
+                      : null;
                   final metadata = data.getMetadata()!;
                   return AssetCard(
                     metadata: metadata,

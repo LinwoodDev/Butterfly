@@ -41,6 +41,16 @@ class ViewSettingsPage extends StatelessWidget {
                             .read<SettingsCubit>()
                             .changeZoomEnabled(value),
                       ),
+                      SwitchListTile(
+                        secondary: const PhosphorIcon(PhosphorIconsLight.image),
+                        title: Text(
+                          AppLocalizations.of(context).showThumbnails,
+                        ),
+                        value: state.showThumbnails,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeShowThumbnails(value),
+                      ),
                       if (state.zoomEnabled)
                         ListTile(
                           leading: const PhosphorIcon(

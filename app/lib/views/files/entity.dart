@@ -135,19 +135,24 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final entity = widget.entity;
     try {
       if (entity is FileSystemFile<NoteFile>) {
-        final data = entity.data?.load();
+        final data = context.read<SettingsCubit>().state.showThumbnails
+            ? entity.data?.load()
+            : null;
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
         if (entity.data?.isEncrypted() ?? false) {
           icon = PhosphorIconsLight.lock;
         }
-        thumbnail = data?.getThumbnail();
-        if (thumbnail?.isEmpty ?? false) thumbnail = null;
-        metadata = data?.getMetadata();
+        if (data != null) {
+          thumbnail = data.getThumbnail();
+          if (thumbnail?.isEmpty ?? false) thumbnail = null;
+          metadata = data.getMetadata();
+        }
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
-        modifiedText = metadata?.updatedAt != null
-            ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
+        final updatedAt = metadata?.updatedAt ?? entity.lastModified;
+        modifiedText = updatedAt != null
+            ? '${dateFormatter.format(updatedAt)} ${timeFormatter.format(updatedAt)}'
             : null;
         createdText = metadata?.createdAt != null
             ? '${dateFormatter.format(metadata!.createdAt!)} ${timeFormatter.format(metadata.createdAt!)}'

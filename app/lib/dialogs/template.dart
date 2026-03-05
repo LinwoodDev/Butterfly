@@ -258,7 +258,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
             context: context,
             titleBuilder: (context) => Text(template.data!.name ?? ''),
             leadingBuilder: (context) {
-              final thumbnail = template.data!.getThumbnail();
+              final thumbnail =
+                  context.read<SettingsCubit>().state.showThumbnails
+                  ? template.data!.getThumbnail()
+                  : null;
               const fallback = PhosphorIcon(
                 PhosphorIconsLight.file,
                 textDirection: TextDirection.ltr,
@@ -770,7 +773,9 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         widget.template.getMetadata() ??
         FileMetadata(type: NoteFileType.template);
     final info = widget.template.getInfo();
-    final thumbnail = widget.template.getThumbnail();
+    final thumbnail = context.read<SettingsCubit>().state.showThumbnails
+        ? widget.template.getThumbnail()
+        : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
       textDirection: TextDirection.ltr,
@@ -988,7 +993,9 @@ class _TemplateItem extends StatelessWidget {
     if (metadata == null) {
       return const SizedBox();
     }
-    final thumbnail = template.getThumbnail();
+    final thumbnail = context.read<SettingsCubit>().state.showThumbnails
+        ? template.getThumbnail()
+        : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
       textDirection: TextDirection.ltr,
@@ -1113,7 +1120,9 @@ class _TemplateCard extends StatelessWidget {
     if (metadata == null) {
       return const SizedBox();
     }
-    final thumbnail = template.getThumbnail();
+    final thumbnail = context.read<SettingsCubit>().state.showThumbnails
+        ? template.getThumbnail()
+        : null;
     const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
       textDirection: TextDirection.ltr,

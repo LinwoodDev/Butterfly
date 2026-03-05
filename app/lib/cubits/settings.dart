@@ -396,6 +396,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([]) List<String> swamps,
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
+    @Default(true) bool showThumbnails,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -1275,6 +1276,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowVerboseLogs(bool value) {
     emit(state.copyWith(showVerboseLogs: value));
+    return save();
+  }
+
+  Future<void> changeShowThumbnails(bool value) {
+    emit(state.copyWith(showThumbnails: value));
     return save();
   }
 }

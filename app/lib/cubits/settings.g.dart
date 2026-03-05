@@ -202,6 +202,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
           Map<String, dynamic>.from(json['selectedPalette'] as Map),
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
+  showThumbnails: json['showThumbnails'] as bool? ?? true,
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -266,6 +267,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
+  'showThumbnails': instance.showThumbnails,
 };
 
 const _$ThemeModeEnumMap = {
