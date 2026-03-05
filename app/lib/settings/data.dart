@@ -144,14 +144,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           AppLocalizations.of(context).exportAllFiles,
                         ),
                         leading: const PhosphorIcon(PhosphorIconsLight.export),
-                        onTap: () async {
-                          final directory = await _documentSystem.fileSystem
-                              .getRootDirectory(listLevel: allListLevel);
-                          final archive = exportDirectory(directory);
-                          final encoder = ZipEncoder();
-                          final bytes = encoder.encodeBytes(archive);
-                          exportZip(context, bytes);
-                        },
+                        onTap: () => _exportData(context),
                       ),
                     ],
                   ),
@@ -303,6 +296,210 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
           ];
         });
   } */
+
+  Future<void> _exportData(BuildContext context) async {
+    final localizations = AppLocalizations.of(context);
+    bool exportDocuments = true;
+    bool exportPacks = true;
+    bool exportTemplates = true;
+    double? exportProgress;
+
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            final isExporting = exportProgress != null;
+            return AlertDialog(
+              title: Text(localizations.exportAllFiles),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CheckboxListTile(
+                    title: Text(localizations.files),
+                    value: exportDocuments,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportDocuments = value ?? false),
+                  ),
+                  CheckboxListTile(
+                    title: Text(localizations.packs),
+                    value: exportPacks,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportPacks = value ?? false),
+                  ),
+                  CheckboxListTile(
+                    title: Text(localizations.templates),
+                    value: exportTemplates,
+                    onChanged: isExporting
+                        ? null
+                        : (value) =>
+                              setState(() => exportTemplates = value ?? false),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isExporting
+                      ? null
+                      : () => Navigator.of(context).pop(),
+                  child: Text(
+                    MaterialLocalizations.of(context).cancelButtonLabel,
+                  ),
+                ),
+                TextButton(
+                  onPressed: isExporting
+                      ? null
+                      : () async {
+                          if (!exportDocuments &&
+                              !exportPacks &&
+                              !exportTemplates) {
+                            return;
+                          }
+
+                          setState(() => exportProgress = -1.0);
+
+                          try {
+                            final fs = context.read<ButterflyFileSystem>();
+                            final archive = Archive();
+                            final multiple =
+                                [
+                                  exportDocuments,
+                                  exportPacks,
+                                  exportTemplates,
+                                ].where((e) => e).length >
+                                1;
+
+                            List<String> packKeys = [];
+                            List<String> templateKeys = [];
+
+                            if (exportPacks) {
+                              packKeys = await fs.buildPackSystem().getKeys();
+                            }
+                            if (exportTemplates) {
+                              templateKeys = await fs
+                                  .buildTemplateSystem()
+                                  .getKeys();
+                            }
+
+                            int totalTasks =
+                                (exportDocuments ? 1 : 0) +
+                                packKeys.length +
+                                templateKeys.length +
+                                1; // +1 for zip
+                            int completedTasks = 0;
+
+                            void updateProgress() {
+                              if (totalTasks > 0) {
+                                setState(
+                                  () => exportProgress =
+                                      completedTasks / totalTasks,
+                                );
+                              }
+                            }
+
+                            updateProgress();
+
+                            if (exportDocuments) {
+                              final directory = await _documentSystem.fileSystem
+                                  .getRootDirectory(listLevel: allListLevel);
+                              final docArchive = exportDirectory(directory);
+                              for (final file in docArchive.files) {
+                                archive.addFile(
+                                  ArchiveFile.bytes(
+                                    multiple
+                                        ? 'Documents/${file.name}'
+                                        : file.name,
+                                    file.content as List<int>,
+                                  ),
+                                );
+                              }
+                              completedTasks++;
+                              updateProgress();
+                            }
+
+                            if (exportPacks) {
+                              final packSystem = fs.buildPackSystem();
+                              for (final key in packKeys) {
+                                final data = await packSystem.fileSystem
+                                    .getFile(key);
+                                if (data != null) {
+                                  archive.addFile(
+                                    ArchiveFile.bytes(
+                                      multiple ? 'Packs/$key' : key,
+                                      data,
+                                    ),
+                                  );
+                                }
+                                completedTasks++;
+                                updateProgress();
+                              }
+                            }
+
+                            if (exportTemplates) {
+                              final templateSystem = fs.buildTemplateSystem();
+                              for (final key in templateKeys) {
+                                final data = await templateSystem.fileSystem
+                                    .getFile(key);
+                                if (data != null) {
+                                  archive.addFile(
+                                    ArchiveFile.bytes(
+                                      multiple ? 'Templates/$key' : key,
+                                      data,
+                                    ),
+                                  );
+                                }
+                                completedTasks++;
+                                updateProgress();
+                              }
+                            }
+
+                            // Small delay to allow UI to render the 99% progress
+                            // before ZipEncoder blocks the thread synchronously.
+                            await Future.delayed(
+                              const Duration(milliseconds: 50),
+                            );
+
+                            final encoder = ZipEncoder();
+                            final bytes = encoder.encodeBytes(archive);
+                            completedTasks++;
+                            updateProgress();
+
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                              exportZip(context, bytes);
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              setState(() => exportProgress = null);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            }
+                          }
+                        },
+                  child: isExporting
+                      ? SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: exportProgress! < 0 ? null : exportProgress,
+                          ),
+                        )
+                      : Text(localizations.export),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
