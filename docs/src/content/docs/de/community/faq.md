@@ -23,6 +23,8 @@ Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 Ich benutze die Eingabe des Flutter-Frameworks.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### Stylus Eingabe wird nicht erkannt
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
 There are already issues to track it:
