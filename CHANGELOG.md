@@ -2,6 +2,40 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-beta.3 (2026-03-05)
+
+* Add default name when creating new areas
+* Add main menu to the edit toolbar in full screen mode
+* Add double and triple press shortcuts for touch input ([#976](https://github.com/LinwoodDev/Butterfly/issues/976))
+* Add thumbnail capturing setting with interactive selection dialog ([#944](https://github.com/LinwoodDev/Butterfly/issues/944))
+* Improve presentation mode and tools
+	* Increase performance by avoiding redundant viewport baking
+	* Add missing pause shortcut configuration via space bar
+	* Automatically pause properly when hitting begin or end of presentation slider bounds
+	* Optimize toolbar layout and timeline visualization to fit cleanly on narrow mobile devices
+	* Improve mouse click interactions on slides vs natural touch inputs
+	* Fix swipe down action to exit presentation
+  * Fix pdf export not showing the correct position
+* Change double tap context menu shortcut to long press to avoid conflicts with new shortcuts
+* Improve area size selection UI by having simple width/height inputs and a preset selector
+* Improve aspect ratio selection UI with presets and ratio text support
+* Improve svg and image background rendering
+* Fix area tool aspect ratio constraint resizing issue
+* Fix files are overwritten if importing failed
+* Fix web embedding system
+* Fix controls at the bottom being cut out on some devices
+* Fix tool properties not updating if tool was newly created or updated
+* Fix top corner menu could have invalid size
+* Improve WebDAV implementation and performance (sorting, directory caching)
+* Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
+* Fix a rendering issue related to element baking
+* Fix desyncronization of renderers when concurrently changing elements
+* Fix property view overlapping with zoom and pen only toggle controls
+* Fix zoom control position preference not saving properly
+* Fix keybinder recording not toggling
+
+Read more here: https://linwood.dev/butterfly/2.5.0-beta.3
+
 ## 2.5.0-beta.2 (2026-02-26)
 
 * Add support for opening an area as initial view
