@@ -23,6 +23,8 @@ title: الأسئلة المتكررة
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 ### لم يتم التعرف على إدخال Stylus
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
 هناك بالفعل مشاكل لتعقبها:
