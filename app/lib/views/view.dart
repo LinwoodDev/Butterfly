@@ -367,6 +367,15 @@ class _MainViewViewportState extends State<MainViewViewport>
                 default:
                   nextPointerMapping = null;
               }
+
+              final pressedKeys = HardwareKeyboard.instance.logicalKeysPressed;
+              for (final shortcut in config.holdShortcuts) {
+                if (pressedKeys.contains(LogicalKeyboardKey(shortcut.keyId))) {
+                  nextPointerMapping = shortcut.mapping;
+                  break;
+                }
+              }
+
               if (nextPointerMapping == null ||
                   nextPointerMapping.getCategory() ==
                       InputMappingCategory.activeTool) {

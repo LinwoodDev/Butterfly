@@ -194,6 +194,17 @@ extension type const InputMapping(int value) {
 }
 
 @freezed
+sealed class HoldShortcut with _$HoldShortcut {
+  const factory HoldShortcut({
+    required int keyId,
+    required InputMapping mapping,
+  }) = _HoldShortcut;
+
+  factory HoldShortcut.fromJson(Map<String, dynamic> json) =>
+      _$HoldShortcutFromJson(json);
+}
+
+@freezed
 sealed class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
 
@@ -206,6 +217,7 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
+    @Default([]) List<HoldShortcut> holdShortcuts,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
   }) = _InputConfiguration;
@@ -222,6 +234,7 @@ sealed class InputConfiguration with _$InputConfiguration {
     firstPenButton,
     secondPenButton,
     touch,
+    ...holdShortcuts.map((e) => e.mapping),
   }.toSet();
 }
 

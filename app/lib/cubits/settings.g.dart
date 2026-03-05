@@ -14,6 +14,17 @@ _FavoriteLocation _$FavoriteLocationFromJson(Map json) => _FavoriteLocation(
 Map<String, dynamic> _$FavoriteLocationToJson(_FavoriteLocation instance) =>
     <String, dynamic>{'remote': instance.remote, 'path': instance.path};
 
+_HoldShortcut _$HoldShortcutFromJson(Map json) => _HoldShortcut(
+  keyId: (json['keyId'] as num).toInt(),
+  mapping: InputMapping.fromJson((json['mapping'] as num).toInt()),
+);
+
+Map<String, dynamic> _$HoldShortcutToJson(_HoldShortcut instance) =>
+    <String, dynamic>{
+      'keyId': instance.keyId,
+      'mapping': instance.mapping.toJson(),
+    };
+
 _InputConfiguration _$InputConfigurationFromJson(Map json) =>
     _InputConfiguration(
       leftMouse: json['leftMouse'] == null
@@ -40,6 +51,14 @@ _InputConfiguration _$InputConfigurationFromJson(Map json) =>
       touch: json['touch'] == null
           ? InputMappingDefault.touch
           : InputMapping.fromJson((json['touch'] as num).toInt()),
+      holdShortcuts:
+          (json['holdShortcuts'] as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    HoldShortcut.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
+              .toList() ??
+          const [],
       doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
       tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
     );
@@ -54,6 +73,7 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'firstPenButton': instance.firstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),
       'touch': instance.touch.toJson(),
+      'holdShortcuts': instance.holdShortcuts.map((e) => e.toJson()).toList(),
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
     };

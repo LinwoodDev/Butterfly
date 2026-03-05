@@ -162,9 +162,158 @@ as String,
 
 
 /// @nodoc
+mixin _$HoldShortcut implements DiagnosticableTreeMixin {
+
+ int get keyId; InputMapping get mapping;
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HoldShortcutCopyWith<HoldShortcut> get copyWith => _$HoldShortcutCopyWithImpl<HoldShortcut>(this as HoldShortcut, _$identity);
+
+  /// Serializes this HoldShortcut to a JSON map.
+  Map<String, dynamic> toJson();
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HoldShortcut'))
+    ..add(DiagnosticsProperty('keyId', keyId))..add(DiagnosticsProperty('mapping', mapping));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HoldShortcut&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.mapping, mapping) || other.mapping == mapping));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,keyId,mapping);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HoldShortcut(keyId: $keyId, mapping: $mapping)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HoldShortcutCopyWith<$Res>  {
+  factory $HoldShortcutCopyWith(HoldShortcut value, $Res Function(HoldShortcut) _then) = _$HoldShortcutCopyWithImpl;
+@useResult
+$Res call({
+ int keyId, InputMapping mapping
+});
+
+
+
+
+}
+/// @nodoc
+class _$HoldShortcutCopyWithImpl<$Res>
+    implements $HoldShortcutCopyWith<$Res> {
+  _$HoldShortcutCopyWithImpl(this._self, this._then);
+
+  final HoldShortcut _self;
+  final $Res Function(HoldShortcut) _then;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? keyId = null,Object? mapping = null,}) {
+  return _then(_self.copyWith(
+keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
+as int,mapping: null == mapping ? _self.mapping : mapping // ignore: cast_nullable_to_non_nullable
+as InputMapping,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _HoldShortcut with DiagnosticableTreeMixin implements HoldShortcut {
+  const _HoldShortcut({required this.keyId, required this.mapping});
+  factory _HoldShortcut.fromJson(Map<String, dynamic> json) => _$HoldShortcutFromJson(json);
+
+@override final  int keyId;
+@override final  InputMapping mapping;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$HoldShortcutCopyWith<_HoldShortcut> get copyWith => __$HoldShortcutCopyWithImpl<_HoldShortcut>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$HoldShortcutToJson(this, );
+}
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HoldShortcut'))
+    ..add(DiagnosticsProperty('keyId', keyId))..add(DiagnosticsProperty('mapping', mapping));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HoldShortcut&&(identical(other.keyId, keyId) || other.keyId == keyId)&&(identical(other.mapping, mapping) || other.mapping == mapping));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,keyId,mapping);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HoldShortcut(keyId: $keyId, mapping: $mapping)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$HoldShortcutCopyWith<$Res> implements $HoldShortcutCopyWith<$Res> {
+  factory _$HoldShortcutCopyWith(_HoldShortcut value, $Res Function(_HoldShortcut) _then) = __$HoldShortcutCopyWithImpl;
+@override @useResult
+$Res call({
+ int keyId, InputMapping mapping
+});
+
+
+
+
+}
+/// @nodoc
+class __$HoldShortcutCopyWithImpl<$Res>
+    implements _$HoldShortcutCopyWith<$Res> {
+  __$HoldShortcutCopyWithImpl(this._self, this._then);
+
+  final _HoldShortcut _self;
+  final $Res Function(_HoldShortcut) _then;
+
+/// Create a copy of HoldShortcut
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? keyId = null,Object? mapping = null,}) {
+  return _then(_HoldShortcut(
+keyId: null == keyId ? _self.keyId : keyId // ignore: cast_nullable_to_non_nullable
+as int,mapping: null == mapping ? _self.mapping : mapping // ignore: cast_nullable_to_non_nullable
+as InputMapping,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$InputConfiguration implements DiagnosticableTreeMixin {
 
- InputMapping get leftMouse; InputMapping get middleMouse; InputMapping get rightMouse; InputMapping get pen; InputMapping get invertedPen; InputMapping get firstPenButton; InputMapping get secondPenButton; InputMapping get touch; String? get doubleTouchShortcut; String? get tripleTouchShortcut;
+ InputMapping get leftMouse; InputMapping get middleMouse; InputMapping get rightMouse; InputMapping get pen; InputMapping get invertedPen; InputMapping get firstPenButton; InputMapping get secondPenButton; InputMapping get touch; List<HoldShortcut> get holdShortcuts; String? get doubleTouchShortcut; String? get tripleTouchShortcut;
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -178,21 +327,21 @@ $InputConfigurationCopyWith<InputConfiguration> get copyWith => _$InputConfigura
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other.holdShortcuts, holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,doubleTouchShortcut,tripleTouchShortcut);
+int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(holdShortcuts),doubleTouchShortcut,tripleTouchShortcut);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
+  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -203,7 +352,7 @@ abstract mixin class $InputConfigurationCopyWith<$Res>  {
   factory $InputConfigurationCopyWith(InputConfiguration value, $Res Function(InputConfiguration) _then) = _$InputConfigurationCopyWithImpl;
 @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, String? doubleTouchShortcut, String? tripleTouchShortcut
+ InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -220,7 +369,7 @@ class _$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_self.copyWith(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
@@ -230,7 +379,8 @@ as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedP
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
-as InputMapping,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as InputMapping,holdShortcuts: null == holdShortcuts ? _self.holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
+as List<HoldShortcut>,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
 as String?,tripleTouchShortcut: freezed == tripleTouchShortcut ? _self.tripleTouchShortcut : tripleTouchShortcut // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -244,7 +394,7 @@ as String?,
 @JsonSerializable()
 
 class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixin {
-  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch, this.doubleTouchShortcut, this.tripleTouchShortcut}): super._();
+  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch, final  List<HoldShortcut> holdShortcuts = const [], this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) => _$InputConfigurationFromJson(json);
 
 @override@JsonKey() final  InputMapping leftMouse;
@@ -255,6 +405,13 @@ class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixi
 @override@JsonKey() final  InputMapping firstPenButton;
 @override@JsonKey() final  InputMapping secondPenButton;
 @override@JsonKey() final  InputMapping touch;
+ final  List<HoldShortcut> _holdShortcuts;
+@override@JsonKey() List<HoldShortcut> get holdShortcuts {
+  if (_holdShortcuts is EqualUnmodifiableListView) return _holdShortcuts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_holdShortcuts);
+}
+
 @override final  String? doubleTouchShortcut;
 @override final  String? tripleTouchShortcut;
 
@@ -272,21 +429,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other._holdShortcuts, _holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,doubleTouchShortcut,tripleTouchShortcut);
+int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(_holdShortcuts),doubleTouchShortcut,tripleTouchShortcut);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
+  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -297,7 +454,7 @@ abstract mixin class _$InputConfigurationCopyWith<$Res> implements $InputConfigu
   factory _$InputConfigurationCopyWith(_InputConfiguration value, $Res Function(_InputConfiguration) _then) = __$InputConfigurationCopyWithImpl;
 @override @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, String? doubleTouchShortcut, String? tripleTouchShortcut
+ InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -314,7 +471,7 @@ class __$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_InputConfiguration(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
@@ -324,7 +481,8 @@ as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedP
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
-as InputMapping,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
+as InputMapping,holdShortcuts: null == holdShortcuts ? _self._holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
+as List<HoldShortcut>,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
 as String?,tripleTouchShortcut: freezed == tripleTouchShortcut ? _self.tripleTouchShortcut : tripleTouchShortcut // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
