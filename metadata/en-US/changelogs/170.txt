@@ -1,0 +1,3 @@
+* Fix undo/redo state not updating in toolbar
+
+Read more here: https://linwood.dev/butterfly/2.5.0-rc.0

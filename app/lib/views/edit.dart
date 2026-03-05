@@ -79,10 +79,6 @@ class _EditToolbarState extends State<EditToolbar> {
           final shortcuts = settings.inputConfiguration.getShortcuts();
           final size = settings.toolbarSize.size;
           return BlocBuilder<DocumentBloc, DocumentState>(
-            buildWhen: (previous, current) =>
-                previous is! DocumentLoadSuccess ||
-                current is! DocumentLoadSuccess ||
-                (previous.info.tools != current.info.tools),
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               final tools = state.info.tools;
