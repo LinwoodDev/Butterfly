@@ -235,6 +235,10 @@ export default defineConfig({
               link: "/community/faq/",
             },
             {
+              ...getSidebarTranslatedLabel("Stylus support"),
+              link: "/community/stylus-support/",
+            },
+            {
               ...getSidebarTranslatedLabel("Comparison"),
               link: "/community/comparison/",
             },
