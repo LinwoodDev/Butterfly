@@ -1318,5 +1318,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }
