@@ -23,6 +23,8 @@ title: 常见问题
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 我使用流体框架提供的输入。
 查看相关issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
 
@@ -57,6 +59,8 @@ Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.de
 ### 笔输入无法识别
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 我使用流体框架提供的输入。
 查看相关issue: Windows[flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) 以及 [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
