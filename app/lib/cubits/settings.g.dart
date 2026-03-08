@@ -125,6 +125,14 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   starred:
       (json['starred'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
+  favoriteTemplates:
+      (json['favoriteTemplates'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                FavoriteLocation.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
   defaultTemplate: json['defaultTemplate'] as String? ?? '',
   navigatorPosition:
       $enumDecodeNullable(
@@ -233,6 +241,9 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'inputConfiguration': instance.inputConfiguration.toJson(),
   'fallbackPack': instance.fallbackPack,
   'starred': instance.starred,
+  'favoriteTemplates': instance.favoriteTemplates
+      .map((e) => e.toJson())
+      .toList(),
   'defaultTemplate': instance.defaultTemplate,
   'navigatorPosition': _$NavigatorPositionEnumMap[instance.navigatorPosition]!,
   'toolbarPosition': _$ToolbarPositionEnumMap[instance.toolbarPosition]!,

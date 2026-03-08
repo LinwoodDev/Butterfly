@@ -361,9 +361,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
-    @Default([])
-    @JsonKey(includeFromJson: false, includeToJson: false)
-    List<FavoriteLocation> favoriteTemplates,
+    @Default([]) List<FavoriteLocation> favoriteTemplates,
     @Default('') String defaultTemplate,
     @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
