@@ -63,6 +63,7 @@ class TouchInputSettings extends StatelessWidget {
 
     final availableShortcuts = [
       (null, AppLocalizations.of(context).none),
+      ('long_press', AppLocalizations.of(context).longPress),
       ...projectShortcuts.map((e) => (e.id, e.getLocalizedName(context))),
     ];
 

@@ -212,11 +212,39 @@ class _MainViewViewportState extends State<MainViewViewport>
           }
 
           if (shortcutId != null && shortcutId.isNotEmpty) {
-            final def = keybinder.definitions.firstWhereOrNull(
-              (d) => d.id == shortcutId,
-            );
-            if (def != null) {
-              Actions.maybeInvoke(context, def.intent);
+            if (shortcutId == 'long_press') {
+              final firstEvent = _bufferedEvents.first;
+              final handler = getHandler();
+              final eventContext = getEventContext();
+              handler.onLongPressDown(
+                LongPressDownDetails(
+                  globalPosition: firstEvent.position,
+                  localPosition: firstEvent.localPosition,
+                  kind: PointerDeviceKind.touch,
+                ),
+                eventContext,
+              );
+              handler.onLongPressStart(
+                LongPressStartDetails(
+                  globalPosition: firstEvent.position,
+                  localPosition: firstEvent.localPosition,
+                ),
+                eventContext,
+              );
+              handler.onLongPressEnd(
+                LongPressEndDetails(
+                  globalPosition: firstEvent.position,
+                  localPosition: firstEvent.localPosition,
+                ),
+                eventContext,
+              );
+            } else {
+              final def = keybinder.definitions.firstWhereOrNull(
+                (d) => d.id == shortcutId,
+              );
+              if (def != null) {
+                Actions.maybeInvoke(context, def.intent);
+              }
             }
           } else {
             await _flushBufferedEvents(
