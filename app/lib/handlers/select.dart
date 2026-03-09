@@ -602,4 +602,10 @@ class SelectHandler extends Handler<SelectTool> {
       ),
     };
   }
+
+  void clearSelection(DocumentBloc bloc) {
+    _selected.clear();
+    _updateSelectionRect();
+    bloc.refreshForegrounds();
+  }
 }

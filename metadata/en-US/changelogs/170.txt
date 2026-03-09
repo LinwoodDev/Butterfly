@@ -4,5 +4,13 @@
 * Add favorite templates to settings export
 * Add long press action for double/triple touch shortcuts
 * Fix undo/redo state not updating in toolbar
+* Improve polygons
+  * Remove edit mode to make creating and editing polygons more seamless
+  * Long press on a polygon to quickly start editing it
+  * Improve drag handle hitboxes on mobile devices
+  * Improve hit calculation
+  * Simplify polygon toolbar if no polygon is edited
+  * Fix an issue where closed polygons couldn't be correctly closed after editing
+  * Fix an issue where fill rendering was drawn over the stroke
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.0
