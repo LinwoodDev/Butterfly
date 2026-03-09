@@ -204,8 +204,7 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
 
-    // Use unbaked elements directly - they should already be sorted by loadElements
-    final renderers = cameraViewport.unbakedElements;
+    final renderers = cameraViewport.visibleUnbakedElements;
     for (final renderer in renderers) {
       final state = cameraViewport.rendererStates[renderer.id];
       if (!(invisibleLayers?.contains(renderer.layer) ?? false) &&

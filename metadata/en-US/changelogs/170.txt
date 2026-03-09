@@ -6,6 +6,7 @@
 * Fix stamp handler
   * Fix scaling on multiple elements
   * Fix preview element will shown after submitting
+* Improve rendering performance on unbaked viewport
 * Improve polygons
   * Remove edit mode to make creating and editing polygons more seamless
   * Long press on a polygon to quickly start editing it

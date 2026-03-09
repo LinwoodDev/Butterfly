@@ -160,26 +160,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void _updateVisibleElements() {
     if (isClosed) return;
     final unbaked = state.cameraViewport.unbakedElements;
-    if (unbaked.isEmpty) return;
+    final baked = state.cameraViewport.bakedElements;
 
     final rect = getViewportRect();
     final currentVisible = state.cameraViewport.visibleElements;
+    final currentVisibleUnbaked = state.cameraViewport.visibleUnbakedElements;
 
-    // Fast path: check if counts match before detailed comparison
-    final visible = unbaked.where((e) => e.isVisible(rect)).toList();
+    final visibleUnbaked = unbaked.where((e) => e.isVisible(rect)).toList();
+    final visible = <Renderer<PadElement>>[
+      ...baked.where((e) => e.isVisible(rect)),
+      ...visibleUnbaked,
+    ];
+
     if (visible.length == currentVisible.length &&
-        visible.length == unbaked.length) {
+        visibleUnbaked.length == currentVisibleUnbaked.length &&
+        visible.length == baked.length + unbaked.length) {
       return;
     }
 
-    // Use cached equality instance for comparison
-    if (_listEquality.equals(visible, currentVisible)) {
+    if (_listEquality.equals(visible, currentVisible) &&
+        _listEquality.equals(visibleUnbaked, currentVisibleUnbaked)) {
       return;
     }
 
     emit(
       state.copyWith(
-        cameraViewport: state.cameraViewport.withUnbaked(unbaked, visible),
+        cameraViewport: state.cameraViewport.withUnbaked(
+          unbaked,
+          visibleElements: visible,
+          visibleUnbakedElements: visibleUnbaked,
+        ),
       ),
     );
   }
@@ -1342,9 +1352,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
                   !visibleElementsSet.contains(element),
             )
             .toList();
-    for (final u in newlyUnbaked) {
-      if (!visibleElementsSet.contains(u)) visibleElements.add(u);
-    }
 
     if (isClosed) return;
 
@@ -1362,6 +1369,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           bakedElements: renderers,
           unbakedElements: newlyUnbaked,
           visibleElements: visibleElements,
+          visibleUnbakedElements: newlyUnbaked
+              .where((renderer) => renderer.isVisible(rect))
+              .toList(),
           belowLayerImage: belowLayerImage,
           aboveLayerImage: aboveLayerImage,
           rendererStates: allRendererStates,
@@ -1513,19 +1523,34 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .where((e) => !docState.invisibleLayers.contains(e.id))
         .expand((l) => l.content.map((e) => (e, l.id)))
         .toList();
-    final reusable = existing
+    final elementKeys = elements
+        .map((element) => (element.$1, element.$2))
+        .toSet();
+    final existingByKey = {
+      for (final renderer in existing)
+        (renderer.element, renderer.layer): renderer,
+    };
+    final reusable = <Renderer<PadElement>>[];
+    final reusableKeys = <(PadElement, String?)>{};
+    for (final element in elements) {
+      final key = (element.$1, element.$2);
+      final renderer = existingByKey[key];
+      if (renderer != null) {
+        reusable.add(renderer);
+        reusableKeys.add(key);
+      }
+    }
+    final dropped = existing
         .where(
-          (e) => elements.any((el) => el.$1 == e.element && el.$2 == e.layer),
+          (renderer) =>
+              !elementKeys.contains((renderer.element, renderer.layer)),
         )
         .toList();
-    final dropped = existing.where((e) => !reusable.contains(e)).toList();
     for (final e in dropped) {
       e.dispose();
     }
     final newRenderers = elements
-        .where(
-          (e) => !reusable.any((r) => r.element == e.$1 && r.layer == e.$2),
-        )
+        .where((e) => !reusableKeys.contains((e.$1, e.$2)))
         .map((e) => Renderer.fromInstance(e.$1, e.$2))
         .toList();
     await Future.wait(
@@ -1585,9 +1610,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     visibleElements ??= unbakedElements
         .where((e) => e.isVisible(rect))
         .toList();
+    final nextUnbaked = [
+      ...state.cameraViewport.unbakedElements,
+      ...unbakedElements,
+    ];
     final newViewport = state.cameraViewport.withUnbaked(
-      [...state.cameraViewport.unbakedElements, ...unbakedElements],
-      [...state.cameraViewport.visibleElements, ...visibleElements],
+      nextUnbaked,
+      visibleElements: [
+        ...state.cameraViewport.visibleElements,
+        ...visibleElements,
+      ],
+      visibleUnbakedElements: [
+        ...state.cameraViewport.visibleUnbakedElements,
+        ...visibleElements,
+      ],
     );
     await _updateOnVisible(newViewport, blocState);
     emit(state.copyWith(cameraViewport: newViewport));
