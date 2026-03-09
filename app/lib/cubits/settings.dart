@@ -666,12 +666,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   }
 
   ExternalStorage? getRemote(String? identifier) {
-    if (identifier?.isEmpty ?? true) {
+    if (identifier == null) {
       return getDefaultRemote();
     }
-    return connections.firstWhereOrNull(
-      (e) => e.identifier == (identifier ?? defaultRemote),
-    );
+    if (identifier.isEmpty) {
+      return null;
+    }
+    return connections.firstWhereOrNull((e) => e.identifier == identifier);
   }
 
   bool hasRemote(String identifier) {
@@ -1043,9 +1044,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   ExternalStorage? getRemote([String? remote]) {
-    return state.connections.firstWhereOrNull(
-      (element) => element.identifier == (remote ?? state.defaultRemote),
-    );
+    return state.getRemote(remote);
   }
 
   Future<void> toggleStarred(AssetLocation location) {

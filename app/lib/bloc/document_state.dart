@@ -256,7 +256,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
               !absolute &&
               (location.fileType?.isNote() ?? false) &&
               (location.remote.isEmpty ||
-                  (settingsCubit.state
+                  (settingsCubit
                           .getRemote(location.remote)
                           ?.hasDocumentCached(location.path) ??
                       false))));

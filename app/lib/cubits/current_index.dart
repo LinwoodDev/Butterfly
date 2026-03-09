@@ -1889,9 +1889,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 
-  ExternalStorage? getRemoteStorage() => state.location.remote.isEmpty
-      ? null
-      : state.settingsCubit.state.getRemote(state.location.remote);
+  ExternalStorage? getRemoteStorage() =>
+      state.settingsCubit.getRemote(state.location.remote);
 
   final _savingLock = Lock();
 

@@ -444,7 +444,7 @@ class SyncService {
   }
 
   RemoteSync? _createSync(String remote) {
-    final storage = settingsCubit.state.getRemote(remote);
+    final storage = settingsCubit.getRemote(remote);
     if (storage == null) {
       talker.warning('Remote storage not found: $remote');
       return null;

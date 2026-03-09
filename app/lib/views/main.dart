@@ -92,9 +92,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final fileSystem = context.read<ButterflyFileSystem>();
     var location = widget.location;
     final absolute = widget.absolute;
-    final remote = location != null
-        ? settingsCubit.state.getRemote(location.remote)
-        : settingsCubit.state.getDefaultRemote();
+    final remote = settingsCubit.getRemote(location?.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     final embedding = widget.embedding;
     if (embedding != null) {

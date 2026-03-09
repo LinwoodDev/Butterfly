@@ -31,9 +31,11 @@ class _ConnectionButtonState extends State<ConnectionButton> {
     _updateConnection();
   }
 
-  void _updateConnection() => _currentConnection = (widget.currentRemote == null
-      ? null
-      : context.read<SettingsCubit>().state.getRemote(widget.currentRemote));
+  void _updateConnection() {
+    final currentRemote = widget.currentRemote;
+    final settingsCubit = context.read<SettingsCubit>();
+    _currentConnection = settingsCubit.getRemote(currentRemote ?? '');
+  }
 
   @override
   void didUpdateWidget(covariant ConnectionButton oldWidget) {

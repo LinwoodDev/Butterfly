@@ -31,12 +31,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     DocumentInfo info, [
     Area? currentArea,
   ]) => [...elements.values, ..._submittedElements]
-      .map((e) {
-        if (e.points.length > 1) {
-          return PenRenderer(e.copyWith(id: createUniqueId()));
-        }
-        return null;
-      })
+      .map(
+        (e) => e.points.length > 1
+            ? PenRenderer(e.copyWith(id: createUniqueId()))
+            : null,
+      )
       .whereType<Renderer>()
       .toList();
 

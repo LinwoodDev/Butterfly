@@ -322,9 +322,7 @@ class ButterflyFileSystem {
 
   Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
       buildPackSystem(
-        location.namespace.isEmpty
-            ? null
-            : settingsCubit.state.getRemote(location.namespace),
+        settingsCubit.getRemote(location.namespace),
       ).updateFile(location.key, newPack);
 
   void removeCachedDocumentSystem(ExternalStorage? storage) {

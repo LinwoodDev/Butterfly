@@ -3,6 +3,7 @@
 * Add option to enable/disable thumbnails for notes ([#984](https://github.com/LinwoodDev/Butterfly/issues/984))
 * Add favorite templates to settings export
 * Add long press action for double/triple touch shortcuts
+* Fix opening local files when default storage is set to cloud
 * Fix stamp handler
   * Fix scaling on multiple elements
   * Fix preview element will shown after submitting
