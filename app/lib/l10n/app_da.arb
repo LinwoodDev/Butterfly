@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Fortsæt alligevel",
   "zoomControl": "Zoom kontrol",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Høj kontrast",
   "shouldANumber": "Denne værdi skal være gyldigt nummer",
   "createAreas": "Opret områder",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Hold Genveje",
+  "holdShortcutsDescription": "Hold en tast nede for midlertidigt at skifte til et andet værktøj. Frigive tasten skifter tilbage til det forrige værktøj.",
+  "key": "Nøgle"
 }
