@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Tiếp tục",
   "zoomControl": "Điều khiển thu phóng",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Độ tương phản cao",
   "shouldANumber": "Giá trị này phải là số hợp lệ",
   "createAreas": "Tạo khu vực",
