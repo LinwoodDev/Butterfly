@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Συνεχίστε οπωσδήποτε",
   "zoomControl": "Έλεγχος εστίασης",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Υψηλή αντίθεση",
   "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
   "createAreas": "Δημιουργία περιοχών",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Αναμονή Συντομεύσεων",
+  "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
+  "key": "Κλειδί"
 }
