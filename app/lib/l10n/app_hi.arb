@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "फिर भी जारी रखें",
   "zoomControl": "ज़ूम नियंत्रण",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "उच्च कंट्रास्ट",
   "shouldANumber": "यह मान एक मान्य संख्या होनी चाहिए",
   "createAreas": "क्षेत्र बनाएं",
