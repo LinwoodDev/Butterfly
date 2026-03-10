@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continua comunque",
   "zoomControl": "Controllo zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Alto contrasto",
   "shouldANumber": "Questo valore deve essere valido",
   "createAreas": "Crea Area",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Tenere Le Scorciatoie",
+  "holdShortcutsDescription": "Tieni premuto un tasto per passare temporaneamente a un altro strumento. Rilasciare il tasto passa allo strumento precedente.",
+  "key": "Chiave"
 }
