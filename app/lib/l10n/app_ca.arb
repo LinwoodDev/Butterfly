@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continua igualment",
   "zoomControl": "Control de zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Alt contrast",
   "shouldANumber": "Aquest valor ha de ser un nombre vàlid",
   "createAreas": "Crea àrees",
