@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "ତଥାପି ଆଗକୁ ବଢ଼ନ୍ତୁ",
   "zoomControl": "ଜୁମ୍ ନିୟନ୍ତ୍ରଣ",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "ଉଚ୍ଚ ବିପରୀତତା",
   "shouldANumber": "ଏହି ମୂଲ୍ୟଟି ବୈଧ ସଂଖ୍ୟା ହେବା ଉଚିତ",
   "createAreas": "ଅଞ୍ଚଳ ତିଆରି କରନ୍ତୁ",
