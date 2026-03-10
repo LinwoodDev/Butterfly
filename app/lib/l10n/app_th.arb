@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "ดำเนินการต่ออย่างไรก็ตาม",
   "zoomControl": "ตัวควบคุมการซูม",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "คอนทราสต์สูง",
   "shouldANumber": "ค่านี้ควรเป็นตัวเลขที่ถูกต้อง",
   "createAreas": "สร้างพื้นที่",
