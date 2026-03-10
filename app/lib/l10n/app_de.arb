@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Trotzdem fortfahren",
   "zoomControl": "Zoom-Steuerung",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Hoher Kontrast",
   "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein",
   "createAreas": "Bereiche erstellen",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Tastenkürzel halten",
+  "holdShortcutsDescription": "Halten Sie einen Schlüssel, um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn Sie den Schlüssel freigeben, schaltet er zurück zum vorherigen Werkzeug.",
+  "key": "Schlüssel"
 }
