@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Yine de devam et",
   "zoomControl": "Yakınlaştırma kontrolü",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Yüksek kontrast",
   "shouldANumber": "Bu değer geçerli bir sayı olmalıdır",
   "createAreas": "Alanlar oluştur",
