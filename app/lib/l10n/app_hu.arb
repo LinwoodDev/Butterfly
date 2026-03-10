@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Mindenképpen folytat",
   "zoomControl": "Nagyítás vezérlése",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Magas kontraszt",
   "shouldANumber": "Ennek az értéknek érvényes számnak kell lennie",
   "createAreas": "Területek létrehozása",
