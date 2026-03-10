@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Přesto pokračovat",
   "zoomControl": "Ovládání přiblížení",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Vysoký kontrast",
   "shouldANumber": "Tato hodnota by měla být platné číslo",
   "createAreas": "Vytvořit oblasti",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Podržet zkratky",
+  "holdShortcutsDescription": "Podržte klávesu pro dočasné přepnutí na jiný nástroj. Zmáčkněte klávesu zpět na předchozí nástroj.",
+  "key": "Klíč"
 }
