@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continue anyway",
   "zoomControl": "Zoom control",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
   "createAreas": "Create areas",
