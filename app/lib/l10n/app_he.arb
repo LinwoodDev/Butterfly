@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "המשך בכל זאת",
   "zoomControl": "בקרת זום",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "ניגודיות גבוהה",
   "shouldANumber": "ערך זה חייב להיות מספר תקין",
   "createAreas": "צור אזורים",
