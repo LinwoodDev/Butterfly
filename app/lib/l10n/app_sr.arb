@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Nastavi svejedno",
   "zoomControl": "Kontrola zumiranja",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Visok kontrast",
   "shouldANumber": "Ova vrednost treba da bude važeći broj",
   "createAreas": "Kreiraj oblasti",
