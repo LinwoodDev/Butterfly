@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "계속하기",
   "zoomControl": "확대/축소 제어",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "고대비",
   "shouldANumber": "이 값은 유효한 숫자여야 합니다",
   "createAreas": "영역 만들기",
