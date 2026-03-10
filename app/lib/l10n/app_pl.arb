@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Kontynuuj mimo to",
   "zoomControl": "Kontrola powiększenia",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Wysoki kontrast",
   "shouldANumber": "Ta wartość powinna być poprawnym numerem",
   "createAreas": "Utwórz obszary",
@@ -1319,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "Hold Shortcuts",
-  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "holdShortcuts": "Przytrzymaj skróty",
+  "holdShortcutsDescription": "Przytrzymaj klawisz, aby tymczasowo przełączyć się na inne narzędzie. Uruchomienie przełącznika klawisza przywróci poprzednie narzędzie.",
+  "key": "Klucz"
 }
