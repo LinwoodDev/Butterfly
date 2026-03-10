@@ -1324,6 +1324,6 @@
     }
   },
   "holdShortcuts": "Tastenkürzel halten",
-  "holdShortcutsDescription": "Halten Sie einen Schlüssel, um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn Sie den Schlüssel freigeben, schaltet er zurück zum vorherigen Werkzeug.",
+  "holdShortcutsDescription": "Halte eine Taste um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn die Taste losgelassen wird, schaltet er zurück zum vorherigen Werkzeug.",
   "key": "Schlüssel"
 }
