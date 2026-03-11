@@ -2,7 +2,7 @@
 title: Csomag
 ---
 
-A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. To do this, click the top-left corner and select "Packs".
 
 Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document.
 
@@ -31,7 +31,7 @@ To add a component:
 4. Choose the pack
 5. Give a name to the new component, it can be anything.
 
-You can use these components using the [stamp tool](/docs/v2/pack)
+You can use these components with the [stamp tool](/docs/v2/pack).
 
 ## Stílusok
 
@@ -39,5 +39,4 @@ Styles are used to customize the appearance of the text. The paragraph styles ca
 
 ## Paletták
 
-The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (like mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color picker.
-
+The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color.

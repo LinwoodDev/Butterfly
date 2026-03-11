@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Toch doorgaan",
   "zoomControl": "Zoom beheer",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Hoog contrast",
   "shouldANumber": "Deze waarde moet een geldig nummer zijn",
   "createAreas": "Maak gebieden",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Snelkoppelingen vasthouden",
+  "holdShortcutsDescription": "Houd een sleutel ingedrukt om tijdelijk naar een andere tool over te schakelen. Laat de toetsschakelaars terug naar de vorige tool.",
+  "key": "Sleutel"
 }

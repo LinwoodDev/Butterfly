@@ -23,6 +23,8 @@ title: よく寄せられる質問
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 フラッターフレームワークで提供される入力を使っています。
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### スタイルの入力が認識されません
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 フラッターフレームワークで提供される入力を使っています。
 There are already issues to track it:

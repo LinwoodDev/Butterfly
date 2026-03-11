@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "المتابعة على أي حال",
   "zoomControl": "التحكم بالتكبير/التصغير",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "تباين عالي",
   "shouldANumber": "يجب أن تكون هذه القيمة رقماً صحيحاً",
   "createAreas": "إنشاء مناطق",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "امسك الاختصارات",
+  "holdShortcutsDescription": "امسك مفتاح للتبديل مؤقتا إلى أداة أخرى. إعادة إطلاق المفتاح إلى الأداة السابقة.",
+  "key": "المفتاح"
 }

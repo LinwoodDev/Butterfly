@@ -23,6 +23,8 @@ Intenta actualizar tu navegador a la última versión.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 Estoy usando la entrada proporcionada por el framework de flujos.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### No se reconoce la entrada de Stylus
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Estoy usando la entrada proporcionada por el framework de flujos.
 There are already issues to track it:

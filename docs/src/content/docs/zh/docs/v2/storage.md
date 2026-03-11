@@ -8,8 +8,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## 数据目录
 
-数据目录是存储文档、模板和包的目录。
-在桌面上你可以在 "~/Documents/Linwood/Butterfly" 中找到它。
+The data directory is the directory where documents, templates, and packs are stored.
+On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 移动时，它在 `getExternalFilesDir(null)/Linwood/Butterfly` 中。
 您也可以在“数据”下的设置中更改它。
 
@@ -22,7 +22,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## 原生平台
 
-默认情况下，应用程序在一个名为“Linwood/Butterfly”的子文件夹中保存您的文档文件夹中的数据。 保存第一个数据时创建此文件夹。 此文件夹可以在设置中更改。
+By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. 此文件夹可以在设置中更改。
 
 ## 远程存储 {#remote}
 
@@ -32,12 +32,12 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 :::
 
-应用程序可以保存到远程服务器。 如果您想要与其他人分享数据，或者如果您有多台计算机，这是有用的。 目前只支持 `WebDAV` 协议。
+The application data can be stored on a remote server. 如果您想要与其他人分享数据，或者如果您有多台计算机，这是有用的。 目前只支持 `WebDAV` 协议。
 
 若要添加远程服务器，请前往设置并点击 "Remotes" 。 然后点击"添加远程"。
 添加远程服务器的 URL 以及用户名和密码。 之后您可以指定存储数据的文件夹。
 
-若要获取 webdav url，请访问文档：
+To get the WebDAV URL, please visit the documentation:
 
 - [Nextcloud](https://docs.nextcloud.com/serverura/user_manual/en/files/access_webdav.html) (它看起来像这样：`https://nextcloud.example.com/remote.php/dav/files/username/`, 替换`username` 和 `nextcloud.example.com`
 
@@ -55,8 +55,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 ## 其他存储方法
 
 如果您在本地设备上，您也可以将应用程序目录与您最喜欢的平台同步。
-Google 驱动器在窗口上有[官方应用](https://www.google.com/drive/download/)并且在游戏商店上有非官方应用。
-在 Linux 上，您也可以使用本地远程存储系统并将您的数据目录更改为这个或者添加一个新的外部存储，如果您点击添加连接按钮。
+Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
+On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
 ## Supported file types
 
@@ -64,21 +64,21 @@ Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.t
 
 ### Butterfly Note (.bfly)
 
-This file type is the recommended for saving notes.
+This file type is the recommended format for saving notes.
 
 It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for being human readable.
+These included JSON files aren't optimized for human readability.
 
 ### Butterfly Raw Note (.tbfly)
 
 This file is recommended for use with version control software like git.
 
-This file is **not** a zip archive, instead it is a _JSON_ file.
-It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+This file is **not** a zip archive; instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
 
 ### SVG
 
 This file type doesn't save information about the note!
 When this file is imported into Butterfly, it is treated as a single image.
 
-Use this _ONLY_ when the note shouldn't be modified by butterfly.
+Use this _ONLY_ when the note shouldn't be modified by Butterfly.

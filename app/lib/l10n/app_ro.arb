@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continuă oricum",
   "zoomControl": "Comandă mărire",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Contrast mare",
   "shouldANumber": "Această valoare trebuie să fie un număr valid",
   "createAreas": "Creează zone",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Țineți apăsat Comenzile rapide",
+  "holdShortcutsDescription": "Țineți apăsată o cheie pentru a trece temporar la un alt instrument. Lansând tasta se schimbă înapoi la unealta anterioară.",
+  "key": "Cheie"
 }

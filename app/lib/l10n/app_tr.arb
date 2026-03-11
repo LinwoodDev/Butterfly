@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Yine de devam et",
   "zoomControl": "Yakınlaştırma kontrolü",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Yüksek kontrast",
   "shouldANumber": "Bu değer geçerli bir sayı olmalıdır",
   "createAreas": "Alanlar oluştur",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }

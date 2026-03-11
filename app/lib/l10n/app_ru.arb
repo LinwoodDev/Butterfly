@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Все равно продолжить",
   "zoomControl": "Управление масштабом",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Высокий контраст",
   "shouldANumber": "Это значение должно быть действительным числом",
   "createAreas": "Создать области",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Запустить ярлыки",
+  "holdShortcutsDescription": "Удерживайте клавишу для временного переключения на другой инструмент. Отпустите клавишу обратно на предыдущий инструмент.",
+  "key": "Спецификация"
 }

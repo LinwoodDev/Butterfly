@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continua igualment",
   "zoomControl": "Control de zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Alt contrast",
   "shouldANumber": "Aquest valor ha de ser un nombre vàlid",
   "createAreas": "Crea àrees",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }

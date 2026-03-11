@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "仍然繼續",
   "zoomControl": "縮放控制",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "高對比",
   "shouldANumber": "此值應為有效數字",
   "createAreas": "建立分區",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }

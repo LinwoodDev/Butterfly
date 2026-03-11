@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Mindenképpen folytat",
   "zoomControl": "Nagyítás vezérlése",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Magas kontraszt",
   "shouldANumber": "Ennek az értéknek érvényes számnak kell lennie",
   "createAreas": "Területek létrehozása",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }

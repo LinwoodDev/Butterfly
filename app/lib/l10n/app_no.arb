@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Fortsett likevel",
   "zoomControl": "Zoom kontroll",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Høy kontrast",
   "shouldANumber": "Denne verdien må være et gyldig tall",
   "createAreas": "Opprett områder",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold snarveier",
+  "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
+  "key": "Nøkkel"
 }

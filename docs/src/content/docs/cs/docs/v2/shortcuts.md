@@ -34,7 +34,7 @@ Některé z nich jsou zapsány pod tlačítky.
 
 ## Pec
 
-Ve výchozím nastavení je pero nastaveno tak, aby fungovalo:
+By default, the pen is configured to function as the following:
 
 - `Pen`: nakonfigurován jako pen.
 - `First` (Primární tlačítko, pokud je podporováno): Přepnout na ruční nástroj při stisknutí.

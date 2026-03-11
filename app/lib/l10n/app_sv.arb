@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Fortsätt ändå",
   "zoomControl": "Zooma kontroll",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Hög kontrast",
   "shouldANumber": "Detta värde bör vara giltigt nummer",
   "createAreas": "Skapa områden",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Håll inne genvägar",
+  "holdShortcutsDescription": "Håll en nyckel för att tillfälligt växla till ett annat verktyg. Släppa knapparna tillbaka till föregående verktyg.",
+  "key": "Nyckel"
 }

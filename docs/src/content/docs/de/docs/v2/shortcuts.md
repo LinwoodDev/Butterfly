@@ -34,7 +34,7 @@ Einige davon sind unter den Buttons geschrieben.
 
 ## Stift
 
-Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
+By default, the pen is configured to function as the following:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.

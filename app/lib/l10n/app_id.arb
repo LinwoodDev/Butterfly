@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continue anyway",
   "zoomControl": "Zoom control",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
   "createAreas": "Create areas",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }

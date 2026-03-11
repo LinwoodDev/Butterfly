@@ -8,8 +8,8 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## データディレクトリ
 
-データディレクトリは、ドキュメント、テンプレート、パックが格納されているディレクトリです。
-デスクトップでは、`~/Documents/Linwood/Butterfly`で見つけることができます。
+The data directory is the directory where documents, templates, and packs are stored.
+On desktop you can find it in `~/Documents/Linwood/Butterfly`.
 モバイルでは、 `getExternalFilesDir(null)/Linwood/Butterfly` にあります。
 `Data` の設定で変更することもできます。
 
@@ -22,7 +22,7 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 ## ネイティブプラットフォーム
 
-デフォルトでは、アプリケーションはドキュメントフォルダのデータを「Linwood/Butterfly」というサブフォルダに保存します。 このフォルダは、最初のデータを保存するときに作成されます。 このフォルダは設定で変更できます。
+By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. このフォルダは設定で変更できます。
 
 ## リモートストレージ {#remote}
 
@@ -32,12 +32,12 @@ Either by using your device storage, or by using the cloud storage (WebDAV).
 
 :::
 
-アプリケーションはリモートサーバーに保存できます。 これは、データを他の人と共有したい場合や、複数のコンピュータをお持ちの場合に便利です。 現在 `WebDAV` プロトコルのみがサポートされています。
+The application data can be stored on a remote server. これは、データを他の人と共有したい場合や、複数のコンピュータをお持ちの場合に便利です。 現在 `WebDAV` プロトコルのみがサポートされています。
 
 リモートサーバーを追加するには、設定に移動して `Remotes` をクリックします。 `Add remote` をクリックします。
 リモートサーバーの URL とユーザー名とパスワードを追加します。 その後、データが格納されているフォルダを指定できます。
 
-webdav URL を入手するには、以下のドキュメントを参照してください。
+To get the WebDAV URL, please visit the documentation:
 
 - [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) （`https://nextcloud.example.com/remote.php/dav/files/username/`、`username` と `nextcloud.example.com` は正しい値に置き換えてください）
 
@@ -55,8 +55,8 @@ webdav URL を入手するには、以下のドキュメントを参照してく
 ## その他のストレージ方法
 
 ネイティブデバイスを使用している場合は、お気に入りのプラットフォームとアプリケーションディレクトリを同期することもできます。
-Google ドライブは、format@@0(https://www.google.com/drive/download/)をウィンドウに表示しており、Playストアには非公式のアプリがあります。
-Linuxでは、ネイティブのリモートストレージシステムを使用して、データディレクトリをこれに変更したり、接続の追加ボタンをクリックすると新しい外部ストレージを追加することもできます。
+Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
+On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
 
 ## Supported file types
 
@@ -64,21 +64,21 @@ Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.t
 
 ### Butterfly Note (.bfly)
 
-This file type is the recommended for saving notes.
+This file type is the recommended format for saving notes.
 
 It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for being human readable.
+These included JSON files aren't optimized for human readability.
 
 ### Butterfly Raw Note (.tbfly)
 
 This file is recommended for use with version control software like git.
 
-This file is **not** a zip archive, instead it is a _JSON_ file.
-It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is **slower** than the normal Butterfly Note in loading speed.
+This file is **not** a zip archive; instead it is a _JSON_ file.
+It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
 
 ### SVG
 
 This file type doesn't save information about the note!
 When this file is imported into Butterfly, it is treated as a single image.
 
-Use this _ONLY_ when the note shouldn't be modified by butterfly.
+Use this _ONLY_ when the note shouldn't be modified by Butterfly.

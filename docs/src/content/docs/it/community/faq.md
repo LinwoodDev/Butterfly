@@ -23,6 +23,8 @@ Prova ad aggiornare il tuo browser all'ultima versione.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 Sto usando l'input fornito dal framework flutter.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### L'input dello stilo non è riconosciuto
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Sto usando l'input fornito dal framework flutter.
 There are already issues to track it:

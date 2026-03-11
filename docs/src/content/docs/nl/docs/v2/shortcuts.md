@@ -34,7 +34,7 @@ Sommige ervan worden onder de knoppen geschreven.
 
 ## pennen
 
-Standaard is de pen geconfigureerd om als volgt te functioneren:
+By default, the pen is configured to function as the following:
 
 - `Pen`: geconfigureerd als pen.
 - `Eer` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.

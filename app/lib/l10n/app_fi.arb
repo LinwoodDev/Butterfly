@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Korkea kontrasti",
   "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
   "createAreas": "Luo alueita",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Pitele Pikakuvakkeita",
+  "holdShortcutsDescription": "Pidä näppäintä pohjassa vaihtaaksesi väliaikaisesti toiseen työkaluun. Avaimen vapauttaminen siirtyy takaisin edelliseen työkaluun.",
+  "key": "Avain"
 }

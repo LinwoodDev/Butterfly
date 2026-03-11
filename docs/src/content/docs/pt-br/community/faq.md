@@ -19,44 +19,48 @@ Tente atualizar seu navegador para a versão mais recente.
 
 ## Celular
 
-### S-Pen won't be recognized
+### S-Pen não vai ser reconhecida
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
+
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
 
 Eu estou usando os dados fornecidos pelo framework de agitação.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### Butterfly is slow
+### Butterfly é lento
 
-Butterfly is optimized every update, but sometimes the problem could be from your device.
+Butterfly é otimizado em todas as atualizações, mas algumas vezes possa ser um problema do seu dispositivo
 
-1. First, turn off your device's power saver mode.
-2. Then, set your screen refresh rate to its highest available (if supported by your device)
+1. Primeiro, desative a economia de bateria do seu dispositivo.
+2. Então, defina a taxa de atualização de tela para a maior possível (se houver suporte)
 
-This allows Butterfly to refresh faster and feel more responsive.
+Isso permite que o Butterfly atualize mais rapidamente e pareça mais responsivo.
 
-If these steps dont help, please dont hesitate to complain in Discord, Matrix, or in Github.
+Se esses passos não ajudarem, por favor, não hesite em reclamar no Discord, Matrix ou no Github.
 
-### Butterfly restarts in the background
+### Buterfly reinicia em segundo plano
 
-Disable battery optimization for Butterfly.  
-Battery optimizations prevent apps from running normally in the background to save power.
+Desative a otimização de bateria para o Butterfly  
+Otimizações de bateria impedem que apps sejam executados normalmente em segundo plano para economizar energia.
 
-Samsung, among other brands, usually put heavy battery restrictions on apps that crash frequently or overheat the device.
+Samsung, entre outras marcas, geralmente colocam grandes restrições de bateria em apps que travam com frequência ou superaquecem o dispositivo.
 
-If you dont know how to disable battery optimization for Butterfly, this website may help: [Dont kill my app!](https://dontkillmyapp.com/)
+Se você não souber como desativar a otimização de bateria para o Butterfly, este site pode ajudar: [Não mate meu aplicativo!](https://dontkillmyapp.com/)
 
-### iOS support
+### Suporte para iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+O Buttefly está disponível no iOS como prévia. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Computadores
 
 ### Entrada de caneta Stylus não reconhecida
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Eu estou usando os dados fornecidos pelo framework de agitação.
 There are already issues to track it:

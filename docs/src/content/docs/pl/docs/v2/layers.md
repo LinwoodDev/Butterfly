@@ -8,7 +8,7 @@ Layers are drawn from bottom to top, so the top layer will be shown above all ot
 
 :::note\[Note]
 
-Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are renderered.
+Be aware that [Collections](../tools/collection) are not the same as layers. Collections are a lightweight way to group elements, but do not affect the order in which they are rendered.
 
 :::
 

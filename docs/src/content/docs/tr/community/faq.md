@@ -23,6 +23,8 @@ Try updating your browser to the latest version.
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
+See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+
 Flutter çerçevesi tarafından sağlanan girdiyi kullanıyorum.
 This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
@@ -57,6 +59,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 ### Kalem girişi tanınmıyor
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
+
+See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 Flutter çerçevesi tarafından sağlanan girdiyi kullanıyorum.
 There are already issues to track it:

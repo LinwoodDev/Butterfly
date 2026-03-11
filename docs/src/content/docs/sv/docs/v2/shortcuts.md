@@ -34,7 +34,7 @@ Några av dem är skrivna under knapparna.
 
 ## Penna
 
-Som standard är pennan konfigurerad att fungera som följande:
+By default, the pen is configured to function as the following:
 
 - `Pen`: konfigurerad som penna.
 - `First` (Primär knapp, om det stöds): Ändra till handverktyg medan du trycker.

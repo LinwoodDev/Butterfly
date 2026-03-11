@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Все одно продовжити",
   "zoomControl": "Управління масштабуванням",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Високий контраст",
   "shouldANumber": "Це значення має бути дійсним числом",
   "createAreas": "Створення області",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Утримуйте комбінації клавіш",
+  "holdShortcutsDescription": "Утримуйте клавішу, щоб тимчасово переключитися на інший інструмент. Звільнення перемикачів ключів знову до попереднього інструменту.",
+  "key": "Ключ"
 }

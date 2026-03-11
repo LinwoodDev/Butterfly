@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Continuar de todos modos",
   "zoomControl": "Control de zoom",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Alto contraste",
   "shouldANumber": "Este valor debe ser un número válido",
   "createAreas": "Crear áreas",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Mantener atajos",
+  "holdShortcutsDescription": "Mantenga pulsada una tecla para cambiar temporalmente a otra herramienta. Liberar la tecla vuelve a la herramienta anterior.",
+  "key": "Clave"
 }

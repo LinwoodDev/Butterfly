@@ -34,7 +34,7 @@ Algunos de ellos se escriben debajo de los botones.
 
 ## Pen
 
-Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
+By default, the pen is configured to function as the following:
 
 - `Pen`: configurado como pluma.
 - `Primero` (botón primario, si es soportado): Cambia a la herramienta de mano mientras se presiona.

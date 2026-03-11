@@ -1078,6 +1078,10 @@
   },
   "continueAnyway": "Tiếp tục",
   "zoomControl": "Điều khiển thu phóng",
+  "showThumbnails": "Show thumbnails",
+  "@showThumbnails": {
+    "description": "Show thumbnails for notes in the file list"
+  },
   "highContrast": "Độ tương phản cao",
   "shouldANumber": "Giá trị này phải là số hợp lệ",
   "createAreas": "Tạo khu vực",
@@ -1318,5 +1322,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "holdShortcuts": "Hold Shortcuts",
+  "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
+  "key": "Key"
 }
