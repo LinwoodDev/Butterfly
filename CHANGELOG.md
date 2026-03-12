@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-rc.0 (2026-03-12)
+
+* Add selective exporting in data settings
+* Add hold shortcuts ([#992](https://github.com/LinwoodDev/Butterfly/issues/992))
+* Add option to enable/disable thumbnails for notes ([#984](https://github.com/LinwoodDev/Butterfly/issues/984))
+* Add favorite templates to settings export
+* Add long press action for double/triple touch shortcuts
+* Fix opening local files when default storage is set to cloud
+* Fix stamp handler
+  * Fix scaling on multiple elements
+  * Fix preview element will shown after submitting
+* Improve rendering performance on unbaked viewport
+* Improve polygons
+  * Remove edit mode to make creating and editing polygons more seamless
+  * Long press on a polygon to quickly start editing it
+  * Improve drag handle hitboxes on mobile devices
+  * Improve hit calculation
+  * Simplify polygon toolbar if no polygon is edited
+  * Fix an issue where closed polygons couldn't be correctly closed after editing
+  * Fix an issue where fill rendering was drawn over the stroke
+* Fix undo/redo state not updating in toolbar
+
+Read more here: https://linwood.dev/butterfly/2.5.0-rc.0
+
 ## 2.5.0-beta.3 (2026-03-05)
 
 * Add default name when creating new areas
