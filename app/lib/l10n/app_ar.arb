@@ -1078,7 +1078,7 @@
   },
   "continueAnyway": "المتابعة على أي حال",
   "zoomControl": "التحكم بالتكبير/التصغير",
-  "showThumbnails": "Show thumbnails",
+  "showThumbnails": "عرض الصور المُصغّرة",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
@@ -1296,26 +1296,26 @@
   "redLinedQuad": "مربعات بفاصل أحمر",
   "redLinedQuadDark": "مربعات داكنه بفاصل أحمر",
   "noItemSelected": "لا توجد عناصر محددة",
-  "areaAsInitial": "فتح المنطقة كعرض أولي",
-  "swap": "تبديل",
+  "areaAsInitial": "افتح المنطقة كعرض أولي",
+  "swap": "بدّل",
   "@swap": {
     "description": "Two elements swap their positions"
   },
-  "hideFileExtension": "إخفاء ملحق الملف",
-  "aspectRatioHint": "eg. 16:9 or 1.5",
+  "hideFileExtension": "إخفاء ملحق الملفات",
+  "aspectRatioHint": "مثال. 1.5 أو 16:9",
   "@aspectRatioHint": {
     "description": "Hint text for aspect ratio input"
   },
-  "newFromTemplateShortcut": "جديد من القالب",
+  "newFromTemplateShortcut": "إنشاء من قالب",
   "exportAsTextShortcut": "تصدير كنص",
   "exportAsImageShortcut": "تصدير كصورة",
   "exportAsPdfShortcut": "تصدير كملف PDF",
   "exportAsSvgShortcut": "تصدير كـ SVG",
-  "changePathShortcut": "تغيير المسار",
+  "changePathShortcut": "غيّر المسار",
   "fullScreenShortcut": "ملء الشاشة",
   "doublePressAction": "إجراء الضغط المزدوج",
   "triplePressAction": "إجراء الضغط الثلاثي",
-  "toolNumber": "أداة {number}",
+  "toolNumber": "الأداة {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
@@ -1323,7 +1323,7 @@
       }
     }
   },
-  "holdShortcuts": "امسك الاختصارات",
-  "holdShortcutsDescription": "امسك مفتاح للتبديل مؤقتا إلى أداة أخرى. إعادة إطلاق المفتاح إلى الأداة السابقة.",
+  "holdShortcuts": "الاختصارات المؤقتة",
+  "holdShortcutsDescription": "\"الاختصار المؤقت\" يُفعّل الأداة المحددة خلال الضغط عليه، ويعود إلى الأداة السابقة عند تركه.",
   "key": "المفتاح"
 }
