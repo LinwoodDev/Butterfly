@@ -595,6 +595,7 @@
   "folderSynced": "Könyvtár szinkronizálva",
   "syncRootDirectory": "Szinkron gyökérkönyvtár",
   "penOnlyInput": "Tollal történő bevitel",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Full screen",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
