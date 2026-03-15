@@ -595,6 +595,7 @@
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },

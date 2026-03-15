@@ -340,6 +340,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) double scrollSensitivity,
     bool? penOnlyInput,
     @Default(true) bool showPenOnlyToggle,
+    @Default(false) bool penOnlyOneFingerPan,
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
@@ -413,6 +414,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? prefs.getBool('pen_only_input')
           : null,
       showPenOnlyToggle: prefs.getBool('show_pen_only_toggle') ?? true,
+      penOnlyOneFingerPan: prefs.getBool('pen_only_one_finger_pan') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
@@ -580,6 +582,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       await prefs.setBool('pen_only_input', penOnlyInput!);
     }
     await prefs.setBool('show_pen_only_toggle', showPenOnlyToggle);
+    await prefs.setBool('pen_only_one_finger_pan', penOnlyOneFingerPan);
     await prefs.setBool('input_gestures', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
@@ -802,6 +805,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowPenOnlyToggle(bool showPenOnlyToggle) {
     emit(state.copyWith(showPenOnlyToggle: showPenOnlyToggle));
+    return save();
+  }
+
+  Future<void> changePenOnlyOneFingerPan(bool penOnlyOneFingerPan) {
+    emit(state.copyWith(penOnlyOneFingerPan: penOnlyOneFingerPan));
     return save();
   }
 

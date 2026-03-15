@@ -745,8 +745,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/keybinder"
-      ref: cdcfdd7e8c03fe20b339600dcb18b5397a4c73d0
-      resolved-ref: cdcfdd7e8c03fe20b339600dcb18b5397a4c73d0
+      ref: "74c6adbd202606181703d37cfcca0708a02b3211"
+      resolved-ref: "74c6adbd202606181703d37cfcca0708a02b3211"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

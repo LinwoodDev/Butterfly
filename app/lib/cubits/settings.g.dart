@@ -93,6 +93,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   scrollSensitivity: (json['scrollSensitivity'] as num?)?.toDouble() ?? 1,
   penOnlyInput: json['penOnlyInput'] as bool?,
   showPenOnlyToggle: json['showPenOnlyToggle'] as bool? ?? true,
+  penOnlyOneFingerPan: json['penOnlyOneFingerPan'] as bool? ?? false,
   inputGestures: json['inputGestures'] as bool? ?? true,
   design: json['design'] as String? ?? '',
   bannerVisibility:
@@ -226,6 +227,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'scrollSensitivity': instance.scrollSensitivity,
   'penOnlyInput': instance.penOnlyInput,
   'showPenOnlyToggle': instance.showPenOnlyToggle,
+  'penOnlyOneFingerPan': instance.penOnlyOneFingerPan,
   'inputGestures': instance.inputGestures,
   'design': instance.design,
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,

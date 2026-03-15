@@ -365,15 +365,20 @@ class _MainViewViewportState extends State<MainViewViewport>
               int buttons,
             ) async {
               InputMapping? nextPointerMapping;
-              final config = context
-                  .read<SettingsCubit>()
-                  .state
-                  .inputConfiguration;
+              final settings = context.read<SettingsCubit>().state;
+              final config = settings.inputConfiguration;
               final cubit = context.read<CurrentIndexCubit>();
               // Mapped to the priority of the buttons
               switch (kind) {
                 case PointerDeviceKind.touch:
-                  nextPointerMapping = config.touch;
+                  if (settings.penOnlyOneFingerPan &&
+                      cubit.state.effectivePenOnlyInput) {
+                    nextPointerMapping = const InputMapping(
+                      InputMapping.handToolValue,
+                    );
+                  } else {
+                    nextPointerMapping = config.touch;
+                  }
                 case PointerDeviceKind.mouse:
                   if ((buttons & kSecondaryMouseButton) != 0) {
                     nextPointerMapping = config.rightMouse;
