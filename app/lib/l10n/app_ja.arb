@@ -595,6 +595,7 @@
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "全画面",
   "doublePressAction": "Double press action",
   "triplePressAction": "トリプルプレスアクション",
+  "longPress": "Long press",
   "toolNumber": "ツール {number}",
   "@toolNumber": {
     "placeholders": {
