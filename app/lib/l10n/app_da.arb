@@ -595,6 +595,7 @@
   "folderSynced": "Mappe synkroniseret",
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Fuld skærm",
   "doublePressAction": "Dobbelt tryk-handling",
   "triplePressAction": "Tredobbelt tryk-handling",
+  "longPress": "Long press",
   "toolNumber": "Værktøj {number}",
   "@toolNumber": {
     "placeholders": {
