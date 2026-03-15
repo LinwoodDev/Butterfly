@@ -595,6 +595,7 @@
   "folderSynced": "Kansio synkronoitu",
   "syncRootDirectory": "Synkronoi juurikansio",
   "penOnlyInput": "Vain kynä syöttö",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Koko näyttö",
   "doublePressAction": "Kaksoispainalluksen tehtävä",
   "triplePressAction": "Kolmen painalluksen tehtävä",
+  "longPress": "Long press",
   "toolNumber": "Työkalu {number}",
   "@toolNumber": {
     "placeholders": {
