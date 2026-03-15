@@ -595,6 +595,7 @@
   "folderSynced": "Složka synchronizována",
   "syncRootDirectory": "Synchronizovat kořenový adresář",
   "penOnlyInput": "Používat pouze tužku",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Celá obrazovka",
   "doublePressAction": "Akce dvojím stisknutím",
   "triplePressAction": "Akce trojím stisknutím",
+  "longPress": "Long press",
   "toolNumber": "Nástroj {number}",
   "@toolNumber": {
     "placeholders": {
