@@ -595,6 +595,7 @@
   "folderSynced": "Mappen synkroniserad",
   "syncRootDirectory": "Synkronisera rotkatalog",
   "penOnlyInput": "Endast penna inmatning",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Helskärm",
   "doublePressAction": "Åtgärd vid dubbeltryck",
   "triplePressAction": "Trippel tryck åtgärd",
+  "longPress": "Long press",
   "toolNumber": "Verktyg {number}",
   "@toolNumber": {
     "placeholders": {
