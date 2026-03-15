@@ -595,6 +595,7 @@
   "folderSynced": "已同步資料夾",
   "syncRootDirectory": "同步根目錄",
   "penOnlyInput": "只讓筆輸入",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "全螢幕",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
