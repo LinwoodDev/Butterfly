@@ -595,6 +595,7 @@
   "folderSynced": "Ο φάκελος συγχρονίστηκε",
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Πλήρης οθόνη",
   "doublePressAction": "Ενέργεια διπλού πατήματος",
   "triplePressAction": "Ενέργεια τριπλού πατήματος",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
