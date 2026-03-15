@@ -595,6 +595,7 @@
   "folderSynced": "Cartella sincronizzata",
   "syncRootDirectory": "Sincronizza directory root",
   "penOnlyInput": "Input solo penna",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Schermo intero",
   "doublePressAction": "Azione doppia pressione",
   "triplePressAction": "Azione tripla pressione",
+  "longPress": "Long press",
   "toolNumber": "Strumento {number}",
   "@toolNumber": {
     "placeholders": {
