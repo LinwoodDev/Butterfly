@@ -595,6 +595,7 @@
   "folderSynced": "تمت مزامنة المجلد",
   "syncRootDirectory": "مزامنة مجلد الجذر",
   "penOnlyInput": "الرسم باستخدام القلم فقط",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "ملء الشاشة",
   "doublePressAction": "إجراء الضغط المزدوج",
   "triplePressAction": "إجراء الضغط الثلاثي",
+  "longPress": "Long press",
   "toolNumber": "الأداة {number}",
   "@toolNumber": {
     "placeholders": {
