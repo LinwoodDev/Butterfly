@@ -1,4 +1,5 @@
 * Add pen-only one finger pan option ([#1053](https://github.com/LinwoodDev/Butterfly/issues/1053))
 * Fix untranslated reset on key recorder
+* Fix small corner menu on different configurations
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.1
