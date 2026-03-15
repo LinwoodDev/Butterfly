@@ -595,6 +595,7 @@
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
   "penOnlyInput": "Seules les entrées du stylet",
+  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
@@ -1315,6 +1316,7 @@
   "fullScreenShortcut": "Plein écran",
   "doublePressAction": "Action par double appui",
   "triplePressAction": "Action du triple appui",
+  "longPress": "Long press",
   "toolNumber": "Outil {number}",
   "@toolNumber": {
     "placeholders": {
