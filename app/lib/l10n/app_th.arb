@@ -595,7 +595,6 @@
   "folderSynced": "ซิงค์โฟลเดอร์แล้ว",
   "syncRootDirectory": "ไดเรกทอรีหลักสำหรับซิงค์",
   "penOnlyInput": "อินพุตเฉพาะปากกา",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
