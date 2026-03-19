@@ -595,7 +595,6 @@
   "folderSynced": "Cartella sincronizzata",
   "syncRootDirectory": "Sincronizza directory root",
   "penOnlyInput": "Input solo penna",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
