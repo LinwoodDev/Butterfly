@@ -107,11 +107,7 @@ Future<void> main([List<String> args = const []]) async {
   overrideButterflyDirectory = result['path'];
   runApp(
     MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<ClipboardManager>(
-          create: (context) => clipboardManager,
-        ),
-      ],
+      providers: [RepositoryProvider<ClipboardManager>(create: (context) => clipboardManager)],
       child: ButterflyApp(
         settingsCubit: settingsCubit,
         initialLocation: initialLocation,
@@ -145,8 +141,7 @@ class ButterflyApp extends StatelessWidget {
     initialExtra: initialExtra,
     restorationScopeId: 'router',
     observers: [TalkerRouteObserver(talker)],
-    errorBuilder: (context, state) =>
-        ErrorPage(message: state.error.toString()),
+    errorBuilder: (context, state) => ErrorPage(message: state.error.toString()),
     routes: [
       GoRoute(
         name: 'home',
@@ -159,30 +154,18 @@ class ButterflyApp extends StatelessWidget {
             path: 'settings',
             builder: (context, state) => const SettingsPage(),
             routes: [
-              GoRoute(
-                path: 'general',
-                builder: (context, state) => const GeneralSettingsPage(),
-              ),
+              GoRoute(path: 'general', builder: (context, state) => const GeneralSettingsPage()),
               GoRoute(
                 path: 'inputs',
                 builder: (context, state) => const InputsSettingsPage(),
                 routes: [
-                  GoRoute(
-                    path: 'mouse',
-                    builder: (context, state) => const MouseInputSettings(),
-                  ),
-                  GoRoute(
-                    path: 'pen',
-                    builder: (context, state) => const PenInputSettings(),
-                  ),
+                  GoRoute(path: 'mouse', builder: (context, state) => const MouseInputSettings()),
+                  GoRoute(path: 'pen', builder: (context, state) => const PenInputSettings()),
                   GoRoute(
                     path: 'keyboard',
                     builder: (context, state) => const KeyboardInputSettings(),
                   ),
-                  GoRoute(
-                    path: 'touch',
-                    builder: (context, state) => const TouchInputSettings(),
-                  ),
+                  GoRoute(path: 'touch', builder: (context, state) => const TouchInputSettings()),
                 ],
               ),
               GoRoute(
@@ -191,17 +174,10 @@ class ButterflyApp extends StatelessWidget {
               ),
               GoRoute(
                 path: 'personalization',
-                builder: (context, state) =>
-                    const PersonalizationSettingsPage(),
+                builder: (context, state) => const PersonalizationSettingsPage(),
               ),
-              GoRoute(
-                path: 'view',
-                builder: (context, state) => const ViewSettingsPage(),
-              ),
-              GoRoute(
-                path: 'data',
-                builder: (context, state) => const DataSettingsPage(),
-              ),
+              GoRoute(path: 'view', builder: (context, state) => const ViewSettingsPage()),
+              GoRoute(path: 'data', builder: (context, state) => const DataSettingsPage()),
               GoRoute(
                 path: 'experiments',
                 builder: (context, state) => const ExperimentsSettingsPage(),
@@ -213,26 +189,19 @@ class ButterflyApp extends StatelessWidget {
                   GoRoute(
                     path: ':id',
                     name: 'connection',
-                    builder: (context, state) => ConnectionSettingsPage(
-                      remote: state.pathParameters['id']!,
-                    ),
+                    builder: (context, state) =>
+                        ConnectionSettingsPage(remote: state.pathParameters['id']!),
                   ),
                 ],
               ),
-              GoRoute(
-                path: 'logs',
-                builder: (context, state) => const LogsSettingsPage(),
-              ),
+              GoRoute(path: 'logs', builder: (context, state) => const LogsSettingsPage()),
             ],
           ),
           GoRoute(
             name: 'new',
             path: 'new',
             builder: (context, state) {
-              final defaultRemote = context
-                  .read<SettingsCubit>()
-                  .state
-                  .defaultRemote;
+              final defaultRemote = context.read<SettingsCubit>().state.defaultRemote;
               return ProjectPage(
                 data: state.extra,
                 location: AssetLocation(
@@ -266,9 +235,7 @@ class ButterflyApp extends StatelessWidget {
             name: 'remote',
             path: 'remote/:remote/:path(.*)',
             builder: (context, state) {
-              final remote = Uri.decodeComponent(
-                state.pathParameters['remote'] ?? '',
-              );
+              final remote = Uri.decodeComponent(state.pathParameters['remote'] ?? '');
               final path = state.pathParameters['path'];
               return ProjectPage(
                 data: state.extra,
@@ -306,9 +273,7 @@ class ButterflyApp extends StatelessWidget {
         name: 'embed',
         path: '/embed',
         builder: (context, state) {
-          return ProjectPage(
-            embedding: Embedding.fromQuery(state.uri.queryParameters),
-          );
+          return ProjectPage(embedding: Embedding.fromQuery(state.uri.queryParameters));
         },
       ),
       GoRoute(
@@ -330,9 +295,7 @@ class ButterflyApp extends StatelessWidget {
                 final type = snapshot.data?.$1;
                 final data = snapshot.data?.$2;
                 return ProjectPage(
-                  location: AssetLocation.local(
-                    state.pathParameters['path'] ?? '',
-                  ),
+                  location: AssetLocation.local(state.pathParameters['path'] ?? ''),
                   type: type ?? '',
                   data: data,
                 );
@@ -343,8 +306,7 @@ class ButterflyApp extends StatelessWidget {
         },
       ),
     ],
-    redirect: (context, state) =>
-        (state.uri.scheme == 'content') ? '/intent' : null,
+    redirect: (context, state) => (state.uri.scheme == 'content') ? '/intent' : null,
   );
 
   // This widget is the root of your application.
@@ -365,9 +327,7 @@ class ButterflyApp extends StatelessWidget {
               return settingsCubit;
             },
           ),
-          BlocProvider(
-            create: (context) => WindowCubit(fullScreen: fullScreen),
-          ),
+          BlocProvider(create: (context) => WindowCubit(fullScreen: fullScreen)),
         ],
         child: _buildApp(lightDynamic, darkDynamic),
       ),
@@ -397,16 +357,22 @@ class ButterflyApp extends StatelessWidget {
           KeybinderLocalizations.delegate,
         ],
         builder: (context, child) {
+          // Wrap the existing child in DefaultTextStyle
+          child = DefaultTextStyle(
+            style: TextStyle(fontFamilyFallback: ['ReadexPro']),
+            child: child ?? Container(),
+          );
+
+          // Continue with the virtual window frame builder
           if (!state.nativeTitleBar) {
             child = virtualWindowFrameBuilder(context, child);
           }
           return RepositoryProvider(
             create: ButterflyFileSystem.build,
             child: RepositoryProvider(
-              create: (context) =>
-                  SyncService(context, context.read<ButterflyFileSystem>()),
+              create: (context) => SyncService(context, context.read<ButterflyFileSystem>()),
               lazy: false,
-              child: child ?? Container(),
+              child: child,
             ),
           );
         },
@@ -432,8 +398,7 @@ class ButterflyApp extends StatelessWidget {
 }
 
 const flavor = String.fromEnvironment('flavor');
-const isNightly =
-    flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
+const isNightly = flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const applicationVersionName = 'Crimson Red';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
