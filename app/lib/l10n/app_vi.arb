@@ -595,7 +595,6 @@
   "folderSynced": "Thư mục đã đồng bộ",
   "syncRootDirectory": "Thư mục gốc đồng bộ",
   "penOnlyInput": "Chỉ nhận đầu vào bằng bút",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
