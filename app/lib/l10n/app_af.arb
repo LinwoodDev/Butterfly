@@ -595,7 +595,6 @@
   "folderSynced": "Gids gesinkroniseer",
   "syncRootDirectory": "Sinkroniseer wortelgids",
   "penOnlyInput": "Slegs peninvoer",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
