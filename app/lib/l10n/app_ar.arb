@@ -1078,7 +1078,7 @@
     }
   },
   "continueAnyway": "المتابعة على أي حال",
-  "zoomControl": "التحكم بالتكبير/التصغير",
+  "zoomControl": "تحكمات التكبير و التصغير",
   "showThumbnails": "عرض الصور المُصغّرة",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
