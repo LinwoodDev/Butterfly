@@ -595,7 +595,6 @@
   "folderSynced": "フォルダを同期しました",
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
