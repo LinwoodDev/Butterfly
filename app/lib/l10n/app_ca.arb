@@ -595,7 +595,6 @@
   "folderSynced": "Carpeta sincronitzada",
   "syncRootDirectory": "Directori arrel de sincronització",
   "penOnlyInput": "Entrada només bolígraf",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
