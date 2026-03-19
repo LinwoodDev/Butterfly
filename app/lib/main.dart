@@ -397,7 +397,6 @@ class ButterflyApp extends StatelessWidget {
           KeybinderLocalizations.delegate,
         ],
         builder: (context, child) {
-          // Continue with the virtual window frame builder
           if (!state.nativeTitleBar) {
             child = virtualWindowFrameBuilder(context, child);
           }
@@ -407,7 +406,7 @@ class ButterflyApp extends StatelessWidget {
               create: (context) =>
                   SyncService(context, context.read<ButterflyFileSystem>()),
               lazy: false,
-              child: child,
+              child: child ?? Container(),
             ),
           );
         },
