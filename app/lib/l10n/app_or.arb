@@ -595,7 +595,6 @@
   "folderSynced": "ଫୋଲ୍ଡର୍ ସିଙ୍କ୍ ହୋଇଛି",
   "syncRootDirectory": "ରୁଟ୍ ସିଙ୍କ୍ ଡିରେକ୍ଟୋରି",
   "penOnlyInput": "କଳମ ମାତ୍ର ଇନ୍ପୁଟ୍",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
