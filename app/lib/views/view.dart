@@ -371,14 +371,7 @@ class _MainViewViewportState extends State<MainViewViewport>
               // Mapped to the priority of the buttons
               switch (kind) {
                 case PointerDeviceKind.touch:
-                  if (settings.penOnlyOneFingerPan &&
-                      cubit.state.effectivePenOnlyInput) {
-                    nextPointerMapping = const InputMapping(
-                      InputMapping.handToolValue,
-                    );
-                  } else {
-                    nextPointerMapping = config.touch;
-                  }
+                  nextPointerMapping = config.touch;
                 case PointerDeviceKind.mouse:
                   if ((buttons & kSecondaryMouseButton) != 0) {
                     nextPointerMapping = config.rightMouse;

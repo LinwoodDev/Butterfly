@@ -143,21 +143,6 @@ class PenInputSettings extends StatelessWidget {
                                 .read<SettingsCubit>()
                                 .changeShowPenOnlyToggle(value),
                           ),
-                          if (state.penOnlyInput != false)
-                            SwitchListTile(
-                              value: state.penOnlyOneFingerPan,
-                              title: Text(
-                                AppLocalizations.of(
-                                  context,
-                                ).penOnlyOneFingerPan,
-                              ),
-                              secondary: const PhosphorIcon(
-                                PhosphorIconsLight.handGrabbing,
-                              ),
-                              onChanged: (value) => context
-                                  .read<SettingsCubit>()
-                                  .changePenOnlyOneFingerPan(value),
-                            ),
                           ListTile(
                             title: Text(
                               AppLocalizations.of(context).ignorePressure,
