@@ -595,7 +595,6 @@
   "folderSynced": "Fascikla sinhronizovana",
   "syncRootDirectory": "Sinhronizuj korenski direktorijum",
   "penOnlyInput": "Unos samo olovkom",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
