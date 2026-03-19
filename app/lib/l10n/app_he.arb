@@ -595,7 +595,6 @@
   "folderSynced": "התיקייה סונכרנה",
   "syncRootDirectory": "סנכרן ספריית שורש",
   "penOnlyInput": "קלט עט בלבד",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
