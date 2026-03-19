@@ -595,7 +595,6 @@
   "folderSynced": "文件夹已同步",
   "syncRootDirectory": "同步根目录",
   "penOnlyInput": "只输入笔数",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
