@@ -595,7 +595,6 @@
   "folderSynced": "फ़ोल्डर सिंक हो गया",
   "syncRootDirectory": "रूट डायरेक्टरी सिंक करें",
   "penOnlyInput": "केवल पेन इनपुट",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
