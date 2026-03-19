@@ -5,8 +5,12 @@ import 'main.dart';
 
 const kClassicFirstColor = Color(0xFFc4840d);
 const kClassicSecondColor = Color(0xFF7b8f96);
-const kClassicThemePrimary = isNightly ? kClassicSecondColor : kClassicFirstColor;
-const kClassicThemeSecondary = isNightly ? kClassicFirstColor : kClassicSecondColor;
+const kClassicThemePrimary = isNightly
+    ? kClassicSecondColor
+    : kClassicFirstColor;
+const kClassicThemeSecondary = isNightly
+    ? kClassicFirstColor
+    : kClassicSecondColor;
 const kClassicTheme = FlexSchemeColor(
   primary: kClassicThemePrimary,
   secondary: kClassicThemeSecondary,
@@ -20,7 +24,11 @@ const kClassicThemeData = FlexSchemeData(
 
 const EdgeInsets settingsCardMargin = EdgeInsets.all(8);
 const EdgeInsets settingsCardPadding = EdgeInsets.all(16);
-const EdgeInsets settingsCardTitlePadding = EdgeInsets.only(left: 12, top: 8, right: 12);
+const EdgeInsets settingsCardTitlePadding = EdgeInsets.only(
+  left: 12,
+  top: 8,
+  right: 12,
+);
 
 ThemeData getThemeData(
   String name,
@@ -61,7 +69,9 @@ ThemeData getThemeData(
       inputDecorationTheme: defaultDropdownInputDecorationTheme(),
     ),
     sliderTheme: theme.sliderTheme.copyWith(year2023: false),
-    progressIndicatorTheme: theme.progressIndicatorTheme.copyWith(year2023: false),
+    progressIndicatorTheme: theme.progressIndicatorTheme.copyWith(
+      year2023: false,
+    ),
   );
 }
 
