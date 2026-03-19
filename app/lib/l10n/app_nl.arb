@@ -595,7 +595,6 @@
   "folderSynced": "Map gesynchroniseerd",
   "syncRootDirectory": "Synchroniseer hoofdmap",
   "penOnlyInput": "Alleen invoer pen",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
