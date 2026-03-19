@@ -595,7 +595,6 @@
   "folderSynced": "Dosar sincronizat",
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
