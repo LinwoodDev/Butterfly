@@ -595,7 +595,6 @@
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
