@@ -595,7 +595,6 @@
   "folderSynced": "폴더 동기화됨",
   "syncRootDirectory": "루트 디렉터리 동기화",
   "penOnlyInput": "펜 전용 입력",
-  "penOnlyOneFingerPan": "Pen-only input one finger navigation",
   "@penOnlyInput": {
     "description": "Setting to enable pen only input mode"
   },
