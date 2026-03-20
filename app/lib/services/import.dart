@@ -47,6 +47,7 @@ class ImportResult {
   final List<NoteData> packs;
   final bool choosePosition;
   final bool documentReady;
+  final List<ExportPreset> exportPresets;
 
   ImportResult({
     required this.service,
@@ -56,6 +57,7 @@ class ImportResult {
     this.pages = const [],
     this.areas = const [],
     this.packs = const [],
+    this.exportPresets = const [],
     this.choosePosition = false,
   }) : documentReady = false;
   ImportResult.ready({required this.service, required NoteData this.document})
@@ -76,6 +78,7 @@ class ImportResult {
           .nonNulls
           .toList(),
       areas = const [],
+      exportPresets = const [],
       choosePosition = false,
       documentReady = true;
 
@@ -157,6 +160,9 @@ class ImportResult {
     );
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
+    }
+    for (final preset in exportPresets) {
+      bloc?.add(ExportPresetCreated(preset.name, preset.areas));
     }
   }
 }
@@ -794,7 +800,10 @@ class ImportService {
       final elements = pdfDocument.pages;
       if (!context.mounted) return null;
       List<int> pages = List.generate(elements.length, (index) => index);
-      bool spreadToPages = false, createAreas = false, invert = false;
+      bool spreadToPages = false,
+          createAreas = false,
+          createExportPreset = true,
+          invert = false;
       SRGBColor background = BasicColors.whiteTransparent;
       String name = '';
       if (advanced) {
@@ -823,6 +832,7 @@ class ImportService {
         pages = callback.pages;
         spreadToPages = callback.spreadToPages;
         createAreas = callback.createAreas;
+        createExportPreset = callback.createExportPreset;
         invert = callback.invert;
         background = callback.background;
         name = callback.name;
@@ -836,6 +846,7 @@ class ImportService {
       final selectedElements = <PdfElement>[];
       final areas = <Area>[];
       final documentPages = <(String?, DocumentPage)>[];
+      final exportPresetAreas = <AreaPreset>[];
       var y = firstPos.dy;
       var current = 0;
       final state = bloc?.state;
@@ -878,9 +889,21 @@ class ImportService {
                 backgrounds: backgrounds,
               ),
             ));
+            exportPresetAreas.add(
+              AreaPreset(name: createAreas ? pageName : '', page: pageName),
+            );
           } else {
             selectedElements.add(element);
             areas.add(area);
+            exportPresetAreas.add(
+              AreaPreset(
+                name: pageName,
+                page:
+                    (state as DocumentLoadSuccess?)?.pageName ??
+                    document.getPages(true).firstOrNull ??
+                    '',
+              ),
+            );
             y += height;
           }
         } catch (e) {
@@ -900,6 +923,13 @@ class ImportService {
         areas: spreadToPages ? [] : areas,
         choosePosition: position == null,
         assets: {_pdfImportSource: bytes},
+        exportPresets: [
+          if (exportPresetAreas.isNotEmpty && createExportPreset)
+            ExportPreset(
+              name: name.isEmpty ? localizations.exportPdf : name,
+              areas: exportPresetAreas,
+            ),
+        ],
       );
     } catch (e) {
       dialog?.close();

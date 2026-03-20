@@ -1388,6 +1388,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ImageExportOptions options, {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
+    DocumentLoaded? docState,
   }) async {
     final realWidth = options.width.ceil();
     final realHeight = options.height.ceil();
@@ -1397,22 +1398,43 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
+    final viewport =
+        cameraViewport ??
+        state.cameraViewport.unbake(unbakedElements: renderers);
+    final transform = CameraTransform(
+      options.quality,
+      Offset(options.x, options.y),
+      realZoom,
+    );
+    final size = Size(realWidth.toDouble(), realHeight.toDouble());
+    final hiddenRenderers = <Renderer<PadElement>>[];
+    if (docState != null) {
+      final exportRect = Rect.fromLTWH(
+        options.x,
+        options.y,
+        options.width,
+        options.height,
+      );
+      for (final renderer in viewport.visibleUnbakedElements) {
+        if (renderer.isVisible(exportRect)) {
+          await renderer.onVisible(this, docState, transform, size);
+          hiddenRenderers.add(renderer);
+        }
+      }
+    }
     final painter = ViewPainter(
       document,
       page,
       info,
       renderBackground: options.renderBackground,
       invisibleLayers: invisibleLayers,
-      cameraViewport:
-          cameraViewport ??
-          state.cameraViewport.unbake(unbakedElements: renderers),
-      transform: CameraTransform(
-        options.quality,
-        Offset(options.x, options.y),
-        realZoom,
-      ),
+      cameraViewport: viewport,
+      transform: transform,
     );
-    painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
+    painter.paint(canvas, size);
+    for (final renderer in hiddenRenderers) {
+      await renderer.onHidden(this, docState!, transform, size);
+    }
     final picture = recorder.endRecording();
     ui.Image? image;
     try {
@@ -1430,6 +1452,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ImageExportOptions options, {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
+    DocumentLoaded? docState,
   }) async {
     final image = await renderImage(
       document,
@@ -1438,6 +1461,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       options,
       cameraViewport: cameraViewport,
       invisibleLayers: invisibleLayers,
+      docState: docState,
     );
     ByteData? bytes;
     try {
@@ -1686,14 +1710,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground,
         ),
-        cameraViewport: currentOpened
-            ? null
-            : await CameraViewport.build(
-                docState.transformCubit,
-                document,
-                docState.assetService,
-                page,
-              ),
+        cameraViewport: await CameraViewport.build(
+          docState.transformCubit,
+          document,
+          docState.assetService,
+          page,
+        ),
+        docState: docState,
         invisibleLayers: invisibleLayers ?? docState.invisibleLayers,
       );
       if (image == null) continue;

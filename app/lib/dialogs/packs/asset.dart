@@ -154,6 +154,7 @@ Future<void> addToPack(
       y: rect.top,
       quality: kThumbnailWidth / rect.width,
     ),
+    docState: state,
   );
   Uint8List? thumbnail;
   if (screenshot != null) {

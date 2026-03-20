@@ -172,6 +172,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         x: rect.left + widthOffset,
                         y: rect.top + heightOffset,
                       ),
+                      docState: state,
                     );
                     if (thumbnail == null) return;
                     final bytes = thumbnail.buffer.asUint8List();

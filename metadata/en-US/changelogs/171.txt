@@ -1,3 +1,9 @@
+* Redesign pdf export dialog
+  * Improve item layout
+  * Add delete button for export presets
+  * Add export preset save button
+* Add export preset to pdf import
+* Fix pdfs and images being gray on export if not inside the viewport
 * Fix untranslated reset on key recorder
 * Fix small corner menu on different configurations
 
