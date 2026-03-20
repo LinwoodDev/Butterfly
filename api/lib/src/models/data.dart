@@ -35,6 +35,7 @@ final class NoteFile {
   bool isEncrypted() => isZipEncrypted(data);
 
   (String?, NoteData)? _data;
+  (String?, NoteDisplay)? _display;
 
   NoteData? load({String? password}) {
     if (_data != null && _data?.$1 == password) {
@@ -48,50 +49,77 @@ final class NoteFile {
       return null;
     }
   }
+
+  NoteDisplay? display({String? password}) {
+    if (_display != null && _display?.$1 == password) {
+      return _display?.$2;
+    }
+    if (_data != null && _data?.$1 == password) {
+      return _data?.$2;
+    }
+    try {
+      final display = SimpleNoteDisplay.fromData(data, password: password);
+      _display = (password, display);
+      return display;
+    } catch (_) {
+      return null;
+    }
+  }
 }
 
-final class NoteData extends ArchiveData<NoteData> {
-  NoteData(super.archive, {super.state});
-  NoteData.build(super.archive, {super.password}) : super.build();
-
-  factory NoteData.fromData(
-    Uint8List data, {
-    bool disableMigrations = false,
-    String? password,
-  }) {
-    if (disableMigrations) {
-      final archive = ZipDecoder().decodeBytes(data, password: password);
-      return NoteData.build(archive, password: password);
-    }
-    return noteDataMigrator(data, password: password);
-  }
-
-  factory NoteData.fromArchive(
-    Archive archive, {
-    bool disableMigrations = false,
-    String? password,
-  }) {
-    if (disableMigrations) {
-      return NoteData.build(archive, password: password);
-    }
-    return archiveNoteDataMigrator(archive);
-  }
-
-  factory NoteData.fromJson(
-    dynamic json, {
-    bool disableMigrations = false,
-    String? password,
-  }) => NoteData.fromData(
-    base64Decode(json as String),
-    disableMigrations: disableMigrations,
-    password: password,
-  );
+abstract class NoteDisplay<T> extends ArchiveData<T> {
+  NoteDisplay(super.archive, {super.state});
+  NoteDisplay.build(super.archive, {super.password}) : super.build();
 
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
 
   bool get isValid => getAsset(kMetaArchiveFile) != null;
+
+  @useResult
+  Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
+
+  @useResult
+  FileMetadata? getMetadata() {
+    final data = getAsset(kMetaArchiveFile);
+    if (data == null) return null;
+    final content = utf8.decode(data);
+    if (content.isEmpty) return null;
+    final json = jsonDecode(content) as Map<String, dynamic>;
+    return FileMetadata.fromJson(json);
+  }
+}
+
+class SimpleNoteDisplay extends NoteDisplay<SimpleNoteDisplay> {
+  SimpleNoteDisplay(super.archive, {super.state});
+  SimpleNoteDisplay.build(super.archive, {super.password}) : super.build();
+
+  factory SimpleNoteDisplay.fromData(Uint8List data, {String? password}) {
+    final archive = ZipDecoder().decodeBytes(data, password: password);
+    return SimpleNoteDisplay.build(archive, password: password);
+  }
+
+  @override
+  @useResult
+  SimpleNoteDisplay updateState(ArchiveState state) =>
+      SimpleNoteDisplay(archive, state: state);
+}
+
+final class NoteData extends NoteDisplay<NoteData> {
+  NoteData(super.archive, {super.state});
+  NoteData.build(super.archive, {super.password}) : super.build();
+
+  factory NoteData.fromData(Uint8List data, {String? password}) {
+    return noteDataMigrator(data, password: password);
+  }
+
+  factory NoteData.fromArchive(Archive archive, {String? password}) {
+    return archiveNoteDataMigrator(archive);
+  }
+
+  factory NoteData.fromJson(dynamic json, {String? password}) =>
+      NoteData.fromData(base64Decode(json as String), password: password);
 
   NoteData setName(String? value) {
     final meta = getMetadata();
@@ -138,6 +166,7 @@ final class NoteData extends ArchiveData<NoteData> {
     return getName();
   }
 
+  @override
   @useResult
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
 
@@ -145,6 +174,7 @@ final class NoteData extends ArchiveData<NoteData> {
   NoteData setThumbnail(Uint8List data) =>
       setAsset(kThumbnailArchiveFile, data);
 
+  @override
   @useResult
   FileMetadata? getMetadata() {
     final data = getAsset(kMetaArchiveFile);
