@@ -49,7 +49,7 @@ ThemeData getThemeData(
       fontFamily: 'Comfortaa',
       visualDensity: density,
       darkIsTrueBlack: highContrast,
-      fontFamilyFallback: ['Roboto'],
+      fontFamilyFallback: ['ReadexPro', 'Roboto'],
     );
   } else {
     theme = FlexThemeData.light(
@@ -60,7 +60,7 @@ ThemeData getThemeData(
       fontFamily: 'Comfortaa',
       visualDensity: density,
       lightIsWhite: highContrast,
-      fontFamilyFallback: ['Roboto'],
+      fontFamilyFallback: ['ReadexPro', 'Roboto'],
     );
   }
   return theme.copyWith(
