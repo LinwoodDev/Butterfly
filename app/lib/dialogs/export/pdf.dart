@@ -13,6 +13,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../delete.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
@@ -57,11 +58,40 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).exportPdf),
                   actions: [
+                    if (_areas.isNotEmpty)
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
+                        tooltip: AppLocalizations.of(context).save,
+                        onPressed: () async {
+                          final bloc = context.read<DocumentBloc>();
+                          final currentState = bloc.state;
+                          if (currentState is! DocumentLoadSuccess) return;
+                          final name = await showDialog<String>(
+                            context: context,
+                            builder: (context) => NameDialog(
+                              validator: defaultNameValidator(
+                                context,
+                                currentState.info.exportPresets
+                                    .map((e) => e.name)
+                                    .toList(),
+                              ),
+                            ),
+                          );
+                          if (name != null) {
+                            bloc.add(
+                              ExportPresetCreated(
+                                name,
+                                _areas.map((e) => e.preset).toList(),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.list),
                       tooltip: AppLocalizations.of(context).presets,
+                      icon: const PhosphorIcon(PhosphorIconsLight.bookmark),
                       onPressed: () async {
-                        final preset = await showDialog<ExportPreset>(
+                        final result = await showDialog<ExportPreset>(
                           context: context,
                           builder: (ctx) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
@@ -70,11 +100,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                             ),
                           ),
                         );
-                        if (preset != null) {
+                        if (result != null) {
                           setState(() {
                             _areas.clear();
                             _areas.addAll(
-                              preset.areas.map(
+                              result.areas.map(
                                 (e) => (key: UniqueKey(), preset: e),
                               ),
                             );
@@ -331,11 +361,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           textAlign: TextAlign.center,
           style: TextTheme.of(context).bodyMedium,
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 4,
-          children: [pageButton, documentButton],
+          children: [pageButton, const SizedBox(width: 8), documentButton],
         ),
       ],
     );
@@ -343,6 +372,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
 
   Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
     return ReorderableListView.builder(
+      buildDefaultDragHandles: false,
       itemCount: _areas.length,
       onReorder: (oldIndex, newIndex) {
         setState(() {
@@ -376,11 +406,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             x: area.position.x,
             y: area.position.y,
           ),
+          docState: state,
         );
         return FutureBuilder<ByteData?>(
           key: wrapper.key,
           future: imageFuture,
           builder: (context, snapshot) => _AreaPreview(
+            index: i,
             area: area,
             page: e.page,
             quality: e.quality,
@@ -407,6 +439,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
 }
 
 class _AreaPreview extends StatelessWidget {
+  final int index;
   final Area area;
   final Uint8List? image;
   final String page;
@@ -416,6 +449,7 @@ class _AreaPreview extends StatelessWidget {
   final ValueChanged<double> onQualityChanged;
 
   const _AreaPreview({
+    required this.index,
     required this.area,
     this.image,
     required this.page,
@@ -431,120 +465,100 @@ class _AreaPreview extends StatelessWidget {
     if (pageName.isEmpty) {
       pageName = AppLocalizations.of(context).untitled;
     }
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isSmall = constraints.maxWidth < 500;
-        return Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: isSmall
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: image == null
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : Image.memory(image!, fit: BoxFit.contain),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  area.name.isEmpty
-                                      ? AppLocalizations.of(context).untitled
-                                      : area.name,
-                                  style: TextTheme.of(context).titleMedium,
-                                ),
-                                Text(
-                                  pageName,
-                                  style: TextTheme.of(context).bodySmall
-                                      ?.copyWith(
-                                        color: isCurrentPage
-                                            ? ColorScheme.of(context).primary
-                                            : null,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: onRemove,
-                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                            tooltip: AppLocalizations.of(context).remove,
-                          ),
-                          const SizedBox(width: 32),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      ExactSlider(
-                        value: quality,
-                        min: 1,
-                        max: 10,
-                        onChangeEnd: onQualityChanged,
-                        contentPadding: EdgeInsets.zero,
-                        header: Text(AppLocalizations.of(context).quality),
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      SizedBox(
-                        width: 192,
-                        height: 108,
-                        child: image == null
-                            ? const Center(child: CircularProgressIndicator())
-                            : Image.memory(image!, fit: BoxFit.contain),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              area.name.isEmpty
-                                  ? AppLocalizations.of(context).untitled
-                                  : area.name,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              pageName,
-                              style: TextTheme.of(context).bodySmall?.copyWith(
-                                color: isCurrentPage
-                                    ? ColorScheme.of(context).primary
-                                    : null,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            ExactSlider(
-                              value: quality,
-                              min: 1,
-                              max: 10,
-                              onChangeEnd: onQualityChanged,
-                              contentPadding: EdgeInsets.zero,
-                              header: Text(
-                                AppLocalizations.of(context).quality,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: onRemove,
-                        icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                        tooltip: AppLocalizations.of(context).remove,
-                      ),
-                      const SizedBox(width: 16),
-                    ],
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      decoration: BoxDecoration(
+        color: Theme.of(
+          context,
+        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            ReorderableDragStartListener(
+              index: index,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  PhosphorIconsLight.dotsSixVertical,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+            Container(
+              width: 80,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.outlineVariant,
+                ),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: image == null
+                  ? const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Image.memory(image!, fit: BoxFit.contain),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    area.name.isEmpty
+                        ? AppLocalizations.of(context).untitled
+                        : area.name,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-          ),
-        );
-      },
+                  Text(
+                    pageName,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isCurrentPage
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 150,
+              child: ExactSlider(
+                value: quality,
+                min: 1,
+                max: 10,
+                onChangeEnd: onQualityChanged,
+                contentPadding: EdgeInsets.zero,
+                header: Text(
+                  AppLocalizations.of(context).quality,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              onPressed: onRemove,
+              icon: const PhosphorIcon(PhosphorIconsLight.trash),
+              tooltip: AppLocalizations.of(context).remove,
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -757,6 +771,12 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                             .map(
                               (e) => Dismissible(
                                 key: ObjectKey(e.name),
+                                confirmDismiss: (direction) async {
+                                  return await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => const DeleteDialog(),
+                                  );
+                                },
                                 onDismissed: (direction) {
                                   context.read<DocumentBloc>().add(
                                     ExportPresetRemoved(e.name),
@@ -765,6 +785,29 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                                 child: ListTile(
                                   title: Text(e.name),
                                   onTap: () => Navigator.of(context).pop(e),
+                                  trailing: IconButton(
+                                    icon: const PhosphorIcon(
+                                      PhosphorIconsLight.trash,
+                                    ),
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).remove,
+                                    color: Theme.of(context).colorScheme.error,
+                                    onPressed: () async {
+                                      if (await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeleteDialog(),
+                                          ) ==
+                                          true) {
+                                        if (context.mounted) {
+                                          context.read<DocumentBloc>().add(
+                                            ExportPresetRemoved(e.name),
+                                          );
+                                        }
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

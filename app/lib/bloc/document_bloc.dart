@@ -1383,6 +1383,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         width: kThumbnailWidth.toDouble(),
         height: kThumbnailHeight.toDouble(),
       ),
+      docState: current,
     );
     final thumbnail = render?.buffer.asUint8List();
     final settings = current.settingsCubit.state;
