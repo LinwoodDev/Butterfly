@@ -1,4 +1,5 @@
 * Fix untranslated reset on key recorder
 * Fix small corner menu on different configurations
+* Fix elements not rendering when moving into view
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.1

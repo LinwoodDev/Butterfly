@@ -164,14 +164,17 @@ class PdfRenderer extends Renderer<PdfElement> {
       -element.position.x,
       -element.position.y,
     );
+    final width = (relativeRect.width * scale).toInt();
+    final height = (relativeRect.height * scale).toInt();
+    if (width <= 0 || height <= 0) return;
     try {
       final raster = await data.pages
           .elementAtOrNull(element.page)
           ?.render(
             x: (relativeRect.left * scale).toInt(),
             y: (relativeRect.top * scale).toInt(),
-            width: (relativeRect.width * scale).toInt(),
-            height: (relativeRect.height * scale).toInt(),
+            width: width,
+            height: height,
             fullWidth: element.width * scale,
             fullHeight: element.height * scale,
           );

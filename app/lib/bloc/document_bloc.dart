@@ -1359,7 +1359,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     } else {
       cubit.setSaveState(isCreating: true);
     }
-    cubit.loadElements(current);
+    await cubit.loadElements(current);
     cubit.init(this);
   }
 
