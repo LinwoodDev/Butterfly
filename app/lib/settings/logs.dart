@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -18,6 +19,65 @@ class LogsSettingsPage extends StatefulWidget {
 }
 
 class _LogsSettingsPageState extends State<LogsSettingsPage> {
+  List<File> _archivedFiles = [];
+  File? _selectedFile;
+  List<TalkerData> _selectedArchivedLogs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadArchiveList();
+  }
+
+  Future<void> _loadArchiveList() async {
+    final archives = await getArchivedLogs();
+    setState(() {
+      _archivedFiles = archives;
+    });
+  }
+
+  Future<void> _selectArchive(File? file) async {
+    if (file == null) {
+      setState(() {
+        _selectedFile = null;
+        _selectedArchivedLogs = [];
+      });
+      return;
+    }
+    final logs = await loadArchivedLogFile(file);
+    setState(() {
+      _selectedFile = file;
+      _selectedArchivedLogs = logs;
+    });
+  }
+
+  String _getFileName(File file) {
+    try {
+      final name = file.path.split(Platform.pathSeparator).last;
+      return name.replaceAll('logs_', '').replaceAll('.json', '');
+    } catch (_) {
+      return 'Archive';
+    }
+  }
+
+  Widget _buildList(List<TalkerData> allLogs, bool showVerbose) {
+    final logs = allLogs.where((element) {
+      if (showVerbose) return true;
+      return element.logLevel != LogLevel.verbose &&
+          element.logLevel != LogLevel.debug;
+    }).toList();
+    if (logs.isEmpty) {
+      return const Center(child: Text('No logs'));
+    }
+    return ListView.builder(
+      itemCount: logs.length,
+      itemBuilder: (context, index) {
+        final log = logs[logs.length - 1 - index];
+        return _LogTile(log: log);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
@@ -38,7 +98,10 @@ class _LogsSettingsPageState extends State<LogsSettingsPage> {
                 icon: const PhosphorIcon(PhosphorIconsLight.copy),
                 tooltip: AppLocalizations.of(context).copy,
                 onPressed: () {
-                  final text = talker.history
+                  final sourceLogs = _selectedFile == null
+                      ? talker.history
+                      : _selectedArchivedLogs;
+                  final text = sourceLogs
                       .map((e) => e.generateTextMessage())
                       .join('\n');
                   Clipboard.setData(ClipboardData(text: text));
@@ -55,6 +118,8 @@ class _LogsSettingsPageState extends State<LogsSettingsPage> {
                 onPressed: () {
                   talker.cleanHistory();
                   clearPersistedLogs();
+                  _loadArchiveList();
+                  _selectArchive(null);
                   setState(() {});
                 },
               ),
@@ -62,6 +127,30 @@ class _LogsSettingsPageState extends State<LogsSettingsPage> {
           ),
           body: Column(
             children: [
+              if (_archivedFiles.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: DropdownMenuFormField<File?>(
+                    initialSelection: _selectedFile,
+                    expandedInsets: EdgeInsets.zero,
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                        value: null,
+                        label: AppLocalizations.of(context).currentVersion,
+                      ),
+                      ..._archivedFiles.map(
+                        (file) => DropdownMenuEntry(
+                          value: file,
+                          label: _getFileName(file),
+                        ),
+                      ),
+                    ],
+                    onSelected: _selectArchive,
+                  ),
+                ),
               SwitchListTile(
                 title: const Text('Show verbose logs'),
                 value: state.showVerboseLogs,
@@ -70,26 +159,17 @@ class _LogsSettingsPageState extends State<LogsSettingsPage> {
                 },
               ),
               Expanded(
-                child: StreamBuilder(
-                  stream: talker.stream,
-                  builder: (context, snapshot) {
-                    final logs = talker.history.where((element) {
-                      if (state.showVerboseLogs) return true;
-                      return element.logLevel != LogLevel.verbose &&
-                          element.logLevel != LogLevel.debug;
-                    }).toList();
-                    if (logs.isEmpty) {
-                      return const Center(child: Text('No logs'));
-                    }
-                    return ListView.builder(
-                      itemCount: logs.length,
-                      itemBuilder: (context, index) {
-                        final log = logs[logs.length - 1 - index];
-                        return _LogTile(log: log);
-                      },
-                    );
-                  },
-                ),
+                child: _selectedFile == null
+                    ? StreamBuilder(
+                        stream: talker.stream,
+                        builder: (context, snapshot) {
+                          return _buildList(
+                            talker.history,
+                            state.showVerboseLogs,
+                          );
+                        },
+                      )
+                    : _buildList(_selectedArchivedLogs, state.showVerboseLogs),
               ),
             ],
           ),

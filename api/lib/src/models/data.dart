@@ -75,19 +75,35 @@ abstract class NoteDisplay<T> extends ArchiveData<T> {
 
   String? get name => getMetadata()?.name;
 
-  bool get isValid => getAsset(kMetaArchiveFile) != null;
+  bool get isValid {
+    try {
+      return getAsset(kMetaArchiveFile) != null;
+    } catch (_) {
+      return false;
+    }
+  }
 
   @useResult
-  Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
+  Uint8List? getThumbnail() {
+    try {
+      return getAsset(kThumbnailArchiveFile);
+    } catch (_) {
+      return null;
+    }
+  }
 
   @useResult
   FileMetadata? getMetadata() {
-    final data = getAsset(kMetaArchiveFile);
-    if (data == null) return null;
-    final content = utf8.decode(data);
-    if (content.isEmpty) return null;
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return FileMetadata.fromJson(json);
+    try {
+      final data = getAsset(kMetaArchiveFile);
+      if (data == null) return null;
+      final content = utf8.decode(data);
+      if (content.isEmpty) return null;
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return FileMetadata.fromJson(json);
+    } catch (_) {
+      return null;
+    }
   }
 }
 
