@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Volledig scherm",
   "doublePressAction": "Dubbel-klik actie",
   "triplePressAction": "Drievoudig indrukken actie",
+  "longPress": "Long press",
   "toolNumber": "Gereedschap {number}",
   "@toolNumber": {
     "placeholders": {

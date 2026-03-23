@@ -10,7 +10,7 @@ import DownloadButton from '/src/components/DownloadButton.astro';
 import Playstore from '@assets/img/store/playstore.png';
 import Fdroid from '@assets/img/store/fdroid.svg';
 
-## متطلبات النظام الدنيا
+## الحد الأدنى من متطلبات النظام
 
 - Android Nougat 7.0 (API level 24) or higher.
 
@@ -38,7 +38,7 @@ The nightly version is also available on the stores. يرجى ملاحظة أن 
 </a>
 </div>
 
-## ثنائيات
+## ﻹصدارات
 
 <Tabs>
 <TabItem label="Stable">
@@ -80,6 +80,6 @@ Read more about the nightly version of Butterfly [here](/community/nightly).
 :::tip[What apk should I use?]
 
 **Universal** should work on all devices. If you want a smaller apk, use the one that matches your device's architecture.
-**Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. However, this can affect loading performance. Read more [in the android documentation](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
+**Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. لكن من الممكن أن يؤثر هذا في أداء التحميل. اقرأ المزيد [في وثائق الأندرويد](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
 
 :::

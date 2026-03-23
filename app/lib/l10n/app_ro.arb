@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Ecran complet",
   "doublePressAction": "Acțiune la apăsare dublă",
   "triplePressAction": "Acțiune apăsare triplă",
+  "longPress": "Long press",
   "toolNumber": "Unelte {number}",
   "@toolNumber": {
     "placeholders": {

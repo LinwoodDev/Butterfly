@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "全屏",
   "doublePressAction": "双击动作",
   "triplePressAction": "三次按下",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
