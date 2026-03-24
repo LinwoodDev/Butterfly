@@ -1,0 +1,6 @@
+* Improve pdf rendering
+* Add toggle presentation to keyboard shortcuts settings page
+* Change toggle presentation to ctrl + space
+* Fix space not working in text input fields
+
+Read more here: https://linwood.dev/butterfly/2.5.0-rc.2
