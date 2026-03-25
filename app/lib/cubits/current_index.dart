@@ -1434,7 +1434,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         options.width,
         options.height,
       );
-      for (final renderer in viewport.visibleUnbakedElements) {
+      for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
           await renderer.onVisible(this, docState, transform, size);
           hiddenRenderers.add(renderer);

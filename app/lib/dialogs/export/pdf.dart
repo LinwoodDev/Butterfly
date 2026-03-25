@@ -152,9 +152,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               : _buildAreasList(state, currentIndex),
                         ),
                         const Divider(),
-                        Row(
+                        Wrap(
+                          alignment: WrapAlignment.end,
+                          spacing: 8,
+                          runSpacing: 8,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Expanded(child: Container()),
                             TextButton(
                               child: Text(
                                 MaterialLocalizations.of(
@@ -164,73 +167,10 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             if (widget.print) ...[
-                              ElevatedButton(
-                                onPressed: _exportingShare != null
-                                    ? null
-                                    : () async {
-                                        await _export(true);
-                                        if (mounted) {
-                                          Navigator.of(context).pop();
-                                        }
-                                      },
-                                child: _exportingShare == true
-                                    ? const SizedBox(
-                                        width: 24,
-                                        height: 24,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : Text(
-                                        widget.print
-                                            ? AppLocalizations.of(context).share
-                                            : AppLocalizations.of(
-                                                context,
-                                              ).export,
-                                      ),
-                              ),
+                              _buildExportButton(true),
                             ] else ...[
-                              if (supportsShare())
-                                ElevatedButton(
-                                  onPressed: _exportingShare != null
-                                      ? null
-                                      : () async {
-                                          await _export(true);
-                                          if (mounted) {
-                                            Navigator.of(context).pop();
-                                          }
-                                        },
-                                  child: _exportingShare == true
-                                      ? const SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
-                                        )
-                                      : Text(
-                                          AppLocalizations.of(context).share,
-                                        ),
-                                ),
-                              ElevatedButton(
-                                onPressed: _exportingShare != null
-                                    ? null
-                                    : () async {
-                                        await _export(false);
-                                        if (mounted) {
-                                          Navigator.of(context).pop();
-                                        }
-                                      },
-                                child: _exportingShare == false
-                                    ? const SizedBox(
-                                        width: 24,
-                                        height: 24,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : Text(AppLocalizations.of(context).export),
-                              ),
+                              if (supportsShare()) _buildExportButton(true),
+                              _buildExportButton(false),
                             ],
                           ],
                         ),
@@ -243,6 +183,30 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildExportButton(bool share) {
+    return ElevatedButton(
+      onPressed: _exportingShare != null
+          ? null
+          : () async {
+              await _export(share);
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
+            },
+      child: _exportingShare == share
+          ? const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : Text(
+              share
+                  ? AppLocalizations.of(context).share
+                  : AppLocalizations.of(context).export,
+            ),
     );
   }
 
@@ -393,172 +357,254 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         if (area == null) {
           return Container(key: wrapper.key);
         }
-        const maxImageDimension = 1000;
-        final maxSide = max(area.width, area.height);
-        final imageFuture = currentIndex.render(
-          state.data,
-          page,
-          state.info,
-          ImageExportOptions(
-            width: area.width,
-            height: area.height,
-            quality: min(e.quality, maxImageDimension / maxSide),
-            x: area.position.x,
-            y: area.position.y,
-          ),
-          docState: state,
-        );
-        return FutureBuilder<ByteData?>(
+        return _AreaPreview(
           key: wrapper.key,
-          future: imageFuture,
-          builder: (context, snapshot) => _AreaPreview(
-            index: i,
-            area: area,
-            page: e.page,
-            quality: e.quality,
-            isCurrentPage: e.page == state.pageName,
-            onRemove: () {
-              setState(() {
-                _areas.removeAt(i);
-              });
-            },
-            onQualityChanged: (value) {
-              setState(() {
-                _areas[i] = (
-                  key: wrapper.key,
-                  preset: e.copyWith(quality: value),
-                );
-              });
-            },
-            image: snapshot.data?.buffer.asUint8List(),
-          ),
+          index: i,
+          area: area,
+          preset: e,
+          page: page,
+          state: state,
+          currentIndex: currentIndex,
+          onRemove: () {
+            setState(() {
+              _areas.removeAt(i);
+            });
+          },
+          onQualityChanged: (value) {
+            setState(() {
+              _areas[i] = (
+                key: wrapper.key,
+                preset: e.copyWith(quality: value),
+              );
+            });
+          },
         );
       },
     );
   }
 }
 
-class _AreaPreview extends StatelessWidget {
+class _AreaPreview extends StatefulWidget {
   final int index;
   final Area area;
-  final Uint8List? image;
-  final String page;
+  final AreaPreset preset;
+  final DocumentPage page;
+  final DocumentLoaded state;
+  final CurrentIndexCubit currentIndex;
   final VoidCallback onRemove;
-  final double quality;
-  final bool isCurrentPage;
   final ValueChanged<double> onQualityChanged;
 
   const _AreaPreview({
+    super.key,
     required this.index,
     required this.area,
-    this.image,
+    required this.preset,
     required this.page,
+    required this.state,
+    required this.currentIndex,
     required this.onRemove,
-    required this.quality,
-    required this.isCurrentPage,
     required this.onQualityChanged,
   });
 
   @override
+  State<_AreaPreview> createState() => _AreaPreviewState();
+}
+
+class _AreaPreviewState extends State<_AreaPreview> {
+  late Future<ByteData?> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AreaPreview oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.area != widget.area ||
+        oldWidget.preset.quality != widget.preset.quality) {
+      _load();
+    }
+  }
+
+  void _load() {
+    const maxImageDimension = 1000;
+    final maxSide = max(widget.area.width, widget.area.height);
+    _future = widget.currentIndex.render(
+      widget.state.data,
+      widget.page,
+      widget.state.info,
+      ImageExportOptions(
+        width: widget.area.width,
+        height: widget.area.height,
+        quality: min(widget.preset.quality, maxImageDimension / maxSide),
+        x: widget.area.position.x,
+        y: widget.area.position.y,
+      ),
+      docState: widget.state,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var pageName = NoteData.getPageNameFromRealName(page);
+    var pageName = NoteData.getPageNameFromRealName(widget.preset.page);
     if (pageName.isEmpty) {
       pageName = AppLocalizations.of(context).untitled;
     }
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(
-        color: Theme.of(
-          context,
-        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            ReorderableDragStartListener(
-              index: index,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  PhosphorIconsLight.dotsSixVertical,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
+    final isCurrentPage = widget.preset.page == widget.state.pageName;
+    return FutureBuilder<ByteData?>(
+      future: _future,
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        final image = data?.buffer.asUint8List(
+          data.offsetInBytes,
+          data.lengthInBytes,
+        );
+
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: 4),
+          decoration: BoxDecoration(
+            color: Theme.of(
+              context,
+            ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outlineVariant,
             ),
-            Container(
-              width: 80,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.outlineVariant,
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: image == null
-                  ? const Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : Image.memory(image!, fit: BoxFit.contain),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    area.name.isEmpty
-                        ? AppLocalizations.of(context).untitled
-                        : area.name,
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isSmall = constraints.maxWidth < 450;
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        ReorderableDragStartListener(
+                          index: widget.index,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(
+                              PhosphorIconsLight.dotsSixVertical,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 80,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outlineVariant,
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: image == null
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Image.memory(image, fit: BoxFit.contain),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                widget.area.name.isEmpty
+                                    ? AppLocalizations.of(context).untitled
+                                    : widget.area.name,
+                                style: Theme.of(context).textTheme.titleSmall
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                pageName,
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      color: isCurrentPage
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                    ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (!isSmall) ...[
+                          const SizedBox(width: 16),
+                          SizedBox(
+                            width: 150,
+                            child: ExactSlider(
+                              value: widget.preset.quality,
+                              min: 1,
+                              max: 10,
+                              onChangeEnd: widget.onQualityChanged,
+                              contentPadding: EdgeInsets.zero,
+                              header: Text(
+                                AppLocalizations.of(context).quality,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          ),
+                        ],
+                        const SizedBox(width: 8),
+                        IconButton(
+                          onPressed: widget.onRemove,
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                          tooltip: AppLocalizations.of(context).remove,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      ],
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    pageName,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: isCurrentPage
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
+                    if (isSmall)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 32 + 80 + 16),
+                            Expanded(
+                              child: ExactSlider(
+                                value: widget.preset.quality,
+                                min: 1,
+                                max: 10,
+                                onChangeEnd: widget.onQualityChanged,
+                                contentPadding: EdgeInsets.zero,
+                                header: Text(
+                                  AppLocalizations.of(context).quality,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 48),
+                          ],
+                        ),
+                      ),
+                  ],
+                );
+              },
             ),
-            const SizedBox(width: 16),
-            SizedBox(
-              width: 150,
-              child: ExactSlider(
-                value: quality,
-                min: 1,
-                max: 10,
-                onChangeEnd: onQualityChanged,
-                contentPadding: EdgeInsets.zero,
-                header: Text(
-                  AppLocalizations.of(context).quality,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            IconButton(
-              onPressed: onRemove,
-              icon: const PhosphorIcon(PhosphorIconsLight.trash),
-              tooltip: AppLocalizations.of(context).remove,
-              color: Theme.of(context).colorScheme.error,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
