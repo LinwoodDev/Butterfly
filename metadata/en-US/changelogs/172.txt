@@ -4,5 +4,6 @@
 * Fix space not working in text input fields
 * Fix pdf export dialog overflow on mobile devices
 * Fix thumbnails not loading in pdf export dialog
+* Fix polygon disappearing after editing
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.2
