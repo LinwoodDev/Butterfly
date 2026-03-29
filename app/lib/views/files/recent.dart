@@ -53,7 +53,7 @@ class RecentFilesViewState extends State<RecentFilesView> {
     Uint8List? thumbnail;
     if (entity is FileSystemFile<NoteFile>) {
       if (context.read<SettingsCubit>().state.showThumbnails) {
-        final data = entity.data?.load();
+        final data = entity.data?.display();
         metadata = data?.getMetadata();
         thumbnail = data?.getThumbnail();
       }

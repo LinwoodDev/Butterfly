@@ -4,6 +4,7 @@ class PdfRenderer extends Renderer<PdfElement> {
   ui.Image? image;
   double? renderedScale;
   Rect? _lastRenderedRect;
+  int _renderId = 0;
 
   PdfRenderer(
     super.element, [
@@ -37,7 +38,18 @@ class PdfRenderer extends Renderer<PdfElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (this.image == null || element.background.a > 0) {
+    final image = this.image;
+    final renderRect = _lastRenderedRect;
+
+    bool needsPlaceholder = image == null || element.background.a > 0;
+    if (image != null && renderRect != null) {
+      if ((rect.width - renderRect.width).abs() > 1 ||
+          (rect.height - renderRect.height).abs() > 1) {
+        needsPlaceholder = true;
+      }
+    }
+
+    if (needsPlaceholder) {
       // Render placeholder
       final paint = Paint()
         ..color = element.background.a > 0
@@ -46,8 +58,7 @@ class PdfRenderer extends Renderer<PdfElement> {
         ..style = PaintingStyle.fill;
       canvas.drawRect(rect, paint);
     }
-    final image = this.image;
-    final renderRect = _lastRenderedRect;
+
     if (image != null && renderRect != null && !renderRect.isEmpty) {
       final paint = Paint()
         ..filterQuality = FilterQuality.high
@@ -93,6 +104,7 @@ class PdfRenderer extends Renderer<PdfElement> {
     CameraTransform renderTransform,
     ui.Size size,
   ) {
+    _renderId++;
     image?.dispose();
     image = null;
     renderedScale = null;
@@ -146,6 +158,7 @@ class PdfRenderer extends Renderer<PdfElement> {
     double scale,
   ) async {
     if (renderRect.isEmpty) {
+      _renderId++;
       image?.dispose();
       image = null;
       renderedScale = null;
@@ -158,34 +171,54 @@ class PdfRenderer extends Renderer<PdfElement> {
         (renderedScale! - scale).abs() < 0.001) {
       return;
     }
+
+    final currentRenderId = ++_renderId;
     final data = await assetService.getPdfDocument(element.source, document);
-    if (data == null) return;
+    if (data == null || currentRenderId != _renderId) return;
+
     final relativeRect = renderRect.translate(
       -element.position.x,
       -element.position.y,
     );
+    final width = (relativeRect.width * scale).toInt();
+    final height = (relativeRect.height * scale).toInt();
+    if (width <= 0 || height <= 0) return;
     try {
       final raster = await data.pages
           .elementAtOrNull(element.page)
           ?.render(
             x: (relativeRect.left * scale).toInt(),
             y: (relativeRect.top * scale).toInt(),
-            width: (relativeRect.width * scale).toInt(),
-            height: (relativeRect.height * scale).toInt(),
+            width: width,
+            height: height,
             fullWidth: element.width * scale,
             fullHeight: element.height * scale,
           );
-      if (raster == null) return;
-      var imgImage = raster.createImageNF();
-      raster.dispose();
+      if (raster == null || currentRenderId != _renderId) {
+        raster?.dispose();
+        return;
+      }
+
+      ui.Image uiImage;
       if (element.invert) {
+        var imgImage = raster.createImageNF();
+        raster.dispose();
         final cmd = img.Command()
           ..image(imgImage)
           ..invert();
         final converted = await cmd.getImage();
         if (converted != null) imgImage = converted;
+        uiImage = await convertImageToFlutterUi(imgImage);
+      } else {
+        uiImage = await raster.createImage();
+        raster.dispose();
       }
-      final uiImage = await convertImageToFlutterUi(imgImage);
+
+      if (currentRenderId != _renderId) {
+        uiImage.dispose();
+        return;
+      }
+
       image?.dispose();
       image = uiImage;
       renderedScale = scale;
@@ -273,6 +306,7 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   void dispose() {
+    _renderId++;
     image?.dispose();
     image = null;
     renderedScale = null;

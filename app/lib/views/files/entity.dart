@@ -136,7 +136,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
     try {
       if (entity is FileSystemFile<NoteFile>) {
         final data = context.read<SettingsCubit>().state.showThumbnails
-            ? entity.data?.load()
+            ? entity.data?.display()
             : null;
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
         if (entity.data?.isEncrypted() ?? false) {

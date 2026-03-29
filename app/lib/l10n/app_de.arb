@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Vollbild",
   "doublePressAction": "Doppeltes Drücken",
   "triplePressAction": "Dreifach Drücken Aktion",
+  "longPress": "Long press",
   "toolNumber": "{number}",
   "@toolNumber": {
     "placeholders": {

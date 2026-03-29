@@ -39,7 +39,13 @@ NoteData archiveNoteDataMigrator(Archive archive, {String? password}) {
 NoteData _migrate(NoteData noteData, FileMetadata metadata) {
   final version = metadata.fileVersion ?? kFileVersion;
   if (version < 9) {
-    final pagePath = '$kPagesArchiveDirectory/default.json';
+    var pagePath = '$kPagesArchiveDirectory/default.json';
+    if (noteData.getAsset(pagePath) == null) {
+      final pages = noteData.getAssets('$kPagesArchiveDirectory/').toList();
+      if (pages.isNotEmpty) {
+        pagePath = '$kPagesArchiveDirectory/${pages.first}';
+      }
+    }
     final page = noteData.getAsset(pagePath);
     if (page != null) {
       final pageData = json.decode(utf8.decode(page)) as Map<String, dynamic>;
@@ -128,7 +134,8 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
     }
   }
   if (version < 12) {
-    Map? resolvePackAssetLocation(Map location, String kind) {
+    Map? resolvePackAssetLocation(dynamic location, String kind) {
+      if (location is! Map) return null;
       final pack = location['pack'] as String?;
       final name = location['name'] as String?;
       if ((pack?.isEmpty ?? true) || (name?.isEmpty ?? true)) {
@@ -142,7 +149,8 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       return {'name': name, 'item': item};
     }
 
-    void updatePenProperty(Map property) {
+    void updatePenProperty(Map? property) {
+      if (property == null) return;
       if (property['fill'] != true) {
         property['fill'] = SRGBColor.transparent.value;
       } else {

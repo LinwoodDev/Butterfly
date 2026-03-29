@@ -102,6 +102,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
       state.info,
       imageOptions,
       invisibleLayers: state.invisibleLayers,
+      docState: state,
     );
   }
 

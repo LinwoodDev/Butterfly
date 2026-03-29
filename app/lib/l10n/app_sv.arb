@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Helskärm",
   "doublePressAction": "Åtgärd vid dubbeltryck",
   "triplePressAction": "Trippel tryck åtgärd",
+  "longPress": "Long press",
   "toolNumber": "Verktyg {number}",
   "@toolNumber": {
     "placeholders": {

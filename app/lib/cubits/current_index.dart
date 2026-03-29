@@ -183,18 +183,30 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
 
-    emit(
-      state.copyWith(
-        cameraViewport: state.cameraViewport.withUnbaked(
-          unbaked,
-          visibleElements: visible,
-          visibleUnbakedElements: visibleUnbaked,
-        ),
-      ),
+    final newViewport = state.cameraViewport.withUnbaked(
+      unbaked,
+      visibleElements: visible,
+      visibleUnbakedElements: visibleUnbaked,
     );
+
+    final docState = _documentBloc?.state;
+    if (docState is DocumentLoaded) {
+      _updateOnVisible(newViewport, docState).then((_) {
+        if (!isClosed) {
+          _documentBloc?.delayedBake();
+        }
+      });
+    }
+
+    if (isClosed) return;
+
+    emit(state.copyWith(cameraViewport: newViewport));
   }
 
+  DocumentBloc? _documentBloc;
+
   void init(DocumentBloc bloc) {
+    _documentBloc = bloc;
     changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
   }
@@ -221,29 +233,51 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(sessionPenOnlyInput: value));
   }
 
+  final Set<Renderer<PadElement>> _initializedElements = {};
+
   Future<void> _updateOnVisible(
     CameraViewport newViewport,
-    DocumentLoaded blocState,
-  ) async {
+    DocumentLoaded blocState, {
+    CameraTransform? renderTransform,
+    ui.Size? targetSize,
+  }) async {
     final newVisibleList = newViewport.visibleElements;
-    if (newVisibleList.isEmpty) return;
+    final nextVisibleSet = newVisibleList.toSet();
 
-    final currentVisible = state.cameraViewport.visibleElements.toSet();
     final newVisible = newVisibleList
-        .where((e) => !currentVisible.contains(e))
+        .where((e) => !_initializedElements.contains(e))
         .toList();
 
-    if (newVisible.isEmpty) return;
+    final newlyHidden = _initializedElements
+        .where((e) => !nextVisibleSet.contains(e))
+        .toList();
 
-    talker.verbose('Updating visible elements: ${newVisible.length} new');
-    final transform = state.transformCubit.state;
-    final size = newViewport.toSize();
-    await Future.wait(
-      newVisible.map(
-        (element) async =>
-            await element.onVisible(this, blocState, transform, size),
-      ),
-    );
+    if (newVisible.isEmpty && newlyHidden.isEmpty) return;
+
+    final transform = renderTransform ?? state.transformCubit.state;
+    final size = targetSize ?? newViewport.toSize();
+
+    _initializedElements.addAll(newVisible);
+    _initializedElements.removeAll(newlyHidden);
+
+    if (newVisible.isNotEmpty) {
+      talker.verbose('Updating visible elements: ${newVisible.length} new');
+      await Future.wait(
+        newVisible.map(
+          (element) async =>
+              await element.onVisible(this, blocState, transform, size),
+        ),
+      );
+    }
+
+    if (newlyHidden.isNotEmpty) {
+      await Future.wait(
+        newlyHidden.map(
+          (element) async =>
+              await element.onHidden(this, blocState, transform, size),
+        ),
+      );
+    }
   }
 
   ThemeData getTheme(
@@ -918,6 +952,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final r in renderers) {
       r.dispose();
     }
+    _initializedElements.clear();
     state.handler.dispose(bloc);
     state.temporaryHandler?.dispose(bloc);
     for (var e in state.toggleableHandlers.values) {
@@ -1199,30 +1234,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final visibleElementsSet = visibleElements.toSet();
 
-    // call onVisible for any newly visible elements (skip if empty)
-    final newlyVisible = visibleElements
-        .where((element) => !oldVisibleSet.contains(element))
-        .toList();
-    if (newlyVisible.isNotEmpty) {
-      await Future.wait(
-        newlyVisible.map(
-          (element) async =>
-              await element.onVisible(this, blocState, renderTransform, size),
-        ),
-      );
-    }
-
-    final newlyHidden = oldVisible
-        .where((element) => !visibleElementsSet.contains(element))
-        .toList();
-    if (newlyHidden.isNotEmpty) {
-      await Future.wait(
-        newlyHidden.map(
-          (element) async =>
-              await element.onHidden(this, blocState, renderTransform, size),
-        ),
-      );
-    }
+    await _updateOnVisible(
+      cameraViewport.unbake(visibleElements: visibleElements),
+      blocState,
+      renderTransform: renderTransform,
+      targetSize: size,
+    );
 
     canvas.scale(ratio);
 
@@ -1300,6 +1317,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           unbakedElements: visibleElements
               .where((e) => belowLayers.contains(e.layer))
               .toList(),
+          visibleElements: visibleElements,
         ),
         renderBackground: false,
         renderBaked: false,
@@ -1315,6 +1333,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           unbakedElements: visibleElements
               .where((e) => aboveLayers.contains(e.layer))
               .toList(),
+          visibleElements: visibleElements,
         ),
         renderBackground: false,
         renderBaked: false,
@@ -1388,6 +1407,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ImageExportOptions options, {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
+    DocumentLoaded? docState,
   }) async {
     final realWidth = options.width.ceil();
     final realHeight = options.height.ceil();
@@ -1397,22 +1417,43 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
+    final viewport =
+        cameraViewport ??
+        state.cameraViewport.unbake(unbakedElements: renderers);
+    final transform = CameraTransform(
+      options.quality,
+      Offset(options.x, options.y),
+      realZoom,
+    );
+    final size = Size(realWidth.toDouble(), realHeight.toDouble());
+    final hiddenRenderers = <Renderer<PadElement>>[];
+    if (docState != null) {
+      final exportRect = Rect.fromLTWH(
+        options.x,
+        options.y,
+        options.width,
+        options.height,
+      );
+      for (final renderer in viewport.unbakedElements) {
+        if (renderer.isVisible(exportRect)) {
+          await renderer.onVisible(this, docState, transform, size);
+          hiddenRenderers.add(renderer);
+        }
+      }
+    }
     final painter = ViewPainter(
       document,
       page,
       info,
       renderBackground: options.renderBackground,
       invisibleLayers: invisibleLayers,
-      cameraViewport:
-          cameraViewport ??
-          state.cameraViewport.unbake(unbakedElements: renderers),
-      transform: CameraTransform(
-        options.quality,
-        Offset(options.x, options.y),
-        realZoom,
-      ),
+      cameraViewport: viewport,
+      transform: transform,
     );
-    painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
+    painter.paint(canvas, size);
+    for (final renderer in hiddenRenderers) {
+      await renderer.onHidden(this, docState!, transform, size);
+    }
     final picture = recorder.endRecording();
     ui.Image? image;
     try {
@@ -1430,6 +1471,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ImageExportOptions options, {
     CameraViewport? cameraViewport,
     Set<String>? invisibleLayers,
+    DocumentLoaded? docState,
   }) async {
     final image = await renderImage(
       document,
@@ -1438,6 +1480,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       options,
       cameraViewport: cameraViewport,
       invisibleLayers: invisibleLayers,
+      docState: docState,
     );
     ByteData? bytes;
     try {
@@ -1493,10 +1536,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<Background>>? backgrounds,
     List<Renderer<PadElement>>? unbakedElements,
   }) async {
+    final elementsToCheck = unbakedElements ?? renderers;
     final newViewport = state.cameraViewport.unbake(
       unbakedElements: unbakedElements,
-      visibleElements: unbakedElements
-          ?.where((e) => e.isVisible(getViewportRect()))
+      visibleElements: elementsToCheck
+          .where((e) => e.isVisible(getViewportRect()))
           .toList(),
       backgrounds: backgrounds,
     );
@@ -1515,6 +1559,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     var existing = renderers;
     if (reset) {
       for (var e in existing) {
+        _initializedElements.remove(e);
         e.dispose();
       }
       existing = [];
@@ -1547,6 +1592,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         )
         .toList();
     for (final e in dropped) {
+      _initializedElements.remove(e);
       e.dispose();
     }
     final newRenderers = elements
@@ -1588,11 +1634,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             await e.setup(state.transformCubit, document, assetService, page),
       ),
     );
+    final rect = getViewportRect();
+    final visibleElements = combined.where((e) => e.isVisible(rect)).toList();
     final newViewport = state.cameraViewport.unbake(
       unbakedElements: combined,
-      visibleElements: [],
+      visibleElements: visibleElements,
       backgrounds: backgrounds,
     );
+    await _updateOnVisible(newViewport, docState);
     emit(
       state.copyWith(
         location: state.embedding?.location ?? state.location,
@@ -1686,14 +1735,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground,
         ),
-        cameraViewport: currentOpened
-            ? null
-            : await CameraViewport.build(
-                docState.transformCubit,
-                document,
-                docState.assetService,
-                page,
-              ),
+        cameraViewport: await CameraViewport.build(
+          docState.transformCubit,
+          document,
+          docState.assetService,
+          page,
+        ),
+        docState: docState,
         invisibleLayers: invisibleLayers ?? docState.invisibleLayers,
       );
       if (image == null) continue;

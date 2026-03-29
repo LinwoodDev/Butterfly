@@ -915,10 +915,10 @@ class FilesViewState extends State<FilesView> {
       final bFile = b as FileSystemFile<NoteFile>;
       FileMetadata? aInfo, bInfo;
       try {
-        aInfo = aFile.data?.load()?.getMetadata();
+        aInfo = aFile.data?.display()?.getMetadata();
       } catch (_) {}
       try {
-        bInfo = bFile.data?.load()?.getMetadata();
+        bInfo = bFile.data?.display()?.getMetadata();
       } catch (_) {}
       switch (_sortBy) {
         case SortBy.name:
