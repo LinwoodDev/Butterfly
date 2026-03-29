@@ -38,5 +38,8 @@ void setupLicenses() {
     yield LicenseEntryWithLineBreaks([
       'ReadexPro',
     ], await rootBundle.loadString('fonts/ReadexPro-LICENSE.txt'));
+    yield LicenseEntryWithLineBreaks([
+      'NotoSansArabic',
+    ], await rootBundle.loadString('fonts/NotoSansArabic-LICENSE.txt'));
   });
 }
