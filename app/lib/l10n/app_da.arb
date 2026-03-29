@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Fuld skærm",
   "doublePressAction": "Dobbelt tryk-handling",
   "triplePressAction": "Tredobbelt tryk-handling",
+  "longPress": "Long press",
   "toolNumber": "Værktøj {number}",
   "@toolNumber": {
     "placeholders": {

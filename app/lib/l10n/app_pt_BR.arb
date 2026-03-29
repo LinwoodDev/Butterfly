@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Tela cheia",
   "doublePressAction": "Ação de toque duplo",
   "triplePressAction": "Ação de toque triplo",
+  "longPress": "Long press",
   "toolNumber": "Ferramenta {number}",
   "@toolNumber": {
     "placeholders": {

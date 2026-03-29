@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Celá obrazovka",
   "doublePressAction": "Akce dvojím stisknutím",
   "triplePressAction": "Akce trojím stisknutím",
+  "longPress": "Long press",
   "toolNumber": "Nástroj {number}",
   "@toolNumber": {
     "placeholders": {

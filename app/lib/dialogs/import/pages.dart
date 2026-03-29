@@ -12,7 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 @immutable
 class PageDialogCallback {
   final List<int> pages;
-  final bool spreadToPages, createAreas, invert;
+  final bool spreadToPages, createAreas, createExportPreset, invert;
   final SRGBColor background;
   final String name;
 
@@ -20,6 +20,7 @@ class PageDialogCallback {
     this.pages,
     this.spreadToPages,
     this.createAreas,
+    this.createExportPreset,
     this.background,
     this.invert,
     this.name,
@@ -36,7 +37,10 @@ class PagesDialog extends StatefulWidget {
 
 class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
-  bool _spreadToPages = false, _createAreas = true, _invert = false;
+  bool _spreadToPages = false,
+      _createAreas = true,
+      _createExportPreset = true,
+      _invert = false;
   SRGBColor _background = BasicColors.whiteTransparent;
   String _name = '';
 
@@ -130,6 +134,11 @@ class _PagesDialogState extends State<PagesDialog> {
               title: Text(AppLocalizations.of(context).createAreas),
             ),
             SwitchListTile(
+              value: _createExportPreset,
+              onChanged: (value) => setState(() => _createExportPreset = value),
+              title: Text(AppLocalizations.of(context).presets),
+            ),
+            SwitchListTile(
               value: _spreadToPages,
               onChanged: (value) => setState(() => _spreadToPages = value),
               title: Text(AppLocalizations.of(context).spreadToPages),
@@ -178,6 +187,7 @@ class _PagesDialogState extends State<PagesDialog> {
                         _selected,
                         _spreadToPages,
                         _createAreas,
+                        _createExportPreset,
                         _background,
                         _invert,
                         _name,

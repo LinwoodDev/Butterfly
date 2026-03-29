@@ -482,6 +482,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
       invisibleLayers: widget.state.invisibleLayers,
       cameraViewport: widget.state.currentIndexCubit.state.cameraViewport
           .unbake(unbakedElements: widget.state.renderers),
+      docState: widget.state,
     );
 
     if (thumbnail != null && mounted) {

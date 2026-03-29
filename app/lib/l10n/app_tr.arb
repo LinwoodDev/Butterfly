@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Tam ekran",
   "doublePressAction": "Double press action",
   "triplePressAction": "Triple press action",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {

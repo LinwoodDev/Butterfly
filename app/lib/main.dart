@@ -51,7 +51,7 @@ const platform = MethodChannel('linwood.dev/butterfly');
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
   initLogger();
-  await loadPersistedLogs();
+  await rotatePersistedLogs();
   talker.info('App started');
   usePathUrlStrategy();
 

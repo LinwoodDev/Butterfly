@@ -83,6 +83,7 @@ class EmbedHandler {
             scale: scale,
             renderBackground: renderBackground,
           ),
+          docState: state,
         );
         sendEmbedMessage(
           'render',

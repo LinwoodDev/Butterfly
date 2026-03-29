@@ -452,11 +452,6 @@ class MainPopupMenu extends StatelessWidget {
       builder: (context, settings) {
         final state = context.read<CurrentIndexCubit>().state;
         final size = MediaQuery.sizeOf(context);
-        final currentX =
-            (context.findRenderObject() as RenderBox?)
-                ?.localToGlobal(Offset.zero)
-                .dx ??
-            0;
         return MenuAnchor(
           menuChildren: [
             if (state.embedding == null) ...[
@@ -760,8 +755,10 @@ class MainPopupMenu extends StatelessWidget {
             maximumSize: WidgetStateProperty.all(
               Size(
                 (size.width - 32).clamp(100.0, 300.0),
-                (size.height - 70 - (padding?.bottom ?? 0) * 1.5 - currentX * 2)
-                    .clamp(100.0, double.infinity),
+                (size.height - 70 - (padding?.bottom ?? 0) * 1.5).clamp(
+                  100.0,
+                  double.infinity,
+                ),
               ),
             ),
           ),

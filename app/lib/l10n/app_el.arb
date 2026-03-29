@@ -1315,6 +1315,7 @@
   "fullScreenShortcut": "Πλήρης οθόνη",
   "doublePressAction": "Ενέργεια διπλού πατήματος",
   "triplePressAction": "Ενέργεια τριπλού πατήματος",
+  "longPress": "Long press",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
