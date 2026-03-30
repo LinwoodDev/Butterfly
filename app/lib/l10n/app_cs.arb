@@ -219,9 +219,9 @@
   },
   "behaviors": "Chování",
   "dataDirectory": "Datový adresář",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Varování",
+  "platformExperimentalWarning": "Upozornění: Toto nastavení je experimentální a může mít problémy na této platformě.",
+  "changeDataDirectoryWarningContent": "Jste si jisti, že chcete změnit datovou složku? Před pokračováním byste měli vytvořit zálohu svých dat.",
   "defaultPath": "Výchozí cesta",
   "dateFormat": "Formát data",
   "updatedAt": "Aktualizováno na: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Celá obrazovka",
   "doublePressAction": "Akce dvojím stisknutím",
   "triplePressAction": "Akce trojím stisknutím",
-  "longPress": "Long press",
+  "longPress": "Dlouhý stisk",
   "toolNumber": "Nástroj {number}",
   "@toolNumber": {
     "placeholders": {
