@@ -219,9 +219,9 @@
   },
   "behaviors": "Comportamenti",
   "dataDirectory": "Cartella dati",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Attenzione",
+  "platformExperimentalWarning": "Attenzione: Questa impostazione è sperimentale e può avere problemi su questa piattaforma.",
+  "changeDataDirectoryWarningContent": "Sei sicuro di voler modificare la cartella dei dati? Devi effettuare un backup dei tuoi dati prima di procedere.",
   "defaultPath": "Percorso predefinito",
   "dateFormat": "Formato data",
   "updatedAt": "Aggiornato a: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Schermo intero",
   "doublePressAction": "Azione doppia pressione",
   "triplePressAction": "Azione tripla pressione",
-  "longPress": "Long press",
+  "longPress": "Pressione prolungata",
   "toolNumber": "Strumento {number}",
   "@toolNumber": {
     "placeholders": {
