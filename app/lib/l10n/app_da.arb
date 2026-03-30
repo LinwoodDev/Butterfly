@@ -219,9 +219,9 @@
   },
   "behaviors": "Opførsel",
   "dataDirectory": "Data mappe",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Advarsel",
+  "platformExperimentalWarning": "Advarsel: Denne indstilling er eksperimentel og kan have problemer på denne platform.",
+  "changeDataDirectoryWarningContent": "Er du sikker på, at du vil ændre datamappen? Du bør lave en sikkerhedskopi af dine data, før du fortsætter.",
   "defaultPath": "Standard sti",
   "dateFormat": "Dato format",
   "updatedAt": "Opdateret på: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Fuld skærm",
   "doublePressAction": "Dobbelt tryk-handling",
   "triplePressAction": "Tredobbelt tryk-handling",
-  "longPress": "Long press",
+  "longPress": "Langt tryk",
   "toolNumber": "Værktøj {number}",
   "@toolNumber": {
     "placeholders": {
