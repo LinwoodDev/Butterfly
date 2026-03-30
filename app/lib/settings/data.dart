@@ -67,47 +67,62 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ),
                           onTap: () => _openSyncModeModal(context),
                         ),
-                        if (!Platform.isIOS)
-                          ListTile(
-                            title: Text(
-                              AppLocalizations.of(context).dataDirectory,
-                            ),
-                            leading: const PhosphorIcon(
-                              PhosphorIconsLight.folder,
-                            ),
-                            subtitle: state.documentPath.isNotEmpty
-                                ? FutureBuilder<String>(
-                                    future: getButterflyDirectory(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Text(snapshot.data!);
-                                      }
-                                      return const SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    },
-                                  )
-                                : Text(
-                                    AppLocalizations.of(context).defaultPath,
-                                  ),
-                            onTap: _changeDataDirectory,
-                            trailing: state.documentPath.isNotEmpty
-                                ? IconButton(
-                                    icon: const PhosphorIcon(
-                                      PhosphorIconsLight.clockClockwise,
-                                    ),
-                                    tooltip: AppLocalizations.of(
-                                      context,
-                                    ).defaultPath,
-                                    onPressed: () => _changePath(
-                                      context.read<SettingsCubit>(),
-                                      '',
-                                    ),
-                                  )
-                                : null,
+                        ListTile(
+                          title: Text(
+                            AppLocalizations.of(context).dataDirectory,
                           ),
+                          leading: const PhosphorIcon(
+                            PhosphorIconsLight.folder,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              state.documentPath.isNotEmpty
+                                  ? FutureBuilder<String>(
+                                      future: getButterflyDirectory(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Text(snapshot.data!);
+                                        }
+                                        return const SizedBox(
+                                          height: 16,
+                                          width: 16,
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                    )
+                                  : Text(
+                                      AppLocalizations.of(context).defaultPath,
+                                    ),
+                              if (Platform.isAndroid || Platform.isIOS)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4.0),
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).platformExperimentalWarning,
+                                    style: const TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          onTap: _changeDataDirectory,
+                          trailing: state.documentPath.isNotEmpty
+                              ? IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.clockClockwise,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).defaultPath,
+                                  onPressed: () => _changePath(
+                                    context,
+                                    context.read<SettingsCubit>(),
+                                    '',
+                                  ),
+                                )
+                              : null,
+                        ),
                       ],
                       ListTile(
                         title: Text(AppLocalizations.of(context).templates),
@@ -187,9 +202,11 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
       final settingsCubit = context.read<SettingsCubit>();
       final selectedDir = await FilePicker.platform.getDirectoryPath();
       if (selectedDir != null) {
-        _changePath(settingsCubit, selectedDir);
+        if (!context.mounted) return;
+        await _changePath(context, settingsCubit, selectedDir);
       }
     } catch (e) {
+      if (!context.mounted) return;
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -200,7 +217,33 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     }
   }
 
-  Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
+  Future<void> _changePath(
+    BuildContext context,
+    SettingsCubit settingsCubit,
+    String newPath,
+  ) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).warning),
+        content: Text(
+          AppLocalizations.of(context).changeDataDirectoryWarningContent,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).continueButtonLabel),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
     var oldPath = settingsCubit.state.documentPath;
     final defaultPath = await getButterflyDirectory(usePrefs: false);
     if (oldPath.isEmpty) {

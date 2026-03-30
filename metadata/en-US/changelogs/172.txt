@@ -5,5 +5,7 @@
 * Fix pdf export dialog overflow on mobile devices
 * Fix thumbnails not loading in pdf export dialog
 * Fix polygon disappearing after editing
+* Add warning to data folder setting on mobile
+* Add confirmation dialog when changing data folder
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.2
