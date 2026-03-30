@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0-rc.2 (2026-03-30)
+
+* Improve pdf rendering
+* Add toggle presentation to keyboard shortcuts settings page
+* Change toggle presentation to ctrl + space
+* Fix space not working in text input fields
+* Fix pdf export dialog overflow on mobile devices
+* Fix thumbnails not loading in pdf export dialog
+* Fix polygon disappearing after editing
+* Add warning to data folder setting on mobile
+* Add confirmation dialog when changing data folder
+* Replace Readex Pro with Noto Sans Arabic
+* Improve template selection UI
+
+Read more here: https://linwood.dev/butterfly/2.5.0-rc.2
+
 ## 2.5.0-rc.1 (2026-03-23)
 
 * Redesign pdf export dialog
