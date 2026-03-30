@@ -219,9 +219,9 @@
   },
   "behaviors": "Поведение",
   "dataDirectory": "Каталог данных",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Предупреждение",
+  "platformExperimentalWarning": "Предупреждение: Эта настройка экспериментальна и может иметь проблемы на этой платформе.",
+  "changeDataDirectoryWarningContent": "Вы уверены, что хотите изменить папку данных? Прежде чем продолжить, вы должны сделать резервную копию ваших данных.",
   "defaultPath": "Путь по умолчанию",
   "dateFormat": "Формат даты",
   "updatedAt": "Обновлено: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "На весь экран",
   "doublePressAction": "Действие двойного нажатия",
   "triplePressAction": "Действие с тройным нажатием",
-  "longPress": "Long press",
+  "longPress": "Долгое нажатие",
   "toolNumber": "Инструмент {number}",
   "@toolNumber": {
     "placeholders": {
