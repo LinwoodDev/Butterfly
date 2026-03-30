@@ -219,6 +219,9 @@
   },
   "behaviors": "Comportamentos",
   "dataDirectory": "Diretório de dados",
+  "warning": "ATENÇÃO",
+  "platformExperimentalWarning": "Aviso: Esta configuração é experimental e pode ter problemas nesta plataforma.",
+  "changeDataDirectoryWarningContent": "Tem certeza de que deseja alterar a pasta de dados? Você deve fazer um backup de seus dados antes de prosseguir.",
   "defaultPath": "Caminho padrão",
   "dateFormat": "Formato da Data",
   "updatedAt": "Modificado em: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "Tela cheia",
   "doublePressAction": "Ação de toque duplo",
   "triplePressAction": "Ação de toque triplo",
-  "longPress": "Long press",
+  "longPress": "Toque longo",
   "toolNumber": "Ferramenta {number}",
   "@toolNumber": {
     "placeholders": {

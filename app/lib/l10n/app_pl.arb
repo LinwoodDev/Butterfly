@@ -219,6 +219,9 @@
   },
   "behaviors": "Zachowania",
   "dataDirectory": "Katalog danych",
+  "warning": "Ostrzeżenie",
+  "platformExperimentalWarning": "Ostrzeżenie: To ustawienie jest eksperymentalne i może mieć problemy na tej platformie.",
+  "changeDataDirectoryWarningContent": "Czy na pewno chcesz zmienić folder danych? Przed kontynuowaniem powinieneś wykonać kopię zapasową danych.",
   "defaultPath": "Domyślna ścieżka",
   "dateFormat": "Format daty",
   "updatedAt": "Zaktualizowano: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "Pełny ekran",
   "doublePressAction": "Akcja podwójnego naciśnięcia",
   "triplePressAction": "Akcja potrójnego naciśnięcia",
-  "longPress": "Long press",
+  "longPress": "Długie przytrzymanie",
   "toolNumber": "Narzędzie {number}",
   "@toolNumber": {
     "placeholders": {

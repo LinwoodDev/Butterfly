@@ -219,6 +219,9 @@
   },
   "behaviors": "Comportamente",
   "dataDirectory": "Director de date",
+  "warning": "Avertizare",
+  "platformExperimentalWarning": "Atenție: Această setare este experimentală și poate avea probleme pe această platformă.",
+  "changeDataDirectoryWarningContent": "Sigur doriți să schimbați dosarul de date? Ar trebui să faceți o copie de rezervă a datelor dumneavoastră înainte de a continua.",
   "defaultPath": "Calea implicită",
   "dateFormat": "Formatul datei",
   "updatedAt": "Actualizat la: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "Ecran complet",
   "doublePressAction": "Acțiune la apăsare dublă",
   "triplePressAction": "Acțiune apăsare triplă",
-  "longPress": "Long press",
+  "longPress": "Apăsare lungă",
   "toolNumber": "Unelte {number}",
   "@toolNumber": {
     "placeholders": {

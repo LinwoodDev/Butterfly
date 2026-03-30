@@ -219,6 +219,9 @@
   },
   "behaviors": "Comportements",
   "dataDirectory": "Répertoire des données",
+  "warning": "Avertissement",
+  "platformExperimentalWarning": "Attention : ce paramètre est expérimental et peut avoir des problèmes sur cette plateforme.",
+  "changeDataDirectoryWarningContent": "Êtes-vous sûr de vouloir modifier le dossier de données ? Vous devriez faire une sauvegarde de vos données avant de continuer.",
   "defaultPath": "Chemin par défaut",
   "dateFormat": "Format de la date",
   "updatedAt": "Mis à jour le : {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "Plein écran",
   "doublePressAction": "Action par double appui",
   "triplePressAction": "Action du triple appui",
-  "longPress": "Long press",
+  "longPress": "Appui long",
   "toolNumber": "Outil {number}",
   "@toolNumber": {
     "placeholders": {

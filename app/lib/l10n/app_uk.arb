@@ -219,6 +219,9 @@
   },
   "behaviors": "Поведінка",
   "dataDirectory": "Каталог даних",
+  "warning": "Застереження",
+  "platformExperimentalWarning": "Увага: це експериментальне налаштування може мати проблеми на цій платформі.",
+  "changeDataDirectoryWarningContent": "Ви впевнені, що хочете змінити теку з даними? Створіть резервну копію даних перед продовженням.",
   "defaultPath": "Типовий шлях",
   "dateFormat": "Формат дати",
   "updatedAt": "Оновлено на: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "На весь екран",
   "doublePressAction": "Дії подвійного натискання",
   "triplePressAction": "Дія потрійного натискання",
-  "longPress": "Long press",
+  "longPress": "Тривале натискання",
   "toolNumber": "Інструмент {number}",
   "@toolNumber": {
     "placeholders": {

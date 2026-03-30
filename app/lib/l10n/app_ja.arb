@@ -219,6 +219,9 @@
   },
   "behaviors": "ビヘイビア",
   "dataDirectory": "データディレクトリ",
+  "warning": "警告",
+  "platformExperimentalWarning": "警告：この設定は実験的であり、このプラットフォームで問題が発生する可能性があります。",
+  "changeDataDirectoryWarningContent": "データフォルダを変更してもよろしいですか？続行する前にデータのバックアップを作成してください。",
   "defaultPath": "デフォルトのパス",
   "dateFormat": "日付の形式",
   "updatedAt": "更新日時: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "全画面",
   "doublePressAction": "Double press action",
   "triplePressAction": "トリプルプレスアクション",
-  "longPress": "Long press",
+  "longPress": "長押しする",
   "toolNumber": "ツール {number}",
   "@toolNumber": {
     "placeholders": {

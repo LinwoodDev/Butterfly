@@ -219,6 +219,9 @@
   },
   "behaviors": "Συμπεριφορές",
   "dataDirectory": "Κατάλογος δεδομένων",
+  "warning": "Προειδοποίηση",
+  "platformExperimentalWarning": "Προειδοποίηση: Αυτή η ρύθμιση είναι πειραματική και μπορεί να έχει προβλήματα σε αυτήν την πλατφόρμα.",
+  "changeDataDirectoryWarningContent": "Είστε βέβαιοι ότι θέλετε να αλλάξετε το φάκελο δεδομένων? Θα πρέπει να κάνετε ένα αντίγραφο ασφαλείας των δεδομένων σας πριν προχωρήσετε.",
   "defaultPath": "Προεπιλεγμένη διαδρομή",
   "dateFormat": "Μορφή ημερομηνίας",
   "updatedAt": "Ενημερώθηκε στο: {dateTime}",
@@ -1315,7 +1318,7 @@
   "fullScreenShortcut": "Πλήρης οθόνη",
   "doublePressAction": "Ενέργεια διπλού πατήματος",
   "triplePressAction": "Ενέργεια τριπλού πατήματος",
-  "longPress": "Long press",
+  "longPress": "Παρατεταμένο πάτημα",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
