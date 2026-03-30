@@ -219,9 +219,9 @@
   },
   "behaviors": "Beteenden",
   "dataDirectory": "Datakatalog",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Varning",
+  "platformExperimentalWarning": "Varning: Denna inställning är experimentell och kan ha problem på denna plattform.",
+  "changeDataDirectoryWarningContent": "Är du säker på att du vill ändra datamappen? Du bör göra en säkerhetskopia av dina data innan du fortsätter.",
   "defaultPath": "Standard sökväg",
   "dateFormat": "Datumformat",
   "updatedAt": "Uppdaterad den: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Helskärm",
   "doublePressAction": "Åtgärd vid dubbeltryck",
   "triplePressAction": "Trippel tryck åtgärd",
-  "longPress": "Long press",
+  "longPress": "Långtryck",
   "toolNumber": "Verktyg {number}",
   "@toolNumber": {
     "placeholders": {
