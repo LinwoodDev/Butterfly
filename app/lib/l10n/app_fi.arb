@@ -219,9 +219,9 @@
   },
   "behaviors": "Käyttäytymiset",
   "dataDirectory": "Datakansio",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Varoitus",
+  "platformExperimentalWarning": "Varoitus: Tämä asetus on kokeellinen ja voi olla ongelmia tällä alustalla.",
+  "changeDataDirectoryWarningContent": "Oletko varma, että haluat muuttaa tietokansiota? Sinun pitäisi tehdä varmuuskopio tiedoistasi ennen jatkamista.",
   "defaultPath": "Oletus polku",
   "dateFormat": "Päivämäärän muoto",
   "updatedAt": "Päivitetty: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Koko näyttö",
   "doublePressAction": "Kaksoispainalluksen tehtävä",
   "triplePressAction": "Kolmen painalluksen tehtävä",
-  "longPress": "Long press",
+  "longPress": "Pitkä painallus",
   "toolNumber": "Työkalu {number}",
   "@toolNumber": {
     "placeholders": {
