@@ -1,4 +1,4 @@
-Copyright 2018 The Readex Pro Project Authors (https://github.com/ThomasJockin/readexpro), with Reserved Font Name “RevReading Lexend”.
+Copyright 2022 The Noto Project Authors (https://github.com/notofonts/arabic)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

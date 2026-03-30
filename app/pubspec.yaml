@@ -152,17 +152,17 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-    - family: ReadexPro
+    - family: NotoSansArabic
       fonts:
-        - asset: fonts/ReadexPro-Light.ttf
+        - asset: fonts/NotoSansArabic-Light.ttf
           weight: 300
-        - asset: fonts/ReadexPro-Regular.ttf
+        - asset: fonts/NotoSansArabic-Regular.ttf
           weight: 400
-        - asset: fonts/ReadexPro-Medium.ttf
+        - asset: fonts/NotoSansArabic-Medium.ttf
           weight: 500
-        - asset: fonts/ReadexPro-SemiBold.ttf
+        - asset: fonts/NotoSansArabic-SemiBold.ttf
           weight: 600
-        - asset: fonts/ReadexPro-Bold.ttf
+        - asset: fonts/NotoSansArabic-Bold.ttf
           weight: 700
     - family: Comfortaa
       fonts:
@@ -214,7 +214,7 @@ flutter:
     - defaults/
     - fonts/Comfortaa-LICENSE.txt
     - fonts/Roboto-LICENSE.txt
-    - fonts/ReadexPro-LICENSE.txt
+    - fonts/NotoSansArabic-LICENSE.txt
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
