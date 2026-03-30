@@ -219,9 +219,9 @@
   },
   "behaviors": "行为",
   "dataDirectory": "数据目录",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "警告",
+  "platformExperimentalWarning": "警告：此设置是实验性的，可能在此平台上出现问题。",
+  "changeDataDirectoryWarningContent": "您确定要更改数据文件夹吗？您应该在继续之前备份您的数据。",
   "defaultPath": "默认路径",
   "dateFormat": "日期格式",
   "updatedAt": "更新于： {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "全屏",
   "doublePressAction": "双击动作",
   "triplePressAction": "三次按下",
-  "longPress": "Long press",
+  "longPress": "长按",
   "toolNumber": "Tool {number}",
   "@toolNumber": {
     "placeholders": {
