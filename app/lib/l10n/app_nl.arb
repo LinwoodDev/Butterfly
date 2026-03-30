@@ -219,9 +219,9 @@
   },
   "behaviors": "Gedrag",
   "dataDirectory": "Data map",
-  "warning": "Warning",
-  "platformExperimentalWarning": "Warning: This setting is experimental and can have problems on this platform.",
-  "changeDataDirectoryWarningContent": "Are you sure you want to change the data folder? You should make a backup of your data before proceeding.",
+  "warning": "Waarschuwing",
+  "platformExperimentalWarning": "Waarschuwing: Deze instelling is experimenteel en kan problemen hebben op dit platform.",
+  "changeDataDirectoryWarningContent": "Weet u zeker dat u de gegevensmap wilt wijzigen? U moet een back-up maken van uw gegevens voordat u verder gaat.",
   "defaultPath": "Standaard pad",
   "dateFormat": "Datum formaat",
   "updatedAt": "Bijgewerkt op: {dateTime}",
@@ -1318,7 +1318,7 @@
   "fullScreenShortcut": "Volledig scherm",
   "doublePressAction": "Dubbel-klik actie",
   "triplePressAction": "Drievoudig indrukken actie",
-  "longPress": "Long press",
+  "longPress": "Lang indrukken",
   "toolNumber": "Gereedschap {number}",
   "@toolNumber": {
     "placeholders": {
