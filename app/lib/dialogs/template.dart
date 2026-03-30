@@ -236,6 +236,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         fileSystem: _templateSystem,
         bloc: widget.bloc,
         key: ValueKey(template.path),
+        selectionMode: _selectedTemplates.isNotEmpty,
         selected: _selectedTemplates.contains(template.path),
         isCore: isCore,
         starred: starred,
@@ -309,9 +310,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
         fileSystem: _templateSystem,
         bloc: widget.bloc,
         key: ValueKey(template.path),
+        selectionMode: _selectedTemplates.isNotEmpty,
         selected: _selectedTemplates.contains(template.path),
         isActive: _clickedTemplate == template.data,
-        isCore: entry.key == '',
+        isCore: isCore,
         starred: starred,
         location: location,
         onSelected: () {
@@ -964,6 +966,7 @@ class _TemplateItem extends StatelessWidget {
   final DocumentBloc? bloc;
   final VoidCallback onChanged, onSelected, onUnselected;
   final bool selected;
+  final bool selectionMode;
   final VoidCallback? onTap;
   final bool isCore;
   final bool starred;
@@ -974,6 +977,7 @@ class _TemplateItem extends StatelessWidget {
     required this.fileSystem,
     required this.onChanged,
     required this.selected,
+    required this.selectionMode,
     this.bloc,
     super.key,
     required this.onSelected,
@@ -1019,12 +1023,13 @@ class _TemplateItem extends StatelessWidget {
       showEditIcon: !isCore,
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       leading: SizedBox(
-        width: 150,
+        width: 100,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (!isCore)
+            if (!isCore && selectionMode)
               Checkbox(
                 value: selected,
                 onChanged: (value) {
@@ -1036,15 +1041,14 @@ class _TemplateItem extends StatelessWidget {
                 },
               )
             else
-              const SizedBox(width: 48),
-            IconButton(
-              icon: Icon(PhosphorIconsLight.star),
-              selectedIcon: Icon(PhosphorIconsFill.star),
-              isSelected: starred,
-              onPressed: () {
-                settingsCubit.toggleFavoriteTemplate(location);
-              },
-            ),
+              IconButton(
+                icon: Icon(PhosphorIconsLight.star),
+                selectedIcon: Icon(PhosphorIconsFill.star),
+                isSelected: starred,
+                onPressed: () {
+                  settingsCubit.toggleFavoriteTemplate(location);
+                },
+              ),
             const SizedBox(width: 2),
             Flexible(child: leading),
           ],
@@ -1061,14 +1065,22 @@ class _TemplateItem extends StatelessWidget {
               );
               onChanged();
             },
-      actions: _buildTemplateMenuChildren(
-        context,
-        file: file,
-        fileSystem: fileSystem,
-        bloc: bloc,
-        onChanged: onChanged,
-        isCore: isCore,
-      ),
+      actions: [
+        if (!isCore && !selectionMode)
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+            onPressed: onSelected,
+            child: Text(AppLocalizations.of(context).select),
+          ),
+        ..._buildTemplateMenuChildren(
+          context,
+          file: file,
+          fileSystem: fileSystem,
+          bloc: bloc,
+          onChanged: onChanged,
+          isCore: isCore,
+        ),
+      ],
       onTap:
           onTap ??
           () => openNewDocument(
@@ -1087,6 +1099,7 @@ class _TemplateCard extends StatelessWidget {
   final DocumentBloc? bloc;
   final VoidCallback onChanged, onSelected, onUnselected;
   final bool selected;
+  final bool selectionMode;
   final VoidCallback? onTap;
   final bool isActive;
   final bool isCore;
@@ -1098,6 +1111,7 @@ class _TemplateCard extends StatelessWidget {
     required this.fileSystem,
     required this.onChanged,
     required this.selected,
+    required this.selectionMode,
     this.bloc,
     super.key,
     required this.onSelected,
@@ -1130,14 +1144,22 @@ class _TemplateCard extends StatelessWidget {
     );
 
     return ContextRegion(
-      menuChildren: _buildTemplateMenuChildren(
-        context,
-        file: file,
-        fileSystem: fileSystem,
-        bloc: bloc,
-        onChanged: onChanged,
-        isCore: isCore,
-      ),
+      menuChildren: [
+        if (!isCore && !selectionMode)
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+            onPressed: onSelected,
+            child: Text(AppLocalizations.of(context).select),
+          ),
+        ..._buildTemplateMenuChildren(
+          context,
+          file: file,
+          fileSystem: fileSystem,
+          bloc: bloc,
+          onChanged: onChanged,
+          isCore: isCore,
+        ),
+      ],
       builder: (context, button, controller) => Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -1174,22 +1196,10 @@ class _TemplateCard extends StatelessWidget {
                             cacheWidth: kThumbnailWidth,
                           )
                         : Center(child: fallback),
-                    Positioned(
-                      top: 4,
-                      right: 4,
-                      child: IconButton.filledTonal(
-                        icon: Icon(PhosphorIconsLight.star),
-                        selectedIcon: Icon(PhosphorIconsFill.star),
-                        isSelected: starred,
-                        onPressed: () {
-                          settingsCubit.toggleFavoriteTemplate(location);
-                        },
-                      ),
-                    ),
-                    if (!isCore)
+                    if (!isCore && selectionMode)
                       Positioned(
                         top: 4,
-                        left: 4,
+                        right: 4,
                         child: Checkbox(
                           value: selected,
                           onChanged: (value) {
@@ -1200,11 +1210,24 @@ class _TemplateCard extends StatelessWidget {
                             }
                           },
                         ),
+                      )
+                    else
+                      Positioned(
+                        top: 4,
+                        right: 4,
+                        child: IconButton.filledTonal(
+                          icon: Icon(PhosphorIconsLight.star),
+                          selectedIcon: Icon(PhosphorIconsFill.star),
+                          isSelected: starred,
+                          onPressed: () {
+                            settingsCubit.toggleFavoriteTemplate(location);
+                          },
+                        ),
                       ),
                     if (isDefault)
                       Positioned(
                         top: 4,
-                        right: 4,
+                        left: 4,
                         child: Icon(PhosphorIconsLight.star, size: 16),
                       ),
                   ],
