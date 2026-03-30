@@ -222,28 +222,6 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     SettingsCubit settingsCubit,
     String newPath,
   ) async {
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).warning),
-        content: Text(
-          AppLocalizations.of(context).changeDataDirectoryWarningContent,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(MaterialLocalizations.of(context).continueButtonLabel),
-          ),
-        ],
-      ),
-    );
-
-    if (confirm != true) return;
-
     var oldPath = settingsCubit.state.documentPath;
     final defaultPath = await getButterflyDirectory(usePrefs: false);
     if (oldPath.isEmpty) {
@@ -253,6 +231,60 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     if (movedPath.isEmpty) {
       movedPath = defaultPath;
     }
+
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).warning),
+        scrollable: true,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              AppLocalizations.of(context).changeDataDirectoryWarningContent,
+            ),
+            const SizedBox(height: 16),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      oldPath,
+                      style: TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      movedPath,
+                      style: const TextStyle(fontFamily: 'monospace'),
+                    ),
+                    Text('ab'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).continueButtonLabel),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
     if (!(await _documentSystem.moveAbsolute(oldPath, movedPath)) &&
         newPath.isNotEmpty) {
       return;

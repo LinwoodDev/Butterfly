@@ -7,5 +7,6 @@
 * Fix polygon disappearing after editing
 * Add warning to data folder setting on mobile
 * Add confirmation dialog when changing data folder
+* Replace Readex Pro with Noto Sans Arabic
 
 Read more here: https://linwood.dev/butterfly/2.5.0-rc.2
