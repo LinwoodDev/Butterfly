@@ -232,14 +232,18 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     Offset localPosition,
   ) {
     if (!data.shapeDetectionEnabled) return;
+    final element = elements[pointer];
+    if (element == null || points.length > 600 || points.isEmpty) {
+      return;
+    }
+
     final transform = context.getCameraTransform();
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
-    final element = elements[pointer];
     final state = context.getState();
     final currentCollection = state!.currentCollection;
 
-    if (recognized == null || points.length > 600 || element == null) {
+    if (recognized == null) {
       return;
     }
     PadElement? shapeElement;
