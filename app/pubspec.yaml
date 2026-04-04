@@ -67,7 +67,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
+      ref: 6c2947728afd3922de9386391c138e99ce05e26f
       path: packages/lw_sysapi
   networker:
     git:
@@ -113,7 +113,7 @@ dependencies:
   network_info_plus: ^7.0.0
   flutter_math_fork: ^0.7.4
   synchronized: ^3.4.0
-  file_picker: ^10.3.3
+  file_picker: ^11.0.0
   pdfrx: ^2.2.9
   talker_flutter: ^5.1.6
   talker: ^5.1.6

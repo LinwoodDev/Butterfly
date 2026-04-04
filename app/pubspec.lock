@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "57d9a1dd5063f85fa3107fb42d1faffda52fdc948cefd5fe5ea85267a5fc7343"
+      sha256: "27c58ff4ec17d8e05b8b27fa66175bf5786b9ff9bd94ca418a571c7f6771b27b"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.10"
+    version: "11.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -812,8 +812,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysapi"
-      ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
-      resolved-ref: c802aa8a3619f1ad9cbcc6d76298b5026b29f8a5
+      ref: "6c2947728afd3922de9386391c138e99ce05e26f"
+      resolved-ref: "6c2947728afd3922de9386391c138e99ce05e26f"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

@@ -81,7 +81,7 @@ Future<List<(Uint8List, String, String)>> importFiles(
   List<AssetFileType>? types,
   bool allowMultiple = true,
 ]) async {
-  final result = await FilePicker.platform.pickFiles(
+  final result = await FilePicker.pickFiles(
     allowedExtensions: (types ?? AssetFileType.values)
         .expand((e) => e.getFileExtensions())
         .toList(),

@@ -200,7 +200,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Future<void> _changeDataDirectory() async {
     try {
       final settingsCubit = context.read<SettingsCubit>();
-      final selectedDir = await FilePicker.platform.getDirectoryPath();
+      final selectedDir = await FilePicker.getDirectoryPath();
       if (selectedDir != null) {
         if (!context.mounted) return;
         await _changePath(context, settingsCubit, selectedDir);
@@ -578,7 +578,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['json'],
       withData: true,

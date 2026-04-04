@@ -492,8 +492,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             icon: const PhosphorIcon(PhosphorIconsLight.folder),
                             onPick: shouldShowPicker
                                 ? () async {
-                                    final result = await FilePicker.platform
-                                        .getDirectoryPath();
+                                    final result =
+                                        await FilePicker.getDirectoryPath();
                                     if (result != null) {
                                       _directoryController.text = result;
                                     }
@@ -567,9 +567,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result = await FilePicker
-                                                .platform
-                                                .getDirectoryPath();
+                                            final result =
+                                                await FilePicker.getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
                                                       .text =
@@ -590,9 +589,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result = await FilePicker
-                                                .platform
-                                                .getDirectoryPath();
+                                            final result =
+                                                await FilePicker.getDirectoryPath();
                                             if (result != null) {
                                               _templatesDirectoryController
                                                       .text =
@@ -612,9 +610,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                     ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
-                                            final result = await FilePicker
-                                                .platform
-                                                .getDirectoryPath();
+                                            final result =
+                                                await FilePicker.getDirectoryPath();
                                             if (result != null) {
                                               _documentsDirectoryController
                                                       .text =
