@@ -12,6 +12,9 @@ Tool updateToolDefaultColor(Tool tool, SRGBColor color) {
     ),
     LabelTool e => e.copyWith(foreground: defaultColor),
     BarcodeTool e => e.copyWith(color: defaultColor),
+    PolygonTool e => e.copyWith(
+      property: e.property.copyWith(color: defaultColor),
+    ),
     _ => tool,
   };
 }

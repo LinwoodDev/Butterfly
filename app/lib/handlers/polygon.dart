@@ -389,8 +389,8 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       bloc.add(ElementsCreated([element]));
     }
     _resetTool();
-    bloc.refreshForegrounds();
     bloc.state.currentIndexCubit?.resetTemporaryHandler(bloc, true);
+    bloc.delayedBake();
     bloc.refreshToolbar();
   }
 

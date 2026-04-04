@@ -2105,6 +2105,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       reload(bloc, current);
     } else if (shouldRefresh?.call() == true) {
       await refresh(current);
+    } else if (replacedElements != null) {
+      await bake(blocState, reset: true);
     }
     if (updateIndex) {
       this.updateIndex(bloc);
