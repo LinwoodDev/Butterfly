@@ -10,11 +10,11 @@
   "lightTheme": "Helles Theme",
   "systemTheme": "Standard-System-Theme verwenden",
   "view": "Ansicht",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "contentViewport": "Content-Viewport",
+  "limitViewportToPositiveCoordinates": "Viewport auf positive Koordinaten begrenzen",
+  "off": "Aus",
+  "canvas": "Leinwand",
+  "interface": "Schnittstelle",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1086,7 +1086,7 @@
   },
   "continueAnyway": "Trotzdem fortfahren",
   "zoomControl": "Zoom-Steuerung",
-  "showThumbnails": "Show thumbnails",
+  "showThumbnails": "Thumbnails anzeigen",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
