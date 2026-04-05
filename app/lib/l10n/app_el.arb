@@ -10,6 +10,11 @@
   "lightTheme": "Φωτεινό θέμα",
   "systemTheme": "Χρήση προεπιλεγμένου θέματος συστήματος",
   "view": "Προβολή",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
