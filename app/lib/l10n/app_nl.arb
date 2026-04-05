@@ -10,6 +10,11 @@
   "lightTheme": "Licht thema",
   "systemTheme": "Gebruik standaard systeemthema",
   "view": "Bekijken",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
