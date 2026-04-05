@@ -10,6 +10,11 @@
   "lightTheme": "Светлая тема",
   "systemTheme": "Использовать системную тему по умолчанию",
   "view": "Вид",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
