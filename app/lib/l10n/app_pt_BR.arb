@@ -10,10 +10,10 @@
   "lightTheme": "Tema claro",
   "systemTheme": "Usar tema padrão do sistema",
   "view": "Visualizar",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
-  "canvas": "Canvas",
+  "contentViewport": "Visualização de conteúdo",
+  "limitViewportToPositiveCoordinates": "Limitar visualização a coordenadas positivas",
+  "off": "Desligado",
+  "canvas": "Tela",
   "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
