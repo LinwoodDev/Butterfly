@@ -1,5 +1,6 @@
 Changes since 2.5.0-rc.2:
 * Improve performance of pen drawing
+* Improve performance of home files view
 * Fix edited polygons showing duplicate old and new shapes until moved
 * Fix polygon tool has black color when using dark theme
 

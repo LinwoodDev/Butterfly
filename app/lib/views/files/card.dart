@@ -45,6 +45,7 @@ class AssetCard extends StatelessWidget {
                       thumbnail!,
                       fit: BoxFit.cover,
                       width: 640,
+                      gaplessPlayback: true,
                       alignment: Alignment.center,
                       errorBuilder: (context, error, stackTrace) {
                         return Center(

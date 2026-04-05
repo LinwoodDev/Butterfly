@@ -83,25 +83,45 @@ abstract class NoteDisplay<T> extends ArchiveData<T> {
     }
   }
 
+  Uint8List? _thumbnail;
+  bool _thumbnailLoaded = false;
+
   @useResult
   Uint8List? getThumbnail() {
+    if (_thumbnailLoaded) return _thumbnail;
     try {
-      return getAsset(kThumbnailArchiveFile);
+      _thumbnail = getAsset(kThumbnailArchiveFile);
+      _thumbnailLoaded = true;
+      return _thumbnail;
     } catch (_) {
+      _thumbnailLoaded = true;
       return null;
     }
   }
 
+  FileMetadata? _metadata;
+  bool _metadataLoaded = false;
+
   @useResult
   FileMetadata? getMetadata() {
+    if (_metadataLoaded) return _metadata;
     try {
       final data = getAsset(kMetaArchiveFile);
-      if (data == null) return null;
+      if (data == null) {
+        _metadataLoaded = true;
+        return null;
+      }
       final content = utf8.decode(data);
-      if (content.isEmpty) return null;
+      if (content.isEmpty) {
+        _metadataLoaded = true;
+        return null;
+      }
       final json = jsonDecode(content) as Map<String, dynamic>;
-      return FileMetadata.fromJson(json);
+      _metadata = FileMetadata.fromJson(json);
+      _metadataLoaded = true;
+      return _metadata;
     } catch (_) {
+      _metadataLoaded = true;
       return null;
     }
   }
@@ -182,24 +202,9 @@ final class NoteData extends NoteDisplay<NoteData> {
     return getName();
   }
 
-  @override
-  @useResult
-  Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
-
   @useResult
   NoteData setThumbnail(Uint8List data) =>
       setAsset(kThumbnailArchiveFile, data);
-
-  @override
-  @useResult
-  FileMetadata? getMetadata() {
-    final data = getAsset(kMetaArchiveFile);
-    if (data == null) return null;
-    final content = utf8.decode(data);
-    if (content.isEmpty) return null;
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return FileMetadata.fromJson(json);
-  }
 
   @useResult
   NoteData setMetadata(FileMetadata metadata) =>
