@@ -10,6 +10,11 @@
   "lightTheme": "밝은 테마",
   "systemTheme": "시스템 기본 테마 사용",
   "view": "보기",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
