@@ -10,6 +10,11 @@
   "lightTheme": "Tema chiaro",
   "systemTheme": "Usa tema di sistema predefinito",
   "view": "Visualizza",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
