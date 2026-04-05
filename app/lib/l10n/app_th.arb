@@ -10,6 +10,11 @@
   "lightTheme": "ธีมสีอ่อน",
   "systemTheme": "ใช้ธีมระบบเริ่มต้น",
   "view": "ดู",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
