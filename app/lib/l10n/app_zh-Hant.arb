@@ -10,6 +10,11 @@
   "lightTheme": "淺色主題",
   "systemTheme": "使用系統預設主題",
   "view": "查看",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
