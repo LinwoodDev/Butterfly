@@ -10,6 +10,11 @@
   "lightTheme": "Ljust tema",
   "systemTheme": "Använd standard systemtema",
   "view": "Visa",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
