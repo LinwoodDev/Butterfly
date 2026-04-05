@@ -1,5 +1,6 @@
 * Add content viewport option to behavior settings
 * Add limit viewport to positive coordinates option to behavior settings
 * Restructure view and behavior settings
+* Fix capture thumbnail displaying an incorrect viewport
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.0

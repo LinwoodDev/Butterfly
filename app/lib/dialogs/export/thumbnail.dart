@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/view_painter.dart';
@@ -100,6 +102,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final cameraViewport = widget.state.currentIndexCubit.state.cameraViewport;
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).captureThumbnail),
       constraints: const BoxConstraints(
@@ -115,6 +118,37 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 if (_cropRect == null) {
+                  var appSize = MediaQuery.sizeOf(context);
+                  if (appSize.width == 0 || appSize.height == 0) {
+                    appSize = Size(constraints.maxWidth, constraints.maxHeight);
+                  }
+                  final scale = min(
+                    (constraints.maxWidth / appSize.width).clamp(0.0, 1.0),
+                    (constraints.maxHeight / appSize.height).clamp(0.0, 1.0),
+                  );
+
+                  final baseTransform = widget.state.transformCubit.state;
+                  final newSize = baseTransform.size * scale;
+
+                  final appCenter = Offset(
+                    appSize.width / 2,
+                    appSize.height / 2,
+                  );
+                  final docCenter =
+                      baseTransform.position + appCenter / baseTransform.size;
+
+                  final viewportCenter = Offset(
+                    constraints.maxWidth / 2,
+                    constraints.maxHeight / 2,
+                  );
+                  final newPosition = docCenter - viewportCenter / newSize;
+
+                  final fittedTransform = CameraTransform(
+                    baseTransform.pixelRatio,
+                    newPosition,
+                    newSize,
+                  );
+
                   final center = Offset(
                     constraints.maxWidth / 2,
                     constraints.maxHeight / 2,
@@ -133,6 +167,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                   Future.microtask(() {
                     if (mounted) {
                       setState(() {
+                        _transform = fittedTransform;
                         _cropRect = Rect.fromCenter(
                           center: center,
                           width: cropWidth,
@@ -413,11 +448,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                               widget.state.data,
                               widget.state.page,
                               widget.state.info,
-                              cameraViewport: widget
-                                  .state
-                                  .currentIndexCubit
-                                  .state
-                                  .cameraViewport,
+                              cameraViewport: cameraViewport,
                               transform: _transform,
                               invisibleLayers: widget.state.invisibleLayers,
                               renderBackground: true,

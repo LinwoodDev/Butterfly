@@ -580,7 +580,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     if (limitViewportMultiplier != null) {
-      await prefs.setDouble('limit_viewport_multiplier', limitViewportMultiplier!);
+      await prefs.setDouble(
+        'limit_viewport_multiplier',
+        limitViewportMultiplier!,
+      );
     } else if (prefs.containsKey('limit_viewport_multiplier')) {
       await prefs.remove('limit_viewport_multiplier');
     }
