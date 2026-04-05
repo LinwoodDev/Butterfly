@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.0 (2026-04-05)
+
+Changes since 2.5.0-rc.2:
+* Improve performance of pen drawing
+* Fix edited polygons showing duplicate old and new shapes until moved
+* Fix polygon tool has black color when using dark theme
+
+This is a stable release, it includes all the changes from the 2.5.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.5
+
 ## 2.5.0-rc.2 (2026-03-30)
 
 * Improve pdf rendering
