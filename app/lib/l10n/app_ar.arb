@@ -10,11 +10,11 @@
   "lightTheme": "المظهر الفاتح",
   "systemTheme": "استخدام سمة النظام الافتراضية",
   "view": "العرض",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "contentViewport": "عرض المحتوى",
+  "limitViewportToPositiveCoordinates": "الحد من عرض الإحداثيات الإيجابية",
+  "off": "متوقف",
+  "canvas": "الكانفاس",
+  "interface": "واجهة",
   "@view": {
     "description": "View mode or menu"
   },
