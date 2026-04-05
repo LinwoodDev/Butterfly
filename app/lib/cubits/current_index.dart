@@ -1859,6 +1859,34 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
   }
 
+  Rect getContentRect() {
+    final renderers = this.renderers;
+    if (renderers.isEmpty) {
+      return Rect.zero;
+    }
+
+    var minX = double.infinity;
+    var minY = double.infinity;
+    var maxX = double.negativeInfinity;
+    var maxY = double.negativeInfinity;
+
+    for (final renderer in renderers) {
+      final rect = renderer.expandedRect;
+      if (rect != null) {
+        minX = min(minX, rect.left);
+        minY = min(minY, rect.top);
+        maxX = max(maxX, rect.right);
+        maxY = max(maxY, rect.bottom);
+      }
+    }
+
+    if (minX == double.infinity) {
+      return Rect.zero;
+    }
+
+    return Rect.fromLTRB(minX, minY, maxX, maxY);
+  }
+
   Future<void> updateUtilities({
     UtilitiesState? utilities,
     ViewOption? view,
@@ -1876,14 +1904,71 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
+  Rect? _calculateViewportBounds() {
+    final settings = state.settingsCubit.state;
+    final multiplier = settings.limitViewportMultiplier;
+    final positive = settings.limitViewportPositive;
+
+    if (multiplier == null && !positive) return null;
+
+    final size = state.cameraViewport.toRealSize(true);
+
+    final contentRect = getContentRect();
+
+    double minX = double.negativeInfinity;
+    double minY = double.negativeInfinity;
+    double maxX = double.infinity;
+    double maxY = double.infinity;
+
+    if (multiplier != null) {
+      final padX = size.width * multiplier;
+      final padY = size.height * multiplier;
+
+      minX = contentRect.left - padX;
+      minY = contentRect.top - padY;
+      maxX = contentRect.right - size.width + padX;
+      maxY = contentRect.bottom - size.height + padY;
+
+      if (minX > maxX) {
+        final mid = (minX + maxX) / 2;
+        minX = mid;
+        maxX = mid;
+      }
+      if (minY > maxY) {
+        final mid = (minY + maxY) / 2;
+        minY = mid;
+        maxY = mid;
+      }
+    }
+
+    if (positive) {
+      minX = max(0.0, minX);
+      minY = max(0.0, minY);
+      maxX = max(0.0, maxX);
+      maxY = max(0.0, maxY);
+    }
+
+    return Rect.fromLTRB(minX, minY, maxX, maxY);
+  }
+
   void move(Offset delta, [bool force = false]) {
     final utilitiesState = state.utilities;
-    if (utilitiesState.lockHorizontal && !force) {
-      delta = Offset(0, delta.dy);
+    if (!force) {
+      if (utilitiesState.lockHorizontal) delta = Offset(0, delta.dy);
+      if (utilitiesState.lockVertical) delta = Offset(delta.dx, 0);
+
+      final bounds = _calculateViewportBounds();
+      if (bounds != null) {
+        final pos = state.transformCubit.state.position;
+        var newPos = pos + delta;
+        newPos = Offset(
+          newPos.dx.clamp(bounds.left, bounds.right),
+          newPos.dy.clamp(bounds.top, bounds.bottom),
+        );
+        delta = newPos - pos;
+      }
     }
-    if (utilitiesState.lockVertical && !force) {
-      delta = Offset(delta.dx, 0);
-    }
+
     if (delta.dx == 0 && delta.dy == 0) {
       return;
     }
@@ -1908,15 +1993,32 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   ]) {
     if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
     final utilitiesState = state.utilities;
-    if (utilitiesState.lockHorizontal && !force) {
-      positionVelocity = Offset(0, positionVelocity.dy);
+    if (!force) {
+      if (utilitiesState.lockHorizontal) {
+        positionVelocity = Offset(0, positionVelocity.dy);
+      }
+      if (utilitiesState.lockVertical) {
+        positionVelocity = Offset(positionVelocity.dx, 0);
+      }
+      if (utilitiesState.lockZoom) sizeVelocity = 0;
+
+      final bounds = _calculateViewportBounds();
+      if (bounds != null) {
+        final pos = state.transformCubit.state.position;
+        var vX = positionVelocity.dx;
+        var vY = positionVelocity.dy;
+
+        // velocity > 0 means moving right (increasing pos) -> clamp if pos >= maxX
+        // velocity < 0 means moving left (decreasing pos) -> clamp if pos <= minX
+        if (pos.dx >= bounds.right && vX > 0) vX = 0;
+        if (pos.dx <= bounds.left && vX < 0) vX = 0;
+        if (pos.dy >= bounds.bottom && vY > 0) vY = 0;
+        if (pos.dy <= bounds.top && vY < 0) vY = 0;
+
+        positionVelocity = Offset(vX, vY);
+      }
     }
-    if (utilitiesState.lockVertical && !force) {
-      positionVelocity = Offset(positionVelocity.dx, 0);
-    }
-    if (utilitiesState.lockZoom && !force) {
-      sizeVelocity = 0;
-    }
+
     if (positionVelocity.dx == 0 &&
         positionVelocity.dy == 0 &&
         sizeVelocity == 0) {

@@ -101,6 +101,46 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         onTap: () => _openStartupModal(context),
                         leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
                       ),
+                      SwitchListTile(
+                        value: state.startInFullScreen,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeStartInFullScreen(value),
+                        title: Text(
+                          AppLocalizations.of(context).startInFullScreen,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.arrowsOut,
+                        ),
+                      ),
+                      ListTile(
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.appWindow,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context).contentViewport,
+                        ),
+                        subtitle: Text(
+                          state.limitViewportMultiplier == null
+                              ? AppLocalizations.of(context).off
+                              : '${state.limitViewportMultiplier}x',
+                        ),
+                        onTap: () => _openContentViewportModal(context),
+                      ),
+                      SwitchListTile(
+                        value: state.limitViewportPositive,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeLimitViewportPositive(value),
+                        title: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).limitViewportToPositiveCoordinates,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.plusSquare,
+                        ),
+                      ),
                       ListTile(
                         title: Text(
                           AppLocalizations.of(context).renderResolution,
@@ -174,10 +214,82 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Card(
+                margin: settingsCardMargin,
+                child: Padding(
+                  padding: settingsCardPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).home,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        secondary: const PhosphorIcon(PhosphorIconsLight.image),
+                        title: Text(
+                          AppLocalizations.of(context).showThumbnails,
+                        ),
+                        value: state.showThumbnails,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeShowThumbnails(value),
+                      ),
+                      SwitchListTile(
+                        value: state.hideExtension,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeHideExtension(value),
+                        title: Text(
+                          AppLocalizations.of(context).hideFileExtension,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.fileText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },
       ),
+    );
+  }
+
+  void _openContentViewportModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentMultiplier = cubit.state.limitViewportMultiplier;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).contentViewport),
+      childrenBuilder: (context) {
+        final options = [
+          (null, AppLocalizations.of(context).off),
+          (1.0, '1x'),
+          (1.5, '1.5x'),
+          (2.0, '2x'),
+          (3.0, '3x'),
+        ];
+        return options
+            .map(
+              (e) => ListTile(
+                title: Text(e.$2),
+                selected: currentMultiplier == e.$1,
+                onTap: () {
+                  cubit.changeLimitViewportMultiplier(e.$1);
+                  Navigator.of(context).pop();
+                },
+              ),
+            )
+            .toList();
+      },
     );
   }
 

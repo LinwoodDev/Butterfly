@@ -31,6 +31,14 @@ class ViewSettingsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).canvas,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
                       SwitchListTile(
                         secondary: const PhosphorIcon(
                           PhosphorIconsLight.magnifyingGlass,
@@ -40,16 +48,6 @@ class ViewSettingsPage extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeZoomEnabled(value),
-                      ),
-                      SwitchListTile(
-                        secondary: const PhosphorIcon(PhosphorIconsLight.image),
-                        title: Text(
-                          AppLocalizations.of(context).showThumbnails,
-                        ),
-                        value: state.showThumbnails,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeShowThumbnails(value),
                       ),
                       if (state.zoomEnabled)
                         ListTile(
@@ -64,18 +62,25 @@ class ViewSettingsPage extends StatelessWidget {
                           ),
                           onTap: () => _openZoomPositionModal(context),
                         ),
-                      SwitchListTile(
-                        value: state.startInFullScreen,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeStartInFullScreen(value),
-                        title: Text(
-                          AppLocalizations.of(context).startInFullScreen,
-                        ),
-                        secondary: const PhosphorIcon(
-                          PhosphorIconsLight.arrowsOut,
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: settingsCardMargin,
+                child: Padding(
+                  padding: settingsCardPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).interface,
+                          style: TextTheme.of(context).headlineSmall,
                         ),
                       ),
+                      const SizedBox(height: 16),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
                         title: Text(
@@ -178,27 +183,17 @@ class ViewSettingsPage extends StatelessWidget {
                             ],
                           );
                           if (position != null) {
-                            context
-                                .read<SettingsCubit>()
-                                .changeNavigatorPosition(position);
+                            if (context.mounted) {
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeNavigatorPosition(position);
+                            }
                           }
                         },
                         value: state.navigationRail,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeNavigationRail(value),
-                      ),
-                      SwitchListTile(
-                        value: state.hideExtension,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeHideExtension(value),
-                        title: Text(
-                          AppLocalizations.of(context).hideFileExtension,
-                        ),
-                        secondary: const PhosphorIcon(
-                          PhosphorIconsLight.fileText,
-                        ),
                       ),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.archive),
@@ -232,6 +227,34 @@ class ViewSettingsPage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _openZoomPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.zoomPosition;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).zoomPosition),
+      childrenBuilder: (context) => ZoomPosition.values
+          .map(
+            (e) => ListTile(
+              title: Text(e.getLocalizedName(context)),
+              selected: currentPos == e,
+              leading: Icon(switch (e) {
+                ZoomPosition.topRight => PhosphorIconsLight.arrowUpRight,
+                ZoomPosition.topLeft => PhosphorIconsLight.arrowUpLeft,
+                ZoomPosition.bottomRight => PhosphorIconsLight.arrowDownRight,
+                ZoomPosition.bottomLeft => PhosphorIconsLight.arrowDownLeft,
+              }, textDirection: TextDirection.ltr),
+              onTap: () {
+                cubit.changeZoomPosition(e);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+          .toList(),
     );
   }
 
@@ -330,34 +353,6 @@ class ViewSettingsPage extends StatelessWidget {
               }),
               onTap: () {
                 cubit.changeSimpleToolbarVisibility(e);
-                Navigator.of(context).pop();
-              },
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  void _openZoomPositionModal(BuildContext context) {
-    final cubit = context.read<SettingsCubit>();
-    var currentPos = cubit.state.zoomPosition;
-    showLeapBottomSheet(
-      context: context,
-      titleBuilder: (context) =>
-          Text(AppLocalizations.of(context).zoomPosition),
-      childrenBuilder: (context) => ZoomPosition.values
-          .map(
-            (e) => ListTile(
-              title: Text(e.getLocalizedName(context)),
-              selected: currentPos == e,
-              leading: Icon(switch (e) {
-                ZoomPosition.topRight => PhosphorIconsLight.arrowUpRight,
-                ZoomPosition.topLeft => PhosphorIconsLight.arrowUpLeft,
-                ZoomPosition.bottomRight => PhosphorIconsLight.arrowDownRight,
-                ZoomPosition.bottomLeft => PhosphorIconsLight.arrowDownLeft,
-              }, textDirection: TextDirection.ltr),
-              onTap: () {
-                cubit.changeZoomPosition(e);
                 Navigator.of(context).pop();
               },
             ),

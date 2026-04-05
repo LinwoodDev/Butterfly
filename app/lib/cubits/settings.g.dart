@@ -85,6 +85,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   density:
       $enumDecodeNullable(_$ThemeDensityEnumMap, json['density']) ??
       ThemeDensity.system,
+  limitViewportMultiplier: (json['limitViewportMultiplier'] as num?)
+      ?.toDouble(),
+  limitViewportPositive: json['limitViewportPositive'] as bool? ?? false,
   localeTag: json['localeTag'] as String? ?? '',
   documentPath: json['documentPath'] as String? ?? '',
   gestureSensitivity: (json['gestureSensitivity'] as num?)?.toDouble() ?? 1,
@@ -218,6 +221,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
 ) => <String, dynamic>{
   'theme': _$ThemeModeEnumMap[instance.theme]!,
   'density': _$ThemeDensityEnumMap[instance.density]!,
+  'limitViewportMultiplier': instance.limitViewportMultiplier,
+  'limitViewportPositive': instance.limitViewportPositive,
   'localeTag': instance.localeTag,
   'documentPath': instance.documentPath,
   'gestureSensitivity': instance.gestureSensitivity,

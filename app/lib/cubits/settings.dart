@@ -332,6 +332,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const factory ButterflySettings({
     @Default(ThemeMode.system) ThemeMode theme,
     @Default(ThemeDensity.system) ThemeDensity density,
+    double? limitViewportMultiplier,
+    @Default(false) bool limitViewportPositive,
     @Default('') String localeTag,
     @Default('') String documentPath,
     @Default(1) double gestureSensitivity,
@@ -408,6 +410,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             .toList() ??
         const [];
     return ButterflySettings(
+      limitViewportMultiplier: prefs.containsKey('limit_viewport_multiplier')
+          ? prefs.getDouble('limit_viewport_multiplier')
+          : null,
+      limitViewportPositive: prefs.getBool('limit_viewport_positive') ?? false,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.containsKey('pen_only_input')
           ? prefs.getBool('pen_only_input')
@@ -573,6 +579,12 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
 
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
+    if (limitViewportMultiplier != null) {
+      await prefs.setDouble('limit_viewport_multiplier', limitViewportMultiplier!);
+    } else if (prefs.containsKey('limit_viewport_multiplier')) {
+      await prefs.remove('limit_viewport_multiplier');
+    }
+    await prefs.setBool('limit_viewport_positive', limitViewportPositive);
     await prefs.setString('theme_mode', theme.name);
     await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
@@ -1278,6 +1290,16 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowThumbnails(bool value) {
     emit(state.copyWith(showThumbnails: value));
+    return save();
+  }
+
+  Future<void> changeLimitViewportMultiplier(double? value) {
+    emit(state.copyWith(limitViewportMultiplier: value));
+    return save();
+  }
+
+  Future<void> changeLimitViewportPositive(bool value) {
+    emit(state.copyWith(limitViewportPositive: value));
     return save();
   }
 }
