@@ -10,11 +10,11 @@
   "lightTheme": "Світла тема",
   "systemTheme": "Використовувати типову системну тему",
   "view": "Дивитись",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "contentViewport": "Перегляд вмісту",
+  "limitViewportToPositiveCoordinates": "Обмежити Перегляд порту до позитивних координат",
+  "off": "Вимкнено",
+  "canvas": "Полотно",
+  "interface": "Інтерфейс",
   "@view": {
     "description": "View mode or menu"
   },
