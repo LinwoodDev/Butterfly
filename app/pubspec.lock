@@ -143,7 +143,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.5.0-rc.3"
+    version: "2.5.0"
   camera:
     dependency: "direct main"
     description:
@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "27c58ff4ec17d8e05b8b27fa66175bf5786b9ff9bd94ca418a571c7f6771b27b"
+      sha256: "84fd4edc420fd356b4c72b733ba3b54b4b20240b9e495e3852fe015181c9ede6"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.0"
+    version: "11.0.1"
   fixnum:
     dependency: transitive
     description:
