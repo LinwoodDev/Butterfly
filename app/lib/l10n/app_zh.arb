@@ -10,11 +10,11 @@
   "lightTheme": "亮色主题",
   "systemTheme": "使用系统默认主题",
   "view": "查看",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
-  "canvas": "Canvas",
-  "interface": "Interface",
+  "contentViewport": "内容视图",
+  "limitViewportToPositiveCoordinates": "限制视图为正坐标",
+  "off": "关闭",
+  "canvas": "画布",
+  "interface": "接口",
   "@view": {
     "description": "View mode or menu"
   },
