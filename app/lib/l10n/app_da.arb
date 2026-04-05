@@ -10,6 +10,11 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Brug standard-systemtema",
   "view": "Vis",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
