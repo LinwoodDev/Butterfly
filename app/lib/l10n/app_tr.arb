@@ -10,6 +10,11 @@
   "lightTheme": "Aydınlık Tema",
   "systemTheme": "Varsayılan sistem temasını kullan",
   "view": "Görüntüle",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
