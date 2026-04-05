@@ -10,6 +10,11 @@
   "lightTheme": "Helles Theme",
   "systemTheme": "Standard-System-Theme verwenden",
   "view": "Ansicht",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
