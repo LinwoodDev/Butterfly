@@ -10,6 +10,11 @@
   "lightTheme": "ライトテーマ",
   "systemTheme": "デフォルトのシステムテーマを使用する",
   "view": "表示",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
