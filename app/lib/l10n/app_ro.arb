@@ -10,6 +10,11 @@
   "lightTheme": "Temă luminoasă",
   "systemTheme": "Foloseste tema de sistem implicita",
   "view": "Vizualizare",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
