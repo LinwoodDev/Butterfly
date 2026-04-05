@@ -10,11 +10,11 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Bruk standard systemtema",
   "view": "Vis",
-  "contentViewport": "Content Viewport",
-  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
-  "off": "Off",
+  "contentViewport": "Innholdsvisnings port",
+  "limitViewportToPositiveCoordinates": "Begrens visningsporten til positive koordinater",
+  "off": "Av",
   "canvas": "Canvas",
-  "interface": "Interface",
+  "interface": "Grensesnitt",
   "@view": {
     "description": "View mode or menu"
   },
