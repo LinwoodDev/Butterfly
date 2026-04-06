@@ -378,7 +378,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
-    @Default(false) bool hideExtension,
+    @Default(true) bool hideExtension,
     @Default(true) bool autosave,
     @Default(true) bool showSaveButton,
     @Default(1) int toolbarRows,
@@ -488,10 +488,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       navigationRail: prefs.getBool('navigation_rail') ?? true,
       sortBy: prefs.containsKey('sort_by')
           ? SortBy.values.byName(prefs.getString('sort_by')!)
-          : SortBy.name,
+          : SortBy.modified,
       sortOrder: prefs.containsKey('sort_order')
           ? SortOrder.values.byName(prefs.getString('sort_order')!)
-          : SortOrder.ascending,
+          : SortOrder.descending,
       imageScale: prefs.getDouble('image_scale') ?? 0.5,
       pdfQuality: prefs.getDouble('pdf_quality') ?? 2,
       platformTheme: prefs.containsKey('platform_theme')
@@ -508,8 +508,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
       autosave: prefs.getBool('autosave') ?? true,
-      delayedAutosave: prefs.getBool('delayed_autosave') ?? false,
-      autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 5,
+      delayedAutosave: prefs.getBool('delayed_autosave') ?? true,
+      autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 3,
       toolbarSize: prefs.containsKey('toolbar_size')
           ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
           : ToolbarSize.normal,
@@ -556,7 +556,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             )
           : null,
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
-      hideExtension: prefs.getBool('hide_extension') ?? false,
+      hideExtension: prefs.getBool('hide_extension') ?? true,
+      showThumbnails: prefs.getBool('show_thumbnails') ?? true,
     );
   }
 

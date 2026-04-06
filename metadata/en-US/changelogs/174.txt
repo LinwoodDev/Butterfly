@@ -2,5 +2,12 @@
 * Add limit viewport to positive coordinates option to behavior settings
 * Restructure view and behavior settings
 * Fix capture thumbnail displaying an incorrect viewport
+* Change settings defaults
+	* `sort_by` to `modified`
+	* `sort_order` to `descending`
+	* `delayed_autosave` to `true`
+	* `autosave_delay_seconds` to `3`
+	* `hide_extension` to `true`
+	* `show_thumbnails` to `true`
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.0
