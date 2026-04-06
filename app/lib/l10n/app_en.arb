@@ -1334,5 +1334,17 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "autosaveDescription": "Automatically save your changes",
+  "autosaveDelayDescription": "The delay before saving automatically",
+  "onStartupDescription": "What to do when the app starts",
+  "startInFullScreenDescription": "Open the app in full screen mode",
+  "contentViewportDescription": "Limit the viewable area of the canvas",
+  "limitViewportToPositiveCoordinatesDescription": "Prevent panning into negative coordinates",
+  "renderResolutionDescription": "The quality of the canvas rendering",
+  "spreadToPagesDescription": "Import pages spread out instead of a continuous document",
+  "imageScaleDescription": "The default scale for imported images",
+  "pdfQualityDescription": "The rendering quality of imported PDF pages",
+  "showThumbnailsDescription": "Display image previews for documents in the home screen",
+  "hideFileExtensionDescription": "Hide the .bfly extension for documents in the home screen"
 }
