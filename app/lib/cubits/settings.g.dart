@@ -170,7 +170,7 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   spreadPages: json['spreadPages'] as bool? ?? false,
   highContrast: json['highContrast'] as bool? ?? false,
   gridView: json['gridView'] as bool? ?? false,
-  hideExtension: json['hideExtension'] as bool? ?? false,
+  hideExtension: json['hideExtension'] as bool? ?? true,
   autosave: json['autosave'] as bool? ?? true,
   showSaveButton: json['showSaveButton'] as bool? ?? true,
   toolbarRows: (json['toolbarRows'] as num?)?.toInt() ?? 1,
