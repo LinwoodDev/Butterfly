@@ -254,7 +254,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
           !(embedding?.save ?? true) ||
           (!kIsWeb &&
               !absolute &&
-              (location.fileType?.isNote() ?? false) &&
+              (location.isEmpty || (location.fileType?.isNote() ?? false)) &&
               (location.remote.isEmpty ||
                   (settingsCubit
                           .getRemote(location.remote)

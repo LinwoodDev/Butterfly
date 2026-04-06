@@ -2,6 +2,7 @@
 * Add limit viewport to positive coordinates option to behavior settings
 * Restructure view and behavior settings
 * Fix capture thumbnail displaying an incorrect viewport
+* Fix autosave not working if opened document has no location yet
 * Change settings defaults
 	* `sort_by` to `modified`
 	* `sort_order` to `descending`
