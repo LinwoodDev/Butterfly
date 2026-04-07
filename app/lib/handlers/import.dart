@@ -28,6 +28,7 @@ class ImportHandler extends Handler<ImportTool> {
     for (final element in data.elements.whereType<SourcedElement>()) {
       assetService.invalidate(element.source);
     }
+    _renderers = null;
   }
 
   @override

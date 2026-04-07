@@ -3,6 +3,12 @@
 * Restructure view and behavior settings
 * Fix capture thumbnail displaying an incorrect viewport
 * Fix autosave not working if opened document has no location yet
+* Fix memory leaks and stale state in tool handlers
+  * Fix lifecycle cleanup in pen, path eraser, laser, label and select handlers
+  * Fix import handler renderer cache not being released on dispose
+* Improve rendering performance by reusing paint objects in grid rendering
+* Fix networking foreground cleanup to avoid stale remote renderer buildup
+* Fix networking service shutdown cleanup to release subscriptions and streams
 * Change settings defaults
 	* `sort_by` to `modified`
 	* `sort_order` to `descending`

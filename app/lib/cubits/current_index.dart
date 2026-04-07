@@ -453,29 +453,46 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final users = (current ?? state.networkingService.users).entries.toList();
+    final usersByChannel = {for (final entry in users) entry.key: entry.value};
+    final activeForegroundElements = users
+        .expand((entry) => entry.value.foreground ?? const <PadElement>[])
+        .toSet();
 
     final foregrounds = state.networkingForegrounds.toList();
-    foregrounds.removeWhere((element) {
-      final shouldRemove = !users.any(
-        (user) =>
-            user.value.foreground?.contains(element.element) ??
-            false || user != element.element,
-      );
+    foregrounds.removeWhere((renderer) {
+      bool shouldRemove;
+      if (renderer is UserCursor) {
+        final activeUser = usersByChannel[renderer.userId];
+        shouldRemove = activeUser == null || activeUser != renderer.element;
+      } else {
+        shouldRemove = !activeForegroundElements.contains(renderer.element);
+      }
       if (shouldRemove) {
-        element.dispose();
+        renderer.dispose();
       }
       return shouldRemove;
     });
-    final elements = foregrounds.map((e) => e.element).toList();
-    final added = users
-        .expand((user) => user.value.foreground ?? [])
-        .where((e) => !elements.contains(e))
-        .map((e) => Renderer.fromInstance(e))
-        .toList();
+
+    final existingElements = foregrounds.map((e) => e.element).toSet();
+    final added = <Renderer>[];
     added.addAll(
       users
-          .where((element) => !elements.contains(element))
-          .map((e) => UserCursor(e.value, e.key)),
+          .expand((entry) => entry.value.foreground ?? const <PadElement>[])
+          .where((element) => !existingElements.contains(element))
+          .map((element) => Renderer.fromInstance(element)),
+    );
+    added.addAll(
+      users
+          .where(
+            (entry) =>
+                foregrounds.whereType<UserCursor>().firstWhereOrNull(
+                  (cursor) =>
+                      cursor.userId == entry.key &&
+                      cursor.element == entry.value,
+                ) ==
+                null,
+          )
+          .map((entry) => UserCursor(entry.value, entry.key)),
     );
     await Future.wait(
       added.map(
@@ -2299,6 +2316,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool testTransform = false,
   }) async {
     if (_bakeDelayed) return;
+    _bakeDelayed = true;
     final transformCubit = state.transformCubit;
     final oldTransform = transformCubit.state;
     try {

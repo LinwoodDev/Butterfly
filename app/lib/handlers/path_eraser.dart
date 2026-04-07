@@ -35,6 +35,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   @override
   void resetInput(DocumentBloc bloc) {
     _currentPos = null;
+    _lastErased = null;
+    _submittedErase = false;
+    _erased.clear();
   }
 
   @override
@@ -114,6 +117,17 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     final bloc = _bloc = context.getDocumentBloc();
     bloc.add(ElementsRemoved(_erased.toList()));
     _submittedErase = true;
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    _currentPos = null;
+    _lastErased = null;
+    _submittedErase = false;
+    _currentlyErasing = false;
+    _erasingFuture = null;
+    _erased.clear();
+    _bloc = null;
   }
 
   @override

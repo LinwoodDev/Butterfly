@@ -6,8 +6,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
   final List<PenElement> _submittedElements = [];
-  // Map to store the starting positions of each element.
-  final Map<int, Offset> startPosition = {};
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
   // List for shapeDetection
@@ -43,8 +41,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   void resetInput(DocumentBloc bloc) {
     submitElements(bloc, elements.keys.toList());
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
     elements.clear();
     lastPosition.clear();
+    points.clear();
+    lastPosit = null;
   }
 
   // Handle the pointer release event.
@@ -63,8 +65,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       event.kind,
       refresh: false,
     );
+    lastPosition.remove(event.pointer);
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
+    lastPosit = null;
   }
 
   // Flag to check if elements are being submitted.
@@ -83,6 +87,25 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));
     bloc.refresh(allowBake: false);
+  }
+
+  @override
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) {
+    if (_submittedElements.isEmpty) return false;
+    final createdIds = renderers
+        .map((renderer) => renderer.element)
+        .whereType<PenElement>()
+        .map((element) => element.id)
+        .nonNulls
+        .toSet();
+    if (createdIds.isEmpty) return false;
+    final previousLength = _submittedElements.length;
+    _submittedElements.removeWhere((e) => createdIds.contains(e.id));
+    final changed = previousLength != _submittedElements.length;
+    if (changed && _submittedElements.isEmpty && elements.isEmpty) {
+      unawaited(_bloc?.delayedBake());
+    }
+    return changed;
   }
 
   @override
@@ -166,8 +189,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     final currentIndex = context.getCurrentIndex();
-    // Save initial position
-    startPosition[event.pointer] = event.localPosition;
     if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       context.refreshForegrounds();
@@ -398,8 +419,25 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
     elements.clear();
+    points.clear();
+    lastPosition.clear();
+    lastPosit = null;
     context.refresh();
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
+    elements.clear();
+    _submittedElements.clear();
+    lastPosition.clear();
+    points.clear();
+    isDrawing = false;
+    lastPosit = null;
   }
 
   @override

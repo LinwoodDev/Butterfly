@@ -234,13 +234,15 @@ class NetworkingService extends Cubit<NetworkState?> {
     return completer.future
         .timeout(kTimeout)
         .then((e) {
-          listener.cancel();
           _setupReset(rpc);
           return e;
         })
         .catchError((_) {
           emit(DisconnectedNetworkState(connection: client, pipe: rpc));
           return null;
+        })
+        .whenComplete(() {
+          listener.cancel();
         });
   }
 
@@ -465,5 +467,16 @@ class NetworkingService extends Cubit<NetworkState?> {
   void setName(String name) {
     _userName = name;
     sendUser(NetworkingUser(name: name));
+  }
+
+  @override
+  Future<void> close() async {
+    _resetSubscription?.cancel();
+    _resetSubscription = null;
+    await closeNetworking();
+    await _connections.close();
+    await _users.close();
+    await _resetController.close();
+    return super.close();
   }
 }

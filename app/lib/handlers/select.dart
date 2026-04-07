@@ -40,6 +40,9 @@ class SelectHandler extends Handler<SelectTool> {
     _submitTransform(bloc);
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
+    _ruler = null;
+    _rulerRotationStart = null;
+    _lastRulerRotation = 0;
     _selectionManager.reset();
     await bloc.refresh(allowBake: false);
   }
@@ -454,7 +457,12 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  void dispose(DocumentBloc bloc) => _submitTransform(bloc);
+  void dispose(DocumentBloc bloc) {
+    _submitTransform(bloc);
+    _ruler = null;
+    _rulerRotationStart = null;
+    _lastRulerRotation = 0;
+  }
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
@@ -462,6 +470,9 @@ class SelectHandler extends Handler<SelectTool> {
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
     if (_ruler != null) {
+      _ruler = null;
+      _rulerRotationStart = null;
+      _lastRulerRotation = 0;
       return;
     }
     final transformed = _submitTransform(context.getDocumentBloc());

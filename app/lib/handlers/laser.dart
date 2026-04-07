@@ -90,6 +90,11 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     _stopTimer();
   }
 
+  @override
+  void dispose(DocumentBloc bloc) {
+    _stopTimer();
+  }
+
   void _submit(DocumentBloc bloc, List<int> indexes) {
     final elements = indexes.map((e) => _elements.remove(e)).nonNulls.toList();
     if (elements.isEmpty) return;

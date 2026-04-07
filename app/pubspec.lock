@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "84fd4edc420fd356b4c72b733ba3b54b4b20240b9e495e3852fe015181c9ede6"
+      sha256: f13a03000d942e476bc1ff0a736d2e9de711d2f89a95cd4c1d88f861c3348387
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "11.0.2"
   fixnum:
     dependency: transitive
     description:
@@ -725,6 +725,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  jni:
+    dependency: transitive
+    description:
+      name: jni
+      sha256: c2230682d5bc2362c1c9e8d3c7f406d9cbba23ab3f2e203a025dd47e0fb2e68f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  jni_flutter:
+    dependency: transitive
+    description:
+      name: jni_flutter
+      sha256: "8b59e590786050b1cd866677dddaf76b1ade5e7bc751abe04b86e84d379d3ba6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   json_annotation:
     dependency: "direct main"
     description:
@@ -1017,10 +1033,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "149441ca6e4f38193b2e004c0ca6376a3d11f51fa5a77552d8bd4d2b0c0912ba"
+      sha256: "914a07484c4380e572998d30486e77e0d9cd2faec72fee268086d07bf7f302c9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.23"
+    version: "2.3.0"
   path_provider_foundation:
     dependency: transitive
     description:

@@ -326,6 +326,9 @@ class LabelHandler extends Handler<LabelTool>
     _connection?.close();
     _connection = null;
     _context = null;
+    _bloc = null;
+    _isSelecting = false;
+    _composing = TextRange.empty;
   }
 
   void _submit(DocumentBloc bloc) {
