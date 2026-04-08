@@ -3,6 +3,8 @@
 * Restructure view and behavior settings
 * Fix capture thumbnail displaying an incorrect viewport
 * Fix autosave not working if opened document has no location yet
+* Fix duplicated elements sometimes appearing after moving selections
+* Fix renderer replacement in ElementsChanged to preserve original layer
 * Fix memory leaks and stale state in tool handlers
   * Fix lifecycle cleanup in pen, path eraser, laser, label and select handlers
   * Fix import handler renderer cache not being released on dispose

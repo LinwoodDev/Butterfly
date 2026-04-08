@@ -298,10 +298,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
           for (var element in updated) {
-            final newRenderer = Renderer.fromInstance(
-              element,
-              current.currentLayer,
-            );
+            final newRenderer = Renderer.fromInstance(element, renderer.layer);
             renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);
             final exists = selected?.remove(renderer);

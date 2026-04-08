@@ -1185,6 +1185,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }) => _bakeLock.synchronized(() async {
     if (isClosed) return;
     var cameraViewport = state.cameraViewport;
+    final startTransform = state.transformCubit.state;
+    final startViewport = cameraViewport;
     final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
@@ -1390,6 +1392,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             .toList();
 
     if (isClosed) return;
+
+    // If state changed while baking (e.g. fast move submitted a newer viewport),
+    // this bake output is stale and must not overwrite the latest viewport.
+    final currentViewport = state.cameraViewport;
+    final currentTransform = state.transformCubit.state;
+    if (!identical(currentViewport, startViewport) ||
+        currentTransform != startTransform) {
+      newImage.dispose();
+      final oldBelow = startViewport.belowLayerImage;
+      final oldAbove = startViewport.aboveLayerImage;
+      if (!identical(belowLayerImage, oldBelow)) {
+        belowLayerImage?.dispose();
+      }
+      if (!identical(aboveLayerImage, oldAbove)) {
+        aboveLayerImage?.dispose();
+      }
+      return;
+    }
 
     emit(
       state.copyWith(
@@ -2222,10 +2242,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     if (reset) {
       reload(bloc, current);
-    } else if (shouldRefresh?.call() == true) {
-      await refresh(current);
-    } else if (replacedElements != null) {
-      await bake(blocState, reset: true);
+    } else {
+      final refreshRequested = shouldRefresh?.call() == true;
+      if (refreshRequested) {
+        // For replacement updates we force a reset bake below, so avoid
+        // scheduling an extra delayed bake from refresh().
+        await refresh(current, allowBake: replacedElements == null);
+      }
+      if (replacedElements != null) {
+        await bake(blocState, reset: true);
+      }
     }
     if (updateIndex) {
       this.updateIndex(bloc);
