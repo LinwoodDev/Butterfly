@@ -368,10 +368,11 @@ final class NoteData extends NoteDisplay<NoteData> {
         index == newIndex) {
       return this;
     }
+    final displayName = getPageNameFromRealName(pageName);
     var noteData = removeAsset('$kPagesArchiveDirectory/$pageName.json');
     noteData = noteData._realignPages(newIndex);
     // ignore: unused_result
-    (noteData, _) = noteData.setPage(data, page, newIndex);
+    (noteData, _) = noteData.setPage(data, displayName, newIndex);
     return noteData;
   }
 
@@ -692,22 +693,30 @@ final class NoteData extends NoteDisplay<NoteData> {
     int? index,
     bool addNumber = true,
   }) {
-    var i = 1;
-    String getName(int i) {
-      if (name.isEmpty) return i.toString();
-      if (i == 1 && !addNumber) {
-        return name;
+    final existingNames = getPages().toSet();
+    late String current;
+
+    if (name.isEmpty) {
+      var i = 1;
+      current = i.toString();
+      while (existingNames.contains(current)) {
+        i++;
+        current = i.toString();
       }
-      return '$name $i';
+      return setPage(page, current, index);
     }
 
-    final existingNames = getPages().toSet();
-    var current = getName(i);
+    if (!existingNames.contains(name)) {
+      return setPage(page, name, index);
+    }
 
+    var i = addNumber ? 1 : 2;
+    current = '$name $i';
     while (existingNames.contains(current)) {
       i++;
-      current = getName(i);
+      current = '$name $i';
     }
+
     return setPage(page, current, index);
   }
 
