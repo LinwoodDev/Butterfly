@@ -120,8 +120,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   Rect get rect {
     final constraints = element.constraints;
     if (constraints is ScaledElementConstraints) {
-      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
-      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
+      final scaleX = constraints.scaleX;
+      final scaleY = constraints.scaleY;
       return Rect.fromLTWH(
         element.position.x,
         element.position.y,
@@ -131,8 +131,8 @@ class ImageRenderer extends Renderer<ImageElement> {
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
       var width = constraints.width;
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
+      // if (height <= 0) height = element.height.toDouble();
+      // if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
         element.position.x,
         element.position.y,
@@ -156,8 +156,8 @@ class ImageRenderer extends Renderer<ImageElement> {
         final bottom = element.position.y + element.height;
         height = min(bottomArea, bottom) - element.position.y;
       }
-      if (height <= 0) height = element.height.toDouble();
-      if (width <= 0) width = element.width.toDouble();
+      // if (height <= 0) height = element.height.toDouble();
+      // if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
         element.position.x,
         element.position.y,
@@ -228,14 +228,6 @@ class ImageRenderer extends Renderer<ImageElement> {
           updateImage(bloc, (cmd) => cmd.filter(updateImageBackground())),
       RendererOperation.grayscale: (bloc, context) =>
           updateImage(bloc, (cmd) => cmd.grayscale()),
-      RendererOperation.flipHorizontal: (bloc, context) => updateImage(
-        bloc,
-        (cmd) => cmd.flip(direction: img.FlipDirection.horizontal),
-      ),
-      RendererOperation.flipVertical: (bloc, context) => updateImage(
-        bloc,
-        (cmd) => cmd.flip(direction: img.FlipDirection.vertical),
-      ),
     };
   }
 }

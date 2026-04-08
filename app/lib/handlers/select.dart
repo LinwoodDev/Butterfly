@@ -9,6 +9,52 @@ class SelectHandler extends Handler<SelectTool> {
 
   SelectHandler(super.data);
 
+  void mirror(DocumentBloc bloc, {bool horizontal = false, bool vertical = false}) {
+    final selectionRect = getSelectionRect();
+    if (selectionRect == null || _selected.isEmpty) return;
+
+    final scaleX = horizontal ? -1.0 : 1.0;
+    final scaleY = vertical ? -1.0 : 1.0;
+    final pivot = selectionRect.center;
+
+    Offset applyScale(Offset original) {
+      final relative = original - pivot;
+      return Offset(relative.dx * scaleX, relative.dy * scaleY) + pivot;
+    }
+
+    final newElements = _selected.map((renderer) {
+      final elementExpandedRect =
+          renderer.expandedRect ?? renderer.rect ?? Rect.zero;
+
+      final originalTopLeft = elementExpandedRect.topLeft;
+      final translatedTopLeft = applyScale(originalTopLeft);
+      var delta = translatedTopLeft - originalTopLeft;
+
+      final transformed = renderer.transform(
+        position: delta,
+        scaleX: scaleX,
+        scaleY: scaleY,
+        rotation: 0,
+        rotatePosition: false,
+        relative: true,
+      );
+      return transformed?.element ?? renderer.element;
+    }).toList();
+
+    bloc.add(
+      ElementsChanged(
+        Map.fromEntries(
+          newElements.mapIndexed((i, element) {
+            final id = _selected[i].element.id;
+            if (id == null) return null;
+            return MapEntry(id, [element]);
+          }).nonNulls,
+        ),
+      ),
+    );
+    bloc.refresh();
+  }
+
   void transform(
     DocumentBloc bloc,
     SelectionTransformCorner? corner, {
@@ -195,8 +241,10 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return null;
     final current = _getTransformed();
     _selectionManager.deselect();
+    final duplicate = _duplicate;
+    _duplicate = false;
     if (current == null) return null;
-    if (_duplicate) {
+    if (duplicate) {
       final elements = current
           .map((e) => e.element.copyWith(id: createUniqueId()))
           .toList();

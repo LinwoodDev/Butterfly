@@ -81,6 +81,28 @@ ContextMenuBuilder buildElementsContextMenu(
           label: AppLocalizations.of(context).copy,
         ),
         ContextMenuItem(
+          icon: const PhosphorIcon(PhosphorIconsLight.flipHorizontal),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            cubit.fetchHandler<SelectHandler>()?.mirror(
+              bloc,
+              horizontal: true,
+            );
+          },
+          label: AppLocalizations.of(context).flipHorizontal,
+        ),
+        ContextMenuItem(
+          icon: const PhosphorIcon(PhosphorIconsLight.flipVertical),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            cubit.fetchHandler<SelectHandler>()?.mirror(
+              bloc,
+              vertical: true,
+            );
+          },
+          label: AppLocalizations.of(context).flipVertical,
+        ),
+        ContextMenuItem(
           icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
           onPressed: () async {
             Navigator.of(context).pop(true);

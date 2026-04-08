@@ -25,7 +25,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   ) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.textDirection = TextDirection.ltr;
-    _tp?.textScaler = TextScaler.linear(scale);
+    _tp?.textScaler = TextScaler.linear(scale.abs());
     final styleSheet = _getStyle();
     final style =
         styleSheet.resolveParagraphProperty(paragraph.property) ??
@@ -153,7 +153,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
         try {
           final image = await renderWidget(
             widget,
-            pixelRatio: scale * pixelRatio,
+            pixelRatio: scale.abs() * pixelRatio,
           );
           _renderedLatex[i] = (image, pixelRatio);
         } catch (_) {}

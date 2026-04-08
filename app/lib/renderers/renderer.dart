@@ -192,9 +192,7 @@ abstract class HitCalculator {
 enum RendererOperation {
   invert,
   background,
-  grayscale,
-  flipHorizontal,
-  flipVertical;
+  grayscale;
 
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -202,8 +200,6 @@ enum RendererOperation {
       RendererOperation.invert => loc.invert,
       RendererOperation.background => loc.background,
       RendererOperation.grayscale => loc.grayscale,
-      RendererOperation.flipHorizontal => loc.flipHorizontal,
-      RendererOperation.flipVertical => loc.flipVertical,
     };
   }
 
@@ -211,8 +207,6 @@ enum RendererOperation {
     RendererOperation.invert => PhosphorIcons.circleHalf,
     RendererOperation.background => PhosphorIcons.paintBucket,
     RendererOperation.grayscale => PhosphorIcons.palette,
-    RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
-    RendererOperation.flipVertical => PhosphorIcons.flipVertical,
   };
 }
 

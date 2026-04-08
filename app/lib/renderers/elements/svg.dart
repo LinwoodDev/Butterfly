@@ -84,8 +84,8 @@ class SvgRenderer extends Renderer<SvgElement> {
     final constraints = element.constraints;
     final size = Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
-      final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
-      final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
+      final scaleX = constraints.scaleX;
+      final scaleY = constraints.scaleY;
       return Rect.fromLTWH(
         element.position.x,
         element.position.y,
