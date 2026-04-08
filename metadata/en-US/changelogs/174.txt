@@ -9,6 +9,9 @@
 * Improve rendering performance by reusing paint objects in grid rendering
 * Fix networking foreground cleanup to avoid stale remote renderer buildup
 * Fix networking service shutdown cleanup to release subscriptions and streams
+* Fix renaming a non-active page causing page content to be overwritten ([#1064](https://github.com/LinwoodDev/Butterfly/issues/1064))
+* Fix page add/rename collisions potentially overwriting existing pages
+* Fix valid asset path reporting for text export/import compatibility
 * Change settings defaults
 	* `sort_by` to `modified`
 	* `sort_order` to `descending`

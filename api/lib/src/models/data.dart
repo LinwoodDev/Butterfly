@@ -411,13 +411,32 @@ final class NoteData extends NoteDisplay<NoteData> {
         .toList(),
   );
 
+  String _findUniquePageName(String name, {String? excludeName}) {
+    final existingNames = getPages().where((e) => e != excludeName).toSet();
+    if (!existingNames.contains(name)) return name;
+    var i = 2;
+    var current = '$name $i';
+    while (existingNames.contains(current)) {
+      i++;
+      current = '$name $i';
+    }
+    return current;
+  }
+
   @useResult
   (NoteData, String) renamePage(String oldName, String newName) {
-    final page = getPage(oldName);
-    final index = getPageIndex(oldName);
-    if (page == null) return (this, oldName);
-    final noteData = removePage(oldName);
-    return noteData.setPage(page, newName, index);
+    final oldPageName = _getPageFileName(oldName);
+    if (oldPageName == null) return (this, oldName);
+    final page = getPage(oldPageName);
+    final index = getPageIndex(oldPageName);
+    if (page == null) return (this, oldPageName);
+    final oldDisplayName = getPageNameFromRealName(oldPageName);
+    final uniqueName = _findUniquePageName(
+      newName,
+      excludeName: oldDisplayName,
+    );
+    final noteData = removePage(oldPageName);
+    return noteData.setPage(page, uniqueName, index);
   }
 
   @useResult
@@ -441,8 +460,9 @@ final class NoteData extends NoteDisplay<NoteData> {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
-  Iterable<String> getValidAssets() =>
-      validAssetPaths.expand((e) => getAssets(e)).toList();
+  Iterable<String> getValidAssets() => validAssetPaths
+      .expand((e) => getAssets(e).map((asset) => '$e/$asset'))
+      .toList();
 
   Map<String, Uint8List> getAllAssets() {
     final Map<String, Uint8List> assets = {};
@@ -674,19 +694,21 @@ final class NoteData extends NoteDisplay<NoteData> {
   }) {
     var i = 1;
     String getName(int i) {
+      if (name.isEmpty) return i.toString();
       if (i == 1 && !addNumber) {
         return name;
       }
-      if (name.isEmpty) return i.toString();
       return '$name $i';
     }
 
+    final existingNames = getPages().toSet();
     var current = getName(i);
 
-    while (getPages().contains(current)) {
-      current = 'Page ${i++}';
+    while (existingNames.contains(current)) {
+      i++;
+      current = getName(i);
     }
-    return setPage(page, name, index);
+    return setPage(page, current, index);
   }
 
   NoteData undoDelete(String path) {

@@ -210,9 +210,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         event.oldName,
         event.newName,
       );
+      final updatedCurrentPageName = current.pageName == event.oldName
+          ? newPageName
+          : current.pageName;
       _saveState(
         emit,
-        state: current.copyWith(data: newData, pageName: newPageName),
+        state: current.copyWith(
+          data: newData,
+          pageName: updatedCurrentPageName,
+        ),
       );
     });
     on<PageRemoved>((event, emit) {
