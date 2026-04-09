@@ -1,6 +1,7 @@
 * Add content viewport option to behavior settings
 * Add limit viewport to positive coordinates option to behavior settings
 * Restructure view and behavior settings
+* Fix broken Android monochrome app icon in stable version ([#1066](https://github.com/LinwoodDev/Butterfly/issues/1066))
 * Fix capture thumbnail displaying an incorrect viewport
 * Fix autosave not working if opened document has no location yet
 * Fix duplicated elements sometimes appearing after moving selections
