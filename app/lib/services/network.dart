@@ -19,14 +19,6 @@ import 'package:network_info_plus/network_info_plus.dart';
 part 'network.freezed.dart';
 part 'network.g.dart';
 
-enum NetworkingType {
-  webSocket;
-
-  Future<bool> isCompatible() async => switch (this) {
-    NetworkingType.webSocket => !kIsWeb,
-  };
-}
-
 const kDefaultPort = 28005;
 const kBroadcastPort = kDefaultPort + 1;
 const kTimeout = Duration(minutes: 5);

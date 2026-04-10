@@ -24,5 +24,11 @@
 	* `autosave_delay_seconds` to `3`
 	* `hide_extension` to `true`
 	* `show_thumbnails` to `true`
+* Fix collaboration URL validation and connection handling for invalid URLs
+* Fix startup crashes caused by invalid persisted settings enum/JSON values
+* Fix malformed asset source URIs causing import/render crashes
+* Unify numeric text input parsing across dialogs and toolbars
+* Fix settings import error handling for invalid JSON files
+* Fix embed render/renderSVG parsing for malformed payloads and integer values
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.0

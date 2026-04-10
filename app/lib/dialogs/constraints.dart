@@ -1,4 +1,5 @@
 import 'package:butterfly/visualizer/element.dart';
+import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_models.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,9 @@ class _FixedConstraintsContent extends StatelessWidget {
           ),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
-            onChanged(constraints.copyWith(width: double.parse(value)));
+            final parsed = parseDoubleInput(value);
+            if (parsed == null) return;
+            onChanged(constraints.copyWith(width: parsed));
           },
           initialValue: constraints.width.toStringAsFixed(2),
         ),
@@ -129,7 +132,9 @@ class _FixedConstraintsContent extends StatelessWidget {
           ),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
-            onChanged(constraints.copyWith(height: double.parse(value)));
+            final parsed = parseDoubleInput(value);
+            if (parsed == null) return;
+            onChanged(constraints.copyWith(height: parsed));
           },
           initialValue: constraints.height.toStringAsFixed(2),
         ),
@@ -194,7 +199,9 @@ class _DynamicConstraintsContent extends StatelessWidget {
           ),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
-            onChanged(constraints.copyWith(width: double.parse(value)));
+            final parsed = parseDoubleInput(value);
+            if (parsed == null) return;
+            onChanged(constraints.copyWith(width: parsed));
           },
           initialValue: constraints.width.toStringAsFixed(2),
         ),
@@ -206,7 +213,9 @@ class _DynamicConstraintsContent extends StatelessWidget {
           ),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
-            onChanged(constraints.copyWith(height: double.parse(value)));
+            final parsed = parseDoubleInput(value);
+            if (parsed == null) return;
+            onChanged(constraints.copyWith(height: parsed));
           },
           initialValue: constraints.height.toStringAsFixed(2),
         ),
@@ -218,7 +227,9 @@ class _DynamicConstraintsContent extends StatelessWidget {
           ),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
-            onChanged(constraints.copyWith(aspectRatio: double.parse(value)));
+            final parsed = parseDoubleInput(value);
+            if (parsed == null) return;
+            onChanged(constraints.copyWith(aspectRatio: parsed));
           },
           initialValue: constraints.aspectRatio.toStringAsFixed(2),
         ),
@@ -290,7 +301,9 @@ class _ConstraintViewState extends State<ConstraintView> {
                 ),
                 keyboardType: TextInputType.number,
                 onFieldSubmitted: (value) {
-                  _onChanged(constraint.copyWith(size: double.parse(value)));
+                  final parsed = parseDoubleInput(value);
+                  if (parsed == null) return;
+                  _onChanged(constraint.copyWith(size: parsed));
                 },
                 initialValue: constraint.size.toStringAsFixed(2),
               ),
@@ -302,7 +315,9 @@ class _ConstraintViewState extends State<ConstraintView> {
                 ),
                 keyboardType: TextInputType.number,
                 onFieldSubmitted: (value) {
-                  _onChanged(constraint.copyWith(length: double.parse(value)));
+                  final parsed = parseDoubleInput(value);
+                  if (parsed == null) return;
+                  _onChanged(constraint.copyWith(length: parsed));
                 },
                 initialValue: constraint.length.toStringAsFixed(2),
               ),

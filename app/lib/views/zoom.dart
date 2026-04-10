@@ -2,6 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/number.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
@@ -131,7 +132,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                         onChanged: (value) {
                                           setState(
                                             () => scale =
-                                                (double.tryParse(value) ??
+                                                (parseDoubleInput(value) ??
                                                     (scale * 100)) /
                                                 100,
                                           );

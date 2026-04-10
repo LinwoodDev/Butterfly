@@ -18,9 +18,10 @@ class ImageRenderer extends Renderer<ImageElement> {
     DocumentPage page,
     String path,
   ) {
-    final uri = Uri.parse(element.source);
-    if (uri.hasScheme && !uri.isScheme('file')) return false;
-    final shouldUpdate = uri.path == path;
+    final uri = Uri.tryParse(element.source);
+    if (uri != null && uri.hasScheme && !uri.isScheme('file')) return false;
+    final sourcePath = uri?.path ?? element.source;
+    final shouldUpdate = sourcePath == path;
     if (shouldUpdate) {
       if (ownsImage) {
         image?.dispose();
@@ -207,8 +208,9 @@ class ImageRenderer extends Renderer<ImageElement> {
       DocumentBloc bloc,
       void Function(img.Command) update,
     ) async {
-      final asset = Uri.parse(element.source);
-      if ((!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
+      final asset = Uri.tryParse(element.source);
+      if (asset == null ||
+          (!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
           image == null) {
         return;
       }

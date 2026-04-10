@@ -1,6 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/select.dart';
+import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -260,7 +261,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       onSubmitted: (val) {
-                        final v = double.tryParse(val);
+                        final v = parseDoubleInput(val);
                         if (v != null) widget.onStrokeWidthChanged!(v);
                       },
                     ),

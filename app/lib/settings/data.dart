@@ -586,7 +586,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     final bytes = result?.files.firstOrNull?.bytes;
     if (bytes == null) return;
     final data = utf8.decode(bytes);
-    settingsCubit.importSettings(data);
+    try {
+      await settingsCubit.importSettings(data);
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   void _exportSettings(BuildContext context) async {

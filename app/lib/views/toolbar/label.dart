@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/dialogs/packs/color_pick.dart';
+import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -315,7 +316,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           keyboardType: TextInputType.number,
                           controller: _scaleController,
                           onFieldSubmitted: (current) {
-                            final newScale = double.tryParse(current);
+                            final newScale = parseDoubleInput(current);
                             if (newScale == null) return;
                             final element = value.element;
                             if (element == null) {
@@ -621,7 +622,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               updateSpan(
                                 (value) => value.copyWith(
                                   size:
-                                      double.tryParse(current) ??
+                                      parseDoubleInput(current) ??
                                       property?.size,
                                 ),
                               );

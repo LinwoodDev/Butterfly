@@ -21,9 +21,10 @@ class PdfRenderer extends Renderer<PdfElement> {
     DocumentPage page,
     String path,
   ) {
-    final uri = Uri.parse(element.source);
-    if (uri.hasScheme && !uri.isScheme('file')) return false;
-    final shouldUpdate = uri.path == path;
+    final uri = Uri.tryParse(element.source);
+    if (uri != null && uri.hasScheme && !uri.isScheme('file')) return false;
+    final sourcePath = uri?.path ?? element.source;
+    final shouldUpdate = sourcePath == path;
     return shouldUpdate;
   }
 

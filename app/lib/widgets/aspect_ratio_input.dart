@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -97,14 +98,14 @@ class _AspectRatioInputState extends State<AspectRatioInput> {
     if (cleanInput.contains(':')) {
       final parts = cleanInput.split(':');
       if (parts.length == 2) {
-        final x = double.tryParse(parts[0]);
-        final y = double.tryParse(parts[1]);
+        final x = parseDoubleInput(parts[0]);
+        final y = parseDoubleInput(parts[1]);
         if (x != null && y != null && y > 0 && x > 0) {
           return x / y;
         }
       }
     } else {
-      final val = double.tryParse(cleanInput);
+      final val = parseDoubleInput(cleanInput);
       if (val != null && val > 0) {
         return val;
       }

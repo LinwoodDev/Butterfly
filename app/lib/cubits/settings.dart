@@ -21,6 +21,45 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 
+T _enumByNameOr<T extends Enum>(List<T> values, String? name, T fallback) {
+  if (name == null) return fallback;
+  return values.firstWhere((e) => e.name == name, orElse: () => fallback);
+}
+
+Map<String, dynamic> _decodeJsonMapOrEmpty(String? raw) {
+  if (raw == null || raw.isEmpty) return const <String, dynamic>{};
+  try {
+    final decoded = json.decode(raw);
+    if (decoded is Map<String, dynamic>) return decoded;
+    if (decoded is Map) return decoded.cast<String, dynamic>();
+  } catch (_) {
+    // Ignore malformed persisted values and fall back to defaults.
+  }
+  return const <String, dynamic>{};
+}
+
+Map<String, dynamic>? _decodeJsonMapOrNull(String? raw) {
+  if (raw == null || raw.isEmpty) return null;
+  try {
+    final decoded = json.decode(raw);
+    if (decoded is Map<String, dynamic>) return decoded;
+    if (decoded is Map) return decoded.cast<String, dynamic>();
+  } catch (_) {
+    return null;
+  }
+  return null;
+}
+
+PackAssetLocation? _decodeSelectedPaletteOrNull(String? raw) {
+  final map = _decodeJsonMapOrNull(raw);
+  if (map == null) return null;
+  try {
+    return PackAssetLocation.fromJson(map);
+  } catch (_) {
+    return null;
+  }
+}
+
 enum ToolbarSize {
   tiny,
   small,
@@ -422,10 +461,18 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       inputGestures: prefs.getBool('input_gestures') ?? true,
       documentPath: prefs.getString('document_path') ?? '',
       theme: prefs.containsKey('theme_mode')
-          ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
+          ? _enumByNameOr(
+              ThemeMode.values,
+              prefs.getString('theme_mode'),
+              ThemeMode.system,
+            )
           : ThemeMode.system,
       density: prefs.containsKey('theme_density')
-          ? ThemeDensity.values.byName(prefs.getString('theme_density')!)
+          ? _enumByNameOr(
+              ThemeDensity.values,
+              prefs.getString('theme_density'),
+              ThemeDensity.system,
+            )
           : ThemeDensity.system,
       touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
       gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
@@ -433,8 +480,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
-          ? BannerVisibility.values.byName(
-              prefs.getString('banner_visibility')!,
+          ? _enumByNameOr(
+              BannerVisibility.values,
+              prefs.getString('banner_visibility'),
+              BannerVisibility.always,
             )
           : BannerVisibility.always,
       history:
@@ -453,18 +502,24 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       zoomPosition: prefs.containsKey('zoom_position')
-          ? ZoomPosition.values.byName(prefs.getString('zoom_position')!)
+          ? _enumByNameOr(
+              ZoomPosition.values,
+              prefs.getString('zoom_position'),
+              ZoomPosition.bottomRight,
+            )
           : ZoomPosition.bottomRight,
       lastVersion: prefs.getString('last_version'),
       connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeTitleBar: prefs.getBool('native_title_bar') ?? false,
       startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
-      syncMode: SyncMode.values.byName(
-        prefs.getString('sync_mode') ?? 'noMobile',
+      syncMode: _enumByNameOr(
+        SyncMode.values,
+        prefs.getString('sync_mode'),
+        SyncMode.noMobile,
       ),
       inputConfiguration: InputConfiguration.fromJson(
-        json.decode(prefs.getString('input_configuration') ?? '{}'),
+        _decodeJsonMapOrEmpty(prefs.getString('input_configuration')),
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
@@ -483,26 +538,47 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           [],
       defaultTemplate: prefs.getString('default_template') ?? '',
       toolbarPosition: prefs.containsKey('toolbar_position')
-          ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
+          ? _enumByNameOr(
+              ToolbarPosition.values,
+              prefs.getString('toolbar_position'),
+              ToolbarPosition.inline,
+            )
           : ToolbarPosition.inline,
       navigationRail: prefs.getBool('navigation_rail') ?? true,
       sortBy: prefs.containsKey('sort_by')
-          ? SortBy.values.byName(prefs.getString('sort_by')!)
+          ? _enumByNameOr(
+              SortBy.values,
+              prefs.getString('sort_by'),
+              SortBy.modified,
+            )
           : SortBy.modified,
       sortOrder: prefs.containsKey('sort_order')
-          ? SortOrder.values.byName(prefs.getString('sort_order')!)
+          ? _enumByNameOr(
+              SortOrder.values,
+              prefs.getString('sort_order'),
+              SortOrder.descending,
+            )
           : SortOrder.descending,
       imageScale: prefs.getDouble('image_scale') ?? 0.5,
       pdfQuality: prefs.getDouble('pdf_quality') ?? 2,
       platformTheme: prefs.containsKey('platform_theme')
-          ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
+          ? _enumByNameOr(
+              PlatformTheme.values,
+              prefs.getString('platform_theme'),
+              PlatformTheme.system,
+            )
           : PlatformTheme.system,
       recentColors:
           prefs
               .getStringList('recent_colors')
-              ?.map((e) => SRGBColor(int.parse(e)))
+              ?.map((e) {
+                final parsed = int.tryParse(e);
+                if (parsed == null) return null;
+                return SRGBColor(parsed);
+              })
+              .whereType<SRGBColor>()
               .toList() ??
-          [],
+          const <SRGBColor>[],
       flags: prefs.getStringList('flags') ?? [],
       spreadPages: prefs.getBool('spread_pages') ?? false,
       highContrast: prefs.getBool('high_contrast') ?? false,
@@ -511,49 +587,69 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       delayedAutosave: prefs.getBool('delayed_autosave') ?? true,
       autosaveDelaySeconds: prefs.getInt('autosave_delay_seconds') ?? 3,
       toolbarSize: prefs.containsKey('toolbar_size')
-          ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
+          ? _enumByNameOr(
+              ToolbarSize.values,
+              prefs.getString('toolbar_size'),
+              ToolbarSize.normal,
+            )
           : ToolbarSize.normal,
       toolbarRows: prefs.getInt('toolbar_rows') ?? 1,
       hideCursorWhileDrawing:
           prefs.getBool('hide_cursor_while_drawing') ?? false,
       navigatorPosition: prefs.containsKey('navigator_position')
-          ? NavigatorPosition.values.byName(
-              prefs.getString('navigator_position')!,
+          ? _enumByNameOr(
+              NavigatorPosition.values,
+              prefs.getString('navigator_position'),
+              NavigatorPosition.left,
             )
           : NavigatorPosition.left,
       utilities: prefs.containsKey('utilities')
-          ? UtilitiesState.fromJson(json.decode(prefs.getString('utilities')!))
+          ? UtilitiesState.fromJson(
+              _decodeJsonMapOrEmpty(prefs.getString('utilities')),
+            )
           : const UtilitiesState(),
       onStartup: prefs.containsKey('on_startup')
-          ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
+          ? _enumByNameOr(
+              StartupBehavior.values,
+              prefs.getString('on_startup'),
+              StartupBehavior.openHomeScreen,
+            )
           : StartupBehavior.openHomeScreen,
       simpleToolbarVisibility: prefs.containsKey('simple_toolbar_visibility')
-          ? SimpleToolbarVisibility.values.byName(
-              prefs.getString('simple_toolbar_visibility')!,
+          ? _enumByNameOr(
+              SimpleToolbarVisibility.values,
+              prefs.getString('simple_toolbar_visibility'),
+              SimpleToolbarVisibility.show,
             )
           : (prefs.getBool('color_toolbar_enabled') ?? true
                 ? SimpleToolbarVisibility.show
                 : SimpleToolbarVisibility.hide),
       showSaveButton: prefs.getBool('show_save_button') ?? true,
       optionsPanelPosition: prefs.containsKey('options_panel_position')
-          ? OptionsPanelPosition.values.byName(
-              prefs.getString('options_panel_position')!,
+          ? _enumByNameOr(
+              OptionsPanelPosition.values,
+              prefs.getString('options_panel_position'),
+              OptionsPanelPosition.top,
             )
           : OptionsPanelPosition.top,
       renderResolution: prefs.containsKey('render_resolution')
-          ? RenderResolution.values.byName(
-              prefs.getString('render_resolution')!,
+          ? _enumByNameOr(
+              RenderResolution.values,
+              prefs.getString('render_resolution'),
+              RenderResolution.normal,
             )
           : RenderResolution.normal,
       moveOnGesture: prefs.getBool('move_on_gesture') ?? true,
       swamps: prefs.getStringList('swamps') ?? [],
       ignorePressure: prefs.containsKey('ignore_pressure')
-          ? IgnorePressure.values.byName(prefs.getString('ignore_pressure')!)
+          ? _enumByNameOr(
+              IgnorePressure.values,
+              prefs.getString('ignore_pressure'),
+              IgnorePressure.first,
+            )
           : IgnorePressure.first,
       selectedPalette: prefs.containsKey('selected_palette')
-          ? PackAssetLocation.fromJson(
-              json.decode(prefs.getString('selected_palette')!),
-            )
+          ? _decodeSelectedPaletteOrNull(prefs.getString('selected_palette'))
           : null,
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
       hideExtension: prefs.getBool('hide_extension') ?? true,
@@ -1271,11 +1367,19 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> importSettings(String data) {
-    final settings = ButterflySettings.fromJson(
-      json.decode(data),
-    ).copyWith(history: state.history, connections: state.connections);
-    emit(settings);
-    return save();
+    try {
+      final decoded = _decodeJsonMapOrNull(data);
+      if (decoded == null) {
+        throw const FormatException('Invalid settings JSON');
+      }
+      final settings = ButterflySettings.fromJson(
+        decoded,
+      ).copyWith(history: state.history, connections: state.connections);
+      emit(settings);
+      return save();
+    } catch (e) {
+      return Future.error(FormatException('Invalid settings file: $e'));
+    }
   }
 
   Future<String> exportSettings() async {

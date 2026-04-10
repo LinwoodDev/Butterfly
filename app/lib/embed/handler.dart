@@ -19,6 +19,27 @@ class EmbedHandler {
   StreamSubscription? _blocSubscription;
   Timer? _changeDebounceTimer;
 
+  Map<String, dynamic>? _messageToMap(Object? message) {
+    if (message is Map<String, dynamic>) return message;
+    if (message is Map) return message.cast<String, dynamic>();
+    if (message is String) {
+      try {
+        final decoded = json.decode(message);
+        if (decoded is Map<String, dynamic>) return decoded;
+        if (decoded is Map) return decoded.cast<String, dynamic>();
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  double _mapDouble(Map<String, dynamic> map, String key, double fallback) =>
+      (map[key] as num?)?.toDouble() ?? fallback;
+
+  bool _mapBool(Map<String, dynamic> map, String key, bool fallback) =>
+      map[key] is bool ? map[key] as bool : fallback;
+
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
       if (state is DocumentLoadSuccess && state.saved == SaveState.unsaved) {
@@ -55,21 +76,14 @@ class EmbedHandler {
         double x = 0, y = 0, scale = 1;
         double width = 100, height = 100;
         bool renderBackground = true;
-        if (message is Map) {
-          x = message['x'] ?? 0;
-          y = message['y'] ?? 0;
-          width = message['width'] ?? 100;
-          height = message['height'] ?? 100;
-          scale = message['scale'] ?? 1;
-          renderBackground = message['renderBackground'] ?? true;
-        } else if (message is String) {
-          final map = json.decode(message);
-          x = map['x'] ?? 0;
-          y = map['y'] ?? 0;
-          width = map['width'] ?? 100;
-          height = map['height'] ?? 100;
-          scale = map['scale'] ?? 1;
-          renderBackground = map['renderBackground'] ?? true;
+        final map = _messageToMap(message);
+        if (map != null) {
+          x = _mapDouble(map, 'x', 0);
+          y = _mapDouble(map, 'y', 0);
+          width = _mapDouble(map, 'width', 100);
+          height = _mapDouble(map, 'height', 100);
+          scale = _mapDouble(map, 'scale', 1);
+          renderBackground = _mapBool(map, 'renderBackground', true);
         }
         final data = await state.currentIndexCubit.render(
           state.data,
@@ -97,19 +111,13 @@ class EmbedHandler {
         double x = 0, y = 0;
         double width = 100, height = 100;
         bool renderBackground = true;
-        if (message is Map) {
-          x = message['x'] ?? 0;
-          y = message['y'] ?? 0;
-          width = message['width'] ?? 100;
-          height = message['height'] ?? 100;
-          renderBackground = message['renderBackground'] ?? true;
-        } else if (message is String) {
-          final map = json.decode(message);
-          x = map['x'] ?? 0;
-          y = map['y'] ?? 0;
-          width = map['width'] ?? 100;
-          height = map['height'] ?? 100;
-          renderBackground = map['renderBackground'] ?? true;
+        final map = _messageToMap(message);
+        if (map != null) {
+          x = _mapDouble(map, 'x', 0);
+          y = _mapDouble(map, 'y', 0);
+          width = _mapDouble(map, 'width', 100);
+          height = _mapDouble(map, 'height', 100);
+          renderBackground = _mapBool(map, 'renderBackground', true);
         }
         sendEmbedMessage(
           'renderSVG',

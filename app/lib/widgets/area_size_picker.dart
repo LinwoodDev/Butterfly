@@ -1,4 +1,5 @@
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:butterfly/helpers/number.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -41,10 +42,10 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.width != widget.width || oldWidget.height != widget.height) {
       _isNotifying = true;
-      if (_parseNumber(_widthController.text) != widget.width) {
+      if (parseDoubleInput(_widthController.text) != widget.width) {
         _widthController.text = widget.width.toString();
       }
-      if (_parseNumber(_heightController.text) != widget.height) {
+      if (parseDoubleInput(_heightController.text) != widget.height) {
         _heightController.text = widget.height.toString();
       }
       _updateSelectedPreset(widget.width, widget.height);
@@ -70,13 +71,10 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
     super.dispose();
   }
 
-  double? _parseNumber(String value) =>
-      double.tryParse(value.trim().replaceAll(',', '.'));
-
   void _notifyChanged() {
     if (_isNotifying) return;
-    final width = _parseNumber(_widthController.text);
-    final height = _parseNumber(_heightController.text);
+    final width = parseDoubleInput(_widthController.text);
+    final height = parseDoubleInput(_heightController.text);
     if (width != null && height != null && width > 0 && height > 0) {
       _isNotifying = true;
       _updateSelectedPreset(width, height);
@@ -100,8 +98,8 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
     _widthController.text = _heightController.text;
     _heightController.text = width;
 
-    final pWidth = _parseNumber(_widthController.text);
-    final pHeight = _parseNumber(_heightController.text);
+    final pWidth = parseDoubleInput(_widthController.text);
+    final pHeight = parseDoubleInput(_heightController.text);
     if (pWidth != null && pHeight != null) {
       _updateSelectedPreset(pWidth, pHeight);
       widget.onChanged(Size(pWidth, pHeight));
