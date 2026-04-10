@@ -16,6 +16,7 @@
 * Fix page add/rename collisions potentially overwriting existing pages
 * Fix valid asset path reporting for text export/import compatibility
 * Fix inline editing closing immediately when double tapping on mobile
+* Fix app crashing when having external storage with icon
 * Change settings defaults
 	* `sort_by` to `modified`
 	* `sort_order` to `descending`
