@@ -10,6 +10,11 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Brug standard-systemtema",
   "view": "Vis",
+  "contentViewport": "Indholdsvisning",
+  "limitViewportToPositiveCoordinates": "Begræns visning til positive koordinater",
+  "off": "Fra",
+  "canvas": "Lærred",
+  "interface": "Grænseflade",
   "@view": {
     "description": "View mode or menu"
   },

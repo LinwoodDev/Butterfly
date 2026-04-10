@@ -10,6 +10,11 @@
   "lightTheme": "Vaalea teema",
   "systemTheme": "Käytä järjestelmän oletusteemaa",
   "view": "Näytä",
+  "contentViewport": "Sisällön Näyttöportti",
+  "limitViewportToPositiveCoordinates": "Rajoita näkymä positiivisiin koordinaatteihin",
+  "off": "Pois",
+  "canvas": "Kanava",
+  "interface": "Käyttöliittymä",
   "@view": {
     "description": "View mode or menu"
   },

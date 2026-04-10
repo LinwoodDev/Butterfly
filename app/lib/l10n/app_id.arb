@@ -10,6 +10,11 @@
   "lightTheme": "Tema Terang",
   "systemTheme": "Gunakan Tema Sistem Default",
   "view": "Tampilan",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },

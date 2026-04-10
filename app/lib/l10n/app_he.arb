@@ -10,6 +10,11 @@
   "lightTheme": "ערכת נושא בהירה",
   "systemTheme": "השתמש בערכת הנושא של המערכת",
   "view": "תצוגה",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },

@@ -10,6 +10,11 @@
   "lightTheme": "Světlý motiv",
   "systemTheme": "Použít výchozí motiv systému",
   "view": "Zobrazit",
+  "contentViewport": "Zobrazení obsahu",
+  "limitViewportToPositiveCoordinates": "Omezit zobrazení na kladné souřadnice",
+  "off": "Vypnuto",
+  "canvas": "Plátno",
+  "interface": "Rozhraní",
   "@view": {
     "description": "View mode or menu"
   },

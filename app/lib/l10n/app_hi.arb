@@ -10,6 +10,11 @@
   "lightTheme": "लाइट थीम",
   "systemTheme": "सिस्टम की डिफ़ॉल्ट थीम का उपयोग करें",
   "view": "देखें",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
