@@ -66,6 +66,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           PhosphorIconsLight.floppyDisk,
                         ),
                         subtitle: Text(
+                          AppLocalizations.of(context).autosaveDescription,
+                        ),
+                        trailing: Text(
                           state.autosave
                               ? state.delayedAutosave
                                     ? AppLocalizations.of(context).delay
@@ -84,6 +87,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           header: Text(
                             AppLocalizations.of(context).autosaveDelay,
                           ),
+                          subtitle: Text(
+                            AppLocalizations.of(context).autosaveDelayDescription,
+                          ),
                           value: state.autosaveDelaySeconds.toDouble(),
                           min: 1,
                           max: 10,
@@ -96,6 +102,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       ListTile(
                         title: Text(AppLocalizations.of(context).onStartup),
                         subtitle: Text(
+                          AppLocalizations.of(context).onStartupDescription,
+                        ),
+                        trailing: Text(
                           _getStartupBehaviorName(context, state.onStartup),
                         ),
                         onTap: () => _openStartupModal(context),
@@ -109,6 +118,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         title: Text(
                           AppLocalizations.of(context).startInFullScreen,
                         ),
+                        subtitle: Text(
+                          AppLocalizations.of(context).startInFullScreenDescription,
+                        ),
                         secondary: const PhosphorIcon(
                           PhosphorIconsLight.arrowsOut,
                         ),
@@ -121,6 +133,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           AppLocalizations.of(context).contentViewport,
                         ),
                         subtitle: Text(
+                          AppLocalizations.of(context).contentViewportDescription,
+                        ),
+                        trailing: Text(
                           state.limitViewportMultiplier == null
                               ? AppLocalizations.of(context).off
                               : '${state.limitViewportMultiplier}x',
@@ -137,6 +152,11 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             context,
                           ).limitViewportToPositiveCoordinates,
                         ),
+                        subtitle: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).limitViewportToPositiveCoordinatesDescription,
+                        ),
                         secondary: const PhosphorIcon(
                           PhosphorIconsLight.plusSquare,
                         ),
@@ -146,6 +166,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           AppLocalizations.of(context).renderResolution,
                         ),
                         subtitle: Text(
+                          AppLocalizations.of(context).renderResolutionDescription,
+                        ),
+                        trailing: Text(
                           _getRenderResolutionName(
                             context,
                             state.renderResolution,
@@ -179,12 +202,18 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           PhosphorIconsLight.arrowsOutSimple,
                         ),
                         title: Text(AppLocalizations.of(context).spreadToPages),
+                        subtitle: Text(
+                          AppLocalizations.of(context).spreadToPagesDescription,
+                        ),
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeSpreadPages(value),
                       ),
                       ExactSlider(
                         header: Text(AppLocalizations.of(context).imageScale),
+                        subtitle: Text(
+                          AppLocalizations.of(context).imageScaleDescription,
+                        ),
                         leading: const PhosphorIcon(
                           PhosphorIconsLight.frameCorners,
                         ),
@@ -202,6 +231,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           PhosphorIconsLight.flowerLotus,
                         ),
                         header: Text(AppLocalizations.of(context).pdfQuality),
+                        subtitle: Text(
+                          AppLocalizations.of(context).pdfQualityDescription,
+                        ),
                         value: state.pdfQuality,
                         min: 0.5,
                         max: 10,
@@ -234,6 +266,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         title: Text(
                           AppLocalizations.of(context).showThumbnails,
                         ),
+                        subtitle: Text(
+                          AppLocalizations.of(context).showThumbnailsDescription,
+                        ),
                         value: state.showThumbnails,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
@@ -246,6 +281,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             .changeHideExtension(value),
                         title: Text(
                           AppLocalizations.of(context).hideFileExtension,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context).hideFileExtensionDescription,
                         ),
                         secondary: const PhosphorIcon(
                           PhosphorIconsLight.fileText,
