@@ -39,7 +39,7 @@ class EditableListTile extends StatefulWidget {
 
 class _EditableListTileState extends State<EditableListTile> {
   late final TextEditingController _controller;
-  final FocusNode _focusNode = FocusScopeNode();
+  final FocusNode _focusNode = FocusNode();
   bool _isEditing = false;
 
   @override
@@ -80,6 +80,7 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   void _onSaved([String? value]) {
+    if (!_isEditing) return;
     widget.onSaved?.call(value ?? _controller.text);
     setState(() {
       _isEditing = false;
@@ -88,10 +89,10 @@ class _EditableListTileState extends State<EditableListTile> {
 
   void _edit() {
     if (widget.onSaved != null) {
-      _focusNode.requestFocus();
       setState(() {
         _isEditing = true;
       });
+      _focusNode.requestFocus();
     }
   }
 
@@ -143,6 +144,7 @@ class _EditableListTileState extends State<EditableListTile> {
             child: isEditing
                 ? TextFormField(
                     controller: _controller,
+                    focusNode: _focusNode,
                     onChanged: widget.onChanged,
                     onSaved: _onSaved,
                     autofocus: true,

@@ -15,6 +15,7 @@
 * Fix renaming a non-active page causing page content to be overwritten ([#1064](https://github.com/LinwoodDev/Butterfly/issues/1064))
 * Fix page add/rename collisions potentially overwriting existing pages
 * Fix valid asset path reporting for text export/import compatibility
+* Fix inline editing closing immediately when double tapping on mobile
 * Change settings defaults
 	* `sort_by` to `modified`
 	* `sort_order` to `descending`
