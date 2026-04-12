@@ -9,6 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../cubits/transform.dart';
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
+import '../../widgets/reorderable_list_item.dart';
 
 class WaypointsView extends StatefulWidget {
   const WaypointsView({super.key});
@@ -186,6 +187,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                               ReorderableListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
+                                buildDefaultDragHandles: false,
                                 itemCount: waypoints.length,
                                 onReorder: (oldIndex, newIndex) =>
                                     context.read<DocumentBloc>().add(
@@ -196,70 +198,76 @@ class _WaypointsViewState extends State<WaypointsView> {
                                     ),
                                 itemBuilder: (BuildContext context, int index) {
                                   final waypoint = waypoints[index];
-                                  return EditableListTile(
+                                  return ReorderableListItem(
                                     key: ValueKey(waypoint.name ?? ''),
-                                    initialValue: waypoint.name,
-                                    onTap: () {
-                                      context
-                                          .read<TransformCubit>()
-                                          .teleportToWaypoint(waypoint);
-                                      context.read<DocumentBloc>().bake();
-                                    },
-                                    onSaved: (value) =>
-                                        context.read<DocumentBloc>().add(
-                                          WaypointChanged(
-                                            waypoint.name,
-                                            waypoint.copyWith(name: value),
+                                    index: index,
+                                    child: EditableListTile(
+                                      initialValue: waypoint.name,
+                                      onTap: () {
+                                        context
+                                            .read<TransformCubit>()
+                                            .teleportToWaypoint(waypoint);
+                                        context.read<DocumentBloc>().bake();
+                                      },
+                                      onSaved: (value) =>
+                                          context.read<DocumentBloc>().add(
+                                            WaypointChanged(
+                                              waypoint.name,
+                                              waypoint.copyWith(name: value),
+                                            ),
+                                          ),
+                                      selected:
+                                          transform.position.toPoint() ==
+                                          waypoint.position,
+                                      actions: [
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                            PhosphorIconsLight.mapPin,
+                                          ),
+                                          onPressed: () async {
+                                            final bloc = context
+                                                .read<DocumentBloc>();
+                                            showDialog<void>(
+                                              builder: (context) =>
+                                                  BlocProvider.value(
+                                                    value: bloc,
+                                                    child: WaypointCreateDialog(
+                                                      waypoint: waypoint,
+                                                    ),
+                                                  ),
+                                              context: context,
+                                            );
+                                          },
+                                          child: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            ).replace,
                                           ),
                                         ),
-                                    selected:
-                                        transform.position.toPoint() ==
-                                        waypoint.position,
-                                    actions: [
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                          PhosphorIconsLight.mapPin,
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                            PhosphorIconsLight.trash,
+                                          ),
+                                          onPressed: () async {
+                                            final result =
+                                                await showDialog<bool>(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      const DeleteDialog(),
+                                                );
+                                            if (result != true) return;
+                                            if (context.mounted) {
+                                              context.read<DocumentBloc>().add(
+                                                WaypointRemoved(waypoint.name),
+                                              );
+                                            }
+                                          },
+                                          child: Text(
+                                            AppLocalizations.of(context).delete,
+                                          ),
                                         ),
-                                        onPressed: () async {
-                                          final bloc = context
-                                              .read<DocumentBloc>();
-                                          showDialog<void>(
-                                            builder: (context) =>
-                                                BlocProvider.value(
-                                                  value: bloc,
-                                                  child: WaypointCreateDialog(
-                                                    waypoint: waypoint,
-                                                  ),
-                                                ),
-                                            context: context,
-                                          );
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context).replace,
-                                        ),
-                                      ),
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                          PhosphorIconsLight.trash,
-                                        ),
-                                        onPressed: () async {
-                                          final result = await showDialog<bool>(
-                                            context: context,
-                                            builder: (context) =>
-                                                const DeleteDialog(),
-                                          );
-                                          if (result != true) return;
-                                          if (context.mounted) {
-                                            context.read<DocumentBloc>().add(
-                                              WaypointRemoved(waypoint.name),
-                                            );
-                                          }
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context).delete,
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   );
                                 },
                               ),

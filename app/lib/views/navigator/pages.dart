@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/widgets/reorderable_list_item.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -244,60 +245,54 @@ class _PageEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final editable = entity.isFile;
-    return EditableListTile(
-      initialValue: entity.name,
-      selected: selected,
-      leading: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (editable)
-            ReorderableDragStartListener(
-              index: index,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: PhosphorIcon(PhosphorIconsLight.list),
-              ),
-            )
-          else
-            const PhosphorIcon(PhosphorIconsLight.folderSimple),
-        ],
+    return ReorderableListItem(
+      index: index,
+      enabled: editable,
+      key: ValueKey(entity.path),
+      child: EditableListTile(
+        initialValue: entity.name,
+        selected: selected,
+        leading: Icon(
+          editable ? PhosphorIconsLight.file : PhosphorIconsLight.folderSimple,
+          textDirection: TextDirection.ltr,
+        ),
+        textFormatter: (v) =>
+            v.isEmpty ? AppLocalizations.of(context).untitled : v,
+        onTap: () {
+          if (editable) {
+            context.read<DocumentBloc>().add(PageChanged(entity.path));
+          } else {
+            locationController.text = entity.path;
+          }
+        },
+        onSaved: editable
+            ? (value) => context.read<DocumentBloc>().add(
+                PageRenamed(entity.path, value),
+              )
+            : null,
+        actions: editable
+            ? [
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+                  onPressed: selected
+                      ? null
+                      : () async {
+                          final result = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => const DeleteDialog(),
+                          );
+                          if (result != true) {
+                            return;
+                          }
+                          context.read<DocumentBloc>().add(
+                            PageRemoved(entity.path),
+                          );
+                        },
+                  child: Text(AppLocalizations.of(context).delete),
+                ),
+              ]
+            : null,
       ),
-      textFormatter: (v) =>
-          v.isEmpty ? AppLocalizations.of(context).untitled : v,
-      onTap: () {
-        if (entity.isFile) {
-          context.read<DocumentBloc>().add(PageChanged(entity.path));
-        } else {
-          locationController.text = entity.path;
-        }
-      },
-      onSaved: editable
-          ? (value) => context.read<DocumentBloc>().add(
-              PageRenamed(entity.path, value),
-            )
-          : null,
-      actions: editable
-          ? [
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                onPressed: selected
-                    ? null
-                    : () async {
-                        final result = await showDialog<bool>(
-                          context: context,
-                          builder: (context) => const DeleteDialog(),
-                        );
-                        if (result != true) {
-                          return;
-                        }
-                        context.read<DocumentBloc>().add(
-                          PageRemoved(entity.path),
-                        );
-                      },
-                child: Text(AppLocalizations.of(context).delete),
-              ),
-            ]
-          : null,
     );
   }
 }

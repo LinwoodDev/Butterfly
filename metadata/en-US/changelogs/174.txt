@@ -3,12 +3,12 @@
 * Restructure view and behavior settings
 * Improve rendering performance by reusing paint objects in grid rendering
 * Change settings defaults
-	* `sort_by` to `modified`
-	* `sort_order` to `descending`
-	* `delayed_autosave` to `true`
-	* `autosave_delay_seconds` to `3`
-	* `hide_extension` to `true`
-	* `show_thumbnails` to `true`
+  * `sort_by` to `modified`
+  * `sort_order` to `descending`
+  * `delayed_autosave` to `true`
+  * `autosave_delay_seconds` to `3`
+  * `hide_extension` to `true`
+  * `show_thumbnails` to `true`
 * Fix broken Android monochrome app icon in stable version ([#1066](https://github.com/LinwoodDev/Butterfly/issues/1066))
 * Fix capture thumbnail displaying an incorrect viewport
 * Fix autosave not working if opened document has no location yet
@@ -32,6 +32,7 @@
 * Fix embed render/renderSVG parsing for malformed payloads and integer values
 * Fix area properties initial area property pulling back
 * Replace area properties initial area replacing it with a checkbox
-* Fix page rearranging option conditionally not shown on mobile devices (remove file icon for this change)
+* Fix page rearranging option conditionally not shown on mobile devices
+* Unify and improve drag-and-drop reordering across pages, layers, waypoints, and PDF export
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.0

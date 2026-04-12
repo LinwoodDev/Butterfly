@@ -14,6 +14,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../delete.dart';
+import '../../widgets/reorderable_list_item.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
@@ -462,126 +463,87 @@ class _AreaPreviewState extends State<_AreaPreview> {
           data.lengthInBytes,
         );
 
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 4),
-          decoration: BoxDecoration(
-            color: Theme.of(
-              context,
-            ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outlineVariant,
+        return ReorderableListItem(
+          index: widget.index,
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final isSmall = constraints.maxWidth < 450;
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        ReorderableDragStartListener(
-                          index: widget.index,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Icon(
-                              PhosphorIconsLight.dotsSixVertical,
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.outlineVariant,
-                            ),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: image == null
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : Image.memory(image, fit: BoxFit.contain),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                widget.area.name.isEmpty
-                                    ? AppLocalizations.of(context).untitled
-                                    : widget.area.name,
-                                style: Theme.of(context).textTheme.titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isSmall = constraints.maxWidth < 450;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
                               ),
-                              Text(
-                                pageName,
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(
-                                      color: isCurrentPage
-                                          ? Theme.of(
-                                              context,
-                                            ).colorScheme.primary
-                                          : Theme.of(
-                                              context,
-                                            ).colorScheme.onSurfaceVariant,
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: image == null
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                                  )
+                                : Image.memory(image, fit: BoxFit.contain),
                           ),
-                        ),
-                        if (!isSmall) ...[
                           const SizedBox(width: 16),
-                          SizedBox(
-                            width: 150,
-                            child: ExactSlider(
-                              value: widget.preset.quality,
-                              min: 1,
-                              max: 10,
-                              onChangeEnd: widget.onQualityChanged,
-                              contentPadding: EdgeInsets.zero,
-                              header: Text(
-                                AppLocalizations.of(context).quality,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  widget.area.name.isEmpty
+                                      ? AppLocalizations.of(context).untitled
+                                      : widget.area.name,
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  pageName,
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(
+                                        color: isCurrentPage
+                                            ? Theme.of(
+                                                context,
+                                              ).colorScheme.primary
+                                            : Theme.of(
+                                                context,
+                                              ).colorScheme.onSurfaceVariant,
+                                      ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                        const SizedBox(width: 8),
-                        IconButton(
-                          onPressed: widget.onRemove,
-                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                          tooltip: AppLocalizations.of(context).remove,
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      ],
-                    ),
-                    if (isSmall)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0, right: 8.0),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 32 + 80 + 16),
-                            Expanded(
+                          if (!isSmall) ...[
+                            const SizedBox(width: 16),
+                            SizedBox(
+                              width: 150,
                               child: ExactSlider(
                                 value: widget.preset.quality,
                                 min: 1,
@@ -594,13 +556,45 @@ class _AreaPreviewState extends State<_AreaPreview> {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 48),
                           ],
-                        ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            onPressed: widget.onRemove,
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).remove,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ],
                       ),
-                  ],
-                );
-              },
+                      if (isSmall)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 32 + 80 + 16),
+                              Expanded(
+                                child: ExactSlider(
+                                  value: widget.preset.quality,
+                                  min: 1,
+                                  max: 10,
+                                  onChangeEnd: widget.onQualityChanged,
+                                  contentPadding: EdgeInsets.zero,
+                                  header: Text(
+                                    AppLocalizations.of(context).quality,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 48),
+                            ],
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         );
