@@ -12,7 +12,6 @@ class AreaSelection extends Selection<Area> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    var isInitial = selected.first.isInitial;
     return [
       ...super.buildProperties(context),
       OffsetListTile(
@@ -47,22 +46,15 @@ class AreaSelection extends Selection<Area> {
         ),
       ),
       const SizedBox(height: 16),
-      StatefulBuilder(
-        builder: (context, setState) {
-          return CheckboxListTile(
-            title: Text(AppLocalizations.of(context).areaAsInitial),
-            value: isInitial,
-            onChanged: (value) {
-              context.read<DocumentBloc>().add(
-                AreaChanged(
-                  selected.first.name,
-                  selected.first.copyWith(isInitial: value ?? false),
-                ),
-              );
-              setState(() {
-                isInitial = value ?? false;
-              });
-            },
+      CheckboxListTile(
+        title: Text(AppLocalizations.of(context).areaAsInitial),
+        value: selected.first.isInitial,
+        onChanged: (value) {
+          context.read<DocumentBloc>().add(
+            AreaChanged(
+              selected.first.name,
+              selected.first.copyWith(isInitial: value ?? false),
+            ),
           );
         },
       ),

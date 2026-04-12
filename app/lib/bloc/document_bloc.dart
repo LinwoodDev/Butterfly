@@ -90,6 +90,22 @@ Future<(NoteData, List<PadElement>)> importAssetsAsync(
   }
 }
 
+Selection? _updateSelection(
+  Selection? selection,
+  dynamic oldElement,
+  dynamic newElement,
+) {
+  var newSelection = selection?.remove(oldElement);
+  if (newSelection != selection && selection != null) {
+    if (newSelection == null) {
+      newSelection = Selection.from(newElement);
+    } else {
+      newSelection = newSelection.insert(newElement);
+    }
+  }
+  return newSelection;
+}
+
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
     ButterflyFileSystem fileSystem,
@@ -511,15 +527,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                     )
                   : null;
               if (updated != null) {
-                var newSelection = selection?.remove(e);
-                if (newSelection != selection && selection != null) {
-                  if (newSelection == null) {
-                    newSelection = Selection.from(updated);
-                  } else {
-                    newSelection = newSelection.insert(updated);
-                  }
-                  selection = newSelection;
-                }
+                selection = _updateSelection(selection, e, updated);
                 return updated;
               } else {
                 return e;
@@ -999,13 +1007,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
+      final oldSelection = current.currentIndexCubit.state.selection;
+      var selection = oldSelection;
       final hasInitial = event.area.isInitial;
       final areas = current.page.areas.map((e) {
         if (e.name == event.name) {
-          return event.area;
+          final updated = event.area;
+          selection = _updateSelection(selection, e, updated);
+          return updated;
         }
         if (hasInitial && e.isInitial) {
-          return e.copyWith(isInitial: false);
+          final updated = e.copyWith(isInitial: false);
+          selection = _updateSelection(selection, e, updated);
+          return updated;
         }
         return e;
       }).toList();
@@ -1015,6 +1029,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             element.area?.name == event.name &&
             element.onAreaUpdate(current.data, currentDocument, event.area),
       );
+      if (selection != null && selection != oldSelection) {
+        current.currentIndexCubit.changeSelection(selection);
+      }
       _saveState(
         emit,
         state: current.copyWith(page: currentDocument),
