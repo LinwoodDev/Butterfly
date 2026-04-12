@@ -99,6 +99,7 @@ class _PagesViewState extends State<PagesView> {
                   return Material(
                     type: MaterialType.transparency,
                     child: ReorderableListView.builder(
+                      buildDefaultDragHandles: false,
                       itemCount: all.length,
                       onReorder: (oldIndex, newIndex) {
                         if (oldIndex < 0 ||
@@ -127,6 +128,7 @@ class _PagesViewState extends State<PagesView> {
                           selected: entity.path == currentName,
                           locationController: _locationController,
                           data: state.data,
+                          index: index,
                           key: ValueKey(entity.path),
                         );
                       },
@@ -229,12 +231,14 @@ class _PageEntityListTile extends StatelessWidget {
     required this.selected,
     required this.locationController,
     required this.data,
+    required this.index,
     super.key,
   });
 
   final _PageEntity entity;
   final bool selected;
   final NoteData data;
+  final int index;
   final TextEditingController locationController;
 
   @override
@@ -243,11 +247,20 @@ class _PageEntityListTile extends StatelessWidget {
     return EditableListTile(
       initialValue: entity.name,
       selected: selected,
-      leading: Icon(
-        entity.isFile
-            ? PhosphorIconsLight.file
-            : PhosphorIconsLight.folderSimple,
-        textDirection: TextDirection.ltr,
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (editable)
+            ReorderableDragStartListener(
+              index: index,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: PhosphorIcon(PhosphorIconsLight.list),
+              ),
+            )
+          else
+            const PhosphorIcon(PhosphorIconsLight.folderSimple),
+        ],
       ),
       textFormatter: (v) =>
           v.isEmpty ? AppLocalizations.of(context).untitled : v,
