@@ -31,13 +31,13 @@ class ViewCollaborationDialog extends StatelessWidget {
               child: Stack(
                 children: [
                   InkWell(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                     radius: 12,
                     onTap: () {
                       exportSvg(context, svg, true);
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Stack(
                         alignment: Alignment.center,
                         fit: StackFit.expand,

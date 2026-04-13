@@ -471,7 +471,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
               color: Theme.of(
                 context,
               ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
               border: Border.all(
                 color: Theme.of(context).colorScheme.outlineVariant,
               ),
@@ -491,7 +491,9 @@ class _AreaPreviewState extends State<_AreaPreview> {
                             height: 60,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
                               border: Border.all(
                                 color: Theme.of(
                                   context,

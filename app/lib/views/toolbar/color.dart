@@ -306,7 +306,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () => _addColor(selected),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: const AspectRatio(
                         aspectRatio: 1,
                         child: PhosphorIcon(PhosphorIconsLight.plus),

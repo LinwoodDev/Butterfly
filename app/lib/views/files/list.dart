@@ -66,7 +66,7 @@ class FileEntityListTile extends StatelessWidget {
                 elevation: 5,
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
                   side: active
                       ? BorderSide(
                           color: colorScheme.primaryContainer,
@@ -144,7 +144,9 @@ class FileEntityListTile extends StatelessWidget {
                                   ? AspectRatio(
                                       aspectRatio: kThumbnailRatio,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
                                         child: Image.memory(
                                           thumbnail!,
                                           fit: BoxFit.cover,

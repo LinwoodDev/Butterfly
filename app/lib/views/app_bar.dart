@@ -750,7 +750,9 @@ class MainPopupMenu extends StatelessWidget {
           ],
           style: MenuStyle(
             shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+              ),
             ),
             maximumSize: WidgetStateProperty.all(
               Size(

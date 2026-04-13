@@ -162,7 +162,7 @@ class _ComponentsButton extends StatelessWidget {
       message: name,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           border: Border.all(
             color: selected
                 ? ColorScheme.of(context).primary
@@ -171,7 +171,7 @@ class _ComponentsButton extends StatelessWidget {
           ),
         ),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           onTap: onChanged,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

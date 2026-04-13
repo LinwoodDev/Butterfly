@@ -89,7 +89,7 @@ class _OptionButtonState extends State<OptionButton>
         aspectRatio: 1,
         child: InkWell(
           radius: 12,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           onTap: widget.onPressed,
           onDoubleTap: widget.onDoubleTap,
           onSecondaryTap: widget.onSecondaryPressed,
@@ -110,7 +110,9 @@ class _OptionButtonState extends State<OptionButton>
                           color: ColorScheme.of(context).primary,
                           width: 2 * _animation.value,
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
                       )
                     : (widget.focussed
                           ? BoxDecoration(
@@ -119,7 +121,9 @@ class _OptionButtonState extends State<OptionButton>
                                 color: ColorScheme.of(context).outlineVariant,
                                 width: 2 * _animation.value,
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
                             )
                           : null),
                 margin: (widget.highlighted || widget.focussed)

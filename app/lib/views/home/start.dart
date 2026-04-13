@@ -91,7 +91,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(24)),
+      ),
       child: Padding(
         padding: EdgeInsets.all(widget.isMobile ? 12 : 32),
         child: Column(

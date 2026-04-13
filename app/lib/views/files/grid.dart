@@ -55,7 +55,7 @@ class FileEntityGridItem extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
         side: active
             ? BorderSide(color: colorScheme.primaryContainer, width: 1)
             : BorderSide.none,
@@ -88,7 +88,9 @@ class FileEntityGridItem extends StatelessWidget {
                           ? AspectRatio(
                               aspectRatio: kThumbnailRatio,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
                                 child: Image.memory(
                                   thumbnail!,
                                   fit: BoxFit.cover,

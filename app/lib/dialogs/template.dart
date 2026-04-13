@@ -272,7 +272,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   ? AspectRatio(
                       aspectRatio: kThumbnailRatio,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
                         child: Image.memory(
                           thumbnail,
                           fit: BoxFit.cover,
@@ -787,7 +789,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         ? AspectRatio(
             aspectRatio: kThumbnailRatio,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.memory(
                 thumbnail,
                 fit: BoxFit.cover,
@@ -1009,7 +1011,7 @@ class _TemplateItem extends StatelessWidget {
         ? AspectRatio(
             aspectRatio: kThumbnailRatio,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.memory(
                 thumbnail,
                 fit: BoxFit.cover,
@@ -1163,7 +1165,7 @@ class _TemplateCard extends StatelessWidget {
       builder: (context, button, controller) => Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           side: isActive
               ? BorderSide(
                   color: Theme.of(context).colorScheme.primary,

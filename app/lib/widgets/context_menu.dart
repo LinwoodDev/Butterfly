@@ -106,7 +106,7 @@ class _ContextMenuState extends State<ContextMenu>
             maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
           ),
           child: Material(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             child: ListView(
               scrollDirection: isMobile ? Axis.horizontal : Axis.vertical,
               shrinkWrap: true,

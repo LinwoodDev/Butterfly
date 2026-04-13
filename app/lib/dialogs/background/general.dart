@@ -172,7 +172,7 @@ class _BackgroundCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
         side: BorderSide.none,
       ),
       child: InkWell(

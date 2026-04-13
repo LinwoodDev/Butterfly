@@ -42,7 +42,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
       height: 50,
       decoration: BoxDecoration(
         border: Border.all(color: colorScheme.onSurface.withValues(alpha: 0.2)),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
       padding: const EdgeInsets.all(2),
       child: LayoutBuilder(

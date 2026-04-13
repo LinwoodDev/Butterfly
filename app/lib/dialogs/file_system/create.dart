@@ -37,7 +37,9 @@ class _FileSystemAssetCreateDialogState
     return Form(
       key: _formKey,
       child: AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
         title: Text(LeapLocalizations.of(context).create),
         content: TextFormField(
           decoration: InputDecoration(

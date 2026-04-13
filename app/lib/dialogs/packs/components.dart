@@ -96,7 +96,7 @@ class ComponentCard extends StatelessWidget {
           width: 150,
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             border: Border.all(
               color: selected
                   ? ColorScheme.of(context).primary

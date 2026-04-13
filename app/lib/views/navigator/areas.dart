@@ -434,7 +434,9 @@ class _AreasViewState extends State<AreasView> {
                                 ],
                                 builder: (context, controller, child) =>
                                     InkWell(
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
                                       onTap: controller.toggle,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(

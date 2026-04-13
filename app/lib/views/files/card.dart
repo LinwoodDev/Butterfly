@@ -65,7 +65,9 @@ class AssetCard extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
                         color: colorScheme.primaryContainer.withAlpha(200),
                       ),
                       child: Text(

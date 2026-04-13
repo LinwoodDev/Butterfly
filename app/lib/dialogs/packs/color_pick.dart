@@ -104,7 +104,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                   Container(
                     decoration: BoxDecoration(
                       color: color.toColor(),
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
                     ),
                     height: 75,
                     width: 75,
