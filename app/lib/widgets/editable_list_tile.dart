@@ -13,6 +13,7 @@ class EditableListTile extends StatefulWidget {
   final Widget? leading, subtitle;
   final TextStyle? textStyle;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final String Function(String)? textFormatter;
   final EdgeInsetsGeometry? contentPadding;
 
@@ -29,6 +30,7 @@ class EditableListTile extends StatefulWidget {
     this.subtitle,
     this.textStyle,
     this.onTap,
+    this.onLongPress,
     this.textFormatter,
     this.contentPadding,
   });
@@ -129,6 +131,7 @@ class _EditableListTileState extends State<EditableListTile> {
         },
         child: ListTile(
           onTap: widget.onTap,
+          onLongPress: widget.onLongPress,
           selected: widget.selected,
           leading: widget.leading,
           subtitle: widget.subtitle == null

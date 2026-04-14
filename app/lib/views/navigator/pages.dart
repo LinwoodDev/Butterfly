@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/widgets/reorderable_list_item.dart';
+import '../../widgets/multi_select.dart';
+import '../../widgets/reorderable_list_item.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -99,40 +100,80 @@ class _PagesViewState extends State<PagesView> {
                   final all = [...folders, ...files];
                   return Material(
                     type: MaterialType.transparency,
-                    child: ReorderableListView.builder(
-                      buildDefaultDragHandles: false,
-                      itemCount: all.length,
-                      onReorder: (oldIndex, newIndex) {
-                        if (oldIndex < 0 ||
-                            newIndex < 0 ||
-                            oldIndex >= all.length) {
-                          return;
-                        }
-                        final current = all[oldIndex];
-                        final name = current.path;
-                        final isFile = current.isFile;
-                        if (!isFile) return;
-                        final next = all[newIndex.clamp(0, all.length - 1)];
-                        var nextIndex = state.data.getPageIndex(next.path);
-                        if (newIndex >= all.length && nextIndex != null) {
-                          nextIndex++;
-                        }
-                        if (!next.isFile || nextIndex == null) return;
-                        context.read<DocumentBloc>().add(
-                          PageReordered(name, nextIndex),
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        final entity = all[index];
-                        return _PageEntityListTile(
-                          entity: entity,
-                          selected: entity.path == currentName,
-                          locationController: _locationController,
-                          data: state.data,
-                          index: index,
-                          key: ValueKey(entity.path),
-                        );
-                      },
+                    child: MultiSelectRegion<String>(
+                      toolbarBuilder: (context, controller) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        child: OverflowBar(
+                          spacing: 8,
+                          children: [
+                            ActionChip(
+                              label: Text(AppLocalizations.of(context).delete),
+                              avatar: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
+                              ),
+                              onPressed: () async {
+                                if (controller.selectedIds.isEmpty) return;
+                                final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const DeleteDialog(),
+                                );
+                                if (result != true) return;
+                                if (!context.mounted) return;
+                                final bloc = context.read<DocumentBloc>();
+                                // Remember that for page deletion it accepts an array.
+                                // If the event exists in the future, it might be used.
+                                for (final id in controller.selectedIds) {
+                                  bloc.add(PageRemoved(id));
+                                }
+                                controller.clear();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      builder: (context, controller, child) =>
+                          ReorderableListView.builder(
+                            buildDefaultDragHandles: false,
+                            itemCount: all.length,
+                            onReorder: (oldIndex, newIndex) {
+                              if (oldIndex < 0 ||
+                                  newIndex < 0 ||
+                                  oldIndex >= all.length) {
+                                return;
+                              }
+                              final current = all[oldIndex];
+                              final name = current.path;
+                              final isFile = current.isFile;
+                              if (!isFile) return;
+                              final next =
+                                  all[newIndex.clamp(0, all.length - 1)];
+                              var nextIndex = state.data.getPageIndex(
+                                next.path,
+                              );
+                              if (newIndex >= all.length && nextIndex != null) {
+                                nextIndex++;
+                              }
+                              if (!next.isFile || nextIndex == null) return;
+                              context.read<DocumentBloc>().add(
+                                PageReordered(name, nextIndex),
+                              );
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                              final entity = all[index];
+                              return _PageEntityListTile(
+                                entity: entity,
+                                selected: entity.path == currentName,
+                                locationController: _locationController,
+                                controller: controller,
+                                data: state.data,
+                                index: index,
+                                key: ValueKey(entity.path),
+                              );
+                            },
+                          ),
                     ),
                   );
                 },
@@ -231,6 +272,7 @@ class _PageEntityListTile extends StatelessWidget {
     required this.entity,
     required this.selected,
     required this.locationController,
+    required this.controller,
     required this.data,
     required this.index,
     super.key,
@@ -241,28 +283,50 @@ class _PageEntityListTile extends StatelessWidget {
   final NoteData data;
   final int index;
   final TextEditingController locationController;
+  final MultiSelectController<String> controller;
 
   @override
   Widget build(BuildContext context) {
     final editable = entity.isFile;
+    final isSelectionMode = controller.selectionMode;
+    final isSelected = isSelectionMode
+        ? controller.selectedIds.contains(entity.path)
+        : selected;
     return ReorderableListItem(
       index: index,
-      enabled: editable,
+      enabled: editable && !isSelectionMode,
       key: ValueKey(entity.path),
       child: EditableListTile(
         initialValue: entity.name,
-        selected: selected,
-        leading: Icon(
-          editable ? PhosphorIconsLight.file : PhosphorIconsLight.folderSimple,
-          textDirection: TextDirection.ltr,
-        ),
+        selected: isSelected,
+        leading: isSelectionMode && editable
+            ? Checkbox(
+                value: isSelected,
+                onChanged: (value) => controller.toggle(entity.path),
+              )
+            : Icon(
+                editable
+                    ? PhosphorIconsLight.file
+                    : PhosphorIconsLight.folderSimple,
+                textDirection: TextDirection.ltr,
+              ),
         textFormatter: (v) =>
             v.isEmpty ? AppLocalizations.of(context).untitled : v,
         onTap: () {
+          if (isSelectionMode && editable) {
+            controller.toggle(entity.path);
+            return;
+          }
           if (editable) {
             context.read<DocumentBloc>().add(PageChanged(entity.path));
           } else {
             locationController.text = entity.path;
+          }
+        },
+        onLongPress: () {
+          if (!isSelectionMode && editable) {
+            controller.enableSelectionMode();
+            controller.select(entity.path);
           }
         },
         onSaved: editable
@@ -270,7 +334,7 @@ class _PageEntityListTile extends StatelessWidget {
                 PageRenamed(entity.path, value),
               )
             : null,
-        actions: editable
+        actions: editable && !isSelectionMode
             ? [
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -284,6 +348,7 @@ class _PageEntityListTile extends StatelessWidget {
                           if (result != true) {
                             return;
                           }
+                          if (!context.mounted) return;
                           context.read<DocumentBloc>().add(
                             PageRemoved(entity.path),
                           );

@@ -139,6 +139,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   Future<void> _handlePointerMove(
     PointerMoveEvent event,
     CurrentIndexCubit cubit,
+    DocumentLoaded state,
     Handler Function() getHandler,
     EventContext Function() getEventContext,
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
@@ -179,7 +180,10 @@ class _MainViewViewportState extends State<MainViewViewport>
       }
       if (event.pointer == currentIndexState.pointers.first) {
         final transform = context.read<TransformCubit>().state;
-        cubit.move(-event.delta / transform.size);
+        cubit.move(
+          -event.delta / transform.size,
+          currentArea: state.currentArea,
+        );
         delayBake();
       }
       return;
@@ -546,6 +550,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       -details.focalPointDelta /
                                           sensitivity /
                                           cubit.state.transformCubit.state.size,
+                                      currentArea: state.currentArea,
                                     );
                                   } else {
                                     cubit.zoom(
@@ -652,6 +657,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                                     ? Offset(dy, dx)
                                                     : Offset(dx, dy)) /
                                                 transform.size,
+                                            currentArea: state.currentArea,
                                           )
                                           ..zoom(
                                             scale,
@@ -691,6 +697,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   onPointerMove: (event) => _handlePointerMove(
                                     event,
                                     cubit,
+                                    state,
                                     getHandler,
                                     getEventContext,
                                     changeTemporaryTool,

@@ -20,6 +20,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
 import '../../dialogs/delete.dart';
+import '../../widgets/multi_select.dart';
 import '../../widgets/editable_list_tile.dart';
 
 class AreasView extends StatefulWidget {
@@ -98,39 +99,62 @@ class _AreasViewState extends State<AreasView> {
     Rect viewportRect,
     Area? current,
     Area area, {
+    required MultiSelectController<String> controller,
     List<String> folderPath = const [],
   }) {
     final selected = current?.name == area.name;
+    final isSelectionMode = controller.selectionMode;
+    final isSelected = isSelectionMode
+        ? controller.selectedIds.contains(area.name)
+        : selected;
+
     return EditableListTile(
       initialValue: area.shortName,
       key: ValueKey(area.name),
-      leading: IconButton(
-        icon: PhosphorIcon(
-          selected ? PhosphorIconsLight.signOut : PhosphorIconsLight.signIn,
-        ),
-        onPressed: () {
-          if (selected) {
-            bloc.add(CurrentAreaChanged(''));
-            return;
-          }
-          context.read<TransformCubit>().teleportToArea(
-            area,
-            viewport.toSize(),
-            viewport.resolution,
-          );
-          bloc.add(CurrentAreaChanged(area.name));
-        },
-        tooltip: selected
-            ? AppLocalizations.of(context).exitArea
-            : AppLocalizations.of(context).enterArea,
-      ),
+      leading: isSelectionMode
+          ? Checkbox(
+              value: isSelected,
+              onChanged: (value) => controller.toggle(area.name),
+            )
+          : IconButton(
+              icon: PhosphorIcon(
+                selected
+                    ? PhosphorIconsLight.signOut
+                    : PhosphorIconsLight.signIn,
+              ),
+              onPressed: () {
+                if (selected) {
+                  bloc.add(CurrentAreaChanged(''));
+                  return;
+                }
+                context.read<TransformCubit>().teleportToArea(
+                  area,
+                  viewport.toSize(),
+                  viewport.resolution,
+                );
+                bloc.add(CurrentAreaChanged(area.name));
+              },
+              tooltip: selected
+                  ? AppLocalizations.of(context).exitArea
+                  : AppLocalizations.of(context).enterArea,
+            ),
       onTap: () {
+        if (isSelectionMode) {
+          controller.toggle(area.name);
+          return;
+        }
         context.read<TransformCubit>().teleportToArea(
           area,
           viewport.toSize(),
           viewport.resolution,
         );
         bloc.add(CurrentAreaChanged(area.name));
+      },
+      onLongPress: () {
+        if (!isSelectionMode) {
+          controller.enableSelectionMode();
+          controller.select(area.name);
+        }
       },
       onSaved: (value) {
         final trimmed = value.trim();
@@ -144,42 +168,44 @@ class _AreasViewState extends State<AreasView> {
           AreaChanged(area.name, area.copyWith(name: nextName)),
         );
       },
-      selected: current == null
+      selected: current == null && !isSelectionMode
           ? area.rect.overlaps(viewportRect)
-          : current.name == area.name,
-      actions: [
-        ...buildGeneralAreaContextMenu(
-          bloc,
-          area,
-          context.read<SettingsCubit>(),
-          state.renderers
-              .where((e) => e.area == area)
-              .map(
-                (e) => e.transform(
-                  position: -area.position.toOffset(),
-                  relative: true,
-                ),
-              )
-              .map((e) => e?.element)
-              .nonNulls
-              .toList(),
-          pop: false,
-        )(context).map((e) => buildMenuItem(context, e, false, false)),
-        MenuItemButton(
-          leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-          onPressed: () async {
-            final result = await showDialog<bool>(
-              context: context,
-              builder: (context) => const DeleteDialog(),
-            );
-            if (result != true) return;
-            if (context.mounted) {
-              bloc.add(AreasRemoved([area.name]));
-            }
-          },
-          child: Text(AppLocalizations.of(context).delete),
-        ),
-      ],
+          : isSelected,
+      actions: isSelectionMode
+          ? null
+          : [
+              ...buildGeneralAreaContextMenu(
+                bloc,
+                area,
+                context.read<SettingsCubit>(),
+                state.renderers
+                    .where((e) => e.area == area)
+                    .map(
+                      (e) => e.transform(
+                        position: -area.position.toOffset(),
+                        relative: true,
+                      ),
+                    )
+                    .map((e) => e?.element)
+                    .nonNulls
+                    .toList(),
+                pop: false,
+              )(context).map((e) => buildMenuItem(context, e, false, false)),
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => const DeleteDialog(),
+                  );
+                  if (result != true) return;
+                  if (context.mounted) {
+                    bloc.add(AreasRemoved([area.name]));
+                  }
+                },
+                child: Text(AppLocalizations.of(context).delete),
+              ),
+            ],
     );
   }
 
@@ -341,51 +367,90 @@ class _AreasViewState extends State<AreasView> {
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
-                    child: ListenableBuilder(
-                      listenable: _searchController,
-                      builder: (context, child) {
-                        final search = _searchController.text.toLowerCase();
-                        final areas = areasInGroup
-                            .where(
-                              (area) =>
-                                  area.name.toLowerCase().contains(search),
-                            )
-                            .toList();
-                        final subgroups = allSubgroups
-                            .where(
-                              (group) => group.toLowerCase().contains(search),
-                            )
-                            .toList();
-                        if (areas.isEmpty && subgroups.isEmpty) {
-                          return Center(
-                            child: Text(AppLocalizations.of(context).none),
-                          );
-                        }
-                        return ListView(
-                          primary: true,
+                    child: MultiSelectRegion<String>(
+                      toolbarBuilder: (context, controller) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 4.0,
+                        ),
+                        child: OverflowBar(
+                          spacing: 8,
                           children: [
-                            ...subgroups.map(
-                              (group) => buildAreaFolder(
-                                group,
-                                '$_currentGroup$group',
+                            ActionChip(
+                              label: Text(AppLocalizations.of(context).delete),
+                              avatar: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
                               ),
-                            ),
-                            ...areas.map(
-                              (area) => buildAreaTile(
-                                bloc,
-                                viewport,
-                                state,
-                                viewportRect,
-                                current,
-                                area,
-                                folderPath: _currentGroup.isEmpty
-                                    ? []
-                                    : _currentGroup.split('/'),
-                              ),
+                              onPressed: () async {
+                                if (controller.selectedIds.isEmpty) return;
+                                final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const DeleteDialog(),
+                                );
+                                if (result != true) return;
+                                if (!context.mounted) return;
+                                context.read<DocumentBloc>().add(
+                                  AreasRemoved(controller.selectedIds.toList()),
+                                );
+                                controller.clear();
+                              },
                             ),
                           ],
-                        );
-                      },
+                        ),
+                      ),
+                      builder: (context, controller, child) =>
+                          ListenableBuilder(
+                            listenable: _searchController,
+                            builder: (context, child) {
+                              final search = _searchController.text
+                                  .toLowerCase();
+                              final areas = areasInGroup
+                                  .where(
+                                    (area) => area.name.toLowerCase().contains(
+                                      search,
+                                    ),
+                                  )
+                                  .toList();
+                              final subgroups = allSubgroups
+                                  .where(
+                                    (group) =>
+                                        group.toLowerCase().contains(search),
+                                  )
+                                  .toList();
+                              if (areas.isEmpty && subgroups.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    AppLocalizations.of(context).none,
+                                  ),
+                                );
+                              }
+                              return ListView(
+                                primary: true,
+                                children: [
+                                  ...subgroups.map(
+                                    (group) => buildAreaFolder(
+                                      group,
+                                      '$_currentGroup$group',
+                                    ),
+                                  ),
+                                  ...areas.map(
+                                    (area) => buildAreaTile(
+                                      bloc,
+                                      viewport,
+                                      state,
+                                      viewportRect,
+                                      current,
+                                      area,
+                                      controller: controller,
+                                      folderPath: _currentGroup.isEmpty
+                                          ? []
+                                          : _currentGroup.split('/'),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                     ),
                   ),
                 ),
