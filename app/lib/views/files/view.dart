@@ -25,6 +25,7 @@ class FilesView extends StatefulWidget {
   final ExternalStorage? remote;
   final ValueChanged<ExternalStorage?>? onRemoteChanged;
   final ValueChanged<FileSystemFile<NoteFile>>? onPreview;
+  final void Function(FileSystemEntity<NoteFile>)? onTap;
   final bool collapsed;
   final bool isMobile, isPage;
   final String? initialPath;
@@ -36,6 +37,7 @@ class FilesView extends StatefulWidget {
     this.remote,
     this.onRemoteChanged,
     this.onPreview,
+    this.onTap,
     this.collapsed = false,
     this.isMobile = false,
     this.isPage = false,
@@ -702,17 +704,8 @@ class FilesViewState extends State<FilesView> {
                                 );
 
                             if (files.length == 1 && context.mounted) {
-                              await openFile(
-                                context,
-                                false,
-                                newFile.location,
-                                document,
-                              );
+                              _onFileTap(newFile);
                             }
-                          }
-
-                          if (!widget.collapsed) {
-                            reloadFileSystem();
                           }
                         },
                         child: Text(AppLocalizations.of(context).import),
@@ -889,7 +882,11 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    await openFile(context, widget.collapsed, location);
+    if (widget.onTap != null) {
+      widget.onTap!(entity);
+    } else {
+      await openFile(context, widget.collapsed, location);
+    }
     if (!widget.collapsed) {
       reloadFileSystem();
     }

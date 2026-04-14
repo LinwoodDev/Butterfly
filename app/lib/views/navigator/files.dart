@@ -53,7 +53,11 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
               save: false,
               internal: true,
               location: _opened?.$2,
-              onOpen: () => openFile(context, true, _opened!.$2, _opened!.$1),
+              onOpen: () async {
+                final bloc = context.read<DocumentBloc>();
+                await bloc.save();
+                openFile(context, true, _opened!.$2, _opened!.$1);
+              },
               onExit: () => setState(() {
                 _opened = null;
               }),
@@ -66,6 +70,11 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
             remote: _remote,
             activeAsset: location,
             initialPath: location?.parent,
+            onTap: (value) async {
+              final bloc = context.read<DocumentBloc>();
+              await bloc.save();
+              openFile(context, true, value.location);
+            },
             onPreview: (value) {
               final data = value.data!.load();
               if (data == null) return;

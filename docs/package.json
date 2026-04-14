@@ -17,27 +17,22 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.1.4",
+    "astro": "^6.1.5",
     "katex": "^0.16.45",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "rehype-katex": "^7.0.1",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
     "remark-math": "^6.0.0",
     "typescript": "^6.0.2"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.0.0-rc.0",
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0",
     "sass": "^1.99.0",
     "sharp": "^0.34.5",
     "vite-plugin-pwa": "^1.2.0",
     "workbox-window": "^7.4.0"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@parcel/watcher"
-    ]
   }
 }
