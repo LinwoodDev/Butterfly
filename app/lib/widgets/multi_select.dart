@@ -67,10 +67,10 @@ class MultiSelectController<T> extends ChangeNotifier {
 class MultiSelectProvider<T>
     extends InheritedNotifier<MultiSelectController<T>> {
   const MultiSelectProvider({
-    Key? key,
+    super.key,
     required MultiSelectController<T> controller,
-    required Widget child,
-  }) : super(key: key, notifier: controller, child: child);
+    required super.child,
+  }) : super(notifier: controller);
 
   static MultiSelectController<T> of<T>(BuildContext context) {
     final provider = context
@@ -96,11 +96,11 @@ class MultiSelectRegion<T> extends StatefulWidget {
   final Widget? child;
 
   const MultiSelectRegion({
-    Key? key,
+    super.key,
     required this.builder,
     this.toolbarBuilder,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<MultiSelectRegion<T>> createState() => _MultiSelectRegionState<T>();

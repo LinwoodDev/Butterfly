@@ -6,6 +6,7 @@ import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -1896,7 +1897,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
   }
 
-  Rect getContentRect() {
+  Rect getContentRect([Area? currentArea]) {
+    if (currentArea != null) {
+      return currentArea.rect;
+    }
     final renderers = this.renderers;
     if (renderers.isEmpty) {
       return Rect.zero;
@@ -1941,23 +1945,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
-  Rect? _calculateViewportBounds() {
+  Rect? _calculateViewportBounds([Area? currentArea]) {
     final settings = state.settingsCubit.state;
-    final multiplier = settings.limitViewportMultiplier;
+    var multiplier = settings.limitViewportMultiplier;
     final positive = settings.limitViewportPositive;
 
-    if (multiplier == null && !positive) return null;
+    if (multiplier == null && !positive && currentArea == null) return null;
 
     final size = state.cameraViewport.toRealSize(true);
 
-    final contentRect = getContentRect();
+    final contentRect = getContentRect(currentArea);
 
     double minX = double.negativeInfinity;
     double minY = double.negativeInfinity;
     double maxX = double.infinity;
     double maxY = double.infinity;
 
-    if (multiplier != null) {
+    if (multiplier != null || currentArea != null) {
+      multiplier ??= 1;
       final padX = size.width * multiplier;
       final padY = size.height * multiplier;
 
@@ -1988,13 +1993,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
-  void move(Offset delta, [bool force = false]) {
+  void move(Offset delta, {bool force = false, Area? currentArea}) {
     final utilitiesState = state.utilities;
     if (!force) {
       if (utilitiesState.lockHorizontal) delta = Offset(0, delta.dy);
       if (utilitiesState.lockVertical) delta = Offset(delta.dx, 0);
 
-      final bounds = _calculateViewportBounds();
+      final bounds = _calculateViewportBounds(currentArea);
       if (bounds != null) {
         final pos = state.transformCubit.state.position;
         var newPos = pos + delta;
