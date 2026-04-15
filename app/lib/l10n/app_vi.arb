@@ -1111,6 +1111,7 @@
   "addAll": "Thêm tất cả",
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Chính xác",
   "@exact": {
     "description": "Exact match"
