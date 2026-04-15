@@ -1111,6 +1111,7 @@
   "addAll": "הוסף הכל",
   "onlyCurrentPage": "רק העמוד הנוכחי",
   "smoothNavigation": "ניווט חלק",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "מדויק",
   "@exact": {
     "description": "Exact match"
