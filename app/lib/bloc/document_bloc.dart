@@ -163,6 +163,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       var data = current.data;
+      data = data.setPage(current.page, current.pageName).$1;
       Map<String, String> imported = {};
       String? pageName;
       DocumentPage? page;
@@ -189,7 +190,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           addNumber: details.addNumber,
         );
       }
-      data = data.setPage(current.page, current.pageName).$1;
       _saveState(
         emit,
         state: current.copyWith(data: data, page: page, pageName: pageName),
