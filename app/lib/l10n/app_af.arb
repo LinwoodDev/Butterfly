@@ -1111,6 +1111,7 @@
   "addAll": "Voeg alles by",
   "onlyCurrentPage": "Slegs huidige bladsy",
   "smoothNavigation": "Gladde navigasie",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Presies",
   "@exact": {
     "description": "Exact match"
