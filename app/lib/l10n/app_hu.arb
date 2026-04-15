@@ -1111,6 +1111,7 @@
   "addAll": "Összes hozzáadása",
   "onlyCurrentPage": "Csak aktuális oldal",
   "smoothNavigation": "Sima navigáció",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Pontos",
   "@exact": {
     "description": "Exact match"
