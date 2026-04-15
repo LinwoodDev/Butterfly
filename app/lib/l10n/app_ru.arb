@@ -1111,6 +1111,7 @@
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"
