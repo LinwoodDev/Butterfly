@@ -12,9 +12,9 @@
   "view": "العرض",
   "contentViewport": "عرض المحتوى",
   "limitViewportToPositiveCoordinates": "الحد من عرض الإحداثيات الإيجابية",
-  "off": "متوقف",
-  "canvas": "الكانفاس",
-  "interface": "واجهة",
+  "off": "معطل",
+  "canvas": "اللوحة",
+  "interface": "الواجهة",
   "@view": {
     "description": "View mode or menu"
   },
