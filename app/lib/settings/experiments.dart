@@ -24,6 +24,11 @@ class ExperimentsSettingsPage extends StatelessWidget {
       description: AppLocalizations.of(context).smoothNavigation,
       icon: PhosphorIcons.caretCircleDoubleDown,
     ),
+    (
+      name: 'edgePanAreaSwitching',
+      description: AppLocalizations.of(context).edgePanAreaSwitching,
+      icon: PhosphorIcons.cursor,
+    ),
   ];
 
   static const Map<String, String> _featureHelps = {

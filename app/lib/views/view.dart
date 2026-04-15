@@ -578,6 +578,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           sensitivity /
                                           cubit.state.transformCubit.state.size,
                                       details.scaleVelocity,
+                                      currentArea: state.currentArea,
                                     );
                                     delayBake();
                                   }

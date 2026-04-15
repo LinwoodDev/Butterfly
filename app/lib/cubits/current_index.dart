@@ -1993,6 +1993,94 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
+  Area? getRelativeArea(Area currentArea, int dx, int dy, [bool? exact]) {
+    if (dx == 0 && dy == 0) return null;
+    final docState = _documentBloc?.state;
+    if (docState is! DocumentLoadSuccess) return null;
+
+    final rect = currentArea.rect.translate(
+      dx.toDouble() * currentArea.rect.width,
+      dy.toDouble() * currentArea.rect.height,
+    );
+
+    return docState.page.areas.firstWhereOrNull((area) {
+      final currentAreaRect = area.rect;
+      if (exact ?? state.areaNavigatorExact) {
+        return (currentAreaRect.top - rect.top).abs() <
+                precisionErrorTolerance &&
+            (currentAreaRect.left - rect.left).abs() <
+                precisionErrorTolerance &&
+            (currentAreaRect.width - rect.width).abs() <
+                precisionErrorTolerance &&
+            (currentAreaRect.height - rect.height).abs() <
+                precisionErrorTolerance;
+      }
+      return currentAreaRect.overlaps(rect.deflate(precisionErrorTolerance));
+    });
+  }
+
+  void _teleportToAreaEdge(Area area, int dx, int dy) {
+    final newBounds = _calculateViewportBounds(area);
+    if (newBounds == null) return;
+
+    final pos = state.transformCubit.state.position;
+    double newX = pos.dx;
+    double newY = pos.dy;
+    if (dx > 0) {
+      newX = newBounds.left;
+    } else if (dx < 0) {
+      newX = newBounds.right;
+    } else {
+      newX = newX.clamp(newBounds.left, newBounds.right);
+    }
+    if (dy > 0) {
+      newY = newBounds.top;
+    } else if (dy < 0) {
+      newY = newBounds.bottom;
+    } else {
+      newY = newY.clamp(newBounds.top, newBounds.bottom);
+    }
+    state.transformCubit.teleport(Offset(newX, newY));
+  }
+
+  Future<void> navigateToRelativeArea(
+    int dx,
+    int dy, {
+    Future<String?> Function()? createAreaName,
+  }) async {
+    final docState = _documentBloc?.state;
+    if (docState is! DocumentLoadSuccess) return;
+
+    final current = docState.currentArea;
+    if (current == null) return;
+
+    var area = getRelativeArea(current, dx, dy);
+    if (area != null) {
+      _documentBloc?.add(CurrentAreaChanged(area.name));
+      _teleportToAreaEdge(area, dx, dy);
+      return;
+    }
+
+    if (!state.areaNavigatorCreate || createAreaName == null) return;
+    final name = await createAreaName();
+    if (name == null) return;
+
+    final rect = current.rect.translate(
+      dx.toDouble() * current.rect.width,
+      dy.toDouble() * current.rect.height,
+    );
+
+    final newArea = Area(
+      position: rect.topLeft.toPoint(),
+      height: rect.height,
+      width: rect.width,
+      name: name,
+    );
+    _documentBloc?.add(AreasCreated([newArea]));
+    _documentBloc?.add(CurrentAreaChanged(name));
+    _teleportToAreaEdge(newArea, dx, dy);
+  }
+
   void move(Offset delta, {bool force = false, Area? currentArea}) {
     final utilitiesState = state.utilities;
     if (!force) {
@@ -2003,11 +2091,39 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (bounds != null) {
         final pos = state.transformCubit.state.position;
         var newPos = pos + delta;
-        newPos = Offset(
+        final clampedPos = Offset(
           newPos.dx.clamp(bounds.left, bounds.right),
           newPos.dy.clamp(bounds.top, bounds.bottom),
         );
-        delta = newPos - pos;
+
+        if (currentArea != null &&
+            (clampedPos.dx != newPos.dx || clampedPos.dy != newPos.dy)) {
+          int dx = 0;
+          int dy = 0;
+          if (newPos.dx < bounds.left) {
+            dx = -1;
+          } else if (newPos.dx > bounds.right) {
+            dx = 1;
+          }
+
+          if (newPos.dy < bounds.top) {
+            dy = -1;
+          } else if (newPos.dy > bounds.bottom) {
+            dy = 1;
+          }
+
+          if ((dx != 0 || dy != 0) &&
+              state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
+            final area = getRelativeArea(currentArea, dx, dy);
+            if (area != null) {
+              _documentBloc?.add(CurrentAreaChanged(area.name));
+              _teleportToAreaEdge(area, dx, dy);
+              return;
+            }
+          }
+        }
+
+        delta = clampedPos - pos;
       }
     }
 
@@ -2030,9 +2146,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void slide(
     Offset positionVelocity,
-    double sizeVelocity, [
+    double sizeVelocity, {
     bool force = false,
-  ]) {
+    Area? currentArea,
+  }) {
     if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
     final utilitiesState = state.utilities;
     if (!force) {
@@ -2044,18 +2161,54 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
       if (utilitiesState.lockZoom) sizeVelocity = 0;
 
-      final bounds = _calculateViewportBounds();
+      final bounds = _calculateViewportBounds(currentArea);
       if (bounds != null) {
         final pos = state.transformCubit.state.position;
         var vX = positionVelocity.dx;
         var vY = positionVelocity.dy;
 
+        bool hitEdgeX = false;
+        bool hitEdgeY = false;
+
         // velocity > 0 means moving right (increasing pos) -> clamp if pos >= maxX
         // velocity < 0 means moving left (decreasing pos) -> clamp if pos <= minX
-        if (pos.dx >= bounds.right && vX > 0) vX = 0;
-        if (pos.dx <= bounds.left && vX < 0) vX = 0;
-        if (pos.dy >= bounds.bottom && vY > 0) vY = 0;
-        if (pos.dy <= bounds.top && vY < 0) vY = 0;
+        if (pos.dx >= bounds.right && vX > 0) {
+          vX = 0;
+          hitEdgeX = true;
+        }
+        if (pos.dx <= bounds.left && vX < 0) {
+          vX = 0;
+          hitEdgeX = true;
+        }
+        if (pos.dy >= bounds.bottom && vY > 0) {
+          vY = 0;
+          hitEdgeY = true;
+        }
+        if (pos.dy <= bounds.top && vY < 0) {
+          vY = 0;
+          hitEdgeY = true;
+        }
+
+        if (currentArea != null && (hitEdgeX || hitEdgeY)) {
+          int dx = 0;
+          int dy = 0;
+          if (hitEdgeX) {
+            dx = positionVelocity.dx > 0 ? 1 : -1;
+          }
+          if (hitEdgeY) {
+            dy = positionVelocity.dy > 0 ? 1 : -1;
+          }
+
+          if ((dx != 0 || dy != 0) &&
+              state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
+            final area = getRelativeArea(currentArea, dx, dy);
+            if (area != null) {
+              _documentBloc?.add(CurrentAreaChanged(area.name));
+              _teleportToAreaEdge(area, dx, dy);
+              return;
+            }
+          }
+        }
 
         positionVelocity = Offset(vX, vY);
       }

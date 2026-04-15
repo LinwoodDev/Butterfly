@@ -10,8 +10,6 @@ import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -242,64 +240,31 @@ class _AreasViewState extends State<AreasView> {
               return const SizedBox.shrink();
             }
             final current = state.currentArea;
-            Rect? getRect(int dx, int dy) {
-              if (current == null) return null;
-              final rect = current.rect;
-              return rect.translate(
-                dx.toDouble() * rect.width,
-                dy.toDouble() * rect.height,
-              );
+
+            final currentIndexCubit = context.read<CurrentIndexCubit>();
+
+            bool enableButton(int dx, int dy) {
+              if (current == null) return false;
+              return currentIndex.areaNavigatorCreate ||
+                  currentIndexCubit.getRelativeArea(current, dx, dy) != null;
             }
 
-            Area? overlap(Rect? rect, [bool? exact]) {
-              if (rect == null) return null;
-              return state.page.areas.firstWhereOrNull((area) {
-                // Test for equality with precision error tolerance
-                final current = area.rect;
-                if (exact ?? currentIndex.areaNavigatorExact) {
-                  return (current.top - rect.top).abs() <
-                          precisionErrorTolerance &&
-                      (current.left - rect.left).abs() <
-                          precisionErrorTolerance &&
-                      (current.width - rect.width).abs() <
-                          precisionErrorTolerance &&
-                      (current.height - rect.height).abs() <
-                          precisionErrorTolerance;
-                }
-                return current.overlaps(rect.deflate(precisionErrorTolerance));
-              });
+            bool selectedButton(int dx, int dy) {
+              if (current == null) return false;
+              return currentIndexCubit.getRelativeArea(current, dx, dy, true) !=
+                  null;
             }
-
-            bool enableButton(int dx, int dy) =>
-                currentIndex.areaNavigatorCreate ||
-                overlap(getRect(dx, dy)) != null;
-            bool selectedButton(int dx, int dy) =>
-                overlap(getRect(dx, dy), true) != null;
 
             Future<void> navigateToRelativeArea(int dx, int dy) async {
-              final rect = getRect(dx, dy);
-              if (rect == null) return;
-              var area = overlap(rect);
-              if (area != null) {
-                context.read<DocumentBloc>().add(CurrentAreaChanged(area.name));
-                return;
-              }
-              if (!currentIndex.areaNavigatorCreate) return;
-              final name = await createAreaName(
-                context,
-                state.page,
-                currentIndex.areaNavigatorAsk,
+              await currentIndexCubit.navigateToRelativeArea(
+                dx,
+                dy,
+                createAreaName: () => createAreaName(
+                  context,
+                  state.page,
+                  currentIndex.areaNavigatorAsk,
+                ),
               );
-              if (name == null) return;
-              final newArea = Area(
-                position: rect.topLeft.toPoint(),
-                height: rect.height,
-                width: rect.width,
-                name: name,
-              );
-              bloc
-                ..add(AreasCreated([newArea]))
-                ..add(CurrentAreaChanged(name));
             }
 
             if (state.page.areas.isEmpty) {

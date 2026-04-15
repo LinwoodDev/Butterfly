@@ -1,3 +1,4 @@
+* Add edge pan area switching experimental feature
 * Add bounds for viewport inside current area
 * Add selection mode for areas, layers, and pages navigator view
 * Add current area on page creation
