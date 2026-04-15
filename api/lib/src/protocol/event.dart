@@ -13,12 +13,25 @@ enum Arrangement { forward, backward, front, back }
 enum DocumentPermission { read, write, admin }
 
 @freezed
+sealed class InitialAreaDetails with _$InitialAreaDetails {
+  const factory InitialAreaDetails({
+    required double width,
+    required double height,
+    required String name,
+  }) = _InitialAreaDetails;
+
+  factory InitialAreaDetails.fromJson(Map<String, dynamic> json) =>
+      _$InitialAreaDetailsFromJson(json);
+}
+
+@freezed
 sealed class PageAddedDetails with _$PageAddedDetails {
   const factory PageAddedDetails({
     int? index,
     DocumentPage? page,
     @Default(true) bool addNumber,
     @Default('') String name,
+    InitialAreaDetails? initialArea,
   }) = _PageAddedDetails;
 
   factory PageAddedDetails.fromJson(Map<String, dynamic> json) =>

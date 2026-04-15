@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
+import 'dart:math';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -168,8 +169,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       String? pageName;
       DocumentPage? page;
       for (final details in event.pages) {
+        final initialArea = details.initialArea;
         page =
-            details.page ?? DocumentPage(backgrounds: current.page.backgrounds);
+            details.page ??
+            DocumentPage(
+              backgrounds: current.page.backgrounds,
+              areas: initialArea != null
+                  ? [
+                      Area(
+                        name: initialArea.name,
+                        width: initialArea.width,
+                        height: initialArea.height,
+                        position: const Point(0, 0),
+                        isInitial: true,
+                      ),
+                    ]
+                  : const [],
+            );
         final layers = await Future.wait(
           page.layers.map((layer) async {
             List<PadElement> elements;
@@ -192,7 +208,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       _saveState(
         emit,
-        state: current.copyWith(data: data, page: page, pageName: pageName),
+        state: current.copyWith(
+          data: data,
+          page: page,
+          pageName: pageName,
+          currentAreaName:
+              page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
+        ),
         reset: true,
       );
     });
@@ -209,6 +231,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: page,
           data: data,
           pageName: event.pageName,
+          currentAreaName:
+              page.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
         ),
         reset: true,
       );
@@ -241,7 +265,34 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final newData = current.data.removePage(event.page);
-      _saveState(emit, state: current.copyWith(data: newData));
+
+      String newPageName = current.pageName;
+      DocumentPage? newPage = current.page;
+      String? currentAreaName = '';
+
+      if (current.pageName == event.page) {
+        final remainingPages = newData.getPages(true);
+        if (remainingPages.isNotEmpty) {
+          newPageName = remainingPages.first;
+          newPage = newData.getPage(newPageName);
+          currentAreaName = newPage?.areas
+              .firstWhereOrNull((e) => e.isInitial)
+              ?.name;
+        } else {
+          newPageName = '';
+          newPage = DocumentPage();
+        }
+      }
+
+      _saveState(
+        emit,
+        state: current.copyWith(
+          data: newData,
+          pageName: newPageName,
+          page: newPage,
+          currentAreaName: currentAreaName,
+        ),
+      );
     });
     on<ThumbnailCaptured>((event, emit) {
       final current = state;

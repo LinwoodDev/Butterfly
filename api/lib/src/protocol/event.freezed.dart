@@ -13,9 +13,149 @@ part of 'event.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+mixin _$InitialAreaDetails {
+
+ double get width; double get height; String get name;
+/// Create a copy of InitialAreaDetails
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InitialAreaDetailsCopyWith<InitialAreaDetails> get copyWith => _$InitialAreaDetailsCopyWithImpl<InitialAreaDetails>(this as InitialAreaDetails, _$identity);
+
+  /// Serializes this InitialAreaDetails to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitialAreaDetails&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,width,height,name);
+
+@override
+String toString() {
+  return 'InitialAreaDetails(width: $width, height: $height, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InitialAreaDetailsCopyWith<$Res>  {
+  factory $InitialAreaDetailsCopyWith(InitialAreaDetails value, $Res Function(InitialAreaDetails) _then) = _$InitialAreaDetailsCopyWithImpl;
+@useResult
+$Res call({
+ double width, double height, String name
+});
+
+
+
+
+}
+/// @nodoc
+class _$InitialAreaDetailsCopyWithImpl<$Res>
+    implements $InitialAreaDetailsCopyWith<$Res> {
+  _$InitialAreaDetailsCopyWithImpl(this._self, this._then);
+
+  final InitialAreaDetails _self;
+  final $Res Function(InitialAreaDetails) _then;
+
+/// Create a copy of InitialAreaDetails
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? width = null,Object? height = null,Object? name = null,}) {
+  return _then(_self.copyWith(
+width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as double,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _InitialAreaDetails implements InitialAreaDetails {
+  const _InitialAreaDetails({required this.width, required this.height, required this.name});
+  factory _InitialAreaDetails.fromJson(Map<String, dynamic> json) => _$InitialAreaDetailsFromJson(json);
+
+@override final  double width;
+@override final  double height;
+@override final  String name;
+
+/// Create a copy of InitialAreaDetails
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InitialAreaDetailsCopyWith<_InitialAreaDetails> get copyWith => __$InitialAreaDetailsCopyWithImpl<_InitialAreaDetails>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$InitialAreaDetailsToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InitialAreaDetails&&(identical(other.width, width) || other.width == width)&&(identical(other.height, height) || other.height == height)&&(identical(other.name, name) || other.name == name));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,width,height,name);
+
+@override
+String toString() {
+  return 'InitialAreaDetails(width: $width, height: $height, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InitialAreaDetailsCopyWith<$Res> implements $InitialAreaDetailsCopyWith<$Res> {
+  factory _$InitialAreaDetailsCopyWith(_InitialAreaDetails value, $Res Function(_InitialAreaDetails) _then) = __$InitialAreaDetailsCopyWithImpl;
+@override @useResult
+$Res call({
+ double width, double height, String name
+});
+
+
+
+
+}
+/// @nodoc
+class __$InitialAreaDetailsCopyWithImpl<$Res>
+    implements _$InitialAreaDetailsCopyWith<$Res> {
+  __$InitialAreaDetailsCopyWithImpl(this._self, this._then);
+
+  final _InitialAreaDetails _self;
+  final $Res Function(_InitialAreaDetails) _then;
+
+/// Create a copy of InitialAreaDetails
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? width = null,Object? height = null,Object? name = null,}) {
+  return _then(_InitialAreaDetails(
+width: null == width ? _self.width : width // ignore: cast_nullable_to_non_nullable
+as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as double,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$PageAddedDetails {
 
- int? get index; DocumentPage? get page; bool get addNumber; String get name;
+ int? get index; DocumentPage? get page; bool get addNumber; String get name; InitialAreaDetails? get initialArea;
 /// Create a copy of PageAddedDetails
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +168,16 @@ $PageAddedDetailsCopyWith<PageAddedDetails> get copyWith => _$PageAddedDetailsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.initialArea, initialArea) || other.initialArea == initialArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
+int get hashCode => Object.hash(runtimeType,index,page,addNumber,name,initialArea);
 
 @override
 String toString() {
-  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name)';
+  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name, initialArea: $initialArea)';
 }
 
 
@@ -48,11 +188,11 @@ abstract mixin class $PageAddedDetailsCopyWith<$Res>  {
   factory $PageAddedDetailsCopyWith(PageAddedDetails value, $Res Function(PageAddedDetails) _then) = _$PageAddedDetailsCopyWithImpl;
 @useResult
 $Res call({
- int? index, DocumentPage? page, bool addNumber, String name
+ int? index, DocumentPage? page, bool addNumber, String name, InitialAreaDetails? initialArea
 });
 
 
-$DocumentPageCopyWith<$Res>? get page;
+$DocumentPageCopyWith<$Res>? get page;$InitialAreaDetailsCopyWith<$Res>? get initialArea;
 
 }
 /// @nodoc
@@ -65,13 +205,14 @@ class _$PageAddedDetailsCopyWithImpl<$Res>
 
 /// Create a copy of PageAddedDetails
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,Object? initialArea = freezed,}) {
   return _then(_self.copyWith(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
 as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,initialArea: freezed == initialArea ? _self.initialArea : initialArea // ignore: cast_nullable_to_non_nullable
+as InitialAreaDetails?,
   ));
 }
 /// Create a copy of PageAddedDetails
@@ -86,6 +227,18 @@ $DocumentPageCopyWith<$Res>? get page {
   return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
     return _then(_self.copyWith(page: value));
   });
+}/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$InitialAreaDetailsCopyWith<$Res>? get initialArea {
+    if (_self.initialArea == null) {
+    return null;
+  }
+
+  return $InitialAreaDetailsCopyWith<$Res>(_self.initialArea!, (value) {
+    return _then(_self.copyWith(initialArea: value));
+  });
 }
 }
 
@@ -95,13 +248,14 @@ $DocumentPageCopyWith<$Res>? get page {
 @JsonSerializable()
 
 class _PageAddedDetails implements PageAddedDetails {
-  const _PageAddedDetails({this.index, this.page, this.addNumber = true, this.name = ''});
+  const _PageAddedDetails({this.index, this.page, this.addNumber = true, this.name = '', this.initialArea});
   factory _PageAddedDetails.fromJson(Map<String, dynamic> json) => _$PageAddedDetailsFromJson(json);
 
 @override final  int? index;
 @override final  DocumentPage? page;
 @override@JsonKey() final  bool addNumber;
 @override@JsonKey() final  String name;
+@override final  InitialAreaDetails? initialArea;
 
 /// Create a copy of PageAddedDetails
 /// with the given fields replaced by the non-null parameter values.
@@ -116,16 +270,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PageAddedDetails&&(identical(other.index, index) || other.index == index)&&(identical(other.page, page) || other.page == page)&&(identical(other.addNumber, addNumber) || other.addNumber == addNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.initialArea, initialArea) || other.initialArea == initialArea));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,page,addNumber,name);
+int get hashCode => Object.hash(runtimeType,index,page,addNumber,name,initialArea);
 
 @override
 String toString() {
-  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name)';
+  return 'PageAddedDetails(index: $index, page: $page, addNumber: $addNumber, name: $name, initialArea: $initialArea)';
 }
 
 
@@ -136,11 +290,11 @@ abstract mixin class _$PageAddedDetailsCopyWith<$Res> implements $PageAddedDetai
   factory _$PageAddedDetailsCopyWith(_PageAddedDetails value, $Res Function(_PageAddedDetails) _then) = __$PageAddedDetailsCopyWithImpl;
 @override @useResult
 $Res call({
- int? index, DocumentPage? page, bool addNumber, String name
+ int? index, DocumentPage? page, bool addNumber, String name, InitialAreaDetails? initialArea
 });
 
 
-@override $DocumentPageCopyWith<$Res>? get page;
+@override $DocumentPageCopyWith<$Res>? get page;@override $InitialAreaDetailsCopyWith<$Res>? get initialArea;
 
 }
 /// @nodoc
@@ -153,13 +307,14 @@ class __$PageAddedDetailsCopyWithImpl<$Res>
 
 /// Create a copy of PageAddedDetails
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? page = freezed,Object? addNumber = null,Object? name = null,Object? initialArea = freezed,}) {
   return _then(_PageAddedDetails(
 index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
 as int?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as DocumentPage?,addNumber: null == addNumber ? _self.addNumber : addNumber // ignore: cast_nullable_to_non_nullable
 as bool,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,
+as String,initialArea: freezed == initialArea ? _self.initialArea : initialArea // ignore: cast_nullable_to_non_nullable
+as InitialAreaDetails?,
   ));
 }
 
@@ -174,6 +329,18 @@ $DocumentPageCopyWith<$Res>? get page {
 
   return $DocumentPageCopyWith<$Res>(_self.page!, (value) {
     return _then(_self.copyWith(page: value));
+  });
+}/// Create a copy of PageAddedDetails
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$InitialAreaDetailsCopyWith<$Res>? get initialArea {
+    if (_self.initialArea == null) {
+    return null;
+  }
+
+  return $InitialAreaDetailsCopyWith<$Res>(_self.initialArea!, (value) {
+    return _then(_self.copyWith(initialArea: value));
   });
 }
 }

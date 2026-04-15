@@ -34,12 +34,14 @@ class _PagesViewState extends State<PagesView> {
     return BlocBuilder<DocumentBloc, DocumentState>(
       buildWhen: (previous, current) =>
           previous.data != current.data ||
-          previous.pageName != current.pageName,
+          previous.pageName != current.pageName ||
+          previous.currentArea != current.currentArea,
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentName = state.pageName;
         final pages = state.data.getPagesWithNames();
         final index = state.data.getPageIndex(state.pageName);
+        final currentArea = state.currentArea;
         void addPage([int? index]) => context.read<DocumentBloc>().add(
           PagesAdded([
             PageAddedDetails(
@@ -47,6 +49,13 @@ class _PagesViewState extends State<PagesView> {
               name: AppLocalizations.of(
                 context,
               ).pageIndex(state.data.getPages().length + 1),
+              initialArea: currentArea != null
+                  ? InitialAreaDetails(
+                      width: currentArea.width,
+                      height: currentArea.height,
+                      name: AppLocalizations.of(context).areaIndex(1),
+                    )
+                  : null,
             ),
           ]),
         );

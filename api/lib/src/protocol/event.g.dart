@@ -6,6 +6,20 @@ part of 'event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_InitialAreaDetails _$InitialAreaDetailsFromJson(Map json) =>
+    _InitialAreaDetails(
+      width: (json['width'] as num).toDouble(),
+      height: (json['height'] as num).toDouble(),
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$InitialAreaDetailsToJson(_InitialAreaDetails instance) =>
+    <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
+      'name': instance.name,
+    };
+
 _PageAddedDetails _$PageAddedDetailsFromJson(Map json) => _PageAddedDetails(
   index: (json['index'] as num?)?.toInt(),
   page: json['page'] == null
@@ -13,6 +27,11 @@ _PageAddedDetails _$PageAddedDetailsFromJson(Map json) => _PageAddedDetails(
       : DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
   addNumber: json['addNumber'] as bool? ?? true,
   name: json['name'] as String? ?? '',
+  initialArea: json['initialArea'] == null
+      ? null
+      : InitialAreaDetails.fromJson(
+          Map<String, dynamic>.from(json['initialArea'] as Map),
+        ),
 );
 
 Map<String, dynamic> _$PageAddedDetailsToJson(_PageAddedDetails instance) =>
@@ -21,6 +40,7 @@ Map<String, dynamic> _$PageAddedDetailsToJson(_PageAddedDetails instance) =>
       'page': instance.page?.toJson(),
       'addNumber': instance.addNumber,
       'name': instance.name,
+      'initialArea': instance.initialArea?.toJson(),
     };
 
 PagesAdded _$PagesAddedFromJson(Map json) => PagesAdded(

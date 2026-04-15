@@ -1,6 +1,8 @@
 * Add bounds for viewport inside current area
 * Add selection mode for areas, layers, and pages navigator view
+* Add current area on page creation
 * Fix document not saving when changing documents in file navigator
 * Fix duplicate page creation when adding new pages
+* Fix initial area not opened on page change
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.1
