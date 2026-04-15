@@ -1111,6 +1111,7 @@
   "addAll": "Dodaj sve",
   "onlyCurrentPage": "Samo trenutna stranica",
   "smoothNavigation": "Glatka navigacija",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Tačno",
   "@exact": {
     "description": "Exact match"
