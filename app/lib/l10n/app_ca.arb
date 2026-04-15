@@ -1111,6 +1111,7 @@
   "addAll": "Afegeix-ho tot",
   "onlyCurrentPage": "Només pàgina actual",
   "smoothNavigation": "Navegació fluida",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"
