@@ -1111,6 +1111,7 @@
   "addAll": "Tümünü ekle",
   "onlyCurrentPage": "Sadece geçerli sayfa",
   "smoothNavigation": "Akıcı gezinme",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Tam",
   "@exact": {
     "description": "Exact match"
