@@ -1111,6 +1111,7 @@
   "addAll": "إضافة الكل",
   "onlyCurrentPage": "الصفحة الحالية فقط",
   "smoothNavigation": "التنقل السلس",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "بالضبط",
   "@exact": {
     "description": "Exact match"
