@@ -1111,6 +1111,7 @@
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Tarkka",
   "@exact": {
     "description": "Exact match"
