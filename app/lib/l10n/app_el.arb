@@ -1111,6 +1111,7 @@
   "addAll": "Προσθήκη όλων",
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
   "smoothNavigation": "Ομαλή πλοήγηση",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Ακριβής",
   "@exact": {
     "description": "Exact match"
