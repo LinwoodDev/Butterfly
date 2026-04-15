@@ -31,56 +31,20 @@ class ViewSettingsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Padding(
-                        padding: settingsCardTitlePadding,
-                        child: Text(
-                          AppLocalizations.of(context).canvas,
-                          style: TextTheme.of(context).headlineSmall,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SwitchListTile(
-                        secondary: const PhosphorIcon(
+                      AdvancedSwitchListTile(
+                        leading: const PhosphorIcon(
                           PhosphorIconsLight.magnifyingGlass,
                         ),
                         title: Text(AppLocalizations.of(context).zoomControl),
+                        subtitle: Text(
+                          state.zoomPosition.getLocalizedName(context),
+                        ),
                         value: state.zoomEnabled,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeZoomEnabled(value),
+                        onTap: () => _openZoomPositionModal(context),
                       ),
-                      if (state.zoomEnabled)
-                        ListTile(
-                          leading: const PhosphorIcon(
-                            PhosphorIconsLight.cornersOut,
-                          ),
-                          title: Text(
-                            AppLocalizations.of(context).zoomPosition,
-                          ),
-                          subtitle: Text(
-                            state.zoomPosition.getLocalizedName(context),
-                          ),
-                          onTap: () => _openZoomPositionModal(context),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: settingsCardMargin,
-                child: Padding(
-                  padding: settingsCardPadding,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: settingsCardTitlePadding,
-                        child: Text(
-                          AppLocalizations.of(context).interface,
-                          style: TextTheme.of(context).headlineSmall,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
                         title: Text(

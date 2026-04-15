@@ -1,6 +1,7 @@
 * Add bounds for viewport inside current area
 * Add selection mode for areas, layers, and pages navigator view
 * Add current area on page creation
+* Improve zoom control settings
 * Fix document not saving when changing documents in file navigator
 * Fix duplicate page creation when adding new pages
 * Fix initial area not opened on page change
