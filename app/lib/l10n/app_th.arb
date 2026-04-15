@@ -1111,6 +1111,7 @@
   "addAll": "เพิ่มทั้งหมด",
   "onlyCurrentPage": "เฉพาะหน้าปัจจุบัน",
   "smoothNavigation": "การนำทางเรียบ",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "แม่นยำ",
   "@exact": {
     "description": "Exact match"
