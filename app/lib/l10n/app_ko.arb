@@ -1111,6 +1111,7 @@
   "addAll": "모두 추가",
   "onlyCurrentPage": "현재 페이지만",
   "smoothNavigation": "부드러운 탐색",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "정확",
   "@exact": {
     "description": "Exact match"
