@@ -1111,6 +1111,7 @@
   "addAll": "全部新增",
   "onlyCurrentPage": "僅本頁",
   "smoothNavigation": "流暢導覽",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "精確",
   "@exact": {
     "description": "Exact match"
