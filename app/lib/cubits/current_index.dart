@@ -1587,6 +1587,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (!identical(aboveLayerImage, oldAbove)) {
         aboveLayerImage?.dispose();
       }
+      Future.microtask(
+        () => bake(
+          blocState,
+          viewportSize: viewportSize,
+          pixelRatio: pixelRatio,
+          reset: reset,
+          resetAllLayers: resetAllLayers,
+        ),
+      );
       return;
     }
 

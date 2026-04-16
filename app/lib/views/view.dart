@@ -635,25 +635,6 @@ class _MainViewViewportState extends State<MainViewViewport>
               }
             }
 
-            final current = context.read<DocumentBloc>().state;
-            final pendingDirectPdfAlignment =
-                current is DocumentLoaded &&
-                current.isDirectPdfSession &&
-                current.currentArea != null &&
-                constraints.biggest.width > 0 &&
-                constraints.biggest.height > 0 &&
-                _lastDirectPdfAlignedPageKey !=
-                    '${current.directPdfSourceUri ?? current.location.identifier}'
-                        '::${current.pageName}';
-            if (current is DocumentLoadSuccess &&
-                current.cameraViewport.toSize() !=
-                    Size(
-                      constraints.biggest.width.ceilToDouble(),
-                      constraints.biggest.height.ceilToDouble(),
-                    ) &&
-                !pendingDirectPdfAlignment) {
-              bake();
-            }
             return BlocBuilder<DocumentBloc, DocumentState>(
               builder: (context, state) {
                 if (state is! DocumentLoaded) {
@@ -662,55 +643,57 @@ class _MainViewViewportState extends State<MainViewViewport>
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                if (state.isDirectPdfSession &&
+                final pendingDirectPdfAlignment =
+                    state.isDirectPdfSession &&
                     state.currentArea != null &&
                     constraints.biggest.width > 0 &&
-                    constraints.biggest.height > 0) {
+                    constraints.biggest.height > 0 &&
+                    _lastDirectPdfAlignedPageKey !=
+                        '${state.directPdfSourceUri ?? state.location.identifier}'
+                            '::${state.pageName}';
+                if (pendingDirectPdfAlignment) {
                   final sessionKey =
                       state.directPdfSourceUri ?? state.location.identifier;
                   final pageKey = '$sessionKey::${state.pageName}';
-                  if (_lastDirectPdfAlignedPageKey != pageKey) {
-                    final resetZoom =
-                        _lastDirectPdfAlignedSessionKey != sessionKey;
-                    final targetZoom = resetZoom
-                        ? 1.0
-                        : context.read<TransformCubit>().state.size;
-                    _lastDirectPdfAlignedSessionKey = sessionKey;
-                    _lastDirectPdfAlignedPageKey = pageKey;
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (!mounted) return;
-                      final blocState = context.read<DocumentBloc>().state;
-                      if (blocState is! DocumentLoaded ||
-                          !blocState.isDirectPdfSession ||
-                          blocState.currentArea == null) {
-                        return;
-                      }
-                      final currentSessionKey =
-                          blocState.directPdfSourceUri ??
-                          blocState.location.identifier;
-                      final currentPageKey =
-                          '$currentSessionKey::${blocState.pageName}';
-                      if (currentPageKey != pageKey) return;
-                      context.read<TransformCubit>().centerToArea(
-                        blocState.currentArea!,
-                        constraints.biggest,
-                        targetZoom,
-                      );
-                      unawaited(
-                        context.read<DocumentBloc>().bake(
-                          viewportSize: constraints.biggest,
-                          pixelRatio: MediaQuery.devicePixelRatioOf(context),
-                          reset: true,
-                        ),
-                      );
-                    });
-                  }
+                  final resetZoom =
+                      _lastDirectPdfAlignedSessionKey != sessionKey;
+                  final targetZoom = resetZoom
+                      ? 1.0
+                      : context.read<TransformCubit>().state.size;
+                  _lastDirectPdfAlignedSessionKey = sessionKey;
+                  _lastDirectPdfAlignedPageKey = pageKey;
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (!mounted) return;
+                    final blocState = context.read<DocumentBloc>().state;
+                    if (blocState is! DocumentLoaded ||
+                        !blocState.isDirectPdfSession ||
+                        blocState.currentArea == null) {
+                      return;
+                    }
+                    final currentSessionKey =
+                        blocState.directPdfSourceUri ??
+                        blocState.location.identifier;
+                    final currentPageKey =
+                        '$currentSessionKey::${blocState.pageName}';
+                    if (currentPageKey != pageKey) return;
+                    context.read<TransformCubit>().centerToArea(
+                      blocState.currentArea!,
+                      constraints.biggest,
+                      targetZoom,
+                    );
+                    unawaited(
+                      context.read<DocumentBloc>().bake(
+                        viewportSize: constraints.biggest,
+                        pixelRatio: MediaQuery.devicePixelRatioOf(context),
+                        reset: true,
+                      ),
+                    );
+                  });
                 } else {
                   _lastDirectPdfAlignedSessionKey = null;
                   _lastDirectPdfAlignedPageKey = null;
                 }
 
-                var openView = false;
                 var point = Offset.zero;
                 final CurrentIndexCubit cubit = context
                     .read<CurrentIndexCubit>();
@@ -737,320 +720,349 @@ class _MainViewViewportState extends State<MainViewViewport>
                           current.temporaryRendererStates ||
                       previous.cursor != current.cursor ||
                       previous.temporaryCursor != current.temporaryCursor,
-                  builder: (context, currentIndex) => Actions(
-                    actions: getHandler().getActions(context),
-                    child: DefaultTextEditingShortcuts(
-                      child: Focus(
-                        child: MouseRegion(
-                          cursor: currentIndex.currentCursor,
-                          child: Builder(
-                            builder: (context) {
-                              EventContext getEventContext() {
-                                return EventContext(
-                                  context,
-                                  constraints.biggest,
-                                  _isShiftPressed,
-                                  _isAltPressed,
-                                  _isCtrlPressed,
-                                );
-                              }
+                  builder: (context, currentIndex) {
+                    if (state is DocumentLoadSuccess &&
+                        currentIndex.cameraViewport.toSize() !=
+                            Size(
+                              constraints.biggest.width.ceilToDouble(),
+                              constraints.biggest.height.ceilToDouble(),
+                            ) &&
+                        !pendingDirectPdfAlignment) {
+                      WidgetsBinding.instance.addPostFrameCallback(
+                        (_) => bake(),
+                      );
+                    }
+                    return Actions(
+                      actions: getHandler().getActions(context),
+                      child: DefaultTextEditingShortcuts(
+                        child: Focus(
+                          child: MouseRegion(
+                            cursor: currentIndex.currentCursor,
+                            child: Builder(
+                              builder: (context) {
+                                EventContext getEventContext() {
+                                  return EventContext(
+                                    context,
+                                    constraints.biggest,
+                                    _isShiftPressed,
+                                    _isAltPressed,
+                                    _isCtrlPressed,
+                                  );
+                                }
 
-                              return GestureDetector(
-                                onTapUp: (details) async {
-                                  getHandler().onTapUp(
-                                    details,
-                                    getEventContext(),
-                                  );
-                                  cubit.removeButtons();
-                                  cubit.resetReleaseHandler(bloc);
-                                },
-                                onTapDown: (details) => getHandler().onTapDown(
-                                  details,
-                                  getEventContext(),
-                                ),
-                                onSecondaryTapUp: (details) =>
-                                    getHandler().onSecondaryTapUp(
-                                      details,
-                                      getEventContext(),
-                                    ),
-                                onScaleUpdate: (details) {
-                                  final handler = getHandler();
-                                  if (_isScalingDisabled ?? true) {
-                                    handler.onScaleUpdate(
+                                return GestureDetector(
+                                  onTapUp: (details) async {
+                                    getHandler().onTapUp(
                                       details,
                                       getEventContext(),
                                     );
-                                    return;
-                                  }
-                                  if (ruler != null) {
-                                    final deltaRotation =
-                                        (details.rotation -
-                                            previousRulerRotation) *
-                                        180 /
-                                        pi;
-                                    previousRulerRotation = details.rotation;
-                                    ruler?.transform(
-                                      getEventContext(),
-                                      position: details.focalPointDelta,
-                                      rotation: deltaRotation,
-                                    );
-                                    return;
-                                  }
-                                  final cubit = context
-                                      .read<CurrentIndexCubit>();
-                                  if (openView) openView = details.scale == 1;
-                                  final settings = context
-                                      .read<SettingsCubit>()
-                                      .state;
-                                  if (cubit.fetchHandler<SelectHandler>() ==
-                                          null &&
-                                      !settings.inputGestures) {
-                                    return;
-                                  }
-                                  var current = details.scale;
-                                  current = current - size;
-                                  var sensitivity = context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .gestureSensitivity;
-                                  final directPdfPreviewThreshold = min(
-                                    180.0,
-                                    max(72.0, constraints.biggest.height * 0.18),
-                                  );
-                                  if (details.scale == 1 &&
-                                      _canUseDirectPdfPagePreview(state) &&
-                                      details.focalPointDelta.dy.abs() >
-                                          details.focalPointDelta.dx.abs()) {
-                                    _updateDirectPdfPagePreview(
-                                      state,
-                                      -details.focalPointDelta.dy,
-                                      threshold: directPdfPreviewThreshold,
-                                    );
-                                    return;
-                                  }
-                                  if (details.scale == 1) {
-                                    cubit.move(
-                                      -details.focalPointDelta /
-                                          sensitivity /
-                                          cubit.state.transformCubit.state.size,
-                                      currentArea: state.currentArea,
-                                    );
-                                  } else {
-                                    cubit.zoom(
-                                      current / sensitivity + 1,
-                                      point,
-                                    );
-                                  }
-                                  size = details.scale;
-                                  delayBake();
-                                },
-                                onLongPressEnd: (details) => getHandler()
-                                    .onLongPressEnd(details, getEventContext()),
-                                onScaleEnd: (details) {
-                                  getHandler().onScaleEnd(
-                                    details,
-                                    getEventContext(),
-                                  );
-                                  if (_directPdfPreviewTargetIndex != null ||
-                                      _directPdfPagePreviewAccumulator != 0) {
-                                    unawaited(
-                                      _commitDirectPdfPagePreview(state),
-                                    );
-                                    ruler = null;
-                                    previousRulerRotation = 0;
                                     cubit.removeButtons();
                                     cubit.resetReleaseHandler(bloc);
-                                    return;
-                                  }
-                                  if (!(_isScalingDisabled ?? true)) {
+                                  },
+                                  onTapDown: (details) => getHandler()
+                                      .onTapDown(details, getEventContext()),
+                                  onSecondaryTapUp: (details) =>
+                                      getHandler().onSecondaryTapUp(
+                                        details,
+                                        getEventContext(),
+                                      ),
+                                  onScaleUpdate: (details) {
+                                    final handler = getHandler();
+                                    if (_isScalingDisabled ?? true) {
+                                      handler.onScaleUpdate(
+                                        details,
+                                        getEventContext(),
+                                      );
+                                      return;
+                                    }
+                                    if (ruler != null) {
+                                      final deltaRotation =
+                                          (details.rotation -
+                                              previousRulerRotation) *
+                                          180 /
+                                          pi;
+                                      previousRulerRotation = details.rotation;
+                                      ruler?.transform(
+                                        getEventContext(),
+                                        position: details.focalPointDelta,
+                                        rotation: deltaRotation,
+                                      );
+                                      return;
+                                    }
+                                    final cubit = context
+                                        .read<CurrentIndexCubit>();
+                                    final settings = context
+                                        .read<SettingsCubit>()
+                                        .state;
+                                    if (cubit.fetchHandler<SelectHandler>() ==
+                                            null &&
+                                        !settings.inputGestures) {
+                                      return;
+                                    }
+                                    var current = details.scale;
+                                    current = current - size;
                                     var sensitivity = context
                                         .read<SettingsCubit>()
                                         .state
                                         .gestureSensitivity;
-                                    cubit.slide(
-                                      details.velocity.pixelsPerSecond /
-                                          sensitivity /
-                                          cubit.state.transformCubit.state.size,
-                                      details.scaleVelocity,
-                                      currentArea: state.currentArea,
+                                    final directPdfPreviewThreshold = min(
+                                      180.0,
+                                      max(
+                                        72.0,
+                                        constraints.biggest.height * 0.18,
+                                      ),
                                     );
+                                    if (details.scale == 1 &&
+                                        _canUseDirectPdfPagePreview(state) &&
+                                        details.focalPointDelta.dy.abs() >
+                                            details.focalPointDelta.dx.abs()) {
+                                      _updateDirectPdfPagePreview(
+                                        state,
+                                        -details.focalPointDelta.dy,
+                                        threshold: directPdfPreviewThreshold,
+                                      );
+                                      return;
+                                    }
+                                    if (details.scale == 1) {
+                                      cubit.move(
+                                        -details.focalPointDelta /
+                                            sensitivity /
+                                            cubit
+                                                .state
+                                                .transformCubit
+                                                .state
+                                                .size,
+                                        currentArea: state.currentArea,
+                                      );
+                                    } else {
+                                      cubit.zoom(
+                                        current / sensitivity + 1,
+                                        point,
+                                      );
+                                    }
+                                    size = details.scale;
                                     delayBake();
-                                  }
-                                  ruler = null;
-                                  previousRulerRotation = 0;
-                                  cubit.removeButtons();
-                                  cubit.resetReleaseHandler(bloc);
-                                },
-                                onScaleStart: (details) {
-                                  _directPdfPagePreviewCommitTimer?.cancel();
-                                  _directPdfPagePreviewCommitTimer = null;
-                                  _directPdfPagePreviewAccumulator = 0;
-                                  if (_directPdfPreviewTargetIndex != null) {
-                                    setState(() {
-                                      _directPdfPreviewTargetIndex = null;
-                                    });
-                                  }
-                                  _isScalingDisabled ??=
-                                      !cubit.state.moveEnabled;
-                                  if (_isScalingDisabled != false) {
-                                    _isScalingDisabled = cubit
-                                        .getHandler()
-                                        .onScaleStart(
-                                          details,
-                                          getEventContext(),
-                                        );
-                                  } else {
-                                    cubit.getHandler().onScaleStartAbort(
+                                  },
+                                  onLongPressEnd: (details) =>
+                                      getHandler().onLongPressEnd(
+                                        details,
+                                        getEventContext(),
+                                      ),
+                                  onScaleEnd: (details) {
+                                    getHandler().onScaleEnd(
                                       details,
                                       getEventContext(),
                                     );
-                                  }
-                                  ruler = RulerHandler.getFirstRuler(
-                                    currentIndex,
-                                    details.localFocalPoint,
-                                    constraints.biggest,
-                                  );
-                                  previousRulerRotation = 0;
-                                  point = details.localFocalPoint;
-                                  size = 1;
-                                },
-                                onLongPressStart: (details) =>
-                                    getHandler().onLongPressStart(
-                                      details,
-                                      getEventContext(),
-                                    ),
-                                onLongPressDown: (details) =>
-                                    getHandler().onLongPressDown(
-                                      details,
-                                      getEventContext(),
-                                    ),
-                                child: Listener(
-                                  onPointerSignal: (pointerSignal) {
-                                    if (state is! DocumentLoadSuccess) return;
-                                    if (pointerSignal is PointerScrollEvent) {
-                                      // dx and dy are the delta between the last scroll event
-                                      var dx = pointerSignal.scrollDelta.dx;
-                                      var dy = pointerSignal.scrollDelta.dy;
-                                      if (_mouseState == _MouseState.normal &&
-                                          _canUseDirectPdfPagePreview(state) &&
-                                          dy.abs() > dx.abs()) {
-                                        _updateDirectPdfPagePreview(
-                                          state,
-                                          dy,
-                                          threshold: 72,
-                                          commitOnIdle: true,
-                                        );
-                                        return;
-                                      }
-                                      // Get zoom by dx and dy
-                                      var scale = pointerSignal.size;
+                                    if (_directPdfPreviewTargetIndex != null ||
+                                        _directPdfPagePreviewAccumulator != 0) {
+                                      unawaited(
+                                        _commitDirectPdfPagePreview(state),
+                                      );
+                                      ruler = null;
+                                      previousRulerRotation = 0;
+                                      cubit.removeButtons();
+                                      cubit.resetReleaseHandler(bloc);
+                                      return;
+                                    }
+                                    if (!(_isScalingDisabled ?? true)) {
                                       var sensitivity = context
                                           .read<SettingsCubit>()
                                           .state
-                                          .scrollSensitivity;
-                                      scale /= -sensitivity * 100;
-                                      scale += 1;
-                                      dx /= sensitivity;
-                                      dy /= sensitivity;
-                                      final cubit = context
-                                          .read<CurrentIndexCubit>();
-                                      final transform = context
-                                          .read<TransformCubit>()
-                                          .state;
-                                      if (_mouseState == _MouseState.scale) {
-                                        // Calculate the new scale using dx and dy
-                                        scale = -(dx + dy / 2) / 100 + 1;
-                                        cubit.zoom(
-                                          scale,
-                                          pointerSignal.localPosition,
-                                        );
-                                      } else {
-                                        cubit
-                                          ..move(
-                                            (_mouseState == _MouseState.inverse
-                                                    ? Offset(dy, dx)
-                                                    : Offset(dx, dy)) /
-                                                transform.size,
-                                            currentArea: state.currentArea,
-                                          )
-                                          ..zoom(
+                                          .gestureSensitivity;
+                                      cubit.slide(
+                                        details.velocity.pixelsPerSecond /
+                                            sensitivity /
+                                            cubit
+                                                .state
+                                                .transformCubit
+                                                .state
+                                                .size,
+                                        details.scaleVelocity,
+                                        currentArea: state.currentArea,
+                                      );
+                                      delayBake();
+                                    }
+                                    ruler = null;
+                                    previousRulerRotation = 0;
+                                    cubit.removeButtons();
+                                    cubit.resetReleaseHandler(bloc);
+                                  },
+                                  onScaleStart: (details) {
+                                    _directPdfPagePreviewCommitTimer?.cancel();
+                                    _directPdfPagePreviewCommitTimer = null;
+                                    _directPdfPagePreviewAccumulator = 0;
+                                    if (_directPdfPreviewTargetIndex != null) {
+                                      setState(() {
+                                        _directPdfPreviewTargetIndex = null;
+                                      });
+                                    }
+                                    _isScalingDisabled ??=
+                                        !cubit.state.moveEnabled;
+                                    if (_isScalingDisabled != false) {
+                                      _isScalingDisabled = cubit
+                                          .getHandler()
+                                          .onScaleStart(
+                                            details,
+                                            getEventContext(),
+                                          );
+                                    } else {
+                                      cubit.getHandler().onScaleStartAbort(
+                                        details,
+                                        getEventContext(),
+                                      );
+                                    }
+                                    ruler = RulerHandler.getFirstRuler(
+                                      currentIndex,
+                                      details.localFocalPoint,
+                                      constraints.biggest,
+                                    );
+                                    previousRulerRotation = 0;
+                                    point = details.localFocalPoint;
+                                    size = 1;
+                                  },
+                                  onLongPressStart: (details) =>
+                                      getHandler().onLongPressStart(
+                                        details,
+                                        getEventContext(),
+                                      ),
+                                  onLongPressDown: (details) =>
+                                      getHandler().onLongPressDown(
+                                        details,
+                                        getEventContext(),
+                                      ),
+                                  child: Listener(
+                                    onPointerSignal: (pointerSignal) {
+                                      if (state is! DocumentLoadSuccess) return;
+                                      if (pointerSignal is PointerScrollEvent) {
+                                        // dx and dy are the delta between the last scroll event
+                                        var dx = pointerSignal.scrollDelta.dx;
+                                        var dy = pointerSignal.scrollDelta.dy;
+                                        if (_mouseState == _MouseState.normal &&
+                                            _canUseDirectPdfPagePreview(
+                                              state,
+                                            ) &&
+                                            dy.abs() > dx.abs()) {
+                                          _updateDirectPdfPagePreview(
+                                            state,
+                                            dy,
+                                            threshold: 72,
+                                            commitOnIdle: true,
+                                          );
+                                          return;
+                                        }
+                                        // Get zoom by dx and dy
+                                        var scale = pointerSignal.size;
+                                        var sensitivity = context
+                                            .read<SettingsCubit>()
+                                            .state
+                                            .scrollSensitivity;
+                                        scale /= -sensitivity * 100;
+                                        scale += 1;
+                                        dx /= sensitivity;
+                                        dy /= sensitivity;
+                                        final cubit = context
+                                            .read<CurrentIndexCubit>();
+                                        final transform = context
+                                            .read<TransformCubit>()
+                                            .state;
+                                        if (_mouseState == _MouseState.scale) {
+                                          // Calculate the new scale using dx and dy
+                                          scale = -(dx + dy / 2) / 100 + 1;
+                                          cubit.zoom(
                                             scale,
                                             pointerSignal.localPosition,
                                           );
+                                        } else {
+                                          cubit
+                                            ..move(
+                                              (_mouseState ==
+                                                          _MouseState.inverse
+                                                      ? Offset(dy, dx)
+                                                      : Offset(dx, dy)) /
+                                                  transform.size,
+                                              currentArea: state.currentArea,
+                                            )
+                                            ..zoom(
+                                              scale,
+                                              pointerSignal.localPosition,
+                                            );
+                                        }
+                                        delayBake();
                                       }
-                                      delayBake();
-                                    }
-                                  },
-                                  onPointerPanZoomStart: (event) {
-                                    _isScalingDisabled = false;
-                                  },
-                                  onPointerDown: (event) => _handlePointerDown(
-                                    event,
-                                    cubit,
-                                    getHandler,
-                                    getEventContext,
-                                    changeTemporaryTool,
-                                  ),
-                                  onPointerUp: (event) => _handlePointerUp(
-                                    event,
-                                    cubit,
-                                    getHandler,
-                                    getEventContext,
-                                    changeTemporaryTool,
-                                  ),
-                                  behavior: HitTestBehavior.translucent,
-                                  onPointerHover: (event) {
-                                    final eventContext = getEventContext();
-                                    if (_shouldBlockMainPointerEvent(
+                                    },
+                                    onPointerPanZoomStart: (event) {
+                                      _isScalingDisabled = false;
+                                    },
+                                    onPointerDown: (event) =>
+                                        _handlePointerDown(
+                                          event,
+                                          cubit,
+                                          getHandler,
+                                          getEventContext,
+                                          changeTemporaryTool,
+                                        ),
+                                    onPointerUp: (event) => _handlePointerUp(
                                       event,
                                       cubit,
-                                      eventContext,
-                                    )) {
-                                      return;
-                                    }
-                                    cubit.updateLastPosition(
-                                      event.localPosition,
-                                    );
-                                    _dispatchToggleablePointerHover(
-                                      event,
-                                      eventContext,
-                                      cubit,
-                                    );
-                                    getHandler().onPointerHover(
-                                      event,
-                                      eventContext,
-                                    );
-                                  },
-                                  onPointerMove: (event) => _handlePointerMove(
-                                    event,
-                                    cubit,
-                                    state,
-                                    getHandler,
-                                    getEventContext,
-                                    changeTemporaryTool,
-                                    delayBake,
-                                  ),
-                                  onPointerCancel: (event) =>
-                                      _handlePointerCancel(
+                                      getHandler,
+                                      getEventContext,
+                                      changeTemporaryTool,
+                                    ),
+                                    behavior: HitTestBehavior.translucent,
+                                    onPointerHover: (event) {
+                                      final eventContext = getEventContext();
+                                      if (_shouldBlockMainPointerEvent(
                                         event,
                                         cubit,
-                                        getHandler,
-                                        getEventContext,
-                                        changeTemporaryTool,
-                                      ),
-                                  child: _buildCanvas(
-                                    currentIndex,
-                                    cubit,
-                                    state,
+                                        eventContext,
+                                      )) {
+                                        return;
+                                      }
+                                      cubit.updateLastPosition(
+                                        event.localPosition,
+                                      );
+                                      _dispatchToggleablePointerHover(
+                                        event,
+                                        eventContext,
+                                        cubit,
+                                      );
+                                      getHandler().onPointerHover(
+                                        event,
+                                        eventContext,
+                                      );
+                                    },
+                                    onPointerMove: (event) =>
+                                        _handlePointerMove(
+                                          event,
+                                          cubit,
+                                          state,
+                                          getHandler,
+                                          getEventContext,
+                                          changeTemporaryTool,
+                                          delayBake,
+                                        ),
+                                    onPointerCancel: (event) =>
+                                        _handlePointerCancel(
+                                          event,
+                                          cubit,
+                                          getHandler,
+                                          getEventContext,
+                                          changeTemporaryTool,
+                                        ),
+                                    child: _buildCanvas(
+                                      currentIndex,
+                                      cubit,
+                                      state,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               },
             );
@@ -1192,7 +1204,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                     currentIndex: currentIndex,
                     transform: frictionTransform,
                   ),
-                if (state.isDirectPdfSession && _directPdfPreviewTargetIndex != null)
+                if (state.isDirectPdfSession &&
+                    _directPdfPreviewTargetIndex != null)
                   _DirectPdfPagePreviewOverlay(
                     state: state,
                     targetIndex: _directPdfPreviewTargetIndex!,
