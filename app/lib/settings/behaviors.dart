@@ -154,6 +154,23 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         onTap: () => _openRenderResolutionModal(context),
                         leading: const Icon(PhosphorIconsLight.sparkle),
                       ),
+                      SwitchListTile(
+                        value: state.persistToolSizeGlobally,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changePersistToolSizeGlobally(value),
+                        title: Text(
+                          AppLocalizations.of(context).persistToolSizeGlobally,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).persistToolSizeGloballyDescription,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.penNib,
+                        ),
+                      ),
                     ],
                   ),
                 ),

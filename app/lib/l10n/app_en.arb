@@ -31,6 +31,30 @@
   "@zoom": {
     "description": "Zoom action or level"
   },
+  "zoomBox": "Zoom box",
+  "@zoomBox": {
+    "description": "Floating handwriting magnifier"
+  },
+  "zoomBoxDescription": "Write large in a magnified window and place strokes compactly on the page",
+  "@zoomBoxDescription": {
+    "description": "Zoom box tool caption"
+  },
+  "setAsDefault": "Make this the default position",
+  "@setAsDefault": {
+    "description": "Use the current zoom box reference box position and size as the default"
+  },
+  "resetDefaults": "Reset defaults",
+  "@resetDefaults": {
+    "description": "Reset the saved zoom box reference box defaults"
+  },
+  "persistToolSizeGlobally": "Persist tool size globally",
+  "@persistToolSizeGlobally": {
+    "description": "Setting label for using tool sizes across notes"
+  },
+  "persistToolSizeGloballyDescription": "Reuse the last pen, eraser, shape and similar tool sizes when creating new notes",
+  "@persistToolSizeGloballyDescription": {
+    "description": "Description for the global tool size persistence setting"
+  },
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "resetZoom": "Reset zoom",
@@ -421,6 +445,10 @@
   "@bottom": {
     "description": "Alignment"
   },
+  "dockToBottom": "Dock to bottom",
+  "@dockToBottom": {
+    "description": "Pin the zoom box back to the bottom of the viewport"
+  },
   "left": "Left",
   "@left": {
     "description": "Alignment"
@@ -610,6 +638,10 @@
   "penOnlyInputOnDescription": "Always reject touch and mouse input, only accept stylus input.",
   "penOnlyInputOffDescription": "Accept all input types including touch, mouse, and stylus.",
   "automatic": "Automatic",
+  "autoAdvance": "Auto advance",
+  "@autoAdvance": {
+    "description": "Automatically move the zoom box target after writing near the edge"
+  },
   "alwaysOn": "Always on",
   "alwaysOff": "Always off",
   "showPenOnlyToggle": "Show pen only toggle",
@@ -1241,6 +1273,10 @@
   },
   "moveLeft": "Move left",
   "moveRight": "Move right",
+  "newLine": "New line",
+  "@newLine": {
+    "description": "Move the zoom box target to the next line"
+  },
   "bundledPacks": "Bundled packs",
   "component": "Component",
   "@component": {

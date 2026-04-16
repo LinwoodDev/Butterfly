@@ -1,6 +1,8 @@
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/visualizer/tool.dart';
@@ -177,7 +179,12 @@ class _AddDialogState extends State<AddDialog> {
       if (state is! DocumentLoaded) return;
       final background =
           state.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
-      final copyTool = tool.copyWith(id: tool.id ?? createUniqueId());
+      final copyTool = context
+          .read<SettingsCubit>()
+          .state
+          .applyGlobalToolDefaults(
+            tool.copyWith(id: tool.id ?? createUniqueId()),
+          );
       final defaultTool = updateToolDefaultColor(copyTool, background);
       bloc.add(ToolCreated(defaultTool));
       if (!defaultTool.isAction()) {
@@ -283,6 +290,7 @@ class _AddDialogState extends State<AddDialog> {
                       Tool.eyeDropper,
                       Tool.ruler,
                       Tool.grid,
+                      Tool.zoomBox,
                       ...BarcodeType.values.map(
                         (e) =>
                             () => Tool.barcode(barcodeType: e),

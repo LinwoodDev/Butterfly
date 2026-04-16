@@ -7,11 +7,19 @@ class EraserHandler extends Handler<EraserTool> {
   final Map<String, List<PadElement>> _pendingChanges = {};
 
   EraserHandler(super.data);
+  Offset _getLocalPosition(PointerEvent event, EventContext context) =>
+      PointerManipulationHandler.calculatePointerPosition(
+        context.getCurrentIndex(),
+        event.localPosition,
+        context.viewportSize,
+        context.getCameraTransform(),
+      );
+
   // Called when the user presses the pointer (e.g., a finger or the mouse) on the screen. It starts the erasing action.
   @override
   Future<void> onPointerDown(PointerDownEvent event, EventContext context) {
     _pendingChanges.clear();
-    return _changeElement(event.localPosition, context);
+    return _changeElement(_getLocalPosition(event, context), context);
   }
 
   // Creates the cursors for the eraser. It shows an eraser cursor when the user is erasing.
@@ -41,14 +49,15 @@ class EraserHandler extends Handler<EraserTool> {
     PointerMoveEvent event,
     EventContext context,
   ) async {
-    _currentPos = event.localPosition;
+    final localPosition = _getLocalPosition(event, context);
+    _currentPos = localPosition;
     context.refreshForegrounds();
-    await _changeElement(event.localPosition, context);
+    await _changeElement(localPosition, context);
   }
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    _currentPos = event.localPosition;
+    _currentPos = _getLocalPosition(event, context);
     context.refreshForegrounds();
   }
 
@@ -171,7 +180,7 @@ class EraserHandler extends Handler<EraserTool> {
   @override
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     if (_erasingFuture != null) await _erasingFuture;
-    await _changeElement(event.localPosition, context);
+    await _changeElement(_getLocalPosition(event, context), context);
     if (_pendingChanges.isNotEmpty) {
       context.getDocumentBloc().add(ElementsChanged(Map.from(_pendingChanges)));
       _pendingChanges.clear();

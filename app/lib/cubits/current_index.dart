@@ -7,6 +7,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -149,6 +150,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   StreamSubscription? _transformSubscription;
   Timer? _transformDebounceTimer;
   static const _listEquality = ListEquality<Renderer<PadElement>>();
+  final Map<int, ZoomBoxTool> _zoomBoxSnapshots = {};
+  final Map<int, VoidCallback> _zoomBoxSnapshotListeners = {};
 
   void _onTransformChanged(CameraTransform transform) {
     // Debounce transform changes to avoid excessive updates during pan/zoom
@@ -319,7 +322,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (handler == null && (index < 0 || index >= info.tools.length)) {
       return null;
     }
-    handler ??= Handler.fromTool(info.tools[index]);
+    handler ??= Handler.fromTool(
+      _resolveFreshHandlerTool(info.tools[index], index),
+    );
     var selectState = SelectState.normal;
     if (context != null) {
       selectState = await handler.onSelected(context);
@@ -370,15 +375,27 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (isHandlerEnabled(index)) {
           disableHandler(bloc, index);
         } else {
+          final toggleableHandlers = Map<int, Handler<Tool>>.from(
+            state.toggleableHandlers,
+          );
+          final toggleableForegrounds = Map<int, List<Renderer>>.from(
+            state.toggleableForegrounds,
+          );
+          _removeConflictingZoomBoxes(
+            bloc,
+            handler,
+            index,
+            toggleableHandlers,
+            toggleableForegrounds,
+          );
           emit(
             state.copyWith(
-              toggleableHandlers: {...state.toggleableHandlers, index: handler},
-              toggleableForegrounds: {
-                ...state.toggleableForegrounds,
-                index: foregrounds,
-              },
+              toggleableHandlers: toggleableHandlers..[index] = handler,
+              toggleableForegrounds: toggleableForegrounds
+                ..[index] = foregrounds,
             ),
           );
+          _attachZoomBoxSnapshotListener(index, handler);
         }
       }
     }
@@ -534,7 +551,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
-    final handler = Handler.fromTool(tool);
+    final handler = Handler.fromTool(_resolveHandlerTool(tool));
     _disposeForegrounds();
     final foregrounds = handler.createForegrounds(
       this,
@@ -572,7 +589,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
-    final handler = Handler.fromTool(tool);
+    final handler = Handler.fromTool(_resolveHandlerTool(tool));
     _disposeTemporaryForegrounds();
     final foregrounds = handler.createForegrounds(
       this,
@@ -657,7 +674,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       List<Tool> tools = const [];
       final blocState = bloc.state;
       if (blocState is DocumentLoaded) tools = blocState.info.tools;
-      final tool = tools.elementAtOrNull(index) ?? HandTool();
+      final tool = _resolveFreshHandlerTool(
+        tools.elementAtOrNull(index) ?? HandTool(),
+        index,
+      );
       handler = Handler.fromTool(tool);
       needsDispose = true;
     }
@@ -885,6 +905,44 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return info.tools[index];
   }
 
+  Tool _resolveHandlerTool(Tool tool) =>
+      state.settingsCubit.state.applyGlobalToolDefaults(tool);
+
+  Tool _resolveFreshHandlerTool(Tool tool, [int? index]) {
+    if (tool is ZoomBoxTool && index != null) {
+      final snapshot = _zoomBoxSnapshots[index];
+      if (snapshot != null) {
+        return snapshot;
+      }
+      final resolved = _resolveHandlerTool(tool);
+      return resolved;
+    }
+    return _resolveHandlerTool(tool);
+  }
+
+  void _rememberZoomBoxSnapshot(int index, Handler<Tool>? handler) {
+    if (handler is! ZoomBoxHandler) return;
+    final snapshot = handler.snapshotTool();
+    _zoomBoxSnapshots[index] = snapshot;
+  }
+
+  void _attachZoomBoxSnapshotListener(int index, Handler<Tool>? handler) {
+    if (handler is! ZoomBoxHandler) return;
+    _detachZoomBoxSnapshotListener(index, handler);
+    void listener() {
+      _zoomBoxSnapshots[index] = handler.snapshotTool();
+    }
+
+    handler.listenable.addListener(listener);
+    _zoomBoxSnapshotListeners[index] = listener;
+  }
+
+  void _detachZoomBoxSnapshotListener(int index, Handler<Tool>? handler) {
+    final listener = _zoomBoxSnapshotListeners.remove(index);
+    if (listener == null || handler is! ZoomBoxHandler) return;
+    handler.listenable.removeListener(listener);
+  }
+
   T? fetchTool<T extends Tool>(DocumentInfo info) {
     final tool = getTool(info);
     if (tool is T) return tool;
@@ -899,13 +957,51 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
+  void _disposeToggleableEntry(
+    DocumentBloc bloc,
+    int index,
+    Map<int, Handler<Tool>> handlers,
+    Map<int, List<Renderer>> foregrounds,
+  ) {
+    final handler = handlers.remove(index);
+    if (handler == null) return;
+    if (handler is ZoomBoxHandler) {
+      _rememberZoomBoxSnapshot(index, handler);
+      _detachZoomBoxSnapshotListener(index, handler);
+      unawaited(handler.persistCurrentState(bloc));
+    }
+    handler.dispose(bloc);
+    for (final renderer in foregrounds.remove(index) ?? const <Renderer>[]) {
+      renderer.dispose();
+    }
+  }
+
+  void _removeConflictingZoomBoxes(
+    DocumentBloc bloc,
+    Handler toolHandler,
+    int keepIndex,
+    Map<int, Handler<Tool>> handlers,
+    Map<int, List<Renderer>> foregrounds,
+  ) {
+    if (toolHandler is! ZoomBoxHandler) return;
+    final conflicting = handlers.entries
+        .where(
+          (entry) => entry.key != keepIndex && entry.value is ZoomBoxHandler,
+        )
+        .map((entry) => entry.key)
+        .toList(growable: false);
+    for (final index in conflicting) {
+      _disposeToggleableEntry(bloc, index, handlers, foregrounds);
+    }
+  }
+
   Future<Handler?> enableHandler(DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoaded) return null;
     if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
-    final tool = blocState.info.tools[index];
+    final tool = _resolveFreshHandlerTool(blocState.info.tools[index], index);
     final handler = Handler.fromTool(tool);
     final document = blocState.data;
     final page = blocState.page;
@@ -930,14 +1026,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       );
     }
+    final toggleableHandlers = Map<int, Handler<Tool>>.from(
+      state.toggleableHandlers,
+    );
+    final toggleableForegrounds = Map<int, List<Renderer>>.from(
+      state.toggleableForegrounds,
+    );
+    _removeConflictingZoomBoxes(
+      bloc,
+      handler,
+      index,
+      toggleableHandlers,
+      toggleableForegrounds,
+    );
     emit(
       state.copyWith(
-        toggleableHandlers: Map.from(state.toggleableHandlers)
-          ..[index] = handler,
-        toggleableForegrounds: Map.from(state.toggleableForegrounds)
-          ..[index] = foregrounds,
+        toggleableHandlers: toggleableHandlers..[index] = handler,
+        toggleableForegrounds: toggleableForegrounds..[index] = foregrounds,
       ),
     );
+    _attachZoomBoxSnapshotListener(index, handler);
     return handler;
   }
 
@@ -945,6 +1053,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = state.toggleableHandlers[index];
     if (handler == null) {
       return false;
+    }
+    if (handler is ZoomBoxHandler) {
+      _rememberZoomBoxSnapshot(index, handler);
+      _detachZoomBoxSnapshotListener(index, handler);
+      unawaited(handler.persistCurrentState(bloc));
     }
     handler.dispose(bloc);
     final foregrounds = Map<int, List<Renderer>>.from(
@@ -967,6 +1080,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       state.toggleableHandlers.containsKey(index);
 
   void reset(DocumentBloc bloc) {
+    for (final entry in state.toggleableHandlers.entries) {
+      _detachZoomBoxSnapshotListener(entry.key, entry.value);
+    }
+    _zoomBoxSnapshots.clear();
+    _zoomBoxSnapshotListeners.clear();
     for (final r in renderers) {
       r.dispose();
     }
@@ -1033,7 +1151,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
-    final tool = blocState.info.tools[index];
+    final tool = _resolveFreshHandlerTool(blocState.info.tools[index], index);
     final temporaryHandler = state.temporaryHandler;
     if (!force && index == state.temporaryIndex && temporaryHandler != null) {
       return temporaryHandler;
@@ -1055,7 +1173,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     TemporaryState temporaryState = TemporaryState.allowClick,
   }) async {
     bloc ??= context.read<DocumentBloc>();
-    final handler = Handler.fromTool(tool);
+    final resolvedTool = _resolveHandlerTool(tool) as T;
+    final handler = Handler.fromTool(resolvedTool);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -1881,6 +2000,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<void> resetInput(DocumentBloc bloc) async {
     await state.handler.resetInput(bloc);
+    for (final handler in state.toggleableHandlers.values.toList(
+      growable: false,
+    )) {
+      await handler.resetInput(bloc);
+    }
     emit(state.copyWith(buttons: null, pointers: []));
   }
 
@@ -2403,9 +2527,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else {
       final refreshRequested = shouldRefresh?.call() == true;
       if (refreshRequested) {
-        // For replacement updates we force a reset bake below, so avoid
-        // scheduling an extra delayed bake from refresh().
-        await refresh(current, allowBake: replacedElements == null);
+        await refreshForegrounds(current);
       }
       if (replacedElements != null) {
         await bake(blocState, reset: true);
@@ -2436,18 +2558,39 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       state.toggleableForegrounds,
     );
     final currentTools = blocState.info.tools;
+    for (final index in state.toggleableHandlers.keys.toList(growable: false)) {
+      if (index < 0 || index >= currentTools.length) {
+        _disposeToggleableEntry(bloc, index, newHandlers, newForegrounds);
+        continue;
+      }
+      final currentTool = currentTools[index];
+      final currentHandler = state.toggleableHandlers[index];
+      if (currentHandler?.data.id != null &&
+          currentHandler?.data.id != currentTool.id) {
+        _disposeToggleableEntry(bloc, index, newHandlers, newForegrounds);
+      }
+    }
     for (final tool in tools) {
       if (tool.id == null) continue;
       final index = currentTools.indexWhere((element) => element.id == tool.id);
       if (index == -1) continue;
-      final old = state.toggleableHandlers[index];
+      final old = newHandlers[index];
       if (old == null) continue;
-      if (old.data == tool) continue;
+      final resolvedTool = _resolveFreshHandlerTool(tool, index);
+      if (old is ZoomBoxHandler && resolvedTool is ZoomBoxTool) {
+        _rememberZoomBoxSnapshot(index, old);
+        continue;
+      }
+      if (old.data == resolvedTool) continue;
+      final handler = Handler.fromTool(resolvedTool);
+      if (handler is ZoomBoxHandler && old is ZoomBoxHandler) {
+        handler.copyTransientStateFrom(old);
+      }
+      _detachZoomBoxSnapshotListener(index, old);
       old.dispose(bloc);
       for (final r in state.toggleableForegrounds[index] ?? []) {
         r.dispose();
       }
-      final handler = Handler.fromTool(tool);
       final document = blocState.data;
       final page = blocState.page;
       final info = blocState.info;
@@ -2471,8 +2614,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           ),
         );
       }
+      _removeConflictingZoomBoxes(
+        bloc,
+        handler,
+        index,
+        newHandlers,
+        newForegrounds,
+      );
       newHandlers[index] = handler;
       newForegrounds[index] = foregrounds;
+      _attachZoomBoxSnapshotListener(index, handler);
     }
     emit(
       state.copyWith(
@@ -2551,6 +2702,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (current is! DocumentLoaded) return;
     await reloadTool(bloc, current);
     await loadElements(current);
+    await updateTogglingTools(bloc, current.info.tools);
     await refresh(current, allowBake: false);
     await delayedBake(current);
   }

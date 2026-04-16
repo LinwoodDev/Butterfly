@@ -77,6 +77,7 @@ extension ToolVisualizer on Tool {
       RulerTool() => loc.ruler,
       BarcodeTool() => loc.barcode,
       PolygonTool() => loc.polygon,
+      ZoomBoxTool() => loc.zoomBox,
     };
   }
 
@@ -86,6 +87,7 @@ extension ToolVisualizer on Tool {
       SpacerTool e =>
         e.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
       SelectTool e => e.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      ZoomBoxTool() => '',
       ExportTool e => switch (e.options) {
         ImageExportOptions() => loc.image,
         SvgExportOptions() => loc.svg,
@@ -131,6 +133,7 @@ extension ToolVisualizer on Tool {
     RulerTool() => PhosphorIcons.ruler,
     BarcodeTool tool => tool.barcodeType.icon,
     PolygonTool() => PhosphorIcons.polygon,
+    ZoomBoxTool() => PhosphorIcons.magnifyingGlassPlus,
   };
 
   List<String> get help {
@@ -160,6 +163,7 @@ extension ToolVisualizer on Tool {
       RulerTool() => 'ruler',
       BarcodeTool() => 'barcode',
       PolygonTool() => 'polygon',
+      ZoomBoxTool() => null,
     };
     if (page == null) return [];
     return ['tools', page];

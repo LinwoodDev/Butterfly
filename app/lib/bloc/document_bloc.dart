@@ -8,6 +8,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
@@ -552,6 +553,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
+      if (event.tool is ZoomBoxTool &&
+          current.info.tools.any((tool) => tool is ZoomBoxTool)) {
+        return;
+      }
       _saveState(
         emit,
         state: current.copyWith(
@@ -562,7 +567,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
     });
-    on<ToolsChanged>((event, emit) {
+    on<ToolsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -594,17 +599,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           (element) => element.id == id,
         );
         if (updatedCurrent != null) {
-          current.currentIndexCubit.updateTool(this, updatedCurrent);
+          await current.currentIndexCubit.updateTool(this, updatedCurrent);
         }
       }
-      current.currentIndexCubit.updateTogglingTools(this, event.tools);
+      await current.currentIndexCubit.updateTogglingTools(this, event.tools);
       final tempHandler = current.currentIndexCubit.state.temporaryHandler;
       if (tempHandler != null && tempHandler.data.id != null) {
         final updatedTempCurrent = event.tools.firstWhereOrNull(
           (element) => element.id == tempHandler.data.id,
         );
         if (updatedTempCurrent != null) {
-          current.currentIndexCubit.updateTemporaryTool(
+          await current.currentIndexCubit.updateTemporaryTool(
             this,
             updatedTempCurrent,
           );
@@ -613,7 +618,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (selection != null) {
         current.currentIndexCubit.changeSelection(selection);
       }
-    });
+      await syncGlobalToolStrokeWidths(current.settingsCubit, event.tools);
+      await syncGlobalZoomBoxTool(current.settingsCubit, event.tools);
+    }, transformer: sequential());
     on<ToolsRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

@@ -8,6 +8,14 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   final Set<String> _erased = {};
   PathEraserHandler(super.data);
 
+  Offset _getLocalPosition(PointerEvent event, EventContext context) =>
+      PointerManipulationHandler.calculatePointerPosition(
+        context.getCurrentIndex(),
+        event.localPosition,
+        context.viewportSize,
+        context.getCameraTransform(),
+      );
+
   @override
   List<Renderer> createForegrounds(
     CurrentIndexCubit currentIndexCubit,
@@ -28,7 +36,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    _currentPos = event.localPosition;
+    _currentPos = _getLocalPosition(event, context);
     context.refreshForegrounds();
   }
 
@@ -51,9 +59,10 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     PointerMoveEvent event,
     EventContext context,
   ) async {
-    _currentPos = event.localPosition;
+    final localPosition = _getLocalPosition(event, context);
+    _currentPos = localPosition;
     context.refreshForegrounds();
-    await _erase(event.localPosition, context);
+    await _erase(localPosition, context);
   }
 
   Future<void> _erase(Offset position, EventContext context) async {

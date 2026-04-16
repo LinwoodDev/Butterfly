@@ -50,6 +50,27 @@ Map<String, dynamic>? _decodeJsonMapOrNull(String? raw) {
   return null;
 }
 
+Map<String, double> _decodeDoubleMap(String? raw) {
+  final decoded = _decodeJsonMapOrEmpty(raw);
+  return decoded.map(
+    (key, value) => MapEntry(key, (value as num?)?.toDouble() ?? 0),
+  );
+}
+
+ZoomBoxTool? _decodeZoomBoxToolOrNull(String? raw) {
+  final map = _decodeJsonMapOrNull(raw);
+  if (map == null) return null;
+  try {
+    final tool = Tool.fromJson(map);
+    if (tool is ZoomBoxTool) {
+      return tool;
+    }
+  } catch (_) {
+    return null;
+  }
+  return null;
+}
+
 PackAssetLocation? _decodeSelectedPaletteOrNull(String? raw) {
   final map = _decodeJsonMapOrNull(raw);
   if (map == null) return null;
@@ -435,6 +456,9 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([]) List<String> swamps,
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
+    @Default(false) bool persistToolSizeGlobally,
+    @Default({}) Map<String, double> globalToolStrokeWidths,
+    ZoomBoxTool? globalZoomBoxTool,
     @Default(true) bool showThumbnails,
   }) = _ButterflySettings;
 
@@ -652,6 +676,14 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? _decodeSelectedPaletteOrNull(prefs.getString('selected_palette'))
           : null,
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
+      persistToolSizeGlobally:
+          prefs.getBool('persist_tool_size_globally') ?? false,
+      globalToolStrokeWidths: _decodeDoubleMap(
+        prefs.getString('global_tool_stroke_widths'),
+      ),
+      globalZoomBoxTool: _decodeZoomBoxToolOrNull(
+        prefs.getString('global_zoom_box_tool'),
+      ),
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
     );
@@ -774,7 +806,25 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       await prefs.remove('selected_palette');
     }
     await prefs.setBool('show_verbose_logs', showVerboseLogs);
+    await prefs.setBool('persist_tool_size_globally', persistToolSizeGlobally);
+    if (globalToolStrokeWidths.isNotEmpty) {
+      await prefs.setString(
+        'global_tool_stroke_widths',
+        json.encode(globalToolStrokeWidths),
+      );
+    } else {
+      await prefs.remove('global_tool_stroke_widths');
+    }
+    if (globalZoomBoxTool != null) {
+      await prefs.setString(
+        'global_zoom_box_tool',
+        json.encode(globalZoomBoxTool!.toJson()),
+      );
+    } else {
+      await prefs.remove('global_zoom_box_tool');
+    }
     await prefs.setBool('hide_extension', hideExtension);
+    await prefs.setBool('show_thumbnails', showThumbnails);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1393,6 +1443,21 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowVerboseLogs(bool value) {
     emit(state.copyWith(showVerboseLogs: value));
+    return save();
+  }
+
+  Future<void> changePersistToolSizeGlobally(bool value) {
+    emit(state.copyWith(persistToolSizeGlobally: value));
+    return save();
+  }
+
+  Future<void> changeGlobalToolStrokeWidths(Map<String, double> value) {
+    emit(state.copyWith(globalToolStrokeWidths: value));
+    return save();
+  }
+
+  Future<void> changeGlobalZoomBoxTool(ZoomBoxTool? value) {
+    emit(state.copyWith(globalZoomBoxTool: value));
     return save();
   }
 

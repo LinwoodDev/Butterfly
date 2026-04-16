@@ -602,3 +602,48 @@ Map<String, dynamic> _$PolygonToolToJson(PolygonTool instance) =>
       'property': instance.property.toJson(),
       'type': instance.$type,
     };
+
+ZoomBoxTool _$ZoomBoxToolFromJson(Map json) => ZoomBoxTool(
+  name: json['name'] as String? ?? '',
+  displayIcon: json['displayIcon'] as String? ?? '',
+  id: const IdJsonConverter().fromJson(json['id'] as String?),
+  zoomFactor: (json['zoomFactor'] as num?)?.toDouble() ?? 3.0,
+  boxLeft: (json['boxLeft'] as num?)?.toDouble(),
+  boxTop: (json['boxTop'] as num?)?.toDouble(),
+  boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
+  boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 240,
+  autoAdvance: json['autoAdvance'] as bool? ?? true,
+  autoAdvanceTriggerFraction:
+      (json['autoAdvanceTriggerFraction'] as num?)?.toDouble() ?? 0.9,
+  autoAdvancePauseSeconds:
+      (json['autoAdvancePauseSeconds'] as num?)?.toDouble() ?? 0.22,
+  targetLeft: (json['targetLeft'] as num?)?.toDouble(),
+  targetTop: (json['targetTop'] as num?)?.toDouble(),
+  locked: json['locked'] as bool? ?? false,
+  docked: json['docked'] as bool? ?? true,
+  targetWidthScale: (json['targetWidthScale'] as num?)?.toDouble() ?? 1.0,
+  targetHeightScale: (json['targetHeightScale'] as num?)?.toDouble() ?? 1.0,
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ZoomBoxToolToJson(ZoomBoxTool instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'id': const IdJsonConverter().toJson(instance.id),
+      'zoomFactor': instance.zoomFactor,
+      'boxLeft': instance.boxLeft,
+      'boxTop': instance.boxTop,
+      'boxWidth': instance.boxWidth,
+      'boxHeight': instance.boxHeight,
+      'autoAdvance': instance.autoAdvance,
+      'autoAdvanceTriggerFraction': instance.autoAdvanceTriggerFraction,
+      'autoAdvancePauseSeconds': instance.autoAdvancePauseSeconds,
+      'targetLeft': instance.targetLeft,
+      'targetTop': instance.targetTop,
+      'locked': instance.locked,
+      'docked': instance.docked,
+      'targetWidthScale': instance.targetWidthScale,
+      'targetHeightScale': instance.targetHeightScale,
+      'type': instance.$type,
+    };

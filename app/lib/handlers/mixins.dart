@@ -41,8 +41,13 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   void changeToolColor(DocumentBloc bloc, SRGBColor value) =>
       changeTool(bloc, setColor(value));
 
-  void changeToolStrokeWidth(DocumentBloc bloc, double value) =>
-      changeTool(bloc, setStrokeWidth(value));
+  void changeToolStrokeWidth(DocumentBloc bloc, double value) {
+    changeTool(bloc, setStrokeWidth(value));
+    final settingsCubit = bloc.state.settingsCubit;
+    if (!settingsCubit.state.persistToolSizeGlobally) {
+      unawaited(settingsCubit.changePersistToolSizeGlobally(true));
+    }
+  }
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
@@ -256,12 +261,18 @@ mixin PointerManipulationHandler<T> on Handler<T> {
     Size viewportSize, [
     CameraTransform transform = const CameraTransform(),
   ]) {
-    return index.toggleableHandlers.values
-        .whereType<PointerManipulationHandler>()
-        .fold(
-          position,
-          (pos, handler) =>
-              handler.getPointerPosition(pos, viewportSize, transform),
-        );
+    var result = position;
+    for (final handler in index.toggleableHandlers.values) {
+      if (handler is ZoomBoxHandler) {
+        result = handler.getPointerPosition(result, viewportSize, transform);
+      }
+    }
+    for (final handler in index.toggleableHandlers.values) {
+      if (handler is PointerManipulationHandler<Tool> &&
+          handler is! ZoomBoxHandler) {
+        result = handler.getPointerPosition(result, viewportSize, transform);
+      }
+    }
+    return result;
   }
 }

@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view_painter.dart';
+import 'zoom_box.dart';
 
 const kFallbackSecondaryStylusButton = 0x20;
 
@@ -43,12 +44,85 @@ class _MainViewViewportState extends State<MainViewViewport>
   int _fingersInvolved = 0;
   bool _isTouchTapGesture = false;
   Timer? _touchTapTimer;
+  final Set<int> _overlayBlockedPointers = {};
 
   void _resetTouchTap() {
     _bufferedEvents.clear();
     _touchStartPositions.clear();
     _isTouchTapGesture = false;
     _fingersInvolved = 0;
+  }
+
+  ZoomBoxHitRegion _zoomBoxHitRegion(
+    CurrentIndexCubit cubit,
+    Offset localPosition,
+    EventContext context,
+    PointerDeviceKind? kind,
+  ) {
+    for (final handler
+        in cubit.state.toggleableHandlers.values.whereType<ZoomBoxHandler>()) {
+      final hit = handler.hitTest(
+        localPosition,
+        context.viewportSize,
+        context.getCameraTransform(),
+        kind,
+      );
+      if (hit != ZoomBoxHitRegion.none) return hit;
+    }
+    return ZoomBoxHitRegion.none;
+  }
+
+  bool _shouldBlockMainPointerEvent(
+    PointerEvent event,
+    CurrentIndexCubit cubit,
+    EventContext context,
+  ) {
+    if (_overlayBlockedPointers.contains(event.pointer)) return true;
+    return _zoomBoxHitRegion(cubit, event.localPosition, context, event.kind) ==
+        ZoomBoxHitRegion.controls;
+  }
+
+  List<Handler> _toggleableHandlers(CurrentIndexCubit cubit) =>
+      cubit.state.toggleableHandlers.values.toList(growable: false);
+
+  void _dispatchToggleablePointerDown(
+    PointerDownEvent event,
+    EventContext context,
+    CurrentIndexCubit cubit,
+  ) {
+    for (final handler in _toggleableHandlers(cubit)) {
+      handler.onPointerDown(event, context);
+    }
+  }
+
+  void _dispatchToggleablePointerMove(
+    PointerMoveEvent event,
+    EventContext context,
+    CurrentIndexCubit cubit,
+  ) {
+    for (final handler in _toggleableHandlers(cubit)) {
+      handler.onPointerMove(event, context);
+    }
+  }
+
+  void _dispatchToggleablePointerUp(
+    PointerUpEvent event,
+    EventContext context,
+    CurrentIndexCubit cubit,
+  ) {
+    for (final handler in _toggleableHandlers(cubit)) {
+      handler.onPointerUp(event, context);
+    }
+  }
+
+  void _dispatchToggleablePointerHover(
+    PointerHoverEvent event,
+    EventContext context,
+    CurrentIndexCubit cubit,
+  ) {
+    for (final handler in _toggleableHandlers(cubit)) {
+      handler.onPointerHover(event, context);
+    }
   }
 
   Future<void> _flushBufferedEvents(
@@ -58,31 +132,42 @@ class _MainViewViewportState extends State<MainViewViewport>
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
   ) async {
     for (final e in _bufferedEvents) {
+      final eventContext = getEventContext();
       if (e is PointerDownEvent) {
+        if (_shouldBlockMainPointerEvent(e, cubit, eventContext)) {
+          _overlayBlockedPointers.add(e.pointer);
+          continue;
+        }
         _isScalingDisabled = e.kind == PointerDeviceKind.trackpad
             ? false
             : null;
         cubit.addPointer(e.pointer);
         cubit.setButtons(e.buttons);
         final handler = getHandler();
-        if (handler.canChange(e, getEventContext())) {
+        if (handler.canChange(e, eventContext)) {
           await changeTemporaryTool(e.kind, e.buttons);
         }
         if (_isScalingDisabled ?? true) {
-          getHandler().onPointerDown(e, getEventContext());
+          _dispatchToggleablePointerDown(e, eventContext, cubit);
+          getHandler().onPointerDown(e, eventContext);
         }
       } else if (e is PointerMoveEvent) {
+        if (_overlayBlockedPointers.contains(e.pointer)) continue;
         cubit.updateLastPosition(e.localPosition);
         if (_isScalingDisabled ?? true) {
-          getHandler().onPointerMove(e, getEventContext());
+          _dispatchToggleablePointerMove(e, eventContext, cubit);
+          getHandler().onPointerMove(e, eventContext);
         }
       } else if (e is PointerUpEvent) {
+        if (_overlayBlockedPointers.remove(e.pointer)) continue;
         cubit.updateLastPosition(e.localPosition);
         if (_isScalingDisabled ?? true) {
-          await getHandler().onPointerUp(e, getEventContext());
+          await getHandler().onPointerUp(e, eventContext);
+          _dispatchToggleablePointerUp(e, eventContext, cubit);
         }
         cubit.removePointer(e.pointer);
       } else if (e is PointerCancelEvent) {
+        _overlayBlockedPointers.remove(e.pointer);
         cubit.removePointer(e.pointer);
         cubit.removeButtons();
         if (cubit.state.pointers.isEmpty) {
@@ -99,10 +184,15 @@ class _MainViewViewportState extends State<MainViewViewport>
     EventContext Function() getEventContext,
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
   ) async {
+    final eventContext = getEventContext();
     // Detect pen/stylus input
     if (event.kind == PointerDeviceKind.stylus ||
         event.kind == PointerDeviceKind.invertedStylus) {
       cubit.setPenDetected(true);
+    }
+    if (_shouldBlockMainPointerEvent(event, cubit, eventContext)) {
+      _overlayBlockedPointers.add(event.pointer);
+      return;
     }
     if (event.kind == PointerDeviceKind.touch) {
       final config = context.read<SettingsCubit>().state.inputConfiguration;
@@ -128,11 +218,12 @@ class _MainViewViewportState extends State<MainViewViewport>
     cubit.addPointer(event.pointer);
     cubit.setButtons(event.buttons);
     final handler = getHandler();
-    if (handler.canChange(event, getEventContext())) {
+    if (handler.canChange(event, eventContext)) {
       await changeTemporaryTool(event.kind, event.buttons);
     }
     if (_isScalingDisabled ?? true) {
-      getHandler().onPointerDown(event, getEventContext());
+      _dispatchToggleablePointerDown(event, eventContext, cubit);
+      getHandler().onPointerDown(event, eventContext);
     }
   }
 
@@ -145,6 +236,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
     VoidCallback delayBake,
   ) async {
+    final eventContext = getEventContext();
     if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
       _bufferedEvents.add(event);
       final startPos = _touchStartPositions[event.pointer];
@@ -159,6 +251,9 @@ class _MainViewViewportState extends State<MainViewViewport>
         );
         _resetTouchTap();
       }
+      return;
+    }
+    if (_overlayBlockedPointers.contains(event.pointer)) {
       return;
     }
 
@@ -189,7 +284,8 @@ class _MainViewViewportState extends State<MainViewViewport>
       return;
     }
     if (_isScalingDisabled ?? true) {
-      getHandler().onPointerMove(event, getEventContext());
+      _dispatchToggleablePointerMove(event, eventContext, cubit);
+      getHandler().onPointerMove(event, eventContext);
     }
   }
 
@@ -200,6 +296,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     EventContext Function() getEventContext,
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
   ) async {
+    final eventContext = getEventContext();
     if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
       _bufferedEvents.add(event);
       _touchStartPositions.remove(event.pointer);
@@ -263,10 +360,14 @@ class _MainViewViewportState extends State<MainViewViewport>
       }
       return;
     }
+    if (_overlayBlockedPointers.remove(event.pointer)) {
+      return;
+    }
 
     cubit.updateLastPosition(event.localPosition);
     if (_isScalingDisabled ?? true) {
-      await getHandler().onPointerUp(event, getEventContext());
+      await getHandler().onPointerUp(event, eventContext);
+      _dispatchToggleablePointerUp(event, eventContext, cubit);
     }
     cubit.removePointer(event.pointer);
   }
@@ -278,6 +379,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     EventContext Function() getEventContext,
     Future<void> Function(PointerDeviceKind, int) changeTemporaryTool,
   ) async {
+    _overlayBlockedPointers.remove(event.pointer);
     if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
       _isTouchTapGesture = false;
       _touchTapTimer?.cancel();
@@ -687,12 +789,25 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   ),
                                   behavior: HitTestBehavior.translucent,
                                   onPointerHover: (event) {
+                                    final eventContext = getEventContext();
+                                    if (_shouldBlockMainPointerEvent(
+                                      event,
+                                      cubit,
+                                      eventContext,
+                                    )) {
+                                      return;
+                                    }
                                     cubit.updateLastPosition(
                                       event.localPosition,
                                     );
+                                    _dispatchToggleablePointerHover(
+                                      event,
+                                      eventContext,
+                                      cubit,
+                                    );
                                     getHandler().onPointerHover(
                                       event,
-                                      getEventContext(),
+                                      eventContext,
                                     );
                                   },
                                   onPointerMove: (event) => _handlePointerMove(
@@ -775,6 +890,8 @@ class _MainViewViewportState extends State<MainViewViewport>
               _positionAnimation?.value ?? Offset.zero,
               0,
             );
+            final zoomBoxEntry = currentIndex.toggleableHandlers.entries
+                .firstWhereOrNull((entry) => entry.value is ZoomBoxHandler);
             return Stack(
               children: [
                 Container(color: ColorScheme.of(context).surfaceDim),
@@ -803,6 +920,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                   isComplex: true,
                   willChange: true,
                 ),
+                if (zoomBoxEntry != null)
+                  ZoomBoxOverlay(
+                    handler: zoomBoxEntry.value as ZoomBoxHandler,
+                    toolIndex: zoomBoxEntry.key,
+                    documentState: state,
+                    currentIndex: currentIndex,
+                    transform: frictionTransform,
+                  ),
               ],
             );
           },

@@ -115,6 +115,10 @@ Tool _$ToolFromJson(
           return PolygonTool.fromJson(
             json
           );
+                case 'zoomBox':
+          return ZoomBoxTool.fromJson(
+            json
+          );
         
           default:
             throw CheckedFromJsonException(
@@ -2106,6 +2110,104 @@ as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_null
 as String?,zoomDependent: null == zoomDependent ? _self.zoomDependent : zoomDependent // ignore: cast_nullable_to_non_nullable
 as bool,property: freezed == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as PolygonProperty,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class ZoomBoxTool extends Tool {
+   ZoomBoxTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomFactor = 3.0, this.boxLeft, this.boxTop, this.boxWidth = 0, this.boxHeight = 240, this.autoAdvance = true, this.autoAdvanceTriggerFraction = 0.9, this.autoAdvancePauseSeconds = 0.22, this.targetLeft, this.targetTop, this.locked = false, this.docked = true, this.targetWidthScale = 1.0, this.targetHeightScale = 1.0, final  String? $type}): $type = $type ?? 'zoomBox',super._();
+  factory ZoomBoxTool.fromJson(Map<String, dynamic> json) => _$ZoomBoxToolFromJson(json);
+
+@override@JsonKey() final  String name;
+@override@JsonKey() final  String displayIcon;
+@override@IdJsonConverter() final  String? id;
+@JsonKey() final  double zoomFactor;
+ final  double? boxLeft;
+ final  double? boxTop;
+@JsonKey() final  double boxWidth;
+@JsonKey() final  double boxHeight;
+@JsonKey() final  bool autoAdvance;
+@JsonKey() final  double autoAdvanceTriggerFraction;
+@JsonKey() final  double autoAdvancePauseSeconds;
+ final  double? targetLeft;
+ final  double? targetTop;
+@JsonKey() final  bool locked;
+@JsonKey() final  bool docked;
+@JsonKey() final  double targetWidthScale;
+@JsonKey() final  double targetHeightScale;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZoomBoxToolCopyWith<ZoomBoxTool> get copyWith => _$ZoomBoxToolCopyWithImpl<ZoomBoxTool>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ZoomBoxToolToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'Tool.zoomBox(name: $name, displayIcon: $displayIcon, id: $id, zoomFactor: $zoomFactor, boxLeft: $boxLeft, boxTop: $boxTop, boxWidth: $boxWidth, boxHeight: $boxHeight, autoAdvance: $autoAdvance, autoAdvanceTriggerFraction: $autoAdvanceTriggerFraction, autoAdvancePauseSeconds: $autoAdvancePauseSeconds, targetLeft: $targetLeft, targetTop: $targetTop, locked: $locked, docked: $docked, targetWidthScale: $targetWidthScale, targetHeightScale: $targetHeightScale)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZoomBoxToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory $ZoomBoxToolCopyWith(ZoomBoxTool value, $Res Function(ZoomBoxTool) _then) = _$ZoomBoxToolCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String displayIcon,@IdJsonConverter() String? id, double zoomFactor, double? boxLeft, double? boxTop, double boxWidth, double boxHeight, bool autoAdvance, double autoAdvanceTriggerFraction, double autoAdvancePauseSeconds, double? targetLeft, double? targetTop, bool locked, bool docked, double targetWidthScale, double targetHeightScale
+});
+
+
+
+
+}
+/// @nodoc
+class _$ZoomBoxToolCopyWithImpl<$Res>
+    implements $ZoomBoxToolCopyWith<$Res> {
+  _$ZoomBoxToolCopyWithImpl(this._self, this._then);
+
+  final ZoomBoxTool _self;
+  final $Res Function(ZoomBoxTool) _then;
+
+/// Create a copy of Tool
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomFactor = null,Object? boxLeft = freezed,Object? boxTop = freezed,Object? boxWidth = null,Object? boxHeight = null,Object? autoAdvance = null,Object? autoAdvanceTriggerFraction = null,Object? autoAdvancePauseSeconds = null,Object? targetLeft = freezed,Object? targetTop = freezed,Object? locked = null,Object? docked = null,Object? targetWidthScale = null,Object? targetHeightScale = null,}) {
+  return _then(ZoomBoxTool(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
+as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,zoomFactor: null == zoomFactor ? _self.zoomFactor : zoomFactor // ignore: cast_nullable_to_non_nullable
+as double,boxLeft: freezed == boxLeft ? _self.boxLeft : boxLeft // ignore: cast_nullable_to_non_nullable
+as double?,boxTop: freezed == boxTop ? _self.boxTop : boxTop // ignore: cast_nullable_to_non_nullable
+as double?,boxWidth: null == boxWidth ? _self.boxWidth : boxWidth // ignore: cast_nullable_to_non_nullable
+as double,boxHeight: null == boxHeight ? _self.boxHeight : boxHeight // ignore: cast_nullable_to_non_nullable
+as double,autoAdvance: null == autoAdvance ? _self.autoAdvance : autoAdvance // ignore: cast_nullable_to_non_nullable
+as bool,autoAdvanceTriggerFraction: null == autoAdvanceTriggerFraction ? _self.autoAdvanceTriggerFraction : autoAdvanceTriggerFraction // ignore: cast_nullable_to_non_nullable
+as double,autoAdvancePauseSeconds: null == autoAdvancePauseSeconds ? _self.autoAdvancePauseSeconds : autoAdvancePauseSeconds // ignore: cast_nullable_to_non_nullable
+as double,targetLeft: freezed == targetLeft ? _self.targetLeft : targetLeft // ignore: cast_nullable_to_non_nullable
+as double?,targetTop: freezed == targetTop ? _self.targetTop : targetTop // ignore: cast_nullable_to_non_nullable
+as double?,locked: null == locked ? _self.locked : locked // ignore: cast_nullable_to_non_nullable
+as bool,docked: null == docked ? _self.docked : docked // ignore: cast_nullable_to_non_nullable
+as bool,targetWidthScale: null == targetWidthScale ? _self.targetWidthScale : targetWidthScale // ignore: cast_nullable_to_non_nullable
+as double,targetHeightScale: null == targetHeightScale ? _self.targetHeightScale : targetHeightScale // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

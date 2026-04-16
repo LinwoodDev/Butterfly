@@ -17,6 +17,7 @@ import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
@@ -86,6 +87,7 @@ part 'spacer.dart';
 part 'stamp.dart';
 part 'texture.dart';
 part 'undo.dart';
+part 'zoom_box.dart';
 
 @immutable
 class EventContext {
@@ -305,6 +307,7 @@ abstract class Handler<T> {
           RulerTool() => RulerHandler(tool),
           BarcodeTool() => BarcodeHandler(tool),
           PolygonTool() => PolygonHandler(tool),
+          ZoomBoxTool() => ZoomBoxHandler(tool),
         }
         as Handler<T>;
   }

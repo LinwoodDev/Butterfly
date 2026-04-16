@@ -253,6 +253,26 @@ sealed class Tool with _$Tool {
     @Default(PolygonProperty()) PolygonProperty property,
   }) = PolygonTool;
 
+  factory Tool.zoomBox({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @IdJsonConverter() String? id,
+    @Default(3.0) double zoomFactor,
+    double? boxLeft,
+    double? boxTop,
+    @Default(0) double boxWidth,
+    @Default(240) double boxHeight,
+    @Default(true) bool autoAdvance,
+    @Default(0.9) double autoAdvanceTriggerFraction,
+    @Default(0.22) double autoAdvancePauseSeconds,
+    double? targetLeft,
+    double? targetTop,
+    @Default(false) bool locked,
+    @Default(true) bool docked,
+    @Default(1.0) double targetWidthScale,
+    @Default(1.0) double targetHeightScale,
+  }) = ZoomBoxTool;
+
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 
   ToolCategory get category => switch (this) {
@@ -281,5 +301,6 @@ sealed class Tool with _$Tool {
     EyeDropperTool() => ToolCategory.action,
     BarcodeTool() => ToolCategory.surface,
     PolygonTool() => ToolCategory.surface,
+    ZoomBoxTool() => ToolCategory.view,
   };
 }

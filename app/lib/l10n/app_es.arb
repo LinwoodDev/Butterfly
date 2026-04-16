@@ -26,6 +26,30 @@
   "@zoom": {
     "description": "Zoom action or level"
   },
+  "zoomBox": "Zoom box",
+  "@zoomBox": {
+    "description": "Floating handwriting magnifier"
+  },
+  "zoomBoxDescription": "Escribe grande en una ventana ampliada y coloca los trazos de forma compacta en la pagina",
+  "@zoomBoxDescription": {
+    "description": "Zoom box tool caption"
+  },
+  "setAsDefault": "Predeterminar esta posición",
+  "@setAsDefault": {
+    "description": "Use the current zoom box reference box position and size as the default"
+  },
+  "resetDefaults": "Restablecer predeterminados",
+  "@resetDefaults": {
+    "description": "Reset the saved zoom box reference box defaults"
+  },
+  "persistToolSizeGlobally": "Persistir tamano global de herramienta",
+  "@persistToolSizeGlobally": {
+    "description": "Setting label for using tool sizes across notes"
+  },
+  "persistToolSizeGloballyDescription": "Reutiliza el ultimo tamano de pluma, borrador, formas y herramientas similares al crear notas nuevas",
+  "@persistToolSizeGloballyDescription": {
+    "description": "Description for the global tool size persistence setting"
+  },
   "zoomIn": "Acercarse en",
   "zoomOut": "Apagar",
   "resetZoom": "Reset zoom",
@@ -58,6 +82,18 @@
   "no": "Nu",
   "yes": "Sí",
   "undo": "Deshacer",
+  "autoAdvance": "Autoavance",
+  "@autoAdvance": {
+    "description": "Automatically move the zoom box target after writing near the edge"
+  },
+  "dockToBottom": "Acoplar abajo",
+  "@dockToBottom": {
+    "description": "Pin the zoom box back to the bottom of the viewport"
+  },
+  "newLine": "Nueva linea",
+  "@newLine": {
+    "description": "Move the zoom box target to the next line"
+  },
   "@undo": {
     "description": "Undo action"
   },

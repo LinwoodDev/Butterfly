@@ -1,6 +1,9 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 
 class FileSystemAssetCreateDialog extends StatefulWidget {
@@ -69,7 +72,13 @@ class _FileSystemAssetCreateDialogState
                 if (!widget.isFolder) {
                   await widget.fileSystem.createFile(
                     newPath,
-                    DocumentDefaults.createDocument().toFile(),
+                    context
+                        .read<SettingsCubit>()
+                        .state
+                        .applyGlobalToolDefaultsToDocument(
+                          DocumentDefaults.createDocument(),
+                        )
+                        .toFile(),
                   );
                 } else {
                   await widget.fileSystem.createDirectory(newPath);

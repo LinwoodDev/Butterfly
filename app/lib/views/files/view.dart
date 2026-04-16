@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/files/entity.dart';
@@ -139,7 +140,13 @@ class FilesViewState extends State<FilesView> {
       directory: path,
       name: name,
       suffix: isTextBased ? '.tbfly' : '.bfly',
-      template.createDocument(name: name).toFile(isTextBased: isTextBased),
+      context
+          .read<SettingsCubit>()
+          .state
+          .applyGlobalToolDefaultsToDocument(
+            template.createDocument(name: name),
+          )
+          .toFile(isTextBased: isTextBased),
     );
     reloadFileSystem();
   }

@@ -213,6 +213,17 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
           Map<String, dynamic>.from(json['selectedPalette'] as Map),
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
+  persistToolSizeGlobally: json['persistToolSizeGlobally'] as bool? ?? false,
+  globalToolStrokeWidths:
+      (json['globalToolStrokeWidths'] as Map?)?.map(
+        (k, e) => MapEntry(k as String, (e as num).toDouble()),
+      ) ??
+      const {},
+  globalZoomBoxTool: json['globalZoomBoxTool'] == null
+      ? null
+      : ZoomBoxTool.fromJson(
+          Map<String, dynamic>.from(json['globalZoomBoxTool'] as Map),
+        ),
   showThumbnails: json['showThumbnails'] as bool? ?? true,
 );
 
@@ -283,6 +294,9 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'swamps': instance.swamps,
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
+  'persistToolSizeGlobally': instance.persistToolSizeGlobally,
+  'globalToolStrokeWidths': instance.globalToolStrokeWidths,
+  'globalZoomBoxTool': instance.globalZoomBoxTool?.toJson(),
   'showThumbnails': instance.showThumbnails,
 };
 

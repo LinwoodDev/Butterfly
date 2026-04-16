@@ -18,7 +18,8 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "dev.linwood.butterfly"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Keep the highest NDK required by transitive plugins to avoid version skew.
+    ndkVersion = "29.0.13846066"
 
     // Flutter-friendly toggles:
     // - Env: USE_LEGACY_PACKAGING=true

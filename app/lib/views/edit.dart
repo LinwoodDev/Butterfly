@@ -277,6 +277,9 @@ class _EditToolbarState extends State<EditToolbar> {
                   }
                   final selected = i == currentIndex.index;
                   final tool = tools[i];
+                  final isZoomBox = tool is ZoomBoxTool;
+                  final isToggleEnabled = currentIndex.toggleableHandlers
+                      .containsKey(i);
                   final highlighted =
                       currentIndex.selection?.selected.any(
                         (element) => (element is Tool && element.id == tool.id),
@@ -307,25 +310,26 @@ class _EditToolbarState extends State<EditToolbar> {
                             ),
                             child: OptionButton(
                               tooltip: tooltip,
-                              onLongPressed: selected || highlighted
+                              onLongPressed:
+                                  isZoomBox || selected || highlighted
                                   ? null
                                   : () => context
                                         .read<CurrentIndexCubit>()
                                         .insertSelection(tool, true),
-                              onDoubleTap: highlighted || selected
+                              onDoubleTap: isZoomBox
+                                  ? null
+                                  : highlighted || selected
                                   ? () => context
                                         .read<CurrentIndexCubit>()
                                         .insertSelection(tool, true)
                                   : null,
-                              onSecondaryPressed: () => context
-                                  .read<CurrentIndexCubit>()
-                                  .changeSelection(tool),
+                              onSecondaryPressed: isZoomBox
+                                  ? null
+                                  : () => context
+                                        .read<CurrentIndexCubit>()
+                                        .changeSelection(tool),
                               focussed: shortcuts.contains(InputMapping(i)),
-                              selected:
-                                  selected ||
-                                  currentIndex.toggleableHandlers.containsKey(
-                                    i,
-                                  ),
+                              selected: selected || isToggleEnabled,
                               showBottom: selected || tool.isAction(),
                               highlighted: highlighted,
                               bottomIcon: selected || tool.isAction()
@@ -362,6 +366,9 @@ class _EditToolbarState extends State<EditToolbar> {
                               onPressed: () {
                                 if (_mouseState == _MouseState.multi) {
                                   cubit.insertSelection(tool, true);
+                                } else if (isZoomBox) {
+                                  cubit.resetSelection(force: true);
+                                  cubit.toggleHandler(bloc, i);
                                 } else if (!selected || temp != null) {
                                   cubit.resetSelection();
                                   cubit.changeTool(

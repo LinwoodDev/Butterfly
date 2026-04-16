@@ -9,6 +9,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/export.dart';
@@ -129,12 +130,13 @@ class _ProjectPageState extends State<ProjectPage> {
         defaultTemplate,
       );
       if (template != null && mounted) {
-        defaultDocument = template.createDocument(
-          name: name,
-          createdAt: DateTime.now(),
+        defaultDocument = settingsCubit.state.applyGlobalToolDefaultsToDocument(
+          template.createDocument(name: name, createdAt: DateTime.now()),
         );
       }
-      defaultDocument ??= DocumentDefaults.createDocument(name: name);
+      defaultDocument ??= settingsCubit.state.applyGlobalToolDefaultsToDocument(
+        DocumentDefaults.createDocument(name: name),
+      );
       bool failedToLoad = false;
       if (data != null) {
         document ??= await globalImportService
@@ -209,6 +211,11 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!documentOpened && !absolute) {
         location = null;
       }
+      if (documentOpened) {
+        document = settingsCubit.state.applyGlobalToolDefaultsToDocument(
+          document,
+        );
+      }
       if (!mounted) {
         return;
       }
@@ -218,9 +225,8 @@ class _ProjectPageState extends State<ProjectPage> {
                 .buildTemplateSystem(remote)
                 .getDefaultFile(defaultTemplate) ??
             await DocumentDefaults.createTemplate();
-        document = template.createDocument(
-          name: name,
-          createdAt: DateTime.now(),
+        document = settingsCubit.state.applyGlobalToolDefaultsToDocument(
+          template.createDocument(name: name, createdAt: DateTime.now()),
         );
       }
       final pageName = document.getPages(true).firstOrNull;
