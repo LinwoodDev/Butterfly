@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -131,6 +132,7 @@ class ViewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var areaRect = currentArea?.rect;
+    final isDirectPdfSession = info.isDirectPdfSession;
     if (areaRect != null) {
       areaRect = Rect.fromPoints(
         transform.globalToLocal(areaRect.topLeft),
@@ -163,26 +165,29 @@ class ViewPainter extends CustomPainter {
     }
     final areaSelectionWidth = 5 * transform.size;
     if (areaRect != null) {
-      final paint = Paint()
-        ..style = PaintingStyle.stroke
-        ..color = colorScheme?.primary ?? Colors.green
-        ..strokeWidth = areaSelectionWidth;
-      canvas.drawRect(areaRect.inflate(areaSelectionWidth / 2), paint);
-      final otherPaint = Paint()
-        ..style = PaintingStyle.stroke
-        ..color = (colorScheme?.secondary ?? Colors.grey)
-        ..strokeWidth = areaSelectionWidth;
-      for (final area in page.areas.sortedBy((a) => a == currentArea ? 1 : 0)) {
-        if (areaRect.overlaps(area.rect)) continue;
-        var rect = area.rect;
-        rect = Rect.fromPoints(
-          transform.globalToLocal(rect.topLeft),
-          transform.globalToLocal(rect.bottomRight),
-        );
-        canvas.drawRect(
-          rect.inflate(areaSelectionWidth / 2),
-          area == currentArea ? paint : otherPaint,
-        );
+      if (!isDirectPdfSession) {
+        final paint = Paint()
+          ..style = PaintingStyle.stroke
+          ..color = colorScheme?.primary ?? Colors.green
+          ..strokeWidth = areaSelectionWidth;
+        canvas.drawRect(areaRect.inflate(areaSelectionWidth / 2), paint);
+        final otherPaint = Paint()
+          ..style = PaintingStyle.stroke
+          ..color = (colorScheme?.secondary ?? Colors.grey)
+          ..strokeWidth = areaSelectionWidth;
+        for (final area
+            in page.areas.sortedBy((a) => a == currentArea ? 1 : 0)) {
+          if (areaRect.overlaps(area.rect)) continue;
+          var rect = area.rect;
+          rect = Rect.fromPoints(
+            transform.globalToLocal(rect.topLeft),
+            transform.globalToLocal(rect.bottomRight),
+          );
+          canvas.drawRect(
+            rect.inflate(areaSelectionWidth / 2),
+            area == currentArea ? paint : otherPaint,
+          );
+        }
       }
       canvas.clipRect(areaRect);
     }

@@ -24,13 +24,16 @@ import 'package:butterfly/views/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/color_palette.dart';
+import '../helpers/pdf_direct.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
 import '../api/changes.dart';
@@ -45,6 +48,7 @@ class ProjectPage extends StatefulWidget {
   final String type;
   final Object? data;
   final String? uri;
+  final String? sourceUri;
 
   const ProjectPage({
     super.key,
@@ -53,6 +57,7 @@ class ProjectPage extends StatefulWidget {
     this.type = '',
     this.data,
     this.uri,
+    this.sourceUri,
     this.absolute = false,
   });
 
@@ -69,6 +74,7 @@ class _ProjectPageState extends State<ProjectPage> {
   final SearchController _searchController = SearchController();
   late final CloseSubscription _closeSubscription;
   final GlobalKey _viewportKey = GlobalKey();
+  bool _allowNextPop = false;
 
   @override
   void initState() {
@@ -112,10 +118,33 @@ class _ProjectPageState extends State<ProjectPage> {
       final fileType = AssetFileTypeHelper.fromFileExtension(
         location?.fileExtension,
       )?.name;
+      final directPdfEnabled = settingsCubit.state.pdfDirectEditEnabled;
       NoteData? document;
       var data = widget.data;
       final uri = Uri.tryParse(widget.uri ?? '');
       var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
+      final sourceUri = widget.sourceUri;
+      bool isDirectPdfRequested(String value) {
+        final normalized = value.toLowerCase();
+        return directPdfEnabled &&
+            (normalized == AssetFileType.pdf.name ||
+                AssetFileType.pdf.isMimeType(normalized) ||
+                AssetFileType.pdf.getFileExtensions().contains(normalized));
+      }
+
+      Uint8List? readRawBytes(Object? source) {
+        if (source is Uint8List) return source;
+        if (source is FileSystemFile<NoteFile>) {
+          return source.data?.data;
+        }
+        if (source is FileSystemFile<NoteData>) {
+          return source.data?.exportAsBytes();
+        }
+        if (source is NoteFile) return source.data;
+        if (source is List) return Uint8List.fromList(List<int>.from(source));
+        return null;
+      }
+
       if (widget.uri != null && uri != null) {
         final connectionTechnology = ConnectionTechnology.values.byNameOrNull(
           type,
@@ -139,9 +168,23 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       bool failedToLoad = false;
       if (data != null) {
-        document ??= await globalImportService
-            .load(type: type, data: data, document: defaultDocument)
-            .then((e) => e?.export());
+        if (isDirectPdfRequested(type)) {
+          final bytes = readRawBytes(data);
+          if (bytes != null) {
+            document = await globalImportService
+                .importPdfDirect(
+                  bytes,
+                  name: name,
+                  sourceAbsolute: absolute,
+                  sourceUri: sourceUri,
+                )
+                .then((e) => e?.export());
+          }
+        } else {
+          document ??= await globalImportService
+              .load(type: type, data: data, document: defaultDocument)
+              .then((e) => e?.export());
+        }
         if (document == null) {
           failedToLoad = true;
         }
@@ -154,15 +197,25 @@ class _ProjectPageState extends State<ProjectPage> {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
           if (asset is FileSystemFile<NoteFile>) {
-            final NoteData? noteData = await globalImportService
-                .load(
-                  document: defaultDocument,
-                  type: widget.type.isEmpty
-                      ? (fileType ?? widget.type)
-                      : widget.type,
-                  data: asset.data,
-                )
-                .then((e) => e?.export());
+            final requestedType = widget.type.isEmpty
+                ? (fileType ?? widget.type)
+                : widget.type;
+            final NoteData? noteData = isDirectPdfRequested(requestedType)
+                ? await globalImportService
+                      .importPdfDirect(
+                        asset.data?.data ?? Uint8List(0),
+                        name: name,
+                        sourceAbsolute: false,
+                        sourceUri: sourceUri,
+                      )
+                      .then((e) => e?.export())
+                : await globalImportService
+                      .load(
+                        document: defaultDocument,
+                        type: requestedType,
+                        data: asset.data,
+                      )
+                      .then((e) => e?.export());
             if (noteData != null) {
               document = await checkFileChanges(context, noteData);
             } else {
@@ -172,15 +225,22 @@ class _ProjectPageState extends State<ProjectPage> {
         } else {
           final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
-            document = await globalImportService
-                .load(
-                  document: defaultDocument,
-                  type: widget.type.isEmpty
-                      ? (fileType ?? widget.type)
-                      : widget.type,
-                  data: data,
-                )
-                .then((e) => e?.export());
+            final requestedType = widget.type.isEmpty
+                ? (fileType ?? widget.type)
+                : widget.type;
+            document = isDirectPdfRequested(requestedType)
+                ? await globalImportService
+                      .importPdfDirect(data, name: name, sourceAbsolute: true)
+                      .then(
+                        (e) => e?.export(),
+                      )
+                : await globalImportService
+                      .load(
+                        document: defaultDocument,
+                        type: requestedType,
+                        data: data,
+                      )
+                      .then((e) => e?.export());
             if (document == null) {
               failedToLoad = true;
             }
@@ -237,6 +297,8 @@ class _ProjectPageState extends State<ProjectPage> {
           .toList();
       final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
+      final isDirectPdfSession =
+          document.getInfo()?.extra[kPdfDirectEditSessionKey] == true;
       await Future.wait(
         renderers.map(
           (e) async =>
@@ -253,16 +315,25 @@ class _ProjectPageState extends State<ProjectPage> {
         path: widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
+      final initialArea = page.areas.where((area) => area.isInitial).firstOrNull;
       setState(() {
         _transformCubit = transformCubit;
-        _transformCubit?.teleportToWaypoint(page.getOriginWaypoint());
+        if (isDirectPdfSession && initialArea != null) {
+          _transformCubit?.centerToArea(
+            initialArea,
+            MediaQuery.sizeOf(context),
+            1,
+          );
+        } else {
+          _transformCubit?.teleportToWaypoint(page.getOriginWaypoint());
+        }
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
           CameraViewport.unbaked(backgrounds: backgrounds),
           embedding: embedding,
           networkingService: networkingService,
-          absolute: absolute,
+          absolute: absolute && !isDirectPdfSession,
         );
         _bloc = DocumentBloc(
           fileSystem,
@@ -316,108 +387,144 @@ class _ProjectPageState extends State<ProjectPage> {
     super.dispose();
   }
 
+  Future<void> _saveDirectPdfOnExitIfNeeded() async {
+    final bloc = _bloc;
+    final state = bloc?.state;
+    if (bloc == null || state is! DocumentLoadSuccess) return;
+    if (shouldForceDirectPdfSaveOnExit(state)) {
+      await bloc.save(force: true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_bloc == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));
     }
     final padding = MediaQuery.paddingOf(context);
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: _bloc!),
-        BlocProvider.value(value: _transformCubit!),
-        BlocProvider.value(value: _currentIndexCubit!),
-      ],
-      child: BlocBuilder<DocumentBloc, DocumentState>(
-        buildWhen: (previous, current) =>
-            previous.runtimeType != current.runtimeType ||
-            previous.embedding?.editable != current.embedding?.editable,
-        builder: (context, state) {
-          if (state is DocumentLoadFailure) {
-            return ErrorPage(
-              message: state.message,
-              stackTrace: state.stackTrace,
-            );
+    return PopScope<Object?>(
+      canPop: _allowNextPop,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop || _allowNextPop) return;
+        await _saveDirectPdfOnExitIfNeeded();
+        if (!mounted) return;
+        final navigator = Navigator.of(context);
+        if (navigator.canPop()) {
+          setState(() {
+            _allowNextPop = true;
+          });
+          await Future<void>.delayed(Duration.zero);
+          if (mounted) {
+            navigator.pop(result);
           }
-          return MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider.value(value: _importService!),
-              RepositoryProvider.value(value: _exportService!),
-            ],
-            child: GestureDetector(
-              onTap: () {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus &&
-                    currentFocus.focusedChild != null) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                }
-              },
-              child: BlocBuilder<WindowCubit, WindowState>(
-                builder: (context, windowState) =>
-                    BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                      buildWhen: (previous, current) =>
-                          previous.hideUi != current.hideUi,
-                      builder: (context, currentIndex) =>
-                          BlocBuilder<SettingsCubit, ButterflySettings>(
-                            buildWhen: (previous, current) =>
-                                previous.toolbarSize != current.toolbarSize ||
-                                previous.isInline != current.isInline,
-                            builder: (context, settings) {
-                              final actions = _buildActions(context);
+          return;
+        }
+        if (widget.sourceUri != null) {
+          await SystemNavigator.pop();
+          return;
+        }
+        GoRouter.of(context).go('/');
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: _bloc!),
+          BlocProvider.value(value: _transformCubit!),
+          BlocProvider.value(value: _currentIndexCubit!),
+        ],
+        child: BlocBuilder<DocumentBloc, DocumentState>(
+          buildWhen: (previous, current) =>
+              previous.runtimeType != current.runtimeType ||
+              previous.embedding?.editable != current.embedding?.editable,
+          builder: (context, state) {
+            if (state is DocumentLoadFailure) {
+              return ErrorPage(
+                message: state.message,
+                stackTrace: state.stackTrace,
+              );
+            }
+            return MultiRepositoryProvider(
+              providers: [
+                RepositoryProvider.value(value: _importService!),
+                RepositoryProvider.value(value: _exportService!),
+              ],
+              child: GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus &&
+                      currentFocus.focusedChild != null) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  }
+                },
+                child: BlocBuilder<WindowCubit, WindowState>(
+                  builder: (context, windowState) =>
+                      BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                        buildWhen: (previous, current) =>
+                            previous.hideUi != current.hideUi,
+                        builder: (context, currentIndex) =>
+                            BlocBuilder<SettingsCubit, ButterflySettings>(
+                              buildWhen: (previous, current) =>
+                                  previous.toolbarSize != current.toolbarSize ||
+                                  previous.isInline != current.isInline,
+                              builder: (context, settings) {
+                                final actions = _buildActions(context);
 
-                              return ListenableBuilder(
-                                listenable: keybinder,
-                                builder: (context, child) {
-                                  final shortcuts = _buildShortcuts();
-                                  return Actions(
-                                    actions: actions,
-                                    child: Shortcuts(
-                                      shortcuts: shortcuts,
-                                      child: child!,
-                                    ),
-                                  );
-                                },
-                                child: ClipRect(
-                                  child: Focus(
-                                    autofocus: true,
-                                    skipTraversal: true,
-                                    onFocusChange: (_) => false,
-                                    child: Scaffold(
-                                      appBar:
-                                          state is DocumentPresentationState ||
-                                              windowState.fullScreen ||
-                                              currentIndex.hideUi !=
-                                                  HideState.visible
-                                          ? null
-                                          : PadAppBar(
-                                              viewportKey: _viewportKey,
-                                              size: settings.toolbarSize,
-                                              searchController:
-                                                  _searchController,
-                                              padding: padding,
-                                              direction: Directionality.of(
-                                                context,
+                                return ListenableBuilder(
+                                  listenable: keybinder,
+                                  builder: (context, child) {
+                                    final shortcuts = _buildShortcuts();
+                                    return Actions(
+                                      actions: actions,
+                                      child: Shortcuts(
+                                        shortcuts: shortcuts,
+                                        child: child!,
+                                      ),
+                                    );
+                                  },
+                                  child: ClipRect(
+                                    child: Focus(
+                                      autofocus: true,
+                                      skipTraversal: true,
+                                      onFocusChange: (_) => false,
+                                      child: Scaffold(
+                                        appBar:
+                                            state
+                                                    is DocumentPresentationState ||
+                                                windowState.fullScreen ||
+                                                currentIndex.hideUi !=
+                                                    HideState.visible
+                                            ? null
+                                            : PadAppBar(
+                                                viewportKey: _viewportKey,
+                                                size: settings.toolbarSize,
+                                                searchController:
+                                                    _searchController,
+                                                padding: padding,
+                                                direction: Directionality.of(
+                                                  context,
+                                                ),
+                                                inView:
+                                                    state
+                                                        .embedding
+                                                        ?.isInternal ??
+                                                    false,
+                                                showTools:
+                                                    settings.isInline &&
+                                                    state.embedding?.editable !=
+                                                        false,
                                               ),
-                                              inView:
-                                                  state.embedding?.isInternal ??
-                                                  false,
-                                              showTools:
-                                                  settings.isInline &&
-                                                  state.embedding?.editable !=
-                                                      false,
-                                            ),
-                                      body: const _MainBody(),
+                                        body: const _MainBody(),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                    ),
+                                );
+                              },
+                            ),
+                      ),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

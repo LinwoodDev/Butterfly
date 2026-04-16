@@ -124,6 +124,24 @@ enum RenderResolution {
   }
 }
 
+enum PdfPageToneMode {
+  normal,
+  night,
+  eyeProtection,
+  sepia,
+  invert;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+    PdfPageToneMode.normal => AppLocalizations.of(context).normal,
+    PdfPageToneMode.night => AppLocalizations.of(context).nightMode,
+    PdfPageToneMode.eyeProtection => AppLocalizations.of(
+      context,
+    ).eyeProtectionMode,
+    PdfPageToneMode.sepia => AppLocalizations.of(context).yellowSepia,
+    PdfPageToneMode.invert => AppLocalizations.of(context).contrastInvert,
+  };
+}
+
 enum PlatformTheme {
   system,
   mobile,
@@ -460,6 +478,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default({}) Map<String, double> globalToolStrokeWidths,
     ZoomBoxTool? globalZoomBoxTool,
     @Default(true) bool showThumbnails,
+    @Default(false) bool pdfDirectEditEnabled,
+    @Default(false) bool pdfDirectEditSaveOnExit,
+    @Default(5) int pdfDirectEditAutosaveDelaySeconds,
+    @Default(PdfPageToneMode.normal) PdfPageToneMode pdfPageToneMode,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -686,6 +708,18 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       ),
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
+      pdfDirectEditEnabled: prefs.getBool('pdf_direct_edit_enabled') ?? false,
+      pdfDirectEditSaveOnExit:
+          prefs.getBool('pdf_direct_edit_save_on_exit') ?? false,
+      pdfDirectEditAutosaveDelaySeconds:
+          prefs.getInt('pdf_direct_edit_autosave_delay_seconds') ?? 5,
+      pdfPageToneMode: prefs.containsKey('pdf_page_tone_mode')
+          ? _enumByNameOr(
+              PdfPageToneMode.values,
+              prefs.getString('pdf_page_tone_mode'),
+              PdfPageToneMode.normal,
+            )
+          : PdfPageToneMode.normal,
     );
   }
 
@@ -825,6 +859,16 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     }
     await prefs.setBool('hide_extension', hideExtension);
     await prefs.setBool('show_thumbnails', showThumbnails);
+    await prefs.setBool('pdf_direct_edit_enabled', pdfDirectEditEnabled);
+    await prefs.setBool(
+      'pdf_direct_edit_save_on_exit',
+      pdfDirectEditSaveOnExit,
+    );
+    await prefs.setInt(
+      'pdf_direct_edit_autosave_delay_seconds',
+      pdfDirectEditAutosaveDelaySeconds,
+    );
+    await prefs.setString('pdf_page_tone_mode', pdfPageToneMode.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1463,6 +1507,36 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeShowThumbnails(bool value) {
     emit(state.copyWith(showThumbnails: value));
+    return save();
+  }
+
+  Future<void> changePdfDirectEditEnabled(bool value) {
+    emit(
+      state.copyWith(
+        pdfDirectEditEnabled: value,
+        pdfDirectEditSaveOnExit: value ? state.pdfDirectEditSaveOnExit : false,
+      ),
+    );
+    return save();
+  }
+
+  Future<void> changePdfDirectEditSaveOnExit(bool value) {
+    emit(
+      state.copyWith(
+        pdfDirectEditSaveOnExit: state.pdfDirectEditEnabled && value,
+      ),
+    );
+    return save();
+  }
+
+  Future<void> changePdfDirectEditAutosaveDelaySeconds(int seconds) {
+    final normalized = seconds.clamp(1, 3600);
+    emit(state.copyWith(pdfDirectEditAutosaveDelaySeconds: normalized));
+    return save();
+  }
+
+  Future<void> changePdfPageToneMode(PdfPageToneMode value) {
+    emit(state.copyWith(pdfPageToneMode: value));
     return save();
   }
 

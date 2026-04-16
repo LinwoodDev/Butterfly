@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/helpers/pdf_direct_save.dart';
 import 'package:butterfly/helpers/tool_defaults.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -125,6 +128,8 @@ sealed class CurrentIndex with _$CurrentIndex {
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
+  static const int persistentZoomBoxHandlerIndex = -1;
+
   CurrentIndexCubit(
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
@@ -949,6 +954,50 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
+  int? get activeZoomBoxHandlerIndex => state.toggleableHandlers.entries
+      .firstWhereOrNull((entry) => entry.value is ZoomBoxHandler)
+      ?.key;
+
+  bool get isZoomBoxEnabled => activeZoomBoxHandlerIndex != null;
+
+  int? _findDocumentZoomBoxToolIndex(DocumentInfo info) {
+    final activeIndex = activeZoomBoxHandlerIndex;
+    if (activeIndex != null &&
+        activeIndex >= 0 &&
+        activeIndex < info.tools.length &&
+        info.tools[activeIndex] is ZoomBoxTool) {
+      return activeIndex;
+    }
+    final index = info.tools.indexWhere((tool) => tool is ZoomBoxTool);
+    return index >= 0 ? index : null;
+  }
+
+  Tool _resolvePersistentZoomBoxTool(DocumentLoaded blocState) =>
+      _resolveFreshHandlerTool(
+        blocState.settingsCubit.state.globalZoomBoxTool ?? ZoomBoxTool(),
+        persistentZoomBoxHandlerIndex,
+      );
+
+  Future<void> toggleAppBarZoomBox(DocumentBloc bloc) async {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoaded) return;
+    final activeIndex = activeZoomBoxHandlerIndex;
+    if (activeIndex != null) {
+      disableHandler(bloc, activeIndex);
+      return;
+    }
+    final documentIndex = _findDocumentZoomBoxToolIndex(blocState.info);
+    if (documentIndex != null) {
+      await enableHandler(bloc, documentIndex);
+      return;
+    }
+    await _enableResolvedHandler(
+      bloc,
+      persistentZoomBoxHandlerIndex,
+      _resolvePersistentZoomBoxTool(blocState),
+    );
+  }
+
   Future<void> toggleHandler(DocumentBloc bloc, int index) async {
     if (state.toggleableHandlers.containsKey(index)) {
       disableHandler(bloc, index);
@@ -995,13 +1044,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Future<Handler?> enableHandler(DocumentBloc bloc, int index) async {
+  Future<Handler?> _enableResolvedHandler(
+    DocumentBloc bloc,
+    int index,
+    Tool tool,
+  ) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoaded) return null;
-    if (index < 0 || index >= blocState.info.tools.length) {
-      return null;
-    }
-    final tool = _resolveFreshHandlerTool(blocState.info.tools[index], index);
     final handler = Handler.fromTool(tool);
     final document = blocState.data;
     final page = blocState.page;
@@ -1047,6 +1096,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     _attachZoomBoxSnapshotListener(index, handler);
     return handler;
+  }
+
+  Future<Handler?> enableHandler(DocumentBloc bloc, int index) async {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoaded) return null;
+    if (index < 0 || index >= blocState.info.tools.length) {
+      return null;
+    }
+    final tool = _resolveFreshHandlerTool(blocState.info.tools[index], index);
+    return _enableResolvedHandler(bloc, index, tool);
   }
 
   bool disableHandler(DocumentBloc bloc, int index) {
@@ -1867,11 +1926,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final info = docState.info;
     final pages = <PdfPage>[];
     final documents = <PdfDocument>[];
+    const minimumPdfRasterScale = 300 / 72;
     for (var i = 0; i < areas.length; i++) {
       onProgress?.call(i / areas.length);
       final preset = areas[i];
       final areaName = preset.name;
-      final quality = preset.quality;
+      final exportScale = max(
+        preset.quality,
+        max(docState.settingsCubit.state.pdfQuality, 4.0),
+      );
       final currentOpened = docState.pageName == preset.page;
       final page = currentOpened
           ? docState.page
@@ -1880,16 +1943,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (area == null || page == null) {
         continue;
       }
+      final rasterScale = max(exportScale, minimumPdfRasterScale);
+      final outputWidth = max(1, (area.width * rasterScale).ceil());
+      final outputHeight = max(1, (area.height * rasterScale).ceil());
       final image = await renderImage(
         document,
         page,
         info,
         ImageExportOptions(
-          width: area.width,
-          height: area.height,
+          width: outputWidth.toDouble(),
+          height: outputHeight.toDouble(),
           x: area.position.x,
           y: area.position.y,
-          quality: quality,
+          scale: rasterScale,
+          quality: 1,
           renderBackground: renderBackground,
         ),
         cameraViewport: await CameraViewport.build(
@@ -1904,13 +1971,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (image == null) continue;
       final imgImage = await convertFlutterUiToImage(image);
       final pdfImage = await compute(
-        (image) => img.JpegEncoder().encode(image),
+        (image) => img.JpegEncoder(quality: 100).encode(image),
         imgImage,
       );
       final imageDoc = await PdfDocument.createFromJpegData(
         pdfImage,
-        width: imgImage.width.toDouble(),
-        height: imgImage.height.toDouble(),
+        width: area.width,
+        height: area.height,
         sourceName: '$name-$areaName.jpg',
       );
       pages.addAll(imageDoc.pages);
@@ -2073,6 +2140,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final settings = state.settingsCubit.state;
     var multiplier = settings.limitViewportMultiplier;
     final positive = settings.limitViewportPositive;
+    final docState = _documentBloc?.state;
+    final directPdfArea =
+        currentArea != null &&
+        docState is DocumentLoaded &&
+        docState.isDirectPdfSession;
 
     if (multiplier == null && !positive && currentArea == null) return null;
 
@@ -2086,7 +2158,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     double maxY = double.infinity;
 
     if (multiplier != null || currentArea != null) {
-      multiplier ??= 1;
+      multiplier ??= directPdfArea ? 0 : 1;
       final padX = size.width * multiplier;
       final padY = size.height * multiplier;
 
@@ -2383,9 +2455,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final storage = getRemoteStorage();
     final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
-    final isDelayed = state.settingsCubit.state.delayedAutosave;
+    final directPdfSession =
+        bloc.state is DocumentLoaded &&
+        (bloc.state as DocumentLoaded).isDirectPdfSession;
+    final isDelayed = directPdfSession
+        ? true
+        : state.settingsCubit.state.delayedAutosave;
     if (isDelayed && isAutosave) {
-      final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
+      final seconds = max(
+        0,
+        directPdfSession
+            ? state.settingsCubit.state.pdfDirectEditAutosaveDelaySeconds
+            : state.settingsCubit.state.autosaveDelaySeconds,
+      );
       emit(state.copyWith(isSaveDelayed: true));
       await Future.delayed(Duration(seconds: seconds));
       if (!state.isSaveDelayed) {
@@ -2413,7 +2495,39 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         emit(state.copyWith(saved: SaveState.saved));
         return AssetLocation.empty;
       }
-      if (absolute || !(current.fileType?.isNote() ?? false)) {
+      if (directPdfSession && blocState is DocumentLoaded) {
+        final pdfBytes = await buildDirectPdfBytes(
+          document: currentData,
+          info: currentData.getInfo() ?? blocState.info,
+          assetService: blocState.assetService,
+          transformCubit: state.transformCubit,
+          invisibleLayers: blocState.invisibleLayers,
+          overlayScale: max(2.0, blocState.settingsCubit.state.pdfQuality),
+        );
+        if (pdfBytes == null) {
+          emit(state.copyWith(saved: SaveState.unsaved));
+          return current;
+        }
+        if (blocState.isDirectPdfSourceContentUri) {
+          final sourceUri = blocState.directPdfSourceUri;
+          if (sourceUri == null ||
+              !await writeContentUriData(sourceUri, pdfBytes)) {
+            talker.warning('Unable to write PDF back to content URI');
+            emit(state.copyWith(saved: SaveState.unsaved));
+            return current;
+          }
+        } else if (blocState.isDirectPdfSourceAbsolute) {
+          await fileSystem.saveAbsolute(current.path, pdfBytes);
+        } else if (current.path.isNotEmpty) {
+          await fileSystem.updateFile(current.path, NoteFile(pdfBytes));
+        } else {
+          talker.warning(
+            'Skipping direct PDF save because no writable target exists',
+          );
+          emit(state.copyWith(saved: SaveState.unsaved));
+          return current;
+        }
+      } else if (absolute || !(current.fileType?.isNote() ?? false)) {
         final file = await compute(_toFile, (currentData, false));
         final document = await fileSystem.createFileWithName(
           name: currentData.name,
@@ -2433,7 +2547,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ));
         await fileSystem.updateFile(current.path, file);
       }
-      state.settingsCubit.addRecentHistory(current);
+      if (!current.isEmpty && current.path.isNotEmpty) {
+        state.settingsCubit.addRecentHistory(current);
+      }
       if (isClosed) {
         return current;
       }
@@ -2559,6 +2675,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     final currentTools = blocState.info.tools;
     for (final index in state.toggleableHandlers.keys.toList(growable: false)) {
+      if (index == persistentZoomBoxHandlerIndex) {
+        continue;
+      }
       if (index < 0 || index >= currentTools.length) {
         _disposeToggleableEntry(bloc, index, newHandlers, newForegrounds);
         continue;

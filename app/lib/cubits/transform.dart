@@ -164,6 +164,17 @@ class TransformCubit extends Cubit<CameraTransform> {
     teleport(position, size);
   }
 
+  void centerToArea(Area area, Size viewportSize, [double? scale]) {
+    if (viewportSize.width <= 0 || viewportSize.height <= 0) {
+      teleport(area.position.toOffset(), scale ?? state.size);
+      return;
+    }
+    final nextScale = (scale ?? state.size).clamp(kMinZoom, kMaxZoom);
+    final position =
+        area.rect.center - viewportSize.center(Offset.zero) / nextScale;
+    teleport(position, nextScale);
+  }
+
   void slide(Offset velocityPosition, double velocitySize) =>
       emit(state.withFriction(velocityPosition, velocitySize));
 }

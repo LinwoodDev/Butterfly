@@ -314,27 +314,28 @@ class ButterflyApp extends StatelessWidget {
       GoRoute(
         path: '/intent',
         builder: (context, state) {
-          Future<(String, Object)?>? intent;
+          Future<(String, Object, String?)?>? intent;
           if (!kIsWeb && Platform.isAndroid) {
             intent = () async {
               final type = await getIntentType();
               final data = await getIntentData();
+              final uri = await getIntentUri();
               if (type == null || data == null) return null;
-              return (type, data);
+              return (type, data, uri);
             }();
           }
-          return FutureBuilder<(String, Object)?>(
+          return FutureBuilder<(String, Object, String?)?>(
             future: intent,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 final type = snapshot.data?.$1;
                 final data = snapshot.data?.$2;
+                final sourceUri = snapshot.data?.$3;
                 return ProjectPage(
-                  location: AssetLocation.local(
-                    state.pathParameters['path'] ?? '',
-                  ),
+                  location: const AssetLocation(path: ''),
                   type: type ?? '',
                   data: data,
+                  sourceUri: sourceUri,
                 );
               }
               return const Center(child: CircularProgressIndicator());

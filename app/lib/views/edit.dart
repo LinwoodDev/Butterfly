@@ -81,7 +81,11 @@ class _EditToolbarState extends State<EditToolbar> {
           return BlocBuilder<DocumentBloc, DocumentState>(
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              final tools = state.info.tools;
+              final tools = state.info.tools
+                  .asMap()
+                  .entries
+                  .where((entry) => entry.value is! ZoomBoxTool)
+                  .toList(growable: false);
 
               return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                 buildWhen: (previous, current) =>
@@ -117,7 +121,7 @@ class _EditToolbarState extends State<EditToolbar> {
     DocumentLoadSuccess state,
     CurrentIndex currentIndex,
     ButterflySettings settings,
-    List<Tool> tools,
+    List<MapEntry<int, Tool>> tools,
     Set<InputMapping> shortcuts,
     double size,
   ) {
@@ -275,11 +279,13 @@ class _EditToolbarState extends State<EditToolbar> {
                     );
                     return add;
                   }
-                  final selected = i == currentIndex.index;
-                  final tool = tools[i];
+                  final toolEntry = tools[i];
+                  final toolIndex = toolEntry.key;
+                  final tool = toolEntry.value;
+                  final selected = toolIndex == currentIndex.index;
                   final isZoomBox = tool is ZoomBoxTool;
                   final isToggleEnabled = currentIndex.toggleableHandlers
-                      .containsKey(i);
+                      .containsKey(toolIndex);
                   final highlighted =
                       currentIndex.selection?.selected.any(
                         (element) => (element is Tool && element.id == tool.id),
@@ -328,7 +334,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                   : () => context
                                         .read<CurrentIndexCubit>()
                                         .changeSelection(tool),
-                              focussed: shortcuts.contains(InputMapping(i)),
+                              focussed: shortcuts.contains(
+                                InputMapping(toolIndex),
+                              ),
                               selected: selected || isToggleEnabled,
                               showBottom: selected || tool.isAction(),
                               highlighted: highlighted,
@@ -368,12 +376,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                   cubit.insertSelection(tool, true);
                                 } else if (isZoomBox) {
                                   cubit.resetSelection(force: true);
-                                  cubit.toggleHandler(bloc, i);
+                                  cubit.toggleHandler(bloc, toolIndex);
                                 } else if (!selected || temp != null) {
                                   cubit.resetSelection();
                                   cubit.changeTool(
                                     bloc,
-                                    index: i,
+                                    index: toolIndex,
                                     handler: handler,
                                     context: context,
                                   );
@@ -391,22 +399,20 @@ class _EditToolbarState extends State<EditToolbar> {
                 onReorder: (oldIndex, newIndex) {
                   if (oldIndex == newIndex) {
                     context.read<CurrentIndexCubit>().insertSelection(
-                      tools[newIndex],
+                      tools[newIndex].value,
                       true,
                     );
                     return;
                   }
-                  final id = tools[oldIndex].id;
+                  final id = tools[oldIndex].value.id;
                   if (id == null) return;
                   final delete = newIndex >= tools.length;
                   if (delete) {
                     bloc.add(ToolsRemoved([id]));
                     return;
                   }
-                  if (oldIndex < newIndex) {
-                    newIndex++;
-                  }
-                  bloc.add(ToolReordered(id, newIndex));
+                  final targetIndex = tools[newIndex].key;
+                  bloc.add(ToolReordered(id, targetIndex));
                 },
               ),
               SliverToBoxAdapter(

@@ -1,4 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/pdf_new_page.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -42,23 +44,37 @@ class _PagesViewState extends State<PagesView> {
         final pages = state.data.getPagesWithNames();
         final index = state.data.getPageIndex(state.pageName);
         final currentArea = state.currentArea;
-        void addPage([int? index]) => context.read<DocumentBloc>().add(
-          PagesAdded([
-            PageAddedDetails(
-              index: index,
-              name: AppLocalizations.of(
-                context,
-              ).pageIndex(state.data.getPages().length + 1),
-              initialArea: currentArea != null
-                  ? InitialAreaDetails(
-                      width: currentArea.width,
-                      height: currentArea.height,
-                      name: AppLocalizations.of(context).areaIndex(1),
-                    )
-                  : null,
-            ),
-          ]),
-        );
+        Future<void> addPage([int? index]) async {
+          if (state.isDirectPdfSession) {
+            final details = await showDialog<PageAddedDetails>(
+              context: context,
+              builder: (context) => PdfNewPageDialog(
+                insertIndex: index,
+                nextPageNumber: state.data.getPages().length + 1,
+              ),
+            );
+            if (details == null || !context.mounted) return;
+            context.read<DocumentBloc>().add(PagesAdded([details]));
+            return;
+          }
+          context.read<DocumentBloc>().add(
+            PagesAdded([
+              PageAddedDetails(
+                index: index,
+                name: AppLocalizations.of(
+                  context,
+                ).pageIndex(state.data.getPages().length + 1),
+                initialArea: currentArea != null
+                    ? InitialAreaDetails(
+                        width: currentArea.width,
+                        height: currentArea.height,
+                        name: AppLocalizations.of(context).areaIndex(1),
+                      )
+                    : null,
+              ),
+            ]),
+          );
+        }
 
         return Column(
           children: [
@@ -201,15 +217,14 @@ class _PagesViewState extends State<PagesView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            const PhosphorIcon(PhosphorIconsLight.plus),
-                            Text(
-                              LeapLocalizations.of(context).create,
-                              style: TextTheme.of(context).titleMedium,
-                            ),
-                          ],
+                        child: FilledButton.icon(
+                          onPressed: () => addPage((index ?? -1) + 1),
+                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                          label: Text(
+                            state.isDirectPdfSession
+                                ? AppLocalizations.of(context).newPage
+                                : LeapLocalizations.of(context).create,
+                          ),
                         ),
                       ),
                       Expanded(

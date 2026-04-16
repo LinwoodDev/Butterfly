@@ -2,6 +2,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly/views/main.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -55,7 +56,7 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
               location: _opened?.$2,
               onOpen: () async {
                 final bloc = context.read<DocumentBloc>();
-                await bloc.save();
+                await saveDocumentBeforeExit(bloc);
                 openFile(context, true, _opened!.$2, _opened!.$1);
               },
               onExit: () => setState(() {
@@ -72,7 +73,7 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
             initialPath: location?.parent,
             onTap: (value) async {
               final bloc = context.read<DocumentBloc>();
-              await bloc.save();
+              await saveDocumentBeforeExit(bloc);
               openFile(context, true, value.location);
             },
             onPreview: (value) {

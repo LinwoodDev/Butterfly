@@ -33,9 +33,12 @@ import 'package:path/path.dart' as p;
 import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
+import '../helpers/pdf_direct.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+
+const kPdfImportSource = '$kAssetScheme://imported_pdf';
 
 class ImportResult {
   final ImportService service;
@@ -782,8 +785,6 @@ class ImportService {
     return null;
   }
 
-  static const _pdfImportSource = '$kAssetScheme://imported_pdf';
-
   @useResult
   Future<ImportResult?> importPdf(
     Uint8List bytes,
@@ -866,7 +867,7 @@ class ImportService {
           final element = PdfElement(
             height: height,
             width: width,
-            source: _pdfImportSource,
+            source: kPdfImportSource,
             page: i,
             position: Point(firstPos.dx, y),
             invert: invert,
@@ -922,7 +923,7 @@ class ImportService {
         pages: documentPages,
         areas: spreadToPages ? [] : areas,
         choosePosition: position == null,
-        assets: {_pdfImportSource: bytes},
+        assets: {kPdfImportSource: bytes},
         exportPresets: [
           if (exportPresetAreas.isNotEmpty && createExportPreset)
             ExportPreset(
@@ -934,6 +935,87 @@ class ImportService {
     } catch (e) {
       dialog?.close();
       showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    } finally {
+      await pdfDocument?.dispose();
+    }
+    return null;
+  }
+
+  @useResult
+  Future<ImportResult?> importPdfDirect(
+    Uint8List bytes, {
+    String name = '',
+    bool sourceAbsolute = false,
+    String? sourceUri,
+  }) async {
+    PdfDocument? pdfDocument;
+    try {
+      pdfDocument = await PdfDocument.openData(bytes);
+      final localizations = AppLocalizations.of(context);
+      var document = DocumentDefaults.createDocument(
+        name: name,
+        createDefaultPage: false,
+      );
+      document = document.setInfo(
+        DocumentDefaults.createInfo().copyWith(
+          extra: {
+            kPdfDirectEditSessionKey: true,
+            kPdfDirectSourceAbsoluteKey: sourceAbsolute,
+            if (sourceUri?.isNotEmpty ?? false) kPdfDirectSourceUriKey: sourceUri,
+          },
+        ),
+      );
+      final pages = <(String?, DocumentPage)>[];
+      for (var i = 0; i < pdfDocument.pages.length; i++) {
+        final pdfPage = pdfDocument.pages[i];
+        final width = pdfPage.width.toDouble();
+        final height = pdfPage.height.toDouble();
+        pages.add((
+          localizations.pageIndex(i + 1),
+          DocumentPage(
+            backgrounds: [
+              Background.texture(texture: PatternTemplate.plain.create()),
+            ],
+            areas: [
+              Area(
+                name: localizations.areaIndex(1),
+                width: width,
+                height: height,
+                position: const Point(0, 0),
+                isInitial: true,
+              ),
+            ],
+            layers: [
+              DocumentLayer(
+                id: createUniqueId(),
+                content: [
+                  PdfElement(
+                    source: kPdfImportSource,
+                    page: i,
+                    width: width,
+                    height: height,
+                    position: const Point(0, 0),
+                    background: BasicColors.whiteTransparent,
+                    extra: {kPdfDirectOriginalPageKey: i},
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
+      }
+      return ImportResult(
+        service: this,
+        document: document,
+        pages: pages,
+        assets: {kPdfImportSource: bytes},
+      );
+    } catch (e) {
+      await showDialog(
         context: context,
         builder: (context) =>
             UnknownImportConfirmationDialog(message: e.toString()),

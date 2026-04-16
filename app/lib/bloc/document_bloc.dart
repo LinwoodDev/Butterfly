@@ -7,6 +7,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/tool_defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -219,24 +220,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: true,
       );
     });
-    on<PageChanged>((event, emit) {
+    on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       current.assetService.dispose();
       final data = current.data.setPage(current.page, current.pageName).$1;
       final page = data.getPage(event.pageName);
       if (page == null) return;
-      _saveState(
-        emit,
-        state: current.copyWith(
-          page: page,
-          data: data,
-          pageName: event.pageName,
-          currentAreaName:
-              page.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
-        ),
-        reset: true,
+      final nextState = current.copyWith(
+        page: page,
+        data: data,
+        pageName: event.pageName,
+        currentAreaName:
+            page.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
       );
+      await _saveState(emit, state: nextState, reset: true);
+      if (shouldForceDirectPdfSaveOnExit(nextState)) {
+        await save(force: true);
+      }
     });
     on<PageReordered>((event, emit) {
       final current = state;

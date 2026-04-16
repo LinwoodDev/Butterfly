@@ -290,7 +290,6 @@ class _AddDialogState extends State<AddDialog> {
                       Tool.eyeDropper,
                       Tool.ruler,
                       Tool.grid,
-                      Tool.zoomBox,
                       ...BarcodeType.values.map(
                         (e) =>
                             () => Tool.barcode(barcodeType: e),

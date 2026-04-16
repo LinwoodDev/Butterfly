@@ -241,6 +241,90 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       Padding(
                         padding: settingsCardTitlePadding,
                         child: Text(
+                          AppLocalizations.of(context).pdfBehavior,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        value: state.pdfDirectEditEnabled,
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.filePdf,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context).editPdfInPlace,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).editPdfInPlaceDescription,
+                        ),
+                        onChanged: (value) =>
+                            _togglePdfDirectEditMode(context, value),
+                      ),
+                      SwitchListTile(
+                        value:
+                            state.pdfDirectEditEnabled &&
+                            state.pdfDirectEditSaveOnExit,
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.signOut,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).autosaveWhenClosingDocument,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).autosaveWhenClosingDocumentDescription,
+                        ),
+                        onChanged: state.pdfDirectEditEnabled
+                            ? (value) => context
+                                  .read<SettingsCubit>()
+                                  .changePdfDirectEditSaveOnExit(value)
+                            : null,
+                      ),
+                      if (state.pdfDirectEditEnabled)
+                        ExactSlider(
+                          leading: const PhosphorIcon(PhosphorIconsLight.clock),
+                          header: Text(
+                            AppLocalizations.of(context).pdfAutosaveDelay,
+                          ),
+                          value: state.pdfDirectEditAutosaveDelaySeconds
+                              .toDouble(),
+                          min: 1,
+                          max: 30,
+                          defaultValue: 5,
+                          fractionDigits: 0,
+                          onChangeEnd: (value) => context
+                              .read<SettingsCubit>()
+                              .changePdfDirectEditAutosaveDelaySeconds(
+                                value.toInt(),
+                              ),
+                        ),
+                      ListTile(
+                        leading: const PhosphorIcon(PhosphorIconsLight.palette),
+                        title: Text(AppLocalizations.of(context).pageTone),
+                        subtitle: Text(
+                          state.pdfPageToneMode.getLocalizedName(context),
+                        ),
+                        onTap: () => _openPdfPageToneModal(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: settingsCardMargin,
+                child: Padding(
+                  padding: settingsCardPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
                           AppLocalizations.of(context).home,
                           style: TextTheme.of(context).headlineSmall,
                         ),
@@ -411,6 +495,61 @@ class BehaviorsSettingsPage extends StatelessWidget {
             onTap: () => changeAutosave(false),
           ),
         ];
+      },
+    );
+  }
+
+  Future<void> _togglePdfDirectEditMode(
+    BuildContext context,
+    bool value,
+  ) async {
+    if (!value) {
+      await context.read<SettingsCubit>().changePdfDirectEditEnabled(false);
+      return;
+    }
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).editPdfInPlace),
+        content: Text(AppLocalizations.of(context).pdfDirectEditWarningMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+          ),
+        ],
+      ),
+    );
+    if (result != true || !context.mounted) return;
+    await context.read<SettingsCubit>().changePdfDirectEditEnabled(true);
+  }
+
+  void _openPdfPageToneModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final currentTone = cubit.state.pdfPageToneMode;
+
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) => Text(AppLocalizations.of(context).pageTone),
+      childrenBuilder: (context) {
+        void changeTone(PdfPageToneMode tone) {
+          cubit.changePdfPageToneMode(tone);
+          Navigator.of(context).pop();
+        }
+
+        return PdfPageToneMode.values
+            .map(
+              (tone) => ListTile(
+                title: Text(tone.getLocalizedName(context)),
+                selected: currentTone == tone,
+                onTap: () => changeTone(tone),
+              ),
+            )
+            .toList();
       },
     );
   }

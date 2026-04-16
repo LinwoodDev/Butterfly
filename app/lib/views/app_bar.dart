@@ -9,6 +9,8 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
+import 'package:butterfly/dialogs/pdf_new_page.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
@@ -35,6 +37,91 @@ import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../embed/action.dart';
 import 'navigator/view.dart';
+
+void _openPdfPageToneDialog(BuildContext context) {
+  final cubit = context.read<SettingsCubit>();
+  final currentTone = cubit.state.pdfPageToneMode;
+  showLeapBottomSheet(
+    context: context,
+    titleBuilder: (context) => Text(AppLocalizations.of(context).pageTone),
+    childrenBuilder: (context) => PdfPageToneMode.values
+        .map(
+          (tone) => ListTile(
+            title: Text(tone.getLocalizedName(context)),
+            trailing: SizedBox(
+              width: 72,
+              height: 40,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).dividerColor),
+                  ),
+                  child: applyPdfToneMode(
+                    Stack(
+                      fit: StackFit.expand,
+                      children: const [
+                        ColoredBox(color: Colors.white),
+                        Positioned(
+                          left: 10,
+                          right: 10,
+                          top: 11,
+                          child: ColoredBox(
+                            color: Colors.black,
+                            child: SizedBox(height: 3),
+                          ),
+                        ),
+                        Positioned(
+                          left: 10,
+                          right: 24,
+                          top: 20,
+                          child: ColoredBox(
+                            color: Colors.blue,
+                            child: SizedBox(height: 3),
+                          ),
+                        ),
+                        Positioned(
+                          left: 10,
+                          right: 18,
+                          top: 29,
+                          child: ColoredBox(
+                            color: Colors.red,
+                            child: SizedBox(height: 3),
+                          ),
+                        ),
+                      ],
+                    ),
+                    tone,
+                  ),
+                ),
+              ),
+            ),
+            selected: currentTone == tone,
+            onTap: () {
+              cubit.changePdfPageToneMode(tone);
+              Navigator.of(context).pop();
+            },
+          ),
+        )
+        .toList(),
+  );
+}
+
+Future<void> _openDirectPdfNewPageDialog(
+  BuildContext context,
+  DocumentLoadSuccess state, {
+  int? insertIndex,
+}) async {
+  final details = await showDialog<PageAddedDetails>(
+    context: context,
+    builder: (context) => PdfNewPageDialog(
+      insertIndex: insertIndex,
+      nextPageNumber: state.data.getPages().length + 1,
+    ),
+  );
+  if (details == null || !context.mounted) return;
+  context.read<DocumentBloc>().add(PagesAdded([details]));
+}
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
@@ -361,6 +448,12 @@ class _AppBarTitleState extends State<_AppBarTitle> {
       ),
       const SizedBox(width: 8),
       if (state is DocumentLoadSuccess) ...[
+        if (state.isDirectPdfSession)
+          IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.filePlus),
+            tooltip: AppLocalizations.of(context).newPage,
+            onPressed: () => _openDirectPdfNewPageDialog(context, state),
+          ),
         if ((!state.hasAutosave() || settings.showSaveButton) &&
             state.embedding?.save != false)
           SizedBox(
@@ -395,6 +488,34 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               },
             ),
           ),
+        BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+          buildWhen: (previous, current) =>
+              previous.toggleableHandlers != current.toggleableHandlers,
+          builder: (context, current) => IconButton(
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.magnifyingGlassPlus,
+            ),
+            selectedIcon: const PhosphorIcon(
+              PhosphorIconsFill.magnifyingGlassPlus,
+            ),
+            isSelected: context.read<CurrentIndexCubit>().isZoomBoxEnabled,
+            tooltip: AppLocalizations.of(context).zoomBox,
+            onPressed: state.embedding?.editable == false
+                ? null
+                : () async {
+                    final cubit = context.read<CurrentIndexCubit>();
+                    cubit.resetSelection(force: true);
+                    await cubit.toggleAppBarZoomBox(bloc);
+                  },
+          ),
+        ),
+        if (state.isDirectPdfSession)
+          IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.moon),
+            tooltip: AppLocalizations.of(context).pageTone,
+            onPressed: () => _openPdfPageToneDialog(context),
+          ),
+        SearchButton(controller: widget.searchController),
         if (state.currentAreaName.isNotEmpty)
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.signOut),
@@ -411,7 +532,6 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             tooltip: AppLocalizations.of(context).export,
             onPressed: () => context.read<ImportService>().export(),
           ),
-        SearchButton(controller: widget.searchController),
         if (state.location.path != '' && state.embedding == null) ...[
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.folder),
@@ -461,7 +581,7 @@ class MainPopupMenu extends StatelessWidget {
                 onPressed: () async {
                   final router = GoRouter.of(context);
                   final bloc = context.read<DocumentBloc>();
-                  await bloc.save();
+                  await saveDocumentBeforeExit(bloc);
                   if (router.canPop()) {
                     router.pop();
                   } else {

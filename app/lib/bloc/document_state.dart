@@ -249,17 +249,18 @@ class DocumentLoadSuccess extends DocumentLoaded {
   bool isLayerVisible(String? layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
-      settingsCubit.state.autosave &&
-      (networkingService.isActive ||
-          !(embedding?.save ?? true) ||
-          (!kIsWeb &&
-              !absolute &&
-              (location.isEmpty || (location.fileType?.isNote() ?? false)) &&
-              (location.remote.isEmpty ||
-                  (settingsCubit
-                          .getRemote(location.remote)
-                          ?.hasDocumentCached(location.path) ??
-                      false))));
+      (isDirectPdfSession && canSaveDirectPdfInPlace(this)) ||
+      (settingsCubit.state.autosave &&
+          (networkingService.isActive ||
+              !(embedding?.save ?? true) ||
+              (!kIsWeb &&
+                  !absolute &&
+                  (location.isEmpty || (location.fileType?.isNote() ?? false)) &&
+                  (location.remote.isEmpty ||
+                      (settingsCubit
+                              .getRemote(location.remote)
+                              ?.hasDocumentCached(location.path) ??
+                          false)))));
 
   ExternalStorage? getRemoteStorage() => currentIndexCubit.getRemoteStorage();
 

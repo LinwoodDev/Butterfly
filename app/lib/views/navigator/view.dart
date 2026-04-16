@@ -184,7 +184,8 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
       buildWhen: (previous, current) =>
-          previous.navigatorPage != current.navigatorPage,
+          previous.navigatorPage != current.navigatorPage ||
+          previous.navigatorEnabled != current.navigatorEnabled,
       builder: (context, currentIndex) {
         final page = currentIndex.navigatorPage;
         final body = switch (page) {

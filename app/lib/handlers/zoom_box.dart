@@ -129,6 +129,7 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
     const ZoomBoxOverlayState(),
   );
   ZoomBoxOverlayState? _resolvedState;
+  Rect? _targetConstraintRect;
   var _seededFromTool = false;
   Timer? _autoAdvanceTimer;
   late double? _defaultTargetLeft = data.targetLeft;
@@ -141,6 +142,10 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
   ValueListenable<ZoomBoxOverlayState> get listenable => _overlayState;
 
   ZoomBoxOverlayState get overlayState => _overlayState.value;
+
+  void setTargetConstraintRect(Rect? rect) {
+    _targetConstraintRect = rect;
+  }
 
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
@@ -613,7 +618,7 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
       transform,
       current.zoomFactor,
     );
-    final viewportRect = _visibleViewportRect(viewportSize, transform);
+    final viewportRect = _effectiveTargetViewportRect(viewportSize, transform);
     final desiredWidth = max(
       1.0,
       currentRect.width + localDelta.dx / transform.size,
@@ -973,7 +978,10 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
     final bounds = _targetBounds(viewportSize, transform, targetSize);
     var targetOrigin = next.targetOrigin;
     if (targetOrigin == null) {
-      final viewportRect = _visibleViewportRect(viewportSize, transform);
+      final viewportRect = _effectiveTargetViewportRect(
+        viewportSize,
+        transform,
+      );
       targetOrigin = _defaultTargetLeft != null && _defaultTargetTop != null
           ? Offset(_defaultTargetLeft!, _defaultTargetTop!)
           : viewportRect.topLeft +
@@ -1081,6 +1089,11 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
     );
   }
 
+  Rect _effectiveTargetViewportRect(
+    Size viewportSize,
+    CameraTransform transform,
+  ) => _targetConstraintRect ?? _visibleViewportRect(viewportSize, transform);
+
   Size _baseTargetSize(
     Size contentSize,
     CameraTransform transform,
@@ -1101,7 +1114,7 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
     double widthScale,
     double heightScale,
   ) {
-    final viewportRect = _visibleViewportRect(viewportSize, transform);
+    final viewportRect = _effectiveTargetViewportRect(viewportSize, transform);
     final baseSize = _baseTargetSize(contentSize, transform, zoomFactor);
     return Size(
       (baseSize.width * widthScale)
@@ -1118,7 +1131,7 @@ class ZoomBoxHandler extends Handler<ZoomBoxTool>
     CameraTransform transform,
     Size targetSize,
   ) {
-    final viewportRect = _visibleViewportRect(viewportSize, transform);
+    final viewportRect = _effectiveTargetViewportRect(viewportSize, transform);
     final maxX =
         viewportRect.left + max(0.0, viewportRect.width - targetSize.width);
     final maxY =

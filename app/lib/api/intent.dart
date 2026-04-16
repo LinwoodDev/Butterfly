@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:butterfly/main.dart';
 import 'package:flutter/services.dart';
 
@@ -28,4 +29,17 @@ Future<String?> getIntentType() async {
 Future<Uint8List?> getIntentData() async {
   final Uint8List? result = await platform.invokeMethod('getIntentData');
   return result;
+}
+
+Future<String?> getIntentUri() async {
+  final String? result = await platform.invokeMethod('getIntentUri');
+  return result;
+}
+
+Future<bool> writeContentUriData(String uri, Uint8List data) async {
+  final bool? result = await platform.invokeMethod('writeContentUriData', {
+    'uri': uri,
+    'data': data,
+  });
+  return result ?? false;
 }

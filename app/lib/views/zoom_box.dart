@@ -5,7 +5,9 @@ import 'dart:math';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/helpers/number.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -230,6 +232,11 @@ class _ZoomBoxOverlayState extends State<ZoomBoxOverlay>
     return LayoutBuilder(
       builder: (context, constraints) {
         final viewportSize = constraints.biggest;
+        widget.handler.setTargetConstraintRect(
+          widget.documentState.isDirectPdfSession
+              ? widget.documentState.currentArea?.rect
+              : null,
+        );
         widget.handler.ensureState(
           viewportSize,
           widget.transform,
@@ -451,8 +458,9 @@ class _ZoomBoxOverlayState extends State<ZoomBoxOverlay>
                                             invisibleLayers: widget
                                                 .documentState
                                                 .invisibleLayers,
-                                            currentArea:
-                                                widget.documentState.currentArea,
+                                            currentArea: widget
+                                                .documentState
+                                                .currentArea,
                                             colorScheme: colorScheme,
                                           ),
                                         ),
@@ -481,7 +489,7 @@ class _ZoomBoxOverlayState extends State<ZoomBoxOverlay>
                                                 color: normalized.autoAdvance
                                                     ? colorScheme.primary
                                                     : colorScheme
-                                                        .outlineVariant,
+                                                          .outlineVariant,
                                                 width: 2,
                                               ),
                                             ),
@@ -493,7 +501,8 @@ class _ZoomBoxOverlayState extends State<ZoomBoxOverlay>
                                       left:
                                           advanceKnobRect.left -
                                           contentRect.left,
-                                      top: advanceKnobRect.top - contentRect.top,
+                                      top:
+                                          advanceKnobRect.top - contentRect.top,
                                       child: Listener(
                                         onPointerDown: (event) {
                                           _advanceHandleCanDrag =
@@ -726,12 +735,11 @@ class _ZoomBoxOverlayState extends State<ZoomBoxOverlay>
                                             bloc,
                                             viewportSize,
                                           ),
-                                      onSubmitted: (_) =>
-                                          _commitPauseField(
-                                            normalized,
-                                            bloc,
-                                            viewportSize,
-                                          ),
+                                      onSubmitted: (_) => _commitPauseField(
+                                        normalized,
+                                        bloc,
+                                        viewportSize,
+                                      ),
                                     ),
                                   ),
                                 ),

@@ -225,6 +225,13 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
           Map<String, dynamic>.from(json['globalZoomBoxTool'] as Map),
         ),
   showThumbnails: json['showThumbnails'] as bool? ?? true,
+  pdfDirectEditEnabled: json['pdfDirectEditEnabled'] as bool? ?? false,
+  pdfDirectEditSaveOnExit: json['pdfDirectEditSaveOnExit'] as bool? ?? false,
+  pdfDirectEditAutosaveDelaySeconds:
+      (json['pdfDirectEditAutosaveDelaySeconds'] as num?)?.toInt() ?? 5,
+  pdfPageToneMode:
+      $enumDecodeNullable(_$PdfPageToneModeEnumMap, json['pdfPageToneMode']) ??
+      PdfPageToneMode.normal,
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -298,6 +305,11 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'globalToolStrokeWidths': instance.globalToolStrokeWidths,
   'globalZoomBoxTool': instance.globalZoomBoxTool?.toJson(),
   'showThumbnails': instance.showThumbnails,
+  'pdfDirectEditEnabled': instance.pdfDirectEditEnabled,
+  'pdfDirectEditSaveOnExit': instance.pdfDirectEditSaveOnExit,
+  'pdfDirectEditAutosaveDelaySeconds':
+      instance.pdfDirectEditAutosaveDelaySeconds,
+  'pdfPageToneMode': _$PdfPageToneModeEnumMap[instance.pdfPageToneMode]!,
 };
 
 const _$ThemeModeEnumMap = {
@@ -400,4 +412,12 @@ const _$RenderResolutionEnumMap = {
   RenderResolution.performance: 'performance',
   RenderResolution.normal: 'normal',
   RenderResolution.high: 'high',
+};
+
+const _$PdfPageToneModeEnumMap = {
+  PdfPageToneMode.normal: 'normal',
+  PdfPageToneMode.night: 'night',
+  PdfPageToneMode.eyeProtection: 'eyeProtection',
+  PdfPageToneMode.sepia: 'sepia',
+  PdfPageToneMode.invert: 'invert',
 };

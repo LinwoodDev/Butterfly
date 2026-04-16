@@ -6,7 +6,9 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/pdf_direct.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -37,6 +39,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
   Animation<Offset>? _positionAnimation;
+  String? _lastDirectPdfAlignedSessionKey;
+  String? _lastDirectPdfAlignedPageKey;
 
   // Touch gesture buffering
   final List<PointerEvent> _bufferedEvents = [];
@@ -45,12 +49,109 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool _isTouchTapGesture = false;
   Timer? _touchTapTimer;
   final Set<int> _overlayBlockedPointers = {};
+  Timer? _directPdfPagePreviewCommitTimer;
+  double _directPdfPagePreviewAccumulator = 0;
+  int? _directPdfPreviewTargetIndex;
 
   void _resetTouchTap() {
     _bufferedEvents.clear();
     _touchStartPositions.clear();
     _isTouchTapGesture = false;
     _fingersInvolved = 0;
+  }
+
+  bool _canUseDirectPdfPagePreview(DocumentLoaded state) {
+    if (!state.isDirectPdfSession || state.currentArea == null) {
+      return false;
+    }
+    if (state.data.getPages(true).length <= 1) {
+      return false;
+    }
+    return context.read<TransformCubit>().state.size <= 1.05;
+  }
+
+  void _clearDirectPdfPagePreview({bool clearAccumulator = true}) {
+    _directPdfPagePreviewCommitTimer?.cancel();
+    _directPdfPagePreviewCommitTimer = null;
+    final hadPreview = _directPdfPreviewTargetIndex != null;
+    _directPdfPreviewTargetIndex = null;
+    if (clearAccumulator) {
+      _directPdfPagePreviewAccumulator = 0;
+    }
+    if (hadPreview && mounted) {
+      setState(() {});
+    }
+  }
+
+  void _updateDirectPdfPagePreview(
+    DocumentLoaded state,
+    double delta, {
+    required double threshold,
+    bool commitOnIdle = false,
+  }) {
+    if (!_canUseDirectPdfPagePreview(state) || threshold <= 0) {
+      return;
+    }
+    final pages = state.data.getPages(true);
+    final currentIndex = pages.indexOf(state.pageName);
+    if (currentIndex == -1) return;
+
+    _directPdfPagePreviewAccumulator += delta;
+    final steps = _directPdfPagePreviewAccumulator.abs() ~/ threshold;
+    final direction = _directPdfPagePreviewAccumulator > 0
+        ? 1
+        : _directPdfPagePreviewAccumulator < 0
+        ? -1
+        : 0;
+    final nextIndex = direction == 0 || steps == 0
+        ? currentIndex
+        : (currentIndex + direction * steps).clamp(0, pages.length - 1);
+    final nextPreview = nextIndex == currentIndex ? null : nextIndex;
+    if (nextPreview != _directPdfPreviewTargetIndex && mounted) {
+      setState(() {
+        _directPdfPreviewTargetIndex = nextPreview;
+      });
+    }
+
+    if (commitOnIdle) {
+      _directPdfPagePreviewCommitTimer?.cancel();
+      _directPdfPagePreviewCommitTimer = Timer(
+        const Duration(milliseconds: 220),
+        () async {
+          if (!mounted) return;
+          final blocState = context.read<DocumentBloc>().state;
+          if (blocState is! DocumentLoadSuccess) {
+            _clearDirectPdfPagePreview();
+            return;
+          }
+          await _commitDirectPdfPagePreview(blocState);
+        },
+      );
+    }
+  }
+
+  Future<void> _commitDirectPdfPagePreview(DocumentLoaded state) async {
+    _directPdfPagePreviewCommitTimer?.cancel();
+    _directPdfPagePreviewCommitTimer = null;
+    final targetIndex = _directPdfPreviewTargetIndex;
+    final pages = state.data.getPages(true);
+    final currentIndex = pages.indexOf(state.pageName);
+    if (mounted) {
+      setState(() {
+        _directPdfPreviewTargetIndex = null;
+        _directPdfPagePreviewAccumulator = 0;
+      });
+    } else {
+      _directPdfPreviewTargetIndex = null;
+      _directPdfPagePreviewAccumulator = 0;
+    }
+    if (targetIndex == null ||
+        targetIndex == currentIndex ||
+        targetIndex < 0 ||
+        targetIndex >= pages.length) {
+      return;
+    }
+    context.read<DocumentBloc>().add(PageChanged(pages[targetIndex]));
   }
 
   ZoomBoxHitRegion _zoomBoxHitRegion(
@@ -413,6 +514,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     HardwareKeyboard.instance.removeHandler(_handleKey);
+    _touchTapTimer?.cancel();
+    _directPdfPagePreviewCommitTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }
@@ -423,7 +526,10 @@ class _MainViewViewportState extends State<MainViewViewport>
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     if (state != AppLifecycleState.resumed) {
-      context.read<CurrentIndexCubit>().resetInput(bloc);
+      await context.read<CurrentIndexCubit>().resetInput(bloc);
+      if (shouldForceDirectPdfSaveOnExit(blocState)) {
+        await bloc.save(force: true);
+      }
     }
   }
 
@@ -530,18 +636,78 @@ class _MainViewViewportState extends State<MainViewViewport>
             }
 
             final current = context.read<DocumentBloc>().state;
+            final pendingDirectPdfAlignment =
+                current is DocumentLoaded &&
+                current.isDirectPdfSession &&
+                current.currentArea != null &&
+                constraints.biggest.width > 0 &&
+                constraints.biggest.height > 0 &&
+                _lastDirectPdfAlignedPageKey !=
+                    '${current.directPdfSourceUri ?? current.location.identifier}'
+                        '::${current.pageName}';
             if (current is DocumentLoadSuccess &&
                 current.cameraViewport.toSize() !=
                     Size(
                       constraints.biggest.width.ceilToDouble(),
                       constraints.biggest.height.ceilToDouble(),
-                    )) {
+                    ) &&
+                !pendingDirectPdfAlignment) {
               bake();
             }
             return BlocBuilder<DocumentBloc, DocumentState>(
               builder: (context, state) {
                 if (state is! DocumentLoaded) {
+                  _lastDirectPdfAlignedSessionKey = null;
+                  _lastDirectPdfAlignedPageKey = null;
                   return const Center(child: CircularProgressIndicator());
+                }
+
+                if (state.isDirectPdfSession &&
+                    state.currentArea != null &&
+                    constraints.biggest.width > 0 &&
+                    constraints.biggest.height > 0) {
+                  final sessionKey =
+                      state.directPdfSourceUri ?? state.location.identifier;
+                  final pageKey = '$sessionKey::${state.pageName}';
+                  if (_lastDirectPdfAlignedPageKey != pageKey) {
+                    final resetZoom =
+                        _lastDirectPdfAlignedSessionKey != sessionKey;
+                    final targetZoom = resetZoom
+                        ? 1.0
+                        : context.read<TransformCubit>().state.size;
+                    _lastDirectPdfAlignedSessionKey = sessionKey;
+                    _lastDirectPdfAlignedPageKey = pageKey;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!mounted) return;
+                      final blocState = context.read<DocumentBloc>().state;
+                      if (blocState is! DocumentLoaded ||
+                          !blocState.isDirectPdfSession ||
+                          blocState.currentArea == null) {
+                        return;
+                      }
+                      final currentSessionKey =
+                          blocState.directPdfSourceUri ??
+                          blocState.location.identifier;
+                      final currentPageKey =
+                          '$currentSessionKey::${blocState.pageName}';
+                      if (currentPageKey != pageKey) return;
+                      context.read<TransformCubit>().centerToArea(
+                        blocState.currentArea!,
+                        constraints.biggest,
+                        targetZoom,
+                      );
+                      unawaited(
+                        context.read<DocumentBloc>().bake(
+                          viewportSize: constraints.biggest,
+                          pixelRatio: MediaQuery.devicePixelRatioOf(context),
+                          reset: true,
+                        ),
+                      );
+                    });
+                  }
+                } else {
+                  _lastDirectPdfAlignedSessionKey = null;
+                  _lastDirectPdfAlignedPageKey = null;
                 }
 
                 var openView = false;
@@ -647,6 +813,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       .read<SettingsCubit>()
                                       .state
                                       .gestureSensitivity;
+                                  final directPdfPreviewThreshold = min(
+                                    180.0,
+                                    max(72.0, constraints.biggest.height * 0.18),
+                                  );
+                                  if (details.scale == 1 &&
+                                      _canUseDirectPdfPagePreview(state) &&
+                                      details.focalPointDelta.dy.abs() >
+                                          details.focalPointDelta.dx.abs()) {
+                                    _updateDirectPdfPagePreview(
+                                      state,
+                                      -details.focalPointDelta.dy,
+                                      threshold: directPdfPreviewThreshold,
+                                    );
+                                    return;
+                                  }
                                   if (details.scale == 1) {
                                     cubit.move(
                                       -details.focalPointDelta /
@@ -670,6 +851,17 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     details,
                                     getEventContext(),
                                   );
+                                  if (_directPdfPreviewTargetIndex != null ||
+                                      _directPdfPagePreviewAccumulator != 0) {
+                                    unawaited(
+                                      _commitDirectPdfPagePreview(state),
+                                    );
+                                    ruler = null;
+                                    previousRulerRotation = 0;
+                                    cubit.removeButtons();
+                                    cubit.resetReleaseHandler(bloc);
+                                    return;
+                                  }
                                   if (!(_isScalingDisabled ?? true)) {
                                     var sensitivity = context
                                         .read<SettingsCubit>()
@@ -690,6 +882,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   cubit.resetReleaseHandler(bloc);
                                 },
                                 onScaleStart: (details) {
+                                  _directPdfPagePreviewCommitTimer?.cancel();
+                                  _directPdfPagePreviewCommitTimer = null;
+                                  _directPdfPagePreviewAccumulator = 0;
+                                  if (_directPdfPreviewTargetIndex != null) {
+                                    setState(() {
+                                      _directPdfPreviewTargetIndex = null;
+                                    });
+                                  }
                                   _isScalingDisabled ??=
                                       !cubit.state.moveEnabled;
                                   if (_isScalingDisabled != false) {
@@ -731,6 +931,17 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       // dx and dy are the delta between the last scroll event
                                       var dx = pointerSignal.scrollDelta.dx;
                                       var dy = pointerSignal.scrollDelta.dy;
+                                      if (_mouseState == _MouseState.normal &&
+                                          _canUseDirectPdfPagePreview(state) &&
+                                          dy.abs() > dx.abs()) {
+                                        _updateDirectPdfPagePreview(
+                                          state,
+                                          dy,
+                                          threshold: 72,
+                                          commitOnIdle: true,
+                                        );
+                                        return;
+                                      }
                                       // Get zoom by dx and dy
                                       var scale = pointerSignal.size;
                                       var sensitivity = context
@@ -854,6 +1065,9 @@ class _MainViewViewportState extends State<MainViewViewport>
     CurrentIndexCubit cubit,
     DocumentLoaded state,
   ) {
+    final toneMode = state.isDirectPdfSession
+        ? context.watch<SettingsCubit>().state.pdfPageToneMode
+        : PdfPageToneMode.normal;
     return BlocListener<TransformCubit, CameraTransform>(
       listenWhen: (previous, current) =>
           previous.friction?.lastUpdate != current.friction?.lastUpdate,
@@ -890,36 +1104,86 @@ class _MainViewViewportState extends State<MainViewViewport>
               _positionAnimation?.value ?? Offset.zero,
               0,
             );
+            final colorScheme = ColorScheme.of(context);
             final zoomBoxEntry = currentIndex.toggleableHandlers.entries
                 .firstWhereOrNull((entry) => entry.value is ZoomBoxHandler);
+            final pageCanvas = CustomPaint(
+              size: Size.infinite,
+              foregroundPainter: ForegroundPainter(
+                currentIndex.getAllForegrounds(),
+                state.data,
+                state.page,
+                state.info,
+                colorScheme,
+                frictionTransform,
+                cubit.state.selection,
+                state.settingsCubit.state.navigatorPosition,
+              ),
+              painter: ViewPainter(
+                state.data,
+                state.page,
+                state.info,
+                cameraViewport: currentIndex.cameraViewport,
+                transform: frictionTransform,
+                invisibleLayers: state.invisibleLayers,
+                currentArea: state.currentArea,
+                colorScheme: colorScheme,
+              ),
+              isComplex: true,
+              willChange: true,
+            );
+            Rect? directPdfPageRect;
+            if (state.isDirectPdfSession && state.currentArea != null) {
+              final area = state.currentArea!;
+              final rect = Rect.fromLTWH(
+                area.position.x,
+                area.position.y,
+                area.width,
+                area.height,
+              );
+              directPdfPageRect = Rect.fromPoints(
+                frictionTransform.globalToLocal(rect.topLeft),
+                frictionTransform.globalToLocal(rect.bottomRight),
+              );
+            }
             return Stack(
               children: [
-                Container(color: ColorScheme.of(context).surfaceDim),
-                CustomPaint(
-                  size: Size.infinite,
-                  foregroundPainter: ForegroundPainter(
-                    currentIndex.getAllForegrounds(),
-                    state.data,
-                    state.page,
-                    state.info,
-                    ColorScheme.of(context),
-                    frictionTransform,
-                    cubit.state.selection,
-                    state.settingsCubit.state.navigatorPosition,
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Color.alphaBlend(
+                      colorScheme.shadow.withValues(alpha: 0.03),
+                      colorScheme.surfaceDim,
+                    ),
                   ),
-                  painter: ViewPainter(
-                    state.data,
-                    state.page,
-                    state.info,
-                    cameraViewport: currentIndex.cameraViewport,
-                    transform: frictionTransform,
-                    invisibleLayers: state.invisibleLayers,
-                    currentArea: state.currentArea,
-                    colorScheme: ColorScheme.of(context),
-                  ),
-                  isComplex: true,
-                  willChange: true,
                 ),
+                if (directPdfPageRect != null) ...[
+                  Positioned.fromRect(
+                    rect: directPdfPageRect,
+                    child: IgnorePointer(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: colorScheme.outlineVariant,
+                            width: 1.2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: colorScheme.shadow.withValues(alpha: 0.18),
+                              blurRadius: 24,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ClipRect(
+                    clipper: _ViewportRectClipper(directPdfPageRect),
+                    child: applyPdfToneMode(pageCanvas, toneMode),
+                  ),
+                ] else
+                  applyPdfToneMode(pageCanvas, toneMode),
                 if (zoomBoxEntry != null)
                   ZoomBoxOverlay(
                     handler: zoomBoxEntry.value as ZoomBoxHandler,
@@ -928,9 +1192,91 @@ class _MainViewViewportState extends State<MainViewViewport>
                     currentIndex: currentIndex,
                     transform: frictionTransform,
                   ),
+                if (state.isDirectPdfSession && _directPdfPreviewTargetIndex != null)
+                  _DirectPdfPagePreviewOverlay(
+                    state: state,
+                    targetIndex: _directPdfPreviewTargetIndex!,
+                  ),
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewportRectClipper extends CustomClipper<Rect> {
+  final Rect rect;
+
+  const _ViewportRectClipper(this.rect);
+
+  @override
+  Rect getClip(Size size) => rect;
+
+  @override
+  bool shouldReclip(covariant _ViewportRectClipper oldClipper) =>
+      oldClipper.rect != rect;
+}
+
+class _DirectPdfPagePreviewOverlay extends StatelessWidget {
+  final DocumentLoaded state;
+  final int targetIndex;
+
+  const _DirectPdfPagePreviewOverlay({
+    required this.state,
+    required this.targetIndex,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final pageNames = state.data.getPages();
+    final realPageNames = state.data.getPages(true);
+    if (targetIndex < 0 || targetIndex >= realPageNames.length) {
+      return const SizedBox.shrink();
+    }
+    final currentIndex = realPageNames.indexOf(state.pageName);
+    final label = pageNames.elementAtOrNull(targetIndex) ?? state.pageName;
+    final directionIcon = targetIndex > currentIndex
+        ? Icons.keyboard_arrow_down_rounded
+        : Icons.keyboard_arrow_up_rounded;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: Center(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: colorScheme.surface.withValues(alpha: 0.95),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: colorScheme.outlineVariant),
+              boxShadow: [
+                BoxShadow(
+                  color: colorScheme.shadow.withValues(alpha: 0.18),
+                  blurRadius: 24,
+                  offset: const Offset(0, 12),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(directionIcon, size: 32, color: colorScheme.primary),
+                  const SizedBox(height: 8),
+                  Text(label, style: theme.textTheme.titleMedium),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${targetIndex + 1} / ${realPageNames.length}',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
