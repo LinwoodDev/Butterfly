@@ -8,6 +8,7 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
@@ -257,10 +258,16 @@ class ViewPainter extends CustomPainter {
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
     final shouldRepaint =
+        document != oldDelegate.document ||
         page != oldDelegate.page ||
+        info != oldDelegate.info ||
         renderBackground != oldDelegate.renderBackground ||
+        renderBaked != oldDelegate.renderBaked ||
+        renderBakedLayers != oldDelegate.renderBakedLayers ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
+        !setEquals(invisibleLayers, oldDelegate.invisibleLayers) ||
+        currentArea != oldDelegate.currentArea ||
         colorScheme != oldDelegate.colorScheme;
     return shouldRepaint;
   }
