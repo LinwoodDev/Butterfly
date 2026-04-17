@@ -1111,7 +1111,7 @@
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
   "smoothNavigation": "Glat navigation",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Kant panorering område skifte",
   "exact": "Præcis",
   "@exact": {
     "description": "Exact match"
