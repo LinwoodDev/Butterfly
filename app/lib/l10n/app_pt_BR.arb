@@ -1111,7 +1111,7 @@
   "addAll": "Adicionar tudo",
   "onlyCurrentPage": "Somente a página atual",
   "smoothNavigation": "Navegação suave",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Área da borda pan mudando",
   "exact": "Exato",
   "@exact": {
     "description": "Exact match"
