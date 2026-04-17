@@ -1111,7 +1111,7 @@
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
   "smoothNavigation": "Vloeiende navigatie",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Edge pan gebied wisselen",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"
