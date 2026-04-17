@@ -1111,7 +1111,7 @@
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
   "smoothNavigation": "Hladká navigace",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Přepínání prostoru skořepiny hrany",
   "exact": "Přesné",
   "@exact": {
     "description": "Exact match"
