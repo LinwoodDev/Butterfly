@@ -1111,7 +1111,7 @@
   "addAll": "Añadir todo",
   "onlyCurrentPage": "Sólo página actual",
   "smoothNavigation": "Navegación suave",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Interruptor de área de sartén",
   "exact": "Exacto",
   "@exact": {
     "description": "Exact match"
