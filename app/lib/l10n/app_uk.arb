@@ -1111,7 +1111,7 @@
   "addAll": "Додати всі",
   "onlyCurrentPage": "Тільки поточна сторінка",
   "smoothNavigation": "Плавна навігація",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Вимикання області pan",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"
