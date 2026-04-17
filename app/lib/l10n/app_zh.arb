@@ -1111,7 +1111,7 @@
   "addAll": "添加全部",
   "onlyCurrentPage": "仅当前页面",
   "smoothNavigation": "平滑导航",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "切换边框",
   "exact": "精准的",
   "@exact": {
     "description": "Exact match"
