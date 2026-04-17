@@ -1111,7 +1111,7 @@
   "addAll": "Lägg till alla",
   "onlyCurrentPage": "Endast aktuell sida",
   "smoothNavigation": "Smidig navigering",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Kanten panorering område växla",
   "exact": "Exakt",
   "@exact": {
     "description": "Exact match"
