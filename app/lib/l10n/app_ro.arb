@@ -1111,7 +1111,7 @@
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
-  "edgePanAreaSwitching": "Edge pan area switching",
+  "edgePanAreaSwitching": "Comutarea zonei panoului de margini",
   "exact": "Exact",
   "@exact": {
     "description": "Exact match"
