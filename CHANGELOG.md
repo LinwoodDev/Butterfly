@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.1-rc.1 (2026-04-20)
+
+* Add edge pan area switching experimental feature
+* Add bounds for viewport inside current area
+* Add selection mode for areas, layers, and pages navigator view
+* Add current area on page creation
+* Improve zoom control settings
+* Fix inline editing in editable list tile on mobile
+* Fix document not saving when changing documents in file navigator
+* Fix duplicate page creation when adding new pages
+* Fix initial area not opened on page change
+* Fix elements not rendering initially without resizing on web
+
+Read more here: https://linwood.dev/butterfly/2.5.1-rc.1
+
 ## 2.5.1-rc.0 (2026-04-13)
 
 * Add content viewport option to behavior settings
