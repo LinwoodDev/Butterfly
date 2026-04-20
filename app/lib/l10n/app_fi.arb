@@ -10,6 +10,11 @@
   "lightTheme": "Vaalea teema",
   "systemTheme": "Käytä järjestelmän oletusteemaa",
   "view": "Näytä",
+  "contentViewport": "Sisällön Näyttöportti",
+  "limitViewportToPositiveCoordinates": "Rajoita näkymä positiivisiin koordinaatteihin",
+  "off": "Pois",
+  "canvas": "Kanava",
+  "interface": "Käyttöliittymä",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
+  "edgePanAreaSwitching": "Alueen reuna-alueen vaihtaminen",
   "exact": "Tarkka",
   "@exact": {
     "description": "Exact match"

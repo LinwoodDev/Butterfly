@@ -10,6 +10,11 @@
   "lightTheme": "Светлая тема",
   "systemTheme": "Использовать системную тему по умолчанию",
   "view": "Вид",
+  "contentViewport": "Вид контента",
+  "limitViewportToPositiveCoordinates": "Ограничить видовые координаты",
+  "off": "Выкл",
+  "canvas": "Холст",
+  "interface": "Интерфейс",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
+  "edgePanAreaSwitching": "Переключение области края пружины",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"

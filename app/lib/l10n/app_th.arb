@@ -10,6 +10,11 @@
   "lightTheme": "ธีมสีอ่อน",
   "systemTheme": "ใช้ธีมระบบเริ่มต้น",
   "view": "ดู",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "เพิ่มทั้งหมด",
   "onlyCurrentPage": "เฉพาะหน้าปัจจุบัน",
   "smoothNavigation": "การนำทางเรียบ",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "แม่นยำ",
   "@exact": {
     "description": "Exact match"

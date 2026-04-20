@@ -10,6 +10,11 @@
   "lightTheme": "Giao diện sáng",
   "systemTheme": "Dùng giao diện mặc định của máy",
   "view": "Hiển thị",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Thêm tất cả",
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Chính xác",
   "@exact": {
     "description": "Exact match"

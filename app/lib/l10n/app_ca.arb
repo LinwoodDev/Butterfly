@@ -10,6 +10,11 @@
   "lightTheme": "Tema clar",
   "systemTheme": "Utilitzar tema del sistema per defecte",
   "view": "Veure",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Afegeix-ho tot",
   "onlyCurrentPage": "Només pàgina actual",
   "smoothNavigation": "Navegació fluida",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"

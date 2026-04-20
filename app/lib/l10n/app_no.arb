@@ -10,6 +10,11 @@
   "lightTheme": "Lyst tema",
   "systemTheme": "Bruk standard systemtema",
   "view": "Vis",
+  "contentViewport": "Innholdsvisnings port",
+  "limitViewportToPositiveCoordinates": "Begrens visningsporten til positive koordinater",
+  "off": "Av",
+  "canvas": "Canvas",
+  "interface": "Grensesnitt",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Legg til alle",
   "onlyCurrentPage": "Bare gjeldende side",
   "smoothNavigation": "Jevn navigasjon",
+  "edgePanAreaSwitching": "Pan område område av kant",
   "exact": "Nøyaktig",
   "@exact": {
     "description": "Exact match"

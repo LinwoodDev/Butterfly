@@ -10,6 +10,11 @@
   "lightTheme": "Jasny motyw",
   "systemTheme": "Użyj domyślnego motywu systemowego",
   "view": "Widok",
+  "contentViewport": "Podgląd treści",
+  "limitViewportToPositiveCoordinates": "Ogranicz widok do pozytywnych współrzędnych",
+  "off": "Wyłączony",
+  "canvas": "Płótno",
+  "interface": "Interfejs",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Dodaj wszystkie",
   "onlyCurrentPage": "Tylko bieżąca strona",
   "smoothNavigation": "Gładka nawigacja",
+  "edgePanAreaSwitching": "Przełącznik panewki krawędziowej",
   "exact": "Dokładny",
   "@exact": {
     "description": "Exact match"

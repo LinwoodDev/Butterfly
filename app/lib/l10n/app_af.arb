@@ -10,6 +10,11 @@
   "lightTheme": "Ligte tema",
   "systemTheme": "Gebruik verstek stelseltema",
   "view": "Aansig",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Voeg alles by",
   "onlyCurrentPage": "Slegs huidige bladsy",
   "smoothNavigation": "Gladde navigasie",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Presies",
   "@exact": {
     "description": "Exact match"

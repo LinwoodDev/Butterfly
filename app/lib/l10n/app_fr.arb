@@ -10,6 +10,11 @@
   "lightTheme": "Thème clair",
   "systemTheme": "Utiliser le thème système par défaut",
   "view": "Voir",
+  "contentViewport": "Vue du contenu",
+  "limitViewportToPositiveCoordinates": "Limiter le Viewport aux coordonnées positives",
+  "off": "Désactivé",
+  "canvas": "Toile",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Ajouter tout",
   "onlyCurrentPage": "Uniquement la page courante",
   "smoothNavigation": "Navigation fluide",
+  "edgePanAreaSwitching": "Changement de zone de la bordure",
   "exact": "Exactement",
   "@exact": {
     "description": "Exact match"

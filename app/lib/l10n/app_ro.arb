@@ -10,6 +10,11 @@
   "lightTheme": "Temă luminoasă",
   "systemTheme": "Foloseste tema de sistem implicita",
   "view": "Vizualizare",
+  "contentViewport": "Vizualizare conținut",
+  "limitViewportToPositiveCoordinates": "Vizualizare Limită la coordonate pozitive",
+  "off": "Dezactivat",
+  "canvas": "Pânză",
+  "interface": "Interfață",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
+  "edgePanAreaSwitching": "Comutarea zonei panoului de margini",
   "exact": "Exact",
   "@exact": {
     "description": "Exact match"

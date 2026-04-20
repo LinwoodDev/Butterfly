@@ -10,6 +10,11 @@
   "lightTheme": "Tema claro",
   "systemTheme": "Usar tema de sistema por defecto",
   "view": "Ver",
+  "contentViewport": "Vista de contenido",
+  "limitViewportToPositiveCoordinates": "Limitar la vista a coordenadas positivas",
+  "off": "Apagado",
+  "canvas": "Lona",
+  "interface": "Interfaz",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Añadir todo",
   "onlyCurrentPage": "Sólo página actual",
   "smoothNavigation": "Navegación suave",
+  "edgePanAreaSwitching": "Interruptor de área de sartén",
   "exact": "Exacto",
   "@exact": {
     "description": "Exact match"

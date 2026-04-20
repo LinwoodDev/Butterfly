@@ -10,6 +10,11 @@
   "lightTheme": "Világos téma",
   "systemTheme": "Rendszer téma",
   "view": "Megtekintés",
+  "contentViewport": "Content Viewport",
+  "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "off": "Off",
+  "canvas": "Canvas",
+  "interface": "Interface",
   "@view": {
     "description": "View mode or menu"
   },
@@ -1106,6 +1111,7 @@
   "addAll": "Összes hozzáadása",
   "onlyCurrentPage": "Csak aktuális oldal",
   "smoothNavigation": "Sima navigáció",
+  "edgePanAreaSwitching": "Edge pan area switching",
   "exact": "Pontos",
   "@exact": {
     "description": "Exact match"
