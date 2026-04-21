@@ -123,8 +123,8 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                     appSize = Size(constraints.maxWidth, constraints.maxHeight);
                   }
                   final scale = min(
-                    (constraints.maxWidth / appSize.width).clamp(0.0, 1.0),
-                    (constraints.maxHeight / appSize.height).clamp(0.0, 1.0),
+                    (constraints.maxWidth / appSize.width),
+                    (constraints.maxHeight / appSize.height),
                   );
 
                   final baseTransform = widget.state.transformCubit.state;
@@ -161,8 +161,6 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                     cropWidth =
                         cropHeight * (kThumbnailWidth / kThumbnailHeight);
                   }
-                  cropWidth *= 0.8;
-                  cropHeight *= 0.8;
 
                   Future.microtask(() {
                     if (mounted) {

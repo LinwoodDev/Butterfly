@@ -465,8 +465,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                     final isSimiliar =
                         (Offset(realSize.width, realSize.height) -
                                 Offset(viewportSize.width, viewportSize.height))
-                            .distance <
-                        2.0;
+                            .distanceSquared <
+                        16.0;
                     if (state is DocumentLoadSuccess && !isSimiliar) {
                       WidgetsBinding.instance.addPostFrameCallback(
                         (_) => bake(),

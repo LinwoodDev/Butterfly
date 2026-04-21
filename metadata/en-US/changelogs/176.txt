@@ -1,3 +1,4 @@
+* Improve thumbnail cropping logic to better fit the viewport
 * Fix ghost pages creation when reordering current page
 * Fix number field text changes while inputting text
 * Fix bounds calculation when using areas and enabling positive coordinates
