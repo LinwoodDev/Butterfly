@@ -350,14 +350,14 @@ class _MainViewViewportState extends State<MainViewViewport>
             void bake() {
               context.read<DocumentBloc>().bake(
                 viewportSize: constraints.biggest,
-                pixelRatio: MediaQuery.of(context).devicePixelRatio,
+                pixelRatio: MediaQuery.devicePixelRatioOf(context),
               );
             }
 
             void delayBake() {
               context.read<DocumentBloc>().delayedBake(
                 viewportSize: constraints.biggest,
-                pixelRatio: MediaQuery.of(context).devicePixelRatio,
+                pixelRatio: MediaQuery.devicePixelRatioOf(context),
                 testTransform: true,
               );
             }
@@ -460,12 +460,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                       previous.cursor != current.cursor ||
                       previous.temporaryCursor != current.temporaryCursor,
                   builder: (context, currentIndex) {
-                    if (state is DocumentLoadSuccess &&
-                        currentIndex.cameraViewport.toSize() !=
-                            Size(
-                              constraints.biggest.width.ceilToDouble(),
-                              constraints.biggest.height.ceilToDouble(),
-                            )) {
+                    var realSize = currentIndex.cameraViewport.toRealSize();
+                    final viewportSize = constraints.biggest;
+                    final isSimiliar =
+                        (Offset(realSize.width, realSize.height) -
+                                Offset(viewportSize.width, viewportSize.height))
+                            .distance <
+                        2.0;
+                    if (state is DocumentLoadSuccess && !isSimiliar) {
                       WidgetsBinding.instance.addPostFrameCallback(
                         (_) => bake(),
                       );
