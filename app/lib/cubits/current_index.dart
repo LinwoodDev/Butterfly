@@ -1992,7 +1992,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
     }
 
-    if (positive) {
+    if (positive && currentArea == null) {
       minX = max(0.0, minX);
       minY = max(0.0, minY);
       maxX = max(0.0, maxX);
