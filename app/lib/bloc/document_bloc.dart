@@ -240,8 +240,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageReordered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final newData = current.data.reorderPage(event.page, event.newIndex);
-      _saveState(emit, state: current.copyWith(data: newData));
+      var newPageName = current.pageName;
+      final newData = current.data.reorderPage(event.page, event.newIndex, (
+        oldName,
+        newName,
+      ) {
+        if (newPageName == oldName) {
+          newPageName = newName;
+        }
+      });
+      _saveState(
+        emit,
+        state: current.copyWith(data: newData, pageName: newPageName),
+      );
     });
     on<PageRenamed>((event, emit) {
       final current = state;

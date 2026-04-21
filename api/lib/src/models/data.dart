@@ -310,8 +310,14 @@ final class NoteData extends NoteDisplay<NoteData> {
     DocumentPage page, [
     String name = '',
     int? index,
+    void Function(String oldName, String newName)? onPageRenamed,
   ]) {
-    return setRawPage(utf8.encode(jsonEncode(page.toJson())), name, index);
+    return setRawPage(
+      utf8.encode(jsonEncode(page.toJson())),
+      name,
+      index,
+      onPageRenamed,
+    );
   }
 
   @useResult
@@ -319,12 +325,13 @@ final class NoteData extends NoteDisplay<NoteData> {
     Uint8List content, [
     String name = '',
     int? index,
+    void Function(String oldName, String newName)? onPageRenamed,
   ]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
     var noteData = this;
     if (index != null) {
-      noteData = _realignPages(index);
+      noteData = _realignPages(index, onPageRenamed: onPageRenamed);
     }
     final pageName = _getPageFileName(name) ?? '$newIndex.$name';
     return (
@@ -334,7 +341,10 @@ final class NoteData extends NoteDisplay<NoteData> {
   }
 
   @useResult
-  NoteData _realignPages(int index) {
+  NoteData _realignPages(
+    int index, {
+    void Function(String oldName, String newName)? onPageRenamed,
+  }) {
     final pagesOrder = _getPagesOrder();
     final nextPages = pagesOrder
         .where((element) => element.$1 >= index)
@@ -346,18 +356,26 @@ final class NoteData extends NoteDisplay<NoteData> {
       nextPages.map((e) => '$kPagesArchiveDirectory/${e.$3}.json').toList(),
     );
     var nextIndex = index + 1;
-    for (final ((_, lastName, _), data) in nextPagesData) {
+    for (final ((_, lastName, oldFullName), data) in nextPagesData) {
+      final newName = '$nextIndex.$lastName';
       noteData = noteData.setAsset(
-        '$kPagesArchiveDirectory/$nextIndex.$lastName.json',
+        '$kPagesArchiveDirectory/$newName.json',
         utf8.encode(jsonEncode(data?.toJson())),
       );
+      if (onPageRenamed != null && oldFullName != newName) {
+        onPageRenamed(oldFullName, newName);
+      }
       nextIndex++;
     }
     return noteData;
   }
 
   @useResult
-  NoteData reorderPage(String page, [int? newIndex]) {
+  NoteData reorderPage(
+    String page, [
+    int? newIndex,
+    void Function(String oldName, String newName)? onPageRenamed,
+  ]) {
     newIndex ??= getPages().length;
     final pageName = _getPageFileName(page);
     final index = getPageIndex(page);
@@ -370,9 +388,12 @@ final class NoteData extends NoteDisplay<NoteData> {
     }
     final displayName = getPageNameFromRealName(pageName);
     var noteData = removeAsset('$kPagesArchiveDirectory/$pageName.json');
-    noteData = noteData._realignPages(newIndex);
-    // ignore: unused_result
-    (noteData, _) = noteData.setPage(data, displayName, newIndex);
+    noteData = noteData._realignPages(newIndex, onPageRenamed: onPageRenamed);
+    final result = noteData.setPage(data, displayName, newIndex, onPageRenamed);
+    noteData = result.$1;
+    if (onPageRenamed != null && pageName != result.$2) {
+      onPageRenamed(pageName, result.$2);
+    }
     return noteData;
   }
 
