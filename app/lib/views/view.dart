@@ -463,10 +463,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                     var realSize = currentIndex.cameraViewport.toRealSize();
                     final viewportSize = constraints.biggest;
                     final isSimiliar =
-                        (Offset(realSize.width, realSize.height) -
-                                Offset(viewportSize.width, viewportSize.height))
-                            .distanceSquared <
-                        16.0;
+                        (realSize.width - viewportSize.width).abs() < 2 &&
+                        (realSize.height - viewportSize.height).abs() < 2;
                     if (state is DocumentLoadSuccess && !isSimiliar) {
                       WidgetsBinding.instance.addPostFrameCallback(
                         (_) => bake(),
