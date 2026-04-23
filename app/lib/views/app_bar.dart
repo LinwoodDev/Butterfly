@@ -81,8 +81,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final isLarge =
-                    MediaQuery.of(context).size.width <
-                    LeapBreakpoints.expanded;
+                    MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded;
                 return MainPopupMenu(
                   viewportKey: viewportKey,
                   isLarge: isLarge,
@@ -97,7 +96,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isMobile =
-                  MediaQuery.of(context).size.width < LeapBreakpoints.compact;
+                  MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
               return _AppBarTitle(
                 isMobile: isMobile,
                 searchController: searchController,
@@ -469,8 +468,7 @@ class MainPopupMenu extends StatelessWidget {
                   }
                 },
               ),
-              if (MediaQuery.of(context).size.width <
-                      LeapBreakpoints.expanded ||
+              if (MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded ||
                   !settings.navigationRail)
                 ...NavigatorPage.values.map(
                   (e) => MenuItemButton(

@@ -238,7 +238,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // show SnackBar with recognized shape
     ScaffoldMessenger.of(context.buildContext).showSnackBar(
       SnackBar(
-        width: MediaQuery.of(context.buildContext).size.width * 0.1,
+        width: MediaQuery.sizeOf(context.buildContext).width * 0.1,
         behavior: SnackBarBehavior.floating,
         content: Text(textAlign: TextAlign.center, recognizedShape),
         duration: const Duration(milliseconds: 300),

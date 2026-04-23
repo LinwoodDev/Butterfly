@@ -580,7 +580,7 @@ class ImportService {
     Offset? position,
   }) async {
     try {
-      final screen = MediaQuery.of(context).size;
+      final screen = MediaQuery.sizeOf(context);
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
@@ -659,7 +659,7 @@ class ImportService {
     Offset? position,
   }) async {
     try {
-      final screen = MediaQuery.of(context).size;
+      final screen = MediaQuery.sizeOf(context);
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
       try {

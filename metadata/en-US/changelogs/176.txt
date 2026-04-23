@@ -3,5 +3,6 @@
 * Fix number field text changes while inputting text
 * Fix bounds calculation when using areas and enabling positive coordinates
 * Only trigger bake when viewport size differs (fix always-bake bug)
+* Refactor MediaQuery.of(context).X usage to MediaQuery.XOf(context) for performance
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.2

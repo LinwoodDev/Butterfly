@@ -357,7 +357,7 @@ class ButterflyApp extends StatelessWidget {
             create: (context) {
               if (!kIsWeb && isWindow) {
                 windowManager.waitUntilReadyToShow(null, () async {
-                  settingsCubit.setTheme(MediaQuery.of(context));
+                  settingsCubit.setTheme(context);
                   settingsCubit.setNativeTitleBar();
                   await windowManager.show();
                 });

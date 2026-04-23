@@ -19,7 +19,7 @@ ImageExportOptions getDefaultImageExportOptions(
   CameraTransform? transform,
 }) {
   transform ??= context.read<TransformCubit>().state;
-  final size = MediaQuery.of(context).size;
+  final size = MediaQuery.sizeOf(context);
   return ImageExportOptions(
     width: size.width,
     height: size.height,
@@ -34,7 +34,7 @@ SvgExportOptions getDefaultSvgExportOptions(
   CameraTransform? transform,
 }) {
   transform ??= context.read<TransformCubit>().state;
-  final size = MediaQuery.of(context).size;
+  final size = MediaQuery.sizeOf(context);
   final scale = transform.size;
   return SvgExportOptions(
     width: size.width / scale,

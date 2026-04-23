@@ -811,17 +811,17 @@ class SettingsCubit extends Cubit<ButterflySettings>
   SettingsCubit(SharedPreferences prefs)
     : super(ButterflySettings.fromPrefs(prefs));
 
-  void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
+  void setTheme(BuildContext context, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
     final brightness = switch (theme ?? state.theme) {
       ThemeMode.light => Brightness.light,
       ThemeMode.dark => Brightness.dark,
-      ThemeMode.system => mediaQuery.platformBrightness,
+      ThemeMode.system => MediaQuery.platformBrightnessOf(context),
     };
     windowManager.setBrightness(brightness);
   }
 
-  Future<void> changeTheme(ThemeMode theme, [MediaQueryData? modify]) async {
+  Future<void> changeTheme(ThemeMode theme, [BuildContext? modify]) async {
     if (modify != null) {
       setTheme(modify, theme);
     }

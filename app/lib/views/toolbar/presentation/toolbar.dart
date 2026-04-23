@@ -654,7 +654,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 ),
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {
-                                  final size = MediaQuery.of(context).size;
+                                  final size = MediaQuery.sizeOf(context);
                                   showDialog(
                                     context: context,
                                     builder: (ctx) => BlocProvider.value(
