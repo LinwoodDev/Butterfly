@@ -2499,7 +2499,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(navigatorPage: page));
   }
 
-  var _bakeDelayed = false;
+  int _delayedBakeId = 0;
 
   Future<void> delayedBake(
     DocumentLoaded blocState, {
@@ -2508,24 +2508,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool reset = false,
     bool testTransform = false,
   }) async {
-    if (_bakeDelayed) return;
-    _bakeDelayed = true;
+    final id = ++_delayedBakeId;
     final transformCubit = state.transformCubit;
-    final oldTransform = transformCubit.state;
-    try {
-      await Future.delayed(const Duration(milliseconds: 100));
-      final newTransform = transformCubit.state;
-      final viewport = state.cameraViewport;
-      if (testTransform &&
-          (oldTransform.size != newTransform.size ||
-              oldTransform.position != newTransform.position ||
-              (oldTransform.size == viewport.scale &&
-                  oldTransform.position == viewport.toOffset()))) {
-        return;
-      }
-    } finally {
-      _bakeDelayed = false;
+
+    await Future.delayed(const Duration(milliseconds: 100));
+    if (_delayedBakeId != id) return;
+
+    final newTransform = transformCubit.state;
+    final viewport = state.cameraViewport;
+
+    if (testTransform &&
+        newTransform.size == viewport.scale &&
+        newTransform.position == viewport.toOffset()) {
+      return;
     }
+
     await bake(
       blocState,
       viewportSize: viewportSize,
