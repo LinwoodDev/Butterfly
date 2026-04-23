@@ -87,7 +87,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           value: state.autosaveDelaySeconds.toDouble(),
                           min: 1,
                           max: 10,
-                          defaultValue: 5,
+                          defaultValue: 3,
                           fractionDigits: 0,
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()
