@@ -296,7 +296,7 @@ class _CircleShapeView extends StatelessWidget {
           fractionDigits: 0,
           max: 255,
           min: 0,
-          defaultValue: 255,
+          defaultValue: 0,
           onChangeEnd: (value) => onChanged(
             shape.copyWith(
               fillColor: shape.fillColor.withValues(a: value.toInt()),
@@ -332,7 +332,7 @@ class _TriangleShapeView extends StatelessWidget {
           fractionDigits: 0,
           max: 255,
           min: 0,
-          defaultValue: 255,
+          defaultValue: 0,
           onChangeEnd: (value) => onChanged(
             shape.copyWith(
               fillColor: shape.fillColor.withValues(a: value.toInt()),
@@ -377,7 +377,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
           fractionDigits: 0,
           max: 255,
           min: 0,
-          defaultValue: 255,
+          defaultValue: 0,
           onChangeEnd: (value) => widget.onChanged(
             widget.shape.copyWith(
               fillColor: widget.shape.fillColor.withValues(a: value.toInt()),

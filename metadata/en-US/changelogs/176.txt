@@ -6,6 +6,6 @@
 * Refactor MediaQuery.of(context).X usage to MediaQuery.XOf(context) for performance
 * Fix app crashes during heavy scrolling by optimizing PDF rendering lifecycle
 * Fix partial content rendering issues after panning by ensuring viewports bake correctly
-* Fix settings pages having incorrect default values for delayed autosave
+* Fix incorrect default values across settings pages and sliders to properly match their underlying models (e.g. delayed autosave, pen properties, fill alphas, and shape scales)
 
 Read more here: https://linwood.dev/butterfly/2.5.1-rc.2

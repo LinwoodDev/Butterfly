@@ -41,7 +41,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       value: property.streamline,
       min: .1,
       max: 1,
-      defaultValue: .5,
+      defaultValue: 0.3,
       onChangeEnd: (value) =>
           onChanged((property as dynamic).copyWith(streamline: value)),
     ),
@@ -76,7 +76,7 @@ class PenPropertySelection extends PropertySelection<PenProperty> {
       fractionDigits: 0,
       max: 255,
       min: 0,
-      defaultValue: 255,
+      defaultValue: 0,
       onChangeEnd: (value) => onChanged(
         property.copyWith(fill: property.fill.withValues(a: value.toInt())),
       ),

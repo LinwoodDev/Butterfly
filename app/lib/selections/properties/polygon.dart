@@ -49,7 +49,7 @@ class PolygonPropertySelection extends PropertySelection<PolygonProperty> {
       fractionDigits: 0,
       max: 255,
       min: 0,
-      defaultValue: 255,
+      defaultValue: 0,
       onChangeEnd: (value) => onChanged(
         property.copyWith(fill: property.fill.withValues(a: value.toInt())),
       ),

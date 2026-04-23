@@ -13,7 +13,7 @@ class LabelElementSelection extends ElementSelection<PadElement> {
         min: 0.1,
         max: 15,
         value: element.scale,
-        defaultValue: 5,
+        defaultValue: 1,
         onChangeEnd: (value) => updateElements(
           context,
           elements
