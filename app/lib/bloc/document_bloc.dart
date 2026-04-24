@@ -107,6 +107,10 @@ Selection? _updateSelection(
   return newSelection;
 }
 
+String getInitialArea(DocumentPage? page) {
+  return page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '';
+}
+
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
     ButterflyFileSystem fileSystem,
@@ -212,8 +216,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           data: data,
           page: page,
           pageName: pageName,
-          currentAreaName:
-              page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
+          currentAreaName: getInitialArea(page),
         ),
         reset: true,
       );
@@ -231,8 +234,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: page,
           data: data,
           pageName: event.pageName,
-          currentAreaName:
-              page.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '',
+          currentAreaName: getInitialArea(page),
         ),
         reset: true,
       );
@@ -279,19 +281,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
       String newPageName = current.pageName;
       DocumentPage? newPage = current.page;
-      String? currentAreaName = '';
+      String? currentAreaName = current.currentAreaName;
+      bool pageChanged = false;
 
       if (current.pageName == event.page) {
+        pageChanged = true;
         final remainingPages = newData.getPages(true);
         if (remainingPages.isNotEmpty) {
           newPageName = remainingPages.first;
           newPage = newData.getPage(newPageName);
-          currentAreaName = newPage?.areas
-              .firstWhereOrNull((e) => e.isInitial)
-              ?.name;
+          currentAreaName = getInitialArea(newPage);
         } else {
           newPageName = '';
           newPage = DocumentPage();
+          currentAreaName = '';
         }
       }
 
@@ -303,6 +306,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: newPage,
           currentAreaName: currentAreaName,
         ),
+        reset: pageChanged,
       );
     });
     on<ThumbnailCaptured>((event, emit) {
@@ -1319,7 +1323,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final metadata = data.getMetadata();
       _saveState(
         emit,
-        state: state.copyWith(page: page, data: data, metadata: metadata),
+        state: state.copyWith(
+          page: page,
+          data: data,
+          metadata: metadata,
+          currentAreaName: getInitialArea(page),
+        ),
         resetAll: true,
       );
     });
