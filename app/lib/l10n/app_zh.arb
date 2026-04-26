@@ -33,12 +33,12 @@
   },
   "zoomIn": "缩放",
   "zoomOut": "缩放",
-  "resetZoom": "Reset zoom",
+  "resetZoom": "重置缩放",
   "strokeWidth": "笔画宽度",
   "strokeStyle": "笔画样式",
-  "dashLength": "破折号长度",
+  "dashLength": "虚线长度",
   "gapLength": "间距长度",
-  "includeEraser": "包括擦除器？",
+  "includeEraser": "包括橡皮擦？",
   "thinning": "细化",
   "pen": "笔",
   "@pen": {
@@ -61,8 +61,8 @@
   "areYouSure": "您确定吗？",
   "reallyDelete": "您真的想要删除这个项目吗？",
   "no": "否",
-  "yes": "否",
-  "undo": "撤消操作",
+  "yes": "是",
+  "undo": "撤消",
   "@undo": {
     "description": "Undo action"
   },
@@ -129,7 +129,7 @@
     "description": "Remove action"
   },
   "removeConfirm": "您真的想要删除这个吗？",
-  "resetPalette": "Reset palette",
+  "resetPalette": "重设调色板",
   "custom": "自定义",
   "@custom": {
     "description": "Custom value"
@@ -143,16 +143,16 @@
   "@style": {
     "description": "Style property"
   },
-  "solid": "Solid",
+  "solid": "实线",
   "double": "双精度",
   "dotted": "虚线",
-  "dottedDark": "虚线暗色",
+  "dottedDark": "暗虚线",
   "dashed": "虚线",
   "wavy": "瓦维文",
   "fontWeight": "字体权重",
   "normal": "普通的",
-  "bold": "Bold",
-  "italic": "Italic",
+  "bold": "粗体",
+  "italic": "斜体",
   "clipboard": "剪切板",
   "file": "文件",
   "@file": {
@@ -215,7 +215,7 @@
   "newContent": "新的",
   "selectElement": "选择元素",
   "ctrlKey": "Ctrl",
-  "shiftKey": "偏移",
+  "shiftKey": "Shift",
   "altKey": "Alt",
   "copyVersion": "复制版本",
   "input": "Input",
@@ -716,7 +716,7 @@
   "handToolDescription": "拖动以在画布周围移动",
   "toolOnToolbar": "工具栏上的特定工具",
   "toolOnToolbarDescription": "使用工具栏上指定位置的工具，从左侧开始",
-  "toolOnToolbarShort": "Toolbar Position: {display_position}",
+  "toolOnToolbarShort": "工具栏位置：{display_position}",
   "@toolOnToolbarShort": {
     "placeholders": {
       "display_position": {
@@ -1229,7 +1229,7 @@
   "qrCode": "二维码",
   "dataMatrix": "数据矩阵表",
   "code128": "代码 128",
-  "defaultUserName": "User {index}",
+  "defaultUserName": "用户 {index}",
   "@defaultUserName": {
     "placeholders": {
       "index": {
@@ -1324,7 +1324,7 @@
   "doublePressAction": "双击动作",
   "triplePressAction": "三次按下",
   "longPress": "长按",
-  "toolNumber": "Tool {number}",
+  "toolNumber": "工具 {number}",
   "@toolNumber": {
     "placeholders": {
       "number": {
