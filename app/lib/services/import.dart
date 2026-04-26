@@ -800,8 +800,8 @@ class ImportService {
       final elements = pdfDocument.pages;
       if (!context.mounted) return null;
       List<int> pages = List.generate(elements.length, (index) => index);
-      bool spreadToPages = false,
-          createAreas = false,
+      bool spreadToPages = getSettingsCubit().state.spreadPages,
+          createAreas = true,
           createExportPreset = true,
           invert = false;
       SRGBColor background = BasicColors.whiteTransparent;

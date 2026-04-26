@@ -265,12 +265,8 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   Tool? get tool => currentIndexCubit.state.handler.data;
 
-  AreaPreset get areaPreset => AreaPreset(
-    name: pageName,
-    area: cameraViewport.toArea(),
-    page: pageName,
-    quality: settingsCubit.state.pdfQuality,
-  );
+  AreaPreset get areaPreset =>
+      AreaPreset(name: pageName, area: cameraViewport.toArea(), page: pageName);
 
   DocumentLayer getLayer() => page.getLayer(currentLayer);
 

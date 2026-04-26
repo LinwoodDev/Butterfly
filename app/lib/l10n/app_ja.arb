@@ -966,7 +966,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDFの品質",
   "surface": "Surface",
   "@surface": {
     "description": "Surface tool"

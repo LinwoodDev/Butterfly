@@ -410,7 +410,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(SortBy.modified) SortBy sortBy,
     @Default(SortOrder.descending) SortOrder sortOrder,
     @Default(0.5) double imageScale,
-    @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
     @Default([]) @SRGBConverter() List<SRGBColor> recentColors,
     @Default([]) List<String> flags,
@@ -560,7 +559,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
             )
           : SortOrder.descending,
       imageScale: prefs.getDouble('image_scale') ?? 0.5,
-      pdfQuality: prefs.getDouble('pdf_quality') ?? 2,
       platformTheme: prefs.containsKey('platform_theme')
           ? _enumByNameOr(
               PlatformTheme.values,
@@ -736,7 +734,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('sort_by', sortBy.name);
     await prefs.setString('sort_order', sortOrder.name);
     await prefs.setDouble('image_scale', imageScale);
-    await prefs.setDouble('pdf_quality', pdfQuality);
     await prefs.setString('platform_theme', platformTheme.name);
     await prefs.setStringList(
       'recent_colors',
@@ -1225,11 +1222,6 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeImageScale(double value) {
     emit(state.copyWith(imageScale: value));
-    return save();
-  }
-
-  Future<void> changePdfQuality(double value) {
-    emit(state.copyWith(pdfQuality: value));
     return save();
   }
 

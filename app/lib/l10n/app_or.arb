@@ -966,7 +966,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "PDF ଗୁଣତ୍ତା",
   "surface": "ପୃଷ୍ଠତଳ",
   "@surface": {
     "description": "Surface tool"

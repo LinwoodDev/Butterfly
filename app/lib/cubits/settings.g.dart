@@ -155,7 +155,6 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
       $enumDecodeNullable(_$SortOrderEnumMap, json['sortOrder']) ??
       SortOrder.descending,
   imageScale: (json['imageScale'] as num?)?.toDouble() ?? 0.5,
-  pdfQuality: (json['pdfQuality'] as num?)?.toDouble() ?? 2,
   platformTheme:
       $enumDecodeNullable(_$PlatformThemeEnumMap, json['platformTheme']) ??
       PlatformTheme.system,
@@ -256,7 +255,6 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'sortBy': _$SortByEnumMap[instance.sortBy]!,
   'sortOrder': _$SortOrderEnumMap[instance.sortOrder]!,
   'imageScale': instance.imageScale,
-  'pdfQuality': instance.pdfQuality,
   'platformTheme': _$PlatformThemeEnumMap[instance.platformTheme]!,
   'recentColors': instance.recentColors
       .map(const SRGBConverter().toJson)

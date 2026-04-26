@@ -966,7 +966,6 @@
   "@mobile": {
     "description": "Platform"
   },
-  "pdfQuality": "Ποιότητα PDF",
   "surface": "Επιφάνεια",
   "@surface": {
     "description": "Surface tool"
