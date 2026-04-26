@@ -2,6 +2,14 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.1 (2026-04-26)
+
+Changes since 2.5.1-rc.2:
+* Fixed an issue where the initial area of a page wouldn't open when another page was deleted
+
+This is a stable release, it includes all the changes from the 2.5.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.5.1
+
 ## 2.5.1-rc.2 (2026-04-23)
 
 * Improve thumbnail cropping logic to better fit the viewport
