@@ -5,7 +5,7 @@
 | Version                  | Supported          |                                                                             |
 | ------------------------ | ------------------ | --------------------------------------------------------------------------- |
 | 2.5-dev (Crimson Red)    | :warning:          | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.5.1-rc.2) |
-| 2.5.0 (Crimson Red)      | :white_check_mark: | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.5.0)      |
+| 2.5.1 (Crimson Red)      | :white_check_mark: | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.5.1)      |
 | 2.4.4 (Black Hairstreak) | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.4.4)      |
 | 2.3.4 (Adonis Blue)      | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.3.4)      |
 | 2.2.4                    | :x:                | [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.2.4)      |
