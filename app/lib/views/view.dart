@@ -217,28 +217,32 @@ class _MainViewViewportState extends State<MainViewViewport>
 
           if (shortcutId != null && shortcutId.isNotEmpty) {
             if (shortcutId == 'long_press') {
-              final firstEvent = _bufferedEvents.first;
+              final pressEvent = _bufferedEvents.lastWhere(
+                (event) => event is PointerUpEvent || event is PointerDownEvent,
+                orElse: () => _bufferedEvents.last,
+              );
               final handler = getHandler();
               final eventContext = getEventContext();
+              cubit.updateLastPosition(pressEvent.localPosition);
               handler.onLongPressDown(
                 LongPressDownDetails(
-                  globalPosition: firstEvent.position,
-                  localPosition: firstEvent.localPosition,
+                  globalPosition: pressEvent.position,
+                  localPosition: pressEvent.localPosition,
                   kind: PointerDeviceKind.touch,
                 ),
                 eventContext,
               );
               handler.onLongPressStart(
                 LongPressStartDetails(
-                  globalPosition: firstEvent.position,
-                  localPosition: firstEvent.localPosition,
+                  globalPosition: pressEvent.position,
+                  localPosition: pressEvent.localPosition,
                 ),
                 eventContext,
               );
               handler.onLongPressEnd(
                 LongPressEndDetails(
-                  globalPosition: firstEvent.position,
-                  localPosition: firstEvent.localPosition,
+                  globalPosition: pressEvent.position,
+                  localPosition: pressEvent.localPosition,
                 ),
                 eventContext,
               );
