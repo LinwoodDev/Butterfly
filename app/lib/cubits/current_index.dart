@@ -1456,8 +1456,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
   }) async {
-    final realWidth = options.width.ceil();
-    final realHeight = options.height.ceil();
+    final realWidth = (options.width * options.quality).ceil();
+    final realHeight = (options.height * options.quality).ceil();
     final realZoom = options.scale;
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
@@ -1468,9 +1468,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport ??
         state.cameraViewport.unbake(unbakedElements: renderers);
     final transform = CameraTransform(
-      options.quality,
+      1,
       Offset(options.x, options.y),
-      realZoom,
+      realZoom * options.quality,
     );
     final size = Size(realWidth.toDouble(), realHeight.toDouble());
     final hiddenRenderers = <Renderer<PadElement>>[];
@@ -1799,8 +1799,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       final imageDoc = await PdfDocument.createFromJpegData(
         pdfImage,
-        width: imgImage.width.toDouble(),
-        height: imgImage.height.toDouble(),
+        width: area.width,
+        height: area.height,
         sourceName: '$name-$areaName.jpg',
       );
       pages.addAll(imageDoc.pages);

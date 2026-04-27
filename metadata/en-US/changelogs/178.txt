@@ -1,6 +1,7 @@
 * Remove unused default PDF quality setting
 * Fix PDF import using saved spread-to-pages setting by default
 * Create areas by default when importing PDFs
+* Fix PDF and PNG export quality settings not applying correctly
 * Fix context menu opening when double tapping with touch
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.0
