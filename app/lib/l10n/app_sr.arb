@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Samo trenutna stranica",
   "smoothNavigation": "Glatka navigacija",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Tačno",
   "@exact": {
     "description": "Exact match"
