@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Somente a página atual",
   "smoothNavigation": "Navegação suave",
   "edgePanAreaSwitching": "Área da borda pan mudando",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Exato",
   "@exact": {
     "description": "Exact match"
