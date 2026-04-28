@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Bare gjeldende side",
   "smoothNavigation": "Jevn navigasjon",
   "edgePanAreaSwitching": "Pan område område av kant",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Nøyaktig",
   "@exact": {
     "description": "Exact match"
