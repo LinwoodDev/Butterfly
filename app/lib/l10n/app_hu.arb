@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Csak aktuális oldal",
   "smoothNavigation": "Sima navigáció",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Pontos",
   "@exact": {
     "description": "Exact match"
