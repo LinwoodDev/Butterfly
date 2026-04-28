@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Sadece geçerli sayfa",
   "smoothNavigation": "Akıcı gezinme",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Tam",
   "@exact": {
     "description": "Exact match"
