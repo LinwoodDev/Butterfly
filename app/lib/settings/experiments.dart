@@ -29,6 +29,11 @@ class ExperimentsSettingsPage extends StatelessWidget {
       description: AppLocalizations.of(context).edgePanAreaSwitching,
       icon: PhosphorIcons.cursor,
     ),
+    (
+      name: 'useAndroidSaf',
+      description: AppLocalizations.of(context).useAndroidSaf,
+      icon: PhosphorIcons.folder,
+    ),
   ];
 
   static const Map<String, String> _featureHelps = {
