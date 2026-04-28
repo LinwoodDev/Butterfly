@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Slegs huidige bladsy",
   "smoothNavigation": "Gladde navigasie",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Presies",
   "@exact": {
     "description": "Exact match"
