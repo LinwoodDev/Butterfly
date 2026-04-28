@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Chỉ trang hiện tại",
   "smoothNavigation": "Điều hướng mượt",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Chính xác",
   "@exact": {
     "description": "Exact match"
