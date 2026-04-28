@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "เฉพาะหน้าปัจจุบัน",
   "smoothNavigation": "การนำทางเรียบ",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "แม่นยำ",
   "@exact": {
     "description": "Exact match"
