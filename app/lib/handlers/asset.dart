@@ -27,7 +27,11 @@ Future<void> showImportAssetWizard(
   Offset? position,
   bool advanced = true,
 }) async {
-  Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
+  Future<void> importAsset(
+    AssetFileType type,
+    Uint8List bytes, {
+    String? name,
+  }) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     await service
@@ -37,17 +41,19 @@ Future<void> showImportAssetWizard(
           document: state.data,
           position: position,
           advanced: advanced,
+          name: name,
         )
         .then((e) => e?.submit());
   }
 
   Future<void> importWithDialog(List<AssetFileType> type) async {
-    final (result, fileExtension, _) = await importFile(context, type);
+    final (result, fileExtension, name) = await importFile(context, type);
     if (result == null) return;
     return importAsset(
       AssetFileTypeHelper.fromFileExtension(fileExtension) ??
           AssetFileType.note,
       result,
+      name: name,
     );
   }
 

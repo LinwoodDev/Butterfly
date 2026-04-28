@@ -265,6 +265,7 @@ class ImportService {
     DocumentFileSystem? fileSystem,
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
+    String? name,
   }) async {
     final realDocument =
         document ?? bloc?.state.data ?? DocumentDefaults.createDocument();
@@ -294,6 +295,7 @@ class ImportService {
         realDocument,
         position: position,
         advanced: advanced,
+        name: name,
       ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
@@ -789,6 +791,7 @@ class ImportService {
     Uint8List bytes,
     NoteData document, {
     Offset? position,
+    String? name,
     bool advanced = true,
   }) async {
     LoadingDialogHandler? dialog;
@@ -805,7 +808,6 @@ class ImportService {
           createExportPreset = true,
           invert = false;
       SRGBColor background = BasicColors.whiteTransparent;
-      String name = '';
       if (advanced) {
         List<ui.Image> images = [];
         final dialog = showLoadingDialog(context);
@@ -821,7 +823,7 @@ class ImportService {
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(
           context: context,
-          builder: (context) => PagesDialog(pages: images),
+          builder: (context) => PagesDialog(pages: images, name: name),
         );
         for (var image in images) {
           try {
@@ -838,8 +840,8 @@ class ImportService {
         name = callback.name;
       }
       String getPageName(int index) {
-        if (name.isEmpty) return localizations.pageIndex(index + 1);
-        return '$name $index';
+        if (name?.isEmpty ?? true) return localizations.pageIndex(index + 1);
+        return '$name ${index + 1}';
       }
 
       dialog = showLoadingDialog(context);
@@ -926,7 +928,7 @@ class ImportService {
         exportPresets: [
           if (exportPresetAreas.isNotEmpty && createExportPreset)
             ExportPreset(
-              name: name.isEmpty ? localizations.exportPdf : name,
+              name: (name?.isEmpty ?? true) ? localizations.pdf : name!,
               areas: exportPresetAreas,
             ),
         ],

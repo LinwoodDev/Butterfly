@@ -29,7 +29,9 @@ class PageDialogCallback {
 
 class PagesDialog extends StatefulWidget {
   final List<ui.Image> pages;
-  const PagesDialog({super.key, required this.pages});
+  final String? name;
+
+  const PagesDialog({super.key, required this.pages, this.name});
 
   @override
   State<PagesDialog> createState() => _PagesDialogState();
@@ -48,6 +50,7 @@ class _PagesDialogState extends State<PagesDialog> {
   void initState() {
     super.initState();
     _selected = List.generate(widget.pages.length, (i) => i);
+    _name = widget.name ?? '';
     final settings = context.read<SettingsCubit>().state;
     _spreadToPages = settings.spreadPages;
   }

@@ -115,7 +115,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        final result = await showDialog<(String, Area)>(
+                        final result = await showDialog<List<(String, Area)>>(
                           context: context,
                           builder: (_) => BlocProvider.value(
                             value: context.read<DocumentBloc>(),
@@ -123,12 +123,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           ),
                         );
                         if (result != null) {
-                          final (page, area) = result;
                           setState(() {
-                            _areas.add((
-                              key: UniqueKey(),
-                              preset: AreaPreset(name: area.name, page: page),
-                            ));
+                            for (final (page, area) in result) {
+                              _areas.add((
+                                key: UniqueKey(),
+                                preset: AreaPreset(name: area.name, page: page),
+                              ));
+                            }
                           });
                         }
                       },
@@ -566,6 +567,7 @@ class _AreaPreviewState extends State<_AreaPreview> {
                             tooltip: AppLocalizations.of(context).remove,
                             color: Theme.of(context).colorScheme.error,
                           ),
+                          const SizedBox(width: 48),
                         ],
                       ),
                       if (isSmall)
@@ -617,6 +619,7 @@ class _AreaSelectionDialog extends StatefulWidget {
 class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
   String _searchQuery = '';
   bool _onlyCurrentPage = false;
+  final Set<(String, Area)> _selected = {};
 
   @override
   Widget build(BuildContext context) {
@@ -663,66 +666,122 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
                   buildWhen: (previous, current) =>
                       previous.page != current.page ||
                       previous.pageName != current.pageName,
-                  builder: (context, state) => ListView(
-                    shrinkWrap: true,
-                    children:
-                        (_onlyCurrentPage
-                                ? [state.pageName ?? '']
-                                : widget.document.getPages(true))
-                            .expand(
-                              (page) =>
-                                  (page == state.pageName
-                                          ? state.page
-                                          : widget.document.getPage(page))
-                                      ?.areas
-                                      .where(
-                                        (element) =>
-                                            element.name.contains(_searchQuery),
-                                      )
-                                      .map((e) {
-                                        final pageName =
-                                            NoteData.getPageNameFromRealName(
-                                              page,
-                                            );
-                                        return ListTile(
-                                          title: Text(e.name),
-                                          subtitle: Text(
-                                            pageName.isEmpty
-                                                ? AppLocalizations.of(
-                                                    context,
-                                                  ).untitled
-                                                : pageName,
-                                            style: TextTheme.of(context)
-                                                .bodySmall
-                                                ?.copyWith(
-                                                  color: page == state.pageName
-                                                      ? ColorScheme.of(
-                                                          context,
-                                                        ).primary
-                                                      : null,
-                                                ),
-                                          ),
-                                          key: ObjectKey(e.name),
-                                          onTap: () => Navigator.of(
-                                            context,
-                                          ).pop((page, e)),
-                                        );
-                                      })
-                                      .toList() ??
-                                  <Widget>[],
-                            )
-                            .toList(),
-                  ),
+                  builder: (context, state) {
+                    final pages = _onlyCurrentPage
+                        ? [state.pageName ?? '']
+                        : widget.document.getPages(true);
+                    final children = <Widget>[];
+
+                    for (final page in pages) {
+                      final p = page == state.pageName
+                          ? state.page
+                          : widget.document.getPage(page);
+                      final areas =
+                          p?.areas
+                              .where((e) => e.name.contains(_searchQuery))
+                              .toList() ??
+                          [];
+                      if (areas.isEmpty) continue;
+
+                      final pageName = NoteData.getPageNameFromRealName(page);
+                      final isCurrent = page == state.pageName;
+                      final allSelected = areas.every(
+                        (e) => _selected.contains((page, e)),
+                      );
+                      final anySelected = areas.any(
+                        (e) => _selected.contains((page, e)),
+                      );
+
+                      if (children.isNotEmpty) {
+                        children.add(const Divider(height: 1));
+                      }
+
+                      children.add(
+                        Container(
+                          color: ColorScheme.of(
+                            context,
+                          ).surfaceContainerHighest.withValues(alpha: 0.3),
+                          child: CheckboxListTile(
+                            title: Text(
+                              pageName.isEmpty
+                                  ? AppLocalizations.of(context).untitled
+                                  : pageName,
+                              style: TextTheme.of(context).titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: isCurrent
+                                        ? Theme.of(context).colorScheme.primary
+                                        : null,
+                                  ),
+                            ),
+                            value: allSelected
+                                ? true
+                                : (anySelected ? null : false),
+                            tristate: true,
+                            onChanged: (value) {
+                              setState(() {
+                                if (allSelected) {
+                                  _selected.removeAll(
+                                    areas.map((e) => (page, e)),
+                                  );
+                                } else {
+                                  _selected.addAll(areas.map((e) => (page, e)));
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      );
+
+                      for (final e in areas) {
+                        final item = (page, e);
+                        children.add(
+                          CheckboxListTile(
+                            contentPadding: const EdgeInsets.only(
+                              left: 32,
+                              right: 16,
+                            ),
+                            title: Text(e.name),
+                            key: ObjectKey(item),
+                            value: _selected.contains(item),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value == true) {
+                                  _selected.add(item);
+                                } else {
+                                  _selected.remove(item);
+                                }
+                              });
+                            },
+                          ),
+                        );
+                      }
+                    }
+
+                    return ListView(shrinkWrap: true, children: children);
+                  },
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                child: Text(
-                  MaterialLocalizations.of(context).cancelButtonLabel,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    child: Text(
+                      MaterialLocalizations.of(context).cancelButtonLabel,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: _selected.isEmpty
+                        ? null
+                        : () => Navigator.of(context).pop(_selected.toList()),
+                    child: Text(AppLocalizations.of(context).add),
+                  ),
+                ],
               ),
             ),
           ],
