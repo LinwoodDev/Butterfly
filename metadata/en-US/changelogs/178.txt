@@ -4,6 +4,7 @@
 * Improve add area dialog in PDF export dialog to allow multiple area selection
 * Fix PDF import using saved spread-to-pages setting by default
 * Create areas by default when importing PDFs
+* Fix smooth navigation with viewport limits
 * Fix PDF and PNG export quality settings not applying correctly
 * Fix context menu opening when double tapping with touch
 * Fix PDF export dialog remove button overlapping the drag handle

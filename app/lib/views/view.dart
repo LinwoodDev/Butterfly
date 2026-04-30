@@ -43,6 +43,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   int _fingersInvolved = 0;
   bool _isTouchTapGesture = false;
   Timer? _touchTapTimer;
+  int _slideAnimationId = 0;
+  static const Curve _slideCurve = Curves.easeOutCubic;
 
   void _resetTouchTap() {
     _bufferedEvents.clear();
@@ -184,7 +186,9 @@ class _MainViewViewportState extends State<MainViewViewport>
           -event.delta / transform.size,
           currentArea: state.currentArea,
         );
-        delayBake();
+        if (!context.read<SettingsCubit>().state.hasFlag('smoothNavigation')) {
+          delayBake();
+        }
       }
       return;
     }
@@ -565,7 +569,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       );
                                     }
                                     size = details.scale;
-                                    delayBake();
+                                    if (!settings.hasFlag('smoothNavigation')) {
+                                      delayBake();
+                                    }
                                   },
                                   onLongPressEnd: (details) =>
                                       getHandler().onLongPressEnd(
@@ -578,10 +584,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       getEventContext(),
                                     );
                                     if (!(_isScalingDisabled ?? true)) {
-                                      var sensitivity = context
+                                      final settings = context
                                           .read<SettingsCubit>()
-                                          .state
-                                          .gestureSensitivity;
+                                          .state;
+                                      final sensitivity =
+                                          settings.gestureSensitivity;
                                       cubit.slide(
                                         details.velocity.pixelsPerSecond /
                                             sensitivity /
@@ -593,7 +600,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         details.scaleVelocity,
                                         currentArea: state.currentArea,
                                       );
-                                      delayBake();
+                                      if (!settings.hasFlag(
+                                        'smoothNavigation',
+                                      )) {
+                                        delayBake();
+                                      }
                                     }
                                     ruler = null;
                                     previousRulerRotation = 0;
@@ -644,10 +655,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         var dy = pointerSignal.scrollDelta.dy;
                                         // Get zoom by dx and dy
                                         var scale = pointerSignal.size;
-                                        var sensitivity = context
+                                        final settings = context
                                             .read<SettingsCubit>()
-                                            .state
-                                            .scrollSensitivity;
+                                            .state;
+                                        var sensitivity =
+                                            settings.scrollSensitivity;
                                         scale /= -sensitivity * 100;
                                         scale += 1;
                                         dx /= sensitivity;
@@ -679,7 +691,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                               pointerSignal.localPosition,
                                             );
                                         }
-                                        delayBake();
+                                        if (!settings.hasFlag(
+                                          'smoothNavigation',
+                                        )) {
+                                          delayBake();
+                                        }
                                       }
                                     },
                                     onPointerPanZoomStart: (event) {
@@ -732,6 +748,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       currentIndex,
                                       cubit,
                                       state,
+                                      delayBake,
                                     ),
                                   ),
                                 );
@@ -755,6 +772,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     CurrentIndex currentIndex,
     CurrentIndexCubit cubit,
     DocumentLoaded state,
+    VoidCallback delayBake,
   ) {
     return BlocListener<TransformCubit, CameraTransform>(
       listenWhen: (previous, current) =>
@@ -762,15 +780,21 @@ class _MainViewViewportState extends State<MainViewViewport>
       listener: (context, transform) {
         final friction = transform.friction;
         if (friction == null) {
+          _slideAnimationId++;
           _animationController.stop();
           _positionAnimation = null;
           return;
         }
-        _positionAnimation = Tween<Offset>(
-          begin:
-              friction.beginOffset - (_positionAnimation?.value ?? Offset.zero),
-          end: Offset.zero,
-        ).animate(_animationController);
+        final slideAnimationId = ++_slideAnimationId;
+        _positionAnimation =
+            Tween<Offset>(
+              begin:
+                  friction.beginOffset -
+                  (_positionAnimation?.value ?? Offset.zero),
+              end: Offset.zero,
+            ).animate(
+              CurvedAnimation(parent: _animationController, curve: _slideCurve),
+            );
         final lastDuration = _animationController.duration?.inMilliseconds ?? 0;
         final lastValue = lastDuration > 0
             ? (1 - _animationController.value) / lastDuration
@@ -782,7 +806,12 @@ class _MainViewViewportState extends State<MainViewViewport>
           return;
         }
         _animationController.duration = Duration(milliseconds: duration);
-        _animationController.forward(from: 0);
+        unawaited(
+          _animationController.forward(from: 0).then((_) {
+            if (!mounted || slideAnimationId != _slideAnimationId) return;
+            delayBake();
+          }),
+        );
       },
       child: BlocBuilder<TransformCubit, CameraTransform>(
         builder: (context, transform) => AnimatedBuilder(
