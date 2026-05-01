@@ -17,7 +17,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^6.2.0",
+    "astro": "^6.2.1",
     "katex": "^0.16.45",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

@@ -1,4 +1,4 @@
-* Major improvements to Sync and WebDAV connections
+* Major improvements to Sync and WebDAV connections ([#1072](https://github.com/LinwoodDev/Butterfly/issues/1072))
   * Enhanced sync dialog with remote switching, connection settings, detailed cache status, and better desktop sizing
   * Improved sync button displaying progress, cached file counts, and pending sync badges
   * Added synced/not synced cache toggles to file list, grid, and context menu actions
