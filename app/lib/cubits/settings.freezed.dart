@@ -313,7 +313,7 @@ as InputMapping,
 /// @nodoc
 mixin _$InputConfiguration implements DiagnosticableTreeMixin {
 
- InputMapping get leftMouse; InputMapping get middleMouse; InputMapping get rightMouse; InputMapping get pen; InputMapping get invertedPen; InputMapping get firstPenButton; InputMapping get secondPenButton; InputMapping get touch; List<HoldShortcut> get holdShortcuts; String? get doubleTouchShortcut; String? get tripleTouchShortcut;
+ InputMapping get leftMouse; InputMapping get doubleLeftMouse; InputMapping get tripleLeftMouse; InputMapping get middleMouse; InputMapping get doubleMiddleMouse; InputMapping get tripleMiddleMouse; InputMapping get rightMouse; InputMapping get doubleRightMouse; InputMapping get tripleRightMouse; InputMapping get pen; InputMapping get doublePen; InputMapping get triplePen; InputMapping get invertedPen; InputMapping get doubleInvertedPen; InputMapping get tripleInvertedPen; InputMapping get firstPenButton; InputMapping get doubleFirstPenButton; InputMapping get tripleFirstPenButton; InputMapping get secondPenButton; InputMapping get doubleSecondPenButton; InputMapping get tripleSecondPenButton; InputMapping get touch; List<HoldShortcut> get holdShortcuts; String? get doubleTouchShortcut; String? get tripleTouchShortcut;
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -327,21 +327,21 @@ $InputConfigurationCopyWith<InputConfiguration> get copyWith => _$InputConfigura
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('doubleLeftMouse', doubleLeftMouse))..add(DiagnosticsProperty('tripleLeftMouse', tripleLeftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('doubleMiddleMouse', doubleMiddleMouse))..add(DiagnosticsProperty('tripleMiddleMouse', tripleMiddleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('doubleRightMouse', doubleRightMouse))..add(DiagnosticsProperty('tripleRightMouse', tripleRightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('doublePen', doublePen))..add(DiagnosticsProperty('triplePen', triplePen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('doubleInvertedPen', doubleInvertedPen))..add(DiagnosticsProperty('tripleInvertedPen', tripleInvertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('doubleFirstPenButton', doubleFirstPenButton))..add(DiagnosticsProperty('tripleFirstPenButton', tripleFirstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('doubleSecondPenButton', doubleSecondPenButton))..add(DiagnosticsProperty('tripleSecondPenButton', tripleSecondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other.holdShortcuts, holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.doubleLeftMouse, doubleLeftMouse) || other.doubleLeftMouse == doubleLeftMouse)&&(identical(other.tripleLeftMouse, tripleLeftMouse) || other.tripleLeftMouse == tripleLeftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.doubleMiddleMouse, doubleMiddleMouse) || other.doubleMiddleMouse == doubleMiddleMouse)&&(identical(other.tripleMiddleMouse, tripleMiddleMouse) || other.tripleMiddleMouse == tripleMiddleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.doubleRightMouse, doubleRightMouse) || other.doubleRightMouse == doubleRightMouse)&&(identical(other.tripleRightMouse, tripleRightMouse) || other.tripleRightMouse == tripleRightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.doublePen, doublePen) || other.doublePen == doublePen)&&(identical(other.triplePen, triplePen) || other.triplePen == triplePen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.doubleInvertedPen, doubleInvertedPen) || other.doubleInvertedPen == doubleInvertedPen)&&(identical(other.tripleInvertedPen, tripleInvertedPen) || other.tripleInvertedPen == tripleInvertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.doubleFirstPenButton, doubleFirstPenButton) || other.doubleFirstPenButton == doubleFirstPenButton)&&(identical(other.tripleFirstPenButton, tripleFirstPenButton) || other.tripleFirstPenButton == tripleFirstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.doubleSecondPenButton, doubleSecondPenButton) || other.doubleSecondPenButton == doubleSecondPenButton)&&(identical(other.tripleSecondPenButton, tripleSecondPenButton) || other.tripleSecondPenButton == tripleSecondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other.holdShortcuts, holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(holdShortcuts),doubleTouchShortcut,tripleTouchShortcut);
+int get hashCode => Object.hashAll([runtimeType,leftMouse,doubleLeftMouse,tripleLeftMouse,middleMouse,doubleMiddleMouse,tripleMiddleMouse,rightMouse,doubleRightMouse,tripleRightMouse,pen,doublePen,triplePen,invertedPen,doubleInvertedPen,tripleInvertedPen,firstPenButton,doubleFirstPenButton,tripleFirstPenButton,secondPenButton,doubleSecondPenButton,tripleSecondPenButton,touch,const DeepCollectionEquality().hash(holdShortcuts),doubleTouchShortcut,tripleTouchShortcut]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
+  return 'InputConfiguration(leftMouse: $leftMouse, doubleLeftMouse: $doubleLeftMouse, tripleLeftMouse: $tripleLeftMouse, middleMouse: $middleMouse, doubleMiddleMouse: $doubleMiddleMouse, tripleMiddleMouse: $tripleMiddleMouse, rightMouse: $rightMouse, doubleRightMouse: $doubleRightMouse, tripleRightMouse: $tripleRightMouse, pen: $pen, doublePen: $doublePen, triplePen: $triplePen, invertedPen: $invertedPen, doubleInvertedPen: $doubleInvertedPen, tripleInvertedPen: $tripleInvertedPen, firstPenButton: $firstPenButton, doubleFirstPenButton: $doubleFirstPenButton, tripleFirstPenButton: $tripleFirstPenButton, secondPenButton: $secondPenButton, doubleSecondPenButton: $doubleSecondPenButton, tripleSecondPenButton: $tripleSecondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -352,7 +352,7 @@ abstract mixin class $InputConfigurationCopyWith<$Res>  {
   factory $InputConfigurationCopyWith(InputConfiguration value, $Res Function(InputConfiguration) _then) = _$InputConfigurationCopyWithImpl;
 @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
+ InputMapping leftMouse, InputMapping doubleLeftMouse, InputMapping tripleLeftMouse, InputMapping middleMouse, InputMapping doubleMiddleMouse, InputMapping tripleMiddleMouse, InputMapping rightMouse, InputMapping doubleRightMouse, InputMapping tripleRightMouse, InputMapping pen, InputMapping doublePen, InputMapping triplePen, InputMapping invertedPen, InputMapping doubleInvertedPen, InputMapping tripleInvertedPen, InputMapping firstPenButton, InputMapping doubleFirstPenButton, InputMapping tripleFirstPenButton, InputMapping secondPenButton, InputMapping doubleSecondPenButton, InputMapping tripleSecondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -369,15 +369,29 @@ class _$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? leftMouse = null,Object? doubleLeftMouse = null,Object? tripleLeftMouse = null,Object? middleMouse = null,Object? doubleMiddleMouse = null,Object? tripleMiddleMouse = null,Object? rightMouse = null,Object? doubleRightMouse = null,Object? tripleRightMouse = null,Object? pen = null,Object? doublePen = null,Object? triplePen = null,Object? invertedPen = null,Object? doubleInvertedPen = null,Object? tripleInvertedPen = null,Object? firstPenButton = null,Object? doubleFirstPenButton = null,Object? tripleFirstPenButton = null,Object? secondPenButton = null,Object? doubleSecondPenButton = null,Object? tripleSecondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_self.copyWith(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleLeftMouse: null == doubleLeftMouse ? _self.doubleLeftMouse : doubleLeftMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleLeftMouse: null == tripleLeftMouse ? _self.tripleLeftMouse : tripleLeftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleMiddleMouse: null == doubleMiddleMouse ? _self.doubleMiddleMouse : doubleMiddleMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleMiddleMouse: null == tripleMiddleMouse ? _self.tripleMiddleMouse : tripleMiddleMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,rightMouse: null == rightMouse ? _self.rightMouse : rightMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleRightMouse: null == doubleRightMouse ? _self.doubleRightMouse : doubleRightMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleRightMouse: null == tripleRightMouse ? _self.tripleRightMouse : tripleRightMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,pen: null == pen ? _self.pen : pen // ignore: cast_nullable_to_non_nullable
+as InputMapping,doublePen: null == doublePen ? _self.doublePen : doublePen // ignore: cast_nullable_to_non_nullable
+as InputMapping,triplePen: null == triplePen ? _self.triplePen : triplePen // ignore: cast_nullable_to_non_nullable
 as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedPen // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleInvertedPen: null == doubleInvertedPen ? _self.doubleInvertedPen : doubleInvertedPen // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleInvertedPen: null == tripleInvertedPen ? _self.tripleInvertedPen : tripleInvertedPen // ignore: cast_nullable_to_non_nullable
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleFirstPenButton: null == doubleFirstPenButton ? _self.doubleFirstPenButton : doubleFirstPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleFirstPenButton: null == tripleFirstPenButton ? _self.tripleFirstPenButton : tripleFirstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleSecondPenButton: null == doubleSecondPenButton ? _self.doubleSecondPenButton : doubleSecondPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleSecondPenButton: null == tripleSecondPenButton ? _self.tripleSecondPenButton : tripleSecondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
 as InputMapping,holdShortcuts: null == holdShortcuts ? _self.holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
 as List<HoldShortcut>,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable
@@ -394,16 +408,30 @@ as String?,
 @JsonSerializable()
 
 class _InputConfiguration extends InputConfiguration with DiagnosticableTreeMixin {
-  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.pen = InputMappingDefault.pen, this.invertedPen = InputMappingDefault.invertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.touch = InputMappingDefault.touch, final  List<HoldShortcut> holdShortcuts = const [], this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
+  const _InputConfiguration({this.leftMouse = InputMappingDefault.leftMouse, this.doubleLeftMouse = InputMappingDefault.doubleLeftMouse, this.tripleLeftMouse = InputMappingDefault.tripleLeftMouse, this.middleMouse = InputMappingDefault.middleMouse, this.doubleMiddleMouse = InputMappingDefault.doubleMiddleMouse, this.tripleMiddleMouse = InputMappingDefault.tripleMiddleMouse, this.rightMouse = InputMappingDefault.rightMouse, this.doubleRightMouse = InputMappingDefault.doubleRightMouse, this.tripleRightMouse = InputMappingDefault.tripleRightMouse, this.pen = InputMappingDefault.pen, this.doublePen = InputMappingDefault.doublePen, this.triplePen = InputMappingDefault.triplePen, this.invertedPen = InputMappingDefault.invertedPen, this.doubleInvertedPen = InputMappingDefault.doubleInvertedPen, this.tripleInvertedPen = InputMappingDefault.tripleInvertedPen, this.firstPenButton = InputMappingDefault.firstPenButton, this.doubleFirstPenButton = InputMappingDefault.doubleFirstPenButton, this.tripleFirstPenButton = InputMappingDefault.tripleFirstPenButton, this.secondPenButton = InputMappingDefault.secondPenButton, this.doubleSecondPenButton = InputMappingDefault.doubleSecondPenButton, this.tripleSecondPenButton = InputMappingDefault.tripleSecondPenButton, this.touch = InputMappingDefault.touch, final  List<HoldShortcut> holdShortcuts = const [], this.doubleTouchShortcut, this.tripleTouchShortcut}): _holdShortcuts = holdShortcuts,super._();
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) => _$InputConfigurationFromJson(json);
 
 @override@JsonKey() final  InputMapping leftMouse;
+@override@JsonKey() final  InputMapping doubleLeftMouse;
+@override@JsonKey() final  InputMapping tripleLeftMouse;
 @override@JsonKey() final  InputMapping middleMouse;
+@override@JsonKey() final  InputMapping doubleMiddleMouse;
+@override@JsonKey() final  InputMapping tripleMiddleMouse;
 @override@JsonKey() final  InputMapping rightMouse;
+@override@JsonKey() final  InputMapping doubleRightMouse;
+@override@JsonKey() final  InputMapping tripleRightMouse;
 @override@JsonKey() final  InputMapping pen;
+@override@JsonKey() final  InputMapping doublePen;
+@override@JsonKey() final  InputMapping triplePen;
 @override@JsonKey() final  InputMapping invertedPen;
+@override@JsonKey() final  InputMapping doubleInvertedPen;
+@override@JsonKey() final  InputMapping tripleInvertedPen;
 @override@JsonKey() final  InputMapping firstPenButton;
+@override@JsonKey() final  InputMapping doubleFirstPenButton;
+@override@JsonKey() final  InputMapping tripleFirstPenButton;
 @override@JsonKey() final  InputMapping secondPenButton;
+@override@JsonKey() final  InputMapping doubleSecondPenButton;
+@override@JsonKey() final  InputMapping tripleSecondPenButton;
 @override@JsonKey() final  InputMapping touch;
  final  List<HoldShortcut> _holdShortcuts;
 @override@JsonKey() List<HoldShortcut> get holdShortcuts {
@@ -429,21 +457,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'InputConfiguration'))
-    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
+    ..add(DiagnosticsProperty('leftMouse', leftMouse))..add(DiagnosticsProperty('doubleLeftMouse', doubleLeftMouse))..add(DiagnosticsProperty('tripleLeftMouse', tripleLeftMouse))..add(DiagnosticsProperty('middleMouse', middleMouse))..add(DiagnosticsProperty('doubleMiddleMouse', doubleMiddleMouse))..add(DiagnosticsProperty('tripleMiddleMouse', tripleMiddleMouse))..add(DiagnosticsProperty('rightMouse', rightMouse))..add(DiagnosticsProperty('doubleRightMouse', doubleRightMouse))..add(DiagnosticsProperty('tripleRightMouse', tripleRightMouse))..add(DiagnosticsProperty('pen', pen))..add(DiagnosticsProperty('doublePen', doublePen))..add(DiagnosticsProperty('triplePen', triplePen))..add(DiagnosticsProperty('invertedPen', invertedPen))..add(DiagnosticsProperty('doubleInvertedPen', doubleInvertedPen))..add(DiagnosticsProperty('tripleInvertedPen', tripleInvertedPen))..add(DiagnosticsProperty('firstPenButton', firstPenButton))..add(DiagnosticsProperty('doubleFirstPenButton', doubleFirstPenButton))..add(DiagnosticsProperty('tripleFirstPenButton', tripleFirstPenButton))..add(DiagnosticsProperty('secondPenButton', secondPenButton))..add(DiagnosticsProperty('doubleSecondPenButton', doubleSecondPenButton))..add(DiagnosticsProperty('tripleSecondPenButton', tripleSecondPenButton))..add(DiagnosticsProperty('touch', touch))..add(DiagnosticsProperty('holdShortcuts', holdShortcuts))..add(DiagnosticsProperty('doubleTouchShortcut', doubleTouchShortcut))..add(DiagnosticsProperty('tripleTouchShortcut', tripleTouchShortcut));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other._holdShortcuts, _holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputConfiguration&&(identical(other.leftMouse, leftMouse) || other.leftMouse == leftMouse)&&(identical(other.doubleLeftMouse, doubleLeftMouse) || other.doubleLeftMouse == doubleLeftMouse)&&(identical(other.tripleLeftMouse, tripleLeftMouse) || other.tripleLeftMouse == tripleLeftMouse)&&(identical(other.middleMouse, middleMouse) || other.middleMouse == middleMouse)&&(identical(other.doubleMiddleMouse, doubleMiddleMouse) || other.doubleMiddleMouse == doubleMiddleMouse)&&(identical(other.tripleMiddleMouse, tripleMiddleMouse) || other.tripleMiddleMouse == tripleMiddleMouse)&&(identical(other.rightMouse, rightMouse) || other.rightMouse == rightMouse)&&(identical(other.doubleRightMouse, doubleRightMouse) || other.doubleRightMouse == doubleRightMouse)&&(identical(other.tripleRightMouse, tripleRightMouse) || other.tripleRightMouse == tripleRightMouse)&&(identical(other.pen, pen) || other.pen == pen)&&(identical(other.doublePen, doublePen) || other.doublePen == doublePen)&&(identical(other.triplePen, triplePen) || other.triplePen == triplePen)&&(identical(other.invertedPen, invertedPen) || other.invertedPen == invertedPen)&&(identical(other.doubleInvertedPen, doubleInvertedPen) || other.doubleInvertedPen == doubleInvertedPen)&&(identical(other.tripleInvertedPen, tripleInvertedPen) || other.tripleInvertedPen == tripleInvertedPen)&&(identical(other.firstPenButton, firstPenButton) || other.firstPenButton == firstPenButton)&&(identical(other.doubleFirstPenButton, doubleFirstPenButton) || other.doubleFirstPenButton == doubleFirstPenButton)&&(identical(other.tripleFirstPenButton, tripleFirstPenButton) || other.tripleFirstPenButton == tripleFirstPenButton)&&(identical(other.secondPenButton, secondPenButton) || other.secondPenButton == secondPenButton)&&(identical(other.doubleSecondPenButton, doubleSecondPenButton) || other.doubleSecondPenButton == doubleSecondPenButton)&&(identical(other.tripleSecondPenButton, tripleSecondPenButton) || other.tripleSecondPenButton == tripleSecondPenButton)&&(identical(other.touch, touch) || other.touch == touch)&&const DeepCollectionEquality().equals(other._holdShortcuts, _holdShortcuts)&&(identical(other.doubleTouchShortcut, doubleTouchShortcut) || other.doubleTouchShortcut == doubleTouchShortcut)&&(identical(other.tripleTouchShortcut, tripleTouchShortcut) || other.tripleTouchShortcut == tripleTouchShortcut));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,leftMouse,middleMouse,rightMouse,pen,invertedPen,firstPenButton,secondPenButton,touch,const DeepCollectionEquality().hash(_holdShortcuts),doubleTouchShortcut,tripleTouchShortcut);
+int get hashCode => Object.hashAll([runtimeType,leftMouse,doubleLeftMouse,tripleLeftMouse,middleMouse,doubleMiddleMouse,tripleMiddleMouse,rightMouse,doubleRightMouse,tripleRightMouse,pen,doublePen,triplePen,invertedPen,doubleInvertedPen,tripleInvertedPen,firstPenButton,doubleFirstPenButton,tripleFirstPenButton,secondPenButton,doubleSecondPenButton,tripleSecondPenButton,touch,const DeepCollectionEquality().hash(_holdShortcuts),doubleTouchShortcut,tripleTouchShortcut]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
+  return 'InputConfiguration(leftMouse: $leftMouse, doubleLeftMouse: $doubleLeftMouse, tripleLeftMouse: $tripleLeftMouse, middleMouse: $middleMouse, doubleMiddleMouse: $doubleMiddleMouse, tripleMiddleMouse: $tripleMiddleMouse, rightMouse: $rightMouse, doubleRightMouse: $doubleRightMouse, tripleRightMouse: $tripleRightMouse, pen: $pen, doublePen: $doublePen, triplePen: $triplePen, invertedPen: $invertedPen, doubleInvertedPen: $doubleInvertedPen, tripleInvertedPen: $tripleInvertedPen, firstPenButton: $firstPenButton, doubleFirstPenButton: $doubleFirstPenButton, tripleFirstPenButton: $tripleFirstPenButton, secondPenButton: $secondPenButton, doubleSecondPenButton: $doubleSecondPenButton, tripleSecondPenButton: $tripleSecondPenButton, touch: $touch, holdShortcuts: $holdShortcuts, doubleTouchShortcut: $doubleTouchShortcut, tripleTouchShortcut: $tripleTouchShortcut)';
 }
 
 
@@ -454,7 +482,7 @@ abstract mixin class _$InputConfigurationCopyWith<$Res> implements $InputConfigu
   factory _$InputConfigurationCopyWith(_InputConfiguration value, $Res Function(_InputConfiguration) _then) = __$InputConfigurationCopyWithImpl;
 @override @useResult
 $Res call({
- InputMapping leftMouse, InputMapping middleMouse, InputMapping rightMouse, InputMapping pen, InputMapping invertedPen, InputMapping firstPenButton, InputMapping secondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
+ InputMapping leftMouse, InputMapping doubleLeftMouse, InputMapping tripleLeftMouse, InputMapping middleMouse, InputMapping doubleMiddleMouse, InputMapping tripleMiddleMouse, InputMapping rightMouse, InputMapping doubleRightMouse, InputMapping tripleRightMouse, InputMapping pen, InputMapping doublePen, InputMapping triplePen, InputMapping invertedPen, InputMapping doubleInvertedPen, InputMapping tripleInvertedPen, InputMapping firstPenButton, InputMapping doubleFirstPenButton, InputMapping tripleFirstPenButton, InputMapping secondPenButton, InputMapping doubleSecondPenButton, InputMapping tripleSecondPenButton, InputMapping touch, List<HoldShortcut> holdShortcuts, String? doubleTouchShortcut, String? tripleTouchShortcut
 });
 
 
@@ -471,15 +499,29 @@ class __$InputConfigurationCopyWithImpl<$Res>
 
 /// Create a copy of InputConfiguration
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? middleMouse = null,Object? rightMouse = null,Object? pen = null,Object? invertedPen = null,Object? firstPenButton = null,Object? secondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? leftMouse = null,Object? doubleLeftMouse = null,Object? tripleLeftMouse = null,Object? middleMouse = null,Object? doubleMiddleMouse = null,Object? tripleMiddleMouse = null,Object? rightMouse = null,Object? doubleRightMouse = null,Object? tripleRightMouse = null,Object? pen = null,Object? doublePen = null,Object? triplePen = null,Object? invertedPen = null,Object? doubleInvertedPen = null,Object? tripleInvertedPen = null,Object? firstPenButton = null,Object? doubleFirstPenButton = null,Object? tripleFirstPenButton = null,Object? secondPenButton = null,Object? doubleSecondPenButton = null,Object? tripleSecondPenButton = null,Object? touch = null,Object? holdShortcuts = null,Object? doubleTouchShortcut = freezed,Object? tripleTouchShortcut = freezed,}) {
   return _then(_InputConfiguration(
 leftMouse: null == leftMouse ? _self.leftMouse : leftMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleLeftMouse: null == doubleLeftMouse ? _self.doubleLeftMouse : doubleLeftMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleLeftMouse: null == tripleLeftMouse ? _self.tripleLeftMouse : tripleLeftMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,middleMouse: null == middleMouse ? _self.middleMouse : middleMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleMiddleMouse: null == doubleMiddleMouse ? _self.doubleMiddleMouse : doubleMiddleMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleMiddleMouse: null == tripleMiddleMouse ? _self.tripleMiddleMouse : tripleMiddleMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,rightMouse: null == rightMouse ? _self.rightMouse : rightMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleRightMouse: null == doubleRightMouse ? _self.doubleRightMouse : doubleRightMouse // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleRightMouse: null == tripleRightMouse ? _self.tripleRightMouse : tripleRightMouse // ignore: cast_nullable_to_non_nullable
 as InputMapping,pen: null == pen ? _self.pen : pen // ignore: cast_nullable_to_non_nullable
+as InputMapping,doublePen: null == doublePen ? _self.doublePen : doublePen // ignore: cast_nullable_to_non_nullable
+as InputMapping,triplePen: null == triplePen ? _self.triplePen : triplePen // ignore: cast_nullable_to_non_nullable
 as InputMapping,invertedPen: null == invertedPen ? _self.invertedPen : invertedPen // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleInvertedPen: null == doubleInvertedPen ? _self.doubleInvertedPen : doubleInvertedPen // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleInvertedPen: null == tripleInvertedPen ? _self.tripleInvertedPen : tripleInvertedPen // ignore: cast_nullable_to_non_nullable
 as InputMapping,firstPenButton: null == firstPenButton ? _self.firstPenButton : firstPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleFirstPenButton: null == doubleFirstPenButton ? _self.doubleFirstPenButton : doubleFirstPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleFirstPenButton: null == tripleFirstPenButton ? _self.tripleFirstPenButton : tripleFirstPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,secondPenButton: null == secondPenButton ? _self.secondPenButton : secondPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,doubleSecondPenButton: null == doubleSecondPenButton ? _self.doubleSecondPenButton : doubleSecondPenButton // ignore: cast_nullable_to_non_nullable
+as InputMapping,tripleSecondPenButton: null == tripleSecondPenButton ? _self.tripleSecondPenButton : tripleSecondPenButton // ignore: cast_nullable_to_non_nullable
 as InputMapping,touch: null == touch ? _self.touch : touch // ignore: cast_nullable_to_non_nullable
 as InputMapping,holdShortcuts: null == holdShortcuts ? _self._holdShortcuts : holdShortcuts // ignore: cast_nullable_to_non_nullable
 as List<HoldShortcut>,doubleTouchShortcut: freezed == doubleTouchShortcut ? _self.doubleTouchShortcut : doubleTouchShortcut // ignore: cast_nullable_to_non_nullable

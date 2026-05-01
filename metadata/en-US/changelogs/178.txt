@@ -6,6 +6,7 @@
   * Resolved sync status update bugs for files, templates, and packs
   * Optimized automatic syncing to prevent repeated syncs when connection cache settings change
 * Add useAndroidSaf experiment ([#1000](https://github.com/LinwoodDev/Butterfly/issues/1000))
+* Add multi-tap input shortcuts experiment for mouse and pen
 * Use file name as default pdf name when importing
 * Remove unused default PDF quality setting
 * Improve select tool transform controls on small selections

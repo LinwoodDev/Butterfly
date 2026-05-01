@@ -147,6 +147,8 @@ enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
+const kMultiTapInputShortcutsFlag = 'multiTapInputShortcuts';
+
 @freezed
 sealed class FavoriteLocation with _$FavoriteLocation {
   const FavoriteLocation._();
@@ -170,14 +172,28 @@ class InputMappingDefault {
   static const InputMapping leftMouse = InputMapping(
     InputMapping.activeToolValue,
   );
+  static const InputMapping doubleLeftMouse = leftMouse;
+  static const InputMapping tripleLeftMouse = leftMouse;
   static const InputMapping middleMouse = InputMapping(
     InputMapping.handToolValue,
   );
+  static const InputMapping doubleMiddleMouse = middleMouse;
+  static const InputMapping tripleMiddleMouse = middleMouse;
   static const InputMapping rightMouse = InputMapping(1);
+  static const InputMapping doubleRightMouse = rightMouse;
+  static const InputMapping tripleRightMouse = rightMouse;
   static const InputMapping pen = InputMapping(InputMapping.activeToolValue);
+  static const InputMapping doublePen = pen;
+  static const InputMapping triplePen = pen;
   static const InputMapping invertedPen = InputMapping(3);
+  static const InputMapping doubleInvertedPen = invertedPen;
+  static const InputMapping tripleInvertedPen = invertedPen;
   static const InputMapping firstPenButton = InputMapping(2);
+  static const InputMapping doubleFirstPenButton = firstPenButton;
+  static const InputMapping tripleFirstPenButton = firstPenButton;
   static const InputMapping secondPenButton = InputMapping(1);
+  static const InputMapping doubleSecondPenButton = secondPenButton;
+  static const InputMapping tripleSecondPenButton = secondPenButton;
   static const InputMapping touch = InputMapping(InputMapping.activeToolValue);
 }
 
@@ -259,12 +275,36 @@ sealed class InputConfiguration with _$InputConfiguration {
 
   const factory InputConfiguration({
     @Default(InputMappingDefault.leftMouse) InputMapping leftMouse,
+    @Default(InputMappingDefault.doubleLeftMouse) InputMapping doubleLeftMouse,
+    @Default(InputMappingDefault.tripleLeftMouse) InputMapping tripleLeftMouse,
     @Default(InputMappingDefault.middleMouse) InputMapping middleMouse,
+    @Default(InputMappingDefault.doubleMiddleMouse)
+    InputMapping doubleMiddleMouse,
+    @Default(InputMappingDefault.tripleMiddleMouse)
+    InputMapping tripleMiddleMouse,
     @Default(InputMappingDefault.rightMouse) InputMapping rightMouse,
+    @Default(InputMappingDefault.doubleRightMouse)
+    InputMapping doubleRightMouse,
+    @Default(InputMappingDefault.tripleRightMouse)
+    InputMapping tripleRightMouse,
     @Default(InputMappingDefault.pen) InputMapping pen,
+    @Default(InputMappingDefault.doublePen) InputMapping doublePen,
+    @Default(InputMappingDefault.triplePen) InputMapping triplePen,
     @Default(InputMappingDefault.invertedPen) InputMapping invertedPen,
+    @Default(InputMappingDefault.doubleInvertedPen)
+    InputMapping doubleInvertedPen,
+    @Default(InputMappingDefault.tripleInvertedPen)
+    InputMapping tripleInvertedPen,
     @Default(InputMappingDefault.firstPenButton) InputMapping firstPenButton,
+    @Default(InputMappingDefault.doubleFirstPenButton)
+    InputMapping doubleFirstPenButton,
+    @Default(InputMappingDefault.tripleFirstPenButton)
+    InputMapping tripleFirstPenButton,
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
+    @Default(InputMappingDefault.doubleSecondPenButton)
+    InputMapping doubleSecondPenButton,
+    @Default(InputMappingDefault.tripleSecondPenButton)
+    InputMapping tripleSecondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
     @Default([]) List<HoldShortcut> holdShortcuts,
     String? doubleTouchShortcut,
@@ -276,12 +316,26 @@ sealed class InputConfiguration with _$InputConfiguration {
 
   Set<InputMapping> getShortcuts() => {
     leftMouse,
+    doubleLeftMouse,
+    tripleLeftMouse,
     middleMouse,
+    doubleMiddleMouse,
+    tripleMiddleMouse,
     rightMouse,
+    doubleRightMouse,
+    tripleRightMouse,
     pen,
+    doublePen,
+    triplePen,
     invertedPen,
+    doubleInvertedPen,
+    tripleInvertedPen,
     firstPenButton,
+    doubleFirstPenButton,
+    tripleFirstPenButton,
     secondPenButton,
+    doubleSecondPenButton,
+    tripleSecondPenButton,
     touch,
     ...holdShortcuts.map((e) => e.mapping),
   }.toSet();

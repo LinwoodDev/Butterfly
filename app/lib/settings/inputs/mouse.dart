@@ -12,6 +12,11 @@ import '../../cubits/settings.dart';
 class MouseInputSettings extends StatelessWidget {
   const MouseInputSettings({super.key});
 
+  String _getDoubleName(BuildContext context, String inputName) =>
+      '${AppLocalizations.of(context).double} $inputName';
+
+  String _getTripleName(String inputName) => 'Triple $inputName';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +30,9 @@ class MouseInputSettings extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
               final config = state.inputConfiguration;
+              final multiTapShortcutsEnabled = state.hasFlag(
+                kMultiTapInputShortcutsFlag,
+              );
               return ListView(
                 children: [
                   Card(
@@ -94,6 +102,43 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputMappingListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).left,
+                              ),
+                              currentValue: config.doubleLeftMouse,
+                              defaultValue: InputMappingDefault.doubleLeftMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseLeftClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(doubleLeftMouse: value),
+                                );
+                              },
+                            ),
+                            InputMappingListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).left,
+                              ),
+                              currentValue: config.tripleLeftMouse,
+                              defaultValue: InputMappingDefault.tripleLeftMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseLeftClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(tripleLeftMouse: value),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).middle,
                             currentValue: config.middleMouse,
@@ -109,6 +154,45 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputMappingListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).middle,
+                              ),
+                              currentValue: config.doubleMiddleMouse,
+                              defaultValue:
+                                  InputMappingDefault.doubleMiddleMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseMiddleClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(doubleMiddleMouse: value),
+                                );
+                              },
+                            ),
+                            InputMappingListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).middle,
+                              ),
+                              currentValue: config.tripleMiddleMouse,
+                              defaultValue:
+                                  InputMappingDefault.tripleMiddleMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseMiddleClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(tripleMiddleMouse: value),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).right,
                             currentValue: config.rightMouse,
@@ -124,6 +208,45 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputMappingListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).right,
+                              ),
+                              currentValue: config.doubleRightMouse,
+                              defaultValue:
+                                  InputMappingDefault.doubleRightMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseRightClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(doubleRightMouse: value),
+                                );
+                              },
+                            ),
+                            InputMappingListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).right,
+                              ),
+                              currentValue: config.tripleRightMouse,
+                              defaultValue:
+                                  InputMappingDefault.tripleRightMouse,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseRightClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(tripleRightMouse: value),
+                                );
+                              },
+                            ),
+                          ],
                         ],
                       ),
                     ),
