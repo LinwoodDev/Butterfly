@@ -31,66 +31,24 @@ _InputConfiguration _$InputConfigurationFromJson(
   leftMouse: json['leftMouse'] == null
       ? InputMappingDefault.leftMouse
       : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
-  doubleLeftMouse: json['doubleLeftMouse'] == null
-      ? InputMappingDefault.doubleLeftMouse
-      : InputMapping.fromJson((json['doubleLeftMouse'] as num).toInt()),
-  tripleLeftMouse: json['tripleLeftMouse'] == null
-      ? InputMappingDefault.tripleLeftMouse
-      : InputMapping.fromJson((json['tripleLeftMouse'] as num).toInt()),
   middleMouse: json['middleMouse'] == null
       ? InputMappingDefault.middleMouse
       : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
-  doubleMiddleMouse: json['doubleMiddleMouse'] == null
-      ? InputMappingDefault.doubleMiddleMouse
-      : InputMapping.fromJson((json['doubleMiddleMouse'] as num).toInt()),
-  tripleMiddleMouse: json['tripleMiddleMouse'] == null
-      ? InputMappingDefault.tripleMiddleMouse
-      : InputMapping.fromJson((json['tripleMiddleMouse'] as num).toInt()),
   rightMouse: json['rightMouse'] == null
       ? InputMappingDefault.rightMouse
       : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
-  doubleRightMouse: json['doubleRightMouse'] == null
-      ? InputMappingDefault.doubleRightMouse
-      : InputMapping.fromJson((json['doubleRightMouse'] as num).toInt()),
-  tripleRightMouse: json['tripleRightMouse'] == null
-      ? InputMappingDefault.tripleRightMouse
-      : InputMapping.fromJson((json['tripleRightMouse'] as num).toInt()),
   pen: json['pen'] == null
       ? InputMappingDefault.pen
       : InputMapping.fromJson((json['pen'] as num).toInt()),
-  doublePen: json['doublePen'] == null
-      ? InputMappingDefault.doublePen
-      : InputMapping.fromJson((json['doublePen'] as num).toInt()),
-  triplePen: json['triplePen'] == null
-      ? InputMappingDefault.triplePen
-      : InputMapping.fromJson((json['triplePen'] as num).toInt()),
   invertedPen: json['invertedPen'] == null
       ? InputMappingDefault.invertedPen
       : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
-  doubleInvertedPen: json['doubleInvertedPen'] == null
-      ? InputMappingDefault.doubleInvertedPen
-      : InputMapping.fromJson((json['doubleInvertedPen'] as num).toInt()),
-  tripleInvertedPen: json['tripleInvertedPen'] == null
-      ? InputMappingDefault.tripleInvertedPen
-      : InputMapping.fromJson((json['tripleInvertedPen'] as num).toInt()),
   firstPenButton: json['firstPenButton'] == null
       ? InputMappingDefault.firstPenButton
       : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
-  doubleFirstPenButton: json['doubleFirstPenButton'] == null
-      ? InputMappingDefault.doubleFirstPenButton
-      : InputMapping.fromJson((json['doubleFirstPenButton'] as num).toInt()),
-  tripleFirstPenButton: json['tripleFirstPenButton'] == null
-      ? InputMappingDefault.tripleFirstPenButton
-      : InputMapping.fromJson((json['tripleFirstPenButton'] as num).toInt()),
   secondPenButton: json['secondPenButton'] == null
       ? InputMappingDefault.secondPenButton
       : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
-  doubleSecondPenButton: json['doubleSecondPenButton'] == null
-      ? InputMappingDefault.doubleSecondPenButton
-      : InputMapping.fromJson((json['doubleSecondPenButton'] as num).toInt()),
-  tripleSecondPenButton: json['tripleSecondPenButton'] == null
-      ? InputMappingDefault.tripleSecondPenButton
-      : InputMapping.fromJson((json['tripleSecondPenButton'] as num).toInt()),
   touch: json['touch'] == null
       ? InputMappingDefault.touch
       : InputMapping.fromJson((json['touch'] as num).toInt()),
@@ -101,6 +59,22 @@ _InputConfiguration _$InputConfigurationFromJson(
           )
           .toList() ??
       const [],
+  doubleLeftMouseShortcut: json['doubleLeftMouseShortcut'] as String?,
+  tripleLeftMouseShortcut: json['tripleLeftMouseShortcut'] as String?,
+  doubleMiddleMouseShortcut: json['doubleMiddleMouseShortcut'] as String?,
+  tripleMiddleMouseShortcut: json['tripleMiddleMouseShortcut'] as String?,
+  doubleRightMouseShortcut: json['doubleRightMouseShortcut'] as String?,
+  tripleRightMouseShortcut: json['tripleRightMouseShortcut'] as String?,
+  doublePenShortcut: json['doublePenShortcut'] as String?,
+  triplePenShortcut: json['triplePenShortcut'] as String?,
+  doubleInvertedPenShortcut: json['doubleInvertedPenShortcut'] as String?,
+  tripleInvertedPenShortcut: json['tripleInvertedPenShortcut'] as String?,
+  doubleFirstPenButtonShortcut: json['doubleFirstPenButtonShortcut'] as String?,
+  tripleFirstPenButtonShortcut: json['tripleFirstPenButtonShortcut'] as String?,
+  doubleSecondPenButtonShortcut:
+      json['doubleSecondPenButtonShortcut'] as String?,
+  tripleSecondPenButtonShortcut:
+      json['tripleSecondPenButtonShortcut'] as String?,
   doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
   tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
 );
@@ -108,28 +82,28 @@ _InputConfiguration _$InputConfigurationFromJson(
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
     <String, dynamic>{
       'leftMouse': instance.leftMouse.toJson(),
-      'doubleLeftMouse': instance.doubleLeftMouse.toJson(),
-      'tripleLeftMouse': instance.tripleLeftMouse.toJson(),
       'middleMouse': instance.middleMouse.toJson(),
-      'doubleMiddleMouse': instance.doubleMiddleMouse.toJson(),
-      'tripleMiddleMouse': instance.tripleMiddleMouse.toJson(),
       'rightMouse': instance.rightMouse.toJson(),
-      'doubleRightMouse': instance.doubleRightMouse.toJson(),
-      'tripleRightMouse': instance.tripleRightMouse.toJson(),
       'pen': instance.pen.toJson(),
-      'doublePen': instance.doublePen.toJson(),
-      'triplePen': instance.triplePen.toJson(),
       'invertedPen': instance.invertedPen.toJson(),
-      'doubleInvertedPen': instance.doubleInvertedPen.toJson(),
-      'tripleInvertedPen': instance.tripleInvertedPen.toJson(),
       'firstPenButton': instance.firstPenButton.toJson(),
-      'doubleFirstPenButton': instance.doubleFirstPenButton.toJson(),
-      'tripleFirstPenButton': instance.tripleFirstPenButton.toJson(),
       'secondPenButton': instance.secondPenButton.toJson(),
-      'doubleSecondPenButton': instance.doubleSecondPenButton.toJson(),
-      'tripleSecondPenButton': instance.tripleSecondPenButton.toJson(),
       'touch': instance.touch.toJson(),
       'holdShortcuts': instance.holdShortcuts.map((e) => e.toJson()).toList(),
+      'doubleLeftMouseShortcut': instance.doubleLeftMouseShortcut,
+      'tripleLeftMouseShortcut': instance.tripleLeftMouseShortcut,
+      'doubleMiddleMouseShortcut': instance.doubleMiddleMouseShortcut,
+      'tripleMiddleMouseShortcut': instance.tripleMiddleMouseShortcut,
+      'doubleRightMouseShortcut': instance.doubleRightMouseShortcut,
+      'tripleRightMouseShortcut': instance.tripleRightMouseShortcut,
+      'doublePenShortcut': instance.doublePenShortcut,
+      'triplePenShortcut': instance.triplePenShortcut,
+      'doubleInvertedPenShortcut': instance.doubleInvertedPenShortcut,
+      'tripleInvertedPenShortcut': instance.tripleInvertedPenShortcut,
+      'doubleFirstPenButtonShortcut': instance.doubleFirstPenButtonShortcut,
+      'tripleFirstPenButtonShortcut': instance.tripleFirstPenButtonShortcut,
+      'doubleSecondPenButtonShortcut': instance.doubleSecondPenButtonShortcut,
+      'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
     };
