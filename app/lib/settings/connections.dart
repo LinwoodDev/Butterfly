@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:butterfly/api/open.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart' as http;
+import 'package:html/parser.dart' as html_parser;
+import 'package:image/image.dart' as img;
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -278,42 +280,107 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
   Future<Uint8List?> _getIcon() async {
     if (!_isRemote) return null;
+    final baseUrl = Uri.tryParse(_urlController.text.trim());
+    if (baseUrl == null) return null;
+
     try {
-      var url = Uri.tryParse(_iconController.text.trim());
+      final candidates = await _getIconCandidates(baseUrl);
+      for (final candidate in candidates) {
+        final bytes = await _fetchBytes(candidate);
+        if (bytes == null) continue;
 
-      if (!(url?.isAbsolute ?? true)) {
-        url = Uri.tryParse(
-          _urlController.text.trim(),
-        )?.resolve(_iconController.text.trim());
-      }
-      if (url == null) {
-        return null;
-      }
-
-      final response = await http.get(url);
-      if (response.statusCode != 200) {
-        return null;
-      }
-      try {
-        final image = await decodeImageFromList(response.bodyBytes);
-        final imageBytes = (await image.toByteData(
-          format: ImageByteFormat.png,
-        ))?.buffer.asUint8List();
-        if (imageBytes?.isNotEmpty ?? false) {
-          return imageBytes!;
-        }
-      } catch (e) {
-        if (kDebugMode) {
-          print(e);
-        }
+        final icon = await _decodeIcon(bytes);
+        if (icon != null) return icon;
       }
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        _showCreatingError(AppLocalizations.of(context).cannotConnect, e);
       }
     }
     return null;
+  }
+
+  Future<List<Uri>> _getIconCandidates(Uri baseUrl) async {
+    final candidates = <Uri>[];
+    void addCandidate(Uri? uri) {
+      if (uri == null || !uri.hasScheme || candidates.contains(uri)) return;
+      candidates.add(uri);
+    }
+
+    addCandidate(_resolveIconUrl(baseUrl, _iconController.text.trim()));
+    addCandidate(baseUrl.replace(path: '/favicon.ico', query: ''));
+
+    final htmlPages = <String>[];
+    final connectionHtml = await _fetchString(baseUrl);
+    if (connectionHtml != null) htmlPages.add(connectionHtml);
+    final rootHtml = await _fetchString(baseUrl.replace(path: '/', query: ''));
+    if (rootHtml != null && rootHtml != connectionHtml) {
+      htmlPages.add(rootHtml);
+    }
+    for (final html in htmlPages) {
+      final document = html_parser.parse(html);
+      final icons =
+          document.querySelectorAll('link[rel][href]').where((element) {
+            final rel = element.attributes['rel']?.toLowerCase() ?? '';
+            return rel.split(RegExp(r'\s+')).any((part) => part == 'icon');
+          }).toList()..sort((a, b) {
+            final aSize = _largestIconSize(a.attributes['sizes']);
+            final bSize = _largestIconSize(b.attributes['sizes']);
+            return bSize.compareTo(aSize);
+          });
+
+      for (final icon in icons) {
+        addCandidate(baseUrl.resolve(icon.attributes['href'] ?? ''));
+      }
+    }
+
+    return candidates;
+  }
+
+  Uri? _resolveIconUrl(Uri baseUrl, String value) {
+    if (value.isEmpty) return null;
+    final url = Uri.tryParse(value);
+    if (url == null) return null;
+    return url.isAbsolute ? url : baseUrl.resolve(value);
+  }
+
+  int _largestIconSize(String? sizes) {
+    if (sizes == null) return 0;
+    return RegExp(r'(\d+)x(\d+)').allMatches(sizes).fold(0, (size, match) {
+      final width = int.tryParse(match.group(1) ?? '') ?? 0;
+      final height = int.tryParse(match.group(2) ?? '') ?? 0;
+      return math.max(size, math.max(width, height));
+    });
+  }
+
+  Future<String?> _fetchString(Uri url) async {
+    final bytes = await _fetchBytes(url);
+    if (bytes == null) return null;
+    return utf8.decode(bytes, allowMalformed: true);
+  }
+
+  Future<Uint8List?> _fetchBytes(Uri url) async {
+    final request = await _httpClient.getUrl(url);
+    request.headers.add(
+      'Authorization',
+      'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
+    );
+    final response = await request.close();
+    if (response.statusCode < 200 || response.statusCode >= 300) return null;
+    return consolidateHttpClientResponseBytes(response);
+  }
+
+  Future<Uint8List?> _decodeIcon(Uint8List bytes) async {
+    try {
+      final image = await decodeImageFromList(bytes);
+      return (await image.toByteData(
+        format: ImageByteFormat.png,
+      ))?.buffer.asUint8List();
+    } catch (_) {
+      final decoded = img.decodeImage(bytes);
+      if (decoded == null) return null;
+      return Uint8List.fromList(img.encodePng(decoded));
+    }
   }
 
   Future<void> _create() async {

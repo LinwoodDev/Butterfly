@@ -21,6 +21,16 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 
+String _normalizeCachePath(String path) {
+  if (path.endsWith('/')) {
+    path = path.substring(0, path.length - 1);
+  }
+  if (!path.startsWith('/')) {
+    path = '/$path';
+  }
+  return path;
+}
+
 T _enumByNameOr<T extends Enum>(List<T> values, String? name, T fallback) {
   if (name == null) return fallback;
   return values.firstWhere((e) => e.name == name, orElse: () => fallback);
@@ -1046,12 +1056,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> addCache(String identifier, String current) async {
-    if (current.endsWith('/')) {
-      current = current.substring(0, current.length - 1);
-    }
-    if (!current.startsWith('/')) {
-      current = '/$current';
-    }
+    current = _normalizeCachePath(current);
     emit(
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
@@ -1061,6 +1066,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
             );
             return e.copyWith(
               pinnedPaths: {
+                ...e.pinnedPaths,
                 'documents': documents
                   ..removeWhere((element) => element == current)
                   ..add(current),
@@ -1075,6 +1081,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> removeCache(String identifier, String current) {
+    current = _normalizeCachePath(current);
     emit(
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
@@ -1084,6 +1091,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
             );
             return e.copyWith(
               pinnedPaths: {
+                ...e.pinnedPaths,
                 'documents': documents
                   ..removeWhere((element) => element == current),
               },
@@ -1116,8 +1124,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            return (e as dynamic).copyWith(cachedDocuments: [])
-                as ExternalStorage;
+            return e.copyWith(pinnedPaths: const {});
           }
           return e;
         }).toList(),

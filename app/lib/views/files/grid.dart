@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,6 +107,15 @@ class FileEntityGridItem extends StatelessWidget {
                     ),
                   ),
                   Align(alignment: Alignment.topRight, child: actionButton),
+                  if (remote is RemoteStorage)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: FileSyncStatusButton(
+                        remote: remote,
+                        location: entity.location,
+                        directory: entity is FileSystemDirectory,
+                      ),
+                    ),
                   if (selected != null)
                     Align(
                       alignment: Alignment.topLeft,
