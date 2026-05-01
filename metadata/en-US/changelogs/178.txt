@@ -3,7 +3,7 @@
 * Remove unused default PDF quality setting
 * Improve select tool transform controls on small selections
 * Improve add area dialog in PDF export dialog to allow multiple area selection
-* Fix PDF import using saved spread-to-pages setting by default
+* Fix PDF import using saved spread-to-pages setting by default ([#1075](https://github.com/LinwoodDev/Butterfly/issues/1075))
 * Create areas by default when importing PDFs
 * Fix smooth navigation with viewport limits
 * Fix PDF and PNG export quality settings not applying correctly
