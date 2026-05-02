@@ -50,27 +50,23 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool? _isScalingDisabled;
   Animation<Offset>? _positionAnimation;
 
-  // Touch gesture buffering
   final List<PointerEvent> _bufferedEvents = [];
-  final Map<int, Offset> _touchStartPositions = {};
-  int _fingersInvolved = 0;
-  bool _isTouchTapGesture = false;
-  Timer? _touchTapTimer;
+  final Map<int, PointerDeviceKind> _pointerKinds = {};
+  final Map<int, Offset> _tapStartPositions = {};
+  bool _isTapGesture = false;
+  Timer? _tapTimer;
   _TapDetails? _lastTap;
-  Timer? _multiTapShortcutTimer;
   int _slideAnimationId = 0;
   static const Curve _slideCurve = Curves.easeOutCubic;
   static const Duration _multiTapTimeout = Duration(milliseconds: 500);
   static const Duration _multiTapResolveDelay = Duration(milliseconds: 250);
   static const double _multiTapDistance = 18;
-  static const double _touchTapDistance = 8;
   static const String _longPressShortcutId = 'long_press';
 
-  void _resetTouchTap() {
+  void _resetTapGesture() {
     _bufferedEvents.clear();
-    _touchStartPositions.clear();
-    _isTouchTapGesture = false;
-    _fingersInvolved = 0;
+    _tapStartPositions.clear();
+    _isTapGesture = false;
   }
 
   bool _isMouseOrPen(PointerDeviceKind kind) =>
@@ -78,10 +74,20 @@ class _MainViewViewportState extends State<MainViewViewport>
       kind == PointerDeviceKind.stylus ||
       kind == PointerDeviceKind.invertedStylus;
 
+  bool _isMousePenOrTouch(PointerDeviceKind kind) =>
+      _isMouseOrPen(kind) || kind == PointerDeviceKind.touch;
+
+  bool _isTouchMoveGesture(CurrentIndex currentIndex) =>
+      currentIndex.moveEnabled &&
+      currentIndex.pointers.every(
+        (pointer) => _pointerKinds[pointer] == PointerDeviceKind.touch,
+      );
+
   void _rememberTap(PointerDownEvent event) {
     if (event.kind != PointerDeviceKind.mouse &&
         event.kind != PointerDeviceKind.stylus &&
-        event.kind != PointerDeviceKind.invertedStylus) {
+        event.kind != PointerDeviceKind.invertedStylus &&
+        event.kind != PointerDeviceKind.touch) {
       return;
     }
 
@@ -93,7 +99,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         event.timeStamp - lastTap.timeStamp <= _multiTapTimeout &&
         (event.position - lastTap.position).distance <= _multiTapDistance;
     final tapCount = isContinuation ? (lastTap.count % 3) + 1 : 1;
-    _multiTapShortcutTimer?.cancel();
+    _tapTimer?.cancel();
     _lastTap = (
       kind: event.kind,
       buttons: event.buttons,
@@ -103,13 +109,24 @@ class _MainViewViewportState extends State<MainViewViewport>
     );
   }
 
-  void _rememberTapIfEnabled(PointerDownEvent event) {
-    if (!context.read<SettingsCubit>().state.hasFlag(
-      kMultiTapInputShortcutsFlag,
-    )) {
-      return;
-    }
-    _rememberTap(event);
+  bool _multiTapShortcutsEnabled(PointerDeviceKind kind) {
+    final settings = context.read<SettingsCubit>().state;
+    final config = settings.inputConfiguration;
+    final touchShortcutConfigured =
+        kind == PointerDeviceKind.touch &&
+        (config.doubleTouchShortcut != null ||
+            config.tripleTouchShortcut != null);
+    return touchShortcutConfigured ||
+        settings.hasFlag(kMultiTapInputShortcutsFlag);
+  }
+
+  bool _isTapContinuation(PointerDownEvent event) {
+    final lastTap = _lastTap;
+    return lastTap != null &&
+        lastTap.kind == event.kind &&
+        lastTap.buttons == event.buttons &&
+        event.timeStamp - lastTap.timeStamp <= _multiTapTimeout &&
+        (event.position - lastTap.position).distance <= _multiTapDistance;
   }
 
   String? _getMouseShortcut(
@@ -166,9 +183,34 @@ class _MainViewViewportState extends State<MainViewViewport>
         return isDoubleTap
             ? config.doubleInvertedPenShortcut
             : config.tripleInvertedPenShortcut;
+      case PointerDeviceKind.touch:
+        return isDoubleTap
+            ? config.doubleTouchShortcut
+            : config.tripleTouchShortcut;
       default:
         return null;
     }
+  }
+
+  bool _hasConfiguredMultiTapShortcut(PointerDownEvent event) {
+    if (!_multiTapShortcutsEnabled(event.kind)) return false;
+    final config = context.read<SettingsCubit>().state.inputConfiguration;
+    final doubleTap = (
+      kind: event.kind,
+      buttons: event.buttons,
+      position: event.position,
+      timeStamp: event.timeStamp,
+      count: 2,
+    );
+    final tripleTap = (
+      kind: event.kind,
+      buttons: event.buttons,
+      position: event.position,
+      timeStamp: event.timeStamp,
+      count: 3,
+    );
+    return _getMultiTapShortcut(config, doubleTap) != null ||
+        _getMultiTapShortcut(config, tripleTap) != null;
   }
 
   void _invokeLongPressShortcut(
@@ -225,53 +267,70 @@ class _MainViewViewportState extends State<MainViewViewport>
     Actions.maybeInvoke(context, def.intent);
   }
 
-  void _scheduleMouseOrPenShortcut(
+  void _scheduleMultiTapShortcut(
     PointerUpEvent event,
     CurrentIndexCubit cubit,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
+    _TemporaryToolChanger changeTemporaryTool,
   ) {
-    if (!context.read<SettingsCubit>().state.hasFlag(
-      kMultiTapInputShortcutsFlag,
-    )) {
+    if (!_multiTapShortcutsEnabled(event.kind)) {
       return;
     }
     final tap = _lastTap;
     if (tap == null ||
-        !_isMouseOrPen(event.kind) ||
+        !_isMousePenOrTouch(event.kind) ||
         tap.kind != event.kind ||
         event.timeStamp - tap.timeStamp > _multiTapTimeout) {
       return;
     }
     final config = context.read<SettingsCubit>().state.inputConfiguration;
     final shortcutId = _getMultiTapShortcut(config, tap);
-    if (shortcutId == null || shortcutId.isEmpty) return;
 
-    _multiTapShortcutTimer?.cancel();
-    _multiTapShortcutTimer = Timer(
-      _multiTapResolveDelay,
-      () => _invokeInputShortcut(
+    _tapTimer?.cancel();
+    final delay = tap.count == 1 ? _multiTapTimeout : _multiTapResolveDelay;
+    _tapTimer = Timer(delay, () async {
+      if (!_isTapGesture) return;
+      if (shortcutId == null || shortcutId.isEmpty) {
+        await _flushBufferedEvents(
+          cubit,
+          getHandler,
+          getEventContext,
+          changeTemporaryTool,
+        );
+        _resetTapGesture();
+        return;
+      }
+      _resetTapGesture();
+      _invokeInputShortcut(
         shortcutId,
         event,
         tap.kind,
         cubit,
         getHandler,
         getEventContext,
-      ),
-    );
+      );
+    });
   }
 
   Future<void> _flushBufferedEvents(
     CurrentIndexCubit cubit,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
-  ) async {
-    for (final e in _bufferedEvents) {
+    _TemporaryToolChanger changeTemporaryTool, {
+    bool preserveScalingState = false,
+  }) async {
+    final events = List<PointerEvent>.from(_bufferedEvents);
+    _bufferedEvents.clear();
+    _tapStartPositions.clear();
+    for (final e in events) {
       if (e is PointerDownEvent) {
         _isScalingDisabled = e.kind == PointerDeviceKind.trackpad
             ? false
+            : preserveScalingState && _isScalingDisabled == false
+            ? false
             : null;
+        _pointerKinds[e.pointer] = e.kind;
         cubit.addPointer(e.pointer);
         cubit.setButtons(e.buttons);
         final handler = getHandler();
@@ -292,8 +351,10 @@ class _MainViewViewportState extends State<MainViewViewport>
           await getHandler().onPointerUp(e, getEventContext());
         }
         cubit.removePointer(e.pointer);
+        _pointerKinds.remove(e.pointer);
       } else if (e is PointerCancelEvent) {
         cubit.removePointer(e.pointer);
+        _pointerKinds.remove(e.pointer);
         cubit.removeButtons();
         if (cubit.state.pointers.isEmpty) {
           _isScalingDisabled = null;
@@ -314,28 +375,32 @@ class _MainViewViewportState extends State<MainViewViewport>
         event.kind == PointerDeviceKind.invertedStylus) {
       cubit.setPenDetected(true);
     }
-    if (event.kind == PointerDeviceKind.touch) {
-      final config = context.read<SettingsCubit>().state.inputConfiguration;
-      if (config.doubleTouchShortcut != null ||
-          config.tripleTouchShortcut != null) {
-        if (_bufferedEvents.isEmpty) {
-          _touchTapTimer?.cancel();
-          _fingersInvolved = 0;
-          _isTouchTapGesture = true;
-        }
-        if (_isTouchTapGesture) {
-          _bufferedEvents.add(event);
-          _touchStartPositions[event.pointer] = event.position;
-          _fingersInvolved++;
-          return;
-        }
-      }
-    }
-
     _isScalingDisabled = event.kind == PointerDeviceKind.trackpad
         ? false
         : null;
-    _rememberTapIfEnabled(event);
+
+    if (_hasConfiguredMultiTapShortcut(event)) {
+      if (_bufferedEvents.isNotEmpty &&
+          (_tapStartPositions.isNotEmpty || !_isTapContinuation(event))) {
+        await _flushBufferedEvents(
+          cubit,
+          getHandler,
+          getEventContext,
+          changeTemporaryTool,
+        );
+        _resetTapGesture();
+      }
+      if (cubit.state.pointers.isEmpty) {
+        _tapTimer?.cancel();
+        _isTapGesture = true;
+        _rememberTap(event);
+        _bufferedEvents.add(event);
+        _tapStartPositions[event.pointer] = event.position;
+        return;
+      }
+    }
+
+    _pointerKinds[event.pointer] = event.kind;
     cubit.addPointer(event.pointer);
     cubit.setButtons(event.buttons);
     final handler = getHandler();
@@ -356,20 +421,21 @@ class _MainViewViewportState extends State<MainViewViewport>
     _TemporaryToolChanger changeTemporaryTool,
     VoidCallback delayBake,
   ) async {
-    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
+    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
       _bufferedEvents.add(event);
-      final startPos = _touchStartPositions[event.pointer];
+      final startPos = _tapStartPositions[event.pointer];
       if (startPos != null &&
-          (event.position - startPos).distance > _touchTapDistance) {
-        _isTouchTapGesture = false;
-        _touchTapTimer?.cancel();
+          (event.position - startPos).distance > _multiTapDistance) {
+        _isTapGesture = false;
+        _tapTimer?.cancel();
         await _flushBufferedEvents(
           cubit,
           getHandler,
           getEventContext,
           changeTemporaryTool,
+          preserveScalingState: true,
         );
-        _resetTouchTap();
+        _resetTapGesture();
       }
       return;
     }
@@ -385,8 +451,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     }
     cubit.updateLastPosition(event.localPosition);
     final currentIndexState = cubit.state;
-    if (currentIndexState.moveEnabled &&
-        event.kind != PointerDeviceKind.stylus) {
+    if (_isTouchMoveGesture(currentIndexState)) {
       if (currentIndexState.pointers.isEmpty) {
         return;
       }
@@ -414,44 +479,17 @@ class _MainViewViewportState extends State<MainViewViewport>
     _EventContextGetter getEventContext,
     _TemporaryToolChanger changeTemporaryTool,
   ) async {
-    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
+    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
       _bufferedEvents.add(event);
-      _touchStartPositions.remove(event.pointer);
-      if (_touchStartPositions.isEmpty) {
-        _touchTapTimer?.cancel();
-        _touchTapTimer = Timer(_multiTapResolveDelay, () async {
-          if (!_isTouchTapGesture) return;
-          final config = context.read<SettingsCubit>().state.inputConfiguration;
-          String? shortcutId;
-          if (_fingersInvolved == 2) {
-            shortcutId = config.doubleTouchShortcut;
-          } else if (_fingersInvolved >= 3) {
-            shortcutId = config.tripleTouchShortcut;
-          }
-
-          if (shortcutId != null && shortcutId.isNotEmpty) {
-            final pressEvent = _bufferedEvents.lastWhere(
-              (event) => event is PointerUpEvent || event is PointerDownEvent,
-              orElse: () => _bufferedEvents.last,
-            );
-            _invokeInputShortcut(
-              shortcutId,
-              pressEvent,
-              PointerDeviceKind.touch,
-              cubit,
-              getHandler,
-              getEventContext,
-            );
-          } else {
-            await _flushBufferedEvents(
-              cubit,
-              getHandler,
-              getEventContext,
-              changeTemporaryTool,
-            );
-          }
-          _resetTouchTap();
-        });
+      _tapStartPositions.remove(event.pointer);
+      if (_tapStartPositions.isEmpty) {
+        _scheduleMultiTapShortcut(
+          event,
+          cubit,
+          getHandler,
+          getEventContext,
+          changeTemporaryTool,
+        );
       }
       return;
     }
@@ -460,8 +498,8 @@ class _MainViewViewportState extends State<MainViewViewport>
     if (_isScalingDisabled ?? true) {
       await getHandler().onPointerUp(event, getEventContext());
     }
-    _scheduleMouseOrPenShortcut(event, cubit, getHandler, getEventContext);
     cubit.removePointer(event.pointer);
+    _pointerKinds.remove(event.pointer);
   }
 
   Future<void> _handlePointerCancel(
@@ -471,21 +509,18 @@ class _MainViewViewportState extends State<MainViewViewport>
     _EventContextGetter getEventContext,
     _TemporaryToolChanger changeTemporaryTool,
   ) async {
-    if (event.kind == PointerDeviceKind.touch && _isTouchTapGesture) {
-      _isTouchTapGesture = false;
-      _touchTapTimer?.cancel();
-      _bufferedEvents.add(event);
-      await _flushBufferedEvents(
-        cubit,
-        getHandler,
-        getEventContext,
-        changeTemporaryTool,
-      );
-      _resetTouchTap();
+    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
+      _tapTimer?.cancel();
+      _bufferedEvents.removeWhere((e) => e.pointer == event.pointer);
+      _tapStartPositions.remove(event.pointer);
+      if (_bufferedEvents.isEmpty) {
+        _resetTapGesture();
+      }
       return;
     }
 
     cubit.removePointer(event.pointer);
+    _pointerKinds.remove(event.pointer);
     cubit.removeButtons();
     if (cubit.state.pointers.isEmpty) {
       _isScalingDisabled = null;
@@ -504,8 +539,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     HardwareKeyboard.instance.removeHandler(_handleKey);
-    _touchTapTimer?.cancel();
-    _multiTapShortcutTimer?.cancel();
+    _tapTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }
@@ -799,8 +833,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     cubit.resetReleaseHandler(bloc);
                                   },
                                   onScaleStart: (details) {
-                                    _isScalingDisabled ??=
-                                        !cubit.state.moveEnabled;
+                                    _isScalingDisabled ??= !_isTouchMoveGesture(
+                                      cubit.state,
+                                    );
                                     if (_isScalingDisabled != false) {
                                       _isScalingDisabled = cubit
                                           .getHandler()
