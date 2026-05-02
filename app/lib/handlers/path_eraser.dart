@@ -41,9 +41,16 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   }
 
   @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
+  Future<void> onPointerDown(
+    PointerDownEvent event,
+    EventContext context,
+  ) async {
     super.onPointerDown(event, context);
     _erased.clear();
+    _lastErased = null;
+    _currentPos = event.localPosition;
+    context.refreshForegrounds();
+    await _erase(event.localPosition, context);
   }
 
   @override
