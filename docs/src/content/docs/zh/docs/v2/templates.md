@@ -17,7 +17,7 @@ They store everything a normal document does, including:
 - The settings for each tool
 - 图层
 - 地区
-- 页 次
+- 页面
 
 ## How to make a template?
 
@@ -29,4 +29,4 @@ Press the "Create" button and give it a name. Keep the directory empty unless yo
 
 Unfortunately, there is no specific place to share your templates.
 
-But if you think you have made a cool template, feel free to share it on Discord.
+But if you think you have made a cool template, feel free to share it on Matrix (or Discord).
