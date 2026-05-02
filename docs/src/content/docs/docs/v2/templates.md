@@ -30,4 +30,4 @@ Press the "Create" button and give it a name. Keep the directory empty unless yo
 
 Unfortunately, there is no specific place to share your templates.
 
-But if you think you have made a cool template, feel free to share it on Discord.
+But if you think you have made a cool template, feel free to share it on Matrix (or Discord).

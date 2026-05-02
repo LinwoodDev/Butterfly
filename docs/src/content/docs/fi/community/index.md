@@ -18,5 +18,5 @@ Kaikki muut lisenssit löytyvät asetuksista.
 ## Hyödyllisiä linkkejä
 
 - [GitHub](https://github.com/LinwoodDev/Butterfly)
+- [Matrix](https://go.linwood.dev/matrix) (Recommended)
 - [Discord](https://go.linwood.dev/discord)
-- [Matrix](https://go.linwood.dev/matrix)
