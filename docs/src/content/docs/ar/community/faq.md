@@ -37,7 +37,7 @@ This is the issue to track it: [flutter/flutter#42846](https://github.com/flutte
 
 وهذا يتيح لـ باترفلاي التحديث بشكل أسرع والاستجابة بشكل أفضل.
 
-إذا لم تساعد هذه الخطوات، يرجى عدم التردد في تقديم الشكوى في ديسكورد أو ماتركس أو في جيت هب.
+If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
 
 ### يتم إعادة تشغيل باترفلاي في الخلفية
 
