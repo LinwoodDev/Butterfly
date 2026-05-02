@@ -1427,15 +1427,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (!identical(aboveLayerImage, oldAbove)) {
         aboveLayerImage?.dispose();
       }
-      Future.microtask(
-        () => bake(
-          blocState,
+      Future.microtask(() async {
+        final latestState = _documentBloc?.state;
+        if (latestState is! DocumentLoaded) return;
+        await bake(
+          latestState,
           viewportSize: viewportSize,
           pixelRatio: pixelRatio,
           reset: reset,
           resetAllLayers: resetAllLayers,
-        ),
-      );
+        );
+      });
       return;
     }
 
@@ -2385,6 +2387,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
+    _cancelDelayedBake();
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,

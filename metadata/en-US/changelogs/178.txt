@@ -14,6 +14,7 @@
 * Fix PDF import using saved spread-to-pages setting by default ([#1075](https://github.com/LinwoodDev/Butterfly/issues/1075))
 * Create areas by default when importing PDFs
 * Fix smooth navigation with viewport limits
+* Fix eraser and path eraser strokes reappearing on large canvases ([#1080](https://github.com/LinwoodDev/Butterfly/issues/1080))
 * Fix PDF and PNG export quality settings not applying correctly
 * Fix context menu opening when double tapping with touch
 * Fix PDF export dialog remove button overlapping the drag handle
