@@ -18,5 +18,5 @@ Tutte le altre licenze possono essere trovate nelle impostazioni.
 ## Link utili
 
 - [GitHub](https://github.com/LinwoodDev/Butterfly)
+- [Matrix](https://go.linwood.dev/matrix) (Recommended)
 - [Discord](https://go.linwood.dev/discord)
-- [Matrix](https://go.linwood.dev/matrix)
