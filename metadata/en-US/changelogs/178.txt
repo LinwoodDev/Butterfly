@@ -12,6 +12,7 @@
 * Improve select tool transform controls on small selections
 * Improve add area dialog in PDF export dialog to allow multiple area selection
 * Fix PDF import using saved spread-to-pages setting by default ([#1075](https://github.com/LinwoodDev/Butterfly/issues/1075))
+* Fix importing not working if file extension is uppercase
 * Create areas by default when importing PDFs
 * Fix smooth navigation with viewport limits
 * Fix input scheduling system causing double taps recognized as move events ([#1080](https://github.com/LinwoodDev/Butterfly/issues/1080))

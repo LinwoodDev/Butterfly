@@ -68,6 +68,7 @@ extension AssetFileTypeHelper on AssetFileType {
     if (ext?.startsWith('.') ?? false) {
       ext = ext?.substring(1);
     }
+    ext = ext?.toLowerCase();
     return AssetFileType.values.firstWhereOrNull(
       (type) => type.getFileExtensions().contains(ext),
     );

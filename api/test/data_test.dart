@@ -8,6 +8,13 @@ DocumentPage _pageWithLayer(String layerId) =>
     DocumentPage(layers: [DocumentLayer(id: layerId)]);
 
 void main() {
+  group('AssetFileType helpers', () {
+    test('fromFileExtension handles uppercase and dotted PDF extensions', () {
+      expect(AssetFileTypeHelper.fromFileExtension('PDF'), AssetFileType.pdf);
+      expect(AssetFileTypeHelper.fromFileExtension('.PDF'), AssetFileType.pdf);
+    });
+  });
+
   group('NoteData page operations', () {
     test('addPage keeps existing page when name collides', () {
       var data = NoteData(Archive());

@@ -236,11 +236,12 @@ class ImportService {
       bytes = data.data;
     }
     if (type.isEmpty) type = 'note';
+    final normalizedType = type.toLowerCase();
     final fileType = AssetFileType.values.firstWhereOrNull(
       (element) =>
-          element.isMimeType(type) ||
-          element.getFileExtensions().contains(type) ||
-          element.name == type,
+          element.isMimeType(normalizedType) ||
+          element.getFileExtensions().contains(normalizedType) ||
+          element.name == normalizedType,
     );
     if (fileType == null) {
       await showDialog(
