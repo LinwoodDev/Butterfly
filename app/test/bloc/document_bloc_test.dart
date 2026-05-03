@@ -26,11 +26,22 @@ Future<void> _settleBlocEvents() async {
 class _VisibleTrackingRenderer extends Renderer<PadElement> {
   int onVisibleCalls = 0;
   int onHiddenCalls = 0;
+  CameraTransform? lastVisibleTransform;
+  Size? lastVisibleSize;
 
   _VisibleTrackingRenderer(super.element);
 
   @override
-  Rect? get rect => const Rect.fromLTWH(10, 10, 10, 10);
+  Rect? get rect {
+    final element = this.element;
+    if (element is ShapeElement) {
+      return Rect.fromPoints(
+        Offset(element.firstPosition.x, element.firstPosition.y),
+        Offset(element.secondPosition.x, element.secondPosition.y),
+      );
+    }
+    return const Rect.fromLTWH(10, 10, 10, 10);
+  }
 
   @override
   Future<void> onVisible(
@@ -40,6 +51,8 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
     Size size,
   ) async {
     onVisibleCalls++;
+    lastVisibleTransform = renderTransform;
+    lastVisibleSize = size;
   }
 
   @override
@@ -320,4 +333,76 @@ void main() {
     expect(renderer.onVisibleCalls, 0);
     expect(renderer.onHiddenCalls, 0);
   });
+
+  test(
+    'renderImage passes quality as pixel ratio without offsetting scale',
+    () async {
+      await bloc.close();
+      await currentIndexCubit.close();
+
+      final element = ShapeElement(
+        id: 'aligned',
+        firstPosition: const Point(10, 20),
+        secondPosition: const Point(20, 30),
+        property: const ShapeProperty(
+          strokeWidth: 0,
+          shape: RectangleShape(fillColor: SRGBColor(0xFFFF0000)),
+        ),
+      );
+      final renderer = _VisibleTrackingRenderer(element);
+      final renderers = <Renderer<PadElement>>[renderer];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [element]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      currentIndexCubit = CurrentIndexCubit(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          width: 10,
+          height: 10,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        currentIndexCubit,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        renderers,
+        null,
+        page,
+        pageName,
+      );
+
+      final image = await currentIndexCubit.renderImage(
+        data,
+        page,
+        (bloc.state as DocumentLoadSuccess).info,
+        const ImageExportOptions(
+          width: 10,
+          height: 10,
+          x: 10,
+          y: 20,
+          quality: 10,
+        ),
+        docState: bloc.state as DocumentLoadSuccess,
+      );
+      addTearDown(() => image?.dispose());
+
+      expect(image, isNotNull);
+      expect(image!.width, 100);
+      expect(image.height, 100);
+      expect(renderer.onVisibleCalls, 1);
+      expect(renderer.lastVisibleSize, const Size(10, 10));
+      expect(renderer.lastVisibleTransform?.position, const Offset(10, 20));
+      expect(renderer.lastVisibleTransform?.size, 1);
+      expect(renderer.lastVisibleTransform?.pixelRatio, 10);
+    },
+  );
 }

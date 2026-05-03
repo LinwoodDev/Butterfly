@@ -1482,17 +1482,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
+    final size = Size(options.width, options.height);
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
+    canvas.scale(options.quality);
     final viewport =
         cameraViewport ??
         state.cameraViewport.unbake(unbakedElements: renderers);
     final transform = CameraTransform(
-      1,
+      options.quality,
       Offset(options.x, options.y),
-      realZoom * options.quality,
+      realZoom,
     );
-    final size = Size(realWidth.toDouble(), realHeight.toDouble());
     final hiddenRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
       final exportRect = Rect.fromLTWH(

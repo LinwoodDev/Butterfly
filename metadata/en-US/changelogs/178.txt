@@ -20,5 +20,6 @@
 * Fix context menu opening when double tapping with touch
 * Fix PDF export dialog remove button overlapping the drag handle
 * Fix texture view tabs not being scrollable
+* Fix export offset applying to image exports
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.0
