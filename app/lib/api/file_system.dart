@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:idb_shim/idb.dart';
@@ -56,7 +56,12 @@ Future<String> getButterflyDirectory({bool usePrefs = true}) async {
 Future<String> Function(ExternalStorage? storage) _getRemoteDirectory(
   String subDirectory,
 ) => (storage) async {
-  var path = await getButterflyDirectory();
+  var path = await getButterflyDirectory(
+    usePrefs:
+        kIsWeb ||
+        (!Platform.isAndroid && !Platform.isIOS) ||
+        storage is! RemoteStorage,
+  );
   if (storage != null) {
     final bytes = utf8.encode(storage.identifier);
     final directory = base64.encode(bytes);
@@ -216,6 +221,7 @@ class ButterflyFileSystem {
       onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
+      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
     );
     _documentCache[key] = system;
     return system;
@@ -242,6 +248,7 @@ class ButterflyFileSystem {
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _templateConfig.variant),
+      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
     );
     _templateCache[key] = system;
     return system;
@@ -262,6 +269,7 @@ class ButterflyFileSystem {
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _packConfig.variant),
       createDefault: _createDefaultPacks,
+      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
     );
     _packCache[key] = system;
     return system;

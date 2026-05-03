@@ -33,6 +33,7 @@ class _TextureViewState extends State<TextureView> {
       child: Column(
         children: [
           TabBar.secondary(
+            isScrollable: true,
             tabs: [
               HorizontalTab(
                 label: Text(AppLocalizations.of(context).background),

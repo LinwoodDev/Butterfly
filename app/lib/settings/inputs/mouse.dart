@@ -8,9 +8,15 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
+import 'shortcut.dart';
 
 class MouseInputSettings extends StatelessWidget {
   const MouseInputSettings({super.key});
+
+  String _getDoubleName(BuildContext context, String inputName) =>
+      '${AppLocalizations.of(context).double} $inputName';
+
+  String _getTripleName(String inputName) => 'Triple $inputName';
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,10 @@ class MouseInputSettings extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
               final config = state.inputConfiguration;
+              final multiTapShortcutsEnabled = state.hasFlag(
+                kMultiTapInputShortcutsFlag,
+              );
+              final availableShortcuts = getInputShortcutOptions(context);
               return ListView(
                 children: [
                   Card(
@@ -94,6 +104,47 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).left,
+                              ),
+                              currentValue: config.doubleLeftMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseLeftClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleLeftMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).left,
+                              ),
+                              currentValue: config.tripleLeftMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseLeftClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleLeftMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).middle,
                             currentValue: config.middleMouse,
@@ -109,6 +160,47 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).middle,
+                              ),
+                              currentValue: config.doubleMiddleMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseMiddleClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleMiddleMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).middle,
+                              ),
+                              currentValue: config.tripleMiddleMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseMiddleClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleMiddleMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).right,
                             currentValue: config.rightMouse,
@@ -124,6 +216,47 @@ class MouseInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).right,
+                              ),
+                              currentValue: config.doubleRightMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseRightClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleRightMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).right,
+                              ),
+                              currentValue: config.tripleRightMouseShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.mouseRightClick,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleRightMouseShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ],
                       ),
                     ),

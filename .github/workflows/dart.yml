@@ -18,7 +18,6 @@ jobs:
         with:
           flutter-version-file: app/pubspec.yaml
           cache: true
-      - uses: actions/checkout@v6
       - name: Print Dart SDK version
         run: |
           dart --version

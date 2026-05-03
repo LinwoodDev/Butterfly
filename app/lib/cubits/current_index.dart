@@ -258,7 +258,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final transform = renderTransform ?? state.transformCubit.state;
     final size = targetSize ?? newViewport.toSize();
 
-    _initializedElements.addAll(newVisible);
     _initializedElements.removeAll(newlyHidden);
 
     if (newVisible.isNotEmpty) {
@@ -269,6 +268,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               await element.onVisible(this, blocState, transform, size),
         ),
       );
+      _initializedElements.addAll(newVisible);
     }
 
     if (newlyHidden.isNotEmpty) {
@@ -1176,6 +1176,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   final _bakeLock = Lock();
+  int _delayedBakeId = 0;
+
+  bool _rectContains(Rect outer, Rect inner) {
+    const tolerance = precisionErrorTolerance;
+    return outer.left <= inner.left + tolerance &&
+        outer.top <= inner.top + tolerance &&
+        outer.right >= inner.right - tolerance &&
+        outer.bottom >= inner.bottom - tolerance;
+  }
 
   Future<void> bake(
     DocumentLoaded blocState, {
@@ -1218,14 +1227,23 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       allRendererStates = cameraViewport.rendererStates;
     }
     final invisibleLayers = blocState.invisibleLayers;
+    final viewportAlreadyCoversRect =
+        cameraViewport.image != null &&
+        cameraViewport.scale == transform.size &&
+        cameraViewport.resolution == resolution &&
+        cameraViewport.pixelRatio == ratio &&
+        !rendererStatesChanged &&
+        setEquals(cameraViewport.invisibleLayers, invisibleLayers) &&
+        _rectContains(cameraViewport.toRect(), rect);
     final viewChanged =
-        cameraViewport.width != size.width.ceil() ||
-        cameraViewport.height != size.height.ceil() ||
-        cameraViewport.x != renderTransform.position.dx ||
-        cameraViewport.y != renderTransform.position.dy ||
-        cameraViewport.scale != transform.size ||
-        rendererStatesChanged ||
-        !setEquals(cameraViewport.invisibleLayers, invisibleLayers);
+        !viewportAlreadyCoversRect &&
+        (cameraViewport.width != size.width.ceil() ||
+            cameraViewport.height != size.height.ceil() ||
+            cameraViewport.x != renderTransform.position.dx ||
+            cameraViewport.y != renderTransform.position.dy ||
+            cameraViewport.scale != transform.size ||
+            rendererStatesChanged ||
+            !setEquals(cameraViewport.invisibleLayers, invisibleLayers));
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (cameraViewport.unbakedElements.isEmpty && !reset) return;
@@ -1409,15 +1427,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (!identical(aboveLayerImage, oldAbove)) {
         aboveLayerImage?.dispose();
       }
-      Future.microtask(
-        () => bake(
-          blocState,
+      Future.microtask(() async {
+        final latestState = _documentBloc?.state;
+        if (latestState is! DocumentLoaded) return;
+        await bake(
+          latestState,
           viewportSize: viewportSize,
           pixelRatio: pixelRatio,
           reset: reset,
           resetAllLayers: resetAllLayers,
-        ),
-      );
+        );
+      });
       return;
     }
 
@@ -1456,14 +1476,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Set<String>? invisibleLayers,
     DocumentLoaded? docState,
   }) async {
-    final realWidth = options.width.ceil();
-    final realHeight = options.height.ceil();
+    final realWidth = (options.width * options.quality).ceil();
+    final realHeight = (options.height * options.quality).ceil();
     final realZoom = options.scale;
     if (realWidth <= 0 || realHeight <= 0) {
       return null;
     }
+    final size = Size(options.width, options.height);
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
+    canvas.scale(options.quality);
     final viewport =
         cameraViewport ??
         state.cameraViewport.unbake(unbakedElements: renderers);
@@ -1472,7 +1494,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       Offset(options.x, options.y),
       realZoom,
     );
-    final size = Size(realWidth.toDouble(), realHeight.toDouble());
     final hiddenRenderers = <Renderer<PadElement>>[];
     if (docState != null) {
       final exportRect = Rect.fromLTWH(
@@ -1483,8 +1504,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
-          await renderer.onVisible(this, docState, transform, size);
-          hiddenRenderers.add(renderer);
+          final wasInitialized = _initializedElements.contains(renderer);
+          if (!wasInitialized) {
+            await renderer.onVisible(this, docState, transform, size);
+            hiddenRenderers.add(renderer);
+          }
         }
       }
     }
@@ -1799,8 +1823,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       final imageDoc = await PdfDocument.createFromJpegData(
         pdfImage,
-        width: imgImage.width.toDouble(),
-        height: imgImage.height.toDouble(),
+        width: area.width,
+        height: area.height,
         sourceName: '$name-$areaName.jpg',
       );
       pages.addAll(imageDoc.pages);
@@ -1961,7 +1985,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     if (multiplier == null && !positive && currentArea == null) return null;
 
-    final size = state.cameraViewport.toRealSize(true);
+    final viewport = state.cameraViewport;
+    final transform = state.transformCubit.state;
+    final size =
+        Size(
+          (viewport.width ?? 0) / transform.size,
+          (viewport.height ?? 0) / transform.size,
+        ) /
+        settings.renderResolution.multiplier;
 
     final contentRect = getContentRect(currentArea);
 
@@ -2159,8 +2190,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool force = false,
     Area? currentArea,
   }) {
-    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    final settings = state.settingsCubit.state;
+    if (!settings.hasFlag('smoothNavigation')) return;
     final utilitiesState = state.utilities;
+    Rect? bounds;
+    var outOfBounds = false;
     if (!force) {
       if (utilitiesState.lockHorizontal) {
         positionVelocity = Offset(0, positionVelocity.dy);
@@ -2170,53 +2204,30 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
       if (utilitiesState.lockZoom) sizeVelocity = 0;
 
-      final bounds = _calculateViewportBounds(currentArea);
+      bounds = _calculateViewportBounds(currentArea);
       if (bounds != null) {
         final pos = state.transformCubit.state.position;
+        final clampedPos = Offset(
+          pos.dx.clamp(bounds.left, bounds.right),
+          pos.dy.clamp(bounds.top, bounds.bottom),
+        );
+        outOfBounds = clampedPos != pos;
         var vX = positionVelocity.dx;
         var vY = positionVelocity.dy;
-
-        bool hitEdgeX = false;
-        bool hitEdgeY = false;
 
         // velocity > 0 means moving right (increasing pos) -> clamp if pos >= maxX
         // velocity < 0 means moving left (decreasing pos) -> clamp if pos <= minX
         if (pos.dx >= bounds.right && vX > 0) {
           vX = 0;
-          hitEdgeX = true;
         }
         if (pos.dx <= bounds.left && vX < 0) {
           vX = 0;
-          hitEdgeX = true;
         }
         if (pos.dy >= bounds.bottom && vY > 0) {
           vY = 0;
-          hitEdgeY = true;
         }
         if (pos.dy <= bounds.top && vY < 0) {
           vY = 0;
-          hitEdgeY = true;
-        }
-
-        if (currentArea != null && (hitEdgeX || hitEdgeY)) {
-          int dx = 0;
-          int dy = 0;
-          if (hitEdgeX) {
-            dx = positionVelocity.dx > 0 ? 1 : -1;
-          }
-          if (hitEdgeY) {
-            dy = positionVelocity.dy > 0 ? 1 : -1;
-          }
-
-          if ((dx != 0 || dy != 0) &&
-              state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
-            final area = getRelativeArea(currentArea, dx, dy);
-            if (area != null) {
-              _documentBloc?.add(CurrentAreaChanged(area.name));
-              _teleportToAreaEdge(area, dx, dy);
-              return;
-            }
-          }
         }
 
         positionVelocity = Offset(vX, vY);
@@ -2225,10 +2236,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     if (positionVelocity.dx == 0 &&
         positionVelocity.dy == 0 &&
-        sizeVelocity == 0) {
+        sizeVelocity == 0 &&
+        !outOfBounds) {
       return;
     }
-    state.transformCubit.slide(positionVelocity, sizeVelocity);
+    _cancelDelayedBake();
+    state.transformCubit.slide(
+      positionVelocity,
+      sizeVelocity,
+      positionBounds: bounds,
+    );
   }
 
   void toggleKeyboardHideUI() => emit(
@@ -2374,6 +2391,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
+    _cancelDelayedBake();
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,
@@ -2499,7 +2517,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(navigatorPage: page));
   }
 
-  int _delayedBakeId = 0;
+  void _cancelDelayedBake() {
+    _delayedBakeId++;
+  }
 
   Future<void> delayedBake(
     DocumentLoaded blocState, {

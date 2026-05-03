@@ -18,6 +18,14 @@ import '../cubits/settings.dart';
 /// - [packs]: Asset packs and resources
 enum SyncFileSystemType { documents, templates, packs }
 
+extension SyncFileSystemTypeHelper on SyncFileSystemType {
+  String get cacheVariant => switch (this) {
+    SyncFileSystemType.documents => 'documents',
+    SyncFileSystemType.templates => 'templates',
+    SyncFileSystemType.packs => 'packs',
+  };
+}
+
 /// Aggregate status for all sync operations.
 ///
 /// Used to indicate the overall state of synchronization across
@@ -99,8 +107,23 @@ class RemoteSyncState {
   bool get hasConflicts => conflicts.values.any((c) => c.isNotEmpty);
 
   /// Returns the total number of files pending synchronization.
-  int get totalPendingFiles =>
-      files.values.fold(0, (sum, list) => sum + list.length);
+  int get totalPendingFiles => visibleFiles.values.fold(
+    0,
+    (sum, list) => sum + list.where((file) => file.needsSync).length,
+  );
+
+  Map<SyncFileSystemType, List<SyncFile>> get visibleFiles => files.map(
+    (type, typeFiles) => MapEntry(
+      type,
+      typeFiles.where((file) => _isVisibleSyncFile(type, file)).toList(),
+    ),
+  );
+
+  bool _isVisibleSyncFile(SyncFileSystemType type, SyncFile file) {
+    if (type == SyncFileSystemType.documents) return true;
+    final path = file.location.path;
+    return path.isNotEmpty && path != '/' && path != '.';
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -113,6 +136,18 @@ class RemoteSyncState {
 
   @override
   int get hashCode => Object.hash(storage.identifier, isSyncing, lastError);
+}
+
+@immutable
+class SyncOverview {
+  final SyncStatus status;
+  final int pendingFiles, cachedFiles;
+
+  const SyncOverview({
+    required this.status,
+    required this.pendingFiles,
+    required this.cachedFiles,
+  });
 }
 
 /// Manages synchronization for a single remote storage.
@@ -140,6 +175,7 @@ class RemoteSync {
       templateSystem = fileSystem.buildTemplateSystem(storage),
       packSystem = fileSystem.buildPackSystem(storage) {
     _initFileSystems();
+    unawaited(refreshFiles());
   }
 
   void _initFileSystems() {
@@ -213,7 +249,7 @@ class RemoteSync {
 
   /// Stream of all sync files across all file systems
   Stream<List<SyncFile>> get filesStream => stateStream.map(
-    (state) => state.files.values.expand((files) => files).toList(),
+    (state) => state.visibleFiles.values.expand((files) => files).toList(),
   );
 
   /// Synchronizes all file systems with the remote storage.
@@ -250,9 +286,13 @@ class RemoteSync {
       }
     }
 
+    await refreshFiles();
     _stateSubject.add(state.copyWith(isSyncing: false, lastError: firstError));
 
     if (firstError == null) {
+      if (storage is RemoteStorage) {
+        await fileSystem.settingsCubit.updateLastSynced(storage.identifier);
+      }
       talker.info('Sync completed for remote: ${storage.identifier}');
     } else {
       talker.warning(
@@ -402,6 +442,13 @@ class SyncService {
   final BehaviorSubject<SyncStatus> _statusSubject = BehaviorSubject.seeded(
     SyncStatus.synced,
   );
+  final BehaviorSubject<SyncOverview> _overviewSubject = BehaviorSubject.seeded(
+    const SyncOverview(
+      status: SyncStatus.synced,
+      pendingFiles: 0,
+      cachedFiles: 0,
+    ),
+  );
   final List<StreamSubscription<dynamic>> _subscriptions = [];
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
@@ -434,6 +481,8 @@ class SyncService {
   /// Stream of overall sync status
   Stream<SyncStatus> get statusStream => _statusSubject.stream;
 
+  Stream<SyncOverview> get overviewStream => _overviewSubject.stream;
+
   /// Current overall sync status
   SyncStatus get status => _statusSubject.value;
 
@@ -443,7 +492,7 @@ class SyncService {
     return _syncs[remote] ?? _createSync(remote);
   }
 
-  RemoteSync? _createSync(String remote) {
+  RemoteSync? _createSync(String remote, {bool autoSync = true}) {
     final storage = settingsCubit.getRemote(remote);
     if (storage == null) {
       talker.warning('Remote storage not found: $remote');
@@ -453,11 +502,13 @@ class SyncService {
     talker.info('Creating sync for remote: $remote');
     final sync = RemoteSync(fileSystem, storage);
 
-    _subscriptions.add(sync.statusStream.listen((_) => _refreshStatus()));
+    _subscriptions.add(sync.stateStream.listen((_) => _refreshStatus()));
     _syncs[remote] = sync;
 
     // Trigger auto-sync based on settings
-    unawaited(sync.autoSync(settingsCubit.state.syncMode));
+    if (autoSync) {
+      unawaited(sync.autoSync(settingsCubit.state.syncMode));
+    }
 
     return sync;
   }
@@ -509,7 +560,38 @@ class SyncService {
       _createSync(remote);
     }
 
+    // Recreate existing syncs when settings such as pinned cache paths changed.
+    for (final storage in settings.connections.whereType<RemoteStorage>()) {
+      final sync = _syncs[storage.identifier];
+      if (sync != null && _shouldRecreateSync(sync.storage, storage)) {
+        _removeSync(storage.identifier);
+        _createSync(storage.identifier, autoSync: false);
+      }
+    }
+
     _refreshStatus();
+  }
+
+  bool _shouldRecreateSync(ExternalStorage oldStorage, RemoteStorage storage) {
+    if (oldStorage is! RemoteStorage) return true;
+    return oldStorage.url != storage.url ||
+        oldStorage.username != storage.username ||
+        oldStorage.certificateSha1 != storage.certificateSha1 ||
+        oldStorage.lastSynced != storage.lastSynced ||
+        !mapEquals(oldStorage.paths, storage.paths) ||
+        !_mapListEquals(oldStorage.pinnedPaths, storage.pinnedPaths);
+  }
+
+  bool _mapListEquals(
+    Map<String, List<String>> first,
+    Map<String, List<String>> second,
+  ) {
+    if (first.length != second.length) return false;
+    for (final entry in first.entries) {
+      final other = second[entry.key];
+      if (other == null || !listEquals(entry.value, other)) return false;
+    }
+    return true;
   }
 
   void _refreshStatus() {
@@ -524,6 +606,26 @@ class SyncService {
         : SyncStatus.synced;
 
     _statusSubject.add(syncStatus);
+    _overviewSubject.add(
+      SyncOverview(
+        status: syncStatus,
+        pendingFiles: _syncs.values.fold(
+          0,
+          (sum, sync) =>
+              sum +
+              sync.state.visibleFiles.values
+                  .expand((files) => files)
+                  .where((file) => file.needsSync)
+                  .length,
+        ),
+        cachedFiles: _syncs.values.fold(
+          0,
+          (sum, sync) =>
+              sum +
+              sync.state.visibleFiles.values.expand((files) => files).length,
+        ),
+      ),
+    );
   }
 
   /// Gets all active sync managers.
@@ -553,6 +655,7 @@ class SyncService {
 
     _connectivitySubscription?.cancel();
     _connectivitySubscription = null;
+    _overviewSubject.close();
     _statusSubject.close();
   }
 }

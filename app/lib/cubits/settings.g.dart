@@ -25,43 +25,59 @@ Map<String, dynamic> _$HoldShortcutToJson(_HoldShortcut instance) =>
       'mapping': instance.mapping.toJson(),
     };
 
-_InputConfiguration _$InputConfigurationFromJson(Map json) =>
-    _InputConfiguration(
-      leftMouse: json['leftMouse'] == null
-          ? InputMappingDefault.leftMouse
-          : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
-      middleMouse: json['middleMouse'] == null
-          ? InputMappingDefault.middleMouse
-          : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
-      rightMouse: json['rightMouse'] == null
-          ? InputMappingDefault.rightMouse
-          : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
-      pen: json['pen'] == null
-          ? InputMappingDefault.pen
-          : InputMapping.fromJson((json['pen'] as num).toInt()),
-      invertedPen: json['invertedPen'] == null
-          ? InputMappingDefault.invertedPen
-          : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
-      firstPenButton: json['firstPenButton'] == null
-          ? InputMappingDefault.firstPenButton
-          : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
-      secondPenButton: json['secondPenButton'] == null
-          ? InputMappingDefault.secondPenButton
-          : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
-      touch: json['touch'] == null
-          ? InputMappingDefault.touch
-          : InputMapping.fromJson((json['touch'] as num).toInt()),
-      holdShortcuts:
-          (json['holdShortcuts'] as List<dynamic>?)
-              ?.map(
-                (e) =>
-                    HoldShortcut.fromJson(Map<String, dynamic>.from(e as Map)),
-              )
-              .toList() ??
-          const [],
-      doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
-      tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
-    );
+_InputConfiguration _$InputConfigurationFromJson(
+  Map json,
+) => _InputConfiguration(
+  leftMouse: json['leftMouse'] == null
+      ? InputMappingDefault.leftMouse
+      : InputMapping.fromJson((json['leftMouse'] as num).toInt()),
+  middleMouse: json['middleMouse'] == null
+      ? InputMappingDefault.middleMouse
+      : InputMapping.fromJson((json['middleMouse'] as num).toInt()),
+  rightMouse: json['rightMouse'] == null
+      ? InputMappingDefault.rightMouse
+      : InputMapping.fromJson((json['rightMouse'] as num).toInt()),
+  pen: json['pen'] == null
+      ? InputMappingDefault.pen
+      : InputMapping.fromJson((json['pen'] as num).toInt()),
+  invertedPen: json['invertedPen'] == null
+      ? InputMappingDefault.invertedPen
+      : InputMapping.fromJson((json['invertedPen'] as num).toInt()),
+  firstPenButton: json['firstPenButton'] == null
+      ? InputMappingDefault.firstPenButton
+      : InputMapping.fromJson((json['firstPenButton'] as num).toInt()),
+  secondPenButton: json['secondPenButton'] == null
+      ? InputMappingDefault.secondPenButton
+      : InputMapping.fromJson((json['secondPenButton'] as num).toInt()),
+  touch: json['touch'] == null
+      ? InputMappingDefault.touch
+      : InputMapping.fromJson((json['touch'] as num).toInt()),
+  holdShortcuts:
+      (json['holdShortcuts'] as List<dynamic>?)
+          ?.map(
+            (e) => HoldShortcut.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
+  doubleLeftMouseShortcut: json['doubleLeftMouseShortcut'] as String?,
+  tripleLeftMouseShortcut: json['tripleLeftMouseShortcut'] as String?,
+  doubleMiddleMouseShortcut: json['doubleMiddleMouseShortcut'] as String?,
+  tripleMiddleMouseShortcut: json['tripleMiddleMouseShortcut'] as String?,
+  doubleRightMouseShortcut: json['doubleRightMouseShortcut'] as String?,
+  tripleRightMouseShortcut: json['tripleRightMouseShortcut'] as String?,
+  doublePenShortcut: json['doublePenShortcut'] as String?,
+  triplePenShortcut: json['triplePenShortcut'] as String?,
+  doubleInvertedPenShortcut: json['doubleInvertedPenShortcut'] as String?,
+  tripleInvertedPenShortcut: json['tripleInvertedPenShortcut'] as String?,
+  doubleFirstPenButtonShortcut: json['doubleFirstPenButtonShortcut'] as String?,
+  tripleFirstPenButtonShortcut: json['tripleFirstPenButtonShortcut'] as String?,
+  doubleSecondPenButtonShortcut:
+      json['doubleSecondPenButtonShortcut'] as String?,
+  tripleSecondPenButtonShortcut:
+      json['tripleSecondPenButtonShortcut'] as String?,
+  doubleTouchShortcut: json['doubleTouchShortcut'] as String?,
+  tripleTouchShortcut: json['tripleTouchShortcut'] as String?,
+);
 
 Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
     <String, dynamic>{
@@ -74,6 +90,20 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'secondPenButton': instance.secondPenButton.toJson(),
       'touch': instance.touch.toJson(),
       'holdShortcuts': instance.holdShortcuts.map((e) => e.toJson()).toList(),
+      'doubleLeftMouseShortcut': instance.doubleLeftMouseShortcut,
+      'tripleLeftMouseShortcut': instance.tripleLeftMouseShortcut,
+      'doubleMiddleMouseShortcut': instance.doubleMiddleMouseShortcut,
+      'tripleMiddleMouseShortcut': instance.tripleMiddleMouseShortcut,
+      'doubleRightMouseShortcut': instance.doubleRightMouseShortcut,
+      'tripleRightMouseShortcut': instance.tripleRightMouseShortcut,
+      'doublePenShortcut': instance.doublePenShortcut,
+      'triplePenShortcut': instance.triplePenShortcut,
+      'doubleInvertedPenShortcut': instance.doubleInvertedPenShortcut,
+      'tripleInvertedPenShortcut': instance.tripleInvertedPenShortcut,
+      'doubleFirstPenButtonShortcut': instance.doubleFirstPenButtonShortcut,
+      'tripleFirstPenButtonShortcut': instance.tripleFirstPenButtonShortcut,
+      'doubleSecondPenButtonShortcut': instance.doubleSecondPenButtonShortcut,
+      'tripleSecondPenButtonShortcut': instance.tripleSecondPenButtonShortcut,
       'doubleTouchShortcut': instance.doubleTouchShortcut,
       'tripleTouchShortcut': instance.tripleTouchShortcut,
     };

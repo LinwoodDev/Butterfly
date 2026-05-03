@@ -8,9 +8,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
+import 'shortcut.dart';
 
 class PenInputSettings extends StatelessWidget {
   const PenInputSettings({super.key});
+
+  String _getDoubleName(BuildContext context, String inputName) =>
+      '${AppLocalizations.of(context).double} $inputName';
+
+  String _getTripleName(String inputName) => 'Triple $inputName';
 
   String _getPenOnlyInputName(bool? value, BuildContext context) {
     if (value == null) return AppLocalizations.of(context).automatic;
@@ -51,6 +57,10 @@ class PenInputSettings extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
               final config = state.inputConfiguration;
+              final multiTapShortcutsEnabled = state.hasFlag(
+                kMultiTapInputShortcutsFlag,
+              );
+              final availableShortcuts = getInputShortcutOptions(context);
               return ListView(
                 children: [
                   Card(
@@ -236,6 +246,37 @@ class PenInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).pen,
+                              ),
+                              currentValue: config.doublePenShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(doublePenShortcut: value),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).pen,
+                              ),
+                              currentValue: config.triplePenShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(PhosphorIconsLight.pen),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(triplePenShortcut: value),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).invertedPen,
                             currentValue: config.invertedPen,
@@ -252,6 +293,49 @@ class PenInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).invertedPen,
+                              ),
+                              currentValue: config.doubleInvertedPenShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: Transform.flip(
+                                flipX: true,
+                                flipY: true,
+                                child: PhosphorIcon(PhosphorIconsLight.pen),
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleInvertedPenShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).invertedPen,
+                              ),
+                              currentValue: config.tripleInvertedPenShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: Transform.flip(
+                                flipX: true,
+                                flipY: true,
+                                child: PhosphorIcon(PhosphorIconsLight.pen),
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleInvertedPenShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).first,
                             currentValue: config.firstPenButton,
@@ -267,6 +351,47 @@ class PenInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).first,
+                              ),
+                              currentValue: config.doubleFirstPenButtonShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleOne,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleFirstPenButtonShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).first,
+                              ),
+                              currentValue: config.tripleFirstPenButtonShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleOne,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleFirstPenButtonShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                           InputMappingListTile(
                             inputName: AppLocalizations.of(context).second,
                             currentValue: config.secondPenButton,
@@ -282,6 +407,49 @@ class PenInputSettings extends StatelessWidget {
                               );
                             },
                           ),
+                          if (multiTapShortcutsEnabled) ...[
+                            InputShortcutListTile(
+                              inputName: _getDoubleName(
+                                context,
+                                AppLocalizations.of(context).second,
+                              ),
+                              currentValue:
+                                  config.doubleSecondPenButtonShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleTwo,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    doubleSecondPenButtonShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                            InputShortcutListTile(
+                              inputName: _getTripleName(
+                                AppLocalizations.of(context).second,
+                              ),
+                              currentValue:
+                                  config.tripleSecondPenButtonShortcut,
+                              availableShortcuts: availableShortcuts,
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleTwo,
+                                textDirection: TextDirection.ltr,
+                              ),
+                              onChanged: (value) {
+                                final cubit = context.read<SettingsCubit>();
+                                cubit.changeInputConfiguration(
+                                  config.copyWith(
+                                    tripleSecondPenButtonShortcut: value,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ],
                       ),
                     ),

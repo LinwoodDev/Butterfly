@@ -16,6 +16,126 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:butterfly/widgets/file_name_display.dart';
 
+class FileSyncStatusButton extends StatelessWidget {
+  final RemoteStorage remote;
+  final AssetLocation location;
+  final bool directory;
+  final bool menu;
+  final SyncService? syncService;
+  final SettingsCubit? settingsCubit;
+
+  const FileSyncStatusButton({
+    super.key,
+    required this.remote,
+    required this.location,
+    this.directory = false,
+    this.menu = false,
+    this.syncService,
+    this.settingsCubit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final syncService = this.syncService ?? context.read<SyncService>();
+    final settingsCubit = this.settingsCubit ?? context.read<SettingsCubit>();
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+      bloc: settingsCubit,
+      buildWhen: (previous, current) =>
+          previous.getRemote(remote.identifier) !=
+          current.getRemote(remote.identifier),
+      builder: (context, settings) {
+        final currentRemote = settings.getRemote(remote.identifier);
+        if (currentRemote is! RemoteStorage) return const SizedBox.shrink();
+        final cached = currentRemote.isPathPinned(
+          location.path,
+          variant: SyncFileSystemType.documents.cacheVariant,
+        );
+        final sync = syncService.getSync(remote.identifier);
+        if (sync == null) return const SizedBox.shrink();
+
+        return StreamBuilder<RemoteSyncState>(
+          stream: sync.stateStream,
+          builder: (context, snapshot) {
+            final syncFile = snapshot.data?.visibleFiles.values
+                .expand((files) => files)
+                .lastWhereOrNull((file) => _matches(file.location.path));
+            final status = syncFile?.status;
+            final loading = cached && syncFile == null;
+            final colorScheme = ColorScheme.of(context);
+            final icon = loading
+                ? PhosphorIconsLight.arrowClockwise
+                : status?.getIcon() ?? PhosphorIconsLight.cloudSlash;
+            final color =
+                status?.getColor(colorScheme) ??
+                colorScheme.onSurfaceVariant.withAlpha(184);
+            final label = !cached
+                ? AppLocalizations.of(context).notSynced
+                : loading
+                ? AppLocalizations.of(context).loading
+                : status.getLocalizedName(context);
+            final tooltip = !cached
+                ? label
+                : '${AppLocalizations.of(context).caches} · $label';
+            final onPressed = sync.status == SyncStatus.syncing
+                ? null
+                : () => _toggleSync(syncService, settingsCubit, cached);
+
+            if (menu) {
+              return MenuItemButton(
+                leadingIcon: PhosphorIcon(
+                  icon,
+                  textDirection: TextDirection.ltr,
+                  color: color,
+                ),
+                onPressed: onPressed,
+                child: Text(tooltip),
+              );
+            }
+
+            final button = IconButton(
+              icon: PhosphorIcon(
+                icon,
+                textDirection: TextDirection.ltr,
+                color: color,
+              ),
+              tooltip: tooltip,
+              onPressed: onPressed,
+            );
+            if (!cached || syncFile?.needsSync != true) return button;
+            return Badge(smallSize: 8, child: button);
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _toggleSync(
+    SyncService syncService,
+    SettingsCubit settingsCubit,
+    bool cached,
+  ) async {
+    if (cached) {
+      final sync = syncService.getSync(remote.identifier);
+      await sync?.documentSystem.remoteSystem?.deleteCachedContent(
+        location.path,
+      );
+      await sync?.refreshFiles();
+      await settingsCubit.removeCache(remote.identifier, location.path);
+      return;
+    }
+    await settingsCubit.addCache(remote.identifier, location.path);
+    await syncService.syncRemote(remote.identifier);
+  }
+
+  bool _matches(String syncPath) {
+    final path = location.path;
+    if (path == syncPath) return true;
+    if (!directory) return false;
+    final normalizedPath = path.endsWith('/') ? path : '$path/';
+    return syncPath.startsWith(normalizedPath);
+  }
+}
+
 class FileEntityListTile extends StatelessWidget {
   final String? modifiedText, createdText;
   final bool active, editable, collapsed;
@@ -52,7 +172,6 @@ class FileEntityListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
     final fileSystem = context.read<ButterflyFileSystem>();
-    final syncService = context.read<SyncService>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     return LayoutBuilder(
@@ -262,35 +381,10 @@ class FileEntityListTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             if (remote is RemoteStorage)
-                              StreamBuilder<List<SyncFile>>(
-                                stream: syncService
-                                    .getSync(remote.identifier)
-                                    ?.filesStream,
-                                builder: (context, snapshot) {
-                                  final currentStatus = snapshot.data
-                                      ?.lastWhereOrNull(
-                                        (element) => entity.location.path
-                                            .startsWith(element.location.path),
-                                      )
-                                      ?.status;
-                                  return IconButton(
-                                    icon: PhosphorIcon(
-                                      currentStatus.getIcon(),
-                                      textDirection: TextDirection.ltr,
-                                      color: currentStatus.getColor(
-                                        ColorScheme.of(context),
-                                      ),
-                                    ),
-                                    tooltip: currentStatus.getLocalizedName(
-                                      context,
-                                    ),
-                                    onPressed: () {
-                                      syncService
-                                          .getSync(remote.identifier)
-                                          ?.sync();
-                                    },
-                                  );
-                                },
+                              FileSyncStatusButton(
+                                remote: remote,
+                                location: entity.location,
+                                directory: entity is FileSystemDirectory,
                               ),
                             BlocBuilder<SettingsCubit, ButterflySettings>(
                               builder: (context, state) {

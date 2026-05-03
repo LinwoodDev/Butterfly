@@ -200,7 +200,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Future<void> _changeDataDirectory() async {
     try {
       final settingsCubit = context.read<SettingsCubit>();
-      final selectedDir = await FilePicker.getDirectoryPath();
+      final selectedDir =
+          Platform.isAndroid && settingsCubit.state.hasFlag('useAndroidSaf')
+          ? await AndroidSafDirectoryFileSystem.pickDirectory()
+          : await FilePicker.getDirectoryPath();
       if (selectedDir != null) {
         if (!context.mounted) return;
         await _changePath(context, settingsCubit, selectedDir);

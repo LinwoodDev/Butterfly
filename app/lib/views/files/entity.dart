@@ -8,9 +8,7 @@ import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -299,27 +297,13 @@ class ContextFileRegion extends StatelessWidget {
             child: Text(AppLocalizations.of(context).open),
           ),
         if (remote is RemoteStorage)
-          StreamBuilder<List<SyncFile>>(
-            stream: syncService.getSync(remote!.identifier)?.filesStream,
-            builder: (context, snapshot) {
-              final currentStatus = snapshot.data
-                  ?.lastWhereOrNull(
-                    (element) =>
-                        entity.location.path.startsWith(element.location.path),
-                  )
-                  ?.status;
-              return MenuItemButton(
-                leadingIcon: PhosphorIcon(
-                  currentStatus.getIcon(),
-                  textDirection: TextDirection.ltr,
-                  color: currentStatus.getColor(ColorScheme.of(context)),
-                ),
-                child: Text(currentStatus.getLocalizedName(context)),
-                onPressed: () {
-                  syncService.getSync(remote!.identifier)?.sync();
-                },
-              );
-            },
+          FileSyncStatusButton(
+            remote: remote! as RemoteStorage,
+            location: entity.location,
+            directory: entity is FileSystemDirectory,
+            menu: true,
+            syncService: syncService,
+            settingsCubit: settingsCubit,
           ),
         BlocBuilder<SettingsCubit, ButterflySettings>(
           builder: (context, state) {

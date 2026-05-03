@@ -21,6 +21,16 @@ part 'settings.g.dart';
 const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 
+String _normalizeCachePath(String path) {
+  if (path.endsWith('/')) {
+    path = path.substring(0, path.length - 1);
+  }
+  if (!path.startsWith('/')) {
+    path = '/$path';
+  }
+  return path;
+}
+
 T _enumByNameOr<T extends Enum>(List<T> values, String? name, T fallback) {
   if (name == null) return fallback;
   return values.firstWhere((e) => e.name == name, orElse: () => fallback);
@@ -136,6 +146,8 @@ enum SyncMode { always, noMobile, manual }
 enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
+
+const kMultiTapInputShortcutsFlag = 'multiTapInputShortcuts';
 
 @freezed
 sealed class FavoriteLocation with _$FavoriteLocation {
@@ -257,6 +269,20 @@ sealed class InputConfiguration with _$InputConfiguration {
     @Default(InputMappingDefault.secondPenButton) InputMapping secondPenButton,
     @Default(InputMappingDefault.touch) InputMapping touch,
     @Default([]) List<HoldShortcut> holdShortcuts,
+    String? doubleLeftMouseShortcut,
+    String? tripleLeftMouseShortcut,
+    String? doubleMiddleMouseShortcut,
+    String? tripleMiddleMouseShortcut,
+    String? doubleRightMouseShortcut,
+    String? tripleRightMouseShortcut,
+    String? doublePenShortcut,
+    String? triplePenShortcut,
+    String? doubleInvertedPenShortcut,
+    String? tripleInvertedPenShortcut,
+    String? doubleFirstPenButtonShortcut,
+    String? tripleFirstPenButtonShortcut,
+    String? doubleSecondPenButtonShortcut,
+    String? tripleSecondPenButtonShortcut,
     String? doubleTouchShortcut,
     String? tripleTouchShortcut,
   }) = _InputConfiguration;
@@ -1046,12 +1072,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> addCache(String identifier, String current) async {
-    if (current.endsWith('/')) {
-      current = current.substring(0, current.length - 1);
-    }
-    if (!current.startsWith('/')) {
-      current = '/$current';
-    }
+    current = _normalizeCachePath(current);
     emit(
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
@@ -1061,6 +1082,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
             );
             return e.copyWith(
               pinnedPaths: {
+                ...e.pinnedPaths,
                 'documents': documents
                   ..removeWhere((element) => element == current)
                   ..add(current),
@@ -1075,6 +1097,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> removeCache(String identifier, String current) {
+    current = _normalizeCachePath(current);
     emit(
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
@@ -1084,6 +1107,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
             );
             return e.copyWith(
               pinnedPaths: {
+                ...e.pinnedPaths,
                 'documents': documents
                   ..removeWhere((element) => element == current),
               },
@@ -1116,8 +1140,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
       state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == identifier && e is RemoteStorage) {
-            return (e as dynamic).copyWith(cachedDocuments: [])
-                as ExternalStorage;
+            return e.copyWith(pinnedPaths: const {});
           }
           return e;
         }).toList(),

@@ -138,15 +138,16 @@ class PdfRenderer extends Renderer<PdfElement> {
 
     var renderScale = scale;
     const double maxDimension = 4000.0;
-    if (element.width * renderScale > maxDimension) {
-      renderScale = maxDimension / element.width;
+    final renderRect = rect;
+    if (renderRect.width * renderScale > maxDimension) {
+      renderScale = maxDimension / renderRect.width;
     }
-    if (element.height * renderScale > maxDimension) {
-      renderScale = maxDimension / element.height;
+    if (renderRect.height * renderScale > maxDimension) {
+      renderScale = maxDimension / renderRect.height;
     }
 
-    final width = (element.width * renderScale).toInt();
-    final height = (element.height * renderScale).toInt();
+    final width = (renderRect.width * renderScale).toInt();
+    final height = (renderRect.height * renderScale).toInt();
     if (width <= 0 || height <= 0) return;
     try {
       final raster = await data.pages
