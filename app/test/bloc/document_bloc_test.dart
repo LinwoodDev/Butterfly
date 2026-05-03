@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -6,7 +7,10 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -17,6 +21,48 @@ import '../helpers/mocks.dart';
 Future<void> _settleBlocEvents() async {
   await Future<void>.delayed(Duration.zero);
   await Future<void>.delayed(Duration.zero);
+}
+
+class _VisibleTrackingRenderer extends Renderer<PadElement> {
+  int onVisibleCalls = 0;
+  int onHiddenCalls = 0;
+
+  _VisibleTrackingRenderer(super.element);
+
+  @override
+  Rect? get rect => const Rect.fromLTWH(10, 10, 10, 10);
+
+  @override
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    Size size,
+  ) async {
+    onVisibleCalls++;
+  }
+
+  @override
+  Future<void> onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    Size size,
+  ) async {
+    onHiddenCalls++;
+  }
+
+  @override
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {}
 }
 
 void main() {
@@ -130,5 +176,148 @@ void main() {
       renamedState.data.getPage('Renamed Active Page')?.layers.first.id,
       'second-page-layer',
     );
+  });
+
+  test('resetInput clears active pointers and buttons', () async {
+    currentIndexCubit.addPointer(12);
+    currentIndexCubit.setButtons(kPrimaryMouseButton);
+
+    await currentIndexCubit.resetInput(bloc);
+
+    expect(currentIndexCubit.state.pointers, isEmpty);
+    expect(currentIndexCubit.state.buttons, isNull);
+  });
+
+  test('bake records only elements visible in the current viewport', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final visibleElement = ShapeElement(
+      id: 'visible',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final hiddenElement = ShapeElement(
+      id: 'hidden',
+      firstPosition: const Point(500, 500),
+      secondPosition: const Point(520, 520),
+    );
+    final renderers = <Renderer<PadElement>>[
+      Renderer.fromInstance(visibleElement),
+      Renderer.fromInstance(hiddenElement),
+    ];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [visibleElement, hiddenElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      renderers,
+      null,
+      page,
+      pageName,
+    );
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+
+    final viewport = currentIndexCubit.state.cameraViewport;
+    expect(viewport.baked, isTrue);
+    expect(
+      viewport.visibleElements.map((renderer) => renderer.element.id),
+      contains('visible'),
+    );
+    expect(
+      viewport.visibleElements.map((renderer) => renderer.element.id),
+      isNot(contains('hidden')),
+    );
+    expect(viewport.visibleUnbakedElements, isEmpty);
+  });
+
+  test('renderImage does not hide already tracked visible renderers', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final element = ShapeElement(
+      id: 'visible',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderer = _VisibleTrackingRenderer(element);
+    final renderers = <Renderer<PadElement>>[renderer];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      renderers,
+      null,
+      page,
+      pageName,
+    );
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    renderer.onVisibleCalls = 0;
+    renderer.onHiddenCalls = 0;
+    await currentIndexCubit.renderImage(
+      (bloc.state as DocumentLoadSuccess).data,
+      page,
+      (bloc.state as DocumentLoadSuccess).info,
+      const ImageExportOptions(width: 100, height: 100),
+      docState: bloc.state as DocumentLoadSuccess,
+    );
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+
+    expect(renderer.onVisibleCalls, 0);
+    expect(renderer.onHiddenCalls, 0);
   });
 }

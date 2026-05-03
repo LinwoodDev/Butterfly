@@ -258,7 +258,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final transform = renderTransform ?? state.transformCubit.state;
     final size = targetSize ?? newViewport.toSize();
 
-    _initializedElements.addAll(newVisible);
     _initializedElements.removeAll(newlyHidden);
 
     if (newVisible.isNotEmpty) {
@@ -269,6 +268,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               await element.onVisible(this, blocState, transform, size),
         ),
       );
+      _initializedElements.addAll(newVisible);
     }
 
     if (newlyHidden.isNotEmpty) {
@@ -1503,8 +1503,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       for (final renderer in viewport.unbakedElements) {
         if (renderer.isVisible(exportRect)) {
-          await renderer.onVisible(this, docState, transform, size);
-          hiddenRenderers.add(renderer);
+          final wasInitialized = _initializedElements.contains(renderer);
+          if (!wasInitialized) {
+            await renderer.onVisible(this, docState, transform, size);
+            hiddenRenderers.add(renderer);
+          }
         }
       }
     }
