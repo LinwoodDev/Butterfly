@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "현재 페이지만",
   "smoothNavigation": "부드러운 탐색",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "정확",
   "@exact": {
     "description": "Exact match"

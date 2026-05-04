@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "Тільки поточна сторінка",
   "smoothNavigation": "Плавна навігація",
   "edgePanAreaSwitching": "Вимикання області pan",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"

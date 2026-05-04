@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "僅本頁",
   "smoothNavigation": "流暢導覽",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "精確",
   "@exact": {
     "description": "Exact match"

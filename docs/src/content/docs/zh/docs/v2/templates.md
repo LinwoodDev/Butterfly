@@ -17,7 +17,7 @@ They store everything a normal document does, including:
 - The settings for each tool
 - 图层
 - 地区
-- 页 次
+- 页面
 
 ## How to make a template?
 

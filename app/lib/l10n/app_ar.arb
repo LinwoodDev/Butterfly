@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "الصفحة الحالية فقط",
   "smoothNavigation": "التنقل السلس",
   "edgePanAreaSwitching": "تبديل منطقة الشريط",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "بالضبط",
   "@exact": {
     "description": "Exact match"

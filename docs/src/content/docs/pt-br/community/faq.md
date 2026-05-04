@@ -37,7 +37,7 @@ Butterfly é otimizado em todas as atualizações, mas algumas vezes possa ser u
 
 Isso permite que o Butterfly atualize mais rapidamente e pareça mais responsivo.
 
-Se esses passos não ajudarem, por favor, não hesite em reclamar no Discord, Matrix ou no Github.
+If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
 
 ### Buterfly reinicia em segundo plano
 

@@ -1111,6 +1111,7 @@
   "onlyCurrentPage": "רק העמוד הנוכחי",
   "smoothNavigation": "ניווט חלק",
   "edgePanAreaSwitching": "Edge pan area switching",
+  "useAndroidSaf": "Use Android SAF",
   "exact": "מדויק",
   "@exact": {
     "description": "Exact match"
