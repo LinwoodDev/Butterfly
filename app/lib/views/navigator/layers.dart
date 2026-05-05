@@ -221,7 +221,7 @@ class LayersView extends StatelessWidget {
                         ),
                       ],
                       contentPadding: contentPadding.add(
-                        const EdgeInsets.only(right: 32),
+                        const EdgeInsetsDirectional.only(end: 32),
                       ),
                     ),
                   );

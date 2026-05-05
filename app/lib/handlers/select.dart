@@ -306,7 +306,13 @@ class SelectHandler extends Handler<SelectTool> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final hits = await bloc.rayCast(position, 0.0, useCollection: true);
+    final utilities = context.getCurrentIndex().utilities;
+    final hits = await bloc.rayCast(
+      position,
+      0.0,
+      useCollection: utilities.lockCollection,
+      useLayer: utilities.lockLayer,
+    );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
     final selectionRect = getSelectionRect();

@@ -301,12 +301,15 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final globalPos = transform.localToGlobal(localPos);
 
     if (_element == null) {
+      final utilities = context.getCurrentIndex().utilities;
       final hit = await context.getDocumentBloc().rayCast(
         globalPos,
         max(
           10.0 / context.getCameraTransform().size,
           data.property.strokeWidth / context.getCameraTransform().size * 2,
         ),
+        useCollection: utilities.lockCollection,
+        useLayer: utilities.lockLayer,
       );
       final polygonRenderer = hit.whereType<PolygonRenderer>().firstOrNull;
       if (polygonRenderer != null) {

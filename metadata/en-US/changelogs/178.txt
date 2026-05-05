@@ -22,5 +22,7 @@
 * Fix PDF export dialog remove button overlapping the drag handle
 * Fix texture view tabs not being scrollable
 * Fix export offset applying to image exports
+* Fix lock options not applying in label, polygon and click on select tool
+* Fix rtl text direction overlapping in layers navigator
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.0

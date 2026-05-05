@@ -188,10 +188,12 @@ class LabelHandler extends Handler<LabelTool>
     final style = theme.textTheme.bodyLarge!;
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
+      final utilities = currentIndex.utilities;
       final hit = await context.getDocumentBloc().rayCast(
         globalPos,
         0.0,
-        useCollection: true,
+        useCollection: utilities.lockCollection,
+        useLayer: utilities.lockLayer,
       );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
