@@ -1171,8 +1171,46 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       );
       rect = topLeft & frictionSize;
     }
-    rect = resolution.getRect(rect);
-    return rect;
+    return _snapViewportRect(rect, size, transform, resolution);
+  }
+
+  Rect _snapViewportRect(
+    Rect rect,
+    Size size,
+    CameraTransform transform,
+    RenderResolution resolution,
+  ) {
+    final screenRect = Rect.fromPoints(
+      transform.globalToLocal(rect.topLeft),
+      transform.globalToLocal(rect.bottomRight),
+    );
+    final snappedRect = _expandScreenRect(
+      Rect.fromLTRB(
+        screenRect.left.floorToDouble(),
+        screenRect.top.floorToDouble(),
+        screenRect.right.ceilToDouble(),
+        screenRect.bottom.ceilToDouble(),
+      ),
+      Size(
+        (size.width * resolution.multiplier).ceilToDouble(),
+        (size.height * resolution.multiplier).ceilToDouble(),
+      ),
+    );
+    return Rect.fromPoints(
+      transform.localToGlobal(snappedRect.topLeft),
+      transform.localToGlobal(snappedRect.bottomRight),
+    );
+  }
+
+  Rect _expandScreenRect(Rect rect, Size minimumSize) {
+    final dx = max(0.0, minimumSize.width - rect.width);
+    final dy = max(0.0, minimumSize.height - rect.height);
+    return Rect.fromLTRB(
+      rect.left - (dx / 2).floorToDouble(),
+      rect.top - (dy / 2).floorToDouble(),
+      rect.right + (dx / 2).ceilToDouble(),
+      rect.bottom + (dy / 2).ceilToDouble(),
+    );
   }
 
   final _bakeLock = Lock();

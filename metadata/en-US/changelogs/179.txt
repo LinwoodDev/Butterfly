@@ -1,3 +1,4 @@
 * Fix moving pages into and out of folders in the pages navigator
+* Fix viewport flickering after drawing pen strokes
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.1

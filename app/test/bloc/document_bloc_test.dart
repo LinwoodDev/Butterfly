@@ -268,6 +268,78 @@ void main() {
     expect(viewport.visibleUnbakedElements, isEmpty);
   });
 
+  test(
+    'bake snaps cached viewport to screen pixels at fractional zoom',
+    () async {
+      await bloc.close();
+      await currentIndexCubit.close();
+      when(() => settingsCubit.state).thenReturn(
+        const ButterflySettings(
+          autosave: false,
+          renderResolution: RenderResolution.performance,
+        ),
+      );
+
+      final element = ShapeElement(
+        id: 'visible',
+        firstPosition: const Point(10, 10),
+        secondPosition: const Point(20, 20),
+      );
+      final renderers = <Renderer<PadElement>>[Renderer.fromInstance(element)];
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [element]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      final transformCubit = TransformCubit(1);
+      transformCubit.teleport(const Offset(12.3, 45.6), 1.37);
+      currentIndexCubit = CurrentIndexCubit(
+        settingsCubit,
+        transformCubit,
+        CameraViewport.unbaked(
+          unbakedElements: renderers,
+          width: 401,
+          height: 303,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        currentIndexCubit,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        renderers,
+        null,
+        page,
+        pageName,
+      );
+
+      await currentIndexCubit.bake(
+        bloc.state as DocumentLoadSuccess,
+        viewportSize: const Size(401, 303),
+        pixelRatio: 1,
+        reset: true,
+      );
+
+      final viewport = currentIndexCubit.state.cameraViewport;
+      final transform = currentIndexCubit.state.transformCubit.state;
+      final left = (viewport.x - transform.position.dx) * transform.size;
+      final top = (viewport.y - transform.position.dy) * transform.size;
+      final right = left + viewport.width!;
+      final bottom = top + viewport.height!;
+
+      expect(left, closeTo(left.roundToDouble(), 1e-9));
+      expect(top, closeTo(top.roundToDouble(), 1e-9));
+      expect(right, closeTo(right.roundToDouble(), 1e-9));
+      expect(bottom, closeTo(bottom.roundToDouble(), 1e-9));
+      expect(viewport.width, greaterThanOrEqualTo(401));
+      expect(viewport.height, greaterThanOrEqualTo(303));
+    },
+  );
+
   test('renderImage does not hide already tracked visible renderers', () async {
     await bloc.close();
     await currentIndexCubit.close();
