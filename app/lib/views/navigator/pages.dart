@@ -11,7 +11,64 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 
-typedef _PageEntity = ({String path, String name, bool isFile});
+typedef PageEntity = ({String path, String name, bool isFile});
+
+String _normalizePagePath(String path) =>
+    path.split('/').where((e) => e.isNotEmpty).join('/');
+
+String _normalizeRelativePagePath(String location, String name) {
+  final segments = [
+    ..._normalizePagePath(location).split('/').where((e) => e.isNotEmpty),
+  ];
+  for (final segment in name.split('/')) {
+    if (segment.isEmpty || segment == '.') continue;
+    if (segment == '..') {
+      if (segments.isNotEmpty) segments.removeLast();
+      continue;
+    }
+    segments.add(segment);
+  }
+  return segments.join('/');
+}
+
+@visibleForTesting
+List<PageEntity> buildPageEntitiesForLocation(
+  List<(String, String)> pages,
+  String location,
+) {
+  final normalizedLocation = _normalizePagePath(location);
+  final query = normalizedLocation.isEmpty ? '' : '$normalizedLocation/';
+  final queried = pages
+      .where((element) => element.$1.startsWith(query))
+      .map(
+        (e) => (
+          path: e.$2,
+          name: query.isEmpty ? e.$1 : e.$1.substring(query.length),
+          isFile: true,
+        ),
+      )
+      .where((e) => e.name.isNotEmpty)
+      .toList();
+  final files = queried.where((element) => !element.name.contains('/'));
+  final folders = queried
+      .where((element) => element.name.contains('/'))
+      .map((e) => e.name.split('/').first)
+      .map((e) {
+        final path = normalizedLocation.isEmpty ? e : '$normalizedLocation/$e';
+        return (path: path, name: e, isFile: false);
+      })
+      .toSet();
+  return [...folders, ...files];
+}
+
+@visibleForTesting
+String resolvePageRename(String location, String name) {
+  final normalizedName = name.startsWith('/')
+      ? _normalizePagePath(name)
+      : _normalizeRelativePagePath(location, name);
+  if (normalizedName.isEmpty) return '';
+  return normalizedName;
+}
 
 class PagesView extends StatefulWidget {
   const PagesView({super.key});
@@ -88,25 +145,7 @@ class _PagesViewState extends State<PagesView> {
               child: ValueListenableBuilder<TextEditingValue>(
                 valueListenable: _locationController,
                 builder: (context, value, child) {
-                  final query = value.text.isEmpty ? '' : '${value.text}/';
-                  final queried = pages
-                      .where((element) => element.$1.startsWith(query))
-                      .map((e) => (path: e.$2, name: e.$1, isFile: true))
-                      .toList();
-                  final files = queried.where(
-                    (element) => !element.name.contains('/'),
-                  );
-                  final folders = queried
-                      .where((element) => element.name.contains('/'))
-                      .map((e) => e.name.split('/').first)
-                      .map((e) {
-                        var path = value.text;
-                        if (path.isNotEmpty) path += '/';
-                        path += e;
-                        return (path: path, name: e, isFile: false);
-                      })
-                      .toSet();
-                  final all = [...folders, ...files];
+                  final all = buildPageEntitiesForLocation(pages, value.text);
                   return Material(
                     type: MaterialType.transparency,
                     child: MultiSelectRegion<String>(
@@ -287,7 +326,7 @@ class _PageEntityListTile extends StatelessWidget {
     super.key,
   });
 
-  final _PageEntity entity;
+  final PageEntity entity;
   final bool selected;
   final NoteData data;
   final int index;
@@ -340,7 +379,10 @@ class _PageEntityListTile extends StatelessWidget {
         },
         onSaved: editable
             ? (value) => context.read<DocumentBloc>().add(
-                PageRenamed(entity.path, value),
+                PageRenamed(
+                  entity.path,
+                  resolvePageRename(locationController.text, value),
+                ),
               )
             : null,
         actions: editable && !isSelectionMode
