@@ -266,7 +266,6 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                       movedPath,
                       style: const TextStyle(fontFamily: 'monospace'),
                     ),
-                    Text('ab'),
                   ],
                 ),
               ),
