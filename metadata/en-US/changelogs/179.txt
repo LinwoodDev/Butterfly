@@ -1,4 +1,5 @@
 * Fix migrating to a new directory not working when android saf experimental feature is enabled
+* Fix moving and saving not correctly working when android saf experimental feature is enabled
 * Fix moving pages into and out of folders in the pages navigator
 * Fix viewport flickering after drawing pen strokes
 
