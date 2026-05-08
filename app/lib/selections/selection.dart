@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';

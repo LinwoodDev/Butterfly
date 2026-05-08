@@ -1081,18 +1081,18 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "6b14886d8823f9a105230d1dfa483afa1099ff67cd6ddde896b5f33c9afb4312"
+      sha256: ba1003bc45454de82ba4911791561533108cfb5ebecb54d8d06489ff6b7f8ebc
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   pdfrx_engine:
     dependency: transitive
     description:
       name: pdfrx_engine
-      sha256: "55855ea6affdbfd4572a38e5a93f8301541bded5506d9b204b0d0c01f7b0cb35"
+      sha256: bbb71414a7828128e87a017c97f3c392e379b9e171beaaa37aa225c597ca4f6e
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.1"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -1281,10 +1281,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "139cf71496105de32e7a08a4e3a1ead0f81c4a616ec9703ed07e8f0d10cdd505"
+      sha256: "93654267ad36e72ef130ffc05970287f42955b40f07d0efd264e64f7215fa1de"
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.6"
+    version: "3.8.7"
   share_plus:
     dependency: "direct main"
     description:

@@ -1,3 +1,4 @@
+* Fix offsets on transforming multiple objects at the same time
 * Fix migrating to a new directory not working when android saf experimental feature is enabled
 * Fix moving and saving not correctly working when android saf experimental feature is enabled
 * Fix moving pages into and out of folders in the pages navigator

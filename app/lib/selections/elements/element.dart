@@ -52,12 +52,13 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         value: position,
         title: Text(AppLocalizations.of(context).position),
         onChanged: (value) {
+          final delta = value - position;
           updateElements(
             context,
             selected
                 .map(
                   (e) =>
-                      e.transform(position: value, relative: false)?.element ??
+                      e.transform(position: delta, relative: true)?.element ??
                       e.element,
                 )
                 .whereType<T>()
@@ -72,14 +73,30 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
         max: 360,
         header: Text(AppLocalizations.of(context).rotation),
         onChangeEnd: (value) {
+          final rect = selected
+              .map((e) => e.expandedRect ?? e.rect)
+              .nonNulls
+              .fold<Rect?>(
+                null,
+                (previous, current) =>
+                    previous?.expandToInclude(current) ?? current,
+              );
+          final pivot = rect?.center ?? Offset.zero;
+          final rotation = value - elements.first.rotation;
+          final rotationRad = rotation * pi / 180;
           updateElements(
             context,
             selected
-                .map(
-                  (e) =>
-                      e.transform(rotation: value, relative: false)?.element ??
-                      e.element,
-                )
+                .map((e) {
+                  final center = e.rect?.center;
+                  final position = center == null
+                      ? null
+                      : center.rotate(pivot, rotationRad) - center;
+                  return e
+                          .transform(position: position, rotation: rotation)
+                          ?.element ??
+                      e.element;
+                })
                 .whereType<T>()
                 .toList(),
           );

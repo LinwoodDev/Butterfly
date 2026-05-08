@@ -126,21 +126,27 @@ class SelectHandler extends Handler<SelectTool> {
           renderer.expandedRect ?? renderer.rect ?? Rect.zero;
       final elementRect = renderer.rect ?? Rect.zero;
 
-      final originalTopLeft = elementExpandedRect.topLeft;
-      final translatedTopLeft = applyScaleAndTranslate(originalTopLeft);
+      final originalExpandedTopLeft = elementExpandedRect.topLeft;
+      final translatedExpandedTopLeft = applyScaleAndTranslate(
+        originalExpandedTopLeft,
+      );
       // Delta relative to expandedRect.topLeft so it's zero at identity.
       // The position compensation inside transform() converts from the
       // expandedRect reference frame to the rect reference frame.
-      var delta = translatedTopLeft - originalTopLeft;
+      var delta = translatedExpandedTopLeft - originalExpandedTopLeft;
 
       if (rotation != 0) {
+        final originalTopLeft = elementRect.topLeft;
         final originalCenter = elementRect.center;
+        final transformedTopLeft = applyScaleAndTranslate(originalTopLeft);
         final transformedCenter = applyScaleAndTranslate(originalCenter);
         final rotatedCenter = transformedCenter.rotate(
           transformedPivot,
           rotationRad,
         );
-        delta += rotatedCenter - transformedCenter;
+        final transformedCenterOffset = transformedCenter - transformedTopLeft;
+        final rotatedTopLeft = rotatedCenter - transformedCenterOffset;
+        delta = rotatedTopLeft - originalTopLeft;
       }
 
       return renderer.transform(
