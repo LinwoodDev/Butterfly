@@ -31,6 +31,37 @@ String _normalizeCachePath(String path) {
   return path;
 }
 
+String _normalizeHistoryPath(String path) {
+  if (path.isEmpty || path.startsWith('/')) {
+    return path;
+  }
+  return '/$path';
+}
+
+AssetLocation _normalizeHistoryLocation(AssetLocation location) {
+  final path = _normalizeHistoryPath(location.path);
+  if (path == location.path) {
+    return location;
+  }
+  return AssetLocation(path: path, remote: location.remote);
+}
+
+bool _isSameHistoryLocation(AssetLocation a, AssetLocation b) =>
+    a.remote == b.remote &&
+    _normalizeHistoryPath(a.path) == _normalizeHistoryPath(b.path);
+
+List<AssetLocation> _normalizeRecentHistory(Iterable<AssetLocation> locations) {
+  final history = <AssetLocation>[];
+  for (final location in locations) {
+    final normalized = _normalizeHistoryLocation(location);
+    if (history.any((entry) => _isSameHistoryLocation(entry, normalized))) {
+      continue;
+    }
+    history.add(normalized);
+  }
+  return history;
+}
+
 T _enumByNameOr<T extends Enum>(List<T> values, String? name, T fallback) {
   if (name == null) return fallback;
   return values.firstWhere((e) => e.name == name, orElse: () => fallback);
@@ -511,20 +542,17 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               BannerVisibility.always,
             )
           : BannerVisibility.always,
-      history:
-          prefs
-              .getStringList('history')
-              ?.map((e) {
-                // Try to parse the asset location
-                try {
-                  return AssetLocationMapper.fromJson(e);
-                } catch (e) {
-                  return null;
-                }
-              })
-              .nonNulls
-              .toList() ??
-          [],
+      history: _normalizeRecentHistory(
+        prefs.getStringList('history')?.map((e) {
+              // Try to parse the asset location
+              try {
+                return AssetLocationMapper.fromJson(e);
+              } catch (e) {
+                return null;
+              }
+            }).nonNulls ??
+            const [],
+      ),
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       zoomPosition: prefs.containsKey('zoom_position')
           ? _enumByNameOr(
@@ -980,13 +1008,8 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> addRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
-    if (!location.path.startsWith('/')) {
-      location = AssetLocation(
-        path: '/${location.path}',
-        remote: location.remote,
-      );
-    }
-    history.remove(location);
+    location = _normalizeHistoryLocation(location);
+    history.removeWhere((element) => _isSameHistoryLocation(element, location));
     history.insert(0, location);
     if (history.length > 10) {
       history.removeLast();
