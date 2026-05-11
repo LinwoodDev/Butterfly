@@ -689,16 +689,17 @@ class _MainBody extends StatelessWidget {
                   final isLeft =
                       settings.zoomPosition == ZoomPosition.topLeft ||
                       settings.zoomPosition == ZoomPosition.bottomLeft;
-                  final children = [
+                  final children = <Widget>[
+                    if (settings.zoomEnabled)
+                      Flexible(child: ZoomView(isMobile: isMobile)),
                     const PenOnlyToggle(),
-                    Flexible(child: ZoomView(isMobile: isMobile)),
                   ];
                   return Row(
                     mainAxisAlignment: isLeft
                         ? MainAxisAlignment.start
                         : MainAxisAlignment.end,
                     spacing: 8,
-                    children: isLeft ? children.reversed.toList() : children,
+                    children: isLeft ? children : children.reversed.toList(),
                   );
                 },
               ),
