@@ -34,19 +34,19 @@ class CameraViewport extends Equatable {
     this.width,
     this.height,
     this.pixelRatio = 1,
+    this.scale = 1,
+    this.x = 0,
+    this.y = 0,
+    this.resolution = RenderResolution.performance,
     this.rendererStates = const {},
     this.invisibleLayers = const {},
   }) : image = null,
        belowLayerImage = null,
        aboveLayerImage = null,
-       scale = 1,
        bakedElements = const [],
-       x = 0,
-       y = 0,
        visibleElements = visibleElements ?? unbakedElements,
        visibleUnbakedElements =
-           visibleUnbakedElements ?? visibleElements ?? unbakedElements,
-       resolution = RenderResolution.performance;
+           visibleUnbakedElements ?? visibleElements ?? unbakedElements;
 
   const CameraViewport.baked({
     this.backgrounds = const [],
@@ -192,6 +192,10 @@ class CameraViewport extends Equatable {
       width: width,
       height: height,
       pixelRatio: pixelRatio,
+      scale: scale,
+      x: x,
+      y: y,
+      resolution: resolution,
       invisibleLayers: invisibleLayers,
     );
   }

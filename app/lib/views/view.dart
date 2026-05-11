@@ -120,15 +120,6 @@ class _MainViewViewportState extends State<MainViewViewport>
         settings.hasFlag(kMultiTapInputShortcutsFlag);
   }
 
-  bool _isTapContinuation(PointerDownEvent event) {
-    final lastTap = _lastTap;
-    return lastTap != null &&
-        lastTap.kind == event.kind &&
-        lastTap.buttons == event.buttons &&
-        event.timeStamp - lastTap.timeStamp <= _multiTapTimeout &&
-        (event.position - lastTap.position).distance <= _multiTapDistance;
-  }
-
   String? _getMouseShortcut(
     InputConfiguration config,
     int buttons,
@@ -272,8 +263,9 @@ class _MainViewViewportState extends State<MainViewViewport>
     CurrentIndexCubit cubit,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
-  ) {
+    _TemporaryToolChanger changeTemporaryTool, {
+    bool replayBufferedEvents = true,
+  }) {
     if (!_multiTapShortcutsEnabled(event.kind)) {
       return;
     }
@@ -290,18 +282,22 @@ class _MainViewViewportState extends State<MainViewViewport>
     _tapTimer?.cancel();
     final delay = tap.count == 1 ? _multiTapTimeout : _multiTapResolveDelay;
     _tapTimer = Timer(delay, () async {
-      if (!_isTapGesture) return;
+      if (replayBufferedEvents && !_isTapGesture) return;
       if (shortcutId == null || shortcutId.isEmpty) {
-        await _flushBufferedEvents(
-          cubit,
-          getHandler,
-          getEventContext,
-          changeTemporaryTool,
-        );
-        _resetTapGesture();
+        if (replayBufferedEvents) {
+          await _flushBufferedEvents(
+            cubit,
+            getHandler,
+            getEventContext,
+            changeTemporaryTool,
+          );
+          _resetTapGesture();
+        }
         return;
       }
-      _resetTapGesture();
+      if (replayBufferedEvents) {
+        _resetTapGesture();
+      }
       _invokeInputShortcut(
         shortcutId,
         event,
@@ -380,24 +376,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         : null;
 
     if (_hasConfiguredMultiTapShortcut(event)) {
-      if (_bufferedEvents.isNotEmpty &&
-          (_tapStartPositions.isNotEmpty || !_isTapContinuation(event))) {
-        await _flushBufferedEvents(
-          cubit,
-          getHandler,
-          getEventContext,
-          changeTemporaryTool,
-        );
-        _resetTapGesture();
-      }
-      if (cubit.state.pointers.isEmpty) {
-        _tapTimer?.cancel();
-        _isTapGesture = true;
-        _rememberTap(event);
-        _bufferedEvents.add(event);
-        _tapStartPositions[event.pointer] = event.position;
-        return;
-      }
+      _rememberTap(event);
     }
 
     _pointerKinds[event.pointer] = event.kind;
@@ -421,25 +400,6 @@ class _MainViewViewportState extends State<MainViewViewport>
     _TemporaryToolChanger changeTemporaryTool,
     VoidCallback delayBake,
   ) async {
-    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
-      _bufferedEvents.add(event);
-      final startPos = _tapStartPositions[event.pointer];
-      if (startPos != null &&
-          (event.position - startPos).distance > _multiTapDistance) {
-        _isTapGesture = false;
-        _tapTimer?.cancel();
-        await _flushBufferedEvents(
-          cubit,
-          getHandler,
-          getEventContext,
-          changeTemporaryTool,
-          preserveScalingState: true,
-        );
-        _resetTapGesture();
-      }
-      return;
-    }
-
     final renderObject = context.findRenderObject();
     if (kIsWeb) {
       if (renderObject is! RenderBox) {
@@ -479,27 +439,20 @@ class _MainViewViewportState extends State<MainViewViewport>
     _EventContextGetter getEventContext,
     _TemporaryToolChanger changeTemporaryTool,
   ) async {
-    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
-      _bufferedEvents.add(event);
-      _tapStartPositions.remove(event.pointer);
-      if (_tapStartPositions.isEmpty) {
-        _scheduleMultiTapShortcut(
-          event,
-          cubit,
-          getHandler,
-          getEventContext,
-          changeTemporaryTool,
-        );
-      }
-      return;
-    }
-
     cubit.updateLastPosition(event.localPosition);
     if (_isScalingDisabled ?? true) {
       await getHandler().onPointerUp(event, getEventContext());
     }
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
+    _scheduleMultiTapShortcut(
+      event,
+      cubit,
+      getHandler,
+      getEventContext,
+      changeTemporaryTool,
+      replayBufferedEvents: false,
+    );
   }
 
   Future<void> _handlePointerCancel(
@@ -509,16 +462,6 @@ class _MainViewViewportState extends State<MainViewViewport>
     _EventContextGetter getEventContext,
     _TemporaryToolChanger changeTemporaryTool,
   ) async {
-    if (_isTapGesture && _tapStartPositions.containsKey(event.pointer)) {
-      _tapTimer?.cancel();
-      _bufferedEvents.removeWhere((e) => e.pointer == event.pointer);
-      _tapStartPositions.remove(event.pointer);
-      if (_bufferedEvents.isEmpty) {
-        _resetTapGesture();
-      }
-      return;
-    }
-
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     cubit.removeButtons();
