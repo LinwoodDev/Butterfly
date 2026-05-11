@@ -12,6 +12,7 @@ import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/services/logger.dart';
+import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -1999,6 +2000,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
+  CameraTransform _clampTransform(CameraTransform transform) {
+    final bounds = _calculateViewportBounds(null, transform);
+    if (bounds == null) return transform;
+    return transform.withPosition(
+      Offset(
+        transform.position.dx.clamp(bounds.left, bounds.right),
+        transform.position.dy.clamp(bounds.top, bounds.bottom),
+      ),
+    );
+  }
+
   Future<void> updateUtilities({
     UtilitiesState? utilities,
     ViewOption? view,
@@ -2016,7 +2028,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
-  Rect? _calculateViewportBounds([Area? currentArea]) {
+  bool _isNavigationRailVisible() {
+    final settings = state.settingsCubit.state;
+    final viewport = state.cameraViewport;
+    return settings.navigationRail &&
+        settings.navigatorPosition == NavigatorPosition.left &&
+        state.hideUi == HideState.visible &&
+        (viewport.width ?? 0) >= LeapBreakpoints.expanded &&
+        (viewport.height ?? 0) >= 400;
+  }
+
+  Rect? _calculateViewportBounds([
+    Area? currentArea,
+    CameraTransform? customTransform,
+  ]) {
     final settings = state.settingsCubit.state;
     var multiplier = settings.limitViewportMultiplier;
     final positive = settings.limitViewportPositive;
@@ -2024,10 +2049,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (multiplier == null && !positive && currentArea == null) return null;
 
     final viewport = state.cameraViewport;
-    final transform = state.transformCubit.state;
+    final transform = customTransform ?? state.transformCubit.state;
+    final navigationRailOffset = _isNavigationRailVisible()
+        ? kNavigationRailWidth / transform.size
+        : 0.0;
     final size =
         Size(
-          (viewport.width ?? 0) / transform.size,
+          ((viewport.width ?? 0) / transform.size) - navigationRailOffset,
           (viewport.height ?? 0) / transform.size,
         ) /
         settings.renderResolution.multiplier;
@@ -2062,9 +2090,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
 
     if (positive && currentArea == null) {
-      minX = max(0.0, minX);
+      minX = max(-navigationRailOffset, minX);
       minY = max(0.0, minY);
-      maxX = max(0.0, maxX);
+      maxX = max(-navigationRailOffset, maxX);
       maxY = max(0.0, maxY);
     }
 
@@ -2219,7 +2247,29 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (delta == 1) {
       return;
     }
-    state.transformCubit.zoom(delta, cursor);
+    if (force) {
+      state.transformCubit.zoom(delta, cursor);
+      return;
+    }
+    final transform = state.transformCubit.state.withSize(
+      state.transformCubit.state.size * delta,
+      cursor,
+    );
+    final clamped = _clampTransform(transform);
+    state.transformCubit.teleport(clamped.position, clamped.size);
+  }
+
+  void size(double size, [Offset cursor = Offset.zero, bool force = false]) {
+    final utilitiesState = state.utilities;
+    if (utilitiesState.lockZoom && !force) return;
+    if (force) {
+      state.transformCubit.size(size, cursor);
+      return;
+    }
+    final transform = _clampTransform(
+      state.transformCubit.state.withSize(size, cursor),
+    );
+    state.transformCubit.teleport(transform.position, transform.size);
   }
 
   void slide(

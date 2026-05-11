@@ -29,14 +29,15 @@ class ZoomAction extends Action<ZoomIntent> {
 
   @override
   void invoke(ZoomIntent intent) {
-    final currentIndex = context.read<CurrentIndexCubit>().state;
+    final cubit = context.read<CurrentIndexCubit>();
+    final currentIndex = cubit.state;
     final viewport = currentIndex.cameraViewport;
     final center = Offset(
       (viewport.width ?? 0) / 2,
       (viewport.height ?? 0) / 2,
     );
     final transformCubit = currentIndex.transformCubit;
-    transformCubit.size(
+    cubit.size(
       transformCubit.state.size + (intent.reverse ? -0.1 : 0.1),
       center,
     );

@@ -400,7 +400,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         .state
                         .cameraViewport
                         .toSize();
-                    context.read<TransformCubit>().size(
+                    context.read<CurrentIndexCubit>().size(
                       value / 100,
                       Offset(size.width / 2, size.height / 2),
                     );

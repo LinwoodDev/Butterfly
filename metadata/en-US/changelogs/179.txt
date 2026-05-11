@@ -4,6 +4,7 @@
 * Fix moving and saving not correctly working when android saf experimental feature is enabled
 * Fix moving pages into and out of folders in the pages navigator
 * Fix viewport flickering after drawing pen strokes
+* Fix positive coordinate viewport limit hiding content behind the navigation rail when zooming out
 * Fix pen only toggle not being on the corner if zoom controls are disabled
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.1
