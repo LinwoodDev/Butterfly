@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.2-rc.1 (2026-05-13)
+
+* Improve area creation when creating areas inside or overlapping other areas
+* Fix area tool fixed width being ignored when an aspect ratio is set
+* Fix area tool width not being saved after selecting an aspect ratio
+* Fix home page recently shows the same File twice ([#1084](https://github.com/LinwoodDev/Butterfly/issues/1084))
+* Fix offsets on transforming multiple objects at the same time
+* Fix migrating to a new directory not working when android saf experimental feature is enabled
+* Fix moving and saving not correctly working when android saf experimental feature is enabled
+* Fix moving pages into and out of folders in the pages navigator
+* Fix viewport flickering after drawing pen strokes
+* Fix multi-tap input shortcuts delaying regular pointer input
+* Fix positive coordinate viewport limit hiding content behind the navigation rail when zooming out
+* Fix pen only toggle not being on the corner if zoom controls are disabled
+
+Read more here: https://linwood.dev/butterfly/2.5.2-rc.1
+
 ## 2.5.2-rc.0 (2026-05-06)
 
 * Major improvements to Sync and WebDAV connections ([#1072](https://github.com/LinwoodDev/Butterfly/issues/1072))
