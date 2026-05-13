@@ -4,6 +4,7 @@ class SelectHandler extends Handler<SelectTool> {
   final _selectionManager = RectSelectionForegroundManager();
   List<Renderer<PadElement>> _selected = [];
   bool _duplicate = false;
+  Offset? _rectangleFreeSelectionStart;
   Rect? _rectangleFreeSelection;
   List<Offset>? _lassoFreeSelection;
 
@@ -38,6 +39,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Future<void> resetInput(DocumentBloc bloc) async {
     _submitTransform(bloc);
+    _rectangleFreeSelectionStart = null;
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
     _ruler = null;
@@ -385,6 +387,9 @@ class SelectHandler extends Handler<SelectTool> {
       );
       return true;
     }
+    _rectangleFreeSelectionStart = data.mode == SelectMode.rectangle
+        ? globalPos
+        : null;
     context.refresh();
     return true;
   }
@@ -455,9 +460,9 @@ class SelectHandler extends Handler<SelectTool> {
       context.refreshForegrounds();
       return;
     }
-    final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
+    final start = _rectangleFreeSelectionStart ?? globalPos;
     _rectangleFreeSelection = data.mode == SelectMode.rectangle
-        ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
+        ? Rect.fromLTRB(start.dx, start.dy, globalPos.dx, globalPos.dy)
         : null;
     if (data.mode == SelectMode.lasso) {
       _lassoFreeSelection ??= [];
@@ -495,6 +500,7 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     _lassoFreeSelection = null;
+    _rectangleFreeSelectionStart = null;
     _rectangleFreeSelection = null;
     if (!context.isCtrlPressed) {
       _selected.clear();

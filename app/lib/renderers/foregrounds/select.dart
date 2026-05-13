@@ -272,7 +272,13 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
-    if (element.isEmpty || isTransforming) return;
+    final rect = Rect.fromLTRB(
+      min(element.left, element.right),
+      min(element.top, element.bottom),
+      max(element.left, element.right),
+      max(element.top, element.bottom),
+    );
+    if (rect.isEmpty || isTransforming) return;
     final paint = Paint()
       ..color = colorScheme?.primaryContainer ?? Colors.blueAccent
       ..style = PaintingStyle.stroke
@@ -280,7 +286,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
-    canvas.drawRect(element, paint);
+    canvas.drawRect(rect, paint);
     if (transformMode == null) return;
     final realSize = visibleSize / transform.size;
     if (enableRotation) {

@@ -1,0 +1,5 @@
+* Fix spacer tool not affecting circle shapes correctly
+* Fix shape tools only drawing constrained shapes from top left to bottom right
+* Fix rectangular selection only working reliably from top left to bottom right
+
+Read more here: https://linwood.dev/butterfly/2.5.2-rc.2

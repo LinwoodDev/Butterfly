@@ -28,8 +28,22 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
     return [
       ShapeElement(
-        firstPosition: rect.topLeft.toPoint(),
-        secondPosition: rect.bottomRight.toPoint(),
+        firstPosition:
+            (data.property.shape is LineShape
+                    ? rect.topLeft
+                    : rect.topLeft.translate(
+                        min(0, rect.width),
+                        min(0, rect.height),
+                      ))
+                .toPoint(),
+        secondPosition:
+            (data.property.shape is LineShape
+                    ? rect.bottomRight
+                    : rect.bottomRight.translate(
+                        max(0, -rect.width),
+                        max(0, -rect.height),
+                      ))
+                .toPoint(),
         property: data.property.copyWith(
           strokeWidth:
               data.property.strokeWidth /
@@ -41,7 +55,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   }
 
   @override
-  bool get shouldNormalize => data.property.shape is! LineShape;
+  bool get shouldNormalize => false;
   @override
   double get constraintedAspectRatio => data.constrainedAspectRatio;
   @override

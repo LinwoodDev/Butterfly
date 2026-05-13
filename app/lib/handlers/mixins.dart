@@ -133,6 +133,8 @@ abstract class PastingHandler<T> extends Handler<T> {
       bottom = second.dy;
       right = second.dx;
     }
+    final horizontalDirection = right >= left ? 1 : -1;
+    final verticalDirection = bottom >= top ? 1 : -1;
     var width = (right - left).abs();
     var height = (bottom - top).abs();
     var aspectRatio = constraintedAspectRatio;
@@ -145,33 +147,33 @@ abstract class PastingHandler<T> extends Handler<T> {
     }
     if (constraintedHeight != 0) {
       height = constraintedHeight;
-      bottom = top + height;
+      bottom = top + height * verticalDirection;
     }
     if (constraintedWidth != 0) {
       width = constraintedWidth;
-      right = left + width;
+      right = left + width * horizontalDirection;
     }
     if (aspectRatio != 0 &&
         (constraintedHeight == 0 || constraintedWidth == 0)) {
       if (constraintedHeight != 0) {
         height = constraintedHeight;
         width = constraintedAspectRatio * height;
-        right = left + width;
+        right = left + width * horizontalDirection;
       } else if (constraintedWidth != 0) {
         width = constraintedWidth;
         height = width / constraintedAspectRatio;
-        bottom = top + height;
+        bottom = top + height * verticalDirection;
       } else {
         final largest = max(width, height);
         width = aspectRatio * largest;
         height = largest / aspectRatio;
-        right = left + width;
-        bottom = top + height;
+        right = left + width * horizontalDirection;
+        bottom = top + height * verticalDirection;
       }
     }
     if (_center) {
-      top -= height;
-      left -= width;
+      top -= height * verticalDirection;
+      left -= width * horizontalDirection;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
     return transformElements(rect, _currentCollection, cubit);

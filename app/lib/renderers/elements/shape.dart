@@ -329,23 +329,24 @@ class ShapeHitCalculator extends HitCalculator {
     final center = this.rect.center;
 
     bool hitCircle() {
-      final radius = this.rect.shortestSide / 2;
       final circleCenter = this.rect.center;
       final rectCenter = rect.center;
       final dx = (circleCenter.dx - rectCenter.dx).abs();
       final dy = (circleCenter.dy - rectCenter.dy).abs();
       final halfWidth = rect.width / 2;
       final halfHeight = rect.height / 2;
+      final radiusX = this.rect.width / 2;
+      final radiusY = this.rect.height / 2;
 
       if (full) {
-        return dx + radius <= halfWidth && dy + radius <= halfHeight;
+        return dx + radiusX <= halfWidth && dy + radiusY <= halfHeight;
       } else {
-        final cornerDistanceSq =
-            (dx - halfWidth).clamp(0, radius) *
-                (dx - halfWidth).clamp(0, radius) +
-            (dy - halfHeight).clamp(0, radius) *
-                (dy - halfHeight).clamp(0, radius);
-        return cornerDistanceSq <= radius * radius;
+        if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
+        final nearestX = dx - halfWidth;
+        final nearestY = dy - halfHeight;
+        final normalizedX = nearestX <= 0 ? 0 : nearestX / radiusX;
+        final normalizedY = nearestY <= 0 ? 0 : nearestY / radiusY;
+        return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
       }
     }
 
