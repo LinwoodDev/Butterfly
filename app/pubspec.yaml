@@ -62,7 +62,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 53922908835218ca683c006a77d4c9e935674033
+      ref: d3eab604143cac40036985a0483d97e352812ee4
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -92,12 +92,12 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d70362ebcae08ac031729ec918e2092e39f03f44
+      ref: d3eab604143cac40036985a0483d97e352812ee4
       path: packages/lw_file_system
   keybinder:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e48fcdd3479eabbc02934553f041e97d8bc2e027
+      ref: ad904fd4f15fae6bed63728a387b29e1cf023ecf
       path: packages/keybinder
   flutter_localized_locales: ^2.0.5
   cryptography_flutter_plus: ^3.0.0
@@ -130,11 +130,6 @@ dependency_overrides:
       url: https://github.com/CodeDoctorDE/super_native_extensions
       ref: 1055873bac1dcfa859d306b825eecf23b7587d23
       path: super_native_extensions
-  lw_file_system_api:
-    git:
-      url: https://github.com/LinwoodDev/dart_pkgs.git
-      path: packages/lw_file_system_api
-      ref: b8b77f012ca85bbcd7d1a5d1435ab717c4e5ccd4
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0
