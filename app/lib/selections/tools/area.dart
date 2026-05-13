@@ -6,6 +6,25 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
   @override
   List<Widget> buildProperties(BuildContext context) {
     final tool = selected.first;
+    AreaTool setAspectRatio(AreaTool tool, double aspectRatio) {
+      if (aspectRatio == 0) {
+        return tool.copyWith(constrainedAspectRatio: aspectRatio);
+      }
+      if (tool.constrainedWidth != 0) {
+        return tool.copyWith(
+          constrainedHeight: 0,
+          constrainedAspectRatio: aspectRatio,
+        );
+      }
+      if (tool.constrainedHeight != 0) {
+        return tool.copyWith(
+          constrainedWidth: 0,
+          constrainedAspectRatio: aspectRatio,
+        );
+      }
+      return tool.copyWith(constrainedAspectRatio: aspectRatio);
+    }
+
     return [
       ...super.buildProperties(context),
       CheckboxListTile(
@@ -21,6 +40,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
         child: AreaSizePicker(
           width: tool.constrainedWidth,
           height: tool.constrainedHeight,
+          allowUnconstrainedDimensions: true,
           onChanged: (size) => update(
             context,
             selected
@@ -29,8 +49,10 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
                     constrainedWidth: size.width,
                     constrainedHeight: size.height,
                     constrainedAspectRatio:
-                        size.width != e.constrainedWidth ||
-                            size.height != e.constrainedHeight
+                        (size.width != e.constrainedWidth ||
+                                size.height != e.constrainedHeight) &&
+                            size.width > 0 &&
+                            size.height > 0
                         ? 0
                         : e.constrainedAspectRatio, // Reset to allow exact dimensions
                   ),
@@ -74,15 +96,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
             final newRatio = selection.isEmpty ? 0.0 : selection.first;
             update(
               context,
-              selected
-                  .map(
-                    (e) => e.copyWith(
-                      constrainedHeight: 0,
-                      constrainedWidth: 0,
-                      constrainedAspectRatio: newRatio,
-                    ),
-                  )
-                  .toList(),
+              selected.map((e) => setAspectRatio(e, newRatio)).toList(),
             );
           },
         ),
@@ -93,9 +107,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
           aspectRatio: tool.constrainedAspectRatio,
           onChanged: (value) => update(
             context,
-            selected
-                .map((e) => e.copyWith(constrainedAspectRatio: value))
-                .toList(),
+            selected.map((e) => setAspectRatio(e, value)).toList(),
           ),
         ),
       ),

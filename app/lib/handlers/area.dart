@@ -48,21 +48,22 @@ class AreaHandler extends Handler<AreaTool> {
     Area? currentArea,
   ]) {
     final rect = currentRect;
+    final visibleAreas = currentArea == null
+        ? page.areas
+        : page.areas.where((area) => area.rect.overlaps(currentArea.rect));
     return [
-      if (currentArea == null) ...[
-        if (rect != null)
-          AreaForegroundRenderer(
-            Area(
-              width: rect.width,
-              height: rect.height,
-              position: rect.topLeft.toPoint(),
-            ),
+      ...visibleAreas
+          .where((element) => element.name != _currentArea?.name)
+          .map((e) => AreaForegroundRenderer(e)),
+      if (_currentArea != null) AreaForegroundRenderer(_currentArea!),
+      if (rect != null)
+        AreaForegroundRenderer(
+          Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
           ),
-        ...[
-          _currentArea,
-          ...page.areas.where((element) => element.name != _currentArea?.name),
-        ].nonNulls.map((e) => AreaForegroundRenderer(e)),
-      ],
+        ),
       _selectionManager.renderer,
     ];
   }
@@ -106,11 +107,16 @@ class AreaHandler extends Handler<AreaTool> {
     );
     final globalPos = transform.localToGlobal(localPos);
     if (_selectionManager.isValid) {
-      _selectionManager.startTransform(
+      final startedTransform = _selectionManager.startTransform(
         globalPos,
         transform.size,
         context.getSettings().touchSensitivity,
       );
+      if (!startedTransform) {
+        _selectionManager.deselect();
+        _currentArea = null;
+        _start = globalPos;
+      }
       context.refreshForegrounds();
       return true;
     }
@@ -131,7 +137,7 @@ class AreaHandler extends Handler<AreaTool> {
       transform,
     );
     var globalPos = transform.localToGlobal(localPos);
-    if (_selectionManager.isValid) {
+    if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
       context.refreshForegrounds();
@@ -139,33 +145,49 @@ class AreaHandler extends Handler<AreaTool> {
     }
     final start = _start;
     if (start == null) return;
-    if (data.constrainedWidth != 0) {
+    final hasConstrainedWidth = data.constrainedWidth != 0;
+    final hasConstrainedHeight = data.constrainedHeight != 0;
+    final hasConstrainedAspectRatio = data.constrainedAspectRatio != 0;
+    if (hasConstrainedWidth) {
       final direction = (globalPos.dx - start.dx).sign;
       final width = data.constrainedWidth * (direction == 0 ? 1 : direction);
       globalPos = Offset(width + start.dx, globalPos.dy);
     }
-    if (data.constrainedHeight != 0) {
+    if (hasConstrainedHeight) {
       final direction = (globalPos.dy - start.dy).sign;
       final height = data.constrainedHeight * (direction == 0 ? 1 : direction);
       globalPos = Offset(globalPos.dx, height + start.dy);
     }
-    if (data.constrainedAspectRatio != 0) {
+    if (hasConstrainedAspectRatio) {
       final aspectRatio = data.constrainedAspectRatio;
       final width = (globalPos.dx - start.dx).abs();
       final height = (globalPos.dy - start.dy).abs();
-      final currentAspectRatio = width / height;
       final xDirection = (globalPos.dx - start.dx).sign;
       final yDirection = (globalPos.dy - start.dy).sign;
-      if (currentAspectRatio < aspectRatio) {
-        globalPos = Offset(
-          start.dx + height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
-          globalPos.dy,
-        );
-      } else {
+      if (hasConstrainedWidth && !hasConstrainedHeight) {
         globalPos = Offset(
           globalPos.dx,
           start.dy + width / aspectRatio * (yDirection == 0 ? 1 : yDirection),
         );
+      } else if (hasConstrainedHeight && !hasConstrainedWidth) {
+        globalPos = Offset(
+          start.dx + height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
+          globalPos.dy,
+        );
+      } else if (!hasConstrainedWidth && !hasConstrainedHeight) {
+        final currentAspectRatio = width / height;
+        if (currentAspectRatio < aspectRatio) {
+          globalPos = Offset(
+            start.dx +
+                height * aspectRatio * (xDirection == 0 ? 1 : xDirection),
+            globalPos.dy,
+          );
+        } else {
+          globalPos = Offset(
+            globalPos.dx,
+            start.dy + width / aspectRatio * (yDirection == 0 ? 1 : yDirection),
+          );
+        }
       }
     }
     _end = globalPos;

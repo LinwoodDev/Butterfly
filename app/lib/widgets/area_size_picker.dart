@@ -8,12 +8,14 @@ class AreaSizePicker extends StatefulWidget {
   final double width;
   final double height;
   final ValueChanged<Size> onChanged;
+  final bool allowUnconstrainedDimensions;
 
   const AreaSizePicker({
     super.key,
     required this.width,
     required this.height,
     required this.onChanged,
+    this.allowUnconstrainedDimensions = false,
   });
 
   @override
@@ -75,7 +77,14 @@ class _AreaSizePickerState extends State<AreaSizePicker> {
     if (_isNotifying) return;
     final width = parseDoubleInput(_widthController.text);
     final height = parseDoubleInput(_heightController.text);
-    if (width != null && height != null && width > 0 && height > 0) {
+    final isValid = widget.allowUnconstrainedDimensions
+        ? width != null &&
+              height != null &&
+              width >= 0 &&
+              height >= 0 &&
+              (width > 0 || height > 0)
+        : width != null && height != null && width > 0 && height > 0;
+    if (isValid) {
       _isNotifying = true;
       _updateSelectedPreset(width, height);
       widget.onChanged(Size(width, height));
