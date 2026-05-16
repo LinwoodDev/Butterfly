@@ -4,6 +4,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   bool _currentlyErasing = false;
   bool _submittedErase = false;
   Future<void>? _erasingFuture;
+  Offset? _queuedPosition;
   Offset? _currentPos, _lastErased;
   final Set<String> _erased = {};
   PathEraserHandler(super.data);
@@ -64,6 +65,23 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   }
 
   Future<void> _erase(Offset position, EventContext context) async {
+    if (_currentlyErasing) {
+      _queuedPosition = position;
+      await _erasingFuture;
+      return;
+    }
+    _currentlyErasing = true;
+    var nextPosition = position;
+    do {
+      _queuedPosition = null;
+      await _eraseAt(nextPosition, context);
+      nextPosition = _queuedPosition ?? nextPosition;
+    } while (_queuedPosition != null);
+    _erasingFuture = null;
+    _currentlyErasing = false;
+  }
+
+  Future<void> _eraseAt(Offset position, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
     final utilities = currentIndex.utilities;
@@ -74,8 +92,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     final shouldErase =
         _lastErased == null ||
         (globalPos - _lastErased!).distanceSquared > sizeSquared;
-    if (_currentlyErasing || !shouldErase) return;
-    _currentlyErasing = true;
+    if (!shouldErase) return;
     _lastErased = globalPos;
 
     final future = () async {
@@ -99,8 +116,6 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     }();
     _erasingFuture = future;
     await future;
-    _erasingFuture = null;
-    _currentlyErasing = false;
   }
 
   DocumentBloc? _bloc;
@@ -133,6 +148,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     _submittedErase = false;
     _currentlyErasing = false;
     _erasingFuture = null;
+    _queuedPosition = null;
     _erased.clear();
     _bloc = null;
   }

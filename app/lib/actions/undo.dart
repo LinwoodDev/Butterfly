@@ -24,6 +24,5 @@ class UndoAction extends Action<UndoIntent> {
   Future<void> invoke(UndoIntent intent) async {
     final bloc = context.read<DocumentBloc>();
     bloc.sendUndo();
-    bloc.reload();
   }
 }

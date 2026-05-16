@@ -5,6 +5,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   bool _hideCursorWhileDrawing = false;
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
+  final Map<int, List<PathPoint>> _elementPoints = {};
   final List<PenElement> _submittedElements = [];
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
@@ -44,6 +45,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _positionCheckTimer?.cancel();
     _positionCheckTimer = null;
     elements.clear();
+    _elementPoints.clear();
     lastPosition.clear();
     points.clear();
     lastPosit = null;
@@ -79,7 +81,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
     _bloc = bloc;
     final elements = indexes
-        .map((e) => this.elements.remove(e))
+        .map((e) {
+          final element = this.elements.remove(e);
+          final points = _elementPoints.remove(e);
+          if (element == null) return null;
+          return points == null
+              ? element
+              : element.copyWith(points: List<PathPoint>.of(points));
+        })
         .nonNulls
         .toList();
     if (elements.isEmpty) return;
@@ -163,22 +172,29 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     double zoom = data.zoomDependent ? transform.size : 1;
     final createNew = !elements.containsKey(pointer);
     if (createNew && !shouldCreate) return;
-    final element =
-        elements[pointer] ??
-        PenElement(
-          id: createUniqueId(),
-          zoom: transform.size,
-          collection: state.currentCollection,
-          property: data.property.copyWith(
-            strokeWidth: data.property.strokeWidth / zoom,
-          ),
-        );
-    final points = List<PathPoint>.from(element.points);
-    points.add(PathPoint.fromPoint(globalPos.toPoint(), pressure));
-    if (points.length == 2 && settings.ignorePressure == IgnorePressure.first) {
-      points[0] = points[0].copyWith(pressure: pressure);
+    final element = elements[pointer];
+    final point = PathPoint.fromPoint(globalPos.toPoint(), pressure);
+    if (element != null) {
+      final points = _elementPoints[pointer] ?? element.points.toList();
+      points.add(point);
+      if (points.length == 2 &&
+          settings.ignorePressure == IgnorePressure.first) {
+        points[0] = points[0].copyWith(pressure: pressure);
+      }
+      _elementPoints[pointer] = points;
+    } else {
+      final points = [point];
+      _elementPoints[pointer] = points;
+      elements[pointer] = PenElement(
+        id: createUniqueId(),
+        zoom: transform.size,
+        collection: state.currentCollection,
+        property: data.property.copyWith(
+          strokeWidth: data.property.strokeWidth / zoom,
+        ),
+        points: points,
+      );
     }
-    elements[pointer] = element.copyWith(points: points);
     if (refresh) bloc.refreshForegrounds();
   }
 
@@ -195,6 +211,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       return;
     }
     elements.remove(event.pointer);
+    _elementPoints.remove(event.pointer);
     addPoint(
       context.buildContext,
       event.pointer,

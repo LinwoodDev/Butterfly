@@ -6,6 +6,7 @@ import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
@@ -1215,7 +1216,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   final _bakeLock = Lock();
-  int _delayedBakeId = 0;
+  final _delayedBakeRunner = CoalescedAsyncRunner(
+    delay: const Duration(milliseconds: 100),
+  );
 
   bool _rectContains(Rect outer, Rect inner) {
     const tolerance = precisionErrorTolerance;
@@ -2448,6 +2451,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _transformSubscription?.cancel();
     _transformDebounceTimer?.cancel();
     _networkingDebounceTimer?.cancel();
+    _delayedBakeRunner.dispose();
     if (!state.networkingService.isClosed) {
       await state.networkingService.close();
     }
@@ -2606,7 +2610,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void _cancelDelayedBake() {
-    _delayedBakeId++;
+    _delayedBakeRunner.cancel();
   }
 
   Future<void> delayedBake(
@@ -2615,14 +2619,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     double? pixelRatio,
     bool reset = false,
     bool testTransform = false,
-  }) async {
-    final id = ++_delayedBakeId;
-    final transformCubit = state.transformCubit;
-
-    await Future.delayed(const Duration(milliseconds: 100));
-    if (_delayedBakeId != id) return;
-
-    final newTransform = transformCubit.state;
+  }) => _delayedBakeRunner.schedule(() async {
+    final newTransform = state.transformCubit.state;
     final viewport = state.cameraViewport;
 
     if (testTransform &&
@@ -2637,7 +2635,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       pixelRatio: pixelRatio,
       reset: reset,
     );
-  }
+  });
 
   void setUserName(String name) {
     emit(state.copyWith(userName: name));

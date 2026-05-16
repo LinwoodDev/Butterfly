@@ -3,6 +3,7 @@ part of 'handler.dart';
 class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
   Future<void>? _erasingFuture;
+  Offset? _queuedPosition;
   Offset? _currentPos, _lastErased;
   final Map<String, List<PadElement>> _pendingChanges = {};
 
@@ -54,6 +55,23 @@ class EraserHandler extends Handler<EraserTool> {
 
   //method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
   Future<void> _changeElement(Offset position, EventContext context) async {
+    if (_currentlyErasing) {
+      _queuedPosition = position;
+      await _erasingFuture;
+      return;
+    }
+    _currentlyErasing = true;
+    var nextPosition = position;
+    do {
+      _queuedPosition = null;
+      await _changeElementAt(nextPosition, context);
+      nextPosition = _queuedPosition ?? nextPosition;
+    } while (_queuedPosition != null);
+    _erasingFuture = null;
+    _currentlyErasing = false;
+  }
+
+  Future<void> _changeElementAt(Offset position, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
     final utilities = currentIndex.utilities;
@@ -65,8 +83,7 @@ class EraserHandler extends Handler<EraserTool> {
         (globalPos - _lastErased!).distanceSquared > sizeSquared;
     final page = context.getPage();
     if (page == null) return;
-    if (_currentlyErasing || !shouldErase) return;
-    _currentlyErasing = true;
+    if (!shouldErase) return;
     _lastErased = globalPos;
     final future = () async {
       final ray = await context.getDocumentBloc().rayCast(
@@ -133,8 +150,6 @@ class EraserHandler extends Handler<EraserTool> {
     }();
     _erasingFuture = future;
     await future;
-    _erasingFuture = null;
-    _currentlyErasing = false;
   }
 
   List<PadElement>? _cutPenElement(

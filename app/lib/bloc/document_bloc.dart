@@ -7,6 +7,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/async.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -112,6 +113,10 @@ String getInitialArea(DocumentPage? page) {
 }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
+  final _historyReloadRunner = CoalescedAsyncRunner(
+    delay: const Duration(milliseconds: 50),
+  );
+
   DocumentBloc(
     ButterflyFileSystem fileSystem,
     CurrentIndexCubit currentIndexCubit,
@@ -1458,6 +1463,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return state.currentIndexCubit?.reload(this);
   }
 
+  void _scheduleHistoryReload() =>
+      unawaited(_historyReloadRunner.schedule(reload));
+
   Future<void> createTemplate(
     String? remote, {
     String? directory,
@@ -1493,6 +1501,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   @override
   Future<void> close() async {
+    _historyReloadRunner.dispose();
     final currentState = state;
     final cubit = currentState.currentIndexCubit;
     if (cubit != null && !cubit.isClosed) {
@@ -1609,12 +1618,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   void sendUndo() {
     if (!(state.networkingService?.sendUndo() ?? false)) {
       undo();
+      _scheduleHistoryReload();
     }
   }
 
   void sendRedo() {
     if (!(state.networkingService?.sendRedo() ?? false)) {
       redo();
+      _scheduleHistoryReload();
     }
   }
 }
