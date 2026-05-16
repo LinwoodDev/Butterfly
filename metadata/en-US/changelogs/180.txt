@@ -2,6 +2,7 @@
 * Fix nested synced file discovery
 * Fix cached folders showing cache loading forever ([#1087](https://github.com/LinwoodDev/Butterfly/issues/1087))
 * Fix spacer tool not affecting circle shapes correctly
+* Fix shape type dropdowns keeping the first opened shape selected
 * Fix shape tools only drawing constrained shapes from top left to bottom right
 * Fix rectangular selection only working reliably from top left to bottom right
 
