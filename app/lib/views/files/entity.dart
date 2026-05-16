@@ -357,9 +357,13 @@ class ContextFileRegion extends StatelessWidget {
           ),
         if (entity is FileSystemFile<NoteFile>)
           MenuItemButton(
-            onPressed: () {
+            onPressed: () async {
               try {
-                final data = (entity as FileSystemFile<NoteFile>).data?.load();
+                final data = await loadFileSystemNoteData(
+                  documentSystem,
+                  entity as FileSystemFile<NoteFile>,
+                );
+                if (!context.mounted) return;
                 if (data == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(AppLocalizations.of(context).error)),

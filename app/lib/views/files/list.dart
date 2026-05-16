@@ -519,11 +519,13 @@ class FileEntityListTile extends StatelessWidget {
                   children: [
                     if (entity is FileSystemFile<NoteFile>)
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           try {
-                            final data = (entity as FileSystemFile<NoteFile>)
-                                .data
-                                ?.load();
+                            final data = await loadFileSystemNoteData(
+                              documentSystem,
+                              entity as FileSystemFile<NoteFile>,
+                            );
+                            if (!context.mounted) return;
                             if (data == null) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

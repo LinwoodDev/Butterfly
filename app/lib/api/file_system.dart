@@ -79,6 +79,20 @@ typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 
 final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
 
+Future<NoteData?> loadFileSystemNoteData(
+  DocumentFileSystem documentSystem,
+  FileSystemFile<NoteFile> file,
+) async {
+  try {
+    final asset = await documentSystem.getAsset(file.location.path);
+    if (asset is FileSystemFile<NoteFile>) {
+      final data = asset.data?.load();
+      if (data != null) return data;
+    }
+  } catch (_) {}
+  return file.data?.load();
+}
+
 class ButterflyFileSystem {
   // ignore: unused_field
   final BuildContext _context;
