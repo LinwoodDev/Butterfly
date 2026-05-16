@@ -199,6 +199,14 @@ class _ShapeViewState extends State<ShapeView> {
     _currentShape = widget.shape;
   }
 
+  @override
+  void didUpdateWidget(covariant ShapeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.shape != oldWidget.shape) {
+      _currentShape = widget.shape;
+    }
+  }
+
   void _onShapeChanged(PathShape shape) {
     setState(() {
       _currentShape = shape;
@@ -247,6 +255,7 @@ class _ShapeViewState extends State<ShapeView> {
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context).shape),
             trailing: DropdownMenu<String>(
+              key: ValueKey(_currentShape.runtimeType),
               initialSelection: _currentShape.getLocalizedName(context),
               dropdownMenuEntries: shapes.entries
                   .map(
