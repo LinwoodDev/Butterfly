@@ -59,8 +59,12 @@ class FileSyncStatusButton extends StatelessWidget {
             final syncFile = snapshot.data?.visibleFiles.values
                 .expand((files) => files)
                 .lastWhereOrNull((file) => _matches(file.location.path));
-            final status = syncFile?.status;
-            final loading = cached && syncFile == null;
+            final status =
+                syncFile?.status ??
+                (directory && cached && snapshot.hasData
+                    ? FileSyncStatus.synced
+                    : null);
+            final loading = cached && status == null;
             final colorScheme = ColorScheme.of(context);
             final icon = loading
                 ? PhosphorIconsLight.arrowClockwise
@@ -101,7 +105,7 @@ class FileSyncStatusButton extends StatelessWidget {
               tooltip: tooltip,
               onPressed: onPressed,
             );
-            if (!cached || syncFile?.needsSync != true) return button;
+            if (!cached || status?.needsSync != true) return button;
             return Badge(smallSize: 8, child: button);
           },
         );
@@ -134,6 +138,13 @@ class FileSyncStatusButton extends StatelessWidget {
     final normalizedPath = path.endsWith('/') ? path : '$path/';
     return syncPath.startsWith(normalizedPath);
   }
+}
+
+extension on FileSyncStatus {
+  bool get needsSync =>
+      this == FileSyncStatus.localLatest ||
+      this == FileSyncStatus.remoteLatest ||
+      this == FileSyncStatus.conflict;
 }
 
 class FileEntityListTile extends StatelessWidget {

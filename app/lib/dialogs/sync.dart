@@ -116,25 +116,22 @@ class _SyncDialogState extends State<SyncDialog> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        DropdownButtonFormField<String>(
-                          initialValue: selectedSync?.storage.identifier,
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context).connections,
-                            filled: true,
-                            prefixIcon: const PhosphorIcon(
-                              PhosphorIconsLight.cloud,
-                            ),
+                        DropdownMenu<String>(
+                          initialSelection: selectedSync?.storage.identifier,
+                          expandedInsets: EdgeInsets.zero,
+                          label: Text(AppLocalizations.of(context).connections),
+                          leadingIcon: const PhosphorIcon(
+                            PhosphorIconsLight.cloud,
                           ),
-                          items: syncs
+                          dropdownMenuEntries: syncs
                               .map(
-                                (sync) => DropdownMenuItem(
+                                (sync) => DropdownMenuEntry(
                                   value: sync.storage.identifier,
-                                  child: Text(sync.storage.label),
+                                  label: sync.storage.label,
                                 ),
                               )
                               .toList(),
-                          onChanged: (value) =>
+                          onSelected: (value) =>
                               setState(() => _selectedRemote = value),
                         ),
                         const SizedBox(height: 12),
@@ -153,15 +150,24 @@ class _SyncDialogState extends State<SyncDialog> {
   }
 }
 
-class _RemoteSyncView extends StatelessWidget {
+enum _SyncFileFilter { all, notSynced }
+
+class _RemoteSyncView extends StatefulWidget {
   final RemoteSync sync;
 
   const _RemoteSyncView({required this.sync});
 
   @override
+  State<_RemoteSyncView> createState() => _RemoteSyncViewState();
+}
+
+class _RemoteSyncViewState extends State<_RemoteSyncView> {
+  _SyncFileFilter _filter = _SyncFileFilter.all;
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<RemoteSyncState>(
-      stream: sync.stateStream,
+      stream: widget.sync.stateStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
@@ -188,6 +194,10 @@ class _RemoteSyncView extends StatelessWidget {
           }
         }
         final pendingFiles = allFiles.where((entry) => entry.$2.needsSync);
+        final filteredFiles = switch (_filter) {
+          _SyncFileFilter.all => allFiles,
+          _SyncFileFilter.notSynced => pendingFiles.toList(),
+        };
         final statusCounts = <FileSyncStatus, int>{};
         for (final (_, file) in allFiles) {
           statusCounts.update(
@@ -219,7 +229,32 @@ class _RemoteSyncView extends StatelessWidget {
           ),
         ];
         final fileChildren = [
-          Text(AppLocalizations.of(context).files),
+          Row(
+            children: [
+              Expanded(child: Text(AppLocalizations.of(context).files)),
+              SegmentedButton<_SyncFileFilter>(
+                showSelectedIcon: false,
+                segments: [
+                  ButtonSegment(
+                    value: _SyncFileFilter.all,
+                    icon: const PhosphorIcon(PhosphorIconsLight.files),
+                    label: Text('${allFiles.length}'),
+                    tooltip: AppLocalizations.of(context).files,
+                  ),
+                  ButtonSegment(
+                    value: _SyncFileFilter.notSynced,
+                    icon: const PhosphorIcon(PhosphorIconsLight.warning),
+                    label: Text('${pendingFiles.length}'),
+                    tooltip: AppLocalizations.of(context).notSynced,
+                  ),
+                ],
+                selected: {_filter},
+                onSelectionChanged: (selection) {
+                  setState(() => _filter = selection.single);
+                },
+              ),
+            ],
+          ),
           const SizedBox(height: 8),
           if (allFiles.isEmpty)
             Card(
@@ -228,10 +263,17 @@ class _RemoteSyncView extends StatelessWidget {
                 title: Text(AppLocalizations.of(context).notSynced),
               ),
             )
+          else if (filteredFiles.isEmpty)
+            Card(
+              child: ListTile(
+                leading: const PhosphorIcon(PhosphorIconsLight.check),
+                title: Text(AppLocalizations.of(context).synced),
+              ),
+            )
           else
-            ...allFiles.map(
+            ...filteredFiles.map(
               (entry) => _SyncFileCard(
-                sync: sync,
+                sync: widget.sync,
                 fileSystemType: entry.$1,
                 file: entry.$2,
               ),

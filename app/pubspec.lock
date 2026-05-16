@@ -737,18 +737,18 @@ packages:
     dependency: "direct main"
     description:
       name: json_annotation
-      sha256: cb09e7dac6210041fad964ed7fbee004f14258b4eca4040f72d1234062ace4c8
+      sha256: "2a743920d81b7910627f68ee2c9ac1fc0bfee32b9fc3403587d7c6791ca12f80"
       url: "https://pub.dev"
     source: hosted
-    version: "4.11.0"
+    version: "4.12.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: "2c15e78e1cc6e62aadecf59f81566fd56829713d96a8c4177699e2b2e17f20db"
+      sha256: ffcd10cde35a93b2abbbcc26bd9971f4ca93763e8abe78d855e3c4177797e501
       url: "https://pub.dev"
     source: hosted
-    version: "6.13.2"
+    version: "6.14.0"
   keybinder:
     dependency: "direct main"
     description:
@@ -802,8 +802,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: d3eab604143cac40036985a0483d97e352812ee4
-      resolved-ref: d3eab604143cac40036985a0483d97e352812ee4
+      ref: e55602daffbdfd437d60ef94865be922b66bc087
+      resolved-ref: e55602daffbdfd437d60ef94865be922b66bc087
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1081,10 +1081,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: "0caa00aca2032cee5755873e88af849448534b95680895bfc57746dc3b4aea0d"
+      sha256: e32e1b6f32e92e3c144dec3e389f1dca989f5f28c3a1886fb114a50cf7db863c
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "2.4.1"
   pdfrx_engine:
     dependency: transitive
     description:
