@@ -94,6 +94,9 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   SettingsCubit get settingsCubit => _settingsCubit;
 
   @override
+  void dispose() {}
+
+  @override
   Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
       buildPackSystem().updateFile(location.key, newPack);
 }

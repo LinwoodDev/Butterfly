@@ -20,7 +20,7 @@ class WebCloseSubscription extends CloseSubscription {
             'onbeforeunload',
           ).forTarget(window).listen((event) {
             final message = onClose();
-            if (message == null) return;
+            if (message is! String) return;
             event.returnValue = message;
           });
 

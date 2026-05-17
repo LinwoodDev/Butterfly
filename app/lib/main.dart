@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
@@ -402,11 +403,13 @@ class ButterflyApp extends StatelessWidget {
           }
           return RepositoryProvider(
             create: ButterflyFileSystem.build,
+            dispose: (fileSystem) => fileSystem.dispose(),
             child: RepositoryProvider(
               create: (context) =>
                   SyncService(context, context.read<ButterflyFileSystem>()),
+              dispose: (service) => service.dispose(),
               lazy: false,
-              child: child ?? Container(),
+              child: _WindowCloseGuard(child: child ?? Container()),
             ),
           );
         },
@@ -429,6 +432,34 @@ class ButterflyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class _WindowCloseGuard extends StatefulWidget {
+  final Widget child;
+
+  const _WindowCloseGuard({required this.child});
+
+  @override
+  State<_WindowCloseGuard> createState() => _WindowCloseGuardState();
+}
+
+class _WindowCloseGuardState extends State<_WindowCloseGuard> {
+  late final CloseSubscription _closeSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _closeSubscription = onPreventClose(context, () => null);
+  }
+
+  @override
+  void dispose() {
+    _closeSubscription.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 const flavor = String.fromEnvironment('flavor');

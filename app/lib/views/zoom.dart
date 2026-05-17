@@ -64,6 +64,31 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
     }
   }
 
+  void _zoom(double value, [bool bake = true]) {
+    final documentState = context.read<DocumentBloc>().state;
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final currentIndex = currentIndexCubit.state;
+    if (documentState is! DocumentLoaded) {
+      return;
+    }
+    final size = currentIndex.cameraViewport.toRealSize();
+    final center = Offset(size.width / 2, size.height / 2);
+    currentIndexCubit.size(value, center);
+    if (bake) {
+      currentIndexCubit.bake(documentState);
+    }
+
+    final settings = context.read<SettingsCubit>().state;
+    final windowState = context.read<WindowCubit>().state;
+    final hideZoom =
+        !settings.zoomEnabled ||
+        windowState.fullScreen ||
+        currentIndex.hideUi != HideState.visible;
+    if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
+      _controller.reverse();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
@@ -86,25 +111,6 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                           !settings.zoomEnabled ||
                           windowState.fullScreen ||
                           currentIndexCubit.state.hideUi != HideState.visible;
-                      void zoom(double value, [bool bake = true]) {
-                        final state = context.read<DocumentBloc>().state;
-                        final currentIndex = context
-                            .read<CurrentIndexCubit>()
-                            .state;
-                        if (state is! DocumentLoaded) {
-                          return;
-                        }
-                        final size = currentIndex.cameraViewport.toRealSize();
-                        final center = Offset(size.width / 2, size.height / 2);
-                        currentIndexCubit.size(value, center);
-                        if (bake) {
-                          currentIndexCubit.bake(state);
-                        }
-                        if ((!_focusNode.hasFocus && widget.isMobile) ||
-                            hideZoom) {
-                          _controller.reverse();
-                        }
-                      }
 
                       final body = StatefulBuilder(
                         builder: (context, setState) {
@@ -132,13 +138,13 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                               100,
                                         );
                                       },
-                                      onEditingComplete: () => zoom(scale),
+                                      onEditingComplete: () => _zoom(scale),
                                       onTapOutside: (event) {
                                         if (!_focusNode.hasFocus) return;
-                                        zoom(scale);
+                                        _zoom(scale);
                                         _focusNode.unfocus();
                                       },
-                                      onFieldSubmitted: (value) => zoom(scale),
+                                      onFieldSubmitted: (value) => _zoom(scale),
                                     ),
                                   ),
                                   const SizedBox(width: 8),
@@ -152,7 +158,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                             .clockCounterClockwise,
                                       ),
                                       onPressed: () {
-                                        zoom(1.0);
+                                        _zoom(1.0);
                                       },
                                     ),
                                   ),
@@ -164,8 +170,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                           min: kMinZoom,
                                           max: 10,
                                           onChanged: (value) =>
-                                              zoom(value, false),
-                                          onChangeEnd: zoom,
+                                              _zoom(value, false),
+                                          onChangeEnd: _zoom,
                                         ),
                                       ),
                                   ],

@@ -18,6 +18,12 @@ class PenRenderer extends Renderer<PenElement> {
   Path? _cachedStrokePath;
   PathHitCalculator? _cachedHitCalculator;
 
+  void _clearCachedPaths() {
+    _cachedFillPath = null;
+    _cachedStrokePath = null;
+    _cachedHitCalculator = null;
+  }
+
   void _computePaths() {
     final points = element.points;
     if (points.isEmpty) return;
@@ -114,8 +120,17 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    _computePaths();
     super.setup(transformCubit, document, assetService, page);
+  }
+
+  @override
+  void onHidden(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    ui.Size size,
+  ) {
+    _clearCachedPaths();
   }
 
   @override
@@ -284,6 +299,11 @@ class PenRenderer extends Renderer<PenElement> {
       rotation * pi / 180,
     );
     return _cachedHitCalculator!;
+  }
+
+  @override
+  void dispose() {
+    _clearCachedPaths();
   }
 }
 

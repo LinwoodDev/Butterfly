@@ -96,11 +96,21 @@ class AssetService {
     await invalidatePdfDocument(source);
   }
 
-  void dispose() {
-    _images.keys.toList().forEach(invalidateImage);
+  Future<void> dispose() async {
+    final imageFutures = _images.values.toList();
     _images.clear();
     _dataCache.clear();
-    _pdfs.keys.toList().forEach(invalidatePdfDocument);
+    final pdfFutures = _pdfs.values.toList();
     _pdfs.clear();
+    await Future.wait([
+      ...imageFutures.map((future) async {
+        final image = await future;
+        image?.dispose();
+      }),
+      ...pdfFutures.map((future) async {
+        final pdf = await future;
+        await pdf?.dispose();
+      }),
+    ]);
   }
 }

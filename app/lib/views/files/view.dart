@@ -109,7 +109,10 @@ class FilesViewState extends State<FilesView> {
     _templateSystem = _fileSystem.buildTemplateSystem();
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
     _filesStream = ValueConnectableStream(
-      _documentSystem.fetchAsset(_locationController.text),
+      _documentSystem.fetchAsset(
+        _locationController.text,
+        readData: widget.onPreview != null,
+      ),
     ).autoConnect();
     _templatesFuture = _templateSystem.initialize().then(
       (_) => _templateSystem.getFiles(),
@@ -912,20 +915,13 @@ class FilesViewState extends State<FilesView> {
       }
       final aFile = a as FileSystemFile<NoteFile>;
       final bFile = b as FileSystemFile<NoteFile>;
-      FileMetadata? aInfo, bInfo;
-      try {
-        aInfo = aFile.data?.display()?.getMetadata();
-      } catch (_) {}
-      try {
-        bInfo = bFile.data?.display()?.getMetadata();
-      } catch (_) {}
       switch (_sortBy) {
         case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.created:
-          final aCreatedAt = aFile.creationTime ?? aInfo?.createdAt;
-          final bCreatedAt = bFile.creationTime ?? bInfo?.createdAt;
+          final aCreatedAt = aFile.creationTime;
+          final bCreatedAt = bFile.creationTime;
           if (aCreatedAt == null && bCreatedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }
@@ -938,8 +934,8 @@ class FilesViewState extends State<FilesView> {
           final compared = bCreatedAt.compareTo(aCreatedAt);
           return _sortOrder == SortOrder.ascending ? compared : -compared;
         case SortBy.modified:
-          final aModifiedAt = aFile.lastModified ?? aInfo?.updatedAt;
-          final bModifiedAt = bFile.lastModified ?? bInfo?.updatedAt;
+          final aModifiedAt = aFile.lastModified;
+          final bModifiedAt = bFile.lastModified;
           if (aModifiedAt == null && bModifiedAt == null) {
             return aFile.fileName.compareTo(bFile.fileName);
           }

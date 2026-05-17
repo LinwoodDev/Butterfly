@@ -463,6 +463,7 @@ class NetworkingService extends Cubit<NetworkState?> {
 
   @override
   Future<void> close() async {
+    _bloc = null;
     _resetSubscription?.cancel();
     _resetSubscription = null;
     await closeNetworking();

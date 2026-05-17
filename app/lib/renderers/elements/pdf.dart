@@ -138,7 +138,7 @@ class PdfRenderer extends Renderer<PdfElement> {
       if (data == null || currentRenderId != _renderId) return;
 
       var renderScale = scale;
-      const double maxDimension = 4000.0;
+      const double maxDimension = 2048.0;
       final renderRect = rect;
       if (renderRect.width * renderScale > maxDimension) {
         renderScale = maxDimension / renderRect.width;

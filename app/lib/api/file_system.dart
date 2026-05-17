@@ -102,6 +102,7 @@ class ButterflyFileSystem {
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
+  StreamSubscription<ButterflySettings>? _settingsSubscription;
 
   ButterflyFileSystem(this._context, this.settingsCubit)
     : _documentConfig = FileSystemConfig(
@@ -138,7 +139,7 @@ class ButterflyFileSystem {
 
   void _listenSettings() {
     var previousState = settingsCubit.state;
-    settingsCubit.stream.listen((state) {
+    _settingsSubscription = settingsCubit.stream.listen((state) {
       if (state == previousState) return;
       final previousRemotes = previousState.connections.toSet();
       final currentRemotes = state.connections.toSet();
@@ -151,6 +152,14 @@ class ButterflyFileSystem {
       }
       previousState = state;
     });
+  }
+
+  void dispose() {
+    _settingsSubscription?.cancel();
+    _settingsSubscription = null;
+    _documentCache.clear();
+    _templateCache.clear();
+    _packCache.clear();
   }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
