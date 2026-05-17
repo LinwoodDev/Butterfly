@@ -1502,11 +1502,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   @override
   Future<void> close() async {
     _historyReloadRunner.dispose();
+    clearHistory();
     final currentState = state;
-    final cubit = currentState.currentIndexCubit;
-    if (cubit != null && !cubit.isClosed) {
-      await cubit.close();
-    }
     currentState.assetService?.dispose();
     return super.close();
   }

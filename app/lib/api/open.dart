@@ -138,12 +138,13 @@ Future<void> openFile(
     };
     final queryParams = <String, String>{'type': ?fileType};
     if (replace) {
-      return GoRouter.of(context).pushReplacementNamed(
+      GoRouter.of(context).goNamed(
         'remote',
         pathParameters: pathParams,
         queryParameters: queryParams,
         extra: data,
       );
+      return Future.value();
     } else {
       return GoRouter.of(context).pushNamed(
         'remote',
@@ -156,12 +157,13 @@ Future<void> openFile(
   final pathParams = {'path': location.pathWithoutLeadingSlash};
   final queryParams = <String, String>{'type': ?fileType};
   if (replace) {
-    return GoRouter.of(context).pushReplacementNamed(
+    GoRouter.of(context).goNamed(
       'local',
       pathParameters: pathParams,
       queryParameters: queryParams,
       extra: data,
     );
+    return Future.value();
   } else {
     return GoRouter.of(context).pushNamed(
       'local',

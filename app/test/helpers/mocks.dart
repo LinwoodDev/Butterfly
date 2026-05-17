@@ -12,7 +12,10 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   final DocumentFileSystem _documentFileSystem = buildMockDocumentFileSystem();
   final TemplateFileSystem _templateFileSystem = buildMockTemplateFileSystem();
   final PackFileSystem _packFileSystem = buildMockPackFileSystem();
-  final SettingsCubit _settingsCubit = MockSettingsCubit();
+  final SettingsCubit _settingsCubit;
+
+  MockButterflyFileSystem({SettingsCubit? settingsCubit})
+    : _settingsCubit = settingsCubit ?? MockSettingsCubit();
 
   @override
   Map<String, DocumentFileSystem> buildAllDocumentSystems({

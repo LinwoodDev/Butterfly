@@ -2455,6 +2455,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   @override
   Future<void> close() async {
+    final bloc = _documentBloc;
+    if (bloc != null) {
+      state.handler.dispose(bloc);
+      state.temporaryHandler?.dispose(bloc);
+      for (final handler in state.toggleableHandlers.values) {
+        handler.dispose(bloc);
+      }
+    }
+    _documentBloc = null;
+    _disposeAllForegrounds();
     for (final renderer in renderers) {
       renderer.dispose();
     }

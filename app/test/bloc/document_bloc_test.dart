@@ -29,10 +29,11 @@ Future<void> _settleBlocEvents() async {
 class _VisibleTrackingRenderer extends Renderer<PadElement> {
   int onVisibleCalls = 0;
   int onHiddenCalls = 0;
+  int disposeCalls = 0;
   CameraTransform? lastVisibleTransform;
   Size? lastVisibleSize;
 
-  _VisibleTrackingRenderer(super.element);
+  _VisibleTrackingRenderer(super.element, [super.layer]);
 
   @override
   Rect? get rect {
@@ -79,6 +80,12 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {}
+
+  @override
+  void dispose() {
+    disposeCalls++;
+    super.dispose();
+  }
 }
 
 class _BlockingReloadCurrentIndexCubit extends CurrentIndexCubit {
@@ -207,9 +214,15 @@ void main() {
   });
 
   tearDown(() async {
-    await bloc.close();
-    await currentIndexCubit.close();
-    await windowCubit.close();
+    if (!bloc.isClosed) {
+      await bloc.close();
+    }
+    if (!currentIndexCubit.isClosed) {
+      await currentIndexCubit.close();
+    }
+    if (!windowCubit.isClosed) {
+      await windowCubit.close();
+    }
   });
 
   test(
@@ -320,6 +333,48 @@ void main() {
     blockingCubit.releaseReload.complete();
     await stateChangedFuture;
     expect(stateChangedCompleted, isTrue);
+  });
+
+  test('current index close disposes initially loaded renderers', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final element = ShapeElement(
+      id: 'initial-renderer',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderer = _VisibleTrackingRenderer(element, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (newData, pageName) = data.setPage(page, 'Page');
+    data = newData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(unbakedElements: [renderer]),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      [renderer],
+      null,
+      page,
+      pageName,
+    );
+
+    await bloc.load();
+    expect(currentIndexCubit.renderers, contains(same(renderer)));
+
+    await currentIndexCubit.close();
+    expect(renderer.disposeCalls, 1);
   });
 
   test('failed visible renderer is retried', () async {

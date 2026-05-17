@@ -79,11 +79,36 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void didUpdateWidget(ProjectPage oldWidget) {
     if (oldWidget.location != widget.location) {
-      _bloc?.close();
+      _disposeDocumentState();
       _bloc = null;
       _load();
     }
     super.didUpdateWidget(oldWidget);
+  }
+
+  void _disposeDocumentState() {
+    final bloc = _bloc;
+    final currentIndexCubit = _currentIndexCubit;
+    final transformCubit = _transformCubit;
+    _bloc = null;
+    _currentIndexCubit = null;
+    _transformCubit = null;
+    _importService = null;
+    _exportService = null;
+
+    if (currentIndexCubit != null && !currentIndexCubit.isClosed) {
+      unawaited(currentIndexCubit.close());
+    }
+    if (transformCubit != null && !transformCubit.isClosed) {
+      unawaited(transformCubit.close());
+    }
+    if (bloc != null && !bloc.isClosed) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!bloc.isClosed) {
+          unawaited(bloc.close());
+        }
+      });
+    }
   }
 
   Future<void> _load() async {
@@ -226,8 +251,12 @@ class _ProjectPageState extends State<ProjectPage> {
       final pageName = document.getPages(true).firstOrNull;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
-      final renderers = page.content
-          .map((e) => Renderer.fromInstance(e))
+      final renderers = page.layers
+          .expand(
+            (layer) => layer.content.map(
+              (element) => Renderer.fromInstance(element, layer.id),
+            ),
+          )
           .toList();
       final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
@@ -237,12 +266,28 @@ class _ProjectPageState extends State<ProjectPage> {
               await e.setup(transformCubit, document!, assetService, page),
         ),
       );
+      if (!mounted) {
+        transformCubit.close();
+        assetService.dispose();
+        return;
+      }
       final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
       await Future.wait(
         backgrounds.map(
           (e) async => e.setup(transformCubit, document!, assetService, page),
         ),
       );
+      if (!mounted) {
+        transformCubit.close();
+        assetService.dispose();
+        for (final renderer in renderers) {
+          renderer.dispose();
+        }
+        for (final renderer in backgrounds) {
+          renderer.dispose();
+        }
+        return;
+      }
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
@@ -253,7 +298,10 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
-          CameraViewport.unbaked(backgrounds: backgrounds),
+          CameraViewport.unbaked(
+            backgrounds: backgrounds,
+            unbakedElements: renderers,
+          ),
           embedding: embedding,
           networkingService: networkingService,
           absolute: absolute,
@@ -295,6 +343,7 @@ class _ProjectPageState extends State<ProjectPage> {
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
+      if (!mounted) return;
       _bloc?.load();
     });
   }
@@ -303,9 +352,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void dispose() {
     widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
-    _bloc?.close();
-    _transformCubit?.close();
-    _currentIndexCubit?.close();
+    _disposeDocumentState();
     _searchController.dispose();
     super.dispose();
   }

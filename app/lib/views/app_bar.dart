@@ -461,11 +461,7 @@ class MainPopupMenu extends StatelessWidget {
                   final router = GoRouter.of(context);
                   final bloc = context.read<DocumentBloc>();
                   await bloc.save();
-                  if (router.canPop()) {
-                    router.pop();
-                  } else {
-                    router.go('/');
-                  }
+                  router.go('/');
                 },
               ),
               if (MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded ||

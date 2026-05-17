@@ -455,6 +455,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     points.clear();
     isDrawing = false;
     lastPosit = null;
+    _bloc = null;
   }
 
   @override

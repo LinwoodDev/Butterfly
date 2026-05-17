@@ -84,11 +84,10 @@ Future<void> openNewDocument(
   }
   final queryParams = <String, String>{'path': ?path, 'remote': ?remote};
   if (replace) {
-    return GoRouter.of(context).pushReplacementNamed(
-      'new',
-      queryParameters: queryParams,
-      extra: document,
-    );
+    GoRouter.of(
+      context,
+    ).goNamed('new', queryParameters: queryParams, extra: document);
+    return Future.value();
   } else {
     return GoRouter.of(
       context,
