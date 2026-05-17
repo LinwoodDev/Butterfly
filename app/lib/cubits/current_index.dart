@@ -264,13 +264,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     if (newVisible.isNotEmpty) {
       talker.verbose('Updating visible elements: ${newVisible.length} new');
-      await Future.wait(
-        newVisible.map(
-          (element) async =>
-              await element.onVisible(this, blocState, transform, size),
-        ),
+      final initialized = await Future.wait(
+        newVisible.map((element) async {
+          try {
+            await Future.sync(
+              () => element.onVisible(this, blocState, transform, size),
+            );
+            return element;
+          } catch (error, stackTrace) {
+            talker.error(
+              'Failed to initialize visible renderer $element',
+              error,
+              stackTrace,
+            );
+          }
+          return null;
+        }),
       );
-      _initializedElements.addAll(newVisible);
+      _initializedElements.addAll(initialized.nonNulls);
     }
 
     if (newlyHidden.isNotEmpty) {
@@ -2518,7 +2529,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     if (reset) {
-      reload(bloc, current);
+      await reload(bloc, current);
     } else {
       final refreshRequested = shouldRefresh?.call() == true;
       if (refreshRequested) {

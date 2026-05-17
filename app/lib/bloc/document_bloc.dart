@@ -226,14 +226,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: true,
       );
     });
-    on<PageChanged>((event, emit) {
+    on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       current.assetService.dispose();
       final data = current.data.setPage(current.page, current.pageName).$1;
       final page = data.getPage(event.pageName);
       if (page == null) return;
-      _saveState(
+      await _saveState(
         emit,
         state: current.copyWith(
           page: page,

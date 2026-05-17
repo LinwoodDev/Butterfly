@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/helpers/element.dart' as element_helper;
 import 'package:flutter/foundation.dart';
@@ -62,12 +63,17 @@ class AssetService {
   }
 
   Future<PdfDocument?> getPdfDocument(String source, NoteData document) async {
-    if (_pdfs.containsKey(source)) {
-      return _pdfs[source]!;
-    }
+    final cached = _pdfs[source];
+    if (cached != null) return cached;
     final future = _loadPdfDocument(source, document);
     _pdfs[source] = future;
-    return await future;
+    try {
+      return await future;
+    } catch (error, stackTrace) {
+      _pdfs.remove(source);
+      talker.error('Failed to load PDF document $source', error, stackTrace);
+      return null;
+    }
   }
 
   Future<PdfDocument?> _loadPdfDocument(

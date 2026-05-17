@@ -133,23 +133,24 @@ class PdfRenderer extends Renderer<PdfElement> {
     }
 
     final currentRenderId = ++_renderId;
-    final data = await assetService.getPdfDocument(element.source, document);
-    if (data == null || currentRenderId != _renderId) return;
-
-    var renderScale = scale;
-    const double maxDimension = 4000.0;
-    final renderRect = rect;
-    if (renderRect.width * renderScale > maxDimension) {
-      renderScale = maxDimension / renderRect.width;
-    }
-    if (renderRect.height * renderScale > maxDimension) {
-      renderScale = maxDimension / renderRect.height;
-    }
-
-    final width = (renderRect.width * renderScale).toInt();
-    final height = (renderRect.height * renderScale).toInt();
-    if (width <= 0 || height <= 0) return;
     try {
+      final data = await assetService.getPdfDocument(element.source, document);
+      if (data == null || currentRenderId != _renderId) return;
+
+      var renderScale = scale;
+      const double maxDimension = 4000.0;
+      final renderRect = rect;
+      if (renderRect.width * renderScale > maxDimension) {
+        renderScale = maxDimension / renderRect.width;
+      }
+      if (renderRect.height * renderScale > maxDimension) {
+        renderScale = maxDimension / renderRect.height;
+      }
+
+      final width = (renderRect.width * renderScale).toInt();
+      final height = (renderRect.height * renderScale).toInt();
+      if (width <= 0 || height <= 0) return;
+
       final raster = await data.pages
           .elementAtOrNull(element.page)
           ?.render(
@@ -188,7 +189,18 @@ class PdfRenderer extends Renderer<PdfElement> {
       image?.dispose();
       image = uiImage;
       renderedScale = scale;
-    } catch (_) {}
+    } catch (error, stackTrace) {
+      talker.error(
+        'Failed to render PDF element ${element.source}',
+        error,
+        stackTrace,
+      );
+      if (currentRenderId == _renderId) {
+        image?.dispose();
+        image = null;
+        renderedScale = null;
+      }
+    }
   }
 
   @override

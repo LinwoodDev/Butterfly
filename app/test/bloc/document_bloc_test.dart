@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 import '../helpers/mocks.dart';
 
@@ -76,6 +79,80 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {}
+}
+
+class _BlockingReloadCurrentIndexCubit extends CurrentIndexCubit {
+  _BlockingReloadCurrentIndexCubit(
+    super.settingsCubit,
+    super.transformCubit,
+    super.viewport,
+  );
+
+  final reloadStarted = Completer<void>();
+  final releaseReload = Completer<void>();
+
+  @override
+  Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) async {
+    if (!reloadStarted.isCompleted) {
+      reloadStarted.complete();
+    }
+    await releaseReload.future;
+  }
+}
+
+class _ThrowingVisibleRenderer extends Renderer<PadElement> {
+  int onVisibleCalls = 0;
+
+  _ThrowingVisibleRenderer(super.element, [super.layer]);
+
+  @override
+  Rect? get rect => const Rect.fromLTWH(10, 10, 10, 10);
+
+  @override
+  Future<void> onVisible(
+    CurrentIndexCubit currentIndexCubit,
+    DocumentLoaded blocState,
+    CameraTransform renderTransform,
+    Size size,
+  ) async {
+    onVisibleCalls++;
+    throw StateError('blocked');
+  }
+
+  @override
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]) {}
+}
+
+class _ThrowingPdfAssetService extends AssetService {
+  int pdfLoads = 0;
+
+  @override
+  Future<PdfDocument?> getPdfDocument(String source, NoteData document) async {
+    pdfLoads++;
+    throw StateError('blocked pdf');
+  }
+}
+
+class _FailingPdfDataAssetService extends AssetService {
+  int pdfLoads = 0;
+
+  @override
+  Future<Uint8List?> computeDataFromSource(
+    String source,
+    NoteData document,
+  ) async {
+    pdfLoads++;
+    throw StateError('blocked pdf data');
+  }
 }
 
 void main() {
@@ -172,6 +249,178 @@ void main() {
       );
     },
   );
+
+  test('reset state change waits for reload to finish', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final firstElement = ShapeElement(
+      id: 'first-page-element',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final secondElement = ShapeElement(
+      id: 'second-page-element',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final firstPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'first-page-layer', content: [firstElement]),
+      ],
+    );
+    final secondPage = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'second-page-layer', content: [secondElement]),
+      ],
+    );
+
+    var data = NoteData(Archive());
+    final (firstData, firstPageName) = data.setPage(firstPage, 'Page 1');
+    data = firstData;
+    final (secondData, secondPageName) = data.setPage(secondPage, 'Page 2');
+    data = secondData;
+    final secondRenderer = Renderer.fromInstance(secondElement);
+    final blockingCubit = _BlockingReloadCurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [secondRenderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    currentIndexCubit = blockingCubit;
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      [secondRenderer],
+      null,
+      secondPage,
+      secondPageName,
+    );
+
+    expect(firstPageName, isNot(secondPageName));
+
+    var stateChangedCompleted = false;
+    final stateChangedFuture = blockingCubit
+        .stateChanged(bloc.state as DocumentLoadSuccess, bloc, reset: true)
+        .then((_) {
+          stateChangedCompleted = true;
+        });
+    await blockingCubit.reloadStarted.future;
+
+    await Future<void>.delayed(Duration.zero);
+
+    expect(stateChangedCompleted, isFalse);
+
+    blockingCubit.releaseReload.complete();
+    await stateChangedFuture;
+    expect(stateChangedCompleted, isTrue);
+  });
+
+  test('failed visible renderer is retried', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final element = ShapeElement(
+      id: 'failed-visible',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderer = _ThrowingVisibleRenderer(element, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      [renderer],
+      null,
+      page,
+      pageName,
+    );
+
+    await currentIndexCubit.loadElements(bloc.state);
+    await currentIndexCubit.loadElements(bloc.state);
+
+    expect(renderer.onVisibleCalls, 2);
+  });
+
+  test('pdf renderer catches document load failures', () async {
+    await currentIndexCubit.close();
+
+    final element = PdfElement(source: 'test.pdf', width: 100, height: 100);
+    final renderer = PdfRenderer(element, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    final assetService = _ThrowingPdfAssetService();
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    final docState = DocumentLoadSuccess(
+      data,
+      page: page,
+      pageName: pageName,
+      fileSystem: fileSystem,
+      windowCubit: windowCubit,
+      assetService: assetService,
+      currentIndexCubit: currentIndexCubit,
+    );
+
+    await renderer.onVisible(
+      currentIndexCubit,
+      docState,
+      const CameraTransform(),
+      const Size(100, 100),
+    );
+
+    expect(assetService.pdfLoads, 1);
+    expect(renderer.image, isNull);
+    expect(renderer.renderedScale, isNull);
+  });
+
+  test('failed pdf document future is not cached', () async {
+    final assetService = _FailingPdfDataAssetService();
+    final data = NoteData(Archive());
+
+    expect(await assetService.getPdfDocument('test.pdf', data), isNull);
+    expect(await assetService.getPdfDocument('test.pdf', data), isNull);
+
+    expect(assetService.pdfLoads, 2);
+  });
 
   test('renaming active page updates current page name', () async {
     final initialState = bloc.state as DocumentLoadSuccess;
