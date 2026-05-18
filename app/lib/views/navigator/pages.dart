@@ -47,7 +47,6 @@ List<PageEntity> buildPageEntitiesForLocation(
           isFile: true,
         ),
       )
-      .where((e) => e.name.isNotEmpty)
       .toList();
   final files = queried.where((element) => !element.name.contains('/'));
   final folders = queried

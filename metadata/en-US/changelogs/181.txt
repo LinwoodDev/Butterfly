@@ -1,0 +1,3 @@
+* Fix empty page names are not visible in page navigator
+
+Read more here: https://linwood.dev/butterfly/2.5.2-rc.3

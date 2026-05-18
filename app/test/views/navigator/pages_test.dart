@@ -3,6 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('page navigator path helpers', () {
+    test('shows root untitled page', () {
+      final pages = [('', '0.')];
+
+      expect(buildPageEntitiesForLocation(pages, ''), [
+        (path: '0.', name: '', isFile: true),
+      ]);
+    });
+
     test('shows nested page as file inside its folder', () {
       final pages = [('folder/page', '0.folder/page')];
 
