@@ -9,5 +9,6 @@
 * Fix PDF pages failing to render after switching pages or retrying failed PDF loads
 * Fix exporting cached remote files while offline ([#1085](https://github.com/LinwoodDev/Butterfly/issues/1085))
 * Fix major memory leak when opening and closing documents with many pages
+* Fix file list not refreshing after changing show thumbnails setting
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.2
