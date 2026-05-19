@@ -673,6 +673,7 @@ class FilesViewState extends State<FilesView> {
                           for (final file in files) {
                             var result = file.$1;
                             var fileExtension = file.$2;
+                            final nameWithoutExtension = file.$3;
 
                             if (fileExtension == 'bin') {
                               // see https://github.com/LinwoodDev/Butterfly/issues/839
@@ -688,15 +689,19 @@ class FilesViewState extends State<FilesView> {
                             final importResult = await importService.load(
                               data: result,
                               type: fileExtension,
-                              document: templateFile,
+                              document:
+                                  templateFile?.createDocument(
+                                    name: nameWithoutExtension,
+                                  ) ??
+                                  DocumentDefaults.createDocument(
+                                    name: nameWithoutExtension,
+                                  ),
                             );
                             if (importResult == null) {
                               continue;
                             }
                             final document = await importResult.export();
                             setNativeData(result, fileExtension);
-
-                            final nameWithoutExtension = file.$3;
 
                             var docName = document.getMetadata()?.name;
                             if (docName == null || docName.trim().isEmpty) {

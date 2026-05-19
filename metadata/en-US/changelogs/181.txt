@@ -2,5 +2,6 @@
 * Fix sorting files by date not working correctly
 * Improve opening files from the Android share menu
 * Fix opening external files from absolute paths
+* Fix imported files being treated as templates
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.3
