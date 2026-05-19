@@ -1,4 +1,6 @@
 * Fix empty page names are not visible in page navigator
 * Fix sorting files by date not working correctly
+* Improve opening files from the Android share menu
+* Fix opening external files from absolute paths
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.3

@@ -2,7 +2,6 @@ package dev.linwood.butterfly;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,42 +20,65 @@ public class MainActivity extends FlutterActivity {
     private byte[] intentData = null;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        handleIntent(getIntent());
+    @Nullable
+    public String getInitialRoute() {
+        if (handleIntent(getIntent())) {
+            return "/intent";
+        }
+        return super.getInitialRoute();
     }
 
     @Override
     protected void onNewIntent(@NonNull Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        handleIntent(intent);
+        if (handleIntent(intent) && getFlutterEngine() != null) {
+            getFlutterEngine().getNavigationChannel().pushRoute("/intent");
+        }
     }
 
-    private void handleIntent(Intent intent) {
+    private boolean handleIntent(Intent intent) {
         String action = intent.getAction();
         String type = intent.getType();
 
-        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action) || Intent.ACTION_SEND.equals(action)) && type != null) {
+        if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action) || Intent.ACTION_SEND.equals(action)) {
             Uri uri = intent.getData();
+            if (uri == null) {
+                uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+            }
             if (uri == null && intent.getClipData() != null && intent.getClipData().getItemCount() > 0) {
                 uri = intent.getClipData().getItemAt(0).getUri();
             }
             if (uri != null) {
+                if (type == null) {
+                    type = getContentResolver().getType(uri);
+                }
+                if (type == null) {
+                    type = "application/octet-stream";
+                }
                 intentType = type;
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(uri);
                     if (inputStream != null) {
                         intentData = getBytes(inputStream);
                         inputStream.close();
+                        return true;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                     intentData = null;
                     intentType = null;
                 }
+            } else if (Intent.ACTION_SEND.equals(action) && intent.hasExtra(Intent.EXTRA_TEXT)) {
+                String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+                if (text != null) {
+                    intentType = type != null ? type : "text/plain";
+                    intentData = text.getBytes(StandardCharsets.UTF_8);
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     private byte[] getBytes(InputStream inputStream) throws IOException {

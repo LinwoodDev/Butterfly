@@ -298,7 +298,12 @@ class ButterflyApp extends StatelessWidget {
             name: 'native-path',
             builder: (context, state) {
               final path = state.pathParameters['path'] ?? '';
-              return ProjectPage(location: AssetLocation.local(path, true));
+              return ProjectPage(
+                location: AssetLocation.local(
+                  path.startsWith('/') ? path : '/$path',
+                ),
+                absolute: true,
+              );
             },
           ),
         ],
@@ -344,8 +349,6 @@ class ButterflyApp extends StatelessWidget {
         },
       ),
     ],
-    redirect: (context, state) =>
-        (state.uri.scheme == 'content') ? '/intent' : null,
   );
 
   // This widget is the root of your application.
