@@ -1,3 +1,4 @@
 * Fix empty page names are not visible in page navigator
+* Fix sorting files by date not working correctly
 
 Read more here: https://linwood.dev/butterfly/2.5.2-rc.3
