@@ -187,20 +187,20 @@ class ViewPainter extends CustomPainter {
       }
       canvas.clipRect(areaRect);
     }
-    if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
-      final image = cameraViewport.image;
-
+    final image = cameraViewport.image;
+    if (image != null &&
+        renderBaked &&
+        (cameraViewport.bakedElements.isNotEmpty ||
+            cameraViewport.visibleUnbakedElements.isNotEmpty)) {
       // Draw our baked image, scaling it down with drawImageRect.
-      if (image != null) {
-        try {
-          canvas.drawImageRect(
-            image,
-            Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-            bakedDst,
-            Paint(),
-          );
-        } catch (_) {}
-      }
+      try {
+        canvas.drawImageRect(
+          image,
+          Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+          bakedDst,
+          Paint(),
+        );
+      } catch (_) {}
     }
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);

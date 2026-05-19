@@ -168,6 +168,37 @@ class CameraViewport extends Equatable {
     invisibleLayers: invisibleLayers,
   );
 
+  CameraViewport replaceUnbaked(
+    List<Renderer<PadElement>> unbakedElements, {
+    List<Renderer<PadElement>>? visibleElements,
+    List<Renderer<PadElement>>? visibleUnbakedElements,
+    List<Renderer<Background>>? backgrounds,
+    Map<String, RendererState>? rendererStates,
+  }) => CameraViewport.baked(
+    backgrounds: backgrounds ?? this.backgrounds,
+    image: image,
+    width: width,
+    height: height,
+    scale: scale,
+    unbakedElements: unbakedElements,
+    bakedElements: const [],
+    pixelRatio: pixelRatio,
+    visibleElements: visibleElements ?? unbakedElements,
+    visibleUnbakedElements:
+        visibleUnbakedElements ??
+        _filterVisibleUnbaked(
+          visibleElements ?? unbakedElements,
+          unbakedElements,
+        ),
+    x: x,
+    y: y,
+    aboveLayerImage: aboveLayerImage,
+    belowLayerImage: belowLayerImage,
+    resolution: resolution,
+    rendererStates: rendererStates ?? this.rendererStates,
+    invisibleLayers: invisibleLayers,
+  );
+
   CameraViewport unbake({
     List<Renderer<Background>>? backgrounds,
     List<Renderer<PadElement>>? unbakedElements,

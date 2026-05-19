@@ -1672,6 +1672,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(cameraViewport: newViewport));
   }
 
+  Future<void> replaceUnbaked(
+    DocumentLoaded blocState,
+    List<Renderer<PadElement>> unbakedElements, {
+    List<Renderer<Background>>? backgrounds,
+  }) async {
+    final visibleElements = unbakedElements
+        .where((e) => e.isVisible(getViewportRect()))
+        .toList();
+    final newViewport = state.cameraViewport.replaceUnbaked(
+      unbakedElements,
+      visibleElements: visibleElements,
+      visibleUnbakedElements: visibleElements,
+      backgrounds: backgrounds,
+    );
+    await _updateOnVisible(newViewport, blocState);
+    emit(state.copyWith(cameraViewport: newViewport));
+  }
+
   Future<void> loadElements(
     DocumentState docState, {
     bool reset = false,
@@ -2520,12 +2538,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
 
-    if (replacedElements != null || unbake) {
+    if (replacedElements != null) {
+      await current.currentIndexCubit.replaceUnbaked(blocState, [
+        ...replacedElements,
+        ...addedElements,
+      ], backgrounds: backgrounds);
+    } else if (unbake) {
       await current.currentIndexCubit.unbake(
         blocState,
-        unbakedElements: replacedElements == null
-            ? null
-            : [...replacedElements, ...addedElements],
         backgrounds: backgrounds,
       );
     } else if (backgrounds != null) {
