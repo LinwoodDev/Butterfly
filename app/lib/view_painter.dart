@@ -145,11 +145,11 @@ class ViewPainter extends CustomPainter {
       }
     }
     final belowLayerImage = cameraViewport.belowLayerImage;
-    final bakedSizeDiff =
-        (transform.size - cameraViewport.scale) / cameraViewport.scale;
-    final bakedSize = cameraViewport.toSize();
-    final pos = transform.globalToLocal(cameraViewport.toOffset());
-    final bakedDst = pos & bakedSize * (1 + bakedSizeDiff);
+    final bakedRect = cameraViewport.toRect();
+    final bakedDst = Rect.fromPoints(
+      transform.globalToLocal(bakedRect.topLeft),
+      transform.globalToLocal(bakedRect.bottomRight),
+    );
     if (renderBakedLayers && belowLayerImage != null) {
       canvas.drawImageRect(
         belowLayerImage,
