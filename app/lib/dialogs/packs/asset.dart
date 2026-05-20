@@ -142,7 +142,7 @@ Future<void> addToPack(
   if (result == null) return;
   var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
-  final screenshot = await state.currentIndexCubit.render(
+  final screenshot = await bloc.currentIndexCubit.render(
     state.data,
     state.page,
     state.info,
@@ -164,7 +164,7 @@ Future<void> addToPack(
   await Future.wait(
     renderers.map(
       (e) async => e.setup(
-        state.transformCubit,
+        bloc.transformCubit,
         state.data,
         state.assetService,
         state.page,

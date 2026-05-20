@@ -326,10 +326,7 @@ class NetworkingService extends Cubit<NetworkState?> {
               final users = Map<Channel, NetworkingUser>.from(_users.value)
                 ..[message.channel] = user;
               _emitUsers(users);
-              _bloc?.state.currentIndexCubit?.updateNetworkingState(
-                _bloc!,
-                users,
-              );
+              _bloc?.currentIndexCubit.updateNetworkingState(_bloc!, users);
             }),
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {

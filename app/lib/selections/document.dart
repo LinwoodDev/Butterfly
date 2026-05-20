@@ -145,8 +145,10 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ListTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.camera),
                   onTap: () async {
-                    final viewport =
-                        state.currentIndexCubit.state.cameraViewport;
+                    final cubit = context
+                        .read<DocumentBloc>()
+                        .currentIndexCubit;
+                    final viewport = cubit.state.cameraViewport;
                     final rect = viewport.toRealRect();
                     final targetAspectRatio =
                         kThumbnailWidth / kThumbnailHeight;
@@ -160,7 +162,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     final heightOffset = (rect.height - captureHeight) / 2;
                     final quality =
                         kThumbnailWidth / (captureWidth * viewport.scale);
-                    final thumbnail = await state.currentIndexCubit.render(
+                    final thumbnail = await cubit.render(
                       state.data,
                       state.page,
                       state.info,

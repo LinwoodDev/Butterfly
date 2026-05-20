@@ -158,10 +158,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                                       is! DocumentLoadSuccess) {
                                                     return;
                                                   }
-                                                  state
-                                                      .currentIndexCubit
-                                                      .state
-                                                      .transformCubit
+                                                  bloc.transformCubit
                                                       .teleportToWaypoint(
                                                         Waypoint.defaultOrigin,
                                                       );
@@ -382,8 +379,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
             final bloc = context.read<DocumentBloc>();
             final state = bloc.state;
             if (state is! DocumentLoadSuccess) return;
-            final transform =
-                state.currentIndexCubit.state.transformCubit.state;
+            final transform = bloc.transformCubit.state;
             final String? name = _replacing
                 ? widget.waypoint!.name
                 : _nameController.text;

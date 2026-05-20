@@ -43,7 +43,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
   @override
   void initState() {
     super.initState();
-    _transform = widget.state.transformCubit.state;
+    _transform = context.read<DocumentBloc>().transformCubit.state;
   }
 
   _CropHandle _getHandleForOffset(Offset offset) {
@@ -102,7 +102,11 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final cameraViewport = widget.state.currentIndexCubit.state.cameraViewport;
+    final cameraViewport = context
+        .read<DocumentBloc>()
+        .currentIndexCubit
+        .state
+        .cameraViewport;
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).captureThumbnail),
       constraints: const BoxConstraints(
@@ -127,7 +131,10 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
                     (constraints.maxHeight / appSize.height),
                   );
 
-                  final baseTransform = widget.state.transformCubit.state;
+                  final baseTransform = context
+                      .read<DocumentBloc>()
+                      .transformCubit
+                      .state;
                   final newSize = baseTransform.size * scale;
 
                   final appCenter = Offset(
@@ -503,14 +510,16 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
       scale: scale,
     );
 
-    final thumbnail = await widget.state.currentIndexCubit.render(
+    final currentIndexCubit = context.read<DocumentBloc>().currentIndexCubit;
+    final thumbnail = await currentIndexCubit.render(
       widget.state.data,
       widget.state.page,
       widget.state.info,
       options,
       invisibleLayers: widget.state.invisibleLayers,
-      cameraViewport: widget.state.currentIndexCubit.state.cameraViewport
-          .unbake(unbakedElements: widget.state.renderers),
+      cameraViewport: currentIndexCubit.state.cameraViewport.unbake(
+        unbakedElements: widget.state.renderers,
+      ),
       docState: widget.state,
     );
 

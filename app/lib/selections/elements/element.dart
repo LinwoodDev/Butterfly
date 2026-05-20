@@ -129,12 +129,13 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   bool get showDeleteButton => true;
 
   Future<void> updateElements(BuildContext context, List<T> elements) async {
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     final page = state.page;
     final document = state.data;
     final assetService = state.assetService;
-    final transformCubit = state.transformCubit;
+    final transformCubit = bloc.transformCubit;
     final renderers = await Future.wait(
       elements.map((e) async {
         final renderer = Renderer.fromInstance(e);

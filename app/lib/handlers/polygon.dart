@@ -392,7 +392,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       bloc.add(ElementsCreated([element]));
     }
     _resetTool();
-    bloc.state.currentIndexCubit?.resetTemporaryHandler(bloc, true);
+    bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
     bloc.delayedBake();
     bloc.refreshToolbar();
   }
@@ -413,7 +413,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       _resetTool();
       bloc.refreshForegrounds();
       bloc.refreshToolbar();
-      bloc.state.currentIndexCubit?.resetTemporaryHandler(bloc, true);
+      bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
       return;
     }
 
@@ -426,7 +426,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         bloc.refresh();
       }
       _resetTool();
-      bloc.state.currentIndexCubit?.resetTemporaryHandler(bloc, true);
+      bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
     } else {
       _selectedPointIndex = max(0, selectedIndex - 1);
     }

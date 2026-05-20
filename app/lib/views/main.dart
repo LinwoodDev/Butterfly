@@ -68,6 +68,7 @@ class _ProjectPageState extends State<ProjectPage> {
   final SearchController _searchController = SearchController();
   late final CloseSubscription _closeSubscription;
   final GlobalKey _viewportKey = GlobalKey();
+  int _loadGeneration = 0;
 
   @override
   void initState() {
@@ -78,40 +79,34 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void didUpdateWidget(ProjectPage oldWidget) {
-    if (oldWidget.location != widget.location) {
+    if (oldWidget.location != widget.location ||
+        oldWidget.absolute != widget.absolute ||
+        oldWidget.type != widget.type ||
+        !identical(oldWidget.data, widget.data) ||
+        oldWidget.uri != widget.uri) {
       _disposeDocumentState();
-      _bloc = null;
       _load();
     }
     super.didUpdateWidget(oldWidget);
   }
 
   void _disposeDocumentState() {
+    _loadGeneration++;
     final bloc = _bloc;
-    final currentIndexCubit = _currentIndexCubit;
-    final transformCubit = _transformCubit;
     _bloc = null;
     _currentIndexCubit = null;
     _transformCubit = null;
     _importService = null;
     _exportService = null;
 
-    if (currentIndexCubit != null && !currentIndexCubit.isClosed) {
-      unawaited(currentIndexCubit.close());
-    }
-    if (transformCubit != null && !transformCubit.isClosed) {
-      unawaited(transformCubit.close());
-    }
     if (bloc != null && !bloc.isClosed) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!bloc.isClosed) {
-          unawaited(bloc.close());
-        }
-      });
+      unawaited(bloc.close());
     }
   }
 
   Future<void> _load() async {
+    final loadGeneration = ++_loadGeneration;
+    bool isCurrentLoad() => mounted && loadGeneration == _loadGeneration;
     final settingsCubit = context.read<SettingsCubit>();
     final windowCubit = context.read<WindowCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
@@ -120,6 +115,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final remote = settingsCubit.getRemote(location?.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     final embedding = widget.embedding;
+
     if (embedding != null) {
       var language = embedding.language;
       if (language == 'system') {
@@ -130,6 +126,41 @@ class _ProjectPageState extends State<ProjectPage> {
       }
     }
     final networkingService = NetworkingService();
+    final pendingRenderers = <Renderer>[];
+    final pendingBackgrounds = <Renderer>[];
+    AssetService? pendingAssetService;
+    TransformCubit? pendingTransformCubit;
+    var runtimeCommitted = false;
+
+    Future<void> disposePendingRuntime({
+      bool closeNetworkingService = true,
+    }) async {
+      if (runtimeCommitted) {
+        return;
+      }
+      final transformCubit = pendingTransformCubit;
+      if (transformCubit != null && !transformCubit.isClosed) {
+        await transformCubit.close();
+      }
+      pendingTransformCubit = null;
+      final assetService = pendingAssetService;
+      pendingAssetService = null;
+      if (assetService != null) {
+        await assetService.dispose();
+      }
+      for (final renderer in pendingRenderers) {
+        renderer.dispose();
+      }
+      pendingRenderers.clear();
+      for (final renderer in pendingBackgrounds) {
+        renderer.dispose();
+      }
+      pendingBackgrounds.clear();
+      if (closeNetworkingService && !networkingService.isClosed) {
+        await networkingService.close();
+      }
+    }
+
     final pixelRatio = MediaQuery.devicePixelRatioOf(context);
     try {
       final globalImportService = ImportService(context);
@@ -175,7 +206,10 @@ class _ProjectPageState extends State<ProjectPage> {
           !failedToLoad) {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
-          if (!mounted) return;
+          if (!isCurrentLoad()) {
+            await disposePendingRuntime();
+            return;
+          }
           if (asset is FileSystemFile<NoteFile>) {
             final NoteData? noteData = await globalImportService
                 .load(
@@ -210,7 +244,10 @@ class _ProjectPageState extends State<ProjectPage> {
           }
         }
       }
-      if (!mounted) return;
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
+        return;
+      }
       if (failedToLoad) {
         setState(() {
           _transformCubit = TransformCubit(pixelRatio);
@@ -222,19 +259,22 @@ class _ProjectPageState extends State<ProjectPage> {
           );
           _bloc = DocumentBloc.error(
             fileSystem,
+            _currentIndexCubit!,
             windowCubit,
             AppLocalizations.of(context).errorWhileImportingContent,
           );
           _importService = ImportService(context, bloc: _bloc);
           _exportService = ExportService(context, _bloc);
         });
+        runtimeCommitted = true;
         return;
       }
       var documentOpened = document != null;
       if (!documentOpened && !absolute) {
         location = null;
       }
-      if (!mounted) {
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
         return;
       }
       if (document == null) {
@@ -260,38 +300,38 @@ class _ProjectPageState extends State<ProjectPage> {
           .toList();
       final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
+      pendingAssetService = assetService;
+      pendingTransformCubit = transformCubit;
+      pendingRenderers.addAll(renderers);
       await Future.wait(
         renderers.map(
           (e) async =>
               await e.setup(transformCubit, document!, assetService, page),
         ),
       );
-      if (!mounted) {
-        transformCubit.close();
-        assetService.dispose();
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
         return;
       }
       final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
+      pendingBackgrounds.addAll(backgrounds);
       await Future.wait(
         backgrounds.map(
           (e) async => e.setup(transformCubit, document!, assetService, page),
         ),
       );
-      if (!mounted) {
-        transformCubit.close();
-        assetService.dispose();
-        for (final renderer in renderers) {
-          renderer.dispose();
-        }
-        for (final renderer in backgrounds) {
-          renderer.dispose();
-        }
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
         return;
       }
       location ??= AssetLocation(
         path: widget.location?.path ?? '',
         remote: remote?.identifier ?? '',
       );
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
+        return;
+      }
       setState(() {
         _transformCubit = transformCubit;
         _transformCubit?.teleportToWaypoint(page.getOriginWaypoint());
@@ -312,7 +352,6 @@ class _ProjectPageState extends State<ProjectPage> {
           windowCubit,
           document!,
           location!,
-          renderers,
           assetService,
           page,
           pageName,
@@ -321,11 +360,20 @@ class _ProjectPageState extends State<ProjectPage> {
         _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);
       });
+      runtimeCommitted = true;
+      pendingAssetService = null;
+      pendingTransformCubit = null;
+      pendingRenderers.clear();
+      pendingBackgrounds.clear();
     } catch (e, stackTrace) {
       if (kDebugMode) {
         print(e);
       }
-      if (!mounted) return;
+      if (!isCurrentLoad()) {
+        await disposePendingRuntime();
+        return;
+      }
+      await disposePendingRuntime(closeNetworkingService: false);
       setState(() {
         _transformCubit = TransformCubit(pixelRatio);
         _currentIndexCubit = CurrentIndexCubit(
@@ -336,14 +384,16 @@ class _ProjectPageState extends State<ProjectPage> {
         );
         _bloc = DocumentBloc.error(
           fileSystem,
+          _currentIndexCubit!,
           windowCubit,
           e.toString(),
           stackTrace,
         );
       });
+      runtimeCommitted = true;
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
-      if (!mounted) return;
+      if (!isCurrentLoad()) return;
       _bloc?.load();
     });
   }

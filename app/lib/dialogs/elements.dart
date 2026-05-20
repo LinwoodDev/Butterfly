@@ -24,7 +24,7 @@ ContextMenuBuilder buildElementsContextMenu(
   List<Renderer<PadElement>> renderers,
   Rect? rect,
 ) {
-  final cubit = state.currentIndexCubit;
+  final cubit = bloc.currentIndexCubit;
   final settingsCubit = state.settingsCubit;
   final operations =
       Map<
@@ -45,9 +45,7 @@ ContextMenuBuilder buildElementsContextMenu(
               importService
                   .importClipboard(
                     state.data,
-                    position: state.transformCubit.state.localToGlobal(
-                      position,
-                    ),
+                    position: bloc.transformCubit.state.localToGlobal(position),
                   )
                   .then((e) => e?.submit());
             } catch (_) {}
@@ -92,7 +90,7 @@ ContextMenuBuilder buildElementsContextMenu(
                 .toList();
             for (final renderer in transforms) {
               await renderer.setup(
-                state.transformCubit,
+                bloc.transformCubit,
                 document,
                 assetService,
                 page,

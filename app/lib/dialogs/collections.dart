@@ -95,8 +95,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       Navigator.pop(context);
-                      final cubit = bloc.state.currentIndexCubit;
-                      if (cubit == null) return;
+                      final cubit = bloc.currentIndexCubit;
                       final handler =
                           cubit.fetchHandler<SelectHandler>() ??
                           await cubit.changeTemporaryHandler(

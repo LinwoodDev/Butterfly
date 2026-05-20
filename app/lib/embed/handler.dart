@@ -85,7 +85,7 @@ class EmbedHandler {
           scale = _mapDouble(map, 'scale', 1);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await state.currentIndexCubit.render(
+        final data = await bloc.currentIndexCubit.render(
           state.data,
           state.page,
           state.info,
@@ -121,7 +121,7 @@ class EmbedHandler {
         }
         sendEmbedMessage(
           'renderSVG',
-          state.currentIndexCubit
+          bloc.currentIndexCubit
               .renderSVG(
                 state.data,
                 state.page,

@@ -44,14 +44,13 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
         constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 700),
         child: BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
-              previous.currentIndexCubit != current.currentIndexCubit ||
               previous.page != current.page ||
               previous.pageName != current.pageName,
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) {
               return const Center(child: CircularProgressIndicator());
             }
-            final currentIndex = state.currentIndexCubit;
+            final currentIndex = context.read<DocumentBloc>().currentIndexCubit;
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -220,11 +219,14 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     if (state is! DocumentLoadSuccess) return;
     final loading = showLoadingDialog(context);
     try {
-      final pdf = await state.currentIndexCubit.renderPDF(
-        state,
-        areas: _areas.map((e) => e.preset).toList(),
-        onProgress: (progress) => loading?.setProgress(progress),
-      );
+      final pdf = await context
+          .read<DocumentBloc>()
+          .currentIndexCubit
+          .renderPDF(
+            state,
+            areas: _areas.map((e) => e.preset).toList(),
+            onProgress: (progress) => loading?.setProgress(progress),
+          );
       if (pdf == null) {
         throw Exception('Failed to generate PDF.');
       }

@@ -127,11 +127,11 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   ContextMenuItem? getContextMenuItem(DocumentBloc bloc, BuildContext context) {
     return ContextMenuItem(
       onPressed: () async {
-        bloc.state.currentIndexCubit
-            ?.fetchHandler<SelectHandler>()
-            ?.clearSelection(bloc);
+        bloc.currentIndexCubit.fetchHandler<SelectHandler>()?.clearSelection(
+          bloc,
+        );
         final polygon =
-            await bloc.state.currentIndexCubit?.changeTemporaryHandler(
+            await bloc.currentIndexCubit.changeTemporaryHandler(
                   context,
                   PolygonTool(property: element.property),
                   bloc: bloc,

@@ -5,8 +5,11 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/template.dart';
+import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_picker/file_picker.dart';
@@ -144,10 +147,20 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             providers: [
                               BlocProvider(
                                 lazy: false,
-                                create: (ctx) => DocumentBloc.placeholder(
-                                  context.read<ButterflyFileSystem>(),
-                                  context.read<WindowCubit>(),
-                                ),
+                                create: (ctx) {
+                                  final transformCubit = TransformCubit(
+                                    MediaQuery.devicePixelRatioOf(context),
+                                  );
+                                  return DocumentBloc.placeholder(
+                                    context.read<ButterflyFileSystem>(),
+                                    CurrentIndexCubit(
+                                      context.read<SettingsCubit>(),
+                                      transformCubit,
+                                      CameraViewport.unbaked(),
+                                    ),
+                                    context.read<WindowCubit>(),
+                                  );
+                                },
                               ),
                             ],
                             child: const PacksDialog(globalOnly: true),

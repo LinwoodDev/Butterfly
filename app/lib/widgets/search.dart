@@ -106,14 +106,14 @@ class SearchButton extends StatelessWidget {
             onTap: () {
               final state = bloc.state;
               if (state is! DocumentLoaded) return;
-              final cubit = state.currentIndexCubit;
+              final cubit = bloc.currentIndexCubit;
               final position = result.getPosition();
               final page = result.getPage();
               if (page != null) {
                 bloc.add(PageChanged(page));
               }
               if (position != null) {
-                state.transformCubit.teleport(position.toOffset());
+                bloc.transformCubit.teleport(position.toOffset());
               }
               cubit.bake(state);
               if (result is ToolResult) {
