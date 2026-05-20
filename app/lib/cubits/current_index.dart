@@ -339,7 +339,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    if (blocState.embedding?.editable == false) {
+    if (state.embedding?.editable == false) {
       return null;
     }
     final document = blocState.data;
@@ -2446,11 +2446,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       );
       final blocState = bloc.state;
-      final currentData = await blocState.saveData();
+      final currentData = await blocState.saveData(null, state.viewOption);
       if (isClosed) {
         return current;
       }
-      if (currentData == null || blocState.embedding != null) {
+      if (currentData == null || state.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
         return AssetLocation.empty;
       }
@@ -2586,7 +2586,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
 
     setSaveState(saved: SaveState.unsaved);
-    if (current.embedding != null) {
+    if (state.embedding != null) {
       return;
     }
     if (reset) {
@@ -2605,7 +2605,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (updateIndex) {
       this.updateIndex(bloc);
     }
-    if (current.hasAutosave()) {
+    if (current.hasAutosave(state.networkingService, state.embedding)) {
       save(bloc, isAutosave: true);
     }
   }

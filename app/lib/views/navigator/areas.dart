@@ -176,7 +176,9 @@ class _AreasViewState extends State<AreasView> {
                 bloc,
                 area,
                 context.read<SettingsCubit>(),
-                state.renderers
+                context
+                    .read<CurrentIndexCubit>()
+                    .renderers
                     .where((e) => e.area == area)
                     .map(
                       (e) => e.transform(

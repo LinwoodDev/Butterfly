@@ -78,7 +78,7 @@ ContextMenuBuilder buildAreaContextMenu(
       bloc,
       area,
       settingsCubit,
-      state.renderers
+      cubit.renderers
           .where((e) => e.area == area)
           .map(
             (e) => e.transform(

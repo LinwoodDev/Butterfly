@@ -448,13 +448,8 @@ void main() {
       fileSystem: fileSystem,
       windowCubit: windowCubit,
       assetService: assetService,
-      networkingService: currentIndexCubit.state.networkingService,
-      embedding: currentIndexCubit.state.embedding,
       location: currentIndexCubit.state.location,
       absolute: currentIndexCubit.state.absolute,
-      saved: currentIndexCubit.state.saved,
-      cameraViewport: currentIndexCubit.state.cameraViewport,
-      viewOption: currentIndexCubit.state.viewOption,
     );
 
     await renderer.onVisible(

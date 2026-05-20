@@ -421,8 +421,7 @@ class _ProjectPageState extends State<ProjectPage> {
       ],
       child: BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) =>
-            previous.runtimeType != current.runtimeType ||
-            previous.embedding?.editable != current.embedding?.editable,
+            previous.runtimeType != current.runtimeType,
         builder: (context, state) {
           if (state is DocumentLoadFailure) {
             return ErrorPage(
@@ -447,7 +446,11 @@ class _ProjectPageState extends State<ProjectPage> {
                 builder: (context, windowState) =>
                     BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                       buildWhen: (previous, current) =>
-                          previous.hideUi != current.hideUi,
+                          previous.hideUi != current.hideUi ||
+                          previous.embedding?.editable !=
+                              current.embedding?.editable ||
+                          previous.embedding?.isInternal !=
+                              current.embedding?.isInternal,
                       builder: (context, currentIndex) =>
                           BlocBuilder<SettingsCubit, ButterflySettings>(
                             buildWhen: (previous, current) =>
@@ -490,11 +493,15 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 context,
                                               ),
                                               inView:
-                                                  state.embedding?.isInternal ??
+                                                  currentIndex
+                                                      .embedding
+                                                      ?.isInternal ??
                                                   false,
                                               showTools:
                                                   settings.isInline &&
-                                                  state.embedding?.editable !=
+                                                  currentIndex
+                                                          .embedding
+                                                          ?.editable !=
                                                       false,
                                             ),
                                       body: const _MainBody(),

@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly/services/asset.dart';
@@ -31,7 +32,6 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
-import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
@@ -957,7 +957,13 @@ class ImportService {
     switch (fileType) {
       case AssetFileType.note:
       case AssetFileType.textNote:
-        exportData(context, await state.saveData());
+        exportData(
+          context,
+          await state.saveData(
+            null,
+            context.read<CurrentIndexCubit>().state.viewOption,
+          ),
+        );
         break;
       case AssetFileType.image:
         return showDialog<void>(

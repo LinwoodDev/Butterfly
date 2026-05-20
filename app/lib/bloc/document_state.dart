@@ -17,17 +17,16 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
-  NetworkingService? get networkingService => null;
-  Embedding? get embedding => null;
   SettingsCubit get settingsCubit => fileSystem.settingsCubit;
   Area? get currentArea => null;
   String? get currentCollection => null;
 
   String? get currentLayer => null;
 
-  Future<NoteData?> saveData([NoteData? current]) => Future.value(data);
-  Future<Uint8List?> saveBytes([NoteData? current]) =>
-      saveData().then((e) => e?.exportAsBytes());
+  Future<NoteData?> saveData([NoteData? current, ViewOption? viewOption]) =>
+      Future.value(data);
+  Future<Uint8List?> saveBytes([NoteData? current, ViewOption? viewOption]) =>
+      saveData(current, viewOption).then((e) => e?.exportAsBytes());
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -68,26 +67,14 @@ abstract class DocumentLoaded extends DocumentState {
   final FileMetadata metadata;
   @override
   final AssetService assetService;
-  @override
-  final NetworkingService networkingService;
-  @override
-  final Embedding? embedding;
   final AssetLocation location;
   final bool absolute;
-  final SaveState saved;
-  final CameraViewport cameraViewport;
-  final ViewOption viewOption;
-
-  List<Renderer<PadElement>> get renderers => [
-    ...cameraViewport.bakedElements,
-    ...cameraViewport.unbakedElements,
-  ];
 
   Future<NoteData> _updatePage(NoteData current) async =>
       current.setRawPage(await compute(_encodePage, page), pageName).$1;
   NoteData _updateMetadata(NoteData current) =>
       current.setMetadata(metadata.copyWith(updatedAt: DateTime.now().toUtc()));
-  NoteData _updateInfo(NoteData current) =>
+  NoteData _updateInfo(NoteData current, ViewOption viewOption) =>
       current.setInfo(info.copyWith(view: viewOption));
 
   DocumentLoaded(
@@ -99,13 +86,8 @@ abstract class DocumentLoaded extends DocumentState {
     AssetService? assetService,
     FileMetadata? metadata,
     DocumentInfo? info,
-    required this.networkingService,
-    this.embedding,
     required this.location,
     required this.absolute,
-    required this.saved,
-    required this.cameraViewport,
-    required this.viewOption,
   }) : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
        assetService = assetService ?? AssetService(),
        metadata =
@@ -118,17 +100,18 @@ abstract class DocumentLoaded extends DocumentState {
   Area? get currentArea => null;
 
   @override
-  Future<NoteData> saveData([NoteData? current]) async {
+  Future<NoteData> saveData([NoteData? current, ViewOption? viewOption]) async {
     current ??= data;
+    viewOption ??= const ViewOption();
     current = await _updatePage(current);
     current = _updateMetadata(current);
-    current = _updateInfo(current);
+    current = _updateInfo(current, viewOption);
     return current;
   }
 
   @override
-  Future<Uint8List> saveBytes([NoteData? current]) =>
-      saveData().then((e) => e.exportAsBytes());
+  Future<Uint8List> saveBytes([NoteData? current, ViewOption? viewOption]) =>
+      saveData(current, viewOption).then((e) => e.exportAsBytes());
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {
@@ -152,11 +135,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
     AssetLocation? location,
     super.absolute = false,
     this.storageType = StorageType.local,
-    required super.networkingService,
-    super.embedding,
-    required super.cameraViewport,
-    required super.viewOption,
-    required super.saved,
     String? currentAreaName,
     this.currentCollection = '',
     String? currentLayer,
@@ -218,16 +196,11 @@ class DocumentLoadSuccess extends DocumentLoaded {
     windowCubit: windowCubit,
     location: location,
     absolute: absolute,
-    saved: saved,
-    networkingService: networkingService,
-    embedding: embedding,
-    cameraViewport: cameraViewport,
-    viewOption: viewOption,
   );
 
   bool isLayerVisible(String? layer) => !invisibleLayers.contains(layer);
 
-  bool hasAutosave() =>
+  bool hasAutosave(NetworkingService networkingService, Embedding? embedding) =>
       settingsCubit.state.autosave &&
       (networkingService.isActive ||
           !(embedding?.save ?? true) ||
@@ -240,7 +213,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
                           ?.hasDocumentCached(location.path) ??
                       false))));
 
-  AreaPreset get areaPreset =>
+  AreaPreset areaPreset(CameraViewport cameraViewport) =>
       AreaPreset(name: pageName, area: cameraViewport.toArea(), page: pageName);
 
   DocumentLayer getLayer() => page.getLayer(currentLayer);
@@ -268,13 +241,8 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
-    required super.networkingService,
-    super.embedding,
     required super.location,
     required super.absolute,
-    required super.saved,
-    required super.cameraViewport,
-    required super.viewOption,
   }) : handler = PresentationStateHandler(track, bloc),
        super(oldState.data);
 
@@ -290,13 +258,8 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
-    required super.networkingService,
-    super.embedding,
     required super.location,
     required super.absolute,
-    required super.saved,
-    required super.cameraViewport,
-    required super.viewOption,
   }) : super(oldState.data);
 
   @override
@@ -318,12 +281,7 @@ class DocumentPresentationState extends DocumentLoaded {
         pageName: pageName,
         fileSystem: fileSystem,
         windowCubit: windowCubit,
-        networkingService: networkingService,
-        embedding: embedding,
         location: location,
         absolute: absolute,
-        saved: saved,
-        cameraViewport: cameraViewport,
-        viewOption: viewOption,
       );
 }

@@ -140,7 +140,11 @@ class _AppBarTitleState extends State<_AppBarTitle> {
           previous.location != current.location ||
           previous.saved != current.saved ||
           previous.isCreating != current.isCreating ||
-          previous.isSaveDelayed != current.isSaveDelayed,
+          previous.isSaveDelayed != current.isSaveDelayed ||
+          previous.networkingService.isActive !=
+              current.networkingService.isActive ||
+          previous.embedding?.save != current.embedding?.save ||
+          previous.embedding?.editable != current.embedding?.editable,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) {
@@ -153,10 +157,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 return true;
               }
               return previous.currentAreaName != current.currentAreaName ||
-                  previous.hasAutosave() != current.hasAutosave() ||
-                  previous.metadata != current.metadata ||
-                  previous.networkingService.isActive !=
-                      current.networkingService.isActive;
+                  previous.metadata != current.metadata;
             },
             builder: (context, state) {
               final area = state is DocumentLoadSuccess
@@ -242,7 +243,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     children: [
       Flexible(
         child: StreamBuilder<NetworkState?>(
-          stream: state.networkingService?.stream,
+          stream: currentIndex.networkingService.stream,
           builder: (context, snapshot) {
             return StatefulBuilder(
               builder: (context, setState) {
@@ -300,7 +301,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             : _areaController,
                         onFieldSubmitted: submit,
                         onSaved: submit,
-                        readOnly: state.embedding?.editable == false,
+                        readOnly: currentIndex.embedding?.editable == false,
                         decoration: InputDecoration(
                           filled: true,
                           hintText: AppLocalizations.of(context).untitled,
@@ -360,8 +361,12 @@ class _AppBarTitleState extends State<_AppBarTitle> {
       ),
       const SizedBox(width: 8),
       if (state is DocumentLoadSuccess) ...[
-        if ((!state.hasAutosave() || settings.showSaveButton) &&
-            state.embedding?.save != false)
+        if ((!state.hasAutosave(
+                  currentIndex.networkingService,
+                  currentIndex.embedding,
+                ) ||
+                settings.showSaveButton) &&
+            currentIndex.embedding?.save != false)
           SizedBox(
             width: 42,
             child: Builder(
@@ -411,7 +416,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
             onPressed: () => context.read<ImportService>().export(),
           ),
         SearchButton(controller: widget.searchController),
-        if (state.location.path != '' && state.embedding == null) ...[
+        if (state.location.path != '' && currentIndex.embedding == null) ...[
           IconButton(
             icon: const PhosphorIcon(PhosphorIconsLight.folder),
             onPressed: () {

@@ -518,7 +518,7 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
       options,
       invisibleLayers: widget.state.invisibleLayers,
       cameraViewport: currentIndexCubit.state.cameraViewport.unbake(
-        unbakedElements: widget.state.renderers,
+        unbakedElements: currentIndexCubit.renderers,
       ),
       docState: widget.state,
     );
