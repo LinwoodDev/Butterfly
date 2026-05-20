@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.2-rc.3 (2026-05-20)
+
+* Fix empty page names are not visible in page navigator
+* Fix sorting files by date not working correctly
+* Improve opening files from the Android share menu
+* Fix opening external files from absolute paths
+* Fix imported files being treated as templates
+* Fix erasing elements flashing background layers
+
+Read more here: https://linwood.dev/butterfly/2.5.2-rc.3
+
 ## 2.5.2-rc.2 (2026-05-18)
 
 * Add a not synced filter to the sync dialog ([#1087](https://github.com/LinwoodDev/Butterfly/issues/1087))
