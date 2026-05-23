@@ -2,6 +2,11 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.2 (2026-05-23)
+
+This is a stable release, it includes all the changes from the 2.5.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.5.2
+
 ## 2.5.2-rc.3 (2026-05-20)
 
 * Fix empty page names are not visible in page navigator
