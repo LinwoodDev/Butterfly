@@ -226,12 +226,8 @@ class LayersView extends StatelessWidget {
                     ),
                   );
                 },
-                onReorder: (int oldIndex, int newIndex) {
+                onReorderItem: (int oldIndex, int newIndex) {
                   final layer = layers[oldIndex];
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  newIndex = layers.length - 1 - newIndex;
                   context.read<DocumentBloc>().add(
                     LayerOrderChanged(layer.id ?? '', newIndex),
                   );

@@ -593,12 +593,11 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   void _importSettings(BuildContext context) async {
     final settingsCubit = context.read<SettingsCubit>();
-    final result = await FilePicker.pickFiles(
+    final result = await FilePicker.pickFile(
       type: FileType.custom,
       allowedExtensions: ['json'],
-      withData: true,
     );
-    final bytes = result?.files.firstOrNull?.bytes;
+    final bytes = await result?.readAsBytes();
     if (bytes == null) return;
     final data = utf8.decode(bytes);
     try {

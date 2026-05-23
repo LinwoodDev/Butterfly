@@ -243,12 +243,14 @@ class LabelHandler extends Handler<LabelTool>
               ),
             )
             ..setEditingState(currentTextEditingValue)
-            ..setStyle(
-              fontFamily: style.fontFamily,
-              fontSize: style.fontSize! * pixelRatio,
-              fontWeight: style.fontWeight,
-              textDirection: TextDirection.ltr,
-              textAlign: TextAlign.left,
+            ..updateStyle(
+              TextInputStyle(
+                fontFamily: style.fontFamily,
+                fontSize: style.fontSize! * pixelRatio,
+                fontWeight: style.fontWeight,
+                textDirection: TextDirection.ltr,
+                textAlign: TextAlign.left,
+              ),
             );
     } else {
       _updateEditingState();

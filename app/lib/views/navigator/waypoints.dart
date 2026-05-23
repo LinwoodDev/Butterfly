@@ -186,7 +186,7 @@ class _WaypointsViewState extends State<WaypointsView> {
                                 shrinkWrap: true,
                                 buildDefaultDragHandles: false,
                                 itemCount: waypoints.length,
-                                onReorder: (oldIndex, newIndex) =>
+                                onReorderItem: (oldIndex, newIndex) =>
                                     context.read<DocumentBloc>().add(
                                       WaypointReordered(
                                         waypoints[oldIndex].name,

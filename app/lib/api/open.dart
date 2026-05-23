@@ -64,62 +64,60 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   );
 }
 
+Future<(Uint8List, String, String)> _readPlatformFile(PlatformFile file) async {
+  Uint8List data;
+  if (!kIsWeb) {
+    final stream = file.readAsByteStream();
+    final size = file.size;
+    // Allocate size
+    data = Uint8List(size);
+    int offset = 0;
+    await for (final chunk in stream) {
+      data.setRange(offset, offset + chunk.length, chunk);
+      offset += chunk.length;
+    }
+  } else {
+    data = await file.readAsBytes();
+  }
+  final fileName = file.name;
+  final nameWithoutExtension = fileName.contains('.')
+      ? fileName.substring(0, fileName.lastIndexOf('.'))
+      : fileName;
+  return (data, fileName.split('.').lastOrNull ?? '', nameWithoutExtension);
+}
+
 Future<(Uint8List?, String?, String?)> importFile(
   BuildContext context, [
   List<AssetFileType>? types,
 ]) async {
-  final files = await importFiles(context, types, false);
-  final file = files.firstOrNull;
+  final file = await FilePicker.pickFile(
+    allowedExtensions: (types ?? AssetFileType.values)
+        .expand((e) => e.getFileExtensions())
+        .toList(),
+    type: FileType.custom,
+  );
   if (file == null) {
     return (null, null, null);
   }
-  return file;
+  return await _readPlatformFile(file);
 }
 
 Future<List<(Uint8List, String, String)>> importFiles(
   BuildContext context, [
   List<AssetFileType>? types,
-  bool allowMultiple = true,
 ]) async {
   final result = await FilePicker.pickFiles(
     allowedExtensions: (types ?? AssetFileType.values)
         .expand((e) => e.getFileExtensions())
         .toList(),
     type: FileType.custom,
-    withData: kIsWeb,
-    withReadStream: !kIsWeb,
-    allowMultiple: allowMultiple,
   );
   if (result == null) {
     return [];
   }
   final files = <(Uint8List, String, String)>[];
   for (final file in result.files) {
-    Uint8List? data = file.bytes;
-    if (!kIsWeb) {
-      final stream = file.readStream;
-      final size = file.size;
-      if (stream != null) {
-        // Allocate size
-        data = Uint8List(size);
-        int offset = 0;
-        await for (final chunk in stream) {
-          data.setRange(offset, offset + chunk.length, chunk);
-          offset += chunk.length;
-        }
-      }
-    }
-    if (data != null) {
-      final fileName = file.name;
-      final nameWithoutExtension = fileName.contains('.')
-          ? fileName.substring(0, fileName.lastIndexOf('.'))
-          : fileName;
-      files.add((
-        data,
-        fileName.split('.').lastOrNull ?? '',
-        nameWithoutExtension,
-      ));
-    }
+    files.add(await _readPlatformFile(file));
   }
   return files;
 }

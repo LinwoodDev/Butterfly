@@ -157,7 +157,6 @@ class _OptionButtonState extends State<OptionButton>
                       ],
                     ),
                     SizeTransition(
-                      axisAlignment: -1,
                       axis: Axis.vertical,
                       sizeFactor: _animation,
                       child: Column(

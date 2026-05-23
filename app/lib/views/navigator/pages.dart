@@ -185,7 +185,7 @@ class _PagesViewState extends State<PagesView> {
                           ReorderableListView.builder(
                             buildDefaultDragHandles: false,
                             itemCount: all.length,
-                            onReorder: (oldIndex, newIndex) {
+                            onReorderItem: (oldIndex, newIndex) {
                               if (oldIndex < 0 ||
                                   newIndex < 0 ||
                                   oldIndex >= all.length) {
