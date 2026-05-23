@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly/services/asset.dart';
@@ -31,7 +32,6 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import '../api/save.dart';
-import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
@@ -140,7 +140,7 @@ class ImportResult {
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
-      state.currentIndexCubit.changeTemporaryHandler(
+      service.currentIndexCubit?.changeTemporaryHandler(
         context,
         ImportTool(elements: elements, areas: areas, assets: assets),
         bloc: bloc!,
@@ -185,7 +185,7 @@ class ImportService {
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
-  CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
+  CurrentIndexCubit? get currentIndexCubit => bloc?.currentIndexCubit;
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
   ButterflySettings getSettings() => getSettingsCubit().state;
   ButterflyFileSystem getFileSystem() => context.read<ButterflyFileSystem>();
@@ -215,7 +215,7 @@ class ImportService {
     Object? data,
     NoteData? document,
   }) async {
-    final location = bloc?.state.currentIndexCubit?.state.location;
+    final location = bloc?.currentIndexCubit.state.location;
     Uint8List? bytes;
     final fs = getDocumentSystem();
     if (data is Uint8List) {
@@ -952,12 +952,18 @@ class ImportService {
     if (state == null) return;
     final location = state.location;
     final fileType = location.fileType;
-    final currentIndexCubit = state.currentIndexCubit;
+    final currentIndexCubit = bloc!.currentIndexCubit;
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
       case AssetFileType.textNote:
-        exportData(context, await state.saveData());
+        exportData(
+          context,
+          await state.saveData(
+            null,
+            context.read<CurrentIndexCubit>().state.viewOption,
+          ),
+        );
         break;
       case AssetFileType.image:
         return showDialog<void>(

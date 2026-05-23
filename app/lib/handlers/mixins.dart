@@ -25,8 +25,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
       color: getColor(),
       onChanged: (value) => changeToolColor(bloc, value),
       onEyeDropper: (context) {
-        final state = bloc.state;
-        state.currentIndexCubit?.changeTemporaryHandler(
+        bloc.currentIndexCubit.changeTemporaryHandler(
           context,
           EyeDropperTool(),
           bloc: bloc,
@@ -219,7 +218,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final elements = getTransformed(state.currentIndexCubit);
+    final elements = getTransformed(bloc.currentIndexCubit);
     if (elements.isEmpty) return;
     final current = List<PadElement>.from(elements);
     bloc.add(ElementsCreated(current));

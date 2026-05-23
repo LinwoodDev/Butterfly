@@ -81,8 +81,8 @@ mixin GeneralPresentationHandler {
     _applyAnimation(
       animation,
       bloc,
-      state.currentIndexCubit,
-      state.transformCubit,
+      bloc.currentIndexCubit,
+      bloc.transformCubit,
     );
 
     var frame = currentFrame;
@@ -151,8 +151,8 @@ mixin GeneralPresentationHandler {
     _applyAnimation(
       animation,
       bloc,
-      state.currentIndexCubit,
-      state.transformCubit,
+      bloc.currentIndexCubit,
+      bloc.transformCubit,
     );
   }
 }
@@ -226,7 +226,7 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
   void _refreshToolbar(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    state.currentIndexCubit.refreshToolbar(bloc);
+    bloc.currentIndexCubit.refreshToolbar(bloc);
   }
 }
 

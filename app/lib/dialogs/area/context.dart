@@ -20,7 +20,7 @@ ContextMenuBuilder buildAreaContextMenu(
   Area area,
   SettingsCubit settingsCubit,
 ) => (context) {
-  final cubit = state.currentIndexCubit;
+  final cubit = bloc.currentIndexCubit;
   return [
     ContextMenuItem(
       icon: const PhosphorIcon(PhosphorIconsLight.textT),
@@ -78,7 +78,7 @@ ContextMenuBuilder buildAreaContextMenu(
       bloc,
       area,
       settingsCubit,
-      state.renderers
+      cubit.renderers
           .where((e) => e.area == area)
           .map(
             (e) => e.transform(

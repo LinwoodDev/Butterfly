@@ -19,7 +19,7 @@ class ExportService {
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
   NoteData? _getDocument() => _getState()?.data;
-  CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
+  CurrentIndexCubit? get currentIndexCubit => bloc?.currentIndexCubit;
 
   bool isExportable(PadElement element) => getExportInfo(element) != null;
 

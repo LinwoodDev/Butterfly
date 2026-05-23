@@ -148,7 +148,7 @@ class _EditToolbarState extends State<EditToolbar> {
           scrollDirection: direction,
           shrinkWrap: true,
           slivers: [
-            if (state.embedding?.editable ?? true) ...[
+            if (currentIndex.embedding?.editable ?? true) ...[
               if (temp != null && tempData != null) ...[
                 SliverToBoxAdapter(
                   child: Padding(

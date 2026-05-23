@@ -150,6 +150,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   StreamSubscription? _transformSubscription;
   Timer? _transformDebounceTimer;
+  var _isClosing = false;
   static const _listEquality = ListEquality<Renderer<PadElement>>();
 
   void _onTransformChanged(CameraTransform transform) {
@@ -192,11 +193,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       visibleUnbakedElements: visibleUnbaked,
     );
 
-    final docState = _documentBloc?.state;
-    if (docState is DocumentLoaded) {
+    final docState = _documentState?.call();
+    if (docState != null) {
       _updateOnVisible(newViewport, docState).then((_) {
         if (!isClosed) {
-          _documentBloc?.delayedBake();
+          _delayedBakeDocument?.call();
         }
       });
     }
@@ -206,10 +207,25 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(cameraViewport: newViewport));
   }
 
-  DocumentBloc? _documentBloc;
+  DocumentLoaded? Function()? _documentState;
+  Future<void> Function()? _delayedBakeDocument;
+  void Function(DocumentEvent event)? _addDocumentEvent;
+  void Function()? _disposeHandlers;
 
   void init(DocumentBloc bloc) {
-    _documentBloc = bloc;
+    _documentState = () {
+      final state = bloc.state;
+      return state is DocumentLoaded ? state : null;
+    };
+    _delayedBakeDocument = bloc.delayedBake;
+    _addDocumentEvent = bloc.add;
+    _disposeHandlers = () {
+      state.handler.dispose(bloc);
+      state.temporaryHandler?.dispose(bloc);
+      for (final handler in state.toggleableHandlers.values) {
+        handler.dispose(bloc);
+      }
+    };
     changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
   }
@@ -323,7 +339,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    if (blocState.embedding?.editable == false) {
+    if (state.embedding?.editable == false) {
       return null;
     }
     final document = blocState.data;
@@ -403,6 +419,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
+    if (_isClosing) {
+      return;
+    }
     final current = change.currentState;
     final next = change.nextState;
 
@@ -1481,8 +1500,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         aboveLayerImage?.dispose();
       }
       Future.microtask(() async {
-        final latestState = _documentBloc?.state;
-        if (latestState is! DocumentLoaded) return;
+        final latestState = _documentState?.call();
+        if (latestState == null) return;
         await bake(
           latestState,
           viewportSize: viewportSize,
@@ -1878,7 +1897,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           renderBackground: renderBackground,
         ),
         cameraViewport: await CameraViewport.build(
-          docState.transformCubit,
+          state.transformCubit,
           document,
           docState.assetService,
           page,
@@ -2133,7 +2152,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Area? getRelativeArea(Area currentArea, int dx, int dy, [bool? exact]) {
     if (dx == 0 && dy == 0) return null;
-    final docState = _documentBloc?.state;
+    final docState = _documentState?.call();
     if (docState is! DocumentLoadSuccess) return null;
 
     final rect = currentArea.rect.translate(
@@ -2186,7 +2205,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     int dy, {
     Future<String?> Function()? createAreaName,
   }) async {
-    final docState = _documentBloc?.state;
+    final docState = _documentState?.call();
     if (docState is! DocumentLoadSuccess) return;
 
     final current = docState.currentArea;
@@ -2194,7 +2213,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     var area = getRelativeArea(current, dx, dy);
     if (area != null) {
-      _documentBloc?.add(CurrentAreaChanged(area.name));
+      _addDocumentEvent?.call(CurrentAreaChanged(area.name));
       _teleportToAreaEdge(area, dx, dy);
       return;
     }
@@ -2214,8 +2233,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       width: rect.width,
       name: name,
     );
-    _documentBloc?.add(AreasCreated([newArea]));
-    _documentBloc?.add(CurrentAreaChanged(name));
+    _addDocumentEvent?.call(AreasCreated([newArea]));
+    _addDocumentEvent?.call(CurrentAreaChanged(name));
     _teleportToAreaEdge(newArea, dx, dy);
   }
 
@@ -2254,7 +2273,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
             final area = getRelativeArea(currentArea, dx, dy);
             if (area != null) {
-              _documentBloc?.add(CurrentAreaChanged(area.name));
+              _addDocumentEvent?.call(CurrentAreaChanged(area.name));
               _teleportToAreaEdge(area, dx, dy);
               return;
             }
@@ -2427,11 +2446,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ),
       );
       final blocState = bloc.state;
-      final currentData = await blocState.saveData();
+      final currentData = await blocState.saveData(null, state.viewOption);
       if (isClosed) {
         return current;
       }
-      if (currentData == null || blocState.embedding != null) {
+      if (currentData == null || state.embedding != null) {
         emit(state.copyWith(saved: SaveState.saved));
         return AssetLocation.empty;
       }
@@ -2473,26 +2492,41 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   @override
   Future<void> close() async {
-    final bloc = _documentBloc;
-    if (bloc != null) {
-      state.handler.dispose(bloc);
-      state.temporaryHandler?.dispose(bloc);
-      for (final handler in state.toggleableHandlers.values) {
-        handler.dispose(bloc);
-      }
-    }
-    _documentBloc = null;
+    _isClosing = true;
+    final currentState = state;
+    _disposeHandlers?.call();
+    _documentState = null;
+    _delayedBakeDocument = null;
+    _addDocumentEvent = null;
+    _disposeHandlers = null;
     _disposeAllForegrounds();
     for (final renderer in renderers) {
       renderer.dispose();
     }
-    state.cameraViewport.disposeImages();
-    _transformSubscription?.cancel();
+    currentState.cameraViewport.disposeImages();
+    await _transformSubscription?.cancel();
+    _transformSubscription = null;
     _transformDebounceTimer?.cancel();
+    _transformDebounceTimer = null;
     _networkingDebounceTimer?.cancel();
+    _networkingDebounceTimer = null;
     _delayedBakeRunner.dispose();
-    if (!state.networkingService.isClosed) {
-      await state.networkingService.close();
+    if (!currentState.networkingService.isClosed) {
+      await currentState.networkingService.close();
+    }
+    if (!isClosed) {
+      emit(
+        CurrentIndex(
+          null,
+          HandHandler(),
+          CameraViewport.unbaked(
+            pixelRatio: currentState.cameraViewport.pixelRatio,
+          ),
+          currentState.settingsCubit,
+          currentState.transformCubit,
+          currentState.networkingService,
+        ),
+      );
     }
     return super.close();
   }
@@ -2539,15 +2573,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (blocState is! DocumentLoadSuccess) return;
 
     if (replacedElements != null) {
-      await current.currentIndexCubit.replaceUnbaked(blocState, [
+      await replaceUnbaked(blocState, [
         ...replacedElements,
         ...addedElements,
       ], backgrounds: backgrounds);
     } else if (unbake) {
-      await current.currentIndexCubit.unbake(
-        blocState,
-        backgrounds: backgrounds,
-      );
+      await this.unbake(blocState, backgrounds: backgrounds);
     } else if (backgrounds != null) {
       await this.unbake(blocState, backgrounds: backgrounds);
     } else {
@@ -2555,7 +2586,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
 
     setSaveState(saved: SaveState.unsaved);
-    if (current.embedding != null) {
+    if (state.embedding != null) {
       return;
     }
     if (reset) {
@@ -2574,7 +2605,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (updateIndex) {
       this.updateIndex(bloc);
     }
-    if (current.hasAutosave()) {
+    if (current.hasAutosave(state.networkingService, state.embedding)) {
       save(bloc, isAutosave: true);
     }
   }

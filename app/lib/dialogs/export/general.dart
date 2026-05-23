@@ -96,7 +96,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         );
       }
     }
-    return state.currentIndexCubit.render(
+    return bloc.currentIndexCubit.render(
       state.data,
       state.page,
       state.info,
@@ -110,7 +110,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    return state.currentIndexCubit
+    return bloc.currentIndexCubit
         .renderSVG(
           state.data,
           state.page,
@@ -277,9 +277,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               onPressed: () {
                 final transform = context
                     .read<DocumentBloc>()
-                    .state
                     .currentIndexCubit
-                    ?.state
+                    .state
                     .transformCubit
                     .state;
 
@@ -308,7 +307,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
                 if (state is! DocumentLoaded) return;
-                final cubit = state.currentIndexCubit;
+                final cubit = bloc.currentIndexCubit;
                 final rect = cubit.getPageRect(
                   invisibleLayers: state.invisibleLayers,
                 );

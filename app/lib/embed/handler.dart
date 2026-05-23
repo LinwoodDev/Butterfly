@@ -42,7 +42,8 @@ class EmbedHandler {
 
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
-      if (state is DocumentLoadSuccess && state.saved == SaveState.unsaved) {
+      if (state is DocumentLoadSuccess &&
+          bloc.currentIndexCubit.state.saved == SaveState.unsaved) {
         _changeDebounceTimer?.cancel();
         _changeDebounceTimer = Timer(
           const Duration(milliseconds: 500),
@@ -51,7 +52,10 @@ class EmbedHandler {
             if (currentState is DocumentLoadSuccess) {
               sendEmbedMessage(
                 'change',
-                (await currentState.saveData()).exportAsBytes(),
+                (await currentState.saveData(
+                  null,
+                  bloc.currentIndexCubit.state.viewOption,
+                )).exportAsBytes(),
               );
             }
           },
@@ -62,7 +66,13 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData', (await state.saveData()).exportAsBytes());
+        sendEmbedMessage(
+          'getData',
+          (await state.saveData(
+            null,
+            bloc.currentIndexCubit.state.viewOption,
+          )).exportAsBytes(),
+        );
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
@@ -85,7 +95,7 @@ class EmbedHandler {
           scale = _mapDouble(map, 'scale', 1);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await state.currentIndexCubit.render(
+        final data = await bloc.currentIndexCubit.render(
           state.data,
           state.page,
           state.info,
@@ -121,7 +131,7 @@ class EmbedHandler {
         }
         sendEmbedMessage(
           'renderSVG',
-          state.currentIndexCubit
+          bloc.currentIndexCubit
               .renderSVG(
                 state.data,
                 state.page,
