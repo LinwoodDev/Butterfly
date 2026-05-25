@@ -1,0 +1,4 @@
+* Change min iOS version to 14.0
+* Upgrade to flutter 3.44 (Add stylus support for windows)
+
+Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
