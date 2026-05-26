@@ -4,7 +4,7 @@ title: Flächen-Tool
 
 The area tool allows you to create, edit and remove areas.
 
-For an overview of how areas work, see [Areas](../areas).
+For an overview of how areas work, see [Areas](../../areas).
 
 ## Aktionen
 
