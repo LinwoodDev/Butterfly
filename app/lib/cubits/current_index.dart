@@ -1311,6 +1311,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         !viewportAlreadyCoversRect &&
         (cameraViewport.width != size.width.ceil() ||
             cameraViewport.height != size.height.ceil() ||
+            cameraViewport.pixelRatio != ratio ||
+            cameraViewport.resolution != resolution ||
             cameraViewport.x != renderTransform.position.dx ||
             cameraViewport.y != renderTransform.position.dy ||
             cameraViewport.scale != transform.size ||

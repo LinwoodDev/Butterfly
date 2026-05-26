@@ -568,6 +568,62 @@ void main() {
     expect(viewport.visibleUnbakedElements, isEmpty);
   });
 
+  test('bake refreshes cached viewport when pixel ratio changes', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final element = ShapeElement(
+      id: 'visible',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderers = <Renderer<PadElement>>[Renderer.fromInstance(element)];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'pixel-ratio-page');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 1);
+    expect(currentIndexCubit.state.cameraViewport.unbakedElements, isEmpty);
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 2,
+    );
+
+    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 2);
+  });
+
   test(
     'bake snaps cached viewport to screen pixels at fractional zoom',
     () async {
