@@ -773,7 +773,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     ruler = null;
                                     previousRulerRotation = 0;
                                     cubit.removeButtons();
-                                    cubit.resetReleaseHandler(bloc);
+                                    if (_isScalingDisabled ?? true) {
+                                      cubit.resetReleaseHandler(bloc);
+                                    }
                                   },
                                   onScaleStart: (details) {
                                     _isScalingDisabled ??= !_isTouchMoveGesture(
