@@ -1319,18 +1319,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!validAssetPaths.any((e) => event.path.startsWith('$e/'))) return;
       data = data.setAsset(event.path, Uint8List.fromList(event.data));
       current.assetService.invalidate(event.path);
-      final shouldRepaint = currentIndexCubit.renderers.any(
-        (e) => e.onAssetUpdate(
-          current.data,
-          current.assetService,
-          current.page,
-          event.path,
-        ),
-      );
+      final updatedRenderers = currentIndexCubit.renderers
+          .where(
+            (e) => e.onAssetUpdate(
+              data,
+              current.assetService,
+              current.page,
+              event.path,
+            ),
+          )
+          .toList();
+      currentIndexCubit.invalidateRenderers(updatedRenderers);
       _saveState(
         emit,
         state: current.copyWith(data: data),
-        reset: shouldRepaint,
+        reset: updatedRenderers.isNotEmpty,
       );
     });
     on<ElementsLayerConverted>((event, emit) {

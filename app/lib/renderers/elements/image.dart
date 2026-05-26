@@ -218,7 +218,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       var cmd = img.Command()..image(imgImage);
       update(cmd);
       cmd.encodePng();
-      final converted = await cmd.getBytes();
+      final converted = await cmd.getBytesThread();
       if (converted == null) return;
       bloc.add(AssetUpdated(asset.path, converted));
     }

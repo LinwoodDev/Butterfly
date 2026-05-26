@@ -254,6 +254,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   final Set<Renderer<PadElement>> _initializedElements = {};
 
+  void invalidateRenderers(Iterable<Renderer<PadElement>> renderers) {
+    _initializedElements.removeAll(renderers);
+  }
+
   Future<void> _updateOnVisible(
     CameraViewport newViewport,
     DocumentLoaded blocState, {
