@@ -1,5 +1,6 @@
 * Change min iOS version to 14.0
 * Upgrade to flutter 3.44 (Add stylus support for windows)
 * Fix jagged rendering after changing orientation ([#1094](https://github.com/LinwoodDev/Butterfly/issues/1094))
+* Fix texture tool configuration scrolling getting stuck ([#1092](https://github.com/LinwoodDev/Butterfly/issues/1092))
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0

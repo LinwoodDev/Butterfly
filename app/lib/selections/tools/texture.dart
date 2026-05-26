@@ -41,9 +41,10 @@ class TextureToolSelection extends ToolSelection<TextureTool> {
         ),
       ),
       const SizedBox(height: 16),
-      SizedBox(
-        height: 500,
-        child: TextureView(value: tool.texture, onChanged: changeTexture),
+      TextureView(
+        value: tool.texture,
+        onChanged: changeTexture,
+        scrollable: false,
       ),
     ];
   }
