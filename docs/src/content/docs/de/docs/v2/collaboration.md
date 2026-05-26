@@ -4,7 +4,7 @@ title: Zusammenarbeit
 
 :::caution[🧪 Experiment]
 
-Dieses Feature befindet sich hinter einer experimentellen Flag. Lesen Sie mehr [here](/nightly#experiments).
+Dieses Feature befindet sich hinter einer experimentellen Flag. Read more [here](/community/nightly#experiments).
 Alles in diesem Abschnitt kann geändert werden.
 
 :::
