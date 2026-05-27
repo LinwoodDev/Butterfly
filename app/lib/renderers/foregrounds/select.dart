@@ -100,19 +100,29 @@ class RectSelectionForegroundManager {
     double sensitivity,
   ) {
     if (!isValid) return null;
-    final hits = SelectionTransformCorner.values.where((element) {
-      final corner = element.getFromRect(_selection, scale: scale);
-      if (element == SelectionTransformCorner.center && !enableRotation) {
+    final hits = SelectionTransformCorner.values.where((corner) {
+      final cornerPosition = corner.getFromRect(_selection, scale: scale);
+      if (corner == SelectionTransformCorner.center && !enableRotation) {
         return false;
       }
       return Rect.fromCenter(
-        center: corner,
+        center: cornerPosition,
         width: cornerSize / scale * sensitivity,
         height: cornerSize / scale * sensitivity,
       ).contains(position);
     }).toList();
+    if (hits.isEmpty) return null;
     if (hits.length == SelectionTransformCorner.values.length) return null;
-    return hits.firstOrNull;
+    double distance(SelectionTransformCorner corner) {
+      final cornerPosition = corner.getFromRect(_selection, scale: scale);
+      final delta = cornerPosition - position;
+      return delta.dx * delta.dx + delta.dy * delta.dy;
+    }
+
+    return hits.reduce(
+      (closest, corner) =>
+          distance(corner) < distance(closest) ? corner : closest,
+    );
   }
 
   void toggleTransformMode() =>

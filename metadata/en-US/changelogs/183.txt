@@ -1,5 +1,6 @@
 * Change min iOS version to 14.0
 * Upgrade to flutter 3.44 (Add stylus support for windows)
+* Use nearest corner hit for selection transforms
 * Fix jagged rendering after changing orientation ([#1094](https://github.com/LinwoodDev/Butterfly/issues/1094))
 * Fix texture tool configuration scrolling getting stuck ([#1092](https://github.com/LinwoodDev/Butterfly/issues/1092))
 * Fix temporary tools being cleared after canvas gestures ([#1093](https://github.com/LinwoodDev/Butterfly/issues/1093))
