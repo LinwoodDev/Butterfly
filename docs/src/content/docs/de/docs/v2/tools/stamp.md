@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Stempelwerkzeug
 ---
 
-The stamp tool allows you to add components to your canvas.
-Benutze ein bestehendes Paket, erstelle dein eigenes oder importiere ein Paket, um es zu verwenden. Read more [here](../../pack).
+Mit dem Stempelwerkzeug können Sie Komponenten zu Ihrer Leinwand hinzufügen.
+Benutzen Sie ein bestehendes Paket, erstellen Sie Ihr eigenes oder importieren Sie ein Paket, um es zu verwenden. Lies [hier](../../pack) mehr darüber.
 
 ## Konfiguration
 
