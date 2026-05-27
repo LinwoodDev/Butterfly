@@ -1,209 +1,209 @@
 ---
-title: Comparison
+title: Vergleich
 ---
 
-Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Plattformen abzielt. It combines a simple UI with powerful customization. This page compares Butterfly to other popular note-taking and drawing applications to highlight what makes Butterfly unique.
+Butterfly ist eine Notizen-App, die auf eine einheitliche Erfahrung auf allen Plattformen abzielt. It combines a simple UI mit powerful customization. Diese Seite vergleicht Butterfly mit anderen beliebten Notiz- und Zeichenanwendungen, um hervorzuheben, was Butterfly einzigartig macht.
 
-## Quick Comparison Table
+## Schnellvergleichstabelle
 
-| Feature             | Butterfly                                           | OneNote                | Obsidian                           | Excalidraw                     | Xournal++                                          | Samsung Notes                                        |
-| ------------------- | --------------------------------------------------- | ---------------------- | ---------------------------------- | ------------------------------ | -------------------------------------------------- | ---------------------------------------------------- |
-| **Open Source**     | ✅ Yes (AGPL-3.0) | ❌ No                   | ❌ No                               | ✅ Yes (MIT) | ✅ Yes (GPL-2.0) | ❌ No                                                 |
-| **Cost**            | Free                                                | Free                   | Free (personal) | Free + Paid tiers              | Free                                               | Free                                                 |
-| **Android**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ❌                                                  | ✅                                                    |
-| **Windows**         | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅ (Windows 10)                  | 🟧 Limited (Samsung devices ONLY) |
-| **Linux**           | ✅                                                   | ❌                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
-| **macOS**           | ✅                                                   | ✅                      | ✅                                  | ❌                              | ✅                                                  | ❌                                                    |
-| **Web**             | ✅                                                   | ✅                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
-| **Infinite Canvas** | ✅ Full                                              | ✅ Positive coords only | ✅                                  | ✅                              | ❌ Fixed pages                                      | ❌ Fixed pages                                        |
-| **Handwriting**     | ✅                                                   | ✅                      | 🟧 Limited                         | ✅ Drawing                      | ✅                                                  | ✅                                                    |
-| **Custom Colors**   | ✅ Full palette                                      | ✅                      | ✅ Themes                           | ✅                              | ✅                                                  | ✅                                                    |
-| **PDF Import**      | ✅                                                   | ✅                      | 🟧 Limited                         | ❌                              | ✅                                                  | ✅                                                    |
-| **PDF Export**      | ✅                                                   | ✅                      | ✅                                  | ✅                              | ✅                                                  | ✅                                                    |
-| **SVG Support**     | ✅                                                   | ❌                      | ❌                                  | ✅                              | ❌                                                  | ❌                                                    |
-| **Offline Use**     | ✅                                                   | ✅                      | ✅                                  | ✅ Basic                        | ✅                                                  | ✅                                                    |
-| **Cloud Sync**      | WebDAV                                              | OneDrive/SharePoint    | Paid sync                          | Paid collab                    | Manuell                                            | OneDrive/Samsung Cloud                               |
+| Funktion                   | Butterfly                                          | OneNote                    | Obsidian                                  | Excalidraw                          | Xournal++                                         | Samsung Notes                                            |
+| -------------------------- | -------------------------------------------------- | -------------------------- | ----------------------------------------- | ----------------------------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| **Öffnen Source**          | ✅ Ja (AGPL-3.0) | ❌ Nein                     | ❌ Nein                                    | ✅ Ja (MIT)       | ✅ Ja (GPL-2.0) | ❌ Nein                                                   |
+| **Kosten**                 | Kostenlos                                          | Kostenlos                  | Kostenlos (persönlich) | Kostenlos + kostenpflichtige Tarife | Kostenlos                                         | Kostenlos                                                |
+| **Android**                | ✅                                                  | ✅                          | ✅                                         | ❌                                   | ❌                                                 | ✅                                                        |
+| **Windows**                | ✅                                                  | ✅                          | ✅                                         | ❌                                   | ✅ (Windows 10)                 | 🟧 Eingeschränkt (NUR Samsung-Geräte) |
+| **Linux**                  | ✅                                                  | ❌                          | ✅                                         | ❌                                   | ✅                                                 | ❌                                                        |
+| **macOS**                  | ✅                                                  | ✅                          | ✅                                         | ❌                                   | ✅                                                 | ❌                                                        |
+| **Web**                    | ✅                                                  | ✅                          | ❌                                         | ✅                                   | ❌                                                 | ❌                                                        |
+| **Unendliche Leinwand**    | ✅ Vollständig                                      | ✅ Nur positive Koordinaten | ✅                                         | ✅                                   | ❌ Fixed Seiten                                    | ❌ Fixed Seiten                                           |
+| **Handschrift**            | ✅                                                  | ✅                          | 🟧 Eingeschränkt                          | ✅ Zeichnen                          | ✅                                                 | ✅                                                        |
+| **Eigene Farben**          | ✅ Vollständige Palette                             | ✅                          | ✅ Designs                                 | ✅                                   | ✅                                                 | ✅                                                        |
+| **PDF Importieren**        | ✅                                                  | ✅                          | 🟧 Eingeschränkt                          | ❌                                   | ✅                                                 | ✅                                                        |
+| **PDF Exportieren**        | ✅                                                  | ✅                          | ✅                                         | ✅                                   | ✅                                                 | ✅                                                        |
+| **SVG-Unterstützung**      | ✅                                                  | ❌                          | ❌                                         | ✅                                   | ❌                                                 | ❌                                                        |
+| **Offline Verwende**       | ✅                                                  | ✅                          | ✅                                         | ✅ Grundlegend                       | ✅                                                 | ✅                                                        |
+| **Cloud-Synchronisierung** | WebDAV                                             | OneDrive/SharePoint        | Kostenpflichtige Synchronisierung         | Kostenpflichtige Zusammenarbeit     | Manuell                                           | OneDrive/Samsung Cloud                                   |
 
-## Detailed Comparisons
+## Detaillierte Vergleiche
 
 ### Butterfly vs Microsoft OneNote
 
-**Similarities:**
+**Gemeinsamkeiten:**
 
-- Infinite canvas for freeform note-taking
-- Strong handwriting and drawing support
-- Support for images and multimedia content
-- Cross-platform availability
+- Unendliche Leinwand für freie Notizen
+- Starke Unterstützung für Handschrift und Zeichnen
+- Unterstützung für Bilder und Multimedia-Inhalte
+- Plattformübergreifende Verfügbarkeit
 
-**Butterfly Advantages:**
+**Vorteile von Butterfly:**
 
-- **Open source** – You can inspect, modify, and contribute to the code
-- **True infinite canvas** – No coordinate limitations
-- **Better privacy** – Store data locally or choose your own WebDAV provider
-- **Lighter weight** – Faster startup and lower resource usage
-- **SVG support** – Vector graphics import and export
-- **No vendor lock-in** – Your data stays under your control
+- **Open Source** – Sie können den Code prüfen, ändern und dazu beitragen
+- **True unendliche Leinwand** – No coordinate limitations
+- **Besserer Datenschutz** – Speichern Sie Daten lokal oder wählen Sie Ihren eigenen WebDAV-Anbieter
+- **Schlanker** – Schnellerer Start und geringerer Ressourcenverbrauch
+- **SVG-Unterstützung** – Import und Export von Vektorgrafiken
+- **Kein Vendor-Lock-in** – Ihre Daten bleiben unter Ihrer Kontrolle
 
-**OneNote Advantages:**
+**Vorteile von OneNote:**
 
-- **Deep Microsoft ecosystem integration** – Works seamlessly with Office 365
-- **Advanced OCR** – Text recognition from handwritten notes and images
-- **Enterprise features** – Advanced sharing and permission management
+- **Deep Microsoft ecosystem integration** – Works seamlessly mit Office 365
+- **Fortgeschrittene OCR** – Texterkennung aus handschriftlichen Notizen und Bildern
+- **Enterprise-Funktionen** – Erweiterte Freigabe- und Berechtigungsverwaltung
 
-**Best for:**
+**Am besten geeignet für:**
 
-- **Butterfly**: Privacy-conscious users, Linux users, those wanting lightweight open-source solutions
-- **OneNote**: Microsoft ecosystem users, teams needing collaboration, macOS users
+- **Butterfly**: Datenschutzbewusste Nutzer, Linux-Nutzer und alle, die leichtgewichtige Open-Source-Lösungen möchten
+- **OneNote**: Nutzer des Microsoft-Ökosystems, Teams mit Bedarf an Zusammenarbeit, macOS-Nutzer
 
 ### Butterfly vs Obsidian
 
-**Similarities:**
+**Gemeinsamkeiten:**
 
-- Cross-platform support
-- Customizable interface and themes
-- Local data storage with sync options
+- Plattformübergreifende Unterstützung
+- Anpassbare Oberfläche und Designs
+- Local data storage mit sync options
 
-**Butterfly Advantages:**
+**Vorteile von Butterfly:**
 
-- **Canvas-based interface** – Freeform drawing and note placement
-- **Built-in drawing tools** – No plugins required for handwriting
-- **Simpler learning curve** – Ready to use out of the box
-- **Better for visual thinkers** – Infinite canvas for mind mapping
-- **Web version available** – No installation required
+- **Leinwandbasierte Oberfläche** – Freies Zeichnen und Platzieren von Notizen
+- **Integrierte Zeichenwerkzeuge** – Keine Plugins für Handschrift erforderlich
+- **Einfachere Lernkurve** – Direkt einsatzbereit
+- **Besser für visuell Denkende** – Unendliche Leinwand für Mindmaps
+- **Web version verfügbar** – No installation required
 
-**Obsidian Advantages:**
+**Vorteile von Obsidian:**
 
-- **Powerful linking system** – Bidirectional links between notes
-- **Markdown-based** – Future-proof plain text format
-- **Advanced search** – Complex queries and filtering
-- **Graph view** – Visualize connections between notes
-- **Better for text-heavy notes** – Structured note organization
-- **Plugin/extension support** – For enhanced functionality
+- **Leistungsstarkes Verlinkungssystem** – Bidirektionale Links zwischen Notizen
+- **Markdown-basiert** – Zukunftssicheres Klartextformat
+- **Erweiterte Suche** – Komplexe Abfragen und Filterung
+- **Graphansicht** – Visualisiert Verbindungen zwischen Notizen
+- **Besser für textlastige Notizen** – Strukturierte Notizorganisation
+- **Plugin-/Erweiterungsunterstützung** – Für zusätzliche Funktionalität
 
-**Best for:**
+**Am besten geeignet für:**
 
-- **Butterfly**: Visual note-takers, sketching, casual note-taking, students
-- **Obsidian**: Knowledge workers, researchers, those building personal knowledge bases
+- **Butterfly**: Visuelle Notizen, Skizzen, lockeres Mitschreiben, Studierende
+- **Obsidian**: Wissensarbeiter, Forschende und alle, die persönliche Wissensdatenbanken aufbauen
 
 ### Butterfly vs Excalidraw
 
-**Similarities:**
+**Gemeinsamkeiten:**
 
-- Excellent drawing and diagramming capabilities
-- Clean, intuitive interface
-- Web-based accessibility
-- Open-source foundation
-- Hand-drawn aesthetic for diagrams
+- Hervorragende Zeichen- und Diagrammfunktionen
+- Klare, intuitive Oberfläche
+- Webbasierter Zugriff
+- Öffnen-source foundation
+- Handgezeichnete Ästhetik für Diagramme
 
-**Butterfly Advantages:**
+**Vorteile von Butterfly:**
 
-- **Mobile apps** – iOS and Android support
-- **Desktop applications** – Windows and Linux apps available
-- **Text editing** – Rich text support beyond just drawings
-- **File management** – Organize notes with pages and structure
-- **PDF import** – Annotate existing documents
-- **Offline-first** – Works without an internet connection
+- **Mobile Apps** – Unterstützung für iOS und Android
+- **Desktop-Anwendungen** – Apps für Windows und Linux verfügbar
+- **Textbearbeitung** – Rich-Text-Unterstützung über Zeichnungen hinaus
+- **Dateiverwaltung** – Notizen mit Seiten und Struktur organisieren
+- **PDF import** – Annotate existing Dokumente
+- **Offline-first** – Funktioniert ohne Internetverbindung
 
-**Excalidraw Advantages:**
+**Vorteile von Excalidraw:**
 
-- **Collaboration focus** – Real-time collaborative drawing
-- **Library system** – Reusable components and templates
-- **Excalidraw Plus features** – Professional collaboration tools
-- **Integration friendly** – Embeds well in other applications
-- **Specialized for diagrams** – Purpose-built for technical drawings
+- **Fokus auf Zusammenarbeit** – Kollaboratives Zeichnen in Echtzeit
+- **Bibliothekssystem** – Wiederverwendbare Komponenten und Vorlagen
+- **Excalidraw Plus features** – Professional collaboration Werkzeuge
+- **Integrationsfreundlich** – Lässt sich gut in andere Anwendungen einbetten
+- **Auf Diagramme spezialisiert** – Speziell für technische Zeichnungen entwickelt
 
-**Best for:**
+**Am besten geeignet für:**
 
-- **Butterfly**: General note-taking with drawing, mobile users, offline work
-- **Excalidraw**: Team diagramming, technical documentation, collaborative sketching
+- **Butterfly**: Allgemeine Notizen mit Zeichnungen, mobile Nutzer, Offline-Arbeit
+- **Excalidraw**: Team-Diagramme, technische Dokumentation, gemeinsames Skizzieren
 
 ### Butterfly vs Xournal++
 
-**Similarities:**
+**Gemeinsamkeiten:**
 
-- Excellent handwriting support
-- PDF annotation capabilities
-- Open-source and free
-- Cross-platform (Windows, Linux)
-- Stylus/pen input optimization
+- Hervorragende Unterstützung für Handschrift
+- PDF-Anmerkungsfunktionen
+- Open Source und kostenlos
+- Plattformübergreifend (Windows, Linux)
+- Stylus/Stift input optimization
 
-**Butterfly Advantages:**
+**Vorteile von Butterfly:**
 
-- **Mobile support** – iOS and Android support
-- **Web version** – Browser-based access
-- **Modern interface** – Contemporary design and UX
-- **Infinite canvas** – Not limited to page boundaries
-- **Cloud sync** – WebDAV integration built-in
-- **Multiple export formats** – SVG, PNG, PDF support
+- **Mobile Unterstützung** – Unterstützung für iOS und Android
+- **Web-Version** – Browserbasierter Zugriff
+- **Moderne Oberfläche** – Zeitgemäßes Design und UX
+- **Infinite canvas** – Not limited to Seite boundaries
+- **Cloud-Synchronisierung** – WebDAV-Integration eingebaut
+- **Mehrere Exportformate** – Unterstützung für SVG, PNG und PDF
 
-**Xournal++ Advantages:**
+**Vorteile von Xournal++:**
 
-- **Built with GTK** – Natively integrated in the GNOME interface
-- **Audio recording** – Link audio notes to written content
+- **Mit GTK gebaut** – Nativ in die GNOME-Oberfläche integriert
+- **Audioaufnahme** – Audionotizen mit geschriebenen Inhalten verknüpfen
 
-**Best for:**
+**Am besten geeignet für:**
 
-- **Butterfly**: Mobile note-taking, modern UI preferences, cloud sync needs
-- **Xournal++**: Academic users, PDF-heavy workflows
+- **Butterfly**: Mobile Notizen, moderne UI-Vorlieben, Bedarf an Cloud-Synchronisierung
+- **Xournal++**: Akademische Nutzer, PDF-lastige Workflows
 
 ### Butterfly vs Samsung Notes
 
-**Similarities:**
+**Gemeinsamkeiten:**
 
-- Excellent handwriting support
-- PDF annotation capabilities
-- Free
-- Stylus/pen input optimization
+- Hervorragende Unterstützung für Handschrift
+- PDF-Anmerkungsfunktionen
+- Kostenlos
+- Stylus/Stift input optimization
 - Vorlagen
 
-**Butterfly Advantages:**
+**Vorteile von Butterfly:**
 
-- **Mobile support** – iOS and Android support
-- **Web version** – Browser-based access
-- **Infinite canvas** – Not limited to page boundaries
-- **Cloud sync** – WebDAV integration built-in
-- **Multiple export formats** – SVG, PNG, PDF support
-- **Cross-platform** – Windows, Android, iOS, and Linux
+- **Mobile Unterstützung** – Unterstützung für iOS und Android
+- **Web-Version** – Browserbasierter Zugriff
+- **Infinite canvas** – Not limited to Seite boundaries
+- **Cloud-Synchronisierung** – WebDAV-Integration eingebaut
+- **Mehrere Exportformate** – Unterstützung für SVG, PNG und PDF
+- **Plattformübergreifend** – Windows, Android, iOS und Linux
 
-**Samsung Notes Advantages:**
+**Vorteile von Samsung Notes:**
 
-- **Native OneUI** – OneUI’s interface design
-- **Audio recording** – Link audio notes to written content
-- **Optimized for Samsung devices** – Works best on Samsung devices running OneUI, Samsung’s operating system
+- **Natives OneUI** – Oberflächendesign von OneUI
+- **Audioaufnahme** – Audionotizen mit geschriebenen Inhalten verknüpfen
+- **Für Samsung-Geräte optimiert** – Funktioniert am besten auf Samsung-Geräten mit OneUI, Samsungs Betriebssystem
 
-**Best for:**
+**Am besten geeignet für:**
 
-- **Butterfly**: Mobile note-taking, cloud sync needs, infinite canvas, cross-platform usage
-- **Samsung Notes**: PDF-heavy workflows, Samsung devices
+- **Butterfly**: Mobile Notizen, Cloud-Synchronisierung, unendliche Leinwand, plattformübergreifende Nutzung
+- **Samsung Notes**: PDF-lastige Workflows, Samsung-Geräte
 
-## Migration and Compatibility
+## Migration und Kompatibilität
 
-**From OneNote:**
+**Von OneNote:**
 
-- Export OneNote pages as PDFs and import them into Butterfly
-- Recreate drawings and handwritten notes natively in Butterfly
-- Consider using WebDAV sync to replace OneDrive synchronization
+- Exportiere OneNote-Seiten als PDFs und importieren Sie sie in Butterfly
+- Erstellen Sie Zeichnungen und handschriftliche Notizen nativ in Butterfly neu
+- Consider mit WebDAV sync to replace OneDrive synchronization
 
-**From Obsidian:**
+**Von Obsidian:**
 
-- Copy text content and recreate it in Butterfly’s text tools
-- Convert Markdown files to PDF for import if needed
-- Use Butterfly's infinite canvas for mind maps instead of the graph view
+- Kopieren Sie Textinhalte und erstellen Sie sie in Butterflys Textwerkzeugen neu
+- Konvertiere Markdown-Dateien bei Bedarf für den Import in PDF
+- Verwende Butterflys unendliche Leinwand für Mindmaps statt der Graphansicht
 
-**From Excalidraw:**
+**Von Excalidraw:**
 
-- Export drawings as SVG and import them into Butterfly
-- Recreate collaborative workflows using Butterfly’s sync features
-- Transition from pure diagramming to mixed note-taking
+- Exportiere Zeichnungen als SVG und importieren Sie sie in Butterfly
+- Recreate collaborative workflows mit Butterfly’s sync features
+- Wechsel von reinen Diagrammen zu gemischten Notizen
 
-**From Xournal++:**
+**Von Xournal++:**
 
-- Export annotated PDFs and import them into Butterfly
-- Transfer handwritten notes by recreating or importing them as images
-- Adapt from a page-based to an infinite canvas workflow
+- Exportiere annotierte PDFs und importieren Sie sie in Butterfly
+- Übertragen Sie handschriftliche Notizen, indem Sie sie neu erstellst oder als Bilder importierst
+- Stellen Sie Sie von einem seitenbasierten Workflow auf einen Workflow mit unendlicher Leinwand um
 
-**From Samsung Notes:**
+**Von Samsung Notes:**
 
-- Export notes as PDFs and import them into Butterfly
-- Handwritten annotations should be redrawn in Butterfly for the best experience
-- Adapt from a page-based to an infinite canvas workflow
+- Exportiere Notizen als PDFs und importieren Sie sie in Butterfly
+- Handschriftliche Anmerkungen sollten in Butterfly neu gezeichnet werden, um die beste Erfahrung zu erzielen
+- Stellen Sie Sie von einem seitenbasierten Workflow auf einen Workflow mit unendlicher Leinwand um
