@@ -58,8 +58,8 @@
   "@delete": {
     "description": "Delete action"
   },
-  "areYouSure": "Bist du sicher?",
-  "reallyDelete": "Möchtest du dieses Element wirklich löschen?",
+  "areYouSure": "Sind Sie sicher?",
+  "reallyDelete": "Möchten Sie dieses Element wirklich löschen?",
   "no": "Nein",
   "yes": "Ja",
   "undo": "Rückgängig",
@@ -181,7 +181,7 @@
     "description": "Help action"
   },
   "reallyReset": "Wollen Sie wirklich zurücksetzen?",
-  "whatToDo": "Was möchtest du tun?",
+  "whatToDo": "Was möchten Sie tun?",
   "ignore": "Ignorieren",
   "@ignore": {
     "description": "Ignore action"
@@ -291,7 +291,7 @@
   "selectElements": "Elemente auswählen",
   "deleteElements": "Elemente löschen",
   "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
-  "selectCustomCollection": "Wähle eine eigene Sammlung",
+  "selectCustomCollection": "Wählen Sie eine eigene Sammlung",
   "svg": "SVG",
   "@svg": {
     "description": "SVG format"
@@ -353,7 +353,7 @@
   "@area": {
     "description": "Area object"
   },
-  "selectArea": "Wähle einen Bereich aus",
+  "selectArea": "Wählen Sie einen Bereich aus",
   "aspectRatio": "Seitenverhältnis",
   "presets": "Vorlagen",
   "pagePortrait": "Hochformat",
@@ -529,7 +529,7 @@
   "checkForUpdates": "Nach Updates suchen",
   "checkForUpdatesWarning": "Wenn Sie nach Updates suchen, werden Sie sich mit der Butterfly-Website verbinden, um die Informationen zu erhalten.",
   "usingLatestStable": "Sie verwenden die neueste stabile Version",
-  "usingLatestNightly": "Du verwendest die neueste Nightly-Version",
+  "usingLatestNightly": "Sie verwenden die neueste Nightly-Version",
   "currentVersion": "Aktuelle Version",
   "updateNow": "Jetzt aktualisieren",
   "shape": "Form",
@@ -755,7 +755,7 @@
     "description": "Stamp tool"
   },
   "addToPack": "Zum Paket hinzufügen",
-  "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren möchten?",
+  "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren Sien möchten?",
   "byAuthor": "von {author}",
   "@byAuthor": {
     "placeholders": {
@@ -803,7 +803,7 @@
   "selectAsset": "Asset auswählen",
   "clearStyle": "Stil löschen",
   "unknownImportType": "Unbekannter Importtyp",
-  "sureImportTemplate": "Sind Sie sicher, dass Sie die Vorlage importieren möchten?",
+  "sureImportTemplate": "Sind Sie sicher, dass Sie die Vorlage importieren Sien möchten?",
   "frame": "Frame",
   "@frame": {
     "description": "Frame object"
@@ -825,7 +825,7 @@
   "nextSlide": "Nächste Folie",
   "nextSlideDescription": "Nach rechts wischen oder die rechte Pfeiltaste drücken, um zur nächsten Folie zu gehen",
   "previousSlide": "Vorherige Folie",
-  "previousSlideDescription": "Wische nach links oder drücke die linke Pfeiltaste um zur vorherigen Folie zu gehen",
+  "previousSlideDescription": "Wischen Sie nach links oder drücken Sie die linke Pfeiltaste, um zur vorherigen Folie zu gehen",
   "exitPresentation": "Präsentation beenden",
   "exitPresentationDescription": "Drücken Sie die Esc-Taste oder wischen Sie nach unten, um die Präsentation zu beenden",
   "pausePresentation": "Präsentation pausieren",
@@ -888,7 +888,7 @@
   },
   "quickstart": "Schnellstart",
   "noTemplates": "Derzeit sind keine Vorlagen verfügbar",
-  "importCorePack": "Kernpaket importieren",
+  "importCorePack": "Kernpaket importieren Sien",
   "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben.",
   "never": "Nie",
   "@never": {
@@ -1254,7 +1254,7 @@
   "rawFile": "Rohdatei",
   "webSocketDescription": "Ihr Gerät beherbergt den Server, so dass Mitarbeiter nur über dasselbe Netzwerk oder von überall aus beitreten können, wenn Sie den Port auf Ihrem Router weiterleiten.",
   "swampDescription": "Ihre Nachrichten werden über einen sicheren Server mit Ende-zu-Ende-Verschlüsselung weitergeleitet. Eine Sump-Server-Adresse wird benötigt, um eine Sitzung zu erstellen.",
-  "createRawNote": "Erstelle Rohnotiz",
+  "createRawNote": "Erstellen Sie Rohnotiz",
   "polygon": "Polygon",
   "@polygon": {
     "description": "Polygon shape"
