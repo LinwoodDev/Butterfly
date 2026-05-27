@@ -10,7 +10,7 @@ Ein besonderer Dank geht an:
 
 - [Flutter](https://github.com/flutter/flutter) für die Bereitstellung dieses nützlichen plattformübergreifenden UI-Frameworks
 - [window_manager](https://github.com/leanflutter/window_manager) für all diese nützlichen Desktop-Fensterfunktionen
-- [Starlight](https://github.com/withastro/starlight) für ein einfach zu verwendendes statisches React-Dokumentationsframework
+- [Starlight](https://github.com/withabenro/starlight) für ein einfach zu verwendendes statisches React-Dokumentationsframework
 - [Phosphor Icons](https://phosphoricons.com/) für die schönen Icons
 
 Alle anderen Lizenzen finden Sie in den Einstellungen.
