@@ -1,20 +1,20 @@
 ---
-title: Ruler tool
+title: Ruler Werkzeug
 ---
 
-:::note[🔘 Toggleable tool]
+:::note[🔘 Toggleable Werkzeug]
 
-This is a special tool.
-You can't select it and it gets toggled if you click on it.
+Dies ist ein spezielles Werkzeug.
+Sie können es nicht auswählen; durch Anklicken wird es ein- oder ausgeschaltet.
 
 :::
 
-With this tool you can show a ruler over the canvas.
-Inputs get snapped to the ruler.
+Mit diesem Werkzeug können Sie ein Lineal über der Leinwand anzeigen.
+Eingaben werden am Lineal ausgerichtet.
 
 ## Konfiguration
 
-| Objekt |  Standard | Beschreibung                                                                                 |
-| -----: | :-------: | :------------------------------------------------------------------------------------------- |
-|  Größe |    100    | The size of the ruler                                                                        |
-|  Farbe | _Not set_ | The color of the ruler. If not set, it uses the theme color. |
+| Objekt |  Standard | Beschreibung                                                                                               |
+| -----: | :-------: | :--------------------------------------------------------------------------------------------------------- |
+|  Größe |    100    | Die Größe des Lineals                                                                                      |
+|  Farbe | _Not set_ | Die Farbe des Lineals. Wenn nicht gesetzt, wird die Designfarbe verwendet. |
