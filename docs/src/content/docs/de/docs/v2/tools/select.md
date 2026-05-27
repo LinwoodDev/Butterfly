@@ -1,11 +1,11 @@
 ---
-title: Select tool
+title: Auswahlwerkzeug
 ---
 
-With this tool you can select elements.
+Mit diesem Werkzeug können Sie Elemente auswählen.
 
 ## Konfiguration
 
-| Objekt | Standard | Beschreibung                                                       |
-| -----: | :------: | :----------------------------------------------------------------- |
-|   Mode | Rechteck | Mode of selection. Erlaubt sind Rechteck und Lasso |
+| Objekt | Standard | Beschreibung                                                  |
+| -----: | :------: | :------------------------------------------------------------ |
+|  Modus | Rechteck | Auswahlmodus. Erlaubt sind Rechteck und Lasso |
