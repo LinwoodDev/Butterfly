@@ -154,7 +154,7 @@ Butterfly is a note-taking app that aims for a unified experience across all pla
 - PDF annotation capabilities
 - Free
 - Stylus/pen input optimization
-- Templates
+- Templat
 
 **Butterfly Advantages:**
 
