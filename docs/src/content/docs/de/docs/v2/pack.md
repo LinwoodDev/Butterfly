@@ -2,9 +2,9 @@
 title: Paket
 ---
 
-Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicke dazu oben links und wähle „Packs“.
+Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren Sien. Klicken Sie dazu oben links und wählen Sie „Packs“.
 
-Packs werden global gespeichert, sodass du sie in jedem Dokument verwenden kannst. Wenn du das Pack in einem Dokument teilen möchtest, kannst du es mit dem Dokument bündeln.
+Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden können. Wenn Sie das Pack in einem Dokument teilen möchten, können Sie es mit dem Dokument bündeln.
 
 ## Eigenschaften
 
@@ -17,21 +17,21 @@ Packs werden global gespeichert, sodass du sie in jedem Dokument verwenden kanns
 
 ## Komponenten
 
-Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
+Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren Sien.
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
 
 ### Komponente zu einem Pack hinzufügen
 
-So fügst du eine Komponente hinzu:
+So fügst Sie eine Komponente hinzu:
 
-1. Wähle die Elemente auf der unendlichen Leinwand aus
-2. Tippe doppelt oder klicke mit der rechten Maustaste, um das Kontextmenü zu öffnen
+1. Wählen Sie die Elemente auf der unendlichen Leinwand aus
+2. Tippen Sie doppelt oder klicken Sie mit der rechten Maustaste, um das Kontextmenü zu öffnen
 3. Drücke das Plus-Symbol (Zu Pack hinzufügen)
-4. Wähle das Pack aus
+4. Wählen Sie das Pack aus
 5. Gib der neuen Komponente einen Namen; er kann beliebig sein.
 
-Du kannst diese Komponenten mit dem [Stempelwerkzeug](../tools/stamp) verwenden.
+Sie können diese Komponenten mit dem [Stempelwerkzeug](../tools/stamp) verwenden.
 
 ## Stile
 
@@ -39,4 +39,4 @@ Stile werden verwendet, um das Aussehen des Textes anzupassen. Absatzstile könn
 
 ## Paletten
 
-Mit Farbpaletten kannst du schnell Farben für einfärbbare Werkzeuge auswählen. Wenn du eine Farbe bearbeitest, siehst du ein Farbauswahl-Overlay (wie in der [Farbauswahl-Dokumentation](../color_picker) erwähnt).
+Mit Farbpaletten können Sie schnell Farben für einfärbbare Werkzeuge auswählen. Wenn Sie eine Farbe bearbeiten, sehen Sie ein Farbauswahl-Overlay (wie in der [Farbauswahl-Dokumentation](../color_picker) erwähnt).
