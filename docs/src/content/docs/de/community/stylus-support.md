@@ -1,39 +1,39 @@
 ---
-title: Stylus support
+title: Stiftunterstützung
 ---
 
-This page collects the current stylus and pen-input behavior in Butterfly.
+Diese Seite sammelt das aktuelle Verhalten von Stift- und Stylus-Eingaben in Butterfly.
 
-## Supported platforms
+## Unterstützt platforms
 
-- **Android / mobile:** Stylus input works best and is the main supported path today.
-- **Desktop (Windows/Linux):** Stylus input is currently limited by Flutter input support.
-- **Web:** Often a good fallback when desktop stylus behavior is inconsistent.
+- **Android / mobil:** Stylus-Eingabe funktioniert derzeit am besten und ist der wichtigste unterstützte Weg.
+- **Desktop (Windows/Linux):** Stylus-Eingabe ist aktuell durch die Eingabeunterstützung von Flutter eingeschränkt.
+- **Web:** Oft eine gute Ausweichmöglichkeit, wenn sich ein Stift auf dem Desktop uneinheitlich verhält.
 
-## Stylus-related settings
+## Stylus-related Einstellungen
 
-You can find stylus-related options in **Settings → Input → Pen**:
+Optionen zum Stylus finden Sie unter **Einstellungen → Eingabe → Stift**:
 
-- **Pen-only input** (changed in 2.5): helps avoid accidental finger/touch drawing when using a stylus.
-- **Pen-only toggle on stylus detection:** when a stylus is detected, a quick Pen-only toggle is activated; you can still disable it in **Settings → Input → Pen**.
-- **Ignore pressure:** useful when pressure data is unreliable. This is set to help with cases where Firefox reports incorrect pressure on first input.
-- **Input test:** lets you verify what pointer/stylus events your device is currently reporting.
+- **Nur-Stift-Eingabe** (geändert in 2.5): Hilft, versehentliches Zeichnen mit Finger/Touch bei Verwendung eines Stifts zu vermeiden.
+- **Nur-Stift-Schalter bei Stifterkennung:** Wenn ein Stift erkannt wird, wird ein schneller Nur-Stift-Schalter aktiviert; Sie können ihn weiterhin unter **Einstellungen → Eingabe → Stift** deaktivieren.
+- **Druck ignorieren:** Nützlich, wenn Druckdaten unzuverlässig sind. Dies ist gesetzt, um in Fällen zu helfen, in denen Firefox bei der ersten Eingabe falschen Druck meldet.
+- **Eingabetest:** Damit können Sie prüfen, welche Pointer-/Stylus-Ereignisse Ihr Gerät aktuell meldet.
 
-## Pen shortcuts and pointer test
+## Stift-Kurzbefehle und Zeigertest
 
-Butterfly supports pen/stylus shortcuts (button mappings can vary by device/OS). If shortcuts do not behave as expected, open **Input test** first and check button values:
+Butterfly unterstützt Stift-/Stylus-Kürzel; die Tastenbelegung kann je nach Gerät/Betriebssystem variieren. Wenn Kurzbefehle nicht wie erwartet funktionieren, öffnen Sie zuerst den **Eingabetest** und prüfen Sie die Schaltflächenwerte:
 
-- **Primary button** commonly appears as `10` (`2`)
-- **Secondary button** commonly appears as `100` (`4`) or `100000` (`32`)
+- **Primary Schaltfläche** commonly appears as `10` (`2`)
+- **Sekundäre Schaltfläche** erscheint häufig als `100` (`4`) oder `100000` (`32`)
 
-These values are bit mappings from pointer button flags.
+Diese Werte sind Bit-Zuordnungen aus Pointer-Button-Flags.
 
-## Known framework limitations
+## Bekannte Framework-Einschränkungen
 
-Some stylus issues come from Flutter input handling rather than Butterfly directly.
+Einige Stylus-Probleme entstehen durch die Eingabeverarbeitung von Flutter und nicht direkt durch Butterfly.
 
-- Android S-Pen tracking issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
-- Windows stylus issues: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248), [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836)
-- Linux stylus issue: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+- Android S-Stift tracking issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
+- Windows-Stiftprobleme: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248), [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836)
+- Linux-Stiftproblem: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-If your setup is affected, please still report it in Butterfly issues with your platform, device model, and app version.
+Wenn Ihr Setup betroffen ist, melden Sie es bitte trotzdem in den Butterfly-Issues mit Plattform, Gerätemodell und App-Version.
