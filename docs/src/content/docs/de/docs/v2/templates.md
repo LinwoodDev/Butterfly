@@ -2,31 +2,31 @@
 title: Vorlagen
 ---
 
-In Butterfly, templates are a helpful way to make a document a starting point for quick use.
+In Butterfly sind Vorlagen eine hilfreiche Möglichkeit, ein Dokument als Ausgangspunkt für die schnelle Nutzung zu verwenden.
 
-For example, if you like having a highlighter tool and a dotted background when taking notes, you can use templates to quickly apply the tools you need and the specific background you like.
+Wenn Sie zum Beispiel beim Notieren gerne ein Textmarker-Werkzeug und einen gepunkteten Hintergrund verwenden, können Sie mit Vorlagen schnell die benötigten Werkzeuge und den gewünschten Hintergrund anwenden.
 
-## What do templates store?
+## Was speichern Vorlagen?
 
-Templates are basically documents that you use as a starting point.
+Vorlagen sind im Grunde Dokumente, die Sie als Ausgangspunkt verwenden.
 
-They store everything a normal document does, including:
+They store everything a normal Dokument does, including:
 
 - Werkzeuge
-- Document Content like pictures, drawings, strokes, etc.
-- The settings for each tool
+- Dokumentinhalt wie Bilder, Zeichnungen, Striche usw.
+- Die Einstellungen für jedes Werkzeug
 - Ebenen
 - Flächen
 - Seiten
 
-## How to make a template?
+## Wie erstellt man eine Vorlage?
 
-Simply make a new note, then after configuring it to your needs, press the Butterfly icon at the top-left and then press Templates.
+Erstellen Sie einfach eine neue Notiz. Nachdem Sie sie an Ihre Bedürfnisse angepasst haben, drücken Sie oben links auf das Butterfly-Symbol und dann auf Vorlagen.
 
-Press the "Create" button and give it a name. Keep the directory empty unless you want to save the template somewhere specific.
+Drücke die Schaltfläche „Erstellen“ und gib ihr einen Namen. Lassen Sie das Verzeichnis leer, sofern Sie die Vorlage nicht an einem bestimmten Ort speichern möchten.
 
-## Where can I find more templates?
+## Wo finde ich weitere Vorlagen?
 
-Unfortunately, there is no specific place to share your templates.
+Leider gibt es keinen speziellen Ort, an dem Sie Ihre Vorlagen teilen können.
 
-But if you think you have made a cool template, feel free to share it on Matrix (or Discord).
+Wenn Sie eine coole Vorlage erstellt haben, teilen Sie sie gerne auf Matrix (oder Discord).
