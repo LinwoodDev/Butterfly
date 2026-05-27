@@ -8,7 +8,7 @@ Hier sind einige häufig gestellte Fragen.
 
 ### Wie installiere ich die Web-Version?
 
-Du kannst die Web-Version installieren, indem du auf die Installieren-Schaltfläche in der Titelleiste klickst.
+Sie können die Web-Version installieren, indem Sie auf die Installieren-Schaltfläche in der Titelleiste klicken.
 Danach können Sie diese App offline nutzen.
 
 ### Butterfly lädt nicht auf Brave
@@ -30,14 +30,14 @@ Dies ist das Issue zum Nachverfolgen: [flutter/flutter#42846](https://github.com
 
 ### Butterfly ist langsam
 
-Butterfly wird mit jedem Update optimiert, manchmal kann das Problem aber an deinem Gerät liegen.
+Butterfly wird mit jedem Update optimiert, manchmal kann das Problem aber an Ihrem Gerät liegen.
 
-1. Schalte zuerst den Energiesparmodus deines Geräts aus.
-2. Stelle anschließend die Bildwiederholrate deines Bildschirms auf den höchsten verfügbaren Wert ein, sofern dein Gerät das unterstützt.
+1. Schalten Sie zuerst den Energiesparmodus Ihres Geräts aus.
+2. Stellen Sie anschließend die Bildwiederholrate Ihres Bildschirms auf den höchsten verfügbaren Wert ein, sofern Ihr Gerät das unterstützt.
 
 Dadurch kann Butterfly schneller aktualisieren und reaktionsfreudiger wirken.
 
-Wenn diese Schritte nicht helfen, melde dich gerne in Matrix (empfohlen), Discord oder auf GitHub.
+Wenn diese Schritte nicht helfen, melden Sie sich gerne in Matrix (empfohlen), Discord oder auf GitHub.
 
 ### Butterfly startet im Hintergrund neu
 
@@ -46,13 +46,13 @@ Akkuoptimierungen verhindern, dass Apps im Hintergrund normal laufen, um Energie
 
 Samsung und andere Hersteller legen Apps, die häufig abstürzen oder das Gerät überhitzen, meist starke Akku-Beschränkungen auf.
 
-Wenn du nicht weißt, wie du die Akkuoptimierung für Butterfly deaktivierst, kann diese Website helfen: [Dont kill my app!](https://dontkillmyapp.com/)
+Wenn Sie nicht wissen, wie Sie die Akkuoptimierung für Butterfly deaktivierst, kann diese Website helfen: [Dont kill my app!](https://dontkillmyapp.com/)
 
 ### iOS-Unterstützung
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly ist auf iOS als Vorschau verfügbar. Klicke [hier](https://butterfly.linwood.dev/downloads/ios), um es herunterzuladen. Siehe [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), warum es nicht im App Store verfügbar ist.
+Butterfly ist auf iOS als Vorschau verfügbar. Klicken Sie [hier](https://butterfly.linwood.dev/downloads/ios), um es herunterzuladen. Siehe [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), warum es nicht im App Store verfügbar ist.
 
 ## Desktop
 
