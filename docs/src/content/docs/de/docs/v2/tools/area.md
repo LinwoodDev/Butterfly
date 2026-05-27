@@ -1,10 +1,10 @@
 ---
-title: Flächen-Tool
+title: Bereichswerkzeug
 ---
 
-The area tool allows you to create, edit and remove areas.
+Mit dem Bereichswerkzeug kannst du Bereiche erstellen, bearbeiten und entfernen.
 
-For an overview of how areas work, see [Areas](../../areas).
+Eine Übersicht über die Funktionsweise von Bereichen findest du unter [Bereiche](../../areas).
 
 ## Aktionen
 
@@ -16,11 +16,11 @@ For an overview of how areas work, see [Areas](../../areas).
 
 ## Konfiguration
 
-|           Objekt | Standard | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ---------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           Breite |    `0`   | The fixed width for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                            |
-|             Höhe |    `0`   | The fixed height for new areas. If set to `0`, this setting will be ignored.                                                                                                                                                                                                                                                                                                           |
-| Seitenverhältnis |    `0`   | The fixed aspect ratio for new areas. Press the <DotsThreeVertical className="inline-icon"/> button to access some common presets. An aspect ratio is defined as width / height, so values less than `1` will be taller than they are wide, and values greater than `1` will be wider than they are tall. If set to `0`, this setting will be ignored. |
+|           Objekt | Standard | Beschreibung                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---------------: | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           Breite |    `0`   | Die feste Breite für neue Bereiche. Wenn der Wert auf `0` gesetzt ist, wird diese Einstellung ignoriert.                                                                                                                                                                                                                                                                                                                                    |
+|             Höhe |    `0`   | Die feste Höhe für neue Bereiche. Wenn der Wert auf `0` gesetzt ist, wird diese Einstellung ignoriert.                                                                                                                                                                                                                                                                                                                                      |
+| Seitenverhältnis |    `0`   | Das feste Seitenverhältnis für neue Bereiche. Drücke die Schaltfläche <DotsThreeVertical className="inline-icon"/>, um auf einige gängige Voreinstellungen zuzugreifen. Ein Seitenverhältnis ist als Breite / Höhe definiert. Werte kleiner als `1` sind daher höher als breit, Werte größer als `1` breiter als hoch. Wenn der Wert auf `0` gesetzt ist, wird diese Einstellung ignoriert. |
 
 Es gibt drei Aspekte Verhältnis Voreinstellungen:
 
