@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Kun nuværende side",
   "smoothNavigation": "Glat navigation",
   "edgePanAreaSwitching": "Kant panorering område skifte",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Brug Android SAF",
   "exact": "Præcis",
   "@exact": {
     "description": "Exact match"
