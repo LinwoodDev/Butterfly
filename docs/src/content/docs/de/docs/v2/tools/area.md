@@ -2,9 +2,9 @@
 title: Bereichswerkzeug
 ---
 
-Mit dem Bereichswerkzeug kannst du Bereiche erstellen, bearbeiten und entfernen.
+Mit dem Bereichswerkzeug können Sie Bereiche erstellen, bearbeiten und entfernen.
 
-Eine Übersicht über die Funktionsweise von Bereichen findest du unter [Bereiche](../../areas).
+Eine Übersicht über die Funktionsweise von Bereichen finden Sie unter [Bereiche](../../areas).
 
 ## Aktionen
 
