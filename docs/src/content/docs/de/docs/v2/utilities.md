@@ -1,24 +1,24 @@
 ---
-title: Utilities
+title: Hilfsfunktionen
 ---
 
-This view allows you to change the general document or the view.
+In dieser Ansicht können Sie allgemeine Dokument- oder Ansichtseinstellungen ändern.
 
 :::note
 
-Some features have recently moved to different locations. Please visit their pages for more information:
+Einige Funktionen wurden kürzlich an andere Stellen verschoben. Weitere Informationen finden Sie auf den jeweiligen Seiten:
 
-- [Background](/docs/v2/background)
-- [Grid](/docs/v2/tools/grid)
-- [Ruler](/docs/v2/tools/ruler)
+- [Hintergrund](/docs/v2/Hintergrund)
+- [Grid](/docs/v2/Werkzeuge/grid)
+- [Ruler](/docs/v2/Werkzeuge/ruler)
 
 :::
 
 ## Datei
 
-Here are all global properties that you can set, like description and encryption settings.
-Additionally, you can capture a thumbnail from the current viewport to see it in the home page.
+Hier finden Sie alle globalen Eigenschaften, die Sie festlegen können, z. B. Beschreibung und Verschlüsselungseinstellungen.
+Außerdem können Sie ein Vorschaubild aus dem aktuellen Viewport erfassen, um es auf der Startseite zu sehen.
 
 ## Kamera
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Mit diesem Tab können Sie zu einer bestimmten Position springen oder auf eine bestimmte Stufe zoomen.
