@@ -23,7 +23,7 @@ Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen ein
 
 ### Komponente zu einem Pack hinzufügen
 
-So fügst Sie eine Komponente hinzu:
+So fügen Sie eine Komponente hinzu:
 
 1. Wählen Sie die Elemente auf der unendlichen Leinwand aus
 2. Tippen Sie doppelt oder klicken Sie mit der rechten Maustaste, um das Kontextmenü zu öffnen
