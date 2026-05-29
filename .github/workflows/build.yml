@@ -414,6 +414,7 @@ jobs:
       - uses: snapcore/action-build@v1
         id: build
       - uses: snapcore/action-publish@v1
+        continue-on-error: true
         name: Publish Snap to Store
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/tags/nightly' || github.ref == 'refs/tags/stable' }}
         env:
@@ -692,7 +693,7 @@ jobs:
         run: |
           cd windows-x86_64-build
           zip -r ../linwood-butterfly-windows-x86_64.zip *
-          cd windows-arm64-build
+          cd ../windows-arm64-build
           zip -r ../linwood-butterfly-windows-arm64.zip *
           cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
