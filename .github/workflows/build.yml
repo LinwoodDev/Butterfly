@@ -188,7 +188,7 @@ jobs:
         shell: pwsh
         run: |
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
-          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
+          & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION /DMyAppArch=${{ matrix.arch.dir }} ButterflySetup.iss
       - name: Copy portable start script
         run: |
           cp scripts/start.bat build/windows/${{ matrix.arch.dir }}/runner/Release/
