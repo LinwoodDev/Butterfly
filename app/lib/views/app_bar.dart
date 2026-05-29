@@ -124,12 +124,15 @@ class _AppBarTitle extends StatefulWidget {
 class _AppBarTitleState extends State<_AppBarTitle> {
   final TextEditingController _nameController = TextEditingController(),
       _areaController = TextEditingController();
+  final FocusNode _nameFocusNode = FocusNode(), _areaFocusNode = FocusNode();
 
   @override
   void dispose() {
-    super.dispose();
     _nameController.dispose();
     _areaController.dispose();
+    _nameFocusNode.dispose();
+    _areaFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -167,10 +170,14 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   ? state.currentAreaName
                   : null;
               if (state is DocumentLoaded &&
+                  !_nameFocusNode.hasFocus &&
                   state.metadata.name != _nameController.text) {
                 _nameController.text = state.metadata.name;
               }
-              _areaController.text = area?.name ?? '';
+              if (!_areaFocusNode.hasFocus &&
+                  _areaController.text != (area?.name ?? '')) {
+                _areaController.text = area?.name ?? '';
+              }
               return BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.flags != current.flags ||
@@ -295,10 +302,16 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Focus(
+                      onFocusChange: (hasFocus) {
+                        if (!hasFocus) submit(null);
+                      },
                       child: TextFormField(
                         controller: area == null
                             ? _nameController
                             : _areaController,
+                        focusNode: area == null
+                            ? _nameFocusNode
+                            : _areaFocusNode,
                         onFieldSubmitted: submit,
                         onSaved: submit,
                         readOnly: currentIndex.embedding?.editable == false,

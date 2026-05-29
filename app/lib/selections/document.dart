@@ -50,6 +50,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   final TextEditingController _descriptionController = TextEditingController();
+  final FocusNode _descriptionFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -62,10 +63,11 @@ class _UtilitiesViewState extends State<_UtilitiesView>
 
   @override
   void dispose() {
-    super.dispose();
-
     _tabController.dispose();
     _descriptionController.dispose();
+    _descriptionFocusNode.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -84,7 +86,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     final metadata = state.metadata;
-    if (_descriptionController.text != metadata.description) {
+    if (!_descriptionFocusNode.hasFocus &&
+        _descriptionController.text != metadata.description) {
       _descriptionController.text = metadata.description;
     }
     void submitDescription(String? value) {
@@ -130,16 +133,23 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           builder: (context) => [
             Column(
               children: [
-                TextFormField(
-                  minLines: 3,
-                  maxLines: 5,
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).description,
-                    border: const OutlineInputBorder(),
+                Focus(
+                  onFocusChange: (hasFocus) {
+                    if (!hasFocus) submitDescription(null);
+                  },
+                  child: TextFormField(
+                    minLines: 3,
+                    maxLines: 5,
+                    controller: _descriptionController,
+                    focusNode: _descriptionFocusNode,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).description,
+                      border: const OutlineInputBorder(),
+                    ),
+                    onTapOutside: (_) => submitDescription(null),
+                    onFieldSubmitted: submitDescription,
+                    onSaved: submitDescription,
                   ),
-                  onFieldSubmitted: submitDescription,
-                  onSaved: submitDescription,
                 ),
                 const SizedBox(height: 8),
                 ListTile(

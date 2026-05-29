@@ -5,6 +5,7 @@
 * Fix texture tool configuration scrolling getting stuck ([#1092](https://github.com/LinwoodDev/Butterfly/issues/1092))
 * Fix temporary tools being cleared after canvas gestures ([#1093](https://github.com/LinwoodDev/Butterfly/issues/1093))
 * Fix image operations temporarily showing gray boxes ([#1097](https://github.com/LinwoodDev/Butterfly/issues/1097))
+* Fix title and description fields clearing on focus loss ([#1101](https://github.com/LinwoodDev/Butterfly/issues/1101))
 * Fix pressure not used for inverted stylus
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0

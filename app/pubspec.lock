@@ -413,10 +413,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "0204695694b687b167fd497da5252e9f4aaa162e8d274d6fa1e757380f2a5f46"
+      sha256: fc83774ce5bd7ce08168333b5e53dbe9090ec04eb21e7aa7cd7bac921032c934
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0-beta.4"
+    version: "12.0.0-beta.5"
   fixnum:
     dependency: transitive
     description:
@@ -1065,10 +1065,10 @@ packages:
     dependency: transitive
     description:
       name: pdfium_dart
-      sha256: "07bba420737d88913773aacbaa3dd40b42d6119967816130fc381fbed8f34c92"
+      sha256: b536c19a10f8c86c160274a54ca6f29bc4c88001324ddcda4cca316033f2dc96
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   pdfium_flutter:
     dependency: transitive
     description:
@@ -1081,10 +1081,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdfrx
-      sha256: d20b2826add5f26dbb0ee44d4828aafd255388c8a3d84b1e7f4d4dee00371ecd
+      sha256: "6b3571565fb412fb7d0a325a76154d0685bd0a0659c3f41ee007f408d48cfd46"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   pdfrx_engine:
     dependency: transitive
     description:
@@ -1641,10 +1641,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: b9b3f391857781aa96acacef96066f2f49b4cd03cf9fce3ca4d8da2ef5ea129e
+      sha256: "09854c7633b215e6f7bb2a9adb607bc525bae8655c7fc29db880c33e62f72230"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.4"
   vector_math:
     dependency: transitive
     description:
