@@ -8,9 +8,9 @@ In dieser Ansicht können Sie allgemeine Dokument- oder Ansichtseinstellungen ä
 
 Einige Funktionen wurden kürzlich an andere Stellen verschoben. Weitere Informationen finden Sie auf den jeweiligen Seiten:
 
-- [Hintergrund](/docs/v2/Hintergrund)
-- [Grid](/docs/v2/Werkzeuge/grid)
-- [Ruler](/docs/v2/Werkzeuge/ruler)
+- [Hintergrund](/docs/v2/background)
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
 
 :::
 
