@@ -509,6 +509,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
     @Default(true) bool showThumbnails,
+    @Default(false) bool bringMovedElementsToFront,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -730,6 +731,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
+      bringMovedElementsToFront:
+          prefs.getBool('bring_moved_elements_to_front') ?? false,
     );
   }
 
@@ -851,6 +854,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     }
     await prefs.setBool('show_verbose_logs', showVerboseLogs);
     await prefs.setBool('hide_extension', hideExtension);
+    await prefs.setBool(
+      'bring_moved_elements_to_front',
+      bringMovedElementsToFront,
+    );
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1568,6 +1575,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeLimitViewportPositive(bool value) {
     emit(state.copyWith(limitViewportPositive: value));
+    return save();
+  }
+
+  Future<void> changeBringMovedElementsToFront(bool value) {
+    emit(state.copyWith(bringMovedElementsToFront: value));
     return save();
   }
 }
