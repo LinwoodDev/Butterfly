@@ -2,14 +2,11 @@ part of 'document_bloc.dart';
 
 enum StorageType { local, cloud }
 
-abstract class DocumentState extends Equatable {
+abstract class DocumentState {
   final WindowCubit windowCubit;
   final ButterflyFileSystem fileSystem;
 
   const DocumentState({required this.windowCubit, required this.fileSystem});
-
-  @override
-  List<Object?> get props => [];
 
   NoteData? get data => null;
   DocumentPage? get page => null;
@@ -46,9 +43,6 @@ class DocumentLoadFailure extends DocumentState {
     required this.message,
     this.stackTrace,
   });
-
-  @override
-  List<Object?> get props => [message, stackTrace];
 }
 
 Uint8List _encodePage(DocumentPage page) =>
@@ -152,20 +146,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
        super(location: location ?? const AssetLocation(path: ''));
 
   @override
-  List<Object?> get props => [
-    invisibleLayers,
-    data,
-    info,
-    page,
-    pageName,
-    metadata,
-    currentCollection,
-    currentAreaName,
-    settingsCubit,
-    currentLayer,
-  ];
-
-  @override
   Area? get currentArea {
     return page.getAreaByName(currentAreaName);
   }
@@ -261,9 +241,6 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.location,
     required super.absolute,
   }) : super(oldState.data);
-
-  @override
-  List<Object?> get props => [oldState, frame, track];
 
   @override
   NoteData get data => oldState.data;

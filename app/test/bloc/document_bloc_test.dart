@@ -183,7 +183,7 @@ void main() {
     currentIndexCubit = CurrentIndexCubit(
       settingsCubit,
       TransformCubit(1),
-      const CameraViewport.unbaked(),
+      CameraViewport.unbaked(),
     );
     windowCubit = WindowCubit(fullScreen: false);
 
@@ -298,6 +298,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [secondRenderer],
+        visibleElements: [secondRenderer],
+        visibleUnbakedElements: [secondRenderer],
         width: 100,
         height: 100,
       ),
@@ -354,7 +356,11 @@ void main() {
     currentIndexCubit = CurrentIndexCubit(
       settingsCubit,
       TransformCubit(1),
-      CameraViewport.unbaked(unbakedElements: [renderer]),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+      ),
     );
     bloc = DocumentBloc(
       fileSystem,
@@ -397,6 +403,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
         width: 100,
         height: 100,
       ),
@@ -437,6 +445,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
         width: 100,
         height: 100,
       ),
@@ -533,6 +543,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -591,6 +603,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -657,6 +671,8 @@ void main() {
         transformCubit,
         CameraViewport.unbaked(
           unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
           width: 401,
           height: 303,
         ),
@@ -719,6 +735,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -790,6 +808,8 @@ void main() {
         TransformCubit(1),
         CameraViewport.unbaked(
           unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
           width: 10,
           height: 10,
         ),
