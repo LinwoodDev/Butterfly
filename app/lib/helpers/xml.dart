@@ -8,16 +8,17 @@ extension XmlHelper on XmlNode {
     Map<String, String> attributes = const {},
     List<XmlNode> children = const [],
   }) {
-    final element = XmlElement(XmlName(name));
+    final element = XmlElement(XmlName.parts(name));
     if (id != null) {
-      element.attributes.add(XmlAttribute(XmlName('id'), id));
+      element.attributes.add(XmlAttribute(XmlName.parts('id'), id));
     }
     if (className != null) {
-      element.attributes.add(XmlAttribute(XmlName('class'), className));
+      element.attributes.add(XmlAttribute(XmlName.parts('class'), className));
     }
     attributes.forEach((key, value) {
-      element.attributes.add(XmlAttribute(XmlName(key), value));
+      element.attributes.add(XmlAttribute(XmlName.parts(key), value));
     });
+    element.children.addAll(children);
     addElement(element);
     return element;
   }
