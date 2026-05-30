@@ -9,5 +9,6 @@
 * Fix pressure not used for inverted stylus
 * Fix close dialog to offer save, discard, and cancel actions
 * Fix top corner menu doesn't have navigator menu buttons on full screen
+* Fix image export quality changes showing stale previews
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
