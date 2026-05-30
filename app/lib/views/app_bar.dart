@@ -467,330 +467,382 @@ class MainPopupMenu extends StatelessWidget {
           previous.navigationRail != current.navigationRail ||
           previous.flags != current.flags,
       builder: (context, settings) {
-        final state = context.read<CurrentIndexCubit>().state;
-        final size = MediaQuery.sizeOf(context);
-        return MenuAnchor(
-          menuChildren: [
-            if (state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.house),
-                child: Text(AppLocalizations.of(context).home),
-                onPressed: () async {
-                  final router = GoRouter.of(context);
-                  final bloc = context.read<DocumentBloc>();
-                  await bloc.save();
-                  router.go('/');
-                },
-              ),
-              if (MediaQuery.sizeOf(context).width < LeapBreakpoints.expanded ||
-                  !settings.navigationRail)
-                ...NavigatorPage.values.map(
-                  (e) => MenuItemButton(
-                    leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                    child: Text(e.getLocalizedName(context)),
-                    onPressed: () {
-                      cubit.setNavigatorPage(e);
-                      final bloc = context.read<DocumentBloc>();
-                      final transformCubit = context.read<TransformCubit>();
-                      showDialog(
-                        context: context,
-                        builder: (context) => MultiBlocProvider(
-                          providers: [
-                            BlocProvider.value(value: bloc),
-                            BlocProvider.value(value: cubit),
-                            BlocProvider.value(value: transformCubit),
-                          ],
-                          child: DocumentNavigator(asDialog: true),
+        return BlocBuilder<WindowCubit, WindowState>(
+          buildWhen: (previous, current) =>
+              previous.fullScreen != current.fullScreen,
+          builder: (context, windowState) {
+            return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+              buildWhen: (previous, current) =>
+                  previous.embedding != current.embedding ||
+                  previous.hideUi != current.hideUi ||
+                  previous.networkingService != current.networkingService ||
+                  previous.saved != current.saved,
+              builder: (context, state) {
+                final size = MediaQuery.sizeOf(context);
+                return MenuAnchor(
+                  menuChildren: [
+                    if (state.embedding == null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.house,
                         ),
-                      );
-                    },
-                  ),
-                ),
-              const Divider(),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyB,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<BackgroundIntent>(
-                    context,
-                    BackgroundIntent(),
-                  );
-                },
-                child: Text(AppLocalizations.of(context).background),
-              ),
-              SubmenuButton(
-                menuChildren: [
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.archive),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      control: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<ExportIntent>(
-                        context,
-                        ExportIntent(),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).packagedFile),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.file,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      control: true,
-                      shift: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<ExportIntent>(
-                        context,
-                        ExportIntent(isText: true),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).rawFile),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.fileSvg,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      alt: true,
-                      control: true,
-                    ),
-                    onPressed: () async {
-                      Actions.maybeInvoke<SvgExportIntent>(
-                        context,
-                        SvgExportIntent(),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).svg),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.fileImage,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyE,
-                      alt: true,
-                      control: true,
-                      shift: true,
-                    ),
-                    onPressed: () {
-                      Actions.maybeInvoke<ImageExportIntent>(
-                        context,
-                        ImageExportIntent(),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).image),
-                  ),
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(
-                      PhosphorIconsLight.filePdf,
-                      textDirection: TextDirection.ltr,
-                    ),
-                    shortcut: const SingleActivator(
-                      LogicalKeyboardKey.keyP,
-                      shift: true,
-                      control: true,
-                    ),
-                    onPressed: () {
-                      Actions.maybeInvoke<PdfExportIntent>(
-                        context,
-                        PdfExportIntent(),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context).pdf),
-                  ),
-                  /*MenuItemButton(
+                        child: Text(AppLocalizations.of(context).home),
+                        onPressed: () async {
+                          final router = GoRouter.of(context);
+                          final bloc = context.read<DocumentBloc>();
+                          await bloc.save();
+                          router.go('/');
+                        },
+                      ),
+                      if (MediaQuery.sizeOf(context).width <
+                              LeapBreakpoints.expanded ||
+                          !settings.navigationRail ||
+                          windowState.fullScreen ||
+                          state.hideUi != HideState.visible)
+                        ...NavigatorPage.values.map(
+                          (e) => MenuItemButton(
+                            leadingIcon: PhosphorIcon(
+                              e.icon(PhosphorIconsStyle.light),
+                            ),
+                            child: Text(e.getLocalizedName(context)),
+                            onPressed: () {
+                              cubit.setNavigatorPage(e);
+                              final bloc = context.read<DocumentBloc>();
+                              final transformCubit = context
+                                  .read<TransformCubit>();
+                              showDialog(
+                                context: context,
+                                builder: (context) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider.value(value: bloc),
+                                    BlocProvider.value(value: cubit),
+                                    BlocProvider.value(value: transformCubit),
+                                  ],
+                                  child: DocumentNavigator(asDialog: true),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      const Divider(),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.image,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyB,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<BackgroundIntent>(
+                            context,
+                            BackgroundIntent(),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).background),
+                      ),
+                      SubmenuButton(
+                        menuChildren: [
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.archive,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              control: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<ExportIntent>(
+                                context,
+                                ExportIntent(),
+                              );
+                            },
+                            child: Text(
+                              AppLocalizations.of(context).packagedFile,
+                            ),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.file,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              control: true,
+                              shift: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<ExportIntent>(
+                                context,
+                                ExportIntent(isText: true),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).rawFile),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.fileSvg,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              alt: true,
+                              control: true,
+                            ),
+                            onPressed: () async {
+                              Actions.maybeInvoke<SvgExportIntent>(
+                                context,
+                                SvgExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).svg),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.fileImage,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyE,
+                              alt: true,
+                              control: true,
+                              shift: true,
+                            ),
+                            onPressed: () {
+                              Actions.maybeInvoke<ImageExportIntent>(
+                                context,
+                                ImageExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).image),
+                          ),
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.filePdf,
+                              textDirection: TextDirection.ltr,
+                            ),
+                            shortcut: const SingleActivator(
+                              LogicalKeyboardKey.keyP,
+                              shift: true,
+                              control: true,
+                            ),
+                            onPressed: () {
+                              Actions.maybeInvoke<PdfExportIntent>(
+                                context,
+                                PdfExportIntent(),
+                              );
+                            },
+                            child: Text(AppLocalizations.of(context).pdf),
+                          ),
+                          /*MenuItemButton(
                       leadingIcon: const PhosphorIcon(PhosphorIconsLight.notebook),
                       onPressed: () => exportXopp(context),
                       child: const Text('Xournal++'),
                     ),*/
-                ],
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.paperPlaneRight,
-                ),
-                child: Text(AppLocalizations.of(context).export),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.package),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyP,
-                  control: true,
-                  alt: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<PacksIntent>(context, PacksIntent());
-                },
-                child: Text(AppLocalizations.of(context).packs),
-              ),
-              const Divider(),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.filePlus,
-                  textDirection: TextDirection.ltr,
-                ),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<NewIntent>(context, NewIntent());
-                },
-                child: Text(AppLocalizations.of(context).newContent),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(
-                  PhosphorIconsLight.file,
-                  textDirection: TextDirection.ltr,
-                ),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyN,
-                  shift: true,
-                  control: true,
-                ),
-                onPressed: () {
-                  Actions.maybeInvoke<NewIntent>(
-                    context,
-                    NewIntent(fromTemplate: true),
-                  );
-                },
-                child: Text(AppLocalizations.of(context).templates),
-              ),
-              SubmenuButton(
-                menuChildren: settings.history
-                    .map(
-                      (e) => MenuItemButton(
-                        child: Text(e.identifier),
-                        onPressed: () => openFile(context, true, e),
+                        ],
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.paperPlaneRight,
+                        ),
+                        child: Text(AppLocalizations.of(context).export),
                       ),
-                    )
-                    .toList(),
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
-                child: Text(AppLocalizations.of(context).recentFiles),
-              ),
-            ],
-            if (state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
-                shortcut: const SingleActivator(
-                  LogicalKeyboardKey.keyS,
-                  alt: true,
-                  control: true,
-                ),
-                onPressed: () => openSettings(context),
-                child: Text(AppLocalizations.of(context).settings),
-              ),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.eyeSlash),
-                shortcut: const SingleActivator(LogicalKeyboardKey.f12),
-                onPressed: () {
-                  context.read<CurrentIndexCubit>().enterTouchHideUI();
-                },
-                child: Text(AppLocalizations.of(context).hideUI),
-              ),
-              BlocBuilder<WindowCubit, WindowState>(
-                buildWhen: (previous, current) =>
-                    previous.fullScreen != current.fullScreen,
-                builder: (context, windowState) => MenuItemButton(
-                  leadingIcon: windowState.fullScreen
-                      ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
-                      : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-                  shortcut: const SingleActivator(LogicalKeyboardKey.f11),
-                  onPressed: () async {
-                    windowCubit.toggleFullScreen();
-                  },
-                  child: Text(LeapLocalizations.of(context).fullScreen),
-                ),
-              ),
-            ],
-            if (state.embedding == null && settings.hasFlag('collaboration'))
-              BlocBuilder<NetworkingService, NetworkState?>(
-                bloc: state.networkingService,
-                builder: (_, state) {
-                  final isOpen = state?.connection.isOpen ?? false;
-                  return MenuItemButton(
-                    leadingIcon: isOpen
-                        ? Icon(
-                            PhosphorIconsFill.users,
-                            color: ColorScheme.of(context).primary,
-                          )
-                        : Icon(PhosphorIconsLight.users),
-                    onPressed: () => showCollaborationDialog(context),
-                    child: Text(
-                      AppLocalizations.of(context).collaboration,
-                      style: TextStyle(
-                        color: isOpen ? ColorScheme.of(context).primary : null,
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.package,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyP,
+                          control: true,
+                          alt: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<PacksIntent>(
+                            context,
+                            PacksIntent(),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).packs),
+                      ),
+                      const Divider(),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.filePlus,
+                          textDirection: TextDirection.ltr,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyN,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<NewIntent>(context, NewIntent());
+                        },
+                        child: Text(AppLocalizations.of(context).newContent),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.file,
+                          textDirection: TextDirection.ltr,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyN,
+                          shift: true,
+                          control: true,
+                        ),
+                        onPressed: () {
+                          Actions.maybeInvoke<NewIntent>(
+                            context,
+                            NewIntent(fromTemplate: true),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context).templates),
+                      ),
+                      SubmenuButton(
+                        menuChildren: settings.history
+                            .map(
+                              (e) => MenuItemButton(
+                                child: Text(e.identifier),
+                                onPressed: () => openFile(context, true, e),
+                              ),
+                            )
+                            .toList(),
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.clock,
+                        ),
+                        child: Text(AppLocalizations.of(context).recentFiles),
+                      ),
+                    ],
+                    if (state.embedding == null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.gear,
+                        ),
+                        shortcut: const SingleActivator(
+                          LogicalKeyboardKey.keyS,
+                          alt: true,
+                          control: true,
+                        ),
+                        onPressed: () => openSettings(context),
+                        child: Text(AppLocalizations.of(context).settings),
+                      ),
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.eyeSlash,
+                        ),
+                        shortcut: const SingleActivator(LogicalKeyboardKey.f12),
+                        onPressed: () {
+                          context.read<CurrentIndexCubit>().enterTouchHideUI();
+                        },
+                        child: Text(AppLocalizations.of(context).hideUI),
+                      ),
+                      BlocBuilder<WindowCubit, WindowState>(
+                        buildWhen: (previous, current) =>
+                            previous.fullScreen != current.fullScreen,
+                        builder: (context, windowState) => MenuItemButton(
+                          leadingIcon: windowState.fullScreen
+                              ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
+                              : const PhosphorIcon(
+                                  PhosphorIconsLight.arrowsOut,
+                                ),
+                          shortcut: const SingleActivator(
+                            LogicalKeyboardKey.f11,
+                          ),
+                          onPressed: () async {
+                            windowCubit.toggleFullScreen();
+                          },
+                          child: Text(LeapLocalizations.of(context).fullScreen),
+                        ),
+                      ),
+                    ],
+                    if (state.embedding == null &&
+                        settings.hasFlag('collaboration'))
+                      BlocBuilder<NetworkingService, NetworkState?>(
+                        bloc: state.networkingService,
+                        builder: (_, state) {
+                          final isOpen = state?.connection.isOpen ?? false;
+                          return MenuItemButton(
+                            leadingIcon: isOpen
+                                ? Icon(
+                                    PhosphorIconsFill.users,
+                                    color: ColorScheme.of(context).primary,
+                                  )
+                                : Icon(PhosphorIconsLight.users),
+                            onPressed: () => showCollaborationDialog(context),
+                            child: Text(
+                              AppLocalizations.of(context).collaboration,
+                              style: TextStyle(
+                                color: isOpen
+                                    ? ColorScheme.of(context).primary
+                                    : null,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    if (state.embedding?.onOpen != null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.folder,
+                        ),
+                        onPressed: state.embedding?.onOpen,
+                        child: Text(AppLocalizations.of(context).open),
+                      ),
+                    ],
+                    if (state.embedding != null) ...[
+                      MenuItemButton(
+                        leadingIcon: const PhosphorIcon(
+                          PhosphorIconsLight.door,
+                        ),
+                        child: Text(AppLocalizations.of(context).exit),
+                        onPressed: () {
+                          final embedding = state.embedding!;
+                          if (embedding.isInternal) {
+                            embedding.onExit?.call();
+                            return;
+                          }
+                          sendEmbedMessage(
+                            'exit',
+                            context.read<DocumentBloc>().state.saveBytes(),
+                          );
+                        },
+                      ),
+                    ],
+                  ],
+                  style: MenuStyle(
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(16),
+                        ),
                       ),
                     ),
-                  );
-                },
-              ),
-            if (state.embedding?.onOpen != null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                onPressed: state.embedding?.onOpen,
-                child: Text(AppLocalizations.of(context).open),
-              ),
-            ],
-            if (state.embedding != null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
-                child: Text(AppLocalizations.of(context).exit),
-                onPressed: () {
-                  final embedding = state.embedding!;
-                  if (embedding.isInternal) {
-                    embedding.onExit?.call();
-                    return;
-                  }
-                  sendEmbedMessage(
-                    'exit',
-                    context.read<DocumentBloc>().state.saveBytes(),
-                  );
-                },
-              ),
-            ],
-          ],
-          style: MenuStyle(
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-              ),
-            ),
-            maximumSize: WidgetStateProperty.all(
-              Size(
-                (size.width - 32).clamp(100.0, 300.0),
-                (size.height - 70 - (padding?.bottom ?? 0) * 1.5).clamp(
-                  100.0,
-                  double.infinity,
-                ),
-              ),
-            ),
-          ),
-          builder: (context, controller, child) => Align(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: IconButton(
-                icon: Image.asset(logoAsset),
-                style: IconButton.styleFrom(
-                  backgroundColor: controller.isOpen
-                      ? ColorScheme.of(context).surfaceContainerHighest
-                      : null,
-                ),
-                tooltip: AppLocalizations.of(context).actions,
-                onPressed: controller.toggle,
-              ),
-            ),
-          ),
+                    maximumSize: WidgetStateProperty.all(
+                      Size(
+                        (size.width - 32).clamp(100.0, 300.0),
+                        (size.height - 70 - (padding?.bottom ?? 0) * 1.5).clamp(
+                          100.0,
+                          double.infinity,
+                        ),
+                      ),
+                    ),
+                  ),
+                  builder: (context, controller, child) => Align(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: IconButton(
+                        icon: Image.asset(logoAsset),
+                        style: IconButton.styleFrom(
+                          backgroundColor: controller.isOpen
+                              ? ColorScheme.of(context).surfaceContainerHighest
+                              : null,
+                        ),
+                        tooltip: AppLocalizations.of(context).actions,
+                        onPressed: controller.toggle,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         );
       },
     );

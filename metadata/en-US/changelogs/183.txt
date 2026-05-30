@@ -8,5 +8,6 @@
 * Fix title and description fields clearing on focus loss ([#1101](https://github.com/LinwoodDev/Butterfly/issues/1101))
 * Fix pressure not used for inverted stylus
 * Fix close dialog to offer save, discard, and cancel actions
+* Fix top corner menu doesn't have navigator menu buttons on full screen
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
