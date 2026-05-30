@@ -19,9 +19,9 @@ class WebCloseSubscription extends CloseSubscription {
           const EventStreamProvider<BeforeUnloadEvent>(
             'onbeforeunload',
           ).forTarget(window).listen((event) {
-            final message = onClose();
-            if (message is! String) return;
-            event.returnValue = message;
+            final request = onClose();
+            if (request is! CloseRequest) return;
+            event.returnValue = request.message;
           });
 
   @override
