@@ -12,5 +12,6 @@
 * Fix top corner menu doesn't have navigator menu buttons on full screen
 * Fix image export quality changes showing stale previews
 * Fix duplicate layer button in layers dialog not working ([#1105](https://github.com/LinwoodDev/Butterfly/issues/1105))
+* Fix moving PDFs with spacer tools freezing the canvas ([#1106](https://github.com/LinwoodDev/Butterfly/issues/1106))
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0

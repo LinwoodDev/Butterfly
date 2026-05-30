@@ -3,9 +3,16 @@ part of '../renderer.dart';
 class PdfRenderer extends Renderer<PdfElement> {
   ui.Image? image;
   double? renderedScale;
+  bool ownsImage;
   int _renderId = 0;
 
-  PdfRenderer(super.element, [super.layer, this.image, this.renderedScale]);
+  PdfRenderer(
+    super.element, [
+    super.layer,
+    this.image,
+    this.renderedScale,
+    this.ownsImage = true,
+  ]);
 
   @override
   bool onAssetUpdate(
@@ -88,7 +95,9 @@ class PdfRenderer extends Renderer<PdfElement> {
     ui.Size size,
   ) {
     _renderId++;
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
     renderedScale = null;
   }
@@ -186,9 +195,12 @@ class PdfRenderer extends Renderer<PdfElement> {
         return;
       }
 
-      image?.dispose();
+      if (ownsImage) {
+        image?.dispose();
+      }
       image = uiImage;
       renderedScale = scale;
+      ownsImage = true;
     } catch (error, stackTrace) {
       talker.error(
         'Failed to render PDF element ${element.source}',
@@ -196,7 +208,9 @@ class PdfRenderer extends Renderer<PdfElement> {
         stackTrace,
       );
       if (currentRenderId == _renderId) {
-        image?.dispose();
+        if (ownsImage) {
+          image?.dispose();
+        }
         image = null;
         renderedScale = null;
       }
@@ -277,13 +291,16 @@ class PdfRenderer extends Renderer<PdfElement> {
       layer,
       image,
       renderedScale,
+      false,
     );
   }
 
   @override
   void dispose() {
     _renderId++;
-    image?.dispose();
+    if (ownsImage) {
+      image?.dispose();
+    }
     image = null;
     renderedScale = null;
   }
