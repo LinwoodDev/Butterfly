@@ -916,8 +916,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       } else {
         invisibleLayers.add(event.id);
       }
-      emit(current.copyWith(invisibleLayers: invisibleLayers));
-      currentIndexCubit.unbake(current);
+      final newState = current.copyWith(invisibleLayers: invisibleLayers);
+      emit(newState);
+      currentIndexCubit.unbake(newState);
     });
 
     on<LayerCreated>((event, emit) async {
@@ -975,24 +976,60 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
-      if (event.layers.length < 2) return;
       final layers = current.page.layers;
-      final mainLayer = event.layers.first;
-      final mainLayerIndex = layers.indexWhere(
-        (element) => element.id == mainLayer,
-      );
-      if (mainLayerIndex == -1) return;
-      final mergedLayers = event.layers.skip(1).toList()
-        ..sort(
-          (a, b) => layers
-              .indexWhere((e) => e.id == a)
-              .compareTo(layers.indexWhere((e) => e.id == b)),
+      if (event.duplicate) {
+        final ids = event.layers.toSet();
+        final duplicatedIds = <String, String>{};
+        final newLayers = <DocumentLayer>[];
+        final addedRenderers = <Renderer<PadElement>>[];
+        for (final layer in layers) {
+          newLayers.add(layer);
+          final id = layer.id;
+          if (id == null || !ids.contains(id)) continue;
+          final newId = createUniqueId();
+          final content = layer.content
+              .map((element) => element.copyWith(id: createUniqueId()))
+              .toList();
+          duplicatedIds[id] = newId;
+          newLayers.add(layer.copyWith(id: newId, content: content));
+          addedRenderers.addAll(
+            content.map((element) => Renderer.fromInstance(element, newId)),
+          );
+        }
+        if (duplicatedIds.isEmpty) return;
+        final invisibleLayers = Set<String>.from(current.invisibleLayers);
+        for (final entry in duplicatedIds.entries) {
+          if (invisibleLayers.contains(entry.key)) {
+            invisibleLayers.add(entry.value);
+          }
+        }
+        return _saveState(
+          emit,
+          state: current.copyWith(
+            page: current.page.copyWith(layers: newLayers),
+            currentLayer:
+                duplicatedIds[current.currentLayer] ??
+                duplicatedIds.values.last,
+            invisibleLayers: invisibleLayers,
+          ),
+          addedElements: addedRenderers,
         );
+      }
+      if (event.layers.length < 2) return;
+      final mainLayer = event.layers.first;
+      final layerIndexes = {
+        for (final entry in layers.asMap().entries) entry.value.id: entry.key,
+      };
+      final mainLayerIndex = layerIndexes[mainLayer];
+      if (mainLayerIndex == null) return;
+      final mergedLayers =
+          event.layers.skip(1).where(layerIndexes.containsKey).toList()
+            ..sort((a, b) => layerIndexes[a]!.compareTo(layerIndexes[b]!));
       final belowLayers = mergedLayers.where(
-        (element) => layers.indexWhere((e) => e.id == element) < mainLayerIndex,
+        (element) => (layerIndexes[element] ?? -1) < mainLayerIndex,
       );
       final aboveLayers = mergedLayers.where(
-        (element) => layers.indexWhere((e) => e.id == element) > mainLayerIndex,
+        (element) => (layerIndexes[element] ?? -1) > mainLayerIndex,
       );
       var layer = current.page.getLayer(mainLayer);
       layer = layer.copyWith(
@@ -1003,7 +1040,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ],
       );
       final newLayers = layers
-          .where((e) => event.duplicate || !mergedLayers.contains(e.id))
+          .where((e) => !mergedLayers.contains(e.id))
           .map((e) => e.id == mainLayer ? layer : e)
           .toList();
       return _saveState(

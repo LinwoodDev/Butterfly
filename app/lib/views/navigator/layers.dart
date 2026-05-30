@@ -52,6 +52,19 @@ class LayersView extends StatelessWidget {
                   },
                 ),
                 ActionChip(
+                  label: Text(AppLocalizations.of(context).duplicate),
+                  avatar: const PhosphorIcon(PhosphorIconsLight.copySimple),
+                  onPressed: () {
+                    final selectedIds = controller.selectedIds.toList();
+                    if (selectedIds.isNotEmpty) {
+                      context.read<DocumentBloc>().add(
+                        LayersMerged(selectedIds, true),
+                      );
+                    }
+                    controller.clear();
+                  },
+                ),
+                ActionChip(
                   label: Text(AppLocalizations.of(context).merge),
                   avatar: const PhosphorIcon(PhosphorIconsLight.stack),
                   onPressed: () {
