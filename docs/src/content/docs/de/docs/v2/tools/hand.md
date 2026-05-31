@@ -2,4 +2,4 @@
 title: Handwerkzeug
 ---
 
-Mit diesem Werkzeug können Sie Sie auf der Seite bewegen.
+Mit diesem Werkzeug können Sie sich auf der Seite bewegen.
