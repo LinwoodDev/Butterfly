@@ -2,7 +2,7 @@
 title: Paket
 ---
 
-Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren Sien. Klicken Sie dazu oben links und wählen Sie „Packs“.
+Ein Pack ist eine Sammlung von Komponenten, die im Stempelwerkzeug verwendet werden können. Sie können Ihr eigenes Paket erstellen oder ein bestehendes importieren. Klicken Sie dazu oben links und wählen Sie „Packs“.
 
 Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden können. Wenn Sie das Pack in einem Dokument teilen möchten, können Sie es mit dem Dokument bündeln.
 
@@ -17,7 +17,7 @@ Packs werden global gespeichert, sodass Sie sie in jedem Dokument verwenden kön
 
 ## Komponenten
 
-Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren Sien.
+Komponenten sind eine Möglichkeit, Elemente zu speichern, die Sie oft verwenden. Sie können Ihre eigenen Komponenten erstellen oder eine vorhandene mit Paketen importieren.
 
 Verwenden Sie die Komponentennavigator-Seite, um Komponenten in Ihre Notizen einzufügen.
 
