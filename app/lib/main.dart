@@ -132,6 +132,7 @@ class ButterflyApp extends StatelessWidget {
   final SettingsCubit settingsCubit;
   final Object? initialExtra;
   final bool fullScreen;
+  final bool debugShowCheckedModeBanner;
 
   ButterflyApp({
     super.key,
@@ -139,6 +140,7 @@ class ButterflyApp extends StatelessWidget {
     this.fullScreen = false,
     this.initialLocation = '/',
     this.initialExtra,
+    this.debugShowCheckedModeBanner = true,
   });
 
   late final GoRouter _router = GoRouter(
@@ -388,6 +390,7 @@ class ButterflyApp extends StatelessWidget {
           previous.density != current.density ||
           previous.highContrast != current.highContrast,
       builder: (context, state) => MaterialApp.router(
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         locale: state.locale,
         title: applicationName,
         restorationScopeId: 'app',
