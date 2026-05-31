@@ -4,13 +4,13 @@ Butterfly ist eine Notiz-App, bei der Ihre Ideen an erster Stellen Sie stehen. S
 * Anpassbar: Passen Sie alles an Ihre Bedürfnisse an. Wählen Sie eine individuelle Farbe, erstellen Sie Ihre eigene Farbpalette und fügen Sie diese den Seiten hinzu. Das Papier hat eine unendliche Größe, perfekt für Ihre Ideen und Noten.
 * Unterstützt Ihre bevorzugten Formate: Import und Export werden für Bilder, PDF und SVG unterstützt. Öffnen Sie diese Dateien direkt, um sie zu bearbeiten.
 * Funktioniert auf jedem Gerät: Die App ist für Android, Windows, Linux und im Web verfügbar. Sie können es auf Ihrem Smartphone, Tablet oder Computer verwenden.
-* Wählen Sie, wo Ihre Daten gespeichert werden: Sie können Ihre Daten lokal oder in Ihrer bevorzugten Cloud (WebDAV) speichern. Alternativ können Sie sie in eine Datei exportieren und später wieder importieren Sien.
+* Wählen Sie, wo Ihre Daten gespeichert werden: Sie können Ihre Daten lokal oder in Ihrer bevorzugten Cloud (WebDAV) speichern. Alternativ können Sie Ihre Daten in eine Datei exportieren und später wieder importieren.
 * **In vielen Sprachen verfügbar:** Die App ist mehrsprachig. Helfen Sie uns, diese App in Ihre Sprache zu übersetzen.
 * **FOSS (Open Source & kostenlos):** Der Quellcode ist offen, und die Nutzung ist gratis. Sie können aktiv zum Projekt beitragen und es weiter verbessern.
 * **Offline nutzbar:** Sie können die App offline benutzen. Auch ohne Internetverbindung können Sie zeichnen, malen und Ihre Notizen exportieren.
 * **Unterstützt Stylus & Touch:** Egal ob mit dem Finger oder Ihrem Lieblings-Stylus – Butterfly funktioniert auf allen Touch-Geräten. Sie können mit Ihrem bevorzugten Stil zeichnen und malen.
 * **Texte schreiben:** Füge Texte ein und passe Schriftart, Größe und Farbe nach Belieben an. Sie können Schriftart, Größe und Farbe ändern.
-* **Fotos aufnehmen:** Erstellen Sie direkt Fotos und fügen Sie sie Ihren Notizen hinzu oder importieren Sie Bilder aus Ihrer Galerie. Sie können auch Fotos aus Ihrer Galerie importieren Sien.
+* **Fotos aufnehmen:** Erstellen Sie direkt Fotos und fügen Sie sie Ihren Notizen hinzu oder importieren Sie Bilder aus Ihrer Galerie. Sie können auch Fotos aus Ihrer Galerie importieren.
 * **Voll bearbeitbar:** Nachträgliche Änderungen an Größe, Farbe und Position jedes Elements sind jederzeit möglich.
 * **Formen hinzufügen:** Wählen Sie zwischen Rechtecken, Kreisen und Linien, um Ihre Notizen visuell zu strukturieren. Sie können zwischen Rechteck, Kreis und Linie wählen.
 * **Notizen strukturieren:** Lege Bereiche und Wegpunkte an, um Ihre Inhalte übersichtlich zu organisieren.
