@@ -10,7 +10,6 @@ import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
-import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/property.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -173,10 +172,10 @@ void main() {
 
         await pumpApp(tester, size);
         expect(find.text(screenshotDocumentName), findsWidgets);
-        await takeScreenshot(tester, '$directory/home');
+        await takeScreenshot(tester, '$directory/1-home');
 
         await pumpDocument(tester, size);
-        await takeScreenshot(tester, '$directory/main');
+        await takeScreenshot(tester, '$directory/2-main');
 
         final viewportContext = tester.element(find.byType(MainViewViewport));
         final currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
@@ -202,7 +201,7 @@ void main() {
           await settle(tester);
         }
         expect(find.byType(TemplateDialog), findsOneWidget);
-        await takeScreenshot(tester, '$directory/templates');
+        await takeScreenshot(tester, '$directory/3-templates');
         if (templateDialogOpened) {
           Navigator.of(tester.element(find.byType(TemplateDialog))).pop();
           await settle(tester);
@@ -217,11 +216,11 @@ void main() {
         currentIndexCubit.changeSelection(pen, false);
         await settle(tester);
         expect(find.byType(PropertyView), findsOneWidget);
-        await takeScreenshot(tester, '$directory/properties');
+        await takeScreenshot(tester, '$directory/4-properties');
 
         currentIndexCubit.changeSelection(currentIndexCubit, false);
         await settle(tester);
-        await takeScreenshot(tester, '$directory/tools');
+        await takeScreenshot(tester, '$directory/5-tools');
 
         currentIndexCubit.resetSelection(force: true);
         await settle(tester);
@@ -246,7 +245,7 @@ void main() {
         );
         await settle(tester);
         expect(find.byType(AddDialog), findsOneWidget);
-        await takeScreenshot(tester, '$directory/add');
+        await takeScreenshot(tester, '$directory/6-add');
       });
     }
   });
