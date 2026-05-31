@@ -755,7 +755,7 @@
     "description": "Stamp tool"
   },
   "addToPack": "Zum Paket hinzufügen",
-  "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren Sien möchten?",
+  "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren möchten?",
   "byAuthor": "von {author}",
   "@byAuthor": {
     "placeholders": {
@@ -803,7 +803,7 @@
   "selectAsset": "Asset auswählen",
   "clearStyle": "Stil löschen",
   "unknownImportType": "Unbekannter Importtyp",
-  "sureImportTemplate": "Sind Sie sicher, dass Sie die Vorlage importieren Sien möchten?",
+  "sureImportTemplate": "Sind Sie sicher, dass Sie die Vorlage importieren möchten?",
   "frame": "Frame",
   "@frame": {
     "description": "Frame object"
