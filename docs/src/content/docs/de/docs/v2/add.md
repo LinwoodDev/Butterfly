@@ -6,13 +6,13 @@ Hier können Sie Inhalte zu Ihren Notizen hinzufügen.
 
 ## Importieren
 
-Hier können Sie vorhandene Dateien in Ihre Dokumente importieren Sien.
+Hier können Sie vorhandene Dateien in Ihre Dokumente importieren.
 Unterstützt werden Butterfly-Dokumente, Markdown, PNG, SVG und PDF.
 
 ## Werkzeuge
 
 Klicken Sie auf Werkzeuge, um sie Ihrer Symbolleiste hinzuzufügen.
-Lies [hier](../tools) mehr darüber.
+Lesen Sie [hier](../tools) mehr darüber.
 
 ## Oberflächen
 
