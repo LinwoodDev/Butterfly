@@ -334,12 +334,12 @@ class _MainViewViewportState extends State<MainViewViewport>
           await changeTemporaryTool(e.kind, e.buttons);
         }
         if (_isScalingDisabled ?? true) {
-          getHandler().onPointerDown(e, getEventContext());
+          await getHandler().onPointerDown(e, getEventContext());
         }
       } else if (e is PointerMoveEvent) {
         cubit.updateLastPosition(e.localPosition);
         if (_isScalingDisabled ?? true) {
-          getHandler().onPointerMove(e, getEventContext());
+          await getHandler().onPointerMove(e, getEventContext());
         }
       } else if (e is PointerUpEvent) {
         cubit.updateLastPosition(e.localPosition);
@@ -387,7 +387,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       await changeTemporaryTool(event.kind, event.buttons);
     }
     if (_isScalingDisabled ?? true) {
-      getHandler().onPointerDown(event, getEventContext());
+      await getHandler().onPointerDown(event, getEventContext());
     }
   }
 
@@ -428,7 +428,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       return;
     }
     if (_isScalingDisabled ?? true) {
-      getHandler().onPointerMove(event, getEventContext());
+      await getHandler().onPointerMove(event, getEventContext());
     }
   }
 

@@ -5,12 +5,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
   @override
   void _updateElement(
-    PointerEvent event,
+    Offset localPosition,
     EventContext context, [
     bool first = false,
   ]) {
     changeStartedDrawing(context);
-    super._updateElement(event, context, first);
+    super._updateElement(localPosition, context, first);
   }
 
   @override

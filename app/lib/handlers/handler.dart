@@ -227,9 +227,9 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
-  void onPointerDown(PointerDownEvent event, EventContext context) {}
+  FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
 
-  void onPointerMove(PointerMoveEvent event, EventContext context) {}
+  FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
 
   FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
