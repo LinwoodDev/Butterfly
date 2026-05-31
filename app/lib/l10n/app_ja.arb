@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "現在のページのみ",
   "smoothNavigation": "スムーズなナビゲーション",
   "edgePanAreaSwitching": "エッジパンエリアの切り替え",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Android SAFを使用する",
   "exact": "正確な",
   "@exact": {
     "description": "Exact match"

@@ -4,7 +4,7 @@ title: التعاون
 
 :::caution[🧪 Experiment]
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
+This feature is behind an experiment flag. Read more [here](/community/nightly#experiments).
 Everything in this section is subject to change.
 
 :::

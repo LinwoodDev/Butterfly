@@ -4,10 +4,11 @@ title: Sammlungstool
 
 :::note[⚡ Aktionswerkzeug]
 
-This is a special tool.
+Dies ist ein spezielles Werkzeug.
 Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
 
 :::
 
-With this tool you can change the collection of multiple objects. Read more about collections [here](../collections.md).
-When you click on an object, the collection of the object will be changed to the collection set in the configuration. Leaving the collection field empty will set the collection to the default collection.
+Mit diesem Werkzeug gruppieren Sie mehrere Elemente zusammen. Für komplexere Gruppierung siehe [Ebenen](../../layers).
+
+Wenn Sie auf ein Objekt klicken, wird die Sammlung des Objekts auf die in der Konfiguration festgelegte Sammlung geändert. Wenn Sie das Sammlungsfeld leer lassen, wird die Sammlung auf die Standardsammlung gesetzt.

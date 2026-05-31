@@ -1,5 +1,5 @@
 ---
-title: Shortcuts
+title: Pintasan
 ---
 
 ## Keyboard
@@ -32,7 +32,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Pen
+## Pena
 
 By default, the pen is configured to function as the following:
 

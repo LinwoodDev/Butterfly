@@ -6,7 +6,7 @@ Colors can be selected by using two methods: The color toolbar and the color pic
 
 To update the color palette, read the [pack documentation](/docs/v2/pack).
 
-## Color toolbar
+## Bilah alat warna
 
 ![Color toolbar](color_toolbar.png)
 

@@ -8,49 +8,49 @@ import logo from '/public/img/logo.svg';
 
 ## Einführung
 
-![Area](area.png)
+![Bereich](area.png)
 
-Areas are a way to create sections of the canvas. Areas have many useful features, such as the ability to export only the contents of an area, as if it was a separate page. You can also "enter" an area, which restricts editing tools to the area, allowing you to safely work in the area without affecting anything outside of it.
+Bereiche sind eine Möglichkeit, Abschnitte der Leinwand zu erstellen. Bereiche haben viele nützliche Funktionen, zum Beispiel die Möglichkeit, nur den Inhalt eines Bereichs zu exportieren, als wäre er eine eigene Seite. Sie können einen Bereich auch „betreten“. Dadurch werden Bearbeitungswerkzeuge auf diesen Bereich beschränkt, sodass Sie sicher im Bereich arbeiten können, ohne etwas außerhalb zu beeinflussen.
 
-## Creating Areas
+## Bereiche erstellen
 
-With the [<Monitor className="inline-icon"/> Area tool](../tools/area) selected, draw a rectangle anywhere on the canvas to define a new area. If you do not have the Area tool on your toolbar, see [Customizing the Toolbar](../intro#customizing-the-toolbar).
+Wählen Sie das [<Monitor className="inline-icon"/> Bereichswerkzeug](../tools/area) aus und zeichne irgendwo auf der Leinwand ein Rechteck, um einen neuen Bereich festzulegen. Wenn sich das Bereichswerkzeug nicht in Ihrer Symbolleiste befindet, siehe [Symbolleiste anpassen](../intro#customizing-the-toolbar).
 
-After creating an area, you can activate its features using the [Context Menu](#the-context-menu).
+Nach dem Erstellen eines Bereichs können Sie seine Funktionen über das [Kontextmenü](#the-context-menu) aktivieren.
 
-## The Context Menu
+## Das Kontextmenü
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-    You can open the context menu by either right-clicking an area or using the <Monitor className="inline-icon"/> Area section of the Navigator on the left side of the screen.
+    Sie können das Kontextmenü öffnen, indem Sie entweder mit der rechten Maustaste auf einen Bereich klicken oder links auf dem Bildschirm den Abschnitt <Monitor className="inline-icon"/> Bereich im Navigator verwenden.
     </TabItem>
     <TabItem label="Tablet">
-    You can open the context menu by either long-tapping an area or using the <Monitor className="inline-icon"/> Area section of the Navigator on the left side of the screen.
+    Sie können das Kontextmenü öffnen, indem Sie entweder lange auf einen Bereich tippen oder links auf dem Bildschirm den Abschnitt <Monitor className="inline-icon"/> Bereich im Navigator verwenden.
     </TabItem>
-    <TabItem label="Mobile">
-    You can open the context menu by either long-tapping an area or using the <Monitor className="inline-icon"/> Area section in the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly menu.
+    <TabItem label="Mobil">
+    Sie können das Kontextmenü öffnen, indem Sie entweder lange auf einen Bereich tippen oder den Abschnitt <Monitor className="inline-icon"/> Bereich im <img alt="logo" src={logo.src} className="inline-icon" width="16"/> Butterfly-Menü verwenden.
     </TabItem>
 </Tabs>
 
-The context menu has the following options:
+Das Kontextmenü hat die folgenden Optionen:
 
-- <TextT className="inline-icon"/> `Rename` - Change the name of the area.
-- <SignIn className="inline-icon"/> `Enter the area` - Activate the area, restricting edits to only the contents contained in the area. After entering an area, select this option again to exit it.
-- <Trash className="inline-icon"/> `Delete` - Delete the area. This does **not** delete the content within the area.
-- <Faders className="inline-icon"/> `Properties` - Change the dimensions of the area.
-- <Folder className="inline-icon"/> `Change collection` - Change which [collection](../tools/collection) the area belongs to.
-- <Stack className="inline-icon"/> `Convert to layer` - Move the contents of the area to a new [layer](../layers).
-- <Export className="inline-icon"/> `Export` - Export the content of the selected area.
-- <PlusCircle className="inline-icon"/> `Add to pack` - Add the area to a [pack](../pack).
+- <TextT className="inline-icon"/> `Umbenennen` – Ändert den Namen des Bereichs.
+- <SignIn className="inline-icon"/> `Bereich betreten` – Aktiviert den Bereich und beschränkt Bearbeitungen auf die Inhalte innerhalb dieses Bereichs. Nachdem Sie einen Bereich betreten haben, wählen Sie diese Option erneut, um ihn zu verlassen.
+- <Trash className="inline-icon"/> `Löschen` – Löscht den Bereich. Der Inhalt innerhalb des Bereichs wird dadurch **nicht** gelöscht.
+- <Faders className="inline-icon"/> `Eigenschaften` – Ändert die Abmessungen des Bereichs.
+- <Folder className="inline-icon"/> `Sammlung ändern` – Ändert, zu welcher [Sammlung](../tools/collection) der Bereich gehört.
+- <Stack className="inline-icon"/> `In Ebene umwandeln` – Verschiebt den Inhalt des Bereichs in eine neue [Ebene](../layers).
+- <Export className="inline-icon"/> `Exportieren` – Exportiert den Inhalt des ausgewählten Bereichs.
+- <PlusCircle className="inline-icon"/> `Zu Pack hinzufügen` – Fügt den Bereich einem [Pack](../pack) hinzu.
 
-## Exiting an Area
+## Einen Bereich verlassen
 
-After entering an area, you can leave it by doing any of the following:
+Nachdem Sie einen Bereich betreten haben, können Sie ihn auf eine der folgenden Arten verlassen:
 
-- Tap the <SignOut className="inline-icon"/> button in the app bar.
-- Tap the <SignOut className="inline-icon"/> button in the <Monitor className="inline-icon"/> Area section of the Navigator.
-- Select the <Monitor className="inline-icon"/> Area tool, open the context menu, and then tap <SignOut className="inline-icon"/> Exit the Area.
+- Tippe auf die Schaltfläche <SignOut className="inline-icon"/> in der App-Leiste.
+- Tippe im Bereich <Monitor className="inline-icon"/> „Bereich“ des Navigators auf die Schaltfläche <SignOut className="inline-icon"/>.
+- Wählen Sie das <Monitor className="inline-icon"/> Bereichswerkzeug, öffnen Sie das Kontextmenü und tippen Sie dann auf <SignOut className="inline-icon"/> Bereich verlassen.
 
-## Configuring the Area Tool
+## Bereichswerkzeug konfigurieren
 
-You can configure the Area tool by selecting the <Monitor className="inline-icon"/> Area tool in the toolbar and then clicking it again. See [Area Tool: Configuration](../tools/area#configuration) for more information.
+Sie können das Bereichswerkzeug konfigurieren, indem Sie das <Monitor className="inline-icon"/> Bereichswerkzeug in der Symbolleiste auswählen und anschließend erneut darauf klicken. Weitere Informationen finden Sie unter [Bereichswerkzeug: Konfiguration](../tools/area#configuration).

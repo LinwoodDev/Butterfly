@@ -1,5 +1,5 @@
 ---
-title: Pages
+title: Halaman
 ---
 
 Pages are a way to organize your notes by allowing separate infinite canvases to be contained in a single document.

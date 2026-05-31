@@ -3,13 +3,13 @@ title: Speicher
 sidebar_position: 2
 ---
 
-There are multiple ways of storing notes in Butterfly.
-Either by using your device storage, or by using the cloud storage (WebDAV).
+Es gibt mehrere Möglichkeiten, Notizen in Butterfly zu speichern.
+Entweder über den Speicher Ihres Geräts oder über Cloud-Speicher (WebDAV).
 
 ## Datenverzeichnis
 
-The data directory is the directory where documents, templates, and packs are stored.
-On desktop you can find it in `~/Documents/Linwood/Butterfly`.
+Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Packs gespeichert werden.
+Auf dem Desktop finden Sie es unter `~/Documents/Linwood/Butterfly`.
 Auf dem Handy ist es in `getExternalFilesDir(null)/Linwood/Butterfly`.
 Sie können es auch in den Einstellungen unter "Data" ändern.
 
@@ -22,7 +22,7 @@ Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokale
 
 ## Native Plattformen
 
-By default, the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save data for the first time. Dieser Ordner kann in den Einstellungen geändert werden.
+Standardmäßig speichert die Anwendung die Daten in Ihrem Dokumente-Ordner in einem Unterordner namens „Linwood/Butterfly“. Dieser Ordner wird erstellt, wenn Sie zum ersten Mal Daten speichern. Dieser Ordner kann in den Einstellungen geändert werden.
 
 ## Entfernter Speicher {#remote}
 
@@ -32,12 +32,12 @@ Diese Funktion ist im Web nicht verfügbar.
 
 :::
 
-The application data can be stored on a remote server. Dies ist nützlich, wenn Sie die Daten mit anderen Personen teilen möchten oder wenn Sie mehrere Computer haben. Derzeit wird nur das `WebDAV` Protokoll unterstützt.
+Die Anwendungsdaten können auf einem Remote-Server gespeichert werden. Dies ist nützlich, wenn Sie die Daten mit anderen Personen teilen möchten oder wenn Sie mehrere Computer haben. Derzeit wird nur das `WebDAV` Protokoll unterstützt.
 
 Um einen entfernten Server hinzuzufügen, gehen Sie zu den Einstellungen und klicken Sie auf `Remotes`. Dann klicken Sie auf `Add remote`.
 Fügen Sie die URL des entfernten Servers und den Benutzernamen und das Passwort hinzu. Danach können Sie den Ordner angeben, in dem die Daten gespeichert werden.
 
-To get the WebDAV URL, please visit the documentation:
+Um die WebDAV-URL zu erhalten, besuche bitte die Dokumentation:
 
 - [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (es sollte so aussehen: `https://nextcloud.example.com/remote.php/dav/files/username/`, ersetzen Sie `username` und `nextcloud.example.com` mit den korrekten Werten)
 
@@ -55,30 +55,30 @@ Es gibt ein paar Einschränkungen:
 ## Andere Speichermethoden
 
 Wenn Sie auf einem nativen Gerät sind, können Sie auch das Anwendungsverzeichnis mit Ihrer Lieblingsplattform synchronisieren.
-Google Drive has [an official app](https://www.google.com/drive/download/) on Windows and there are unofficial ones on the Play Store.
-On Linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Google Drive hat unter Windows [eine offizielle App](https://www.google.com/drive/download/), und im Play Store gibt es inoffizielle Apps.
+Unter Linux können Sie auch das native Remote-Speichersystem verwenden und Ihr Datenverzeichnis dorthin ändern oder über die Schaltfläche zum Hinzufügen einer Verbindung einen neuen externen Speicher hinzufügen.
 
-## Supported file types
+## Unterstützte Dateitypen
 
-Butterfly supports importing SVG, Butterfly Note (.bfly), Butterfly Raw Note (.tbfly).
+Butterfly unterstützt den Import von SVG, Butterfly-Notiz (.bfly) und Butterfly-Rohnotiz (.tbfly).
 
-### Butterfly Note (.bfly)
+### Butterfly-Notiz (.bfly)
 
-This file type is the recommended format for saving notes.
+Dieser Dateityp ist das empfohlene Format zum Speichern von Notizen.
 
-It is a zip archive containing the information (mostly in JSON files) about the note.
-These included JSON files aren't optimized for human readability.
+Es ist ein ZIP-Archiv, das Informationen über die Notiz enthält, größtenteils in JSON-Dateien.
+Diese enthaltenen JSON-Dateien sind nicht für gute Lesbarkeit durch Menschen optimiert.
 
-### Butterfly Raw Note (.tbfly)
+### Butterfly-Rohnotiz (.tbfly)
 
-This file is recommended for use with version control software like git.
+Diese Datei wird für die Verwendung mit Versionsverwaltungssoftware wie Git empfohlen.
 
-This file is **not** a zip archive; instead it is a _JSON_ file.
-It contains all the information about the note in a single JSON file that is optimized for being readable and nicely formatted. It is slower to load than the normal Butterfly Note.
+Diese Datei ist **kein** ZIP-Archiv, sondern eine _JSON_-Datei.
+Sie enthält alle Informationen zur Notiz in einer einzelnen JSON-Datei, die für Lesbarkeit und saubere Formatierung optimiert ist. Sie lädt langsamer als die normale Butterfly-Notiz.
 
 ### SVG
 
-This file type doesn't save information about the note!
-When this file is imported into Butterfly, it is treated as a single image.
+Dieser Dateityp speichert keine Informationen über die Notiz!
+Wenn diese Datei in Butterfly importiert wird, wird sie als einzelnes Bild behandelt.
 
-Use this _ONLY_ when the note shouldn't be modified by Butterfly.
+Verwende dies _NUR_, wenn die Notiz nicht von Butterfly verändert werden soll.

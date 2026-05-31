@@ -1,5 +1,5 @@
 ---
-title: Titik Arah
+title: Titik arah
 ---
 
 With waypoints, you can save important locations in your notes and quickly navigate between them.

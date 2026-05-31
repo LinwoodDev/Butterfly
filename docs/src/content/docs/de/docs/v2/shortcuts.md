@@ -5,17 +5,17 @@ title: Verknüpfungen
 ## Tastatur
 
 Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können.
-Einige davon sind unter den Buttons geschrieben.
+Einige davon stehen unter den Schaltflächen.
 
 ### Allgemein
 
 - `Strg` + `N`: Neue Datei
 - `Ctrl` + `Shift` + `N`: Neue Datei aus Vorlage
 - `Strg` + `E`: Datei exportieren
-- `Ctrl` + `Shift` + `E`: Export file (text based)
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as image
+- `Ctrl` + `Shift` + `E`: Exportieren Datei (text based)
+- `Ctrl` + `Alt` + `Shift` + `E`: Exportieren Datei as image
 - `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
-- `Ctrl` + `Shift` + `P`: Export file as pdf
+- `Ctrl` + `Shift` + `P`: Exportieren Datei as pdf
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
 - `Strg` + `Alt` + `P`: Open Packs
 
@@ -24,7 +24,7 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `K`: Suche öffnen
 - `Strg` + `Z`: Rückgängig
 - `Strg` + `Y`: Redo
-- `Strg` + `Shift` + `P`: Öffne Wegpunkte Dialog
+- `Strg` + `Shift` + `P`: Öffnen Sie Wegpunkte Dialog
 - `Strg` + `B`: Hintergrunddialog öffnen
 - `Strg` + `S`: Speichern
 - `Alt` + `S`: Pfad ändern
@@ -34,7 +34,7 @@ Einige davon sind unter den Buttons geschrieben.
 
 ## Stift
 
-By default, the pen is configured to function as the following:
+Standardmäßig ist der Stift wie folgt konfiguriert:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
@@ -44,14 +44,14 @@ By default, the pen is configured to function as the following:
 
 Sie können Ihre Steuerelemente anpassen, indem Sie ändern, welchen Werkzeugen Ihre Eingaben zugeordnet sind.
 
-**Note:** Input configurations will be ignored while certain tools are selected, such as the Lasso Select tool, the Rectangle Select tool, the Label tool, and the Area tool.
+**Hinweis:** Eingabekonfigurationen werden ignoriert, während bestimmte Werkzeuge ausgewählt sind, etwa das Lasso-Auswahlwerkzeug, das Rechteck-Auswahlwerkzeug, das Beschriftungswerkzeug und das Bereichswerkzeug.
 
-To begin, go to `Settings` → `Inputs` and then select the input method you want to configure, such as `Mouse`, `Touch`, or `Pen`. You will be presented with a list of configurable inputs and the tools they are currently mapped to.
+Gehen Sie zunächst zu `Einstellungen` → `Eingaben` und wählen Sie dann die Eingabemethode aus, die Sie konfigurieren möchten, zum Beispiel `Maus`, `Touch` oder `Stift`. Ihnen wird eine Liste konfigurierbarer Eingaben und der Werkzeuge angezeigt, denen sie aktuell zugeordnet sind.
 
-After selecting an input, you will have 3 options:
+Nach Auswahl einer Eingabe haben Sie 3 Optionen:
 
-- `Active Tool`: The input will act as the currently selected tool on the toolbar.
-- `Hand Tool`: The input will temporarily switch to the hand tool, allowing you to move around the canvas.
-- `Specific Tool on Toolbar`: The input will temporarily switch to a tool on your toolbar, based on the position number you specify. Positions are counted starting from the left, so if you specify position `1`, the first tool on the left will be selected. See the screenshot below for an example of how position numbers are counted. For information about how to reorder your tools, see [Customizing the Toolbar](../intro/#customizing-the-toolbar).
+- `Aktives Werkzeug`: Die Eingabe verhält sich wie das aktuell ausgewählte Werkzeug in der Symbolleiste.
+- `Handwerkzeug`: Die Eingabe wechselt vorübergehend zum Handwerkzeug, mit dem Sie sich auf der Leinwand bewegen können.
+- `Bestimmtes Werkzeug in der Symbolleiste`: Die Eingabe wechselt vorübergehend zu einem Werkzeug in Ihrer Symbolleiste, basierend auf der angegebenen Positionsnummer. Positionen werden von links gezählt. Wenn Sie also Position `1` angeben, wird das erste Werkzeug links ausgewählt. Im Screenshot unten sehen Sie ein Beispiel dafür, wie Positionsnummern gezählt werden. Informationen zum Neuanordnen Ihrer Werkzeuge finden Sie unter [Symbolleiste anpassen](../intro/#customizing-the-toolbar).
 
 ![Toolbar nummeriert](toolbar_numbered.png)

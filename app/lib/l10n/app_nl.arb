@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Alleen huidige pagina",
   "smoothNavigation": "Vloeiende navigatie",
   "edgePanAreaSwitching": "Edge pan gebied wisselen",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Gebruik Android SAF",
   "exact": "Exacte",
   "@exact": {
     "description": "Exact match"

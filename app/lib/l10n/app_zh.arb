@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "仅当前页面",
   "smoothNavigation": "平滑导航",
   "edgePanAreaSwitching": "切换边框",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "使用 Android SAF",
   "exact": "精准的",
   "@exact": {
     "description": "Exact match"

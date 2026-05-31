@@ -1,21 +1,21 @@
 ---
-title: Pack
+title: Paket
 ---
 
 A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. To do this, click the top-left corner and select "Packs".
 
 Packs are saved globally, so you can use them in any document. If you want to share the pack in a document, you can bundle it with the document.
 
-## Properties
+## Properti
 
 |      Name | Deskripsi                 |
 | --------: | :------------------------ |
 |      Name | The name of the pack      |
-|    Author | The author of the pack    |
-|   Version | The version of the pack   |
+|   Penulis | The author of the pack    |
+|     Versi | The version of the pack   |
 | Deskripsi | A description of the pack |
 
-## Components
+## Komponen
 
 Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
@@ -31,12 +31,12 @@ To add a component:
 4. Choose the pack
 5. Give a name to the new component, it can be anything.
 
-You can use these components with the [stamp tool](/docs/v2/pack).
+You can use these components with the [stamp tool](../tools/stamp).
 
-## Styles
+## Gaya
 
 Styles are used to customize the appearance of the text. The paragraph styles can be used to format a whole paragraph (like a heading), while the text styles can be used to format only a part of the text (like a bold word).
 
-## Palettes
+## Palet
 
-The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](/docs/v2/color_picker)) when you edit a color.
+The color palettes can be used to quickly select colors for the colorable tools. You will see a color picker overlay (as mentioned in the [color picker documentation](../color_picker)) when you edit a color.

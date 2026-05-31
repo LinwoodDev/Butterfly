@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
   "edgePanAreaSwitching": "Alueen reuna-alueen vaihtaminen",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Käytä Android SAF",
   "exact": "Tarkka",
   "@exact": {
     "description": "Exact match"

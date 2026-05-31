@@ -4,7 +4,7 @@ title: 区域工具
 
 区域工具用来创建，编辑和删除区域。
 
-For an overview of how areas work, see [Areas](../areas).
+For an overview of how areas work, see [Areas](../../areas).
 
 ## 动作
 
