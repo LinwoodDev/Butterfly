@@ -14,5 +14,6 @@
 * Fix duplicate layer button in layers dialog not working ([#1105](https://github.com/LinwoodDev/Butterfly/issues/1105))
 * Fix moving PDFs with spacer tools freezing the canvas ([#1106](https://github.com/LinwoodDev/Butterfly/issues/1106))
 * Fix stamp tool hover preview looks strange on touch ([#1107](https://github.com/LinwoodDev/Butterfly/issues/1107))
+* Fix horizontal and vertical wrongly named in texture background dialog
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0

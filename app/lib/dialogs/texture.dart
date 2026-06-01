@@ -201,12 +201,12 @@ class _TextureViewState extends State<TextureView> {
               icon: const PhosphorIcon(PhosphorIconsLight.rectangle),
             ),
             HorizontalTab(
-              label: Text(AppLocalizations.of(context).horizontal),
-              icon: const PhosphorIcon(PhosphorIconsLight.arrowsHorizontal),
-            ),
-            HorizontalTab(
               label: Text(AppLocalizations.of(context).vertical),
               icon: const PhosphorIcon(PhosphorIconsLight.arrowsVertical),
+            ),
+            HorizontalTab(
+              label: Text(AppLocalizations.of(context).horizontal),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowsHorizontal),
             ),
           ];
           return Column(
