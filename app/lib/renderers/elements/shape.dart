@@ -346,23 +346,13 @@ class ShapeHitCalculator extends HitCalculator {
         HitElementMode.full =>
           dx + radiusX <= halfWidth && dy + radiusY <= halfHeight,
         HitElementMode.touchEdges => () {
-          if (radiusX == 0 || radiusY == 0) {
-            final circleInsideRect =
-                dx + radiusX < halfWidth && dy + radiusY < halfHeight;
-            return this.rect.overlaps(rect) && !circleInsideRect;
-          }
+          if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
+
           // Is the circle fully inside the rectangle?
           if (dx + radiusX <= halfWidth && dy + radiusY <= halfHeight) {
             return false;
           }
-          // Is the rectangle fully inside the circle?
-          final farthestX = dx + halfWidth;
-          final farthestY = dy + halfHeight;
-          final normFarX = farthestX / radiusX;
-          final normFarY = farthestY / radiusY;
-          if (normFarX * normFarX + normFarY * normFarY <= 1) {
-            return false;
-          }
+
           // Do their areas overlap?
           final nearestX = dx - halfWidth;
           final nearestY = dy - halfHeight;
@@ -516,14 +506,7 @@ class ShapeHitCalculator extends HitCalculator {
             inside &&
                 isPointInPolygon(polygon, firstPosition) &&
                 isPointInPolygon(polygon, secondPosition),
-          HitElementMode.touchEdges =>
-            inside &&
-                !linePoints.every((p) => isPointInPolygon(polygon, p)) &&
-                !polygon.every((p) => isPointInPolygon(linePoints, p)),
-          HitElementMode.touchAnywhere => isPolygonInPolygon(
-            polygon,
-            linePoints,
-          ),
+          HitElementMode.touchEdges || HitElementMode.touchAnywhere => inside,
           _ => false, // this shouldn't happen
         };
       case CircleShape():
@@ -540,9 +523,7 @@ class ShapeHitCalculator extends HitCalculator {
           HitElementMode.full =>
             inside && ellipsePoints.every((p) => isPointInPolygon(polygon, p)),
           HitElementMode.touchEdges =>
-            inside &&
-                !ellipsePoints.every((p) => isPointInPolygon(polygon, p)) &&
-                !polygon.every((p) => isPointInPolygon(ellipsePoints, p)),
+            inside && !polygon.every((p) => isPointInPolygon(ellipsePoints, p)),
           HitElementMode.touchAnywhere => inside,
           _ => false, // this shouldn't happen
         };
@@ -561,9 +542,7 @@ class ShapeHitCalculator extends HitCalculator {
                 isPointInPolygon(polygon, bottomRight) &&
                 isPointInPolygon(polygon, bottomLeft),
           HitElementMode.touchEdges =>
-            inside &&
-                !rectPoints.every((p) => isPointInPolygon(polygon, p)) &&
-                !polygon.every((p) => isPointInPolygon(rectPoints, p)),
+            inside && !polygon.every((p) => isPointInPolygon(rectPoints, p)),
           HitElementMode.touchAnywhere => inside,
           _ => false, // this shouldn't happen
         };
@@ -580,9 +559,7 @@ class ShapeHitCalculator extends HitCalculator {
                 isPointInPolygon(polygon, bottomLeft) &&
                 isPointInPolygon(polygon, bottomRight),
           HitElementMode.touchEdges =>
-            inside &&
-                !triPoints.every((p) => isPointInPolygon(polygon, p)) &&
-                !polygon.every((p) => isPointInPolygon(triPoints, p)),
+            inside && !polygon.every((p) => isPointInPolygon(triPoints, p)),
           HitElementMode.touchAnywhere => inside,
           _ => false, // this shouldn't happen
         };
