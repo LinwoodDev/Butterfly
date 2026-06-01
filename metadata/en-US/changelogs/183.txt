@@ -15,5 +15,6 @@
 * Fix moving PDFs with spacer tools freezing the canvas ([#1106](https://github.com/LinwoodDev/Butterfly/issues/1106))
 * Fix stamp tool hover preview looks strange on touch ([#1107](https://github.com/LinwoodDev/Butterfly/issues/1107))
 * Fix horizontal and vertical wrongly named in texture background dialog
+* Fix offset list tile refreshes on same value
 
 Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
