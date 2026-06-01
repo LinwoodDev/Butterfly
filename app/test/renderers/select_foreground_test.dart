@@ -5,6 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('tiny selections keep a usable interaction target', () {
+    final manager = RectSelectionForegroundManager()
+      ..select(const Rect.fromLTWH(10, 10, 2, 2));
+    const scale = 2.0;
+    const sensitivity = 1.0;
+
+    expect(
+      manager.getHitRect(scale, sensitivity),
+      const Rect.fromLTWH(1, 1, 20, 20),
+    );
+    expect(
+      manager.shouldTransform(const Offset(2, 2), scale, sensitivity),
+      isTrue,
+    );
+    expect(
+      manager.shouldTransform(const Offset(-20, -20), scale, sensitivity),
+      isFalse,
+    );
+  });
+
   test('overlapping transform handles resolve to nearest handle', () {
     final manager = RectSelectionForegroundManager()
       ..select(const Rect.fromLTWH(0, 0, 20, 20));

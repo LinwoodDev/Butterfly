@@ -9,6 +9,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   ShapeRenderer(super.element, [super.layer]);
 
+  @override
+  Rect get expandedRect {
+    final rect = this.rect;
+    final expanded = rect.isEmpty
+        ? rect.inflate(max(element.property.strokeWidth / 2, 1))
+        : rect;
+    return Renderer._expandedAabbFor(expanded, rotation * pi / 180);
+  }
+
   /// Creates a dotted path from the source path based on stroke style
   Path _createDashedPath(Path source, StrokeStyle strokeStyle) {
     if (strokeStyle == StrokeStyle.solid) return source;
@@ -314,14 +323,21 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 }
 
 class ShapeHitCalculator extends HitCalculator {
+  static const _pointShapeHitTolerance = 1e-6;
+
   final ShapeElement element;
   final Rect rect;
   final double rotation;
 
   ShapeHitCalculator(this.element, this.rect, this.rotation);
 
+  bool get _isPointShape => rect.width == 0 && rect.height == 0;
+
   @override
   bool hit(Rect rect, {bool full = false}) {
+    if (_isPointShape) {
+      return rect.inflate(_pointShapeHitTolerance).contains(this.rect.center);
+    }
     if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
       return false;
     }
@@ -442,6 +458,7 @@ class ShapeHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     final center = rect.center;
+    if (_isPointShape) return isPointInPolygon(polygon, center);
     // use isPointInPolygon
     switch (element.property.shape) {
       case LineShape():
