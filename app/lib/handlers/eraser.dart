@@ -91,7 +91,7 @@ class EraserHandler extends Handler<EraserTool> {
         size,
         useCollection: utilities.lockCollection,
         useLayer: utilities.lockLayer,
-        full: false,
+        hitElementMode: data.hitElementMode,
       );
       var elements = ray.map((e) => e.element);
       if (!data.eraseElements) {

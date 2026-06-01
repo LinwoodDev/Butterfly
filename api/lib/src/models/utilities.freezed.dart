@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UtilitiesState {
 
- bool get lockCollection; bool get lockLayer; bool get lockZoom; bool get lockHorizontal; bool get lockVertical; bool get fullSelection;
+ bool get lockCollection; bool get lockLayer; bool get lockZoom; bool get lockHorizontal; bool get lockVertical;
 /// Create a copy of UtilitiesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $UtilitiesStateCopyWith<UtilitiesState> get copyWith => _$UtilitiesStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UtilitiesState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical)&&(identical(other.fullSelection, fullSelection) || other.fullSelection == fullSelection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UtilitiesState&&(identical(other.lockCollection, lockCollection) || other.lockCollection == lockCollection)&&(identical(other.lockLayer, lockLayer) || other.lockLayer == lockLayer)&&(identical(other.lockZoom, lockZoom) || other.lockZoom == lockZoom)&&(identical(other.lockHorizontal, lockHorizontal) || other.lockHorizontal == lockHorizontal)&&(identical(other.lockVertical, lockVertical) || other.lockVertical == lockVertical));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical,fullSelection);
+int get hashCode => Object.hash(runtimeType,lockCollection,lockLayer,lockZoom,lockHorizontal,lockVertical);
 
 @override
 String toString() {
-  return 'UtilitiesState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, fullSelection: $fullSelection)';
+  return 'UtilitiesState(lockCollection: $lockCollection, lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $UtilitiesStateCopyWith<$Res>  {
   factory $UtilitiesStateCopyWith(UtilitiesState value, $Res Function(UtilitiesState) _then) = _$UtilitiesStateCopyWithImpl;
 @useResult
 $Res call({
- bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical, bool fullSelection
+ bool lockCollection, bool lockLayer, bool lockZoom, bool lockHorizontal, bool lockVertical
 });
 
 
@@ -63,14 +63,13 @@ class _$UtilitiesStateCopyWithImpl<$Res>
 
 /// Create a copy of UtilitiesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,Object? fullSelection = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lockCollection = null,Object? lockLayer = null,Object? lockZoom = null,Object? lockHorizontal = null,Object? lockVertical = null,}) {
   return _then(UtilitiesState(
 lockCollection: null == lockCollection ? _self.lockCollection : lockCollection // ignore: cast_nullable_to_non_nullable
 as bool,lockLayer: null == lockLayer ? _self.lockLayer : lockLayer // ignore: cast_nullable_to_non_nullable
 as bool,lockZoom: null == lockZoom ? _self.lockZoom : lockZoom // ignore: cast_nullable_to_non_nullable
 as bool,lockHorizontal: null == lockHorizontal ? _self.lockHorizontal : lockHorizontal // ignore: cast_nullable_to_non_nullable
 as bool,lockVertical: null == lockVertical ? _self.lockVertical : lockVertical // ignore: cast_nullable_to_non_nullable
-as bool,fullSelection: null == fullSelection ? _self.fullSelection : fullSelection // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

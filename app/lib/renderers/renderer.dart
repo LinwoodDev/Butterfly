@@ -57,10 +57,13 @@ class DefaultHitCalculator extends HitCalculator {
   DefaultHitCalculator(this.rect, this.rotation);
 
   @override
-  bool hit(Rect rect, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     final element = this.rect;
     if (element == null) return false;
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return element.top >= rect.top &&
           element.left >= rect.left &&
           element.right <= rect.right &&
@@ -70,7 +73,10 @@ class DefaultHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (rect == null) return false;
     final center = rect!.center;
     final isCenter = isPointInPolygon(polygon, center);
@@ -90,7 +96,7 @@ class DefaultHitCalculator extends HitCalculator {
       polygon,
       rect!.bottomRight.rotate(center, rotation),
     );
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return isCenter &&
           isTopLeft &&
           isTopRight &&
@@ -128,8 +134,15 @@ Projection projectPolygon(Offset axis, List<Offset> polygon) {
 }
 
 abstract class HitCalculator {
-  bool hit(Rect rect, {bool full = false});
-  bool hitPolygon(List<Offset> polygon, {bool full = false});
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
+
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
     bool result = false;

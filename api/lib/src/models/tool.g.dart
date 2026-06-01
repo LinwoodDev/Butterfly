@@ -13,6 +13,9 @@ SelectTool _$SelectToolFromJson(Map json) => SelectTool(
   mode:
       $enumDecodeNullable(_$SelectModeEnumMap, json['mode']) ??
       SelectMode.rectangle,
+  hitElementMode:
+      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
+      HitElementMode.touchAnywhere,
   $type: json['type'] as String?,
 );
 
@@ -22,12 +25,20 @@ Map<String, dynamic> _$SelectToolToJson(SelectTool instance) =>
       'displayIcon': instance.displayIcon,
       'id': const IdJsonConverter().toJson(instance.id),
       'mode': _$SelectModeEnumMap[instance.mode]!,
+      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'type': instance.$type,
     };
 
 const _$SelectModeEnumMap = {
   SelectMode.rectangle: 'rectangle',
   SelectMode.lasso: 'lasso',
+};
+
+const _$HitElementModeEnumMap = {
+  HitElementMode.none: 'none',
+  HitElementMode.full: 'full',
+  HitElementMode.touchEdges: 'touchEdges',
+  HitElementMode.touchAnywhere: 'touchAnywhere',
 };
 
 HandTool _$HandToolFromJson(Map json) => HandTool(
@@ -176,6 +187,9 @@ EraserTool _$EraserToolFromJson(Map json) => EraserTool(
   displayIcon: json['displayIcon'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+  hitElementMode:
+      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
+      HitElementMode.touchAnywhere,
   eraseElements: json['eraseElements'] as bool? ?? false,
   $type: json['type'] as String?,
 );
@@ -186,6 +200,7 @@ Map<String, dynamic> _$EraserToolToJson(EraserTool instance) =>
       'displayIcon': instance.displayIcon,
       'id': const IdJsonConverter().toJson(instance.id),
       'strokeWidth': instance.strokeWidth,
+      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };
@@ -195,6 +210,9 @@ PathEraserTool _$PathEraserToolFromJson(Map json) => PathEraserTool(
   displayIcon: json['displayIcon'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+  hitElementMode:
+      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
+      HitElementMode.touchAnywhere,
   eraseElements: json['eraseElements'] as bool? ?? false,
   $type: json['type'] as String?,
 );
@@ -205,6 +223,7 @@ Map<String, dynamic> _$PathEraserToolToJson(PathEraserTool instance) =>
       'displayIcon': instance.displayIcon,
       'id': const IdJsonConverter().toJson(instance.id),
       'strokeWidth': instance.strokeWidth,
+      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };

@@ -38,6 +38,7 @@ part 'tools/tool.dart';
 part 'tools/hand.dart';
 part 'tools/area.dart';
 part 'tools/eraser.dart';
+part 'tools/select.dart';
 part 'tools/grid.dart';
 part 'tools/label.dart';
 part 'tools/laser.dart';

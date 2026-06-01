@@ -318,11 +318,14 @@ class PolygonHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(Rect rect, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (!_isVisible || _points.isEmpty) return false;
     if (!_bounds.overlaps(rect)) return false;
 
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return _allPointsInside(_points, rect.contains);
     }
 
@@ -342,11 +345,14 @@ class PolygonHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<Offset> polygon, {bool full = false}) {
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (!_isVisible || polygon.isEmpty || _points.isEmpty) return false;
     if (!_bounds.overlaps(_selectionBounds(polygon))) return false;
 
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return _allPointsInside(
         _points,
         (point) => isPointInPolygon(polygon, point),

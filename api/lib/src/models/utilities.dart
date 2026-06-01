@@ -11,8 +11,7 @@ final class UtilitiesState with _$UtilitiesState {
       lockLayer,
       lockZoom,
       lockHorizontal,
-      lockVertical,
-      fullSelection;
+      lockVertical;
 
   const UtilitiesState({
     this.lockCollection = false,
@@ -20,7 +19,6 @@ final class UtilitiesState with _$UtilitiesState {
     this.lockZoom = false,
     this.lockHorizontal = false,
     this.lockVertical = false,
-    this.fullSelection = false,
   });
 
   factory UtilitiesState.fromJson(Map<String, dynamic> json) =>
