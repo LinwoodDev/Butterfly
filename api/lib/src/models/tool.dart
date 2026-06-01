@@ -72,7 +72,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
     @Default(SelectMode.rectangle) SelectMode mode,
-    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode
+    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
   }) = SelectTool;
 
   factory Tool.hand({

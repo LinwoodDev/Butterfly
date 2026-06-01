@@ -383,7 +383,10 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(Rect rect, {HitElementMode hitElementMode = HitElementMode.touchAnywhere}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     // Quick bounds check first
     if (!elementRect.overlaps(rect)) {
       return false;
@@ -424,7 +427,10 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {HitElementMode hitElementMode = HitElementMode.touchAnywhere}) {
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (points.isEmpty) return false;
     if (!_rectIntersectsPolygonBounds(elementRect, polygon)) return false;
 

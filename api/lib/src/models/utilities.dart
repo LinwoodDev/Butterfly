@@ -7,11 +7,7 @@ part 'utilities.g.dart';
 @JsonSerializable()
 final class UtilitiesState with _$UtilitiesState {
   @override
-  final bool lockCollection,
-      lockLayer,
-      lockZoom,
-      lockHorizontal,
-      lockVertical;
+  final bool lockCollection, lockLayer, lockZoom, lockHorizontal, lockVertical;
 
   const UtilitiesState({
     this.lockCollection = false,

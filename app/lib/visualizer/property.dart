@@ -41,19 +41,19 @@ extension StrokeStyleVisualizer on StrokeStyle {
 extension HitElementModeVisualizer on HitElementMode {
   String getLocalizedName(BuildContext context, {required bool isEraser}) {
     final loc = AppLocalizations.of(context);
-    if(isEraser) {
+    if (isEraser) {
       return switch (this) {
         HitElementMode.none => loc.eraseShapeModeNone,
         HitElementMode.touchEdges => loc.eraseShapeModeTouchEdges,
         HitElementMode.touchAnywhere => loc.eraseShapeModeTouchAnywhere,
-        _ => '' // this shouldn't happen
+        _ => '', // this shouldn't happen
       };
     } else {
       return switch (this) {
         HitElementMode.full => loc.fullSelection,
         HitElementMode.touchEdges => loc.selectElementModeTouchEdges,
         HitElementMode.touchAnywhere => loc.selectElementModeTouchAnywhere,
-        _ => '' // this shouldn't happen
+        _ => '', // this shouldn't happen
       };
     }
   }
