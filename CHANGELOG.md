@@ -299,7 +299,7 @@ Read more here: https://linwood.dev/butterfly/2.5.0-rc.0
 * Improve WebDAV implementation and performance (sorting, directory caching)
 * Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
 * Fix a rendering issue related to element baking
-* Fix desyncronization of renderers when concurrently changing elements
+* Fix desynchronization of renderers when concurrently changing elements
 * Fix property view overlapping with zoom and pen only toggle controls
 * Fix zoom control position preference not saving properly
 * Fix keybinder recording not toggling
@@ -764,7 +764,7 @@ Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
 * Add text based file format ([#823](https://github.com/LinwoodDev/Butterfly/issues/823))
 * Add specific fill color ([#802](https://github.com/LinwoodDev/Butterfly/issues/802))
 * Redesign pack system ([#805](https://github.com/LinwoodDev/Butterfly/issues/805))
-* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Improve error resistance in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
 * Fix new line not working in label tool
@@ -811,7 +811,7 @@ Read more here: https://linwood.dev/butterfly/2.3.3
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.0 nightly release.
 
 Cherry picks:
-* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Improve error resistance in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
 * Fix new line not working in label tool
@@ -1039,7 +1039,7 @@ Read more here: https://linwood.dev/butterfly/2.3.0-beta.2
 * Improve collaboration system
   * Use wss default if no protocol is provided
   * Fix networking server/client not starting
-  * Fix initializaton not sent by server
+  * Fix initialization not sent by server
   * Improve performance when joining a room
 * Add linux arm binaries
 * Upgrade to agb 8.8
@@ -1084,7 +1084,7 @@ This is a hotfix update, cherry picking some important fixes from the last 2.3.0
 
 * Add error boundaries for corrupted files
 * Fix export button in data settings not working
-* Fix utilties state resetted after undo
+* Fix utilities state resetted after undo
 * Fix file view showing wrong aspect ratio for thumbnails
 
 Cherry picks:
@@ -1294,7 +1294,7 @@ Read more here: https://linwood.dev/butterfly/2.2
 <details>
  <summary>2.2 Nightly Changelog</summary>
 
-## 2.2.0-rc.3 (2024-09-26)
+## 2.2.0-rc.2 (2024-09-26)
 
 * Rebuild baking system to support multiple layers
 * Add convert to layer to collection dialog
