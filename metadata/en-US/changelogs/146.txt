@@ -7,7 +7,7 @@
 * Fix home page header not aligned properly and has wrong colors
 * Fix safe area in navigator rail
 * Fix overflows in page navigator
-* Fix pixel ratio gets resetted when unbaking the viewport
+* Fix pixel ratio gets reset when unbaking the viewport
 * Port linux appdata from flathub version
 * Disable custom data directory selection on iOS
 
