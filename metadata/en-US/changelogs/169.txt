@@ -23,7 +23,7 @@
 * Improve WebDAV implementation and performance (sorting, directory caching)
 * Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
 * Fix a rendering issue related to element baking
-* Fix desyncronization of renderers when concurrently changing elements
+* Fix desynchronization of renderers when concurrently changing elements
 * Fix property view overlapping with zoom and pen only toggle controls
 * Fix zoom control position preference not saving properly
 * Fix keybinder recording not toggling

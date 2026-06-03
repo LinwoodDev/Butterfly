@@ -19,12 +19,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
     String collection,
     CurrentIndexCubit cubit,
   ) {
-    if (rect.top == 0 &&
-        rect.left == 0 &&
-        rect.right == 0 &&
-        rect.bottom == 0) {
-      return [];
-    }
+    if (rect.topLeft == rect.bottomRight) return [];
 
     return [
       ShapeElement(

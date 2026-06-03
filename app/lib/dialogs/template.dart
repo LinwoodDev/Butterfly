@@ -102,7 +102,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
   Widget build(BuildContext context) {
     final width = MediaQuery.widthOf(context);
     final isMobile = width < LeapBreakpoints.medium;
-    final detailsTemplate = _clickedTemplate;
     final bloc = widget.bloc;
     return ResponsiveAlertDialog(
       constraints: const BoxConstraints(
@@ -155,62 +154,81 @@ class _TemplateDialogState extends State<TemplateDialog> {
             tooltip: LeapLocalizations.of(context).create,
           ),
       ],
-      content: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: FutureBuilder<List<dynamic>>(
-              future: _combinedFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                }
-                if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                final userTemplates =
-                    snapshot.data![0] as List<FileSystemFile<NoteData>>;
-                final coreTemplates = snapshot.data![1] as List<NoteData>;
-                return BlocBuilder<SettingsCubit, ButterflySettings>(
+      content: FutureBuilder<List<dynamic>>(
+        future: _combinedFuture,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final userTemplates =
+              snapshot.data![0] as List<FileSystemFile<NoteData>>;
+          final coreTemplates = snapshot.data![1] as List<NoteData>;
+          final search = _searchController.text.toLowerCase();
+          final filteredUserTemplates = userTemplates
+              .where(
+                (element) =>
+                    element.data!.name?.toLowerCase().contains(search) ?? true,
+              )
+              .toList();
+          final filteredCoreTemplates = coreTemplates
+              .where(
+                (element) =>
+                    element.name?.toLowerCase().contains(search) ?? true,
+              )
+              .toList();
+          final detailsTemplate = isMobile
+              ? _clickedTemplate
+              : _clickedTemplate ??
+                    filteredUserTemplates.firstOrNull?.data ??
+                    filteredCoreTemplates.firstOrNull;
+          return Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: BlocBuilder<SettingsCubit, ButterflySettings>(
                   buildWhen: (previous, current) =>
                       previous.favoriteTemplates != current.favoriteTemplates,
                   builder: (context, state) {
                     return _buildBody(
                       context,
-                      userTemplates,
-                      coreTemplates,
+                      filteredUserTemplates,
+                      filteredCoreTemplates,
                       isMobile,
                       state.favoriteTemplates,
+                      detailsTemplate,
                     );
                   },
-                );
-              },
-            ),
-          ),
-          if (!isMobile)
-            Expanded(
-              child: detailsTemplate == null
-                  ? Card(
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context).noItemSelected,
+                ),
+              ),
+              if (!isMobile)
+                Expanded(
+                  child: detailsTemplate == null
+                      ? Card(
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context).noItemSelected,
+                            ),
+                          ),
+                        )
+                      : _TemplateDetailsView(
+                          template: detailsTemplate,
+                          onOpen: (area) {
+                            openNewDocument(
+                              context,
+                              widget.bloc != null,
+                              detailsTemplate,
+                              _templateSystem.storage?.identifier,
+                              area,
+                            );
+                          },
                         ),
-                      ),
-                    )
-                  : _TemplateDetailsView(
-                      template: detailsTemplate,
-                      onOpen: (area) {
-                        openNewDocument(
-                          context,
-                          widget.bloc != null,
-                          detailsTemplate,
-                          _templateSystem.storage?.identifier,
-                          area,
-                        );
-                      },
-                    ),
-            ),
-        ],
+                ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -221,6 +239,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     int index,
     bool isMobile,
     List<FavoriteLocation> favoriteTemplates,
+    NoteData? activeTemplate,
   ) {
     final template = entry.value[index];
     final isCore = entry.key == null;
@@ -314,7 +333,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         key: ValueKey(template.path),
         selectionMode: _selectedTemplates.isNotEmpty,
         selected: _selectedTemplates.contains(template.path),
-        isActive: _clickedTemplate == template.data,
+        isActive: activeTemplate == template.data,
         isCore: isCore,
         starred: starred,
         location: location,
@@ -342,29 +361,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   Widget _buildBody(
     BuildContext context,
-    List<FileSystemFile<NoteData>> userTemplates,
-    List<NoteData> coreTemplates,
+    List<FileSystemFile<NoteData>> filteredUserTemplates,
+    List<NoteData> filteredCoreTemplates,
     bool isMobile,
     List<FavoriteLocation> favoriteTemplates,
+    NoteData? activeTemplate,
   ) {
-    final filteredUserTemplates = userTemplates
-        .where(
-          (element) =>
-              element.data!.name?.toLowerCase().contains(
-                _searchController.text.toLowerCase(),
-              ) ??
-              true,
-        )
-        .toList();
-    final filteredCoreTemplates = coreTemplates
-        .where(
-          (element) =>
-              element.name?.toLowerCase().contains(
-                _searchController.text.toLowerCase(),
-              ) ??
-              true,
-        )
-        .toList();
     final everythingSelected =
         _selectedTemplates.length == filteredUserTemplates.length;
     final groupedTemplates = filteredUserTemplates
@@ -416,6 +418,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                           index,
                           isMobile,
                           favoriteTemplates,
+                          activeTemplate,
                         ),
                         itemCount: entry.value.length,
                       )
@@ -435,6 +438,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                           index,
                           isMobile,
                           favoriteTemplates,
+                          activeTemplate,
                         ),
                         itemCount: entry.value.length,
                       ),

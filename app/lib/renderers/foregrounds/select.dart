@@ -76,6 +76,15 @@ class RectSelectionForegroundManager {
     _corner = getCornerHit(_currentPosition!, scale, sensitivity);
   }
 
+  Rect getHitRect(double scale, double sensitivity) {
+    final targetSize = cornerSize / scale * sensitivity;
+    return Rect.fromCenter(
+      center: _selection.center,
+      width: max(_selection.width, targetSize),
+      height: max(_selection.height, targetSize),
+    );
+  }
+
   void reset() {
     resetTransform();
     _scaleMode = SelectionScaleMode.scale;
@@ -131,13 +140,17 @@ class RectSelectionForegroundManager {
       : SelectionScaleMode.scale);
 
   bool shouldTransform(Offset position, double scale, double sensitivity) {
-    return _selection.contains(position) ||
+    if (!isValid) return false;
+    return getHitRect(scale, sensitivity).contains(position) ||
         getCornerHit(position, scale, sensitivity) != null;
   }
 
   bool startTransform(Offset position, double scale, double sensitivity) {
+    if (!isValid) return false;
     final hit = getCornerHit(position, scale, sensitivity);
-    if (!_selection.contains(position) && hit == null) return false;
+    if (!getHitRect(scale, sensitivity).contains(position) && hit == null) {
+      return false;
+    }
     _startPosition = position;
     _currentPosition = position;
     _corner = hit;

@@ -14,7 +14,7 @@
 * Improve collaboration system
   * Use wss default if no protocol is provided
   * Fix networking server/client not starting
-  * Fix initializaton not sent by server
+  * Fix initialization not sent by server
   * Improve performance when joining a room
 * Add linux arm binaries
 * Upgrade to agb 8.8
