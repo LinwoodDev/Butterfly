@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
@@ -152,6 +153,17 @@ void main() {
   });
 
   group('NoteData metadata conversion', () {
+    test('NoteFile display reads text thumbnails and metadata', () async {
+      final bytes = await File('test/assets/study.tbfly').readAsBytes();
+
+      final display = NoteFile(bytes).display();
+
+      expect(display, isNotNull);
+      expect(display!.getMetadata()?.name, 'Study');
+      expect(display.getThumbnail(), isNotNull);
+      expect(display.getThumbnail(), isNotEmpty);
+    });
+
     test('createTemplate sets template metadata and thumbnail', () {
       var data = NoteData(Archive());
       data = data.setMetadata(

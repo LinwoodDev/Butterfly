@@ -10,6 +10,7 @@ import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/property.dart';
 import 'package:butterfly/views/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -27,7 +28,13 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   final screenshotBoundaryKey = GlobalKey();
   final defaultFlutterError = FlutterError.onError;
-  const screenshotDocumentName = 'Butterfly.tbfly';
+  const openingDocumentName = 'study.tbfly';
+  const screenshotDocumentNames = [
+    'Butterfly.tbfly',
+    'butterfly design.tbfly',
+    openingDocumentName,
+    'todo.tbfly',
+  ];
   final sizes = {
     'phoneScreenshots': const Size(360, 800),
     'sevenInchScreenshots': const Size(600, 1024),
@@ -68,7 +75,9 @@ void main() {
     'locale': 'en',
     'theme_mode': ThemeMode.light.name,
     'banner_visibility': BannerVisibility.never.name,
-    'history': [const AssetLocation(path: screenshotDocumentName).toJson()],
+    'history': screenshotDocumentNames
+        .map((name) => AssetLocation(path: name).toJson())
+        .toList(),
     'sort_by': SortBy.name.name,
     'sort_order': SortOrder.ascending.name,
     // needed to remove the inline window controls
@@ -76,19 +85,20 @@ void main() {
   };
 
   Future<Directory> createScreenshotDataDirectory() async {
-    final source = File('../api/test/assets/butterfly.tbfly').absolute;
-    if (!source.existsSync()) {
-      throw StateError('Missing screenshot document: ${source.path}');
-    }
     final root = await Directory.systemTemp.createTemp(
       'butterfly_screenshots_',
     );
     final documents = Directory('${root.path}/Documents');
     await documents.create(recursive: true);
-    final document = await source.copy(
-      '${documents.path}/$screenshotDocumentName',
-    );
-    await document.setLastModified(DateTime.utc(2024));
+    for (final name in screenshotDocumentNames) {
+      final sourceName = name == 'Butterfly.tbfly' ? 'butterfly.tbfly' : name;
+      final source = File('../api/test/assets/$sourceName').absolute;
+      if (!source.existsSync()) {
+        throw StateError('Missing screenshot document: ${source.path}');
+      }
+      final document = await source.copy('${documents.path}/$name');
+      await document.setLastModified(DateTime.utc(2024));
+    }
     return root;
   }
 
@@ -127,19 +137,53 @@ void main() {
 
   Future<void> pumpDocument(WidgetTester tester, Size size) async {
     final file = File(
-      '${overrideButterflyDirectory!}/Documents/$screenshotDocumentName',
+      '${overrideButterflyDirectory!}/Documents/$openingDocumentName',
     );
     await pumpApp(
       tester,
       size,
       initialLocation: Uri(
         path: '/native',
-        queryParameters: {'path': screenshotDocumentName, 'type': 'note'},
+        queryParameters: {'path': openingDocumentName, 'type': 'note'},
       ).toString(),
       initialExtra: await file.readAsBytes(),
     );
     await tester.pumpUntilFound(find.byType(MainViewViewport));
     await settle(tester);
+  }
+
+  Future<void> frameOpeningDocument(
+    WidgetTester tester,
+    Size size,
+    TransformCubit transformCubit,
+  ) async {
+    final isDesktop = size.width >= 840;
+    final scale = switch (size.width) {
+      >= 840 => 0.58,
+      >= 600 => 0.48,
+      _ => 0.34,
+    };
+    final position = switch (size.width) {
+      >= 840 => const Offset(-130, -110),
+      >= 600 => const Offset(100, -130),
+      _ => const Offset(120, -150),
+    };
+    transformCubit.teleport(
+      isDesktop ? position.translate(-160, 0) : position,
+      scale,
+    );
+    await settle(tester);
+  }
+
+  Future<void> revealHomeDocuments(WidgetTester tester) async {
+    final requestedDocuments = screenshotDocumentNames.map(find.text).toList();
+    for (var i = 0; i < 6; i++) {
+      if (requestedDocuments.every(tester.any)) return;
+      final scrollables = find.byType(Scrollable);
+      if (!tester.any(scrollables)) return;
+      await tester.drag(scrollables.first, const Offset(0, -220));
+      await settle(tester);
+    }
   }
 
   group('screenshots', () {
@@ -171,23 +215,30 @@ void main() {
         });
 
         await pumpApp(tester, size);
-        expect(find.text(screenshotDocumentName), findsWidgets);
+        await revealHomeDocuments(tester);
         await takeScreenshot(tester, '$directory/1-home');
 
         await pumpDocument(tester, size);
-        await takeScreenshot(tester, '$directory/2-main');
-
         final viewportContext = tester.element(find.byType(MainViewViewport));
         final currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
         final transformCubit = viewportContext.read<TransformCubit>();
         final bloc = viewportContext.read<DocumentBloc>();
         final pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
+        final isDesktop = size.width >= 840;
+
+        if (isDesktop) {
+          currentIndexCubit.setNavigatorPage(NavigatorPage.pages);
+          currentIndexCubit.setNavigatorEnabled(true);
+          await settle(tester);
+        }
+        await frameOpeningDocument(tester, size, transformCubit);
+        await takeScreenshot(tester, '$directory/2-main');
 
         await settle(tester);
         var templateDialogOpened = false;
         if (!tester.any(find.byType(TemplateDialog))) {
           templateDialogOpened = true;
-          showDialog(
+          showDialog<void>(
             context: viewportContext,
             builder: (context) => MultiBlocProvider(
               providers: [
@@ -198,7 +249,7 @@ void main() {
               child: const TemplateDialog(),
             ),
           );
-          await settle(tester);
+          await tester.pumpAndSettle();
         }
         expect(find.byType(TemplateDialog), findsOneWidget);
         await takeScreenshot(tester, '$directory/3-templates');
