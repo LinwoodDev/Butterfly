@@ -46,14 +46,14 @@ extension HitElementModeVisualizer on HitElementMode {
         HitElementMode.none => loc.eraseShapeModeNone,
         HitElementMode.touchEdges => loc.eraseShapeModeTouchEdges,
         HitElementMode.touchAnywhere => loc.eraseShapeModeTouchAnywhere,
-        _ => '', // this shouldn't happen
+        _ => loc.notSet, // this shouldn't happen
       };
     } else {
       return switch (this) {
         HitElementMode.full => loc.fullSelection,
         HitElementMode.touchEdges => loc.selectElementModeTouchEdges,
         HitElementMode.touchAnywhere => loc.selectElementModeTouchAnywhere,
-        _ => '', // this shouldn't happen
+        _ => loc.notSet, // this shouldn't happen
       };
     }
   }

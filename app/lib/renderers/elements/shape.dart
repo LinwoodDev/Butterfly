@@ -325,9 +325,11 @@ class ShapeHitCalculator extends HitCalculator {
     Rect rect, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
+    if (hitElementMode == HitElementMode.none) return false;
     if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
       return false;
     }
+
     final shape = element.property.shape;
     final center = this.rect.center;
 
@@ -342,14 +344,17 @@ class ShapeHitCalculator extends HitCalculator {
       final radiusY = this.rect.height / 2;
 
       return switch (hitElementMode) {
-        HitElementMode.none => false,
         HitElementMode.full =>
           dx + radiusX <= halfWidth && dy + radiusY <= halfHeight,
         HitElementMode.touchEdges => () {
           if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
 
-          // Is the circle fully inside the rectangle?
-          if (dx + radiusX <= halfWidth && dy + radiusY <= halfHeight) {
+          // Is the rectangle fully inside the circle?
+          final farthestX = dx + halfWidth;
+          final farthestY = dy + halfHeight;
+          final normFarX = farthestX / radiusX;
+          final normFarY = farthestY / radiusY;
+          if (normFarX * normFarX + normFarY * normFarY <= 1) {
             return false;
           }
 
@@ -369,13 +374,11 @@ class ShapeHitCalculator extends HitCalculator {
           final normalizedY = nearestY <= 0 ? 0 : nearestY / radiusY;
           return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
         }(),
+        _ => false, // this shouldn't happen
       };
     }
 
     bool hitRect() {
-      if (hitElementMode == HitElementMode.none) {
-        return false;
-      }
       final topLeft = rect.topLeft.rotate(center, rotation);
       final topRight = rect.topRight.rotate(center, rotation);
       final bottomLeft = rect.bottomLeft.rotate(center, rotation);
@@ -441,7 +444,6 @@ class ShapeHitCalculator extends HitCalculator {
       final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
       final bottomRight = this.rect.bottomRight.rotate(center, rotation);
       return switch (hitElementMode) {
-        HitElementMode.none => false,
         HitElementMode.full => () {
           final isTopCenter = isPointInPolygon([
             topCenter,
@@ -468,6 +470,7 @@ class ShapeHitCalculator extends HitCalculator {
           [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
           [topCenter, bottomLeft, bottomRight],
         ),
+        _ => false, // this shouldn't happen
       };
     }
 
