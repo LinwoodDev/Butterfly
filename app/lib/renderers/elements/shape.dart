@@ -9,6 +9,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   ShapeRenderer(super.element, [super.layer]);
 
+  @override
+  Rect get expandedRect {
+    final rect = this.rect;
+    final expanded = rect.isEmpty
+        ? rect.inflate(max(element.property.strokeWidth / 2, 1))
+        : rect;
+    return Renderer._expandedAabbFor(expanded, rotation * pi / 180);
+  }
+
   /// Creates a dotted path from the source path based on stroke style
   Path _createDashedPath(Path source, StrokeStyle strokeStyle) {
     if (strokeStyle == StrokeStyle.solid) return source;
@@ -314,11 +323,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 }
 
 class ShapeHitCalculator extends HitCalculator {
+  static const _pointShapeHitTolerance = 1e-6;
+
   final ShapeElement element;
   final Rect rect;
   final double rotation;
 
   ShapeHitCalculator(this.element, this.rect, this.rotation);
+
+  bool get _isPointShape => rect.width == 0 && rect.height == 0;
 
   @override
   bool hit(
@@ -326,6 +339,9 @@ class ShapeHitCalculator extends HitCalculator {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
     if (hitElementMode == HitElementMode.none) return false;
+    if (_isPointShape) {
+      return rect.inflate(_pointShapeHitTolerance).contains(this.rect.center);
+    }
     if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
       return false;
     }
@@ -440,35 +456,39 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitTriangle() {
-      final topCenter = this.rect.topCenter.rotate(center, rotation);
-      final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
-      final bottomRight = this.rect.bottomRight.rotate(center, rotation);
+      final topLeft = rect.topLeft.rotate(center, rotation);
+      final topRight = rect.topRight.rotate(center, rotation);
+      final bottomLeft = rect.bottomLeft.rotate(center, rotation);
+      final bottomRight = rect.bottomRight.rotate(center, rotation);
       return switch (hitElementMode) {
         HitElementMode.full => () {
           final isTopCenter = isPointInPolygon([
-            topCenter,
+            topLeft,
+            topRight,
             bottomLeft,
             bottomRight,
           ], this.rect.topCenter);
           final isBottomLeft = isPointInPolygon([
-            topCenter,
+            topLeft,
+            topRight,
             bottomLeft,
             bottomRight,
           ], this.rect.bottomLeft);
           final isBottomRight = isPointInPolygon([
-            topCenter,
+            topLeft,
+            topRight,
             bottomLeft,
             bottomRight,
           ], this.rect.bottomRight);
           return isTopCenter && isBottomLeft && isBottomRight;
         }(),
         HitElementMode.touchEdges =>
-          rect.containsLine(bottomRight, topCenter) ||
-              rect.containsLine(topCenter, bottomLeft) ||
-              rect.containsLine(bottomLeft, bottomRight),
+          rect.containsLine(this.rect.bottomRight, this.rect.topCenter) ||
+              rect.containsLine(this.rect.topCenter, this.rect.bottomLeft) ||
+              rect.containsLine(this.rect.bottomLeft, this.rect.bottomRight),
         HitElementMode.touchAnywhere => isPolygonInPolygon(
           [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-          [topCenter, bottomLeft, bottomRight],
+          [this.rect.topCenter, this.rect.bottomLeft, this.rect.bottomRight],
         ),
         _ => false, // this shouldn't happen
       };
@@ -491,6 +511,7 @@ class ShapeHitCalculator extends HitCalculator {
       return false;
     }
     final center = rect.center;
+    if (_isPointShape) return isPointInPolygon(polygon, center);
     // use isPointInPolygon
     switch (element.property.shape) {
       case LineShape():
