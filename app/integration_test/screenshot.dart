@@ -29,11 +29,12 @@ void main() {
   final screenshotBoundaryKey = GlobalKey();
   final defaultFlutterError = FlutterError.onError;
   const openingDocumentName = 'study.tbfly';
+  const propertiesDocumentName = 'todo.tbfly';
   const screenshotDocumentNames = [
     'Butterfly.tbfly',
     'butterfly design.tbfly',
     openingDocumentName,
-    'todo.tbfly',
+    propertiesDocumentName,
   ];
   final sizes = {
     'phoneScreenshots': const Size(360, 800),
@@ -135,16 +136,18 @@ void main() {
     await settle(tester);
   }
 
-  Future<void> pumpDocument(WidgetTester tester, Size size) async {
-    final file = File(
-      '${overrideButterflyDirectory!}/Documents/$openingDocumentName',
-    );
+  Future<void> pumpDocument(
+    WidgetTester tester,
+    Size size, {
+    String documentName = openingDocumentName,
+  }) async {
+    final file = File('${overrideButterflyDirectory!}/Documents/$documentName');
     await pumpApp(
       tester,
       size,
       initialLocation: Uri(
         path: '/native',
-        queryParameters: {'path': openingDocumentName, 'type': 'note'},
+        queryParameters: {'path': documentName, 'type': 'note'},
       ).toString(),
       initialExtra: await file.readAsBytes(),
     );
@@ -219,11 +222,11 @@ void main() {
         await takeScreenshot(tester, '$directory/1-home');
 
         await pumpDocument(tester, size);
-        final viewportContext = tester.element(find.byType(MainViewViewport));
-        final currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
-        final transformCubit = viewportContext.read<TransformCubit>();
-        final bloc = viewportContext.read<DocumentBloc>();
-        final pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
+        var viewportContext = tester.element(find.byType(MainViewViewport));
+        var currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        var transformCubit = viewportContext.read<TransformCubit>();
+        var bloc = viewportContext.read<DocumentBloc>();
+        var pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
         final isDesktop = size.width >= 840;
 
         if (isDesktop) {
@@ -263,11 +266,31 @@ void main() {
             'The screenshot document does not contain a pen tool',
           );
         }
+
+        await pumpDocument(tester, size, documentName: propertiesDocumentName);
+        viewportContext = tester.element(find.byType(MainViewViewport));
+        currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        transformCubit = viewportContext.read<TransformCubit>();
+        bloc = viewportContext.read<DocumentBloc>();
+        pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
+        if (pen == null) {
+          throw StateError(
+            'The properties screenshot document does not contain a pen tool',
+          );
+        }
+        await frameOpeningDocument(tester, size, transformCubit);
         currentIndexCubit.setNavigatorEnabled(false);
         currentIndexCubit.changeSelection(pen, false);
         await settle(tester);
         expect(find.byType(PropertyView), findsOneWidget);
         await takeScreenshot(tester, '$directory/4-properties');
+
+        await pumpDocument(tester, size);
+        viewportContext = tester.element(find.byType(MainViewViewport));
+        currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        transformCubit = viewportContext.read<TransformCubit>();
+        bloc = viewportContext.read<DocumentBloc>();
+        await frameOpeningDocument(tester, size, transformCubit);
 
         currentIndexCubit.changeSelection(currentIndexCubit, false);
         await settle(tester);
