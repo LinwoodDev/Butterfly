@@ -1,0 +1,1 @@
+* Fix polygon tool toolbar does not change currently edited element

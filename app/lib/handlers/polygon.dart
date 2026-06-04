@@ -114,6 +114,16 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   PolygonTool setStrokeWidth(double width) =>
       data.copyWith(property: data.property.copyWith(strokeWidth: width));
 
+  void _changeTool(DocumentBloc bloc, PolygonTool tool) {
+    final element = _element;
+    if (element != null) {
+      _element = element.copyWith(property: tool.property);
+      bloc.refreshForegrounds();
+      bloc.refreshToolbar();
+    }
+    changeTool(bloc, tool);
+  }
+
   void _resetTool() {
     _elementId = null;
     _element = null;
@@ -436,10 +446,11 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+    final element = _element;
     return PolygonToolbarView(
-      tool: data,
-      hasPoints: (_element?.points.length ?? 0) > 0,
-      onToolChanged: (tool) => changeTool(bloc, tool),
+      tool: element == null ? data : data.copyWith(property: element.property),
+      hasPoints: (element?.points.length ?? 0) > 0,
+      onToolChanged: (tool) => _changeTool(bloc, tool),
       onFinishShape: _element == null
           ? null
           : () async {
