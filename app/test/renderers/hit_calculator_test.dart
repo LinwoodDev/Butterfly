@@ -1,14 +1,21 @@
 import 'dart:ui';
 
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _TestHitCalculator extends HitCalculator {
   @override
-  bool hit(Rect rect, {bool full = false}) => false;
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) => false;
 
   @override
-  bool hitPolygon(List<Offset> polygon, {bool full = false}) => false;
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) => false;
 }
 
 void main() {

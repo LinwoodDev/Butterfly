@@ -396,51 +396,26 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitRect() {
-      final topLeft = rect.topLeft.rotate(center, rotation);
-      final topRight = rect.topRight.rotate(center, rotation);
-      final bottomLeft = rect.bottomLeft.rotate(center, rotation);
-      final bottomRight = rect.bottomRight.rotate(center, rotation);
+      final topLeft = this.rect.topLeft.rotate(center, rotation);
+      final topRight = this.rect.topRight.rotate(center, rotation);
+      final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
+      final bottomRight = this.rect.bottomRight.rotate(center, rotation);
       return switch (hitElementMode) {
         HitElementMode.full => () {
-          final isTopLeft = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomRight,
-            bottomLeft,
-          ], this.rect.topLeft);
-          final isTopRight = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomRight,
-            bottomLeft,
-          ], this.rect.topRight);
-          final isBottomLeft = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomRight,
-            bottomLeft,
-          ], this.rect.bottomLeft);
-          final isBottomRight = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomRight,
-            bottomLeft,
-          ], this.rect.bottomRight);
+          final isTopLeft = rect.contains(topLeft);
+          final isTopRight = rect.contains(topRight);
+          final isBottomLeft = rect.contains(bottomLeft);
+          final isBottomRight = rect.contains(bottomRight);
           return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
         }(),
         HitElementMode.touchEdges =>
-          rect.containsLine(this.rect.topLeft, this.rect.topRight) ||
-              rect.containsLine(this.rect.topRight, this.rect.bottomRight) ||
-              rect.containsLine(this.rect.bottomLeft, this.rect.bottomRight) ||
-              rect.containsLine(this.rect.topLeft, this.rect.bottomLeft),
+          rect.containsLine(topLeft, topRight) ||
+              rect.containsLine(topRight, bottomRight) ||
+              rect.containsLine(bottomLeft, bottomRight) ||
+              rect.containsLine(topLeft, bottomLeft),
         HitElementMode.touchAnywhere => isPolygonInPolygon(
+          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
           [topLeft, topRight, bottomRight, bottomLeft],
-          [
-            this.rect.topLeft,
-            this.rect.topRight,
-            this.rect.bottomRight,
-            this.rect.bottomLeft,
-          ],
         ),
         _ => false, // this shouldn't happen
       };
@@ -457,39 +432,22 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitTriangle() {
-      final topLeft = rect.topLeft.rotate(center, rotation);
-      final topRight = rect.topRight.rotate(center, rotation);
-      final bottomLeft = rect.bottomLeft.rotate(center, rotation);
-      final bottomRight = rect.bottomRight.rotate(center, rotation);
+      final triTop = this.rect.topCenter.rotate(center, rotation);
+      final triLeft = this.rect.bottomLeft.rotate(center, rotation);
+      final triRight = this.rect.bottomRight.rotate(center, rotation);
+
       return switch (hitElementMode) {
-        HitElementMode.full => () {
-          final isTopCenter = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomLeft,
-            bottomRight,
-          ], this.rect.topCenter);
-          final isBottomLeft = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomLeft,
-            bottomRight,
-          ], this.rect.bottomLeft);
-          final isBottomRight = isPointInPolygon([
-            topLeft,
-            topRight,
-            bottomLeft,
-            bottomRight,
-          ], this.rect.bottomRight);
-          return isTopCenter && isBottomLeft && isBottomRight;
-        }(),
+        HitElementMode.full =>
+          rect.contains(triTop) &&
+              rect.contains(triLeft) &&
+              rect.contains(triRight),
         HitElementMode.touchEdges =>
-          rect.containsLine(this.rect.bottomRight, this.rect.topCenter) ||
-              rect.containsLine(this.rect.topCenter, this.rect.bottomLeft) ||
-              rect.containsLine(this.rect.bottomLeft, this.rect.bottomRight),
+          rect.containsLine(triRight, triTop) ||
+              rect.containsLine(triTop, triLeft) ||
+              rect.containsLine(triLeft, triRight),
         HitElementMode.touchAnywhere => isPolygonInPolygon(
           [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-          [this.rect.topCenter, this.rect.bottomLeft, this.rect.bottomRight],
+          [triTop, triLeft, triRight],
         ),
         _ => false, // this shouldn't happen
       };
@@ -508,9 +466,7 @@ class ShapeHitCalculator extends HitCalculator {
     List<ui.Offset> polygon, {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
-    if (hitElementMode == HitElementMode.none) {
-      return false;
-    }
+    if (hitElementMode == HitElementMode.none) return false;
     final center = rect.center;
     if (_isPointShape) return isPointInPolygon(polygon, center);
     // use isPointInPolygon
