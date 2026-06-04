@@ -50,7 +50,7 @@ jobs:
         with:
           title: Update screenshots
           branch: automation/update-screenshots
-          branch-suffix: timestamp
+          delete-branch: true
           commit-message: Update screenshots
           add-paths: |
             metadata/en-US/images
