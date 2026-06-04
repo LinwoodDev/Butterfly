@@ -132,7 +132,11 @@ class SimpleNoteDisplay extends NoteDisplay<SimpleNoteDisplay> {
   SimpleNoteDisplay.build(super.archive, {super.password}) : super.build();
 
   factory SimpleNoteDisplay.fromData(Uint8List data, {String? password}) {
-    final archive = ZipDecoder().decodeBytes(data, password: password);
+    final archive = data.isNotEmpty && data[0] != kArchiveSignature
+        ? convertTextDataToArchive(
+            json.decode(utf8.decode(data)) as Map<String, dynamic>,
+          )
+        : ZipDecoder().decodeBytes(data, password: password);
     return SimpleNoteDisplay.build(archive, password: password);
   }
 
