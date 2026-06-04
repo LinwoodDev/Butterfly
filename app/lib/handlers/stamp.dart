@@ -1,66 +1,20 @@
 part of 'handler.dart';
 
 class StampHandler extends PastingHandler<StampTool> {
-  ButterflyComponent? _component;
-  Offset? _position;
   Rect rect = Rect.zero;
   List<Renderer<PadElement>>? _elements;
   StampHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
-    NoteData document,
-    DocumentPage page,
-    DocumentInfo info, [
-    Area? currentArea,
-  ]) => [
-    ...super.createForegrounds(
-      currentIndexCubit,
-      document,
-      page,
-      info,
-      currentArea,
-    ),
-    if (!currentlyPasting && _position != null)
-      ...transformElements(
-        Rect.fromPoints(_position!, _position!),
-        '',
-        currentIndexCubit,
-      ).map(Renderer.fromInstance),
-  ];
-
-  void _update(PointerEvent event, EventContext context) {
+  Future<void> preparePaste(EventContext context) async {
     final state = context.getState();
-    if (state != null) {
-      _loadComponent(
-        context.getCurrentIndex().transformCubit,
-        state.data,
-        state.assetService,
-        state.page,
-      );
-    }
-    _position = context.getCameraTransform().localToGlobal(event.localPosition);
-    context.refreshForegrounds();
-  }
-
-  @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) =>
-      _update(event, context);
-
-  @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
-    _update(event, context);
-    super.onPointerDown(event, context);
-  }
-
-  @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    super.onPointerUp(event, context);
-    if (event.kind != PointerDeviceKind.mouse) {
-      _position = null;
-      context.refreshForegrounds();
-    }
+    if (state == null) return;
+    await _loadComponent(
+      context.getCurrentIndex().transformCubit,
+      state.data,
+      state.assetService,
+      state.page,
+    );
   }
 
   ButterflyComponent? getComponent() => data.component?.item;
@@ -69,18 +23,15 @@ class StampHandler extends PastingHandler<StampTool> {
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
-    DocumentPage page, [
-    bool force = false,
-  ]) async {
-    _position = null;
-    _component = getComponent();
-    if ((!force && _elements != null) || _component == null) return;
+    DocumentPage page,
+  ) async {
+    final component = getComponent();
+    if (component == null) return;
     final elements = _elements = await Future.wait(
-      _component?.elements.map(Renderer.fromInstance).map((e) async {
-            await e.setup(transformCubit, document, assetService, page);
-            return e;
-          }) ??
-          [],
+      component.elements.map(Renderer.fromInstance).map((e) async {
+        await e.setup(transformCubit, document, assetService, page);
+        return e;
+      }),
     );
     rect =
         elements
@@ -104,6 +55,8 @@ class StampHandler extends PastingHandler<StampTool> {
   );
   @override
   MouseCursor get cursor => SystemMouseCursors.click;
+  @override
+  bool get showHoverPreview => true;
 
   @override
   List<PadElement> transformElements(

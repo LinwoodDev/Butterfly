@@ -34,5 +34,59 @@ void main() {
 
       expect(settings.history, [const AssetLocation(path: '/note.bfly')]);
     });
+
+    test('updates recent history when a file moves', () async {
+      SharedPreferences.setMockInitialValues({});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+
+      await cubit.addRecentHistory(const AssetLocation(path: '/old.bfly'));
+      await cubit.moveAssetReferences(
+        const AssetLocation(path: '/old.bfly'),
+        const AssetLocation(path: '/new.bfly'),
+      );
+
+      expect(cubit.state.history, [const AssetLocation(path: '/new.bfly')]);
+    });
+
+    test('does not emit or save when no asset references move', () async {
+      SharedPreferences.setMockInitialValues({});
+      final prefs = await SharedPreferences.getInstance();
+      final cubit = SettingsCubit(prefs);
+      var emitted = 0;
+      final subscription = cubit.stream.listen((_) => emitted++);
+
+      await cubit.moveAssetReferences(
+        const AssetLocation(path: '/missing.bfly'),
+        const AssetLocation(path: '/new.bfly'),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(emitted, 0);
+      await subscription.cancel();
+    });
+
+    test(
+      'updates nested recent and starred references when a folder moves',
+      () async {
+        SharedPreferences.setMockInitialValues({});
+        final prefs = await SharedPreferences.getInstance();
+        final cubit = SettingsCubit(prefs);
+
+        const oldLocation = AssetLocation(path: '/old/note.bfly');
+        const newLocation = AssetLocation(path: '/new/note.bfly');
+        await cubit.addRecentHistory(oldLocation);
+        await cubit.toggleStarred(oldLocation);
+        await cubit.moveAssetReferences(
+          const AssetLocation(path: '/old'),
+          const AssetLocation(path: '/new'),
+          directory: true,
+        );
+
+        expect(cubit.state.history, [newLocation]);
+        expect(cubit.state.isStarred(oldLocation), false);
+        expect(cubit.state.isStarred(newLocation), true);
+      },
+    );
   });
 }

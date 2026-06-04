@@ -1,6 +1,8 @@
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 
@@ -46,6 +48,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   Future<void> _move(bool duplicate) async {
     final navigator = Navigator.of(context);
     final newPaths = <String>[];
+    final settingsCubit = context.read<SettingsCubit>();
     for (final asset in widget.assets) {
       var newPath = selectedPath;
       if (selectedPath != '/') {
@@ -58,7 +61,13 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       if (duplicate) {
         await widget.fileSystem.duplicateAsset(asset.path, newPath);
       } else {
+        final source = await widget.fileSystem.getAsset(asset.path);
         await widget.fileSystem.moveAsset(asset.path, newPath);
+        await settingsCubit.moveAssetReferences(
+          asset,
+          AssetLocation(path: newPath, remote: asset.remote),
+          directory: source is FileSystemDirectory,
+        );
       }
       newPaths.add(newPath);
     }

@@ -52,14 +52,14 @@ Finally, after modifying the tool's appearance. It's time to modify the properti
 
 ## Configuration
 
-|        Property |                                 Default                                | Deskripsi                                                                                                                               |
-| --------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-|           Color |                                  Black                                 | The color that will be drawn                                                                                                            |
-|   Lebar Goresan |                                    5                                   | The width of the stroke                                                                                                                 |
-|  Zoom dependent |                                  false                                 | This will change the stroke width based on the zoom level.                                                              |
-| Shape Detection | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
-|       Penipisan |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
-|       Smoothing |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
-|      Streamline |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
-|           Color |                                  Black                                 | The color that will be drawn                                                                                                            |
-|             Isi |                               Transparent                              | The color that will be drawn inside the shape                                                                                           |
+|             Property |                                 Default                                | Deskripsi                                                                                                                               |
+| -------------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+|                Color |                                  Black                                 | The color that will be drawn                                                                                                            |
+|        Lebar goresan |                                    5                                   | The width of the stroke                                                                                                                 |
+| Bergantung pada zoom |                                  false                                 | This will change the stroke width based on the zoom level.                                                              |
+|       Deteksi bentuk | false (Delay: 0.5s) | This will try to detect shapes while drawing. If a shape is detected, it will be replaced by the shape. |
+|            Penipisan |                           0.4                          | This effect of pressure on the stroke size                                                                                              |
+|          Penghalusan |                           0.5                          | This will smooth the edges of the stroke.                                                                               |
+|           Streamline |                           0.5                          | How much the pen will follow the movement of the mouse.                                                                 |
+|                Color |                                  Black                                 | The color that will be drawn                                                                                                            |
+|                  Isi |                               Transparent                              | The color that will be drawn inside the shape                                                                                           |

@@ -52,9 +52,20 @@ part 'elements/svg.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
+  final Rect? boundsRect;
   final double rotation;
 
-  DefaultHitCalculator(this.rect, this.rotation);
+  DefaultHitCalculator(this.rect, this.boundsRect, this.rotation);
+
+  List<Offset> _rotatedCorners(Rect rect) {
+    final center = rect.center;
+    return [
+      rect.topLeft.rotate(center, rotation),
+      rect.topRight.rotate(center, rotation),
+      rect.bottomRight.rotate(center, rotation),
+      rect.bottomLeft.rotate(center, rotation),
+    ];
+  }
 
   @override
   bool hit(
@@ -63,13 +74,17 @@ class DefaultHitCalculator extends HitCalculator {
   }) {
     final element = this.rect;
     if (element == null) return false;
+    if (!(boundsRect ?? element).overlaps(rect)) return false;
+    final rotated = _rotatedCorners(element);
     if (hitElementMode == HitElementMode.full) {
-      return element.top >= rect.top &&
-          element.left >= rect.left &&
-          element.right <= rect.right &&
-          element.bottom <= rect.bottom;
+      return rotated.every(rect.contains);
     }
-    return element.overlaps(rect);
+    return isPolygonInPolygon(rotated, [
+      rect.topLeft,
+      rect.topRight,
+      rect.bottomRight,
+      rect.bottomLeft,
+    ]);
   }
 
   @override
@@ -78,24 +93,13 @@ class DefaultHitCalculator extends HitCalculator {
     HitElementMode hitElementMode = HitElementMode.touchAnywhere,
   }) {
     if (rect == null) return false;
+    final rotated = _rotatedCorners(rect!);
     final center = rect!.center;
     final isCenter = isPointInPolygon(polygon, center);
-    final isTopLeft = isPointInPolygon(
-      polygon,
-      rect!.topLeft.rotate(center, rotation),
-    );
-    final isTopRight = isPointInPolygon(
-      polygon,
-      rect!.topRight.rotate(center, rotation),
-    );
-    final isBottomLeft = isPointInPolygon(
-      polygon,
-      rect!.bottomLeft.rotate(center, rotation),
-    );
-    final isBottomRight = isPointInPolygon(
-      polygon,
-      rect!.bottomRight.rotate(center, rotation),
-    );
+    final isTopLeft = isPointInPolygon(polygon, rotated[0]);
+    final isTopRight = isPointInPolygon(polygon, rotated[1]);
+    final isBottomRight = isPointInPolygon(polygon, rotated[2]);
+    final isBottomLeft = isPointInPolygon(polygon, rotated[3]);
     if (hitElementMode == HitElementMode.full) {
       return isCenter &&
           isTopLeft &&
@@ -182,24 +186,70 @@ abstract class HitCalculator {
     return axes;
   }
 
+  bool _isPointOnSegment(Offset point, Offset a, Offset b) {
+    const epsilon = 1e-10;
+    final cross =
+        (point.dy - a.dy) * (b.dx - a.dx) - (point.dx - a.dx) * (b.dy - a.dy);
+    if (cross.abs() > epsilon) return false;
+
+    final dot =
+        (point.dx - a.dx) * (b.dx - a.dx) + (point.dy - a.dy) * (b.dy - a.dy);
+    if (dot < -epsilon) return false;
+
+    final lengthSquared =
+        (b.dx - a.dx) * (b.dx - a.dx) + (b.dy - a.dy) * (b.dy - a.dy);
+    return dot <= lengthSquared + epsilon;
+  }
+
+  int _orientation(Offset a, Offset b, Offset c) {
+    const epsilon = 1e-10;
+    final value = (b.dy - a.dy) * (c.dx - b.dx) - (b.dx - a.dx) * (c.dy - b.dy);
+    if (value.abs() <= epsilon) return 0;
+    return value > 0 ? 1 : 2;
+  }
+
+  bool _segmentsIntersect(Offset a, Offset b, Offset c, Offset d) {
+    final o1 = _orientation(a, b, c);
+    final o2 = _orientation(a, b, d);
+    final o3 = _orientation(c, d, a);
+    final o4 = _orientation(c, d, b);
+
+    if (o1 != o2 && o3 != o4) return true;
+    if (o1 == 0 && _isPointOnSegment(c, a, b)) return true;
+    if (o2 == 0 && _isPointOnSegment(d, a, b)) return true;
+    if (o3 == 0 && _isPointOnSegment(a, c, d)) return true;
+    if (o4 == 0 && _isPointOnSegment(b, c, d)) return true;
+    return false;
+  }
+
+  Iterable<(Offset, Offset)> _edgesOf(List<Offset> polygon) sync* {
+    if (polygon.length < 2) return;
+    for (var i = 0; i < polygon.length - 1; i++) {
+      yield (polygon[i], polygon[i + 1]);
+    }
+    if (polygon.length > 2) {
+      yield (polygon.last, polygon.first);
+    }
+  }
+
   bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
-    // Get the axes from both polygons.
-    final List<Offset> axes = [
-      ...getAxesOfPolygon(poly1),
-      ...getAxesOfPolygon(poly2),
-    ];
+    if (poly1.isEmpty || poly2.isEmpty) return false;
 
-    // For each axis, project both polygons.
-    for (final axis in axes) {
-      final Projection proj1 = projectPolygon(axis, poly1);
-      final Projection proj2 = projectPolygon(axis, poly2);
-
-      // If there is a gap on this axis, then there is a separating axis.
-      if (proj1.max < proj2.min || proj2.max < proj1.min) {
-        return false;
+    for (final (a, b) in _edgesOf(poly1)) {
+      for (final (c, d) in _edgesOf(poly2)) {
+        if (_segmentsIntersect(a, b, c, d)) return true;
       }
     }
-    return true;
+
+    if (poly2.length > 2 &&
+        poly1.any((point) => isPointInPolygon(poly2, point))) {
+      return true;
+    }
+    if (poly1.length > 2 &&
+        poly2.any((point) => isPointInPolygon(poly1, point))) {
+      return true;
+    }
+    return false;
   }
 }
 
@@ -345,7 +395,7 @@ abstract class Renderer<T> {
   ]);
 
   HitCalculator getHitCalculator() =>
-      DefaultHitCalculator(rect, rotation * (pi / 180));
+      DefaultHitCalculator(rect, expandedRect, rotation * (pi / 180));
 
   void buildSvg(
     XmlDocument xml,

@@ -2,8 +2,8 @@
 title: Android
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabile Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Nightly-Release-Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 import {CardGrid, LinkCard, TabItem, Tabs} from '@astrojs/starlight/components';
 import DownloadButton from '/src/components/DownloadButton.astro';
@@ -12,7 +12,7 @@ import Fdroid from '@assets/img/store/fdroid.svg';
 
 ## Minimale Systemvoraussetzungen
 
-- Android Nougat 7.0 (API level 24) or higher.
+- Android Nougat 7.0 (API-Level 24) oder höher.
 
 ## Store
 
@@ -27,7 +27,7 @@ Die empfohlene Art, Butterfly auf Android zu installieren, ist über den Store. 
 </a>
 </div>
 
-Die Nightly Version ist auch in den Stores erhältlich. Bitte beachten Sie, dass diese Version Bugs haben kann.
+Die Nightly-Version ist auch in den Stores erhältlich. Bitte beachten Sie, dass diese Version Bugs haben kann.
 
 <div class="row">
 <a href="https://play.google.com/apps/testing/dev.linwood.butterfly">
@@ -41,7 +41,7 @@ Die Nightly Version ist auch in den Stores erhältlich. Bitte beachten Sie, dass
 ## Binärdateien
 
 <Tabs>
-<TabItem label="Stable">
+<TabItem label="Stabil">
   <CardGrid>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android.apk" title="APK (Universal)"/>
     <DownloadButton href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-android-arm.apk" title="APK (ARM)"/>
@@ -75,11 +75,11 @@ Die Nightly Version ist auch in den Stores erhältlich. Bitte beachten Sie, dass
 </TabItem>
 </Tabs>
 
-Lesen Sie mehr über die nächtliche Version von Butterfly [here](/community/nightly).
+Lesen Sie mehr über die Nightly-Version von Butterfly [hier](/community/nightly).
 
-:::tip[What apk should I use?]
+:::tip[What apk soll ich verwenden?]
 
 **Universal** sollte auf allen Geräten funktionieren. Wenn Sie eine kleinere APK möchten, verwenden Sie die APK, die mit der Architektur Ihres Geräts übereinstimmt.
-**Legacy** apks are using the `useLegacyPackaging` flag on the build which compresses the native libraries to reduce the apk size. However, this can affect loading performance. Read more [in the android documentation](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
+**Legacy**-APKs verwenden beim Build das Flag `useLegacyPackaging`, das die nativen Bibliotheken komprimiert, um die APK-Größe zu reduzieren. Dies kann jedoch die Ladeleistung beeinflussen. Lies mehr [in der Android-Dokumentation](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/JniLibsPackagingOptions#uselegacypackaging).
 
 :::

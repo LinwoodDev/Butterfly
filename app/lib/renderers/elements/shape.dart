@@ -319,7 +319,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   @override
   HitCalculator getHitCalculator() =>
-      ShapeHitCalculator(element, rect, rotation * pi / 180);
+      ShapeHitCalculator(element, rect, expandedRect, rotation * pi / 180);
 }
 
 class ShapeHitCalculator extends HitCalculator {
@@ -327,9 +327,11 @@ class ShapeHitCalculator extends HitCalculator {
 
   final ShapeElement element;
   final Rect rect;
+  final Rect boundsRect;
   final double rotation;
 
-  ShapeHitCalculator(this.element, this.rect, this.rotation);
+  ShapeHitCalculator(this.element, this.rect, Rect boundsRect, this.rotation)
+    : boundsRect = boundsRect.inflate(element.property.strokeWidth);
 
   bool get _isPointShape => rect.width == 0 && rect.height == 0;
 
@@ -342,10 +344,9 @@ class ShapeHitCalculator extends HitCalculator {
     if (_isPointShape) {
       return rect.inflate(_pointShapeHitTolerance).contains(this.rect.center);
     }
-    if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
+    if (!boundsRect.overlaps(rect)) {
       return false;
     }
-
     final shape = element.property.shape;
     final center = this.rect.center;
 

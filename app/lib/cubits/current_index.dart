@@ -254,6 +254,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   final Set<Renderer<PadElement>> _initializedElements = {};
 
+  void invalidateRenderers(Iterable<Renderer<PadElement>> renderers) {
+    _initializedElements.removeAll(renderers);
+  }
+
   Future<void> _updateOnVisible(
     CameraViewport newViewport,
     DocumentLoaded blocState, {
@@ -1311,6 +1315,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         !viewportAlreadyCoversRect &&
         (cameraViewport.width != size.width.ceil() ||
             cameraViewport.height != size.height.ceil() ||
+            cameraViewport.pixelRatio != ratio ||
+            cameraViewport.resolution != resolution ||
             cameraViewport.x != renderTransform.position.dx ||
             cameraViewport.y != renderTransform.position.dy ||
             cameraViewport.scale != transform.size ||

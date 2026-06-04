@@ -1,5 +1,5 @@
 ---
-title: Laser tool
+title: Laserwerkzeug
 ---
 
 Mit diesem Werkzeug können Sie temporär auf Ihrer Arbeitsfläche zeichnen. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.

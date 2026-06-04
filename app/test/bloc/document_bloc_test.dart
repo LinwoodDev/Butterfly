@@ -492,6 +492,50 @@ void main() {
     );
   });
 
+  test('duplicating layers creates new layers with new element ids', () async {
+    final firstElement = ShapeElement(
+      id: 'first-element',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final secondElement = ShapeElement(
+      id: 'second-element',
+      firstPosition: const Point(30, 30),
+      secondPosition: const Point(40, 40),
+    );
+    bloc
+      ..add(const LayerChanged('second-page-layer', name: 'Original layer'))
+      ..add(ElementsCreated([firstElement]))
+      ..add(const LayerVisibilityChanged('second-page-layer', false))
+      ..add(const LayerCreated(id: 'other-layer', name: 'Other layer'))
+      ..add(const CurrentLayerChanged('other-layer'))
+      ..add(ElementsCreated([secondElement]));
+    await _settleBlocEvents();
+
+    bloc.add(const LayersMerged(['second-page-layer', 'other-layer'], true));
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    final layers = state.page.layers;
+    expect(layers, hasLength(4));
+    expect(layers[0].id, 'second-page-layer');
+    expect(layers[1].id, isNot('second-page-layer'));
+    expect(layers[1].name, 'Original layer');
+    expect(layers[1].content.single.id, isNot(firstElement.id));
+    expect(layers[2].id, 'other-layer');
+    expect(layers[3].id, isNot('other-layer'));
+    expect(layers[3].name, 'Other layer');
+    expect(layers[3].content.single.id, isNot(secondElement.id));
+    expect(state.currentLayer, layers[3].id);
+    expect(state.invisibleLayers, containsAll(['second-page-layer']));
+    expect(state.invisibleLayers, contains(layers[1].id));
+    expect(state.invisibleLayers, isNot(contains(layers[3].id)));
+    expect(
+      currentIndexCubit.renderers.map((renderer) => renderer.layer),
+      containsAll([layers[1].id, layers[3].id]),
+    );
+  });
+
   test('resetInput clears active pointers and buttons', () async {
     currentIndexCubit.addPointer(12);
     currentIndexCubit.setButtons(kPrimaryMouseButton);
@@ -566,6 +610,62 @@ void main() {
       isNot(contains('hidden')),
     );
     expect(viewport.visibleUnbakedElements, isEmpty);
+  });
+
+  test('bake refreshes cached viewport when pixel ratio changes', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final element = ShapeElement(
+      id: 'visible',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderers = <Renderer<PadElement>>[Renderer.fromInstance(element)];
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'pixel-ratio-page');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: renderers,
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 1);
+    expect(currentIndexCubit.state.cameraViewport.unbakedElements, isEmpty);
+
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 2,
+    );
+
+    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 2);
   });
 
   test(

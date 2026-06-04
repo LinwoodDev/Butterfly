@@ -98,6 +98,14 @@ class SelectHandler extends Handler<SelectTool> {
 
   void _updateSelectionRect() => _selectionManager.select(getSelectionRect());
 
+  bool _isSelectionHit(
+    Offset position,
+    CameraTransform transform,
+    double sensitivity,
+  ) =>
+      _selectionManager.isValid &&
+      _selectionManager.shouldTransform(position, transform.size, sensitivity);
+
   List<Renderer<PadElement>>? _getTransformed() {
     final selectionRect = _selectionManager.selection;
     final pivot = _selectionManager.pivot;
@@ -242,8 +250,12 @@ class SelectHandler extends Handler<SelectTool> {
   void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localPosition);
-    final selectionRect = getSelectionRect();
-    if (!(selectionRect?.contains(globalPos) ?? false)) {
+    final hitSelection = _isSelectionHit(
+      globalPos,
+      transform,
+      context.getSettings().touchSensitivity,
+    );
+    if (!hitSelection) {
       await _onSelectionAdd(context, details.localPosition, true);
     }
     _onSelectionContext(context, details.localPosition);
@@ -324,8 +336,12 @@ class SelectHandler extends Handler<SelectTool> {
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
     final selectionRect = getSelectionRect();
-    if ((rect != null && !(selectionRect?.contains(position) ?? false)) &&
-        !context.isCtrlPressed) {
+    final hitSelection = _isSelectionHit(
+      position,
+      context.getCameraTransform(),
+      context.getSettings().touchSensitivity,
+    );
+    if ((rect != null && !hitSelection) && !context.isCtrlPressed) {
       _selected.clear();
       if (hit != null) _selected.add(hit);
     }

@@ -1,21 +1,21 @@
 ---
-title: Gitter-Tool
+title: Rasterwerkzeug
 ---
 
-:::note[🔘 Toggleable tool]
+:::note[🔘 Toggleable Werkzeug]
 
-This is a special tool.
-You can't select it and it gets toggled if you click on it.
+Dies ist ein spezielles Werkzeug.
+Sie können es nicht auswählen; durch Anklicken wird es ein- oder ausgeschaltet.
 
 :::
 
-With this tool you can show a grid over the canvas.
-Inputs get snapped to the grid.
+Mit diesem Werkzeug können Sie ein Raster über der Leinwand anzeigen.
+Eingaben werden am Raster ausgerichtet.
 
 ## Konfiguration
 
-| Objekt |           Standard          | Beschreibung           |
-| -----: | :-------------------------: | :--------------------- |
-|  Größe | (20, 20) | The size of grid cells |
-| Offset |  (0, 0)  | The offset of the grid |
-|  Farbe |           Schwarz           | The color of the grid  |
+|  Objekt |           Standard          | Beschreibung               |
+| ------: | :-------------------------: | :------------------------- |
+|   Größe | (20, 20) | Die Größe der Rasterzellen |
+| Versatz |  (0, 0)  | Der Versatz des Rasters    |
+|   Farbe |           Schwarz           | Die Farbe des Rasters      |

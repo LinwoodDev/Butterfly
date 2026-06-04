@@ -4,7 +4,7 @@ title: Herramienta de área
 
 La herramienta de área te permite crear, editar y remover áreas.
 
-Para una descripción general de cómo funcionan las áreas, véase [Áreas](../areas).
+For an overview of how areas work, see [Areas](../../areas).
 
 ## Acciones
 

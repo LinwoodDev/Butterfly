@@ -760,9 +760,20 @@ class FilesViewState extends State<FilesView> {
                         ),
                     onWillAcceptWithDetails: (data) => true,
                     onAcceptWithDetails: (data) async {
-                      await _documentSystem.moveAsset(
-                        data.data,
-                        '$parent/${data.data.split('/').last}',
+                      final source = await _documentSystem.getAsset(data.data);
+                      final destination =
+                          '$parent/${data.data.split('/').last}';
+                      await _documentSystem.moveAsset(data.data, destination);
+                      await _settingsCubit.moveAssetReferences(
+                        AssetLocation(
+                          path: data.data,
+                          remote: _documentSystem.storage?.identifier ?? '',
+                        ),
+                        AssetLocation(
+                          path: destination,
+                          remote: _documentSystem.storage?.identifier ?? '',
+                        ),
+                        directory: source is FileSystemDirectory<NoteFile>,
                       );
                       reloadFileSystem();
                     },

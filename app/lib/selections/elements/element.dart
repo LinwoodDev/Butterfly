@@ -151,16 +151,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   Rect? get expandedRect =>
       _expandRects(selected.map((e) => e.expandedRect).nonNulls.toList());
 
-  Rect? _expandRects(List<Rect> rects) {
-    var rect = rects.firstOrNull;
-    for (final current in selected.sublist(1)) {
-      final currentRect = current.rect;
-      if (currentRect != null) {
-        rect = rect?.expandToInclude(currentRect);
-      }
-    }
-    return rect;
-  }
+  Rect? _expandRects(List<Rect> rects) =>
+      rects.fold<Rect?>(null, (rect, current) {
+        return rect?.expandToInclude(current) ?? current;
+      });
 
   @override
   void onDelete(BuildContext context) {

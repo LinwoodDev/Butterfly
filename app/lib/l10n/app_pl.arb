@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Tylko bieżąca strona",
   "smoothNavigation": "Gładka nawigacja",
   "edgePanAreaSwitching": "Przełącznik panewki krawędziowej",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Użyj Android SAF",
   "exact": "Dokładny",
   "@exact": {
     "description": "Exact match"

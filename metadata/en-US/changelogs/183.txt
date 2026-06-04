@@ -1,0 +1,23 @@
+* Change min iOS version to 14.0
+* Upgrade to flutter 3.44 (Add stylus support for windows)
+* Use nearest corner hit for selection transforms
+* Add duplicate layer to multi select options in layers navigator
+* Add automatic first template selection on desktop
+* Fix jagged rendering after changing orientation ([#1094](https://github.com/LinwoodDev/Butterfly/issues/1094))
+* Fix texture tool configuration scrolling getting stuck ([#1092](https://github.com/LinwoodDev/Butterfly/issues/1092))
+* Fix temporary tools being cleared after canvas gestures ([#1093](https://github.com/LinwoodDev/Butterfly/issues/1093))
+* Fix image operations temporarily showing gray boxes ([#1097](https://github.com/LinwoodDev/Butterfly/issues/1097))
+* Fix title and description fields clearing on focus loss ([#1101](https://github.com/LinwoodDev/Butterfly/issues/1101))
+* Fix pressure not used for inverted stylus
+* Fix close dialog to offer save, discard, and cancel actions
+* Fix top corner menu doesn't have navigator menu buttons on full screen
+* Fix image export quality changes showing stale previews
+* Fix duplicate layer button in layers dialog not working ([#1105](https://github.com/LinwoodDev/Butterfly/issues/1105))
+* Fix moving PDFs with spacer tools freezing the canvas ([#1106](https://github.com/LinwoodDev/Butterfly/issues/1106))
+* Fix stamp tool hover preview looks strange on touch ([#1107](https://github.com/LinwoodDev/Butterfly/issues/1107))
+* Fix horizontal and vertical wrongly named in texture background dialog
+* Fix offset list tile refreshes on same value
+* Fix shapes with identical start and end points being created ([#1112](https://github.com/LinwoodDev/Butterfly/issues/1112))
+* Fix very small selections being hard to transform or open context menus for ([#1112](https://github.com/LinwoodDev/Butterfly/issues/1112))
+
+Read more here: https://linwood.dev/butterfly/2.5.3-rc.0

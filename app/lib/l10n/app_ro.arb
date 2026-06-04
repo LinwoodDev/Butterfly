@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
   "edgePanAreaSwitching": "Comutarea zonei panoului de margini",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Folosește Android SAF",
   "exact": "Exact",
   "@exact": {
     "description": "Exact match"

@@ -2,31 +2,31 @@
 title: Farbauswahl
 ---
 
-Colors can be selected by using two methods: The color toolbar and the color picker overlay.
+Farben können auf zwei Arten ausgewählt werden: über die Farb-Symbolleiste und über das Farbauswahl-Overlay.
 
-To update the color palette, read the [pack documentation](/docs/v2/pack).
+Um die Farbpalette zu aktualisieren, lies die [Pack-Dokumentation](/docs/v2/pack).
 
 ## Farb-Werkzeugleiste
 
-![Color toolbar](color_toolbar.png)
+![Farbe Symbolleiste](color_toolbar.png)
 
-If this is enabled in the settings, a color toolbar will be shown when a colorable tool is selected. This toolbar allows you to quickly select a color from a predefined set of colors. Click on the plus icon to select a custom color.
+Wenn dies in den Einstellungen aktiviert ist, wird eine Farb-Symbolleiste angezeigt, sobald ein einfärbbares Werkzeug ausgewählt ist. Mit dieser Symbolleiste können Sie schnell eine Farbe aus einer vordefinierten Farbauswahl wählen. Klicken Sie auf das Plus-Symbol, um eine eigene Farbe auszuwählen.
 
-## Color picker overlay
+## Farbe picker overlay
 
-![Color picker overlay](color_picker_overlay.png)
+![Farbe picker overlay](color_picker_overlay.png)
 
-This overlay can be opened by clicking on a property tile that is colorable, for example inside the properties panel of the pen tool. Click on a color to select it. Click on the custom button to open the custom color picker.
+Dieses Overlay kann geöffnet werden, indem Sie auf eine einfärbbare Eigenschaftskachel klicken, zum Beispiel im Eigenschaftenbereich des Stiftwerkzeugs. Klicken Sie auf eine Farbe, um sie auszuwählen. Klicken Sie auf die Benutzerdefiniert-Schaltfläche, um die eigene Farbauswahl zu öffnen.
 
-If you want to delete a color from the palette, right click on it (or long press on touch devices) and select delete.
+Wenn Sie eine Farbe aus der Palette löschen möchten, klicken Sie mit der rechten Maustaste darauf (oder halten Sie sie auf Touch-Geräten gedrückt) und wählen Sie Löschen.
 
-### Custom color picker
+### Custom Farbe picker
 
-![Custom color picker](color_picker.png)
+![Custom Farbe picker](color_picker.png)
 
-Here you can select any color you want. On the left you can see a color wheel. Under it you can select the brightness of the color.
-Note: if you choose a darker color on the bottom, the wheel selection gets less precise.
+Hier können Sie jede gewünschte Farbe auswählen. Links sehen Sie ein Farbrad. Darunter können Sie die Helligkeit der Farbe auswählen.
+Hinweis: Wenn Sie unten eine dunklere Farbe auswählen, wird die Auswahl im Farbrad ungenauer.
 
-Under the brightness slider you can see a preview of the selected color. You can also enter a hex code to select a color. It is specified as `#RRGGBB`, where `RR` is the red value, `GG` is the green value, and `BB` is the blue value in hexadecimal notation.
+Unter dem Helligkeitsregler sehen Sie eine Vorschau der ausgewählten Farbe. Sie können auch einen Hex-Code eingeben, um eine Farbe auszuwählen. Sie wird als `#RRGGBB` angegeben, wobei `RR` der Rotwert, `GG` der Grünwert und `BB` der Blauwert in hexadezimaler Schreibweise ist.
 
-On the right you can see the red, green and blue values that make up the color. These values can be changed by dragging the sliders or by entering a value between 0 and 255. Pin the color to add it to the color palette.
+Rechts sehen Sie die Rot-, Grün- und Blauwerte, aus denen die Farbe besteht. Diese Werte können geändert werden, indem Sie die Schieberegler ziehen oder einen Wert zwischen 0 und 255 eingeben. Hefte die Farbe an, um sie der Farbpalette hinzuzufügen.

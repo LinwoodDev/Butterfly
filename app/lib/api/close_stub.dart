@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'close.dart';
-
-typedef OnCloseCallback = FutureOr<String?> Function();
 
 CloseSubscription onPreventClose(
   BuildContext context,

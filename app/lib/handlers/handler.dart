@@ -227,9 +227,9 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
-  void onPointerDown(PointerDownEvent event, EventContext context) {}
+  FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
 
-  void onPointerMove(PointerMoveEvent event, EventContext context) {}
+  FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
 
   FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
@@ -331,7 +331,9 @@ abstract class Handler<T> {
 double getPressureOfEvent(PointerEvent event) {
   var range = event.pressureMax - event.pressureMin;
   if (range <= 0) range = 1;
-  final pressure = event.kind == PointerDeviceKind.stylus
+  final pressure =
+      event.kind == PointerDeviceKind.stylus ||
+          event.kind == PointerDeviceKind.invertedStylus
       ? (event.pressure - event.pressureMin) / range
       : 0.5;
   if (pressure.isNaN || pressure <= 0) return 0.5;

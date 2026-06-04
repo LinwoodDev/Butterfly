@@ -1,7 +1,7 @@
 * Add support for opening an area as initial view
 * Add support for creating an initial area when creating a document inside the template dialog
 * Add area creation dialog in area navigator if no areas exist
-* Add area teleportion after entering area
+* Add area teleportation after entering area
 * Add option to hide file extension ([#942](https://github.com/LinwoodDev/Butterfly/issues/942))
 * Show other areas if inside an area
 * Improve label mode change

@@ -2,6 +2,32 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.3-rc.0 (2026-06-02)
+
+* Change min iOS version to 14.0
+* Upgrade to flutter 3.44 (Add stylus support for windows)
+* Use nearest corner hit for selection transforms
+* Add duplicate layer to multi select options in layers navigator
+* Add automatic first template selection on desktop
+* Fix jagged rendering after changing orientation ([#1094](https://github.com/LinwoodDev/Butterfly/issues/1094))
+* Fix texture tool configuration scrolling getting stuck ([#1092](https://github.com/LinwoodDev/Butterfly/issues/1092))
+* Fix temporary tools being cleared after canvas gestures ([#1093](https://github.com/LinwoodDev/Butterfly/issues/1093))
+* Fix image operations temporarily showing gray boxes ([#1097](https://github.com/LinwoodDev/Butterfly/issues/1097))
+* Fix title and description fields clearing on focus loss ([#1101](https://github.com/LinwoodDev/Butterfly/issues/1101))
+* Fix pressure not used for inverted stylus
+* Fix close dialog to offer save, discard, and cancel actions
+* Fix top corner menu doesn't have navigator menu buttons on full screen
+* Fix image export quality changes showing stale previews
+* Fix duplicate layer button in layers dialog not working ([#1105](https://github.com/LinwoodDev/Butterfly/issues/1105))
+* Fix moving PDFs with spacer tools freezing the canvas ([#1106](https://github.com/LinwoodDev/Butterfly/issues/1106))
+* Fix stamp tool hover preview looks strange on touch ([#1107](https://github.com/LinwoodDev/Butterfly/issues/1107))
+* Fix horizontal and vertical wrongly named in texture background dialog
+* Fix offset list tile refreshes on same value
+* Fix shapes with identical start and end points being created ([#1112](https://github.com/LinwoodDev/Butterfly/issues/1112))
+* Fix very small selections being hard to transform or open context menus for ([#1112](https://github.com/LinwoodDev/Butterfly/issues/1112))
+
+Read more here: https://linwood.dev/butterfly/2.5.3-rc.0
+
 ## 2.5.2 (2026-05-23)
 
 This is a stable release, it includes all the changes from the 2.5.2 nightly releases.
@@ -40,10 +66,10 @@ Read more here: https://linwood.dev/butterfly/2.5.2-rc.2
 * Improve area creation when creating areas inside or overlapping other areas
 * Fix area tool fixed width being ignored when an aspect ratio is set
 * Fix area tool width not being saved after selecting an aspect ratio
-* Fix home page recently shows the same File twice ([#1084](https://github.com/LinwoodDev/Butterfly/issues/1084))
+* Fix home page recently shows the same file twice ([#1084](https://github.com/LinwoodDev/Butterfly/issues/1084))
 * Fix offsets on transforming multiple objects at the same time
-* Fix migrating to a new directory not working when android saf experimental feature is enabled
-* Fix moving and saving not correctly working when android saf experimental feature is enabled
+* Fix migrating to a new directory not working when Android SAF experimental feature is enabled
+* Fix moving and saving not correctly working when Android SAF experimental feature is enabled
 * Fix moving pages into and out of folders in the pages navigator
 * Fix viewport flickering after drawing pen strokes
 * Fix multi-tap input shortcuts delaying regular pointer input
@@ -90,20 +116,6 @@ Changes since 2.5.1-rc.2:
 
 This is a stable release, it includes all the changes from the 2.5.1 nightly releases.
 Read more here: https://linwood.dev/butterfly/2.5.1
-
-## 2.5.1-rc.2 (2026-04-23)
-
-* Improve thumbnail cropping logic to better fit the viewport
-* Fix ghost pages creation when reordering current page
-* Fix number field text changes while inputting text
-* Fix bounds calculation when using areas and enabling positive coordinates
-* Only trigger bake when viewport size differs (fix always-bake bug)
-* Refactor MediaQuery.of(context).X usage to MediaQuery.XOf(context) for performance
-* Fix app crashes during heavy scrolling by optimizing PDF rendering lifecycle
-* Fix partial content rendering issues after panning by ensuring viewports bake correctly
-* Fix incorrect default values across settings pages and sliders to properly match their underlying models (e.g. delayed autosave, pen properties, fill alphas, and shape scales)
-
-Read more here: https://linwood.dev/butterfly/2.5.1-rc.2
 
 ## 2.5.1-rc.2 (2026-04-23)
 
@@ -179,6 +191,7 @@ Read more here: https://linwood.dev/butterfly/2.5.1-rc.0
 
 Changes since 2.5.0-rc.2:
 * Improve performance of pen drawing
+* Improve performance of home files view
 * Fix edited polygons showing duplicate old and new shapes until moved
 * Fix polygon tool has black color when using dark theme
 
@@ -232,7 +245,7 @@ Read more here: https://linwood.dev/butterfly/2.5.0-rc.1
 * Fix opening local files when default storage is set to cloud
 * Fix stamp handler
   * Fix scaling on multiple elements
-  * Fix preview element will shown after submitting
+  * Fix preview element being shown after submitting
 * Improve rendering performance on unbaked viewport
 * Improve polygons
   * Remove edit mode to make creating and editing polygons more seamless
@@ -273,7 +286,7 @@ Read more here: https://linwood.dev/butterfly/2.5.0-rc.0
 * Improve WebDAV implementation and performance (sorting, directory caching)
 * Fix asset invalidation when elements are removed ([#1046](https://github.com/LinwoodDev/Butterfly/issues/1046))
 * Fix a rendering issue related to element baking
-* Fix desyncronization of renderers when concurrently changing elements
+* Fix desynchronization of renderers when concurrently changing elements
 * Fix property view overlapping with zoom and pen only toggle controls
 * Fix zoom control position preference not saving properly
 * Fix keybinder recording not toggling
@@ -285,7 +298,7 @@ Read more here: https://linwood.dev/butterfly/2.5.0-beta.3
 * Add support for opening an area as initial view
 * Add support for creating an initial area when creating a document inside the template dialog
 * Add area creation dialog in area navigator if no areas exist
-* Add area teleportion after entering area
+* Add area teleportation after entering area
 * Add option to hide file extension ([#942](https://github.com/LinwoodDev/Butterfly/issues/942))
 * Show other areas if inside an area
 * Improve label mode change
@@ -348,6 +361,26 @@ Changes merged from 2.4.3 hotfix:
 * Fix foreground will be reset if temporary tool is added
 
 Read more here: https://linwood.dev/butterfly/2.5.0-beta.1
+
+## 2.4.4 (2026-02-18)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.5.0-beta.1 nightly release.
+
+Cherry picks:
+* Improve performance of pen hit testing
+* Remove autofocus from add dialog search to prevent virtual keyboard on mobile
+* Fix sync button not visible on small screens
+* Fix non-zero exit code when app closes
+* Fix Android intent handling causing empty documents on resume and not updating on new intent
+* Fix importing assets does not use default template
+* Fix importing does not use selected storage
+* Fix importing archives opening empty documents
+* Fix spread to pages breaks pdf import
+* Fix path eraser and eraser not correctly working if full selection is enabled
+* Fix triangle shape not exported on svg export
+* Remove border for pdf pages
+
+Read more here: https://linwood.dev/butterfly/2.4.4
 
 ## 2.5.0-beta.0 (2026-01-14)
 
@@ -441,7 +474,7 @@ Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
 
 ## 2.4.2-rc.3 (2025-12-12)
 
-* Improve ui of pdf export dialog
+* Improve UI of pdf export dialog
 * Improve image export preview
 * Improve performance of eraser and path eraser tool
 * Skip baking on pen if new element is started
@@ -452,7 +485,7 @@ Read more here: https://linwood.dev/butterfly/2.4.2-rc.4
 * Fix image transforming incorrectly displayed
 * Fix rtl text direction in label and color toolbar
 * Fix math button in label toolbar does nothing if no text is selected
-* Add indonesian translation
+* Add Indonesian translation
 * Add tbfly file association on Windows and iOS
 
 Read more here: https://linwood.dev/butterfly/2.4.2-rc.3
@@ -541,7 +574,7 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.4
 * Fix state will not be saved if changes are made during autosave
 * Fix sequential events like element removing will wait for autosave to finish
 * Fix classic theme name first letter not capitalized in personalization settings
-* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix temporary tool being reset although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
 * Fix mouse cannot double click for context menu in select tool
 * Fix scaling of multiple elements
 * Fix scaling pen elements will jump to wrong position
@@ -564,14 +597,14 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.2
 
 * Add templates tbfly export option ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
 * Add option to selectively export templates ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
-* Improve empty description in pdf dialog ([#943](https://github.com/LinwoodDev/Butterfly/943))
+* Improve empty description in pdf dialog ([#943](https://github.com/LinwoodDev/Butterfly/issues/943))
 * Fix templates cannot be imported in tbfly format ([#931](https://github.com/LinwoodDev/Butterfly/issues/931))
 * Fix flickering while drawing ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix issues with eraser tool creating artifacts ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix eraser tool creates elements with duplicate IDs ([#935](https://github.com/LinwoodDev/Butterfly/issues/935))
 * Fix color palette dialog not updating and loading correctly ([#938](https://github.com/LinwoodDev/Butterfly/issues/938))
 * Fix background lines don't render last row or column if only partially visible ([#932](https://github.com/LinwoodDev/Butterfly/issues/932))
-* Fix files in grid view not having correctly spacing
+* Fix files in grid view not having correct spacing
 * Fix concurrent file system operation, causing templates being initialized multiple times ([#940](https://github.com/LinwoodDev/Butterfly/issues/940))
 * Fix file name goes into second line in file list view in desktop mode ([#941](https://github.com/LinwoodDev/Butterfly/issues/941))
 * Fix file is duplicated when name is the same ([#951](https://github.com/LinwoodDev/Butterfly/issues/951))
@@ -579,7 +612,7 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.2
 * Fix pages cannot be removed sometimes
 * Fix default page will be recreated on opening ([#952](https://github.com/LinwoodDev/Butterfly/issues/952))
 * Fix error when trying to import archive
-* Fix temporary tool will be resetted although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
+* Fix temporary tool being reset although it is the same index making duplication in selected tool not working ([#953](https://github.com/LinwoodDev/Butterfly/issues/953))
 * Fix absolute read only files not being correctly saved ([#949](https://github.com/LinwoodDev/Butterfly/issues/949))
 * Fix absolute read only files being saved on closed
 * Fix imported documents have file extension in their name
@@ -610,11 +643,11 @@ Read more here: https://linwood.dev/butterfly/2.4.1-rc.0
 
 ## 2.4.0 (2025-09-22)
 
-Changes since 2.3.0-rc.1:
+Changes since 2.4.0-rc.4:
 * Fix updated assets cannot be removed
 
-This is a stable release, it includes all the changes from the 2.3.0 nightly releases.
-Read more here: https://linwood.dev/butterfly/2.3
+This is a stable release, it includes all the changes from the 2.4.0 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.4
 
 <details>
  <summary>2.4 Nightly Changelog</summary>
@@ -678,7 +711,7 @@ Read more here: https://linwood.dev/butterfly/2.4.0-rc.1
 * Fix home page header not aligned properly and has wrong colors
 * Fix safe area in navigator rail
 * Fix overflows in page navigator
-* Fix pixel ratio gets resetted when unbaking the viewport
+* Fix pixel ratio gets reset when unbaking the viewport
 * Port linux appdata from flathub version
 * Disable custom data directory selection on iOS
 
@@ -738,7 +771,7 @@ Read more here: https://linwood.dev/butterfly/2.4.0-beta.1
 * Add text based file format ([#823](https://github.com/LinwoodDev/Butterfly/issues/823))
 * Add specific fill color ([#802](https://github.com/LinwoodDev/Butterfly/issues/802))
 * Redesign pack system ([#805](https://github.com/LinwoodDev/Butterfly/issues/805))
-* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Improve error resistance in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
 * Fix new line not working in label tool
@@ -785,7 +818,7 @@ Read more here: https://linwood.dev/butterfly/2.3.3
 This is a hotfix update, cherry picking some important fixes from the last 2.4.0-beta.0 nightly release.
 
 Cherry picks:
-* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Improve error resistance in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
 * Fix new line not working in label tool
@@ -1013,7 +1046,7 @@ Read more here: https://linwood.dev/butterfly/2.3.0-beta.2
 * Improve collaboration system
   * Use wss default if no protocol is provided
   * Fix networking server/client not starting
-  * Fix initializaton not sent by server
+  * Fix initialization not sent by server
   * Improve performance when joining a room
 * Add linux arm binaries
 * Upgrade to agb 8.8
@@ -1058,7 +1091,7 @@ This is a hotfix update, cherry picking some important fixes from the last 2.3.0
 
 * Add error boundaries for corrupted files
 * Fix export button in data settings not working
-* Fix utilties state resetted after undo
+* Fix utilities state reset after undo
 * Fix file view showing wrong aspect ratio for thumbnails
 
 Cherry picks:
@@ -1268,7 +1301,7 @@ Read more here: https://linwood.dev/butterfly/2.2
 <details>
  <summary>2.2 Nightly Changelog</summary>
 
-## 2.2.0-rc.3 (2024-09-26)
+## 2.2.0-rc.2 (2024-09-26)
 
 * Rebuild baking system to support multiple layers
 * Add convert to layer to collection dialog

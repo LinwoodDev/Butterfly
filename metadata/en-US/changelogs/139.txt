@@ -2,7 +2,7 @@
 * Add text based file format ([#823](https://github.com/LinwoodDev/Butterfly/issues/823))
 * Add specific fill color ([#802](https://github.com/LinwoodDev/Butterfly/issues/802))
 * Redesign pack system ([#805](https://github.com/LinwoodDev/Butterfly/issues/805))
-* Improve error resistence in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
+* Improve error resistance in webdav file system ([#857](https://github.com/LinwoodDev/Butterfly/issues/857))
 * Fix temporary handler not working correctly
 * Fix text elements not correctly movable on pasting
 * Fix new line not working in label tool

@@ -520,11 +520,21 @@ class _ProjectPageState extends State<ProjectPage> {
     );
   }
 
-  String? _preventClose() {
+  CloseRequest? _preventClose() {
     final currentIndex = _currentIndexCubit?.state;
     return currentIndex?.saved == SaveState.saved
         ? null
-        : AppLocalizations.of(context).thereAreUnsavedChanges;
+        : CloseRequest(
+            message: AppLocalizations.of(context).thereAreUnsavedChanges,
+            onSave: _saveBeforeClose,
+          );
+  }
+
+  Future<bool> _saveBeforeClose() async {
+    final bloc = _bloc;
+    if (bloc == null || bloc.isClosed) return false;
+    await bloc.save(force: true);
+    return bloc.currentIndexCubit.state.saved == SaveState.saved;
   }
 
   Map<Type, Action<Intent>> _buildActions(BuildContext context) {

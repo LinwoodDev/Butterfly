@@ -5,12 +5,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
 
   @override
   void _updateElement(
-    PointerEvent event,
+    Offset localPosition,
     EventContext context, [
     bool first = false,
   ]) {
     changeStartedDrawing(context);
-    super._updateElement(event, context, first);
+    super._updateElement(localPosition, context, first);
   }
 
   @override
@@ -19,12 +19,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
     String collection,
     CurrentIndexCubit cubit,
   ) {
-    if (rect.top == 0 &&
-        rect.left == 0 &&
-        rect.right == 0 &&
-        rect.bottom == 0) {
-      return [];
-    }
+    if (rect.topLeft == rect.bottomRight) return [];
 
     return [
       ShapeElement(

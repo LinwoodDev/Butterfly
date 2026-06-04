@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
   "edgePanAreaSwitching": "Переключение области края пружины",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Использовать Android SAF",
   "exact": "Точно",
   "@exact": {
     "description": "Exact match"

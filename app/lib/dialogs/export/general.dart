@@ -11,6 +11,7 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:synchronized/synchronized.dart';
 
 enum ExportTransformPreset { page, view }
 
@@ -60,7 +61,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   late ExportOptions _options;
 
   ByteData? _previewImage;
-  Future<ByteData?>? _regeneratingFuture;
+  final _previewLock = Lock();
+  int _previewGeneration = 0;
   bool? _exportingShare;
 
   @override
@@ -73,13 +75,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   Future<void> _regeneratePreviewImage() async {
-    if (_regeneratingFuture != null) return;
-    var imageFuture = generateImage();
-    _regeneratingFuture =
-        _regeneratingFuture?.then((value) => imageFuture) ?? imageFuture;
-    var image = await _regeneratingFuture;
-    _regeneratingFuture = null;
-    if (mounted) setState(() => _previewImage = image);
+    final generation = ++_previewGeneration;
+    await _previewLock.synchronized(() async {
+      if (generation != _previewGeneration) return;
+      final image = await generateImage();
+      if (!mounted || generation != _previewGeneration) return;
+      setState(() => _previewImage = image);
+    });
   }
 
   Future<ByteData?> generateImage([bool optimize = true]) async {

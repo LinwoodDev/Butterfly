@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Pouze aktuální stránka",
   "smoothNavigation": "Hladká navigace",
   "edgePanAreaSwitching": "Přepínání prostoru skořepiny hrany",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Použít Android SAF",
   "exact": "Přesné",
   "@exact": {
     "description": "Exact match"

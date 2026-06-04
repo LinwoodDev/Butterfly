@@ -1,5 +1,5 @@
 ---
-title: Path eraser tool
+title: Pfadradierer-Werkzeug
 ---
 
 Mit diesem Werkzeug radieren sie den gesamten Pfad auf ihrer Arbeitsfläche.

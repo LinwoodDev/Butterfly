@@ -1111,7 +1111,7 @@
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
   "smoothNavigation": "Ομαλή πλοήγηση",
   "edgePanAreaSwitching": "Εναλλαγή περιοχής pan άκρης",
-  "useAndroidSaf": "Use Android SAF",
+  "useAndroidSaf": "Χρήση Android SAF",
   "exact": "Ακριβής",
   "@exact": {
     "description": "Exact match"

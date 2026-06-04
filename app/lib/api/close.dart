@@ -6,7 +6,14 @@ import 'package:butterfly/api/close_stub.dart'
     as close;
 import 'package:flutter/material.dart';
 
-typedef OnCloseCallback = FutureOr<String?> Function();
+typedef OnCloseCallback = FutureOr<CloseRequest?> Function();
+
+class CloseRequest {
+  final String message;
+  final FutureOr<bool> Function()? onSave;
+
+  const CloseRequest({required this.message, this.onSave});
+}
 
 CloseSubscription onPreventClose(
   BuildContext context,

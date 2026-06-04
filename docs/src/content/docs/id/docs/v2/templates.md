@@ -1,5 +1,5 @@
 ---
-title: Templates
+title: Templat
 ---
 
 In Butterfly, templates are a helpful way to make a document a starting point for quick use.
@@ -12,12 +12,12 @@ Templates are basically documents that you use as a starting point.
 
 They store everything a normal document does, including:
 
-- Tools
+- Alat
 - Document Content like pictures, drawings, strokes, etc.
 - The settings for each tool
-- Layers
-- Areas
-- Pages
+- Lapisan
+- Area
+- Halaman
 
 ## How to make a template?
 

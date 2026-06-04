@@ -8,7 +8,7 @@ Hier sind einige häufig gestellte Fragen.
 
 ### Wie installiere ich die Web-Version?
 
-Sie können die Web-Version installieren, indem Sie auf den Installations-Button in der Titelleiste klicken.
+Sie können die Web-Version installieren, indem Sie auf die Installieren-Schaltfläche in der Titelleiste klicken.
 Danach können Sie diese App offline nutzen.
 
 ### Butterfly lädt nicht auf Brave
@@ -19,40 +19,40 @@ Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
 ## Mobil
 
-### S-Pen won't be recognized
+### S-Pen wird nicht erkannt
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-See [Stylus support](/community/stylus-support) for current behavior and workarounds.
+Siehe [Stiftunterstützung](/community/stylus-support) für aktuelles Verhalten und Umgehungslösungen.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Dies ist das Issue zum Nachverfolgen: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### Butterfly is slow
+### Butterfly ist langsam
 
-Butterfly is optimized every update, but sometimes the problem could be from your device.
+Butterfly wird mit jedem Update optimiert, manchmal kann das Problem aber an Ihrem Gerät liegen.
 
-1. First, turn off your device's power saver mode.
-2. Then, set your screen refresh rate to its highest available (if supported by your device)
+1. Schalten Sie zuerst den Energiesparmodus Ihres Geräts aus.
+2. Stellen Sie anschließend die Bildwiederholrate Ihres Bildschirms auf den höchsten verfügbaren Wert ein, sofern Ihr Gerät das unterstützt.
 
-This allows Butterfly to refresh faster and feel more responsive.
+Dadurch kann Butterfly schneller aktualisieren und reaktionsfreudiger wirken.
 
-If these steps dont help, please dont hesitate to complain in Matrix (recommended), Discord, or in Github.
+Wenn diese Schritte nicht helfen, melden Sie sich gerne in Matrix (empfohlen), Discord oder auf GitHub.
 
-### Butterfly restarts in the background
+### Butterfly startet im Hintergrund neu
 
-Disable battery optimization for Butterfly.  
-Battery optimizations prevent apps from running normally in the background to save power.
+Deaktiviere die Akkuoptimierung für Butterfly.  
+Akkuoptimierungen verhindern, dass Apps im Hintergrund normal laufen, um Energie zu sparen.
 
-Samsung, among other brands, usually put heavy battery restrictions on apps that crash frequently or overheat the device.
+Samsung und andere Hersteller legen Apps, die häufig abstürzen oder das Gerät überhitzen, meist starke Akku-Beschränkungen auf.
 
-If you dont know how to disable battery optimization for Butterfly, this website may help: [Dont kill my app!](https://dontkillmyapp.com/)
+Wenn Sie nicht wissen, wie Sie die Akkuoptimierung für Butterfly deaktivierst, kann diese Website helfen: [Dont kill my app!](https://dontkillmyapp.com/)
 
-### iOS support
+### iOS-Unterstützung
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly ist auf iOS als Vorschau verfügbar. Klicken Sie [hier](https://butterfly.linwood.dev/downloads/ios), um es herunterzuladen. Siehe [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), warum es nicht im App Store verfügbar ist.
 
 ## Desktop
 
@@ -60,11 +60,11 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
+Siehe [Stiftunterstützung](/community/stylus-support) für aktuelles Verhalten, Einstellungen und Issue-Links.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Es gibt bereits Issues zum Nachverfolgen:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) und [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Diese Probleme sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.

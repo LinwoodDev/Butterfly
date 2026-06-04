@@ -243,9 +243,20 @@ class _FileEntityItemState extends State<FileEntityItem> {
           return data.data != widget.entity.location.path;
         },
         onAcceptWithDetails: (data) async {
-          await documentSystem.moveAsset(
-            data.data,
-            '${widget.entity.location.path}/${data.data.split('/').last}',
+          final source = await documentSystem.getAsset(data.data);
+          final destination =
+              '${widget.entity.location.path}/${data.data.split('/').last}';
+          await documentSystem.moveAsset(data.data, destination);
+          await fileSystem.settingsCubit.moveAssetReferences(
+            AssetLocation(
+              path: data.data,
+              remote: documentSystem.storage?.identifier ?? '',
+            ),
+            AssetLocation(
+              path: destination,
+              remote: documentSystem.storage?.identifier ?? '',
+            ),
+            directory: source is FileSystemDirectory<NoteFile>,
           );
           widget.onReload();
         },

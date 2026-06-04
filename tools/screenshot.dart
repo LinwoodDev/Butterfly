@@ -9,12 +9,14 @@ Future<void> main(List<String> args) async {
     _ => null,
   };
   print("Taking screenshot on ${device ?? 'connected device'}...");
-  final args = [
-    'drive',
-    '--driver=test_driver/screenshot_test.dart',
-    '--target=integration_test/screenshot.dart',
-    if (device != null) ...['-d', device],
-  ];
+  final args = isLinux
+      ? ['test', '-d', 'linux', 'integration_test/screenshot.dart']
+      : [
+          'drive',
+          '--driver=test_driver/screenshot_test.dart',
+          '--target=integration_test/screenshot.dart',
+          if (device != null) ...['-d', device],
+        ];
   final process = await Process.start(
     'flutter',
     args,
