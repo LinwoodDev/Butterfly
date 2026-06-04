@@ -50,6 +50,22 @@ bool _isSameHistoryLocation(AssetLocation a, AssetLocation b) =>
     a.remote == b.remote &&
     _normalizeHistoryPath(a.path) == _normalizeHistoryPath(b.path);
 
+String? _moveReferencedPath(
+  String path,
+  String from,
+  String to, {
+  required bool directory,
+}) {
+  path = _normalizeHistoryPath(path);
+  from = _normalizeHistoryPath(from);
+  to = _normalizeHistoryPath(to);
+  if (path == from) return to;
+  if (directory && path.startsWith('$from/')) {
+    return '$to${path.substring(from.length)}';
+  }
+  return null;
+}
+
 List<AssetLocation> _normalizeRecentHistory(Iterable<AssetLocation> locations) {
   final history = <AssetLocation>[];
   for (final location in locations) {
@@ -1026,6 +1042,95 @@ class SettingsCubit extends Cubit<ButterflySettings>
           element.path.startsWith(location.path),
     );
     emit(state.copyWith(history: history));
+    return save();
+  }
+
+  Future<void> moveAssetReferences(
+    AssetLocation from,
+    AssetLocation to, {
+    bool directory = false,
+  }) async {
+    from = _normalizeHistoryLocation(from);
+    to = _normalizeHistoryLocation(to);
+    var changed = false;
+    final history = state.history.map((location) {
+      if (location.remote != from.remote) return location;
+      final path = _moveReferencedPath(
+        location.path,
+        from.path,
+        to.path,
+        directory: directory,
+      );
+      if (path == null) return location;
+      changed = true;
+      return AssetLocation(path: path, remote: location.remote);
+    }).toList();
+    final starred = from.remote.isEmpty
+        ? state.starred.map((path) {
+            final moved = _moveReferencedPath(
+              path,
+              from.path,
+              to.path,
+              directory: directory,
+            );
+            if (moved == null) return path;
+            changed = true;
+            return moved;
+          }).toList()
+        : state.starred;
+    final connections = from.remote.isEmpty
+        ? state.connections
+        : state.connections.map((connection) {
+            if (connection.identifier != from.remote) return connection;
+            if (connection is! RemoteStorage) return connection;
+            var connectionChanged = false;
+            final connectionStarred = connection.starred.map((key, paths) {
+              return MapEntry(
+                key,
+                paths.map((path) {
+                  final moved = _moveReferencedPath(
+                    path,
+                    from.path,
+                    to.path,
+                    directory: directory,
+                  );
+                  if (moved == null) return path;
+                  connectionChanged = true;
+                  return moved;
+                }).toList(),
+              );
+            });
+            final pinnedPaths = connection.pinnedPaths.map((key, paths) {
+              return MapEntry(
+                key,
+                paths.map((path) {
+                  final moved = _moveReferencedPath(
+                    path,
+                    from.path,
+                    to.path,
+                    directory: directory,
+                  );
+                  if (moved == null) return path;
+                  connectionChanged = true;
+                  return moved;
+                }).toList(),
+              );
+            });
+            if (!connectionChanged) return connection;
+            changed = true;
+            return connection.copyWith(
+              starred: connectionStarred,
+              pinnedPaths: pinnedPaths,
+            );
+          }).toList();
+    if (!changed) return;
+    emit(
+      state.copyWith(
+        history: _normalizeRecentHistory(history),
+        starred: starred,
+        connections: connections,
+      ),
+    );
     return save();
   }
 

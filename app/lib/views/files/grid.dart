@@ -204,6 +204,19 @@ class FileEntityGridItem extends StatelessWidget {
                                       entity.location.path,
                                       value,
                                     );
+                                    await settingsCubit.moveAssetReferences(
+                                      entity.location,
+                                      AssetLocation(
+                                        remote: entity.location.remote,
+                                        path: renamedAssetPath(
+                                          entity.location.path,
+                                          value,
+                                        ),
+                                      ),
+                                      directory:
+                                          entity
+                                              is FileSystemDirectory<NoteFile>,
+                                    );
                                     onEdit(false);
                                     onReload();
                                   },
@@ -217,6 +230,21 @@ class FileEntityGridItem extends StatelessWidget {
                                         await documentSystem.renameAsset(
                                           entity.location.path,
                                           nameController.text,
+                                        );
+                                        await settingsCubit.moveAssetReferences(
+                                          entity.location,
+                                          AssetLocation(
+                                            remote: entity.location.remote,
+                                            path: renamedAssetPath(
+                                              entity.location.path,
+                                              nameController.text,
+                                            ),
+                                          ),
+                                          directory:
+                                              entity
+                                                  is FileSystemDirectory<
+                                                    NoteFile
+                                                  >,
                                         );
                                         onEdit(false);
                                         onReload();
