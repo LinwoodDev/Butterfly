@@ -295,6 +295,7 @@ class PenRenderer extends Renderer<PenElement> {
   PathHitCalculator getHitCalculator() {
     _cachedHitCalculator ??= PathHitCalculator(
       rect,
+      expandedRect,
       element.points,
       rotation * pi / 180,
     );
@@ -309,13 +310,18 @@ class PenRenderer extends Renderer<PenElement> {
 
 class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
+  final Rect boundsRect;
   final List<PathPoint> points;
   final double rotation;
   final double _cos;
   final double _sin;
 
-  PathHitCalculator(this.elementRect, this.points, this.rotation)
-    : _cos = rotation == 0 ? 1 : cos(rotation),
+  PathHitCalculator(
+    this.elementRect,
+    this.boundsRect,
+    this.points,
+    this.rotation,
+  ) : _cos = rotation == 0 ? 1 : cos(rotation),
       _sin = rotation == 0 ? 0 : sin(rotation);
 
   /// Check if a line segment intersects with a rectangle
@@ -385,7 +391,7 @@ class PathHitCalculator extends HitCalculator {
   @override
   bool hit(Rect rect, {bool full = false}) {
     // Quick bounds check first
-    if (!elementRect.overlaps(rect)) {
+    if (!boundsRect.overlaps(rect)) {
       return false;
     }
 
@@ -426,7 +432,7 @@ class PathHitCalculator extends HitCalculator {
   @override
   bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     if (points.isEmpty) return false;
-    if (!_rectIntersectsPolygonBounds(elementRect, polygon)) return false;
+    if (!_rectIntersectsPolygonBounds(boundsRect, polygon)) return false;
 
     if (full) {
       // All points must be inside the polygon

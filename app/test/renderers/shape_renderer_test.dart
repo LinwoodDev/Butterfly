@@ -59,4 +59,40 @@ void main() {
       isFalse,
     );
   });
+
+  test('rotated pen stroke is hit outside its original bounds', () {
+    final hitCalculator = PenRenderer(
+      PenElement(
+        rotation: 90,
+        points: const [PathPoint(10, 0), PathPoint(10, 100)],
+      ),
+      null,
+      const Rect.fromLTRB(10, 0, 10, 100),
+      const Rect.fromLTRB(-40, 49, 60, 51),
+    ).getHitCalculator();
+
+    expect(hitCalculator.hit(const Rect.fromLTWH(58, 49, 4, 2)), isTrue);
+  });
+
+  test('rotated shape is hit outside its original bounds', () {
+    final hitCalculator = ShapeRenderer(
+      ShapeElement(
+        rotation: 90,
+        firstPosition: const Point(0, 0),
+        secondPosition: const Point(10, 100),
+      ),
+    ).getHitCalculator();
+
+    expect(hitCalculator.hit(const Rect.fromLTWH(50, 49, 2, 2)), isTrue);
+  });
+
+  test('default rotated renderer is hit outside its original bounds', () {
+    final hitCalculator = DefaultHitCalculator(
+      const Rect.fromLTWH(0, 0, 10, 100),
+      const Rect.fromLTWH(-45, 45, 100, 10),
+      pi / 2,
+    );
+
+    expect(hitCalculator.hit(const Rect.fromLTWH(50, 49, 2, 2)), isTrue);
+  });
 }

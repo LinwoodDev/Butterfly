@@ -1,1 +1,2 @@
 * Fix polygon tool toolbar does not change currently edited element
+* Fix raycasting on rotated elements ([#1118](https://github.com/LinwoodDev/Butterfly/issues/1118))
