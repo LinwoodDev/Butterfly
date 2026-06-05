@@ -15,6 +15,11 @@ Avec cet outil, vous pouvez créer des formes personnalisées.
 4. If you want to remove the selected point, click on the `Delete` button in the toolbar.
 5. To edit the last point, click on the `Edit` button in the toolbar. This will allow you to click on a point and drag it to round it off.
 
+## Bézier Curves
+
+You can use this tool to create Bézier Curves which gives your shape a smooth curvature.
+To adjust the curvature around a selected point, drag on the paper until a tangent line appears.
+
 ## Toolbar
 
 The toolbar contains the following buttons:
