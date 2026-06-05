@@ -31,6 +31,6 @@ Under the brightness slider you can see a preview of the selected color. You can
 
 On the right you can see the red, green and blue values that make up the color. These values can be changed by dragging the sliders or by entering a value between 0 and 255. Pin the color to add it to the color palette.
 
-You can use the button above to toggle between RGB, HSV, and HSL views.
+You can use the buttons above to toggle between RGB, HSV, and HSL views.
 
 Clicking the Eye dropper button adds the [Eye dropper tool](../tools/eye_dropper) as a [temporary tool](../tools#temporary-tools).
