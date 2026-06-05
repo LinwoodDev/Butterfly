@@ -2,17 +2,26 @@
 title: Tekstur
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+The texture tool allows you to add a background texture to a small area of the canvas.
+Use it when only a part of the canvas should have a background pattern. To change the background of the whole page, use the [background settings](../../background) instead.
+
+## Usage
+
+1. Select the texture tool.
+2. Choose the texture and its constraints in the tool configuration.
+3. Drag on the canvas to create the textured area.
+
+The created texture behaves like a surface element. You can move, resize, arrange, or delete it like other elements.
 
 ## Konfigurasjon
 
-|                Egenskap | Standard | Beskrivelse                                                                                                                                                                                                |
-| ----------------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|           Zoom avhengig |   usann  | Dette vil endre slagbredden basert på zoom-nivå.                                                                                                                                           |
-|                 Tekstur |  Mønster | The pattern that should be added                                                                                                                                                                           |
-|                   Width |     0    | Den faste bredden på området. Hvis satt til 0, vil bredden bli beregnet automatisk.                                                                                        |
-|                   Høyde |     0    | Den faste høyden av området. Hvis satt til 0, vil høyden bli beregnet automatisk.                                                                                          |
-| Høyde- og breddeforhold |     0    | The fixed aspect ratio of the area. Hvis satt til 0, vil størrelsesforholdet bli beregnet automatisk. Et størrelsesforhold er definert som bredde / høyde. |
+|                Egenskap | Standard | Beskrivelse                                                                                                                                                                                         |
+| ----------------------: | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|           Zoom avhengig |   usann  | Dette vil endre slagbredden basert på zoom-nivå.                                                                                                                                    |
+|                 Tekstur |  Mønster | The pattern that should be added.                                                                                                                                                   |
+|                   Width |     0    | Den faste bredden på området. If set to `0`, the width will be calculated automatically.                                                                            |
+|                   Høyde |     0    | Den faste høyden av området. If set to `0`, the height will be calculated automatically.                                                                            |
+| Høyde- og breddeforhold |     0    | The fixed aspect ratio of the area. If set to `0`, the aspect ratio will be calculated automatically. An aspect ratio is defined as width / height. |
 
 Valid types for texture are:
 
