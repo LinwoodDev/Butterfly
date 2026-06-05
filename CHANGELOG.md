@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.3-rc.1 (2026-06-05)
+
+* Fix polygon tool toolbar does not change currently edited element
+* Fix raycasting on rotated elements ([#1118](https://github.com/LinwoodDev/Butterfly/issues/1118))
+* Fix non convex polygon intersecting ([#1109](https://github.com/LinwoodDev/Butterfly/issues/1109))
+* Fix moved or renamed files behaving strangely in recent files ([#1114](https://github.com/LinwoodDev/Butterfly/issues/1114))
+
+Read more here: https://linwood.dev/butterfly/2.5.3-rc.1
+
 ## 2.5.3-rc.0 (2026-06-02)
 
 * Change min iOS version to 14.0
