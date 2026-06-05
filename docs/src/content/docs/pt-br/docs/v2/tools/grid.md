@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Configuração
 
-| Propriedade |            Padrão           | Descrição              |
-| ----------: | :-------------------------: | :--------------------- |
-|     Tamanho | (20, 20) | The size of grid cells |
-|      Offset |  (0, 0)  | The offset of the grid |
-|         Cor |            Preto            | The color of the grid  |
+|           Propriedade |            Padrão           | Descrição                                                                                              |
+| --------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|               Tamanho | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|                Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|                   Cor |            Preto            | The color of the grid.                                                                 |
+|                Stroke |              1              | The width of the grid lines.                                                           |
+|    Dependendo do zoom |            Falso            | Changes the grid stroke width based on the zoom level.                                 |
+| dependente da posição |            Falso            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
