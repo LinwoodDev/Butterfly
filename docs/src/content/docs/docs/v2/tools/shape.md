@@ -29,6 +29,12 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 |          Fill | Transparent | The color that will be drawn inside the rectangle |
 | Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
 
+#### Triangle
+
+| Property |   Default   | Description                                      |
+| -------: | :---------: |:-------------------------------------------------|
+|     Fill | Transparent | The color that will be drawn inside the triangle |
+
 #### Circle
 
 | Property |   Default   | Description                                       |

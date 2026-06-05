@@ -44,7 +44,7 @@ Butterfly is a note-taking app where your ideas come first. You can paint, add t
 * **📜 Write text:** You can write text on your notes. You can change the font, size, and color.
 * **📸 Take photos:** You can take photos and add them to your notes. You can also import photos from your gallery.
 * **⚙️ Editable:** You can change the size, color, and position of every element after you added it to your note.
-* **🟦 Add shapes:** You can add shapes to your notes. You can choose between a rectangle, circle and line.
+* **🟦 Add shapes:** You can add shapes to your notes. You can choose between a rectangle, triangle, circle and line.
 * **🔳 Structure your notes:** Add areas and waypoints to your notes to keep them organized.
 
 Try it [now](http://butterfly.linwood.dev/downloads)!

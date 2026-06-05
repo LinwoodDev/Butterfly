@@ -152,6 +152,10 @@ export default defineConfig({
                   link: "/docs/v2/tools/shape/",
                 },
                 {
+                    ...getSidebarTranslatedLabel("Polygon"),
+                    link: "/docs/v2/tools/polygon/",
+                },
+                {
                   ...getSidebarTranslatedLabel("Spacer"),
                   link: "/docs/v2/tools/spacer/",
                 },
@@ -174,6 +178,10 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Texture"),
                   link: "/docs/v2/tools/texture/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Eye dropper"),
+                  link: "/docs/v2/tools/eye_dropper/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Stamp"),
