@@ -30,3 +30,7 @@ Note: if you choose a darker color on the bottom, the wheel selection gets less 
 Under the brightness slider you can see a preview of the selected color. You can also enter a hex code to select a color. It is specified as `#RRGGBB`, where `RR` is the red value, `GG` is the green value, and `BB` is the blue value in hexadecimal notation.
 
 On the right you can see the red, green and blue values that make up the color. These values can be changed by dragging the sliders or by entering a value between 0 and 255. Pin the color to add it to the color palette.
+
+You can use the buttons above to toggle between RGB, HSV, and HSL views.
+
+Clicking the Eye dropper button adds the [Eye dropper tool](../tools/eye_dropper) as a [temporary tool](../tools#temporary-tools).
