@@ -2,13 +2,23 @@
 title: Laser tool
 ---
 
-With this tool you can draw on this paper temporarily. Na een tijdje vervaagt de tekening. Voeg een nieuwe tekening toe aan het papier om het te annuleren.
+With this tool you can draw on this paper temporarily. Na een tijdje vervaagt de tekening.
+Add a new drawing to the paper to cancel the previous laser stroke.
 
 ## Configuratie
 
-|              Eigenschap | Standaard | Beschrijving                                                                      |
-| ----------------------: | :-------: | :-------------------------------------------------------------------------------- |
-|                   Kleur |   Zwart   | De kleur die getekend zal worden                                                  |
-|          Stroke breedte |     5     | De breedte van de beroerte                                                        |
-| Stroke vermenigvuldiger |     1     | Als je een stijl hebt, is dit de multiplier die aan de druk zal worden toegevoegd |
-|                    Duur |     5     | De duur in seconden dat de tekening zichtbaar is                                  |
+|     Eigenschap |      Standaard      | Beschrijving                                                                                                          |
+| -------------: | :-----------------: | :-------------------------------------------------------------------------------------------------------------------- |
+|          Kleur |         Rood        | The color that will be drawn.                                                                         |
+| Stroke breedte |          5          | The width of the stroke.                                                                              |
+|         Duiken | 0.4 | The effect of pressure on the stroke size. Set it to `0` for a constant stroke width. |
+|           Duur |          5          | The duration in seconds that the drawing will stay visible.                                           |
+| Duur verbergen | 0.5 | How long the laser stroke takes to disappear.                                                         |
+|       Animatie |         Fade        | The animation used when the laser stroke disappears.                                                  |
+
+## Animation modes
+
+| Mode | Beschrijving                                                        |
+| ---: | :------------------------------------------------------------------ |
+| Fade | The stroke fades out after the duration has passed. |
+|  Pad | The stroke disappears along the drawn path.         |
