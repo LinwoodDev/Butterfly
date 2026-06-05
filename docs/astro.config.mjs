@@ -152,8 +152,8 @@ export default defineConfig({
                   link: "/docs/v2/tools/shape/",
                 },
                 {
-                    ...getSidebarTranslatedLabel("Polygon"),
-                    link: "/docs/v2/tools/polygon/",
+                  ...getSidebarTranslatedLabel("Polygon"),
+                  link: "/docs/v2/tools/polygon/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Spacer"),
