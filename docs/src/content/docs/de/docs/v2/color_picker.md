@@ -30,3 +30,7 @@ Hinweis: Wenn Sie unten eine dunklere Farbe auswählen, wird die Auswahl im Farb
 Unter dem Helligkeitsregler sehen Sie eine Vorschau der ausgewählten Farbe. Sie können auch einen Hex-Code eingeben, um eine Farbe auszuwählen. Sie wird als `#RRGGBB` angegeben, wobei `RR` der Rotwert, `GG` der Grünwert und `BB` der Blauwert in hexadezimaler Schreibweise ist.
 
 Rechts sehen Sie die Rot-, Grün- und Blauwerte, aus denen die Farbe besteht. Diese Werte können geändert werden, indem Sie die Schieberegler ziehen oder einen Wert zwischen 0 und 255 eingeben. Hefte die Farbe an, um sie der Farbpalette hinzuzufügen.
+
+You can use the buttons above to toggle between RGB, HSV, and HSL views.
+
+Clicking the Eye dropper button adds the [Eye dropper tool](../tools/eye_dropper) as a [temporary tool](../tools#temporary-tools).
