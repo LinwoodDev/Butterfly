@@ -4,8 +4,8 @@ title: Eye dropper tool
 
 :::note[⚡ Action tool]
 
-This is a special tool.
-You can't select it and it will run the action if you click on it.
+This is a special action tool.
+It can't be selected permanently and will run the action immediately when you click on it.
 
 :::
 

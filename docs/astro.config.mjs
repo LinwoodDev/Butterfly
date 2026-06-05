@@ -180,6 +180,10 @@ export default defineConfig({
                   link: "/docs/v2/tools/texture/",
                 },
                 {
+                  ...getSidebarTranslatedLabel("Barcode"),
+                  link: "/docs/v2/tools/barcode/",
+                },
+                {
                   ...getSidebarTranslatedLabel("Eye dropper"),
                   link: "/docs/v2/tools/eye_dropper/",
                 },
