@@ -190,13 +190,13 @@ as String?,
 @JsonSerializable()
 
 class SelectTool extends Tool {
-   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = SelectMode.rectangle, final  String? $type}): $type = $type ?? 'select',super._();
+   SelectTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.selectMode = SelectMode.rectangle, final  String? $type}): $type = $type ?? 'select',super._();
   factory SelectTool.fromJson(Map<String, dynamic> json) => _$SelectToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
-@JsonKey() final  SelectMode mode;
+@JsonKey() final  SelectMode selectMode;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -217,7 +217,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.select(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode)';
+  return 'Tool.select(name: $name, displayIcon: $displayIcon, id: $id, selectMode: $selectMode)';
 }
 
 
@@ -228,7 +228,7 @@ abstract mixin class $SelectToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $SelectToolCopyWith(SelectTool value, $Res Function(SelectTool) _then) = _$SelectToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, SelectMode mode
+ String name, String displayIcon,@IdJsonConverter() String? id, SelectMode selectMode
 });
 
 
@@ -245,12 +245,12 @@ class _$SelectToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? mode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? selectMode = null,}) {
   return _then(SelectTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as String?,selectMode: null == selectMode ? _self.selectMode : selectMode // ignore: cast_nullable_to_non_nullable
 as SelectMode,
   ));
 }

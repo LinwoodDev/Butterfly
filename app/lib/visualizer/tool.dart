@@ -21,6 +21,7 @@ extension ToolCategoryVisualizer on ToolCategory {
     ToolCategory.action => PhosphorIcons.play,
     ToolCategory.view => PhosphorIcons.eye,
   };
+
   String getLocalizedName(BuildContext context) => switch (this) {
     ToolCategory.normal => AppLocalizations.of(context).normal,
     ToolCategory.import => AppLocalizations.of(context).import,
@@ -36,10 +37,35 @@ extension BarcodeTypeVisualizer on BarcodeType {
     BarcodeType.dataMatrix => AppLocalizations.of(context).dataMatrix,
     BarcodeType.code128 => AppLocalizations.of(context).code128,
   };
+
   IconGetter get icon => switch (this) {
     BarcodeType.qrCode => PhosphorIcons.qrCode,
     BarcodeType.dataMatrix => PhosphorIcons.scan,
     BarcodeType.code128 => PhosphorIcons.barcode,
+  };
+}
+
+extension SelectModeVisualizer on SelectMode {
+  String getLocalizedName(BuildContext context) => switch (this) {
+    SelectMode.rectangle => AppLocalizations.of(context).rectangle,
+    SelectMode.lasso => AppLocalizations.of(context).lasso,
+  };
+
+  IconGetter get icon => switch (this) {
+    SelectMode.rectangle => PhosphorIcons.selection,
+    SelectMode.lasso => PhosphorIcons.lasso,
+  };
+}
+
+extension Axis2DVisualizer on Axis2D {
+  String getLocalizedName(BuildContext context) => switch (this) {
+    Axis2D.horizontal => AppLocalizations.of(context).horizontal,
+    Axis2D.vertical => AppLocalizations.of(context).vertical,
+  };
+
+  IconGetter get icon => switch (this) {
+    Axis2D.horizontal => PhosphorIcons.splitHorizontal,
+    Axis2D.vertical => PhosphorIcons.splitVertical,
   };
 }
 
@@ -85,7 +111,8 @@ extension ToolVisualizer on Tool {
     return switch (this) {
       SpacerTool e =>
         e.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
-      SelectTool e => e.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      SelectTool e =>
+        e.selectMode == SelectMode.lasso ? loc.lasso : loc.rectangle,
       ExportTool e => switch (e.options) {
         ImageExportOptions() => loc.image,
         SvgExportOptions() => loc.svg,
@@ -99,7 +126,7 @@ extension ToolVisualizer on Tool {
   IconGetter get icon => switch (this) {
     HandTool() => PhosphorIcons.hand,
     SelectTool tool =>
-      tool.mode == SelectMode.lasso
+      tool.selectMode == SelectMode.lasso
           ? PhosphorIcons.lasso
           : PhosphorIcons.selection,
     ImportTool() => PhosphorIcons.arrowSquareIn,

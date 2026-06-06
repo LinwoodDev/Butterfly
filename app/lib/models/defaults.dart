@@ -38,7 +38,7 @@ class DocumentDefaults {
 
   static List<Tool> createTools([SRGBColor? background]) =>
       [
-            SelectTool(mode: SelectMode.lasso, id: createUniqueId()),
+            SelectTool(selectMode: SelectMode.lasso, id: createUniqueId()),
             PenTool(id: createUniqueId()),
             PathEraserTool(id: createUniqueId()),
             UndoTool(id: createUniqueId()),
