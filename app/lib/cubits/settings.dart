@@ -462,6 +462,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
     @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
+    @Default(ZoomPosition.topRight) ZoomPosition propertyPosition,
     String? lastVersion,
     @Default([])
     @JsonKey(includeFromJson: false, includeToJson: false)
@@ -577,6 +578,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               ZoomPosition.bottomRight,
             )
           : ZoomPosition.bottomRight,
+      propertyPosition: prefs.containsKey('property_position')
+          ? _enumByNameOr(
+              ZoomPosition.values,
+              prefs.getString('property_position'),
+              ZoomPosition.topRight,
+            )
+          : ZoomPosition.topRight,
       lastVersion: prefs.getString('last_version'),
       connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
@@ -774,6 +782,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     );
     await prefs.setBool('zoom_enabled', zoomEnabled);
     await prefs.setString('zoom_position', zoomPosition.name);
+    await prefs.setString('property_position', propertyPosition.name);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -953,6 +962,14 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> resetZoomPosition() =>
       changeZoomPosition(ZoomPosition.bottomRight);
+
+  Future<void> changePropertyPosition(ZoomPosition position) {
+    emit(state.copyWith(propertyPosition: position));
+    return save();
+  }
+
+  Future<void> resetPropertyPosition() =>
+      changePropertyPosition(ZoomPosition.topRight);
 
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));

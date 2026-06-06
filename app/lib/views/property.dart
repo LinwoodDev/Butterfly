@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/editable_list_tile.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,9 @@ import '../selections/selection.dart';
 import '../visualizer/icon.dart';
 
 class PropertyView extends StatefulWidget {
-  const PropertyView({super.key});
+  final ZoomPosition position;
+
+  const PropertyView({super.key, required this.position});
 
   @override
   State<PropertyView> createState() => _PropertyViewState();
@@ -29,10 +32,6 @@ class _PropertyViewState extends State<PropertyView>
     duration: const Duration(milliseconds: 200),
     vsync: this,
   );
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: Offset.zero,
-    end: const Offset(1.5, 0.0),
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
   late final Animation<double> _fadeAnimation = Tween<double>(
     begin: 1.0,
     end: 0.0,
@@ -103,6 +102,16 @@ class _PropertyViewState extends State<PropertyView>
   void _closeView() {
     context.read<CurrentIndexCubit>().resetSelection(force: true);
   }
+
+  Animation<Offset> get _offsetAnimation => Tween<Offset>(
+    begin: Offset.zero,
+    end: switch (widget.position) {
+      ZoomPosition.topRight ||
+      ZoomPosition.bottomRight => const Offset(1.5, 0.0),
+      ZoomPosition.topLeft ||
+      ZoomPosition.bottomLeft => const Offset(-1.5, 0.0),
+    },
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
 }
 
 class _PropertyCard extends StatefulWidget {

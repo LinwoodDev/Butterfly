@@ -624,7 +624,8 @@ class _MainBody extends StatelessWidget {
                             current.navigatorPosition ||
                         previous.optionsPanelPosition !=
                             current.optionsPanelPosition ||
-                        previous.zoomPosition != current.zoomPosition,
+                        previous.zoomPosition != current.zoomPosition ||
+                        previous.propertyPosition != current.propertyPosition,
                     builder: (context, settings) {
                       return LayoutBuilder(
                         builder: (context, constraints) => _buildLayout(
@@ -754,9 +755,14 @@ class _MainBody extends StatelessWidget {
             child: Stack(
               children: [
                 _buildZoomAndTools(context, settings, isMobile, currentIndex),
-                const Align(
-                  alignment: Alignment.topRight,
-                  child: PropertyView(),
+                Align(
+                  alignment: switch (settings.propertyPosition) {
+                    ZoomPosition.topRight => Alignment.topRight,
+                    ZoomPosition.topLeft => Alignment.topLeft,
+                    ZoomPosition.bottomRight => Alignment.bottomRight,
+                    ZoomPosition.bottomLeft => Alignment.bottomLeft,
+                  },
+                  child: PropertyView(position: settings.propertyPosition),
                 ),
               ],
             ),
