@@ -11,7 +11,7 @@ class SelectToolSelection extends ToolSelection<SelectTool> {
       ListTile(
         title: Text(loc.select),
         trailing: DropdownMenu<SelectMode>(
-          initialSelection: selected.first.selectMode,
+          initialSelection: selected.first.mode,
           dropdownMenuEntries: SelectMode.values
               .map(
                 (e) => DropdownMenuEntry(
@@ -25,12 +25,20 @@ class SelectToolSelection extends ToolSelection<SelectTool> {
             if (value != null) {
               update(
                 context,
-                selected.map((e) => e.copyWith(selectMode: value)).toList(),
+                selected.map((e) => e.copyWith(mode: value)).toList(),
               );
             }
           },
         ),
       ),
     ];
+  }
+
+  @override
+  Selection insert(dynamic element) {
+    if (element is SelectTool) {
+      return SelectToolSelection([...selected, element]);
+    }
+    return super.insert(element);
   }
 }

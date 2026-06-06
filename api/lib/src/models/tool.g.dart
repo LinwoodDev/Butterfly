@@ -10,8 +10,8 @@ SelectTool _$SelectToolFromJson(Map json) => SelectTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
-  selectMode:
-      $enumDecodeNullable(_$SelectModeEnumMap, json['selectMode']) ??
+  mode:
+      $enumDecodeNullable(_$SelectModeEnumMap, json['mode']) ??
       SelectMode.rectangle,
   $type: json['type'] as String?,
 );
@@ -21,7 +21,7 @@ Map<String, dynamic> _$SelectToolToJson(SelectTool instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'id': const IdJsonConverter().toJson(instance.id),
-      'selectMode': _$SelectModeEnumMap[instance.selectMode]!,
+      'mode': _$SelectModeEnumMap[instance.mode]!,
       'type': instance.$type,
     };
 

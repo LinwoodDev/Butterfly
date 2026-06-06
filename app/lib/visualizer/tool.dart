@@ -109,10 +109,8 @@ extension ToolVisualizer on Tool {
   String getLocalizedCaption(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {
-      SpacerTool e =>
-        e.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
-      SelectTool e =>
-        e.selectMode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      SpacerTool e => e.axis.getLocalizedName(context),
+      SelectTool e => e.mode.getLocalizedName(context),
       ExportTool e => switch (e.options) {
         ImageExportOptions() => loc.image,
         SvgExportOptions() => loc.svg,
@@ -126,7 +124,7 @@ extension ToolVisualizer on Tool {
   IconGetter get icon => switch (this) {
     HandTool() => PhosphorIcons.hand,
     SelectTool tool =>
-      tool.selectMode == SelectMode.lasso
+      tool.mode == SelectMode.lasso
           ? PhosphorIcons.lasso
           : PhosphorIcons.selection,
     ImportTool() => PhosphorIcons.arrowSquareIn,

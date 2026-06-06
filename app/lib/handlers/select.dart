@@ -403,7 +403,7 @@ class SelectHandler extends Handler<SelectTool> {
       );
       return true;
     }
-    _rectangleFreeSelectionStart = data.selectMode == SelectMode.rectangle
+    _rectangleFreeSelectionStart = data.mode == SelectMode.rectangle
         ? globalPos
         : null;
     context.refresh();
@@ -477,10 +477,10 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     final start = _rectangleFreeSelectionStart ?? globalPos;
-    _rectangleFreeSelection = data.selectMode == SelectMode.rectangle
+    _rectangleFreeSelection = data.mode == SelectMode.rectangle
         ? Rect.fromLTRB(start.dx, start.dy, globalPos.dx, globalPos.dy)
         : null;
-    if (data.selectMode == SelectMode.lasso) {
+    if (data.mode == SelectMode.lasso) {
       _lassoFreeSelection ??= [];
       _lassoFreeSelection!.add(globalPos);
     } else {

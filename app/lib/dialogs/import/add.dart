@@ -249,8 +249,8 @@ class _AddDialogState extends State<AddDialog> {
             final tools =
                 [
                       Tool.hand,
-                      () => Tool.select(selectMode: SelectMode.lasso),
-                      () => Tool.select(selectMode: SelectMode.rectangle),
+                      () => Tool.select(mode: SelectMode.lasso),
+                      () => Tool.select(mode: SelectMode.rectangle),
                       Tool.pen,
                       Tool.laser,
                       Tool.pathEraser,

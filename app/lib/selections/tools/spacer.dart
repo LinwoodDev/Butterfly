@@ -33,4 +33,12 @@ class SpacerToolSelection extends ToolSelection<SpacerTool> {
       ),
     ];
   }
+
+  @override
+  Selection insert(dynamic element) {
+    if (element is SpacerTool) {
+      return SpacerToolSelection([...selected, element]);
+    }
+    return super.insert(element);
+  }
 }
