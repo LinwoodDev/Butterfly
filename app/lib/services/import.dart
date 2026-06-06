@@ -82,6 +82,17 @@ class ImportResult {
       choosePosition = false,
       documentReady = true;
 
+  bool _isArchiveAssetPath(String path) =>
+      validAssetPaths.any((e) => path.startsWith('$e/'));
+
+  Map<String, Uint8List> get _archiveAssets => Map.fromEntries(
+    assets.entries.where((entry) => _isArchiveAssetPath(entry.key)),
+  );
+
+  Map<String, Uint8List> get _importAssets => Map.fromEntries(
+    assets.entries.where((entry) => !_isArchiveAssetPath(entry.key)),
+  );
+
   Future<NoteData> export() async {
     final currentDocument = this.document;
     if (documentReady && currentDocument != null) {
@@ -90,11 +101,10 @@ class ImportResult {
     var document =
         currentDocument ??
         DocumentDefaults.createDocument(createDefaultPage: false);
-    for (final MapEntry(key: path, value: data) in assets.entries) {
-      if (validAssetPaths.any((e) => path.startsWith('$e/'))) {
-        document = document.setAsset(path, data);
-      }
+    for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
+      document = document.setAsset(path, data);
     }
+    final importAssets = _importAssets;
     final state = service._getState();
     DocumentPage page =
         state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
@@ -102,7 +112,7 @@ class ImportResult {
     (document, imported) = await importAssetsAsync(
       document,
       elements,
-      assets: assets,
+      assets: importAssets,
     );
     if (imported.isNotEmpty) {
       page = page.copyWith(
@@ -122,7 +132,7 @@ class ImportResult {
         (document, imported) = await importAssetsAsync(
           document,
           layer.content,
-          assets: assets,
+          assets: importAssets,
         );
         layers.add(layer.copyWith(content: imported));
       }
@@ -152,14 +162,12 @@ class ImportResult {
         temporaryState: TemporaryState.removeAfterRelease,
       );
     } else {
-      for (final MapEntry(key: path, value: data) in assets.entries) {
-        if (validAssetPaths.any((e) => path.startsWith('$e/'))) {
-          bloc?.add(AssetUpdated(path, data));
-        }
+      for (final MapEntry(key: path, value: data) in _archiveAssets.entries) {
+        bloc?.add(AssetUpdated(path, data));
       }
       bloc
         ?..add(AreasCreated(areas))
-        ..add(ElementsCreated(elements, assets: assets));
+        ..add(ElementsCreated(elements, assets: _importAssets));
     }
     bloc?.add(
       PagesAdded(
