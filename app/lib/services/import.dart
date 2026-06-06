@@ -90,6 +90,11 @@ class ImportResult {
     var document =
         currentDocument ??
         DocumentDefaults.createDocument(createDefaultPage: false);
+    for (final MapEntry(key: path, value: data) in assets.entries) {
+      if (validAssetPaths.any((e) => path.startsWith('$e/'))) {
+        document = document.setAsset(path, data);
+      }
+    }
     final state = service._getState();
     DocumentPage page =
         state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
@@ -147,9 +152,14 @@ class ImportResult {
         temporaryState: TemporaryState.removeAfterRelease,
       );
     } else {
+      for (final MapEntry(key: path, value: data) in assets.entries) {
+        if (validAssetPaths.any((e) => path.startsWith('$e/'))) {
+          bloc?.add(AssetUpdated(path, data));
+        }
+      }
       bloc
         ?..add(AreasCreated(areas))
-        ..add(ElementsCreated(elements));
+        ..add(ElementsCreated(elements, assets: assets));
     }
     bloc?.add(
       PagesAdded(
@@ -856,6 +866,9 @@ class ImportService {
       final backgrounds = state is DocumentLoadSuccess
           ? state.page.backgrounds
           : (document.getPage()?.backgrounds ?? const <Background>[]);
+      final pdfSource = spreadToPages
+          ? document.importPdf(bytes).$2
+          : _pdfImportSource;
 
       for (var i = 0; i < pages.length; i++) {
         var raster = elements[pages[i]];
@@ -869,8 +882,8 @@ class ImportService {
           final element = PdfElement(
             height: height,
             width: width,
-            source: _pdfImportSource,
-            page: i,
+            source: pdfSource,
+            page: pages[i],
             position: Point(firstPos.dx, y),
             invert: invert,
             background: background,
@@ -925,7 +938,7 @@ class ImportService {
         pages: documentPages,
         areas: spreadToPages ? [] : areas,
         choosePosition: position == null,
-        assets: {_pdfImportSource: bytes},
+        assets: {pdfSource: bytes},
         exportPresets: [
           if (exportPresetAreas.isNotEmpty && createExportPreset)
             ExportPreset(

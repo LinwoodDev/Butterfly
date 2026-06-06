@@ -1,0 +1,2 @@
+* Fix PDF spread-to-pages imports rendering as gray placeholders ([#1123](https://github.com/LinwoodDev/Butterfly/issues/1123))
+* Fix PDF import using the first pages instead of the selected pages ([#1124](https://github.com/LinwoodDev/Butterfly/issues/1124))
