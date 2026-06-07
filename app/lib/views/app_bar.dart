@@ -479,8 +479,43 @@ class MainPopupMenu extends StatelessWidget {
                   previous.saved != current.saved,
               builder: (context, state) {
                 final size = MediaQuery.sizeOf(context);
+                final navigatorRailEnabled =
+                    settings.navigationRail || state.embedding != null;
+                final showNavigatorDialog =
+                    MediaQuery.sizeOf(context).width <
+                        LeapBreakpoints.expanded ||
+                    !navigatorRailEnabled ||
+                    windowState.fullScreen ||
+                    state.hideUi != HideState.visible;
                 return MenuAnchor(
                   menuChildren: [
+                    if (showNavigatorDialog)
+                      ...NavigatorPage.values.map(
+                        (e) => MenuItemButton(
+                          leadingIcon: PhosphorIcon(
+                            e.icon(PhosphorIconsStyle.light),
+                          ),
+                          child: Text(e.getLocalizedName(context)),
+                          onPressed: () {
+                            cubit.setNavigatorPage(e);
+                            final bloc = context.read<DocumentBloc>();
+                            final transformCubit = context
+                                .read<TransformCubit>();
+                            showDialog(
+                              context: context,
+                              builder: (context) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(value: bloc),
+                                  BlocProvider.value(value: cubit),
+                                  BlocProvider.value(value: transformCubit),
+                                ],
+                                child: DocumentNavigator(asDialog: true),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    if (showNavigatorDialog) const Divider(),
                     if (state.embedding == null) ...[
                       MenuItemButton(
                         leadingIcon: const PhosphorIcon(
@@ -494,37 +529,6 @@ class MainPopupMenu extends StatelessWidget {
                           router.go('/');
                         },
                       ),
-                      if (MediaQuery.sizeOf(context).width <
-                              LeapBreakpoints.expanded ||
-                          !settings.navigationRail ||
-                          windowState.fullScreen ||
-                          state.hideUi != HideState.visible)
-                        ...NavigatorPage.values.map(
-                          (e) => MenuItemButton(
-                            leadingIcon: PhosphorIcon(
-                              e.icon(PhosphorIconsStyle.light),
-                            ),
-                            child: Text(e.getLocalizedName(context)),
-                            onPressed: () {
-                              cubit.setNavigatorPage(e);
-                              final bloc = context.read<DocumentBloc>();
-                              final transformCubit = context
-                                  .read<TransformCubit>();
-                              showDialog(
-                                context: context,
-                                builder: (context) => MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider.value(value: bloc),
-                                    BlocProvider.value(value: cubit),
-                                    BlocProvider.value(value: transformCubit),
-                                  ],
-                                  child: DocumentNavigator(asDialog: true),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      const Divider(),
                       MenuItemButton(
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.image,

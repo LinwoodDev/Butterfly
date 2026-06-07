@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'action.dart';
+import 'embedding.dart';
 
 class EmbedHandler {
   EmbedHandler();
@@ -39,6 +40,37 @@ class EmbedHandler {
 
   bool _mapBool(Map<String, dynamic> map, String key, bool fallback) =>
       map[key] is bool ? map[key] as bool : fallback;
+
+  Uint8List? _messageToBytes(Object? message) {
+    if (message is Uint8List) return message;
+    if (message is ByteBuffer) return message.asUint8List();
+    if (message is ByteData) {
+      return message.buffer.asUint8List(
+        message.offsetInBytes,
+        message.lengthInBytes,
+      );
+    }
+    if (message is List) {
+      try {
+        return Uint8List.fromList(
+          message.cast<num>().map((e) => e.toInt()).toList(),
+        );
+      } catch (_) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  Uri _buildEmbedUri(Embedding embedding) => Uri(
+    path: '/embed',
+    queryParameters: {
+      if (!embedding.save) 'save': 'false',
+      if (!embedding.editable) 'editable': 'false',
+      if (embedding.language.isNotEmpty) 'language': embedding.language,
+      if (embedding.theme.isNotEmpty) 'theme': embedding.theme,
+    },
+  );
 
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
@@ -76,9 +108,13 @@ class EmbedHandler {
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
-      if (message is! List<int>) return;
-      final data = NoteData.fromData(Uint8List.fromList(message));
-      GoRouter.of(context).go('/new', extra: data);
+      final bytes = _messageToBytes(message);
+      if (bytes == null) return;
+      final embedding = bloc.currentIndexCubit.state.embedding;
+      if (embedding == null) return;
+      GoRouter.of(
+        context,
+      ).go(_buildEmbedUri(embedding).toString(), extra: bytes);
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;

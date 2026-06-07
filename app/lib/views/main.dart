@@ -84,15 +84,15 @@ class _ProjectPageState extends State<ProjectPage> {
         oldWidget.type != widget.type ||
         !identical(oldWidget.data, widget.data) ||
         oldWidget.uri != widget.uri) {
-      _disposeDocumentState();
+      _disposeDocumentState(oldWidget.embedding);
       _load();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _disposeDocumentState() {
+  void _disposeDocumentState([Embedding? embedding]) {
     _loadGeneration++;
-    widget.embedding?.handler?.unregister();
+    (embedding ?? widget.embedding)?.handler?.unregister();
     final bloc = _bloc;
     _bloc = null;
     _currentIndexCubit = null;
@@ -668,9 +668,11 @@ class _MainBody extends StatelessWidget {
       centered: true,
       direction: settings.toolbarPosition.axis,
     );
+    final navigatorRailEnabled =
+        settings.navigationRail || currentIndex.embedding != null;
     final showNavigator =
         isLarge &&
-        settings.navigationRail &&
+        navigatorRailEnabled &&
         !windowState.fullScreen &&
         state is DocumentLoadSuccess &&
         currentIndex.hideUi == HideState.visible;

@@ -316,6 +316,7 @@ class ButterflyApp extends StatelessWidget {
         builder: (context, state) {
           return ProjectPage(
             embedding: Embedding.fromQuery(state.uri.queryParameters),
+            data: state.extra,
           );
         },
       ),
