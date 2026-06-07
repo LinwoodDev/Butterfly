@@ -92,6 +92,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   void _disposeDocumentState() {
     _loadGeneration++;
+    widget.embedding?.handler?.unregister();
     final bloc = _bloc;
     _bloc = null;
     _currentIndexCubit = null;
@@ -360,6 +361,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);
       });
+      embedding?.handler?.register(context, _bloc!);
       runtimeCommitted = true;
       pendingAssetService = null;
       pendingTransformCubit = null;
@@ -400,7 +402,6 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void dispose() {
-    widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
     _disposeDocumentState();
     _searchController.dispose();
