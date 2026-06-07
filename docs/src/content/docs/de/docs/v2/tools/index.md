@@ -10,3 +10,7 @@ Fügen Sie ein Werkzeug hinzu, indem Sie auf das Plus Symbol klicken. Ändern Si
 Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
 Der Name des Werkzeugs wird als Hinweis beim Bewegen des Zeigers auf das Symbol angezeigt.
+
+## Temporary tools
+
+There can be only one temporary tool at a time. It appears on the left of the toolbar and will disappear when another tool is selected.

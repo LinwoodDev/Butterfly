@@ -2,13 +2,23 @@
 title: Laser tool
 ---
 
-With this tool you can draw on this paper temporarily. Depois de um tempo, o sorteio desaparece. Adicione um novo desenho ao papel para que ele cancele.
+With this tool you can draw on this paper temporarily. Depois de um tempo, o sorteio desaparece.
+Add a new drawing to the paper to cancel the previous laser stroke.
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição                                                                   |
-| ---------------------: | :----: | :-------------------------------------------------------------------------- |
-|                    Cor |  Preto | A cor que será desenhada                                                    |
-|       Largura do traço |    5   | A largura do traço                                                          |
-| Multiplicador de traço |    1   | Se você tem um estilo, este é o multiplicador que será adicionado à pressão |
-|                Duração |    5   | A duração em segundos que o desenho ficará visível                          |
+|            Propriedade |        Padrão       | Descrição                                                                                                             |
+| ---------------------: | :-----------------: | :-------------------------------------------------------------------------------------------------------------------- |
+|                    Cor |       Vermelho      | The color that will be drawn.                                                                         |
+|       Largura do traço |          5          | The width of the stroke.                                                                              |
+|              Espessura | 0.4 | The effect of pressure on the stroke size. Set it to `0` for a constant stroke width. |
+|                Duração |          5          | The duration in seconds that the drawing will stay visible.                                           |
+| Duração do ocultamento | 0.5 | How long the laser stroke takes to disappear.                                                         |
+|               Animação |         Fade        | The animation used when the laser stroke disappears.                                                  |
+
+## Animation modes
+
+|    Mode | Descrição                                                           |
+| ------: | :------------------------------------------------------------------ |
+|    Fade | The stroke fades out after the duration has passed. |
+| Caminho | The stroke disappears along the drawn path.         |

@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Configuration
 
-|   Property |           Default           | Mô tả                  |
-| ---------: | :-------------------------: | :--------------------- |
-| Kích thước | (20, 20) | The size of grid cells |
-|     Offset |  (0, 0)  | The offset of the grid |
-|    Màu sắc |            Black            | The color of the grid  |
+|            Property |           Default           | Mô tả                                                                                                  |
+| ------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|          Kích thước | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|              Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|             Màu sắc |            Black            | The color of the grid.                                                                 |
+|              Stroke |              1              | The width of the grid lines.                                                           |
+| Phụ thuộc thu phóng |            false            | Changes the grid stroke width based on the zoom level.                                 |
+|    Phụ thuộc vị trí |            false            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |
