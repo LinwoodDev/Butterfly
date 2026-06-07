@@ -6,7 +6,13 @@ Osadzanie jest prostym sposobem na włączenie aplikacji do Twojej strony intern
 Dodaj następujący kod do swojej strony internetowej:
 
 ```html
-<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe
+  id="butterfly"
+  src="https://web.butterfly.linwood.dev/embed"
+  width="100%"
+  height="500px"
+  allowtransparency="true"
+></iframe>
 ```
 
 ## Opcje
@@ -15,20 +21,88 @@ Dodaj następujący kod do swojej strony internetowej:
 | -------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | zapisz   | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
 | editable | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
-| język    | Ciąg znaków (..., system, użytkownik) | system   | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
+| język    | Ciąg znaków (..., system, użytkownik) | user     | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
+
+## Messaging
+
+The embed uses browser `postMessage` events. Send messages to the iframe with
+`iframe.contentWindow.postMessage({ type, message }, origin)`. Butterfly sends
+messages back to the parent window with the same shape:
+`{ type: string, message?: unknown }`.
+
+See the [embedding example](/community/embed-example/) for a live page that sends
+messages to the iframe and listens for messages from it.
+
+```html
+<iframe
+  id="butterfly"
+  src="https://web.butterfly.linwood.dev/embed?save=true&editable=true"
+  width="100%"
+  height="500"
+></iframe>
+
+<script>
+  const butterflyOrigin = 'https://web.butterfly.linwood.dev';
+  const butterfly = document.querySelector('#butterfly');
+
+  function sendToButterfly(type, message) {
+    butterfly.contentWindow.postMessage({ type, message }, butterflyOrigin);
+  }
+
+  window.addEventListener('message', (event) => {
+    if (
+      event.origin !== butterflyOrigin ||
+      event.source !== butterfly.contentWindow
+    ) {
+      return;
+    }
+
+    const { type, message } = event.data ?? {};
+
+    if (type === 'save') {
+      const documentBytes = Array.from(message);
+      console.log('Save requested by the embed', documentBytes);
+    }
+
+    if (type === 'change') {
+      console.log('Document changed', message);
+    }
+
+    if (type === 'getData') {
+      console.log('Current document bytes', message);
+    }
+
+    if (type === 'render') {
+      const image = new Image();
+      image.src = `data:image/png;base64,${message}`;
+      document.body.append(image);
+    }
+  });
+
+  butterfly.addEventListener('load', () => {
+    sendToButterfly('getData');
+
+    sendToButterfly('render', {
+      x: 0,
+      y: 0,
+      width: 600,
+      height: 400,
+      scale: 1,
+      renderBackground: true,
+    });
+  });
+</script>
+```
+
+To load document bytes into the embed, send an array of byte values:
+
+```javascript
+sendToButterfly('setData', documentBytes);
+```
 
 ## Wydarzenia
 
-Przykłady jak go używać:
-
-```javascript
-const embedElement = document.querySelector('#butterfly');
-embedElement.addEventListener('message', (data) => {
-  if(data.detail.type === 'save') {
-    console.log('Saving...', data.detail.message);
-  }
-});
-```
+Listen for events with `window.addEventListener('message', ...)`.
 
 ### zapisz
 
@@ -36,7 +110,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-- `data` (Type `List<int>`): The data of the document.
+- `message` (Type `List<int>`): The data of the document.
 
 ### wyjście
 
@@ -44,7 +118,7 @@ Parametry:
 
 Parametry:
 
-- `data` (Type `List<int>`): The data of the document.
+- `message` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,21 +126,12 @@ Parametry:
 
 Parametry:
 
-- `data` (Type `List<int>`): The data of the document.
+- `message` (Type `List<int>`): The data of the document.
 
 ## Metody
 
-Przykład jak go użyć:
-
-```javascript
-const embedElement = document.querySelector('#butterfly');
-embedElement.pushMessage('getData', {});
-embedElement.addEventListener('message', (data) => {
-  if(data.detail.type === 'getData') {
-    console.log(data.detail.message);
-  }
-});
-```
+Call methods with `iframe.contentWindow.postMessage(...)`. Methods that return
+data send another message back with the same `type`.
 
 ### getData
 
@@ -89,6 +154,8 @@ Parametry:
 
 Parametry:
 
+- `x` (Type `Number`): The x position of the exported area.
+- `y` (Type `Number`): The y position of the exported area.
 - `width` (Type `Number`): The width of the image.
 - `height` (Type `Number`): The height of the image.
 - `scale` (Type `Number`): The scale of the image.
@@ -102,6 +169,8 @@ Returns: `String` (Base64 encoded image)
 
 Parametry:
 
+- `x` (Type `Number`): The x position of the exported area.
+- `y` (Type `Number`): The y position of the exported area.
 - `width` (Type `Number`): The width of the image.
 - `height` (Type `Number`): The height of the image.
 - `renderBackground` (Type `Boolean`): If true, the background will be rendered.
