@@ -243,6 +243,10 @@ export default defineConfig({
               link: "/community/embed/",
             },
             {
+              label: "Embedding example",
+              link: "/community/embed-example/",
+            },
+            {
               ...getSidebarTranslatedLabel("FAQ"),
               link: "/community/faq/",
             },
