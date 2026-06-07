@@ -220,6 +220,7 @@ sealed class PadElement with _$PadElement {
   bool isStroke() => switch (this) {
     PenElement _ => true,
     ShapeElement _ => true,
+    PolygonElement _ => true,
     _ => false,
   };
 }
