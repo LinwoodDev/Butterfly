@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Manter Atalhos",
   "holdShortcutsDescription": "Segure uma tecla para alternar temporariamente para outra ferramenta. Liberando a tecla de volta para a ferramenta anterior.",
-  "key": "Chave"
+  "key": "Chave",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
