@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Podržet zkratky",
   "holdShortcutsDescription": "Podržte klávesu pro dočasné přepnutí na jiný nástroj. Zmáčkněte klávesu zpět na předchozí nástroj.",
-  "key": "Klíč"
+  "key": "Klíč",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
