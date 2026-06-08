@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Hold snarveier",
   "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
-  "key": "Nøkkel"
+  "key": "Nøkkel",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
