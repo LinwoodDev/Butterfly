@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "الاختصارات المؤقتة",
   "holdShortcutsDescription": "\"الاختصار المؤقت\" يُفعّل الأداة المحددة خلال الضغط عليه، ويعود إلى الأداة السابقة عند تركه.",
-  "key": "المفتاح"
+  "key": "المفتاح",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
