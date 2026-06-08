@@ -10,12 +10,23 @@ class ImportHandler extends Handler<ImportTool> {
     NoteData document,
     AssetService assetService,
     DocumentPage page,
+    EventContext context,
   ) async {
     if (_renderers != null) return _renderers!;
     final renderers = data.elements
         .map((e) => Renderer.fromInstance(e))
         .whereType<Renderer<PadElement>>()
         .toList();
+    await Future.wait(
+      renderers.map(
+        (e) async => await e.setup(
+          context.getTransformCubit(),
+          document,
+          assetService,
+          page,
+        ),
+      ),
+    );
     _renderers = renderers;
     return renderers;
   }
@@ -52,7 +63,7 @@ class ImportHandler extends Handler<ImportTool> {
     _offset = transform.localToGlobal(localPosition);
     final state = context.getState();
     if (state == null) return;
-    await _load(state.data, state.assetService, state.page);
+    await _load(state.data, state.assetService, state.page, context);
     context.refreshForegrounds();
   }
 
@@ -69,7 +80,7 @@ class ImportHandler extends Handler<ImportTool> {
     );
     context.addDocumentEvent(
       ElementsCreated(
-        (await _load(state.data, state.assetService, state.page))
+        (await _load(state.data, state.assetService, state.page, context))
             .map(
               (e) => e
                   .transform(position: _offset, relative: true)

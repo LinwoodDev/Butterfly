@@ -142,7 +142,7 @@ void main() {
       providers: [
         RepositoryProvider<ButterflyFileSystem>.value(value: fileSystem),
         RepositoryProvider<ClipboardManager>.value(
-          value: _TestClipboardManager(),
+          value: UnsupportedClipboardManager(),
         ),
       ],
       child: MultiBlocProvider(
@@ -232,14 +232,4 @@ class _LifecycleObserver extends BlocObserver {
     }
     super.onEvent(bloc, event);
   }
-}
-
-class _TestClipboardManager implements ClipboardManager {
-  ClipboardContent? _content;
-
-  @override
-  ClipboardContent? getContent() => _content;
-
-  @override
-  void setContent(ClipboardContent content) => _content = content;
 }

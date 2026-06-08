@@ -67,7 +67,7 @@ dependencies:
   lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 9ed4b941a90a38d38b9bfc2841df65e7871fd558
+      ref: 6d43be062401fafdd956448c59dea8c1df69198b
       path: packages/lw_sysapi
   networker:
     git:
@@ -106,7 +106,6 @@ dependencies:
   markdown: ^7.2.2
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
-  super_clipboard: ^0.9.0-dev.4
   web: ^1.0.0
   cryptography_plus: ^3.0.0
   barcode: ^2.2.9
@@ -126,16 +125,6 @@ dependency_overrides:
     git:
       url: https://github.com/CodeDoctorDE/phosphor-flutter.git
       ref: f7479596c67239e755ab1fe3bade84895bfd6222
-  irondash_engine_context:
-    git:
-      url: https://github.com/CodeDoctorDE/irondash
-      ref: 06272db8cf132d89f9e93ce71a5af75251a98e16
-      path: engine_context/dart
-  super_native_extensions:
-    git:
-      url: https://github.com/CodeDoctorDE/super_native_extensions
-      ref: b4c00b9856670c67c983e4acc583f7e01e7ddba5
-      path: super_native_extensions
 dev_dependencies:
   #flutter_native_splash: ^2.4.0
   flutter_lints: ^6.0.0

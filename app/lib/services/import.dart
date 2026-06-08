@@ -7,7 +7,6 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
@@ -27,7 +26,6 @@ import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:pdfrx/pdfrx.dart';
-import 'package:super_clipboard/super_clipboard.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
@@ -331,31 +329,6 @@ class ImportService {
     };
   }
 
-  Future<Uint8List?>? _readFileFromClipboard(
-    DataReader reader,
-    FileFormat format,
-  ) {
-    final c = Completer<Uint8List?>();
-    final progress = reader.getFile(
-      format,
-      (file) async {
-        try {
-          final all = await file.readAll();
-          c.complete(all);
-        } catch (e) {
-          c.completeError(e);
-        }
-      },
-      onError: (e) {
-        c.completeError(e);
-      },
-    );
-    if (progress == null) {
-      c.complete(null);
-    }
-    return c.future;
-  }
-
   @useResult
   Future<ImportResult?> importClipboard(
     NoteData document, {
@@ -364,38 +337,21 @@ class ImportService {
   }) async {
     Uint8List? data;
     AssetFileType? type;
-    final clipboard = SystemClipboard.instance;
-    if (clipboard != null) {
-      final reader = await clipboard.read();
-      final result = AssetFileType.values
-          .map((e) {
-            final format = e.getClipboardFormats().firstWhereOrNull(
-              (f) => reader.canProvide(f),
-            );
-            return format == null ? null : (e, format);
-          })
-          .nonNulls
-          .firstOrNull;
-      if (result == null) return null;
-      if (result.$2 is FileFormat) {
-        data = await _readFileFromClipboard(reader, result.$2 as FileFormat);
-      } else if (result.$2 is ValueFormat<Uint8List>) {
-        data = await reader.readValue(result.$2 as ValueFormat<Uint8List>);
-      }
-      type = result.$1;
-    } else {
-      final clipboard = context.read<ClipboardManager>();
-      final content = clipboard.getContent();
-      data = content?.data;
-      try {
-        type = AssetFileType.values.byName(content?.type ?? '');
-      } catch (e) {
-        await showDialog(
-          context: context,
-          builder: (context) =>
-              UnknownImportConfirmationDialog(message: e.toString()),
-        );
-      }
+    final clipboard = context.read<ClipboardManager>();
+    final content = await clipboard.getContent(
+      types: AssetFileType.values.expand((e) => e.getMimeTypes()).toList(),
+    );
+    data = content?.data;
+    try {
+      type = AssetFileType.values.firstWhereOrNull(
+        (element) => element.isMimeType(content?.type ?? ''),
+      );
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
     }
     if (data == null || type == null) return null;
     return import(
