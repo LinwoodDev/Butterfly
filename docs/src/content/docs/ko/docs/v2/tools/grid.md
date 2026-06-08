@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Configuration
 
-| Property |           Default           | 설명                     |
-| -------: | :-------------------------: | :--------------------- |
-|       크기 | (20, 20) | The size of grid cells |
-|   Offset |  (0, 0)  | The offset of the grid |
-|    Color |            Black            | The color of the grid  |
+|  Property |           Default           | 설명                                                                                                     |
+| --------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|        크기 | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|    Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|     Color |            Black            | The color of the grid.                                                                 |
+|    Stroke |              1              | The width of the grid lines.                                                           |
+| 확대/축소에 따라 |            false            | Changes the grid stroke width based on the zoom level.                                 |
+|    위치에 따라 |            false            | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

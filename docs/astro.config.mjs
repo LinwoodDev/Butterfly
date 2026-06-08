@@ -12,6 +12,13 @@ import remarkMath from "remark-math";
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
+  vite: {
+    resolve: {
+      alias: {
+        "@components": new URL("./src/components", import.meta.url).pathname,
+      },
+    },
+  },
   markdown: {
     remarkPlugins: [remarkHeadingID, remarkGemoji, remarkMath],
     rehypePlugins: [rehypeKatex]
@@ -152,6 +159,10 @@ export default defineConfig({
                   link: "/docs/v2/tools/shape/",
                 },
                 {
+                  ...getSidebarTranslatedLabel("Polygon"),
+                  link: "/docs/v2/tools/polygon/",
+                },
+                {
                   ...getSidebarTranslatedLabel("Spacer"),
                   link: "/docs/v2/tools/spacer/",
                 },
@@ -174,6 +185,14 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Texture"),
                   link: "/docs/v2/tools/texture/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Barcode"),
+                  link: "/docs/v2/tools/barcode/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Eye dropper"),
+                  link: "/docs/v2/tools/eye_dropper/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Stamp"),
@@ -229,6 +248,10 @@ export default defineConfig({
             {
               ...getSidebarTranslatedLabel("Embedding"),
               link: "/community/embed/",
+            },
+            {
+              label: "Embedding example",
+              link: "/community/embed-example/",
             },
             {
               ...getSidebarTranslatedLabel("FAQ"),

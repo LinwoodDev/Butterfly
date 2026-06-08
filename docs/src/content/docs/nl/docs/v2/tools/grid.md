@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Configuratie
 
-| Eigenschap |          Standaard          | Beschrijving           |
-| ---------: | :-------------------------: | :--------------------- |
-|    Grootte | (20, 20) | The size of grid cells |
-|     Offset |  (0, 0)  | The offset of the grid |
-|      Kleur |            Zwart            | The color of the grid  |
+|           Eigenschap |          Standaard          | Beschrijving                                                                                           |
+| -------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|              Grootte | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|               Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|                Kleur |            Zwart            | The color of the grid.                                                                 |
+|               Stroke |              1              | The width of the grid lines.                                                           |
+|   Afhankelijk zoomen |           Onjuist           | Changes the grid stroke width based on the zoom level.                                 |
+| Afhankelijke positie |           Onjuist           | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

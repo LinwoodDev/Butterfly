@@ -1,3 +1,5 @@
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/toolbar/color.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -9,10 +11,12 @@ class PolygonToolbarView extends StatelessWidget
   final PolygonTool tool;
   final ValueChanged<PolygonTool> onToolChanged;
   final bool hasPoints;
+  final DocumentBloc bloc;
   final VoidCallback? onFinishShape, onSubmit, onDelete;
 
   const PolygonToolbarView({
     super.key,
+    required this.bloc,
     required this.tool,
     required this.onToolChanged,
     required this.onFinishShape,
@@ -28,6 +32,14 @@ class PolygonToolbarView extends StatelessWidget
       onChanged: (value) => onToolChanged.call(
         tool.copyWith(property: tool.property.copyWith(color: value)),
       ),
+      onEyeDropper: (context) {
+        bloc.currentIndexCubit.changeTemporaryHandler(
+          context,
+          EyeDropperTool(),
+          bloc: bloc,
+          temporaryState: TemporaryState.removeAfterRelease,
+        );
+      },
       strokeWidth: tool.property.strokeWidth,
       onStrokeWidthChanged: (value) => onToolChanged.call(
         tool.copyWith(property: tool.property.copyWith(strokeWidth: value)),
