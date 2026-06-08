@@ -9,7 +9,7 @@ class SpacerToolSelection extends ToolSelection<SpacerTool> {
     return [
       ...super.buildProperties(context),
       ListTile(
-        title: Text(loc.spacer),
+        title: Text(loc.direction),
         trailing: DropdownMenu<Axis2D>(
           initialSelection: selected.first.axis,
           dropdownMenuEntries: Axis2D.values

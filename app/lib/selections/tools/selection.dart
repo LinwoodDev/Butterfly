@@ -9,7 +9,7 @@ class SelectToolSelection extends ToolSelection<SelectTool> {
     return [
       ...super.buildProperties(context),
       ListTile(
-        title: Text(loc.select),
+        title: Text(loc.mode),
         trailing: DropdownMenu<SelectMode>(
           initialSelection: selected.first.mode,
           dropdownMenuEntries: SelectMode.values
