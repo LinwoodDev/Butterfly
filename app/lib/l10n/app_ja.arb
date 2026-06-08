@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "ショートカットを長押しする",
   "holdShortcutsDescription": "キーを押して別のツールに一時的に切り替えます。キースイッチを前のツールに戻します。",
-  "key": "キー"
+  "key": "キー",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
