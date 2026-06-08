@@ -41,6 +41,7 @@ part 'tools/eraser.dart';
 part 'tools/grid.dart';
 part 'tools/label.dart';
 part 'tools/laser.dart';
+part 'tools/selection.dart';
 part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
 part 'tools/polygon.dart';
@@ -48,6 +49,7 @@ part 'tools/ruler.dart';
 part 'tools/shape.dart';
 part 'tools/stamp.dart';
 part 'tools/texture.dart';
+part 'tools/spacer.dart';
 
 part 'properties/property.dart';
 part 'properties/pen.dart';
