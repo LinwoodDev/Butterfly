@@ -12,6 +12,13 @@ import remarkMath from "remark-math";
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
+  vite: {
+    resolve: {
+      alias: {
+        "@components": new URL("./src/components", import.meta.url).pathname,
+      },
+    },
+  },
   markdown: {
     remarkPlugins: [remarkHeadingID, remarkGemoji, remarkMath],
     rehypePlugins: [rehypeKatex]
