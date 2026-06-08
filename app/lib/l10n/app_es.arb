@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Mantener atajos",
   "holdShortcutsDescription": "Mantenga pulsada una tecla para cambiar temporalmente a otra herramienta. Liberar la tecla vuelve a la herramienta anterior.",
-  "key": "Clave"
+  "key": "Clave",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
