@@ -48,7 +48,7 @@ $Res call({
 });
 
 
-$UtilitiesStateCopyWith<$Res> get utilities;$ViewOptionCopyWith<$Res> get viewOption;
+$CameraViewportCopyWith<$Res> get cameraViewport;$UtilitiesStateCopyWith<$Res> get utilities;$ViewOptionCopyWith<$Res> get viewOption;
 
 }
 /// @nodoc
@@ -108,6 +108,15 @@ as bool,
   ));
 }
 /// Create a copy of CurrentIndex
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CameraViewportCopyWith<$Res> get cameraViewport {
+  
+  return $CameraViewportCopyWith<$Res>(_self.cameraViewport, (value) {
+    return _then(_self.copyWith(cameraViewport: value));
+  });
+}/// Create a copy of CurrentIndex
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -264,7 +273,7 @@ $Res call({
 });
 
 
-@override $UtilitiesStateCopyWith<$Res> get utilities;@override $ViewOptionCopyWith<$Res> get viewOption;
+@override $CameraViewportCopyWith<$Res> get cameraViewport;@override $UtilitiesStateCopyWith<$Res> get utilities;@override $ViewOptionCopyWith<$Res> get viewOption;
 
 }
 /// @nodoc
@@ -325,6 +334,15 @@ as bool,
 }
 
 /// Create a copy of CurrentIndex
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CameraViewportCopyWith<$Res> get cameraViewport {
+  
+  return $CameraViewportCopyWith<$Res>(_self.cameraViewport, (value) {
+    return _then(_self.copyWith(cameraViewport: value));
+  });
+}/// Create a copy of CurrentIndex
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

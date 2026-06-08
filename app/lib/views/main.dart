@@ -342,6 +342,8 @@ class _ProjectPageState extends State<ProjectPage> {
           CameraViewport.unbaked(
             backgrounds: backgrounds,
             unbakedElements: renderers,
+            visibleElements: renderers,
+            visibleUnbakedElements: renderers,
           ),
           embedding: embedding,
           networkingService: networkingService,
