@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Αναμονή Συντομεύσεων",
   "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
-  "key": "Κλειδί"
+  "key": "Κλειδί",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
