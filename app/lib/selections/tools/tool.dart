@@ -19,6 +19,8 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             TextureTool e => TextureToolSelection([e]),
             BarcodeTool e => BarcodeToolSelection([e]),
             PolygonTool e => PolygonToolSelection([e]),
+            SelectTool e => SelectToolSelection([e]),
+            SpacerTool e => SpacerToolSelection([e]),
             _ => ToolSelection<T>([selected]),
           }
           as ToolSelection<T>;
