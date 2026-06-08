@@ -138,6 +138,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   zoomPosition:
       $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
       ZoomPosition.bottomRight,
+  propertyPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['propertyPosition']) ??
+      ZoomPosition.topRight,
   lastVersion: json['lastVersion'] as String?,
   defaultRemote: json['defaultRemote'] as String? ?? '',
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
@@ -265,6 +268,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
   'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
+  'propertyPosition': _$ZoomPositionEnumMap[instance.propertyPosition]!,
   'lastVersion': instance.lastVersion,
   'defaultRemote': instance.defaultRemote,
   'nativeTitleBar': instance.nativeTitleBar,
