@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "按住快捷键",
   "holdShortcutsDescription": "按住键暂时切换到另一个工具。释放键切换回上一个工具。",
-  "key": "关键字"
+  "key": "关键字",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
