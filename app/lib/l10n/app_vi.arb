@@ -1143,7 +1143,6 @@
   "changeCollection": "Đổi bộ sưu tập",
   "collections": "Các bộ sưu tập",
   "fullSelection": "Chọn toàn bộ",
-  "fullSelectionDescription": "Yêu cầu phần tử nằm hoàn toàn trong hộp chọn để chọn.",
   "collection": "Bộ sưu tập",
   "defaultCollection": "Bộ sưu tập mặc định",
   "scroll": "Cuộn",

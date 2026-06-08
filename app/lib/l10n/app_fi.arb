@@ -1143,7 +1143,6 @@
   "changeCollection": "Vaihda kokoelmaa",
   "collections": "Kokoelmat",
   "fullSelection": "Täysi valinta",
-  "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
   "collection": "Kokoelma",
   "defaultCollection": "Oletus kokoelma",
   "scroll": "Vieritä",

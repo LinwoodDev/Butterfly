@@ -1143,7 +1143,6 @@
   "changeCollection": "變更集合",
   "collections": "集合",
   "fullSelection": "全選範圍",
-  "fullSelectionDescription": "僅選取完全位於選取框內的元素。",
   "collection": "集合",
   "defaultCollection": "預設集合",
   "scroll": "捲動",

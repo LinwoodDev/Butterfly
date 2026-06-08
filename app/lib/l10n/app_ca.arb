@@ -1143,7 +1143,6 @@
   "changeCollection": "Canvia col·lecció",
   "collections": "Col·leccions",
   "fullSelection": "Selecció completa",
-  "fullSelectionDescription": "Requereix que els elements estiguin totalment dins del quadre de selecció per seleccionar-los.",
   "collection": "Col·lecció",
   "defaultCollection": "Col·lecció per defecte",
   "scroll": "Desplaça",
