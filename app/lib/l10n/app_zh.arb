@@ -1143,7 +1143,6 @@
   "changeCollection": "更改收藏",
   "collections": "合集",
   "fullSelection": "全选",
-  "fullSelectionDescription": "需要元素完全在选择框内。",
   "collection": "收藏",
   "defaultCollection": "默认收藏",
   "scroll": "滚动",

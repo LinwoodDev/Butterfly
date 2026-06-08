@@ -1143,7 +1143,6 @@
   "changeCollection": "컬렉션 변경",
   "collections": "컬렉션",
   "fullSelection": "전체 선택",
-  "fullSelectionDescription": "선택하려면 요소가 선택 상자 안에 완전히 포함되어야 합니다.",
   "collection": "컬렉션",
   "defaultCollection": "기본 컬렉션",
   "scroll": "스크롤",

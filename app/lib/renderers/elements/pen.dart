@@ -389,7 +389,10 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(Rect rect, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     // Quick bounds check first
     if (!boundsRect.overlaps(rect)) {
       return false;
@@ -404,7 +407,7 @@ class PathHitCalculator extends HitCalculator {
 
     var p1 = _rotatePoint(points[0]);
 
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       if (!rect.contains(p1)) return false;
 
       // All segments must be fully inside the rect
@@ -430,11 +433,14 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (points.isEmpty) return false;
     if (!_rectIntersectsPolygonBounds(boundsRect, polygon)) return false;
 
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       // All points must be inside the polygon
       for (final point in points) {
         final rotated = _rotatePoint(point);

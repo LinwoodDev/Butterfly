@@ -41,7 +41,7 @@ part 'tools/eraser.dart';
 part 'tools/grid.dart';
 part 'tools/label.dart';
 part 'tools/laser.dart';
-part 'tools/selection.dart';
+part 'tools/select.dart';
 part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
 part 'tools/polygon.dart';

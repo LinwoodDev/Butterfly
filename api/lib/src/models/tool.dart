@@ -40,6 +40,29 @@ enum BarcodeType {
   const BarcodeType({this.width = 300, this.height = 300});
 }
 
+enum HitElementMode {
+  none,
+  full,
+  touchEdges,
+  touchAnywhere;
+
+  static List<HitElementMode> eraserValues() {
+    return [
+      HitElementMode.none,
+      HitElementMode.touchEdges,
+      HitElementMode.touchAnywhere,
+    ];
+  }
+
+  static List<HitElementMode> selectorValues() {
+    return [
+      HitElementMode.full,
+      HitElementMode.touchEdges,
+      HitElementMode.touchAnywhere,
+    ];
+  }
+}
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -49,6 +72,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
     @Default(SelectMode.rectangle) SelectMode mode,
+    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
   }) = SelectTool;
 
   factory Tool.hand({
@@ -104,6 +128,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
     @Default(5) double strokeWidth,
+    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
     @Default(false) bool eraseElements,
   }) = EraserTool;
 
@@ -112,6 +137,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
     @Default(5) double strokeWidth,
+    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
     @Default(false) bool eraseElements,
   }) = PathEraserTool;
 

@@ -1143,7 +1143,6 @@
   "changeCollection": "Gyűjtemény módosítása",
   "collections": "Gyűjtemények",
   "fullSelection": "Teljes kijelölés",
-  "fullSelectionDescription": "A kijelöléshez az elemeknek teljesen a kijelölődobozon belül kell lenniük.",
   "collection": "Gyűjtemény",
   "defaultCollection": "Alapértelmezett gyűjtemény",
   "scroll": "Görgetés",

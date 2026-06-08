@@ -526,6 +526,7 @@ class SelectHandler extends Handler<SelectTool> {
         rectangleSelection,
         useCollection: utilities.lockCollection,
         useLayer: utilities.lockLayer,
+        hitElementMode: data.hitElementMode,
       );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
@@ -533,6 +534,7 @@ class SelectHandler extends Handler<SelectTool> {
         lassoSelection,
         useCollection: utilities.lockCollection,
         useLayer: utilities.lockLayer,
+        hitElementMode: data.hitElementMode,
       );
       _selected.addAll(hits);
     } else {

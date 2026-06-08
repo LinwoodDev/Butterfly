@@ -1143,7 +1143,6 @@
   "changeCollection": "Promeni kolekciju",
   "collections": "Kolekcije",
   "fullSelection": "Potpuna selekcija",
-  "fullSelectionDescription": "Zahteva da elementi budu u potpunosti unutar okvira za selekciju da bi bili izabrani.",
   "collection": "Kolekcija",
   "defaultCollection": "Podrazumevana kolekcija",
   "scroll": "Skroluj",

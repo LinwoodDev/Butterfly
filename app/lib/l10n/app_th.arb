@@ -1143,7 +1143,6 @@
   "changeCollection": "เปลี่ยนคอลเล็กชัน",
   "collections": "คอลเล็กชัน",
   "fullSelection": "เลือกทั้งหมด",
-  "fullSelectionDescription": "ต้องให้องค์ประกอบอยู่ภายในกล่องเลือกอย่างเต็มที่จึงจะถูกเลือก",
   "collection": "คอลเล็กชัน",
   "defaultCollection": "คอลเล็กชันเริ่มต้น",
   "scroll": "เลื่อน",

@@ -336,7 +336,11 @@ class ShapeHitCalculator extends HitCalculator {
   bool get _isPointShape => rect.width == 0 && rect.height == 0;
 
   @override
-  bool hit(Rect rect, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
     if (_isPointShape) {
       return rect.inflate(_pointShapeHitTolerance).contains(this.rect.center);
     }
@@ -356,59 +360,65 @@ class ShapeHitCalculator extends HitCalculator {
       final radiusX = this.rect.width / 2;
       final radiusY = this.rect.height / 2;
 
-      if (full) {
-        return dx + radiusX <= halfWidth && dy + radiusY <= halfHeight;
-      } else {
-        if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
-        final nearestX = dx - halfWidth;
-        final nearestY = dy - halfHeight;
-        final normalizedX = nearestX <= 0 ? 0 : nearestX / radiusX;
-        final normalizedY = nearestY <= 0 ? 0 : nearestY / radiusY;
-        return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
-      }
+      return switch (hitElementMode) {
+        HitElementMode.full =>
+          dx + radiusX <= halfWidth && dy + radiusY <= halfHeight,
+        HitElementMode.touchEdges => () {
+          if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
+
+          // Is the rectangle fully inside the circle?
+          final farthestX = dx + halfWidth;
+          final farthestY = dy + halfHeight;
+          final normFarX = farthestX / radiusX;
+          final normFarY = farthestY / radiusY;
+          if (normFarX * normFarX + normFarY * normFarY <= 1) {
+            return false;
+          }
+
+          // Do their areas overlap?
+          final nearestX = dx - halfWidth;
+          final nearestY = dy - halfHeight;
+          final normalizedX = nearestX <= 0 ? 0 : nearestX / radiusX;
+          final normalizedY = nearestY <= 0 ? 0 : nearestY / radiusY;
+
+          return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
+        }(),
+        HitElementMode.touchAnywhere => () {
+          if (radiusX == 0 || radiusY == 0) return this.rect.overlaps(rect);
+          final nearestX = dx - halfWidth;
+          final nearestY = dy - halfHeight;
+          final normalizedX = nearestX <= 0 ? 0 : nearestX / radiusX;
+          final normalizedY = nearestY <= 0 ? 0 : nearestY / radiusY;
+          return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
+        }(),
+        _ => false, // this shouldn't happen
+      };
     }
 
     bool hitRect() {
-      final topLeft = rect.topLeft.rotate(center, rotation);
-      final topRight = rect.topRight.rotate(center, rotation);
-      final bottomLeft = rect.bottomLeft.rotate(center, rotation);
-      final bottomRight = rect.bottomRight.rotate(center, rotation);
-      if (full) {
-        final isTopLeft = isPointInPolygon([
-          topLeft,
-          topRight,
-          bottomRight,
-          bottomLeft,
-        ], this.rect.topLeft);
-        final isTopRight = isPointInPolygon([
-          topLeft,
-          topRight,
-          bottomRight,
-          bottomLeft,
-        ], this.rect.topRight);
-        final isBottomLeft = isPointInPolygon([
-          topLeft,
-          topRight,
-          bottomRight,
-          bottomLeft,
-        ], this.rect.bottomLeft);
-        final isBottomRight = isPointInPolygon([
-          topLeft,
-          topRight,
-          bottomRight,
-          bottomLeft,
-        ], this.rect.bottomRight);
-        return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
-      }
-      return isPolygonInPolygon(
-        [topLeft, topRight, bottomRight, bottomLeft],
-        [
-          this.rect.topLeft,
-          this.rect.topRight,
-          this.rect.bottomRight,
-          this.rect.bottomLeft,
-        ],
-      );
+      final topLeft = this.rect.topLeft.rotate(center, rotation);
+      final topRight = this.rect.topRight.rotate(center, rotation);
+      final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
+      final bottomRight = this.rect.bottomRight.rotate(center, rotation);
+      return switch (hitElementMode) {
+        HitElementMode.full => () {
+          final isTopLeft = rect.contains(topLeft);
+          final isTopRight = rect.contains(topRight);
+          final isBottomLeft = rect.contains(bottomLeft);
+          final isBottomRight = rect.contains(bottomRight);
+          return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
+        }(),
+        HitElementMode.touchEdges =>
+          rect.containsLine(topLeft, topRight) ||
+              rect.containsLine(topRight, bottomRight) ||
+              rect.containsLine(bottomLeft, bottomRight) ||
+              rect.containsLine(topLeft, bottomLeft),
+        HitElementMode.touchAnywhere => isPolygonInPolygon(
+          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
+          [topLeft, topRight, bottomRight, bottomLeft],
+        ),
+        _ => false, // this shouldn't happen
+      };
     }
 
     bool hitLine() {
@@ -417,36 +427,30 @@ class ShapeHitCalculator extends HitCalculator {
       return rect.containsLine(
         firstPos.rotate(center, rotation),
         secondPos.rotate(center, rotation),
-        full: full,
+        full: hitElementMode == HitElementMode.full,
       );
     }
 
     bool hitTriangle() {
-      final topCenter = this.rect.topCenter.rotate(center, rotation);
-      final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
-      final bottomRight = this.rect.bottomRight.rotate(center, rotation);
-      if (full) {
-        final isTopCenter = isPointInPolygon([
-          topCenter,
-          bottomLeft,
-          bottomRight,
-        ], this.rect.topCenter);
-        final isBottomLeft = isPointInPolygon([
-          topCenter,
-          bottomLeft,
-          bottomRight,
-        ], this.rect.bottomLeft);
-        final isBottomRight = isPointInPolygon([
-          topCenter,
-          bottomLeft,
-          bottomRight,
-        ], this.rect.bottomRight);
-        return isTopCenter && isBottomLeft && isBottomRight;
-      }
-      return isPolygonInPolygon(
-        [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-        [topCenter, bottomLeft, bottomRight],
-      );
+      final triTop = this.rect.topCenter.rotate(center, rotation);
+      final triLeft = this.rect.bottomLeft.rotate(center, rotation);
+      final triRight = this.rect.bottomRight.rotate(center, rotation);
+
+      return switch (hitElementMode) {
+        HitElementMode.full =>
+          rect.contains(triTop) &&
+              rect.contains(triLeft) &&
+              rect.contains(triRight),
+        HitElementMode.touchEdges =>
+          rect.containsLine(triRight, triTop) ||
+              rect.containsLine(triTop, triLeft) ||
+              rect.containsLine(triLeft, triRight),
+        HitElementMode.touchAnywhere => isPolygonInPolygon(
+          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
+          [triTop, triLeft, triRight],
+        ),
+        _ => false, // this shouldn't happen
+      };
     }
 
     return switch (shape) {
@@ -458,7 +462,11 @@ class ShapeHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
     final center = rect.center;
     if (_isPointShape) return isPointInPolygon(polygon, center);
     // use isPointInPolygon
@@ -472,12 +480,16 @@ class ShapeHitCalculator extends HitCalculator {
           center,
           rotation,
         );
-        if (full) {
-          return isPolygonInPolygon(polygon, [firstPosition, secondPosition]) &&
-              isPointInPolygon(polygon, firstPosition) &&
-              isPointInPolygon(polygon, secondPosition);
-        }
-        return isPolygonInPolygon(polygon, [firstPosition, secondPosition]);
+        var linePoints = [firstPosition, secondPosition];
+        var inside = isPolygonInPolygon(polygon, linePoints);
+        return switch (hitElementMode) {
+          HitElementMode.full =>
+            inside &&
+                isPointInPolygon(polygon, firstPosition) &&
+                isPointInPolygon(polygon, secondPosition),
+          HitElementMode.touchEdges || HitElementMode.touchAnywhere => inside,
+          _ => false, // this shouldn't happen
+        };
       case CircleShape():
         final steps = 36;
         final ellipsePoints = List.generate(steps, (i) {
@@ -488,46 +500,50 @@ class ShapeHitCalculator extends HitCalculator {
           return (center + offset).rotate(center, rotation);
         });
         final inside = isPolygonInPolygon(polygon, ellipsePoints);
-        if (full) {
-          return inside &&
-              ellipsePoints.every((p) => isPointInPolygon(polygon, p));
-        }
-        return inside;
+        return switch (hitElementMode) {
+          HitElementMode.full =>
+            inside && ellipsePoints.every((p) => isPointInPolygon(polygon, p)),
+          HitElementMode.touchEdges =>
+            inside && !polygon.every((p) => isPointInPolygon(ellipsePoints, p)),
+          HitElementMode.touchAnywhere => inside,
+          _ => false, // this shouldn't happen
+        };
       case RectangleShape():
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        final polygonInPolygon = isPolygonInPolygon(polygon, [
-          topLeft,
-          topRight,
-          bottomRight,
-          bottomLeft,
-        ]);
-        if (full) {
-          return polygonInPolygon &&
-              isPointInPolygon(polygon, topLeft) &&
-              isPointInPolygon(polygon, topRight) &&
-              isPointInPolygon(polygon, bottomRight) &&
-              isPointInPolygon(polygon, bottomLeft);
-        }
-        return polygonInPolygon;
+        final rectPoints = [topLeft, topRight, bottomRight, bottomLeft];
+        final inside = isPolygonInPolygon(polygon, rectPoints);
+        return switch (hitElementMode) {
+          HitElementMode.full =>
+            inside &&
+                isPointInPolygon(polygon, topLeft) &&
+                isPointInPolygon(polygon, topRight) &&
+                isPointInPolygon(polygon, bottomRight) &&
+                isPointInPolygon(polygon, bottomLeft),
+          HitElementMode.touchEdges =>
+            inside && !polygon.every((p) => isPointInPolygon(rectPoints, p)),
+          HitElementMode.touchAnywhere => inside,
+          _ => false, // this shouldn't happen
+        };
       case TriangleShape():
         final topCenter = rect.topCenter.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        final polygonInPolygon = isPolygonInPolygon(polygon, [
-          topCenter,
-          bottomLeft,
-          bottomRight,
-        ]);
-        if (full) {
-          return polygonInPolygon &&
-              isPointInPolygon(polygon, topCenter) &&
-              isPointInPolygon(polygon, bottomLeft) &&
-              isPointInPolygon(polygon, bottomRight);
-        }
-        return polygonInPolygon;
+        var triPoints = [topCenter, bottomLeft, bottomRight];
+        final inside = isPolygonInPolygon(polygon, triPoints);
+        return switch (hitElementMode) {
+          HitElementMode.full =>
+            inside &&
+                isPointInPolygon(polygon, topCenter) &&
+                isPointInPolygon(polygon, bottomLeft) &&
+                isPointInPolygon(polygon, bottomRight),
+          HitElementMode.touchEdges =>
+            inside && !polygon.every((p) => isPointInPolygon(triPoints, p)),
+          HitElementMode.touchAnywhere => inside,
+          _ => false, // this shouldn't happen
+        };
     }
   }
 }

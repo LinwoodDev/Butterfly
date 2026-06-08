@@ -1143,7 +1143,6 @@
   "changeCollection": "Изменить коллекцию",
   "collections": "Коллекции",
   "fullSelection": "Полная выборка",
-  "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
   "collection": "Коллекция",
   "defaultCollection": "Коллекция по умолчанию",
   "scroll": "Прокрутка",

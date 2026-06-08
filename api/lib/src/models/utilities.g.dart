@@ -12,7 +12,6 @@ UtilitiesState _$UtilitiesStateFromJson(Map json) => UtilitiesState(
   lockZoom: json['lockZoom'] as bool? ?? false,
   lockHorizontal: json['lockHorizontal'] as bool? ?? false,
   lockVertical: json['lockVertical'] as bool? ?? false,
-  fullSelection: json['fullSelection'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$UtilitiesStateToJson(UtilitiesState instance) =>
@@ -22,5 +21,4 @@ Map<String, dynamic> _$UtilitiesStateToJson(UtilitiesState instance) =>
       'lockZoom': instance.lockZoom,
       'lockHorizontal': instance.lockHorizontal,
       'lockVertical': instance.lockVertical,
-      'fullSelection': instance.fullSelection,
     };

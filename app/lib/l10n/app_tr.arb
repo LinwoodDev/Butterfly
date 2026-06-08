@@ -1143,7 +1143,6 @@
   "changeCollection": "Koleksiyonu değiştir",
   "collections": "Koleksiyonlar",
   "fullSelection": "Tam seçim",
-  "fullSelectionDescription": "Seçim için ögelerin seçim kutusunun içinde tamamen olmasını gerektirir.",
   "collection": "Koleksiyon",
   "defaultCollection": "Varsayılan koleksiyon",
   "scroll": "Kaydır",

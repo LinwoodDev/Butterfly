@@ -1143,7 +1143,6 @@
   "changeCollection": "Ändra samling",
   "collections": "Samlingar",
   "fullSelection": "Fullt urval",
-  "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
   "collection": "Samling",
   "defaultCollection": "Förvald samling",
   "scroll": "Rulla",

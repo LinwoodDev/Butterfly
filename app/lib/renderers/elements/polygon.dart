@@ -216,9 +216,7 @@ class PolygonHitCalculator extends HitCalculator {
   final Rect elementRect;
   final double rotation;
   final PolygonProperty property;
-  final bool _isVisible;
   final List<Offset> _points;
-  final List<Offset> _fillPolygon;
   final Rect _bounds;
 
   PolygonHitCalculator(
@@ -226,16 +224,8 @@ class PolygonHitCalculator extends HitCalculator {
     List<PolygonPoint> points,
     this.rotation,
     this.property,
-  ) : _isVisible =
-          property.fill.a > 0 ||
-          (property.color.a > 0 && property.strokeWidth > 0),
-      _points = _rotatePoints(
+  ) : _points = _rotatePoints(
         _collectPoints(points),
-        elementRect.center,
-        rotation,
-      ),
-      _fillPolygon = _rotatePoints(
-        _collectFillPolygon(points, property.fill.a > 0),
         elementRect.center,
         rotation,
       ),
@@ -249,29 +239,51 @@ class PolygonHitCalculator extends HitCalculator {
       );
 
   static List<Offset> _collectPoints(List<PolygonPoint> points) {
+    if (points.isEmpty) return const [];
+
     final collected = <Offset>[];
-    for (final point in points) {
-      collected.add(Offset(point.x, point.y));
-      if (point.handleIn case final handleIn?) {
-        collected.add(Offset(handleIn.x, handleIn.y));
-      }
-      if (point.handleOut case final handleOut?) {
-        collected.add(Offset(handleOut.x, handleOut.y));
+    collected.add(Offset(points.first.x, points.first.y));
+
+    for (int i = 1; i < points.length; i++) {
+      final prev = points[i - 1];
+      final curr = points[i];
+
+      if (prev.handleOut != null || curr.handleIn != null) {
+        final previous = Offset(prev.x, prev.y);
+        final handleOut = Offset(
+          prev.handleOut?.x ?? prev.x,
+          prev.handleOut?.y ?? prev.y,
+        );
+        final handleIn = Offset(
+          curr.handleIn?.x ?? curr.x,
+          curr.handleIn?.y ?? curr.y,
+        );
+        final current = Offset(curr.x, curr.y);
+
+        const int steps = 10;
+        for (int step = 1; step <= steps; step++) {
+          final double t = step / steps;
+          final double mt = 1 - t;
+
+          final double x =
+              (mt * mt * mt * previous.dx) +
+              (3 * mt * mt * t * handleOut.dx) +
+              (3 * mt * t * t * handleIn.dx) +
+              (t * t * t * current.dx);
+
+          final double y =
+              (mt * mt * mt * previous.dy) +
+              (3 * mt * mt * t * handleOut.dy) +
+              (3 * mt * t * t * handleIn.dy) +
+              (t * t * t * current.dy);
+
+          collected.add(Offset(x, y));
+        }
+      } else {
+        collected.add(Offset(curr.x, curr.y));
       }
     }
     return collected;
-  }
-
-  static List<Offset> _collectFillPolygon(
-    List<PolygonPoint> points,
-    bool hasFill,
-  ) {
-    if (!hasFill || points.length < 3) return const [];
-    final polygon = points.map((point) => Offset(point.x, point.y)).toList();
-    if (polygon.length > 1 && polygon.first == polygon.last) {
-      polygon.removeLast();
-    }
-    return polygon;
   }
 
   static List<Offset> _rotatePoints(
@@ -310,61 +322,46 @@ class PolygonHitCalculator extends HitCalculator {
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
-  bool _allPointsInside(List<Offset> points, bool Function(Offset point) test) {
-    for (final point in points) {
-      if (!test(point)) return false;
-    }
-    return true;
-  }
-
   @override
-  bool hit(Rect rect, {bool full = false}) {
-    if (!_isVisible || _points.isEmpty) return false;
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
+    if (_points.isEmpty) return false;
     if (!_bounds.overlaps(rect)) return false;
-
-    if (full) {
-      return _allPointsInside(_points, rect.contains);
-    }
-
-    for (final point in _points) {
-      if (rect.contains(point)) {
-        return true;
-      }
-    }
-    if (_fillPolygon.isNotEmpty) {
-      if (isPointInPolygon(_fillPolygon, rect.center)) return true;
-      if (isPointInPolygon(_fillPolygon, rect.topLeft)) return true;
-      if (isPointInPolygon(_fillPolygon, rect.topRight)) return true;
-      if (isPointInPolygon(_fillPolygon, rect.bottomLeft)) return true;
-      if (isPointInPolygon(_fillPolygon, rect.bottomRight)) return true;
-    }
-    return false;
+    final rectPoints = [
+      rect.topLeft,
+      rect.topRight,
+      rect.bottomRight,
+      rect.bottomLeft,
+    ];
+    return switch (hitElementMode) {
+      HitElementMode.full => _points.every((p) => rect.contains(p)),
+      HitElementMode.touchEdges =>
+        isPolygonInPolygon(rectPoints, _points) &&
+            !rectPoints.every((p) => isPointInPolygon(_points, p)),
+      HitElementMode.touchAnywhere => isPolygonInPolygon(rectPoints, _points),
+      _ => false, // this shouldn't happen
+    };
   }
 
   @override
-  bool hitPolygon(List<Offset> polygon, {bool full = false}) {
-    if (!_isVisible || polygon.isEmpty || _points.isEmpty) return false;
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
+    if (hitElementMode == HitElementMode.none) return false;
+    if (polygon.isEmpty || _points.isEmpty) return false;
     if (!_bounds.overlaps(_selectionBounds(polygon))) return false;
 
-    if (full) {
-      return _allPointsInside(
-        _points,
-        (point) => isPointInPolygon(polygon, point),
-      );
-    }
-
-    for (final point in _points) {
-      if (isPointInPolygon(polygon, point)) {
-        return true;
-      }
-    }
-    if (_fillPolygon.isNotEmpty) {
-      for (final point in polygon) {
-        if (isPointInPolygon(_fillPolygon, point)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return switch (hitElementMode) {
+      HitElementMode.full => _points.every((p) => isPointInPolygon(polygon, p)),
+      HitElementMode.touchEdges =>
+        isPolygonInPolygon(polygon, _points) &&
+            !polygon.every((p) => isPointInPolygon(_points, p)),
+      HitElementMode.touchAnywhere => isPolygonInPolygon(polygon, _points),
+      _ => false, // this shouldn't happen
+    };
   }
 }

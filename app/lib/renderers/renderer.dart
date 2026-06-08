@@ -68,12 +68,15 @@ class DefaultHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(Rect rect, {bool full = false}) {
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     final element = this.rect;
     if (element == null) return false;
     if (!(boundsRect ?? element).overlaps(rect)) return false;
     final rotated = _rotatedCorners(element);
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return rotated.every(rect.contains);
     }
     return isPolygonInPolygon(rotated, [
@@ -85,7 +88,10 @@ class DefaultHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+  bool hitPolygon(
+    List<ui.Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  }) {
     if (rect == null) return false;
     final rotated = _rotatedCorners(rect!);
     final center = rect!.center;
@@ -94,7 +100,7 @@ class DefaultHitCalculator extends HitCalculator {
     final isTopRight = isPointInPolygon(polygon, rotated[1]);
     final isBottomRight = isPointInPolygon(polygon, rotated[2]);
     final isBottomLeft = isPointInPolygon(polygon, rotated[3]);
-    if (full) {
+    if (hitElementMode == HitElementMode.full) {
       return isCenter &&
           isTopLeft &&
           isTopRight &&
@@ -132,8 +138,15 @@ Projection projectPolygon(Offset axis, List<Offset> polygon) {
 }
 
 abstract class HitCalculator {
-  bool hit(Rect rect, {bool full = false});
-  bool hitPolygon(List<Offset> polygon, {bool full = false});
+  bool hit(
+    Rect rect, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
+
+  bool hitPolygon(
+    List<Offset> polygon, {
+    HitElementMode hitElementMode = HitElementMode.touchAnywhere,
+  });
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
     bool result = false;

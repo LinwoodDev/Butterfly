@@ -7,12 +7,7 @@ part 'utilities.g.dart';
 @JsonSerializable()
 final class UtilitiesState with _$UtilitiesState {
   @override
-  final bool lockCollection,
-      lockLayer,
-      lockZoom,
-      lockHorizontal,
-      lockVertical,
-      fullSelection;
+  final bool lockCollection, lockLayer, lockZoom, lockHorizontal, lockVertical;
 
   const UtilitiesState({
     this.lockCollection = false,
@@ -20,7 +15,6 @@ final class UtilitiesState with _$UtilitiesState {
     this.lockZoom = false,
     this.lockHorizontal = false,
     this.lockVertical = false,
-    this.fullSelection = false,
   });
 
   factory UtilitiesState.fromJson(Map<String, dynamic> json) =>

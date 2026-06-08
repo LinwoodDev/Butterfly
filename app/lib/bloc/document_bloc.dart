@@ -517,7 +517,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             if (rect != null) {
               final hits = (await rayCastRect(
                 rect,
-                full: false,
               )).map((e) => e.element).toList();
               final hitIndex = hits.indexOf(renderer!.element);
               if (hitIndex != -1) {
@@ -1642,14 +1641,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
-    bool? full,
+    HitElementMode? hitElementMode,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
       useCollection: useCollection,
       useLayer: useLayer,
-      full: full,
+      hitElementMode: hitElementMode,
     );
   }
 
@@ -1658,7 +1657,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
-    bool? full,
+    HitElementMode? hitElementMode,
   }) async {
     final state = this.state;
     final cubit = _currentIndexCubit;
@@ -1666,7 +1665,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     transform ??= cubit.state.transformCubit.state;
     final renderers = cubit.state.cameraViewport.visibleElements;
     if (renderers.isEmpty) return {};
-    full ??= cubit.state.utilities.fullSelection;
+    hitElementMode ??= HitElementMode.touchAnywhere;
 
     final params = _RayCastParams(
       state.invisibleLayers,
@@ -1675,7 +1674,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       transform.size,
       useCollection ? state.currentCollection : null,
       useLayer ? state.currentLayer : null,
-      full,
+      hitElementMode,
     );
 
     // Use synchronous execution for small element counts to avoid isolate overhead
@@ -1693,7 +1692,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CameraTransform? transform,
     bool useCollection = false,
     bool useLayer = false,
-    bool? full,
+    HitElementMode? hitElementMode,
   }) async {
     final state = this.state;
     final cubit = _currentIndexCubit;
@@ -1701,7 +1700,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final renderers = cubit.state.cameraViewport.visibleElements;
     if (renderers.isEmpty) return {};
     transform ??= cubit.state.transformCubit.state;
-    full ??= cubit.state.utilities.fullSelection;
+    hitElementMode ??= HitElementMode.touchAnywhere;
 
     final params = _RayCastPolygonParams(
       state.invisibleLayers,
@@ -1710,7 +1709,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       transform.size,
       useCollection ? state.currentCollection : null,
       useLayer ? state.currentLayer : null,
-      full,
+      hitElementMode,
     );
 
     // Use synchronous execution for small element counts to avoid isolate overhead
@@ -1738,8 +1737,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 }
 
-typedef HitRequest = bool Function(Offset position, [double radius]);
-
 class _SmallRenderer {
   final HitCalculator hitCalc;
   final PadElement element;
@@ -1756,7 +1753,7 @@ class _RayCastParams {
   final Rect rect;
   final double size;
   final String? collection, layer;
-  final bool full;
+  final HitElementMode hitElementMode;
 
   const _RayCastParams(
     this.invisibleLayers,
@@ -1765,7 +1762,7 @@ class _RayCastParams {
     this.size,
     this.collection,
     this.layer,
-    this.full,
+    this.hitElementMode,
   );
 }
 
@@ -1777,7 +1774,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where(
         (e) =>
-            e.value.hitCalc.hit(rect, full: params.full) &&
+            e.value.hitCalc.hit(rect, hitElementMode: params.hitElementMode) &&
             (params.collection == null ||
                 e.value.element.collection == params.collection) &&
             (params.layer == null || e.value.layer == params.layer),
@@ -1792,7 +1789,7 @@ class _RayCastPolygonParams {
   final List<Offset> polygon;
   final double size;
   final String? collection, layer;
-  final bool full;
+  final HitElementMode hitElementMode;
 
   const _RayCastPolygonParams(
     this.invisibleLayers,
@@ -1801,7 +1798,7 @@ class _RayCastPolygonParams {
     this.size,
     this.collection,
     this.layer,
-    this.full,
+    this.hitElementMode,
   );
 }
 
@@ -1812,7 +1809,10 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
       .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where(
         (e) =>
-            e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
+            e.value.hitCalc.hitPolygon(
+              params.polygon,
+              hitElementMode: params.hitElementMode,
+            ) &&
             (params.collection == null ||
                 e.value.element.collection == params.collection) &&
             (params.layer == null || e.value.layer == params.layer),
