@@ -745,19 +745,36 @@ class _MainBody extends StatelessWidget {
                 pos == ToolbarPosition.top) &&
             !isMobile) &&
         currentIndex.hideUi == HideState.visible;
+    final shareToolbarAndZoomEdge =
+        !isMobile &&
+        currentIndex.hideUi == HideState.visible &&
+        _toolbarAndZoomShareVerticalEdge(settings);
+    final combineTopToolbarAndZoom = showToolbar && shareToolbarAndZoomEdge;
+    final combineBottomToolbarAndZoom =
+        pos == ToolbarPosition.bottom && shareToolbarAndZoomEdge;
 
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (showToolbar) toolbar,
+          if (showToolbar)
+            combineTopToolbarAndZoom
+                ? _buildCombinedToolbarAndZoom(settings, toolbar)
+                : toolbar,
           if (optPos == OptionsPanelPosition.top &&
               currentIndex.hideUi == HideState.visible)
             const ToolbarView(),
           Expanded(
             child: Stack(
               children: [
-                _buildZoomAndTools(context, settings, isMobile, currentIndex),
+                _buildZoomAndTools(
+                  context,
+                  settings,
+                  isMobile,
+                  currentIndex,
+                  hideZoomTools:
+                      combineTopToolbarAndZoom || combineBottomToolbarAndZoom,
+                ),
                 Align(
                   alignment: switch (settings.propertyPosition) {
                     ZoomPosition.topRight => Alignment.topRight,
@@ -775,8 +792,45 @@ class _MainBody extends StatelessWidget {
             const ToolbarView(),
           if ((isMobile || pos == ToolbarPosition.bottom) &&
               currentIndex.hideUi == HideState.visible)
-            toolbar,
+            combineBottomToolbarAndZoom
+                ? _buildCombinedToolbarAndZoom(settings, toolbar)
+                : toolbar,
         ],
+      ),
+    );
+  }
+
+  bool _toolbarAndZoomShareVerticalEdge(ButterflySettings settings) =>
+      switch (settings.toolbarPosition) {
+        ToolbarPosition.top =>
+          settings.zoomPosition == ZoomPosition.topLeft ||
+              settings.zoomPosition == ZoomPosition.topRight,
+        ToolbarPosition.bottom =>
+          settings.zoomPosition == ZoomPosition.bottomLeft ||
+              settings.zoomPosition == ZoomPosition.bottomRight,
+        _ => false,
+      };
+
+  Widget _buildCombinedToolbarAndZoom(
+    ButterflySettings settings,
+    Widget toolbar,
+  ) {
+    final isLeft =
+        settings.zoomPosition == ZoomPosition.topLeft ||
+        settings.zoomPosition == ZoomPosition.bottomLeft;
+    final zoomTools = SizedBox(
+      width: 400,
+      child: _buildZoomToolsRow(settings, false),
+    );
+    final children = <Widget>[
+      zoomTools,
+      Expanded(child: Align(child: toolbar)),
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Row(
+        spacing: 8,
+        children: isLeft ? children : children.reversed.toList(),
       ),
     );
   }
@@ -785,8 +839,9 @@ class _MainBody extends StatelessWidget {
     BuildContext context,
     ButterflySettings settings,
     bool isMobile,
-    CurrentIndex currentIndex,
-  ) {
+    CurrentIndex currentIndex, {
+    bool hideZoomTools = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Align(
@@ -807,25 +862,7 @@ class _MainBody extends StatelessWidget {
               ZoomPosition.bottomLeft => CrossAxisAlignment.start,
             },
             children: [
-              Builder(
-                builder: (context) {
-                  final isLeft =
-                      settings.zoomPosition == ZoomPosition.topLeft ||
-                      settings.zoomPosition == ZoomPosition.bottomLeft;
-                  final children = <Widget>[
-                    if (settings.zoomEnabled)
-                      Flexible(child: ZoomView(isMobile: isMobile)),
-                    const PenOnlyToggle(),
-                  ];
-                  return Row(
-                    mainAxisAlignment: isLeft
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.end,
-                    spacing: 8,
-                    children: isLeft ? children : children.reversed.toList(),
-                  );
-                },
-              ),
+              if (!hideZoomTools) _buildZoomToolsRow(settings, isMobile),
               if (currentIndex.hideUi == HideState.touch)
                 FloatingActionButton.small(
                   tooltip: AppLocalizations.of(context).exit,
@@ -838,6 +875,23 @@ class _MainBody extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildZoomToolsRow(ButterflySettings settings, bool isMobile) {
+    final isLeft =
+        settings.zoomPosition == ZoomPosition.topLeft ||
+        settings.zoomPosition == ZoomPosition.bottomLeft;
+    final children = [
+      const PenOnlyToggle(),
+      if (settings.zoomEnabled) Flexible(child: ZoomView(isMobile: isMobile)),
+    ];
+    return Row(
+      mainAxisAlignment: isLeft
+          ? MainAxisAlignment.start
+          : MainAxisAlignment.end,
+      spacing: 8,
+      children: isLeft ? children.reversed.toList() : children,
     );
   }
 }
