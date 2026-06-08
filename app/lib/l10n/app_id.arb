@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Pintasan tahan",
   "holdShortcutsDescription": "Tahan tombol untuk sementara beralih ke alat lain. Melepas tombol akan kembali ke alat sebelumnya.",
-  "key": "Tombol"
+  "key": "Tombol",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
