@@ -1343,5 +1343,6 @@
   },
   "holdShortcuts": "Запустить ярлыки",
   "holdShortcutsDescription": "Удерживайте клавишу для временного переключения на другой инструмент. Отпустите клавишу обратно на предыдущий инструмент.",
-  "key": "Спецификация"
+  "key": "Спецификация",
+  "bringMovedElementsToFront": "Bring moved elements to front"
 }
