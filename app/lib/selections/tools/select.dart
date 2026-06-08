@@ -13,7 +13,7 @@ class SelectToolSelection extends ToolSelection<SelectTool> {
       ListTile(
         title: Text(loc.mode),
         trailing: DropdownMenu<SelectMode>(
-          initialSelection: selected.first.mode,
+          initialSelection: tool.mode,
           dropdownMenuEntries: SelectMode.values
               .map(
                 (e) => DropdownMenuEntry(
