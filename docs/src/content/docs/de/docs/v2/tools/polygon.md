@@ -15,6 +15,11 @@ Mit diesem Werkzeug können Sie eigene Formen erstellen.
 4. Wenn Sie den ausgewählten Punkt entfernen möchten, klicken Sie in der Symbolleiste auf die Schaltfläche `Löschen`.
 5. Um den letzten Punkt zu bearbeiten, klicken Sie in der Symbolleiste auf die Schaltfläche `Bearbeiten`. Dadurch können Sie auf einen Punkt klicken und ihn ziehen, um ihn abzurunden.
 
+## Bézier Curves
+
+You can use this tool to create Bézier Curves which gives your shape a smooth curvature.
+To adjust the curvature around a selected point, drag on the paper until a tangent line appears.
+
 ## Symbolleiste
 
 Die Symbolleiste enthält die folgenden Schaltflächen:

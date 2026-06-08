@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Asetukset
 
-| Ominaisuus |            Oletus           | Kuvaus                 |
-| ---------: | :-------------------------: | :--------------------- |
-|       Koko | (20, 20) | The size of grid cells |
-|     Offset |  (0, 0)  | The offset of the grid |
-|       Väri |            Musta            | The color of the grid  |
+|            Ominaisuus |            Oletus           | Kuvaus                                                                                                 |
+| --------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|                  Koko | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|                Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|                  Väri |            Musta            | The color of the grid.                                                                 |
+|                Stroke |              1              | The width of the grid lines.                                                           |
+| Lähennys riippuvainen |           epätosi           | Changes the grid stroke width based on the zoom level.                                 |
+|         Asema riippuu |           epätosi           | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

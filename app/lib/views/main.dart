@@ -84,14 +84,15 @@ class _ProjectPageState extends State<ProjectPage> {
         oldWidget.type != widget.type ||
         !identical(oldWidget.data, widget.data) ||
         oldWidget.uri != widget.uri) {
-      _disposeDocumentState();
+      _disposeDocumentState(oldWidget.embedding);
       _load();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _disposeDocumentState() {
+  void _disposeDocumentState([Embedding? embedding]) {
     _loadGeneration++;
+    (embedding ?? widget.embedding)?.handler?.unregister();
     final bloc = _bloc;
     _bloc = null;
     _currentIndexCubit = null;
@@ -360,6 +361,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);
       });
+      embedding?.handler?.register(context, _bloc!);
       runtimeCommitted = true;
       pendingAssetService = null;
       pendingTransformCubit = null;
@@ -400,7 +402,6 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   void dispose() {
-    widget.embedding?.handler?.unregister();
     _closeSubscription.dispose();
     _disposeDocumentState();
     _searchController.dispose();
@@ -667,9 +668,11 @@ class _MainBody extends StatelessWidget {
       centered: true,
       direction: settings.toolbarPosition.axis,
     );
+    final navigatorRailEnabled =
+        settings.navigationRail || currentIndex.embedding != null;
     final showNavigator =
         isLarge &&
-        settings.navigationRail &&
+        navigatorRailEnabled &&
         !windowState.fullScreen &&
         state is DocumentLoadSuccess &&
         currentIndex.hideUi == HideState.visible;

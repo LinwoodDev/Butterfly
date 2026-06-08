@@ -10,3 +10,7 @@ Create a new tool by clicking on the plus icon. Change the tool order by draggin
 Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
 
 Le nom de l'outil s'affichera sous forme d'info-bulle lors du survol de l'outil.
+
+## Temporary tools
+
+There can be only one temporary tool at a time. It appears on the left of the toolbar and will disappear when another tool is selected.

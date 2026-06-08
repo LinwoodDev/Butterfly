@@ -14,8 +14,11 @@ Inputs get snapped to the grid.
 
 ## Konfigurace
 
-|  Majetek |           Výchozí           | L 343, 22.12.2009, s. 1). |
-| -------: | :-------------------------: | :---------------------------------------------------------------------------------------- |
-| Velikost | (20, 20) | The size of grid cells                                                                    |
-|   Offset |  (0, 0)  | The offset of the grid                                                                    |
-|    Barva |            Černý            | The color of the grid                                                                     |
+|             Majetek |           Výchozí           | L 343, 22.12.2009, s. 1).              |
+| ------------------: | :-------------------------: | :----------------------------------------------------------------------------------------------------- |
+|            Velikost | (20, 20) | The size of the grid cells on the x and y axis.                                        |
+|              Offset |  (0, 0)  | The offset of the grid on the x and y axis.                                            |
+|               Barva |            Černý            | The color of the grid.                                                                 |
+|              Stroke |              1              | The width of the grid lines.                                                           |
+|  Přiblížení závislé |           nepravda          | Changes the grid stroke width based on the zoom level.                                 |
+| Závislost na poloze |           nepravda          | Makes the grid depend on the canvas position instead of staying fixed on the viewport. |

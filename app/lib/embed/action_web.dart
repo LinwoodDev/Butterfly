@@ -40,6 +40,7 @@ EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
   void listener(html.Event event) {
     if (event.isA<html.MessageEvent>()) {
       final messageEvent = event as html.MessageEvent;
+      if (event.type == 'message' && messageEvent.source == null) return;
       final data = messageEvent.data;
       if (data.isA<JSObject>()) {
         final objectData = data as JSObject;

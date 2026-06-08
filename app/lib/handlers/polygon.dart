@@ -448,6 +448,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
     final element = _element;
     return PolygonToolbarView(
+      bloc: bloc,
       tool: element == null ? data : data.copyWith(property: element.property),
       hasPoints: (element?.points.length ?? 0) > 0,
       onToolChanged: (tool) => _changeTool(bloc, tool),
