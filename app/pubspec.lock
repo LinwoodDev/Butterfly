@@ -476,18 +476,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_secure_storage
-      sha256: "7686b1d6a29985dcbb808c59518226e603e3bfa7c0ddfd1a0d00e4cda77c868e"
+      sha256: "380a129f7d5d25cdb560050ae23dd0cf74bf301f41c0241e4c59c9b55cb87ac0"
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.1"
+    version: "11.0.0-beta.1"
   flutter_secure_storage_darwin:
     dependency: transitive
     description:
       name: flutter_secure_storage_darwin
-      sha256: "82329fa5cdf343773b1b6897dea959105a29f092454259edff92f9f6637e8149"
+      sha256: ac6d76a752de0cd738334eb4b21743fc4943f449f5b6e308f18838b048c02ac0
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   flutter_secure_storage_linux:
     dependency: transitive
     description:
@@ -761,8 +761,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "687c9a21fbb45fe33aff6872838183af71e3c9c7"
-      resolved-ref: "687c9a21fbb45fe33aff6872838183af71e3c9c7"
+      ref: "4e752615dd91f264cca97bf6a5e95447d2bb3764"
+      resolved-ref: "4e752615dd91f264cca97bf6a5e95447d2bb3764"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -818,7 +818,7 @@ packages:
     source: git
     version: "0.0.1"
   meta:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: meta
       sha256: "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349"

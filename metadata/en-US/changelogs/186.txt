@@ -1,0 +1,11 @@
+* Add different eraser and selector modes ([#1111](https://github.com/LinwoodDev/Butterfly/issues/1111))
+* Add subtype tool switching for selection and spacer tools ([#1122](https://github.com/LinwoodDev/Butterfly/issues/1122))
+* Add property view position setting ([#1100](https://github.com/LinwoodDev/Butterfly/issues/1100))
+* Add bring moved elements to front option ([#1098](https://github.com/LinwoodDev/Butterfly/issues/1098))
+* Combine toolbar and zoom controls ([#1079](https://github.com/LinwoodDev/Butterfly/issues/1079))
+* Use Android SAF by default
+* Enable multi-tap input shortcuts by default
+* Improve clipboard and import handling ([#1103](https://github.com/LinwoodDev/Butterfly/issues/1103))
+* Define polygons as strokes ([#1111](https://github.com/LinwoodDev/Butterfly/issues/1111))
+
+Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
