@@ -244,7 +244,7 @@ class ButterflyFileSystem {
       onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _documentCache[key] = system;
     return system;
@@ -271,7 +271,7 @@ class ButterflyFileSystem {
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _templateConfig.variant),
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _templateCache[key] = system;
     return system;
@@ -292,7 +292,7 @@ class ButterflyFileSystem {
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _packConfig.variant),
       createDefault: _createDefaultPacks,
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _packCache[key] = system;
     return system;

@@ -194,8 +194,6 @@ enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
-const kMultiTapInputShortcutsFlag = 'multiTapInputShortcuts';
-
 @freezed
 sealed class FavoriteLocation with _$FavoriteLocation {
   const FavoriteLocation._();

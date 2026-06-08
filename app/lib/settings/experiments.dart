@@ -29,16 +29,6 @@ class ExperimentsSettingsPage extends StatelessWidget {
       description: AppLocalizations.of(context).edgePanAreaSwitching,
       icon: PhosphorIcons.cursor,
     ),
-    (
-      name: kMultiTapInputShortcutsFlag,
-      description: 'Multi-tap input shortcuts',
-      icon: PhosphorIcons.cursorClick,
-    ),
-    (
-      name: 'useAndroidSaf',
-      description: AppLocalizations.of(context).useAndroidSaf,
-      icon: PhosphorIcons.folder,
-    ),
   ];
 
   static const Map<String, String> _featureHelps = {

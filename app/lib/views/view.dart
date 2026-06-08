@@ -50,10 +50,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool? _isScalingDisabled;
   Animation<Offset>? _positionAnimation;
 
-  final List<PointerEvent> _bufferedEvents = [];
   final Map<int, PointerDeviceKind> _pointerKinds = {};
-  final Map<int, Offset> _tapStartPositions = {};
-  bool _isTapGesture = false;
   Timer? _tapTimer;
   _TapDetails? _lastTap;
   int _slideAnimationId = 0;
@@ -62,12 +59,6 @@ class _MainViewViewportState extends State<MainViewViewport>
   static const Duration _multiTapResolveDelay = Duration(milliseconds: 250);
   static const double _multiTapDistance = 18;
   static const String _longPressShortcutId = 'long_press';
-
-  void _resetTapGesture() {
-    _bufferedEvents.clear();
-    _tapStartPositions.clear();
-    _isTapGesture = false;
-  }
 
   bool _isMouseOrPen(PointerDeviceKind kind) =>
       kind == PointerDeviceKind.mouse ||
@@ -107,17 +98,6 @@ class _MainViewViewportState extends State<MainViewViewport>
       timeStamp: event.timeStamp,
       count: tapCount,
     );
-  }
-
-  bool _multiTapShortcutsEnabled(PointerDeviceKind kind) {
-    final settings = context.read<SettingsCubit>().state;
-    final config = settings.inputConfiguration;
-    final touchShortcutConfigured =
-        kind == PointerDeviceKind.touch &&
-        (config.doubleTouchShortcut != null ||
-            config.tripleTouchShortcut != null);
-    return touchShortcutConfigured ||
-        settings.hasFlag(kMultiTapInputShortcutsFlag);
   }
 
   String? _getMouseShortcut(
@@ -184,7 +164,6 @@ class _MainViewViewportState extends State<MainViewViewport>
   }
 
   bool _hasConfiguredMultiTapShortcut(PointerDownEvent event) {
-    if (!_multiTapShortcutsEnabled(event.kind)) return false;
     final config = context.read<SettingsCubit>().state.inputConfiguration;
     final doubleTap = (
       kind: event.kind,
@@ -263,12 +242,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     CurrentIndexCubit cubit,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool, {
-    bool replayBufferedEvents = true,
-  }) {
-    if (!_multiTapShortcutsEnabled(event.kind)) {
-      return;
-    }
+  ) {
     final tap = _lastTap;
     if (tap == null ||
         !_isMousePenOrTouch(event.kind) ||
@@ -282,22 +256,7 @@ class _MainViewViewportState extends State<MainViewViewport>
     _tapTimer?.cancel();
     final delay = tap.count == 1 ? _multiTapTimeout : _multiTapResolveDelay;
     _tapTimer = Timer(delay, () async {
-      if (replayBufferedEvents && !_isTapGesture) return;
-      if (shortcutId == null || shortcutId.isEmpty) {
-        if (replayBufferedEvents) {
-          await _flushBufferedEvents(
-            cubit,
-            getHandler,
-            getEventContext,
-            changeTemporaryTool,
-          );
-          _resetTapGesture();
-        }
-        return;
-      }
-      if (replayBufferedEvents) {
-        _resetTapGesture();
-      }
+      if (shortcutId == null || shortcutId.isEmpty) return;
       _invokeInputShortcut(
         shortcutId,
         event,
@@ -307,56 +266,6 @@ class _MainViewViewportState extends State<MainViewViewport>
         getEventContext,
       );
     });
-  }
-
-  Future<void> _flushBufferedEvents(
-    CurrentIndexCubit cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool, {
-    bool preserveScalingState = false,
-  }) async {
-    final events = List<PointerEvent>.from(_bufferedEvents);
-    _bufferedEvents.clear();
-    _tapStartPositions.clear();
-    for (final e in events) {
-      if (e is PointerDownEvent) {
-        _isScalingDisabled = e.kind == PointerDeviceKind.trackpad
-            ? false
-            : preserveScalingState && _isScalingDisabled == false
-            ? false
-            : null;
-        _pointerKinds[e.pointer] = e.kind;
-        cubit.addPointer(e.pointer);
-        cubit.setButtons(e.buttons);
-        final handler = getHandler();
-        if (handler.canChange(e, getEventContext())) {
-          await changeTemporaryTool(e.kind, e.buttons);
-        }
-        if (_isScalingDisabled ?? true) {
-          await getHandler().onPointerDown(e, getEventContext());
-        }
-      } else if (e is PointerMoveEvent) {
-        cubit.updateLastPosition(e.localPosition);
-        if (_isScalingDisabled ?? true) {
-          await getHandler().onPointerMove(e, getEventContext());
-        }
-      } else if (e is PointerUpEvent) {
-        cubit.updateLastPosition(e.localPosition);
-        if (_isScalingDisabled ?? true) {
-          await getHandler().onPointerUp(e, getEventContext());
-        }
-        cubit.removePointer(e.pointer);
-        _pointerKinds.remove(e.pointer);
-      } else if (e is PointerCancelEvent) {
-        cubit.removePointer(e.pointer);
-        _pointerKinds.remove(e.pointer);
-        cubit.removeButtons();
-        if (cubit.state.pointers.isEmpty) {
-          _isScalingDisabled = null;
-        }
-      }
-    }
   }
 
   Future<void> _handlePointerDown(
@@ -397,7 +306,6 @@ class _MainViewViewportState extends State<MainViewViewport>
     DocumentLoaded state,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
     VoidCallback delayBake,
   ) async {
     final renderObject = context.findRenderObject();
@@ -437,7 +345,6 @@ class _MainViewViewportState extends State<MainViewViewport>
     CurrentIndexCubit cubit,
     _HandlerGetter getHandler,
     _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
   ) async {
     cubit.updateLastPosition(event.localPosition);
     if (_isScalingDisabled ?? true) {
@@ -445,23 +352,10 @@ class _MainViewViewportState extends State<MainViewViewport>
     }
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
-    _scheduleMultiTapShortcut(
-      event,
-      cubit,
-      getHandler,
-      getEventContext,
-      changeTemporaryTool,
-      replayBufferedEvents: false,
-    );
+    _scheduleMultiTapShortcut(event, cubit, getHandler, getEventContext);
   }
 
-  Future<void> _handlePointerCancel(
-    PointerCancelEvent event,
-    CurrentIndexCubit cubit,
-    _HandlerGetter getHandler,
-    _EventContextGetter getEventContext,
-    _TemporaryToolChanger changeTemporaryTool,
-  ) async {
+  void _handlePointerCancel(PointerCancelEvent event, CurrentIndexCubit cubit) {
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     cubit.removeButtons();
@@ -881,7 +775,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       cubit,
                                       getHandler,
                                       getEventContext,
-                                      changeTemporaryTool,
                                     ),
                                     behavior: HitTestBehavior.translucent,
                                     onPointerHover: (event) {
@@ -900,17 +793,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           state,
                                           getHandler,
                                           getEventContext,
-                                          changeTemporaryTool,
                                           delayBake,
                                         ),
                                     onPointerCancel: (event) =>
-                                        _handlePointerCancel(
-                                          event,
-                                          cubit,
-                                          getHandler,
-                                          getEventContext,
-                                          changeTemporaryTool,
-                                        ),
+                                        _handlePointerCancel(event, cubit),
                                     child: _buildCanvas(
                                       currentIndex,
                                       cubit,
