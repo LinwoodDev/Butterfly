@@ -246,6 +246,8 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
   showThumbnails: json['showThumbnails'] as bool? ?? true,
+  bringMovedElementsToFront:
+      json['bringMovedElementsToFront'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -316,6 +318,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
   'showThumbnails': instance.showThumbnails,
+  'bringMovedElementsToFront': instance.bringMovedElementsToFront,
 };
 
 const _$ThemeModeEnumMap = {

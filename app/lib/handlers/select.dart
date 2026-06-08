@@ -220,6 +220,11 @@ class SelectHandler extends Handler<SelectTool> {
       return [];
     }
 
+    if (state.settingsCubit.state.bringMovedElementsToFront) {
+      bloc.add(
+        ElementsArranged(Arrangement.front, current.map((e) => e.id).toList()),
+      );
+    }
     bloc.add(
       ElementsChanged(
         Map.fromEntries(

@@ -47,7 +47,7 @@ dependencies:
   camera_windows: ^0.2.1+9
   window_manager: ^0.5.0
   flex_color_scheme: ^8.0.0
-  json_annotation: ^4.11.0
+  json_annotation: ^4.12.0
   freezed_annotation: ^3.0.0
   http: ^1.2.1
   flutter_secure_storage: ^10.0.0-beta.2
