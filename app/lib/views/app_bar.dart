@@ -796,15 +796,21 @@ class MainPopupMenu extends StatelessWidget {
                           PhosphorIconsLight.door,
                         ),
                         child: Text(AppLocalizations.of(context).exit),
-                        onPressed: () {
+                        onPressed: () async {
                           final embedding = state.embedding!;
                           if (embedding.isInternal) {
                             embedding.onExit?.call();
                             return;
                           }
+                          final bloc = context.read<DocumentBloc>();
+                          final documentState = bloc.state;
+                          if (documentState is! DocumentLoaded) return;
                           sendEmbedMessage(
                             'exit',
-                            context.read<DocumentBloc>().state.saveBytes(),
+                            await documentState.saveBytes(
+                              null,
+                              bloc.currentIndexCubit.state.viewOption,
+                            ),
                           );
                         },
                       ),

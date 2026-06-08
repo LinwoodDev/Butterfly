@@ -64,6 +64,11 @@ messages to the iframe and listens for messages from it.
       console.log('Save requested by the embed', documentBytes);
     }
 
+    if (type === 'exit') {
+      const documentBytes = Array.from(message);
+      console.log('Exit requested by the embed', documentBytes);
+    }
+
     if (type === 'change') {
       console.log('Document changed', message);
     }

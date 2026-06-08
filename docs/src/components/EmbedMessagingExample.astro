@@ -232,6 +232,15 @@
       preview.replaceChildren(artifact);
     }
 
+    function showError(message) {
+      clearArtifactUrl();
+      resultType.textContent = 'Error';
+      const detail = typeof message === 'object' && message !== null
+        ? message.message ?? JSON.stringify(message)
+        : message;
+      preview.replaceChildren(detail || 'Butterfly reported an error.');
+    }
+
     frame.addEventListener('load', () => {
       responseTitle.textContent = 'Iframe loaded';
       responseDetail.textContent = 'The embedded app is ready to receive browser messages once the document is visible.';
@@ -316,8 +325,12 @@
         preview.replaceChildren(wrapper);
       }
 
-      if (type === 'getData' || type === 'save' || type === 'change') {
+      if (type === 'getData' || type === 'save' || type === 'change' || type === 'exit') {
         showDocumentDownload(type, message);
+      }
+
+      if (type === 'error') {
+        showError(message);
       }
     });
   }

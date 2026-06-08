@@ -62,6 +62,14 @@ class EmbedHandler {
     return null;
   }
 
+  bool _isValidDocumentData(Uint8List bytes) {
+    try {
+      return NoteData.fromData(bytes).isValid;
+    } catch (_) {
+      return false;
+    }
+  }
+
   Uri _buildEmbedUri(Embedding embedding) => Uri(
     path: '/embed',
     queryParameters: {
@@ -110,6 +118,13 @@ class EmbedHandler {
     setDataListener ??= onEmbedMessage('setData', (message) async {
       final bytes = _messageToBytes(message);
       if (bytes == null) return;
+      if (!_isValidDocumentData(bytes)) {
+        sendEmbedMessage('error', {
+          'method': 'setData',
+          'message': 'Invalid Butterfly document data',
+        });
+        return;
+      }
       final embedding = bloc.currentIndexCubit.state.embedding;
       if (embedding == null) return;
       GoRouter.of(
