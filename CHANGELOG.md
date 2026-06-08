@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.5.3 (2026-06-08)
+
+Changes since 2.5.3-rc.1:
+* Fix PDF spread-to-pages imports rendering as gray placeholders ([#1123](https://github.com/LinwoodDev/Butterfly/issues/1123))
+* Fix PDF import using the first pages instead of the selected pages ([#1124](https://github.com/LinwoodDev/Butterfly/issues/1124))
+* Fix polygon tool color picker has no eyedropper button ([#1121](https://github.com/LinwoodDev/Butterfly/issues/1121))
+* Fix embed message handling
+
+This is a stable release, it includes all the changes from the 2.5.3 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.5.3
+
 ## 2.5.3-rc.1 (2026-06-05)
 
 * Fix polygon tool toolbar does not change currently edited element
