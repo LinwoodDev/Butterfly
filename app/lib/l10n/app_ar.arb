@@ -1162,7 +1162,8 @@
   "homeScreen": "الشاشة الرئيسة",
   "lastNote": "الملاحظة الأخيرة",
   "newNote": "ملاحظة جديدة",
-  "convertToLayer": "تحويل إلى طبقة",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "دمج",
   "@merge": {
     "description": "Merge action"
