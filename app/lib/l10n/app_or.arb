@@ -1162,7 +1162,8 @@
   "homeScreen": "ହୋମ୍ ସ୍କ୍ରିନ୍",
   "lastNote": "ଶେଷ ଟିପ୍ପଣୀ",
   "newNote": "ନୂତନ ଟିପ୍ପଣୀ",
-  "convertToLayer": "ସ୍ତରକୁ ପରିବର୍ତ୍ତନ",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "ମିଶାନ୍ତୁ",
   "@merge": {
     "description": "Merge action"
