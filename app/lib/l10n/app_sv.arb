@@ -1162,7 +1162,8 @@
   "homeScreen": "Startskärmen",
   "lastNote": "Senaste anteckning",
   "newNote": "Ny anteckning",
-  "convertToLayer": "Konvertera till lager",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Sammanfoga",
   "@merge": {
     "description": "Merge action"
