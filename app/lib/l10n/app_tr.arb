@@ -1162,7 +1162,8 @@
   "homeScreen": "Ana ekran",
   "lastNote": "Son not",
   "newNote": "Yeni not",
-  "convertToLayer": "Katmana dönüştür",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Birleştir",
   "@merge": {
     "description": "Merge action"
