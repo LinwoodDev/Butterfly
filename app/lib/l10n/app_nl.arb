@@ -1162,7 +1162,8 @@
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
   "newNote": "Nieuwe notitie",
-  "convertToLayer": "Converteren naar laag",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Samenvoegen",
   "@merge": {
     "description": "Merge action"
