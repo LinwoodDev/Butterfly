@@ -1162,7 +1162,8 @@
   "homeScreen": "홈 화면",
   "lastNote": "마지막 노트",
   "newNote": "새 노트",
-  "convertToLayer": "레이어로 변환",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "병합",
   "@merge": {
     "description": "Merge action"
