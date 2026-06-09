@@ -1456,8 +1456,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ElementsLayerConverted>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final layer = current.getLayer();
-      final elements = layer.content
+      final elements = current.page.content
           .where((element) => event.elements.contains(element.id))
           .toList();
       final newLayer = DocumentLayer(
@@ -1473,6 +1472,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       newPage = newPage.copyWith(layers: [...newPage.layers, newLayer]);
+      _saveState(emit, state: current.copyWith(page: newPage), reset: true);
+    });
+    on<ElementsLayerMoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final elements = current.page.content
+          .where((element) => event.elements.contains(element.id))
+          .toList();
+      var newPage = current.page.mapLayers((e) {
+        if (e.id == event.layerId) {
+          return e.copyWith(content: [...e.content, ...elements]);
+        }
+        return e.copyWith(
+          content: e.content
+              .where((element) => !event.elements.contains(element.id))
+              .toList(),
+        );
+      });
       _saveState(emit, state: current.copyWith(page: newPage), reset: true);
     });
     on<EncryptionChanged>((event, emit) {

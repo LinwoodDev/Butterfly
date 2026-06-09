@@ -215,6 +215,11 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     @Default('') String name,
   ]) = ElementsLayerConverted;
 
+  const factory DocumentEvent.elementsLayerMoved(
+    List<String> elements,
+    String layerId,
+  ) = ElementsLayerMoved;
+
   const factory DocumentEvent.encryptionChanged(String? password) =
       EncryptionChanged;
 

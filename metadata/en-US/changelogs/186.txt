@@ -3,6 +3,7 @@
 * Add property view position setting ([#1100](https://github.com/LinwoodDev/Butterfly/issues/1100))
 * Add bring moved elements to front option ([#1098](https://github.com/LinwoodDev/Butterfly/issues/1098))
 * Add ability to move areas together with their contents ([#1125](https://github.com/LinwoodDev/Butterfly/issues/1125))
+* Add move to layer ([#1069](https://github.com/LinwoodDev/Butterfly/issues/1069))
 * Combine toolbar and zoom controls ([#1079](https://github.com/LinwoodDev/Butterfly/issues/1079))
 * Use Android SAF by default
 * Enable multi-tap input shortcuts by default

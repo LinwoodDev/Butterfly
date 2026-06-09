@@ -561,6 +561,10 @@ DocumentEvent _$DocumentEventFromJson(
           return ElementsLayerConverted.fromJson(
             json
           );
+                case 'elementsLayerMoved':
+          return ElementsLayerMoved.fromJson(
+            json
+          );
                 case 'encryptionChanged':
           return EncryptionChanged.fromJson(
             json
@@ -4681,6 +4685,87 @@ class _$ElementsLayerConvertedCopyWithImpl<$Res>
   return _then(ElementsLayerConverted(
 null == elements ? _self._elements : elements // ignore: cast_nullable_to_non_nullable
 as List<String>,null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class ElementsLayerMoved extends DocumentEvent {
+  const ElementsLayerMoved(final  List<String> elements, this.layerId, {final  String? $type}): _elements = elements,$type = $type ?? 'elementsLayerMoved',super._();
+  factory ElementsLayerMoved.fromJson(Map<String, dynamic> json) => _$ElementsLayerMovedFromJson(json);
+
+ final  List<String> _elements;
+ List<String> get elements {
+  if (_elements is EqualUnmodifiableListView) return _elements;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_elements);
+}
+
+ final  String layerId;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ElementsLayerMovedCopyWith<ElementsLayerMoved> get copyWith => _$ElementsLayerMovedCopyWithImpl<ElementsLayerMoved>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ElementsLayerMovedToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementsLayerMoved&&const DeepCollectionEquality().equals(other._elements, _elements)&&(identical(other.layerId, layerId) || other.layerId == layerId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_elements),layerId);
+
+@override
+String toString() {
+  return 'DocumentEvent.elementsLayerMoved(elements: $elements, layerId: $layerId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ElementsLayerMovedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
+  factory $ElementsLayerMovedCopyWith(ElementsLayerMoved value, $Res Function(ElementsLayerMoved) _then) = _$ElementsLayerMovedCopyWithImpl;
+@useResult
+$Res call({
+ List<String> elements, String layerId
+});
+
+
+
+
+}
+/// @nodoc
+class _$ElementsLayerMovedCopyWithImpl<$Res>
+    implements $ElementsLayerMovedCopyWith<$Res> {
+  _$ElementsLayerMovedCopyWithImpl(this._self, this._then);
+
+  final ElementsLayerMoved _self;
+  final $Res Function(ElementsLayerMoved) _then;
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? elements = null,Object? layerId = null,}) {
+  return _then(ElementsLayerMoved(
+null == elements ? _self._elements : elements // ignore: cast_nullable_to_non_nullable
+as List<String>,null == layerId ? _self.layerId : layerId // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

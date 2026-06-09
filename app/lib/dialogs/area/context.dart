@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/layers.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -123,20 +124,18 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
       ContextMenuItem(
         onPressed: () async {
           if (pop) Navigator.of(context).pop(true);
-          final result = await showDialog<String>(
-            builder: (context) => NameDialog(),
-            context: context,
-          );
-          if (result == null) return;
-          bloc.add(
-            ElementsLayerConverted(
-              elements.map((e) => e.id).nonNulls.toList(),
-              result,
+          showDialog<void>(
+            builder: (context) => BlocProvider.value(
+              value: bloc,
+              child: MoveToLayerDialog(
+                elementIds: elements.map((e) => e.id).nonNulls.toList(),
+              ),
             ),
+            context: context,
           );
         },
         icon: const PhosphorIcon(PhosphorIconsLight.stack),
-        label: AppLocalizations.of(context).convertToLayer,
+        label: AppLocalizations.of(context).moveToLayer,
       ),
       ContextMenuGroup(
         icon: const PhosphorIcon(PhosphorIconsLight.export),

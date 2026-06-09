@@ -665,6 +665,19 @@ Map<String, dynamic> _$ElementsLayerConvertedToJson(
   'type': instance.$type,
 };
 
+ElementsLayerMoved _$ElementsLayerMovedFromJson(Map json) => ElementsLayerMoved(
+  (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+  json['layerId'] as String,
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ElementsLayerMovedToJson(ElementsLayerMoved instance) =>
+    <String, dynamic>{
+      'elements': instance.elements,
+      'layerId': instance.layerId,
+      'type': instance.$type,
+    };
+
 EncryptionChanged _$EncryptionChangedFromJson(Map json) => EncryptionChanged(
   json['password'] as String?,
   $type: json['type'] as String?,
