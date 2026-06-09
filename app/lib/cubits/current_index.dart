@@ -2554,6 +2554,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> stateChanged(
     DocumentLoadSuccess current,
     DocumentBloc bloc, {
+    DocumentLoadSuccess? oldState,
     List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
@@ -2577,6 +2578,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
+    state.handler.onDocumentUpdated(blocState, oldState);
 
     if (replacedElements != null) {
       await replaceUnbaked(blocState, [

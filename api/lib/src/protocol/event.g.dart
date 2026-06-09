@@ -475,13 +475,15 @@ Map<String, dynamic> _$AreasRemovedToJson(AreasRemoved instance) =>
 AreaChanged _$AreaChangedFromJson(Map json) => AreaChanged(
   json['name'] as String,
   Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
-  $type: json['type'] as String?,
+  json['moveContents'] as bool? ?? false,
+  json['type'] as String?,
 );
 
 Map<String, dynamic> _$AreaChangedToJson(AreaChanged instance) =>
     <String, dynamic>{
       'name': instance.name,
       'area': instance.area.toJson(),
+      'moveContents': instance.moveContents,
       'type': instance.$type,
     };
 

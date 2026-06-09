@@ -3405,11 +3405,12 @@ as List<String>,
 @JsonSerializable()
 
 class AreaChanged extends DocumentEvent {
-  const AreaChanged(this.name, this.area, {final  String? $type}): $type = $type ?? 'areaChanged',super._();
+  const AreaChanged(this.name, this.area, [this.moveContents = false, final  String? $type]): $type = $type ?? 'areaChanged',super._();
   factory AreaChanged.fromJson(Map<String, dynamic> json) => _$AreaChangedFromJson(json);
 
  final  String name;
  final  Area area;
+@JsonKey() final  bool moveContents;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -3428,16 +3429,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.area, area) || other.area == area));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreaChanged&&(identical(other.name, name) || other.name == name)&&(identical(other.area, area) || other.area == area)&&(identical(other.moveContents, moveContents) || other.moveContents == moveContents));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,area);
+int get hashCode => Object.hash(runtimeType,name,area,moveContents);
 
 @override
 String toString() {
-  return 'DocumentEvent.areaChanged(name: $name, area: $area)';
+  return 'DocumentEvent.areaChanged(name: $name, area: $area, moveContents: $moveContents)';
 }
 
 
@@ -3448,7 +3449,7 @@ abstract mixin class $AreaChangedCopyWith<$Res> implements $DocumentEventCopyWit
   factory $AreaChangedCopyWith(AreaChanged value, $Res Function(AreaChanged) _then) = _$AreaChangedCopyWithImpl;
 @useResult
 $Res call({
- String name, Area area
+ String name, Area area, bool moveContents
 });
 
 
@@ -3465,11 +3466,12 @@ class _$AreaChangedCopyWithImpl<$Res>
 
 /// Create a copy of DocumentEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? name = null,Object? area = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? name = null,Object? area = null,Object? moveContents = null,}) {
   return _then(AreaChanged(
 null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,null == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
-as Area,
+as Area,null == moveContents ? _self.moveContents : moveContents // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

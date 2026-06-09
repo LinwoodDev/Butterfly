@@ -22,6 +22,7 @@ class AreaSelection extends Selection<Area> {
             AreaChanged(
               selected.first.name,
               selected.first.copyWith(position: value.toPoint()),
+              true,
             ),
           );
         },

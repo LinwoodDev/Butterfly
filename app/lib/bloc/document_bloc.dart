@@ -1207,9 +1207,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final oldSelection = currentIndexCubit.state.selection;
       var selection = oldSelection;
       final hasInitial = event.area.isInitial;
+      Area? previousArea;
       final areas = current.page.areas.map((e) {
         if (e.name == event.name) {
           final updated = event.area;
+          previousArea = e;
           selection = _updateSelection(selection, e, updated);
           return updated;
         }
@@ -1220,7 +1222,37 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         return e;
       }).toList();
-      final currentDocument = current.page.copyWith(areas: areas);
+      var currentDocument = current.page.copyWith(areas: areas);
+      final oldArea = previousArea;
+      final movedElements = <String, PadElement>{};
+      if (event.moveContents && oldArea != null) {
+        final delta = Offset(
+          event.area.position.x - oldArea.position.x,
+          event.area.position.y - oldArea.position.y,
+        );
+        if (delta != Offset.zero) {
+          for (final renderer in currentIndexCubit.renderers) {
+            final id = renderer.element.id;
+            final rect = renderer.expandedRect ?? renderer.rect;
+            if (id == null || rect == null || !oldArea.rect.overlaps(rect)) {
+              continue;
+            }
+            final transformed = renderer.transform(position: delta);
+            if (transformed != null) {
+              movedElements[id] = transformed.element;
+            }
+          }
+          if (movedElements.isNotEmpty) {
+            currentDocument = currentDocument.mapLayers(
+              (layer) => layer.copyWith(
+                content: layer.content
+                    .map((element) => movedElements[element.id] ?? element)
+                    .toList(),
+              ),
+            );
+          }
+        }
+      }
       final shouldRepaint = currentIndexCubit.renderers.any(
         (element) =>
             element.area?.name == event.name &&
@@ -1232,7 +1264,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(page: currentDocument),
-        reset: shouldRepaint,
+        reset: shouldRepaint || movedElements.isNotEmpty,
       );
     });
     on<AreaReordered>((event, emit) {
@@ -1497,11 +1529,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       reset = resetAll;
       unbake = resetAll;
     }
+    final oldState = this.state is DocumentLoadSuccess
+        ? this.state as DocumentLoadSuccess
+        : null;
     state ??= this.state as DocumentLoadSuccess;
     emit(state);
     return currentIndexCubit.stateChanged(
       state,
       this,
+      oldState: oldState,
       addedElements: addedElements,
       replacedElements: replacedElements,
       backgrounds: backgrounds,

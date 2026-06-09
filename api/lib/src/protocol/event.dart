@@ -156,7 +156,11 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.areasRemoved(List<String> areas) = AreasRemoved;
 
-  const factory DocumentEvent.areaChanged(String name, Area area) = AreaChanged;
+  const factory DocumentEvent.areaChanged(
+    String name,
+    Area area, [
+    @Default(false) bool moveContents,
+  ]) = AreaChanged;
 
   const factory DocumentEvent.areaReordered(String name, int newIndex) =
       AreaReordered;

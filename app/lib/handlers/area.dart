@@ -10,7 +10,27 @@ class AreaHandler extends Handler<AreaTool> {
   AreaHandler(super.data);
 
   Rect? getSelectionRect() => _currentArea?.rect;
+  void _setCurrentArea(Area? area) {
+    _currentArea = area;
+    _selectionManager.select(area?.rect);
+  }
+
   void _updateSelectionRect() => _selectionManager.select(getSelectionRect());
+
+  @override
+  void onDocumentUpdated(
+    DocumentLoadSuccess state,
+    DocumentLoadSuccess? oldState,
+  ) {
+    final area = _currentArea;
+    if (area == null) return;
+    final updatedArea = state.page.getAreaByName(area.name);
+    final oldArea = oldState?.page.getAreaByName(area.name);
+    if (oldState != null && oldArea == updatedArea && area == updatedArea) {
+      return;
+    }
+    _setCurrentArea(updatedArea);
+  }
 
   Rect? get currentRect {
     if (_start == null || _end == null) return null;
@@ -69,7 +89,10 @@ class AreaHandler extends Handler<AreaTool> {
   }
 
   @override
-  void resetInput(DocumentBloc bloc) => currentRect = null;
+  void resetInput(DocumentBloc bloc) {
+    currentRect = null;
+    _setCurrentArea(null);
+  }
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
@@ -113,8 +136,7 @@ class AreaHandler extends Handler<AreaTool> {
         context.getSettings().touchSensitivity,
       );
       if (!startedTransform) {
-        _selectionManager.deselect();
-        _currentArea = null;
+        _setCurrentArea(null);
         _start = globalPos;
       }
       context.refreshForegrounds();
@@ -198,10 +220,15 @@ class AreaHandler extends Handler<AreaTool> {
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final rect = currentRect;
     if (_selectionManager.isValid) {
+      final transform = _selectionManager.getTransform();
+      final moved =
+          _selectionManager.isMoving &&
+          transform != null &&
+          transform.position != Offset.zero;
       _updateArea();
       final area = _currentArea;
       if (area != null) {
-        context.getDocumentBloc().add(AreaChanged(area.name, area));
+        context.getDocumentBloc().add(AreaChanged(area.name, area, moved));
       }
       _selectionManager.resetTransform();
       _updateSelectionRect();
@@ -246,10 +273,11 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) {
-    _currentArea = context.getPage()?.getArea(
-      context.getCameraTransform().localToGlobal(details.localPosition),
+    _setCurrentArea(
+      context.getPage()?.getArea(
+        context.getCameraTransform().localToGlobal(details.localPosition),
+      ),
     );
-    _updateSelectionRect();
     context.refresh();
   }
 
@@ -271,8 +299,7 @@ class AreaHandler extends Handler<AreaTool> {
       if (_selectionManager.selection.contains(globalPosition)) {
         area = _currentArea;
       }
-      _selectionManager.deselect();
-      _currentArea = null;
+      _setCurrentArea(null);
     }
     if (area == null) return;
     if (areas.length > 1) {

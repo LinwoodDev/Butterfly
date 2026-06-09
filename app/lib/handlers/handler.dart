@@ -227,6 +227,11 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
+  void onDocumentUpdated(
+    DocumentLoadSuccess state,
+    DocumentLoadSuccess? oldState,
+  ) {}
+
   FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
 
   FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
