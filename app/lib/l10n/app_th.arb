@@ -1162,7 +1162,8 @@
   "homeScreen": "หน้าจอหลัก",
   "lastNote": "บันทึกล่าสุด",
   "newNote": "บันทึกใหม่",
-  "convertToLayer": "แปลงเป็นเลเยอร์",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "รวม",
   "@merge": {
     "description": "Merge action"
