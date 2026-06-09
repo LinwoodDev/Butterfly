@@ -1162,7 +1162,8 @@
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
-  "convertToLayer": "Μετατροπή σε επίπεδο",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Συγχώνευση",
   "@merge": {
     "description": "Merge action"
