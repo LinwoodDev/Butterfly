@@ -1162,7 +1162,8 @@
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
-  "convertToLayer": "Convertește la nivel",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Îmbinare",
   "@merge": {
     "description": "Merge action"
