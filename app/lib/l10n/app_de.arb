@@ -1162,7 +1162,8 @@
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
   "newNote": "Neue Notiz",
-  "convertToLayer": "In Ebene konvertieren",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Zusammenführen",
   "@merge": {
     "description": "Merge action"
