@@ -1162,7 +1162,8 @@
   "homeScreen": "Startskærm",
   "lastNote": "Sidste note",
   "newNote": "Ny note",
-  "convertToLayer": "Konvertér til lag",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Flet",
   "@merge": {
     "description": "Merge action"
