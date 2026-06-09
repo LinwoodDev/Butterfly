@@ -1162,7 +1162,8 @@
   "homeScreen": "Ekran główny",
   "lastNote": "Ostatnia notatka",
   "newNote": "Nowa nota",
-  "convertToLayer": "Konwertuj na warstwę",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Połącz",
   "@merge": {
     "description": "Merge action"
