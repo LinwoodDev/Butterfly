@@ -1162,7 +1162,8 @@
   "homeScreen": "主屏幕",
   "lastNote": "最后一个笔记",
   "newNote": "新建笔记",
-  "convertToLayer": "转换为图层",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "合并",
   "@merge": {
     "description": "Merge action"
