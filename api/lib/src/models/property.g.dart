@@ -40,23 +40,110 @@ Map<String, dynamic> _$TextureElementPaintToJson(
 
 GradientElementPaint _$GradientElementPaintFromJson(Map json) =>
     GradientElementPaint(
-      start: json['start'] == null
-          ? SRGBColor.black
-          : const ColorJsonConverter().fromJson((json['start'] as num).toInt()),
-      end: json['end'] == null
-          ? SRGBColor.white
-          : const ColorJsonConverter().fromJson((json['end'] as num).toInt()),
-      angle: (json['angle'] as num?)?.toDouble() ?? 0,
+      gradient: json['gradient'] == null
+          ? const ElementGradient.linear()
+          : ElementGradient.fromJson(
+              Map<String, dynamic>.from(json['gradient'] as Map),
+            ),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$GradientElementPaintToJson(
   GradientElementPaint instance,
 ) => <String, dynamic>{
-  'start': const ColorJsonConverter().toJson(instance.start),
-  'end': const ColorJsonConverter().toJson(instance.end),
-  'angle': instance.angle,
+  'gradient': instance.gradient.toJson(),
   'type': instance.$type,
+};
+
+LinearElementGradient _$LinearElementGradientFromJson(Map json) =>
+    LinearElementGradient(
+      start: json['start'] == null
+          ? const Point(0, 0)
+          : const DoublePointJsonConverter().fromJson(json['start'] as Map),
+      end: json['end'] == null
+          ? const Point(1, 0)
+          : const DoublePointJsonConverter().fromJson(json['end'] as Map),
+      stops:
+          (json['stops'] as List<dynamic>?)
+              ?.map(
+                (e) => ElementGradientStop.fromJson(
+                  Map<String, dynamic>.from(e as Map),
+                ),
+              )
+              .toList() ??
+          const [],
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$LinearElementGradientToJson(
+  LinearElementGradient instance,
+) => <String, dynamic>{
+  'start': const DoublePointJsonConverter().toJson(instance.start),
+  'end': const DoublePointJsonConverter().toJson(instance.end),
+  'stops': instance.stops.map((e) => e.toJson()).toList(),
+  'type': instance.$type,
+};
+
+RadialElementGradient _$RadialElementGradientFromJson(Map json) =>
+    RadialElementGradient(
+      center: json['center'] == null
+          ? const Point(0.5, 0.5)
+          : const DoublePointJsonConverter().fromJson(json['center'] as Map),
+      radius: (json['radius'] as num?)?.toDouble() ?? 0.5,
+      focal: _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(
+        json['focal'],
+        const DoublePointJsonConverter().fromJson,
+      ),
+      focalRadius: (json['focalRadius'] as num?)?.toDouble(),
+      stops:
+          (json['stops'] as List<dynamic>?)
+              ?.map(
+                (e) => ElementGradientStop.fromJson(
+                  Map<String, dynamic>.from(e as Map),
+                ),
+              )
+              .toList() ??
+          const [],
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$RadialElementGradientToJson(
+  RadialElementGradient instance,
+) => <String, dynamic>{
+  'center': const DoublePointJsonConverter().toJson(instance.center),
+  'radius': instance.radius,
+  'focal': _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
+    instance.focal,
+    const DoublePointJsonConverter().toJson,
+  ),
+  'focalRadius': instance.focalRadius,
+  'stops': instance.stops.map((e) => e.toJson()).toList(),
+  'type': instance.$type,
+};
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);
+
+_ElementGradientStop _$ElementGradientStopFromJson(Map json) =>
+    _ElementGradientStop(
+      offset: (json['offset'] as num?)?.toDouble() ?? 0,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+    );
+
+Map<String, dynamic> _$ElementGradientStopToJson(
+  _ElementGradientStop instance,
+) => <String, dynamic>{
+  'offset': instance.offset,
+  'color': const ColorJsonConverter().toJson(instance.color),
 };
 
 PenProperty _$PenPropertyFromJson(Map json) => PenProperty(

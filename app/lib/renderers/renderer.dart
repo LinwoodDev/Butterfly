@@ -100,16 +100,33 @@ class ElementPaintRenderer {
             tint.toColor(),
             BlendMode.modulate,
           );
-      case GradientElementPaint(:final start, :final end, :final angle):
-        final radians = angle / 180 * pi;
-        final direction = Offset(cos(radians), sin(radians));
-        final distance = max(bounds.width.abs(), bounds.height.abs()) / 2;
-        final center = bounds.center;
-        result.shader = ui.Gradient.linear(
-          center - direction * distance,
-          center + direction * distance,
-          [start.toColor(), end.toColor()],
-        );
+      case GradientElementPaint(:final gradient):
+        final shader = switch (gradient) {
+          LinearElementGradient(:final start, :final end, :final stops) =>
+            ui.Gradient.linear(
+              Offset(
+                bounds.left + start.x * bounds.width,
+                bounds.top + start.y * bounds.height,
+              ),
+              Offset(
+                bounds.left + end.x * bounds.width,
+                bounds.top + end.y * bounds.height,
+              ),
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+            ),
+          RadialElementGradient(:final center, :final radius, :final stops) =>
+            ui.Gradient.radial(
+              Offset(
+                bounds.left + center.x * bounds.width,
+                bounds.top + center.y * bounds.height,
+              ),
+              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+            ),
+        };
+        result.shader = shader;
       case SolidElementPaint():
     }
     return result;
