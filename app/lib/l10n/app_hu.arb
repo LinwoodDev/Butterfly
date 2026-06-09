@@ -1162,7 +1162,8 @@
   "homeScreen": "Kezdőképernyő",
   "lastNote": "Utolsó jegyzet",
   "newNote": "Új jegyzet",
-  "convertToLayer": "Átalakítás réteggé",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Egyesítés",
   "@merge": {
     "description": "Merge action"
