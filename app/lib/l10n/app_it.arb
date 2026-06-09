@@ -1162,7 +1162,8 @@
   "homeScreen": "Schermata home",
   "lastNote": "Ultima nota",
   "newNote": "Nuova nota",
-  "convertToLayer": "Converti in livello",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Unisci",
   "@merge": {
     "description": "Merge action"
