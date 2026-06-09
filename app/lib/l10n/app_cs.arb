@@ -1162,7 +1162,8 @@
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
   "newNote": "Nová poznámka",
-  "convertToLayer": "Převést na vrstvu",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Sloučit",
   "@merge": {
     "description": "Merge action"
