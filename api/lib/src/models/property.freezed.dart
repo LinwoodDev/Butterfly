@@ -149,7 +149,7 @@ as SRGBColor,
 @JsonSerializable()
 
 class TextureElementPaint extends ElementPaint {
-  const TextureElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 1, final  String? $type}): $type = $type ?? 'texture',super._();
+  const TextureElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, final  String? $type}): $type = $type ?? 'texture',super._();
   factory TextureElementPaint.fromJson(Map<String, dynamic> json) => _$TextureElementPaintFromJson(json);
 
  final  String source;
@@ -396,7 +396,7 @@ as List<ElementGradientStop>,
 @JsonSerializable()
 
 class LinearElementGradient implements ElementGradient {
-  const LinearElementGradient({@DoublePointJsonConverter() this.start = const Point(0, 0), @DoublePointJsonConverter() this.end = const Point(1, 0), final  List<ElementGradientStop> stops = const [], final  String? $type}): _stops = stops,$type = $type ?? 'linear';
+  const LinearElementGradient({@DoublePointJsonConverter() this.start = const Point(0, 0), @DoublePointJsonConverter() this.end = const Point(1, 0), final  List<ElementGradientStop> stops = defaultGradientStops, final  String? $type}): _stops = stops,$type = $type ?? 'linear';
   factory LinearElementGradient.fromJson(Map<String, dynamic> json) => _$LinearElementGradientFromJson(json);
 
 @JsonKey()@DoublePointJsonConverter() final  Point<double> start;
@@ -479,7 +479,7 @@ as List<ElementGradientStop>,
 @JsonSerializable()
 
 class RadialElementGradient implements ElementGradient {
-  const RadialElementGradient({@DoublePointJsonConverter() this.center = const Point(0.5, 0.5), this.radius = 0.5, @DoublePointJsonConverter() this.focal, this.focalRadius, final  List<ElementGradientStop> stops = const [], final  String? $type}): _stops = stops,$type = $type ?? 'radial';
+  const RadialElementGradient({@DoublePointJsonConverter() this.center = const Point(0.5, 0.5), this.radius = 0.5, @DoublePointJsonConverter() this.focal, this.focalRadius, final  List<ElementGradientStop> stops = defaultGradientStops, final  String? $type}): _stops = stops,$type = $type ?? 'radial';
   factory RadialElementGradient.fromJson(Map<String, dynamic> json) => _$RadialElementGradientFromJson(json);
 
 @JsonKey()@DoublePointJsonConverter() final  Point<double> center;
