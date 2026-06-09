@@ -450,7 +450,7 @@ abstract class Renderer<T> {
     if ((scaleX != 1 || scaleY != 1) && (this.rotation % 360) != 0) {
       final w = rect.width;
       final h = rect.height;
-      final expandedRect = this.expandedRect ?? rect;
+      final expandedRect = _expandedAabbFor(rect, radians);
 
       if (w > 0 && h > 0) {
         final absC = cos(radians).abs();
