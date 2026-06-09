@@ -20,8 +20,8 @@ void main() {
       final element = PolygonElement(
         points: points,
         property: const PolygonProperty(
-          color: SRGBColor.black,
-          fill: SRGBColor.transparent,
+          paint: ElementPaint.solid(color: SRGBColor.black),
+          fillPaint: ElementPaint.solid(color: SRGBColor.transparent),
           strokeWidth: 2,
         ),
       );
@@ -89,8 +89,8 @@ void main() {
       final element = PolygonElement(
         points: points,
         property: const PolygonProperty(
-          color: SRGBColor.green,
-          fill: SRGBColor.black,
+          paint: ElementPaint.solid(color: SRGBColor.green),
+          fillPaint: ElementPaint.solid(color: SRGBColor.black),
           strokeWidth: 2,
         ),
       );

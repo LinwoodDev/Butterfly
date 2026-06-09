@@ -50,6 +50,72 @@ part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
+class ElementPaintRenderer {
+  ui.Image? _image;
+  String? _source;
+
+  Future<void> setup(
+    ElementPaint paint,
+    NoteData document,
+    AssetService assets,
+  ) async {
+    final source = switch (paint) {
+      TextureElementPaint(:final source) => source,
+      _ => null,
+    };
+    if (_source == source && _image != null) return;
+    _image?.dispose();
+    _image = null;
+    _source = source;
+    if (source != null) {
+      _image = await assets.getImage(source, document);
+    }
+  }
+
+  bool uses(String path) => _source == path;
+
+  void dispose() {
+    _image?.dispose();
+    _image = null;
+  }
+
+  Paint build(ElementPaint paint, Rect bounds, {PaintingStyle? style}) {
+    final preview = paint.previewColor;
+    final result = Paint()
+      ..color = preview.toColor()
+      ..style = style ?? PaintingStyle.fill;
+    switch (paint) {
+      case TextureElementPaint(:final scale, :final tint):
+        final image = _image;
+        if (image == null) return result;
+        final matrix = Matrix4.diagonal3Values(scale, scale, 1);
+        result
+          ..shader = ui.ImageShader(
+            image,
+            TileMode.repeated,
+            TileMode.repeated,
+            matrix.storage,
+          )
+          ..colorFilter = ui.ColorFilter.mode(
+            tint.toColor(),
+            BlendMode.modulate,
+          );
+      case GradientElementPaint(:final start, :final end, :final angle):
+        final radians = angle / 180 * pi;
+        final direction = Offset(cos(radians), sin(radians));
+        final distance = max(bounds.width.abs(), bounds.height.abs()) / 2;
+        final center = bounds.center;
+        result.shader = ui.Gradient.linear(
+          center - direction * distance,
+          center + direction * distance,
+          [start.toColor(), end.toColor()],
+        );
+      case SolidElementPaint():
+    }
+    return result;
+  }
+}
+
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
   final Rect? boundsRect;

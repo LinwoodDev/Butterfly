@@ -31,6 +31,8 @@ class PolygonRenderer extends Renderer<PolygonElement> {
 
   ui.Path? _cachedPath;
   PolygonHitCalculator? _cachedHitCalculator;
+  final _strokePaint = ElementPaintRenderer();
+  final _fillPaint = ElementPaintRenderer();
 
   PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
 
@@ -71,7 +73,7 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   }
 
   @override
-  void setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
@@ -81,8 +83,27 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     _computePath();
     _cachedHitCalculator = null;
 
-    super.setup(transformCubit, document, assetService, page);
+    await Future.wait([
+      _strokePaint.setup(element.property.paint, document, assetService),
+      _fillPaint.setup(element.property.fillPaint, document, assetService),
+    ]);
+    await super.setup(transformCubit, document, assetService, page);
   }
+
+  @override
+  void dispose() {
+    _strokePaint.dispose();
+    _fillPaint.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) => _strokePaint.uses(path) || _fillPaint.uses(path);
 
   @override
   void build(
@@ -106,19 +127,20 @@ class PolygonRenderer extends Renderer<PolygonElement> {
 
     final property = element.property;
 
-    if (property.fill.a > 0) {
-      final fillPaint = Paint()
-        ..color = property.fill.toColor()
-        ..style = PaintingStyle.fill;
+    if (property.fillPaint.previewColor.a > 0) {
+      final fillPaint = _fillPaint.build(
+        property.fillPaint,
+        rect,
+        style: PaintingStyle.fill,
+      );
       canvas.drawPath(path, fillPaint);
     }
-    if (property.color.a > 0) {
-      final paint = Paint()
-        ..color = property.color.toColor()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = property.strokeWidth
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round;
+    if (property.paint.previewColor.a > 0) {
+      final paint =
+          _strokePaint.build(property.paint, rect, style: PaintingStyle.stroke)
+            ..strokeWidth = property.strokeWidth
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round;
       canvas.drawPath(path, paint);
     }
   }
@@ -231,7 +253,7 @@ class PolygonHitCalculator extends HitCalculator {
       ),
       _bounds = Renderer._expandedAabbFor(
         elementRect.inflate(
-          property.color.a > 0 && property.strokeWidth > 0
+          property.paint.previewColor.a > 0 && property.strokeWidth > 0
               ? property.strokeWidth / 2
               : 0,
         ),

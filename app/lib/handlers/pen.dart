@@ -310,7 +310,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const LineShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -355,7 +355,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const CircleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -387,7 +387,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const RectangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -416,7 +416,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const TriangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -459,12 +459,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
   @override
-  SRGBColor getColor() => data.property.color;
+  SRGBColor getColor() => data.property.paint.previewColor;
 
   @override
   PenTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      color: color.withValues(a: data.property.color.a),
+      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
     ),
   );
 

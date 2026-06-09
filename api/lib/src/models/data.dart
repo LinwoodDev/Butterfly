@@ -18,6 +18,7 @@ import 'page.dart';
 
 final Set<String> validAssetPaths = {
   kImagesArchiveDirectory,
+  kTexturesArchiveDirectory,
   kPdfArchiveDirectory,
 };
 
@@ -510,6 +511,12 @@ final class NoteData extends NoteDisplay<NoteData> {
   bool containsImage(Uint8List data, String fileExtension) =>
       containsAsset(kImagesArchiveDirectory, data, fileExtension);
 
+  (NoteData, String) importTexture(Uint8List data, String fileExtension) =>
+      importAsset(kTexturesArchiveDirectory, data, fileExtension);
+
+  bool containsTexture(Uint8List data, String fileExtension) =>
+      containsAsset(kTexturesArchiveDirectory, data, fileExtension);
+
   (NoteData, String) importPdf(Uint8List data) =>
       importAsset(kPdfArchiveDirectory, data, 'pdf');
 
@@ -589,6 +596,22 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   NoteData removeComponent(String name) =>
       removeAsset('$kComponentsArchiveDirectory/$name.json');
+
+  @useResult
+  Iterable<String> getTextures() =>
+      getAssets('$kTexturesArchiveDirectory/', true);
+
+  @useResult
+  Uint8List? getTexture(String textureName) =>
+      getAsset('$kTexturesArchiveDirectory/$textureName');
+
+  @useResult
+  NoteData setTexture(String name, Uint8List texture) =>
+      setAsset('$kTexturesArchiveDirectory/$name', texture);
+
+  @useResult
+  NoteData removeTexture(String name) =>
+      removeAsset('$kTexturesArchiveDirectory/$name');
 
   @useResult
   Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
