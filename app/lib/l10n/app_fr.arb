@@ -1162,7 +1162,8 @@
   "homeScreen": "Écran d'accueil",
   "lastNote": "Dernière note",
   "newNote": "Nouvelle note",
-  "convertToLayer": "Convertir en calque",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Fusionner",
   "@merge": {
     "description": "Merge action"
