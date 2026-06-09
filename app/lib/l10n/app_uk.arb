@@ -1162,7 +1162,8 @@
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
   "newNote": "Нова нотатка",
-  "convertToLayer": "Конвертувати в шар",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Об'єднати",
   "@merge": {
     "description": "Merge action"
