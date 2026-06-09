@@ -1162,7 +1162,8 @@
   "homeScreen": "ホーム画面",
   "lastNote": "最後のメモ",
   "newNote": "新規ノート",
-  "convertToLayer": "レイヤーに変換",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "結合",
   "@merge": {
     "description": "Merge action"
