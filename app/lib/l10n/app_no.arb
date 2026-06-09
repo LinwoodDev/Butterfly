@@ -1162,7 +1162,8 @@
   "homeScreen": "Hjem-skjerm",
   "lastNote": "Siste notat",
   "newNote": "Nytt notat",
-  "convertToLayer": "Konverter til lag",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Flett",
   "@merge": {
     "description": "Merge action"
