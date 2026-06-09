@@ -23,6 +23,11 @@ enum VerticalAlignment { top, center, bottom }
 
 enum StrokeStyle { solid, dotted }
 
+const defaultGradientStops = [
+  ElementGradientStop(offset: 0, color: SRGBColor.black),
+  ElementGradientStop(offset: 1, color: SRGBColor.white),
+];
+
 @freezed
 sealed class ElementPaint with _$ElementPaint {
   const ElementPaint._();
@@ -34,7 +39,7 @@ sealed class ElementPaint with _$ElementPaint {
   const factory ElementPaint.texture({
     required String source,
     @Default(SRGBColor.white) @ColorJsonConverter() SRGBColor tint,
-    @Default(1) double scale,
+    @Default(0.25) double scale,
   }) = TextureElementPaint;
 
   const factory ElementPaint.gradient({
@@ -74,7 +79,7 @@ sealed class ElementGradient with _$ElementGradient {
   const factory ElementGradient.linear({
     @DoublePointJsonConverter() @Default(Point(0, 0)) Point<double> start,
     @DoublePointJsonConverter() @Default(Point(1, 0)) Point<double> end,
-    @Default([]) List<ElementGradientStop> stops,
+    @Default(defaultGradientStops) List<ElementGradientStop> stops,
     //@Default(GradientUnits.objectBoundingBox) GradientUnits units,
     //@Default(GradientSpreadMethod.pad) GradientSpreadMethod spreadMethod,
     //GradientTransform? transform,
@@ -88,7 +93,7 @@ sealed class ElementGradient with _$ElementGradient {
 
     double? focalRadius,
 
-    @Default([]) List<ElementGradientStop> stops,
+    @Default(defaultGradientStops) List<ElementGradientStop> stops,
     //@Default(GradientUnits.objectBoundingBox) GradientUnits units,
     //@Default(GradientSpreadMethod.pad) GradientSpreadMethod spreadMethod,
     //GradientTransform? transform,

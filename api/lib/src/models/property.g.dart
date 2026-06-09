@@ -25,7 +25,7 @@ TextureElementPaint _$TextureElementPaintFromJson(Map json) =>
       tint: json['tint'] == null
           ? SRGBColor.white
           : const ColorJsonConverter().fromJson((json['tint'] as num).toInt()),
-      scale: (json['scale'] as num?)?.toDouble() ?? 1,
+      scale: (json['scale'] as num?)?.toDouble() ?? 0.25,
       $type: json['type'] as String?,
     );
 
@@ -71,7 +71,7 @@ LinearElementGradient _$LinearElementGradientFromJson(Map json) =>
                 ),
               )
               .toList() ??
-          const [],
+          defaultGradientStops,
       $type: json['type'] as String?,
     );
 
@@ -103,7 +103,7 @@ RadialElementGradient _$RadialElementGradientFromJson(Map json) =>
                 ),
               )
               .toList() ??
-          const [],
+          defaultGradientStops,
       $type: json['type'] as String?,
     );
 

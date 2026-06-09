@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +11,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 enum _PaintKind { solid, gradient, texture }
 
 enum _GradientKind { linear, radial }
-
-const _defaultGradientStops = [
-  ElementGradientStop(offset: 0, color: SRGBColor.black),
-  ElementGradientStop(offset: 1, color: SRGBColor.white),
-];
 
 class TexturePaintField extends StatelessWidget {
   final ElementPaint value;
@@ -199,11 +193,9 @@ class _GradientPaintEditor extends StatelessWidget {
   }
 
   ElementGradient _convertTo(_GradientKind nextKind) {
-    final currentStops = stops.isEmpty ? _defaultGradientStops : stops;
-
     return switch (nextKind) {
-      _GradientKind.linear => ElementGradient.linear(stops: currentStops),
-      _GradientKind.radial => ElementGradient.radial(stops: currentStops),
+      _GradientKind.linear => ElementGradient.linear(),
+      _GradientKind.radial => ElementGradient.radial(),
     };
   }
 
@@ -267,15 +259,15 @@ class _LinearGradientEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _PointField(
+        OffsetListTile(
           title: const Text('Start'),
-          value: value.start,
-          onChanged: (next) => onChanged(value.copyWith(start: next)),
+          value: value.start.toOffset(),
+          onChanged: (next) => onChanged(value.copyWith(start: next.toPoint())),
         ),
-        _PointField(
+        OffsetListTile(
           title: const Text('End'),
-          value: value.end,
-          onChanged: (next) => onChanged(value.copyWith(end: next)),
+          value: value.end.toOffset(),
+          onChanged: (next) => onChanged(value.copyWith(end: next.toPoint())),
         ),
       ],
     );
@@ -294,10 +286,11 @@ class _RadialGradientEditor extends StatelessWidget {
 
     return Column(
       children: [
-        _PointField(
+        OffsetListTile(
           title: const Text('Center'),
-          value: value.center,
-          onChanged: (next) => onChanged(value.copyWith(center: next)),
+          value: value.center.toOffset(),
+          onChanged: (next) =>
+              onChanged(value.copyWith(center: next.toPoint())),
         ),
         ExactSlider(
           value: value.radius,
@@ -322,10 +315,11 @@ class _RadialGradientEditor extends StatelessWidget {
           },
         ),
         if (focal != null) ...[
-          _PointField(
+          OffsetListTile(
             title: const Text('Focal'),
-            value: focal,
-            onChanged: (next) => onChanged(value.copyWith(focal: next)),
+            value: focal.toOffset(),
+            onChanged: (next) =>
+                onChanged(value.copyWith(focal: next.toPoint())),
           ),
           ExactSlider(
             value: value.focalRadius ?? 0,
@@ -336,47 +330,6 @@ class _RadialGradientEditor extends StatelessWidget {
             onChangeEnd: (next) => onChanged(value.copyWith(focalRadius: next)),
           ),
         ],
-      ],
-    );
-  }
-}
-
-class _PointField extends StatelessWidget {
-  final Widget title;
-  final Point<double> value;
-  final ValueChanged<Point<double>> onChanged;
-
-  const _PointField({
-    required this.title,
-    required this.value,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      leading: const PhosphorIcon(PhosphorIconsLight.dotsThreeCircle),
-      title: title,
-      subtitle: Text(
-        'x: ${value.x.toStringAsFixed(2)}, y: ${value.y.toStringAsFixed(2)}',
-      ),
-      children: [
-        ExactSlider(
-          value: value.x,
-          header: const Text('X'),
-          min: -1,
-          max: 2,
-          defaultValue: 0.5,
-          onChangeEnd: (next) => onChanged(Point(next, value.y)),
-        ),
-        ExactSlider(
-          value: value.y,
-          header: const Text('Y'),
-          min: -1,
-          max: 2,
-          defaultValue: 0.5,
-          onChangeEnd: (next) => onChanged(Point(value.x, next)),
-        ),
       ],
     );
   }
@@ -416,7 +369,7 @@ class _GradientStopsEditor extends StatelessWidget {
   const _GradientStopsEditor({required this.stops, required this.onChanged});
 
   List<ElementGradientStop> get effectiveStops {
-    if (stops.isEmpty) return _defaultGradientStops;
+    if (stops.isEmpty) return defaultGradientStops;
     return stops;
   }
 
