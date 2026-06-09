@@ -1162,7 +1162,8 @@
   "homeScreen": "מסך הבית",
   "lastNote": "פתק אחרון",
   "newNote": "פתק חדש",
-  "convertToLayer": "המר לשכבה",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "מזג",
   "@merge": {
     "description": "Merge action"
