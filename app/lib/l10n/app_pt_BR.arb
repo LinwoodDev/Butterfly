@@ -1162,7 +1162,8 @@
   "homeScreen": "Tela inicial",
   "lastNote": "Última anotação",
   "newNote": "Nova nota",
-  "convertToLayer": "Converter para camada",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Mesclar",
   "@merge": {
     "description": "Merge action"
