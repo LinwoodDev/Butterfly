@@ -1162,7 +1162,8 @@
   "homeScreen": "Početni ekran",
   "lastNote": "Poslednja beleška",
   "newNote": "Nova beleška",
-  "convertToLayer": "Pretvori u sloj",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Spoji",
   "@merge": {
     "description": "Merge action"
