@@ -1162,7 +1162,8 @@
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
   "newNote": "Uusi muistiinpano",
-  "convertToLayer": "Muunna tasoksi",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Yhdistä",
   "@merge": {
     "description": "Merge action"
