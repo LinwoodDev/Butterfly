@@ -1162,7 +1162,8 @@
   "homeScreen": "主畫面",
   "lastNote": "上一則筆記",
   "newNote": "新筆記",
-  "convertToLayer": "轉換為圖層",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "合併",
   "@merge": {
     "description": "Merge action"
