@@ -1162,7 +1162,8 @@
   "homeScreen": "होम स्क्रीन",
   "lastNote": "अंतिम नोट",
   "newNote": "नया नोट",
-  "convertToLayer": "लेयर में बदलें",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "विलय करें",
   "@merge": {
     "description": "Merge action"
