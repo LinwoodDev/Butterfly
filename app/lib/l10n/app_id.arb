@@ -1162,7 +1162,8 @@
   "homeScreen": "Layar beranda",
   "lastNote": "Catatan terakhir",
   "newNote": "Catatan baru",
-  "convertToLayer": "Ubah menjadi lapisan",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Gabungkan",
   "@merge": {
     "description": "Merge action"
