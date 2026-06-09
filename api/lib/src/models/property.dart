@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 
@@ -35,9 +38,7 @@ sealed class ElementPaint with _$ElementPaint {
   }) = TextureElementPaint;
 
   const factory ElementPaint.gradient({
-    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor start,
-    @Default(SRGBColor.white) @ColorJsonConverter() SRGBColor end,
-    @Default(0) double angle,
+    @Default(ElementGradient.linear()) ElementGradient gradient,
   }) = GradientElementPaint;
 
   factory ElementPaint.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +47,8 @@ sealed class ElementPaint with _$ElementPaint {
   SRGBColor get previewColor => switch (this) {
     SolidElementPaint(:final color) => color,
     TextureElementPaint(:final tint) => tint,
-    GradientElementPaint(:final start) => start,
+    GradientElementPaint(:final gradient) =>
+      gradient.stops.firstOrNull?.color ?? SRGBColor.black,
   };
 
   ElementPaint withAlpha(int alpha) => switch (this) {
@@ -59,13 +61,52 @@ sealed class ElementPaint with _$ElementPaint {
         tint: tint.withValues(a: alpha),
         scale: scale,
       ),
-    GradientElementPaint(:final start, :final end, :final angle) =>
-      ElementPaint.gradient(
-        start: start.withValues(a: alpha),
-        end: end.withValues(a: alpha),
-        angle: angle,
-      ),
+    GradientElementPaint p => p.copyWith.gradient(
+      stops: p.gradient.stops
+          .map((stop) => stop.copyWith(color: stop.color.withValues(a: alpha)))
+          .toList(),
+    ),
   };
+}
+
+@freezed
+sealed class ElementGradient with _$ElementGradient {
+  const factory ElementGradient.linear({
+    @DoublePointJsonConverter() @Default(Point(0, 0)) Point<double> start,
+    @DoublePointJsonConverter() @Default(Point(1, 0)) Point<double> end,
+    @Default([]) List<ElementGradientStop> stops,
+    //@Default(GradientUnits.objectBoundingBox) GradientUnits units,
+    //@Default(GradientSpreadMethod.pad) GradientSpreadMethod spreadMethod,
+    //GradientTransform? transform,
+  }) = LinearElementGradient;
+
+  const factory ElementGradient.radial({
+    @DoublePointJsonConverter() @Default(Point(0.5, 0.5)) Point<double> center,
+    @Default(0.5) double radius,
+
+    @DoublePointJsonConverter() Point<double>? focal,
+
+    double? focalRadius,
+
+    @Default([]) List<ElementGradientStop> stops,
+    //@Default(GradientUnits.objectBoundingBox) GradientUnits units,
+    //@Default(GradientSpreadMethod.pad) GradientSpreadMethod spreadMethod,
+    //GradientTransform? transform,
+  }) = RadialElementGradient;
+
+  factory ElementGradient.fromJson(Map<String, dynamic> json) =>
+      _$ElementGradientFromJson(json);
+}
+
+@freezed
+sealed class ElementGradientStop with _$ElementGradientStop {
+  const factory ElementGradientStop({
+    @Default(0) double offset,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+  }) = _ElementGradientStop;
+
+  factory ElementGradientStop.fromJson(Map<String, dynamic> json) =>
+      _$ElementGradientStopFromJson(json);
 }
 
 @freezed

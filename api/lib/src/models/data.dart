@@ -599,7 +599,7 @@ final class NoteData extends NoteDisplay<NoteData> {
 
   @useResult
   Iterable<String> getTextures() =>
-      getAssets('$kTexturesArchiveDirectory/', true);
+      getAssets('$kTexturesArchiveDirectory/', false);
 
   @useResult
   Uint8List? getTexture(String textureName) =>

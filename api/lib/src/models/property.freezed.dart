@@ -27,7 +27,7 @@ ElementPaint _$ElementPaintFromJson(
           return GradientElementPaint.fromJson(
             json
           );
-
+        
           default:
             throw CheckedFromJsonException(
   json,
@@ -36,7 +36,7 @@ ElementPaint _$ElementPaintFromJson(
   'Invalid union type "${json['type']}"!'
 );
         }
-
+      
 }
 
 /// @nodoc
@@ -226,12 +226,10 @@ as double,
 @JsonSerializable()
 
 class GradientElementPaint extends ElementPaint {
-  const GradientElementPaint({@ColorJsonConverter() this.start = SRGBColor.black, @ColorJsonConverter() this.end = SRGBColor.white, this.angle = 0, final  String? $type}): $type = $type ?? 'gradient',super._();
+  const GradientElementPaint({this.gradient = const ElementGradient.linear(), final  String? $type}): $type = $type ?? 'gradient',super._();
   factory GradientElementPaint.fromJson(Map<String, dynamic> json) => _$GradientElementPaintFromJson(json);
 
-@JsonKey()@ColorJsonConverter() final  SRGBColor start;
-@JsonKey()@ColorJsonConverter() final  SRGBColor end;
-@JsonKey() final  double angle;
+@JsonKey() final  ElementGradient gradient;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -250,16 +248,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.angle, angle) || other.angle == angle));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,start,end,angle);
+int get hashCode => Object.hash(runtimeType,gradient);
 
 @override
 String toString() {
-  return 'ElementPaint.gradient(start: $start, end: $end, angle: $angle)';
+  return 'ElementPaint.gradient(gradient: $gradient)';
 }
 
 
@@ -270,11 +268,11 @@ abstract mixin class $GradientElementPaintCopyWith<$Res> implements $ElementPain
   factory $GradientElementPaintCopyWith(GradientElementPaint value, $Res Function(GradientElementPaint) _then) = _$GradientElementPaintCopyWithImpl;
 @useResult
 $Res call({
-@ColorJsonConverter() SRGBColor start,@ColorJsonConverter() SRGBColor end, double angle
+ ElementGradient gradient
 });
 
 
-
+$ElementGradientCopyWith<$Res> get gradient;
 
 }
 /// @nodoc
@@ -287,12 +285,414 @@ class _$GradientElementPaintCopyWithImpl<$Res>
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,Object? angle = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? gradient = null,}) {
   return _then(GradientElementPaint(
+gradient: null == gradient ? _self.gradient : gradient // ignore: cast_nullable_to_non_nullable
+as ElementGradient,
+  ));
+}
+
+/// Create a copy of ElementPaint
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ElementGradientCopyWith<$Res> get gradient {
+  
+  return $ElementGradientCopyWith<$Res>(_self.gradient, (value) {
+    return _then(_self.copyWith(gradient: value));
+  });
+}
+}
+
+ElementGradient _$ElementGradientFromJson(
+  Map<String, dynamic> json
+) {
+        switch (json['type']) {
+                  case 'linear':
+          return LinearElementGradient.fromJson(
+            json
+          );
+                case 'radial':
+          return RadialElementGradient.fromJson(
+            json
+          );
+        
+          default:
+            throw CheckedFromJsonException(
+  json,
+  'type',
+  'ElementGradient',
+  'Invalid union type "${json['type']}"!'
+);
+        }
+      
+}
+
+/// @nodoc
+mixin _$ElementGradient {
+
+ List<ElementGradientStop> get stops;
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ElementGradientCopyWith<ElementGradient> get copyWith => _$ElementGradientCopyWithImpl<ElementGradient>(this as ElementGradient, _$identity);
+
+  /// Serializes this ElementGradient to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradient&&const DeepCollectionEquality().equals(other.stops, stops));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(stops));
+
+@override
+String toString() {
+  return 'ElementGradient(stops: $stops)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ElementGradientCopyWith<$Res>  {
+  factory $ElementGradientCopyWith(ElementGradient value, $Res Function(ElementGradient) _then) = _$ElementGradientCopyWithImpl;
+@useResult
+$Res call({
+ List<ElementGradientStop> stops
+});
+
+
+
+
+}
+/// @nodoc
+class _$ElementGradientCopyWithImpl<$Res>
+    implements $ElementGradientCopyWith<$Res> {
+  _$ElementGradientCopyWithImpl(this._self, this._then);
+
+  final ElementGradient _self;
+  final $Res Function(ElementGradient) _then;
+
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? stops = null,}) {
+  return _then(_self.copyWith(
+stops: null == stops ? _self.stops : stops // ignore: cast_nullable_to_non_nullable
+as List<ElementGradientStop>,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class LinearElementGradient implements ElementGradient {
+  const LinearElementGradient({@DoublePointJsonConverter() this.start = const Point(0, 0), @DoublePointJsonConverter() this.end = const Point(1, 0), final  List<ElementGradientStop> stops = const [], final  String? $type}): _stops = stops,$type = $type ?? 'linear';
+  factory LinearElementGradient.fromJson(Map<String, dynamic> json) => _$LinearElementGradientFromJson(json);
+
+@JsonKey()@DoublePointJsonConverter() final  Point<double> start;
+@JsonKey()@DoublePointJsonConverter() final  Point<double> end;
+ final  List<ElementGradientStop> _stops;
+@override@JsonKey() List<ElementGradientStop> get stops {
+  if (_stops is EqualUnmodifiableListView) return _stops;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_stops);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LinearElementGradientCopyWith<LinearElementGradient> get copyWith => _$LinearElementGradientCopyWithImpl<LinearElementGradient>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LinearElementGradientToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LinearElementGradient&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&const DeepCollectionEquality().equals(other._stops, _stops));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,start,end,const DeepCollectionEquality().hash(_stops));
+
+@override
+String toString() {
+  return 'ElementGradient.linear(start: $start, end: $end, stops: $stops)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LinearElementGradientCopyWith<$Res> implements $ElementGradientCopyWith<$Res> {
+  factory $LinearElementGradientCopyWith(LinearElementGradient value, $Res Function(LinearElementGradient) _then) = _$LinearElementGradientCopyWithImpl;
+@override @useResult
+$Res call({
+@DoublePointJsonConverter() Point<double> start,@DoublePointJsonConverter() Point<double> end, List<ElementGradientStop> stops
+});
+
+
+
+
+}
+/// @nodoc
+class _$LinearElementGradientCopyWithImpl<$Res>
+    implements $LinearElementGradientCopyWith<$Res> {
+  _$LinearElementGradientCopyWithImpl(this._self, this._then);
+
+  final LinearElementGradient _self;
+  final $Res Function(LinearElementGradient) _then;
+
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,Object? stops = null,}) {
+  return _then(LinearElementGradient(
 start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as SRGBColor,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
-as SRGBColor,angle: null == angle ? _self.angle : angle // ignore: cast_nullable_to_non_nullable
-as double,
+as Point<double>,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as Point<double>,stops: null == stops ? _self._stops : stops // ignore: cast_nullable_to_non_nullable
+as List<ElementGradientStop>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class RadialElementGradient implements ElementGradient {
+  const RadialElementGradient({@DoublePointJsonConverter() this.center = const Point(0.5, 0.5), this.radius = 0.5, @DoublePointJsonConverter() this.focal, this.focalRadius, final  List<ElementGradientStop> stops = const [], final  String? $type}): _stops = stops,$type = $type ?? 'radial';
+  factory RadialElementGradient.fromJson(Map<String, dynamic> json) => _$RadialElementGradientFromJson(json);
+
+@JsonKey()@DoublePointJsonConverter() final  Point<double> center;
+@JsonKey() final  double radius;
+@DoublePointJsonConverter() final  Point<double>? focal;
+ final  double? focalRadius;
+ final  List<ElementGradientStop> _stops;
+@override@JsonKey() List<ElementGradientStop> get stops {
+  if (_stops is EqualUnmodifiableListView) return _stops;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_stops);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RadialElementGradientCopyWith<RadialElementGradient> get copyWith => _$RadialElementGradientCopyWithImpl<RadialElementGradient>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RadialElementGradientToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RadialElementGradient&&(identical(other.center, center) || other.center == center)&&(identical(other.radius, radius) || other.radius == radius)&&(identical(other.focal, focal) || other.focal == focal)&&(identical(other.focalRadius, focalRadius) || other.focalRadius == focalRadius)&&const DeepCollectionEquality().equals(other._stops, _stops));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,center,radius,focal,focalRadius,const DeepCollectionEquality().hash(_stops));
+
+@override
+String toString() {
+  return 'ElementGradient.radial(center: $center, radius: $radius, focal: $focal, focalRadius: $focalRadius, stops: $stops)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RadialElementGradientCopyWith<$Res> implements $ElementGradientCopyWith<$Res> {
+  factory $RadialElementGradientCopyWith(RadialElementGradient value, $Res Function(RadialElementGradient) _then) = _$RadialElementGradientCopyWithImpl;
+@override @useResult
+$Res call({
+@DoublePointJsonConverter() Point<double> center, double radius,@DoublePointJsonConverter() Point<double>? focal, double? focalRadius, List<ElementGradientStop> stops
+});
+
+
+
+
+}
+/// @nodoc
+class _$RadialElementGradientCopyWithImpl<$Res>
+    implements $RadialElementGradientCopyWith<$Res> {
+  _$RadialElementGradientCopyWithImpl(this._self, this._then);
+
+  final RadialElementGradient _self;
+  final $Res Function(RadialElementGradient) _then;
+
+/// Create a copy of ElementGradient
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? center = null,Object? radius = null,Object? focal = freezed,Object? focalRadius = freezed,Object? stops = null,}) {
+  return _then(RadialElementGradient(
+center: null == center ? _self.center : center // ignore: cast_nullable_to_non_nullable
+as Point<double>,radius: null == radius ? _self.radius : radius // ignore: cast_nullable_to_non_nullable
+as double,focal: freezed == focal ? _self.focal : focal // ignore: cast_nullable_to_non_nullable
+as Point<double>?,focalRadius: freezed == focalRadius ? _self.focalRadius : focalRadius // ignore: cast_nullable_to_non_nullable
+as double?,stops: null == stops ? _self._stops : stops // ignore: cast_nullable_to_non_nullable
+as List<ElementGradientStop>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ElementGradientStop {
+
+ double get offset;@ColorJsonConverter() SRGBColor get color;
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ElementGradientStopCopyWith<ElementGradientStop> get copyWith => _$ElementGradientStopCopyWithImpl<ElementGradientStop>(this as ElementGradientStop, _$identity);
+
+  /// Serializes this ElementGradientStop to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,offset,color);
+
+@override
+String toString() {
+  return 'ElementGradientStop(offset: $offset, color: $color)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ElementGradientStopCopyWith<$Res>  {
+  factory $ElementGradientStopCopyWith(ElementGradientStop value, $Res Function(ElementGradientStop) _then) = _$ElementGradientStopCopyWithImpl;
+@useResult
+$Res call({
+ double offset,@ColorJsonConverter() SRGBColor color
+});
+
+
+
+
+}
+/// @nodoc
+class _$ElementGradientStopCopyWithImpl<$Res>
+    implements $ElementGradientStopCopyWith<$Res> {
+  _$ElementGradientStopCopyWithImpl(this._self, this._then);
+
+  final ElementGradientStop _self;
+  final $Res Function(ElementGradientStop) _then;
+
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? offset = null,Object? color = null,}) {
+  return _then(_self.copyWith(
+offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
+  ));
+}
+
+}
+
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _ElementGradientStop implements ElementGradientStop {
+  const _ElementGradientStop({this.offset = 0, @ColorJsonConverter() this.color = SRGBColor.black});
+  factory _ElementGradientStop.fromJson(Map<String, dynamic> json) => _$ElementGradientStopFromJson(json);
+
+@override@JsonKey() final  double offset;
+@override@JsonKey()@ColorJsonConverter() final  SRGBColor color;
+
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ElementGradientStopCopyWith<_ElementGradientStop> get copyWith => __$ElementGradientStopCopyWithImpl<_ElementGradientStop>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ElementGradientStopToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ElementGradientStop&&(identical(other.offset, offset) || other.offset == offset)&&(identical(other.color, color) || other.color == color));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,offset,color);
+
+@override
+String toString() {
+  return 'ElementGradientStop(offset: $offset, color: $color)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ElementGradientStopCopyWith<$Res> implements $ElementGradientStopCopyWith<$Res> {
+  factory _$ElementGradientStopCopyWith(_ElementGradientStop value, $Res Function(_ElementGradientStop) _then) = __$ElementGradientStopCopyWithImpl;
+@override @useResult
+$Res call({
+ double offset,@ColorJsonConverter() SRGBColor color
+});
+
+
+
+
+}
+/// @nodoc
+class __$ElementGradientStopCopyWithImpl<$Res>
+    implements _$ElementGradientStopCopyWith<$Res> {
+  __$ElementGradientStopCopyWithImpl(this._self, this._then);
+
+  final _ElementGradientStop _self;
+  final $Res Function(_ElementGradientStop) _then;
+
+/// Create a copy of ElementGradientStop
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? offset = null,Object? color = null,}) {
+  return _then(_ElementGradientStop(
+offset: null == offset ? _self.offset : offset // ignore: cast_nullable_to_non_nullable
+as double,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as SRGBColor,
   ));
 }
 
@@ -315,7 +715,7 @@ Property _$PropertyFromJson(
           return PolygonProperty.fromJson(
             json
           );
-
+        
           default:
             throw CheckedFromJsonException(
   json,
@@ -324,7 +724,7 @@ Property _$PropertyFromJson(
   'Invalid union type "${json['type']}"!'
 );
         }
-
+      
 }
 
 /// @nodoc
@@ -392,7 +792,7 @@ as ElementPaint,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get paint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.paint, (value) {
     return _then(_self.copyWith(paint: value));
   });
@@ -486,7 +886,7 @@ as double,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get paint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.paint, (value) {
     return _then(_self.copyWith(paint: value));
   });
@@ -495,7 +895,7 @@ $ElementPaintCopyWith<$Res> get paint {
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get fillPaint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.fillPaint, (value) {
     return _then(_self.copyWith(fillPaint: value));
   });
@@ -587,7 +987,7 @@ as double,
 @override
 @pragma('vm:prefer-inline')
 $PathShapeCopyWith<$Res> get shape {
-
+  
   return $PathShapeCopyWith<$Res>(_self.shape, (value) {
     return _then(_self.copyWith(shape: value));
   });
@@ -596,7 +996,7 @@ $PathShapeCopyWith<$Res> get shape {
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get paint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.paint, (value) {
     return _then(_self.copyWith(paint: value));
   });
@@ -682,7 +1082,7 @@ as ElementPaint,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get paint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.paint, (value) {
     return _then(_self.copyWith(paint: value));
   });
@@ -691,7 +1091,7 @@ $ElementPaintCopyWith<$Res> get paint {
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get fillPaint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.fillPaint, (value) {
     return _then(_self.copyWith(fillPaint: value));
   });
@@ -718,7 +1118,7 @@ PathShape _$PathShapeFromJson(
           return TriangleShape.fromJson(
             json
           );
-
+        
           default:
             throw CheckedFromJsonException(
   json,
@@ -727,7 +1127,7 @@ PathShape _$PathShapeFromJson(
   'Invalid union type "${json['type']}"!'
 );
         }
-
+      
 }
 
 /// @nodoc
@@ -838,7 +1238,7 @@ as ElementPaint,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get fillPaint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.fillPaint, (value) {
     return _then(_self.copyWith(fillPaint: value));
   });
@@ -928,7 +1328,7 @@ as double,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get fillPaint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.fillPaint, (value) {
     return _then(_self.copyWith(fillPaint: value));
   });
@@ -1049,7 +1449,7 @@ as ElementPaint,
 @override
 @pragma('vm:prefer-inline')
 $ElementPaintCopyWith<$Res> get fillPaint {
-
+  
   return $ElementPaintCopyWith<$Res>(_self.fillPaint, (value) {
     return _then(_self.copyWith(fillPaint: value));
   });

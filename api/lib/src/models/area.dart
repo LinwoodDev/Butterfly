@@ -107,7 +107,7 @@ sealed class Area with _$Area {
     );
   }
 
-  Point get second => Point(position.x + width, position.y + height);
+  Point<double> get second => Point(position.x + width, position.y + height);
 
   Area moveBy(Point<double> offset) => copyWith(position: position + offset);
 
