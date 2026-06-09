@@ -1162,7 +1162,8 @@
   "homeScreen": "Màn hình chính",
   "lastNote": "Ghi chú cuối",
   "newNote": "Ghi chú mới",
-  "convertToLayer": "Chuyển thành lớp",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Gộp",
   "@merge": {
     "description": "Merge action"
