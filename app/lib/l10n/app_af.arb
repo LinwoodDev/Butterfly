@@ -1162,7 +1162,8 @@
   "homeScreen": "Tuisskerm",
   "lastNote": "Laaste nota",
   "newNote": "Nuwe nota",
-  "convertToLayer": "Skakel om na laag",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Voeg saam",
   "@merge": {
     "description": "Merge action"
