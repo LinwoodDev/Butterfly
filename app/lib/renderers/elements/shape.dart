@@ -1,6 +1,9 @@
 part of '../renderer.dart';
 
 class ShapeRenderer extends Renderer<ShapeElement> {
+  final _strokePaint = ElementPaintRenderer();
+  final _fillPaint = ElementPaintRenderer();
+
   @override
   Rect get rect => Rect.fromPoints(
     element.firstPosition.toOffset(),
@@ -8,6 +11,42 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   );
 
   ShapeRenderer(super.element, [super.layer]);
+
+  ElementPaint get _shapeFillPaint => switch (element.property.shape) {
+    CircleShape(:final fillPaint) => fillPaint,
+    RectangleShape(:final fillPaint) => fillPaint,
+    TriangleShape(:final fillPaint) => fillPaint,
+    _ => const ElementPaint.solid(color: SRGBColor.transparent),
+  };
+
+  @override
+  Future<void> setup(
+    TransformCubit transformCubit,
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async {
+    await Future.wait([
+      _strokePaint.setup(element.property.paint, document, assetService),
+      _fillPaint.setup(_shapeFillPaint, document, assetService),
+    ]);
+    await super.setup(transformCubit, document, assetService, page);
+  }
+
+  @override
+  void dispose() {
+    _strokePaint.dispose();
+    _fillPaint.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) => _strokePaint.uses(path) || _fillPaint.uses(path);
 
   @override
   Rect get expandedRect {
@@ -94,10 +133,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           bottomLeft: bottomLeftCornerRadius,
           bottomRight: bottomRightCornerRadius,
         ),
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
+        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
       );
       if (strokeWidth > 0) {
         final rrect = RRect.fromRectAndCorners(
@@ -113,10 +149,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     } else if (shape is CircleShape) {
       canvas.drawOval(
         drawRect,
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
+        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
       );
       if (strokeWidth > 0) {
         final path = Path()..addOval(drawRect);
@@ -136,10 +169,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         ..close();
       canvas.drawPath(
         path,
-        _buildPaint(
-          color: shape.fillColor.toColor(),
-          style: PaintingStyle.fill,
-        ),
+        _buildPaint(paint: shape.fillPaint, style: PaintingStyle.fill),
       );
       if (strokeWidth > 0) {
         _drawStyledPath(canvas, path, paint);
@@ -147,12 +177,18 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     }
   }
 
-  Paint _buildPaint({Color? color, PaintingStyle? style}) => Paint()
-    ..color = color ?? element.property.color.toColor()
-    ..strokeWidth = element.property.strokeWidth
-    ..style = style ?? PaintingStyle.stroke
-    ..strokeCap = StrokeCap.round
-    ..strokeJoin = StrokeJoin.round;
+  Paint _buildPaint({ElementPaint? paint, PaintingStyle? style}) {
+    final renderer = paint == null ? _strokePaint : _fillPaint;
+    final result = renderer.build(
+      paint ?? element.property.paint,
+      rect,
+      style: style ?? PaintingStyle.stroke,
+    );
+    return result
+      ..strokeWidth = element.property.strokeWidth
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+  }
 
   /// Returns SVG stroke-dasharray attribute value based on stroke style
   String? _getSvgDashArray() {
@@ -214,10 +250,13 @@ class ShapeRenderer extends Renderer<ShapeElement> {
             'path',
             attributes: {
               'd': d,
-              'fill': shape.fillColor.toHexString(alpha: false),
-              'fill-opacity': '${shape.fillColor.a / 255}',
-              'stroke': element.property.color.toHexString(alpha: false),
-              'stroke-opacity': '${element.property.color.a / 255}',
+              'fill': shape.fillPaint.previewColor.toHexString(alpha: false),
+              'fill-opacity': '${shape.fillPaint.previewColor.a / 255}',
+              'stroke': element.property.paint.previewColor.toHexString(
+                alpha: false,
+              ),
+              'stroke-opacity':
+                  '${element.property.paint.previewColor.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
               'stroke-dasharray': ?dashArray,
             },
@@ -232,10 +271,13 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'cy': '${drawRect.center.dy}',
               'rx': '${(drawRect.width / 2).abs()}',
               'ry': '${(drawRect.height / 2).abs()}',
-              'fill': shape.fillColor.toHexString(alpha: false),
-              'fill-opacity': '${shape.fillColor.a / 255}',
-              'stroke': element.property.color.toHexString(alpha: false),
-              'stroke-opacity': '${element.property.color.a / 255}',
+              'fill': shape.fillPaint.previewColor.toHexString(alpha: false),
+              'fill-opacity': '${shape.fillPaint.previewColor.a / 255}',
+              'stroke': element.property.paint.previewColor.toHexString(
+                alpha: false,
+              ),
+              'stroke-opacity':
+                  '${element.property.paint.previewColor.a / 255}',
               'stroke-width': '${element.property.strokeWidth}px',
               'stroke-dasharray': ?dashArray,
             },
@@ -251,8 +293,11 @@ class ShapeRenderer extends Renderer<ShapeElement> {
               'x2': '${element.secondPosition.x}px',
               'y2': '${element.secondPosition.y}px',
               'stroke-width': '${element.property.strokeWidth}px',
-              'stroke': element.property.color.toHexString(alpha: false),
-              'stroke-opacity': '${element.property.color.a / 255}',
+              'stroke': element.property.paint.previewColor.toHexString(
+                alpha: false,
+              ),
+              'stroke-opacity':
+                  '${element.property.paint.previewColor.a / 255}',
               'fill': 'none',
               'stroke-dasharray': ?dashArray,
             },
@@ -269,8 +314,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
             'path',
             attributes: {
               'd': d,
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
+              'fill': shape.fillPaint.previewColor.toHexString(),
+              'stroke': element.property.paint.previewColor.toHexString(),
               'stroke-width': '${element.property.strokeWidth}px',
               'stroke-dasharray': ?dashArray,
             },
@@ -287,8 +332,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
             'path',
             attributes: {
               'd': d,
-              'fill': shape.fillColor.toHexString(),
-              'stroke': element.property.color.toHexString(),
+              'fill': shape.fillPaint.previewColor.toHexString(),
+              'stroke': element.property.paint.previewColor.toHexString(),
               'stroke-width': '${element.property.strokeWidth}px',
             },
           );

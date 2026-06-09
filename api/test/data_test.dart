@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:dart_leap/dart_leap.dart';
 import 'package:test/test.dart';
 
 DocumentPage _pageWithLayer(String layerId) =>
@@ -252,6 +254,22 @@ void main() {
       expect(assets[pdfPath], equals(pdfBytes));
     });
 
+    test('getAllAssets contains imported texture entries', () {
+      var data = NoteData(Archive());
+      final textureBytes = Uint8List.fromList([8, 9, 10]);
+      final (withTexture, texturePath) = data.importTexture(
+        textureBytes,
+        'png',
+      );
+      data = withTexture;
+
+      final assets = data.getAllAssets();
+      expect(texturePath, startsWith('$kTexturesArchiveDirectory/'));
+      expect(assets.keys, contains(texturePath));
+      expect(assets[texturePath], equals(textureBytes));
+      expect(data.containsTexture(textureBytes, 'png'), isTrue);
+    });
+
     test('importImage reuses existing asset path for identical content', () {
       var data = NoteData(Archive());
       final bytes = Uint8List.fromList([7, 7, 7, 7]);
@@ -264,6 +282,71 @@ void main() {
       expect(firstPath, secondPath);
       expect(data.getAllAssets().length, 1);
       expect(data.containsImage(bytes, 'png'), isTrue);
+    });
+  });
+
+  group('ElementPaint migration', () {
+    test('file version 12 colors migrate to explicit paint fields', () {
+      var data = NoteData(Archive());
+      data = data.setMetadata(
+        FileMetadata(
+          type: NoteFileType.document,
+          fileVersion: 12,
+          name: 'Legacy paint',
+        ),
+      );
+      data = data.setAsset(
+        '$kPagesArchiveDirectory/0.Legacy.json',
+        utf8.encode(
+          jsonEncode({
+            'layers': [
+              {
+                'id': 'layer',
+                'content': [
+                  {
+                    'type': 'pen',
+                    'property': {
+                      'type': 'pen',
+                      'color': 0xFFFF0000,
+                      'fill': 0x8000FF00,
+                    },
+                  },
+                  {
+                    'type': 'shape',
+                    'property': {
+                      'type': 'shape',
+                      'color': 0xFF111111,
+                      'shape': {'type': 'circle', 'fillColor': 0xFF0000FF},
+                    },
+                  },
+                ],
+              },
+            ],
+          }),
+        ),
+      );
+
+      final migrated = NoteData.fromArchive(data.export());
+      final page = migrated.getPage('Legacy')!;
+      final pen = page.content[0] as PenElement;
+      final shape = page.content[1] as ShapeElement;
+
+      expect(
+        pen.property.paint,
+        ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
+      );
+      expect(
+        pen.property.fillPaint,
+        ElementPaint.solid(color: SRGBColor(0x8000FF00)),
+      );
+      expect(
+        shape.property.paint,
+        ElementPaint.solid(color: SRGBColor(0xFF111111)),
+      );
+      expect(
+        (shape.property.shape as CircleShape).fillPaint,
+        ElementPaint.solid(color: SRGBColor(0xFF0000FF)),
+      );
     });
   });
 }

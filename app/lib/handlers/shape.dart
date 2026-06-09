@@ -61,12 +61,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   bool get drawFromCenter => data.drawFromCenter;
 
   @override
-  SRGBColor getColor() => data.property.color;
+  SRGBColor getColor() => data.property.paint.previewColor;
 
   @override
   ShapeTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      color: color.withValues(a: data.property.color.a),
+      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
     ),
   );
 

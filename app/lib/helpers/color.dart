@@ -6,14 +6,22 @@ Tool updateToolDefaultColor(Tool tool, SRGBColor color) {
       ? SRGBColor.white
       : SRGBColor.black;
   return switch (tool) {
-    PenTool e => e.copyWith(property: e.property.copyWith(color: defaultColor)),
+    PenTool e => e.copyWith(
+      property: e.property.copyWith(
+        paint: ElementPaint.solid(color: defaultColor),
+      ),
+    ),
     ShapeTool e => e.copyWith(
-      property: e.property.copyWith(color: defaultColor),
+      property: e.property.copyWith(
+        paint: ElementPaint.solid(color: defaultColor),
+      ),
     ),
     LabelTool e => e.copyWith(foreground: defaultColor),
     BarcodeTool e => e.copyWith(color: defaultColor),
     PolygonTool e => e.copyWith(
-      property: e.property.copyWith(color: defaultColor),
+      property: e.property.copyWith(
+        paint: ElementPaint.solid(color: defaultColor),
+      ),
     ),
     _ => tool,
   };

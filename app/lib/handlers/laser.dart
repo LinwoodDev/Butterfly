@@ -47,7 +47,11 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final toolAlpha = color.a;
     final alpha = ((1 - delta) * toolAlpha).clamp(0, 255).round();
     color = color.withValues(a: alpha);
-    return element.copyWith(property: element.property.copyWith(color: color));
+    return element.copyWith(
+      property: element.property.copyWith(
+        paint: ElementPaint.solid(color: color),
+      ),
+    );
   }
 
   List<PenElement> _getSubmitted() {
@@ -150,7 +154,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
           property: PenProperty(
             strokeWidth: data.strokeWidth / transform.size,
             thinning: data.thinning,
-            color: data.color,
+            paint: ElementPaint.solid(color: data.color),
           ),
         );
 

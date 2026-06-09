@@ -59,11 +59,11 @@ void main() {
   test('toolbar changes update edited polygon element', () async {
     const originalProperty = PolygonProperty(
       strokeWidth: 3,
-      color: SRGBColor(0xFF000000),
+      paint: ElementPaint.solid(color: SRGBColor(0xFF000000)),
     );
     const updatedProperty = PolygonProperty(
       strokeWidth: 9,
-      color: SRGBColor(0xFFFF0000),
+      paint: ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
     );
     final element = PolygonElement(
       id: 'polygon',

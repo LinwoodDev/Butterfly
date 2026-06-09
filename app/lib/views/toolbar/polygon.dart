@@ -28,9 +28,13 @@ class PolygonToolbarView extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return ColorToolbarView(
-      color: tool.property.color,
+      color: tool.property.paint.previewColor,
       onChanged: (value) => onToolChanged.call(
-        tool.copyWith(property: tool.property.copyWith(color: value)),
+        tool.copyWith(
+          property: tool.property.copyWith(
+            paint: ElementPaint.solid(color: value),
+          ),
+        ),
       ),
       onEyeDropper: (context) {
         bloc.currentIndexCubit.changeTemporaryHandler(

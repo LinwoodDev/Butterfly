@@ -834,7 +834,9 @@ void main() {
         secondPosition: const Point(20, 30),
         property: const ShapeProperty(
           strokeWidth: 0,
-          shape: RectangleShape(fillColor: SRGBColor(0xFFFF0000)),
+          shape: RectangleShape(
+            fillPaint: ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
+          ),
         ),
       );
       final renderer = _VisibleTrackingRenderer(element);
