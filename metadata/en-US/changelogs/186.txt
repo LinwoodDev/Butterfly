@@ -11,5 +11,6 @@
 * Define polygons as strokes ([#1111](https://github.com/LinwoodDev/Butterfly/issues/1111))
 * Fix file extension will be shown in recently file view if hide extension is enabled ([#1133](https://github.com/LinwoodDev/Butterfly/issues/1133))
 * Fix file shows up twice in recently if it was renamed ([#1132](https://github.com/LinwoodDev/Butterfly/issues/1132))
+* Fix text labels disappear after switching to another element ([#1139](https://github.com/LinwoodDev/Butterfly/issues/1139))
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0

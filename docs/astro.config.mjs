@@ -8,17 +8,11 @@ import rehypeKatex from "rehype-katex";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
 import remarkMath from "remark-math";
+import { fileURLToPath } from "node:url";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
-  vite: {
-    resolve: {
-      alias: {
-        "@components": new URL("./src/components", import.meta.url).pathname,
-      },
-    },
-  },
   markdown: {
     remarkPlugins: [remarkHeadingID, remarkGemoji, remarkMath],
     rehypePlugins: [rehypeKatex]
