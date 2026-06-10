@@ -9,7 +9,6 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             LabelTool e => LabelToolSelection([e]),
             PenTool e => PenToolSelection([e]),
             EraserTool e => EraserToolSelection([e]),
-            PathEraserTool e => PathEraserToolSelection([e]),
             SelectTool e => SelectToolSelection([e]),
             AreaTool e => AreaToolSelection([e]),
             GridTool e => GridToolSelection([e]),

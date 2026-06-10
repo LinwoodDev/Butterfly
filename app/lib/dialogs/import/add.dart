@@ -253,9 +253,11 @@ class _AddDialogState extends State<AddDialog> {
                       () => Tool.select(mode: SelectMode.rectangle),
                       Tool.pen,
                       Tool.laser,
-                      Tool.pathEraser,
                       Tool.label,
-                      Tool.eraser,
+                      ...EraserMode.values.map(
+                        (e) =>
+                            () => Tool.eraser(mode: e),
+                      ),
                       Tool.area,
                       Tool.presentation,
                       Tool.polygon,

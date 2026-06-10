@@ -40,7 +40,7 @@ class DocumentDefaults {
       [
             SelectTool(mode: SelectMode.lasso, id: createUniqueId()),
             PenTool(id: createUniqueId()),
-            PathEraserTool(id: createUniqueId()),
+            EraserTool(id: createUniqueId(), mode: EraserMode.path),
             UndoTool(id: createUniqueId()),
             RedoTool(id: createUniqueId()),
             HandTool(id: createUniqueId()),

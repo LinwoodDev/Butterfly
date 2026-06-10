@@ -186,6 +186,9 @@ EraserTool _$EraserToolFromJson(Map json) => EraserTool(
   name: json['name'] as String? ?? '',
   displayIcon: json['displayIcon'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
+  mode:
+      $enumDecodeNullable(_$EraserModeEnumMap, json['mode']) ??
+      EraserMode.stroke,
   strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
   hitElementMode:
       $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
@@ -199,34 +202,17 @@ Map<String, dynamic> _$EraserToolToJson(EraserTool instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'id': const IdJsonConverter().toJson(instance.id),
+      'mode': _$EraserModeEnumMap[instance.mode]!,
       'strokeWidth': instance.strokeWidth,
       'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
       'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };
 
-PathEraserTool _$PathEraserToolFromJson(Map json) => PathEraserTool(
-  name: json['name'] as String? ?? '',
-  displayIcon: json['displayIcon'] as String? ?? '',
-  id: const IdJsonConverter().fromJson(json['id'] as String?),
-  strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-  hitElementMode:
-      $enumDecodeNullable(_$HitElementModeEnumMap, json['hitElementMode']) ??
-      HitElementMode.touchAnywhere,
-  eraseElements: json['eraseElements'] as bool? ?? false,
-  $type: json['type'] as String?,
-);
-
-Map<String, dynamic> _$PathEraserToolToJson(PathEraserTool instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'displayIcon': instance.displayIcon,
-      'id': const IdJsonConverter().toJson(instance.id),
-      'strokeWidth': instance.strokeWidth,
-      'hitElementMode': _$HitElementModeEnumMap[instance.hitElementMode]!,
-      'eraseElements': instance.eraseElements,
-      'type': instance.$type,
-    };
+const _$EraserModeEnumMap = {
+  EraserMode.stroke: 'stroke',
+  EraserMode.path: 'path',
+};
 
 CollectionTool _$CollectionToolFromJson(Map json) => CollectionTool(
   name: json['name'] as String? ?? '',
