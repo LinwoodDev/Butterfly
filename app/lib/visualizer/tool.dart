@@ -57,6 +57,18 @@ extension SelectModeVisualizer on SelectMode {
   };
 }
 
+extension EraserModeVisualizer on EraserMode {
+  String getLocalizedName(BuildContext context) => switch (this) {
+    EraserMode.stroke => AppLocalizations.of(context).stroke,
+    EraserMode.path => AppLocalizations.of(context).path,
+  };
+
+  IconGetter get icon => switch (this) {
+    EraserMode.stroke => PhosphorIcons.eraser,
+    EraserMode.path => PhosphorIcons.path,
+  };
+}
+
 extension Axis2DVisualizer on Axis2D {
   String getLocalizedName(BuildContext context) => switch (this) {
     Axis2D.horizontal => AppLocalizations.of(context).horizontal,
@@ -86,7 +98,6 @@ extension ToolVisualizer on Tool {
       LabelTool() => loc.label,
       PenTool() => loc.pen,
       EraserTool() => loc.eraser,
-      PathEraserTool() => loc.pathEraser,
       CollectionTool() => loc.collection,
       AreaTool() => loc.area,
       LaserTool() => loc.laser,
@@ -111,6 +122,7 @@ extension ToolVisualizer on Tool {
     return switch (this) {
       SpacerTool e => e.axis.getLocalizedName(context),
       SelectTool e => e.mode.getLocalizedName(context),
+      EraserTool e => e.mode.getLocalizedName(context),
       ExportTool e => switch (e.options) {
         ImageExportOptions() => loc.image,
         SvgExportOptions() => loc.svg,
@@ -135,8 +147,7 @@ extension ToolVisualizer on Tool {
           ? PhosphorIcons.textbox
           : PhosphorIcons.textT,
     PenTool tool => DisplayIcons.from(tool),
-    EraserTool() => PhosphorIcons.eraser,
-    PathEraserTool() => PhosphorIcons.path,
+    EraserTool tool => tool.mode.icon,
     CollectionTool() => PhosphorIcons.folder,
     AreaTool() => PhosphorIcons.monitor,
     LaserTool() => PhosphorIcons.cursor,
@@ -166,8 +177,10 @@ extension ToolVisualizer on Tool {
       LaserTool() => 'laser',
       ShapeTool() => 'shape',
       StampTool() => 'stamp',
-      EraserTool() => 'eraser',
-      PathEraserTool() => 'path_eraser',
+      EraserTool e => switch (e.mode) {
+        EraserMode.stroke => 'eraser',
+        EraserMode.path => 'path_eraser',
+      },
       LabelTool() => 'label',
       AreaTool() => 'area',
       HandTool() => 'hand',

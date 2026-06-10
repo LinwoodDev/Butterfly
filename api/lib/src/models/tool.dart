@@ -63,6 +63,8 @@ enum HitElementMode {
   }
 }
 
+enum EraserMode { stroke, path }
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -127,19 +129,11 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
+    @Default(EraserMode.stroke) EraserMode mode,
     @Default(5) double strokeWidth,
     @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
     @Default(false) bool eraseElements,
   }) = EraserTool;
-
-  factory Tool.pathEraser({
-    @Default('') String name,
-    @Default('') String displayIcon,
-    @IdJsonConverter() String? id,
-    @Default(5) double strokeWidth,
-    @Default(HitElementMode.touchAnywhere) HitElementMode hitElementMode,
-    @Default(false) bool eraseElements,
-  }) = PathEraserTool;
 
   factory Tool.collection({
     @Default('') String name,
@@ -290,7 +284,6 @@ sealed class Tool with _$Tool {
     LabelTool() => ToolCategory.normal,
     PenTool() => ToolCategory.normal,
     EraserTool() => ToolCategory.normal,
-    PathEraserTool() => ToolCategory.normal,
     CollectionTool() => ToolCategory.normal,
     AreaTool() => ToolCategory.normal,
     LaserTool() => ToolCategory.normal,

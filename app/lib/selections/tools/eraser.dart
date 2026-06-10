@@ -7,10 +7,34 @@ class EraserToolSelection extends ToolSelection<EraserTool> {
   List<Widget> buildProperties(BuildContext context) {
     final tool = selected.first;
     final currentMode = tool.hitElementMode;
+    final loc = AppLocalizations.of(context);
     return [
       ...super.buildProperties(context),
+      ListTile(
+        title: Text(loc.mode),
+        trailing: DropdownMenu<EraserMode>(
+          initialSelection: tool.mode,
+          dropdownMenuEntries: EraserMode.values
+              .map(
+                (e) => DropdownMenuEntry(
+                  label: e.getLocalizedName(context),
+                  leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
+                  value: e,
+                ),
+              )
+              .toList(),
+          onSelected: (value) {
+            if (value != null) {
+              update(
+                context,
+                selected.map((e) => e.copyWith(mode: value)).toList(),
+              );
+            }
+          },
+        ),
+      ),
       ExactSlider(
-        header: Text(AppLocalizations.of(context).strokeWidth),
+        header: Text(loc.strokeWidth),
         value: tool.strokeWidth,
         min: 0,
         max: 70,
@@ -22,7 +46,7 @@ class EraserToolSelection extends ToolSelection<EraserTool> {
       ),
       ExpansionTile(
         leading: const PhosphorIcon(PhosphorIconsLight.shapes),
-        title: Text(AppLocalizations.of(context).eraseShapes),
+        title: Text(loc.eraseShapes),
         subtitle: Text(currentMode.getLocalizedName(context, isEraser: true)),
         shape: const Border(),
         children: [
@@ -56,7 +80,7 @@ class EraserToolSelection extends ToolSelection<EraserTool> {
       ),
       CheckboxListTile(
         value: tool.eraseElements,
-        title: Text(AppLocalizations.of(context).eraseAllElements),
+        title: Text(loc.eraseAllElements),
         secondary: const PhosphorIcon(PhosphorIconsLight.image),
         onChanged: (value) => update(
           context,

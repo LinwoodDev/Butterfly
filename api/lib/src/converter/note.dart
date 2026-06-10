@@ -254,6 +254,10 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
 
     void updateTool(Map? item) {
       if (item == null) return;
+      if (item['type'] == 'pathEraser') {
+        item['type'] = 'eraser';
+        item['mode'] = 'path';
+      }
       final property = item['property'] as Map?;
       switch (item['type']) {
         case 'pen':
