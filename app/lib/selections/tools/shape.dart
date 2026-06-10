@@ -508,32 +508,30 @@ class _StrokeStyleSectionState extends State<_StrokeStyleSection> {
             ),
           ),
           body: Column(
-            children: [
-              ExactSlider(
-                header: Text(AppLocalizations.of(context).dashLength),
-                value: property.dashMultiplier,
-                min: 0.1,
-                max: 5,
-                defaultValue: 1,
-                onChangeEnd: isStyled
-                    ? (value) => widget.onPropertyChanged(
+            children: isStyled
+                ? [
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).dashLength),
+                      value: property.dashMultiplier,
+                      min: 0.1,
+                      max: 5,
+                      defaultValue: 1,
+                      onChangeEnd: (value) => widget.onPropertyChanged(
                         property.copyWith(dashMultiplier: value),
-                      )
-                    : null,
-              ),
-              ExactSlider(
-                header: Text(AppLocalizations.of(context).gapLength),
-                value: property.gapMultiplier,
-                min: 0.1,
-                max: 5,
-                defaultValue: 1,
-                onChangeEnd: isStyled
-                    ? (value) => widget.onPropertyChanged(
+                      ),
+                    ),
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).gapLength),
+                      value: property.gapMultiplier,
+                      min: 0.1,
+                      max: 5,
+                      defaultValue: 1,
+                      onChangeEnd: (value) => widget.onPropertyChanged(
                         property.copyWith(gapMultiplier: value),
-                      )
-                    : null,
-              ),
-            ],
+                      ),
+                    ),
+                  ]
+                : [],
           ),
         ),
       ],
