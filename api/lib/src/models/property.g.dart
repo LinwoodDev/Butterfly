@@ -10,33 +10,54 @@ SolidElementPaint _$SolidElementPaintFromJson(Map json) => SolidElementPaint(
   color: json['color'] == null
       ? SRGBColor.black
       : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+  blur: (json['blur'] as num?)?.toDouble() ?? 0,
   $type: json['type'] as String?,
 );
 
 Map<String, dynamic> _$SolidElementPaintToJson(SolidElementPaint instance) =>
     <String, dynamic>{
       'color': const ColorJsonConverter().toJson(instance.color),
+      'blur': instance.blur,
       'type': instance.$type,
     };
 
-TextureElementPaint _$TextureElementPaintFromJson(Map json) =>
-    TextureElementPaint(
-      source: json['source'] as String,
-      tint: json['tint'] == null
-          ? SRGBColor.white
-          : const ColorJsonConverter().fromJson((json['tint'] as num).toInt()),
-      scale: (json['scale'] as num?)?.toDouble() ?? 0.25,
-      $type: json['type'] as String?,
-    );
+ImageElementPaint _$ImageElementPaintFromJson(Map json) => ImageElementPaint(
+  source: json['source'] as String,
+  tint: json['tint'] == null
+      ? SRGBColor.white
+      : const ColorJsonConverter().fromJson((json['tint'] as num).toInt()),
+  scale: (json['scale'] as num?)?.toDouble() ?? 0.25,
+  blur: (json['blur'] as num?)?.toDouble() ?? 0,
+  $type: json['type'] as String?,
+);
 
-Map<String, dynamic> _$TextureElementPaintToJson(
-  TextureElementPaint instance,
-) => <String, dynamic>{
-  'source': instance.source,
-  'tint': const ColorJsonConverter().toJson(instance.tint),
-  'scale': instance.scale,
-  'type': instance.$type,
-};
+Map<String, dynamic> _$ImageElementPaintToJson(ImageElementPaint instance) =>
+    <String, dynamic>{
+      'source': instance.source,
+      'tint': const ColorJsonConverter().toJson(instance.tint),
+      'scale': instance.scale,
+      'blur': instance.blur,
+      'type': instance.$type,
+    };
+
+SvgElementPaint _$SvgElementPaintFromJson(Map json) => SvgElementPaint(
+  source: json['source'] as String,
+  tint: json['tint'] == null
+      ? SRGBColor.white
+      : const ColorJsonConverter().fromJson((json['tint'] as num).toInt()),
+  scale: (json['scale'] as num?)?.toDouble() ?? 0.25,
+  blur: (json['blur'] as num?)?.toDouble() ?? 0,
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$SvgElementPaintToJson(SvgElementPaint instance) =>
+    <String, dynamic>{
+      'source': instance.source,
+      'tint': const ColorJsonConverter().toJson(instance.tint),
+      'scale': instance.scale,
+      'blur': instance.blur,
+      'type': instance.$type,
+    };
 
 GradientElementPaint _$GradientElementPaintFromJson(Map json) =>
     GradientElementPaint(
@@ -45,6 +66,9 @@ GradientElementPaint _$GradientElementPaintFromJson(Map json) =>
           : ElementGradient.fromJson(
               Map<String, dynamic>.from(json['gradient'] as Map),
             ),
+      blur: (json['blur'] as num?)?.toDouble() ?? 0,
+      repeat: json['repeat'] as bool? ?? false,
+      scale: (json['scale'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
     );
 
@@ -52,6 +76,9 @@ Map<String, dynamic> _$GradientElementPaintToJson(
   GradientElementPaint instance,
 ) => <String, dynamic>{
   'gradient': instance.gradient.toJson(),
+  'blur': instance.blur,
+  'repeat': instance.repeat,
+  'scale': instance.scale,
   'type': instance.$type,
 };
 

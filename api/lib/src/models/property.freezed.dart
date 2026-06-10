@@ -19,8 +19,12 @@ ElementPaint _$ElementPaintFromJson(
           return SolidElementPaint.fromJson(
             json
           );
-                case 'texture':
-          return TextureElementPaint.fromJson(
+                case 'image':
+          return ImageElementPaint.fromJson(
+            json
+          );
+                case 'svg':
+          return SvgElementPaint.fromJson(
             json
           );
                 case 'gradient':
@@ -42,7 +46,12 @@ ElementPaint _$ElementPaintFromJson(
 /// @nodoc
 mixin _$ElementPaint {
 
-
+ double get blur;
+/// Create a copy of ElementPaint
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ElementPaintCopyWith<ElementPaint> get copyWith => _$ElementPaintCopyWithImpl<ElementPaint>(this as ElementPaint, _$identity);
 
   /// Serializes this ElementPaint to a JSON map.
   Map<String, dynamic> toJson();
@@ -50,24 +59,50 @@ mixin _$ElementPaint {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementPaint);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ElementPaint&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,blur);
 
 @override
 String toString() {
-  return 'ElementPaint()';
+  return 'ElementPaint(blur: $blur)';
 }
 
 
 }
 
 /// @nodoc
-class $ElementPaintCopyWith<$Res>  {
-$ElementPaintCopyWith(ElementPaint _, $Res Function(ElementPaint) __);
+abstract mixin class $ElementPaintCopyWith<$Res>  {
+  factory $ElementPaintCopyWith(ElementPaint value, $Res Function(ElementPaint) _then) = _$ElementPaintCopyWithImpl;
+@useResult
+$Res call({
+ double blur
+});
+
+
+
+
+}
+/// @nodoc
+class _$ElementPaintCopyWithImpl<$Res>
+    implements $ElementPaintCopyWith<$Res> {
+  _$ElementPaintCopyWithImpl(this._self, this._then);
+
+  final ElementPaint _self;
+  final $Res Function(ElementPaint) _then;
+
+/// Create a copy of ElementPaint
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? blur = null,}) {
+  return _then(_self.copyWith(
+blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
 }
 
 
@@ -76,10 +111,11 @@ $ElementPaintCopyWith(ElementPaint _, $Res Function(ElementPaint) __);
 @JsonSerializable()
 
 class SolidElementPaint extends ElementPaint {
-  const SolidElementPaint({@ColorJsonConverter() this.color = SRGBColor.black, final  String? $type}): $type = $type ?? 'solid',super._();
+  const SolidElementPaint({@ColorJsonConverter() this.color = SRGBColor.black, this.blur = 0, final  String? $type}): $type = $type ?? 'solid',super._();
   factory SolidElementPaint.fromJson(Map<String, dynamic> json) => _$SolidElementPaintFromJson(json);
 
 @JsonKey()@ColorJsonConverter() final  SRGBColor color;
+@override@JsonKey() final  double blur;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -87,7 +123,7 @@ final String $type;
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $SolidElementPaintCopyWith<SolidElementPaint> get copyWith => _$SolidElementPaintCopyWithImpl<SolidElementPaint>(this, _$identity);
 
@@ -98,16 +134,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SolidElementPaint&&(identical(other.color, color) || other.color == color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SolidElementPaint&&(identical(other.color, color) || other.color == color)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,color);
+int get hashCode => Object.hash(runtimeType,color,blur);
 
 @override
 String toString() {
-  return 'ElementPaint.solid(color: $color)';
+  return 'ElementPaint.solid(color: $color, blur: $blur)';
 }
 
 
@@ -116,9 +152,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $SolidElementPaintCopyWith<$Res> implements $ElementPaintCopyWith<$Res> {
   factory $SolidElementPaintCopyWith(SolidElementPaint value, $Res Function(SolidElementPaint) _then) = _$SolidElementPaintCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
-@ColorJsonConverter() SRGBColor color
+@ColorJsonConverter() SRGBColor color, double blur
 });
 
 
@@ -135,10 +171,11 @@ class _$SolidElementPaintCopyWithImpl<$Res>
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? color = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? color = null,Object? blur = null,}) {
   return _then(SolidElementPaint(
 color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
-as SRGBColor,
+as SRGBColor,blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -148,13 +185,14 @@ as SRGBColor,
 /// @nodoc
 @JsonSerializable()
 
-class TextureElementPaint extends ElementPaint {
-  const TextureElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, final  String? $type}): $type = $type ?? 'texture',super._();
-  factory TextureElementPaint.fromJson(Map<String, dynamic> json) => _$TextureElementPaintFromJson(json);
+class ImageElementPaint extends ElementPaint {
+  const ImageElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0, final  String? $type}): $type = $type ?? 'image',super._();
+  factory ImageElementPaint.fromJson(Map<String, dynamic> json) => _$ImageElementPaintFromJson(json);
 
  final  String source;
 @JsonKey()@ColorJsonConverter() final  SRGBColor tint;
 @JsonKey() final  double scale;
+@override@JsonKey() final  double blur;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -162,38 +200,38 @@ final String $type;
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$TextureElementPaintCopyWith<TextureElementPaint> get copyWith => _$TextureElementPaintCopyWithImpl<TextureElementPaint>(this, _$identity);
+$ImageElementPaintCopyWith<ImageElementPaint> get copyWith => _$ImageElementPaintCopyWithImpl<ImageElementPaint>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$TextureElementPaintToJson(this, );
+  return _$ImageElementPaintToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TextureElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImageElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,source,tint,scale);
+int get hashCode => Object.hash(runtimeType,source,tint,scale,blur);
 
 @override
 String toString() {
-  return 'ElementPaint.texture(source: $source, tint: $tint, scale: $scale)';
+  return 'ElementPaint.image(source: $source, tint: $tint, scale: $scale, blur: $blur)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $TextureElementPaintCopyWith<$Res> implements $ElementPaintCopyWith<$Res> {
-  factory $TextureElementPaintCopyWith(TextureElementPaint value, $Res Function(TextureElementPaint) _then) = _$TextureElementPaintCopyWithImpl;
-@useResult
+abstract mixin class $ImageElementPaintCopyWith<$Res> implements $ElementPaintCopyWith<$Res> {
+  factory $ImageElementPaintCopyWith(ImageElementPaint value, $Res Function(ImageElementPaint) _then) = _$ImageElementPaintCopyWithImpl;
+@override @useResult
 $Res call({
- String source,@ColorJsonConverter() SRGBColor tint, double scale
+ String source,@ColorJsonConverter() SRGBColor tint, double scale, double blur
 });
 
 
@@ -201,20 +239,100 @@ $Res call({
 
 }
 /// @nodoc
-class _$TextureElementPaintCopyWithImpl<$Res>
-    implements $TextureElementPaintCopyWith<$Res> {
-  _$TextureElementPaintCopyWithImpl(this._self, this._then);
+class _$ImageElementPaintCopyWithImpl<$Res>
+    implements $ImageElementPaintCopyWith<$Res> {
+  _$ImageElementPaintCopyWithImpl(this._self, this._then);
 
-  final TextureElementPaint _self;
-  final $Res Function(TextureElementPaint) _then;
+  final ImageElementPaint _self;
+  final $Res Function(ImageElementPaint) _then;
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? source = null,Object? tint = null,Object? scale = null,}) {
-  return _then(TextureElementPaint(
+@override @pragma('vm:prefer-inline') $Res call({Object? source = null,Object? tint = null,Object? scale = null,Object? blur = null,}) {
+  return _then(ImageElementPaint(
 source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as String,tint: null == tint ? _self.tint : tint // ignore: cast_nullable_to_non_nullable
 as SRGBColor,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class SvgElementPaint extends ElementPaint {
+  const SvgElementPaint({required this.source, @ColorJsonConverter() this.tint = SRGBColor.white, this.scale = 0.25, this.blur = 0, final  String? $type}): $type = $type ?? 'svg',super._();
+  factory SvgElementPaint.fromJson(Map<String, dynamic> json) => _$SvgElementPaintFromJson(json);
+
+ final  String source;
+@JsonKey()@ColorJsonConverter() final  SRGBColor tint;
+@JsonKey() final  double scale;
+@override@JsonKey() final  double blur;
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of ElementPaint
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SvgElementPaintCopyWith<SvgElementPaint> get copyWith => _$SvgElementPaintCopyWithImpl<SvgElementPaint>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SvgElementPaintToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SvgElementPaint&&(identical(other.source, source) || other.source == source)&&(identical(other.tint, tint) || other.tint == tint)&&(identical(other.scale, scale) || other.scale == scale)&&(identical(other.blur, blur) || other.blur == blur));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,source,tint,scale,blur);
+
+@override
+String toString() {
+  return 'ElementPaint.svg(source: $source, tint: $tint, scale: $scale, blur: $blur)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SvgElementPaintCopyWith<$Res> implements $ElementPaintCopyWith<$Res> {
+  factory $SvgElementPaintCopyWith(SvgElementPaint value, $Res Function(SvgElementPaint) _then) = _$SvgElementPaintCopyWithImpl;
+@override @useResult
+$Res call({
+ String source,@ColorJsonConverter() SRGBColor tint, double scale, double blur
+});
+
+
+
+
+}
+/// @nodoc
+class _$SvgElementPaintCopyWithImpl<$Res>
+    implements $SvgElementPaintCopyWith<$Res> {
+  _$SvgElementPaintCopyWithImpl(this._self, this._then);
+
+  final SvgElementPaint _self;
+  final $Res Function(SvgElementPaint) _then;
+
+/// Create a copy of ElementPaint
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? source = null,Object? tint = null,Object? scale = null,Object? blur = null,}) {
+  return _then(SvgElementPaint(
+source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
+as String,tint: null == tint ? _self.tint : tint // ignore: cast_nullable_to_non_nullable
+as SRGBColor,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
@@ -226,10 +344,13 @@ as double,
 @JsonSerializable()
 
 class GradientElementPaint extends ElementPaint {
-  const GradientElementPaint({this.gradient = const ElementGradient.linear(), final  String? $type}): $type = $type ?? 'gradient',super._();
+  const GradientElementPaint({this.gradient = const ElementGradient.linear(), this.blur = 0, this.repeat = false, this.scale = 1, final  String? $type}): $type = $type ?? 'gradient',super._();
   factory GradientElementPaint.fromJson(Map<String, dynamic> json) => _$GradientElementPaintFromJson(json);
 
 @JsonKey() final  ElementGradient gradient;
+@override@JsonKey() final  double blur;
+@JsonKey() final  bool repeat;
+@JsonKey() final  double scale;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -237,7 +358,7 @@ final String $type;
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $GradientElementPaintCopyWith<GradientElementPaint> get copyWith => _$GradientElementPaintCopyWithImpl<GradientElementPaint>(this, _$identity);
 
@@ -248,16 +369,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient)&&(identical(other.blur, blur) || other.blur == blur)&&(identical(other.repeat, repeat) || other.repeat == repeat)&&(identical(other.scale, scale) || other.scale == scale));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,gradient);
+int get hashCode => Object.hash(runtimeType,gradient,blur,repeat,scale);
 
 @override
 String toString() {
-  return 'ElementPaint.gradient(gradient: $gradient)';
+  return 'ElementPaint.gradient(gradient: $gradient, blur: $blur, repeat: $repeat, scale: $scale)';
 }
 
 
@@ -266,9 +387,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $GradientElementPaintCopyWith<$Res> implements $ElementPaintCopyWith<$Res> {
   factory $GradientElementPaintCopyWith(GradientElementPaint value, $Res Function(GradientElementPaint) _then) = _$GradientElementPaintCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- ElementGradient gradient
+ ElementGradient gradient, double blur, bool repeat, double scale
 });
 
 
@@ -285,10 +406,13 @@ class _$GradientElementPaintCopyWithImpl<$Res>
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? gradient = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? gradient = null,Object? blur = null,Object? repeat = null,Object? scale = null,}) {
   return _then(GradientElementPaint(
 gradient: null == gradient ? _self.gradient : gradient // ignore: cast_nullable_to_non_nullable
-as ElementGradient,
+as ElementGradient,blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
+as double,repeat: null == repeat ? _self.repeat : repeat // ignore: cast_nullable_to_non_nullable
+as bool,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

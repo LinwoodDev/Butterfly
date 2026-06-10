@@ -2,6 +2,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -18,6 +19,7 @@ class TexturesPackView extends StatelessWidget {
   Future<void> _importTexture(BuildContext context) async {
     final (data, extension, name) = await importFile(context, [
       AssetFileType.image,
+      AssetFileType.svg,
     ]);
     if (data == null) return;
     final fileName = value.findUniqueName(
@@ -48,6 +50,13 @@ class TexturesPackView extends StatelessWidget {
                     dimension: 48,
                     child: data == null
                         ? const PhosphorIcon(PhosphorIconsLight.image)
+                        : name.toLowerCase().endsWith('.svg')
+                        ? SvgPicture.memory(
+                            data,
+                            fit: BoxFit.cover,
+                            placeholderBuilder: (context) =>
+                                const PhosphorIcon(PhosphorIconsLight.image),
+                          )
                         : Image.memory(
                             data,
                             fit: BoxFit.cover,
