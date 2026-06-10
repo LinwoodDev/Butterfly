@@ -60,7 +60,8 @@ class ElementPaintRenderer {
     AssetService assets,
   ) async {
     final source = switch (paint) {
-      TextureElementPaint(:final source) => source,
+      ImageElementPaint(:final source) => source,
+      SvgElementPaint(:final source) => source,
       _ => null,
     };
     if (_source == source && _image != null) return;
@@ -84,52 +85,73 @@ class ElementPaintRenderer {
     final result = Paint()
       ..color = preview.toColor()
       ..style = style ?? PaintingStyle.fill;
+    if (paint.blur > 0) {
+      result.maskFilter = ui.MaskFilter.blur(ui.BlurStyle.normal, paint.blur);
+    }
     switch (paint) {
-      case TextureElementPaint(:final scale, :final tint):
-        final image = _image;
-        if (image == null) return result;
-        final matrix = Matrix4.diagonal3Values(scale, scale, 1);
-        result
-          ..shader = ui.ImageShader(
-            image,
-            TileMode.repeated,
-            TileMode.repeated,
-            matrix.storage,
-          )
-          ..colorFilter = ui.ColorFilter.mode(
-            tint.toColor(),
-            BlendMode.modulate,
-          );
-      case GradientElementPaint(:final gradient):
-        final shader = switch (gradient) {
-          LinearElementGradient(:final start, :final end, :final stops) =>
-            ui.Gradient.linear(
-              Offset(
-                bounds.left + start.x * bounds.width,
-                bounds.top + start.y * bounds.height,
-              ),
-              Offset(
-                bounds.left + end.x * bounds.width,
-                bounds.top + end.y * bounds.height,
-              ),
+      case ImageElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case SvgElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case GradientElementPaint(:final gradient, :final repeat, :final scale):
+        final tileMode = repeat ? TileMode.repeated : TileMode.clamp;
+        final effectiveScale = scale <= 0 ? 1.0 : scale;
+        late final ui.Shader shader;
+        switch (gradient) {
+          case LinearElementGradient(:final start, :final end, :final stops):
+            final startOffset = Offset(
+              bounds.left + start.x * bounds.width,
+              bounds.top + start.y * bounds.height,
+            );
+            final endOffset = Offset(
+              bounds.left + end.x * bounds.width,
+              bounds.top + end.y * bounds.height,
+            );
+            shader = ui.Gradient.linear(
+              startOffset,
+              startOffset + (endOffset - startOffset) / effectiveScale,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
-            ),
-          RadialElementGradient(:final center, :final radius, :final stops) =>
-            ui.Gradient.radial(
+              tileMode,
+            );
+          case RadialElementGradient(
+            :final center,
+            :final radius,
+            :final stops,
+          ):
+            shader = ui.Gradient.radial(
               Offset(
                 bounds.left + center.x * bounds.width,
                 bounds.top + center.y * bounds.height,
               ),
-              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
+              radius *
+                  sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) /
+                  2 /
+                  effectiveScale,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
-            ),
-        };
+              tileMode,
+            );
+        }
         result.shader = shader;
       case SolidElementPaint():
     }
     return result;
+  }
+
+  bool _applyImageShader(Paint paint, double scale, SRGBColor tint) {
+    final image = _image;
+    if (image == null) return false;
+    final matrix = Matrix4.diagonal3Values(scale, scale, 1);
+    paint
+      ..shader = ui.ImageShader(
+        image,
+        TileMode.repeated,
+        TileMode.repeated,
+        matrix.storage,
+      )
+      ..colorFilter = ui.ColorFilter.mode(tint.toColor(), BlendMode.modulate);
+    return true;
   }
 }
 

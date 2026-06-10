@@ -34,16 +34,28 @@ sealed class ElementPaint with _$ElementPaint {
 
   const factory ElementPaint.solid({
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+    @Default(0) double blur,
   }) = SolidElementPaint;
 
-  const factory ElementPaint.texture({
+  const factory ElementPaint.image({
     required String source,
     @Default(SRGBColor.white) @ColorJsonConverter() SRGBColor tint,
     @Default(0.25) double scale,
-  }) = TextureElementPaint;
+    @Default(0) double blur,
+  }) = ImageElementPaint;
+
+  const factory ElementPaint.svg({
+    required String source,
+    @Default(SRGBColor.white) @ColorJsonConverter() SRGBColor tint,
+    @Default(0.25) double scale,
+    @Default(0) double blur,
+  }) = SvgElementPaint;
 
   const factory ElementPaint.gradient({
     @Default(ElementGradient.linear()) ElementGradient gradient,
+    @Default(0) double blur,
+    @Default(false) bool repeat,
+    @Default(1) double scale,
   }) = GradientElementPaint;
 
   factory ElementPaint.fromJson(Map<String, dynamic> json) =>
@@ -51,20 +63,30 @@ sealed class ElementPaint with _$ElementPaint {
 
   SRGBColor get previewColor => switch (this) {
     SolidElementPaint(:final color) => color,
-    TextureElementPaint(:final tint) => tint,
+    ImageElementPaint(:final tint) => tint,
+    SvgElementPaint(:final tint) => tint,
     GradientElementPaint(:final gradient) =>
       gradient.stops.firstOrNull?.color ?? SRGBColor.black,
   };
 
   ElementPaint withAlpha(int alpha) => switch (this) {
-    SolidElementPaint(:final color) => ElementPaint.solid(
+    SolidElementPaint(:final color, :final blur) => ElementPaint.solid(
       color: color.withValues(a: alpha),
+      blur: blur,
     ),
-    TextureElementPaint(:final source, :final tint, :final scale) =>
-      ElementPaint.texture(
+    ImageElementPaint(:final source, :final tint, :final scale, :final blur) =>
+      ElementPaint.image(
         source: source,
         tint: tint.withValues(a: alpha),
         scale: scale,
+        blur: blur,
+      ),
+    SvgElementPaint(:final source, :final tint, :final scale, :final blur) =>
+      ElementPaint.svg(
+        source: source,
+        tint: tint.withValues(a: alpha),
+        scale: scale,
+        blur: blur,
       ),
     GradientElementPaint p => p.copyWith.gradient(
       stops: p.gradient.stops

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-enum _PaintKind { solid, gradient, texture }
+enum _PaintKind { solid, gradient, image, svg }
 
 enum _GradientKind { linear, radial }
 
@@ -24,7 +24,7 @@ class TexturePaintField extends StatelessWidget {
     required this.onChanged,
   });
 
-  Future<void> _importTexture(BuildContext context) async {
+  Future<void> _importImage(BuildContext context) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
@@ -37,13 +37,40 @@ class TexturePaintField extends StatelessWidget {
     final (_, path) = state.data.importTexture(data, extension ?? 'png');
     bloc.add(AssetUpdated(path, data));
 
-    onChanged(ElementPaint.texture(source: path, tint: value.previewColor));
+    onChanged(
+      ElementPaint.image(
+        source: path,
+        tint: value.previewColor,
+        blur: value.blur,
+      ),
+    );
+  }
+
+  Future<void> _importSvg(BuildContext context) async {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+
+    final (data, extension, _) = await importFile(context, [AssetFileType.svg]);
+    if (data == null) return;
+
+    final (_, path) = state.data.importTexture(data, extension ?? 'svg');
+    bloc.add(AssetUpdated(path, data));
+
+    onChanged(
+      ElementPaint.svg(
+        source: path,
+        tint: value.previewColor,
+        blur: value.blur,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final kind = switch (value) {
-      TextureElementPaint() => _PaintKind.texture,
+      ImageElementPaint() => _PaintKind.image,
+      SvgElementPaint() => _PaintKind.svg,
       GradientElementPaint() => _PaintKind.gradient,
       _ => _PaintKind.solid,
     };
@@ -64,9 +91,14 @@ class TexturePaintField extends StatelessWidget {
                 tooltip: 'Solid color',
               ),
               ButtonSegment(
-                value: _PaintKind.texture,
+                value: _PaintKind.image,
                 icon: PhosphorIcon(PhosphorIconsLight.image),
-                tooltip: 'Texture',
+                tooltip: 'Image',
+              ),
+              ButtonSegment(
+                value: _PaintKind.svg,
+                icon: PhosphorIcon(PhosphorIconsLight.fileSvg),
+                tooltip: 'SVG',
               ),
               ButtonSegment(
                 value: _PaintKind.gradient,
@@ -79,10 +111,14 @@ class TexturePaintField extends StatelessWidget {
               final selected = selection.first;
 
               onChanged(switch (selected) {
-                _PaintKind.solid => ElementPaint.solid(color: color),
+                _PaintKind.solid => ElementPaint.solid(
+                  color: color,
+                  blur: value.blur,
+                ),
                 _PaintKind.gradient => switch (value) {
                   GradientElementPaint() => value,
                   _ => ElementPaint.gradient(
+                    blur: value.blur,
                     gradient: ElementGradient.linear(
                       stops: [
                         ElementGradientStop(offset: 0, color: color),
@@ -94,20 +130,43 @@ class TexturePaintField extends StatelessWidget {
                     ),
                   ),
                 },
-                _PaintKind.texture => switch (value) {
-                  TextureElementPaint() => value,
-                  _ => ElementPaint.texture(source: '', tint: color),
+                _PaintKind.image => switch (value) {
+                  ImageElementPaint() => value,
+                  _ => ElementPaint.image(
+                    source: '',
+                    tint: color,
+                    blur: value.blur,
+                  ),
+                },
+                _PaintKind.svg => switch (value) {
+                  SvgElementPaint() => value,
+                  _ => ElementPaint.svg(
+                    source: '',
+                    tint: color,
+                    blur: value.blur,
+                  ),
                 },
               });
             },
           ),
         ),
 
-        if (value case GradientElementPaint(:final gradient))
+        if (value case GradientElementPaint(
+          :final gradient,
+          :final repeat,
+          :final scale,
+        ))
           _GradientPaintEditor(
             value: gradient,
             onChanged: (gradient) {
-              onChanged(ElementPaint.gradient(gradient: gradient));
+              onChanged(
+                ElementPaint.gradient(
+                  gradient: gradient,
+                  blur: value.blur,
+                  repeat: repeat,
+                  scale: scale,
+                ),
+              );
             },
           )
         else
@@ -119,13 +178,34 @@ class TexturePaintField extends StatelessWidget {
             ),
             value: color.withValues(a: 255),
             onChanged: (next) => onChanged(switch (value) {
-              TextureElementPaint(:final source, :final scale, :final tint) =>
-                ElementPaint.texture(
+              ImageElementPaint(
+                :final source,
+                :final scale,
+                :final tint,
+                :final blur,
+              ) =>
+                ElementPaint.image(
                   source: source,
                   tint: next.withValues(a: tint.a),
                   scale: scale,
+                  blur: blur,
                 ),
-              _ => ElementPaint.solid(color: next.withValues(a: color.a)),
+              SvgElementPaint(
+                :final source,
+                :final scale,
+                :final tint,
+                :final blur,
+              ) =>
+                ElementPaint.svg(
+                  source: source,
+                  tint: next.withValues(a: tint.a),
+                  scale: scale,
+                  blur: blur,
+                ),
+              _ => ElementPaint.solid(
+                color: next.withValues(a: color.a),
+                blur: value.blur,
+              ),
             }),
           ),
 
@@ -139,25 +219,75 @@ class TexturePaintField extends StatelessWidget {
           onChangeEnd: (alpha) => onChanged(value.withAlpha(alpha.toInt())),
         ),
 
-        if (value case TextureElementPaint(:final source, :final scale)) ...[
-          ListTile(
-            leading: const PhosphorIcon(PhosphorIconsLight.imageSquare),
-            title: const Text('Texture'),
-            subtitle: Text(source.isEmpty ? 'No texture selected' : source),
-            trailing: FilledButton.icon(
-              icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
-              label: const Text('Import'),
-              onPressed: () => _importTexture(context),
+        if (value case GradientElementPaint(:final repeat, :final scale)) ...[
+          SwitchListTile(
+            secondary: const PhosphorIcon(PhosphorIconsLight.repeat),
+            title: const Text('Repeat'),
+            value: repeat,
+            onChanged: (repeat) => onChanged(
+              (value as GradientElementPaint).copyWith(repeat: repeat),
             ),
           ),
           ExactSlider(
             value: scale,
-            header: const Text('Texture scale'),
+            header: const Text('Gradient scale'),
+            min: 0.1,
+            max: 8,
+            defaultValue: 1,
+            onChangeEnd: (scale) => onChanged(
+              (value as GradientElementPaint).copyWith(scale: scale),
+            ),
+          ),
+        ],
+
+        ExactSlider(
+          value: value.blur,
+          header: const Text('Blur'),
+          min: 0,
+          max: 50,
+          defaultValue: 0,
+          onChangeEnd: (blur) => onChanged(value.copyWith(blur: blur)),
+        ),
+
+        if (value case ImageElementPaint(:final source, :final scale)) ...[
+          ListTile(
+            leading: const PhosphorIcon(PhosphorIconsLight.imageSquare),
+            title: const Text('Image'),
+            subtitle: Text(source.isEmpty ? 'No image selected' : source),
+            trailing: FilledButton.icon(
+              icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
+              label: const Text('Import'),
+              onPressed: () => _importImage(context),
+            ),
+          ),
+          ExactSlider(
+            value: scale,
+            header: const Text('Image scale'),
             min: 0.1,
             max: 8,
             defaultValue: 1,
             onChangeEnd: (next) =>
-                onChanged((value as TextureElementPaint).copyWith(scale: next)),
+                onChanged((value as ImageElementPaint).copyWith(scale: next)),
+          ),
+        ] else if (value case SvgElementPaint(:final source, :final scale)) ...[
+          ListTile(
+            leading: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+            title: const Text('SVG'),
+            subtitle: Text(source.isEmpty ? 'No SVG selected' : source),
+            trailing: FilledButton.icon(
+              icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
+              label: const Text('Import'),
+              onPressed: () => _importSvg(context),
+            ),
+          ),
+          ExactSlider(
+            value: scale,
+            header: const Text('SVG scale'),
+            min: 0.1,
+            max: 8,
+            defaultValue: 1,
+            onChangeEnd: (next) =>
+                onChanged((value as SvgElementPaint).copyWith(scale: next)),
           ),
         ],
       ],
