@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Gumica za putanje",
+  "stroke": "Stroke",
   "label": "Oznaka",
   "@label": {
     "description": "Label tool"
