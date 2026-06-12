@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Effacer le chemin d'accès",
+  "stroke": "Stroke",
   "label": "Étiquette",
   "@label": {
     "description": "Label tool"
