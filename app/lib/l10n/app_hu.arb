@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Vonaltörlő",
+  "stroke": "Stroke",
   "label": "Címke",
   "@label": {
     "description": "Label tool"
