@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Контурный ластик",
+  "stroke": "Stroke",
   "label": "Подпись",
   "@label": {
     "description": "Label tool"
