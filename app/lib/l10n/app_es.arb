@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Borrador de ruta",
+  "stroke": "Stroke",
   "label": "Etiqueta",
   "@label": {
     "description": "Label tool"
