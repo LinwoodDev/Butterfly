@@ -61,6 +61,8 @@ sealed class CameraViewport with _$CameraViewport {
     List<Renderer<PadElement>> visibleElements,
     List<Renderer<PadElement>> unbakedElements,
   ) {
+    if (visibleElements.isEmpty || unbakedElements.isEmpty) return const [];
+    if (identical(visibleElements, unbakedElements)) return visibleElements;
     final unbakedSet = unbakedElements.toSet();
     return visibleElements.where(unbakedSet.contains).toList(growable: false);
   }
@@ -248,15 +250,19 @@ sealed class CameraViewport with _$CameraViewport {
 
   bool get baked => this is CameraViewportBaked;
 
-  void disposeImages() {
+  void disposeImages({CameraViewport? except}) {
     try {
-      image?.dispose();
+      if (!identical(image, except?.image)) image?.dispose();
     } catch (_) {}
     try {
-      belowLayerImage?.dispose();
+      if (!identical(belowLayerImage, except?.belowLayerImage)) {
+        belowLayerImage?.dispose();
+      }
     } catch (_) {}
     try {
-      aboveLayerImage?.dispose();
+      if (!identical(aboveLayerImage, except?.aboveLayerImage)) {
+        aboveLayerImage?.dispose();
+      }
     } catch (_) {}
   }
 }

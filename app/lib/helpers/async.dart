@@ -64,4 +64,9 @@ class CoalescedAsyncRunner {
     _disposed = true;
     cancel();
   }
+
+  Future<void> disposeAndWait() async {
+    dispose();
+    await _running;
+  }
 }

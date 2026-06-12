@@ -1692,7 +1692,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   @override
   Future<void> close() async {
-    _historyReloadRunner.dispose();
+    await _historyReloadRunner.disposeAndWait();
     clearHistory();
     final currentState = state;
     final currentIndexCubit = _currentIndexCubit;

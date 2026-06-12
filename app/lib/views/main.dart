@@ -84,13 +84,19 @@ class _ProjectPageState extends State<ProjectPage> {
         oldWidget.type != widget.type ||
         !identical(oldWidget.data, widget.data) ||
         oldWidget.uri != widget.uri) {
-      _disposeDocumentState(oldWidget.embedding);
-      _load();
+      unawaited(_reloadDocumentState(oldWidget.embedding));
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _disposeDocumentState([Embedding? embedding]) {
+  Future<void> _reloadDocumentState([Embedding? embedding]) async {
+    await _disposeDocumentState(embedding);
+    if (mounted) {
+      unawaited(_load());
+    }
+  }
+
+  Future<void> _disposeDocumentState([Embedding? embedding]) async {
     _loadGeneration++;
     (embedding ?? widget.embedding)?.handler?.unregister();
     final bloc = _bloc;
@@ -101,7 +107,7 @@ class _ProjectPageState extends State<ProjectPage> {
     _exportService = null;
 
     if (bloc != null && !bloc.isClosed) {
-      unawaited(bloc.close());
+      await bloc.close();
     }
   }
 
@@ -405,7 +411,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void dispose() {
     _closeSubscription.dispose();
-    _disposeDocumentState();
+    unawaited(_disposeDocumentState());
     _searchController.dispose();
     super.dispose();
   }

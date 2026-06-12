@@ -151,7 +151,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   StreamSubscription? _transformSubscription;
   Timer? _transformDebounceTimer;
   var _isClosing = false;
-  static const _listEquality = ListEquality<Renderer<PadElement>>();
+
+  static bool _sameRendererList(
+    List<Renderer<PadElement>> a,
+    List<Renderer<PadElement>> b,
+  ) {
+    if (identical(a, b)) return true;
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (!identical(a[i], b[i])) return false;
+    }
+    return true;
+  }
 
   void _onTransformChanged(CameraTransform transform) {
     // Debounce transform changes to avoid excessive updates during pan/zoom
@@ -176,14 +187,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ...visibleUnbaked,
     ];
 
-    if (visible.length == currentVisible.length &&
-        visibleUnbaked.length == currentVisibleUnbaked.length &&
-        visible.length == baked.length + unbaked.length) {
-      return;
-    }
-
-    if (_listEquality.equals(visible, currentVisible) &&
-        _listEquality.equals(visibleUnbaked, currentVisibleUnbaked)) {
+    if (_sameRendererList(visible, currentVisible) &&
+        _sameRendererList(visibleUnbaked, currentVisibleUnbaked)) {
       return;
     }
 
@@ -1409,17 +1414,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final aboveLayerRecorder = ui.PictureRecorder();
       final aboveLayerCanvas = ui.Canvas(aboveLayerRecorder);
       aboveLayerCanvas.scale(ratio);
-      final belowLayers = [], aboveLayers = [];
+      final belowLayers = <String>{}, aboveLayers = <String>{};
       bool above = false;
       for (final layer in page.layers) {
         if (layer.id == currentLayer) {
           above = true;
           continue;
         }
+        final layerId = layer.id;
+        if (layerId == null) continue;
         if (above) {
-          aboveLayers.add(layer.id);
+          aboveLayers.add(layerId);
         } else {
-          belowLayers.add(layer.id);
+          belowLayers.add(layerId);
         }
       }
 
@@ -1431,7 +1438,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: cameraViewport.unbake(
           rendererStates: allRendererStates,
           unbakedElements: visibleElements
-              .where((e) => belowLayers.contains(e.layer))
+              .where((e) => e.layer != null && belowLayers.contains(e.layer))
               .toList(),
           visibleElements: visibleElements,
         ),
@@ -1447,7 +1454,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: cameraViewport.unbake(
           rendererStates: allRendererStates,
           unbakedElements: visibleElements
-              .where((e) => aboveLayers.contains(e.layer))
+              .where((e) => e.layer != null && aboveLayers.contains(e.layer))
               .toList(),
           visibleElements: visibleElements,
         ),
@@ -1519,30 +1526,28 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
 
-    emit(
-      state.copyWith(
-        cameraViewport: cameraViewport.bake(
-          height: size.height,
-          width: size.width,
-          pixelRatio: ratio,
-          resolution: resolution,
-          scale: transform.size,
-          x: renderTransform.position.dx,
-          y: renderTransform.position.dy,
-          image: newImage,
-          bakedElements: renderers,
-          unbakedElements: newlyUnbaked,
-          visibleElements: visibleElements,
-          visibleUnbakedElements: newlyUnbaked
-              .where((renderer) => renderer.isVisible(rect))
-              .toList(),
-          belowLayerImage: belowLayerImage,
-          aboveLayerImage: aboveLayerImage,
-          rendererStates: allRendererStates,
-          invisibleLayers: invisibleLayers,
-        ),
-      ),
+    final newViewport = cameraViewport.bake(
+      height: size.height,
+      width: size.width,
+      pixelRatio: ratio,
+      resolution: resolution,
+      scale: transform.size,
+      x: renderTransform.position.dx,
+      y: renderTransform.position.dy,
+      image: newImage,
+      bakedElements: renderers,
+      unbakedElements: newlyUnbaked,
+      visibleElements: visibleElements,
+      visibleUnbakedElements: newlyUnbaked
+          .where((renderer) => renderer.isVisible(rect))
+          .toList(),
+      belowLayerImage: belowLayerImage,
+      aboveLayerImage: aboveLayerImage,
+      rendererStates: allRendererStates,
+      invisibleLayers: invisibleLayers,
     );
+    emit(state.copyWith(cameraViewport: newViewport));
+    cameraViewport.disposeImages(except: newViewport);
   });
 
   Future<ui.Image?> renderImage(
@@ -1686,7 +1691,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<PadElement>>? unbakedElements,
   }) async {
     final elementsToCheck = unbakedElements ?? renderers;
-    final newViewport = state.cameraViewport.unbake(
+    final oldViewport = state.cameraViewport;
+    final newViewport = oldViewport.unbake(
       unbakedElements: unbakedElements,
       visibleElements: elementsToCheck
           .where((e) => e.isVisible(getViewportRect()))
@@ -1695,6 +1701,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     await _updateOnVisible(newViewport, blocState);
     emit(state.copyWith(cameraViewport: newViewport));
+    oldViewport.disposeImages(except: newViewport);
   }
 
   Future<void> replaceUnbaked(
@@ -1803,7 +1810,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     final rect = getViewportRect();
     final visibleElements = combined.where((e) => e.isVisible(rect)).toList();
-    final newViewport = state.cameraViewport.unbake(
+    final oldViewport = state.cameraViewport;
+    final newViewport = oldViewport.unbake(
       unbakedElements: combined,
       visibleElements: visibleElements,
       backgrounds: backgrounds,
@@ -1815,6 +1823,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: newViewport,
       ),
     );
+    oldViewport.disposeImages(except: newViewport);
   }
 
   Future<void> addUnbaked(
@@ -2516,23 +2525,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _transformDebounceTimer = null;
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
-    _delayedBakeRunner.dispose();
+    await _delayedBakeRunner.disposeAndWait();
     if (!currentState.networkingService.isClosed) {
       await currentState.networkingService.close();
-    }
-    if (!isClosed) {
-      emit(
-        CurrentIndex(
-          null,
-          HandHandler(),
-          CameraViewport.unbaked(
-            pixelRatio: currentState.cameraViewport.pixelRatio,
-          ),
-          currentState.settingsCubit,
-          currentState.transformCubit,
-          currentState.networkingService,
-        ),
-      );
     }
     return super.close();
   }
