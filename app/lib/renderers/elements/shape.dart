@@ -179,10 +179,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   Paint _buildPaint({ElementPaint? paint, PaintingStyle? style}) {
     final renderer = paint == null ? _strokePaint : _fillPaint;
+    final effectiveStyle = style ?? PaintingStyle.stroke;
+    final bounds = effectiveStyle == PaintingStyle.stroke ? expandedRect : rect;
     final result = renderer.build(
       paint ?? element.property.paint,
-      rect,
-      style: style ?? PaintingStyle.stroke,
+      bounds,
+      style: effectiveStyle,
     );
     return result
       ..strokeWidth = element.property.strokeWidth

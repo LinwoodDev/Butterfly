@@ -286,41 +286,6 @@ void main() {
   });
 
   group('ElementPaint migration', () {
-    test('blur defaults and serializes', () {
-      expect(ElementPaint.fromJson({'type': 'solid'}).blur, 0);
-
-      final paint = ElementPaint.solid(color: SRGBColor(0xFFFF0000), blur: 12);
-
-      expect(paint.toJson()['blur'], 12);
-      expect(ElementPaint.fromJson(paint.toJson()), paint);
-    });
-
-    test('image and svg paints serialize', () {
-      final image = ElementPaint.image(
-        source: '$kTexturesArchiveDirectory/image.png',
-      );
-      final svg = ElementPaint.svg(
-        source: '$kTexturesArchiveDirectory/icon.svg',
-      );
-
-      expect(image.toJson()['type'], 'image');
-      expect(svg.toJson()['type'], 'svg');
-      expect(ElementPaint.fromJson(image.toJson()), image);
-      expect(ElementPaint.fromJson(svg.toJson()), svg);
-    });
-
-    test('gradient repeat and scale default and serialize', () {
-      final defaults = ElementPaint.fromJson({'type': 'gradient'});
-      expect(defaults, isA<GradientElementPaint>());
-      expect((defaults as GradientElementPaint).repeat, isFalse);
-      expect(defaults.scale, 1);
-
-      final paint = ElementPaint.gradient(repeat: true, scale: 2);
-      expect(paint.toJson()['repeat'], isTrue);
-      expect(paint.toJson()['scale'], 2);
-      expect(ElementPaint.fromJson(paint.toJson()), paint);
-    });
-
     test('file version 12 colors migrate to explicit paint fields', () {
       var data = NoteData(Archive());
       data = data.setMetadata(

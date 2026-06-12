@@ -344,13 +344,11 @@ as double,
 @JsonSerializable()
 
 class GradientElementPaint extends ElementPaint {
-  const GradientElementPaint({this.gradient = const ElementGradient.linear(), this.blur = 0, this.repeat = false, this.scale = 1, final  String? $type}): $type = $type ?? 'gradient',super._();
+  const GradientElementPaint({this.gradient = const ElementGradient.linear(), this.blur = 0, final  String? $type}): $type = $type ?? 'gradient',super._();
   factory GradientElementPaint.fromJson(Map<String, dynamic> json) => _$GradientElementPaintFromJson(json);
 
 @JsonKey() final  ElementGradient gradient;
 @override@JsonKey() final  double blur;
-@JsonKey() final  bool repeat;
-@JsonKey() final  double scale;
 
 @JsonKey(name: 'type')
 final String $type;
@@ -369,16 +367,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient)&&(identical(other.blur, blur) || other.blur == blur)&&(identical(other.repeat, repeat) || other.repeat == repeat)&&(identical(other.scale, scale) || other.scale == scale));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GradientElementPaint&&(identical(other.gradient, gradient) || other.gradient == gradient)&&(identical(other.blur, blur) || other.blur == blur));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,gradient,blur,repeat,scale);
+int get hashCode => Object.hash(runtimeType,gradient,blur);
 
 @override
 String toString() {
-  return 'ElementPaint.gradient(gradient: $gradient, blur: $blur, repeat: $repeat, scale: $scale)';
+  return 'ElementPaint.gradient(gradient: $gradient, blur: $blur)';
 }
 
 
@@ -389,7 +387,7 @@ abstract mixin class $GradientElementPaintCopyWith<$Res> implements $ElementPain
   factory $GradientElementPaintCopyWith(GradientElementPaint value, $Res Function(GradientElementPaint) _then) = _$GradientElementPaintCopyWithImpl;
 @override @useResult
 $Res call({
- ElementGradient gradient, double blur, bool repeat, double scale
+ ElementGradient gradient, double blur
 });
 
 
@@ -406,12 +404,10 @@ class _$GradientElementPaintCopyWithImpl<$Res>
 
 /// Create a copy of ElementPaint
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? gradient = null,Object? blur = null,Object? repeat = null,Object? scale = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? gradient = null,Object? blur = null,}) {
   return _then(GradientElementPaint(
 gradient: null == gradient ? _self.gradient : gradient // ignore: cast_nullable_to_non_nullable
 as ElementGradient,blur: null == blur ? _self.blur : blur // ignore: cast_nullable_to_non_nullable
-as double,repeat: null == repeat ? _self.repeat : repeat // ignore: cast_nullable_to_non_nullable
-as bool,scale: null == scale ? _self.scale : scale // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }
