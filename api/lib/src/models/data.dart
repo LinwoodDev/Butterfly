@@ -15,6 +15,7 @@ import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
+import 'tool.dart';
 
 final Set<String> validAssetPaths = {
   kImagesArchiveDirectory,
@@ -729,6 +730,45 @@ final class NoteData extends NoteDisplay<NoteData> {
   @useResult
   NoteData removeToolbar(String name) =>
       removeAsset('$kToolbarsArchiveDirectory/$name.json');
+
+  @useResult
+  Iterable<String> getToolPresets() =>
+      getAssets('$kToolPresetsArchiveDirectory/', true);
+
+  @useResult
+  Iterable<(String, Tool)> getNamedToolPresets() => getToolPresets().map((e) {
+    final tool = getToolPreset(e);
+    if (tool == null) return null;
+    return (e, tool);
+  }).nonNulls;
+
+  @useResult
+  Tool? getToolPreset(String presetName) {
+    final data = getAsset('$kToolPresetsArchiveDirectory/$presetName.json');
+    if (data == null) {
+      return null;
+    }
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return Tool.fromJson(json);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @useResult
+  NoteData setToolPreset(String name, Tool tool) {
+    final content = jsonEncode(tool.toJson());
+    return setAsset(
+      '$kToolPresetsArchiveDirectory/$name.json',
+      utf8.encode(content),
+    );
+  }
+
+  @useResult
+  NoteData removeToolPreset(String name) =>
+      removeAsset('$kToolPresetsArchiveDirectory/$name.json');
 
   @useResult
   String toJson() {

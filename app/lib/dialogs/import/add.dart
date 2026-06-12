@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/visualizer/tool.dart';
@@ -14,6 +18,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../bloc/document_bloc.dart';
 
+typedef ToolPresetItem = ({bool useCoreLayout, String name, Tool tool});
+
 class AddDialog extends StatefulWidget {
   const AddDialog({super.key});
 
@@ -25,7 +31,19 @@ class _AddDialogState extends State<AddDialog> {
   final ScrollController _filterScrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  late final PackFileSystem _packSystem;
+  late final Future<List<ToolPresetItem>> _toolPresetsFuture;
+  late final Future<(List<ImportType>, List<ToolPresetItem>)>
+  _dialogItemsFuture;
   ToolCategory? _category;
+
+  @override
+  void initState() {
+    super.initState();
+    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _toolPresetsFuture = _getToolPresets();
+    _dialogItemsFuture = _getDialogItems();
+  }
 
   @override
   void dispose() {
@@ -43,6 +61,54 @@ class _AddDialogState extends State<AddDialog> {
         character.isNotEmpty &&
         !event.logicalKey.keyLabel.startsWith('Arrow')) {
       _searchFocusNode.requestFocus();
+    }
+  }
+
+  Future<List<ToolPresetItem>> _getToolPresets() async {
+    final presets = <ToolPresetItem>[];
+    final seen = <String>{};
+    void addPack(NoteData pack, {bool useCoreLayout = false}) {
+      for (final preset in pack.getNamedToolPresets()) {
+        final key = jsonEncode({'name': preset.$1, 'tool': preset.$2.toJson()});
+        if (seen.add(key)) {
+          presets.add((
+            name: preset.$1,
+            tool: preset.$2,
+            useCoreLayout: useCoreLayout,
+          ));
+        }
+      }
+    }
+
+    addPack(await DocumentDefaults.getCorePack(), useCoreLayout: true);
+    final files = await _packSystem.getFiles();
+    for (final file in files) {
+      final pack = file.data;
+      if (pack != null) addPack(pack);
+    }
+    final state = context.read<DocumentBloc>().state;
+    if (state is DocumentLoaded) {
+      for (final packName in state.data.getBundledPacks()) {
+        final pack = state.data.getBundledPack(packName);
+        if (pack != null) addPack(pack);
+      }
+    }
+    return presets;
+  }
+
+  Future<List<ImportType>> _getAvailableImports() async {
+    final imports = await Future.wait(
+      ImportType.values.map((e) async => (e, await e.isAvailable())),
+    );
+    return imports.where((e) => e.$2).map((e) => e.$1).toList();
+  }
+
+  Future<(List<ImportType>, List<ToolPresetItem>)> _getDialogItems() async {
+    final imports = await _getAvailableImports();
+    try {
+      return (imports, await _toolPresetsFuture);
+    } catch (_) {
+      return (imports, <ToolPresetItem>[]);
     }
   }
 
@@ -191,7 +257,8 @@ class _AddDialogState extends State<AddDialog> {
       Navigator.of(context).pop();
     }
 
-    Widget buildTool(Tool tool) {
+    Widget buildTool(ToolPresetItem preset) {
+      final tool = preset.tool;
       final caption = tool.getLocalizedCaption(context);
       final handler = Handler.fromTool(tool);
       final color =
@@ -200,11 +267,13 @@ class _AddDialogState extends State<AddDialog> {
           : null;
       return BoxTile(
         title: Text(
-          tool.getLocalizedName(context),
+          preset.useCoreLayout ? tool.getDisplay(context) : preset.name,
           textAlign: TextAlign.center,
         ),
         size: 140,
-        subtitle: caption.isEmpty ? null : Text(caption),
+        subtitle: preset.useCoreLayout && caption.isNotEmpty
+            ? Text(caption)
+            : null,
         icon: Padding(
           padding: const EdgeInsets.all(4.0),
           child: PhosphorIcon(
@@ -232,148 +301,107 @@ class _AddDialogState extends State<AddDialog> {
       key: ValueKey(('add-dialog-body', _category)),
       child: ValueListenableBuilder(
         valueListenable: _searchController,
-        builder: (context, value, _) => FutureBuilder<List<ImportType>>(
-          future: Future.wait(
-            ImportType.values.map((e) async => (e, await e.isAvailable())),
-          ).then((value) => value.where((e) => e.$2).map((e) => e.$1).toList()),
-          builder: (context, snapshot) {
-            final search = value.text;
-            final imports = (snapshot.data ?? [])
-                .where(
-                  (e) => e
-                      .getLocalizedName(context)
-                      .toLowerCase()
-                      .contains(search.toLowerCase()),
-                )
-                .toList();
-            final tools =
-                [
-                      Tool.hand,
-                      () => Tool.select(mode: SelectMode.lasso),
-                      () => Tool.select(mode: SelectMode.rectangle),
-                      Tool.pen,
-                      Tool.laser,
-                      Tool.label,
-                      ...EraserMode.values.map(
-                        (e) =>
-                            () => Tool.eraser(mode: e),
-                      ),
-                      Tool.area,
-                      Tool.presentation,
-                      Tool.polygon,
-                      () => Tool.spacer(axis: Axis2D.vertical),
-                      () => Tool.spacer(axis: Axis2D.horizontal),
-                      Tool.stamp,
-                      ...[
-                        PathShape.circle,
-                        PathShape.rectangle,
-                        PathShape.line,
-                        PathShape.triangle,
-                      ].map(
-                        (e) =>
-                            () =>
-                                Tool.shape(property: ShapeProperty(shape: e())),
-                      ),
-                      ...[SurfaceTexture.pattern].map(
-                        (e) =>
-                            () => TextureTool(texture: e()),
-                      ),
-                      Tool.undo,
-                      Tool.redo,
-                      Tool.fullScreen,
-                      Tool.collection,
-                      Tool.eyeDropper,
-                      Tool.ruler,
-                      Tool.grid,
-                      ...BarcodeType.values.map(
-                        (e) =>
-                            () => Tool.barcode(barcodeType: e),
-                      ),
-                    ]
-                    .map((e) => e())
-                    .where((e) => _category == null || e.category == _category)
+        builder: (context, value, _) =>
+            FutureBuilder<(List<ImportType>, List<ToolPresetItem>)>(
+              future: _dialogItemsFuture,
+              builder: (context, snapshot) {
+                final search = value.text;
+                final imports = (snapshot.data?.$1 ?? [])
+                    .where(
+                      (e) => e
+                          .getLocalizedName(context)
+                          .toLowerCase()
+                          .contains(search.toLowerCase()),
+                    )
+                    .toList();
+                final tools = (snapshot.data?.$2 ?? <ToolPresetItem>[])
+                    .where(
+                      (e) => _category == null || e.tool.category == _category,
+                    )
                     .where(
                       (e) =>
-                          e
-                              .getLocalizedName(context)
+                          e.name.toLowerCase().contains(search.toLowerCase()) ||
+                          e.tool
+                              .getDisplay(context)
                               .toLowerCase()
                               .contains(search.toLowerCase()) ||
-                          e
+                          e.tool
                               .getLocalizedCaption(context)
                               .toLowerCase()
                               .contains(search.toLowerCase()),
                     )
                     .toList();
-            return ListView(
-              children: [
-                if ((_category == null || _category == ToolCategory.import) &&
-                    imports.isNotEmpty) ...[
-                  _ToolsListView(
-                    isMobile: isMobile && _category == null,
-                    children: imports
-                        .map(
-                          (e) => BoxTile(
-                            title: Text(
-                              e.getLocalizedName(context),
-                              textAlign: TextAlign.center,
-                            ),
-                            trailing: IconButton(
-                              onPressed: () =>
-                                  addTool(Tool.asset(importType: e)),
-                              tooltip: AppLocalizations.of(context).pin,
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.pushPin,
-                                textDirection: TextDirection.ltr,
+                return ListView(
+                  children: [
+                    if ((_category == null ||
+                            _category == ToolCategory.import) &&
+                        imports.isNotEmpty) ...[
+                      _ToolsListView(
+                        isMobile: isMobile && _category == null,
+                        children: imports
+                            .map(
+                              (e) => BoxTile(
+                                title: Text(
+                                  e.getLocalizedName(context),
+                                  textAlign: TextAlign.center,
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () =>
+                                      addTool(Tool.asset(importType: e)),
+                                  tooltip: AppLocalizations.of(context).pin,
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.pushPin,
+                                    textDirection: TextDirection.ltr,
+                                  ),
+                                ),
+                                icon: PhosphorIcon(
+                                  e.icon(PhosphorIconsStyle.light),
+                                  textDirection: TextDirection.ltr,
+                                ),
+                                onTap: () async {
+                                  final bloc = context.read<DocumentBloc>();
+                                  final importService = context
+                                      .read<ImportService>();
+                                  Navigator.of(context).pop();
+                                  await showImportAssetWizard(
+                                    e,
+                                    context,
+                                    bloc,
+                                    importService,
+                                  );
+                                },
                               ),
-                            ),
-                            icon: PhosphorIcon(
-                              e.icon(PhosphorIconsStyle.light),
-                              textDirection: TextDirection.ltr,
-                            ),
-                            onTap: () async {
-                              final bloc = context.read<DocumentBloc>();
-                              final importService = context
-                                  .read<ImportService>();
-                              Navigator.of(context).pop();
-                              await showImportAssetWizard(
-                                e,
-                                context,
-                                bloc,
-                                importService,
-                              );
-                            },
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  const SizedBox(height: 16),
-                ],
-                if (tools.isEmpty && imports.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 64,
-                      horizontal: 16,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context).noElements,
-                      textAlign: TextAlign.center,
-                      style: TextTheme.of(context).bodyLarge,
-                    ),
-                  ),
-                if (tools.isNotEmpty) ...[
-                  _ToolsListView(
-                    isMobile: false,
-                    title: imports.isEmpty || _category != null
-                        ? null
-                        : AppLocalizations.of(context).tools,
-                    children: tools.map(buildTool).toList(),
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ],
-            );
-          },
-        ),
+                            )
+                            .toList(),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    if (tools.isEmpty && imports.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 64,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context).noElements,
+                          textAlign: TextAlign.center,
+                          style: TextTheme.of(context).bodyLarge,
+                        ),
+                      ),
+                    if (tools.isNotEmpty) ...[
+                      _ToolsListView(
+                        isMobile: false,
+                        title: imports.isEmpty || _category != null
+                            ? null
+                            : AppLocalizations.of(context).tools,
+                        children: tools.map(buildTool).toList(),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ],
+                );
+              },
+            ),
       ),
     );
   }

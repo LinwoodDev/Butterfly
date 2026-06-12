@@ -16,13 +16,14 @@ import 'pack.dart';
 
 class AssetDialog extends StatelessWidget {
   final PackAssetLocation? value;
+  final String initialName;
 
-  const AssetDialog({super.key, this.value});
+  const AssetDialog({super.key, this.value, this.initialName = ''});
 
   @override
   Widget build(BuildContext context) {
     String? pack = value?.namespace;
-    String name = value?.key ?? '';
+    String name = value?.key ?? initialName;
     final bloc = context.read<DocumentBloc>();
     return FutureBuilder<List<FileSystemFile<NoteData>>>(
       future: context
