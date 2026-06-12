@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "路徑橡皮擦",
+  "stroke": "Stroke",
   "label": "標記",
   "@label": {
     "description": "Label tool"
