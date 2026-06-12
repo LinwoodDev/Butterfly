@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pad gum",
+  "stroke": "Stroke",
   "label": "Omschrijving",
   "@label": {
     "description": "Label tool"
