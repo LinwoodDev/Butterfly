@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Ștergere cale",
+  "stroke": "Stroke",
   "label": "Etichetă",
   "@label": {
     "description": "Label tool"
