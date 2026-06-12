@@ -39,7 +39,7 @@ void main() {
   final sizes = {
     'phoneScreenshots': const Size(360, 800),
     'sevenInchScreenshots': const Size(600, 1024),
-    'tenInchScreenshots': const Size(1280, 800),
+    'tenInchScreenshots': const Size(1920, 1080),
   };
 
   Future<void> settle(WidgetTester tester) async {
