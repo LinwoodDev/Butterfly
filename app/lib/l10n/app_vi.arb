@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Bút xóa đường",
+  "stroke": "Stroke",
   "label": "Nhãn",
   "@label": {
     "description": "Label tool"
