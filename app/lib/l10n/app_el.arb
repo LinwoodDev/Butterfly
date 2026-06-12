@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Διαδρομή γόμας",
+  "stroke": "Stroke",
   "label": "Ετικέτα",
   "@label": {
     "description": "Label tool"
