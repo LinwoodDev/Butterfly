@@ -51,6 +51,46 @@ class DocumentDefaults {
           )
           .toList();
 
+  static List<Tool> createToolPresets() => [
+    Tool.hand(),
+    Tool.select(mode: SelectMode.lasso),
+    Tool.select(mode: SelectMode.rectangle),
+    Tool.pen(),
+    Tool.laser(),
+    Tool.pathEraser(),
+    Tool.label(),
+    Tool.eraser(),
+    Tool.area(),
+    Tool.presentation(),
+    Tool.polygon(),
+    Tool.spacer(axis: Axis2D.vertical),
+    Tool.spacer(axis: Axis2D.horizontal),
+    Tool.stamp(),
+    ...[
+      PathShape.circle,
+      PathShape.rectangle,
+      PathShape.line,
+      PathShape.triangle,
+    ].map((e) => Tool.shape(property: ShapeProperty(shape: e()))),
+    ...[SurfaceTexture.pattern].map((e) => TextureTool(texture: e())),
+    Tool.undo(),
+    Tool.redo(),
+    Tool.fullScreen(),
+    Tool.collection(),
+    Tool.eyeDropper(),
+    Tool.ruler(),
+    Tool.grid(),
+    ...BarcodeType.values.map((e) => Tool.barcode(barcodeType: e)),
+  ];
+
+  static NoteData _addCoreToolPresets(NoteData pack) {
+    final presets = createToolPresets();
+    for (final (index, tool) in presets.indexed) {
+      pack = pack.setToolPreset('core-$index', tool);
+    }
+    return pack;
+  }
+
   static Future<List<NoteData>> getCoreTemplates(
     BuildContext context, {
     PatternBackground? background,
@@ -116,7 +156,7 @@ class DocumentDefaults {
   );
 
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= await _loadNoteData('pack');
+    return _corePack ??= _addCoreToolPresets(await _loadNoteData('pack'));
   }
 
   static String translate(String key, Map<String, String> translations) {
