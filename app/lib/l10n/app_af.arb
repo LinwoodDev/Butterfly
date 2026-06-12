@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pad-uitveër",
+  "stroke": "Stroke",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
