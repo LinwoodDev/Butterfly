@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "ยางลบเส้นทาง",
+  "stroke": "Stroke",
   "label": "ป้าย",
   "@label": {
     "description": "Label tool"
