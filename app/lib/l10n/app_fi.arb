@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Polun poistaminen",
+  "stroke": "Stroke",
   "label": "Tunniste",
   "@label": {
     "description": "Label tool"
