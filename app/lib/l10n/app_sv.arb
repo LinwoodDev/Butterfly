@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Radering av sökväg",
+  "stroke": "Stroke",
   "label": "Etikett",
   "@label": {
     "description": "Label tool"
