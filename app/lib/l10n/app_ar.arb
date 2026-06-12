@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "ممحاة المسار",
+  "stroke": "Stroke",
   "label": "علامة نصية",
   "@label": {
     "description": "Label tool"
