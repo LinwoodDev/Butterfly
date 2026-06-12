@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Cancella tratto",
+  "stroke": "Stroke",
   "label": "Etichetta",
   "@label": {
     "description": "Label tool"
