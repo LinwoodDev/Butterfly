@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Лінійка шляху",
+  "stroke": "Stroke",
   "label": "Мітка",
   "@label": {
     "description": "Label tool"
