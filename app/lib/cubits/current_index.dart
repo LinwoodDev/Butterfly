@@ -198,11 +198,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       visibleUnbakedElements: visibleUnbaked,
     );
 
-    final docState = _documentState?.call();
+    final docState = _activeDocumentState;
     if (docState != null) {
       _updateOnVisible(newViewport, docState).then((_) {
-        if (!isClosed) {
-          _delayedBakeDocument?.call();
+        final bloc = _activeDocumentBloc;
+        if (!isClosed && bloc != null) {
+          bloc.delayedBake();
         }
       });
     }
@@ -212,25 +213,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(cameraViewport: newViewport));
   }
 
-  DocumentLoaded? Function()? _documentState;
-  Future<void> Function()? _delayedBakeDocument;
-  void Function(DocumentEvent event)? _addDocumentEvent;
-  void Function()? _disposeHandlers;
+  WeakReference<DocumentBloc>? _documentBloc;
+
+  DocumentBloc? get _activeDocumentBloc {
+    final bloc = _documentBloc?.target;
+    if (bloc == null || bloc.isClosed) return null;
+    return bloc;
+  }
+
+  DocumentLoaded? get _activeDocumentState {
+    final state = _activeDocumentBloc?.state;
+    return state is DocumentLoaded ? state : null;
+  }
 
   void init(DocumentBloc bloc) {
-    _documentState = () {
-      final state = bloc.state;
-      return state is DocumentLoaded ? state : null;
-    };
-    _delayedBakeDocument = bloc.delayedBake;
-    _addDocumentEvent = bloc.add;
-    _disposeHandlers = () {
-      state.handler.dispose(bloc);
-      state.temporaryHandler?.dispose(bloc);
-      for (final handler in state.toggleableHandlers.values) {
-        handler.dispose(bloc);
-      }
-    };
+    _documentBloc = WeakReference(bloc);
     changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
   }
@@ -1513,7 +1510,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         aboveLayerImage?.dispose();
       }
       Future.microtask(() async {
-        final latestState = _documentState?.call();
+        final latestState = _activeDocumentState;
         if (latestState == null) return;
         await bake(
           latestState,
@@ -2167,7 +2164,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Area? getRelativeArea(Area currentArea, int dx, int dy, [bool? exact]) {
     if (dx == 0 && dy == 0) return null;
-    final docState = _documentState?.call();
+    final docState = _activeDocumentState;
     if (docState is! DocumentLoadSuccess) return null;
 
     final rect = currentArea.rect.translate(
@@ -2220,7 +2217,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     int dy, {
     Future<String?> Function()? createAreaName,
   }) async {
-    final docState = _documentState?.call();
+    final docState = _activeDocumentState;
     if (docState is! DocumentLoadSuccess) return;
 
     final current = docState.currentArea;
@@ -2228,7 +2225,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     var area = getRelativeArea(current, dx, dy);
     if (area != null) {
-      _addDocumentEvent?.call(CurrentAreaChanged(area.name));
+      _activeDocumentBloc?.add(CurrentAreaChanged(area.name));
       _teleportToAreaEdge(area, dx, dy);
       return;
     }
@@ -2248,8 +2245,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       width: rect.width,
       name: name,
     );
-    _addDocumentEvent?.call(AreasCreated([newArea]));
-    _addDocumentEvent?.call(CurrentAreaChanged(name));
+    final bloc = _activeDocumentBloc;
+    bloc?.add(AreasCreated([newArea]));
+    bloc?.add(CurrentAreaChanged(name));
     _teleportToAreaEdge(newArea, dx, dy);
   }
 
@@ -2288,7 +2286,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
             final area = getRelativeArea(currentArea, dx, dy);
             if (area != null) {
-              _addDocumentEvent?.call(CurrentAreaChanged(area.name));
+              _activeDocumentBloc?.add(CurrentAreaChanged(area.name));
               _teleportToAreaEdge(area, dx, dy);
               return;
             }
@@ -2509,11 +2507,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> close() async {
     _isClosing = true;
     final currentState = state;
-    _disposeHandlers?.call();
-    _documentState = null;
-    _delayedBakeDocument = null;
-    _addDocumentEvent = null;
-    _disposeHandlers = null;
+    final bloc = _activeDocumentBloc;
+    if (bloc != null) {
+      state.handler.dispose(bloc);
+      state.temporaryHandler?.dispose(bloc);
+      for (final handler in state.toggleableHandlers.values) {
+        handler.dispose(bloc);
+      }
+    }
+    _documentBloc = null;
     _disposeAllForegrounds();
     for (final renderer in renderers) {
       renderer.dispose();
