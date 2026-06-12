@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Vymazání tahem",
+  "stroke": "Stroke",
   "label": "Štítek",
   "@label": {
     "description": "Label tool"
