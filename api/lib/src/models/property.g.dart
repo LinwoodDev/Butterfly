@@ -67,8 +67,6 @@ GradientElementPaint _$GradientElementPaintFromJson(Map json) =>
               Map<String, dynamic>.from(json['gradient'] as Map),
             ),
       blur: (json['blur'] as num?)?.toDouble() ?? 0,
-      repeat: json['repeat'] as bool? ?? false,
-      scale: (json['scale'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
     );
 
@@ -77,8 +75,6 @@ Map<String, dynamic> _$GradientElementPaintToJson(
 ) => <String, dynamic>{
   'gradient': instance.gradient.toJson(),
   'blur': instance.blur,
-  'repeat': instance.repeat,
-  'scale': instance.scale,
   'type': instance.$type,
 };
 

@@ -36,6 +36,17 @@ class PolygonRenderer extends Renderer<PolygonElement> {
 
   PolygonRenderer(super.element, [super.layer, this.rect = Rect.zero]);
 
+  @override
+  Rect get expandedRect => Renderer._expandedAabbFor(
+    rect.inflate(
+      element.property.paint.previewColor.a > 0 &&
+              element.property.strokeWidth > 0
+          ? element.property.strokeWidth / 2
+          : 0,
+    ),
+    rotation * pi / 180,
+  );
+
   void _computePath() {
     final points = element.points;
     if (points.isEmpty) {
@@ -137,7 +148,11 @@ class PolygonRenderer extends Renderer<PolygonElement> {
     }
     if (property.paint.previewColor.a > 0) {
       final paint =
-          _strokePaint.build(property.paint, rect, style: PaintingStyle.stroke)
+          _strokePaint.build(
+              property.paint,
+              expandedRect,
+              style: PaintingStyle.stroke,
+            )
             ..strokeWidth = property.strokeWidth
             ..strokeCap = StrokeCap.round
             ..strokeJoin = StrokeJoin.round;

@@ -151,21 +151,12 @@ class TexturePaintField extends StatelessWidget {
           ),
         ),
 
-        if (value case GradientElementPaint(
-          :final gradient,
-          :final repeat,
-          :final scale,
-        ))
+        if (value case GradientElementPaint(:final gradient))
           _GradientPaintEditor(
             value: gradient,
             onChanged: (gradient) {
               onChanged(
-                ElementPaint.gradient(
-                  gradient: gradient,
-                  blur: value.blur,
-                  repeat: repeat,
-                  scale: scale,
-                ),
+                ElementPaint.gradient(gradient: gradient, blur: value.blur),
               );
             },
           )
@@ -218,28 +209,6 @@ class TexturePaintField extends StatelessWidget {
           defaultValue: 255,
           onChangeEnd: (alpha) => onChanged(value.withAlpha(alpha.toInt())),
         ),
-
-        if (value case GradientElementPaint(:final repeat, :final scale)) ...[
-          SwitchListTile(
-            secondary: const PhosphorIcon(PhosphorIconsLight.repeat),
-            title: const Text('Repeat'),
-            value: repeat,
-            onChanged: (repeat) => onChanged(
-              (value as GradientElementPaint).copyWith(repeat: repeat),
-            ),
-          ),
-          ExactSlider(
-            value: scale,
-            header: const Text('Gradient scale'),
-            min: 0.1,
-            max: 8,
-            defaultValue: 1,
-            onChangeEnd: (scale) => onChanged(
-              (value as GradientElementPaint).copyWith(scale: scale),
-            ),
-          ),
-        ],
-
         ExactSlider(
           value: value.blur,
           header: const Text('Blur'),

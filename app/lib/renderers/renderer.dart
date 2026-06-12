@@ -93,9 +93,8 @@ class ElementPaintRenderer {
         if (!_applyImageShader(result, scale, tint)) return result;
       case SvgElementPaint(:final scale, :final tint):
         if (!_applyImageShader(result, scale, tint)) return result;
-      case GradientElementPaint(:final gradient, :final repeat, :final scale):
-        final tileMode = repeat ? TileMode.repeated : TileMode.clamp;
-        final effectiveScale = scale <= 0 ? 1.0 : scale;
+      case GradientElementPaint(:final gradient):
+        final tileMode = TileMode.clamp;
         late final ui.Shader shader;
         switch (gradient) {
           case LinearElementGradient(:final start, :final end, :final stops):
@@ -107,9 +106,15 @@ class ElementPaintRenderer {
               bounds.left + end.x * bounds.width,
               bounds.top + end.y * bounds.height,
             );
+            final centerOffset = Offset(
+              bounds.left + bounds.width / 2,
+              bounds.top + bounds.height / 2,
+            );
+            final scaledStart = centerOffset + (startOffset - centerOffset);
+            final scaledEnd = centerOffset + (endOffset - centerOffset);
             shader = ui.Gradient.linear(
-              startOffset,
-              startOffset + (endOffset - startOffset) / effectiveScale,
+              scaledStart,
+              scaledEnd,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
               tileMode,
@@ -124,10 +129,7 @@ class ElementPaintRenderer {
                 bounds.left + center.x * bounds.width,
                 bounds.top + center.y * bounds.height,
               ),
-              radius *
-                  sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) /
-                  2 /
-                  effectiveScale,
+              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
               stops.map((s) => s.color.toColor()).toList(),
               stops.map((s) => s.offset).toList(),
               tileMode,

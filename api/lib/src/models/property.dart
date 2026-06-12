@@ -54,8 +54,6 @@ sealed class ElementPaint with _$ElementPaint {
   const factory ElementPaint.gradient({
     @Default(ElementGradient.linear()) ElementGradient gradient,
     @Default(0) double blur,
-    @Default(false) bool repeat,
-    @Default(1) double scale,
   }) = GradientElementPaint;
 
   factory ElementPaint.fromJson(Map<String, dynamic> json) =>
