@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Yol silici",
+  "stroke": "Stroke",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
