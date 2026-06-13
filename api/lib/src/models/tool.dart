@@ -277,7 +277,7 @@ sealed class Tool with _$Tool {
 
   ToolCategory get category => switch (this) {
     SelectTool() => ToolCategory.normal,
-    HandTool() => ToolCategory.normal,
+    HandTool() => ToolCategory.view,
     ImportTool() => ToolCategory.import,
     UndoTool() => ToolCategory.action,
     RedoTool() => ToolCategory.action,
@@ -286,7 +286,7 @@ sealed class Tool with _$Tool {
     EraserTool() => ToolCategory.normal,
     CollectionTool() => ToolCategory.action,
     AreaTool() => ToolCategory.normal,
-    LaserTool() => ToolCategory.normal,
+    LaserTool() => ToolCategory.view,
     ShapeTool() => ToolCategory.surface,
     StampTool() => ToolCategory.surface,
     PresentationTool() => ToolCategory.normal,

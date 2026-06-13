@@ -53,17 +53,15 @@ class DocumentDefaults {
 
   static List<Tool> createToolPresets() => [
     Tool.hand(),
-    Tool.select(mode: SelectMode.lasso),
-    Tool.select(mode: SelectMode.rectangle),
+    ...SelectMode.values.map((e) => Tool.select(mode: e)),
     Tool.pen(),
     Tool.laser(),
     Tool.label(),
-    Tool.eraser(),
+    ...EraserMode.values.map((e) => Tool.eraser(mode: e)),
     Tool.area(),
     Tool.presentation(),
     Tool.polygon(),
-    Tool.spacer(axis: Axis2D.vertical),
-    Tool.spacer(axis: Axis2D.horizontal),
+    ...Axis2D.values.map((e) => Tool.spacer(axis: e)),
     Tool.stamp(),
     ...[
       PathShape.circle,
