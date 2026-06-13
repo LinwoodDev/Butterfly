@@ -18,7 +18,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../bloc/document_bloc.dart';
 
-typedef ToolPresetItem = ({bool useCoreLayout, String name, Tool tool});
+enum _ToolPresetSource { core, pack, bundled }
+
+typedef ToolPresetItem = ({
+  bool useCoreLayout,
+  String name,
+  String sourceName,
+  _ToolPresetSource source,
+  Tool tool,
+});
 
 class AddDialog extends StatefulWidget {
   const AddDialog({super.key});
@@ -36,6 +44,7 @@ class _AddDialogState extends State<AddDialog> {
   late final Future<(List<ImportType>, List<ToolPresetItem>)>
   _dialogItemsFuture;
   ToolCategory? _category;
+  String? _packFilter;
 
   @override
   void initState() {
@@ -67,12 +76,19 @@ class _AddDialogState extends State<AddDialog> {
   Future<List<ToolPresetItem>> _getToolPresets() async {
     final presets = <ToolPresetItem>[];
     final seen = <String>{};
-    void addPack(NoteData pack, {bool useCoreLayout = false}) {
+    void addPack(
+      NoteData pack, {
+      bool useCoreLayout = false,
+      required String sourceName,
+      required _ToolPresetSource source,
+    }) {
       for (final preset in pack.getNamedToolPresets()) {
         final key = jsonEncode({'name': preset.$1, 'tool': preset.$2.toJson()});
         if (seen.add(key)) {
           presets.add((
             name: preset.$1,
+            sourceName: sourceName,
+            source: source,
             tool: preset.$2,
             useCoreLayout: useCoreLayout,
           ));
@@ -80,17 +96,38 @@ class _AddDialogState extends State<AddDialog> {
       }
     }
 
-    addPack(await DocumentDefaults.getCorePack(), useCoreLayout: true);
+    final corePack = await DocumentDefaults.getCorePack();
+    addPack(
+      corePack,
+      useCoreLayout: true,
+      sourceName: corePack.getMetadata()?.name ?? '',
+      source: _ToolPresetSource.core,
+    );
     final files = await _packSystem.getFiles();
     for (final file in files) {
       final pack = file.data;
-      if (pack != null) addPack(pack);
+      if (pack != null) {
+        final metadataName = pack.getMetadata()?.name;
+        final sourceName = metadataName?.trim().isNotEmpty == true
+            ? metadataName!
+            : file.pathWithoutLeadingSlash;
+        addPack(pack, sourceName: sourceName, source: _ToolPresetSource.pack);
+      }
     }
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoaded) {
       for (final packName in state.data.getBundledPacks()) {
         final pack = state.data.getBundledPack(packName);
-        if (pack != null) addPack(pack);
+        if (pack != null) {
+          final metadataName = pack.getMetadata()?.name;
+          addPack(
+            pack,
+            sourceName: metadataName?.trim().isNotEmpty == true
+                ? metadataName!
+                : packName,
+            source: _ToolPresetSource.bundled,
+          );
+        }
       }
     }
     return presets;
@@ -112,6 +149,14 @@ class _AddDialogState extends State<AddDialog> {
     }
   }
 
+  String _getPresetSourceLabel(BuildContext context, ToolPresetItem preset) =>
+      preset.sourceName.trim().isEmpty
+      ? AppLocalizations.of(context).tools
+      : preset.sourceName;
+
+  String _getPresetSourceKey(ToolPresetItem preset) =>
+      '${preset.source.index}:${preset.sourceName}';
+
   @override
   Widget build(BuildContext context) {
     final search = SearchBar(
@@ -131,7 +176,7 @@ class _AddDialogState extends State<AddDialog> {
             final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
             return ResponsiveDialog(
               constraints: const BoxConstraints(
-                maxWidth: 1050,
+                maxWidth: 1100,
                 maxHeight: 1000,
               ),
               child: Column(
@@ -214,6 +259,54 @@ class _AddDialogState extends State<AddDialog> {
                                   ),
                                 ),
                               ),
+                              FutureBuilder<List<ToolPresetItem>>(
+                                future: _toolPresetsFuture,
+                                builder: (context, snapshot) {
+                                  final presets =
+                                      snapshot.data ?? <ToolPresetItem>[];
+                                  final sources = <String, String>{};
+                                  for (final preset in presets) {
+                                    sources.putIfAbsent(
+                                      _getPresetSourceKey(preset),
+                                      () => _getPresetSourceLabel(
+                                        context,
+                                        preset,
+                                      ),
+                                    );
+                                  }
+                                  if (sources.length <= 1) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const VerticalDivider(width: 16),
+                                      ...sources.entries.map(
+                                        (entry) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                          ),
+                                          child: ChoiceChip(
+                                            label: Text(entry.value),
+                                            showCheckmark: false,
+                                            avatar: const PhosphorIcon(
+                                              PhosphorIconsLight.package,
+                                            ),
+                                            onSelected: (selected) {
+                                              setState(
+                                                () => _packFilter = selected
+                                                    ? entry.key
+                                                    : null,
+                                              );
+                                            },
+                                            selected: _packFilter == entry.key,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -238,13 +331,15 @@ class _AddDialogState extends State<AddDialog> {
   Widget _buildBody(bool isMobile) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
-    void addTool(Tool tool) {
+    void addTool(Tool tool, {bool updateDefaultColor = true}) {
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
       final background =
           state.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
       final copyTool = tool.copyWith(id: tool.id ?? createUniqueId());
-      final defaultTool = updateToolDefaultColor(copyTool, background);
+      final defaultTool = updateDefaultColor
+          ? updateToolDefaultColor(copyTool, background)
+          : copyTool;
       bloc.add(ToolCreated(defaultTool));
       if (!defaultTool.isAction()) {
         currentIndexCubit.changeTool(
@@ -259,46 +354,93 @@ class _AddDialogState extends State<AddDialog> {
 
     Widget buildTool(ToolPresetItem preset) {
       final tool = preset.tool;
-      final caption = tool.getLocalizedCaption(context);
       final handler = Handler.fromTool(tool);
-      final color =
-          handler.getStatus(context.read<DocumentBloc>()) == ToolStatus.disabled
-          ? Theme.of(context).disabledColor
-          : null;
-      return BoxTile(
-        title: Text(
-          preset.useCoreLayout ? tool.getDisplay(context) : preset.name,
-          textAlign: TextAlign.center,
-        ),
-        size: 140,
-        subtitle: preset.useCoreLayout && caption.isNotEmpty
-            ? Text(caption)
-            : null,
-        icon: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: PhosphorIcon(
-            handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
-            color: color,
-            textDirection: TextDirection.ltr,
+      final caption = tool.getLocalizedCaption(context);
+      final disabled =
+          handler.getStatus(context.read<DocumentBloc>()) ==
+          ToolStatus.disabled;
+      final color = disabled ? Theme.of(context).disabledColor : null;
+      final title = preset.useCoreLayout
+          ? tool.getDisplay(context)
+          : preset.name;
+      final type = tool.getLocalizedName(context);
+      final details = [
+        if (!preset.useCoreLayout && type != title) type,
+        if (caption.isNotEmpty) caption,
+      ].join(' - ');
+      return _CategorizedTile(
+        category: tool.category,
+        child: BoxTile(
+          title: Text(title, textAlign: TextAlign.center),
+          size: 150,
+          subtitle: details.isEmpty
+              ? null
+              : Text(
+                  details,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+          icon: Padding(
+            padding: const EdgeInsets.all(4),
+            child: PhosphorIcon(
+              handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
+              color: color,
+              textDirection: TextDirection.ltr,
+            ),
+          ),
+          trailing: tool.isAction()
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    handler.onSelected(context, false);
+                  },
+                  icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+                  tooltip: AppLocalizations.of(context).play,
+                )
+              : null,
+          onTap: () => addTool(
+            tool,
+            updateDefaultColor: preset.source == _ToolPresetSource.core,
           ),
         ),
-        trailing: tool.isAction()
-            ? IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  handler.onSelected(context, false);
-                },
-                icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
-                tooltip: AppLocalizations.of(context).play,
-              )
-            : null,
-        onTap: () => addTool(tool),
+      );
+    }
+
+    Widget buildImport(ImportType type) {
+      return _CategorizedTile(
+        category: ToolCategory.import,
+        child: BoxTile(
+          title: Text(
+            type.getLocalizedName(context),
+            textAlign: TextAlign.center,
+          ),
+          size: 150,
+          trailing: IconButton(
+            onPressed: () => addTool(Tool.asset(importType: type)),
+            tooltip: AppLocalizations.of(context).pin,
+            icon: const PhosphorIcon(
+              PhosphorIconsLight.pushPin,
+              textDirection: TextDirection.ltr,
+            ),
+          ),
+          icon: PhosphorIcon(
+            type.icon(PhosphorIconsStyle.light),
+            textDirection: TextDirection.ltr,
+          ),
+          onTap: () async {
+            final bloc = context.read<DocumentBloc>();
+            final importService = context.read<ImportService>();
+            Navigator.of(context).pop();
+            await showImportAssetWizard(type, context, bloc, importService);
+          },
+        ),
       );
     }
 
     return Material(
       type: MaterialType.transparency,
-      key: ValueKey(('add-dialog-body', _category)),
+      key: ValueKey(('add-dialog-body', _category, _packFilter)),
       child: ValueListenableBuilder(
         valueListenable: _searchController,
         builder: (context, value, _) =>
@@ -308,13 +450,24 @@ class _AddDialogState extends State<AddDialog> {
                 final search = value.text;
                 final imports = (snapshot.data?.$1 ?? [])
                     .where(
+                      (e) =>
+                          _packFilter == null &&
+                          (_category == null ||
+                              _category == ToolCategory.import),
+                    )
+                    .where(
                       (e) => e
                           .getLocalizedName(context)
                           .toLowerCase()
                           .contains(search.toLowerCase()),
                     )
-                    .toList();
+                    .map(buildImport);
                 final tools = (snapshot.data?.$2 ?? <ToolPresetItem>[])
+                    .where(
+                      (e) =>
+                          _packFilter == null ||
+                          _getPresetSourceKey(e) == _packFilter,
+                    )
                     .where(
                       (e) => _category == null || e.tool.category == _category,
                     )
@@ -330,53 +483,11 @@ class _AddDialogState extends State<AddDialog> {
                               .toLowerCase()
                               .contains(search.toLowerCase()),
                     )
-                    .toList();
+                    .map(buildTool);
+                final children = [...imports, ...tools];
                 return ListView(
                   children: [
-                    if ((_category == null ||
-                            _category == ToolCategory.import) &&
-                        imports.isNotEmpty) ...[
-                      _ToolsListView(
-                        isMobile: isMobile && _category == null,
-                        children: imports
-                            .map(
-                              (e) => BoxTile(
-                                title: Text(
-                                  e.getLocalizedName(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                                trailing: IconButton(
-                                  onPressed: () =>
-                                      addTool(Tool.asset(importType: e)),
-                                  tooltip: AppLocalizations.of(context).pin,
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.pushPin,
-                                    textDirection: TextDirection.ltr,
-                                  ),
-                                ),
-                                icon: PhosphorIcon(
-                                  e.icon(PhosphorIconsStyle.light),
-                                  textDirection: TextDirection.ltr,
-                                ),
-                                onTap: () async {
-                                  final bloc = context.read<DocumentBloc>();
-                                  final importService = context
-                                      .read<ImportService>();
-                                  Navigator.of(context).pop();
-                                  await showImportAssetWizard(
-                                    e,
-                                    context,
-                                    bloc,
-                                    importService,
-                                  );
-                                },
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-                    if (tools.isEmpty && imports.isEmpty)
+                    if (children.isEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 64,
@@ -387,15 +498,9 @@ class _AddDialogState extends State<AddDialog> {
                           textAlign: TextAlign.center,
                           style: TextTheme.of(context).bodyLarge,
                         ),
-                      ),
-                    if (tools.isNotEmpty) ...[
-                      _ToolsListView(
-                        isMobile: false,
-                        title: imports.isEmpty || _category != null
-                            ? null
-                            : AppLocalizations.of(context).tools,
-                        children: tools.map(buildTool).toList(),
-                      ),
+                      )
+                    else ...[
+                      _ToolsListView(children: children),
                       const SizedBox(height: 16),
                     ],
                   ],
@@ -407,61 +512,54 @@ class _AddDialogState extends State<AddDialog> {
   }
 }
 
-class _ToolsListView extends StatefulWidget {
-  final List<Widget> children;
-  final bool isMobile;
-  final String? title;
+class _CategorizedTile extends StatelessWidget {
+  final ToolCategory category;
+  final Widget child;
 
-  const _ToolsListView({
-    required this.children,
-    this.title,
-    required this.isMobile,
-  });
-
-  @override
-  State<_ToolsListView> createState() => _ToolsListViewState();
-}
-
-class _ToolsListViewState extends State<_ToolsListView> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  const _CategorizedTile({required this.category, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final colorScheme = ColorScheme.of(context);
+    return Stack(
       children: [
-        if (widget.title != null)
-          Text(
-            widget.title!,
-            style: TextTheme.of(context).bodyLarge,
-            textAlign: TextAlign.center,
-          ),
-        if (widget.isMobile)
-          SizedBox(
-            height: 130,
-            child: Scrollbar(
-              controller: _scrollController,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                controller: _scrollController,
-                children: widget.children,
+        child,
+        PositionedDirectional(
+          top: 8,
+          start: 8,
+          child: Tooltip(
+            message: category.getLocalizedName(context),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: PhosphorIcon(
+                  category.icon(PhosphorIconsStyle.light),
+                  size: 16,
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
             ),
-          )
-        else
-          Padding(
-            padding: const EdgeInsets.all(4),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: widget.children,
-            ),
           ),
+        ),
       ],
+    );
+  }
+}
+
+class _ToolsListView extends StatelessWidget {
+  final List<Widget> children;
+
+  const _ToolsListView({required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Wrap(alignment: WrapAlignment.center, children: children),
     );
   }
 }

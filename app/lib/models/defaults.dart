@@ -57,7 +57,6 @@ class DocumentDefaults {
     Tool.select(mode: SelectMode.rectangle),
     Tool.pen(),
     Tool.laser(),
-    Tool.pathEraser(),
     Tool.label(),
     Tool.eraser(),
     Tool.area(),

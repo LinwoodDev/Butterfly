@@ -331,17 +331,35 @@ class ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final system = buildPackSystem(storage);
-    await system.initialize();
-    final files = await system.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
+    for (final (name, pack) in await getCoreAndUserPacks(storage)) {
       final palette = test(pack);
       if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
       return palette.toPack(pack, name);
     }
     return null;
+  }
+
+  Future<List<(String, NoteData)>> getCoreAndUserPacks([
+    ExternalStorage? storage,
+  ]) async {
+    final corePack = await DocumentDefaults.getCorePack();
+    final coreName = corePack.getMetadata()?.name;
+    final corePath = '${corePack.name ?? coreName ?? 'core'}.bfly';
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
+    final packs = <(String, NoteData)>[];
+    (String, NoteData)? editableCorePack;
+    for (final file in files) {
+      final pack = file.data!;
+      final item = (file.pathWithoutLeadingSlash, pack);
+      if (pack.getMetadata()?.name == coreName) {
+        editableCorePack = item;
+      } else {
+        packs.add(item);
+      }
+    }
+    return [editableCorePack ?? (corePath, corePack), ...packs];
   }
 
   Future<PackItem<text.TextStyleSheet>?> findDefaultStyleSheet([
@@ -352,9 +370,7 @@ class ButterflyFileSystem {
   ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
 
   Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem(
-        settingsCubit.getRemote(location.namespace),
-      ).updateFile(location.key, newPack);
+      buildDefaultPackSystem().updateFile(location.namespace, newPack);
 
   void removeCachedDocumentSystem(ExternalStorage? storage) {
     final key = _cacheKey(storage);

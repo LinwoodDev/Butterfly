@@ -21,26 +21,18 @@ class SelectPackAssetDialog extends StatefulWidget {
 }
 
 class _SelectPackAssetDialogState extends State<SelectPackAssetDialog> {
-  late final PackFileSystem _packSystem;
+  late final ButterflyFileSystem _fileSystem;
   Future<List<(String, NoteData)>>? _packsFuture;
 
   @override
   void initState() {
     super.initState();
-    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _fileSystem = context.read<ButterflyFileSystem>();
     _packsFuture = _getPacks();
   }
 
-  Future<List<(String, NoteData)>> _getPacks() async {
-    await _packSystem.initialize();
-    final files = await _packSystem.getFiles();
-    final packs = <(String, NoteData)>[];
-    for (final file in files) {
-      final pack = file.data!;
-      packs.add((file.pathWithoutLeadingSlash, pack));
-    }
-    return packs;
-  }
+  Future<List<(String, NoteData)>> _getPacks() =>
+      _fileSystem.getCoreAndUserPacks();
 
   List<PackItem> _getAssets(List<(String, NoteData)> packs) => packs.nonNulls
       .expand(

@@ -25,11 +25,11 @@ class AssetDialog extends StatelessWidget {
     String? pack = value?.namespace;
     String name = value?.key ?? initialName;
     final bloc = context.read<DocumentBloc>();
+    final packSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDefaultPackSystem();
     return FutureBuilder<List<FileSystemFile<NoteData>>>(
-      future: context
-          .read<ButterflyFileSystem>()
-          .buildDefaultPackSystem()
-          .getFiles(),
+      future: packSystem.initialize().then((_) => packSystem.getFiles()),
       builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) => previous.data != current.data,
         builder: (context, state) {

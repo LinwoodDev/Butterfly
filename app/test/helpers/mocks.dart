@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/models/text.dart';
 import 'package:mocktail/mocktail.dart';
@@ -68,17 +69,36 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final system = buildPackSystem(storage);
-    await system.initialize();
-    final files = await system.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
+    for (final (name, pack) in await getCoreAndUserPacks(storage)) {
       final palette = test(pack);
       if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
       return palette.toPack(pack, name);
     }
     return null;
+  }
+
+  @override
+  Future<List<(String, NoteData)>> getCoreAndUserPacks([
+    ExternalStorage? storage,
+  ]) async {
+    final corePack = await DocumentDefaults.getCorePack();
+    final coreName = corePack.getMetadata()?.name;
+    final corePath = '${corePack.name ?? coreName ?? 'core'}.bfly';
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
+    final packs = <(String, NoteData)>[];
+    (String, NoteData)? editableCorePack;
+    for (final file in files) {
+      final pack = file.data!;
+      final item = (file.pathWithoutLeadingSlash, pack);
+      if (pack.getMetadata()?.name == coreName) {
+        editableCorePack = item;
+      } else {
+        packs.add(item);
+      }
+    }
+    return [editableCorePack ?? (corePath, corePack), ...packs];
   }
 
   @override
@@ -101,7 +121,7 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
 
   @override
   Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem().updateFile(location.key, newPack);
+      buildPackSystem().updateFile(location.namespace, newPack);
 }
 
 TemplateFileSystem buildMockTemplateFileSystem() {
