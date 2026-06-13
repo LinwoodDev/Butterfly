@@ -284,7 +284,7 @@ sealed class Tool with _$Tool {
     LabelTool() => ToolCategory.normal,
     PenTool() => ToolCategory.normal,
     EraserTool() => ToolCategory.normal,
-    CollectionTool() => ToolCategory.normal,
+    CollectionTool() => ToolCategory.action,
     AreaTool() => ToolCategory.normal,
     LaserTool() => ToolCategory.normal,
     ShapeTool() => ToolCategory.surface,
