@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Tenere Le Scorciatoie",
   "holdShortcutsDescription": "Tieni premuto un tasto per passare temporaneamente a un altro strumento. Rilasciare il tasto passa allo strumento precedente.",
   "key": "Chiave",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
