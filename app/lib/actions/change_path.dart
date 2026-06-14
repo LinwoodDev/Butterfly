@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 
 import '../cubits/settings.dart';
 
@@ -36,16 +37,16 @@ class ChangePathAction extends Action<ChangePathIntent> {
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {
-      var newPaths = await showDialog<List<String>>(
+      var newLocations = await showDialog<List<AssetLocation>>(
         context: context,
         builder: (context) => FileSystemAssetMoveDialog(
           assets: [asset.location],
           fileSystem: fileSystem,
         ),
       );
-      if (newPaths == null) return;
+      if (newLocations == null) return;
       bloc.currentIndexCubit.setSaveState(
-        location: location.copyWith(path: newPaths.first),
+        location: newLocations.first,
         isCreating: false,
       );
       bloc.save();
