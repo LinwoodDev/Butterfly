@@ -46,7 +46,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
       final pack = file.data!;
       final components = pack
           .getNamedComponents()
-          .map((e) => e.toPack(pack, pack.getMetadata()?.name ?? ''))
+          .map((e) => e.toPack(pack, file.pathWithoutLeadingSlash))
           .nonNulls
           .toList();
       packComponents.addAll(components);
@@ -66,8 +66,10 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
       future: _componentsFuture,
       builder: (context, snapshot) {
         final allComponents = snapshot.data ?? [];
-        final packs = allComponents.map((e) => e.namespace).toSet().toList()
-          ..sort((a, b) => a.compareTo(b));
+        final packs = {
+          for (final item in allComponents)
+            item.namespace: getPackDisplayName(item.pack, item.namespace),
+        };
         var pack = currentPack ?? allComponents.firstOrNull?.namespace;
         final components = allComponents
             .where((e) => e.namespace == pack)
@@ -118,14 +120,14 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                 builder: defaultMenuButton(
                   tooltip: AppLocalizations.of(context).pack,
                 ),
-                menuChildren: packs
+                menuChildren: packs.entries
                     .map(
                       (e) => RadioMenuButton(
-                        value: e,
+                        value: e.key,
                         groupValue: pack,
                         onChanged: (value) =>
-                            setState(() => currentPack = value ?? e),
-                        child: Text(e),
+                            setState(() => currentPack = value ?? e.key),
+                        child: Text(e.value),
                       ),
                     )
                     .toList(),

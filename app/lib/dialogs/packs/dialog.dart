@@ -164,10 +164,10 @@ class _PacksDialogState extends State<PacksDialog>
                               ),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final (data, _, _) = await importFile(context, [
-                                  AssetFileType.note,
-                                  AssetFileType.textNote,
-                                ]);
+                                final (data, _, name) = await importFile(
+                                  context,
+                                  [AssetFileType.note, AssetFileType.textNote],
+                                );
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
                                 final metadata = pack.getMetadata();
@@ -185,7 +185,7 @@ class _PacksDialogState extends State<PacksDialog>
                                     ) ??
                                     false;
                                 if (!success) return;
-                                await _addPack(pack);
+                                await _addPack(pack, name: name);
                                 _refresh();
                               },
                             ),
@@ -222,10 +222,10 @@ class _PacksDialogState extends State<PacksDialog>
                                     await DocumentDefaults.getCorePack();
                                 try {
                                   await _packSystem.deleteFile(
-                                    '${pack.name!}.bfly',
+                                    kCorePackFileName,
                                   );
                                 } catch (_) {}
-                                await _addPack(pack);
+                                await _addPack(pack, name: kCorePackFileName);
                               },
                             ),
                           ],
@@ -242,12 +242,14 @@ class _PacksDialogState extends State<PacksDialog>
     );
   }
 
-  Future<void> _addPack(NoteData pack) async {
-    await _packSystem.createFileWithName(
-      pack,
-      name: pack.name ?? '',
-      suffix: '.bfly',
-    );
+  String _normalizePackFileName(String? name, NoteData pack) {
+    final fallback = pack.name?.trim().isNotEmpty == true ? pack.name! : 'pack';
+    final fileName = name?.trim().isNotEmpty == true ? name! : fallback;
+    return fileName.endsWith('.bfly') ? fileName : '$fileName.bfly';
+  }
+
+  Future<void> _addPack(NoteData pack, {String? name}) async {
+    await _packSystem.createFile(_normalizePackFileName(name, pack), pack);
     _refresh();
   }
 
@@ -371,7 +373,9 @@ class __PacksListState extends State<_PacksList> {
               ),
             ],
             builder: (context, button, controller) => ListTile(
-              title: Text(metadata.name),
+              title: Text(
+                getPackDisplayName(pack, file.pathWithoutLeadingSlash),
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -393,11 +397,7 @@ class __PacksListState extends State<_PacksList> {
                   ),
                 );
                 if (newPack == null) return;
-                final name = newPack.name ?? '';
-                if (pack.name != name) {
-                  await _packSystem.deleteFile(file.path);
-                }
-                await _packSystem.updateFile('$name.bfly', newPack);
+                await _packSystem.updateFile(file.path, newPack);
                 setState(() {
                   _globalPacks[index] = FileSystemFile(
                     file.location,

@@ -248,6 +248,14 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   showThumbnails: json['showThumbnails'] as bool? ?? true,
   bringMovedElementsToFront:
       json['bringMovedElementsToFront'] as bool? ?? false,
+  favoriteTools:
+      (json['favoriteTools'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                PackAssetLocation.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -319,6 +327,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'showVerboseLogs': instance.showVerboseLogs,
   'showThumbnails': instance.showThumbnails,
   'bringMovedElementsToFront': instance.bringMovedElementsToFront,
+  'favoriteTools': instance.favoriteTools.map((e) => e.toJson()).toList(),
 };
 
 const _$ThemeModeEnumMap = {

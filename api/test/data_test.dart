@@ -285,6 +285,36 @@ void main() {
     });
   });
 
+  group('NoteData parent packs', () {
+    test('pack assets fall back to parent pack', () {
+      var parent = NoteData(Archive())
+          .setPalette('parent', const ColorPalette(colors: [SRGBColor.black]))
+          .setPalette('shared', const ColorPalette(colors: [SRGBColor.red]));
+      final child = NoteData(
+        Archive(),
+        parent: parent,
+      ).setPalette('child', const ColorPalette(colors: [SRGBColor.white]));
+
+      expect(child.getPalettes(), containsAll(['parent', 'shared', 'child']));
+      expect(child.getPalette('parent')?.colors, [SRGBColor.black]);
+      expect(child.getPalette('child')?.colors, [SRGBColor.white]);
+    });
+
+    test('tool preset override only applies when the type matches parent', () {
+      var parent = NoteData(Archive())
+          .setToolPreset('matching', Tool.pen(name: 'parent pen'))
+          .setToolPreset('different', Tool.eraser(name: 'parent eraser'));
+      var child = NoteData(Archive(), parent: parent)
+          .setToolPreset('matching', Tool.pen(name: 'child pen'))
+          .setToolPreset('different', Tool.pen(name: 'child pen'));
+
+      expect(child.getToolPreset('matching'), isA<PenTool>());
+      expect(child.getToolPreset('matching')?.name, 'child pen');
+      expect(child.getToolPreset('different'), isA<EraserTool>());
+      expect(child.getToolPreset('different')?.name, 'parent eraser');
+    });
+  });
+
   group('ElementPaint migration', () {
     test('file version 12 colors migrate to explicit paint fields', () {
       var data = NoteData(Archive());

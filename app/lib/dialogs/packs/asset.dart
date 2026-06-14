@@ -56,7 +56,10 @@ class AssetDialog extends StatelessWidget {
                         dropdownMenuEntries: packs.map((e) {
                           return DropdownMenuEntry<String>(
                             value: e.path,
-                            label: e.data!.getMetadata()?.name ?? e.path,
+                            label: getPackDisplayName(
+                              e.data!,
+                              e.pathWithoutLeadingSlash,
+                            ),
                           );
                         }).toList(),
                         onSelected: (value) {

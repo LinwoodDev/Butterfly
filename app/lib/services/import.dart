@@ -294,6 +294,7 @@ class ImportService {
         advanced: advanced,
         templateSystem: templateSystem,
         packSystem: packSystem,
+        name: name,
       ),
       AssetFileType.image => importImage(
         bytes,
@@ -371,6 +372,7 @@ class ImportService {
     bool advanced = true,
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
+    String? name,
   }) async {
     try {
       final file = NoteFile(bytes);
@@ -413,6 +415,7 @@ class ImportService {
           data,
           document,
           packSystem,
+          name,
         ).then((value) => null),
         _ => showDialog(
           context: context,
@@ -531,6 +534,7 @@ class ImportService {
     NoteData pack, [
     NoteData? document,
     PackFileSystem? packSystem,
+    String? name,
   ]) async {
     packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
@@ -544,7 +548,14 @@ class ImportService {
       if (document != null) {
         document = document.setBundledPack(pack);
       } else {
-        packSystem.createFile(pack.name ?? '', pack);
+        final fallback = pack.name?.trim().isNotEmpty == true
+            ? pack.name!
+            : 'pack';
+        var fileName = name?.trim().isNotEmpty == true ? name! : fallback;
+        if (!fileName.endsWith('.bfly')) {
+          fileName = '$fileName.bfly';
+        }
+        packSystem.createFile(fileName, pack);
       }
     }
     return true;

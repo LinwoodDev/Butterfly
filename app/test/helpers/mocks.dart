@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -82,23 +83,33 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
     ExternalStorage? storage,
   ]) async {
     final corePack = await DocumentDefaults.getCorePack();
-    final coreName = corePack.getMetadata()?.name;
-    final corePath = '${corePack.name ?? coreName ?? 'core'}.bfly';
+    NoteData createUserCorePack() {
+      var pack = NoteData(Archive(), parent: corePack);
+      final metadata = corePack.getMetadata();
+      if (metadata != null) {
+        pack = pack.setMetadata(metadata);
+      }
+      return pack;
+    }
+
     final system = buildPackSystem(storage);
     await system.initialize();
     final files = await system.getFiles();
     final packs = <(String, NoteData)>[];
-    (String, NoteData)? editableCorePack;
+    (String, NoteData)? userCorePack;
     for (final file in files) {
       final pack = file.data!;
       final item = (file.pathWithoutLeadingSlash, pack);
-      if (pack.getMetadata()?.name == coreName) {
-        editableCorePack = item;
+      if (item.$1 == kCorePackFileName) {
+        userCorePack = (item.$1, NoteData(pack.archive, parent: corePack));
       } else {
         packs.add(item);
       }
     }
-    return [editableCorePack ?? (corePath, corePack), ...packs];
+    return [
+      userCorePack ?? (kCorePackFileName, createUserCorePack()),
+      ...packs,
+    ];
   }
 
   @override
@@ -120,8 +131,16 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   void dispose() {}
 
   @override
-  Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem().updateFile(location.namespace, newPack);
+  Future<void> updatePack(PackAssetLocation location, NoteData newPack) async {
+    final system = buildPackSystem();
+    await system.initialize();
+    final existing = await system.getFile(location.namespace);
+    if (existing == null) {
+      await system.createFile(location.namespace, newPack);
+      return;
+    }
+    await system.updateFile(location.namespace, newPack);
+  }
 }
 
 TemplateFileSystem buildMockTemplateFileSystem() {

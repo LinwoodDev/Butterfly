@@ -1,3 +1,4 @@
+import 'package:butterfly/dialogs/packs/tools.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _PackDialogState extends State<PackDialog> {
       ),
       constraints: const BoxConstraints(maxWidth: 700, maxHeight: 800),
       content: DefaultTabController(
-        length: widget.pack == null ? 1 : 6,
+        length: widget.pack == null ? 1 : 7,
         child: Column(
           children: [
             if (widget.pack != null)
@@ -78,6 +79,10 @@ class _PackDialogState extends State<PackDialog> {
                             PhosphorIconsLight.toolbox,
                             AppLocalizations.of(context).toolbars,
                           ),
+                          (
+                            PhosphorIconsLight.paintRoller,
+                            AppLocalizations.of(context).tools,
+                          ),
                         ]
                         .map(
                           (e) => HorizontalTab(
@@ -98,6 +103,7 @@ class _PackDialogState extends State<PackDialog> {
                     PalettesPackView(value: pack, onChanged: _onChanged),
                     TexturesPackView(value: pack, onChanged: _onChanged),
                     ToolbarsPackView(value: pack, onChanged: _onChanged),
+                    ToolPresetsPackView(value: pack, onChanged: _onChanged),
                   ],
                 ],
               ),

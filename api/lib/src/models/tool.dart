@@ -66,7 +66,7 @@ enum HitElementMode {
 enum EraserMode { stroke, path }
 
 @Freezed(equal: false)
-sealed class Tool with _$Tool {
+sealed class Tool extends PackAsset with _$Tool {
   Tool._();
 
   factory Tool.select({

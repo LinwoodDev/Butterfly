@@ -508,6 +508,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool showVerboseLogs,
     @Default(true) bool showThumbnails,
     @Default(false) bool bringMovedElementsToFront,
+    @Default([]) List<PackAssetLocation> favoriteTools,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -731,6 +732,19 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
       bringMovedElementsToFront:
           prefs.getBool('bring_moved_elements_to_front') ?? false,
+      favoriteTools:
+          prefs
+              .getStringList('favorite_tools')
+              ?.map((e) {
+                try {
+                  return PackAssetLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .nonNulls
+              .toList() ??
+          [],
     );
   }
 
@@ -857,6 +871,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       bringMovedElementsToFront,
     );
     await prefs.setBool('show_thumbnails', showThumbnails);
+    await prefs.setStringList(
+      'favorite_tools',
+      favoriteTools.map((e) => json.encode(e.toJson())).toList(),
+    );
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1579,6 +1597,17 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeBringMovedElementsToFront(bool value) {
     emit(state.copyWith(bringMovedElementsToFront: value));
+    return save();
+  }
+
+  Future<void> toggleFavoriteTool(PackAssetLocation template) {
+    final favorites = state.favoriteTools.toList();
+    if (favorites.contains(template)) {
+      favorites.remove(template);
+    } else {
+      favorites.add(template);
+    }
+    emit(state.copyWith(favoriteTools: favorites));
     return save();
   }
 }

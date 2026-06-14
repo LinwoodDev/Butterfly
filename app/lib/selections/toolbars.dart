@@ -65,7 +65,10 @@ class _ToolbarsViewState extends State<ToolbarsView> {
       future: _toolbarsFuture,
       builder: (context, snapshot) {
         final allToolbars = snapshot.data ?? [];
-        final packs = allToolbars.map((e) => e.namespace).toSet().toList();
+        final packs = {
+          for (final item in allToolbars)
+            item.namespace: getPackDisplayName(item.pack, item.namespace),
+        };
         final toolbars = allToolbars
             .where(
               (e) =>
@@ -100,16 +103,16 @@ class _ToolbarsViewState extends State<ToolbarsView> {
                   trailing: [
                     MenuAnchor(
                       builder: defaultMenuButton(),
-                      menuChildren: packs
+                      menuChildren: packs.entries
                           .map(
                             (e) => CheckboxMenuButton(
-                              value: selectedPacks.contains(e),
-                              child: Text(e),
+                              value: selectedPacks.contains(e.key),
+                              child: Text(e.value),
                               onChanged: (value) => setState(() {
                                 if (value ?? true) {
-                                  selectedPacks.add(e);
+                                  selectedPacks.add(e.key);
                                 } else {
-                                  selectedPacks.remove(e);
+                                  selectedPacks.remove(e.key);
                                 }
                               }),
                             ),
@@ -163,7 +166,9 @@ class _ToolbarsViewState extends State<ToolbarsView> {
                     final isSelected = item == currentToolbar;
                     return ListTile(
                       title: Text(item.key),
-                      subtitle: Text(item.pack.name ?? item.namespace),
+                      subtitle: Text(
+                        getPackDisplayName(item.pack, item.namespace),
+                      ),
                       selected: isSelected,
                       onTap: () {
                         context.read<DocumentBloc>().add(

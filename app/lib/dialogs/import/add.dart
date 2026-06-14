@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color.dart';
-import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/visualizer/tool.dart';
@@ -17,16 +15,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../bloc/document_bloc.dart';
-
-enum _ToolPresetSource { core, pack, bundled }
-
-typedef _ToolPresetItem = ({
-  bool useCoreLayout,
-  String name,
-  String sourceName,
-  _ToolPresetSource source,
-  Tool tool,
-});
 
 class AddDialog extends StatefulWidget {
   const AddDialog({super.key});
@@ -49,9 +37,8 @@ class _AddDialogState extends State<AddDialog> {
   final _searchController = TextEditingController();
   final _searchFocusNode = FocusNode();
 
-  late final PackFileSystem _packSystem;
-  late final Future<List<_ToolPresetItem>> _toolPresetsFuture;
-  late final Future<(List<ImportType>, List<_ToolPresetItem>)>
+  late final Future<List<PackItem<Tool>>> _toolPresetsFuture;
+  late final Future<(List<ImportType>, List<PackItem<Tool>>)>
   _dialogItemsFuture;
 
   String? _packFilter;
@@ -59,7 +46,6 @@ class _AddDialogState extends State<AddDialog> {
   @override
   void initState() {
     super.initState();
-    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
     _toolPresetsFuture = _getToolPresets();
     _dialogItemsFuture = _getDialogItems();
   }
@@ -85,68 +71,20 @@ class _AddDialogState extends State<AddDialog> {
     }
   }
 
-  Future<List<_ToolPresetItem>> _getToolPresets() async {
-    final presets = <_ToolPresetItem>[];
-    final seen = <String>{};
+  Future<List<PackItem<Tool>>> _getToolPresets() async {
+    final presets = <PackItem<Tool>>[];
 
-    void addPack(
-      NoteData pack, {
-      bool useCoreLayout = false,
-      required String sourceName,
-      required _ToolPresetSource source,
-    }) {
+    void addPack(NoteData pack, String packName) {
       for (final preset in pack.getNamedToolPresets()) {
-        final key = jsonEncode({'name': preset.$1, 'tool': preset.$2.toJson()});
-
-        if (!seen.add(key)) continue;
-
-        presets.add((
-          useCoreLayout: useCoreLayout,
-          name: preset.$1,
-          sourceName: sourceName,
-          source: source,
-          tool: preset.$2,
-        ));
+        presets.add(preset.toPack(pack, packName));
       }
     }
 
-    final corePack = await DocumentDefaults.getCorePack();
-    addPack(
-      corePack,
-      useCoreLayout: true,
-      sourceName: corePack.getMetadata()?.name ?? '',
-      source: _ToolPresetSource.core,
-    );
-
-    final files = await _packSystem.getFiles();
-    for (final file in files) {
-      final pack = file.data;
-      if (pack == null) continue;
-
-      addPack(
-        pack,
-        sourceName: _getPackDisplayName(
-          pack,
-          fallback: file.pathWithoutLeadingSlash,
-        ),
-        source: _ToolPresetSource.pack,
-      );
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final packs = await fileSystem.getCoreAndUserPacks();
+    for (final pack in packs) {
+      addPack(pack.$2, pack.$1);
     }
-
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoaded) return presets;
-
-    for (final packName in state.data.getBundledPacks()) {
-      final pack = state.data.getBundledPack(packName);
-      if (pack == null) continue;
-
-      addPack(
-        pack,
-        sourceName: _getPackDisplayName(pack, fallback: packName),
-        source: _ToolPresetSource.bundled,
-      );
-    }
-
     return presets;
   }
 
@@ -161,40 +99,14 @@ class _AddDialogState extends State<AddDialog> {
         .toList();
   }
 
-  Future<(List<ImportType>, List<_ToolPresetItem>)> _getDialogItems() async {
+  Future<(List<ImportType>, List<PackItem<Tool>>)> _getDialogItems() async {
     final imports = await _getAvailableImports();
 
     try {
       return (imports, await _toolPresetsFuture);
     } catch (_) {
-      return (imports, <_ToolPresetItem>[]);
+      return (imports, <PackItem<Tool>>[]);
     }
-  }
-
-  String _getPackDisplayName(NoteData pack, {required String fallback}) {
-    final metadataName = pack.getMetadata()?.name;
-    return metadataName?.trim().isNotEmpty == true ? metadataName! : fallback;
-  }
-
-  String _getPresetSourceLabel(BuildContext context, _ToolPresetItem preset) {
-    final sourceName = preset.sourceName.trim();
-    return sourceName.isEmpty ? AppLocalizations.of(context).tools : sourceName;
-  }
-
-  String _getPresetSourceKey(_ToolPresetItem preset) {
-    return '${preset.source.index}:${preset.sourceName}';
-  }
-
-  bool _isFavoriteTool(Tool tool) {
-    return switch (tool) {
-      HandTool() ||
-      SelectTool() ||
-      PenTool() ||
-      EraserTool() ||
-      LabelTool() ||
-      AreaTool() => true,
-      _ => false,
-    };
   }
 
   @override
@@ -222,7 +134,11 @@ class _AddDialogState extends State<AddDialog> {
                   Expanded(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
-                      child: _buildBody(),
+                      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                        buildWhen: (previous, current) =>
+                            previous.favoriteTools != current.favoriteTools,
+                        builder: (context, state) => _buildBody(state),
+                      ),
                     ),
                   ),
                 ],
@@ -255,7 +171,7 @@ class _AddDialogState extends State<AddDialog> {
               ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: isMobile ? 220 : 360),
                 child: Text(
-                  '${localizations.add} ${localizations.tool}',
+                  localizations.addTool,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.headlineSmall,
                 ),
@@ -294,16 +210,16 @@ class _AddDialogState extends State<AddDialog> {
   }
 
   Widget _buildSourceFilterBar(BuildContext context) {
-    return FutureBuilder<List<_ToolPresetItem>>(
+    return FutureBuilder<List<PackItem<Tool>>>(
       future: _toolPresetsFuture,
       builder: (context, snapshot) {
-        final presets = snapshot.data ?? <_ToolPresetItem>[];
+        final presets = snapshot.data ?? <PackItem<Tool>>[];
         final sources = <String, String>{};
 
         for (final preset in presets) {
-          sources.putIfAbsent(
-            _getPresetSourceKey(preset),
-            () => _getPresetSourceLabel(context, preset),
+          sources[preset.location.namespace] = getPackDisplayName(
+            preset.pack,
+            preset.location.namespace,
           );
         }
 
@@ -343,9 +259,15 @@ class _AddDialogState extends State<AddDialog> {
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(ButterflySettings settings) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final favorites = settings.favoriteTools;
+
+    final settingsCubit = context.read<SettingsCubit>();
+
+    bool isFavorite(PackItem<Tool> preset) =>
+        favorites.contains(preset.location);
 
     void addTool(Tool tool, {bool updateDefaultColor = true}) {
       final state = bloc.state;
@@ -372,17 +294,16 @@ class _AddDialogState extends State<AddDialog> {
       Navigator.of(context).pop();
     }
 
-    Widget buildTool(_ToolPresetItem preset, {bool showFavorite = true}) {
-      final tool = preset.tool;
+    Widget buildTool(PackItem<Tool> preset, {bool showFavorite = true}) {
+      final tool = preset.item;
       final handler = Handler.fromTool(tool);
       final caption = tool.getLocalizedCaption(context);
       final status = handler.getStatus(bloc);
-      final title = preset.useCoreLayout
-          ? tool.getDisplay(context)
-          : preset.name;
+      final useCoreLayout = preset.pack.parent != null && tool.name.isEmpty;
+      final title = useCoreLayout ? tool.getDisplay(context) : preset.key;
       final type = tool.getLocalizedName(context);
       final details = [
-        if (!preset.useCoreLayout && type != title) type,
+        if (!useCoreLayout && type != title) type,
         if (caption.isNotEmpty) caption,
       ].join(' - ');
 
@@ -409,7 +330,9 @@ class _AddDialogState extends State<AddDialog> {
         ),
         leading: showFavorite
             ? IconButton(
-                onPressed: () {},
+                onPressed: () =>
+                    settingsCubit.toggleFavoriteTool(preset.location),
+                isSelected: isFavorite(preset),
                 selectedIcon: PhosphorIcon(PhosphorIconsFill.star),
                 icon: PhosphorIcon(PhosphorIconsLight.star),
               )
@@ -424,10 +347,7 @@ class _AddDialogState extends State<AddDialog> {
                 tooltip: AppLocalizations.of(context).play,
               )
             : null,
-        onTap: () => addTool(
-          tool,
-          updateDefaultColor: preset.source == _ToolPresetSource.core,
-        ),
+        onTap: () => addTool(tool),
       );
     }
 
@@ -466,7 +386,7 @@ class _AddDialogState extends State<AddDialog> {
       child: ValueListenableBuilder<TextEditingValue>(
         valueListenable: _searchController,
         builder: (context, value, _) {
-          return FutureBuilder<(List<ImportType>, List<_ToolPresetItem>)>(
+          return FutureBuilder<(List<ImportType>, List<PackItem<Tool>>)>(
             future: _dialogItemsFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
@@ -478,7 +398,7 @@ class _AddDialogState extends State<AddDialog> {
               }
 
               final (imports, presets) =
-                  snapshot.data ?? const (<ImportType>[], <_ToolPresetItem>[]);
+                  snapshot.data ?? const (<ImportType>[], <PackItem<Tool>>[]);
               final search = value.text.trim().toLowerCase();
 
               final importItems = imports
@@ -496,32 +416,32 @@ class _AddDialogState extends State<AddDialog> {
                   .where(
                     (preset) =>
                         _packFilter == null ||
-                        _getPresetSourceKey(preset) == _packFilter,
+                        preset.location.namespace == _packFilter,
                   )
                   .where((preset) => _matchesSearch(context, preset, search))
                   .toList();
 
-              final favoriteTools = toolPresets
-                  .where((preset) => _isFavoriteTool(preset.tool))
+              final favoriteTiles = toolPresets
+                  .where(isFavorite)
                   .map((preset) => buildTool(preset, showFavorite: false))
                   .toList();
 
               final categorizedTools = {
                 for (final category in ToolCategory.values)
-                  category: <_ToolPresetItem>[],
+                  category: <PackItem<Tool>>[],
               };
 
               for (final preset in toolPresets) {
-                categorizedTools[preset.tool.category]!.add(preset);
+                categorizedTools[preset.item.category]!.add(preset);
               }
 
               final sections = <Widget>[
-                if (favoriteTools.isNotEmpty)
+                if (favoriteTiles.isNotEmpty)
                   _buildSection(
                     context,
                     title: 'Favorites',
                     icon: PhosphorIconsLight.star,
-                    children: favoriteTools,
+                    children: favoriteTiles,
                   ),
                 for (final category in ToolCategory.values)
                   _buildSection(
@@ -552,15 +472,16 @@ class _AddDialogState extends State<AddDialog> {
 
   bool _matchesSearch(
     BuildContext context,
-    _ToolPresetItem preset,
+    PackItem<Tool> preset,
     String search,
   ) {
     if (search.isEmpty) return true;
 
-    return preset.name.toLowerCase().contains(search) ||
-        preset.tool.getDisplay(context).toLowerCase().contains(search) ||
-        preset.tool.getLocalizedName(context).toLowerCase().contains(search) ||
-        preset.tool.getLocalizedCaption(context).toLowerCase().contains(search);
+    final tool = preset.item;
+    return preset.key.toLowerCase().contains(search) ||
+        tool.getDisplay(context).toLowerCase().contains(search) ||
+        tool.getLocalizedName(context).toLowerCase().contains(search) ||
+        tool.getLocalizedCaption(context).toLowerCase().contains(search);
   }
 
   Widget _buildEmptyState(BuildContext context) {
