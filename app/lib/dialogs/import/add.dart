@@ -245,13 +245,13 @@ class _AddDialogState extends State<AddDialog> {
         child: NavigationToolbar(
           leading: Row(
             mainAxisSize: MainAxisSize.min,
+            spacing: 8,
             children: [
               IconButton.outlined(
                 onPressed: () => Navigator.of(context).pop(),
                 icon: const PhosphorIcon(PhosphorIconsLight.x),
                 tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
               ),
-              const SizedBox(width: _gap),
               ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: isMobile ? 220 : 360),
                 child: Text(
@@ -372,7 +372,7 @@ class _AddDialogState extends State<AddDialog> {
       Navigator.of(context).pop();
     }
 
-    Widget buildTool(_ToolPresetItem preset) {
+    Widget buildTool(_ToolPresetItem preset, {bool showFavorite = true}) {
       final tool = preset.tool;
       final handler = Handler.fromTool(tool);
       final caption = tool.getLocalizedCaption(context);
@@ -407,6 +407,13 @@ class _AddDialogState extends State<AddDialog> {
             textDirection: TextDirection.ltr,
           ),
         ),
+        leading: showFavorite
+            ? IconButton(
+                onPressed: () {},
+                selectedIcon: PhosphorIcon(PhosphorIconsFill.star),
+                icon: PhosphorIcon(PhosphorIconsLight.star),
+              )
+            : null,
         trailing: tool.isAction()
             ? IconButton(
                 onPressed: () {
@@ -496,7 +503,7 @@ class _AddDialogState extends State<AddDialog> {
 
               final favoriteTools = toolPresets
                   .where((preset) => _isFavoriteTool(preset.tool))
-                  .map(buildTool)
+                  .map((preset) => buildTool(preset, showFavorite: false))
                   .toList();
 
               final categorizedTools = {
@@ -592,23 +599,37 @@ class _AddDialogState extends State<AddDialog> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              PhosphorIcon(icon, size: 18),
-              const SizedBox(width: _gap),
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
-            ],
-          ),
-          const SizedBox(height: _gap),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Wrap(spacing: _gap, runSpacing: _gap, children: children),
-          ),
-        ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final sectionWidth =
+              constraints.maxWidth -
+              ((constraints.maxWidth + _gap) % (_tileSize + _gap));
+
+          return Align(
+            alignment: AlignmentDirectional.center,
+            child: SizedBox(
+              width: sectionWidth,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      PhosphorIcon(icon, size: 18),
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: _gap),
+                  Wrap(spacing: _gap, runSpacing: _gap, children: children),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -453,18 +453,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
 
     // Schedule image disposal if changed
-    final oldImage = currentViewport.image;
-    if (oldImage != null && oldImage != newViewport.image) {
-      Future.delayed(const Duration(seconds: 2), () => oldImage.dispose());
-    }
-    final oldBelowImage = currentViewport.belowLayerImage;
-    if (oldBelowImage != null && oldBelowImage != newViewport.belowLayerImage) {
-      Future.delayed(const Duration(seconds: 2), () => oldBelowImage.dispose());
-    }
-    final oldAboveImage = currentViewport.aboveLayerImage;
-    if (oldAboveImage != null && oldAboveImage != newViewport.aboveLayerImage) {
-      Future.delayed(const Duration(seconds: 2), () => oldAboveImage.dispose());
-    }
+    currentViewport.disposeImages(except: newViewport);
   }
 
   void _sendNetworkingState({
@@ -1544,7 +1533,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       invisibleLayers: invisibleLayers,
     );
     emit(state.copyWith(cameraViewport: newViewport));
-    cameraViewport.disposeImages(except: newViewport);
   });
 
   Future<ui.Image?> renderImage(
@@ -1698,7 +1686,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     await _updateOnVisible(newViewport, blocState);
     emit(state.copyWith(cameraViewport: newViewport));
-    oldViewport.disposeImages(except: newViewport);
   }
 
   Future<void> replaceUnbaked(
@@ -1820,7 +1807,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: newViewport,
       ),
     );
-    oldViewport.disposeImages(except: newViewport);
   }
 
   Future<void> addUnbaked(
