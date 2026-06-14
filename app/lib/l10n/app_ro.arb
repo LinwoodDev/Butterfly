@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Țineți apăsat Comenzile rapide",
   "holdShortcutsDescription": "Țineți apăsată o cheie pentru a trece temporar la un alt instrument. Lansând tasta se schimbă înapoi la unealta anterioară.",
   "key": "Cheie",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
