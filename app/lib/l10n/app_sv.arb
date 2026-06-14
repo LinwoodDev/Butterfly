@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Håll inne genvägar",
   "holdShortcutsDescription": "Håll en nyckel för att tillfälligt växla till ett annat verktyg. Släppa knapparna tillbaka till föregående verktyg.",
   "key": "Nyckel",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
