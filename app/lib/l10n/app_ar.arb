@@ -1345,5 +1345,6 @@
   "holdShortcuts": "الاختصارات المؤقتة",
   "holdShortcutsDescription": "\"الاختصار المؤقت\" يُفعّل الأداة المحددة خلال الضغط عليه، ويعود إلى الأداة السابقة عند تركه.",
   "key": "المفتاح",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
