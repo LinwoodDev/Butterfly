@@ -1,16 +1,26 @@
+* Add tool presets ([#1070](https://github.com/LinwoodDev/Butterfly/issues/1070))
+* Add element paints to replace current color property
+  * Add texture paint ([#1062](https://github.com/LinwoodDev/Butterfly/issues/1062))
+  * Add gradient paint ([#93](https://github.com/LinwoodDev/Butterfly/issues/93))
+  * Add blur
+* Unify path eraser and eraser in one tool ([#1130](https://github.com/LinwoodDev/Butterfly/issues/1130))
 * Add different eraser and selector modes ([#1111](https://github.com/LinwoodDev/Butterfly/issues/1111))
 * Add subtype tool switching for selection and spacer tools ([#1122](https://github.com/LinwoodDev/Butterfly/issues/1122))
 * Add property view position setting ([#1100](https://github.com/LinwoodDev/Butterfly/issues/1100))
 * Add bring moved elements to front option ([#1098](https://github.com/LinwoodDev/Butterfly/issues/1098))
 * Add ability to move areas together with their contents ([#1125](https://github.com/LinwoodDev/Butterfly/issues/1125))
 * Add move to layer ([#1069](https://github.com/LinwoodDev/Butterfly/issues/1069))
+* Redesign add dialog
+* Hide stroke style option when solid ([#1139](https://github.com/LinwoodDev/Butterfly/issues/1135))
 * Combine toolbar and zoom controls ([#1079](https://github.com/LinwoodDev/Butterfly/issues/1079))
 * Use Android SAF by default
 * Enable multi-tap input shortcuts by default
 * Improve clipboard and import handling ([#1103](https://github.com/LinwoodDev/Butterfly/issues/1103))
-* Define polygons as strokes ([#1111](https://github.com/LinwoodDev/Butterfly/issues/1111))
+* Define polygons as strokes ([#1111](https://github.com/LinwoodDev/Butterfly/pull/1111))
 * Fix file extension will be shown in recently file view if hide extension is enabled ([#1133](https://github.com/LinwoodDev/Butterfly/issues/1133))
 * Fix file shows up twice in recently if it was renamed ([#1132](https://github.com/LinwoodDev/Butterfly/issues/1132))
 * Fix text labels disappear after switching to another element ([#1139](https://github.com/LinwoodDev/Butterfly/issues/1139))
+* Improve baking checks to improve performance on large documents
+* Migrate to new clipboard library
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0

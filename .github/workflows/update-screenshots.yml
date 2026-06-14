@@ -2,9 +2,10 @@ name: Update Screenshots
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "00 22 * * 0"
-
+  #schedule:
+  #  - cron: "00 22 * * 0"
+# disabled because of
+# Failed to load "/home/runner/work/Butterfly/Butterfly/app/integration_test/screenshot.dart": Unable to start the app on the device.
 permissions:
   contents: write
   pull-requests: write
