@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Maintenir les raccourcis",
   "holdShortcutsDescription": "Maintenez une touche enfoncée pour basculer temporairement vers un autre outil. Relâchez les commutateurs de touches vers l'outil précédent.",
   "key": "Clés",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
