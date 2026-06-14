@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Hold Genveje",
   "holdShortcutsDescription": "Hold en tast nede for midlertidigt at skifte til et andet værktøj. Frigive tasten skifter tilbage til det forrige værktøj.",
   "key": "Nøgle",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
