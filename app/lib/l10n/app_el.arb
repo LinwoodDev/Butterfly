@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Αναμονή Συντομεύσεων",
   "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
   "key": "Κλειδί",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
