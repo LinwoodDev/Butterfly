@@ -856,6 +856,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       'bring_moved_elements_to_front',
       bringMovedElementsToFront,
     );
+    await prefs.setBool('show_thumbnails', showThumbnails);
   }
 
   ExternalStorage? getRemote(String? identifier) {
