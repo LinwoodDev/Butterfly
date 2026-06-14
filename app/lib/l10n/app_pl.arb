@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Przytrzymaj skróty",
   "holdShortcutsDescription": "Przytrzymaj klawisz, aby tymczasowo przełączyć się na inne narzędzie. Uruchomienie przełącznika klawisza przywróci poprzednie narzędzie.",
   "key": "Klucz",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
