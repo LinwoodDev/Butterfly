@@ -1345,5 +1345,6 @@
   "holdShortcuts": "Hold snarveier",
   "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
   "key": "Nøkkel",
-  "bringMovedElementsToFront": "Bring moved elements to front"
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }
