@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Nền",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Hộp",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Khối",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
   "dottedDark": "Chấm đen",
@@ -954,6 +964,9 @@
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "imageScale": "Tỷ lệ hình ảnh",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Chọn",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Phụ thuộc vị trí",
   "flipHorizontal": "Lật ngang",
   "flipVertical": "Lật dọc",
