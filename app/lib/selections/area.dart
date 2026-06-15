@@ -14,6 +14,35 @@ class AreaSelection extends Selection<Area> {
   List<Widget> buildProperties(BuildContext context) {
     return [
       ...super.buildProperties(context),
+      ColorField(
+        title: Text(LeapLocalizations.of(context).color),
+        value:
+            selected.first.color?.withValues(a: 255) ?? SRGBColor.transparent,
+        subtitle: selected.first.color == null
+            ? Text(AppLocalizations.of(context).notSet)
+            : null,
+        leading: selected.first.color == null
+            ? null
+            : IconButton(
+                icon: const Icon(PhosphorIconsLight.trash),
+                onPressed: () {
+                  context.read<DocumentBloc>().add(
+                    AreaChanged(
+                      selected.first.name,
+                      selected.first.copyWith(color: null),
+                    ),
+                  );
+                },
+              ),
+        onChanged: (value) {
+          context.read<DocumentBloc>().add(
+            AreaChanged(
+              selected.first.name,
+              selected.first.copyWith(color: value),
+            ),
+          );
+        },
+      ),
       OffsetListTile(
         value: selected.first.position.toOffset(),
         title: Text(AppLocalizations.of(context).position),

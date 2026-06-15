@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:dart_leap/dart_leap.dart';
+
 import '../converter/core.dart';
+import '../converter/color.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'area.g.dart';
@@ -67,7 +70,7 @@ sealed class Area with _$Area {
     required double height,
     @DoublePointJsonConverter() required Point<double> position,
     @Default(false) bool isInitial,
-    @Default({}) Map<String, dynamic> extra,
+    @ColorJsonConverter() SRGBColor? color,
   }) = _Area;
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
