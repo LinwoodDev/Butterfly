@@ -26,6 +26,7 @@
 * Fix file shows up twice in recently if it was renamed ([#1132](https://github.com/LinwoodDev/Butterfly/issues/1132))
 * Fix text labels disappear after switching to another element ([#1139](https://github.com/LinwoodDev/Butterfly/issues/1139))
 * Fix show thumbnail not saved to settings
+* Fix texture view having width label instead of height
 * Improve baking checks to improve performance on large documents
 * Migrate to new clipboard library
 
