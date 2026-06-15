@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Box",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "倍精度",
   "dotted": "点線",
   "dottedDark": "Dotted dark",
@@ -954,6 +964,9 @@
   "ascending": "昇順",
   "descending": "降順",
   "imageScale": "画像の大きさ",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "選択",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "終了",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "依存する位置",
   "flipHorizontal": "水平方向に反転",
   "flipVertical": "垂直方向に反転",
