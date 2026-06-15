@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "पृष्ठभूमि",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "बॉक्स",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "ठोस",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "दोहरा",
   "dotted": "बिंदीदार",
   "dottedDark": "Dotted dark",
@@ -954,6 +964,9 @@
   "ascending": "आरोही",
   "descending": "अवरोही",
   "imageScale": "छवि स्केल",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "चुनें",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "स्थिति पर निर्भर",
   "flipHorizontal": "क्षैतिज रूप से पलटें",
   "flipVertical": "लंबवत रूप से पलटें",
