@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Fundo",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Caixa",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Sólido",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Duplo",
   "dotted": "Pontilhado",
   "dottedDark": "Pontilhado escuro",
@@ -954,6 +964,9 @@
   "ascending": "Crescente",
   "descending": "Decrescente",
   "imageScale": "Escala de imagem",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Selecionar",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Término",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "dependente da posição",
   "flipHorizontal": "Inverter horizontalmente",
   "flipVertical": "Inverter verticalmente",
