@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "الخلفية",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "مربع",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "صلب",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "مزدوج",
   "dotted": "منقط",
   "dottedDark": "منقط داكن",
@@ -954,6 +964,9 @@
   "ascending": "تصاعدي",
   "descending": "تنازلي",
   "imageScale": "حجم الصورة",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "حدد",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "نهاية",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "يعتمد على الموقع",
   "flipHorizontal": "قلب أفقي",
   "flipVertical": "قلب عمودي",
