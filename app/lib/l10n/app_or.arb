@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "ପୃଷ୍ଠଭୂମି",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "ପେଟିକା",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "ଦୃଢ",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "ଦ୍ୱିତୀୟ",
   "dotted": "ଛିଇଆ",
   "dottedDark": "Dotted dark",
@@ -954,6 +964,9 @@
   "ascending": "ଉର୍ଦ୍ଧ୍ୱଗତ",
   "descending": "ଅବରୋହଣ",
   "imageScale": "ଛବି ପ୍ରମାଣ",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "ଚୟନ କରନ୍ତୁ",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "ସ୍ଥିତି ନିର୍ଭର",
   "flipHorizontal": "ଆଡ଼ ଫ୍ଲିପ୍",
   "flipVertical": "ଉର୍ଧ୍ୱା ଫ୍ଲିପ୍",
