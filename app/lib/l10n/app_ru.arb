@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Фон",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Блок",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Сплошной",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Двойной",
   "dotted": "Точечный",
   "dottedDark": "Точечная темнота",
@@ -954,6 +964,9 @@
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Выбрать",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Конец",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Зависит от позиции",
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
