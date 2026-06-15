@@ -679,45 +679,69 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
       var selection = currentIndexCubit.state.selection;
+      final changedTools = event.tools
+          .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
+          .toList();
+      final changedToolsById = {
+        for (final tool in changedTools)
+          if (tool.id != null) tool.id!: tool,
+      };
+      Tool? updatedCurrent;
+      Tool? updatedTemporary;
       _saveState(
         emit,
         state: current.copyWith(
           info: current.info.copyWith(
-            tools: List<Tool>.from(current.info.tools).map((e) {
-              final updated = e.id != null
-                  ? event.tools.firstWhereOrNull(
-                      (element) => element.id == e.id,
-                    )
-                  : null;
-              if (updated != null) {
-                selection = _updateSelection(selection, e, updated);
-                return updated;
-              } else {
-                return e;
+            tools: List<Tool>.from(current.info.tools).mapIndexed((
+              index,
+              tool,
+            ) {
+              var updated = tool.id == null ? null : changedToolsById[tool.id];
+              if (updated == null) {
+                final selectionIndex = selection?.selected.indexWhere(
+                  (selected) => identical(selected, tool),
+                );
+                if (selectionIndex != null &&
+                    selectionIndex >= 0 &&
+                    selectionIndex < changedTools.length) {
+                  updated = changedTools[selectionIndex];
+                }
               }
+              if (updated == null &&
+                  changedTools.length == 1 &&
+                  currentIndexCubit.state.index == index) {
+                updated = changedTools.single;
+              }
+              if (updated == null) {
+                return tool;
+              }
+              selection = _updateSelection(selection, tool, updated);
+              final currentTool = currentIndexCubit.state.handler.data;
+              if (currentTool is Tool &&
+                  (currentTool.id != null && currentTool.id == tool.id ||
+                      identical(currentTool, tool) ||
+                      currentIndexCubit.state.index == index)) {
+                updatedCurrent = updated;
+              }
+              final tempHandler = currentIndexCubit.state.temporaryHandler;
+              if (tempHandler != null &&
+                  (tempHandler.data.id != null &&
+                          tempHandler.data.id == tool.id ||
+                      identical(tempHandler.data, tool) ||
+                      currentIndexCubit.state.temporaryIndex == index)) {
+                updatedTemporary = updated;
+              }
+              return updated;
             }).toList(),
           ),
         ),
       );
-      final currentTool = currentIndexCubit.state.handler.data;
-      final id = currentTool is Tool ? currentTool.id : null;
-      if (id != null) {
-        final updatedCurrent = event.tools.firstWhereOrNull(
-          (element) => element.id == id,
-        );
-        if (updatedCurrent != null) {
-          currentIndexCubit.updateTool(this, updatedCurrent);
-        }
+      if (updatedCurrent != null) {
+        currentIndexCubit.updateTool(this, updatedCurrent!);
       }
-      currentIndexCubit.updateTogglingTools(this, event.tools);
-      final tempHandler = currentIndexCubit.state.temporaryHandler;
-      if (tempHandler != null && tempHandler.data.id != null) {
-        final updatedTempCurrent = event.tools.firstWhereOrNull(
-          (element) => element.id == tempHandler.data.id,
-        );
-        if (updatedTempCurrent != null) {
-          currentIndexCubit.updateTemporaryTool(this, updatedTempCurrent);
-        }
+      currentIndexCubit.updateTogglingTools(this, changedTools);
+      if (updatedTemporary != null) {
+        currentIndexCubit.updateTemporaryTool(this, updatedTemporary!);
       }
       if (selection != null) {
         currentIndexCubit.changeSelection(selection);
