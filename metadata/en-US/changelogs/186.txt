@@ -13,6 +13,7 @@
 * Add move to layer ([#1069](https://github.com/LinwoodDev/Butterfly/issues/1069))
 * Add storage destination selector in file move dialog ([#1082](https://github.com/LinwoodDev/Butterfly/issues/1082))
 * Add area color ([#1119](https://github.com/LinwoodDev/Butterfly/issues/1119))
+* Add override background to template dialog ([#1119](https://github.com/LinwoodDev/Butterfly/issues/1119))
 * Change that core pack items can only be overridden but not removed
 * Improve pack system by using file names instead of display name
 * Redesign add dialog

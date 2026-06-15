@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/helpers/point.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,7 @@ class TexturePaintField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final kind = switch (value) {
       ImageElementPaint() => _PaintKind.image,
       SvgElementPaint() => _PaintKind.svg,
@@ -84,26 +86,26 @@ class TexturePaintField extends StatelessWidget {
           title: title,
           trailing: SegmentedButton<_PaintKind>(
             showSelectedIcon: false,
-            segments: const [
+            segments: [
               ButtonSegment(
                 value: _PaintKind.solid,
-                icon: PhosphorIcon(PhosphorIconsLight.circle),
-                tooltip: 'Solid color',
+                icon: const PhosphorIcon(PhosphorIconsLight.circle),
+                tooltip: loc.solidColor,
               ),
               ButtonSegment(
                 value: _PaintKind.image,
-                icon: PhosphorIcon(PhosphorIconsLight.image),
-                tooltip: 'Image',
+                icon: const PhosphorIcon(PhosphorIconsLight.image),
+                tooltip: loc.image,
               ),
               ButtonSegment(
                 value: _PaintKind.svg,
-                icon: PhosphorIcon(PhosphorIconsLight.fileSvg),
-                tooltip: 'SVG',
+                icon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+                tooltip: loc.svg,
               ),
               ButtonSegment(
                 value: _PaintKind.gradient,
-                icon: PhosphorIcon(PhosphorIconsLight.gradient),
-                tooltip: 'Gradient',
+                icon: const PhosphorIcon(PhosphorIconsLight.gradient),
+                tooltip: loc.gradient,
               ),
             ],
             selected: {kind},
@@ -165,7 +167,7 @@ class TexturePaintField extends StatelessWidget {
             title: Text(
               kind == _PaintKind.solid
                   ? LeapLocalizations.of(context).color
-                  : 'Tint',
+                  : loc.tint,
             ),
             value: color.withValues(a: 255),
             onChanged: (next) => onChanged(switch (value) {
@@ -202,7 +204,7 @@ class TexturePaintField extends StatelessWidget {
 
         ExactSlider(
           value: color.a.toDouble(),
-          header: const Text('Alpha'),
+          header: Text(loc.alpha),
           fractionDigits: 0,
           max: 255,
           min: 0,
@@ -211,7 +213,7 @@ class TexturePaintField extends StatelessWidget {
         ),
         ExactSlider(
           value: value.blur,
-          header: const Text('Blur'),
+          header: Text(loc.blur),
           min: 0,
           max: 50,
           defaultValue: 0,
@@ -221,17 +223,17 @@ class TexturePaintField extends StatelessWidget {
         if (value case ImageElementPaint(:final source, :final scale)) ...[
           ListTile(
             leading: const PhosphorIcon(PhosphorIconsLight.imageSquare),
-            title: const Text('Image'),
-            subtitle: Text(source.isEmpty ? 'No image selected' : source),
+            title: Text(loc.image),
+            subtitle: Text(source.isEmpty ? loc.noImageSelected : source),
             trailing: FilledButton.icon(
               icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
-              label: const Text('Import'),
+              label: Text(loc.import),
               onPressed: () => _importImage(context),
             ),
           ),
           ExactSlider(
             value: scale,
-            header: const Text('Image scale'),
+            header: Text(loc.imageScale),
             min: 0.1,
             max: 8,
             defaultValue: 1,
@@ -241,17 +243,17 @@ class TexturePaintField extends StatelessWidget {
         ] else if (value case SvgElementPaint(:final source, :final scale)) ...[
           ListTile(
             leading: const PhosphorIcon(PhosphorIconsLight.fileSvg),
-            title: const Text('SVG'),
-            subtitle: Text(source.isEmpty ? 'No SVG selected' : source),
+            title: Text(loc.svg),
+            subtitle: Text(source.isEmpty ? loc.noSvgSelected : source),
             trailing: FilledButton.icon(
               icon: const PhosphorIcon(PhosphorIconsLight.uploadSimple),
-              label: const Text('Import'),
+              label: Text(loc.import),
               onPressed: () => _importSvg(context),
             ),
           ),
           ExactSlider(
             value: scale,
-            header: const Text('SVG scale'),
+            header: Text(loc.svgScale),
             min: 0.1,
             max: 8,
             defaultValue: 1,
@@ -300,24 +302,25 @@ class _GradientPaintEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Column(
       children: [
         ListTile(
           leading: const PhosphorIcon(PhosphorIconsLight.gradient),
-          title: const Text('Gradient type'),
+          title: Text(loc.gradientType),
           trailing: SegmentedButton<_GradientKind>(
             showSelectedIcon: false,
             selected: {kind},
-            segments: const [
+            segments: [
               ButtonSegment(
                 value: _GradientKind.linear,
-                icon: PhosphorIcon(PhosphorIconsLight.lineSegment),
-                tooltip: 'Linear',
+                icon: const PhosphorIcon(PhosphorIconsLight.lineSegment),
+                tooltip: loc.linear,
               ),
               ButtonSegment(
                 value: _GradientKind.radial,
-                icon: PhosphorIcon(PhosphorIconsLight.circle),
-                tooltip: 'Radial',
+                icon: const PhosphorIcon(PhosphorIconsLight.circle),
+                tooltip: loc.radial,
               ),
             ],
             onSelectionChanged: (selection) {
@@ -356,15 +359,16 @@ class _LinearGradientEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Column(
       children: [
         OffsetListTile(
-          title: const Text('Start'),
+          title: Text(loc.start),
           value: value.start.toOffset(),
           onChanged: (next) => onChanged(value.copyWith(start: next.toPoint())),
         ),
         OffsetListTile(
-          title: const Text('End'),
+          title: Text(loc.end),
           value: value.end.toOffset(),
           onChanged: (next) => onChanged(value.copyWith(end: next.toPoint())),
         ),
@@ -381,19 +385,20 @@ class _RadialGradientEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final focal = value.focal;
 
     return Column(
       children: [
         OffsetListTile(
-          title: const Text('Center'),
+          title: Text(loc.center),
           value: value.center.toOffset(),
           onChanged: (next) =>
               onChanged(value.copyWith(center: next.toPoint())),
         ),
         ExactSlider(
           value: value.radius,
-          header: const Text('Radius'),
+          header: Text(loc.radius),
           min: 0,
           max: 2,
           defaultValue: 0.5,
@@ -401,8 +406,8 @@ class _RadialGradientEditor extends StatelessWidget {
         ),
         SwitchListTile(
           secondary: const PhosphorIcon(PhosphorIconsLight.crosshair),
-          title: const Text('Focal point'),
-          subtitle: const Text('Use an off-center start point'),
+          title: Text(loc.focalPoint),
+          subtitle: Text(loc.useOffCenterStartPoint),
           value: focal != null,
           onChanged: (enabled) {
             onChanged(
@@ -415,14 +420,14 @@ class _RadialGradientEditor extends StatelessWidget {
         ),
         if (focal != null) ...[
           OffsetListTile(
-            title: const Text('Focal'),
+            title: Text(loc.focal),
             value: focal.toOffset(),
             onChanged: (next) =>
                 onChanged(value.copyWith(focal: next.toPoint())),
           ),
           ExactSlider(
             value: value.focalRadius ?? 0,
-            header: const Text('Focal radius'),
+            header: Text(loc.focalRadius),
             min: 0,
             max: 2,
             defaultValue: 0,
@@ -474,11 +479,12 @@ class _GradientStopsEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final items = effectiveStops;
 
     return ExpansionTile(
       leading: const PhosphorIcon(PhosphorIconsLight.listBullets),
-      title: const Text('Color stops'),
+      title: Text(loc.colorStops),
       initiallyExpanded: true,
       children: [
         for (final indexed in items.indexed)
@@ -502,7 +508,7 @@ class _GradientStopsEditor extends StatelessWidget {
             alignment: AlignmentDirectional.centerEnd,
             child: OutlinedButton.icon(
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
-              label: const Text('Add stop'),
+              label: Text(loc.addStop),
               onPressed: () {
                 final nextOffset = _findNewStopOffset(items);
                 final nextColor = items.isEmpty
@@ -541,9 +547,10 @@ class _GradientStopField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return ExpansionTile(
       leading: const PhosphorIcon(PhosphorIconsLight.drop),
-      title: Text('Stop ${index + 1}'),
+      title: Text('${loc.stop} ${index + 1}'),
       subtitle: Text('${(value.offset * 100).round()}%'),
       trailing: canRemove
           ? IconButton(
@@ -553,7 +560,7 @@ class _GradientStopField extends StatelessWidget {
           : null,
       children: [
         ColorField(
-          title: const Text('Color'),
+          title: Text(LeapLocalizations.of(context).color),
           value: value.color.withValues(a: 255),
           onChanged: (next) {
             onChanged(value.copyWith(color: next.withValues(a: value.color.a)));
@@ -561,7 +568,7 @@ class _GradientStopField extends StatelessWidget {
         ),
         ExactSlider(
           value: value.offset,
-          header: const Text('Offset'),
+          header: Text(loc.offset),
           min: 0,
           max: 1,
           defaultValue: index == 0 ? 0 : 1,
@@ -571,7 +578,7 @@ class _GradientStopField extends StatelessWidget {
         ),
         ExactSlider(
           value: value.color.a.toDouble(),
-          header: const Text('Alpha'),
+          header: Text(loc.alpha),
           fractionDigits: 0,
           min: 0,
           max: 255,

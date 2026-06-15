@@ -1292,6 +1292,8 @@ List<Widget> _buildTemplateMenuChildren(
   final isDefault = settings.defaultTemplate == path;
   final template = file.data!;
   final metadata = template.getMetadata()!;
+  final templateBackgrounds =
+      template.getPage()?.backgrounds ?? const <Background>[];
 
   return [
     if (!isCore && fileSystem.storage == null)
@@ -1310,6 +1312,33 @@ List<Widget> _buildTemplateMenuChildren(
         onPressed: () async {
           _overrideTools(fileSystem, bloc, [file]);
         },
+      ),
+    if (bloc != null && templateBackgrounds.isNotEmpty)
+      SubmenuButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
+        menuChildren: [
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+            child: Text(AppLocalizations.of(context).currentPage),
+            onPressed: () {
+              _applyTemplateBackgroundsToPages(bloc, template, [null]);
+            },
+          ),
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.files),
+            child: Text(AppLocalizations.of(context).allPages),
+            onPressed: () {
+              final state = bloc.state;
+              if (state is! DocumentLoadSuccess) return;
+              _applyTemplateBackgroundsToPages(
+                bloc,
+                template,
+                state.data.getPages(true),
+              );
+            },
+          ),
+        ],
+        child: Text(AppLocalizations.of(context).applyBackground),
       ),
     MenuItemButton(
       leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
@@ -1371,4 +1400,38 @@ List<Widget> _buildTemplateMenuChildren(
         },
       ),
   ];
+}
+
+void _applyTemplateBackgroundsToPages(
+  DocumentBloc bloc,
+  NoteData template,
+  List<String?> pageNames,
+) {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return;
+  final backgrounds = template.getPage()?.backgrounds ?? const <Background>[];
+  for (final background in backgrounds.whereType<SourcedElement>()) {
+    final uri = Uri.tryParse(background.source);
+    if (uri?.scheme.isNotEmpty ?? true) continue;
+    final asset = template.getAsset(background.source);
+    if (asset != null) {
+      bloc.add(AssetUpdated(background.source, asset));
+    }
+  }
+  final originalPageName = state.pageName;
+  var activePageName = originalPageName;
+  for (final pageName in pageNames) {
+    if (pageName == null) {
+      bloc.add(DocumentBackgroundsChanged(backgrounds));
+      continue;
+    }
+    if (pageName != activePageName) {
+      bloc.add(PageChanged(pageName));
+      activePageName = pageName;
+    }
+    bloc.add(DocumentBackgroundsChanged(backgrounds));
+  }
+  if (activePageName != originalPageName) {
+    bloc.add(PageChanged(originalPageName));
+  }
 }
