@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Háttér",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Doboz",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Szilárd",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dupla",
   "dotted": "Pontozott",
   "dottedDark": "Dotted dark",
@@ -954,6 +964,9 @@
   "ascending": "Növekvő",
   "descending": "Csökkenő",
   "imageScale": "Kép méretezése",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Kiválasztás",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Pozíciófüggő",
   "flipHorizontal": "Vízszintes tükrözés",
   "flipVertical": "Függőleges tükrözés",
