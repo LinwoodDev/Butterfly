@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "배경",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "상자",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "실선",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "이중선",
   "dotted": "점선",
   "dottedDark": "Dotted dark",
@@ -954,6 +964,9 @@
   "ascending": "오름차순",
   "descending": "내림차순",
   "imageScale": "이미지 배율",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "선택",
   "@select": {
     "description": "Select action"
@@ -1223,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "위치에 따라",
   "flipHorizontal": "가로로 뒤집기",
   "flipVertical": "세로로 뒤집기",
