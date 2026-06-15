@@ -86,6 +86,6 @@ extension ExternalStorageVisualizer on ExternalStorage {
 }
 
 List<ExternalStorage> getSupportedStorages() => [
-  if (!Platform.isIOS && !Platform.isAndroid) const LocalStorage(),
+  const LocalStorage(),
   const DavRemoteStorage(username: '', url: ''),
 ];
