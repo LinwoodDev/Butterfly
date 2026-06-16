@@ -284,6 +284,28 @@ void main() {
     expect(state.data.getPage(secondPageName)?.areas, [area]);
   });
 
+  test('unmatched single tool change does not overwrite active tool', () async {
+    final activeTool = PenTool(id: 'active-tool');
+    final otherTool = PenTool(id: 'other-tool');
+
+    bloc.add(ToolsReplaced([activeTool, otherTool]));
+    await _settleBlocEvents();
+    currentIndexCubit.changeIndex(0);
+
+    bloc.add(
+      ToolsChanged([PenTool(property: const PenProperty(strokeWidth: 12))]),
+    );
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    final active = state.info.tools[0] as PenTool;
+    final other = state.info.tools[1] as PenTool;
+    expect(active.id, 'active-tool');
+    expect(active.property.strokeWidth, 5);
+    expect(other.id, 'other-tool');
+    expect(other.property.strokeWidth, 5);
+  });
+
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
     await currentIndexCubit.close();

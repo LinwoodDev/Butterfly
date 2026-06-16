@@ -718,11 +718,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   updated = changedTools[selectionIndex];
                 }
               }
-              if (updated == null &&
-                  changedTools.length == 1 &&
-                  currentIndexCubit.state.index == index) {
-                updated = changedTools.single;
-              }
               if (updated == null) {
                 return tool;
               }
