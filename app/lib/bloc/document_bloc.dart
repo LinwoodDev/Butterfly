@@ -130,6 +130,17 @@ String getInitialArea(DocumentPage? page) {
   return page?.areas.firstWhereOrNull((e) => e.isInitial)?.name ?? '';
 }
 
+Area _createDuplicatedArea(Area area, List<Area> existingAreas) {
+  final baseName = area.name.isEmpty ? 'Area' : area.name;
+  final existingNames = existingAreas.map((e) => e.name).toSet();
+  var name = baseName;
+  var count = 1;
+  while (existingNames.contains(name)) {
+    name = '$baseName (${count++})';
+  }
+  return area.copyWith(name: name);
+}
+
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   final _historyReloadRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 50),
@@ -1201,6 +1212,45 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(page: currentDocument),
         shouldRefresh: () => true,
         reset: shouldRepaint,
+      );
+    }, transformer: sequential());
+    on<AreasDuplicated>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(embedding?.editable ?? true)) return;
+      final selectedPages = event.pages.toSet();
+      var data = current.data.setPage(current.page, current.pageName).$1;
+      var currentPage = current.page;
+      var currentPageChanged = false;
+      for (final (pageName, realPageName) in data.getPagesWithNames()) {
+        if (!selectedPages.contains(pageName) &&
+            !selectedPages.contains(realPageName)) {
+          continue;
+        }
+        final page = data.getPage(realPageName);
+        if (page == null) continue;
+        final duplicatedArea = _createDuplicatedArea(event.area, page.areas);
+        final areas = [
+          ...page.areas.map((e) {
+            if (duplicatedArea.isInitial && e.isInitial) {
+              return e.copyWith(isInitial: false);
+            }
+            return e;
+          }),
+          duplicatedArea,
+        ];
+        final updatedPage = page.copyWith(areas: areas);
+        data = data.setPage(updatedPage, realPageName).$1;
+        if (realPageName == current.pageName) {
+          currentPage = updatedPage;
+          currentPageChanged = true;
+        }
+      }
+      _saveState(
+        emit,
+        state: current.copyWith(data: data, page: currentPage),
+        shouldRefresh: () => currentPageChanged,
+        reset: currentPageChanged,
       );
     }, transformer: sequential());
     on<AreasRemoved>((event, emit) {

@@ -262,6 +262,28 @@ void main() {
     },
   );
 
+  test('duplicating area adds it to selected pages', () async {
+    final initialState = bloc.state as DocumentLoadSuccess;
+    final pages = initialState.data.getPages(true);
+    final firstPageName = pages.firstWhere((name) => name.endsWith('.Page 1'));
+    final secondPageName = pages.firstWhere((name) => name.endsWith('.Page 2'));
+    const area = Area(
+      name: 'Shared area',
+      width: 100,
+      height: 80,
+      position: Point(10, 20),
+    );
+
+    bloc.add(AreasDuplicated(area, ['Page 1', secondPageName]));
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    expect(state.pageName, secondPageName);
+    expect(state.page.areas, [area]);
+    expect(state.data.getPage(firstPageName)?.areas, [area]);
+    expect(state.data.getPage(secondPageName)?.areas, [area]);
+  });
+
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
     await currentIndexCubit.close();

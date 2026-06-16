@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/layers.dart';
+import 'package:butterfly/dialogs/pages.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -57,6 +58,25 @@ ContextMenuBuilder buildAreaContextMenu(
             area.name == state.currentAreaName ? '' : area.name,
           ),
         );
+      },
+    ),
+    ContextMenuItem(
+      icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
+      label: AppLocalizations.of(context).duplicate,
+      onPressed: () async {
+        final selectedPages = await showDialog<List<String>>(
+          context: context,
+          builder: (context) => SelectPagesDialog(
+            pages: state.data
+                .getPagesWithNames()
+                .where((e) => e.$2 != state.pageName)
+                .toList(),
+          ),
+        );
+        if (selectedPages == null) return;
+        if (!context.mounted) return;
+        Navigator.of(context).pop();
+        bloc.add(AreasDuplicated(area, selectedPages));
       },
     ),
     ContextMenuItem(

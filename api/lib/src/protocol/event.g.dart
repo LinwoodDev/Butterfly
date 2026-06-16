@@ -464,6 +464,19 @@ Map<String, dynamic> _$AreasCreatedToJson(AreasCreated instance) =>
       'type': instance.$type,
     };
 
+AreasDuplicated _$AreasDuplicatedFromJson(Map json) => AreasDuplicated(
+  Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  (json['pages'] as List<dynamic>).map((e) => e as String).toList(),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$AreasDuplicatedToJson(AreasDuplicated instance) =>
+    <String, dynamic>{
+      'area': instance.area.toJson(),
+      'pages': instance.pages,
+      'type': instance.$type,
+    };
+
 AreasRemoved _$AreasRemovedFromJson(Map json) => AreasRemoved(
   (json['areas'] as List<dynamic>).map((e) => e as String).toList(),
   $type: json['type'] as String?,

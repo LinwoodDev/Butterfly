@@ -489,6 +489,10 @@ DocumentEvent _$DocumentEventFromJson(
           return AreasCreated.fromJson(
             json
           );
+                case 'areasDuplicated':
+          return AreasDuplicated.fromJson(
+            json
+          );
                 case 'areasRemoved':
           return AreasRemoved.fromJson(
             json
@@ -3324,6 +3328,96 @@ as List<Area>,
 }
 
 
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class AreasDuplicated extends DocumentEvent {
+  const AreasDuplicated(this.area, final  List<String> pages, {final  String? $type}): _pages = pages,$type = $type ?? 'areasDuplicated',super._();
+  factory AreasDuplicated.fromJson(Map<String, dynamic> json) => _$AreasDuplicatedFromJson(json);
+
+ final  Area area;
+ final  List<String> _pages;
+ List<String> get pages {
+  if (_pages is EqualUnmodifiableListView) return _pages;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_pages);
+}
+
+
+@JsonKey(name: 'type')
+final String $type;
+
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AreasDuplicatedCopyWith<AreasDuplicated> get copyWith => _$AreasDuplicatedCopyWithImpl<AreasDuplicated>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AreasDuplicatedToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AreasDuplicated&&(identical(other.area, area) || other.area == area)&&const DeepCollectionEquality().equals(other._pages, _pages));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,area,const DeepCollectionEquality().hash(_pages));
+
+@override
+String toString() {
+  return 'DocumentEvent.areasDuplicated(area: $area, pages: $pages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AreasDuplicatedCopyWith<$Res> implements $DocumentEventCopyWith<$Res> {
+  factory $AreasDuplicatedCopyWith(AreasDuplicated value, $Res Function(AreasDuplicated) _then) = _$AreasDuplicatedCopyWithImpl;
+@useResult
+$Res call({
+ Area area, List<String> pages
+});
+
+
+$AreaCopyWith<$Res> get area;
+
+}
+/// @nodoc
+class _$AreasDuplicatedCopyWithImpl<$Res>
+    implements $AreasDuplicatedCopyWith<$Res> {
+  _$AreasDuplicatedCopyWithImpl(this._self, this._then);
+
+  final AreasDuplicated _self;
+  final $Res Function(AreasDuplicated) _then;
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? area = null,Object? pages = null,}) {
+  return _then(AreasDuplicated(
+null == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
+as Area,null == pages ? _self._pages : pages // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+/// Create a copy of DocumentEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AreaCopyWith<$Res> get area {
+  
+  return $AreaCopyWith<$Res>(_self.area, (value) {
+    return _then(_self.copyWith(area: value));
+  });
+}
 }
 
 /// @nodoc

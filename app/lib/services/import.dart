@@ -809,7 +809,7 @@ class ImportService {
         dialog?.close();
         final callback = await showDialog<PageDialogCallback>(
           context: context,
-          builder: (context) => PagesDialog(pages: images, name: name),
+          builder: (context) => ImportPagesDialog(pages: images, name: name),
         );
         for (var image in images) {
           try {

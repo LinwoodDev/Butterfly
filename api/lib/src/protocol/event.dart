@@ -154,6 +154,9 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.areasCreated(List<Area> areas) = AreasCreated;
 
+  const factory DocumentEvent.areasDuplicated(Area area, List<String> pages) =
+      AreasDuplicated;
+
   const factory DocumentEvent.areasRemoved(List<String> areas) = AreasRemoved;
 
   const factory DocumentEvent.areaChanged(
