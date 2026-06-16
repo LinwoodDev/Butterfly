@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -48,6 +47,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   _MouseState _mouseState = _MouseState.normal;
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
+  RulerHandler? _ruler;
   Animation<Offset>? _positionAnimation;
 
   final Map<int, PointerDeviceKind> _pointerKinds = {};
@@ -292,6 +292,17 @@ class _MainViewViewportState extends State<MainViewViewport>
     cubit.addPointer(event.pointer);
     cubit.setButtons(event.buttons);
     final handler = getHandler();
+    final ruler = RulerHandler.getInteractiveRuler(
+      cubit.state,
+      handler,
+      event.localPosition,
+      getEventContext().viewportSize,
+    );
+    if (event.kind != PointerDeviceKind.touch && ruler != null) {
+      _ruler = ruler;
+      ruler.beginTransform(event.localPosition);
+      return;
+    }
     if (handler.canChange(event, getEventContext())) {
       await changeTemporaryTool(event.kind, event.buttons);
     }
@@ -318,6 +329,11 @@ class _MainViewViewportState extends State<MainViewViewport>
       }
     }
     cubit.updateLastPosition(event.localPosition);
+    final ruler = _ruler;
+    if (ruler != null && event.kind != PointerDeviceKind.touch) {
+      ruler.transformWithPointerMove(getEventContext(), event);
+      return;
+    }
     final currentIndexState = cubit.state;
     if (_isTouchMoveGesture(currentIndexState)) {
       if (currentIndexState.pointers.isEmpty) {
@@ -347,21 +363,33 @@ class _MainViewViewportState extends State<MainViewViewport>
     _EventContextGetter getEventContext,
   ) async {
     cubit.updateLastPosition(event.localPosition);
-    if (_isScalingDisabled ?? true) {
+    final wasRulerInteraction = _ruler != null;
+    _resetRulerInteraction();
+    if (!wasRulerInteraction && (_isScalingDisabled ?? true)) {
       await getHandler().onPointerUp(event, getEventContext());
     }
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
-    _scheduleMultiTapShortcut(event, cubit, getHandler, getEventContext);
+    if (wasRulerInteraction) {
+      cubit.removeButtons();
+    } else {
+      _scheduleMultiTapShortcut(event, cubit, getHandler, getEventContext);
+    }
   }
 
   void _handlePointerCancel(PointerCancelEvent event, CurrentIndexCubit cubit) {
+    _resetRulerInteraction();
     cubit.removePointer(event.pointer);
     _pointerKinds.remove(event.pointer);
     cubit.removeButtons();
     if (cubit.state.pointers.isEmpty) {
       _isScalingDisabled = null;
     }
+  }
+
+  void _resetRulerInteraction() {
+    _ruler?.endTransform();
+    _ruler = null;
   }
 
   @override
@@ -407,8 +435,6 @@ class _MainViewViewportState extends State<MainViewViewport>
 
   @override
   Widget build(BuildContext context) {
-    RulerHandler? ruler;
-    double previousRulerRotation = 0;
     return SizedBox.expand(
       child: RepaintBoundary(
         child: LayoutBuilder(
@@ -572,24 +598,17 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       ),
                                   onScaleUpdate: (details) {
                                     final handler = getHandler();
+                                    if (_ruler != null) {
+                                      _ruler?.transformWithScaleUpdate(
+                                        getEventContext(),
+                                        details,
+                                      );
+                                      return;
+                                    }
                                     if (_isScalingDisabled ?? true) {
                                       handler.onScaleUpdate(
                                         details,
                                         getEventContext(),
-                                      );
-                                      return;
-                                    }
-                                    if (ruler != null) {
-                                      final deltaRotation =
-                                          (details.rotation -
-                                              previousRulerRotation) *
-                                          180 /
-                                          pi;
-                                      previousRulerRotation = details.rotation;
-                                      ruler?.transform(
-                                        getEventContext(),
-                                        position: details.focalPointDelta,
-                                        rotation: deltaRotation,
                                       );
                                       return;
                                     }
@@ -637,6 +656,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         getEventContext(),
                                       ),
                                   onScaleEnd: (details) {
+                                    if (_ruler != null) {
+                                      _resetRulerInteraction();
+                                      _isScalingDisabled = null;
+                                      cubit.removeButtons();
+                                      return;
+                                    }
                                     getHandler().onScaleEnd(
                                       details,
                                       getEventContext(),
@@ -664,8 +689,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         delayBake();
                                       }
                                     }
-                                    ruler = null;
-                                    previousRulerRotation = 0;
+                                    _resetRulerInteraction();
                                     cubit.removeButtons();
                                     if (_isScalingDisabled ?? true) {
                                       cubit.resetReleaseHandler(bloc);
@@ -675,7 +699,18 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     _isScalingDisabled ??= !_isTouchMoveGesture(
                                       cubit.state,
                                     );
-                                    if (_isScalingDisabled != false) {
+                                    _ruler = RulerHandler.getInteractiveRuler(
+                                      currentIndex,
+                                      cubit.getHandler(),
+                                      details.localFocalPoint,
+                                      constraints.biggest,
+                                    );
+                                    if (_ruler != null) {
+                                      _isScalingDisabled = false;
+                                      _ruler?.beginTransform(
+                                        details.localFocalPoint,
+                                      );
+                                    } else if (_isScalingDisabled != false) {
                                       _isScalingDisabled = cubit
                                           .getHandler()
                                           .onScaleStart(
@@ -688,12 +723,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                         getEventContext(),
                                       );
                                     }
-                                    ruler = RulerHandler.getFirstRuler(
-                                      currentIndex,
-                                      details.localFocalPoint,
-                                      constraints.biggest,
-                                    );
-                                    previousRulerRotation = 0;
                                     point = details.localFocalPoint;
                                     size = 1;
                                   },
