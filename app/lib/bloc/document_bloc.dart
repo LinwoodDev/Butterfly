@@ -1656,6 +1656,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     );
   }
 
+  void cancelDelayedBake() {
+    _currentIndexCubit?.cancelDelayedBake();
+  }
+
   Future<void> load() async {
     final current = state;
     final cubit = _currentIndexCubit;

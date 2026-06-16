@@ -201,11 +201,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    final cubit = context.getCurrentIndexCubit();
+    cubit.cancelDelayedBake();
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       context.refreshForegrounds();
       return;

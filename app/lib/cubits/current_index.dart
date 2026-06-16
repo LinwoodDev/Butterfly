@@ -2378,7 +2378,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         !outOfBounds) {
       return;
     }
-    _cancelDelayedBake();
+    cancelDelayedBake();
     state.transformCubit.slide(
       positionVelocity,
       sizeVelocity,
@@ -2546,7 +2546,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
-    _cancelDelayedBake();
+    cancelDelayedBake();
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,
@@ -2672,7 +2672,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(navigatorPage: page));
   }
 
-  void _cancelDelayedBake() {
+  void cancelDelayedBake() {
     _delayedBakeRunner.cancel();
   }
 

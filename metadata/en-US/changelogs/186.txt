@@ -30,6 +30,7 @@
 * Fix show thumbnail not saved to settings
 * Fix texture view having width label instead of height
 * Improve baking checks to improve performance on large documents
+* Improve bake scheduling in pen tool to improve performance
 * Migrate to new clipboard library
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
