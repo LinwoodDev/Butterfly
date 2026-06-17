@@ -19,6 +19,7 @@
 * Add area duplication to other pages
 * Add ruler rotation snapping ([#1074](https://github.com/LinwoodDev/Butterfly/issues/1074))
 * Add ruler rotation with hand tool
+* Add bulk export for selected file-view items ([#1018](https://github.com/LinwoodDev/Butterfly/issues/1018))
 * Change that core pack items can only be overridden but not removed
 * Improve pack system by using file names instead of display name
 * Redesign add dialog
