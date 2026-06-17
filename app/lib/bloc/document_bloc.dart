@@ -1763,6 +1763,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         );
   }
 
+  Future<void> replaceTemplate(
+    TemplateFileSystem templateSystem,
+    String path,
+    FileMetadata metadata,
+  ) async {
+    final current = state;
+    final cubit = _currentIndexCubit;
+    if (current is! DocumentLoadSuccess || cubit == null) return;
+    final data = await current.saveData(null, cubit.state.viewOption);
+    await templateSystem.updateFile(
+      path,
+      data.createTemplate(
+        name: metadata.name,
+        description: metadata.description,
+        directory: metadata.directory,
+      ),
+    );
+  }
+
   @override
   Future<void> close() async {
     await _historyReloadRunner.disposeAndWait();

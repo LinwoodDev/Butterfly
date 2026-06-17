@@ -1313,6 +1313,33 @@ List<Widget> _buildTemplateMenuChildren(
           _overrideTools(fileSystem, bloc, [file]);
         },
       ),
+    if (bloc != null && !isCore)
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsClockwise),
+        child: Text(AppLocalizations.of(context).replace),
+        onPressed: () async {
+          final result = await showDialog<bool>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text(AppLocalizations.of(context).areYouSure),
+              content: Text(AppLocalizations.of(context).reallyReplace),
+              actions: [
+                TextButton(
+                  child: Text(AppLocalizations.of(context).no),
+                  onPressed: () => Navigator.of(context).pop(false),
+                ),
+                ElevatedButton(
+                  child: Text(AppLocalizations.of(context).yes),
+                  onPressed: () => Navigator.of(context).pop(true),
+                ),
+              ],
+            ),
+          );
+          if (result != true) return;
+          await bloc.replaceTemplate(fileSystem, path, metadata);
+          onChanged();
+        },
+      ),
     if (bloc != null && templateBackgrounds.isNotEmpty)
       SubmenuButton(
         leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
