@@ -186,6 +186,9 @@ class DefaultHitCalculator extends HitCalculator {
     if (hitElementMode == HitElementMode.full) {
       return rotated.every(rect.contains);
     }
+    if (!isFiniteRect(rect)) {
+      return rotated.any(rect.contains);
+    }
     return isPolygonInPolygon(rotated, [
       rect.topLeft,
       rect.topRight,
@@ -256,6 +259,7 @@ abstract class HitCalculator {
   });
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
+    if (!_isFiniteOffset(testPoint) || !isFinitePolygon(polygon)) return false;
     bool result = false;
     int j = polygon.length - 1;
     for (int i = 0; i < polygon.length; i++) {
@@ -272,6 +276,31 @@ abstract class HitCalculator {
       j = i;
     }
     return result;
+  }
+
+  bool _isFiniteOffset(Offset point) => point.dx.isFinite && point.dy.isFinite;
+
+  bool isFinitePolygon(List<Offset> polygon) => polygon.every(_isFiniteOffset);
+
+  bool isFiniteRect(Rect rect) =>
+      rect.left.isFinite &&
+      rect.top.isFinite &&
+      rect.right.isFinite &&
+      rect.bottom.isFinite;
+
+  List<Offset> rectToPolygon(Rect rect) => [
+    rect.topLeft,
+    rect.topRight,
+    rect.bottomRight,
+    rect.bottomLeft,
+  ];
+
+  bool hitRectPolygon(Rect rect, List<Offset> polygon) {
+    if (polygon.isEmpty) return false;
+    if (!isFiniteRect(rect)) {
+      return polygon.any(rect.contains);
+    }
+    return isPolygonInPolygon(rectToPolygon(rect), polygon);
   }
 
   List<Offset> getAxesOfPolygon(List<Offset> polygon) {
@@ -341,6 +370,7 @@ abstract class HitCalculator {
 
   bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
     if (poly1.isEmpty || poly2.isEmpty) return false;
+    if (!isFinitePolygon(poly1) || !isFinitePolygon(poly2)) return false;
 
     for (final (a, b) in _edgesOf(poly1)) {
       for (final (c, d) in _edgesOf(poly2)) {

@@ -32,6 +32,7 @@
 * Fix text labels disappear after switching to another element ([#1139](https://github.com/LinwoodDev/Butterfly/issues/1139))
 * Fix show thumbnail not saved to settings
 * Fix texture view having width label instead of height
+* Fix spacer tool not working on multiple element types ([#1144](https://github.com/LinwoodDev/Butterfly/issues/1144))
 * Improve baking checks to improve performance on large documents
 * Improve bake scheduling in pen tool to improve performance
 * Migrate to new clipboard library

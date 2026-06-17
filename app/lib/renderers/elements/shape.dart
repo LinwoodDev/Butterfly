@@ -398,6 +398,19 @@ class ShapeHitCalculator extends HitCalculator {
     final center = this.rect.center;
 
     bool hitCircle() {
+      if (!isFiniteRect(rect)) {
+        return switch (hitElementMode) {
+          HitElementMode.full => [
+            this.rect.topLeft,
+            this.rect.topRight,
+            this.rect.bottomRight,
+            this.rect.bottomLeft,
+          ].every(rect.contains),
+          HitElementMode.touchEdges ||
+          HitElementMode.touchAnywhere => boundsRect.overlaps(rect),
+          _ => false, // this shouldn't happen
+        };
+      }
       final circleCenter = this.rect.center;
       final rectCenter = rect.center;
       final dx = (circleCenter.dx - rectCenter.dx).abs();
@@ -460,10 +473,12 @@ class ShapeHitCalculator extends HitCalculator {
               rect.containsLine(topRight, bottomRight) ||
               rect.containsLine(bottomLeft, bottomRight) ||
               rect.containsLine(topLeft, bottomLeft),
-        HitElementMode.touchAnywhere => isPolygonInPolygon(
-          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-          [topLeft, topRight, bottomRight, bottomLeft],
-        ),
+        HitElementMode.touchAnywhere => hitRectPolygon(rect, [
+          topLeft,
+          topRight,
+          bottomRight,
+          bottomLeft,
+        ]),
         _ => false, // this shouldn't happen
       };
     }
@@ -492,10 +507,11 @@ class ShapeHitCalculator extends HitCalculator {
           rect.containsLine(triRight, triTop) ||
               rect.containsLine(triTop, triLeft) ||
               rect.containsLine(triLeft, triRight),
-        HitElementMode.touchAnywhere => isPolygonInPolygon(
-          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
-          [triTop, triLeft, triRight],
-        ),
+        HitElementMode.touchAnywhere => hitRectPolygon(rect, [
+          triTop,
+          triLeft,
+          triRight,
+        ]),
         _ => false, // this shouldn't happen
       };
     }

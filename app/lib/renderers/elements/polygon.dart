@@ -367,18 +367,16 @@ class PolygonHitCalculator extends HitCalculator {
     if (hitElementMode == HitElementMode.none) return false;
     if (_points.isEmpty) return false;
     if (!_bounds.overlaps(rect)) return false;
-    final rectPoints = [
-      rect.topLeft,
-      rect.topRight,
-      rect.bottomRight,
-      rect.bottomLeft,
-    ];
     return switch (hitElementMode) {
       HitElementMode.full => _points.every((p) => rect.contains(p)),
       HitElementMode.touchEdges =>
-        isPolygonInPolygon(rectPoints, _points) &&
-            !rectPoints.every((p) => isPointInPolygon(_points, p)),
-      HitElementMode.touchAnywhere => isPolygonInPolygon(rectPoints, _points),
+        hitRectPolygon(rect, _points) &&
+            (isFiniteRect(rect)
+                ? !rectToPolygon(
+                    rect,
+                  ).every((p) => isPointInPolygon(_points, p))
+                : true),
+      HitElementMode.touchAnywhere => hitRectPolygon(rect, _points),
       _ => false, // this shouldn't happen
     };
   }

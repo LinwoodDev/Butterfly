@@ -73,6 +73,36 @@ void main() {
         isFalse,
       );
     });
+
+    test('handles unbounded spacer rectangles', () {
+      final rightSpacerRect = const Rect.fromLTRB(
+        50,
+        -double.infinity,
+        double.infinity,
+        double.infinity,
+      );
+      final leftSpacerRect = const Rect.fromLTRB(
+        -double.infinity,
+        -double.infinity,
+        -50,
+        double.infinity,
+      );
+
+      expect(
+        calculator.hit(
+          rightSpacerRect,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isTrue,
+      );
+      expect(
+        calculator.hit(
+          leftSpacerRect,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isFalse,
+      );
+    });
   });
 
   group('Bezier', () {
