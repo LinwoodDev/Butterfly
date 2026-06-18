@@ -35,6 +35,8 @@
 * Fix show thumbnail not saved to settings
 * Fix texture view having width label instead of height
 * Fix spacer tool not working on multiple element types ([#1144](https://github.com/LinwoodDev/Butterfly/issues/1144))
+* Fix compability with some WebDAV implementations
+* Fix enabling saf giving wrong file systems
 * Improve baking checks to improve performance on large documents
 * Improve bake scheduling in pen tool to improve performance
 * Migrate to new clipboard library
