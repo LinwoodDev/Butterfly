@@ -187,25 +187,38 @@ class _PagesViewState extends State<PagesView> {
                             itemCount: all.length,
                             onReorderItem: (oldIndex, newIndex) {
                               if (oldIndex < 0 ||
+                                  oldIndex >= all.length ||
                                   newIndex < 0 ||
-                                  oldIndex >= all.length) {
+                                  newIndex >= all.length ||
+                                  !all[oldIndex].isFile) {
                                 return;
                               }
-                              final current = all[oldIndex];
-                              final name = current.path;
-                              final isFile = current.isFile;
-                              if (!isFile) return;
-                              final next =
-                                  all[newIndex.clamp(0, all.length - 1)];
-                              var nextIndex = state.data.getPageIndex(
-                                next.path,
-                              );
-                              if (newIndex >= all.length && nextIndex != null) {
-                                nextIndex++;
+                              final anchorIndex = newIndex > oldIndex
+                                  ? newIndex + 1
+                                  : newIndex;
+                              int? pageIndex;
+                              if (anchorIndex < all.length) {
+                                final anchor = all[anchorIndex];
+                                if (!anchor.isFile) return;
+                                pageIndex = state.data.getPageIndex(
+                                  anchor.path,
+                                );
+                              } else {
+                                pageIndex =
+                                    state.data
+                                        .getPages(true)
+                                        .map(state.data.getPageIndex)
+                                        .nonNulls
+                                        .fold(
+                                          -1,
+                                          (maximum, index) =>
+                                              index > maximum ? index : maximum,
+                                        ) +
+                                    1;
                               }
-                              if (!next.isFile || nextIndex == null) return;
+                              if (pageIndex == null) return;
                               context.read<DocumentBloc>().add(
-                                PageReordered(name, nextIndex),
+                                PageReordered(all[oldIndex].path, pageIndex),
                               );
                             },
                             itemBuilder: (BuildContext context, int index) {

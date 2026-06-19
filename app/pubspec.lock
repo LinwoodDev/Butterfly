@@ -389,10 +389,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: fc83774ce5bd7ce08168333b5e53dbe9090ec04eb21e7aa7cd7bac921032c934
+      sha256: fdc6a37f715d19f35b131decf1ce39242eeed5ddae18c0818c3eccb731ab76be
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0-beta.5"
+    version: "12.0.0-beta.7"
   fixnum:
     dependency: transitive
     description:
@@ -1567,10 +1567,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "7ee12e6dffe0fc8e755179d6d91b3b34f5924223fc104d85572ef9180d73d172"
+      sha256: "142a9146f447d15b10bdc00e21d5f4d83e5b32bb5f8f8f5a04c75311344923a3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "1.2.6"
   vector_math:
     dependency: transitive
     description:
