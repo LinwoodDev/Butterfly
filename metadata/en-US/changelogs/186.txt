@@ -40,6 +40,7 @@
 * Fix layer and pages reordering placing it in wrong position
 * Improve baking checks to improve performance on large documents
 * Improve bake scheduling in pen tool to improve performance
+* Simplify android build files
 * Migrate to new clipboard library
 
 Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
