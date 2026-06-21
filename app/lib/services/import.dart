@@ -806,11 +806,18 @@ class ImportService {
                 message = 'No PDF was selected.';
                 continue;
               }
-              final convertedData = await converted.readAsBytes();
-              if (convertedData.length < 5 ||
-                  String.fromCharCodes(convertedData.take(5)) != '%PDF-') {
+              Uint8List convertedData;
+              try {
+                convertedData = await converted.readAsBytes();
+              } catch (error) {
+                message =
+                    'Butterfly could not read “${converted.name}”: $error';
+                continue;
+              }
+              if (!isPdfData(convertedData)) {
                 message =
                     'The selected file does not appear to be a valid PDF. '
+                    'A PDF header was not found in the first 1024 bytes. '
                     'Please choose the converted PDF file.';
                 continue;
               }
@@ -841,11 +848,13 @@ class ImportService {
       );
       return _importDocument(data, document: document, advanced: advanced);
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) =>
-            UnknownImportConfirmationDialog(message: e.toString()),
-      );
+      if (context.mounted) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) =>
+              UnknownImportConfirmationDialog(message: e.toString()),
+        );
+      }
     }
     return null;
   }

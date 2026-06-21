@@ -76,6 +76,17 @@ void main() {
     );
   });
 
+  test('accepts PDF headers within the first 1024 bytes', () {
+    expect(isPdfData(Uint8List.fromList('%PDF-1.7'.codeUnits)), isTrue);
+    expect(
+      isPdfData(
+        Uint8List.fromList([...List.filled(32, 0), ...'%PDF-1.7'.codeUnits]),
+      ),
+      isTrue,
+    );
+    expect(isPdfData(Uint8List.fromList('not a pdf'.codeUnits)), isFalse);
+  });
+
   test('converts all pages of the same XPS printout only once', () async {
     final firstPageData = Uint8List.fromList([1, 2, 3]);
     final secondPageData = Uint8List.fromList([4, 5, 6]);
@@ -333,7 +344,7 @@ void main() {
     final convertedPage = document.getPage('Files/Printout')!;
     final printout = convertedPage.content.whereType<PdfElement>().single;
 
-    expect(printout.page, 1);
+    expect(printout.page, 2);
     expect(printout.width, 192);
     expect(printout.height, 144);
     expect(document.getAsset(Uri.parse(printout.source).path), pdf);
@@ -378,8 +389,8 @@ void main() {
     final content = document.getPage('Files/Printout')!.content;
 
     expect(content.whereType<PdfElement>().map((element) => element.page), [
-      0,
       1,
+      2,
     ]);
     expect(content.whereType<ImageElement>(), isEmpty);
   });
