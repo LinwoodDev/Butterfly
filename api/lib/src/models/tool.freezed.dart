@@ -1422,7 +1422,7 @@ as String?,
 @JsonSerializable()
 
 class AssetTool extends Tool {
-   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.document, this.advanced = true, final  String? $type}): $type = $type ?? 'asset',super._();
+   AssetTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.importType = ImportType.file, this.advanced = true, final  String? $type}): $type = $type ?? 'asset',super._();
   factory AssetTool.fromJson(Map<String, dynamic> json) => _$AssetToolFromJson(json);
 
 @override@JsonKey() final  String name;

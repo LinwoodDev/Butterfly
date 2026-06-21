@@ -401,7 +401,7 @@ AssetTool _$AssetToolFromJson(Map json) => AssetTool(
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   importType:
       $enumDecodeNullable(_$ImportTypeEnumMap, json['importType']) ??
-      ImportType.document,
+      ImportType.file,
   advanced: json['advanced'] as bool? ?? true,
   $type: json['type'] as String?,
 );
@@ -416,6 +416,8 @@ Map<String, dynamic> _$AssetToolToJson(AssetTool instance) => <String, dynamic>{
 };
 
 const _$ImportTypeEnumMap = {
+  ImportType.file: 'file',
+  ImportType.oneNote: 'oneNote',
   ImportType.image: 'image',
   ImportType.camera: 'camera',
   ImportType.svg: 'svg',

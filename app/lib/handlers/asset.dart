@@ -60,6 +60,13 @@ Future<void> showImportAssetWizard(
   if (!await type.isAvailable()) return;
 
   switch (type) {
+    case ImportType.file:
+      return importWithDialog(AssetFileType.values);
+    case ImportType.oneNote:
+      return importWithDialog([
+        AssetFileType.oneNote,
+        AssetFileType.oneNotePackage,
+      ]);
     case ImportType.image:
       return importWithDialog([AssetFileType.image]);
     case ImportType.camera:
