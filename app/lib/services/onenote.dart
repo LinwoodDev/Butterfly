@@ -1,9 +1,12 @@
+import 'dart:collection';
+import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:onenote_parser/onenote_parser.dart' as one;
 
@@ -14,25 +17,95 @@ const _pixelsPerHalfInch = _pixelsPerInch / 2;
 const _himetricUnitsPerInch = 2540.0;
 const _himetricToPixels = _pixelsPerInch / _himetricUnitsPerInch;
 
+typedef OneNoteXpsConverter =
+    Future<Uint8List?> Function(Uint8List data, String fileName);
+typedef XpsProcessRunner =
+    Future<ProcessResult> Function(String executable, List<String> arguments);
+
+class XpsToPdfNotInstalledException implements Exception {
+  const XpsToPdfNotInstalledException();
+
+  @override
+  String toString() => 'xpstopdf is not installed';
+}
+
+Future<Uint8List> convertXpsToPdf(
+  Uint8List data, {
+  String executable = 'xpstopdf',
+  XpsProcessRunner runProcess = _runProcess,
+}) async {
+  if (kIsWeb) throw const XpsToPdfNotInstalledException();
+  final directory = await Directory.systemTemp.createTemp('butterfly_xps_');
+  final input = File('${directory.path}/input.xps');
+  final output = File('${directory.path}/output.pdf');
+  final arguments = [input.path, output.path];
+  try {
+    await input.writeAsBytes(data);
+    ProcessResult result;
+    try {
+      result = await runProcess(executable, arguments);
+    } on ProcessException catch (error) {
+      if (error.errorCode == 2) {
+        throw const XpsToPdfNotInstalledException();
+      }
+      rethrow;
+    } on UnsupportedError {
+      throw const XpsToPdfNotInstalledException();
+    }
+    if (result.exitCode != 0 || !await output.exists()) {
+      throw ProcessException(
+        executable,
+        arguments,
+        result.stderr.toString(),
+        result.exitCode,
+      );
+    }
+    return output.readAsBytes();
+  } finally {
+    try {
+      await directory.delete(recursive: true);
+    } catch (_) {}
+  }
+}
+
+Future<ProcessResult> _runProcess(String executable, List<String> arguments) =>
+    Process.run(executable, arguments);
+
 Future<NoteData> parseOneNoteData(
   Uint8List bytes, {
   required String name,
   required bool isPackage,
+  OneNoteXpsConverter? convertXps,
 }) async {
   await (_oneNoteInitialization ??= one.RustLib.init());
   if (isPackage) {
     final notebook = await one.parsePackageBytes(data: bytes);
-    return convertOneNoteNotebook(notebook, name: name);
+    final xpsFiles = await convertOneNoteXpsFiles(
+      _notebookImages(notebook),
+      convertXps,
+    );
+    return convertOneNoteNotebook(notebook, name: name, xpsFiles: xpsFiles);
   }
   final section = await one.parseSectionBytes(
     data: bytes,
     fileName: '$name.one',
   );
-  return convertOneNoteSection(section, name: name);
+  final xpsFiles = await convertOneNoteXpsFiles(
+    _sectionImages(section),
+    convertXps,
+  );
+  return convertOneNoteSection(section, name: name, xpsFiles: xpsFiles);
 }
 
-NoteData convertOneNoteSection(one.OneNoteSection section, {String? name}) {
-  final converter = _OneNoteConverter(name ?? section.displayName);
+NoteData convertOneNoteSection(
+  one.OneNoteSection section, {
+  String? name,
+  Map<Uint8List, Uint8List?>? xpsFiles,
+}) {
+  final converter = _OneNoteConverter(
+    name ?? section.displayName,
+    xpsFiles ?? HashMap.identity(),
+  );
   converter.addSection(section, const []);
   return converter.finish();
 }
@@ -40,19 +113,151 @@ NoteData convertOneNoteSection(one.OneNoteSection section, {String? name}) {
 NoteData convertOneNoteNotebook(
   one.OneNoteNotebook notebook, {
   required String name,
+  Map<Uint8List, Uint8List?>? xpsFiles,
 }) {
-  final converter = _OneNoteConverter(name);
+  final converter = _OneNoteConverter(name, xpsFiles ?? HashMap.identity());
   converter.addEntries(notebook.entries, const []);
   return converter.finish(
     warnings: notebook.warnings.map((warning) => warning.message).toList(),
   );
 }
 
+@visibleForTesting
+Future<Map<Uint8List, Uint8List?>> convertOneNoteXpsFiles(
+  List<one.OneNoteImage> images,
+  OneNoteXpsConverter? converter,
+) async {
+  const equality = ListEquality<int>();
+  final result = HashMap<Uint8List, Uint8List?>(
+    equals: equality.equals,
+    hashCode: equality.hash,
+  );
+  final convertedPrintouts = <String, Uint8List?>{};
+  for (final image in images) {
+    final data = image.data;
+    if (data == null ||
+        data.isEmpty ||
+        _fileExtension(image.extension_ ?? image.filename) != 'xps' ||
+        result.containsKey(data)) {
+      continue;
+    }
+    final fileName = image.filename?.trim();
+    final printoutKey = fileName == null || fileName.isEmpty
+        ? null
+        : fileName.replaceAll(r'\', '/').split('/').last.toLowerCase();
+    if (printoutKey != null && convertedPrintouts.containsKey(printoutKey)) {
+      result[data] = convertedPrintouts[printoutKey];
+      continue;
+    }
+    final converted = await (converter ?? _defaultXpsConverter)(
+      data,
+      fileName ?? 'printout.xps',
+    );
+    result[data] = converted;
+    if (printoutKey != null) {
+      convertedPrintouts[printoutKey] = converted;
+    }
+  }
+  return result;
+}
+
+Future<Uint8List?> _defaultXpsConverter(Uint8List data, String _) =>
+    convertXpsToPdf(data);
+
+List<one.OneNoteImage> _notebookImages(one.OneNoteNotebook notebook) {
+  final images = <one.OneNoteImage>[];
+
+  void addEntries(List<one.OneNoteSectionEntry> entries) {
+    for (final entry in entries) {
+      entry.when(
+        section: (section) => images.addAll(_sectionImages(section)),
+        sectionGroup: (group) => addEntries(group.entries),
+      );
+    }
+  }
+
+  addEntries(notebook.entries);
+  return images;
+}
+
+List<one.OneNoteImage> _sectionImages(one.OneNoteSection section) {
+  final images = <one.OneNoteImage>[];
+
+  late void Function(one.OneNoteContent) addContent;
+  late void Function(one.OneNoteOutlineElement) addOutlineElement;
+  late void Function(one.OneNoteOutlineItem) addOutlineItem;
+
+  addOutlineElement = (element) {
+    for (final content in element.contents) {
+      addContent(content);
+    }
+    for (final child in element.children) {
+      addOutlineItem(child);
+    }
+  };
+
+  addOutlineItem = (item) {
+    item.when(
+      group: (group) {
+        for (final item in group.items) {
+          addOutlineItem(item);
+        }
+      },
+      element: addOutlineElement,
+    );
+  };
+
+  addContent = (content) {
+    content.when(
+      richText: (_) {},
+      table: (table) {
+        for (final row in table.rows) {
+          for (final cell in row.cells) {
+            for (final element in cell.contents) {
+              addOutlineElement(element);
+            }
+          }
+        }
+      },
+      image: images.add,
+      embeddedFile: (_) {},
+      ink: (_) {},
+      unknown: () {},
+    );
+  };
+
+  for (final series in section.pageSeries) {
+    for (final page in series.pages) {
+      for (final content in page.contents) {
+        content.when(
+          outline: (outline) {
+            for (final item in outline.items) {
+              addOutlineItem(item);
+            }
+          },
+          image: images.add,
+          embeddedFile: (_) {},
+          ink: (_) {},
+          unknown: () {},
+        );
+      }
+    }
+  }
+  return images;
+}
+
+String _fileExtension(String? value) {
+  final extension = value?.split('/').last.split('.').last.toLowerCase() ?? '';
+  final cleaned = extension.replaceAll(RegExp('[^a-z0-9]'), '');
+  return cleaned.isEmpty ? 'bin' : cleaned;
+}
+
 class _OneNoteConverter {
   NoteData _document;
   final String name;
+  final Map<Uint8List, Uint8List?> xpsFiles;
 
-  _OneNoteConverter(this.name)
+  _OneNoteConverter(this.name, this.xpsFiles)
     : _document = DocumentDefaults.createDocument(
         name: name,
         createDefaultPage: false,
@@ -75,7 +280,7 @@ class _OneNoteConverter {
     ].where((part) => part.trim().isNotEmpty).toList();
     for (final series in section.pageSeries) {
       for (final page in series.pages) {
-        final builder = _OneNotePageBuilder(_document);
+        final builder = _OneNotePageBuilder(_document, xpsFiles);
         final converted = builder.convert(page);
         _document = builder.document;
         final title = page.title?.trim();
@@ -130,10 +335,11 @@ class _OneNoteConverter {
 
 class _OneNotePageBuilder {
   NoteData document;
+  final Map<Uint8List, Uint8List?> xpsFiles;
   final List<PadElement> _elements = [];
   final List<Background> _backgrounds = [];
 
-  _OneNotePageBuilder(this.document);
+  _OneNotePageBuilder(this.document, this.xpsFiles);
 
   DocumentPage convert(one.OneNotePage page) {
     for (final content in page.contents) {
@@ -514,10 +720,6 @@ class _OneNotePageBuilder {
       );
     }
     final extension = _cleanExtension(image.extension_ ?? image.filename);
-    String path;
-    final imported = document.importImage(data, extension);
-    document = imported.$1;
-    path = imported.$2;
     final width =
         (image.pictureWidth ?? image.layoutMaxWidth ?? 4) * _pixelsPerHalfInch;
     final height =
@@ -531,6 +733,36 @@ class _OneNotePageBuilder {
           ? image.offsetVertical! * _pixelsPerHalfInch
           : fallback.y,
     );
+    if (extension == 'xps') {
+      final pdf = xpsFiles[data];
+      final pageNumber = image.displayedPageNumber;
+      if (pdf != null && pageNumber != null) {
+        final importedPdf = document.importPdf(pdf);
+        document = importedPdf.$1;
+        _elements.add(
+          PdfElement(
+            source: Uri.file(importedPdf.$2, windows: false).toString(),
+            position: position,
+            width: width,
+            height: height,
+            page: pageNumber,
+            extra: {
+              'onenote:filename': ?image.filename,
+              'onenote:altText': ?image.altText,
+              'onenote:ocrText': ?image.ocrText,
+              'onenote:displayedPageNumber': pageNumber,
+            },
+          ),
+        );
+      }
+      return image.offsetHorizontal != null || image.offsetVertical != null
+          ? 0
+          : height;
+    }
+
+    final imported = document.importImage(data, extension);
+    document = imported.$1;
+    final path = imported.$2;
     final source = Uri.file(path, windows: false).toString();
     if (image.isBackground) {
       _backgrounds.add(
@@ -753,10 +985,7 @@ class _OneNotePageBuilder {
   }
 
   String _cleanExtension(String? value) {
-    final extension =
-        value?.split('/').last.split('.').last.toLowerCase() ?? '';
-    final cleaned = extension.replaceAll(RegExp('[^a-z0-9]'), '');
-    return cleaned.isEmpty ? 'bin' : cleaned;
+    return _fileExtension(value);
   }
 
   double _outlineIndent(

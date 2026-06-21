@@ -18,6 +18,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,6 +36,10 @@ import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
 import 'onenote.dart';
+
+enum _OneNoteXpsFallback { manual, skipAll }
+
+enum _OneNoteManualXpsAction { selectPdf, exportAgain, skipFile, skipAll }
 
 class ImportResult {
   final ImportService service;
@@ -664,6 +669,163 @@ class ImportService {
     String? name,
   }) async {
     try {
+      var manuallyConvertXps = false;
+      var skipRemainingXps = false;
+
+      Future<Uint8List?> convertXps(Uint8List data, String fileName) async {
+        if (skipRemainingXps) return null;
+        if (!manuallyConvertXps) {
+          late Object conversionError;
+          try {
+            return await convertXpsToPdf(data);
+          } catch (error) {
+            conversionError = error;
+          }
+          if (!context.mounted) return null;
+          final executableMissing =
+              conversionError is XpsToPdfNotInstalledException;
+          final fallback = await showDialog<_OneNoteXpsFallback>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                executableMissing
+                    ? 'XPS converter not found'
+                    : 'Automatic XPS conversion failed',
+              ),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: Text(
+                  '${executableMissing ? 'The xpstopdf command is not installed or cannot be started.' : 'xpstopdf could not convert “$fileName”.'}\n\n'
+                  'OneNote stores printed documents as XPS files. Butterfly '
+                  'needs a PDF version to display these printouts.\n\n'
+                  'Choose “Convert manually” to:\n'
+                  '1. Export the original XPS file.\n'
+                  '2. Convert it to PDF with an application of your choice.\n'
+                  '3. Select the converted PDF and continue importing.\n\n'
+                  'You can also skip every XPS printout and import the rest '
+                  'of the notebook.',
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteXpsFallback.skipAll),
+                  child: const Text('Skip all XPS files'),
+                ),
+                FilledButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteXpsFallback.manual),
+                  child: const Text('Convert manually'),
+                ),
+              ],
+            ),
+          );
+          manuallyConvertXps = fallback == _OneNoteXpsFallback.manual;
+          if (!manuallyConvertXps) {
+            skipRemainingXps = true;
+            return null;
+          }
+        }
+
+        final baseName = p
+            .basenameWithoutExtension(fileName)
+            .replaceAll(RegExp(r'[^\w.-]'), '_');
+        final safeName = baseName.isEmpty ? 'printout' : baseName;
+        var exported = false;
+        String? message;
+        while (context.mounted) {
+          final action = await showDialog<_OneNoteManualXpsAction>(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Text('Convert “$fileName” to PDF'),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 520),
+                child: Text(
+                  '${message == null ? '' : '$message\n\n'}'
+                  '${exported ? 'The XPS export has been opened.' : 'Start by exporting the original XPS file.'}\n\n'
+                  '1. Save “$safeName.xps” somewhere you can find it.\n'
+                  '2. Convert that file to PDF outside Butterfly.\n'
+                  '3. Return here and choose “Select converted PDF”.\n\n'
+                  'Canceling a file picker returns you to this dialog. '
+                  'Skipping this file does not cancel the rest of the '
+                  'OneNote import.',
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteManualXpsAction.skipAll),
+                  child: const Text('Skip all XPS files'),
+                ),
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, _OneNoteManualXpsAction.skipFile),
+                  child: const Text('Skip this file'),
+                ),
+                OutlinedButton(
+                  onPressed: () => Navigator.pop(
+                    context,
+                    _OneNoteManualXpsAction.exportAgain,
+                  ),
+                  child: Text(exported ? 'Export XPS again' : 'Export XPS'),
+                ),
+                FilledButton(
+                  onPressed: exported
+                      ? () => Navigator.pop(
+                          context,
+                          _OneNoteManualXpsAction.selectPdf,
+                        )
+                      : null,
+                  child: const Text('Select converted PDF'),
+                ),
+              ],
+            ),
+          );
+          switch (action) {
+            case _OneNoteManualXpsAction.exportAgain:
+              await exportFile(
+                context: context,
+                bytes: data,
+                fileName: safeName,
+                fileExtension: 'xps',
+                mimeType: 'application/oxps',
+                uniformTypeIdentifier: 'com.microsoft.xps',
+                label: 'Export XPS for manual conversion',
+              );
+              exported = true;
+              message = null;
+              continue;
+            case _OneNoteManualXpsAction.selectPdf:
+              final converted = await FilePicker.pickFile(
+                dialogTitle: 'Select the PDF converted from $fileName',
+                type: FileType.custom,
+                allowedExtensions: const ['pdf'],
+              );
+              if (converted == null) {
+                message = 'No PDF was selected.';
+                continue;
+              }
+              final convertedData = await converted.readAsBytes();
+              if (convertedData.length < 5 ||
+                  String.fromCharCodes(convertedData.take(5)) != '%PDF-') {
+                message =
+                    'The selected file does not appear to be a valid PDF. '
+                    'Please choose the converted PDF file.';
+                continue;
+              }
+              return convertedData;
+            case _OneNoteManualXpsAction.skipFile:
+              return null;
+            case _OneNoteManualXpsAction.skipAll:
+            case null:
+              skipRemainingXps = true;
+              return null;
+          }
+        }
+        return null;
+      }
+
       isPackage =
           isPackage ||
           (bytes.length >= 4 &&
@@ -675,6 +837,7 @@ class ImportService {
         bytes,
         name: name?.trim().isNotEmpty == true ? name!.trim() : 'OneNote',
         isPackage: isPackage,
+        convertXps: convertXps,
       );
       return _importDocument(data, document: document, advanced: advanced);
     } catch (e) {
