@@ -246,6 +246,20 @@ class _OneNotePageBuilder {
   ) {
     final spaceBefore = value.paragraphSpaceBefore * _pixelsPerHalfInch;
     final spaceAfter = value.paragraphSpaceAfter * _pixelsPerHalfInch;
+
+    if (value.embeddedObjects.isNotEmpty) {
+      final height = _addEmbeddedObjects(
+        value.embeddedObjects,
+        Point(position.x, position.y + spaceBefore),
+        availableWidth,
+      );
+      return spaceBefore + height + spaceAfter;
+    }
+
+    if (value.text.isEmpty) {
+      return spaceBefore + spaceAfter;
+    }
+
     if (value.text.isEmpty) {
       return spaceBefore + spaceAfter;
     }
@@ -291,6 +305,71 @@ class _OneNotePageBuilder {
       ),
     );
     return max(height, 16);
+  }
+
+  double _addEmbeddedObjects(
+    List<one.OneNoteEmbeddedObject> objects,
+    Point<double> origin,
+    double availableWidth,
+  ) {
+    var x = origin.x;
+    var y = origin.y;
+    var lineHeight = 0.0;
+    var maximumY = origin.y;
+
+    void newLine() {
+      y += max(lineHeight, 16);
+      x = origin.x;
+      lineHeight = 0;
+    }
+
+    for (final object in objects) {
+      object.when(
+        ink: (embedded) {
+          final inkBox = embedded.ink.boundingBox;
+          final displayBox = embedded.displayBoundingBox;
+
+          // InkBoundingBox is in HIMETRIC.
+          // Embedded display dimensions are already display/pixel-like units.
+          final width = inkBox != null
+              ? inkBox.width * _himetricToPixels
+              : displayBox?.width ?? 0;
+
+          final height = inkBox != null
+              ? inkBox.height * _himetricToPixels
+              : displayBox?.height ?? 0;
+
+          if (x > origin.x &&
+              availableWidth.isFinite &&
+              x + width > origin.x + availableWidth) {
+            newLine();
+          }
+
+          _addInkAt(
+            embedded.ink,
+            Point(x, y),
+            true,
+            displayBox,
+            displayBoundingBoxScale: 1,
+          );
+
+          x += width;
+          lineHeight = max(lineHeight, height);
+          maximumY = max(maximumY, y + height);
+        },
+        inkSpace: (space) {
+          // These values use OneNote half-inch layout units.
+          x += space.width * _pixelsPerHalfInch;
+          lineHeight = max(lineHeight, space.height * _pixelsPerHalfInch);
+        },
+        inkLineBreak: () {
+          newLine();
+        },
+      );
+    }
+
+    maximumY = max(maximumY, y + lineHeight);
+    return max(16, maximumY - origin.y);
   }
 
   List<text.InlineSpan> _createSpans(one.OneNoteRichText value) {
@@ -533,21 +612,30 @@ class _OneNotePageBuilder {
     one.OneNoteInk ink,
     Point<double> fallback,
     bool embedded,
-    one.OneNoteInkBoundingBox? displayBoundingBox,
-  ) {
-    final boundingBox = ink.boundingBox ?? displayBoundingBox;
+    one.OneNoteInkBoundingBox? displayBoundingBox, {
+    double displayBoundingBoxScale = _himetricToPixels,
+  }) {
+    final inkBoundingBox = ink.boundingBox;
+    final boundingBox = inkBoundingBox ?? displayBoundingBox;
+
+    final boundingBoxScale = inkBoundingBox != null
+        ? _himetricToPixels
+        : displayBoundingBoxScale;
+
     final origin = embedded
         ? Point<double>(
-            fallback.x - (boundingBox?.x ?? 0) * _himetricToPixels,
-            fallback.y - (boundingBox?.y ?? 0) * _himetricToPixels,
+            fallback.x - (boundingBox?.x ?? 0) * boundingBoxScale,
+            fallback.y - (boundingBox?.y ?? 0) * boundingBoxScale,
           )
         : Point<double>(
             fallback.x + (ink.offsetHorizontal ?? 0) * _pixelsPerHalfInch,
             fallback.y + (ink.offsetVertical ?? 0) * _pixelsPerHalfInch,
           );
+
     var maxY = embedded && boundingBox != null
-        ? fallback.y + boundingBox.height * _himetricToPixels
+        ? fallback.y + boundingBox.height * boundingBoxScale
         : origin.y;
+
     for (final stroke in ink.strokes) {
       final decoded = _decodeInkPath(stroke.path);
       if (decoded.isEmpty) continue;
