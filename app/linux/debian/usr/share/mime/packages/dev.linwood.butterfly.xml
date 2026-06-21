@@ -12,4 +12,10 @@
     <comment>Butterfly text files</comment>
     <glob pattern="*.tbfly"/>
   </mime-type>
+  <mime-type type="application/onenote">
+    <icon name="dev.linwood.butterfly"/>
+    <comment>Microsoft OneNote files</comment>
+    <glob pattern="*.one"/>
+    <glob pattern="*.onepkg"/>
+  </mime-type>
 </mime-info>

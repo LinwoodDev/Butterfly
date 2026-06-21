@@ -16,6 +16,17 @@ void main() {
       expect(AssetFileTypeHelper.fromFileExtension('PDF'), AssetFileType.pdf);
       expect(AssetFileTypeHelper.fromFileExtension('.PDF'), AssetFileType.pdf);
     });
+
+    test('fromFileExtension recognizes OneNote files', () {
+      expect(
+        AssetFileTypeHelper.fromFileExtension('.ONE'),
+        AssetFileType.oneNote,
+      );
+      expect(
+        AssetFileTypeHelper.fromFileExtension('onepkg'),
+        AssetFileType.oneNotePackage,
+      );
+    });
   });
 
   group('NoteData page operations', () {

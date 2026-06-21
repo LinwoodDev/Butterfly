@@ -12,6 +12,8 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['public.plain-text'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['dev.linwood.butterfly.xopp'],
+    AssetFileType.oneNote => ['com.microsoft.onenote.one'],
+    AssetFileType.oneNotePackage => ['com.microsoft.onenote.onepkg'],
     AssetFileType.rawText => ['public.plain-text'],
     AssetFileType.archive => ['public.archive'],
   };
@@ -25,6 +27,8 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.markdown => ['md', 'markdown'],
     AssetFileType.page => [],
     AssetFileType.xopp => ['xopp'],
+    AssetFileType.oneNote => ['one'],
+    AssetFileType.oneNotePackage => ['onepkg'],
     AssetFileType.rawText => ['txt'],
     AssetFileType.archive => ['zip'],
   };
@@ -51,6 +55,16 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.svg => ['image/svg+xml'],
     AssetFileType.page => ['application/x-butterfly-page', 'application/json'],
     AssetFileType.xopp => ['application/zip'],
+    AssetFileType.oneNote => [
+      'application/onenote',
+      'application/msonenote',
+      'application/x-onenote',
+    ],
+    AssetFileType.oneNotePackage => [
+      'application/onenote',
+      'application/msonenote',
+      'application/x-onenote',
+    ],
     AssetFileType.archive => [
       'application/zip',
       'application/x-tar',
