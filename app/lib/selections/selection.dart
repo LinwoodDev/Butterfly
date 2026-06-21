@@ -35,6 +35,7 @@ part 'elements/shape.dart';
 part 'elements/svg.dart';
 
 part 'tools/barcode.dart';
+part 'tools/asset.dart';
 part 'tools/tool.dart';
 part 'tools/hand.dart';
 part 'tools/area.dart';

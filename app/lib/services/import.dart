@@ -668,7 +668,21 @@ class ImportService {
     bool advanced = true,
     String? name,
   }) async {
+    LoadingDialogHandler? loadingDialog;
+
+    Future<void> showLoading() async {
+      if (!context.mounted || loadingDialog != null) return;
+      loadingDialog = showLoadingDialog(context);
+      await Future<void>.delayed(Duration.zero);
+    }
+
+    void hideLoading() {
+      loadingDialog?.close();
+      loadingDialog = null;
+    }
+
     try {
+      await showLoading();
       var manuallyConvertXps = false;
       var skipRemainingXps = false;
 
@@ -684,6 +698,7 @@ class ImportService {
           if (!context.mounted) return null;
           final executableMissing =
               conversionError is XpsToPdfNotInstalledException;
+          hideLoading();
           final fallback = await showDialog<_OneNoteXpsFallback>(
             context: context,
             builder: (context) => AlertDialog(
@@ -720,6 +735,7 @@ class ImportService {
               ],
             ),
           );
+          await showLoading();
           manuallyConvertXps = fallback == _OneNoteXpsFallback.manual;
           if (!manuallyConvertXps) {
             skipRemainingXps = true;
@@ -734,6 +750,7 @@ class ImportService {
         var exported = false;
         String? message;
         while (context.mounted) {
+          hideLoading();
           final action = await showDialog<_OneNoteManualXpsAction>(
             context: context,
             barrierDismissible: false,
@@ -821,12 +838,15 @@ class ImportService {
                     'Please choose the converted PDF file.';
                 continue;
               }
+              await showLoading();
               return convertedData;
             case _OneNoteManualXpsAction.skipFile:
+              await showLoading();
               return null;
             case _OneNoteManualXpsAction.skipAll:
             case null:
               skipRemainingXps = true;
+              await showLoading();
               return null;
           }
         }
@@ -846,8 +866,14 @@ class ImportService {
         isPackage: isPackage,
         convertXps: convertXps,
       );
-      return _importDocument(data, document: document, advanced: advanced);
+      hideLoading();
+      return await _importDocument(
+        data,
+        document: document,
+        advanced: advanced,
+      );
     } catch (e) {
+      hideLoading();
       if (context.mounted) {
         await showDialog<void>(
           context: context,
@@ -855,6 +881,8 @@ class ImportService {
               UnknownImportConfirmationDialog(message: e.toString()),
         );
       }
+    } finally {
+      hideLoading();
     }
     return null;
   }

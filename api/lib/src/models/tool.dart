@@ -22,7 +22,18 @@ enum LabelMode { markdown, text }
 
 enum Axis2D { horizontal, vertical }
 
-enum ImportType { image, camera, svg, svgText, pdf, document, markdown, xopp }
+enum ImportType {
+  file,
+  oneNote,
+  image,
+  camera,
+  svg,
+  svgText,
+  pdf,
+  document,
+  markdown,
+  xopp,
+}
 
 enum SelectMode { rectangle, lasso }
 
@@ -207,7 +218,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @IdJsonConverter() String? id,
-    @Default(ImportType.document) ImportType importType,
+    @Default(ImportType.file) ImportType importType,
     @Default(true) bool advanced,
   }) = AssetTool;
 

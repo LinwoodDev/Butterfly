@@ -219,6 +219,8 @@ extension ToolVisualizer on Tool {
 
 extension ImportTypeVisualizer on ImportType {
   String getLocalizedName(BuildContext context) => switch (this) {
+    ImportType.file => AppLocalizations.of(context).import,
+    ImportType.oneNote => 'OneNote',
     ImportType.document => AppLocalizations.of(context).document,
     ImportType.image => AppLocalizations.of(context).image,
     ImportType.pdf => AppLocalizations.of(context).pdf,
@@ -230,6 +232,8 @@ extension ImportTypeVisualizer on ImportType {
   };
 
   IconGetter get icon => switch (this) {
+    ImportType.file => PhosphorIcons.fileArrowUp,
+    ImportType.oneNote => PhosphorIcons.notebook,
     ImportType.document => PhosphorIcons.fileText,
     ImportType.image => PhosphorIcons.image,
     ImportType.pdf => PhosphorIcons.filePdf,

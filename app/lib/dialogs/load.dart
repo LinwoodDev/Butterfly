@@ -47,7 +47,7 @@ class LoadingDialog extends StatefulWidget {
 }
 
 class _LoadingDialogState extends State<LoadingDialog> {
-  double _progress = 0.0;
+  double? _progress;
 
   void setProgress(double progress) => setState(() {
     _progress = progress;

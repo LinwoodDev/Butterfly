@@ -90,7 +90,11 @@ class _AddDialogState extends State<AddDialog> {
 
   Future<List<ImportType>> _getAvailableImports() async {
     final imports = await Future.wait(
-      ImportType.values.map((type) async => (type, await type.isAvailable())),
+      const [
+        ImportType.file,
+        ImportType.oneNote,
+        ImportType.camera,
+      ].map((type) async => (type, await type.isAvailable())),
     );
 
     return imports
