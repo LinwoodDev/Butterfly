@@ -968,8 +968,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/onenote_parser"
-      ref: a21d414a0cb287b6112f3eb7917c19181be96638
-      resolved-ref: a21d414a0cb287b6112f3eb7917c19181be96638
+      ref: "5d2919c34bcd128bc904a1cfe18b03cb37f02006"
+      resolved-ref: "5d2919c34bcd128bc904a1cfe18b03cb37f02006"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

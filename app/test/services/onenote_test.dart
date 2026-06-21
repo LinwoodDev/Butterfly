@@ -44,6 +44,7 @@ void main() {
       paragraphSpaceBefore: 0.25,
       paragraphSpaceAfter: 0.5,
       paragraphAlignment: 'Center',
+      embeddedObjects: const [],
     );
     final outline = one.OneNoteOutline(
       childLevel: 0,
@@ -326,6 +327,7 @@ void main() {
                   paragraphSpaceBefore: 0,
                   paragraphSpaceAfter: 0,
                   paragraphAlignment: 'Left',
+                  embeddedObjects: const [],
                 ),
               ),
             ],
