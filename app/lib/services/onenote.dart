@@ -10,6 +10,8 @@ import 'package:flutter/foundation.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:onenote_parser/onenote_parser.dart' as one;
 
+import 'onenote_library.dart';
+
 Future<void>? _oneNoteInitialization;
 
 const _pixelsPerInch = 96.0;
@@ -71,13 +73,29 @@ Future<Uint8List> convertXpsToPdf(
 Future<ProcessResult> _runProcess(String executable, List<String> arguments) =>
     Process.run(executable, arguments);
 
+bool isPdfData(Uint8List data) {
+  const header = [0x25, 0x50, 0x44, 0x46, 0x2D]; // %PDF-
+  final searchLength = min(data.length, 1024);
+  for (var offset = 0; offset <= searchLength - header.length; offset++) {
+    var matches = true;
+    for (var index = 0; index < header.length; index++) {
+      if (data[offset + index] != header[index]) {
+        matches = false;
+        break;
+      }
+    }
+    if (matches) return true;
+  }
+  return false;
+}
+
 Future<NoteData> parseOneNoteData(
   Uint8List bytes, {
   required String name,
   required bool isPackage,
   OneNoteXpsConverter? convertXps,
 }) async {
-  await (_oneNoteInitialization ??= one.RustLib.init());
+  await (_oneNoteInitialization ??= _initializeOneNoteParser());
   if (isPackage) {
     final notebook = await one.parsePackageBytes(data: bytes);
     final xpsFiles = await convertOneNoteXpsFiles(
@@ -95,6 +113,11 @@ Future<NoteData> parseOneNoteData(
     convertXps,
   );
   return convertOneNoteSection(section, name: name, xpsFiles: xpsFiles);
+}
+
+Future<void> _initializeOneNoteParser() async {
+  await ensureOneNoteLibraryAvailable();
+  await one.RustLib.init();
 }
 
 NoteData convertOneNoteSection(

@@ -57,6 +57,13 @@ jobs:
       - name: Install dependencies
         run: |
           flutter pub get
+      - name: Install OneNote web toolchain
+        run: |
+          rustup toolchain install nightly --component rust-src
+          cargo install wasm-pack --locked
+      - name: Build OneNote web library
+        working-directory: .
+        run: dart run tools/build_onenote_web.dart
       - name: Get Git Commit Hash
         run: echo "GIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: Set flavor

@@ -34,6 +34,7 @@
 /lib/src/generated
 
 # Web related
+/web/pkg/
 
 # Symbolication related
 app.*.symbols
