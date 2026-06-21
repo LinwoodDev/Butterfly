@@ -63,6 +63,7 @@ parts:
       - libjsoncpp-dev
       - clang
       - ninja-build
+      - rustup
       - pkg-config
       - lld
       - llvm
