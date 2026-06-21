@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:butterfly/services/onenote.dart';
@@ -35,6 +36,80 @@ const _boldStyle = one.OneNoteTextStyle(
 );
 
 void main() {
+  test('reports when xpstopdf is not installed', () async {
+    await expectLater(
+      convertXpsToPdf(
+        Uint8List.fromList([1, 2, 3]),
+        executable: 'butterfly-test-missing-xpstopdf',
+      ),
+      throwsA(isA<XpsToPdfNotInstalledException>()),
+    );
+  });
+
+  test('passes input and output paths to xpstopdf', () async {
+    final pdf = Uint8List.fromList([4, 5, 6]);
+    late List<String> arguments;
+
+    final result = await convertXpsToPdf(
+      Uint8List.fromList([1, 2, 3]),
+      runProcess: (executable, passedArguments) async {
+        expect(executable, 'xpstopdf');
+        arguments = passedArguments;
+        await File(passedArguments.last).writeAsBytes(pdf);
+        return ProcessResult(1, 0, '', '');
+      },
+    );
+
+    expect(arguments, hasLength(2));
+    expect(arguments.first, endsWith('input.xps'));
+    expect(arguments.last, endsWith('output.pdf'));
+    expect(result, pdf);
+  });
+
+  test('reports non-zero xpstopdf exits as conversion failures', () async {
+    await expectLater(
+      convertXpsToPdf(
+        Uint8List.fromList([1, 2, 3]),
+        runProcess: (_, _) async => ProcessResult(1, 1, '', 'invalid XPS'),
+      ),
+      throwsA(isA<ProcessException>()),
+    );
+  });
+
+  test('converts all pages of the same XPS printout only once', () async {
+    final firstPageData = Uint8List.fromList([1, 2, 3]);
+    final secondPageData = Uint8List.fromList([4, 5, 6]);
+    final pdf = Uint8List.fromList([7, 8, 9]);
+    var conversions = 0;
+
+    final converted = await convertOneNoteXpsFiles(
+      [
+        one.OneNoteImage(
+          data: firstPageData,
+          extension_: 'xps',
+          filename: r'Printouts\document.xps',
+          displayedPageNumber: 1,
+          isBackground: false,
+        ),
+        one.OneNoteImage(
+          data: secondPageData,
+          extension_: 'xps',
+          filename: 'document.xps',
+          displayedPageNumber: 2,
+          isBackground: false,
+        ),
+      ],
+      (data, fileName) async {
+        conversions++;
+        return pdf;
+      },
+    );
+
+    expect(conversions, 1);
+    expect(converted[firstPageData], pdf);
+    expect(converted[secondPageData], pdf);
+  });
+
   test('converts OneNote page content and embedded assets', () {
     final richText = one.OneNoteRichText(
       text: 'Hello world',
@@ -221,6 +296,124 @@ void main() {
     expect(imported.points.single.x, 192);
     expect(imported.points.single.y, 192);
     expect(imported.property.strokeWidth, closeTo(3.7795, 0.0001));
+  });
+
+  test('uses converted PDF data for XPS printouts', () {
+    final xps = Uint8List.fromList([1, 2, 3]);
+    final pdf = Uint8List.fromList([4, 5, 6]);
+    final page = one.OneNotePage(
+      linkTargetId: 'printout-page',
+      title: 'Printout',
+      level: 0,
+      createdAt: '',
+      updatedAt: '',
+      contents: [
+        one.OneNotePageContent.image(
+          one.OneNoteImage(
+            data: xps,
+            extension_: 'xps',
+            filename: 'printout.xps',
+            displayedPageNumber: 2,
+            pictureWidth: 4,
+            pictureHeight: 3,
+            isBackground: false,
+          ),
+        ),
+      ],
+    );
+    final section = one.OneNoteSection(
+      displayName: 'Files',
+      pageSeries: [
+        one.OneNotePageSeries(pages: [page]),
+      ],
+      warnings: const [],
+    );
+
+    final document = convertOneNoteSection(section, xpsFiles: {xps: pdf});
+    final convertedPage = document.getPage('Files/Printout')!;
+    final printout = convertedPage.content.whereType<PdfElement>().single;
+
+    expect(printout.page, 1);
+    expect(printout.width, 192);
+    expect(printout.height, 144);
+    expect(document.getAsset(Uri.parse(printout.source).path), pdf);
+    expect(convertedPage.content.whereType<ImageElement>(), isEmpty);
+  });
+
+  test('creates one PDF element per XPS page without image duplicates', () {
+    final firstXps = Uint8List.fromList([1, 2, 3]);
+    final secondXps = Uint8List.fromList([4, 5, 6]);
+    final pdf = Uint8List.fromList([7, 8, 9]);
+    final page = one.OneNotePage(
+      linkTargetId: 'printout-page',
+      title: 'Printout',
+      level: 0,
+      createdAt: '',
+      updatedAt: '',
+      contents: [
+        for (final (index, data) in [firstXps, secondXps].indexed)
+          one.OneNotePageContent.image(
+            one.OneNoteImage(
+              data: data,
+              extension_: 'xps',
+              filename: 'document.xps',
+              displayedPageNumber: index + 1,
+              isBackground: false,
+            ),
+          ),
+      ],
+    );
+    final section = one.OneNoteSection(
+      displayName: 'Files',
+      pageSeries: [
+        one.OneNotePageSeries(pages: [page]),
+      ],
+      warnings: const [],
+    );
+
+    final document = convertOneNoteSection(
+      section,
+      xpsFiles: {firstXps: pdf, secondXps: pdf},
+    );
+    final content = document.getPage('Files/Printout')!.content;
+
+    expect(content.whereType<PdfElement>().map((element) => element.page), [
+      0,
+      1,
+    ]);
+    expect(content.whereType<ImageElement>(), isEmpty);
+  });
+
+  test('skips XPS printouts without converted PDF data', () {
+    final xps = Uint8List.fromList([1, 2, 3]);
+    final page = one.OneNotePage(
+      linkTargetId: 'printout-page',
+      title: 'Printout',
+      level: 0,
+      createdAt: '',
+      updatedAt: '',
+      contents: [
+        one.OneNotePageContent.image(
+          one.OneNoteImage(
+            data: xps,
+            extension_: 'xps',
+            displayedPageNumber: 1,
+            isBackground: false,
+          ),
+        ),
+      ],
+    );
+    final section = one.OneNoteSection(
+      displayName: 'Files',
+      pageSeries: [
+        one.OneNotePageSeries(pages: [page]),
+      ],
+      warnings: const [],
+    );
+
+    final document = convertOneNoteSection(section, xpsFiles: {xps: null});
+
+    expect(document.getPage('Files/Printout')!.content, isEmpty);
   });
 
   test('positions embedded ink relative to its bounding box', () {
