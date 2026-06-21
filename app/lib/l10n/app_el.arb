@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Διαδρομή γόμας",
+  "stroke": "Stroke",
   "label": "Ετικέτα",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Φόντο",
+  "applyBackground": "Εφαρμογή φόντου",
+  "currentPage": "Τρέχουσα σελίδα",
+  "allPages": "Όλες οι σελίδες",
   "box": "Κουτί",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Συμπαγές χρώμα",
+  "gradient": "Διαβάθμιση",
+  "gradientType": "Τύπος διαβάθμισης",
+  "linear": "Γραμμικό",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Διπλό",
   "dotted": "Διακεκομμένη",
   "dottedDark": "Διακεκομμένο σκούρο",
@@ -288,8 +298,15 @@
   },
   "notSet": "Δεν έχει οριστεί",
   "enterLayer": "Εισάγετε το όνομα του επιπέδου",
+  "eraseShapes": "Διαγραφή σχημάτων",
+  "eraseShapeModeNone": "Να μην διαγράφονται σχήματα",
+  "eraseShapeModeTouchEdges": "Διαγραφή κατά την αφή ακμών",
+  "eraseShapeModeTouchAnywhere": "Διαγραφή όταν αγγίζετε οπουδήποτε",
+  "selectElementModeTouchEdges": "Επιλέξτε όταν αγγίζετε τις ακμές",
+  "selectElementModeTouchAnywhere": "Επιλέξτε όταν αγγίζετε οπουδήποτε",
   "selectElements": "Επιλογή στοιχείων",
   "deleteElements": "Διαγραφή στοιχείων",
+  "eraseAllElements": "Διαγραφή όλων των στοιχείων",
   "deleteElementsConfirm": "Θέλετε πραγματικά να διαγράψετε τα επιλεγμένα στοιχεία?",
   "selectCustomCollection": "Επιλέξτε μια προσαρμοσμένη συλλογή",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Εγγενής γραμμή τίτλου",
+  "mode": "Mode",
   "syncMode": "Λειτουργία συγχρονισμού",
   "connection": "Σύνδεση",
   "always": "Πάντα",
@@ -919,6 +937,7 @@
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
   "rotation": "Περιστροφή",
+  "direction": "Κατεύθυνση",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
@@ -945,6 +964,9 @@
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
+  "svgScale": "Κλίμακα SVG",
+  "noImageSelected": "Δεν επιλέχθηκε εικόνα",
+  "noSvgSelected": "Δεν επιλέχθηκε SVG",
   "select": "Επιλογή",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
-  "convertToLayer": "Μετατροπή σε επίπεδο",
+  "moveToLayer": "Μετακίνηση στο στρώμα",
+  "createLayer": "Δημιουργία στρώματος",
   "merge": "Συγχώνευση",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Τέλος",
+  "radius": "Radius",
+  "focalPoint": "Εστιακό σημείο",
+  "useOffCenterStartPoint": "Χρήση ενός εκτός κέντρου σημείου εκκίνησης",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Σταμάτημα χρώματος",
+  "addStop": "Προσθήκη στάσης",
   "positionDependent": "Εξάρτηση από τη θέση",
   "flipHorizontal": "Οριζόντια αναστροφή",
   "flipVertical": "Κάθετη αναστροφή",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Αναμονή Συντομεύσεων",
   "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
-  "key": "Κλειδί"
+  "key": "Κλειδί",
+  "bringMovedElementsToFront": "Φέρτε τα μετακινούμενα στοιχεία μπροστά",
+  "addTool": "Προσθήκη εργαλείου"
 }

@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Bút xóa đường",
+  "stroke": "Stroke",
   "label": "Nhãn",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Nền",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Hộp",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Khối",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Đường kẻ đôi",
   "dotted": "Chấm chấm",
   "dottedDark": "Chấm đen",
@@ -288,8 +298,15 @@
   },
   "notSet": "Chưa đặt",
   "enterLayer": "Nhập tên lớp",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Chọn các phần tử",
   "deleteElements": "Xóa các phần tử",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Bạn có thực sự muốn xóa các phần tử đã chọn không?",
   "selectCustomCollection": "Chọn bộ sưu tập tùy chỉnh",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Cử chỉ đầu vào",
   "nativeTitleBar": "Thanh tiêu đề gốc",
+  "mode": "Mode",
   "syncMode": "Chế độ đồng bộ",
   "connection": "Kết nối",
   "always": "Luôn luôn",
@@ -919,6 +937,7 @@
   "bringForward": "Đưa lên trước",
   "sendBackward": "Đưa xuống sau",
   "rotation": "Xoay",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Chỉ khả dụng trên màn hình lớn hơn",
   "toolbarPosition": "Vị trí thanh công cụ",
   "rotate": "Xoay",
@@ -945,6 +964,9 @@
   "ascending": "Tăng dần",
   "descending": "Giảm dần",
   "imageScale": "Tỷ lệ hình ảnh",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Chọn",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Màn hình chính",
   "lastNote": "Ghi chú cuối",
   "newNote": "Ghi chú mới",
-  "convertToLayer": "Chuyển thành lớp",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Gộp",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Phụ thuộc vị trí",
   "flipHorizontal": "Lật ngang",
   "flipVertical": "Lật dọc",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

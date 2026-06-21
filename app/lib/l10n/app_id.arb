@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Penghapus jalur",
+  "stroke": "Stroke",
   "label": "Label",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Latar belakang",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Kotak",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Padat",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Ganda",
   "dotted": "Bertitik",
   "dottedDark": "Bertitik gelap",
@@ -288,8 +298,15 @@
   },
   "notSet": "Belum diatur",
   "enterLayer": "Masukkan nama lapisan",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Pilih elemen",
   "deleteElements": "Hapus elemen",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Apakah Anda benar-benar ingin menghapus elemen yang dipilih?",
   "selectCustomCollection": "Pilih koleksi kustom",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Gestur masukan",
   "nativeTitleBar": "Bilah judul asli",
+  "mode": "Mode",
   "syncMode": "Mode sinkronisasi",
   "connection": "Koneksi",
   "always": "Selalu",
@@ -919,6 +937,7 @@
   "bringForward": "Bawa maju",
   "sendBackward": "Kirim mundur",
   "rotation": "Rotasi",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Hanya tersedia di layar yang lebih besar",
   "toolbarPosition": "Posisi bilah alat",
   "rotate": "Putar",
@@ -945,6 +964,9 @@
   "ascending": "Naik",
   "descending": "Turun",
   "imageScale": "Skala gambar",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Pilih",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Layar beranda",
   "lastNote": "Catatan terakhir",
   "newNote": "Catatan baru",
-  "convertToLayer": "Ubah menjadi lapisan",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Gabungkan",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Bergantung pada posisi",
   "flipHorizontal": "Balik horizontal",
   "flipVertical": "Balik vertikal",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Pintasan tahan",
   "holdShortcutsDescription": "Tahan tombol untuk sementara beralih ke alat lain. Melepas tombol akan kembali ke alat sebelumnya.",
-  "key": "Tombol"
+  "key": "Tombol",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

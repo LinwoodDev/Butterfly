@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Лінійка шляху",
+  "stroke": "Stroke",
   "label": "Мітка",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Фон",
+  "applyBackground": "Застосувати тло",
+  "currentPage": "Поточна сторінка",
+  "allPages": "Усі сторінки",
   "box": "Ящик",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Суцільний колір",
+  "gradient": "Градієнт",
+  "gradientType": "Градієнт",
+  "linear": "Лінійна",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Подвійний",
   "dotted": "Пунктирна",
   "dottedDark": "Пунктирна темна",
@@ -288,8 +298,15 @@
   },
   "notSet": "Не задано",
   "enterLayer": "Введіть назву шару",
+  "eraseShapes": "Стерти фігури",
+  "eraseShapeModeNone": "Не стирайте фігури",
+  "eraseShapeModeTouchEdges": "Стерти при торканні ребер",
+  "eraseShapeModeTouchAnywhere": "Стерти при торканні будь-де",
+  "selectElementModeTouchEdges": "Вибрати при дотику до ребер",
+  "selectElementModeTouchAnywhere": "Вибрати торкання будь-де",
   "selectElements": "Обрати елементи",
   "deleteElements": "Видалити елементи",
+  "eraseAllElements": "Стерти всі елементи",
   "deleteElementsConfirm": "Ви дійсно бажаєте видалити вибрані елементи?",
   "selectCustomCollection": "Обрати користувацьку колекцію",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Область заголовка",
+  "mode": "Mode",
   "syncMode": "Режим синхронізації",
   "connection": "З'єднання",
   "always": "Завжди",
@@ -919,6 +937,7 @@
   "bringForward": "Поверніть вперед",
   "sendBackward": "Відправити назад",
   "rotation": "Поворот екрану",
+  "direction": "Напрямок",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
   "rotate": "Обертати",
@@ -945,6 +964,9 @@
   "ascending": "За зростанням",
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
+  "svgScale": "Шкала SVG",
+  "noImageSelected": "Не вибрано зображення",
+  "noSvgSelected": "Не вибрано SVG",
   "select": "Вибрати",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
   "newNote": "Нова нотатка",
-  "convertToLayer": "Конвертувати в шар",
+  "moveToLayer": "Перемістити до шару",
+  "createLayer": "Створити шар",
   "merge": "Об'єднати",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Кінець",
+  "radius": "Radius",
+  "focalPoint": "Фокусна точка",
+  "useOffCenterStartPoint": "Використовувати початкову точку зміщеного центру",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Зупинка кольору",
+  "addStop": "Додати зупинку",
   "positionDependent": "Залежність від позиції",
   "flipHorizontal": "Віддзеркалити горизонтально",
   "flipVertical": "Віддзеркалити вертикально",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Утримуйте комбінації клавіш",
   "holdShortcutsDescription": "Утримуйте клавішу, щоб тимчасово переключитися на інший інструмент. Звільнення перемикачів ключів знову до попереднього інструменту.",
-  "key": "Ключ"
+  "key": "Ключ",
+  "bringMovedElementsToFront": "Принести переміщені елементи на передній план",
+  "addTool": "Додати інструмент"
 }

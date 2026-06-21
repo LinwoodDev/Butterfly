@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pad-uitveër",
+  "stroke": "Stroke",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Agtergrond",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Boks",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solied",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dubbel",
   "dotted": "Gestippel",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "Nie gestel nie",
   "enterLayer": "Voer die laagnaam in",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Kies elemente",
   "deleteElements": "Skrap elemente",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Wil jy regtig die geselekteerde elemente skrap?",
   "selectCustomCollection": "Kies 'n pasgemaakte versameling",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Invoergebare",
   "nativeTitleBar": "Inheemse titelbalk",
+  "mode": "Mode",
   "syncMode": "Sinkroniseer-modus",
   "connection": "Verbinding",
   "always": "Altyd",
@@ -919,6 +937,7 @@
   "bringForward": "Bring vorentoe",
   "sendBackward": "Stuur agtertoe",
   "rotation": "Rotasie",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Slegs beskikbaar op groter skerms",
   "toolbarPosition": "Nutsbalkposisie",
   "rotate": "Roteer",
@@ -945,6 +964,9 @@
   "ascending": "Stygend",
   "descending": "Dalend",
   "imageScale": "Beeldskaal",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Kies",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Tuisskerm",
   "lastNote": "Laaste nota",
   "newNote": "Nuwe nota",
-  "convertToLayer": "Skakel om na laag",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Voeg saam",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Posisie-afhanklik",
   "flipHorizontal": "Draai horisontaal om",
   "flipVertical": "Draai vertikaal om",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

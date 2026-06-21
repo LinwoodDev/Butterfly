@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Yol silici",
+  "stroke": "Stroke",
   "label": "Etiket",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Arkaplan",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Kutu",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Katı",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Çift",
   "dotted": "Noktalı",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "Ayarlanmamış",
   "enterLayer": "Katman adı gir",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Ögeleri seçin",
   "deleteElements": "Ögeleri sil",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Seçili ögeleri gerçekten silmek istiyor musunuz?",
   "selectCustomCollection": "Özel koleksiyon seç",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Giriş hareketleri",
   "nativeTitleBar": "Yerel başlık çubuğu",
+  "mode": "Mode",
   "syncMode": "Eşitleme kipi",
   "connection": "Bağlantı",
   "always": "Her zaman",
@@ -919,6 +937,7 @@
   "bringForward": "Bir adım öne getir",
   "sendBackward": "Bir adım geriye gönder",
   "rotation": "Döndürme",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Sadece daha büyük ekranlarda kullanılabilir",
   "toolbarPosition": "Araç çubuğu konumu",
   "rotate": "Döndür",
@@ -945,6 +964,9 @@
   "ascending": "Artan",
   "descending": "Azalan",
   "imageScale": "Görsel ölçeği",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Seç",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Ana ekran",
   "lastNote": "Son not",
   "newNote": "Yeni not",
-  "convertToLayer": "Katmana dönüştür",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Birleştir",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Bitiş",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Konuma bağlı",
   "flipHorizontal": "Yatay çevir",
   "flipVertical": "Dikey çevir",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

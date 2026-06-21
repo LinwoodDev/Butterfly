@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "整笔擦除",
+  "stroke": "Stroke",
   "label": "标签",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "应用背景",
+  "currentPage": "当前页面",
+  "allPages": "所有页面",
   "box": "框",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "实线",
+  "solidColor": "实心颜色",
+  "gradient": "渐变",
+  "gradientType": "渐变类型",
+  "linear": "线性",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "双划线",
   "dotted": "虚线",
   "dottedDark": "暗虚线",
@@ -288,8 +298,15 @@
   },
   "notSet": "未设置",
   "enterLayer": "输入图层名称",
+  "eraseShapes": "擦除形状",
+  "eraseShapeModeNone": "不擦除形状",
+  "eraseShapeModeTouchEdges": "触摸边缘时擦除",
+  "eraseShapeModeTouchAnywhere": "触摸任何地方时擦除",
+  "selectElementModeTouchEdges": "触摸边缘时选择",
+  "selectElementModeTouchAnywhere": "触摸任何地方时选择",
   "selectElements": "选择元素",
   "deleteElements": "删除元素",
+  "eraseAllElements": "删除所有元素",
   "deleteElementsConfirm": "您真的想要删除选定的元素吗？",
   "selectCustomCollection": "选择一个自定义收藏",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "输入手势",
   "nativeTitleBar": "原生标题栏",
+  "mode": "Mode",
   "syncMode": "同步模式",
   "connection": "连接",
   "always": "总是显示",
@@ -919,6 +937,7 @@
   "bringForward": "前进中",
   "sendBackward": "向后发送",
   "rotation": "旋转",
+  "direction": "方向",
   "onlyAvailableLargerScreen": "仅在大屏幕上可用",
   "toolbarPosition": "工具栏位置",
   "rotate": "旋转",
@@ -945,6 +964,9 @@
   "ascending": "升序",
   "descending": "降序",
   "imageScale": "图像缩放",
+  "svgScale": "SVG 缩放",
+  "noImageSelected": "未选择图像",
+  "noSvgSelected": "未选择 SVG",
   "select": "选择",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "主屏幕",
   "lastNote": "最后一个笔记",
   "newNote": "新建笔记",
-  "convertToLayer": "转换为图层",
+  "moveToLayer": "移动到图层",
+  "createLayer": "创建图层",
   "merge": "合并",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "结束",
+  "radius": "Radius",
+  "focalPoint": "协调中心",
+  "useOffCenterStartPoint": "使用中心以外的起始点",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "颜色停止",
+  "addStop": "添加停止",
   "positionDependent": "位置依赖关系",
   "flipHorizontal": "水平翻转",
   "flipVertical": "垂直翻转",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "按住快捷键",
   "holdShortcutsDescription": "按住键暂时切换到另一个工具。释放键切换回上一个工具。",
-  "key": "关键字"
+  "key": "关键字",
+  "bringMovedElementsToFront": "将移动元素带到前端",
+  "addTool": "添加工具"
 }

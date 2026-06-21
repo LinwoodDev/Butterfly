@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Gumica za putanje",
+  "stroke": "Stroke",
   "label": "Oznaka",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Pozadina",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "Kutija",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Puna",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dvostruka",
   "dotted": "Tačkasta",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "Nije postavljeno",
   "enterLayer": "Unesite naziv sloja",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "Izaberi elemente",
   "deleteElements": "Obriši elemente",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "Da li zaista želite da obrišete izabrane elemente?",
   "selectCustomCollection": "Izaberite prilagođenu kolekciju",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Pokreti unosa",
   "nativeTitleBar": "Nativna naslovna traka",
+  "mode": "Mode",
   "syncMode": "Režim sinhronizacije",
   "connection": "Konekcija",
   "always": "Uvek",
@@ -919,6 +937,7 @@
   "bringForward": "Pomeri napred",
   "sendBackward": "Pomeri nazad",
   "rotation": "Rotacija",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "Dostupno samo na većim ekranima",
   "toolbarPosition": "Pozicija trake sa alatkama",
   "rotate": "Rotiraj",
@@ -945,6 +964,9 @@
   "ascending": "Uzlazno",
   "descending": "Silazno",
   "imageScale": "Skala slike",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "Izaberi",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Početni ekran",
   "lastNote": "Poslednja beleška",
   "newNote": "Nova beleška",
-  "convertToLayer": "Pretvori u sloj",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "Spoji",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "Zavisno od pozicije",
   "flipHorizontal": "Okreni horizontalno",
   "flipVertical": "Okreni vertikalno",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

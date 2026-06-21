@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pfadradierer",
+  "stroke": "Stroke",
   "label": "Beschriftung",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Hintergrund",
+  "applyBackground": "Hintergrund anwenden",
+  "currentPage": "Aktuelle Seite",
+  "allPages": "Alle Seiten",
   "box": "Kasten",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Durchgehend",
+  "solidColor": "Solide Farbe",
+  "gradient": "Farbverlauf",
+  "gradientType": "Verlaufstyp",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Doppelt",
   "dotted": "Gepunktet",
   "dottedDark": "Gepunktet dunkel",
@@ -288,8 +298,15 @@
   },
   "notSet": "Nicht gesetzt",
   "enterLayer": "Ebenenname eingeben",
+  "eraseShapes": "Formen löschen",
+  "eraseShapeModeNone": "Formen nicht löschen",
+  "eraseShapeModeTouchEdges": "Beim Berühren von Kanten löschen",
+  "eraseShapeModeTouchAnywhere": "Beim Berühren irgendwo löschen",
+  "selectElementModeTouchEdges": "Beim Berühren von Kanten auswählen",
+  "selectElementModeTouchAnywhere": "Beim Berühren irgendwo auswählen",
   "selectElements": "Elemente auswählen",
   "deleteElements": "Elemente löschen",
+  "eraseAllElements": "Alle Elemente löschen",
   "deleteElementsConfirm": "Möchten Sie die ausgewählten Elemente wirklich löschen?",
   "selectCustomCollection": "Wählen Sie eine eigene Sammlung",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Eingabegesten",
   "nativeTitleBar": "Native Titelleiste",
+  "mode": "Modus",
   "syncMode": "Sync-Modus",
   "connection": "Verbindung",
   "always": "Immer",
@@ -919,6 +937,7 @@
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
   "rotation": "Drehung",
+  "direction": "Richtung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
   "rotate": "Drehen",
@@ -945,6 +964,9 @@
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
   "imageScale": "Bildskala",
+  "svgScale": "SVG-Skala",
+  "noImageSelected": "Kein Bild ausgewählt",
+  "noSvgSelected": "Keine SVG ausgewählt",
   "select": "Auswählen",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
   "newNote": "Neue Notiz",
-  "convertToLayer": "In Ebene konvertieren",
+  "moveToLayer": "In Ebene verschieben",
+  "createLayer": "Ebene erstellen",
   "merge": "Zusammenführen",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Ende",
+  "radius": "Radius",
+  "focalPoint": "Brennpunkt",
+  "useOffCenterStartPoint": "Off-Center-Startpunkt verwenden",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Farbstopps",
+  "addStop": "Stopp hinzufügen",
   "positionDependent": "Positionsabhängig",
   "flipHorizontal": "Horizontal spiegeln",
   "flipVertical": "Vertikal spiegeln",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Tastenkürzel halten",
   "holdShortcutsDescription": "Halte eine Taste um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn die Taste losgelassen wird, schaltet er zurück zum vorherigen Werkzeug.",
-  "key": "Schlüssel"
+  "key": "Schlüssel",
+  "bringMovedElementsToFront": "Bewege Elemente nach vorne",
+  "addTool": "Werkzeug hinzufügen"
 }

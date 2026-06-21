@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "路徑橡皮擦",
+  "stroke": "Stroke",
   "label": "標記",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "盒子",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "實線",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "雙線",
   "dotted": "點線",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "未設",
   "enterLayer": "輸入圖層名稱",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "選取元素",
   "deleteElements": "刪除元素",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "確定要刪除所選元素嗎？",
   "selectCustomCollection": "選擇自訂集合",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "手勢輸入",
   "nativeTitleBar": "原生標題列",
+  "mode": "Mode",
   "syncMode": "同步模式",
   "connection": "連線",
   "always": "一律",
@@ -919,6 +937,7 @@
   "bringForward": "上提一層",
   "sendBackward": "下推一層",
   "rotation": "旋轉",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
   "rotate": "旋轉",
@@ -945,6 +964,9 @@
   "ascending": "遞增",
   "descending": "遞減",
   "imageScale": "圖片縮放",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "選擇",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "主畫面",
   "lastNote": "上一則筆記",
   "newNote": "新筆記",
-  "convertToLayer": "轉換為圖層",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "合併",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "依位置而定",
   "flipHorizontal": "水平翻轉",
   "flipVertical": "垂直翻轉",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

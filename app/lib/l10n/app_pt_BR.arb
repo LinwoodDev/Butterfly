@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Apagador de linha",
+  "stroke": "Stroke",
   "label": "Descrição",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Plano de fundo",
+  "applyBackground": "Aplicar fundo",
+  "currentPage": "Página atual",
+  "allPages": "Todas as páginas",
   "box": "Caixa",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Sólido",
+  "solidColor": "Cor sólida",
+  "gradient": "Degradê",
+  "gradientType": "Tipo de gradiente",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Duplo",
   "dotted": "Pontilhado",
   "dottedDark": "Pontilhado escuro",
@@ -288,8 +298,15 @@
   },
   "notSet": "Não definido",
   "enterLayer": "Digite o nome da camada",
+  "eraseShapes": "Apagar formas",
+  "eraseShapeModeNone": "Não apagar formas",
+  "eraseShapeModeTouchEdges": "Apagar ao tocar as bordas",
+  "eraseShapeModeTouchAnywhere": "Apagar quando tocar em qualquer lugar",
+  "selectElementModeTouchEdges": "Selecionar ao tocar as bordas",
+  "selectElementModeTouchAnywhere": "Selecione ao tocar em qualquer lugar",
   "selectElements": "Selecione elementos",
   "deleteElements": "Excluir elementos",
+  "eraseAllElements": "Apagar todos os elementos",
   "deleteElementsConfirm": "Você realmente deseja excluir os elementos selecionados?",
   "selectCustomCollection": "Selecione uma coleção personalizada",
   "svg": "Svg",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Gestos de entrada",
   "nativeTitleBar": "Barra de título nativa",
+  "mode": "Mode",
   "syncMode": "Modo de sincronização",
   "connection": "Ligação",
   "always": "Sempre",
@@ -919,6 +937,7 @@
   "bringForward": "Trazer para frente",
   "sendBackward": "Enviar para trás",
   "rotation": "Rotação",
+  "direction": "Direção",
   "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
   "toolbarPosition": "Posição da barra",
   "rotate": "Rotacionar",
@@ -945,6 +964,9 @@
   "ascending": "Ascendente",
   "descending": "Descendente",
   "imageScale": "Escala de imagem",
+  "svgScale": "Escala SVG",
+  "noImageSelected": "Nenhuma imagem selecionada",
+  "noSvgSelected": "Nenhum SVG selecionado",
   "select": "Selecionar",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Tela inicial",
   "lastNote": "Última anotação",
   "newNote": "Nova nota",
-  "convertToLayer": "Converter para camada",
+  "moveToLayer": "Mover para a camada",
+  "createLayer": "Criar camada",
   "merge": "Mesclar",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Término",
+  "radius": "Radius",
+  "focalPoint": "Ponto focal",
+  "useOffCenterStartPoint": "Usar um ponto de partida fora do centro",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Cor de parada",
+  "addStop": "Adicionar parada",
   "positionDependent": "dependente da posição",
   "flipHorizontal": "Inverter horizontalmente",
   "flipVertical": "Inverter verticalmente",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Manter Atalhos",
   "holdShortcutsDescription": "Segure uma tecla para alternar temporariamente para outra ferramenta. Liberando a tecla de volta para a ferramenta anterior.",
-  "key": "Chave"
+  "key": "Chave",
+  "bringMovedElementsToFront": "Trazer elementos movidos para a frente",
+  "addTool": "Adicionar ferramenta"
 }

@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Контурный ластик",
+  "stroke": "Stroke",
   "label": "Подпись",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Фон",
+  "applyBackground": "Применить фон",
+  "currentPage": "Текущая страница",
+  "allPages": "Все страницы",
   "box": "Блок",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Сплошной",
+  "solidColor": "Сплошной цвет",
+  "gradient": "Градиент",
+  "gradientType": "Тип градиента",
+  "linear": "Линейный",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Двойной",
   "dotted": "Точечный",
   "dottedDark": "Точечная темнота",
@@ -288,8 +298,15 @@
   },
   "notSet": "Не задано",
   "enterLayer": "Введите имя слоя",
+  "eraseShapes": "Удалить фигуры",
+  "eraseShapeModeNone": "Не стереть фигуры",
+  "eraseShapeModeTouchEdges": "Стереть при касании краев",
+  "eraseShapeModeTouchAnywhere": "Стереть при касании в любом месте",
+  "selectElementModeTouchEdges": "Выделить при касании краев",
+  "selectElementModeTouchAnywhere": "Выберите, когда касаетесь в любом месте",
   "selectElements": "Выберите элементы",
   "deleteElements": "Удалить элементы",
+  "eraseAllElements": "Удалить все элементы",
   "deleteElementsConfirm": "Вы действительно хотите удалить выбранные элементы?",
   "selectCustomCollection": "Выберите свою коллекцию",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Жесты ввода",
   "nativeTitleBar": "Родной заголовок",
+  "mode": "Mode",
   "syncMode": "Режим синхронизации",
   "connection": "Подключение",
   "always": "Всегда",
@@ -919,6 +937,7 @@
   "bringForward": "Перенос вперед",
   "sendBackward": "Отправить назад",
   "rotation": "Поворот",
+  "direction": "Направление",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
   "rotate": "Повернуть",
@@ -945,6 +964,9 @@
   "ascending": "По возрастанию",
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
+  "svgScale": "SVG масштаб",
+  "noImageSelected": "Изображение не выбрано",
+  "noSvgSelected": "Не выбран SVG",
   "select": "Выбрать",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Домашний экран",
   "lastNote": "Последняя заметка",
   "newNote": "Новая заметка",
-  "convertToLayer": "Преобразовать в слой",
+  "moveToLayer": "Переместить в слой",
+  "createLayer": "Создать слой",
   "merge": "Объединить",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Конец",
+  "radius": "Radius",
+  "focalPoint": "Точка фокуса",
+  "useOffCenterStartPoint": "Использовать стартовую точку вне центра",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Остановки цвета",
+  "addStop": "Добавить остановку",
   "positionDependent": "Зависит от позиции",
   "flipHorizontal": "Отразить по горизонтали",
   "flipVertical": "Отразить вертикально",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Запустить ярлыки",
   "holdShortcutsDescription": "Удерживайте клавишу для временного переключения на другой инструмент. Отпустите клавишу обратно на предыдущий инструмент.",
-  "key": "Спецификация"
+  "key": "Спецификация",
+  "bringMovedElementsToFront": "Принести перемещенные элементы на передний план",
+  "addTool": "Добавить инструмент"
 }

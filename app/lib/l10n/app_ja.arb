@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "パスの消去",
+  "stroke": "Stroke",
   "label": "ラベル",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "背景",
+  "applyBackground": "背景を適用",
+  "currentPage": "現在のページ",
+  "allPages": "すべてのページ",
   "box": "Box",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "単色",
+  "gradient": "Gradient",
+  "gradientType": "グラデーションの種類",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "倍精度",
   "dotted": "点線",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "未設定",
   "enterLayer": "レイヤー名を入力してください",
+  "eraseShapes": "図形を消去",
+  "eraseShapeModeNone": "シェイプを消去しない",
+  "eraseShapeModeTouchEdges": "エッジに触れたときに消去する",
+  "eraseShapeModeTouchAnywhere": "どこに触れても消去する",
+  "selectElementModeTouchEdges": "エッジに触れたときに選択する",
+  "selectElementModeTouchAnywhere": "任意の場所に触れたときに選択します",
   "selectElements": "要素を選択",
   "deleteElements": "要素を削除",
+  "eraseAllElements": "すべての要素を消去",
   "deleteElementsConfirm": "選択した要素を本当に削除しますか？",
   "selectCustomCollection": "カスタムコレクションを選択",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "ネイティブのタイトルバー",
+  "mode": "Mode",
   "syncMode": "同期モード",
   "connection": "接続",
   "always": "常に表示",
@@ -919,6 +937,7 @@
   "bringForward": "前方へ移動",
   "sendBackward": "後方に送る",
   "rotation": "回転",
+  "direction": "方向",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
   "rotate": "回転",
@@ -945,6 +964,9 @@
   "ascending": "昇順",
   "descending": "降順",
   "imageScale": "画像の大きさ",
+  "svgScale": "SVGスケール",
+  "noImageSelected": "画像が選択されていません",
+  "noSvgSelected": "SVGが選択されていません",
   "select": "選択",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "ホーム画面",
   "lastNote": "最後のメモ",
   "newNote": "新規ノート",
-  "convertToLayer": "レイヤーに変換",
+  "moveToLayer": "レイヤーに移動",
+  "createLayer": "レイヤーを作成",
   "merge": "結合",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "終了",
+  "radius": "Radius",
+  "focalPoint": "焦点点",
+  "useOffCenterStartPoint": "中心外の開始点を使用する",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "色の停止",
+  "addStop": "停止を追加",
   "positionDependent": "依存する位置",
   "flipHorizontal": "水平方向に反転",
   "flipVertical": "垂直方向に反転",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "ショートカットを長押しする",
   "holdShortcutsDescription": "キーを押して別のツールに一時的に切り替えます。キースイッチを前のツールに戻します。",
-  "key": "キー"
+  "key": "キー",
+  "bringMovedElementsToFront": "移動した要素を前面に移動",
+  "addTool": "ツールを追加"
 }

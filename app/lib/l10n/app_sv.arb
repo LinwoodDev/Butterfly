@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Radering av sökväg",
+  "stroke": "Stroke",
   "label": "Etikett",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Bakgrund",
+  "applyBackground": "Tillämpa bakgrund",
+  "currentPage": "Nuvarande sida",
+  "allPages": "Alla sidor",
   "box": "Låda",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Solid färg",
+  "gradient": "Gradient",
+  "gradientType": "Typ av lutning",
+  "linear": "Linjär",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dubbel",
   "dotted": "Prickad",
   "dottedDark": "Prickad mörk",
@@ -288,8 +298,15 @@
   },
   "notSet": "Ej inställd",
   "enterLayer": "Ange lagrets namn",
+  "eraseShapes": "Radera former",
+  "eraseShapeModeNone": "Radera inte former",
+  "eraseShapeModeTouchEdges": "Radera när kanterna vidrör",
+  "eraseShapeModeTouchAnywhere": "Radera när du vidrör var som helst",
+  "selectElementModeTouchEdges": "Välj när kanter vidrör",
+  "selectElementModeTouchAnywhere": "Välj när du rör var som helst",
   "selectElements": "Välj element",
   "deleteElements": "Ta bort element",
+  "eraseAllElements": "Radera alla element",
   "deleteElementsConfirm": "Vill du verkligen ta bort de markerade elementen?",
   "selectCustomCollection": "Välj en anpassad samling",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Namnfält med ursprungsbeteckning",
+  "mode": "Mode",
   "syncMode": "Synkronisera läge",
   "connection": "Anslutning",
   "always": "Alltid",
@@ -919,6 +937,7 @@
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
   "rotation": "Rotation",
+  "direction": "Riktning",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
   "rotate": "Rotera",
@@ -945,6 +964,9 @@
   "ascending": "Stigande",
   "descending": "Fallande",
   "imageScale": "Skala bild",
+  "svgScale": "SVG skala",
+  "noImageSelected": "Ingen bild vald",
+  "noSvgSelected": "Ingen SVG vald",
   "select": "Välj",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Startskärmen",
   "lastNote": "Senaste anteckning",
   "newNote": "Ny anteckning",
-  "convertToLayer": "Konvertera till lager",
+  "moveToLayer": "Flytta till lager",
+  "createLayer": "Skapa lager",
   "merge": "Sammanfoga",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Slut",
+  "radius": "Radius",
+  "focalPoint": "Fokuspunkt",
+  "useOffCenterStartPoint": "Använd en off-center startpunkt",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Färg stannar",
+  "addStop": "Lägg till stopp",
   "positionDependent": "Beroende på position",
   "flipHorizontal": "Vänd horisontell",
   "flipVertical": "Vänd vertikalt",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Håll inne genvägar",
   "holdShortcutsDescription": "Håll en nyckel för att tillfälligt växla till ett annat verktyg. Släppa knapparna tillbaka till föregående verktyg.",
-  "key": "Nyckel"
+  "key": "Nyckel",
+  "bringMovedElementsToFront": "Ta med flyttade element framtill",
+  "addTool": "Lägg till verktyg"
 }

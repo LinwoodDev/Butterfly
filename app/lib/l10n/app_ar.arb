@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "ممحاة المسار",
+  "stroke": "Stroke",
   "label": "علامة نصية",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "الخلفية",
+  "applyBackground": "تطبيق الخلفية",
+  "currentPage": "الصفحة الحالية",
+  "allPages": "جميع الصفحات",
   "box": "مربع",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "صلب",
+  "solidColor": "لون صلب",
+  "gradient": "متدرج",
+  "gradientType": "نوع التدرج",
+  "linear": "خطي",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "مزدوج",
   "dotted": "منقط",
   "dottedDark": "منقط داكن",
@@ -288,8 +298,15 @@
   },
   "notSet": "غير محدد",
   "enterLayer": "أدخل اسم الطبقة",
+  "eraseShapes": "مسح الأشكال",
+  "eraseShapeModeNone": "لا تمحو الأشكال",
+  "eraseShapeModeTouchEdges": "محو عند لمس الحواف",
+  "eraseShapeModeTouchAnywhere": "محو عند لمس أي مكان",
+  "selectElementModeTouchEdges": "حدد عند لمس الحواف",
+  "selectElementModeTouchAnywhere": "حدد عند اللمس في أي مكان",
   "selectElements": "حدد العناصر",
   "deleteElements": "حذف العناصر",
+  "eraseAllElements": "مسح جميع العناصر",
   "deleteElementsConfirm": "هل تريد حقاً حذف العناصر المحددة؟",
   "selectCustomCollection": "حدد مجموعة مخصصة",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "إيماءات الإدخال",
   "nativeTitleBar": "استخدم شريط عنوان النظام",
+  "mode": "Mode",
   "syncMode": "وضع المزامنة",
   "connection": "اتصال",
   "always": "دائما",
@@ -919,6 +937,7 @@
   "bringForward": "خطوة إلى الأمام",
   "sendBackward": "خطوة إلى الخلف",
   "rotation": "دوران",
+  "direction": "الاتجاه",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
   "rotate": "تدوير",
@@ -945,6 +964,9 @@
   "ascending": "تصاعدي",
   "descending": "تنازلي",
   "imageScale": "حجم الصورة",
+  "svgScale": "مقياس SVG",
+  "noImageSelected": "لم يتم تحديد صورة",
+  "noSvgSelected": "لم يتم تحديد SVG",
   "select": "حدد",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "الشاشة الرئيسة",
   "lastNote": "الملاحظة الأخيرة",
   "newNote": "ملاحظة جديدة",
-  "convertToLayer": "تحويل إلى طبقة",
+  "moveToLayer": "نقل إلى طبقة",
+  "createLayer": "إنشاء طبقة",
   "merge": "دمج",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "نهاية",
+  "radius": "Radius",
+  "focalPoint": "مركز التنسيق",
+  "useOffCenterStartPoint": "استخدام نقطة البداية خارج المركز",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "إيقاف الألوان",
+  "addStop": "إضافة إيقاف",
   "positionDependent": "يعتمد على الموقع",
   "flipHorizontal": "قلب أفقي",
   "flipVertical": "قلب عمودي",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "الاختصارات المؤقتة",
   "holdShortcutsDescription": "\"الاختصار المؤقت\" يُفعّل الأداة المحددة خلال الضغط عليه، ويعود إلى الأداة السابقة عند تركه.",
-  "key": "المفتاح"
+  "key": "المفتاح",
+  "bringMovedElementsToFront": "إحضار العناصر إلى الأمام",
+  "addTool": "إضافة أداة"
 }
