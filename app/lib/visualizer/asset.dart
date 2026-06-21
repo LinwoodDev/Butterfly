@@ -13,6 +13,7 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     AssetFileType.pdf => AppLocalizations.of(context).pdf,
     AssetFileType.svg => AppLocalizations.of(context).svg,
     AssetFileType.xopp => 'Xournal++',
+    AssetFileType.oneNote || AssetFileType.oneNotePackage => 'OneNote',
     AssetFileType.page => AppLocalizations.of(context).page,
     AssetFileType.archive => AppLocalizations.of(context).data,
     AssetFileType.rawText => AppLocalizations.of(context).text,
@@ -26,6 +27,8 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     AssetFileType.pdf => PhosphorIcons.filePdf,
     AssetFileType.svg => PhosphorIcons.fileSvg,
     AssetFileType.xopp => PhosphorIcons.notebook,
+    AssetFileType.oneNote ||
+    AssetFileType.oneNotePackage => PhosphorIcons.notebook,
     AssetFileType.page => PhosphorIcons.book,
     AssetFileType.archive => PhosphorIcons.archive,
     _ => PhosphorIcons.file,

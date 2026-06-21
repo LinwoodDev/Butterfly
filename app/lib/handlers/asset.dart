@@ -116,7 +116,12 @@ Future<void> showImportAssetWizard(
     case ImportType.pdf:
       return importWithDialog([AssetFileType.pdf]);
     case ImportType.document:
-      return importWithDialog([AssetFileType.note, AssetFileType.textNote]);
+      return importWithDialog([
+        AssetFileType.note,
+        AssetFileType.textNote,
+        AssetFileType.oneNote,
+        AssetFileType.oneNotePackage,
+      ]);
     case ImportType.markdown:
       return importWithDialog([AssetFileType.markdown]);
     case ImportType.xopp:

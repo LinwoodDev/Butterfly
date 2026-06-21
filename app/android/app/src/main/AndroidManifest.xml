@@ -91,6 +91,46 @@
                     android:pathPattern=".*\\.tbfly" />
             </intent-filter>
 
+            <!-- Microsoft OneNote section and package files -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/onenote"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.one" />
+                <data
+                    android:scheme="file"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.onepkg" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.onepkg" />
+            </intent-filter>
+
             <!-- ZIP files -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

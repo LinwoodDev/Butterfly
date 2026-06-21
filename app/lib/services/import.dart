@@ -34,6 +34,7 @@ import '../cubits/settings.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
+import 'onenote.dart';
 
 class ImportResult {
   final ImportService service;
@@ -317,6 +318,20 @@ class ImportService {
       ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
+      AssetFileType.oneNote => importOneNote(
+        bytes,
+        isPackage: false,
+        document: document,
+        advanced: advanced,
+        name: name,
+      ),
+      AssetFileType.oneNotePackage => importOneNote(
+        bytes,
+        isPackage: true,
+        document: document,
+        advanced: advanced,
+        name: name,
+      ),
       AssetFileType.archive => importArchive(
         bytes,
         fileSystem: fileSystem,
@@ -630,6 +645,38 @@ class ImportService {
     try {
       final data = xoppMigrator(bytes);
       return _importDocument(data, document: document);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+    return null;
+  }
+
+  @useResult
+  Future<ImportResult?> importOneNote(
+    Uint8List bytes, {
+    required bool isPackage,
+    NoteData? document,
+    bool advanced = true,
+    String? name,
+  }) async {
+    try {
+      isPackage =
+          isPackage ||
+          (bytes.length >= 4 &&
+              bytes[0] == 0x4D &&
+              bytes[1] == 0x53 &&
+              bytes[2] == 0x43 &&
+              bytes[3] == 0x46);
+      final data = await parseOneNoteData(
+        bytes,
+        name: name?.trim().isNotEmpty == true ? name!.trim() : 'OneNote',
+        isPackage: isPackage,
+      );
+      return _importDocument(data, document: document, advanced: advanced);
     } catch (e) {
       showDialog(
         context: context,

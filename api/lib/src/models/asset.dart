@@ -11,6 +11,8 @@ enum AssetFileType {
   pdf,
   svg,
   xopp,
+  oneNote,
+  oneNotePackage,
   archive,
 }
 
