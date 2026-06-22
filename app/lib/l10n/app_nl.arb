@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Pad gum",
+  "stroke": "Stroke",
   "label": "Omschrijving",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Achtergrond",
+  "applyBackground": "Achtergrond toepassen",
+  "currentPage": "Huidige pagina",
+  "allPages": "Alle pagina's",
   "box": "Vierkant",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Effen kleur",
+  "gradient": "Kleurovergang",
+  "gradientType": "Kleurovergang type",
+  "linear": "Lineaire",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dubbel",
   "dotted": "Gestippeld",
   "dottedDark": "Gestippelde donker",
@@ -288,8 +298,15 @@
   },
   "notSet": "Niet ingesteld",
   "enterLayer": "Voer de naam van de laag in",
+  "eraseShapes": "Wis vormen",
+  "eraseShapeModeNone": "Vormen niet wissen",
+  "eraseShapeModeTouchEdges": "Wissen bij aanraken randen",
+  "eraseShapeModeTouchAnywhere": "Wissen bij aanraken overal",
+  "selectElementModeTouchEdges": "Selecteer bij het aanraken van randen",
+  "selectElementModeTouchAnywhere": "Selecteer bij aanraken overal",
   "selectElements": "Elementen selecteren",
   "deleteElements": "Elementen verwijderen",
+  "eraseAllElements": "Alle elementen wissen",
   "deleteElementsConfirm": "Weet u zeker dat u de geselecteerde elementen wilt verwijderen?",
   "selectCustomCollection": "Selecteer een aangepaste collectie",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Oorspronkelijke titelbalk",
+  "mode": "Mode",
   "syncMode": "Synchronisatie modus",
   "connection": "Verbindingsinstellingen",
   "always": "altijd",
@@ -919,6 +937,7 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "rotation": "Rotatie",
+  "direction": "Richting",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
   "rotate": "Draaien",
@@ -945,6 +964,9 @@
   "ascending": "Oplopend",
   "descending": "Aflopend",
   "imageScale": "Afbeelding schaal",
+  "svgScale": "SVG schaal",
+  "noImageSelected": "Geen afbeelding geselecteerd",
+  "noSvgSelected": "Geen SVG geselecteerd",
   "select": "Selecteren",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
   "newNote": "Nieuwe notitie",
-  "convertToLayer": "Converteren naar laag",
+  "moveToLayer": "Verplaats naar laag",
+  "createLayer": "Laag aanmaken",
   "merge": "Samenvoegen",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Beëindigen",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Gebruik een off-center startpunt",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Kleur stops",
+  "addStop": "Stoppen toevoegen",
   "positionDependent": "Afhankelijke positie",
   "flipHorizontal": "Horizontaal spiegelen",
   "flipVertical": "Spiegel verticaal",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Snelkoppelingen vasthouden",
   "holdShortcutsDescription": "Houd een sleutel ingedrukt om tijdelijk naar een andere tool over te schakelen. Laat de toetsschakelaars terug naar de vorige tool.",
-  "key": "Sleutel"
+  "key": "Sleutel",
+  "bringMovedElementsToFront": "Breng verplaatste elementen naar voren",
+  "addTool": "Functie toevoegen"
 }

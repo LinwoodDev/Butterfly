@@ -2,20 +2,30 @@ part of 'handler.dart';
 
 class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
+  bool _submittedPathErase = false;
   Future<void>? _erasingFuture;
   Offset? _queuedPosition;
   Offset? _currentPos, _lastErased;
   final Map<String, List<PadElement>> _pendingChanges = {};
+  final Set<String> _erased = {};
+  DocumentBloc? _bloc;
 
   EraserHandler(super.data);
-  // Called when the user presses the pointer (e.g., a finger or the mouse) on the screen. It starts the erasing action.
+
   @override
-  Future<void> onPointerDown(PointerDownEvent event, EventContext context) {
+  Future<void> onPointerDown(
+    PointerDownEvent event,
+    EventContext context,
+  ) async {
+    super.onPointerDown(event, context);
     _pendingChanges.clear();
-    return _changeElement(event.localPosition, context);
+    _erased.clear();
+    _lastErased = null;
+    _currentPos = event.localPosition;
+    context.refreshForegrounds();
+    await _erase(event.localPosition, context);
   }
 
-  // Creates the cursors for the eraser. It shows an eraser cursor when the user is erasing.
   @override
   List<Renderer> createForegrounds(
     CurrentIndexCubit currentIndexCubit,
@@ -26,17 +36,22 @@ class EraserHandler extends Handler<EraserTool> {
   ]) => [
     if (_currentPos != null)
       EraserCursor(ToolCursorData(EraserInfo.fromEraser(data), _currentPos!)),
-    ..._pendingChanges.values.expand(
-      (elements) => elements.map((e) => Renderer.fromInstance(e)),
-    ),
+    if (data.mode == EraserMode.stroke)
+      ..._pendingChanges.values.expand(
+        (elements) => elements.map((e) => Renderer.fromInstance(e)),
+      ),
   ];
 
   @override
-  Map<String, RendererState> get rendererStates => Map.fromEntries(
-    _pendingChanges.keys.map((e) => MapEntry(e, RendererState.hidden)),
-  );
+  Map<String, RendererState> get rendererStates => switch (data.mode) {
+    EraserMode.stroke => Map.fromEntries(
+      _pendingChanges.keys.map((e) => MapEntry(e, RendererState.hidden)),
+    ),
+    EraserMode.path => Map.fromEntries(
+      _erased.map((e) => MapEntry(e, RendererState.hidden)),
+    ),
+  };
 
-  // Called when the user moves or hovers the pointer on the screen. They update the current position of the cursor and call the _changeElement method.
   @override
   Future<void> onPointerMove(
     PointerMoveEvent event,
@@ -44,7 +59,7 @@ class EraserHandler extends Handler<EraserTool> {
   ) async {
     _currentPos = event.localPosition;
     context.refreshForegrounds();
-    await _changeElement(event.localPosition, context);
+    await _erase(event.localPosition, context);
   }
 
   @override
@@ -53,8 +68,16 @@ class EraserHandler extends Handler<EraserTool> {
     context.refreshForegrounds();
   }
 
-  //method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
-  Future<void> _changeElement(Offset position, EventContext context) async {
+  @override
+  void resetInput(DocumentBloc bloc) {
+    _currentPos = null;
+    _lastErased = null;
+    _submittedPathErase = false;
+    _pendingChanges.clear();
+    _erased.clear();
+  }
+
+  Future<void> _erase(Offset position, EventContext context) async {
     if (_currentlyErasing) {
       _queuedPosition = position;
       await _erasingFuture;
@@ -64,14 +87,14 @@ class EraserHandler extends Handler<EraserTool> {
     var nextPosition = position;
     do {
       _queuedPosition = null;
-      await _changeElementAt(nextPosition, context);
+      await _eraseAt(nextPosition, context);
       nextPosition = _queuedPosition ?? nextPosition;
     } while (_queuedPosition != null);
     _erasingFuture = null;
     _currentlyErasing = false;
   }
 
-  Future<void> _changeElementAt(Offset position, EventContext context) async {
+  Future<void> _eraseAt(Offset position, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
     final utilities = currentIndex.utilities;
@@ -82,9 +105,9 @@ class EraserHandler extends Handler<EraserTool> {
         _lastErased == null ||
         (globalPos - _lastErased!).distanceSquared > sizeSquared;
     final page = context.getPage();
-    if (page == null) return;
-    if (!shouldErase) return;
+    if (page == null || !shouldErase) return;
     _lastErased = globalPos;
+
     final future = () async {
       final ray = await context.getDocumentBloc().rayCast(
         globalPos,
@@ -94,62 +117,81 @@ class EraserHandler extends Handler<EraserTool> {
         hitElementMode: data.hitElementMode,
       );
       var elements = ray.map((e) => e.element);
-      if (!data.eraseElements) {
-        elements = elements.where((e) => e.isStroke());
-      }
+      if (!data.eraseElements) elements = elements.where((e) => e.isStroke());
 
-      final limitSquared = sizeSquared;
-      var anyChanged = false;
-
-      for (final element in elements) {
-        final id = element.id;
-        if (id == null) continue;
-        if (element is! PenElement) {
-          if (!_pendingChanges.containsKey(id)) {
-            _pendingChanges[id] = [];
-            anyChanged = true;
-          }
-          continue;
-        }
-
-        if (_pendingChanges.containsKey(id)) {
-          final currentFragments = _pendingChanges[id]!;
-          final newFragments = <PadElement>[];
-          bool fragmentsChanged = false;
-
-          for (final fragment in currentFragments) {
-            if (fragment is! PenElement) {
-              newFragments.add(fragment);
-              continue;
-            }
-            final result = _cutPenElement(fragment, globalPos, limitSquared);
-            if (result != null) {
-              newFragments.addAll(result);
-              fragmentsChanged = true;
-            } else {
-              newFragments.add(fragment);
-            }
-          }
-
-          if (fragmentsChanged) {
-            _pendingChanges[id] = newFragments;
-            anyChanged = true;
-          }
-        } else {
-          final result = _cutPenElement(element, globalPos, limitSquared);
-          if (result != null) {
-            _pendingChanges[id] = result;
-            anyChanged = true;
-          }
-        }
-      }
-
-      if (anyChanged) {
-        context.refreshForegrounds();
+      switch (data.mode) {
+        case EraserMode.stroke:
+          _changeStrokeElements(elements, globalPos, sizeSquared, context);
+        case EraserMode.path:
+          await _erasePathElements(elements, context);
       }
     }();
     _erasingFuture = future;
     await future;
+  }
+
+  void _changeStrokeElements(
+    Iterable<PadElement> elements,
+    Offset globalPos,
+    double limitSquared,
+    EventContext context,
+  ) {
+    var anyChanged = false;
+
+    for (final element in elements) {
+      final id = element.id;
+      if (id == null) continue;
+      if (element is! PenElement) {
+        if (!_pendingChanges.containsKey(id)) {
+          _pendingChanges[id] = [];
+          anyChanged = true;
+        }
+        continue;
+      }
+
+      if (_pendingChanges.containsKey(id)) {
+        final currentFragments = _pendingChanges[id]!;
+        final newFragments = <PadElement>[];
+        bool fragmentsChanged = false;
+
+        for (final fragment in currentFragments) {
+          if (fragment is! PenElement) {
+            newFragments.add(fragment);
+            continue;
+          }
+          final result = _cutPenElement(fragment, globalPos, limitSquared);
+          if (result != null) {
+            newFragments.addAll(result);
+            fragmentsChanged = true;
+          } else {
+            newFragments.add(fragment);
+          }
+        }
+
+        if (fragmentsChanged) {
+          _pendingChanges[id] = newFragments;
+          anyChanged = true;
+        }
+      } else {
+        final result = _cutPenElement(element, globalPos, limitSquared);
+        if (result != null) {
+          _pendingChanges[id] = result;
+          anyChanged = true;
+        }
+      }
+    }
+
+    if (anyChanged) context.refreshForegrounds();
+  }
+
+  Future<void> _erasePathElements(
+    Iterable<PadElement> elements,
+    EventContext context,
+  ) async {
+    final ids = elements.map((e) => e.id).nonNulls;
+    if (ids.isEmpty) return;
+    _erased.addAll(ids);
+    await context.refresh();
   }
 
   List<PadElement>? _cutPenElement(
@@ -182,18 +224,51 @@ class EraserHandler extends Handler<EraserTool> {
         .toList();
   }
 
-  // Called when the user releases the pointer. It completes the erasing action.
   @override
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     if (_erasingFuture != null) await _erasingFuture;
-    await _changeElement(event.localPosition, context);
-    if (_pendingChanges.isNotEmpty) {
-      context.getDocumentBloc().add(ElementsChanged(Map.from(_pendingChanges)));
-      _pendingChanges.clear();
+    switch (data.mode) {
+      case EraserMode.stroke:
+        await _erase(event.localPosition, context);
+        if (_pendingChanges.isNotEmpty) {
+          context.getDocumentBloc().add(
+            ElementsChanged(Map.from(_pendingChanges)),
+          );
+          _pendingChanges.clear();
+        }
+      case EraserMode.path:
+        if (_erased.isEmpty) return;
+        final bloc = _bloc = context.getDocumentBloc();
+        bloc.add(ElementsRemoved(_erased.toList()));
+        _submittedPathErase = true;
     }
   }
 
-  // Returns the mouse cursor to be used when the user interacts with the eraser tool.
+  @override
+  Future<void> onViewportUpdated(
+    CameraViewport currentViewport,
+    CameraViewport newViewport,
+  ) async {
+    if (!_submittedPathErase || _erased.isEmpty) return;
+    _erased.clear();
+    await _bloc?.refresh(allowBake: true);
+    await _bloc?.delayedBake();
+    _submittedPathErase = false;
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    _currentPos = null;
+    _lastErased = null;
+    _submittedPathErase = false;
+    _currentlyErasing = false;
+    _erasingFuture = null;
+    _queuedPosition = null;
+    _pendingChanges.clear();
+    _erased.clear();
+    _bloc = null;
+  }
+
   @override
   MouseCursor get cursor => SystemMouseCursors.none;
 }

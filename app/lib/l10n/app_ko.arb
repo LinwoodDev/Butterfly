@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "경로 지우개",
+  "stroke": "Stroke",
   "label": "레이블",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "배경",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "상자",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "실선",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "이중선",
   "dotted": "점선",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "설정 안 됨",
   "enterLayer": "레이어 이름을 입력하세요",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "요소 선택",
   "deleteElements": "요소 삭제",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "선택한 요소를 정말로 삭제하시겠습니까?",
   "selectCustomCollection": "사용자 지정 컬렉션 선택",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "입력 제스처",
   "nativeTitleBar": "네이티브 제목 표시줄",
+  "mode": "Mode",
   "syncMode": "동기화 모드",
   "connection": "연결",
   "always": "항상",
@@ -919,6 +937,7 @@
   "bringForward": "앞으로 가져오기",
   "sendBackward": "뒤로 보내기",
   "rotation": "회전",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "더 큰 화면에서만 사용 가능",
   "toolbarPosition": "도구 모음 위치",
   "rotate": "회전",
@@ -945,6 +964,9 @@
   "ascending": "오름차순",
   "descending": "내림차순",
   "imageScale": "이미지 배율",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "선택",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "홈 화면",
   "lastNote": "마지막 노트",
   "newNote": "새 노트",
-  "convertToLayer": "레이어로 변환",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "병합",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "위치에 따라",
   "flipHorizontal": "가로로 뒤집기",
   "flipVertical": "세로로 뒤집기",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

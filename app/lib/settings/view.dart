@@ -46,6 +46,14 @@ class ViewSettingsPage extends StatelessWidget {
                         onTap: () => _openZoomPositionModal(context),
                       ),
                       ListTile(
+                        leading: const PhosphorIcon(PhosphorIconsLight.sliders),
+                        title: Text(AppLocalizations.of(context).properties),
+                        subtitle: Text(
+                          state.propertyPosition.getLocalizedName(context),
+                        ),
+                        onTap: () => _openPropertyPositionModal(context),
+                      ),
+                      ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
                         title: Text(
                           AppLocalizations.of(context).toolbarPosition,
@@ -187,6 +195,47 @@ class ViewSettingsPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Card(
+                margin: settingsCardMargin,
+                child: Padding(
+                  padding: settingsCardPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: settingsCardTitlePadding,
+                        child: Text(
+                          AppLocalizations.of(context).home,
+                          style: TextTheme.of(context).headlineSmall,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        secondary: const PhosphorIcon(PhosphorIconsLight.image),
+                        title: Text(
+                          AppLocalizations.of(context).showThumbnails,
+                        ),
+                        value: state.showThumbnails,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeShowThumbnails(value),
+                      ),
+                      SwitchListTile(
+                        value: state.hideExtension,
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeHideExtension(value),
+                        title: Text(
+                          AppLocalizations.of(context).hideFileExtension,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.fileText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },
@@ -214,6 +263,33 @@ class ViewSettingsPage extends StatelessWidget {
               }, textDirection: TextDirection.ltr),
               onTap: () {
                 cubit.changeZoomPosition(e);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _openPropertyPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.propertyPosition;
+    showLeapBottomSheet(
+      context: context,
+      titleBuilder: (context) => Text(AppLocalizations.of(context).properties),
+      childrenBuilder: (context) => ZoomPosition.values
+          .map(
+            (e) => ListTile(
+              title: Text(e.getLocalizedName(context)),
+              selected: currentPos == e,
+              leading: Icon(switch (e) {
+                ZoomPosition.topRight => PhosphorIconsLight.arrowUpRight,
+                ZoomPosition.topLeft => PhosphorIconsLight.arrowUpLeft,
+                ZoomPosition.bottomRight => PhosphorIconsLight.arrowDownRight,
+                ZoomPosition.bottomLeft => PhosphorIconsLight.arrowDownLeft,
+              }, textDirection: TextDirection.ltr),
+              onTap: () {
+                cubit.changePropertyPosition(e);
                 Navigator.of(context).pop();
               },
             ),

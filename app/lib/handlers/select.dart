@@ -42,9 +42,6 @@ class SelectHandler extends Handler<SelectTool> {
     _rectangleFreeSelectionStart = null;
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
-    _ruler = null;
-    _rulerRotationStart = null;
-    _lastRulerRotation = 0;
     _selectionManager.reset();
     await bloc.refresh(allowBake: false);
   }
@@ -220,6 +217,11 @@ class SelectHandler extends Handler<SelectTool> {
       return [];
     }
 
+    if (state.settingsCubit.state.bringMovedElementsToFront) {
+      bloc.add(
+        ElementsArranged(Arrangement.front, current.map((e) => e.id).toList()),
+      );
+    }
     bloc.add(
       ElementsChanged(
         Map.fromEntries(
@@ -372,14 +374,6 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    _ruler = RulerHandler.getFirstRuler(
-      context.getCurrentIndex(),
-      details.localFocalPoint,
-      context.viewportSize,
-    );
-    _rulerRotationStart = details.localFocalPoint;
-    _lastRulerRotation = _ruler?.rotation ?? 0;
-    if (_ruler != null) return true;
     if (currentIndex.buttons == kSecondaryMouseButton &&
         currentIndex.temporaryHandler == null) {
       return false;
@@ -429,47 +423,11 @@ class SelectHandler extends Handler<SelectTool> {
     return true;
   }
 
-  RulerHandler? _ruler;
-  Offset? _rulerRotationStart;
-  double _lastRulerRotation = 0;
-
-  bool _handleRuler(ScaleUpdateDetails details, EventContext context) {
-    final state = context.getState();
-    if (state == null) return false;
-    final ruler = _ruler;
-    if (ruler == null) return false;
-    final rightClick =
-        (context.getCurrentIndex().buttons ?? 0) & kSecondaryMouseButton != 0;
-    var angle = details.rotation * 180 / pi;
-    var currentPos = Offset.zero;
-    if (details.rotation == 0 && rightClick) {
-      final rulerCenter = ruler.getRect(context.viewportSize).center;
-      var start = _rulerRotationStart ?? rulerCenter;
-      final startDelta = (start - rulerCenter).direction;
-      final currentDelta = (details.localFocalPoint - rulerCenter).direction;
-      angle =
-          (currentDelta - startDelta) * 180 / pi -
-          ruler.rotation +
-          _lastRulerRotation;
-    } else {
-      currentPos = details.focalPointDelta;
-    }
-    while (angle < 0) {
-      angle += 360;
-    }
-    angle %= 360;
-    ruler.transform(context, position: currentPos, rotation: angle);
-    return true;
-  }
-
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final globalPos = context.getCameraTransform().localToGlobal(
       details.localFocalPoint,
     );
-    if (_handleRuler(details, context)) {
-      return;
-    }
     if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
@@ -492,9 +450,6 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void dispose(DocumentBloc bloc) {
     _submitTransform(bloc);
-    _ruler = null;
-    _rulerRotationStart = null;
-    _lastRulerRotation = 0;
   }
 
   @override
@@ -502,12 +457,6 @@ class SelectHandler extends Handler<SelectTool> {
     final utilities = context.getCurrentIndex().utilities;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
-    if (_ruler != null) {
-      _ruler = null;
-      _rulerRotationStart = null;
-      _lastRulerRotation = 0;
-      return;
-    }
     final transformed = _submitTransform(context.getDocumentBloc());
     if (transformed != null) {
       _selected.clear();

@@ -50,6 +50,113 @@ part 'elements/polygon.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
+class ElementPaintRenderer {
+  ui.Image? _image;
+  String? _source;
+
+  Future<void> setup(
+    ElementPaint paint,
+    NoteData document,
+    AssetService assets,
+  ) async {
+    final source = switch (paint) {
+      ImageElementPaint(:final source) => source,
+      SvgElementPaint(:final source) => source,
+      _ => null,
+    };
+    if (_source == source && _image != null) return;
+    _image?.dispose();
+    _image = null;
+    _source = source;
+    if (source != null) {
+      _image = await assets.getImage(source, document);
+    }
+  }
+
+  bool uses(String path) => _source == path;
+
+  void dispose() {
+    _image?.dispose();
+    _image = null;
+  }
+
+  Paint build(ElementPaint paint, Rect bounds, {PaintingStyle? style}) {
+    final preview = paint.previewColor;
+    final result = Paint()
+      ..color = preview.toColor()
+      ..style = style ?? PaintingStyle.fill;
+    if (paint.blur > 0) {
+      result.maskFilter = ui.MaskFilter.blur(ui.BlurStyle.normal, paint.blur);
+    }
+    switch (paint) {
+      case ImageElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case SvgElementPaint(:final scale, :final tint):
+        if (!_applyImageShader(result, scale, tint)) return result;
+      case GradientElementPaint(:final gradient):
+        final tileMode = TileMode.clamp;
+        late final ui.Shader shader;
+        switch (gradient) {
+          case LinearElementGradient(:final start, :final end, :final stops):
+            final startOffset = Offset(
+              bounds.left + start.x * bounds.width,
+              bounds.top + start.y * bounds.height,
+            );
+            final endOffset = Offset(
+              bounds.left + end.x * bounds.width,
+              bounds.top + end.y * bounds.height,
+            );
+            final centerOffset = Offset(
+              bounds.left + bounds.width / 2,
+              bounds.top + bounds.height / 2,
+            );
+            final scaledStart = centerOffset + (startOffset - centerOffset);
+            final scaledEnd = centerOffset + (endOffset - centerOffset);
+            shader = ui.Gradient.linear(
+              scaledStart,
+              scaledEnd,
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+              tileMode,
+            );
+          case RadialElementGradient(
+            :final center,
+            :final radius,
+            :final stops,
+          ):
+            shader = ui.Gradient.radial(
+              Offset(
+                bounds.left + center.x * bounds.width,
+                bounds.top + center.y * bounds.height,
+              ),
+              radius * sqrt(pow(bounds.width, 2) + pow(bounds.height, 2)) / 2,
+              stops.map((s) => s.color.toColor()).toList(),
+              stops.map((s) => s.offset).toList(),
+              tileMode,
+            );
+        }
+        result.shader = shader;
+      case SolidElementPaint():
+    }
+    return result;
+  }
+
+  bool _applyImageShader(Paint paint, double scale, SRGBColor tint) {
+    final image = _image;
+    if (image == null) return false;
+    final matrix = Matrix4.diagonal3Values(scale, scale, 1);
+    paint
+      ..shader = ui.ImageShader(
+        image,
+        TileMode.repeated,
+        TileMode.repeated,
+        matrix.storage,
+      )
+      ..colorFilter = ui.ColorFilter.mode(tint.toColor(), BlendMode.modulate);
+    return true;
+  }
+}
+
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
   final Rect? boundsRect;
@@ -78,6 +185,9 @@ class DefaultHitCalculator extends HitCalculator {
     final rotated = _rotatedCorners(element);
     if (hitElementMode == HitElementMode.full) {
       return rotated.every(rect.contains);
+    }
+    if (!isFiniteRect(rect)) {
+      return rotated.any(rect.contains);
     }
     return isPolygonInPolygon(rotated, [
       rect.topLeft,
@@ -149,6 +259,7 @@ abstract class HitCalculator {
   });
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
+    if (!_isFiniteOffset(testPoint) || !isFinitePolygon(polygon)) return false;
     bool result = false;
     int j = polygon.length - 1;
     for (int i = 0; i < polygon.length; i++) {
@@ -165,6 +276,31 @@ abstract class HitCalculator {
       j = i;
     }
     return result;
+  }
+
+  bool _isFiniteOffset(Offset point) => point.dx.isFinite && point.dy.isFinite;
+
+  bool isFinitePolygon(List<Offset> polygon) => polygon.every(_isFiniteOffset);
+
+  bool isFiniteRect(Rect rect) =>
+      rect.left.isFinite &&
+      rect.top.isFinite &&
+      rect.right.isFinite &&
+      rect.bottom.isFinite;
+
+  List<Offset> rectToPolygon(Rect rect) => [
+    rect.topLeft,
+    rect.topRight,
+    rect.bottomRight,
+    rect.bottomLeft,
+  ];
+
+  bool hitRectPolygon(Rect rect, List<Offset> polygon) {
+    if (polygon.isEmpty) return false;
+    if (!isFiniteRect(rect)) {
+      return polygon.any(rect.contains);
+    }
+    return isPolygonInPolygon(rectToPolygon(rect), polygon);
   }
 
   List<Offset> getAxesOfPolygon(List<Offset> polygon) {
@@ -234,6 +370,7 @@ abstract class HitCalculator {
 
   bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
     if (poly1.isEmpty || poly2.isEmpty) return false;
+    if (!isFinitePolygon(poly1) || !isFinitePolygon(poly2)) return false;
 
     for (final (a, b) in _edgesOf(poly1)) {
       for (final (c, d) in _edgesOf(poly2)) {
@@ -450,7 +587,7 @@ abstract class Renderer<T> {
     if ((scaleX != 1 || scaleY != 1) && (this.rotation % 360) != 0) {
       final w = rect.width;
       final h = rect.height;
-      final expandedRect = this.expandedRect ?? rect;
+      final expandedRect = _expandedAabbFor(rect, radians);
 
       if (w > 0 && h > 0) {
         final absC = cos(radians).abs();

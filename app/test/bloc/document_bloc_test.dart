@@ -183,7 +183,7 @@ void main() {
     currentIndexCubit = CurrentIndexCubit(
       settingsCubit,
       TransformCubit(1),
-      const CameraViewport.unbaked(),
+      CameraViewport.unbaked(),
     );
     windowCubit = WindowCubit(fullScreen: false);
 
@@ -262,6 +262,50 @@ void main() {
     },
   );
 
+  test('duplicating area adds it to selected pages', () async {
+    final initialState = bloc.state as DocumentLoadSuccess;
+    final pages = initialState.data.getPages(true);
+    final firstPageName = pages.firstWhere((name) => name.endsWith('.Page 1'));
+    final secondPageName = pages.firstWhere((name) => name.endsWith('.Page 2'));
+    const area = Area(
+      name: 'Shared area',
+      width: 100,
+      height: 80,
+      position: Point(10, 20),
+    );
+
+    bloc.add(AreasDuplicated(area, ['Page 1', secondPageName]));
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    expect(state.pageName, secondPageName);
+    expect(state.page.areas, [area]);
+    expect(state.data.getPage(firstPageName)?.areas, [area]);
+    expect(state.data.getPage(secondPageName)?.areas, [area]);
+  });
+
+  test('unmatched single tool change does not overwrite active tool', () async {
+    final activeTool = PenTool(id: 'active-tool');
+    final otherTool = PenTool(id: 'other-tool');
+
+    bloc.add(ToolsReplaced([activeTool, otherTool]));
+    await _settleBlocEvents();
+    currentIndexCubit.changeIndex(0);
+
+    bloc.add(
+      ToolsChanged([PenTool(property: const PenProperty(strokeWidth: 12))]),
+    );
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    final active = state.info.tools[0] as PenTool;
+    final other = state.info.tools[1] as PenTool;
+    expect(active.id, 'active-tool');
+    expect(active.property.strokeWidth, 5);
+    expect(other.id, 'other-tool');
+    expect(other.property.strokeWidth, 5);
+  });
+
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
     await currentIndexCubit.close();
@@ -298,6 +342,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [secondRenderer],
+        visibleElements: [secondRenderer],
+        visibleUnbakedElements: [secondRenderer],
         width: 100,
         height: 100,
       ),
@@ -354,7 +400,11 @@ void main() {
     currentIndexCubit = CurrentIndexCubit(
       settingsCubit,
       TransformCubit(1),
-      CameraViewport.unbaked(unbakedElements: [renderer]),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+      ),
     );
     bloc = DocumentBloc(
       fileSystem,
@@ -397,6 +447,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
         width: 100,
         height: 100,
       ),
@@ -437,6 +489,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
         width: 100,
         height: 100,
       ),
@@ -577,6 +631,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -635,6 +691,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -701,6 +759,8 @@ void main() {
         transformCubit,
         CameraViewport.unbaked(
           unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
           width: 401,
           height: 303,
         ),
@@ -763,6 +823,8 @@ void main() {
       TransformCubit(1),
       CameraViewport.unbaked(
         unbakedElements: renderers,
+        visibleElements: renderers,
+        visibleUnbakedElements: renderers,
         width: 100,
         height: 100,
       ),
@@ -816,7 +878,9 @@ void main() {
         secondPosition: const Point(20, 30),
         property: const ShapeProperty(
           strokeWidth: 0,
-          shape: RectangleShape(fillColor: SRGBColor(0xFFFF0000)),
+          shape: RectangleShape(
+            fillPaint: ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
+          ),
         ),
       );
       final renderer = _VisibleTrackingRenderer(element);
@@ -834,6 +898,8 @@ void main() {
         TransformCubit(1),
         CameraViewport.unbaked(
           unbakedElements: renderers,
+          visibleElements: renderers,
+          visibleUnbakedElements: renderers,
           width: 10,
           height: 10,
         ),

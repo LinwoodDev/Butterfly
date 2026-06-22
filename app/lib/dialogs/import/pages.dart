@@ -27,17 +27,17 @@ class PageDialogCallback {
   );
 }
 
-class PagesDialog extends StatefulWidget {
+class ImportPagesDialog extends StatefulWidget {
   final List<ui.Image> pages;
   final String? name;
 
-  const PagesDialog({super.key, required this.pages, this.name});
+  const ImportPagesDialog({super.key, required this.pages, this.name});
 
   @override
-  State<PagesDialog> createState() => _PagesDialogState();
+  State<ImportPagesDialog> createState() => _ImportPagesDialogState();
 }
 
-class _PagesDialogState extends State<PagesDialog> {
+class _ImportPagesDialogState extends State<ImportPagesDialog> {
   List<int> _selected = const [];
   bool _spreadToPages = false,
       _createAreas = true,

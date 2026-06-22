@@ -39,7 +39,9 @@ String _exportColor(SRGBColor value) {
       case 'stroke':
         return PenElement(
           property: PenProperty(
-            color: _importColor(element.getAttribute('color')!),
+            paint: ElementPaint.solid(
+              color: _importColor(element.getAttribute('color')!),
+            ),
             strokeWidth: double.parse(
               element.getAttribute('width')!.split(' ').first,
             ),
@@ -187,7 +189,7 @@ Uint8List xoppExporter(NoteData document) {
                       builder.element(
                         'stroke',
                         attributes: {
-                          'color': _exportColor(e.property.color),
+                          'color': _exportColor(e.property.paint.previewColor),
                           'width': e.property.strokeWidth.toString(),
                           'tool': 'pen',
                         },

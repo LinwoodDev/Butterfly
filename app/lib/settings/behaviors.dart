@@ -154,6 +154,18 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         onTap: () => _openRenderResolutionModal(context),
                         leading: const Icon(PhosphorIconsLight.sparkle),
                       ),
+                      SwitchListTile(
+                        title: Text(
+                          AppLocalizations.of(
+                            context,
+                          ).bringMovedElementsToFront,
+                        ),
+                        value: state.bringMovedElementsToFront,
+                        secondary: const PhosphorIcon(PhosphorIconsLight.stack),
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeBringMovedElementsToFront(value),
+                      ),
                     ],
                   ),
                 ),
@@ -196,47 +208,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         onChangeEnd: (value) => context
                             .read<SettingsCubit>()
                             .changeImageScale(value / 100),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: settingsCardMargin,
-                child: Padding(
-                  padding: settingsCardPadding,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: settingsCardTitlePadding,
-                        child: Text(
-                          AppLocalizations.of(context).home,
-                          style: TextTheme.of(context).headlineSmall,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SwitchListTile(
-                        secondary: const PhosphorIcon(PhosphorIconsLight.image),
-                        title: Text(
-                          AppLocalizations.of(context).showThumbnails,
-                        ),
-                        value: state.showThumbnails,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeShowThumbnails(value),
-                      ),
-                      SwitchListTile(
-                        value: state.hideExtension,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeHideExtension(value),
-                        title: Text(
-                          AppLocalizations.of(context).hideFileExtension,
-                        ),
-                        secondary: const PhosphorIcon(
-                          PhosphorIconsLight.fileText,
-                        ),
                       ),
                     ],
                   ),

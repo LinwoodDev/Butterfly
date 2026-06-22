@@ -39,11 +39,17 @@ extension AssetFileTypeHelper on AssetFileType {
       'application/x-text-butterfly',
       'application/json',
     ],
-    AssetFileType.image => ['image/*'],
+    AssetFileType.image => [
+      'image/png',
+      'image/jpeg',
+      'image/gif',
+      'image/bmp',
+      'image/x-icon',
+    ],
     AssetFileType.markdown => ['text/markdown'],
     AssetFileType.pdf => ['application/pdf'],
     AssetFileType.svg => ['image/svg+xml'],
-    AssetFileType.page => ['application/json'],
+    AssetFileType.page => ['application/x-butterfly-page', 'application/json'],
     AssetFileType.xopp => ['application/zip'],
     AssetFileType.archive => [
       'application/zip',
@@ -55,12 +61,7 @@ extension AssetFileTypeHelper on AssetFileType {
     AssetFileType.rawText => ['text/plain'],
   };
 
-  bool isMimeType(String mimeType) {
-    final mime = getMimeTypes();
-    return mime.any((m) {
-      return RegExp(m).hasMatch(mimeType);
-    });
-  }
+  bool isMimeType(String mimeType) => getMimeTypes().contains(mimeType);
 
   bool isNote() => this == AssetFileType.note || this == AssetFileType.textNote;
 

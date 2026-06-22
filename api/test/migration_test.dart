@@ -21,7 +21,8 @@ void main() {
       expect(info!.tools.length, 10);
       expect(info.tools[0], isA<SelectTool>());
       expect(info.tools[1], isA<PenTool>());
-      expect(info.tools[2], isA<PathEraserTool>());
+      expect(info.tools[2], isA<EraserTool>());
+      expect((info.tools[2] as EraserTool).mode, EraserMode.path);
       expect(info.tools[3], isA<UndoTool>());
       expect(info.tools[4], isA<RedoTool>());
       expect(info.tools[5], isA<AreaTool>());

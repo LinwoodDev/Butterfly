@@ -35,6 +35,7 @@ class ColorPalettePickerDialog extends StatefulWidget {
 }
 
 class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
+  late final ButterflyFileSystem _fileSystem;
   late final PackFileSystem _packSystem;
   NoteData? _pack;
   PackItem<ColorPalette>? _selected;
@@ -44,7 +45,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   void initState() {
     super.initState();
     _palette = widget.palette;
-    _packSystem = context.read<ButterflyFileSystem>().buildDefaultPackSystem();
+    _fileSystem = context.read<ButterflyFileSystem>();
+    _packSystem = _fileSystem.buildDefaultPackSystem();
     if (_palette == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _loadPalette();
@@ -53,19 +55,35 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   }
 
   Future<void> _loadPalette() async {
-    final pack = await _packSystem.getDefaultFile(_selected?.namespace ?? '');
-    if (pack == null) return;
-    final palette =
-        pack.getPalette(_selected?.key ?? '') ??
-        pack.getNamedPalettes().firstOrNull?.item;
-    if (palette == null) return;
+    final packs = await _fileSystem.getCoreAndUserPacks();
+    PackItem<ColorPalette>? selected = _selected;
+    NoteData? pack;
+    ColorPalette? palette;
+    if (selected != null) {
+      pack = packs
+          .firstWhereOrNull((pack) => pack.$1 == selected?.namespace)
+          ?.$2;
+      palette = pack?.getPalette(selected.key);
+    } else {
+      for (final (namespace, sourcePack) in packs) {
+        final firstPalette = sourcePack.getNamedPalettes().firstOrNull;
+        if (firstPalette != null) {
+          selected = firstPalette.toPack(sourcePack, namespace);
+          pack = sourcePack;
+          palette = firstPalette.item;
+          break;
+        }
+      }
+    }
+    if (pack == null || palette == null) return;
     setState(() {
       _pack = pack;
       _palette = palette;
+      _selected = selected;
     });
   }
 
-  void _changePalette(ColorPalette palette, [String? name]) {
+  Future<void> _changePalette(ColorPalette palette, [String? name]) async {
     setState(() {
       _palette = palette;
     });
@@ -80,12 +98,12 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
       }
       pack = pack?.setPalette(name ?? location.key, palette);
       if (pack == null) return;
-      _packSystem.updateFile(location.namespace, pack);
+      await _packSystem.updateFile(location.namespace, pack);
     }
   }
 
-  void _showColorOperation(int index) {
-    showModalBottomSheet(
+  Future<void> _showColorOperation(int index) async {
+    await showModalBottomSheet(
       context: context,
       constraints: const BoxConstraints(maxWidth: 640),
       showDragHandle: true,
@@ -152,7 +170,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                 if (result != true) return;
                 if (context.mounted) {
                   Navigator.of(context).pop();
-                  _changePalette(
+                  await _changePalette(
                     _palette!.copyWith(
                       colors: List.from(_palette!.colors)..removeAt(index),
                     ),
@@ -209,7 +227,12 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                             ).headlineSmall,
                                           ),
                                           Text(
-                                            _selected?.namespace ?? '',
+                                            _selected == null
+                                                ? ''
+                                                : getPackDisplayName(
+                                                    _selected!.pack,
+                                                    _selected!.namespace,
+                                                  ),
                                             style: TextTheme.of(
                                               context,
                                             ).labelLarge,

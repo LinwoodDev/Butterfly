@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
-import 'package:super_clipboard/super_clipboard.dart';
 
 Future<void> exportSvg(
   BuildContext context,
@@ -92,13 +90,5 @@ Future<void> writeClipboardData(
   AssetFileType type,
   Uint8List data,
 ) async {
-  final clipboard = SystemClipboard.instance;
-  if (clipboard != null) {
-    final item = DataWriterItem();
-    final format = type.getClipboardFormats().first;
-    item.add(format(data));
-    clipboard.write([item]);
-  } else {
-    clipboardManager.setContent((data: data, type: type.name));
-  }
+  clipboardManager.setContent((data: data, type: type.getMimeTypes().first));
 }

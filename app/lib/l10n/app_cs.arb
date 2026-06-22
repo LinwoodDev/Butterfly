@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Vymazání tahem",
+  "stroke": "Stroke",
   "label": "Štítek",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Pozadí",
+  "applyBackground": "Použít pozadí",
+  "currentPage": "Aktuální stránka",
+  "allPages": "Všechny stránky",
   "box": "Krabice",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Pevný",
+  "solidColor": "Plná barva",
+  "gradient": "Sklon",
+  "gradientType": "Typ přechodu",
+  "linear": "Lineární",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dvojitý",
   "dotted": "Tečkovaný",
   "dottedDark": "Tečkovaná tmavá",
@@ -288,8 +298,15 @@
   },
   "notSet": "Nenastaveno",
   "enterLayer": "Zadejte název vrstvy",
+  "eraseShapes": "Vymazat tvary",
+  "eraseShapeModeNone": "Nesmazat tvary",
+  "eraseShapeModeTouchEdges": "Vymazat při dotyku na hrany",
+  "eraseShapeModeTouchAnywhere": "Vymazat při dotyku kdekoliv",
+  "selectElementModeTouchEdges": "Vybrat při dotyku hrany",
+  "selectElementModeTouchAnywhere": "Vyberte, když se dotknete kdekoliv",
   "selectElements": "Vybrat prvky",
   "deleteElements": "Odstranit prvky",
+  "eraseAllElements": "Vymazat všechny prvky",
   "deleteElementsConfirm": "Opravdu chcete odstranit vybrané prvky?",
   "selectCustomCollection": "Vybrat vlastní kolekci",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Gesta",
   "nativeTitleBar": "Nativní titulek",
+  "mode": "Mode",
   "syncMode": "Režim synchronizace",
   "connection": "Připojení",
   "always": "Vždy",
@@ -919,6 +937,7 @@
   "bringForward": "Posunout vpřed",
   "sendBackward": "Poslat zpět",
   "rotation": "Otáčení",
+  "direction": "Směr",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
   "rotate": "Otočit",
@@ -945,6 +964,9 @@
   "ascending": "Vzestupně",
   "descending": "Sestupně",
   "imageScale": "Měřítko obrázku",
+  "svgScale": "SVG měřítko",
+  "noImageSelected": "Nebyl vybrán žádný obrázek",
+  "noSvgSelected": "Není vybrána žádná SVG",
   "select": "Vybrat",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
   "newNote": "Nová poznámka",
-  "convertToLayer": "Převést na vrstvu",
+  "moveToLayer": "Přesunout do vrstvy",
+  "createLayer": "Vytvořit vrstvu",
   "merge": "Sloučit",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Ukončit",
+  "radius": "Radius",
+  "focalPoint": "Fokální bod",
+  "useOffCenterStartPoint": "Použít počáteční bod mimo střed",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Barevné zastávky",
+  "addStop": "Přidat zastávku",
   "positionDependent": "Závislost na poloze",
   "flipHorizontal": "Překlopit vodorovně",
   "flipVertical": "Překlopit svisle",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Podržet zkratky",
   "holdShortcutsDescription": "Podržte klávesu pro dočasné přepnutí na jiný nástroj. Zmáčkněte klávesu zpět na předchozí nástroj.",
-  "key": "Klíč"
+  "key": "Klíč",
+  "bringMovedElementsToFront": "Přeneste přesunuté prvky do předku",
+  "addTool": "Přidat nástroj"
 }

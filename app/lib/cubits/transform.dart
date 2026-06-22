@@ -4,10 +4,12 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'transform.freezed.dart';
 
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
@@ -15,37 +17,26 @@ const kRoundPrecision = 3;
 const kDrag = 0.001;
 const kBoundsSnapBackDuration = 0.18;
 
-@immutable
-class FrictionState extends Equatable {
-  final Offset beginOffset;
-  final double beginSize;
-  final DateTime lastUpdate;
-  final double duration;
-
-  const FrictionState(
-    this.beginOffset,
-    this.beginSize,
-    this.lastUpdate,
-    this.duration,
-  );
-
-  @override
-  List<Object?> get props => [beginOffset, beginSize, lastUpdate];
+@freezed
+sealed class FrictionState with _$FrictionState {
+  const factory FrictionState(
+    Offset beginOffset,
+    double beginSize,
+    DateTime lastUpdate,
+    double duration,
+  ) = _FrictionState;
 }
 
-@immutable
-class CameraTransform extends Equatable {
-  final Offset position;
-  final double size;
-  final FrictionState? friction;
-  final double pixelRatio;
+@freezed
+sealed class CameraTransform with _$CameraTransform {
+  const CameraTransform._();
 
-  const CameraTransform([
-    this.pixelRatio = 1,
-    this.position = Offset.zero,
-    this.size = 1,
-    this.friction,
-  ]);
+  const factory CameraTransform([
+    @Default(1) double pixelRatio,
+    @Default(Offset.zero) Offset position,
+    @Default(1) double size,
+    FrictionState? friction,
+  ]) = _CameraTransform;
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(pixelRatio, position, size);
@@ -68,9 +59,6 @@ class CameraTransform extends Equatable {
 
   Offset localToGlobal(Offset local) => local / size + position;
   Offset globalToLocal(Offset global) => (global - position) * size;
-
-  @override
-  List<Object?> get props => [position, size];
 
   double _getFinalTime(
     double velocity,

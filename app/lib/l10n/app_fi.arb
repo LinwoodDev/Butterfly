@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Polun poistaminen",
+  "stroke": "Stroke",
   "label": "Tunniste",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Tausta",
+  "applyBackground": "Käytä taustakuvaa",
+  "currentPage": "Nykyinen sivu",
+  "allPages": "Kaikki sivut",
   "box": "Laatikko",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Kiinteä väri",
+  "gradient": "Gradientti",
+  "gradientType": "Gradientti tyyppi",
+  "linear": "Lineaarinen",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Kaksinkertainen",
   "dotted": "Pisteytetty",
   "dottedDark": "Pilkullinen tumma",
@@ -288,8 +298,15 @@
   },
   "notSet": "Ei asetettu",
   "enterLayer": "Syötä kerroksen nimi",
+  "eraseShapes": "Pyyhi muodot",
+  "eraseShapeModeNone": "Älä poista muotoja",
+  "eraseShapeModeTouchEdges": "Pyyhi kun koskettaa reunoja",
+  "eraseShapeModeTouchAnywhere": "Pyyhi koskettaessa minne tahansa",
+  "selectElementModeTouchEdges": "Valitse kun koskettaa reunoja",
+  "selectElementModeTouchAnywhere": "Valitse koskettaessasi mihin tahansa",
   "selectElements": "Valitse elementit",
   "deleteElements": "Poista elementit",
+  "eraseAllElements": "Poista kaikki elementit",
   "deleteElementsConfirm": "Haluatko varmasti poistaa valitut elementit?",
   "selectCustomCollection": "Valitse mukautettu kokoelma",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Alkuperäinen otsikkopalkki",
+  "mode": "Mode",
   "syncMode": "Synkronoinnin tila",
   "connection": "Yhteys",
   "always": "Aina",
@@ -919,6 +937,7 @@
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
   "rotation": "Kierto",
+  "direction": "Suunta",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
   "rotate": "Kierrä",
@@ -945,6 +964,9 @@
   "ascending": "Nouseva",
   "descending": "Laskeva",
   "imageScale": "Kuvan mittakaava",
+  "svgScale": "SVG mittakaava",
+  "noImageSelected": "Kuvaa ei ole valittu",
+  "noSvgSelected": "SVG:tä ei ole valittu",
   "select": "Valitse",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
   "newNote": "Uusi muistiinpano",
-  "convertToLayer": "Muunna tasoksi",
+  "moveToLayer": "Siirrä tasoon",
+  "createLayer": "Luo taso",
   "merge": "Yhdistä",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Loppu",
+  "radius": "Radius",
+  "focalPoint": "Keskipiste",
+  "useOffCenterStartPoint": "Käytä keskeneräistä aloituspistettä",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Värien pysäytykset",
+  "addStop": "Lisää pysähdys",
   "positionDependent": "Asema riippuu",
   "flipHorizontal": "Käännä vaakasuora",
   "flipVertical": "Käännä pystysuuntainen",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Pitele Pikakuvakkeita",
   "holdShortcutsDescription": "Pidä näppäintä pohjassa vaihtaaksesi väliaikaisesti toiseen työkaluun. Avaimen vapauttaminen siirtyy takaisin edelliseen työkaluun.",
-  "key": "Avain"
+  "key": "Avain",
+  "bringMovedElementsToFront": "Tuo siirretyt elementit eteen",
+  "addTool": "Lisää työkalu"
 }

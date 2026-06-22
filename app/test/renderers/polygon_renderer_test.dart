@@ -20,8 +20,8 @@ void main() {
       final element = PolygonElement(
         points: points,
         property: const PolygonProperty(
-          color: SRGBColor.black,
-          fill: SRGBColor.transparent,
+          paint: ElementPaint.solid(color: SRGBColor.black),
+          fillPaint: ElementPaint.solid(color: SRGBColor.transparent),
           strokeWidth: 2,
         ),
       );
@@ -73,6 +73,36 @@ void main() {
         isFalse,
       );
     });
+
+    test('handles unbounded spacer rectangles', () {
+      final rightSpacerRect = const Rect.fromLTRB(
+        50,
+        -double.infinity,
+        double.infinity,
+        double.infinity,
+      );
+      final leftSpacerRect = const Rect.fromLTRB(
+        -double.infinity,
+        -double.infinity,
+        -50,
+        double.infinity,
+      );
+
+      expect(
+        calculator.hit(
+          rightSpacerRect,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isTrue,
+      );
+      expect(
+        calculator.hit(
+          leftSpacerRect,
+          hitElementMode: HitElementMode.touchAnywhere,
+        ),
+        isFalse,
+      );
+    });
   });
 
   group('Bezier', () {
@@ -89,8 +119,8 @@ void main() {
       final element = PolygonElement(
         points: points,
         property: const PolygonProperty(
-          color: SRGBColor.green,
-          fill: SRGBColor.black,
+          paint: ElementPaint.solid(color: SRGBColor.green),
+          fillPaint: ElementPaint.solid(color: SRGBColor.black),
           strokeWidth: 2,
         ),
       );

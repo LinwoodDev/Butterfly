@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/helpers/element.dart' as element_helper;
 import 'package:flutter/foundation.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pdfrx/pdfrx.dart';
 
 Uint8List? _getDataFromSource((NoteData, String) message) =>
@@ -28,6 +31,9 @@ class AssetService {
   Future<ui.Image?> _importImage(String path, NoteData document) async {
     var data = await compute(_getDataFromSource, (document, path));
     if (data == null) return null;
+    if (path.toLowerCase().endsWith('.svg')) {
+      return _importSvgImage(data);
+    }
     final codec = await ui.instantiateImageCodec(data);
     try {
       final frameInfo = await codec.getNextFrame();
@@ -35,6 +41,21 @@ class AssetService {
       return image;
     } finally {
       codec.dispose();
+    }
+  }
+
+  Future<ui.Image?> _importSvgImage(Uint8List data) async {
+    final pictureInfo = await vg.loadPicture(
+      SvgStringLoader(utf8.decode(data)),
+      null,
+      clipViewbox: false,
+    );
+    try {
+      final width = max(1, pictureInfo.size.width.ceil());
+      final height = max(1, pictureInfo.size.height.ceil());
+      return await pictureInfo.picture.toImage(width, height);
+    } finally {
+      pictureInfo.picture.dispose();
     }
   }
 

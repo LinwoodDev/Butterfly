@@ -464,6 +464,19 @@ Map<String, dynamic> _$AreasCreatedToJson(AreasCreated instance) =>
       'type': instance.$type,
     };
 
+AreasDuplicated _$AreasDuplicatedFromJson(Map json) => AreasDuplicated(
+  Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
+  (json['pages'] as List<dynamic>).map((e) => e as String).toList(),
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$AreasDuplicatedToJson(AreasDuplicated instance) =>
+    <String, dynamic>{
+      'area': instance.area.toJson(),
+      'pages': instance.pages,
+      'type': instance.$type,
+    };
+
 AreasRemoved _$AreasRemovedFromJson(Map json) => AreasRemoved(
   (json['areas'] as List<dynamic>).map((e) => e as String).toList(),
   $type: json['type'] as String?,
@@ -475,13 +488,15 @@ Map<String, dynamic> _$AreasRemovedToJson(AreasRemoved instance) =>
 AreaChanged _$AreaChangedFromJson(Map json) => AreaChanged(
   json['name'] as String,
   Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
-  $type: json['type'] as String?,
+  json['moveContents'] as bool? ?? false,
+  json['type'] as String?,
 );
 
 Map<String, dynamic> _$AreaChangedToJson(AreaChanged instance) =>
     <String, dynamic>{
       'name': instance.name,
       'area': instance.area.toJson(),
+      'moveContents': instance.moveContents,
       'type': instance.$type,
     };
 
@@ -662,6 +677,19 @@ Map<String, dynamic> _$ElementsLayerConvertedToJson(
   'name': instance.name,
   'type': instance.$type,
 };
+
+ElementsLayerMoved _$ElementsLayerMovedFromJson(Map json) => ElementsLayerMoved(
+  (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+  json['layerId'] as String,
+  $type: json['type'] as String?,
+);
+
+Map<String, dynamic> _$ElementsLayerMovedToJson(ElementsLayerMoved instance) =>
+    <String, dynamic>{
+      'elements': instance.elements,
+      'layerId': instance.layerId,
+      'type': instance.$type,
+    };
 
 EncryptionChanged _$EncryptionChangedFromJson(Map json) => EncryptionChanged(
   json['password'] as String?,

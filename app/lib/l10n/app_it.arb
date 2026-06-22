@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Cancella tratto",
+  "stroke": "Stroke",
   "label": "Etichetta",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Sfondo",
+  "applyBackground": "Applica sfondo",
+  "currentPage": "Pagina corrente",
+  "allPages": "Tutte le pagine",
   "box": "Riquadro",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solido",
+  "solidColor": "Tinta unita",
+  "gradient": "Gradiente",
+  "gradientType": "Tipo di gradiente",
+  "linear": "Lineare",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Doppio",
   "dotted": "Punteggiato",
   "dottedDark": "Punteggiato scuro",
@@ -288,8 +298,15 @@
   },
   "notSet": "Non impostato",
   "enterLayer": "Inserisci il nome del layer",
+  "eraseShapes": "Cancella forme",
+  "eraseShapeModeNone": "Non cancellare forme",
+  "eraseShapeModeTouchEdges": "Cancella quando si toccano i bordi",
+  "eraseShapeModeTouchAnywhere": "Cancella quando si tocca ovunque",
+  "selectElementModeTouchEdges": "Selezionare quando si toccano i bordi",
+  "selectElementModeTouchAnywhere": "Selezionare quando si tocca ovunque",
   "selectElements": "Seleziona elementi",
   "deleteElements": "Elimina elementi",
+  "eraseAllElements": "Cancella tutti gli elementi",
   "deleteElementsConfirm": "Vuoi davvero eliminare gli elementi selezionati?",
   "selectCustomCollection": "Seleziona una collezione personalizzata",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Gestures di input",
   "nativeTitleBar": "Barra del titolo nativo",
+  "mode": "Mode",
   "syncMode": "Modalità sincronizzazione",
   "connection": "Connessione",
   "always": "Sempre",
@@ -919,6 +937,7 @@
   "bringForward": "Avanti",
   "sendBackward": "Invia indietro",
   "rotation": "Rotazione",
+  "direction": "Direzione",
   "onlyAvailableLargerScreen": "Disponibile solo su schermi più grandi",
   "toolbarPosition": "Posizione barra strumenti",
   "rotate": "Ruota",
@@ -945,6 +964,9 @@
   "ascending": "Crescente",
   "descending": "Decrescente",
   "imageScale": "Scala immagine",
+  "svgScale": "Scala SVG",
+  "noImageSelected": "Nessuna immagine selezionata",
+  "noSvgSelected": "Nessun SVG selezionato",
   "select": "Seleziona",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Schermata home",
   "lastNote": "Ultima nota",
   "newNote": "Nuova nota",
-  "convertToLayer": "Converti in livello",
+  "moveToLayer": "Sposta nel livello",
+  "createLayer": "Crea livello",
   "merge": "Unisci",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Fine",
+  "radius": "Radius",
+  "focalPoint": "Punto focale",
+  "useOffCenterStartPoint": "Usa un punto di partenza fuori centro",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Arresto colore",
+  "addStop": "Aggiungi stop",
   "positionDependent": "Dipendente dalla posizione",
   "flipHorizontal": "Capovolgi orizzontale",
   "flipVertical": "Capovolgi verticale",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Tenere Le Scorciatoie",
   "holdShortcutsDescription": "Tieni premuto un tasto per passare temporaneamente a un altro strumento. Rilasciare il tasto passa allo strumento precedente.",
-  "key": "Chiave"
+  "key": "Chiave",
+  "bringMovedElementsToFront": "Porta in primo piano gli elementi spostati",
+  "addTool": "Aggiungi strumento"
 }

@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Bane eraser",
+  "stroke": "Stroke",
   "label": "Etikett",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Bakgrunn",
+  "applyBackground": "Bruk bakgrunn",
+  "currentPage": "Nåværende side",
+  "allPages": "Alle sider",
   "box": "Boks",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Enslig farge",
+  "gradient": "Gradert",
+  "gradientType": "Type gradient",
+  "linear": "Lineær",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dobbel",
   "dotted": "Prikket",
   "dottedDark": "Prikket mørkt",
@@ -288,8 +298,15 @@
   },
   "notSet": "Ikke angitt",
   "enterLayer": "Angi navn på lag",
+  "eraseShapes": "Slett figurer",
+  "eraseShapeModeNone": "Ikke slett figurer",
+  "eraseShapeModeTouchEdges": "Slett når kantene berører",
+  "eraseShapeModeTouchAnywhere": "Slett under berøring hvor som helst",
+  "selectElementModeTouchEdges": "Velg når kanter berører",
+  "selectElementModeTouchAnywhere": "Velg ved berøring hvor som helst",
   "selectElements": "Velg elementer",
   "deleteElements": "Slett elementer",
+  "eraseAllElements": "Slett alle elementer",
   "deleteElementsConfirm": "Vil du virkelig slette de valgte elementene?",
   "selectCustomCollection": "Velg en egendefinert samling",
   "svg": "Svg",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Native tittellinjen",
+  "mode": "Mode",
   "syncMode": "Synk modus",
   "connection": "Tilkobling",
   "always": "Alltid",
@@ -919,6 +937,7 @@
   "bringForward": "Send fremover",
   "sendBackward": "Send bakover",
   "rotation": "Rotasjon",
+  "direction": "Retning",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
   "rotate": "Roter",
@@ -945,6 +964,9 @@
   "ascending": "Stigende",
   "descending": "Synkende",
   "imageScale": "Bilde skalering",
+  "svgScale": "SVG skala",
+  "noImageSelected": "Ingen bilde valgt",
+  "noSvgSelected": "Ingen SVG valgt",
   "select": "Velg",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Hjem-skjerm",
   "lastNote": "Siste notat",
   "newNote": "Nytt notat",
-  "convertToLayer": "Konverter til lag",
+  "moveToLayer": "Flytt til lag",
+  "createLayer": "Opprett lag",
   "merge": "Flett",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Slutt",
+  "radius": "Radius",
+  "focalPoint": "Fokuspunkt",
+  "useOffCenterStartPoint": "Bruke et startpunkt i midten",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Farge stopper",
+  "addStop": "Legg til stopp",
   "positionDependent": "Posisjon avhengig",
   "flipHorizontal": "Vend horisontalt",
   "flipVertical": "Vend vertikalt",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold snarveier",
   "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
-  "key": "Nøkkel"
+  "key": "Nøkkel",
+  "bringMovedElementsToFront": "Plasser flyttede elementer forsiden",
+  "addTool": "Legg til verktøy"
 }

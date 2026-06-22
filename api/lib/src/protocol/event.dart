@@ -154,9 +154,16 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.areasCreated(List<Area> areas) = AreasCreated;
 
+  const factory DocumentEvent.areasDuplicated(Area area, List<String> pages) =
+      AreasDuplicated;
+
   const factory DocumentEvent.areasRemoved(List<String> areas) = AreasRemoved;
 
-  const factory DocumentEvent.areaChanged(String name, Area area) = AreaChanged;
+  const factory DocumentEvent.areaChanged(
+    String name,
+    Area area, [
+    @Default(false) bool moveContents,
+  ]) = AreaChanged;
 
   const factory DocumentEvent.areaReordered(String name, int newIndex) =
       AreaReordered;
@@ -210,6 +217,11 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     List<String> elements, [
     @Default('') String name,
   ]) = ElementsLayerConverted;
+
+  const factory DocumentEvent.elementsLayerMoved(
+    List<String> elements,
+    String layerId,
+  ) = ElementsLayerMoved;
 
   const factory DocumentEvent.encryptionChanged(String? password) =
       EncryptionChanged;

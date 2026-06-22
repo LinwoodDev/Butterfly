@@ -472,11 +472,12 @@ class _WindowCloseGuardState extends State<_WindowCloseGuard> {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
-const applicationVersionName = 'Crimson Red';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
-const applicationMinorVersion = '2.5';
 const logoAsset = isNightly ? 'images/nightly.png' : 'images/logo.png';
+
+const applicationVersionName = 'Dreamy Duskywing';
+const applicationMinorVersion = '2.6';
 
 Future<String> getCurrentVersion() async {
   const envVersion = String.fromEnvironment('version');

@@ -201,11 +201,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    final cubit = context.getCurrentIndexCubit();
+    cubit.cancelDelayedBake();
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       context.refreshForegrounds();
       return;
@@ -310,7 +311,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const LineShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -355,7 +356,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const CircleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -387,7 +388,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const RectangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -416,7 +417,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           secondPosition: secondPositionInView.toPoint(),
           property: ShapeProperty(
             shape: const TriangleShape(),
-            color: data.property.color,
+            paint: data.property.paint,
             strokeWidth: data.property.strokeWidth,
           ),
           collection: currentCollection,
@@ -459,12 +460,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
   @override
-  SRGBColor getColor() => data.property.color;
+  SRGBColor getColor() => data.property.paint.previewColor;
 
   @override
   PenTool setColor(SRGBColor color) => data.copyWith(
     property: data.property.copyWith(
-      color: color.withValues(a: data.property.color.a),
+      paint: ElementPaint.solid(color: color.withValues(a: getColor().a)),
     ),
   );
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -76,6 +77,17 @@ Future<String> getButterflyDocumentsDirectory([ExternalStorage? storage]) =>
 typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteFile>;
 typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
+
+const kCorePackFileName = 'Core.bfly';
+
+String getPackDisplayName(NoteData pack, String fileName) {
+  final displayName = pack.name ?? pack.getMetadata()?.name;
+  if (displayName?.trim().isNotEmpty ?? false) return displayName!.trim();
+  final normalized = fileName.split('/').last;
+  return normalized.endsWith('.bfly')
+      ? normalized.substring(0, normalized.length - '.bfly'.length)
+      : normalized;
+}
 
 final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
 
@@ -222,11 +234,6 @@ class ButterflyFileSystem {
     }
   }
 
-  Future<void> _createDefaultPacks(PackFileSystem fs) async {
-    final pack = await DocumentDefaults.getCorePack();
-    await fs.createFile('${pack.name}.bfly', pack);
-  }
-
   String _cacheKey(ExternalStorage? storage) => storage?.identifier ?? 'local';
 
   TypedDirectoryFileSystem<NoteFile> buildDocumentSystem([
@@ -244,7 +251,7 @@ class ButterflyFileSystem {
       onDecode: decodeNoteFile,
       storage: storage,
       useIsolates: true,
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _documentCache[key] = system;
     return system;
@@ -271,7 +278,7 @@ class ButterflyFileSystem {
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _templateConfig.variant),
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _templateCache[key] = system;
     return system;
@@ -291,8 +298,7 @@ class ButterflyFileSystem {
       onEncode: encodeNoteData,
       onDecode: decodeNoteData,
       storage: _cacheAllStorage(storage, _packConfig.variant),
-      createDefault: _createDefaultPacks,
-      useAndroidSaf: settingsCubit.state.hasFlag('useAndroidSaf'),
+      useAndroidSaf: true,
     );
     _packCache[key] = system;
     return system;
@@ -331,17 +337,45 @@ class ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final system = buildPackSystem(storage);
-    await system.initialize();
-    final files = await system.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
+    for (final (name, pack) in await getCoreAndUserPacks(storage)) {
       final palette = test(pack);
       if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
       return palette.toPack(pack, name);
     }
     return null;
+  }
+
+  Future<List<(String, NoteData)>> getCoreAndUserPacks([
+    ExternalStorage? storage,
+  ]) async {
+    final corePack = await DocumentDefaults.getCorePack();
+    NoteData createUserCorePack() {
+      var pack = NoteData(Archive(), parent: corePack);
+      final metadata = corePack.getMetadata();
+      if (metadata != null) {
+        pack = pack.setMetadata(metadata);
+      }
+      return pack;
+    }
+
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
+    final packs = <(String, NoteData)>[];
+    (String, NoteData)? userCorePack;
+    for (final file in files) {
+      final pack = file.data!;
+      final item = (file.pathWithoutLeadingSlash, pack);
+      if (item.$1 == kCorePackFileName) {
+        userCorePack = (item.$1, NoteData(pack.archive, parent: corePack));
+      } else {
+        packs.add(item);
+      }
+    }
+    return [
+      userCorePack ?? (kCorePackFileName, createUserCorePack()),
+      ...packs,
+    ];
   }
 
   Future<PackItem<text.TextStyleSheet>?> findDefaultStyleSheet([
@@ -351,10 +385,16 @@ class ButterflyFileSystem {
     ExternalStorage? storage,
   ]) => findPack((pack) => pack.getNamedPalettes().firstOrNull, storage);
 
-  Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem(
-        settingsCubit.getRemote(location.namespace),
-      ).updateFile(location.key, newPack);
+  Future<void> updatePack(PackAssetLocation location, NoteData newPack) async {
+    final system = buildDefaultPackSystem();
+    await system.initialize();
+    final existing = await system.getFile(location.namespace);
+    if (existing == null) {
+      await system.createFile(location.namespace, newPack);
+      return;
+    }
+    await system.updateFile(location.namespace, newPack);
+  }
 
   void removeCachedDocumentSystem(ExternalStorage? storage) {
     final key = _cacheKey(storage);

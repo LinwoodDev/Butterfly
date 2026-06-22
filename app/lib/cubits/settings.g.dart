@@ -138,6 +138,9 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   zoomPosition:
       $enumDecodeNullable(_$ZoomPositionEnumMap, json['zoomPosition']) ??
       ZoomPosition.bottomRight,
+  propertyPosition:
+      $enumDecodeNullable(_$ZoomPositionEnumMap, json['propertyPosition']) ??
+      ZoomPosition.topRight,
   lastVersion: json['lastVersion'] as String?,
   defaultRemote: json['defaultRemote'] as String? ?? '',
   nativeTitleBar: json['nativeTitleBar'] as bool? ?? false,
@@ -243,6 +246,16 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
         ),
   showVerboseLogs: json['showVerboseLogs'] as bool? ?? false,
   showThumbnails: json['showThumbnails'] as bool? ?? true,
+  bringMovedElementsToFront:
+      json['bringMovedElementsToFront'] as bool? ?? false,
+  favoriteTools:
+      (json['favoriteTools'] as List<dynamic>?)
+          ?.map(
+            (e) =>
+                PackAssetLocation.fromJson(Map<String, dynamic>.from(e as Map)),
+          )
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$ButterflySettingsToJson(
@@ -265,6 +278,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'bannerVisibility': _$BannerVisibilityEnumMap[instance.bannerVisibility]!,
   'zoomEnabled': instance.zoomEnabled,
   'zoomPosition': _$ZoomPositionEnumMap[instance.zoomPosition]!,
+  'propertyPosition': _$ZoomPositionEnumMap[instance.propertyPosition]!,
   'lastVersion': instance.lastVersion,
   'defaultRemote': instance.defaultRemote,
   'nativeTitleBar': instance.nativeTitleBar,
@@ -312,6 +326,8 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'selectedPalette': instance.selectedPalette?.toJson(),
   'showVerboseLogs': instance.showVerboseLogs,
   'showThumbnails': instance.showThumbnails,
+  'bringMovedElementsToFront': instance.bringMovedElementsToFront,
+  'favoriteTools': instance.favoriteTools.map((e) => e.toJson()).toList(),
 };
 
 const _$ThemeModeEnumMap = {

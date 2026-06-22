@@ -11,6 +11,9 @@ import '../../widgets/editable_list_tile.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/reorderable_list_item.dart';
 
+int _documentLayerIndexFromViewIndex(int index, int layerCount) =>
+    layerCount - index - 1;
+
 class LayersView extends StatelessWidget {
   const LayersView({super.key});
 
@@ -22,6 +25,7 @@ class LayersView extends StatelessWidget {
           current is DocumentLoadSuccess &&
           (previous.currentLayer != current.currentLayer ||
               previous.invisibleLayers != current.invisibleLayers ||
+              previous.page.layers != current.page.layers ||
               previous.page.content != current.page.content),
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
@@ -242,7 +246,10 @@ class LayersView extends StatelessWidget {
                 onReorderItem: (int oldIndex, int newIndex) {
                   final layer = layers[oldIndex];
                   context.read<DocumentBloc>().add(
-                    LayerOrderChanged(layer.id ?? '', newIndex),
+                    LayerOrderChanged(
+                      layer.id ?? '',
+                      _documentLayerIndexFromViewIndex(newIndex, layers.length),
+                    ),
                   );
                 },
               ),

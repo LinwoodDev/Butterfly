@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/delete.dart';
+import 'package:butterfly/dialogs/layers.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -151,28 +152,22 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       final state = bloc.state;
-                      if (state is! DocumentLoadSuccess) return;
-                      final current = bloc.state.currentCollection ?? '';
-                      final name = await showDialog<String>(
-                        context: context,
-                        builder: (context) => NameDialog(value: current),
-                      );
-                      if (name == null) return;
-                      bloc.add(
-                        ElementsLayerConverted(
-                          state
-                              .getLayer()
-                              .content
-                              .where((e) => e.collection == current)
-                              .map((e) => e.id)
-                              .nonNulls
-                              .toList(),
-                          name,
+                      if (state is! DocumentLoaded) return;
+                      final elementIds = state.page.content
+                          .where((e) => e.collection == state.currentCollection)
+                          .map((e) => e.id)
+                          .nonNulls
+                          .toList();
+                      showDialog<void>(
+                        builder: (context) => BlocProvider.value(
+                          value: bloc,
+                          child: MoveToLayerDialog(elementIds: elementIds),
                         ),
+                        context: context,
                       );
                       if (context.mounted) Navigator.pop(context);
                     },
-                    tooltip: AppLocalizations.of(context).convertToLayer,
+                    tooltip: AppLocalizations.of(context).moveToLayer,
                     icon: const PhosphorIcon(PhosphorIconsLight.stack),
                   ),
                 ],

@@ -1,10 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/src/converter/color.dart';
 import 'package:dart_leap/dart_leap.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../converter/color.dart';
+import '../converter/core.dart';
+import 'data.dart';
+import 'element.dart';
+import 'tool.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';

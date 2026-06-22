@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/models/text.dart';
 import 'package:mocktail/mocktail.dart';
@@ -68,17 +70,46 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
     NamedItem<T>? Function(NoteData) test, [
     ExternalStorage? storage,
   ]) async {
-    final system = buildPackSystem(storage);
-    await system.initialize();
-    final files = await system.getFiles();
-    for (final file in files) {
-      final pack = file.data!;
+    for (final (name, pack) in await getCoreAndUserPacks(storage)) {
       final palette = test(pack);
       if (palette == null) continue;
-      final name = file.pathWithoutLeadingSlash;
       return palette.toPack(pack, name);
     }
     return null;
+  }
+
+  @override
+  Future<List<(String, NoteData)>> getCoreAndUserPacks([
+    ExternalStorage? storage,
+  ]) async {
+    final corePack = await DocumentDefaults.getCorePack();
+    NoteData createUserCorePack() {
+      var pack = NoteData(Archive(), parent: corePack);
+      final metadata = corePack.getMetadata();
+      if (metadata != null) {
+        pack = pack.setMetadata(metadata);
+      }
+      return pack;
+    }
+
+    final system = buildPackSystem(storage);
+    await system.initialize();
+    final files = await system.getFiles();
+    final packs = <(String, NoteData)>[];
+    (String, NoteData)? userCorePack;
+    for (final file in files) {
+      final pack = file.data!;
+      final item = (file.pathWithoutLeadingSlash, pack);
+      if (item.$1 == kCorePackFileName) {
+        userCorePack = (item.$1, NoteData(pack.archive, parent: corePack));
+      } else {
+        packs.add(item);
+      }
+    }
+    return [
+      userCorePack ?? (kCorePackFileName, createUserCorePack()),
+      ...packs,
+    ];
   }
 
   @override
@@ -100,8 +131,16 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   void dispose() {}
 
   @override
-  Future<void> updatePack(PackAssetLocation location, NoteData newPack) =>
-      buildPackSystem().updateFile(location.key, newPack);
+  Future<void> updatePack(PackAssetLocation location, NoteData newPack) async {
+    final system = buildPackSystem();
+    await system.initialize();
+    final existing = await system.getFile(location.namespace);
+    if (existing == null) {
+      await system.createFile(location.namespace, newPack);
+      return;
+    }
+    await system.updateFile(location.namespace, newPack);
+  }
 }
 
 TemplateFileSystem buildMockTemplateFileSystem() {

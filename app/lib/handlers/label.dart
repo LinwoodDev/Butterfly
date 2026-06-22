@@ -4,10 +4,16 @@ class LabelHandler extends Handler<LabelTool>
     with HandlerWithCursor, TextInputClient {
   LabelContext? _context;
   DocumentBloc? _bloc;
+  String? _editingElementId;
   bool _isSelecting = false;
   TextRange _composing = TextRange.empty;
 
   bool get isCurrentlyEditing => _context?.element != null;
+
+  @override
+  Map<String, RendererState> get rendererStates => {
+    ?_editingElementId: RendererState.hidden,
+  };
 
   LabelHandler(super.data);
 
@@ -182,20 +188,23 @@ class LabelHandler extends Handler<LabelTool>
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
     final hitRect = _context?.getRect();
     final hit = hitRect?.contains(globalPos) ?? false;
-    final hadFocus = focusNode.hasFocus && !hit;
     FocusScope.of(context.buildContext).requestFocus(focusNode);
     final theme = Theme.of(context.buildContext);
     final style = theme.textTheme.bodyLarge!;
-    if (hadFocus || _context?.element == null) {
-      if (_context?.element != null) _submit(context.getDocumentBloc());
+    if (!hit || forceCreate || _context?.element == null) {
+      if (_context?.element != null && !hit) _submit(context.getDocumentBloc());
       final utilities = currentIndex.utilities;
-      final hit = await context.getDocumentBloc().rayCast(
-        globalPos,
-        0.0,
-        useCollection: utilities.lockCollection,
-        useLayer: utilities.lockLayer,
-      );
-      final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
+      final hits = forceCreate
+          ? <Renderer<PadElement>>{}
+          : await context.getDocumentBloc().rayCast(
+              globalPos,
+              0.0,
+              useCollection: utilities.lockCollection,
+              useLayer: utilities.lockLayer,
+            );
+      final labelRenderer = hits
+          .whereType<Renderer<LabelElement>>()
+          .firstOrNull;
       if (labelRenderer == null) {
         _context = await _createContext(
           document,
@@ -204,11 +213,9 @@ class LabelHandler extends Handler<LabelTool>
           zoom: context.getCameraTransform().size,
         );
       } else {
-        final page = context.getPage();
-        if (page == null) return;
         final id = (labelRenderer.element as PadElement).id;
         if (id == null) return;
-        context.getDocumentBloc().add(ElementsRemoved([id]));
+        _editingElementId = id;
         _context = await _createContext(
           document,
           fileSystem,
@@ -331,6 +338,7 @@ class LabelHandler extends Handler<LabelTool>
     _connection = null;
     _context = null;
     _bloc = null;
+    _editingElementId = null;
     _isSelecting = false;
     _composing = TextRange.empty;
   }
@@ -344,12 +352,23 @@ class LabelHandler extends Handler<LabelTool>
     if (element == null) return;
     final id = element.id;
     final isEmpty = context.isEmpty;
-    if (context.isCreating && !isEmpty) {
+    final editingElementId = _editingElementId;
+    if (editingElementId != null && isEmpty) {
+      bloc.add(ElementsRemoved([editingElementId]));
+      bloc.delayedBake();
+    } else if (editingElementId != null) {
+      bloc.add(
+        ElementsChanged({
+          editingElementId: [element],
+        }),
+      );
+    } else if (!isEmpty) {
       bloc.add(ElementsCreated([element]));
     } else if (!context.isCreating && isEmpty && id != null) {
       bloc.add(ElementsRemoved([id]));
       bloc.delayedBake();
     }
+    _editingElementId = null;
   }
 
   @override

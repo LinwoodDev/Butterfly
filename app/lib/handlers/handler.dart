@@ -72,7 +72,6 @@ part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'collection.dart';
-part 'path_eraser.dart';
 part 'pen.dart';
 part 'eye_dropper.dart';
 part 'presentation.dart';
@@ -227,6 +226,11 @@ abstract class Handler<T> {
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
+  void onDocumentUpdated(
+    DocumentLoadSuccess state,
+    DocumentLoadSuccess? oldState,
+  ) {}
+
   FutureOr<void> onPointerDown(PointerDownEvent event, EventContext context) {}
 
   FutureOr<void> onPointerMove(PointerMoveEvent event, EventContext context) {}
@@ -288,7 +292,6 @@ abstract class Handler<T> {
           LabelTool() => LabelHandler(tool),
           PenTool() => PenHandler(tool),
           EraserTool() => EraserHandler(tool),
-          PathEraserTool() => PathEraserHandler(tool),
           CollectionTool() => CollectionHandler(tool),
           AreaTool() => AreaHandler(tool),
           LaserTool() => LaserHandler(tool),

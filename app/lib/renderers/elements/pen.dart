@@ -17,6 +17,8 @@ class PenRenderer extends Renderer<PenElement> {
   Path? _cachedFillPath;
   Path? _cachedStrokePath;
   PathHitCalculator? _cachedHitCalculator;
+  final _strokePaint = ElementPaintRenderer();
+  final _fillPaint = ElementPaintRenderer();
 
   void _clearCachedPaths() {
     _cachedFillPath = null;
@@ -29,7 +31,7 @@ class PenRenderer extends Renderer<PenElement> {
     if (points.isEmpty) return;
     final property = element.property;
 
-    if (property.fill.a > 0) {
+    if (property.fillPaint.previewColor.a > 0) {
       _cachedFillPath = Path();
       final first = points.first;
       _cachedFillPath!.moveTo(first.x, first.y);
@@ -38,7 +40,7 @@ class PenRenderer extends Renderer<PenElement> {
       }
     }
 
-    if (property.color.a > 0) {
+    if (property.paint.previewColor.a > 0) {
       final outlinePoints = _getOutlinePoints();
       if (outlinePoints.isNotEmpty) {
         _cachedStrokePath = Path();
@@ -70,12 +72,12 @@ class PenRenderer extends Renderer<PenElement> {
   }
 
   @override
-  void setup(
+  Future<void> setup(
     TransformCubit transformCubit,
     NoteData document,
     AssetService assetService,
     DocumentPage page,
-  ) {
+  ) async {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
@@ -120,8 +122,28 @@ class PenRenderer extends Renderer<PenElement> {
       bottomRightCorner.dx,
       bottomRightCorner.dy,
     );
-    super.setup(transformCubit, document, assetService, page);
+    await Future.wait([
+      _strokePaint.setup(property.paint, document, assetService),
+      _fillPaint.setup(property.fillPaint, document, assetService),
+    ]);
+    await super.setup(transformCubit, document, assetService, page);
   }
+
+  @override
+  void dispose() {
+    _strokePaint.dispose();
+    _fillPaint.dispose();
+    _clearCachedPaths();
+    super.dispose();
+  }
+
+  @override
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) => _strokePaint.uses(path) || _fillPaint.uses(path);
 
   @override
   void onHidden(
@@ -152,18 +174,20 @@ class PenRenderer extends Renderer<PenElement> {
       _computePaths();
     }
 
-    if (property.fill.a > 0 && _cachedFillPath != null) {
-      final paint = Paint()
-        ..color = property.fill.toColor()
-        ..style = PaintingStyle.fill
-        ..strokeCap = StrokeCap.round;
+    if (property.fillPaint.previewColor.a > 0 && _cachedFillPath != null) {
+      final paint = _fillPaint.build(
+        property.fillPaint,
+        rect,
+        style: PaintingStyle.fill,
+      )..strokeCap = StrokeCap.round;
       canvas.drawPath(_cachedFillPath!, paint);
     }
-    if (property.color.a > 0 && _cachedStrokePath != null) {
-      final paint = Paint()
-        ..color = property.color.toColor()
-        ..style = PaintingStyle.fill
-        ..strokeCap = StrokeCap.round;
+    if (property.paint.previewColor.a > 0 && _cachedStrokePath != null) {
+      final paint = _strokePaint.build(
+        property.paint,
+        expandedRect,
+        style: PaintingStyle.fill,
+      )..strokeCap = StrokeCap.round;
       canvas.drawPath(_cachedStrokePath!, paint);
     }
   }
@@ -204,19 +228,21 @@ class PenRenderer extends Renderer<PenElement> {
     final points = element.points;
     final property = element.property;
     if (points.isEmpty) return;
-    if (property.fill.a > 0) {
+    final fill = property.fillPaint.previewColor;
+    final color = property.paint.previewColor;
+    if (fill.a > 0) {
       final first = points.first;
       var path = 'M ${first.x} ${first.y}';
       points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.fill.toHexString(alpha: false))
-        ..setAttribute('fill-opacity', '${property.fill.a / 255}')
+        ..setAttribute('fill', fill.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${fill.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
     }
-    if (property.color.a > 0) {
+    if (color.a > 0) {
       var path = '';
 
       // 1. Get the outline points from the input points
@@ -239,8 +265,8 @@ class PenRenderer extends Renderer<PenElement> {
 
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)
-        ..setAttribute('fill', property.color.toHexString(alpha: false))
-        ..setAttribute('fill-opacity', '${property.color.a / 255}')
+        ..setAttribute('fill', color.toHexString(alpha: false))
+        ..setAttribute('fill-opacity', '${color.a / 255}')
         ..setAttribute('stroke', 'none')
         ..setAttribute('stroke-linecap', 'round')
         ..setAttribute('stroke-linejoin', 'round');
@@ -300,11 +326,6 @@ class PenRenderer extends Renderer<PenElement> {
       rotation * pi / 180,
     );
     return _cachedHitCalculator!;
-  }
-
-  @override
-  void dispose() {
-    _clearCachedPaths();
   }
 }
 

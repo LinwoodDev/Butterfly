@@ -16,19 +16,20 @@ import 'pack.dart';
 
 class AssetDialog extends StatelessWidget {
   final PackAssetLocation? value;
+  final String initialName;
 
-  const AssetDialog({super.key, this.value});
+  const AssetDialog({super.key, this.value, this.initialName = ''});
 
   @override
   Widget build(BuildContext context) {
     String? pack = value?.namespace;
-    String name = value?.key ?? '';
+    String name = value?.key ?? initialName;
     final bloc = context.read<DocumentBloc>();
+    final packSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDefaultPackSystem();
     return FutureBuilder<List<FileSystemFile<NoteData>>>(
-      future: context
-          .read<ButterflyFileSystem>()
-          .buildDefaultPackSystem()
-          .getFiles(),
+      future: packSystem.initialize().then((_) => packSystem.getFiles()),
       builder: (context, snapshot) => BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) => previous.data != current.data,
         builder: (context, state) {
@@ -55,7 +56,10 @@ class AssetDialog extends StatelessWidget {
                         dropdownMenuEntries: packs.map((e) {
                           return DropdownMenuEntry<String>(
                             value: e.path,
-                            label: e.data!.getMetadata()?.name ?? e.path,
+                            label: getPackDisplayName(
+                              e.data!,
+                              e.pathWithoutLeadingSlash,
+                            ),
                           );
                         }).toList(),
                         onSelected: (value) {

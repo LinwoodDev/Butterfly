@@ -9,7 +9,6 @@ class ToolSelection<T extends Tool> extends Selection<T> {
             LabelTool e => LabelToolSelection([e]),
             PenTool e => PenToolSelection([e]),
             EraserTool e => EraserToolSelection([e]),
-            PathEraserTool e => PathEraserToolSelection([e]),
             SelectTool e => SelectToolSelection([e]),
             AreaTool e => AreaToolSelection([e]),
             GridTool e => GridToolSelection([e]),
@@ -45,17 +44,10 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedTools = <Tool>[];
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    for (var i = 0; i < selected.length; i++) {
-      final tool = selected[i];
-      final oldTool = this.selected.elementAtOrNull(i);
-      if (tool == oldTool) continue;
-      updatedTools.add(tool);
-    }
-    bloc.add(ToolsChanged(updatedTools));
+    bloc.add(ToolsChanged(selected));
     super.update(context, selected);
   }
 

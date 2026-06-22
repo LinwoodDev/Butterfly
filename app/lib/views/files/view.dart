@@ -1,5 +1,7 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/dialogs/collaboration/connect.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -851,6 +853,13 @@ class FilesViewState extends State<FilesView> {
                         children: [
                           IconButton(
                             icon: const PhosphorIcon(
+                              PhosphorIconsLight.paperPlaneRight,
+                            ),
+                            tooltip: AppLocalizations.of(context).export,
+                            onPressed: _exportSelectedFiles,
+                          ),
+                          IconButton(
+                            icon: const PhosphorIcon(
                               PhosphorIconsLight.arrowsDownUp,
                             ),
                             tooltip: AppLocalizations.of(context).move,
@@ -898,6 +907,78 @@ class FilesViewState extends State<FilesView> {
               ),
             ),
     );
+  }
+
+  Future<void> _exportSelectedFiles() async {
+    final selected = _selectedFiles.toList()..sort();
+    if (selected.isEmpty) return;
+
+    try {
+      final archive = Archive();
+      final archivePaths = <String>{};
+      for (final path in selected) {
+        final entity = await _documentSystem.getAsset(path, listLevel: 0);
+        if (entity == null) continue;
+        await _addEntityToArchive(
+          archive,
+          archivePaths,
+          entity,
+          entity.fileName,
+        );
+      }
+      if (archive.isEmpty) return;
+      final bytes = ZipEncoder().encodeBytes(archive);
+      if (!mounted) return;
+      await exportZip(context, bytes);
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).error)),
+      );
+    }
+  }
+
+  Future<void> _addEntityToArchive(
+    Archive archive,
+    Set<String> archivePaths,
+    FileSystemEntity<NoteFile> entity,
+    String archivePath,
+  ) async {
+    final normalizedPath = archivePath.replaceAll('\\', '/');
+    if (normalizedPath.isEmpty) return;
+    if (entity is FileSystemFile<NoteFile>) {
+      final file = entity.hasData
+          ? entity
+          : await _documentSystem.getAsset(entity.path, listLevel: 0);
+      if (file is! FileSystemFile<NoteFile>) return;
+      final data = file.data?.data;
+      if (data == null || !archivePaths.add(normalizedPath)) return;
+      archive.addFile(ArchiveFile.bytes(normalizedPath, data));
+      return;
+    }
+
+    if (entity is FileSystemDirectory<NoteFile>) {
+      final directory = await _documentSystem.getAsset(
+        entity.path,
+        listLevel: oneListLevel,
+        readData: false,
+      );
+      if (directory is! FileSystemDirectory<NoteFile>) return;
+      final directoryPath = normalizedPath.endsWith('/')
+          ? normalizedPath
+          : '$normalizedPath/';
+      if (archivePaths.add(directoryPath)) {
+        archive.addFile(ArchiveFile.directory(directoryPath));
+      }
+      for (final child in directory.assets) {
+        await _addEntityToArchive(
+          archive,
+          archivePaths,
+          child,
+          '$directoryPath${child.fileName}',
+        );
+      }
+    }
   }
 
   Future<void> _onFileTap(FileSystemEntity<NoteFile> entity) async {

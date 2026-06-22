@@ -47,10 +47,6 @@ Tool _$ToolFromJson(
           return EraserTool.fromJson(
             json
           );
-                case 'pathEraser':
-          return PathEraserTool.fromJson(
-            json
-          );
                 case 'collection':
           return CollectionTool.fromJson(
             json
@@ -738,12 +734,13 @@ as PenProperty,
 @JsonSerializable()
 
 class EraserTool extends Tool {
-   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false, final  String? $type}): $type = $type ?? 'eraser',super._();
+   EraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.mode = EraserMode.stroke, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false, final  String? $type}): $type = $type ?? 'eraser',super._();
   factory EraserTool.fromJson(Map<String, dynamic> json) => _$EraserToolFromJson(json);
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String displayIcon;
 @override@IdJsonConverter() final  String? id;
+@JsonKey() final  EraserMode mode;
 @JsonKey() final  double strokeWidth;
 @JsonKey() final  HitElementMode hitElementMode;
 @JsonKey() final  bool eraseElements;
@@ -767,7 +764,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.eraser(name: $name, displayIcon: $displayIcon, id: $id, strokeWidth: $strokeWidth, hitElementMode: $hitElementMode, eraseElements: $eraseElements)';
+  return 'Tool.eraser(name: $name, displayIcon: $displayIcon, id: $id, mode: $mode, strokeWidth: $strokeWidth, hitElementMode: $hitElementMode, eraseElements: $eraseElements)';
 }
 
 
@@ -778,7 +775,7 @@ abstract mixin class $EraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $EraserToolCopyWith(EraserTool value, $Res Function(EraserTool) _then) = _$EraserToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, double strokeWidth, HitElementMode hitElementMode, bool eraseElements
+ String name, String displayIcon,@IdJsonConverter() String? id, EraserMode mode, double strokeWidth, HitElementMode hitElementMode, bool eraseElements
 });
 
 
@@ -795,88 +792,13 @@ class _$EraserToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? strokeWidth = null,Object? hitElementMode = null,Object? eraseElements = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? mode = null,Object? strokeWidth = null,Object? hitElementMode = null,Object? eraseElements = null,}) {
   return _then(EraserTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
 as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,strokeWidth: null == strokeWidth ? _self.strokeWidth : strokeWidth // ignore: cast_nullable_to_non_nullable
-as double,hitElementMode: null == hitElementMode ? _self.hitElementMode : hitElementMode // ignore: cast_nullable_to_non_nullable
-as HitElementMode,eraseElements: null == eraseElements ? _self.eraseElements : eraseElements // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class PathEraserTool extends Tool {
-   PathEraserTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.strokeWidth = 5, this.hitElementMode = HitElementMode.touchAnywhere, this.eraseElements = false, final  String? $type}): $type = $type ?? 'pathEraser',super._();
-  factory PathEraserTool.fromJson(Map<String, dynamic> json) => _$PathEraserToolFromJson(json);
-
-@override@JsonKey() final  String name;
-@override@JsonKey() final  String displayIcon;
-@override@IdJsonConverter() final  String? id;
-@JsonKey() final  double strokeWidth;
-@JsonKey() final  HitElementMode hitElementMode;
-@JsonKey() final  bool eraseElements;
-
-@JsonKey(name: 'type')
-final String $type;
-
-
-/// Create a copy of Tool
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$PathEraserToolCopyWith<PathEraserTool> get copyWith => _$PathEraserToolCopyWithImpl<PathEraserTool>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$PathEraserToolToJson(this, );
-}
-
-
-
-@override
-String toString() {
-  return 'Tool.pathEraser(name: $name, displayIcon: $displayIcon, id: $id, strokeWidth: $strokeWidth, hitElementMode: $hitElementMode, eraseElements: $eraseElements)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $PathEraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory $PathEraserToolCopyWith(PathEraserTool value, $Res Function(PathEraserTool) _then) = _$PathEraserToolCopyWithImpl;
-@override @useResult
-$Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, double strokeWidth, HitElementMode hitElementMode, bool eraseElements
-});
-
-
-
-
-}
-/// @nodoc
-class _$PathEraserToolCopyWithImpl<$Res>
-    implements $PathEraserToolCopyWith<$Res> {
-  _$PathEraserToolCopyWithImpl(this._self, this._then);
-
-  final PathEraserTool _self;
-  final $Res Function(PathEraserTool) _then;
-
-/// Create a copy of Tool
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? strokeWidth = null,Object? hitElementMode = null,Object? eraseElements = null,}) {
-  return _then(PathEraserTool(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
-as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String?,strokeWidth: null == strokeWidth ? _self.strokeWidth : strokeWidth // ignore: cast_nullable_to_non_nullable
+as String?,mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
+as EraserMode,strokeWidth: null == strokeWidth ? _self.strokeWidth : strokeWidth // ignore: cast_nullable_to_non_nullable
 as double,hitElementMode: null == hitElementMode ? _self.hitElementMode : hitElementMode // ignore: cast_nullable_to_non_nullable
 as HitElementMode,eraseElements: null == eraseElements ? _self.eraseElements : eraseElements // ignore: cast_nullable_to_non_nullable
 as bool,

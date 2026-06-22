@@ -40,7 +40,7 @@ class DocumentDefaults {
       [
             SelectTool(mode: SelectMode.lasso, id: createUniqueId()),
             PenTool(id: createUniqueId()),
-            PathEraserTool(id: createUniqueId()),
+            EraserTool(id: createUniqueId(), mode: EraserMode.path),
             UndoTool(id: createUniqueId()),
             RedoTool(id: createUniqueId()),
             HandTool(id: createUniqueId()),
@@ -50,6 +50,43 @@ class DocumentDefaults {
                 background == null ? e : updateToolDefaultColor(e, background),
           )
           .toList();
+
+  static List<Tool> createToolPresets() => [
+    Tool.hand(),
+    ...SelectMode.values.map((e) => Tool.select(mode: e)),
+    Tool.pen(),
+    Tool.laser(),
+    Tool.label(),
+    ...EraserMode.values.map((e) => Tool.eraser(mode: e)),
+    Tool.area(),
+    Tool.presentation(),
+    Tool.polygon(),
+    ...Axis2D.values.map((e) => Tool.spacer(axis: e)),
+    Tool.stamp(),
+    ...[
+      PathShape.circle,
+      PathShape.rectangle,
+      PathShape.line,
+      PathShape.triangle,
+    ].map((e) => Tool.shape(property: ShapeProperty(shape: e()))),
+    ...[SurfaceTexture.pattern].map((e) => TextureTool(texture: e())),
+    Tool.undo(),
+    Tool.redo(),
+    Tool.fullScreen(),
+    Tool.collection(),
+    Tool.eyeDropper(),
+    Tool.ruler(),
+    Tool.grid(),
+    ...BarcodeType.values.map((e) => Tool.barcode(barcodeType: e)),
+  ];
+
+  static NoteData _addCoreToolPresets(NoteData pack) {
+    final presets = createToolPresets();
+    for (final (index, tool) in presets.indexed) {
+      pack = pack.setToolPreset('core-$index', tool);
+    }
+    return pack;
+  }
 
   static Future<List<NoteData>> getCoreTemplates(
     BuildContext context, {
@@ -116,7 +153,7 @@ class DocumentDefaults {
   );
 
   static Future<NoteData> getCorePack() async {
-    return _corePack ??= await _loadNoteData('pack');
+    return _corePack ??= _addCoreToolPresets(await _loadNoteData('pack'));
   }
 
   static String translate(String key, Map<String, String> translations) {

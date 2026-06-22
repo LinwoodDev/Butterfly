@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "ପଥ ଇରେଜର୍",
+  "stroke": "Stroke",
   "label": "ଲେବେଲ୍",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "ପୃଷ୍ଠଭୂମି",
+  "applyBackground": "Apply background",
+  "currentPage": "Current page",
+  "allPages": "All pages",
   "box": "ପେଟିକା",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "ଦୃଢ",
+  "solidColor": "Solid color",
+  "gradient": "Gradient",
+  "gradientType": "Gradient type",
+  "linear": "Linear",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "ଦ୍ୱିତୀୟ",
   "dotted": "ଛିଇଆ",
   "dottedDark": "Dotted dark",
@@ -288,8 +298,15 @@
   },
   "notSet": "ସଜିତ ନୁହେଁ",
   "enterLayer": "ସ୍ତରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ",
+  "eraseShapes": "Erase shapes",
+  "eraseShapeModeNone": "Don't erase shapes",
+  "eraseShapeModeTouchEdges": "Erase when touching edges",
+  "eraseShapeModeTouchAnywhere": "Erase when touching anywhere",
+  "selectElementModeTouchEdges": "Select when touching edges",
+  "selectElementModeTouchAnywhere": "Select when touching anywhere",
   "selectElements": "ଉପାଦାନଗୁଡିକ ଚୟନ କରନ୍ତୁ",
   "deleteElements": "ଉପାଦାନଗୁଡିକ ମୁଚାନ୍ତୁ",
+  "eraseAllElements": "Erase all elements",
   "deleteElementsConfirm": "ତୁମେ ଚୟିତ ଉପାଦାନଗୁଡିକ ବାସ୍ତବରେ ଡିଲିଟ୍ କରିବାକୁ ଚାହୁଁଛ?",
   "selectCustomCollection": "କଷ୍ଟମ୍ ସଂଗ୍ରହ ଚୟନ କରନ୍ତୁ",
   "svg": "SVG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "ଇନ୍ପୁଟ୍ ଇଶାରାଗୁଡିକ",
   "nativeTitleBar": "ନେଟିଭ୍ ଟାଇଟେଲ୍ ବାର୍",
+  "mode": "Mode",
   "syncMode": "ସିଙ୍କ୍ ମୋଡ୍",
   "connection": "ସଂଯୋଗ",
   "always": "ସମୟ ସମୟ",
@@ -919,6 +937,7 @@
   "bringForward": "ଆଗକୁ ଆଣନ୍ତୁ",
   "sendBackward": "ପଛକୁ ପଠାନ୍ତୁ",
   "rotation": "ଘୁର୍ଣ୍ଣନ",
+  "direction": "Direction",
   "onlyAvailableLargerScreen": "ମାତ୍ର ବଡ଼ ସ୍କ୍ରିନ୍ ଉପଲବ୍ଧ",
   "toolbarPosition": "ଟୁଲ୍ବାର ସ୍ଥାନ",
   "rotate": "ଘୁରାନ୍ତୁ",
@@ -945,6 +964,9 @@
   "ascending": "ଉର୍ଦ୍ଧ୍ୱଗତ",
   "descending": "ଅବରୋହଣ",
   "imageScale": "ଛବି ପ୍ରମାଣ",
+  "svgScale": "SVG scale",
+  "noImageSelected": "No image selected",
+  "noSvgSelected": "No SVG selected",
   "select": "ଚୟନ କରନ୍ତୁ",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "ହୋମ୍ ସ୍କ୍ରିନ୍",
   "lastNote": "ଶେଷ ଟିପ୍ପଣୀ",
   "newNote": "ନୂତନ ଟିପ୍ପଣୀ",
-  "convertToLayer": "ସ୍ତରକୁ ପରିବର୍ତ୍ତନ",
+  "moveToLayer": "Move to layer",
+  "createLayer": "Create layer",
   "merge": "ମିଶାନ୍ତୁ",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "End",
+  "radius": "Radius",
+  "focalPoint": "Focal point",
+  "useOffCenterStartPoint": "Use an off-center start point",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Color stops",
+  "addStop": "Add stop",
   "positionDependent": "ସ୍ଥିତି ନିର୍ଭର",
   "flipHorizontal": "ଆଡ଼ ଫ୍ଲିପ୍",
   "flipVertical": "ଉର୍ଧ୍ୱା ଫ୍ଲିପ୍",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Hold Shortcuts",
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
-  "key": "Key"
+  "key": "Key",
+  "bringMovedElementsToFront": "Bring moved elements to front",
+  "addTool": "Add tool"
 }

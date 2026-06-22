@@ -100,6 +100,55 @@ void main() {
     });
   });
 
+  group('Spacer rectangle hits', () {
+    const rightSpacerRect = Rect.fromLTRB(
+      50,
+      -double.infinity,
+      double.infinity,
+      double.infinity,
+    );
+    const leftSpacerRect = Rect.fromLTRB(
+      -double.infinity,
+      -double.infinity,
+      50,
+      double.infinity,
+    );
+
+    test(
+      'default rectangular renderers handle unbounded spacer rectangles',
+      () {
+        final calculator = DefaultHitCalculator(
+          const Rect.fromLTWH(100, 100, 40, 40),
+          const Rect.fromLTWH(100, 100, 40, 40),
+          0,
+        );
+
+        expect(calculator.hit(rightSpacerRect), isTrue);
+        expect(calculator.hit(leftSpacerRect), isFalse);
+      },
+    );
+
+    for (final entry in {
+      'circle': CircleShape(),
+      'rectangle': RectangleShape(),
+      'triangle': TriangleShape(),
+      'line': LineShape(),
+    }.entries) {
+      test('${entry.key} handles unbounded spacer rectangles', () {
+        final calculator = ShapeRenderer(
+          ShapeElement(
+            firstPosition: const Point(100, 100),
+            secondPosition: const Point(140, 140),
+            property: ShapeProperty(shape: entry.value, strokeWidth: 2),
+          ),
+        ).getHitCalculator();
+
+        expect(calculator.hit(rightSpacerRect), isTrue);
+        expect(calculator.hit(leftSpacerRect), isFalse);
+      });
+    }
+  });
+
   group('Shape Interaction Tests by HitElementMode', () {
     ShapeRenderer createShape(PathShape shape) {
       return ShapeRenderer(

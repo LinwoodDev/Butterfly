@@ -194,8 +194,6 @@ enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
 
 enum InputMappingCategory { activeTool, handTool, toolOnToolbar }
 
-const kMultiTapInputShortcutsFlag = 'multiTapInputShortcuts';
-
 @freezed
 sealed class FavoriteLocation with _$FavoriteLocation {
   const FavoriteLocation._();
@@ -462,6 +460,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
     @Default(ZoomPosition.bottomRight) ZoomPosition zoomPosition,
+    @Default(ZoomPosition.topRight) ZoomPosition propertyPosition,
     String? lastVersion,
     @Default([])
     @JsonKey(includeFromJson: false, includeToJson: false)
@@ -508,6 +507,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     PackAssetLocation? selectedPalette,
     @Default(false) bool showVerboseLogs,
     @Default(true) bool showThumbnails,
+    @Default(false) bool bringMovedElementsToFront,
+    @Default([]) List<PackAssetLocation> favoriteTools,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromJson(Map<String, dynamic> json) =>
@@ -577,6 +578,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               ZoomPosition.bottomRight,
             )
           : ZoomPosition.bottomRight,
+      propertyPosition: prefs.containsKey('property_position')
+          ? _enumByNameOr(
+              ZoomPosition.values,
+              prefs.getString('property_position'),
+              ZoomPosition.topRight,
+            )
+          : ZoomPosition.topRight,
       lastVersion: prefs.getString('last_version'),
       connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
@@ -722,6 +730,21 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
       showVerboseLogs: prefs.getBool('show_verbose_logs') ?? false,
       hideExtension: prefs.getBool('hide_extension') ?? true,
       showThumbnails: prefs.getBool('show_thumbnails') ?? true,
+      bringMovedElementsToFront:
+          prefs.getBool('bring_moved_elements_to_front') ?? false,
+      favoriteTools:
+          prefs
+              .getStringList('favorite_tools')
+              ?.map((e) {
+                try {
+                  return PackAssetLocation.fromJson(json.decode(e));
+                } catch (e) {
+                  return null;
+                }
+              })
+              .nonNulls
+              .toList() ??
+          [],
     );
   }
 
@@ -774,6 +797,7 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     );
     await prefs.setBool('zoom_enabled', zoomEnabled);
     await prefs.setString('zoom_position', zoomPosition.name);
+    await prefs.setString('property_position', propertyPosition.name);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -842,6 +866,15 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     }
     await prefs.setBool('show_verbose_logs', showVerboseLogs);
     await prefs.setBool('hide_extension', hideExtension);
+    await prefs.setBool(
+      'bring_moved_elements_to_front',
+      bringMovedElementsToFront,
+    );
+    await prefs.setBool('show_thumbnails', showThumbnails);
+    await prefs.setStringList(
+      'favorite_tools',
+      favoriteTools.map((e) => json.encode(e.toJson())).toList(),
+    );
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -953,6 +986,14 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> resetZoomPosition() =>
       changeZoomPosition(ZoomPosition.bottomRight);
+
+  Future<void> changePropertyPosition(ZoomPosition position) {
+    emit(state.copyWith(propertyPosition: position));
+    return save();
+  }
+
+  Future<void> resetPropertyPosition() =>
+      changePropertyPosition(ZoomPosition.topRight);
 
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));
@@ -1551,6 +1592,22 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeLimitViewportPositive(bool value) {
     emit(state.copyWith(limitViewportPositive: value));
+    return save();
+  }
+
+  Future<void> changeBringMovedElementsToFront(bool value) {
+    emit(state.copyWith(bringMovedElementsToFront: value));
+    return save();
+  }
+
+  Future<void> toggleFavoriteTool(PackAssetLocation template) {
+    final favorites = state.favoriteTools.toList();
+    if (favorites.contains(template)) {
+      favorites.remove(template);
+    } else {
+      favorites.add(template);
+    }
+    emit(state.copyWith(favoriteTools: favorites));
     return save();
   }
 }

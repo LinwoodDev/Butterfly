@@ -12,9 +12,10 @@ _Area _$AreaFromJson(Map json) => _Area(
   height: (json['height'] as num).toDouble(),
   position: const DoublePointJsonConverter().fromJson(json['position'] as Map),
   isInitial: json['isInitial'] as bool? ?? false,
-  extra:
-      (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
-      const {},
+  color: _$JsonConverterFromJson<int, SRGBColor>(
+    json['color'],
+    const ColorJsonConverter().fromJson,
+  ),
 );
 
 Map<String, dynamic> _$AreaToJson(_Area instance) => <String, dynamic>{
@@ -23,5 +24,18 @@ Map<String, dynamic> _$AreaToJson(_Area instance) => <String, dynamic>{
   'height': instance.height,
   'position': const DoublePointJsonConverter().toJson(instance.position),
   'isInitial': instance.isInitial,
-  'extra': instance.extra,
+  'color': _$JsonConverterToJson<int, SRGBColor>(
+    instance.color,
+    const ColorJsonConverter().toJson,
+  ),
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);

@@ -10,6 +10,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 
 import 'cubits/transform.dart';
 import 'selections/selection.dart';
@@ -164,15 +165,12 @@ class ViewPainter extends CustomPainter {
     }
     final areaSelectionWidth = 5 * transform.size;
     if (areaRect != null) {
+      final currentAreaColor = currentArea?.color?.toColor();
       final paint = Paint()
         ..style = PaintingStyle.stroke
-        ..color = colorScheme?.primary ?? Colors.green
+        ..color = currentAreaColor ?? colorScheme?.primary ?? Colors.green
         ..strokeWidth = areaSelectionWidth;
       canvas.drawRect(areaRect.inflate(areaSelectionWidth / 2), paint);
-      final otherPaint = Paint()
-        ..style = PaintingStyle.stroke
-        ..color = (colorScheme?.secondary ?? Colors.grey)
-        ..strokeWidth = areaSelectionWidth;
       for (final area in page.areas.sortedBy((a) => a == currentArea ? 1 : 0)) {
         if (areaRect.overlaps(area.rect)) continue;
         var rect = area.rect;
@@ -180,9 +178,14 @@ class ViewPainter extends CustomPainter {
           transform.globalToLocal(rect.topLeft),
           transform.globalToLocal(rect.bottomRight),
         );
+        final areaPaint = Paint()
+          ..style = PaintingStyle.stroke
+          ..color =
+              area.color?.toColor() ?? colorScheme?.secondary ?? Colors.grey
+          ..strokeWidth = areaSelectionWidth;
         canvas.drawRect(
           rect.inflate(areaSelectionWidth / 2),
-          area == currentArea ? paint : otherPaint,
+          area == currentArea ? paint : areaPaint,
         );
       }
       canvas.clipRect(areaRect);

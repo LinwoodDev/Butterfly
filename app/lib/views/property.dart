@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/widgets/editable_list_tile.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +16,12 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 import '../selections/selection.dart';
 import '../visualizer/icon.dart';
+import '../visualizer/tool.dart';
 
 class PropertyView extends StatefulWidget {
-  const PropertyView({super.key});
+  final ZoomPosition position;
+
+  const PropertyView({super.key, required this.position});
 
   @override
   State<PropertyView> createState() => _PropertyViewState();
@@ -29,10 +35,6 @@ class _PropertyViewState extends State<PropertyView>
     duration: const Duration(milliseconds: 200),
     vsync: this,
   );
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: Offset.zero,
-    end: const Offset(1.5, 0.0),
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
   late final Animation<double> _fadeAnimation = Tween<double>(
     begin: 1.0,
     end: 0.0,
@@ -103,6 +105,16 @@ class _PropertyViewState extends State<PropertyView>
   void _closeView() {
     context.read<CurrentIndexCubit>().resetSelection(force: true);
   }
+
+  Animation<Offset> get _offsetAnimation => Tween<Offset>(
+    begin: Offset.zero,
+    end: switch (widget.position) {
+      ZoomPosition.topRight ||
+      ZoomPosition.bottomRight => const Offset(1.5, 0.0),
+      ZoomPosition.topLeft ||
+      ZoomPosition.bottomLeft => const Offset(-1.5, 0.0),
+    },
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
 }
 
 class _PropertyCard extends StatefulWidget {
@@ -133,6 +145,25 @@ class _PropertyCardState extends State<_PropertyCard> {
     _menuController.close();
     _nameController.dispose();
     super.dispose();
+  }
+
+  Future<void> _saveToolPreset(BuildContext context, Tool tool) async {
+    final packSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDefaultPackSystem();
+    final bloc = context.read<DocumentBloc>();
+    final result = await showDialog<PackAssetLocation>(
+      context: context,
+      builder: (context) => BlocProvider.value(
+        value: bloc,
+        child: AssetDialog(initialName: tool.getDisplay(context)),
+      ),
+    );
+    if (result == null) return;
+    var pack = await packSystem.getFile(result.namespace);
+    if (pack == null) return;
+    pack = pack.setToolPreset(result.key, tool.copyWith(id: null));
+    await packSystem.updateFile(result.namespace, pack);
   }
 
   @override
@@ -272,6 +303,15 @@ class _PropertyCardState extends State<_PropertyCard> {
                         const SizedBox(width: 8),
                         Expanded(child: title),
                         const SizedBox(width: 4),
+                        if (!multi && selected is Tool)
+                          IconButton(
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.floppyDisk,
+                            ),
+                            tooltip:
+                                '${AppLocalizations.of(context).save} ${AppLocalizations.of(context).presets}',
+                            onPressed: () => _saveToolPreset(context, selected),
+                          ),
                         if (selection.showDeleteButton)
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),

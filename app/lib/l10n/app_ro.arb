@@ -49,7 +49,7 @@
   "@eraser": {
     "description": "Eraser tool"
   },
-  "pathEraser": "Ștergere cale",
+  "stroke": "Stroke",
   "label": "Etichetă",
   "@label": {
     "description": "Label tool"
@@ -98,6 +98,9 @@
     "description": "Spacing property"
   },
   "background": "Context",
+  "applyBackground": "Aplică fundal",
+  "currentPage": "Pagina curentă",
+  "allPages": "Toate paginile",
   "box": "Cutie",
   "@box": {
     "description": "Box shape"
@@ -144,6 +147,13 @@
     "description": "Style property"
   },
   "solid": "Solid",
+  "solidColor": "Culoare solidă",
+  "gradient": "Gradient",
+  "gradientType": "Tip Gradient",
+  "linear": "Liniară",
+  "radial": "Radial",
+  "tint": "Tint",
+  "blur": "Blur",
   "double": "Dublu",
   "dotted": "Punctat",
   "dottedDark": "Punctat întunecat",
@@ -288,8 +298,15 @@
   },
   "notSet": "Nu este setat",
   "enterLayer": "Introduceți numele stratului",
+  "eraseShapes": "Șterge forme",
+  "eraseShapeModeNone": "Nu șterge formele",
+  "eraseShapeModeTouchEdges": "Ștergeți când atingeți marginile",
+  "eraseShapeModeTouchAnywhere": "Ștergeți când atingeți oriunde",
+  "selectElementModeTouchEdges": "Selectați când atingeți marginile",
+  "selectElementModeTouchAnywhere": "Selectați când atingeți oriunde",
   "selectElements": "Selectare elemente",
   "deleteElements": "Ștergere elemente",
+  "eraseAllElements": "Şterge toate elementele",
   "deleteElementsConfirm": "Eşti sigur că vrei să ştergi elementele selectate?",
   "selectCustomCollection": "Selectează o colecție personalizată",
   "svg": "VSG",
@@ -618,6 +635,7 @@
   },
   "inputGestures": "Input gestures",
   "nativeTitleBar": "Bară titlu nativ",
+  "mode": "Mode",
   "syncMode": "Mod sincronizare",
   "connection": "Conexiune",
   "always": "Întotdeauna",
@@ -919,6 +937,7 @@
   "bringForward": "Adu înainte",
   "sendBackward": "Trimite înapoi",
   "rotation": "Rotație",
+  "direction": "Direcție",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
   "rotate": "Rotire",
@@ -945,6 +964,9 @@
   "ascending": "Crescător",
   "descending": "Descrescător",
   "imageScale": "Scala imaginii",
+  "svgScale": "Scala SVG",
+  "noImageSelected": "Nicio imagine selectată",
+  "noSvgSelected": "Niciun SVG selectat",
   "select": "Selectare",
   "@select": {
     "description": "Select action"
@@ -1153,7 +1175,8 @@
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
-  "convertToLayer": "Convertește la nivel",
+  "moveToLayer": "Mutare în strat",
+  "createLayer": "Creare strat",
   "merge": "Îmbinare",
   "@merge": {
     "description": "Merge action"
@@ -1213,6 +1236,14 @@
   "@offset": {
     "description": "Offset property"
   },
+  "end": "Sfârșit",
+  "radius": "Radius",
+  "focalPoint": "Punct focal",
+  "useOffCenterStartPoint": "Folosește un punct de pornire în afara centrului",
+  "focal": "Focal",
+  "focalRadius": "Focal radius",
+  "colorStops": "Oprire culoare",
+  "addStop": "Adaugă oprire",
   "positionDependent": "Depinde de poziție",
   "flipHorizontal": "Rotire orizontală",
   "flipVertical": "Întoarce vertical",
@@ -1334,5 +1365,7 @@
   },
   "holdShortcuts": "Țineți apăsat Comenzile rapide",
   "holdShortcutsDescription": "Țineți apăsată o cheie pentru a trece temporar la un alt instrument. Lansând tasta se schimbă înapoi la unealta anterioară.",
-  "key": "Cheie"
+  "key": "Cheie",
+  "bringMovedElementsToFront": "Aduce elementele mutate în față",
+  "addTool": "Adăugare unealtă"
 }
