@@ -36,8 +36,8 @@ extension PathPointHelper on PathPoint {
     pressure,
   );
 
-  PathPoint rotate(Offset center, double angle) {
-    final rotated = toOffset().rotate(center, angle);
+  PathPoint rotate(Offset center, double radians) {
+    final rotated = toOffset().rotate(center, radians);
     return PathPoint(rotated.dx, rotated.dy, pressure);
   }
 }

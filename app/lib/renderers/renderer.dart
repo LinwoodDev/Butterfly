@@ -322,61 +322,9 @@ abstract class HitCalculator {
     return axes;
   }
 
-  bool _isPointOnSegment(Offset point, Offset a, Offset b) {
-    const epsilon = 1e-10;
-    final cross =
-        (point.dy - a.dy) * (b.dx - a.dx) - (point.dx - a.dx) * (b.dy - a.dy);
-    if (cross.abs() > epsilon) return false;
-
-    final dot =
-        (point.dx - a.dx) * (b.dx - a.dx) + (point.dy - a.dy) * (b.dy - a.dy);
-    if (dot < -epsilon) return false;
-
-    final lengthSquared =
-        (b.dx - a.dx) * (b.dx - a.dx) + (b.dy - a.dy) * (b.dy - a.dy);
-    return dot <= lengthSquared + epsilon;
-  }
-
-  int _orientation(Offset a, Offset b, Offset c) {
-    const epsilon = 1e-10;
-    final value = (b.dy - a.dy) * (c.dx - b.dx) - (b.dx - a.dx) * (c.dy - b.dy);
-    if (value.abs() <= epsilon) return 0;
-    return value > 0 ? 1 : 2;
-  }
-
-  bool _segmentsIntersect(Offset a, Offset b, Offset c, Offset d) {
-    final o1 = _orientation(a, b, c);
-    final o2 = _orientation(a, b, d);
-    final o3 = _orientation(c, d, a);
-    final o4 = _orientation(c, d, b);
-
-    if (o1 != o2 && o3 != o4) return true;
-    if (o1 == 0 && _isPointOnSegment(c, a, b)) return true;
-    if (o2 == 0 && _isPointOnSegment(d, a, b)) return true;
-    if (o3 == 0 && _isPointOnSegment(a, c, d)) return true;
-    if (o4 == 0 && _isPointOnSegment(b, c, d)) return true;
-    return false;
-  }
-
-  Iterable<(Offset, Offset)> _edgesOf(List<Offset> polygon) sync* {
-    if (polygon.length < 2) return;
-    for (var i = 0; i < polygon.length - 1; i++) {
-      yield (polygon[i], polygon[i + 1]);
-    }
-    if (polygon.length > 2) {
-      yield (polygon.last, polygon.first);
-    }
-  }
-
   bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
     if (poly1.isEmpty || poly2.isEmpty) return false;
     if (!isFinitePolygon(poly1) || !isFinitePolygon(poly2)) return false;
-
-    for (final (a, b) in _edgesOf(poly1)) {
-      for (final (c, d) in _edgesOf(poly2)) {
-        if (_segmentsIntersect(a, b, c, d)) return true;
-      }
-    }
 
     if (poly2.length > 2 &&
         poly1.any((point) => isPointInPolygon(poly2, point))) {
