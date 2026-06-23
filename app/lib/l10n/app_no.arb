@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Uthever",
+  "combinePaths": "Combine paths",
   "add": "Legg til",
   "@add": {
     "description": "Add action"
