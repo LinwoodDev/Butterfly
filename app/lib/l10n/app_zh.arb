@@ -123,6 +123,7 @@
   },
   "defaultPalette": "默认调色板",
   "highlighter": "高亮器",
+  "combinePaths": "Combine paths",
   "add": "添加",
   "@add": {
     "description": "Add action"
