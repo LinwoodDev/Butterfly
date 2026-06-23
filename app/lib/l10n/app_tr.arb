@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Varsayılan palet",
   "highlighter": "Fosforlu kalem",
+  "combinePaths": "Combine paths",
   "add": "Ekle",
   "@add": {
     "description": "Add action"
