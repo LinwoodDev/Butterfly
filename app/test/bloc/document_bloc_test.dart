@@ -600,6 +600,75 @@ void main() {
     expect(currentIndexCubit.state.buttons, isNull);
   });
 
+  test('adding a combined highlight immediately unbakes its group', () async {
+    await bloc.close();
+    await currentIndexCubit.close();
+
+    final existingElement = PenElement(
+      id: 'existing',
+      combineId: 'highlighter',
+      points: const [PathPoint(10, 20), PathPoint(40, 20)],
+    );
+    final existingRenderer = Renderer<PadElement>.fromInstance(existingElement);
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [existingElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    currentIndexCubit = CurrentIndexCubit(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [existingRenderer],
+        visibleElements: [existingRenderer],
+        visibleUnbakedElements: [existingRenderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+    await currentIndexCubit.bake(
+      bloc.state as DocumentLoadSuccess,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    expect(currentIndexCubit.state.cameraViewport.bakedElements, isNotEmpty);
+
+    bloc.add(
+      ElementsCreated([
+        PenElement(
+          id: 'new',
+          combineId: 'highlighter',
+          points: const [PathPoint(20, 20), PathPoint(50, 20)],
+        ),
+      ]),
+    );
+    await _settleBlocEvents();
+
+    final viewport = currentIndexCubit.state.cameraViewport;
+    expect(viewport.bakedElements, isEmpty);
+    expect(
+      viewport.unbakedElements.whereType<PenRenderer>().map(
+        (renderer) => renderer.element.combineId,
+      ),
+      everyElement('highlighter'),
+    );
+    expect(viewport.unbakedElements, hasLength(2));
+  });
+
   test('bake records only elements visible in the current viewport', () async {
     await bloc.close();
     await currentIndexCubit.close();

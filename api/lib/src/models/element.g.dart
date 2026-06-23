@@ -73,6 +73,7 @@ PenElement _$PenElementFromJson(Map json) => PenElement(
   collection: json['collection'] as String? ?? '',
   id: const IdJsonConverter().fromJson(json['id'] as String?),
   zoom: (json['zoom'] as num?)?.toDouble(),
+  combineId: json['combineId'] as String?,
   points:
       (json['points'] as List<dynamic>?)
           ?.map((e) => PathPoint.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -95,6 +96,7 @@ Map<String, dynamic> _$PenElementToJson(PenElement instance) =>
       'collection': instance.collection,
       'id': const IdJsonConverter().toJson(instance.id),
       'zoom': instance.zoom,
+      'combineId': instance.combineId,
       'points': instance.points.map((e) => e.toJson()).toList(),
       'property': instance.property.toJson(),
       'extra': instance.extra,

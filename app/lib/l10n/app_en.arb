@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Default palette",
   "highlighter": "Highlighter",
+  "combineHighlights": "Combine highlights",
   "add": "Add",
   "@add": {
     "description": "Add action"

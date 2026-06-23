@@ -43,17 +43,17 @@ class PenRenderer extends Renderer<PenElement> {
     if (property.paint.previewColor.a > 0) {
       final outlinePoints = _getOutlinePoints();
       if (outlinePoints.isNotEmpty) {
-        _cachedStrokePath = Path();
+        final strokePath = Path();
         if (outlinePoints.length < 2) {
-          _cachedStrokePath!.addOval(
+          strokePath.addOval(
             Rect.fromCircle(center: outlinePoints[0], radius: 1),
           );
         } else {
-          _cachedStrokePath!.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
+          strokePath.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
           for (int i = 1; i < outlinePoints.length - 1; ++i) {
             final p0 = outlinePoints[i];
             final p1 = outlinePoints[i + 1];
-            _cachedStrokePath!.quadraticBezierTo(
+            strokePath.quadraticBezierTo(
               p0.dx,
               p0.dy,
               (p0.dx + p1.dx) / 2,
@@ -61,6 +61,7 @@ class PenRenderer extends Renderer<PenElement> {
             );
           }
         }
+        _cachedStrokePath = strokePath;
       }
     }
   }
@@ -166,6 +167,14 @@ class PenRenderer extends Renderer<PenElement> {
     ColorScheme? colorScheme,
     bool foreground = false,
   ]) {
+    _build(canvas);
+  }
+
+  void buildCombined(Canvas canvas) {
+    _build(canvas, BlendMode.src);
+  }
+
+  void _build(Canvas canvas, [BlendMode? blendMode]) {
     final points = element.points;
     if (points.isEmpty) return;
     final property = element.property;
@@ -175,19 +184,21 @@ class PenRenderer extends Renderer<PenElement> {
     }
 
     if (property.fillPaint.previewColor.a > 0 && _cachedFillPath != null) {
-      final paint = _fillPaint.build(
-        property.fillPaint,
-        rect,
-        style: PaintingStyle.fill,
-      )..strokeCap = StrokeCap.round;
+      final paint =
+          _fillPaint.build(property.fillPaint, rect, style: PaintingStyle.fill)
+            ..strokeCap = StrokeCap.round
+            ..blendMode = blendMode ?? BlendMode.srcOver;
       canvas.drawPath(_cachedFillPath!, paint);
     }
     if (property.paint.previewColor.a > 0 && _cachedStrokePath != null) {
-      final paint = _strokePaint.build(
-        property.paint,
-        expandedRect,
-        style: PaintingStyle.fill,
-      )..strokeCap = StrokeCap.round;
+      final paint =
+          _strokePaint.build(
+              property.paint,
+              expandedRect,
+              style: PaintingStyle.fill,
+            )
+            ..strokeCap = StrokeCap.round
+            ..blendMode = blendMode ?? BlendMode.srcOver;
       canvas.drawPath(_cachedStrokePath!, paint);
     }
   }
@@ -196,7 +207,6 @@ class PenRenderer extends Renderer<PenElement> {
     final currentZoom = element.zoom ?? kMaxZoom;
     final property = element.property;
     final center = rect.center;
-    // 1. Get the outline points from the input points
     var outlinePoints = freehand.getStroke(
       element.points
           .map((e) => e.scale(currentZoom, center))
@@ -211,11 +221,9 @@ class PenRenderer extends Renderer<PenElement> {
       ),
     );
 
-    // Unscale the points
-    outlinePoints = outlinePoints
+    return outlinePoints
         .map((e) => e.scaleFromCenter(1 / currentZoom, center))
         .toList();
-    return outlinePoints;
   }
 
   @override
@@ -256,12 +264,10 @@ class PenRenderer extends Renderer<PenElement> {
 
       final first = outlinePoints.first;
       path += 'M ${first.roundedX()} ${first.roundedY()}';
-      for (int i = 1; i < outlinePoints.length - 1; ++i) {
-        final p0 = outlinePoints[i];
-        final p1 = outlinePoints[i + 1];
-        path +=
-            ' Q ${p0.roundedX()} ${p0.roundedY()} ${p0.roundedBetweenX(p1)} ${p0.roundedBetweenY(p1)}';
+      for (final point in outlinePoints.sublist(1)) {
+        path += ' L ${point.roundedX()} ${point.roundedY()}';
       }
+      path += ' Z';
 
       xml.getElement('svg')?.createElement('path')
         ?..setAttribute('d', path)

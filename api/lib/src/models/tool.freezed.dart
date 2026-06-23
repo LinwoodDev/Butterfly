@@ -656,7 +656,7 @@ $NamedItemCopyWith<TextStyleSheet, $Res>? get styleSheet {
 @JsonSerializable()
 
 class PenTool extends Tool {
-   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.property = const PenProperty(), final  String? $type}): $type = $type ?? 'pen',super._();
+   PenTool({this.name = '', this.displayIcon = '', @IdJsonConverter() this.id, this.zoomDependent = false, this.shapeDetectionTime = 0.5, this.shapeDetectionEnabled = false, this.combineHighlights = false, this.property = const PenProperty(), final  String? $type}): $type = $type ?? 'pen',super._();
   factory PenTool.fromJson(Map<String, dynamic> json) => _$PenToolFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -665,6 +665,7 @@ class PenTool extends Tool {
 @JsonKey() final  bool zoomDependent;
 @JsonKey() final  double shapeDetectionTime;
 @JsonKey() final  bool shapeDetectionEnabled;
+@JsonKey() final  bool combineHighlights;
 @JsonKey() final  PenProperty property;
 
 @JsonKey(name: 'type')
@@ -686,7 +687,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Tool.pen(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, property: $property)';
+  return 'Tool.pen(name: $name, displayIcon: $displayIcon, id: $id, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, combineHighlights: $combineHighlights, property: $property)';
 }
 
 
@@ -697,7 +698,7 @@ abstract mixin class $PenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
   factory $PenToolCopyWith(PenTool value, $Res Function(PenTool) _then) = _$PenToolCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double shapeDetectionTime, bool shapeDetectionEnabled, PenProperty property
+ String name, String displayIcon,@IdJsonConverter() String? id, bool zoomDependent, double shapeDetectionTime, bool shapeDetectionEnabled, bool combineHighlights, PenProperty property
 });
 
 
@@ -714,7 +715,7 @@ class _$PenToolCopyWithImpl<$Res>
 
 /// Create a copy of Tool
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? shapeDetectionTime = null,Object? shapeDetectionEnabled = null,Object? property = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? displayIcon = null,Object? id = freezed,Object? zoomDependent = null,Object? shapeDetectionTime = null,Object? shapeDetectionEnabled = null,Object? combineHighlights = null,Object? property = freezed,}) {
   return _then(PenTool(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,displayIcon: null == displayIcon ? _self.displayIcon : displayIcon // ignore: cast_nullable_to_non_nullable
@@ -722,6 +723,7 @@ as String,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_null
 as String?,zoomDependent: null == zoomDependent ? _self.zoomDependent : zoomDependent // ignore: cast_nullable_to_non_nullable
 as bool,shapeDetectionTime: null == shapeDetectionTime ? _self.shapeDetectionTime : shapeDetectionTime // ignore: cast_nullable_to_non_nullable
 as double,shapeDetectionEnabled: null == shapeDetectionEnabled ? _self.shapeDetectionEnabled : shapeDetectionEnabled // ignore: cast_nullable_to_non_nullable
+as bool,combineHighlights: null == combineHighlights ? _self.combineHighlights : combineHighlights // ignore: cast_nullable_to_non_nullable
 as bool,property: freezed == property ? _self.property : property // ignore: cast_nullable_to_non_nullable
 as PenProperty,
   ));

@@ -2563,11 +2563,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (blocState is! DocumentLoadSuccess) return;
     state.handler.onDocumentUpdated(blocState, oldState);
 
+    final addsCombinedHighlight = addedElements.any(
+      (renderer) =>
+          renderer is PenRenderer && renderer.element.combineId != null,
+    );
     if (replacedElements != null) {
       await replaceUnbaked(blocState, [
         ...replacedElements,
         ...addedElements,
       ], backgrounds: backgrounds);
+    } else if (addsCombinedHighlight) {
+      await this.unbake(
+        blocState,
+        unbakedElements: [...renderers, ...addedElements],
+      );
     } else if (unbake) {
       await this.unbake(blocState, backgrounds: backgrounds);
     } else if (backgrounds != null) {
