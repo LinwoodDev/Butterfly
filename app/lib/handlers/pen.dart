@@ -188,6 +188,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       elements[pointer] = PenElement(
         id: createUniqueId(),
         zoom: transform.size,
+        combineId: data.combineHighlights ? data.id : null,
         collection: state.currentCollection,
         property: data.property.copyWith(
           strokeWidth: data.property.strokeWidth / zoom,

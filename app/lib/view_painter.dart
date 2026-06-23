@@ -15,6 +15,102 @@ import 'package:material_leap/material_leap.dart';
 import 'cubits/transform.dart';
 import 'selections/selection.dart';
 
+void _paintRenderer(
+  Canvas canvas,
+  Size size,
+  NoteData document,
+  DocumentPage page,
+  DocumentInfo info,
+  CameraTransform transform,
+  ColorScheme? colorScheme,
+  Renderer renderer, {
+  bool foreground = false,
+  bool combined = false,
+}) {
+  canvas.save();
+  final center = renderer.rect?.center;
+  if (center != null) {
+    canvas.translate(center.dx, center.dy);
+  }
+  canvas.rotate(renderer.rotation * (pi / 180));
+  if (center != null) {
+    canvas.translate(-center.dx, -center.dy);
+  }
+  if (combined && renderer is PenRenderer) {
+    renderer.buildCombined(canvas);
+  } else {
+    renderer.build(
+      canvas,
+      size,
+      document,
+      page,
+      info,
+      transform,
+      colorScheme,
+      foreground,
+    );
+  }
+  canvas.restore();
+}
+
+void _paintRenderers(
+  Canvas canvas,
+  Size size,
+  NoteData document,
+  DocumentPage page,
+  DocumentInfo info,
+  CameraTransform transform,
+  ColorScheme? colorScheme,
+  Iterable<Renderer> renderers, {
+  bool foreground = false,
+}) {
+  final rendererList = renderers.toList();
+  final groups = <String, List<PenRenderer>>{};
+  for (final renderer in rendererList.whereType<PenRenderer>()) {
+    final combineId = renderer.element.combineId;
+    if (combineId != null) {
+      groups.putIfAbsent(combineId, () => []).add(renderer);
+    }
+  }
+  final paintedGroups = <String>{};
+  for (final renderer in rendererList) {
+    final combineId = renderer is PenRenderer
+        ? renderer.element.combineId
+        : null;
+    if (combineId == null) {
+      _paintRenderer(
+        canvas,
+        size,
+        document,
+        page,
+        info,
+        transform,
+        colorScheme,
+        renderer,
+        foreground: foreground,
+      );
+      continue;
+    }
+    if (!paintedGroups.add(combineId)) continue;
+    canvas.saveLayer(null, Paint());
+    for (final groupedRenderer in groups[combineId]!) {
+      _paintRenderer(
+        canvas,
+        size,
+        document,
+        page,
+        info,
+        transform,
+        colorScheme,
+        groupedRenderer,
+        foreground: foreground,
+        combined: true,
+      );
+    }
+    canvas.restore();
+  }
+}
+
 class ForegroundPainter extends CustomPainter {
   final ColorScheme colorScheme;
   final NoteData document;
@@ -42,34 +138,17 @@ class ForegroundPainter extends CustomPainter {
     if (renderers.isEmpty && sel == null) return;
     canvas.scale(transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
-    for (var renderer in renderers) {
-      final center = renderer.rect?.center;
-      final radian = renderer.rotation * (pi / 180);
-      if (center != null) {
-        canvas.translate(center.dx, center.dy);
-      }
-      canvas.rotate(radian);
-      if (center != null) {
-        canvas.translate(-center.dx, -center.dy);
-      }
-      renderer.build(
-        canvas,
-        size,
-        document,
-        page,
-        info,
-        transform,
-        colorScheme,
-        true,
-      );
-      if (center != null) {
-        canvas.translate(center.dx, center.dy);
-      }
-      canvas.rotate(-radian);
-      if (center != null) {
-        canvas.translate(-center.dx, -center.dy);
-      }
-    }
+    _paintRenderers(
+      canvas,
+      size,
+      document,
+      page,
+      info,
+      transform,
+      colorScheme,
+      renderers,
+      foreground: true,
+    );
     if (sel is ElementSelection) {
       _drawSelection(canvas, size, sel);
     }
@@ -208,39 +287,21 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
 
-    final renderers = cameraViewport.visibleUnbakedElements;
-    for (final renderer in renderers) {
+    final renderers = cameraViewport.visibleUnbakedElements.where((renderer) {
       final state = cameraViewport.rendererStates[renderer.id];
-      if (!(invisibleLayers?.contains(renderer.layer) ?? false) &&
-          state != RendererState.hidden) {
-        final center = renderer.rect?.center;
-        final radian = renderer.rotation * (pi / 180);
-        if (center != null) {
-          canvas.translate(center.dx, center.dy);
-        }
-        canvas.rotate(radian);
-        if (center != null) {
-          canvas.translate(-center.dx, -center.dy);
-        }
-        renderer.build(
-          canvas,
-          size,
-          document,
-          page,
-          info,
-          transform,
-          colorScheme,
-          false,
-        );
-        if (center != null) {
-          canvas.translate(center.dx, center.dy);
-        }
-        canvas.rotate(-radian);
-        if (center != null) {
-          canvas.translate(-center.dx, -center.dy);
-        }
-      }
-    }
+      return !(invisibleLayers?.contains(renderer.layer) ?? false) &&
+          state != RendererState.hidden;
+    });
+    _paintRenderers(
+      canvas,
+      size,
+      document,
+      page,
+      info,
+      transform,
+      colorScheme,
+      renderers,
+    );
     canvas.translate(transform.position.dx, transform.position.dy);
     canvas.scale(1 / transform.size, 1 / transform.size);
     final aboveLayerImage = cameraViewport.aboveLayerImage;

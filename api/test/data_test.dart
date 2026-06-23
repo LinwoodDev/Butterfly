@@ -11,6 +11,32 @@ DocumentPage _pageWithLayer(String layerId) =>
     DocumentPage(layers: [DocumentLayer(id: layerId)]);
 
 void main() {
+  group('Highlighter options', () {
+    test('pen tool options round-trip through JSON', () {
+      final tool = PenTool(id: 'highlighter', combineHighlights: true);
+
+      final decoded = Tool.fromJson(tool.toJson()) as PenTool;
+
+      expect(decoded.combineHighlights, isTrue);
+    });
+
+    test('pen element combine id round-trips through JSON', () {
+      final element = PenElement(id: 'stroke', combineId: 'highlighter');
+
+      final decoded = PadElement.fromJson(element.toJson()) as PenElement;
+
+      expect(decoded.combineId, 'highlighter');
+    });
+
+    test('new options remain disabled for old JSON', () {
+      final tool = Tool.fromJson({'type': 'pen'}) as PenTool;
+      final element = PadElement.fromJson({'type': 'pen'}) as PenElement;
+
+      expect(tool.combineHighlights, isFalse);
+      expect(element.combineId, isNull);
+    });
+  });
+
   group('AssetFileType helpers', () {
     test('fromFileExtension handles uppercase and dotted PDF extensions', () {
       expect(AssetFileTypeHelper.fromFileExtension('PDF'), AssetFileType.pdf);

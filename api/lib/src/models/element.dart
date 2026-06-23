@@ -88,6 +88,7 @@ sealed class PadElement with _$PadElement {
     @Default('') String collection,
     @IdJsonConverter() String? id,
     double? zoom,
+    String? combineId,
     @Default([]) List<PathPoint> points,
     @Default(PenProperty()) PenProperty property,
     @Default({}) Map<String, dynamic> extra,

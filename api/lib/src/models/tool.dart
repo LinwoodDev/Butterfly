@@ -122,6 +122,7 @@ sealed class Tool extends PackAsset with _$Tool {
     @Default(false) bool zoomDependent,
     @Default(0.5) double shapeDetectionTime,
     @Default(false) bool shapeDetectionEnabled,
+    @Default(false) bool combineHighlights,
     @Default(PenProperty()) PenProperty property,
   }) = PenTool;
 
