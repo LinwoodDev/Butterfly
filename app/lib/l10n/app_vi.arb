@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Bảng màu mặc định",
   "highlighter": "Bút đánh dấu",
+  "combinePaths": "Combine paths",
   "add": "Thêm",
   "@add": {
     "description": "Add action"
