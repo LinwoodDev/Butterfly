@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Domyślna paleta",
   "highlighter": "Podświetlenie",
+  "combinePaths": "Combine paths",
   "add": "Dodaj",
   "@add": {
     "description": "Add action"
