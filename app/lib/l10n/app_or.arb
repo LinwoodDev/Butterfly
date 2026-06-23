@@ -123,6 +123,7 @@
   },
   "defaultPalette": "ଡିଫଲ୍ଟ ପ୍ୟାଲେଟ୍",
   "highlighter": "ହାଇଲାଇଟର୍",
+  "combinePaths": "Combine paths",
   "add": "ଯୋଗ କରନ୍ତୁ",
   "@add": {
     "description": "Add action"
