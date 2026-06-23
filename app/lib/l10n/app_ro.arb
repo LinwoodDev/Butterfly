@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Paletă implicită",
   "highlighter": "Evidențiere",
+  "combinePaths": "Combine paths",
   "add": "Adăugare",
   "@add": {
     "description": "Add action"
