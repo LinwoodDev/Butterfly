@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Προεπιλεγμένη παλέτα",
   "highlighter": "Επισήμανση",
+  "combinePaths": "Combine paths",
   "add": "Προσθήκη",
   "@add": {
     "description": "Add action"
