@@ -123,6 +123,7 @@
   },
   "defaultPalette": "デフォルトのパレット",
   "highlighter": "ハイライト",
+  "combinePaths": "Combine paths",
   "add": "追加",
   "@add": {
     "description": "Add action"
