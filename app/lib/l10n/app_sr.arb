@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Podrazumevana paleta",
   "highlighter": "Marker",
+  "combinePaths": "Combine paths",
   "add": "Dodaj",
   "@add": {
     "description": "Add action"
