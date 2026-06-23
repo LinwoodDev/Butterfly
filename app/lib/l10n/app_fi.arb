@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Oletus paletti",
   "highlighter": "Korostus",
+  "combinePaths": "Combine paths",
   "add": "Lisää",
   "@add": {
     "description": "Add action"
