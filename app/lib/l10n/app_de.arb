@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Standardpalette",
   "highlighter": "Hervorhebung",
+  "combinePaths": "Combine paths",
   "add": "Neu",
   "@add": {
     "description": "Add action"
