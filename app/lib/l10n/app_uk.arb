@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Стандартна палітра",
   "highlighter": "Маркер",
+  "combinePaths": "Combine paths",
   "add": "Додати",
   "@add": {
     "description": "Add action"
