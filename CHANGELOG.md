@@ -49,7 +49,7 @@
 * Simplify android build files
 * Migrate to new clipboard library
 
-Read more here: https://linwood.dev/butterfly/2.6.0-rc.0
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.0
 
 ## 2.5.3 (2026-06-08)
 

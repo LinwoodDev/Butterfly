@@ -1,0 +1,4 @@
+* Add xournal++ exporter
+* Improve xournal++ importer
+
+Read more here: https://linwood.dev/butterfly/2.6.0-beta.1

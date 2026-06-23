@@ -5,6 +5,7 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
@@ -645,11 +646,27 @@ class MainPopupMenu extends StatelessWidget {
                             },
                             child: Text(AppLocalizations.of(context).pdf),
                           ),
-                          /*MenuItemButton(
-                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.notebook),
-                      onPressed: () => exportXopp(context),
-                      child: const Text('Xournal++'),
-                    ),*/
+                          MenuItemButton(
+                            leadingIcon: const PhosphorIcon(
+                              PhosphorIconsLight.notebook,
+                            ),
+                            onPressed: () async {
+                              final bloc = context.read<DocumentBloc>();
+                              final state = bloc.state;
+                              if (state is! DocumentLoadSuccess) return;
+                              final data = await state.saveData(
+                                null,
+                                bloc.currentIndexCubit.state.viewOption,
+                              );
+                              if (!context.mounted) return;
+                              exportXopp(
+                                context,
+                                xoppExporter(data),
+                                fileName: state.metadata.name,
+                              );
+                            },
+                            child: const Text('Xournal++'),
+                          ),
                         ],
                         leadingIcon: const PhosphorIcon(
                           PhosphorIconsLight.paperPlaneRight,

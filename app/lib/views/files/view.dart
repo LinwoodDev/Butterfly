@@ -711,6 +711,8 @@ class FilesViewState extends State<FilesView> {
                             }
                             if (docName.trim().isEmpty) {
                               docName = null;
+                            } else {
+                              docName = sanitizeExportFileName(docName);
                             }
 
                             final newFile = await _documentSystem

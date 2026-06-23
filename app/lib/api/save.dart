@@ -6,6 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
+import 'package:lw_file_system/lw_file_system.dart';
+
+String sanitizeExportFileName(String? name) => convertNameToFile(
+  name: name?.trim(),
+  getUnnamed: () => 'output',
+).replaceAll(RegExp(invalidFileName), '_');
 
 Future<void> exportSvg(
   BuildContext context,
@@ -49,6 +55,22 @@ Future<void> exportPdf(
   uniformTypeIdentifier: 'com.adobe.pdf',
   share: share,
   fileName: 'output',
+  label: AppLocalizations.of(context).export,
+);
+
+Future<void> exportXopp(
+  BuildContext context,
+  Uint8List bytes, {
+  String? fileName,
+  bool share = false,
+}) => exportFile(
+  context: context,
+  bytes: bytes,
+  fileExtension: 'xopp',
+  mimeType: 'application/x-xojpp',
+  uniformTypeIdentifier: 'dev.linwood.butterfly.xopp',
+  share: share,
+  fileName: sanitizeExportFileName(fileName),
   label: AppLocalizations.of(context).export,
 );
 
