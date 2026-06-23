@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Standard palet",
   "highlighter": "Fremhævning",
+  "combinePaths": "Combine paths",
   "add": "Tilføj",
   "@add": {
     "description": "Add action"
