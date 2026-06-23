@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Standaard palet",
   "highlighter": "Markeerstift",
+  "combinePaths": "Combine paths",
   "add": "Toevoegen",
   "@add": {
     "description": "Add action"
