@@ -123,6 +123,7 @@
   },
   "defaultPalette": "פלטת צבעים ברירת מחדל",
   "highlighter": "מרקר",
+  "combinePaths": "Combine paths",
   "add": "הוספה",
   "@add": {
     "description": "Add action"
