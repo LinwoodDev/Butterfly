@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Стандартная палитра",
   "highlighter": "Выделение",
+  "combinePaths": "Combine paths",
   "add": "Добавить",
   "@add": {
     "description": "Add action"
