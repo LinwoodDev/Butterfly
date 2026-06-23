@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Paleta per defecte",
   "highlighter": "Marcador",
+  "combinePaths": "Combine paths",
   "add": "Afegeix",
   "@add": {
     "description": "Add action"
