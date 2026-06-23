@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Verstek palet",
   "highlighter": "Merkpen",
+  "combinePaths": "Combine paths",
   "add": "Voeg by",
   "@add": {
     "description": "Add action"
