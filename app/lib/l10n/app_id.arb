@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Palet bawaan",
   "highlighter": "Penyorot",
+  "combinePaths": "Combine paths",
   "add": "Tambah",
   "@add": {
     "description": "Add action"
