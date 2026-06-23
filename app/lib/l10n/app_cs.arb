@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Výchozí paleta",
   "highlighter": "Zvýrazňovač",
+  "combinePaths": "Combine paths",
   "add": "Přidat",
   "@add": {
     "description": "Add action"
