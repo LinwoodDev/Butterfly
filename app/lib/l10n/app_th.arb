@@ -123,6 +123,7 @@
   },
   "defaultPalette": "พาเลตเริ่มต้น",
   "highlighter": "ปากกาเน้นข้อความ",
+  "combinePaths": "Combine paths",
   "add": "เพิ่ม",
   "@add": {
     "description": "Add action"
