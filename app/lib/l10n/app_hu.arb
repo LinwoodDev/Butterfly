@@ -123,6 +123,7 @@
   },
   "defaultPalette": "Alapértelmezett paletta",
   "highlighter": "Kiemelés",
+  "combinePaths": "Combine paths",
   "add": "Hozzáadás",
   "@add": {
     "description": "Add action"
