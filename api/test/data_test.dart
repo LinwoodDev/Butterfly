@@ -13,11 +13,11 @@ DocumentPage _pageWithLayer(String layerId) =>
 void main() {
   group('Highlighter options', () {
     test('pen tool options round-trip through JSON', () {
-      final tool = PenTool(id: 'highlighter', combineHighlights: true);
+      final tool = PenTool(id: 'highlighter', combinePaths: true);
 
       final decoded = Tool.fromJson(tool.toJson()) as PenTool;
 
-      expect(decoded.combineHighlights, isTrue);
+      expect(decoded.combinePaths, isTrue);
     });
 
     test('pen element combine id round-trips through JSON', () {
@@ -32,7 +32,7 @@ void main() {
       final tool = Tool.fromJson({'type': 'pen'}) as PenTool;
       final element = PadElement.fromJson({'type': 'pen'}) as PenElement;
 
-      expect(tool.combineHighlights, isFalse);
+      expect(tool.combinePaths, isFalse);
       expect(element.combineId, isNull);
     });
   });

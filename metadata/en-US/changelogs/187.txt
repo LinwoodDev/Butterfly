@@ -1,3 +1,4 @@
+* Add combine paths option ([#1071](https://github.com/LinwoodDev/Butterfly/issues/1071))
 * Add xournal++ exporter
 * Improve xournal++ importer
 

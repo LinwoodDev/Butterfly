@@ -163,7 +163,7 @@ PenTool _$PenToolFromJson(Map json) => PenTool(
   zoomDependent: json['zoomDependent'] as bool? ?? false,
   shapeDetectionTime: (json['shapeDetectionTime'] as num?)?.toDouble() ?? 0.5,
   shapeDetectionEnabled: json['shapeDetectionEnabled'] as bool? ?? false,
-  combineHighlights: json['combineHighlights'] as bool? ?? false,
+  combinePaths: json['combinePaths'] as bool? ?? false,
   property: json['property'] == null
       ? const PenProperty()
       : PenProperty.fromJson(
@@ -179,7 +179,7 @@ Map<String, dynamic> _$PenToolToJson(PenTool instance) => <String, dynamic>{
   'zoomDependent': instance.zoomDependent,
   'shapeDetectionTime': instance.shapeDetectionTime,
   'shapeDetectionEnabled': instance.shapeDetectionEnabled,
-  'combineHighlights': instance.combineHighlights,
+  'combinePaths': instance.combinePaths,
   'property': instance.property.toJson(),
   'type': instance.$type,
 };

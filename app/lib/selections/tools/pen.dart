@@ -107,12 +107,12 @@ class PenToolSelection extends ToolSelection<PenTool> {
         ),
       ),
       CheckboxListTile(
-        value: selected.first.combineHighlights,
-        title: Text(AppLocalizations.of(context).combineHighlights),
+        value: selected.first.combinePaths,
+        title: Text(AppLocalizations.of(context).combinePaths),
         onChanged: (value) => update(
           context,
           selected
-              .map((e) => e.copyWith(combineHighlights: value ?? false))
+              .map((e) => e.copyWith(combinePaths: value ?? false))
               .toList(),
         ),
       ),
