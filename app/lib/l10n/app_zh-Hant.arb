@@ -123,6 +123,7 @@
   },
   "defaultPalette": "預設調色板",
   "highlighter": "螢光筆",
+  "combinePaths": "Combine paths",
   "add": "新增",
   "@add": {
     "description": "Add action"
