@@ -123,6 +123,7 @@
   },
   "defaultPalette": "기본 팔레트",
   "highlighter": "형광펜",
+  "combinePaths": "Combine paths",
   "add": "추가",
   "@add": {
     "description": "Add action"
