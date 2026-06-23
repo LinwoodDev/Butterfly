@@ -123,6 +123,7 @@
   },
   "defaultPalette": "اللوحة الافتراضية",
   "highlighter": "قلم تظليل",
+  "combinePaths": "Combine paths",
   "add": "إضافة",
   "@add": {
     "description": "Add action"
