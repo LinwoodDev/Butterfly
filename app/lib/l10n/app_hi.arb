@@ -123,6 +123,7 @@
   },
   "defaultPalette": "डिफ़ॉल्ट पैलेट",
   "highlighter": "हाइलाइटर",
+  "combinePaths": "Combine paths",
   "add": "जोड़ें",
   "@add": {
     "description": "Add action"
