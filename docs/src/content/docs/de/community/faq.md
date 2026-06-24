@@ -64,7 +64,6 @@ Siehe [Stiftunterstützung](/community/stylus-support) für aktuelles Verhalten,
 
 Ich benutze die Eingabe des Flutter-Frameworks.
 Es gibt bereits Issues zum Nachverfolgen:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) und [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Diese Probleme sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.

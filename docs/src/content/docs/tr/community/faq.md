@@ -64,7 +64,6 @@ See [Stylus support](/community/stylus-support) for current behavior, settings, 
 
 Flutter çerçevesi tarafından sağlanan girdiyi kullanıyorum.
 There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Bu konular biraz eski. Web sürümü şuan iyi çalışmalıdır.

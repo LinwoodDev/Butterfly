@@ -2,20 +2,36 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
-import remarkHeadingID from "remark-heading-id";
-import remarkGemoji from "remark-gemoji";
-import rehypeKatex from "rehype-katex";
 import AstroPWA from "@vite-pwa/astro";
 import manifest from "./webmanifest.json";
-import remarkMath from "remark-math";
 import { fileURLToPath } from "node:url";
+import { satteri } from '@astrojs/markdown-satteri';
+import katex from "katex";
+
+const renderMath = (value, displayMode = false) =>
+  katex.renderToString(value, {
+    displayMode,
+    throwOnError: false,
+  });
+
+const renderMathPlugin = {
+  name: "render-math",
+  inlineMath(node) {
+    return { rawHtml: renderMath(node.value) };
+  },
+  math(node) {
+    return { rawHtml: renderMath(node.value, true) };
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://butterfly.linwood.dev",
   markdown: {
-    remarkPlugins: [remarkHeadingID, remarkGemoji, remarkMath],
-    rehypePlugins: [rehypeKatex]
+    processor: satteri({
+      features: { math: true },
+      mdastPlugins: [renderMathPlugin],
+    }),
   },
   integrations: [
     starlight({
@@ -24,7 +40,7 @@ export default defineConfig({
         // Relative path to your custom CSS file
         "./src/styles/linwood-style.scss",
         "./src/styles/custom.scss",
-        "node_modules/katex/dist/katex.min.css"
+        "katex/dist/katex.min.css",
       ],
       editLink: {
         baseUrl: 'https://github.com/LinwoodDev/Butterfly/edit/develop/docs/',

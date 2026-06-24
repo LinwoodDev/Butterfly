@@ -41,9 +41,9 @@ A backslash (`\`) must precede any LaTeX command to indicate it is a command.
 
 Ein Beispielbefehl ist `\int_{7}^{6}`, mit dem das Integralsymbol angezeigt wird:
 
-```math
+$$
 \int_{7}^{6}
-```
+$$
 
 ### Useful commands
 

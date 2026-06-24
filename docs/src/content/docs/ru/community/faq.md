@@ -64,7 +64,6 @@ See [Stylus support](/community/stylus-support) for current behavior, settings, 
 
 Я использую вход, предоставленный флэттер.
 There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Эти проблемы несколько выше. Теперь веб-версия должна работать нормально.
