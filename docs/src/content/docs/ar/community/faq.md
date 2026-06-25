@@ -63,8 +63,7 @@ If these steps dont help, please dont hesitate to complain in Matrix (recommende
 See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
-هناك بالفعل مشاكل لتعقبها:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter#102836](https://github.com/flutter/flutter/issues/102836).
-لينوكس: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+There are already issues to track it:
+Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 وهذه المسائل قديمة إلى حد ما. يجب أن تعمل نسخة الويب بشكل جيد في الوقت الحالي.
