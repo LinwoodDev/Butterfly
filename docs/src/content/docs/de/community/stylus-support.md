@@ -7,7 +7,7 @@ Diese Seite sammelt das aktuelle Verhalten von Stift- und Stylus-Eingaben in But
 ## Unterstützt platforms
 
 - **Android / mobil:** Stylus-Eingabe funktioniert derzeit am besten und ist der wichtigste unterstützte Weg.
-- **Desktop (Windows/Linux):** Stylus-Eingabe ist aktuell durch die Eingabeunterstützung von Flutter eingeschränkt.
+- **Desktop (Linux):** Stylus-Eingabe ist aktuell durch die Eingabeunterstützung von Flutter eingeschränkt.
 - **Web:** Oft eine gute Ausweichmöglichkeit, wenn sich ein Stift auf dem Desktop uneinheitlich verhält.
 
 ## Stylus-related Einstellungen
@@ -33,7 +33,6 @@ Diese Werte sind Bit-Zuordnungen aus Pointer-Button-Flags.
 Einige Stylus-Probleme entstehen durch die Eingabeverarbeitung von Flutter und nicht direkt durch Butterfly.
 
 - Android S-Stift tracking issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
-- Windows-Stiftprobleme: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248), [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836)
 - Linux-Stiftproblem: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Wenn Ihr Setup betroffen ist, melden Sie es bitte trotzdem in den Butterfly-Issues mit Plattform, Gerätemodell und App-Version.

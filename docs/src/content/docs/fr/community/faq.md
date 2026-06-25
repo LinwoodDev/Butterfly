@@ -64,7 +64,6 @@ See [Stylus support](/community/stylus-support) for current behavior, settings, 
 
 J'utilise l'entrée fournie par le cadre flutter.
 There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Ces questions sont un peu plus anciennes. La version web devrait fonctionner correctement pour le moment.

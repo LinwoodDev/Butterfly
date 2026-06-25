@@ -7,7 +7,7 @@ This page collects the current stylus and pen-input behavior in Butterfly.
 ## Supported platforms
 
 - **Android / mobile:** Stylus input works best and is the main supported path today.
-- **Desktop (Windows/Linux):** Stylus input is currently limited by Flutter input support.
+- **Desktop (Linux):** Stylus input is currently limited by Flutter input support.
 - **Web:** Often a good fallback when desktop stylus behavior is inconsistent.
 
 ## Stylus-related settings
@@ -33,7 +33,6 @@ These values are bit mappings from pointer button flags.
 Some stylus issues come from Flutter input handling rather than Butterfly directly.
 
 - Android S-Pen tracking issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
-- Windows stylus issues: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248), [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836)
 - Linux stylus issue: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 If your setup is affected, please still report it in Butterfly issues with your platform, device model, and app version.
