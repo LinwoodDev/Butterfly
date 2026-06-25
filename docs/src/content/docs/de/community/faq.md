@@ -63,8 +63,7 @@ Butterfly ist auf iOS als Vorschau verfügbar. Klicken Sie [hier](https://butter
 Siehe [Stiftunterstützung](/community/stylus-support) für aktuelles Verhalten, Einstellungen und Issue-Links.
 
 Ich benutze die Eingabe des Flutter-Frameworks.
-Es gibt bereits Issues zum Nachverfolgen:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) und [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+There are already issues to track it:
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Diese Probleme sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.
