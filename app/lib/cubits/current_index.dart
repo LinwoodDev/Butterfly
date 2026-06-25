@@ -819,7 +819,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   /// Lightweight refresh that only updates foregrounds without rebaking.
   /// Use this when handler internal state changes but document hasn't changed.
-  Future<void> refreshForegrounds(DocumentLoaded blocState) async {
+  Future<void> refreshForegrounds(DocumentLoaded blocState) =>
+      _foregroundRefreshRunner.schedule(() => _refreshForegrounds(blocState));
+
+  Future<void> _refreshForegrounds(DocumentLoaded blocState) async {
     if (isClosed) return;
     final document = blocState.data;
     final page = blocState.page;
@@ -1244,6 +1247,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   final _delayedBakeRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 100),
   );
+  final _foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
 
   bool _rectContains(Rect outer, Rect inner) {
     const tolerance = precisionErrorTolerance;
@@ -2514,6 +2518,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
     await _delayedBakeRunner.disposeAndWait();
+    await _foregroundRefreshRunner.disposeAndWait();
     if (!currentState.networkingService.isClosed) {
       await currentState.networkingService.close();
     }
