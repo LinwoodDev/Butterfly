@@ -64,7 +64,6 @@ See [Stylus support](/community/stylus-support) for current behavior, settings, 
 
 フラッターフレームワークで提供される入力を使っています。
 There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 これらの問題は少し古いです。 ウェブバージョンは今のところ正常に動作するはずです。
