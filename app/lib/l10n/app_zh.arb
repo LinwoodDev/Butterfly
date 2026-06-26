@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "按住键暂时切换到另一个工具。释放键切换回上一个工具。",
   "key": "关键字",
   "bringMovedElementsToFront": "将移动元素带到前端",
-  "addTool": "添加工具"
+  "addTool": "添加工具",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
