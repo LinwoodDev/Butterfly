@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
   "key": "Nøkkel",
   "bringMovedElementsToFront": "Plasser flyttede elementer forsiden",
-  "addTool": "Legg til verktøy"
+  "addTool": "Legg til verktøy",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
