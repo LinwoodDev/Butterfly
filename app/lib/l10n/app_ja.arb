@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "キーを押して別のツールに一時的に切り替えます。キースイッチを前のツールに戻します。",
   "key": "キー",
   "bringMovedElementsToFront": "移動した要素を前面に移動",
-  "addTool": "ツールを追加"
+  "addTool": "ツールを追加",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
