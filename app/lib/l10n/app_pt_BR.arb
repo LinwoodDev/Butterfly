@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Segure uma tecla para alternar temporariamente para outra ferramenta. Liberando a tecla de volta para a ferramenta anterior.",
   "key": "Chave",
   "bringMovedElementsToFront": "Trazer elementos movidos para a frente",
-  "addTool": "Adicionar ferramenta"
+  "addTool": "Adicionar ferramenta",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
