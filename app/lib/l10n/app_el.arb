@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Κρατήστε ένα κλειδί για να μεταβείτε προσωρινά σε ένα άλλο εργαλείο.",
   "key": "Κλειδί",
   "bringMovedElementsToFront": "Φέρτε τα μετακινούμενα στοιχεία μπροστά",
-  "addTool": "Προσθήκη εργαλείου"
+  "addTool": "Προσθήκη εργαλείου",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
