@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Maintenez une touche enfoncée pour basculer temporairement vers un autre outil. Relâchez les commutateurs de touches vers l'outil précédent.",
   "key": "Clés",
   "bringMovedElementsToFront": "Apporter les éléments déplacés à l'avant",
-  "addTool": "Ajouter un outil"
+  "addTool": "Ajouter un outil",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
