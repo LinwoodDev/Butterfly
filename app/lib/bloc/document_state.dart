@@ -61,7 +61,6 @@ abstract class DocumentLoaded extends DocumentState {
   final FileMetadata metadata;
   @override
   final AssetService assetService;
-  final AssetLocation location;
   final bool absolute;
 
   Future<NoteData> _updatePage(NoteData current) async =>
@@ -80,7 +79,6 @@ abstract class DocumentLoaded extends DocumentState {
     AssetService? assetService,
     FileMetadata? metadata,
     DocumentInfo? info,
-    required this.location,
     required this.absolute,
   }) : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
        assetService = assetService ?? AssetService(),
@@ -126,7 +124,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
     required super.pageName,
     super.metadata,
     super.info,
-    AssetLocation? location,
     super.absolute = false,
     this.storageType = StorageType.local,
     String? currentAreaName,
@@ -142,8 +139,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
        currentLayer =
            currentLayer ??
            (page ?? data.getPage(pageName))?.layers.lastOrNull?.id ??
-           createUniqueId(),
-       super(location: location ?? const AssetLocation(path: ''));
+           createUniqueId();
 
   @override
   Area? get currentArea {
@@ -174,24 +170,10 @@ class DocumentLoadSuccess extends DocumentLoaded {
     currentAreaName: currentAreaName ?? this.currentAreaName,
     fileSystem: fileSystem,
     windowCubit: windowCubit,
-    location: location,
     absolute: absolute,
   );
 
   bool isLayerVisible(String? layer) => !invisibleLayers.contains(layer);
-
-  bool hasAutosave(NetworkingService networkingService, Embedding? embedding) =>
-      settingsCubit.state.autosave &&
-      (networkingService.isActive ||
-          !(embedding?.save ?? true) ||
-          (!kIsWeb &&
-              !absolute &&
-              (location.isEmpty || (location.fileType?.isNote() ?? false)) &&
-              (location.remote.isEmpty ||
-                  (settingsCubit
-                          .getRemote(location.remote)
-                          ?.hasDocumentCached(location.path) ??
-                      false))));
 
   AreaPreset areaPreset(CameraViewport cameraViewport) =>
       AreaPreset(name: pageName, area: cameraViewport.toArea(), page: pageName);
@@ -221,7 +203,6 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
-    required super.location,
     required super.absolute,
   }) : handler = PresentationStateHandler(track, bloc),
        super(oldState.data);
@@ -238,7 +219,6 @@ class DocumentPresentationState extends DocumentLoaded {
     required super.windowCubit,
     required super.pageName,
     required super.assetService,
-    required super.location,
     required super.absolute,
   }) : super(oldState.data);
 
@@ -258,7 +238,6 @@ class DocumentPresentationState extends DocumentLoaded {
         pageName: pageName,
         fileSystem: fileSystem,
         windowCubit: windowCubit,
-        location: location,
         absolute: absolute,
       );
 }

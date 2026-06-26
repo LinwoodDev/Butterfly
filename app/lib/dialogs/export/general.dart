@@ -280,7 +280,6 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 final transform = context
                     .read<DocumentBloc>()
                     .currentIndexCubit
-                    .state
                     .transformCubit
                     .state;
 

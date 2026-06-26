@@ -502,7 +502,6 @@ void main() {
       fileSystem: fileSystem,
       windowCubit: windowCubit,
       assetService: assetService,
-      location: currentIndexCubit.state.location,
       absolute: currentIndexCubit.state.absolute,
     );
 
@@ -853,7 +852,7 @@ void main() {
       );
 
       final viewport = currentIndexCubit.state.cameraViewport;
-      final transform = currentIndexCubit.state.transformCubit.state;
+      final transform = currentIndexCubit.transformCubit.state;
       final left = (viewport.x - transform.position.dx) * transform.size;
       final top = (viewport.y - transform.position.dy) * transform.size;
       final right = left + viewport.width!;

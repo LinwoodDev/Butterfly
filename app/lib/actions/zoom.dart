@@ -36,7 +36,7 @@ class ZoomAction extends Action<ZoomIntent> {
       (viewport.width ?? 0) / 2,
       (viewport.height ?? 0) / 2,
     );
-    final transformCubit = currentIndex.transformCubit;
+    final transformCubit = cubit.transformCubit;
     cubit.size(
       transformCubit.state.size + (intent.reverse ? -0.1 : 0.1),
       center,

@@ -10,7 +10,7 @@ class StampHandler extends PastingHandler<StampTool> {
     final state = context.getState();
     if (state == null) return;
     await _loadComponent(
-      context.getCurrentIndex().transformCubit,
+      context.getCurrentIndexCubit().transformCubit,
       state.data,
       state.assetService,
       state.page,
