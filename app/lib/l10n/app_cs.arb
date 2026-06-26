@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Podržte klávesu pro dočasné přepnutí na jiný nástroj. Zmáčkněte klávesu zpět na předchozí nástroj.",
   "key": "Klíč",
   "bringMovedElementsToFront": "Přeneste přesunuté prvky do předku",
-  "addTool": "Přidat nástroj"
+  "addTool": "Přidat nástroj",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
