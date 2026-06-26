@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Hold en tast nede for midlertidigt at skifte til et andet værktøj. Frigive tasten skifter tilbage til det forrige værktøj.",
   "key": "Nøgle",
   "bringMovedElementsToFront": "Bring flyttede elementer foran",
-  "addTool": "Tilføj værktøj"
+  "addTool": "Tilføj værktøj",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
