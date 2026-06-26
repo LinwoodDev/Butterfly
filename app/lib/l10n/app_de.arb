@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Halte eine Taste um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn die Taste losgelassen wird, schaltet er zurück zum vorherigen Werkzeug.",
   "key": "Schlüssel",
   "bringMovedElementsToFront": "Bewege Elemente nach vorne",
-  "addTool": "Werkzeug hinzufügen"
+  "addTool": "Werkzeug hinzufügen",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
