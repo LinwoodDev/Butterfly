@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Tieni premuto un tasto per passare temporaneamente a un altro strumento. Rilasciare il tasto passa allo strumento precedente.",
   "key": "Chiave",
   "bringMovedElementsToFront": "Porta in primo piano gli elementi spostati",
-  "addTool": "Aggiungi strumento"
+  "addTool": "Aggiungi strumento",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
