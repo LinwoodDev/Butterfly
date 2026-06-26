@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Mantenga pulsada una tecla para cambiar temporalmente a otra herramienta. Liberar la tecla vuelve a la herramienta anterior.",
   "key": "Clave",
   "bringMovedElementsToFront": "Trae los elementos movidos al frente",
-  "addTool": "Añadir herramienta"
+  "addTool": "Añadir herramienta",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
