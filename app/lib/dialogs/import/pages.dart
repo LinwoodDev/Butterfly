@@ -9,6 +9,8 @@ import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../pages.dart';
+
 @immutable
 class PageDialogCallback {
   final List<int> pages;
@@ -78,6 +80,29 @@ class _ImportPagesDialogState extends State<ImportPagesDialog> {
                         widget.pages.length,
                         (i) => i,
                       ).toSet().difference(_selected.toSet()).toList();
+                    });
+                  },
+                ),
+                IconButton(
+                  tooltip: AppLocalizations.of(context).selectPages,
+                  icon: const PhosphorIcon(PhosphorIconsLight.listNumbers),
+                  onPressed: () async {
+                    final selected = await showDialog<List<String>>(
+                      context: context,
+                      builder: (context) => SelectPagesDialog(
+                        pages: List.generate(
+                          widget.pages.length,
+                          (index) => (
+                            AppLocalizations.of(context).pageIndex(index + 1),
+                            '$index',
+                          ),
+                        ),
+                        initialSelected: _selected.map((e) => '$e'),
+                      ),
+                    );
+                    if (selected == null) return;
+                    setState(() {
+                      _selected = selected.map(int.parse).toList()..sort();
                     });
                   },
                 ),

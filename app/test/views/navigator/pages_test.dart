@@ -3,6 +3,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/dialogs/pages.dart' as pages_dialog;
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/navigator/pages.dart';
@@ -72,6 +73,22 @@ void main() {
         resolvePageRename('section/subsection', '../../renamed'),
         'renamed',
       );
+    });
+  });
+
+  group('page selection parser', () {
+    test('accepts individual pages and ranges', () {
+      expect(pages_dialog.parsePageSelection('[2-4, 6]', 8), [1, 2, 3, 5]);
+    });
+
+    test('keeps document order and accepts reversed ranges', () {
+      expect(pages_dialog.parsePageSelection('5-3, 2', 6), [1, 2, 3, 4]);
+    });
+
+    test('rejects out of bounds and malformed input', () {
+      expect(pages_dialog.parsePageSelection('0, 2', 4), isNull);
+      expect(pages_dialog.parsePageSelection('2-', 4), isNull);
+      expect(pages_dialog.parsePageSelection('5', 4), isNull);
     });
   });
 

@@ -22,6 +22,7 @@ import '../bloc/document_bloc.dart';
 import '../widgets/editable_list_tile.dart';
 import 'area/init.dart';
 import 'delete.dart';
+import 'pages.dart';
 
 Future<void> _overrideTools(
   TemplateFileSystem templateSystem,
@@ -1341,31 +1342,22 @@ List<Widget> _buildTemplateMenuChildren(
         },
       ),
     if (bloc != null && templateBackgrounds.isNotEmpty)
-      SubmenuButton(
+      MenuItemButton(
         leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
-        menuChildren: [
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
-            child: Text(AppLocalizations.of(context).currentPage),
-            onPressed: () {
-              _applyTemplateBackgroundsToPages(bloc, template, [null]);
-            },
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.files),
-            child: Text(AppLocalizations.of(context).allPages),
-            onPressed: () {
-              final state = bloc.state;
-              if (state is! DocumentLoadSuccess) return;
-              _applyTemplateBackgroundsToPages(
-                bloc,
-                template,
-                state.data.getPages(true),
-              );
-            },
-          ),
-        ],
         child: Text(AppLocalizations.of(context).applyBackground),
+        onPressed: () async {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final selectedPageNames = await showDialog<List<String>>(
+            context: context,
+            builder: (context) => SelectPagesDialog(
+              pages: state.data.getPagesWithNames(),
+              initialSelected: [state.pageName],
+            ),
+          );
+          if (selectedPageNames == null) return;
+          _applyTemplateBackgroundsToPages(bloc, template, selectedPageNames);
+        },
       ),
     MenuItemButton(
       leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),

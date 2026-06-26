@@ -9,6 +9,7 @@ import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../dialogs/delete.dart';
+import '../../dialogs/pages.dart' as pages_dialog;
 import '../../widgets/editable_list_tile.dart';
 
 typedef PageEntity = ({String path, String name, bool isFile});
@@ -78,10 +79,13 @@ class PagesView extends StatefulWidget {
 
 class _PagesViewState extends State<PagesView> {
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _rangeController = TextEditingController();
+  String? _rangeError;
 
   @override
   void dispose() {
     _locationController.dispose();
+    _rangeController.dispose();
     super.dispose();
   }
 
@@ -156,6 +160,44 @@ class _PagesViewState extends State<PagesView> {
                         child: OverflowBar(
                           spacing: 8,
                           children: [
+                            SizedBox(
+                              width: 180,
+                              child: TextField(
+                                controller: _rangeController,
+                                decoration: InputDecoration(
+                                  labelText: AppLocalizations.of(context).pages,
+                                  hintText: '1-3, 5',
+                                  errorText: _rangeError,
+                                  filled: true,
+                                  isDense: true,
+                                ),
+                                onChanged: (value) {
+                                  final selectablePages = all
+                                      .where((entity) => entity.isFile)
+                                      .toList();
+                                  final selectedIndexes = pages_dialog
+                                      .parsePageSelection(
+                                        value,
+                                        selectablePages.length,
+                                      );
+                                  setState(() {
+                                    if (selectedIndexes == null) {
+                                      _rangeError = AppLocalizations.of(
+                                        context,
+                                      ).error;
+                                      return;
+                                    }
+                                    _rangeError = null;
+                                    controller.clear();
+                                    controller.selectAll(
+                                      selectedIndexes.map(
+                                        (index) => selectablePages[index].path,
+                                      ),
+                                    );
+                                  });
+                                },
+                              ),
+                            ),
                             ActionChip(
                               label: Text(AppLocalizations.of(context).delete),
                               avatar: const PhosphorIcon(
