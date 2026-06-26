@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Przytrzymaj klawisz, aby tymczasowo przełączyć się na inne narzędzie. Uruchomienie przełącznika klawisza przywróci poprzednie narzędzie.",
   "key": "Klucz",
   "bringMovedElementsToFront": "Przynieś elementy do przodu",
-  "addTool": "Dodaj narzędzie"
+  "addTool": "Dodaj narzędzie",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
