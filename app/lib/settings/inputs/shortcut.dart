@@ -17,6 +17,8 @@ List<(String?, String)> getInputShortcutOptions(BuildContext context) {
     zoomOutShortcut,
     fullScreenShortcut,
     hideUIShortcut,
+    nextPageShortcut,
+    previousPageShortcut,
     selectAllShortcut,
     pasteShortcut,
     ...changeToolShortcuts,

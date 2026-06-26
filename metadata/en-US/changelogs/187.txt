@@ -1,5 +1,6 @@
 * Add combine paths option ([#1071](https://github.com/LinwoodDev/Butterfly/issues/1071))
 * Add xournal++ exporter
+* Add next and previous page shortcuts
 * Improve xournal++ importer
 * Improve state management for better linking different systems together
 * Fix refresh foregrounds can be run concurrently
