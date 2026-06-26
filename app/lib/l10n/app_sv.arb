@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Håll en nyckel för att tillfälligt växla till ett annat verktyg. Släppa knapparna tillbaka till föregående verktyg.",
   "key": "Nyckel",
   "bringMovedElementsToFront": "Ta med flyttade element framtill",
-  "addTool": "Lägg till verktyg"
+  "addTool": "Lägg till verktyg",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
