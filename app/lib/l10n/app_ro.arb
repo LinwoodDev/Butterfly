@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Țineți apăsată o cheie pentru a trece temporar la un alt instrument. Lansând tasta se schimbă înapoi la unealta anterioară.",
   "key": "Cheie",
   "bringMovedElementsToFront": "Aduce elementele mutate în față",
-  "addTool": "Adăugare unealtă"
+  "addTool": "Adăugare unealtă",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
