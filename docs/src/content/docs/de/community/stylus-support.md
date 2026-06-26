@@ -7,7 +7,7 @@ Diese Seite sammelt das aktuelle Verhalten von Stift- und Stylus-Eingaben in But
 ## Unterstützt platforms
 
 - **Android / mobil:** Stylus-Eingabe funktioniert derzeit am besten und ist der wichtigste unterstützte Weg.
-- **Desktop (Linux):** Stylus input is currently limited by Flutter input support.
+- **Desktop (Linux):** Stylus-Eingabe ist aktuell durch die Eingabeunterstützung von Flutter eingeschränkt.
 - **Web:** Oft eine gute Ausweichmöglichkeit, wenn sich ein Stift auf dem Desktop uneinheitlich verhält.
 
 ## Stylus-related Einstellungen

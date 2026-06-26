@@ -141,11 +141,10 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
       buildWhen: (previous, current) =>
           previous.location != current.location ||
+          previous.absolute != current.absolute ||
           previous.saved != current.saved ||
           previous.isCreating != current.isCreating ||
           previous.isSaveDelayed != current.isSaveDelayed ||
-          previous.networkingService.isActive !=
-              current.networkingService.isActive ||
           previous.embedding?.save != current.embedding?.save ||
           previous.embedding?.editable != current.embedding?.editable,
       builder: (context, currentIndex) =>
@@ -245,213 +244,225 @@ class _AppBarTitleState extends State<_AppBarTitle> {
     CurrentIndex currentIndex,
     BuildContext context,
     ButterflySettings settings,
-  ) => Row(
-    textDirection: TextDirection.ltr,
-    children: [
-      Flexible(
-        child: StreamBuilder<NetworkState?>(
-          stream: currentIndex.networkingService.stream,
-          builder: (context, snapshot) {
-            return StatefulBuilder(
-              builder: (context, setState) {
-                String toFilePath(String name) {
-                  if (state is! DocumentLoaded) return name;
-                  final location = state.location;
-                  return state.fileSystem
-                      .buildDocumentSystem(settings.getRemote(location.remote))
-                      .convertNameToFileSystem(
-                        name: name,
-                        suffix: '.bfly',
-                        directory: location.parent,
-                      );
-                }
-
-                Future<void> submit(String? value) async {
-                  value ??= area == null
-                      ? _nameController.text
-                      : _areaController.text;
-                  if (area == null || areaName == null) {
-                    final cubit = context.read<CurrentIndexCubit>();
-                    final location = cubit.state.location;
-                    if (state is DocumentLoadSuccess &&
-                        currentIndex.isCreating) {
-                      final newLocation = location.copyWith(
-                        path: toFilePath(value),
-                      );
-                      final savedLocation = await cubit.save(
-                        bloc,
-                        location: newLocation,
-                        force: true,
-                      );
-                      if (!location.isEmpty &&
-                          !savedLocation.isEmpty &&
-                          (location.path != savedLocation.path ||
-                              location.remote != savedLocation.remote)) {
-                        final documentSystem = state.fileSystem
-                            .buildDocumentSystem(
-                              settings.getRemote(location.remote),
-                            );
-                        await documentSystem.deleteAsset(location.path);
-                        await cubit.state.settingsCubit.moveAssetReferences(
-                          location,
-                          savedLocation,
+  ) {
+    final cubit = context.read<CurrentIndexCubit>();
+    return Row(
+      textDirection: TextDirection.ltr,
+      children: [
+        Flexible(
+          child: StreamBuilder<NetworkState?>(
+            stream: context.read<CurrentIndexCubit>().networkingService.stream,
+            builder: (context, snapshot) {
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  String toFilePath(String name) {
+                    if (state is! DocumentLoaded) return name;
+                    final location = currentIndex.location;
+                    return state.fileSystem
+                        .buildDocumentSystem(
+                          settings.getRemote(location.remote),
+                        )
+                        .convertNameToFileSystem(
+                          name: name,
+                          suffix: '.bfly',
+                          directory: location.parent,
                         );
-                      }
-                    }
-                    bloc.add(DocumentDescriptionChanged(name: value));
-                  } else {
-                    bloc.add(AreaChanged(areaName, area.copyWith(name: value)));
                   }
-                }
 
-                Widget title = Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Focus(
-                      onFocusChange: (hasFocus) {
-                        if (!hasFocus) submit(null);
-                      },
-                      child: TextFormField(
-                        controller: area == null
-                            ? _nameController
-                            : _areaController,
-                        focusNode: area == null
-                            ? _nameFocusNode
-                            : _areaFocusNode,
-                        onFieldSubmitted: submit,
-                        onSaved: submit,
-                        readOnly: currentIndex.embedding?.editable == false,
-                        decoration: InputDecoration(
-                          filled: true,
-                          hintText: AppLocalizations.of(context).untitled,
+                  Future<void> submit(String? value) async {
+                    value ??= area == null
+                        ? _nameController.text
+                        : _areaController.text;
+                    if (area == null || areaName == null) {
+                      final cubit = context.read<CurrentIndexCubit>();
+                      final location = cubit.state.location;
+                      if (state is DocumentLoadSuccess &&
+                          currentIndex.isCreating) {
+                        final newLocation = location.copyWith(
+                          path: toFilePath(value),
+                        );
+                        final savedLocation = await cubit.save(
+                          bloc,
+                          location: newLocation,
+                          force: true,
+                        );
+                        if (!location.isEmpty &&
+                            !savedLocation.isEmpty &&
+                            (location.path != savedLocation.path ||
+                                location.remote != savedLocation.remote)) {
+                          final documentSystem = state.fileSystem
+                              .buildDocumentSystem(
+                                settings.getRemote(location.remote),
+                              );
+                          await documentSystem.deleteAsset(location.path);
+                          await context
+                              .read<SettingsCubit>()
+                              .moveAssetReferences(location, savedLocation);
+                        }
+                      }
+                      bloc.add(DocumentDescriptionChanged(name: value));
+                    } else {
+                      bloc.add(
+                        AreaChanged(areaName, area.copyWith(name: value)),
+                      );
+                    }
+                  }
+
+                  Widget title = Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Focus(
+                        onFocusChange: (hasFocus) {
+                          if (!hasFocus) submit(null);
+                        },
+                        child: TextFormField(
+                          controller: area == null
+                              ? _nameController
+                              : _areaController,
+                          focusNode: area == null
+                              ? _nameFocusNode
+                              : _areaFocusNode,
+                          onFieldSubmitted: submit,
+                          onSaved: submit,
+                          readOnly: currentIndex.embedding?.editable == false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            hintText: AppLocalizations.of(context).untitled,
+                          ),
                         ),
                       ),
-                    ),
-                    if (snapshot.data?.connection is NetworkerClient) ...[
-                      Text(
-                        AppLocalizations.of(context).collaboration,
-                        style: TextTheme.of(context).bodySmall,
-                      ),
-                    ] else
-                      ListenableBuilder(
-                        listenable: _nameController,
-                        builder: (context, child) {
-                          final currentNameFilePath = toFilePath(
-                            _nameController.text,
-                          );
-                          var showCurrentNameFilePath =
-                              currentIndex.isCreating &&
-                              currentNameFilePath != currentIndex.location.path;
-                          if (currentIndex.location.isEmpty && area == null) {
-                            return SizedBox();
-                          }
-                          return Tooltip(
-                            message: currentIndex.location.identifier,
-                            child: Text(
-                              showCurrentNameFilePath
-                                  ? currentNameFilePath
-                                  : ((currentIndex.absolute &&
-                                                currentIndex
+                      if (snapshot.data?.connection is NetworkerClient) ...[
+                        Text(
+                          AppLocalizations.of(context).collaboration,
+                          style: TextTheme.of(context).bodySmall,
+                        ),
+                      ] else
+                        ListenableBuilder(
+                          listenable: Listenable.merge([
+                            _nameController,
+                            _nameFocusNode,
+                          ]),
+                          builder: (context, child) {
+                            final currentNameFilePath = toFilePath(
+                              _nameController.text,
+                            );
+                            var showCurrentNameFilePath =
+                                area == null &&
+                                _nameFocusNode.hasFocus &&
+                                currentNameFilePath !=
+                                    currentIndex.location.path;
+                            if (currentIndex.location.isEmpty &&
+                                area == null &&
+                                !showCurrentNameFilePath) {
+                              return SizedBox();
+                            }
+                            return Tooltip(
+                              message: currentIndex.location.identifier,
+                              child: Text(
+                                showCurrentNameFilePath
+                                    ? currentNameFilePath
+                                    : ((currentIndex.absolute &&
+                                                  currentIndex
+                                                      .location
+                                                      .path
+                                                      .isEmpty)
+                                              ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                              : currentIndex
                                                     .location
-                                                    .path
-                                                    .isEmpty)
-                                            ? currentIndex.location.fileType
-                                                  ?.getLocalizedName(context)
-                                            : currentIndex
-                                                  .location
-                                                  .pathWithoutLeadingSlash) ??
-                                        AppLocalizations.of(context).document,
-                              style: TextTheme.of(context).bodySmall?.copyWith(
-                                fontStyle: showCurrentNameFilePath
-                                    ? FontStyle.italic
-                                    : FontStyle.normal,
+                                                    .pathWithoutLeadingSlash) ??
+                                          AppLocalizations.of(context).document,
+                                style: TextTheme.of(context).bodySmall
+                                    ?.copyWith(
+                                      fontStyle: showCurrentNameFilePath
+                                          ? FontStyle.italic
+                                          : FontStyle.normal,
+                                    ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                  ],
-                );
-                return title;
-              },
-            );
-          },
-        ),
-      ),
-      const SizedBox(width: 8),
-      if (state is DocumentLoadSuccess) ...[
-        if ((!state.hasAutosave(
-                  currentIndex.networkingService,
-                  currentIndex.embedding,
-                ) ||
-                settings.showSaveButton) &&
-            currentIndex.embedding?.save != false)
-          SizedBox(
-            width: 42,
-            child: Builder(
-              builder: (context) {
-                Widget icon = PhosphorIcon(switch (currentIndex.saved) {
-                  SaveState.saving => PhosphorIconsLight.download,
-                  _ when currentIndex.isSaveDelayed => PhosphorIconsLight.clock,
-                  SaveState.saved => PhosphorIconsFill.floppyDisk,
-                  SaveState.unsaved ||
-                  SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
-                });
-                String tooltip = switch (currentIndex.saved) {
-                  SaveState.saving => AppLocalizations.of(context).saving,
-                  _ when currentIndex.isSaveDelayed => AppLocalizations.of(
-                    context,
-                  ).saveDelayed,
-                  SaveState.saved => AppLocalizations.of(context).saved,
-                  SaveState.unsaved => AppLocalizations.of(context).unsaved,
-                  SaveState.absoluteRead => AppLocalizations.of(
-                    context,
-                  ).readOnly,
-                };
-                return IconButton(
-                  icon: icon,
-                  tooltip: tooltip,
-                  onPressed: () {
-                    Actions.maybeInvoke<SaveIntent>(context, SaveIntent());
-                  },
-                );
-              },
-            ),
-          ),
-        if (state.currentAreaName.isNotEmpty)
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.signOut),
-            tooltip: AppLocalizations.of(context).exitArea,
-            onPressed: () {
-              context.read<DocumentBloc>().add(const CurrentAreaChanged(''));
-            },
-          ),
-        if (state.absolute)
-          IconButton(
-            icon: PhosphorIcon(
-              state.location.fileType.icon(PhosphorIconsStyle.light),
-            ),
-            tooltip: AppLocalizations.of(context).export,
-            onPressed: () => context.read<ImportService>().export(),
-          ),
-        SearchButton(controller: widget.searchController),
-        if (state.location.path != '' && currentIndex.embedding == null) ...[
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.folder),
-            onPressed: () {
-              Actions.maybeInvoke<ChangePathIntent>(
-                context,
-                ChangePathIntent(),
+                            );
+                          },
+                        ),
+                    ],
+                  );
+                  return title;
+                },
               );
             },
-            tooltip: AppLocalizations.of(context).changeDocumentPath,
           ),
+        ),
+        const SizedBox(width: 8),
+        if (state is DocumentLoadSuccess) ...[
+          if ((!cubit.hasAutosave() || settings.showSaveButton) &&
+              currentIndex.embedding?.save != false)
+            SizedBox(
+              width: 42,
+              child: Builder(
+                builder: (context) {
+                  Widget icon = PhosphorIcon(switch (currentIndex.saved) {
+                    SaveState.saving => PhosphorIconsLight.download,
+                    _ when currentIndex.isSaveDelayed =>
+                      PhosphorIconsLight.clock,
+                    SaveState.saved => PhosphorIconsFill.floppyDisk,
+                    SaveState.unsaved ||
+                    SaveState.absoluteRead => PhosphorIconsLight.floppyDisk,
+                  });
+                  String tooltip = switch (currentIndex.saved) {
+                    SaveState.saving => AppLocalizations.of(context).saving,
+                    _ when currentIndex.isSaveDelayed => AppLocalizations.of(
+                      context,
+                    ).saveDelayed,
+                    SaveState.saved => AppLocalizations.of(context).saved,
+                    SaveState.unsaved => AppLocalizations.of(context).unsaved,
+                    SaveState.absoluteRead => AppLocalizations.of(
+                      context,
+                    ).readOnly,
+                  };
+                  return IconButton(
+                    icon: icon,
+                    tooltip: tooltip,
+                    onPressed: () {
+                      Actions.maybeInvoke<SaveIntent>(context, SaveIntent());
+                    },
+                  );
+                },
+              ),
+            ),
+          if (state.currentAreaName.isNotEmpty)
+            IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.signOut),
+              tooltip: AppLocalizations.of(context).exitArea,
+              onPressed: () {
+                context.read<DocumentBloc>().add(const CurrentAreaChanged(''));
+              },
+            ),
+          if (state.absolute)
+            IconButton(
+              icon: PhosphorIcon(
+                currentIndex.location.fileType.icon(PhosphorIconsStyle.light),
+              ),
+              tooltip: AppLocalizations.of(context).export,
+              onPressed: () => context.read<ImportService>().export(),
+            ),
+          SearchButton(controller: widget.searchController),
+          if (currentIndex.location.path != '' &&
+              currentIndex.embedding == null) ...[
+            IconButton(
+              icon: const PhosphorIcon(PhosphorIconsLight.folder),
+              onPressed: () {
+                Actions.maybeInvoke<ChangePathIntent>(
+                  context,
+                  ChangePathIntent(),
+                );
+              },
+              tooltip: AppLocalizations.of(context).changeDocumentPath,
+            ),
+          ],
         ],
       ],
-    ],
-  );
+    );
+  }
 }
 
 class MainPopupMenu extends StatelessWidget {
@@ -483,7 +494,6 @@ class MainPopupMenu extends StatelessWidget {
               buildWhen: (previous, current) =>
                   previous.embedding != current.embedding ||
                   previous.hideUi != current.hideUi ||
-                  previous.networkingService != current.networkingService ||
                   previous.saved != current.saved,
               builder: (context, state) {
                 final size = MediaQuery.sizeOf(context);
@@ -783,7 +793,9 @@ class MainPopupMenu extends StatelessWidget {
                     if (state.embedding == null &&
                         settings.hasFlag('collaboration'))
                       BlocBuilder<NetworkingService, NetworkState?>(
-                        bloc: state.networkingService,
+                        bloc: context
+                            .read<CurrentIndexCubit>()
+                            .networkingService,
                         builder: (_, state) {
                           final isOpen = state?.connection.isOpen ?? false;
                           return MenuItemButton(

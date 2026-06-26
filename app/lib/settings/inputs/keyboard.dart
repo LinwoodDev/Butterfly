@@ -43,6 +43,8 @@ class KeyboardInputSettings extends StatelessWidget {
       hideUIShortcut,
       nextShortcut,
       previousShortcut,
+      nextPageShortcut,
+      previousPageShortcut,
       togglePresentationShortcut,
       selectAllShortcut,
       pasteShortcut,

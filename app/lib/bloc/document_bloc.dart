@@ -149,9 +149,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   AssetService? _assetService;
 
   CurrentIndexCubit get currentIndexCubit => _currentIndexCubit!;
-  TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
+  TransformCubit get transformCubit => currentIndexCubit.transformCubit;
   NetworkingService? get networkingService =>
-      _currentIndexCubit?.state.networkingService;
+      _currentIndexCubit?.networkingService;
   Embedding? get embedding => _currentIndexCubit?.state.embedding;
 
   factory DocumentBloc(
@@ -172,7 +172,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       currentIndexCubit,
       windowCubit,
       initial,
-      location,
       resolvedAssetService,
       page,
       pageName,
@@ -185,7 +184,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
     NoteData initial,
-    AssetLocation location,
     AssetService assetService, [
     DocumentPage? page,
     String? pageName,
@@ -198,7 +196,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
            page: page,
            assetService: assetService,
            windowCubit: windowCubit,
-           location: location,
            absolute: absolute,
            fileSystem: fileSystem,
            pageName: pageName ?? initial.getPages(true).firstOrNull ?? '',
@@ -1480,7 +1477,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         metadata: current.metadata,
         fileSystem: current.fileSystem,
         windowCubit: current.windowCubit,
-        location: current.location,
         absolute: current.absolute,
       );
       currentIndexCubit.updateHandler(this, newState.handler);
@@ -1709,7 +1705,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     final cubit = _currentIndexCubit;
     if (current is! DocumentLoaded || cubit == null) return;
-    if (!current.location.isEmpty) {
+    if (!cubit.state.location.isEmpty) {
       cubit.setSaveState(
         saved: SaveState.saved,
         isCreating: false,
@@ -1788,7 +1784,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     clearHistory();
     final currentState = state;
     final currentIndexCubit = _currentIndexCubit;
-    final transformCubit = currentIndexCubit?.state.transformCubit;
+    final transformCubit = currentIndexCubit?.transformCubit;
     final assetService = _assetService;
     if (currentIndexCubit != null && !currentIndexCubit.isClosed) {
       await currentIndexCubit.close();
@@ -1856,7 +1852,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final state = this.state;
     final cubit = _currentIndexCubit;
     if (state is! DocumentLoadSuccess || cubit == null) return {};
-    transform ??= cubit.state.transformCubit.state;
+    transform ??= cubit.transformCubit.state;
     final renderers = cubit.state.cameraViewport.visibleElements;
     if (renderers.isEmpty) return {};
     hitElementMode ??= HitElementMode.touchAnywhere;
@@ -1893,7 +1889,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (state is! DocumentLoadSuccess || cubit == null) return {};
     final renderers = cubit.state.cameraViewport.visibleElements;
     if (renderers.isEmpty) return {};
-    transform ??= cubit.state.transformCubit.state;
+    transform ??= cubit.transformCubit.state;
     hitElementMode ??= HitElementMode.touchAnywhere;
 
     final params = _RayCastPolygonParams(

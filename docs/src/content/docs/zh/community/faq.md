@@ -63,7 +63,6 @@ Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.de
 See [Stylus support](/community/stylus-support) for current behavior, settings, and issue links.
 
 我使用流体框架提供的输入。
-There are already issues to track it:
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 这些问题比以前更长。 网络版本现在应该很好。

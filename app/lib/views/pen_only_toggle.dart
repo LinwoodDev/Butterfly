@@ -40,7 +40,9 @@ class PenOnlyToggle extends StatelessWidget {
                 }
 
                 // Use effective pen-only state (considers both setting and session)
-                final penOnlyEnabled = currentIndex.effectivePenOnlyInput;
+                final penOnlyEnabled = context
+                    .read<CurrentIndexCubit>()
+                    .effectivePenOnlyInput;
                 final isAutoMode = settings.penOnlyInput == null;
 
                 return Tooltip(

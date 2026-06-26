@@ -1183,10 +1183,10 @@ class ImportService {
   }
 
   Future<void> export() async {
-    final state = _getState();
-    if (state == null) return;
-    final location = state.location;
-    final fileType = location.fileType;
+    final bloc = this.bloc;
+    final state = bloc?.state;
+    if (state is! DocumentLoadSuccess) return;
+    final fileType = bloc?.currentIndexCubit.state.location.fileType;
     final currentIndexCubit = bloc!.currentIndexCubit;
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
@@ -1204,7 +1204,7 @@ class ImportService {
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: GeneralExportDialog(
               options: ImageExportOptions(
                 height: viewport.height?.toDouble() ?? 1000.0,
@@ -1220,7 +1220,7 @@ class ImportService {
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: PdfExportDialog(
               areas: state.page.areas
                   .map((e) => AreaPreset(name: e.name, area: e))
@@ -1232,7 +1232,7 @@ class ImportService {
         return showDialog<void>(
           context: context,
           builder: (context) => BlocProvider.value(
-            value: bloc!,
+            value: bloc,
             child: GeneralExportDialog(
               options: SvgExportOptions(
                 width: (viewport.width ?? 1000) / viewport.scale,

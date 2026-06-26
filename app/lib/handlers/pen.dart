@@ -158,7 +158,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
-    final penOnlyInput = currentIndexCubit.state.effectivePenOnlyInput;
+    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
     if (penOnlyInput &&
@@ -207,7 +207,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    if (cubit.state.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       context.refreshForegrounds();
       return;

@@ -68,9 +68,9 @@ class _MainViewViewportState extends State<MainViewViewport>
   bool _isMousePenOrTouch(PointerDeviceKind kind) =>
       _isMouseOrPen(kind) || kind == PointerDeviceKind.touch;
 
-  bool _isTouchMoveGesture(CurrentIndex currentIndex) =>
+  bool _isTouchMoveGesture(CurrentIndexCubit currentIndex) =>
       currentIndex.moveEnabled &&
-      currentIndex.pointers.every(
+      currentIndex.state.pointers.every(
         (pointer) => _pointerKinds[pointer] == PointerDeviceKind.touch,
       );
 
@@ -335,7 +335,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       return;
     }
     final currentIndexState = cubit.state;
-    if (_isTouchMoveGesture(currentIndexState)) {
+    if (_isTouchMoveGesture(cubit)) {
       if (currentIndexState.pointers.isEmpty) {
         return;
       }
@@ -632,11 +632,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       cubit.move(
                                         -details.focalPointDelta /
                                             sensitivity /
-                                            cubit
-                                                .state
-                                                .transformCubit
-                                                .state
-                                                .size,
+                                            cubit.transformCubit.state.size,
                                         currentArea: state.currentArea,
                                       );
                                     } else {
@@ -675,11 +671,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       cubit.slide(
                                         details.velocity.pixelsPerSecond /
                                             sensitivity /
-                                            cubit
-                                                .state
-                                                .transformCubit
-                                                .state
-                                                .size,
+                                            cubit.transformCubit.state.size,
                                         details.scaleVelocity,
                                         currentArea: state.currentArea,
                                       );
@@ -697,7 +689,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   },
                                   onScaleStart: (details) {
                                     _isScalingDisabled ??= !_isTouchMoveGesture(
-                                      cubit.state,
+                                      cubit,
                                     );
                                     _ruler = RulerHandler.getInteractiveRuler(
                                       currentIndex,

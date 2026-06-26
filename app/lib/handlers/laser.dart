@@ -132,7 +132,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final penOnlyInput = currentIndexCubit.state.effectivePenOnlyInput;
+    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
       currentIndexCubit.state,
       localPosition,
@@ -176,8 +176,8 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     context.refreshForegrounds();
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    final cubit = context.getCurrentIndexCubit();
+    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       _elements.clear();
       return;
     }

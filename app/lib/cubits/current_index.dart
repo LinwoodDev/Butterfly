@@ -54,10 +54,7 @@ sealed class CurrentIndex with _$CurrentIndex {
   const factory CurrentIndex(
     int? index,
     Handler handler,
-    CameraViewport cameraViewport,
-    SettingsCubit settingsCubit,
-    TransformCubit transformCubit,
-    NetworkingService networkingService, {
+    CameraViewport cameraViewport, {
     @Default(false) bool isSaveDelayed,
     @Default(UtilitiesState()) UtilitiesState utilities,
     Handler<Tool>? temporaryHandler,
@@ -95,19 +92,6 @@ sealed class CurrentIndex with _$CurrentIndex {
     @Default(false) bool sessionPenOnlyInput,
   }) = _CurrentIndex;
 
-  /// Returns the effective pen-only input state.
-  /// If the setting is null (auto), uses the session-based state.
-  /// Otherwise uses the persisted setting.
-  bool get effectivePenOnlyInput {
-    final setting = settingsCubit.state.penOnlyInput;
-    if (setting != null) return setting;
-    return sessionPenOnlyInput;
-  }
-
-  bool get moveEnabled =>
-      (settingsCubit.state.inputGestures && pointers.length > 1) &&
-      settingsCubit.state.moveOnGesture;
-
   bool get absolute => saved == SaveState.absoluteRead;
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
@@ -126,21 +110,23 @@ sealed class CurrentIndex with _$CurrentIndex {
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
+  final SettingsCubit settingsCubit;
+  final TransformCubit transformCubit;
+  final NetworkingService networkingService;
+
   CurrentIndexCubit(
-    SettingsCubit settingsCubit,
-    TransformCubit transformCubit,
+    this.settingsCubit,
+    this.transformCubit,
     CameraViewport viewport, {
     Embedding? embedding,
     NetworkingService? networkingService,
     bool absolute = false,
-  }) : super(
+  }) : networkingService = networkingService ?? NetworkingService(),
+       super(
          CurrentIndex(
            null,
            HandHandler(),
            viewport,
-           settingsCubit,
-           transformCubit,
-           networkingService ?? NetworkingService(),
            embedding: embedding,
            saved: absolute ? SaveState.absoluteRead : SaveState.saved,
          ),
@@ -163,6 +149,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return true;
   }
+
+  /// Returns the effective pen-only input state.
+  /// If the setting is null (auto), uses the session-based state.
+  /// Otherwise uses the persisted setting.
+  bool get effectivePenOnlyInput {
+    final setting = settingsCubit.state.penOnlyInput;
+    if (setting != null) return setting;
+    return state.sessionPenOnlyInput;
+  }
+
+  bool get moveEnabled =>
+      (settingsCubit.state.inputGestures && state.pointers.length > 1) &&
+      settingsCubit.state.moveOnGesture;
 
   void _onTransformChanged(CameraTransform transform) {
     // Debounce transform changes to avoid excessive updates during pan/zoom
@@ -229,7 +228,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void init(DocumentBloc bloc) {
     _documentBloc = WeakReference(bloc);
     changeTool(bloc, index: state.index ?? 0);
-    state.networkingService.setup(bloc);
+    networkingService.setup(bloc);
   }
 
   void setPenDetected(bool detected) {
@@ -237,7 +236,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     // When pen is detected and setting is auto (null), enable session pen-only
     final shouldEnableSessionPenOnly =
         detected &&
-        state.settingsCubit.state.penOnlyInput == null &&
+        settingsCubit.state.penOnlyInput == null &&
         !state.sessionPenOnlyInput;
     emit(
       state.copyWith(
@@ -279,7 +278,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     if (newVisible.isEmpty && newlyHidden.isEmpty) return;
 
-    final transform = renderTransform ?? state.transformCubit.state;
+    final transform = renderTransform ?? transformCubit.state;
     final size = targetSize ?? newViewport.toSize();
 
     _initializedElements.removeAll(newlyHidden);
@@ -320,8 +319,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool dark, [
     VisualDensity? density,
     ColorScheme? overridden,
-  ]) =>
-      getThemeData(state.settingsCubit.state.design, dark, density, overridden);
+  ]) => getThemeData(settingsCubit.state.design, dark, density, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
     if (state.embedding?.editable == false) {
@@ -375,7 +373,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await Future.wait(
           foregrounds.map(
             (e) async => await e.setup(
-              state.transformCubit,
+              transformCubit,
               document,
               blocState.assetService,
               blocState.page,
@@ -461,14 +459,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Offset? cursor,
   }) {
     cursor ??= state.lastPosition ?? Offset.zero;
-    state.networkingService.sendUser(
+    networkingService.sendUser(
       NetworkingUser(
-        cursor: state.transformCubit.state.localToGlobal(cursor).toPoint(),
+        cursor: transformCubit.state.localToGlobal(cursor).toPoint(),
         foreground: (foregrounds ?? state.getAllForegrounds(false))
             .map((e) => e.element)
             .whereType<PadElement>()
             .toList(),
-        name: state.networkingService.userName,
+        name: networkingService.userName,
       ),
     );
   }
@@ -480,7 +478,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     talker.verbose('Updating networking state');
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
-    final users = (current ?? state.networkingService.users).entries.toList();
+    final users = (current ?? networkingService.users).entries.toList();
     final usersByChannel = {for (final entry in users) entry.key: entry.value};
     final activeForegroundElements = users
         .expand((entry) => entry.value.foreground ?? const <PadElement>[])
@@ -525,7 +523,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await Future.wait(
       added.map(
         (e) async => await e.setup(
-          state.transformCubit,
+          transformCubit,
           blocState.data,
           blocState.assetService,
           blocState.page,
@@ -574,7 +572,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
-            state.transformCubit,
+            transformCubit,
             docState.data,
             docState.assetService,
             docState.page,
@@ -612,7 +610,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
-            state.transformCubit,
+            transformCubit,
             docState.data,
             docState.assetService,
             docState.page,
@@ -723,12 +721,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           state.temporaryHandler?.setupForegrounds == true) {
         await Future.wait(
           temporaryForegrounds.map(
-            (e) async => await e.setup(
-              state.transformCubit,
-              document,
-              assetService,
-              page,
-            ),
+            (e) async =>
+                await e.setup(transformCubit, document, assetService, page),
           ),
         );
       }
@@ -742,12 +736,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (state.handler.setupForegrounds) {
         await Future.wait(
           foregrounds.map(
-            (e) async => await e.setup(
-              state.transformCubit,
-              document,
-              assetService,
-              page,
-            ),
+            (e) async =>
+                await e.setup(transformCubit, document, assetService, page),
           ),
         );
       }
@@ -765,12 +755,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (handler.setupForegrounds) {
           await Future.wait(
             foregrounds.map(
-              (e) async => await e.setup(
-                state.transformCubit,
-                document,
-                assetService,
-                page,
-              ),
+              (e) async =>
+                  await e.setup(transformCubit, document, assetService, page),
             ),
           );
         }
@@ -819,7 +805,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   /// Lightweight refresh that only updates foregrounds without rebaking.
   /// Use this when handler internal state changes but document hasn't changed.
-  Future<void> refreshForegrounds(DocumentLoaded blocState) async {
+  Future<void> refreshForegrounds(DocumentLoaded blocState) =>
+      _foregroundRefreshRunner.schedule(() => _refreshForegrounds(blocState));
+
+  Future<void> _refreshForegrounds(DocumentLoaded blocState) async {
     if (isClosed) return;
     final document = blocState.data;
     final page = blocState.page;
@@ -843,7 +832,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         temporaryForegrounds.map(
           (e) async =>
-              await e.setup(state.transformCubit, document, assetService, page),
+              await e.setup(transformCubit, document, assetService, page),
         ),
       );
     }
@@ -859,7 +848,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async =>
-              await e.setup(state.transformCubit, document, assetService, page),
+              await e.setup(transformCubit, document, assetService, page),
         ),
       );
     }
@@ -949,7 +938,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await Future.wait(
         foregrounds.map(
           (e) async => await e.setup(
-            state.transformCubit,
+            transformCubit,
             document,
             blocState.assetService,
             page,
@@ -1104,7 +1093,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await Future.wait(
           temporaryForegrounds.map(
             (e) async => await e.setup(
-              state.transformCubit,
+              transformCubit,
               document,
               blocState.assetService,
               page,
@@ -1174,8 +1163,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Rect getViewportRect({Size? viewportSize}) {
     var size = viewportSize ?? state.cameraViewport.toSize();
 
-    final transform = state.transformCubit.state;
-    final resolution = state.settingsCubit.state.renderResolution;
+    final transform = transformCubit.state;
+    final resolution = settingsCubit.state.renderResolution;
 
     final friction = transform.friction;
     final realWidth = size.width / transform.size;
@@ -1244,6 +1233,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   final _delayedBakeRunner = CoalescedAsyncRunner(
     delay: const Duration(milliseconds: 100),
   );
+  final _foregroundRefreshRunner = CoalescedAsyncRunner(delay: Duration.zero);
 
   bool _rectContains(Rect outer, Rect inner) {
     const tolerance = precisionErrorTolerance;
@@ -1262,9 +1252,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }) => _bakeLock.synchronized(() async {
     if (isClosed) return;
     var cameraViewport = state.cameraViewport;
-    final startTransform = state.transformCubit.state;
+    final startTransform = transformCubit.state;
     final startViewport = cameraViewport;
-    final resolution = state.settingsCubit.state.renderResolution;
+    final resolution = settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
@@ -1273,7 +1263,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (viewportSize == null) {
       size /= resolution.multiplier;
     }
-    var transform = state.transformCubit.state;
+    var transform = transformCubit.state;
     var renderers = List<Renderer<PadElement>>.from(this.renderers);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
@@ -1486,7 +1476,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     // If state changed while baking (e.g. fast move submitted a newer viewport),
     // this bake output is stale and must not overwrite the latest viewport.
     final currentViewport = state.cameraViewport;
-    final currentTransform = state.transformCubit.state;
+    final currentTransform = transformCubit.state;
     if (!identical(currentViewport, startViewport) ||
         currentTransform != startTransform) {
       newImage.dispose();
@@ -1760,7 +1750,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await Future.wait(
       newRenderers.map(
         (e) async =>
-            await e.setup(state.transformCubit, document, assetService, page),
+            await e.setup(transformCubit, document, assetService, page),
       ),
     );
     // Build layer index map for O(1) lookups instead of O(n) indexOf calls
@@ -1789,7 +1779,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     await Future.wait(
       backgrounds.map(
         (e) async =>
-            await e.setup(state.transformCubit, document, assetService, page),
+            await e.setup(transformCubit, document, assetService, page),
       ),
     );
     final rect = getViewportRect();
@@ -1895,7 +1885,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           renderBackground: renderBackground,
         ),
         cameraViewport: await CameraViewport.build(
-          state.transformCubit,
+          transformCubit,
           document,
           docState.assetService,
           page,
@@ -2071,14 +2061,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     );
     emit(state);
     if (utilities != null) {
-      return state.settingsCubit.changeUtilities(utilities);
+      return settingsCubit.changeUtilities(utilities);
     }
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
   bool _isNavigationRailVisible() {
-    final settings = state.settingsCubit.state;
+    final settings = settingsCubit.state;
     final viewport = state.cameraViewport;
     return settings.navigationRail &&
         settings.navigatorPosition == NavigatorPosition.left &&
@@ -2091,14 +2081,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Area? currentArea,
     CameraTransform? customTransform,
   ]) {
-    final settings = state.settingsCubit.state;
+    final settings = settingsCubit.state;
     var multiplier = settings.limitViewportMultiplier;
     final positive = settings.limitViewportPositive;
 
     if (multiplier == null && !positive && currentArea == null) return null;
 
     final viewport = state.cameraViewport;
-    final transform = customTransform ?? state.transformCubit.state;
+    final transform = customTransform ?? transformCubit.state;
     final navigationRailOffset = _isNavigationRailVisible()
         ? kNavigationRailWidth / transform.size
         : 0.0;
@@ -2178,7 +2168,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final newBounds = _calculateViewportBounds(area);
     if (newBounds == null) return;
 
-    final pos = state.transformCubit.state.position;
+    final pos = transformCubit.state.position;
     double newX = pos.dx;
     double newY = pos.dy;
     if (dx > 0) {
@@ -2195,7 +2185,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else {
       newY = newY.clamp(newBounds.top, newBounds.bottom);
     }
-    state.transformCubit.teleport(Offset(newX, newY));
+    transformCubit.teleport(Offset(newX, newY));
   }
 
   Future<void> navigateToRelativeArea(
@@ -2245,7 +2235,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
       final bounds = _calculateViewportBounds(currentArea);
       if (bounds != null) {
-        final pos = state.transformCubit.state.position;
+        final pos = transformCubit.state.position;
         var newPos = pos + delta;
         final clampedPos = Offset(
           newPos.dx.clamp(bounds.left, bounds.right),
@@ -2269,7 +2259,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           }
 
           if ((dx != 0 || dy != 0) &&
-              state.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
+              settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
             final area = getRelativeArea(currentArea, dx, dy);
             if (area != null) {
               _activeDocumentBloc?.add(CurrentAreaChanged(area.name));
@@ -2286,7 +2276,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (delta.dx == 0 && delta.dy == 0) {
       return;
     }
-    state.transformCubit.move(delta);
+    transformCubit.move(delta);
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
@@ -2298,28 +2288,28 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     if (force) {
-      state.transformCubit.zoom(delta, cursor);
+      transformCubit.zoom(delta, cursor);
       return;
     }
-    final transform = state.transformCubit.state.withSize(
-      state.transformCubit.state.size * delta,
+    final transform = transformCubit.state.withSize(
+      transformCubit.state.size * delta,
       cursor,
     );
     final clamped = _clampTransform(transform);
-    state.transformCubit.teleport(clamped.position, clamped.size);
+    transformCubit.teleport(clamped.position, clamped.size);
   }
 
   void size(double size, [Offset cursor = Offset.zero, bool force = false]) {
     final utilitiesState = state.utilities;
     if (utilitiesState.lockZoom && !force) return;
     if (force) {
-      state.transformCubit.size(size, cursor);
+      transformCubit.size(size, cursor);
       return;
     }
     final transform = _clampTransform(
-      state.transformCubit.state.withSize(size, cursor),
+      transformCubit.state.withSize(size, cursor),
     );
-    state.transformCubit.teleport(transform.position, transform.size);
+    transformCubit.teleport(transform.position, transform.size);
   }
 
   void slide(
@@ -2328,7 +2318,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool force = false,
     Area? currentArea,
   }) {
-    final settings = state.settingsCubit.state;
+    final settings = settingsCubit.state;
     if (!settings.hasFlag('smoothNavigation')) return;
     final utilitiesState = state.utilities;
     Rect? bounds;
@@ -2344,7 +2334,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
       bounds = _calculateViewportBounds(currentArea);
       if (bounds != null) {
-        final pos = state.transformCubit.state.position;
+        final pos = transformCubit.state.position;
         final clampedPos = Offset(
           pos.dx.clamp(bounds.left, bounds.right),
           pos.dy.clamp(bounds.top, bounds.bottom),
@@ -2379,7 +2369,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     cancelDelayedBake();
-    state.transformCubit.slide(
+    transformCubit.slide(
       positionVelocity,
       sizeVelocity,
       positionBounds: bounds,
@@ -2399,9 +2389,23 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 
   ExternalStorage? getRemoteStorage() =>
-      state.settingsCubit.getRemote(state.location.remote);
+      settingsCubit.getRemote(state.location.remote);
 
   final _savingLock = Lock();
+
+  bool hasAutosave() =>
+      settingsCubit.state.autosave &&
+      (networkingService.isActive ||
+          !(state.embedding?.save ?? true) ||
+          (!kIsWeb &&
+              !state.absolute &&
+              (state.location.isEmpty ||
+                  (state.location.fileType?.isNote() ?? false)) &&
+              (state.location.remote.isEmpty ||
+                  (settingsCubit
+                          .getRemote(state.location.remote)
+                          ?.hasDocumentCached(state.location.path) ??
+                      false))));
 
   Future<AssetLocation> save(
     DocumentBloc bloc, {
@@ -2415,7 +2419,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             state.saved == SaveState.absoluteRead)) {
       return state.location;
     }
-    if (state.networkingService.isClient) {
+    if (networkingService.isClient) {
       return AssetLocation.empty;
     }
     if (state.isSaveDelayed && isAutosave) {
@@ -2423,9 +2427,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final storage = getRemoteStorage();
     final fileSystem = bloc.state.fileSystem.buildDocumentSystem(storage);
-    final isDelayed = state.settingsCubit.state.delayedAutosave;
+    final isDelayed = settingsCubit.state.delayedAutosave;
     if (isDelayed && isAutosave) {
-      final seconds = max(0, state.settingsCubit.state.autosaveDelaySeconds);
+      final seconds = max(0, settingsCubit.state.autosaveDelaySeconds);
       emit(state.copyWith(isSaveDelayed: true));
       await Future.delayed(Duration(seconds: seconds));
       if (!state.isSaveDelayed) {
@@ -2473,7 +2477,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ));
         await fileSystem.updateFile(current.path, file);
       }
-      state.settingsCubit.addRecentHistory(current);
+      settingsCubit.addRecentHistory(current);
       if (isClosed) {
         return current;
       }
@@ -2514,8 +2518,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _networkingDebounceTimer?.cancel();
     _networkingDebounceTimer = null;
     await _delayedBakeRunner.disposeAndWait();
-    if (!currentState.networkingService.isClosed) {
-      await currentState.networkingService.close();
+    await _foregroundRefreshRunner.disposeAndWait();
+    if (!networkingService.isClosed) {
+      await networkingService.close();
     }
     return super.close();
   }
@@ -2553,7 +2558,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ...addedElements,
     }) {
       await renderer.setup(
-        state.transformCubit,
+        transformCubit,
         current.data,
         current.assetService,
         current.page,
@@ -2605,7 +2610,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (updateIndex) {
       this.updateIndex(bloc);
     }
-    if (current.hasAutosave(state.networkingService, state.embedding)) {
+    if (hasAutosave()) {
       save(bloc, isAutosave: true);
     }
   }
@@ -2654,7 +2659,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await Future.wait(
           foregrounds.map(
             (e) async => await e.setup(
-              state.transformCubit,
+              transformCubit,
               document,
               blocState.assetService,
               page,
@@ -2692,7 +2697,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     bool reset = false,
     bool testTransform = false,
   }) => _delayedBakeRunner.schedule(() async {
-    final newTransform = state.transformCubit.state;
+    final newTransform = transformCubit.state;
     final viewport = state.cameraViewport;
 
     if (testTransform &&

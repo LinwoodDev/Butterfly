@@ -1,3 +1,5 @@
+import 'package:butterfly/actions/next_page.dart';
+import 'package:butterfly/actions/previous_page.dart';
 import 'package:keybinder/keybinder.dart';
 import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
@@ -34,10 +36,12 @@ export 'package:butterfly/actions/hide_ui.dart';
 export 'package:butterfly/actions/image_export.dart';
 export 'package:butterfly/actions/new.dart';
 export 'package:butterfly/actions/next.dart';
+export 'package:butterfly/actions/next_page.dart';
 export 'package:butterfly/actions/packs.dart';
 export 'package:butterfly/actions/paste.dart';
 export 'package:butterfly/actions/pdf_export.dart';
 export 'package:butterfly/actions/previous.dart';
+export 'package:butterfly/actions/previous_page.dart';
 export 'package:butterfly/actions/redo.dart';
 export 'package:butterfly/actions/save.dart';
 export 'package:butterfly/actions/select.dart';
@@ -59,37 +63,36 @@ extension ShortcutDefinitionLocalization on ShortcutDefinition {
         return AppLocalizations.of(context).toolNumber(num + 1);
       }
     }
+    final loc = AppLocalizations.of(context);
 
     return switch (this) {
-      newShortcut => AppLocalizations.of(context).newNote,
-      newFromTemplateShortcut => AppLocalizations.of(
-        context,
-      ).newFromTemplateShortcut,
-      exportShortcut => AppLocalizations.of(context).export,
-      exportTextShortcut => AppLocalizations.of(context).exportAsTextShortcut,
-      imageExportShortcut => AppLocalizations.of(context).exportAsImageShortcut,
-      pdfExportShortcut => AppLocalizations.of(context).exportAsPdfShortcut,
-      svgExportShortcut => AppLocalizations.of(context).exportAsSvgShortcut,
-      packsShortcut => AppLocalizations.of(context).packs,
-      settingsShortcut => AppLocalizations.of(context).settings,
-      exitShortcut => AppLocalizations.of(context).exit,
-      searchShortcut => AppLocalizations.of(context).search,
-      undoShortcut => AppLocalizations.of(context).undo,
-      redoShortcut => AppLocalizations.of(context).redo,
-      backgroundShortcut => AppLocalizations.of(context).background,
-      saveShortcut => AppLocalizations.of(context).save,
-      changePathShortcut => AppLocalizations.of(context).changePathShortcut,
-      zoomInShortcut => AppLocalizations.of(context).zoomIn,
-      zoomOutShortcut => AppLocalizations.of(context).zoomOut,
-      fullScreenShortcut => AppLocalizations.of(context).fullScreenShortcut,
-      hideUIShortcut => AppLocalizations.of(context).hideUI,
-      nextShortcut => AppLocalizations.of(context).nextSlide,
-      previousShortcut => AppLocalizations.of(context).previousSlide,
-      togglePresentationShortcut => AppLocalizations.of(
-        context,
-      ).pausePresentation,
-      selectAllShortcut => AppLocalizations.of(context).selectAll,
-      pasteShortcut => AppLocalizations.of(context).paste,
+      newShortcut => loc.newNote,
+      newFromTemplateShortcut => loc.newFromTemplateShortcut,
+      exportShortcut => loc.export,
+      exportTextShortcut => loc.exportAsTextShortcut,
+      imageExportShortcut => loc.exportAsImageShortcut,
+      pdfExportShortcut => loc.exportAsPdfShortcut,
+      svgExportShortcut => loc.exportAsSvgShortcut,
+      packsShortcut => loc.packs,
+      settingsShortcut => loc.settings,
+      exitShortcut => loc.exit,
+      searchShortcut => loc.search,
+      undoShortcut => loc.undo,
+      redoShortcut => loc.redo,
+      backgroundShortcut => loc.background,
+      saveShortcut => loc.save,
+      changePathShortcut => loc.changePathShortcut,
+      zoomInShortcut => loc.zoomIn,
+      zoomOutShortcut => loc.zoomOut,
+      fullScreenShortcut => loc.fullScreenShortcut,
+      hideUIShortcut => loc.hideUI,
+      nextShortcut => loc.nextSlide,
+      previousShortcut => loc.previousSlide,
+      nextPageShortcut => loc.nextPage,
+      previousPageShortcut => loc.previousPage,
+      togglePresentationShortcut => loc.pausePresentation,
+      selectAllShortcut => loc.selectAll,
+      pasteShortcut => loc.paste,
       _ => id,
     };
   }
@@ -108,6 +111,8 @@ final keybinder = Keybinder(
     hideUIShortcut,
     nextShortcut,
     previousShortcut,
+    nextPageShortcut,
+    previousPageShortcut,
     togglePresentationShortcut,
     selectAllShortcut,
     searchShortcut,
