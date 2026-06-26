@@ -5,7 +5,6 @@ import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/area/init.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/page.dart';
-import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -93,7 +92,7 @@ class _AreasViewState extends State<AreasView> {
   Widget buildAreaTile(
     DocumentBloc bloc,
     CameraViewport viewport,
-    DocumentLoaded state,
+    DocumentLoadSuccess state,
     Rect viewportRect,
     Area? current,
     Area area, {
@@ -172,39 +171,14 @@ class _AreasViewState extends State<AreasView> {
       actions: isSelectionMode
           ? null
           : [
-              ...buildGeneralAreaContextMenu(
+              ...buildAreaContextMenu(
                 bloc,
+                state,
                 area,
                 context.read<SettingsCubit>(),
-                context
-                    .read<CurrentIndexCubit>()
-                    .renderers
-                    .where((e) => e.area == area)
-                    .map(
-                      (e) => e.transform(
-                        position: -area.position.toOffset(),
-                        relative: true,
-                      ),
-                    )
-                    .map((e) => e?.element)
-                    .nonNulls
-                    .toList(),
                 pop: false,
+                includeRenameAndEnterArea: false,
               )(context).map((e) => buildMenuItem(context, e, false, false)),
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                onPressed: () async {
-                  final result = await showDialog<bool>(
-                    context: context,
-                    builder: (context) => const DeleteDialog(),
-                  );
-                  if (result != true) return;
-                  if (context.mounted) {
-                    bloc.add(AreasRemoved([area.name]));
-                  }
-                },
-                child: Text(AppLocalizations.of(context).delete),
-              ),
             ],
     );
   }
