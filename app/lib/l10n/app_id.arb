@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "Tahan tombol untuk sementara beralih ke alat lain. Melepas tombol akan kembali ke alat sebelumnya.",
   "key": "Tombol",
   "bringMovedElementsToFront": "Bring moved elements to front",
-  "addTool": "Add tool"
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
