@@ -1368,5 +1368,7 @@
   "holdShortcutsDescription": "\"الاختصار المؤقت\" يُفعّل الأداة المحددة خلال الضغط عليه، ويعود إلى الأداة السابقة عند تركه.",
   "key": "المفتاح",
   "bringMovedElementsToFront": "إحضار العناصر إلى الأمام",
-  "addTool": "إضافة أداة"
+  "addTool": "إضافة أداة",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }
