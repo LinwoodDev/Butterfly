@@ -130,6 +130,10 @@ export default defineConfig({
               link: "/docs/v2/migrating/",
             },
             {
+              label: "OneNote",
+              link: "/docs/v2/onenote/",
+            },
+            {
               ...getSidebarTranslatedLabel("Tools"),
               items: [
                 {
