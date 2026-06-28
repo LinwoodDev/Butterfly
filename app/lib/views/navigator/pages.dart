@@ -80,13 +80,68 @@ class PagesView extends StatefulWidget {
 class _PagesViewState extends State<PagesView> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _rangeController = TextEditingController();
+  final FocusNode _rangeFocusNode = FocusNode();
+  final MultiSelectController<String> _selectionController =
+      MultiSelectController<String>();
   String? _rangeError;
+  bool _updatingRangeText = false;
 
   @override
   void dispose() {
     _locationController.dispose();
     _rangeController.dispose();
+    _rangeFocusNode.dispose();
+    _selectionController.dispose();
     super.dispose();
+  }
+
+  void _setRangeText(String text) {
+    if (_rangeController.text == text) return;
+    _updatingRangeText = true;
+    _rangeController.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+    _updatingRangeText = false;
+  }
+
+  void _syncRangeTextFromSelection(
+    MultiSelectController<String> controller,
+    List<PageEntity> selectablePages,
+  ) {
+    if (_rangeError != null || _rangeFocusNode.hasFocus) return;
+    final selectedIndexes = selectablePages
+        .asMap()
+        .entries
+        .where((entry) => controller.selectedIds.contains(entry.value.path))
+        .map((entry) => entry.key);
+    _setRangeText(pages_dialog.formatPageSelection(selectedIndexes));
+  }
+
+  void _applyRangeSelection(
+    String value,
+    List<PageEntity> selectablePages, {
+    bool normalizeText = false,
+  }) {
+    if (_updatingRangeText) return;
+    final selectedIndexes = pages_dialog.parsePageSelection(
+      value,
+      selectablePages.length,
+    );
+    setState(() {
+      if (selectedIndexes == null) {
+        _rangeError = AppLocalizations.of(context).error;
+        return;
+      }
+      _rangeError = null;
+      _selectionController.clear();
+      _selectionController.selectAll(
+        selectedIndexes.map((index) => selectablePages[index].path),
+      );
+      if (normalizeText) {
+        _setRangeText(pages_dialog.formatPageSelection(selectedIndexes));
+      }
+    });
   }
 
   @override
@@ -152,77 +207,7 @@ class _PagesViewState extends State<PagesView> {
                   return Material(
                     type: MaterialType.transparency,
                     child: MultiSelectRegion<String>(
-                      toolbarBuilder: (context, controller) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 4.0,
-                        ),
-                        child: OverflowBar(
-                          spacing: 8,
-                          children: [
-                            SizedBox(
-                              width: 180,
-                              child: TextField(
-                                controller: _rangeController,
-                                decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context).pages,
-                                  hintText: '1-3, 5',
-                                  errorText: _rangeError,
-                                  filled: true,
-                                  isDense: true,
-                                ),
-                                onChanged: (value) {
-                                  final selectablePages = all
-                                      .where((entity) => entity.isFile)
-                                      .toList();
-                                  final selectedIndexes = pages_dialog
-                                      .parsePageSelection(
-                                        value,
-                                        selectablePages.length,
-                                      );
-                                  setState(() {
-                                    if (selectedIndexes == null) {
-                                      _rangeError = AppLocalizations.of(
-                                        context,
-                                      ).error;
-                                      return;
-                                    }
-                                    _rangeError = null;
-                                    controller.clear();
-                                    controller.selectAll(
-                                      selectedIndexes.map(
-                                        (index) => selectablePages[index].path,
-                                      ),
-                                    );
-                                  });
-                                },
-                              ),
-                            ),
-                            ActionChip(
-                              label: Text(AppLocalizations.of(context).delete),
-                              avatar: const PhosphorIcon(
-                                PhosphorIconsLight.trash,
-                              ),
-                              onPressed: () async {
-                                if (controller.selectedIds.isEmpty) return;
-                                final result = await showDialog<bool>(
-                                  context: context,
-                                  builder: (context) => const DeleteDialog(),
-                                );
-                                if (result != true) return;
-                                if (!context.mounted) return;
-                                final bloc = context.read<DocumentBloc>();
-                                // Remember that for page deletion it accepts an array.
-                                // If the event exists in the future, it might be used.
-                                for (final id in controller.selectedIds) {
-                                  bloc.add(PageRemoved(id));
-                                }
-                                controller.clear();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      controller: _selectionController,
                       builder: (context, controller, child) =>
                           ReorderableListView.builder(
                             buildDefaultDragHandles: false,
@@ -272,6 +257,9 @@ class _PagesViewState extends State<PagesView> {
                                 controller: controller,
                                 data: state.data,
                                 index: index,
+                                onSelectionChanged: () {
+                                  setState(() => _rangeError = null);
+                                },
                                 key: ValueKey(entity.path),
                               );
                             },
@@ -281,90 +269,252 @@ class _PagesViewState extends State<PagesView> {
                 },
               ),
             ),
-            Card.filled(
-              child: SizedBox(
-                height: 64,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            const PhosphorIcon(PhosphorIconsLight.plus),
-                            Text(
-                              LeapLocalizations.of(context).create,
-                              style: TextTheme.of(context).titleMedium,
-                            ),
-                          ],
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: _locationController,
+              builder: (context, value, child) {
+                final selectablePages = buildPageEntitiesForLocation(
+                  pages,
+                  value.text,
+                ).where((entity) => entity.isFile).toList();
+                return ListenableBuilder(
+                  listenable: _selectionController,
+                  builder: (context, child) {
+                    if (_selectionController.selectionMode) {
+                      _syncRangeTextFromSelection(
+                        _selectionController,
+                        selectablePages,
+                      );
+                      return _PagesSelectionBar(
+                        controller: _selectionController,
+                        rangeController: _rangeController,
+                        rangeFocusNode: _rangeFocusNode,
+                        rangeError: _rangeError,
+                        selectablePages: selectablePages,
+                        onRangeChanged: (value) =>
+                            _applyRangeSelection(value, selectablePages),
+                        onRangeSubmitted: (value) => _applyRangeSelection(
+                          value,
+                          selectablePages,
+                          normalizeText: true,
                         ),
-                      ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                IconButton.filledTonal(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowUp,
-                                  ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).insertBefore,
-                                  onPressed: () => addPage(index),
-                                ),
-                                const SizedBox(width: 8),
-                                IconButton.filledTonal(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowDown,
-                                  ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).insertAfter,
-                                  onPressed: () => addPage((index ?? -1) + 1),
-                                ),
-                                const SizedBox(width: 8),
-                                IconButton.filledTonal(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowLineUp,
-                                  ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).insertFirst,
-                                  onPressed: () => addPage(0),
-                                ),
-                                const SizedBox(width: 8),
-                                IconButton.filledTonal(
-                                  icon: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowLineDown,
-                                  ),
-                                  tooltip: AppLocalizations.of(
-                                    context,
-                                  ).insertLast,
-                                  onPressed: () => addPage(),
-                                ),
-                                const SizedBox(width: 8),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                        onClear: () {
+                          setState(() {
+                            _rangeError = null;
+                            _selectionController.clear();
+                            _setRangeText('');
+                          });
+                        },
+                        onSelectAllChanged: () {
+                          final everythingSelected =
+                              _selectionController.selectedIds.length ==
+                              selectablePages.length;
+                          setState(() {
+                            _rangeError = null;
+                            _selectionController.clear();
+                            if (!everythingSelected) {
+                              _selectionController.selectAll(
+                                selectablePages.map((entity) => entity.path),
+                              );
+                            }
+                          });
+                        },
+                        onDelete: _selectionController.selectedIds.isEmpty
+                            ? null
+                            : () async {
+                                final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const DeleteDialog(),
+                                );
+                                if (result != true) return;
+                                if (!context.mounted) return;
+                                final bloc = context.read<DocumentBloc>();
+                                for (final id
+                                    in _selectionController.selectedIds) {
+                                  bloc.add(PageRemoved(id));
+                                }
+                                _selectionController.clear();
+                                _setRangeText('');
+                              },
+                      );
+                    }
+                    return _PagesCreateBar(index: index, onAddPage: addPage);
+                  },
+                );
+              },
             ),
           ],
         );
       },
+    );
+  }
+}
+
+class _PagesSelectionBar extends StatelessWidget {
+  const _PagesSelectionBar({
+    required this.controller,
+    required this.rangeController,
+    required this.rangeFocusNode,
+    required this.rangeError,
+    required this.selectablePages,
+    required this.onRangeChanged,
+    required this.onRangeSubmitted,
+    required this.onClear,
+    required this.onSelectAllChanged,
+    required this.onDelete,
+  });
+
+  final MultiSelectController<String> controller;
+  final TextEditingController rangeController;
+  final FocusNode rangeFocusNode;
+  final String? rangeError;
+  final List<PageEntity> selectablePages;
+  final ValueChanged<String> onRangeChanged;
+  final ValueChanged<String> onRangeSubmitted;
+  final VoidCallback onClear;
+  final VoidCallback onSelectAllChanged;
+  final VoidCallback? onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    final everythingSelected =
+        controller.selectedIds.length == selectablePages.length;
+    return Card.filled(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.x),
+                  tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+                  onPressed: onClear,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    loc.countPages(controller.selectedIds.length),
+                    style: TextTheme.of(context).titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                IconButton.filledTonal(
+                  icon: PhosphorIcon(
+                    everythingSelected
+                        ? PhosphorIconsLight.selectionSlash
+                        : PhosphorIconsLight.selectionAll,
+                  ),
+                  tooltip: everythingSelected ? loc.deselect : loc.selectAll,
+                  onPressed: onSelectAllChanged,
+                ),
+                const SizedBox(width: 8),
+                IconButton.filledTonal(
+                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                  tooltip: loc.delete,
+                  onPressed: onDelete,
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            TextField(
+              controller: rangeController,
+              focusNode: rangeFocusNode,
+              decoration: InputDecoration(
+                prefixIcon: const PhosphorIcon(PhosphorIconsLight.listNumbers),
+                labelText: loc.pages,
+                hintText: '1-3, 5',
+                errorText: rangeError,
+                filled: true,
+                isDense: true,
+              ),
+              onChanged: onRangeChanged,
+              onSubmitted: onRangeSubmitted,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PagesCreateBar extends StatelessWidget {
+  const _PagesCreateBar({required this.index, required this.onAddPage});
+
+  final int? index;
+  final void Function([int? index]) onAddPage;
+
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return Card.filled(
+      child: SizedBox(
+        height: 64,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  spacing: 8,
+                  children: [
+                    const PhosphorIcon(PhosphorIconsLight.plus),
+                    Text(
+                      LeapLocalizations.of(context).create,
+                      style: TextTheme.of(context).titleMedium,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        IconButton.filledTonal(
+                          icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                          tooltip: loc.insertBefore,
+                          onPressed: () => onAddPage(index),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton.filledTonal(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.arrowDown,
+                          ),
+                          tooltip: loc.insertAfter,
+                          onPressed: () => onAddPage((index ?? -1) + 1),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton.filledTonal(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.arrowLineUp,
+                          ),
+                          tooltip: loc.insertFirst,
+                          onPressed: () => onAddPage(0),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton.filledTonal(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.arrowLineDown,
+                          ),
+                          tooltip: loc.insertLast,
+                          onPressed: () => onAddPage(),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -377,6 +527,7 @@ class _PageEntityListTile extends StatelessWidget {
     required this.controller,
     required this.data,
     required this.index,
+    required this.onSelectionChanged,
     super.key,
   });
 
@@ -386,6 +537,7 @@ class _PageEntityListTile extends StatelessWidget {
   final int index;
   final TextEditingController locationController;
   final MultiSelectController<String> controller;
+  final VoidCallback onSelectionChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -401,10 +553,14 @@ class _PageEntityListTile extends StatelessWidget {
       child: EditableListTile(
         initialValue: entity.name,
         selected: isSelected,
+        showEditIcon: !isSelectionMode,
         leading: isSelectionMode && editable
             ? Checkbox(
                 value: isSelected,
-                onChanged: (value) => controller.toggle(entity.path),
+                onChanged: (value) {
+                  controller.toggle(entity.path);
+                  onSelectionChanged();
+                },
               )
             : Icon(
                 editable
@@ -417,6 +573,7 @@ class _PageEntityListTile extends StatelessWidget {
         onTap: () {
           if (isSelectionMode && editable) {
             controller.toggle(entity.path);
+            onSelectionChanged();
             return;
           }
           if (editable) {
@@ -429,9 +586,10 @@ class _PageEntityListTile extends StatelessWidget {
           if (!isSelectionMode && editable) {
             controller.enableSelectionMode();
             controller.select(entity.path);
+            onSelectionChanged();
           }
         },
-        onSaved: editable
+        onSaved: editable && !isSelectionMode
             ? (value) => context.read<DocumentBloc>().add(
                 PageRenamed(
                   entity.path,
@@ -441,6 +599,15 @@ class _PageEntityListTile extends StatelessWidget {
             : null,
         actions: editable && !isSelectionMode
             ? [
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+                  onPressed: () {
+                    controller.enableSelectionMode();
+                    controller.select(entity.path);
+                    onSelectionChanged();
+                  },
+                  child: Text(AppLocalizations.of(context).select),
+                ),
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
                   onPressed: selected

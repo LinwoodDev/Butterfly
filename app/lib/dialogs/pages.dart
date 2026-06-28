@@ -1,5 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectPagesDialog extends StatefulWidget {
   final List<(String name, String id)> pages;
@@ -16,7 +19,7 @@ class SelectPagesDialog extends StatefulWidget {
 }
 
 class _SelectPagesDialogState extends State<SelectPagesDialog> {
-  final List<String> _selected = [];
+  final Set<String> _selected = {};
   late final TextEditingController _rangeController;
   String? _rangeError;
 
@@ -26,6 +29,7 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
     final pageIds = widget.pages.map((e) => e.$2).toSet();
     _selected.addAll(widget.initialSelected.where(pageIds.contains));
     _rangeController = TextEditingController();
+    _syncRangeText();
   }
 
   @override
@@ -48,62 +52,139 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
     });
   }
 
+  void _syncRangeText() {
+    final selectedIndexes = widget.pages
+        .asMap()
+        .entries
+        .where((entry) => _selected.contains(entry.value.$2))
+        .map((entry) => entry.key);
+    final text = formatPageSelection(selectedIndexes);
+    if (_rangeController.text == text) return;
+    _rangeController.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  void _updateSelected(void Function() update) {
+    setState(() {
+      update();
+      _rangeError = null;
+      _syncRangeText();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    final colorScheme = ColorScheme.of(context);
+    final selectionCount = _selected.length;
+    final everythingSelected = selectionCount == widget.pages.length;
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).selectPages),
-      scrollable: true,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CheckboxListTile(
-            title: Text(AppLocalizations.of(context).selectAll),
-            value: _selected.length == widget.pages.length,
-            onChanged: (v) {
-              setState(() {
-                if (v == true) {
-                  _selected.clear();
-                  _selected.addAll(widget.pages.map((e) => e.$2));
-                } else {
-                  _selected.clear();
-                }
-              });
-            },
-          ),
-          TextField(
-            controller: _rangeController,
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).pages,
-              hintText: '1-3, 5',
-              errorText: _rangeError,
-              filled: true,
-            ),
-            onChanged: _applyRange,
-            onSubmitted: _applyRange,
-          ),
-          ...widget.pages.asMap().entries.map(
-            (entry) => CheckboxListTile(
-              title: Text(
-                entry.value.$1.isEmpty
-                    ? AppLocalizations.of(context).page
-                    : entry.value.$1,
+      title: Text(loc.selectPages),
+      contentPadding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+      content: SizedBox(
+        width: 520,
+        height: math.min(MediaQuery.sizeOf(context).height * 0.65, 560),
+        child: Column(
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
-              subtitle: Text(
-                AppLocalizations.of(context).pageIndex(entry.key + 1),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  spacing: 12,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            loc.countPages(selectionCount),
+                            style: TextTheme.of(context).titleMedium,
+                          ),
+                        ),
+                        IconButton(
+                          icon: PhosphorIcon(
+                            everythingSelected
+                                ? PhosphorIconsLight.selectionSlash
+                                : PhosphorIconsLight.selectionAll,
+                          ),
+                          tooltip: everythingSelected
+                              ? loc.deselect
+                              : loc.selectAll,
+                          onPressed: () => _updateSelected(() {
+                            _selected.clear();
+                            if (!everythingSelected) {
+                              _selected.addAll(widget.pages.map((e) => e.$2));
+                            }
+                          }),
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      controller: _rangeController,
+                      decoration: InputDecoration(
+                        prefixIcon: const PhosphorIcon(
+                          PhosphorIconsLight.listNumbers,
+                        ),
+                        labelText: loc.pages,
+                        hintText: '1-3, 5',
+                        errorText: _rangeError,
+                        filled: true,
+                        isDense: true,
+                        suffixIcon: _rangeController.text.isEmpty
+                            ? null
+                            : IconButton(
+                                icon: const PhosphorIcon(PhosphorIconsLight.x),
+                                tooltip: MaterialLocalizations.of(
+                                  context,
+                                ).deleteButtonTooltip,
+                                onPressed: () =>
+                                    _updateSelected(_selected.clear),
+                              ),
+                      ),
+                      onChanged: _applyRange,
+                      onSubmitted: _applyRange,
+                    ),
+                  ],
+                ),
               ),
-              value: _selected.contains(entry.value.$2),
-              onChanged: (v) {
-                setState(() {
-                  if (v == true) {
-                    _selected.add(entry.value.$2);
-                  } else {
-                    _selected.remove(entry.value.$2);
-                  }
-                });
-              },
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Expanded(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ListView.separated(
+                  itemCount: widget.pages.length,
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 1),
+                  itemBuilder: (context, index) {
+                    final page = widget.pages[index];
+                    final id = page.$2;
+                    return CheckboxListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(page.$1.isEmpty ? loc.page : page.$1),
+                      subtitle: Text(loc.pageIndex(index + 1)),
+                      value: _selected.contains(id),
+                      onChanged: (v) {
+                        _updateSelected(() {
+                          if (v == true) {
+                            _selected.add(id);
+                          } else {
+                            _selected.remove(id);
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -113,12 +194,42 @@ class _SelectPagesDialogState extends State<SelectPagesDialog> {
         ElevatedButton(
           onPressed: _selected.isEmpty
               ? null
-              : () => Navigator.pop(context, _selected),
-          child: Text(AppLocalizations.of(context).select),
+              : () => Navigator.pop(
+                  context,
+                  widget.pages
+                      .where((page) => _selected.contains(page.$2))
+                      .map((page) => page.$2)
+                      .toList(),
+                ),
+          child: Text(loc.select),
         ),
       ],
     );
   }
+}
+
+String formatPageSelection(Iterable<int> indexes) {
+  final sorted = indexes.toSet().toList()..sort();
+  if (sorted.isEmpty) return '';
+  final ranges = <String>[];
+  var start = sorted.first;
+  var previous = start;
+  for (final index in sorted.skip(1)) {
+    if (index == previous + 1) {
+      previous = index;
+      continue;
+    }
+    ranges.add(_formatPageRange(start, previous));
+    start = previous = index;
+  }
+  ranges.add(_formatPageRange(start, previous));
+  return ranges.join(', ');
+}
+
+String _formatPageRange(int start, int end) {
+  final first = start + 1;
+  final last = end + 1;
+  return first == last ? '$first' : '$first-$last';
 }
 
 List<int>? parsePageSelection(String value, int pageCount) {
