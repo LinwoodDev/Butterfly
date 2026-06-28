@@ -24,8 +24,10 @@ ContextMenuBuilder buildAreaContextMenu(
   SettingsCubit settingsCubit, {
   bool pop = true,
   bool includeRenameAndEnterArea = true,
+  String? pageName,
 }) => (context) {
   final cubit = bloc.currentIndexCubit;
+  final areaPageName = pageName ?? state.pageName;
   return [
     if (includeRenameAndEnterArea) ...[
       ContextMenuItem(
@@ -89,7 +91,9 @@ ContextMenuBuilder buildAreaContextMenu(
       label: AppLocalizations.of(context).delete,
       onPressed: () {
         if (pop) Navigator.of(context).pop();
-        bloc.add(AreasRemoved([area.name]));
+        bloc.add(
+          AreasRemoved([AreaPreset(page: areaPageName, name: area.name)]),
+        );
       },
     ),
     ContextMenuItem(

@@ -188,9 +188,7 @@ class _PagesViewState extends State<PagesView> {
                   children: [
                     IconButton(
                       icon: const Icon(PhosphorIconsLight.listNumbers),
-                      selectedIcon: const Icon(
-                        PhosphorIconsFill.listNumbers,
-                      ),
+                      selectedIcon: const Icon(PhosphorIconsFill.listNumbers),
                       isSelected: _showInternalPageNumbers,
                       tooltip: AppLocalizations.of(context).pages,
                       onPressed: () => setState(

@@ -3424,11 +3424,11 @@ $AreaCopyWith<$Res> get area {
 @JsonSerializable()
 
 class AreasRemoved extends DocumentEvent {
-  const AreasRemoved(final  List<String> areas, {final  String? $type}): _areas = areas,$type = $type ?? 'areasRemoved',super._();
+  const AreasRemoved(final  List<AreaPreset> areas, {final  String? $type}): _areas = areas,$type = $type ?? 'areasRemoved',super._();
   factory AreasRemoved.fromJson(Map<String, dynamic> json) => _$AreasRemovedFromJson(json);
 
- final  List<String> _areas;
- List<String> get areas {
+ final  List<AreaPreset> _areas;
+ List<AreaPreset> get areas {
   if (_areas is EqualUnmodifiableListView) return _areas;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_areas);
@@ -3472,7 +3472,7 @@ abstract mixin class $AreasRemovedCopyWith<$Res> implements $DocumentEventCopyWi
   factory $AreasRemovedCopyWith(AreasRemoved value, $Res Function(AreasRemoved) _then) = _$AreasRemovedCopyWithImpl;
 @useResult
 $Res call({
- List<String> areas
+ List<AreaPreset> areas
 });
 
 
@@ -3492,7 +3492,7 @@ class _$AreasRemovedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? areas = null,}) {
   return _then(AreasRemoved(
 null == areas ? _self._areas : areas // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<AreaPreset>,
   ));
 }
 
