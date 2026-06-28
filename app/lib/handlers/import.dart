@@ -74,7 +74,11 @@ class ImportHandler extends Handler<ImportTool> {
     context.addDocumentEvent(
       AreasCreated(
         data.areas
-            .map((e) => e.copyWith(position: e.position + _offset.toPoint()))
+            .map(
+              (e) => AreaPreset(
+                area: e.copyWith(position: e.position + _offset.toPoint()),
+              ),
+            )
             .toList(),
       ),
     );

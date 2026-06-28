@@ -2222,7 +2222,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       name: name,
     );
     final bloc = _activeDocumentBloc;
-    bloc?.add(AreasCreated([newArea]));
+    bloc?.add(AreasCreated([AreaPreset(area: newArea)]));
     bloc?.add(CurrentAreaChanged(name));
     _teleportToAreaEdge(newArea, dx, dy);
   }

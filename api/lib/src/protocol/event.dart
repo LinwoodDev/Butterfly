@@ -152,7 +152,8 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String collection,
   ) = ElementsCollectionChanged;
 
-  const factory DocumentEvent.areasCreated(List<Area> areas) = AreasCreated;
+  const factory DocumentEvent.areasCreated(List<AreaPreset> areas) =
+      AreasCreated;
 
   const factory DocumentEvent.areasDuplicated(Area area, List<String> pages) =
       AreasDuplicated;

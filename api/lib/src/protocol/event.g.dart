@@ -453,7 +453,7 @@ Map<String, dynamic> _$ElementsCollectionChangedToJson(
 
 AreasCreated _$AreasCreatedFromJson(Map json) => AreasCreated(
   (json['areas'] as List<dynamic>)
-      .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
+      .map((e) => AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
       .toList(),
   $type: json['type'] as String?,
 );
