@@ -130,6 +130,7 @@ class _AreasViewState extends State<AreasView> {
     return EditableListTile(
       initialValue: area.shortName,
       key: ValueKey(selectionId),
+      showEditIcon: !isSelectionMode,
       leading: isSelectionMode
           ? Checkbox(
               value: isSelected,
