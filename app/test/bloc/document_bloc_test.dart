@@ -284,6 +284,34 @@ void main() {
     expect(state.data.getPage(secondPageName)?.areas, [area]);
   });
 
+  test('removing areas can target multiple pages', () async {
+    final initialState = bloc.state as DocumentLoadSuccess;
+    final pages = initialState.data.getPages(true);
+    final firstPageName = pages.firstWhere((name) => name.endsWith('.Page 1'));
+    final secondPageName = pages.firstWhere((name) => name.endsWith('.Page 2'));
+    const area = Area(
+      name: 'Shared area',
+      width: 100,
+      height: 80,
+      position: Point(10, 20),
+    );
+
+    bloc.add(AreasDuplicated(area, ['Page 1', secondPageName]));
+    await _settleBlocEvents();
+    bloc.add(
+      AreasRemoved([
+        AreaPreset(page: firstPageName, name: area.name),
+        AreaPreset(page: secondPageName, name: area.name),
+      ]),
+    );
+    await _settleBlocEvents();
+
+    final state = bloc.state as DocumentLoadSuccess;
+    expect(state.data.getPage(firstPageName)?.areas, isEmpty);
+    expect(state.data.getPage(secondPageName)?.areas, isEmpty);
+    expect(state.page.areas, isEmpty);
+  });
+
   test('unmatched single tool change does not overwrite active tool', () async {
     final activeTool = PenTool(id: 'active-tool');
     final otherTool = PenTool(id: 'other-tool');

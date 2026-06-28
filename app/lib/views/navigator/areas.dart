@@ -20,6 +20,13 @@ import '../../dialogs/delete.dart';
 import '../../widgets/multi_select.dart';
 import '../../widgets/editable_list_tile.dart';
 
+typedef _AreaEntry = ({
+  Area area,
+  String pageName,
+  String pageDisplayName,
+  bool isCurrentPage,
+});
+
 class AreasView extends StatefulWidget {
   const AreasView({super.key});
 
@@ -30,6 +37,7 @@ class AreasView extends StatefulWidget {
 class _AreasViewState extends State<AreasView> {
   String _currentGroup = '';
   final TextEditingController _searchController = TextEditingController();
+  bool _showAllPages = false;
 
   List<Area> _getAreasInGroup(List<Area> areas) {
     return areas.where((area) => area.group == _currentGroup).toList();
@@ -95,23 +103,37 @@ class _AreasViewState extends State<AreasView> {
     DocumentLoadSuccess state,
     Rect viewportRect,
     Area? current,
-    Area area, {
-    required MultiSelectController<String> controller,
+    _AreaEntry entry, {
+    required MultiSelectController<AreaPreset> controller,
     List<String> folderPath = const [],
   }) {
-    final selected = current?.name == area.name;
+    final area = entry.area;
+    final selectionId = AreaPreset(page: entry.pageName, name: area.name);
+    final selected = entry.isCurrentPage && current?.name == area.name;
     final isSelectionMode = controller.selectionMode;
     final isSelected = isSelectionMode
-        ? controller.selectedIds.contains(area.name)
+        ? controller.selectedIds.contains(selectionId)
         : selected;
+
+    void navigateToArea() {
+      if (!entry.isCurrentPage) {
+        bloc.add(PageChanged(entry.pageName));
+      }
+      context.read<TransformCubit>().teleportToArea(
+        area,
+        viewport.toSize(),
+        viewport.resolution,
+      );
+      bloc.add(CurrentAreaChanged(area.name));
+    }
 
     return EditableListTile(
       initialValue: area.shortName,
-      key: ValueKey(area.name),
+      key: ValueKey(selectionId),
       leading: isSelectionMode
           ? Checkbox(
               value: isSelected,
-              onChanged: (value) => controller.toggle(area.name),
+              onChanged: (value) => controller.toggle(selectionId),
             )
           : IconButton(
               icon: PhosphorIcon(
@@ -124,12 +146,7 @@ class _AreasViewState extends State<AreasView> {
                   bloc.add(CurrentAreaChanged(''));
                   return;
                 }
-                context.read<TransformCubit>().teleportToArea(
-                  area,
-                  viewport.toSize(),
-                  viewport.resolution,
-                );
-                bloc.add(CurrentAreaChanged(area.name));
+                navigateToArea();
               },
               tooltip: selected
                   ? AppLocalizations.of(context).exitArea
@@ -137,25 +154,23 @@ class _AreasViewState extends State<AreasView> {
             ),
       onTap: () {
         if (isSelectionMode) {
-          controller.toggle(area.name);
+          controller.toggle(selectionId);
           return;
         }
-        context.read<TransformCubit>().teleportToArea(
-          area,
-          viewport.toSize(),
-          viewport.resolution,
-        );
-        bloc.add(CurrentAreaChanged(area.name));
+        navigateToArea();
       },
       onLongPress: () {
         if (!isSelectionMode) {
           controller.enableSelectionMode();
-          controller.select(area.name);
+          controller.select(selectionId);
         }
       },
       onSaved: (value) {
         final trimmed = value.trim();
         if (trimmed.isEmpty) return;
+        if (!entry.isCurrentPage) {
+          bloc.add(PageChanged(entry.pageName));
+        }
         final nextName = trimmed.contains('/')
             ? trimmed
             : folderPath.isEmpty
@@ -165,9 +180,10 @@ class _AreasViewState extends State<AreasView> {
           AreaChanged(area.name, area.copyWith(name: nextName)),
         );
       },
-      selected: current == null && !isSelectionMode
+      selected: entry.isCurrentPage && current == null && !isSelectionMode
           ? area.rect.overlaps(viewportRect)
           : isSelected,
+      subtitle: _showAllPages ? Text(entry.pageDisplayName) : null,
       actions: isSelectionMode
           ? null
           : [
@@ -178,6 +194,7 @@ class _AreasViewState extends State<AreasView> {
                 context.read<SettingsCubit>(),
                 pop: false,
                 includeRenameAndEnterArea: false,
+                pageName: entry.pageName,
               )(context).map((e) => buildMenuItem(context, e, false, false)),
             ],
     );
@@ -210,12 +227,39 @@ class _AreasViewState extends State<AreasView> {
         return BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
               previous.page?.areas != current.page?.areas ||
-              previous.currentArea != current.currentArea,
+              previous.currentArea != current.currentArea ||
+              (_showAllPages &&
+                  previous is DocumentLoadSuccess &&
+                  current is DocumentLoadSuccess &&
+                  previous.data != current.data),
           builder: (context, state) {
             if (state is! DocumentLoadSuccess) {
               return const SizedBox.shrink();
             }
             final current = state.currentArea;
+            final pagesWithNames = state.data.getPagesWithNames();
+            final currentPageDisplayName = pagesWithNames
+                .where((page) => page.$2 == state.pageName)
+                .map((page) => page.$1)
+                .firstOrNull;
+            final allPageEntries = pagesWithNames.expand((pageNames) {
+              final realPageName = pageNames.$2;
+              final page = realPageName == state.pageName
+                  ? state.page
+                  : state.data.getPage(realPageName);
+              if (page == null) return const <_AreaEntry>[];
+              final displayName = pageNames.$1.isEmpty
+                  ? AppLocalizations.of(context).page
+                  : pageNames.$1;
+              return page.areas.map(
+                (area) => (
+                  area: area,
+                  pageName: realPageName,
+                  pageDisplayName: displayName,
+                  isCurrentPage: realPageName == state.pageName,
+                ),
+              );
+            }).toList();
 
             final currentIndexCubit = context.read<CurrentIndexCubit>();
 
@@ -243,7 +287,7 @@ class _AreasViewState extends State<AreasView> {
               );
             }
 
-            if (state.page.areas.isEmpty) {
+            if (!_showAllPages && state.page.areas.isEmpty) {
               return AreasInitializationView(
                 onCreate: _createArea,
                 insideDocument: true,
@@ -251,7 +295,9 @@ class _AreasViewState extends State<AreasView> {
               );
             }
 
-            final allSubgroups = _getSubgroups(state.page.areas);
+            final allSubgroups = _showAllPages
+                ? const <String>[]
+                : _getSubgroups(state.page.areas);
             final areasInGroup = _getAreasInGroup(state.page.areas);
 
             return Column(
@@ -265,10 +311,21 @@ class _AreasViewState extends State<AreasView> {
                     leading: const PhosphorIcon(
                       PhosphorIconsLight.magnifyingGlass,
                     ),
+                    trailing: [
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.files),
+                        isSelected: _showAllPages,
+                        tooltip: AppLocalizations.of(context).pages,
+                        onPressed: () => setState(() {
+                          _showAllPages = !_showAllPages;
+                          if (_showAllPages) _currentGroup = '';
+                        }),
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(),
-                if (_currentGroup.isNotEmpty) ...[
+                if (!_showAllPages && _currentGroup.isNotEmpty) ...[
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 4,
@@ -308,7 +365,7 @@ class _AreasViewState extends State<AreasView> {
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
-                    child: MultiSelectRegion<String>(
+                    child: MultiSelectRegion<AreaPreset>(
                       toolbarBuilder: (context, controller) => Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,
@@ -345,13 +402,30 @@ class _AreasViewState extends State<AreasView> {
                             builder: (context, child) {
                               final search = _searchController.text
                                   .toLowerCase();
-                              final areas = areasInGroup
-                                  .where(
-                                    (area) => area.name.toLowerCase().contains(
-                                      search,
-                                    ),
-                                  )
-                                  .toList();
+                              final areaEntries = _showAllPages
+                                  ? allPageEntries
+                                  : areasInGroup
+                                        .map(
+                                          (area) => (
+                                            area: area,
+                                            pageName: state.pageName,
+                                            pageDisplayName:
+                                                currentPageDisplayName ??
+                                                AppLocalizations.of(
+                                                  context,
+                                                ).page,
+                                            isCurrentPage: true,
+                                          ),
+                                        )
+                                        .toList();
+                              final areas = areaEntries.where((entry) {
+                                final areaName = entry.area.name.toLowerCase();
+                                final pageName = entry.pageDisplayName
+                                    .toLowerCase();
+                                return areaName.contains(search) ||
+                                    (_showAllPages &&
+                                        pageName.contains(search));
+                              }).toList();
                               final subgroups = allSubgroups
                                   .where(
                                     (group) =>
@@ -375,13 +449,13 @@ class _AreasViewState extends State<AreasView> {
                                     ),
                                   ),
                                   ...areas.map(
-                                    (area) => buildAreaTile(
+                                    (entry) => buildAreaTile(
                                       bloc,
                                       viewport,
                                       state,
                                       viewportRect,
                                       current,
-                                      area,
+                                      entry,
                                       controller: controller,
                                       folderPath: _currentGroup.isEmpty
                                           ? []

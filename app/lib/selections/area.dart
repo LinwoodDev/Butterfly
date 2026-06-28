@@ -96,8 +96,14 @@ class AreaSelection extends Selection<Area> {
 
   @override
   void onDelete(BuildContext context) {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) return;
     context.read<DocumentBloc>().add(
-      AreasRemoved(super.selected.map((e) => e.name).toList()),
+      AreasRemoved(
+        super.selected
+            .map((e) => AreaPreset(page: state.pageName, name: e.name))
+            .toList(),
+      ),
     );
   }
 }

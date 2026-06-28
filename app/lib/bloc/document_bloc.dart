@@ -1249,20 +1249,42 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(embedding?.editable ?? true)) return;
-      final areas = List<Area>.from(current.page.areas)
-        ..removeWhere((e) => event.areas.contains(e.name));
-      final currentPage = current.page.copyWith(areas: areas);
+      var data = current.data.setPage(current.page, current.pageName).$1;
+      var currentPage = current.page;
+      var currentAreaName = current.currentAreaName;
+      var currentPageChanged = false;
       var shouldRepaint = false;
-      for (var element in currentIndexCubit.renderers) {
-        if (areas.contains(element.area) &&
-            element.onAreaUpdate(current.data, currentPage, null)) {
-          shouldRepaint = true;
+      final areasByPage = <String, Set<String>>{};
+      for (final area in event.areas) {
+        areasByPage.putIfAbsent(area.page, () => {}).add(area.name);
+      }
+      for (final entry in areasByPage.entries) {
+        final page = data.getPage(entry.key);
+        if (page == null) continue;
+        final areas = List<Area>.from(page.areas)
+          ..removeWhere((e) => entry.value.contains(e.name));
+        final updatedPage = page.copyWith(areas: areas);
+        data = data.setPage(updatedPage, entry.key).$1;
+        if (entry.key == current.pageName) {
+          currentPage = updatedPage;
+          currentPageChanged = true;
+          if (entry.value.contains(currentAreaName)) currentAreaName = '';
+          for (var element in currentIndexCubit.renderers) {
+            if (areas.contains(element.area) &&
+                element.onAreaUpdate(current.data, currentPage, null)) {
+              shouldRepaint = true;
+            }
+          }
         }
       }
       _saveState(
         emit,
-        state: current.copyWith(page: currentPage),
-        shouldRefresh: () => true,
+        state: current.copyWith(
+          data: data,
+          page: currentPage,
+          currentAreaName: currentAreaName,
+        ),
+        shouldRefresh: () => currentPageChanged,
         reset: shouldRepaint,
       );
     });
