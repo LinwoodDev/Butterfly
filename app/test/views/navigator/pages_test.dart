@@ -85,6 +85,15 @@ void main() {
       expect(pages_dialog.parsePageSelection('5-3, 2', 6), [1, 2, 3, 4]);
     });
 
+    test('formats selected pages as compact ranges', () {
+      expect(
+        pages_dialog.formatPageSelection([0, 1, 2, 4, 6, 7]),
+        '1-3, 5, 7-8',
+      );
+      expect(pages_dialog.formatPageSelection([3]), '4');
+      expect(pages_dialog.formatPageSelection([]), '');
+    });
+
     test('rejects out of bounds and malformed input', () {
       expect(pages_dialog.parsePageSelection('0, 2', 4), isNull);
       expect(pages_dialog.parsePageSelection('2-', 4), isNull);

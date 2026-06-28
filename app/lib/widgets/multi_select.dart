@@ -94,12 +94,14 @@ class MultiSelectRegion<T> extends StatefulWidget {
   )?
   toolbarBuilder;
   final Widget? child;
+  final MultiSelectController<T>? controller;
 
   const MultiSelectRegion({
     super.key,
     required this.builder,
     this.toolbarBuilder,
     this.child,
+    this.controller,
   });
 
   @override
@@ -112,12 +114,14 @@ class _MultiSelectRegionState<T> extends State<MultiSelectRegion<T>> {
   @override
   void initState() {
     super.initState();
-    _controller = MultiSelectController<T>();
+    _controller = widget.controller ?? MultiSelectController<T>();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
