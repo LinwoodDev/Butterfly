@@ -1,3 +1,7 @@
+* Add pages selector with range input ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
+* Add internal page numbers to the pages navigator ([#1143](https://github.com/LinwoodDev/Butterfly/issues/1143))
+* Add cross-page area selection and deletion ([#1143](https://github.com/LinwoodDev/Butterfly/issues/1143))
+* Add apply areas option to templates ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
 * Add combine paths option ([#1071](https://github.com/LinwoodDev/Butterfly/issues/1071))
 * Add xournal++ exporter
 * Add next and previous page shortcuts

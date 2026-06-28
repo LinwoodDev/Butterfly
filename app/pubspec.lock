@@ -667,10 +667,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "65d2fbda05f707f9c6e0b502bc4bf411d9f799d391f709c121aeb44d0dc0fd2a"
+      sha256: "2c81d22578b71951004f85ad3cf0eca23aeea1e18b74cf5efce2a267dce17579"
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.4"
+    version: "2.9.5"
   image:
     dependency: "direct main"
     description:
@@ -869,10 +869,10 @@ packages:
     dependency: "direct dev"
     description:
       name: msix
-      sha256: bed33b53662c7eac66dc4f9b4176d03140307e6a892ab21ce529be6f74393db0
+      sha256: "61415c352e8aea084332b8a5514e6408c961c8cdeca202804fff1040eb555ac7"
       url: "https://pub.dev"
     source: hosted
-    version: "3.17.0"
+    version: "3.18.0"
   native_toolchain_c:
     dependency: transitive
     description:
@@ -1274,10 +1274,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "60746eb3377fe953367c10d549e9d99a3e0bccb464f32d0528d4e44933898597"
+      sha256: a58b26925e23071cf0f4754d8449aabe829e9a9930a872fb18e6ae4c2c88e025
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.9"
+    version: "3.8.9+1"
   share_plus:
     dependency: "direct main"
     description:
