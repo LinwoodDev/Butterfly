@@ -85,6 +85,7 @@ class _PagesViewState extends State<PagesView> {
       MultiSelectController<String>();
   String? _rangeError;
   bool _updatingRangeText = false;
+  bool _showInternalPageNumbers = false;
 
   @override
   void dispose() {
@@ -182,18 +183,35 @@ class _PagesViewState extends State<PagesView> {
               controller: _locationController,
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context).location,
-                suffixIcon: IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                  tooltip: AppLocalizations.of(context).goUp,
-                  onPressed: () {
-                    final paths = _locationController.text.split('/');
-                    if (paths.length <= 1) {
-                      _locationController.text = '';
-                      return;
-                    }
-                    paths.removeLast();
-                    _locationController.text = paths.join('/');
-                  },
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(PhosphorIconsLight.listNumbers),
+                      selectedIcon: const Icon(
+                        PhosphorIconsFill.listNumbers,
+                      ),
+                      isSelected: _showInternalPageNumbers,
+                      tooltip: AppLocalizations.of(context).pages,
+                      onPressed: () => setState(
+                        () => _showInternalPageNumbers =
+                            !_showInternalPageNumbers,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(PhosphorIconsLight.arrowUp),
+                      tooltip: AppLocalizations.of(context).goUp,
+                      onPressed: () {
+                        final paths = _locationController.text.split('/');
+                        if (paths.length <= 1) {
+                          _locationController.text = '';
+                          return;
+                        }
+                        paths.removeLast();
+                        _locationController.text = paths.join('/');
+                      },
+                    ),
+                  ],
                 ),
                 border: const OutlineInputBorder(),
               ),
@@ -253,6 +271,8 @@ class _PagesViewState extends State<PagesView> {
                               return _PageEntityListTile(
                                 entity: entity,
                                 selected: entity.path == currentName,
+                                showInternalPageNumber:
+                                    _showInternalPageNumbers,
                                 locationController: _locationController,
                                 controller: controller,
                                 data: state.data,
@@ -523,6 +543,7 @@ class _PageEntityListTile extends StatelessWidget {
   const _PageEntityListTile({
     required this.entity,
     required this.selected,
+    required this.showInternalPageNumber,
     required this.locationController,
     required this.controller,
     required this.data,
@@ -533,6 +554,7 @@ class _PageEntityListTile extends StatelessWidget {
 
   final PageEntity entity;
   final bool selected;
+  final bool showInternalPageNumber;
   final NoteData data;
   final int index;
   final TextEditingController locationController;
@@ -570,6 +592,13 @@ class _PageEntityListTile extends StatelessWidget {
               ),
         textFormatter: (v) =>
             v.isEmpty ? AppLocalizations.of(context).untitled : v,
+        subtitle: showInternalPageNumber && editable
+            ? Text(
+                AppLocalizations.of(
+                  context,
+                ).pageIndex((data.getPageIndex(entity.path) ?? index) + 1),
+              )
+            : null,
         onTap: () {
           if (isSelectionMode && editable) {
             controller.toggle(entity.path);
@@ -607,6 +636,23 @@ class _PageEntityListTile extends StatelessWidget {
                     onSelectionChanged();
                   },
                   child: Text(AppLocalizations.of(context).select),
+                ),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
+                  onPressed: () {
+                    final page = data.getPage(entity.path);
+                    if (page == null) return;
+                    context.read<DocumentBloc>().add(
+                      PagesAdded([
+                        PageAddedDetails(
+                          page: page,
+                          name: entity.name,
+                          index: (data.getPageIndex(entity.path) ?? index) + 1,
+                        ),
+                      ]),
+                    );
+                  },
+                  child: Text(AppLocalizations.of(context).duplicate),
                 ),
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
