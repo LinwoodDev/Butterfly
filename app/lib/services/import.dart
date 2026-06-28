@@ -170,7 +170,7 @@ class ImportResult {
         bloc?.add(AssetUpdated(path, data));
       }
       bloc
-        ?..add(AreasCreated(areas))
+        ?..add(AreasCreated(areas.map((e) => AreaPreset(area: e)).toList()))
         ..add(ElementsCreated(elements, assets: _importAssets));
     }
     bloc?.add(

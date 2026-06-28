@@ -247,11 +247,13 @@ class AreaHandler extends Handler<AreaTool> {
     currentRect = null;
     context.getDocumentBloc().add(
       AreasCreated([
-        Area(
-          width: rect.width,
-          height: rect.height,
-          position: rect.topLeft.toPoint(),
-          name: name,
+        AreaPreset(
+          area: Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
+            name: name,
+          ),
         ),
       ]),
     );

@@ -782,6 +782,8 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
         widget.template.getMetadata() ??
         FileMetadata(type: NoteFileType.template);
     final info = widget.template.getInfo();
+    final hasTemplateAreas =
+        widget.template.getPage()?.areas.isNotEmpty ?? false;
     final thumbnail = context.read<SettingsCubit>().state.showThumbnails
         ? widget.template.getThumbnail()
         : null;
@@ -901,7 +903,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
           ),
           const SizedBox(height: 8),
           const Divider(),
-          buildAreaConfig(),
+          if (!hasTemplateAreas) buildAreaConfig(),
           if (widget.onOpen != null)
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -944,7 +946,7 @@ class _TemplateDetailsViewState extends State<_TemplateDetailsView> {
                     ...details,
                     const SizedBox(height: 16),
                     const Divider(),
-                    buildAreaConfig(),
+                    if (!hasTemplateAreas) buildAreaConfig(),
                   ],
                 ),
               ),
@@ -1295,6 +1297,7 @@ List<Widget> _buildTemplateMenuChildren(
   final metadata = template.getMetadata()!;
   final templateBackgrounds =
       template.getPage()?.backgrounds ?? const <Background>[];
+  final templateAreas = template.getPage()?.areas ?? const <Area>[];
 
   return [
     if (!isCore && fileSystem.storage == null)
@@ -1357,6 +1360,24 @@ List<Widget> _buildTemplateMenuChildren(
           );
           if (selectedPageNames == null) return;
           _applyTemplateBackgroundsToPages(bloc, template, selectedPageNames);
+        },
+      ),
+    if (bloc != null && templateAreas.isNotEmpty)
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.selection),
+        child: Text(AppLocalizations.of(context).applyAreas),
+        onPressed: () async {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final selectedPageNames = await showDialog<List<String>>(
+            context: context,
+            builder: (context) => SelectPagesDialog(
+              pages: state.data.getPagesWithNames(),
+              initialSelected: [state.pageName],
+            ),
+          );
+          if (selectedPageNames == null) return;
+          _applyTemplateAreasToPages(bloc, template, selectedPageNames);
         },
       ),
     MenuItemButton(
@@ -1453,4 +1474,20 @@ void _applyTemplateBackgroundsToPages(
   if (activePageName != originalPageName) {
     bloc.add(PageChanged(originalPageName));
   }
+}
+
+void _applyTemplateAreasToPages(
+  DocumentBloc bloc,
+  NoteData template,
+  List<String> pageNames,
+) {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return;
+  final areas = template.getPage()?.areas ?? const <Area>[];
+  bloc.add(
+    AreasCreated([
+      for (final pageName in pageNames)
+        for (final area in areas) AreaPreset(page: pageName, area: area),
+    ]),
+  );
 }

@@ -1167,41 +1167,65 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final areas = event.areas.map((e) {
-        var name = e.name;
-        var count = 1;
-        if (name.isEmpty) {
-          name = 'Area';
-        }
-        while (current.page.areas.any((element) => element.name == name)) {
-          name = '${e.name} (${count++})';
-        }
-        return e.copyWith(name: name);
-      }).toList();
+      final areasByPage = groupBy<AreaPreset, String>(
+        event.areas,
+        (area) => area.page.isEmpty ? current.pageName : area.page,
+      );
+      var data = current.data;
+      var activePage = current.page;
       var shouldRepaint = false;
-      for (var element in currentIndexCubit.renderers) {
-        final needRepaint = areas.any(
-          (area) => element.onAreaUpdate(current.data, current.page, area),
-        );
-        if (needRepaint) {
-          shouldRepaint = true;
+      for (final entry in areasByPage.entries) {
+        final pageName = entry.key;
+        final page = pageName == current.pageName
+            ? activePage
+            : data.getPage(pageName);
+        if (page == null) continue;
+        final existingNames = page.areas.map((e) => e.name).toSet();
+        final areas = entry.value
+            .map((preset) {
+              final area = preset.area;
+              if (area == null) return null;
+              final baseName = area.name.isEmpty ? 'Area' : area.name;
+              var name = baseName;
+              var count = 1;
+              while (existingNames.contains(name)) {
+                name = '$baseName (${count++})';
+              }
+              existingNames.add(name);
+              return area.copyWith(name: name);
+            })
+            .nonNulls
+            .toList();
+        if (areas.isEmpty) continue;
+        if (pageName == current.pageName) {
+          for (var element in currentIndexCubit.renderers) {
+            final needRepaint = areas.any(
+              (area) => element.onAreaUpdate(data, page, area),
+            );
+            if (needRepaint) {
+              shouldRepaint = true;
+            }
+          }
+        }
+
+        final hasInitial = areas.any((e) => e.isInitial);
+        final existingAreas = page.areas.map((e) {
+          if (hasInitial && e.isInitial) {
+            return e.copyWith(isInitial: false);
+          }
+          return e;
+        }).toList();
+
+        final updatedPage = page.copyWith(areas: [...existingAreas, ...areas]);
+        if (pageName == current.pageName) {
+          activePage = updatedPage;
+        } else {
+          data = data.setPage(updatedPage, pageName).$1;
         }
       }
-
-      final hasInitial = areas.any((e) => e.isInitial);
-      final existingAreas = current.page.areas.map((e) {
-        if (hasInitial && e.isInitial) {
-          return e.copyWith(isInitial: false);
-        }
-        return e;
-      }).toList();
-
-      final currentDocument = current.page.copyWith(
-        areas: [...existingAreas, ...areas],
-      );
       return _saveState(
         emit,
-        state: current.copyWith(page: currentDocument),
+        state: current.copyWith(data: data, page: activePage),
         shouldRefresh: () => true,
         reset: shouldRepaint,
       );

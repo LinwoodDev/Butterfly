@@ -85,12 +85,14 @@ class _AreasViewState extends State<AreasView> {
     bloc
       ..add(
         AreasCreated([
-          Area(
-            name: name,
-            width: width,
-            height: height,
-            position: position.toPoint(),
-            isInitial: config.areaAsInitial,
+          AreaPreset(
+            area: Area(
+              name: name,
+              width: width,
+              height: height,
+              position: position.toPoint(),
+              isInitial: config.areaAsInitial,
+            ),
           ),
         ]),
       )
