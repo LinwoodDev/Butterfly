@@ -106,6 +106,48 @@ class _PagesViewState extends State<PagesView> {
     _updatingRangeText = false;
   }
 
+  void _toggleInternalPageNumbers() {
+    setState(() {
+      _showInternalPageNumbers = !_showInternalPageNumbers;
+      if (!_showInternalPageNumbers) {
+        _rangeError = null;
+        _setRangeText('');
+      }
+    });
+  }
+
+  void _clearSelection() {
+    setState(() {
+      _rangeError = null;
+      _selectionController.clear();
+      _setRangeText('');
+    });
+  }
+
+  void _selectPageIndexes(
+    Iterable<int> indexes,
+    List<PageEntity> selectablePages,
+  ) {
+    _selectionController.clear();
+    _selectionController.selectAll(
+      indexes.map((index) => selectablePages[index].path),
+    );
+  }
+
+  void _toggleAllPages(List<PageEntity> selectablePages) {
+    final everythingSelected =
+        _selectionController.selectedIds.length == selectablePages.length;
+    setState(() {
+      _rangeError = null;
+      _selectionController.clear();
+      if (!everythingSelected) {
+        _selectionController.selectAll(
+          selectablePages.map((entity) => entity.path),
+        );
+      }
+    });
+  }
+
   void _syncRangeTextFromSelection(
     MultiSelectController<String> controller,
     List<PageEntity> selectablePages,
@@ -135,14 +177,26 @@ class _PagesViewState extends State<PagesView> {
         return;
       }
       _rangeError = null;
-      _selectionController.clear();
-      _selectionController.selectAll(
-        selectedIndexes.map((index) => selectablePages[index].path),
-      );
+      _selectPageIndexes(selectedIndexes, selectablePages);
       if (normalizeText) {
         _setRangeText(pages_dialog.formatPageSelection(selectedIndexes));
       }
     });
+  }
+
+  Future<void> _deleteSelectedPages(BuildContext context) async {
+    if (_selectionController.selectedIds.isEmpty) return;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => const DeleteDialog(),
+    );
+    if (result != true) return;
+    if (!context.mounted) return;
+    final bloc = context.read<DocumentBloc>();
+    for (final id in _selectionController.selectedIds) {
+      bloc.add(PageRemoved(id));
+    }
+    _clearSelection();
   }
 
   @override
@@ -191,10 +245,7 @@ class _PagesViewState extends State<PagesView> {
                       selectedIcon: const Icon(PhosphorIconsFill.listNumbers),
                       isSelected: _showInternalPageNumbers,
                       tooltip: AppLocalizations.of(context).pages,
-                      onPressed: () => setState(
-                        () => _showInternalPageNumbers =
-                            !_showInternalPageNumbers,
-                      ),
+                      onPressed: _toggleInternalPageNumbers,
                     ),
                     IconButton(
                       icon: const Icon(PhosphorIconsLight.arrowUp),
@@ -298,12 +349,15 @@ class _PagesViewState extends State<PagesView> {
                   listenable: _selectionController,
                   builder: (context, child) {
                     if (_selectionController.selectionMode) {
-                      _syncRangeTextFromSelection(
-                        _selectionController,
-                        selectablePages,
-                      );
+                      if (_showInternalPageNumbers) {
+                        _syncRangeTextFromSelection(
+                          _selectionController,
+                          selectablePages,
+                        );
+                      }
                       return _PagesSelectionBar(
                         controller: _selectionController,
+                        showRangeField: _showInternalPageNumbers,
                         rangeController: _rangeController,
                         rangeFocusNode: _rangeFocusNode,
                         rangeError: _rangeError,
@@ -315,44 +369,12 @@ class _PagesViewState extends State<PagesView> {
                           selectablePages,
                           normalizeText: true,
                         ),
-                        onClear: () {
-                          setState(() {
-                            _rangeError = null;
-                            _selectionController.clear();
-                            _setRangeText('');
-                          });
-                        },
-                        onSelectAllChanged: () {
-                          final everythingSelected =
-                              _selectionController.selectedIds.length ==
-                              selectablePages.length;
-                          setState(() {
-                            _rangeError = null;
-                            _selectionController.clear();
-                            if (!everythingSelected) {
-                              _selectionController.selectAll(
-                                selectablePages.map((entity) => entity.path),
-                              );
-                            }
-                          });
-                        },
+                        onClear: _clearSelection,
+                        onSelectAllChanged: () =>
+                            _toggleAllPages(selectablePages),
                         onDelete: _selectionController.selectedIds.isEmpty
                             ? null
-                            : () async {
-                                final result = await showDialog<bool>(
-                                  context: context,
-                                  builder: (context) => const DeleteDialog(),
-                                );
-                                if (result != true) return;
-                                if (!context.mounted) return;
-                                final bloc = context.read<DocumentBloc>();
-                                for (final id
-                                    in _selectionController.selectedIds) {
-                                  bloc.add(PageRemoved(id));
-                                }
-                                _selectionController.clear();
-                                _setRangeText('');
-                              },
+                            : () => _deleteSelectedPages(context),
                       );
                     }
                     return _PagesCreateBar(index: index, onAddPage: addPage);
@@ -370,6 +392,7 @@ class _PagesViewState extends State<PagesView> {
 class _PagesSelectionBar extends StatelessWidget {
   const _PagesSelectionBar({
     required this.controller,
+    required this.showRangeField,
     required this.rangeController,
     required this.rangeFocusNode,
     required this.rangeError,
@@ -382,6 +405,7 @@ class _PagesSelectionBar extends StatelessWidget {
   });
 
   final MultiSelectController<String> controller;
+  final bool showRangeField;
   final TextEditingController rangeController;
   final FocusNode rangeFocusNode;
   final String? rangeError;
@@ -435,21 +459,25 @@ class _PagesSelectionBar extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 6),
-            TextField(
-              controller: rangeController,
-              focusNode: rangeFocusNode,
-              decoration: InputDecoration(
-                prefixIcon: const PhosphorIcon(PhosphorIconsLight.listNumbers),
-                labelText: loc.pages,
-                hintText: '1-3, 5',
-                errorText: rangeError,
-                filled: true,
-                isDense: true,
+            if (showRangeField) ...[
+              const SizedBox(height: 6),
+              TextField(
+                controller: rangeController,
+                focusNode: rangeFocusNode,
+                decoration: InputDecoration(
+                  prefixIcon: const PhosphorIcon(
+                    PhosphorIconsLight.listNumbers,
+                  ),
+                  labelText: loc.pages,
+                  hintText: '1-3, 5',
+                  errorText: rangeError,
+                  filled: true,
+                  isDense: true,
+                ),
+                onChanged: onRangeChanged,
+                onSubmitted: onRangeSubmitted,
               ),
-              onChanged: onRangeChanged,
-              onSubmitted: onRangeSubmitted,
-            ),
+            ],
           ],
         ),
       ),
