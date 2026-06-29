@@ -5,7 +5,7 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/template.dart';
@@ -153,7 +153,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   );
                                   return DocumentBloc.placeholder(
                                     context.read<ButterflyFileSystem>(),
-                                    CurrentIndexCubit(
+                                    EditorController(
                                       context.read<SettingsCubit>(),
                                       transformCubit,
                                       CameraViewport.unbaked(),

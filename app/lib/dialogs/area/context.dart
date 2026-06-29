@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/layers.dart';
 import 'package:butterfly/dialogs/pages.dart';
@@ -26,7 +26,7 @@ ContextMenuBuilder buildAreaContextMenu(
   bool includeRenameAndEnterArea = true,
   String? pageName,
 }) => (context) {
-  final cubit = bloc.currentIndexCubit;
+  final cubit = bloc.editorController;
   final areaPageName = pageName ?? state.pageName;
   return [
     if (includeRenameAndEnterArea) ...[
@@ -99,7 +99,7 @@ ContextMenuBuilder buildAreaContextMenu(
     ContextMenuItem(
       onPressed: () {
         if (pop) Navigator.of(context).pop(true);
-        cubit.changeSelection(area);
+        cubit.toolCubit.changeSelection(area);
       },
       icon: const PhosphorIcon(PhosphorIconsLight.faders),
       label: AppLocalizations.of(context).properties,
@@ -114,8 +114,8 @@ ContextMenuBuilder buildAreaContextMenu(
   ];
 };
 
-List<PadElement> _getAreaElements(CurrentIndexCubit cubit, Area area) {
-  return cubit.renderers
+List<PadElement> _getAreaElements(EditorController cubit, Area area) {
+  return cubit.rendererCubit.renderers
       .where((e) => e.area == area)
       .map(
         (e) => e.transform(position: -area.position.toOffset(), relative: true),

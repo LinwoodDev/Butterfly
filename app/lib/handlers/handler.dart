@@ -43,7 +43,7 @@ import 'package:share_plus/share_plus.dart';
 import '../actions/paste.dart';
 import '../actions/select.dart';
 import '../api/save.dart';
-import '../cubits/current_index.dart';
+import '../cubits/editor_controller.dart';
 import '../dialogs/import/camera.dart';
 import '../models/label.dart';
 import '../models/viewport.dart';
@@ -52,6 +52,7 @@ import '../renderers/cursors/label.dart';
 import '../renderers/renderer.dart';
 import '../services/asset.dart';
 import '../services/import.dart';
+import '../theme.dart';
 import '../views/toolbar/color.dart';
 import '../views/toolbar/components.dart';
 import '../views/toolbar/label.dart';
@@ -125,10 +126,18 @@ class EventContext {
 
   CameraTransform getCameraTransform() => getTransformCubit().state;
 
-  CurrentIndexCubit getCurrentIndexCubit() =>
-      BlocProvider.of<CurrentIndexCubit>(buildContext);
+  EditorController getEditorController() =>
+      buildContext.read<EditorController>();
 
-  CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
+  RendererRuntimeState getRendererState() =>
+      buildContext.read<RendererCubit>().state;
+
+  ToolRuntimeState getToolState() => buildContext.read<ToolCubit>().state;
+
+  EditorInputState getInputState() =>
+      buildContext.read<EditorInputCubit>().state;
+
+  EditorViewState getViewState() => buildContext.read<EditorViewCubit>().state;
 
   Future<void> refresh({bool allowBake = true}) =>
       getDocumentBloc().refresh(allowBake: allowBake);
@@ -170,7 +179,6 @@ class EventContext {
   List<BlocProvider> getProviders() => [
     BlocProvider<DocumentBloc>.value(value: getDocumentBloc()),
     BlocProvider<TransformCubit>.value(value: getTransformCubit()),
-    BlocProvider<CurrentIndexCubit>.value(value: getCurrentIndexCubit()),
     BlocProvider<SettingsCubit>.value(value: getSettingsCubit()),
   ];
 
@@ -183,7 +191,7 @@ class EventContext {
   ClipboardManager getClipboardManager() =>
       buildContext.read<ClipboardManager>();
 
-  CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
+  CameraViewport getCameraViewport() => getRendererState().cameraViewport;
 
   NoteData? getData() => getState()?.data;
 
@@ -209,7 +217,7 @@ abstract class Handler<T> {
   ]) => SelectState.normal;
 
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [

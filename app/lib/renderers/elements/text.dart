@@ -285,7 +285,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   @override
   Future<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
@@ -300,7 +300,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   @override
   Future<void> updateView(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
@@ -315,7 +315,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
 
   @override
   void onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,

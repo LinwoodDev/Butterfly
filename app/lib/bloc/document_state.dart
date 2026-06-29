@@ -94,7 +94,7 @@ abstract class DocumentLoaded extends DocumentState {
   @override
   Future<NoteData> saveData([NoteData? current, ViewOption? viewOption]) async {
     current ??= data;
-    viewOption ??= const ViewOption();
+    viewOption ??= info.view;
     current = await _updatePage(current);
     current = _updateMetadata(current);
     current = _updateInfo(current, viewOption);

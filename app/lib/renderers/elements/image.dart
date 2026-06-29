@@ -89,7 +89,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   Future<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
@@ -106,7 +106,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   void onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,

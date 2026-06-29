@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/number.dart';
@@ -66,16 +66,17 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   void _zoom(double value, [bool bake = true]) {
     final documentState = context.read<DocumentBloc>().state;
-    final currentIndexCubit = context.read<CurrentIndexCubit>();
-    final currentIndex = currentIndexCubit.state;
+    final editorController = context.read<EditorController>();
+    final rendererState = editorController.rendererCubit.state;
+    final inputState = editorController.inputCubit.state;
     if (documentState is! DocumentLoaded) {
       return;
     }
-    final size = currentIndex.cameraViewport.toRealSize();
+    final size = rendererState.cameraViewport.toRealSize();
     final center = Offset(size.width / 2, size.height / 2);
-    currentIndexCubit.size(value, center, true);
+    editorController.size(value, center, true);
     if (bake) {
-      currentIndexCubit.bake(documentState);
+      editorController.bake(documentState);
     }
 
     final settings = context.read<SettingsCubit>().state;
@@ -83,7 +84,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
     final hideZoom =
         !settings.zoomEnabled ||
         windowState.fullScreen ||
-        currentIndex.hideUi != HideState.visible;
+        inputState.hideUi != HideState.visible;
     if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
       _controller.reverse();
     }
@@ -105,12 +106,12 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                         previous.size != current.size,
                     builder: (context, transform) {
                       var scale = transform.size;
-                      final currentIndexCubit = context
-                          .read<CurrentIndexCubit>();
+                      final editorController = context.read<EditorController>();
                       final hideZoom =
                           !settings.zoomEnabled ||
                           windowState.fullScreen ||
-                          currentIndexCubit.state.hideUi != HideState.visible;
+                          editorController.inputCubit.state.hideUi !=
+                              HideState.visible;
 
                       final body = StatefulBuilder(
                         builder: (context, setState) {

@@ -82,14 +82,14 @@ class LabelHandler extends Handler<LabelTool>
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
   ]) => [
     ...super.createForegrounds(
-      currentIndexCubit,
+      editorController,
       document,
       page,
       info,
@@ -172,7 +172,7 @@ class LabelHandler extends Handler<LabelTool>
     Offset localPosition, [
     bool forceCreate = false,
   ]) async {
-    final currentIndex = context.getCurrentIndex();
+    final currentIndex = context.getToolState();
     localPosition = PointerManipulationHandler.calculatePointerPosition(
       currentIndex,
       localPosition,
@@ -193,7 +193,7 @@ class LabelHandler extends Handler<LabelTool>
     final style = theme.textTheme.bodyLarge!;
     if (!hit || forceCreate || _context?.element == null) {
       if (_context?.element != null && !hit) _submit(context.getDocumentBloc());
-      final utilities = currentIndex.utilities;
+      final utilities = context.getViewState().utilities;
       final hits = forceCreate
           ? <Renderer<PadElement>>{}
           : await context.getDocumentBloc().rayCast(

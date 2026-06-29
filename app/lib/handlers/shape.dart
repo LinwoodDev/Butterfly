@@ -17,7 +17,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   List<PadElement> transformElements(
     Rect rect,
     String collection,
-    CurrentIndexCubit cubit,
+    EditorController cubit,
   ) {
     if (rect.topLeft == rect.bottomRight) return [];
 
@@ -42,7 +42,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
         property: data.property.copyWith(
           strokeWidth:
               data.property.strokeWidth /
-              (data.zoomDependent ? cubit.state.cameraViewport.scale : 1),
+              (data.zoomDependent ? cubit.rendererCubit.state.cameraViewport.scale : 1),
         ),
         collection: collection,
       ),

@@ -12,6 +12,7 @@ import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../../cubits/editor_controller.dart';
 import 'pack.dart';
 
 class AssetDialog extends StatelessWidget {
@@ -146,7 +147,7 @@ Future<void> addToPack(
   if (result == null) return;
   var pack = await packSystem.getFile(result.namespace);
   if (pack == null) return;
-  final screenshot = await bloc.currentIndexCubit.render(
+  final screenshot = await bloc.editorController.render(
     state.data,
     state.page,
     state.info,

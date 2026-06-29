@@ -46,7 +46,7 @@ class BarcodeHandler extends PastingHandler<BarcodeTool>
   List<PadElement> transformElements(
     Rect rect,
     String collection,
-    CurrentIndexCubit cubit,
+    EditorController cubit,
   ) {
     final element = _element;
     if (element == null) return [];

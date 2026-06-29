@@ -5,11 +5,13 @@ import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
+import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
@@ -62,7 +64,8 @@ class ProjectPage extends StatefulWidget {
 class _ProjectDocumentRuntime {
   final DocumentBloc bloc;
   final TransformCubit transformCubit;
-  final CurrentIndexCubit currentIndexCubit;
+  final EditorSessionCubit? editorSessionCubit;
+  final EditorController editorController;
   final ImportService? importService;
   final ExportService? exportService;
   final Embedding? embedding;
@@ -71,7 +74,8 @@ class _ProjectDocumentRuntime {
   _ProjectDocumentRuntime({
     required this.bloc,
     required this.transformCubit,
-    required this.currentIndexCubit,
+    this.editorSessionCubit,
+    required this.editorController,
     this.importService,
     this.exportService,
     this.embedding,
@@ -83,6 +87,9 @@ class _ProjectDocumentRuntime {
     embedding?.handler?.unregister();
     if (!bloc.isClosed) {
       await bloc.close();
+    }
+    if (editorSessionCubit != null && !editorSessionCubit!.isClosed) {
+      await editorSessionCubit!.close();
     }
   }
 }
@@ -192,6 +199,7 @@ class _ProjectPageState extends State<ProjectPage> {
       )?.name;
       NoteData? document;
       var data = widget.data;
+      Uint8List? loadedDocumentBytes;
       final uri = Uri.tryParse(widget.uri ?? '');
       var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
       if (widget.uri != null && uri != null) {
@@ -216,6 +224,11 @@ class _ProjectPageState extends State<ProjectPage> {
       defaultDocument ??= DocumentDefaults.createDocument(name: name);
       bool failedToLoad = false;
       if (data != null) {
+        if (data is Uint8List) {
+          loadedDocumentBytes = data;
+        } else if (data is NoteFile) {
+          loadedDocumentBytes = data.data;
+        }
         document ??= await globalImportService
             .load(type: type, data: data, document: defaultDocument)
             .then((e) => e?.export());
@@ -234,6 +247,7 @@ class _ProjectPageState extends State<ProjectPage> {
             return;
           }
           if (asset is FileSystemFile<NoteFile>) {
+            loadedDocumentBytes = asset.data?.data;
             final NoteData? noteData = await globalImportService
                 .load(
                   document: defaultDocument,
@@ -252,6 +266,7 @@ class _ProjectPageState extends State<ProjectPage> {
         } else {
           final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
+            loadedDocumentBytes = data;
             document = await globalImportService
                 .load(
                   document: defaultDocument,
@@ -273,7 +288,7 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       if (failedToLoad) {
         final transformCubit = TransformCubit(pixelRatio);
-        final currentIndexCubit = CurrentIndexCubit(
+        final editorController = EditorController(
           settingsCubit,
           transformCubit,
           CameraViewport.unbaked(),
@@ -281,7 +296,7 @@ class _ProjectPageState extends State<ProjectPage> {
         );
         final bloc = DocumentBloc.error(
           fileSystem,
-          currentIndexCubit,
+          editorController,
           windowCubit,
           AppLocalizations.of(context).errorWhileImportingContent,
         );
@@ -289,7 +304,7 @@ class _ProjectPageState extends State<ProjectPage> {
           _runtime = _ProjectDocumentRuntime(
             bloc: bloc,
             transformCubit: transformCubit,
-            currentIndexCubit: currentIndexCubit,
+            editorController: editorController,
             importService: ImportService(context, bloc: bloc),
             exportService: ExportService(context, bloc),
             embedding: embedding,
@@ -317,9 +332,39 @@ class _ProjectPageState extends State<ProjectPage> {
           createdAt: DateTime.now(),
         );
       }
-      final pageName = document.getPages(true).firstOrNull;
+      location ??= AssetLocation(
+        path: widget.location?.path ?? '',
+        remote: remote?.identifier ?? '',
+      );
+      final pathKey = documentStatePathKeyOrNull(location);
+      final contentHash = loadedDocumentBytes == null
+          ? null
+          : documentStateContentHash(loadedDocumentBytes);
+      final documentStateSystem = fileSystem.buildDocumentStateSystem(remote);
+      final restoredSession = await EditorSessionCubit.load(
+        fileSystem: documentStateSystem,
+        contentHash: contentHash,
+        pathKey: pathKey,
+        allowContentHash: loadedDocumentBytes != null,
+      );
+      final fallbackPageName = document.getPages(true).firstOrNull;
+      final restoredPageName = restoredSession?.pageName;
+      final pageName =
+          restoredPageName != null &&
+              document.getPages(true).contains(restoredPageName)
+          ? restoredPageName
+          : fallbackPageName;
       final page =
           document.getPage(pageName ?? '') ?? DocumentDefaults.createPage();
+      final initialSession = EditorSessionCubit.buildInitial(
+        restored: restoredSession,
+        document: document,
+        page: page,
+        fallbackPageName: pageName,
+        fallbackUtilities: settingsCubit.state.utilities,
+        pathKey: pathKey,
+        contentHash: contentHash,
+      );
       final renderers = page.layers
           .expand(
             (layer) => layer.content.map(
@@ -329,6 +374,20 @@ class _ProjectPageState extends State<ProjectPage> {
           .toList();
       final assetService = AssetService();
       final transformCubit = TransformCubit(pixelRatio);
+      transformCubit.teleport(
+        Offset(
+          initialSession.camera.positionX,
+          initialSession.camera.positionY,
+        ),
+        initialSession.camera.zoom,
+      );
+      final editorSessionCubit = EditorSessionCubit(
+        fileSystem: documentStateSystem,
+        transformCubit: transformCubit,
+        initialState: initialSession,
+        pathKey: pathKey,
+        contentHash: contentHash,
+      );
       pendingAssetService = assetService;
       pendingTransformCubit = transformCubit;
       pendingRenderers.addAll(renderers);
@@ -353,16 +412,10 @@ class _ProjectPageState extends State<ProjectPage> {
         await disposePendingRuntime();
         return;
       }
-      location ??= AssetLocation(
-        path: widget.location?.path ?? '',
-        remote: remote?.identifier ?? '',
-      );
-      if (!isCurrentLoad()) {
-        await disposePendingRuntime();
-        return;
+      if (restoredSession == null) {
+        transformCubit.teleportToWaypoint(page.getOriginWaypoint());
       }
-      transformCubit.teleportToWaypoint(page.getOriginWaypoint());
-      final currentIndexCubit = CurrentIndexCubit(
+      final editorController = EditorController(
         settingsCubit,
         transformCubit,
         CameraViewport.unbaked(
@@ -373,17 +426,24 @@ class _ProjectPageState extends State<ProjectPage> {
         ),
         embedding: embedding,
         networkingService: networkingService,
+        editorSessionCubit: editorSessionCubit,
         absolute: absolute,
       );
       final bloc = DocumentBloc(
         fileSystem,
-        currentIndexCubit,
+        editorController,
         windowCubit,
         document,
         location,
         assetService,
         page,
         pageName,
+        false,
+        initialSession.currentLayer.isEmpty
+            ? null
+            : initialSession.currentLayer,
+        initialSession.currentCollection,
+        initialSession.invisibleLayers,
       );
       final isImportedDocument =
           documentOpened && !(location.fileType?.isNote() ?? false);
@@ -395,7 +455,8 @@ class _ProjectPageState extends State<ProjectPage> {
         _runtime = _ProjectDocumentRuntime(
           bloc: bloc,
           transformCubit: transformCubit,
-          currentIndexCubit: currentIndexCubit,
+          editorSessionCubit: editorSessionCubit,
+          editorController: editorController,
           importService: ImportService(context, bloc: bloc),
           exportService: ExportService(context, bloc),
           embedding: embedding,
@@ -417,7 +478,7 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       await disposePendingRuntime(closeNetworkingService: false);
       final transformCubit = TransformCubit(pixelRatio);
-      final currentIndexCubit = CurrentIndexCubit(
+      final editorController = EditorController(
         settingsCubit,
         transformCubit,
         CameraViewport.unbaked(),
@@ -425,7 +486,7 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       final bloc = DocumentBloc.error(
         fileSystem,
-        currentIndexCubit,
+        editorController,
         windowCubit,
         e.toString(),
         stackTrace,
@@ -434,7 +495,8 @@ class _ProjectPageState extends State<ProjectPage> {
         _runtime = _ProjectDocumentRuntime(
           bloc: bloc,
           transformCubit: transformCubit,
-          currentIndexCubit: currentIndexCubit,
+          editorSessionCubit: null,
+          editorController: editorController,
           embedding: embedding,
         );
       });
@@ -465,7 +527,13 @@ class _ProjectPageState extends State<ProjectPage> {
       providers: [
         BlocProvider.value(value: runtime.bloc),
         BlocProvider.value(value: runtime.transformCubit),
-        BlocProvider.value(value: runtime.currentIndexCubit),
+        if (runtime.editorSessionCubit != null)
+          BlocProvider.value(value: runtime.editorSessionCubit!),
+        BlocProvider.value(value: runtime.editorController.rendererCubit),
+        BlocProvider.value(value: runtime.editorController.toolCubit),
+        BlocProvider.value(value: runtime.editorController.inputCubit),
+        BlocProvider.value(value: runtime.editorController.saveCubit),
+        BlocProvider.value(value: runtime.editorController.viewCubit),
       ],
       child: BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) =>
@@ -479,6 +547,7 @@ class _ProjectPageState extends State<ProjectPage> {
           }
           return MultiRepositoryProvider(
             providers: [
+              RepositoryProvider.value(value: runtime.editorController),
               RepositoryProvider.value(value: runtime.importService!),
               RepositoryProvider.value(value: runtime.exportService!),
             ],
@@ -492,72 +561,78 @@ class _ProjectPageState extends State<ProjectPage> {
               },
               child: BlocBuilder<WindowCubit, WindowState>(
                 builder: (context, windowState) =>
-                    BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                    BlocBuilder<EditorInputCubit, EditorInputState>(
                       buildWhen: (previous, current) =>
-                          previous.hideUi != current.hideUi ||
-                          previous.embedding?.editable !=
-                              current.embedding?.editable ||
-                          previous.embedding?.isInternal !=
-                              current.embedding?.isInternal,
-                      builder: (context, currentIndex) =>
-                          BlocBuilder<SettingsCubit, ButterflySettings>(
+                          previous.hideUi != current.hideUi,
+                      builder: (context, inputState) =>
+                          BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
                             buildWhen: (previous, current) =>
-                                previous.toolbarSize != current.toolbarSize ||
-                                previous.isInline != current.isInline,
-                            builder: (context, settings) {
-                              final actions = _buildActions(context);
+                                previous.embedding?.editable !=
+                                    current.embedding?.editable ||
+                                previous.embedding?.isInternal !=
+                                    current.embedding?.isInternal,
+                            builder: (context, saveState) =>
+                                BlocBuilder<SettingsCubit, ButterflySettings>(
+                                  buildWhen: (previous, current) =>
+                                      previous.toolbarSize !=
+                                          current.toolbarSize ||
+                                      previous.isInline != current.isInline,
+                                  builder: (context, settings) {
+                                    final actions = _buildActions(context);
 
-                              return ListenableBuilder(
-                                listenable: keybinder,
-                                builder: (context, child) {
-                                  final shortcuts = _buildShortcuts();
-                                  return Actions(
-                                    actions: actions,
-                                    child: Shortcuts(
-                                      shortcuts: shortcuts,
-                                      child: child!,
-                                    ),
-                                  );
-                                },
-                                child: ClipRect(
-                                  child: Focus(
-                                    autofocus: true,
-                                    skipTraversal: true,
-                                    onFocusChange: (_) => false,
-                                    child: Scaffold(
-                                      appBar:
-                                          state is DocumentPresentationState ||
-                                              windowState.fullScreen ||
-                                              currentIndex.hideUi !=
-                                                  HideState.visible
-                                          ? null
-                                          : PadAppBar(
-                                              viewportKey: _viewportKey,
-                                              size: settings.toolbarSize,
-                                              searchController:
-                                                  _searchController,
-                                              padding: padding,
-                                              direction: Directionality.of(
-                                                context,
-                                              ),
-                                              inView:
-                                                  currentIndex
-                                                      .embedding
-                                                      ?.isInternal ??
-                                                  false,
-                                              showTools:
-                                                  settings.isInline &&
-                                                  currentIndex
-                                                          .embedding
-                                                          ?.editable !=
-                                                      false,
-                                            ),
-                                      body: const _MainBody(),
-                                    ),
-                                  ),
+                                    return ListenableBuilder(
+                                      listenable: keybinder,
+                                      builder: (context, child) {
+                                        final shortcuts = _buildShortcuts();
+                                        return Actions(
+                                          actions: actions,
+                                          child: Shortcuts(
+                                            shortcuts: shortcuts,
+                                            child: child!,
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRect(
+                                        child: Focus(
+                                          autofocus: true,
+                                          skipTraversal: true,
+                                          onFocusChange: (_) => false,
+                                          child: Scaffold(
+                                            appBar:
+                                                state is DocumentPresentationState ||
+                                                    windowState.fullScreen ||
+                                                    inputState.hideUi !=
+                                                        HideState.visible
+                                                ? null
+                                                : PadAppBar(
+                                                    viewportKey: _viewportKey,
+                                                    size: settings.toolbarSize,
+                                                    searchController:
+                                                        _searchController,
+                                                    padding: padding,
+                                                    direction:
+                                                        Directionality.of(
+                                                          context,
+                                                        ),
+                                                    inView:
+                                                        saveState
+                                                            .embedding
+                                                            ?.isInternal ??
+                                                        false,
+                                                    showTools:
+                                                        settings.isInline &&
+                                                        saveState
+                                                                .embedding
+                                                                ?.editable !=
+                                                            false,
+                                                  ),
+                                            body: const _MainBody(),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
                           ),
                     ),
               ),
@@ -569,8 +644,8 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   CloseRequest? _preventClose() {
-    final currentIndex = _runtime?.currentIndexCubit.state;
-    return currentIndex?.saved == SaveState.saved
+    final saveState = _runtime?.editorController.saveCubit.state;
+    return saveState?.saved == SaveState.saved
         ? null
         : CloseRequest(
             message: AppLocalizations.of(context).thereAreUnsavedChanges,
@@ -582,7 +657,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final bloc = _runtime?.bloc;
     if (bloc == null || bloc.isClosed) return false;
     await bloc.save(force: true);
-    return bloc.currentIndexCubit.state.saved == SaveState.saved;
+    return bloc.editorController.saveCubit.state.saved == SaveState.saved;
   }
 
   Map<Type, Action<Intent>> _buildActions(BuildContext context) {
@@ -656,38 +731,56 @@ class _MainBody extends StatelessWidget {
           (previous is DocumentLoadSuccess &&
               current is! DocumentLoadSuccess) ||
           (previous is! DocumentLoadSuccess && current is DocumentLoadSuccess),
-      builder: (context, state) => BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+      builder: (context, state) => BlocBuilder<ToolCubit, ToolRuntimeState>(
         buildWhen: (previous, current) =>
             previous.pinned != current.pinned ||
-            previous.selection != current.selection ||
-            previous.hideUi != current.hideUi,
-        builder: (context, currentIndex) =>
-            BlocBuilder<WindowCubit, WindowState>(
-              builder: (context, windowState) =>
-                  BlocBuilder<SettingsCubit, ButterflySettings>(
+            previous.selection != current.selection,
+        builder: (context, toolState) =>
+            BlocBuilder<EditorInputCubit, EditorInputState>(
+              buildWhen: (previous, current) =>
+                  previous.hideUi != current.hideUi,
+              builder: (context, inputState) =>
+                  BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
                     buildWhen: (previous, current) =>
-                        previous.toolbarPosition != current.toolbarPosition ||
-                        previous.toolbarSize != current.toolbarSize ||
-                        previous.toolbarRows != current.toolbarRows ||
-                        previous.navigationRail != current.navigationRail ||
-                        previous.navigatorPosition !=
-                            current.navigatorPosition ||
-                        previous.optionsPanelPosition !=
-                            current.optionsPanelPosition ||
-                        previous.zoomPosition != current.zoomPosition ||
-                        previous.propertyPosition != current.propertyPosition,
-                    builder: (context, settings) {
-                      return LayoutBuilder(
-                        builder: (context, constraints) => _buildLayout(
-                          context,
-                          constraints,
-                          state,
-                          currentIndex,
-                          windowState,
-                          settings,
+                        previous.embedding != current.embedding,
+                    builder: (context, saveState) =>
+                        BlocBuilder<WindowCubit, WindowState>(
+                          builder: (context, windowState) =>
+                              BlocBuilder<SettingsCubit, ButterflySettings>(
+                                buildWhen: (previous, current) =>
+                                    previous.toolbarPosition !=
+                                        current.toolbarPosition ||
+                                    previous.toolbarSize !=
+                                        current.toolbarSize ||
+                                    previous.toolbarRows !=
+                                        current.toolbarRows ||
+                                    previous.navigationRail !=
+                                        current.navigationRail ||
+                                    previous.navigatorPosition !=
+                                        current.navigatorPosition ||
+                                    previous.optionsPanelPosition !=
+                                        current.optionsPanelPosition ||
+                                    previous.zoomPosition !=
+                                        current.zoomPosition ||
+                                    previous.propertyPosition !=
+                                        current.propertyPosition,
+                                builder: (context, settings) {
+                                  return LayoutBuilder(
+                                    builder: (context, constraints) =>
+                                        _buildLayout(
+                                          context,
+                                          constraints,
+                                          state,
+                                          toolState,
+                                          inputState,
+                                          saveState,
+                                          windowState,
+                                          settings,
+                                        ),
+                                  );
+                                },
+                              ),
                         ),
-                      );
-                    },
                   ),
             ),
       ),
@@ -698,7 +791,9 @@ class _MainBody extends StatelessWidget {
     BuildContext context,
     BoxConstraints constraints,
     DocumentState state,
-    CurrentIndex currentIndex,
+    ToolRuntimeState toolState,
+    EditorInputState inputState,
+    DocumentSaveState saveState,
     WindowState windowState,
     ButterflySettings settings,
   ) {
@@ -719,18 +814,18 @@ class _MainBody extends StatelessWidget {
       direction: settings.toolbarPosition.axis,
     );
     final navigatorRailEnabled =
-        settings.navigationRail || currentIndex.embedding != null;
+        settings.navigationRail || saveState.embedding != null;
     final showNavigator =
         isLarge &&
         navigatorRailEnabled &&
         !windowState.fullScreen &&
         state is DocumentLoadSuccess &&
-        currentIndex.hideUi == HideState.visible;
+        inputState.hideUi == HideState.visible;
 
     return Stack(
       children: [
         const MainViewViewport(),
-        _buildSelectionListener(context, currentIndex),
+        _buildSelectionListener(context, toolState),
         SafeArea(
           child: Row(
             textDirection: TextDirection.ltr,
@@ -740,18 +835,18 @@ class _MainBody extends StatelessWidget {
                 const NavigatorView(),
               if (settings.toolbarPosition == ToolbarPosition.left &&
                   !isMobile &&
-                  currentIndex.hideUi == HideState.visible)
+                  inputState.hideUi == HideState.visible)
                 toolbar,
               _buildCenterColumn(
                 context,
                 settings,
                 windowState,
-                currentIndex,
+                inputState,
                 isMobile,
                 toolbar,
               ),
               if (settings.toolbarPosition == ToolbarPosition.right &&
-                  currentIndex.hideUi == HideState.visible)
+                  inputState.hideUi == HideState.visible)
                 toolbar,
               if (showNavigator &&
                   settings.navigatorPosition == NavigatorPosition.right)
@@ -765,15 +860,15 @@ class _MainBody extends StatelessWidget {
 
   Widget _buildSelectionListener(
     BuildContext context,
-    CurrentIndex currentIndex,
+    ToolRuntimeState toolState,
   ) {
     return Listener(
-      behavior: currentIndex.pinned || currentIndex.selection == null
+      behavior: toolState.pinned || toolState.selection == null
           ? HitTestBehavior.translucent
           : HitTestBehavior.opaque,
       onPointerUp: (details) {
-        if (currentIndex.pinned) return;
-        context.read<CurrentIndexCubit>().resetSelection();
+        if (toolState.pinned) return;
+        context.read<ToolCubit>().resetSelection();
       },
     );
   }
@@ -782,7 +877,7 @@ class _MainBody extends StatelessWidget {
     BuildContext context,
     ButterflySettings settings,
     WindowState windowState,
-    CurrentIndex currentIndex,
+    EditorInputState inputState,
     bool isMobile,
     Widget toolbar,
   ) {
@@ -793,10 +888,10 @@ class _MainBody extends StatelessWidget {
                     pos == ToolbarPosition.inline ||
                 pos == ToolbarPosition.top) &&
             !isMobile) &&
-        currentIndex.hideUi == HideState.visible;
+        inputState.hideUi == HideState.visible;
     final shareToolbarAndZoomEdge =
         !isMobile &&
-        currentIndex.hideUi == HideState.visible &&
+        inputState.hideUi == HideState.visible &&
         _toolbarAndZoomShareVerticalEdge(settings);
     final combineTopToolbarAndZoom = showToolbar && shareToolbarAndZoomEdge;
     final combineBottomToolbarAndZoom =
@@ -811,7 +906,7 @@ class _MainBody extends StatelessWidget {
                 ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
           if (optPos == OptionsPanelPosition.top &&
-              currentIndex.hideUi == HideState.visible)
+              inputState.hideUi == HideState.visible)
             const ToolbarView(),
           Expanded(
             child: Stack(
@@ -820,7 +915,7 @@ class _MainBody extends StatelessWidget {
                   context,
                   settings,
                   isMobile,
-                  currentIndex,
+                  inputState,
                   hideZoomTools:
                       combineTopToolbarAndZoom || combineBottomToolbarAndZoom,
                 ),
@@ -837,10 +932,10 @@ class _MainBody extends StatelessWidget {
             ),
           ),
           if (optPos == OptionsPanelPosition.bottom &&
-              currentIndex.hideUi == HideState.visible)
+              inputState.hideUi == HideState.visible)
             const ToolbarView(),
           if ((isMobile || pos == ToolbarPosition.bottom) &&
-              currentIndex.hideUi == HideState.visible)
+              inputState.hideUi == HideState.visible)
             combineBottomToolbarAndZoom
                 ? _buildCombinedToolbarAndZoom(settings, toolbar)
                 : toolbar,
@@ -888,7 +983,7 @@ class _MainBody extends StatelessWidget {
     BuildContext context,
     ButterflySettings settings,
     bool isMobile,
-    CurrentIndex currentIndex, {
+    EditorInputState inputState, {
     bool hideZoomTools = false,
   }) {
     return Padding(
@@ -912,12 +1007,12 @@ class _MainBody extends StatelessWidget {
             },
             children: [
               if (!hideZoomTools) _buildZoomToolsRow(settings, isMobile),
-              if (currentIndex.hideUi == HideState.touch)
+              if (inputState.hideUi == HideState.touch)
                 FloatingActionButton.small(
                   tooltip: AppLocalizations.of(context).exit,
                   child: const Icon(PhosphorIconsLight.door),
                   onPressed: () {
-                    context.read<CurrentIndexCubit>().exitHideUI();
+                    context.read<EditorInputCubit>().exitHideUI();
                   },
                 ),
             ],

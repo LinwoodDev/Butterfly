@@ -9,7 +9,7 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
     bool wasAdded = true,
   ]) {
     if (!wasAdded) {
-      context.read<CurrentIndexCubit>().changeTemporaryHandler(
+      context.read<EditorController>().changeTemporaryHandler(
         context,
         data,
         temporaryState: TemporaryState.removeAfterRelease,
@@ -25,7 +25,7 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
     );
     final state = context.getState();
     if (state == null) return;
-    final data = await context.getCurrentIndexCubit().render(
+    final data = await context.getEditorController().render(
       state.data,
       state.page,
       state.info,
@@ -36,7 +36,7 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
     final image = img.decodePng(data.buffer.asUint8List());
     if (image == null) return;
     final pixel = image.getPixel(0, 0);
-    final handler = context.getCurrentIndexCubit().getHandler(
+    final handler = context.getEditorController().getHandler(
       disableTemporary: true,
     );
     final color = SRGBColor.from(

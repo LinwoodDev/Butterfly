@@ -9,7 +9,7 @@ class SpacerHandler extends Handler<SpacerTool> {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [

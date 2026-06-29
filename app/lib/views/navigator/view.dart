@@ -1,5 +1,5 @@
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
@@ -88,15 +88,15 @@ class _NavigatorViewState extends State<NavigatorView>
       buildWhen: (previous, current) =>
           previous.navigatorPosition != current.navigatorPosition,
       builder: (context, settings) =>
-          BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+          BlocBuilder<EditorViewCubit, EditorViewState>(
             buildWhen: (previous, current) =>
                 previous.navigatorEnabled != current.navigatorEnabled ||
                 previous.navigatorPage != current.navigatorPage,
-            builder: (context, currentIndex) {
+            builder: (context, viewState) {
               final selected = NavigatorPage.values.indexOf(
-                currentIndex.navigatorPage,
+                viewState.navigatorPage,
               );
-              if (currentIndex.navigatorEnabled) {
+              if (viewState.navigatorEnabled) {
                 _animationController.forward();
               } else {
                 _animationController.reverse();
@@ -142,20 +142,20 @@ class _NavigatorViewState extends State<NavigatorView>
                           ),
                         )
                         .toList(),
-                    selectedIndex: currentIndex.navigatorEnabled
-                        ? selected
-                        : null,
+                    selectedIndex: viewState.navigatorEnabled ? selected : null,
                     groupAlignment: 0,
                     onDestinationSelected: (index) {
-                      final cubit = context.read<CurrentIndexCubit>();
+                      final cubit = context.read<EditorViewCubit>();
                       if (selected == index) {
-                        cubit.setNavigatorEnabled(
-                          !currentIndex.navigatorEnabled,
+                        cubit.setNavigator(
+                          enabled: !viewState.navigatorEnabled,
                         );
                         return;
                       }
-                      cubit.setNavigatorPage(NavigatorPage.values[index]);
-                      cubit.setNavigatorEnabled(true);
+                      cubit.setNavigator(
+                        page: NavigatorPage.values[index],
+                        enabled: true,
+                      );
                     },
                   ),
                 ],
@@ -179,11 +179,11 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+    return BlocBuilder<EditorViewCubit, EditorViewState>(
       buildWhen: (previous, current) =>
           previous.navigatorPage != current.navigatorPage,
-      builder: (context, currentIndex) {
-        final page = currentIndex.navigatorPage;
+      builder: (context, viewState) {
+        final page = viewState.navigatorPage;
         final body = switch (page) {
           NavigatorPage.waypoints => const WaypointsView(),
           NavigatorPage.areas => const AreasView(),

@@ -44,7 +44,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -151,7 +151,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   }
 
   static RulerHandler? getFirstRuler(
-    CurrentIndex index,
+    ToolRuntimeState index,
     Offset position,
     Size viewportSize,
   ) {
@@ -161,7 +161,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   }
 
   static RulerHandler? getInteractiveRuler(
-    CurrentIndex index,
+    ToolRuntimeState index,
     Handler handler,
     Offset position,
     Size viewportSize,

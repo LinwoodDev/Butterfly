@@ -170,7 +170,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -185,7 +185,8 @@ class SelectHandler extends Handler<SelectTool> {
           (_selectionManager.isTransforming && !_duplicate ? _selected : []),
     );
     final selectionRect = getSelectionRect();
-    final scheme = currentIndexCubit.getTheme(false).colorScheme;
+    final settings = editorController.settingsCubit.state;
+    final scheme = getThemeData(settings.design, false).colorScheme;
     if (selectionRect != null) {
       foregrounds.add(_selectionManager.renderer);
     }
@@ -271,7 +272,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       return;
     }
-    final utilities = context.getCurrentIndex().utilities;
+    final utilities = context.getViewState().utilities;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
     final selectionRect = getSelectionRect();
@@ -328,7 +329,7 @@ class SelectHandler extends Handler<SelectTool> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final utilities = context.getCurrentIndex().utilities;
+    final utilities = context.getViewState().utilities;
     final hits = await bloc.rayCast(
       position,
       0.0,
@@ -373,9 +374,10 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.buttons == kSecondaryMouseButton &&
-        currentIndex.temporaryHandler == null) {
+    final toolState = context.getToolState();
+    final inputState = context.getInputState();
+    if (inputState.buttons == kSecondaryMouseButton &&
+        toolState.temporaryHandler == null) {
       return false;
     }
     final cameraTransform = context.getCameraTransform();
@@ -454,7 +456,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final utilities = context.getCurrentIndex().utilities;
+    final utilities = context.getViewState().utilities;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
     final transformed = _submitTransform(context.getDocumentBloc());
@@ -562,7 +564,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return;
     _selected.clear();
     _selected.addAll(
-      bloc.currentIndexCubit.renderers.where((e) => filter?.call(e) ?? true),
+      bloc.editorController.rendererCubit.renderers.where((e) => filter?.call(e) ?? true),
     );
     _updateSelectionRect();
     bloc.refreshForegrounds();

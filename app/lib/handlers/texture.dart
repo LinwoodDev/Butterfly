@@ -7,7 +7,7 @@ class TextureHandler extends PastingHandler<TextureTool> {
   List<PadElement> transformElements(
     Rect rect,
     String collection,
-    CurrentIndexCubit cubit,
+    EditorController cubit,
   ) {
     if (rect.isEmpty) return [];
 

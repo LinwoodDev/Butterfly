@@ -1,5 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/packs/components.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -69,11 +69,11 @@ class _ComponentsViewState extends State<ComponentsView> {
                   selectedPacks.isEmpty || selectedPacks.contains(e.namespace),
             )
             .toList();
-        return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+        return BlocBuilder<ToolCubit, ToolRuntimeState>(
           buildWhen: (previous, current) =>
               previous.temporaryHandler != current.temporaryHandler,
-          builder: (context, currentIndex) {
-            final handler = currentIndex.temporaryHandler;
+          builder: (context, toolState) {
+            final handler = toolState.temporaryHandler;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -118,7 +118,7 @@ class _ComponentsViewState extends State<ComponentsView> {
                               handler.data.component == named,
                           key: ValueKey((e.namespace, e.key)),
                           onTap: () => context
-                              .read<CurrentIndexCubit>()
+                              .read<EditorController>()
                               .changeTemporaryHandler(
                                 context,
                                 StampTool(component: named),

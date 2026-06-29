@@ -1,6 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
@@ -29,7 +29,7 @@ void main() {
     ).thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
-    final currentIndexCubit = CurrentIndexCubit(
+    final editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(),
@@ -45,7 +45,7 @@ void main() {
     final (data, pageName) = NoteData(Archive()).setPage(page, 'Page');
     final bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'layers-test.bfly'),
@@ -55,7 +55,7 @@ void main() {
     );
     addTearDown(() async {
       await bloc.close();
-      await currentIndexCubit.close();
+      await editorController.close();
       await windowCubit.close();
     });
 

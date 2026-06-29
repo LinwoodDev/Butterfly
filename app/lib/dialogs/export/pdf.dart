@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/api/save.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -50,7 +50,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             if (state is! DocumentLoadSuccess) {
               return const Center(child: CircularProgressIndicator());
             }
-            final currentIndex = context.read<DocumentBloc>().currentIndexCubit;
+            final currentIndex = context.read<DocumentBloc>().editorController;
             return Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -219,14 +219,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     if (state is! DocumentLoadSuccess) return;
     final loading = showLoadingDialog(context);
     try {
-      final pdf = await context
-          .read<DocumentBloc>()
-          .currentIndexCubit
-          .renderPDF(
-            state,
-            areas: _areas.map((e) => e.preset).toList(),
-            onProgress: (progress) => loading?.setProgress(progress),
-          );
+      final pdf = await context.read<DocumentBloc>().editorController.renderPDF(
+        state,
+        areas: _areas.map((e) => e.preset).toList(),
+        onProgress: (progress) => loading?.setProgress(progress),
+      );
       if (pdf == null) {
         throw Exception('Failed to generate PDF.');
       }
@@ -338,7 +335,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     );
   }
 
-  Widget _buildAreasList(DocumentLoaded state, CurrentIndexCubit currentIndex) {
+  Widget _buildAreasList(DocumentLoaded state, EditorController currentIndex) {
     return ReorderableListView.builder(
       buildDefaultDragHandles: false,
       itemCount: _areas.length,
@@ -391,7 +388,7 @@ class _AreaPreview extends StatefulWidget {
   final AreaPreset preset;
   final DocumentPage page;
   final DocumentLoaded state;
-  final CurrentIndexCubit currentIndex;
+  final EditorController currentIndex;
   final VoidCallback onRemove;
   final ValueChanged<double> onQualityChanged;
 

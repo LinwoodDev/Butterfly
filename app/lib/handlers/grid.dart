@@ -5,7 +5,7 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [

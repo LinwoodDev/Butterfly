@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:cryptography_plus/cryptography_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -326,7 +327,7 @@ class NetworkingService extends Cubit<NetworkState?> {
               final users = Map<Channel, NetworkingUser>.from(_users.value)
                 ..[message.channel] = user;
               _emitUsers(users);
-              _bloc?.currentIndexCubit.updateNetworkingState(_bloc!, users);
+              _bloc?.editorController.updateNetworkingState(_bloc!, users);
             }),
         );
     rpc.getNamedFunction(NetworkEvent.undo)?.read.listen((_) {

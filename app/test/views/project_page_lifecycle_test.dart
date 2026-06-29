@@ -1,7 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -89,8 +89,6 @@ void main() {
       'Scaffold: ${find.byType(Scaffold).evaluate().length}, '
       'DocumentBloc create/close: '
       '${observer.documentBlocCreates}/${observer.documentBlocCloses}, '
-      'CurrentIndexCubit create/close: '
-      '${observer.currentIndexCubitCreates}/${observer.currentIndexCubitCloses}, '
       'events: ${observer.events}, '
       'exception: $exception)',
     );
@@ -166,9 +164,7 @@ void main() {
     );
   }
 
-  testWidgets('replacing document route closes document bloc and index cubit', (
-    tester,
-  ) async {
+  testWidgets('replacing document route closes document bloc', (tester) async {
     await tester.pumpWidget(buildApp());
 
     for (var i = 1; i <= 3; i++) {
@@ -177,8 +173,7 @@ void main() {
         tester,
         () =>
             find.byType(ProjectPage).evaluate().isNotEmpty &&
-            observer.documentBlocCreates == i &&
-            observer.currentIndexCubitCreates == i,
+            observer.documentBlocCreates == i,
         'document open $i',
       );
       await tester.pump(const Duration(seconds: 1));
@@ -189,31 +184,28 @@ void main() {
         () =>
             find.byType(ProjectPage).evaluate().isEmpty &&
             find.byType(ProjectPage, skipOffstage: false).evaluate().isEmpty &&
-            observer.documentBlocCloses == i &&
-            observer.currentIndexCubitCloses == i,
+            observer.documentBlocCloses == i,
         'document close $i',
       );
     }
 
     expect(observer.documentBlocCreates, 3);
     expect(observer.documentBlocCloses, 3);
-    expect(observer.currentIndexCubitCreates, 3);
-    expect(observer.currentIndexCubitCloses, 3);
   });
 
   testWidgets('converted imported file starts unsaved', (tester) async {
     await tester.pumpWidget(buildApp());
 
     router.go('/import');
-    await pumpUntil(
-      tester,
-      () =>
-          find.byType(ProjectPage).evaluate().isNotEmpty &&
-          observer.lastCurrentIndexCubit != null,
-      'imported document open',
-    );
+      await pumpUntil(
+        tester,
+        () =>
+            find.byType(ProjectPage).evaluate().isNotEmpty &&
+            observer.lastSaveCubit != null,
+        'imported document open',
+      );
 
-    expect(observer.lastCurrentIndexCubit!.state.saved, SaveState.unsaved);
+    expect(observer.lastSaveCubit!.state.saved, SaveState.unsaved);
 
     router.go('/');
     await pumpUntil(
@@ -222,7 +214,7 @@ void main() {
           find.byType(ProjectPage).evaluate().isEmpty &&
           find.byType(ProjectPage, skipOffstage: false).evaluate().isEmpty &&
           observer.documentBlocCloses == 1 &&
-          observer.currentIndexCubitCloses == 1,
+          observer.saveCubitCloses == 1,
       'imported document close',
     );
   });
@@ -231,9 +223,9 @@ void main() {
 class _LifecycleObserver extends BlocObserver {
   int documentBlocCreates = 0;
   int documentBlocCloses = 0;
-  int currentIndexCubitCreates = 0;
-  int currentIndexCubitCloses = 0;
-  CurrentIndexCubit? lastCurrentIndexCubit;
+  int saveCubitCreates = 0;
+  int saveCubitCloses = 0;
+  DocumentSaveCubit? lastSaveCubit;
   final events = <String>[];
 
   @override
@@ -241,9 +233,9 @@ class _LifecycleObserver extends BlocObserver {
     super.onCreate(bloc);
     if (bloc is DocumentBloc) {
       documentBlocCreates++;
-    } else if (bloc is CurrentIndexCubit) {
-      currentIndexCubitCreates++;
-      lastCurrentIndexCubit = bloc;
+    } else if (bloc is DocumentSaveCubit) {
+      saveCubitCreates++;
+      lastSaveCubit = bloc;
     }
   }
 
@@ -251,8 +243,8 @@ class _LifecycleObserver extends BlocObserver {
   void onClose(BlocBase<dynamic> bloc) {
     if (bloc is DocumentBloc) {
       documentBlocCloses++;
-    } else if (bloc is CurrentIndexCubit) {
-      currentIndexCubitCloses++;
+    } else if (bloc is DocumentSaveCubit) {
+      saveCubitCloses++;
     }
     super.onClose(bloc);
   }

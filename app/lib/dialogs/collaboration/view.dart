@@ -3,13 +3,13 @@ part of 'dialog.dart';
 class ViewCollaborationDialog extends StatelessWidget {
   final NetworkingService service;
   final NetworkState state;
-  final CurrentIndexCubit currentIndexCubit;
+  final EditorController editorController;
 
   const ViewCollaborationDialog({
     super.key,
     required this.service,
     required this.state,
-    required this.currentIndexCubit,
+    required this.editorController,
   });
 
   @override
@@ -86,9 +86,9 @@ class ViewCollaborationDialog extends StatelessWidget {
                 labelText: AppLocalizations.of(context).username,
                 filled: true,
               ),
-              initialValue: currentIndexCubit.state.userName,
+              initialValue: editorController.viewCubit.state.userName,
               onChanged: (value) {
-                currentIndexCubit.setUserName(value);
+                editorController.viewCubit.setUserName(value);
               },
             ),
           ],

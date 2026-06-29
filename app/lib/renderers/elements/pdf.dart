@@ -89,7 +89,7 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   void onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
@@ -104,7 +104,7 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   Future<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
@@ -118,7 +118,7 @@ class PdfRenderer extends Renderer<PdfElement> {
 
   @override
   Future<void> updateView(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,

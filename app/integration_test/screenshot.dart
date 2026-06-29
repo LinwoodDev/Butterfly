@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/import/add.dart';
@@ -223,15 +223,17 @@ void main() {
 
         await pumpDocument(tester, size);
         var viewportContext = tester.element(find.byType(MainViewViewport));
-        var currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        var editorController = viewportContext.read<EditorController>();
         var transformCubit = viewportContext.read<TransformCubit>();
         var bloc = viewportContext.read<DocumentBloc>();
         var pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
         final isDesktop = size.width >= 840;
 
         if (isDesktop) {
-          currentIndexCubit.setNavigatorPage(NavigatorPage.pages);
-          currentIndexCubit.setNavigatorEnabled(true);
+          editorController.viewCubit.setNavigator(
+            page: NavigatorPage.pages,
+            enabled: true,
+          );
           await settle(tester);
         }
         await frameOpeningDocument(tester, size, transformCubit);
@@ -246,10 +248,12 @@ void main() {
             builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider.value(value: bloc),
-                BlocProvider.value(value: currentIndexCubit),
                 BlocProvider.value(value: transformCubit),
               ],
-              child: const TemplateDialog(),
+              child: RepositoryProvider.value(
+                value: editorController,
+                child: const TemplateDialog(),
+              ),
             ),
           );
           await tester.pumpAndSettle();
@@ -269,7 +273,7 @@ void main() {
 
         await pumpDocument(tester, size, documentName: propertiesDocumentName);
         viewportContext = tester.element(find.byType(MainViewViewport));
-        currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        editorController = viewportContext.read<EditorController>();
         transformCubit = viewportContext.read<TransformCubit>();
         bloc = viewportContext.read<DocumentBloc>();
         pen = bloc.state.info?.tools.whereType<PenTool>().firstOrNull;
@@ -279,35 +283,35 @@ void main() {
           );
         }
         await frameOpeningDocument(tester, size, transformCubit);
-        currentIndexCubit.setNavigatorEnabled(false);
-        currentIndexCubit.changeSelection(pen, false);
+        editorController.viewCubit.setNavigator(enabled: false);
+        editorController.toolCubit.changeSelection(pen, false);
         await settle(tester);
         expect(find.byType(PropertyView), findsOneWidget);
         await takeScreenshot(tester, '$directory/4-properties');
 
         await pumpDocument(tester, size);
         viewportContext = tester.element(find.byType(MainViewViewport));
-        currentIndexCubit = viewportContext.read<CurrentIndexCubit>();
+        editorController = viewportContext.read<EditorController>();
         transformCubit = viewportContext.read<TransformCubit>();
         bloc = viewportContext.read<DocumentBloc>();
         await frameOpeningDocument(tester, size, transformCubit);
 
-        currentIndexCubit.changeSelection(currentIndexCubit, false);
+        editorController.toolCubit.changeSelection(editorController, false);
         await settle(tester);
         await takeScreenshot(tester, '$directory/5-tools');
 
-        currentIndexCubit.resetSelection(force: true);
+        editorController.toolCubit.resetSelection(force: true);
         await settle(tester);
         final importService = viewportContext.read<ImportService>();
         showGeneralDialog(
           context: viewportContext,
           pageBuilder: (context, _, _) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: bloc),
-              BlocProvider.value(value: currentIndexCubit),
-            ],
-            child: RepositoryProvider.value(
-              value: importService,
+            providers: [BlocProvider.value(value: bloc)],
+            child: MultiRepositoryProvider(
+              providers: [
+                RepositoryProvider.value(value: editorController),
+                RepositoryProvider.value(value: importService),
+              ],
               child: const AddDialog(),
             ),
           ),

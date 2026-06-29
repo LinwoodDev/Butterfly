@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -98,7 +99,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         );
       }
     }
-    return bloc.currentIndexCubit.render(
+    return bloc.editorController.render(
       state.data,
       state.page,
       state.info,
@@ -112,7 +113,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    return bloc.currentIndexCubit
+    return bloc.editorController
         .renderSVG(
           state.data,
           state.page,
@@ -279,7 +280,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               onPressed: () {
                 final transform = context
                     .read<DocumentBloc>()
-                    .currentIndexCubit
+                    .editorController
                     .transformCubit
                     .state;
 
@@ -308,7 +309,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
                 if (state is! DocumentLoaded) return;
-                final cubit = bloc.currentIndexCubit;
+                final cubit = bloc.editorController;
                 final rect = cubit.getPageRect(
                   invisibleLayers: state.invisibleLayers,
                 );
