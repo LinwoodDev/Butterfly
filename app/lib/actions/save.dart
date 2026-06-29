@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
 
 import '../bloc/document_bloc.dart';
-import '../cubits/current_index.dart';
+import '../cubits/editor_controller.dart';
 import '../embed/action.dart';
 
 class SaveIntent extends Intent {
@@ -27,13 +27,9 @@ class SaveAction extends Action<SaveIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final currentIndex = bloc.currentIndexCubit.state;
-    if (currentIndex.embedding?.save ?? false) {
-      sendEmbedMessage(
-        'save',
-        (await state.saveData(null, currentIndex.viewOption)).exportAsBytes(),
-      );
-      bloc.currentIndexCubit.setSaveState(saved: SaveState.saved);
+    if (bloc.editorController.saveCubit.state.embedding?.save ?? false) {
+      sendEmbedMessage('save', (await state.saveData()).exportAsBytes());
+      bloc.editorController.saveCubit.setSaveState(saved: SaveState.saved);
     } else {
       await bloc.save(force: true);
     }

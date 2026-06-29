@@ -73,7 +73,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -129,12 +129,12 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     bool forceCreate = false,
   }) {
     final bloc = context.read<DocumentBloc>();
-    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final editorController = context.read<EditorController>();
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
-    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
+    final penOnlyInput = editorController.inputCubit.effectivePenOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
-      currentIndexCubit.state,
+      editorController.toolCubit.state,
       localPosition,
       viewportSize,
       transform,
@@ -176,8 +176,9 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     context.refreshForegrounds();
-    final cubit = context.getCurrentIndexCubit();
-    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    final cubit = context.getEditorController();
+    if (cubit.inputCubit.moveEnabled &&
+        event.kind != PointerDeviceKind.stylus) {
       _elements.clear();
       return;
     }

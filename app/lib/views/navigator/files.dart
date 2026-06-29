@@ -1,6 +1,6 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/views/files/view.dart';
@@ -29,14 +29,14 @@ class _FilesNavigatorPageState extends State<FilesNavigatorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+    return BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
       buildWhen: (previous, current) =>
           previous.location != current.location ||
           previous.absolute != current.absolute,
-      builder: (context, state) {
+      builder: (context, saveState) {
         AssetLocation? location;
-        if (state is DocumentLoaded) {
-          location = state.location;
+        if (!saveState.location.isEmpty) {
+          location = saveState.location;
           location = AssetLocation(
             remote: location.remote,
             path: '/${location.path}',

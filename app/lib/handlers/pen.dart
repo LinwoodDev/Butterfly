@@ -24,7 +24,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Create foregrounds for rendering the PenRendere
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -146,10 +146,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     bool shouldCreate = false,
   }) {
     final bloc = context.read<DocumentBloc>();
-    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final editorController = context.read<EditorController>();
     final transform = context.read<TransformCubit>().state;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-      currentIndexCubit.state,
+      editorController.toolCubit.state,
       localPos,
       viewportSize,
       transform,
@@ -158,7 +158,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
-    final penOnlyInput = currentIndexCubit.effectivePenOnlyInput;
+    final penOnlyInput = editorController.inputCubit.effectivePenOnlyInput;
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
     if (penOnlyInput &&
@@ -202,12 +202,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
-    final cubit = context.getCurrentIndexCubit();
+    final cubit = context.getEditorController();
     cubit.cancelDelayedBake();
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
-    if (cubit.moveEnabled && event.kind != PointerDeviceKind.stylus) {
+    if (cubit.inputCubit.moveEnabled &&
+        event.kind != PointerDeviceKind.stylus) {
       elements.clear();
       context.refreshForegrounds();
       return;

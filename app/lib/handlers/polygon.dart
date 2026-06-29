@@ -77,7 +77,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -313,7 +313,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final globalPos = transform.localToGlobal(localPos);
 
     if (_element == null) {
-      final utilities = context.getCurrentIndex().utilities;
+      final utilities = context.getViewState().utilities;
       final hit = await context.getDocumentBloc().rayCast(
         globalPos,
         max(
@@ -404,7 +404,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       bloc.add(ElementsCreated([element]));
     }
     _resetTool();
-    bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
+    bloc.editorController.resetTemporaryHandler(bloc, true);
     bloc.delayedBake();
     bloc.refreshToolbar();
   }
@@ -425,7 +425,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       _resetTool();
       bloc.refreshForegrounds();
       bloc.refreshToolbar();
-      bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
+      bloc.editorController.resetTemporaryHandler(bloc, true);
       return;
     }
 
@@ -438,7 +438,7 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         bloc.refresh();
       }
       _resetTool();
-      bloc.currentIndexCubit.resetTemporaryHandler(bloc, true);
+      bloc.editorController.resetTemporaryHandler(bloc, true);
     } else {
       _selectedPointIndex = max(0, selectedIndex - 1);
     }

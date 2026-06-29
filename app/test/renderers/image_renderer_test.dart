@@ -1,14 +1,14 @@
 import 'dart:ui' as ui;
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCurrentIndexCubit extends Mock implements CurrentIndexCubit {}
+class MockEditorController extends Mock implements EditorController {}
 
 class MockDocumentLoaded extends Mock implements DocumentLoaded {}
 
@@ -38,7 +38,7 @@ void main() {
       );
 
       renderer.onHidden(
-        MockCurrentIndexCubit(),
+        MockEditorController(),
         MockDocumentLoaded(),
         const CameraTransform(),
         ui.Size.zero,

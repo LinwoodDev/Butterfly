@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/markdown/latex.dart';
@@ -667,21 +667,21 @@ abstract class Renderer<T> {
   ) => null;
 
   FutureOr<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
   ) {}
 
   FutureOr<void> onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,
   ) {}
 
   FutureOr<void> updateView(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,

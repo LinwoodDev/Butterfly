@@ -28,7 +28,7 @@ class EraserHandler extends Handler<EraserTool> {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -95,9 +95,9 @@ class EraserHandler extends Handler<EraserTool> {
   }
 
   Future<void> _eraseAt(Offset position, EventContext context) async {
-    final cubit = context.getCurrentIndexCubit();
+    final cubit = context.getEditorController();
     final transform = cubit.transformCubit.state;
-    final utilities = cubit.state.utilities;
+    final utilities = cubit.viewCubit.state.utilities;
     final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final sizeSquared = size * size;

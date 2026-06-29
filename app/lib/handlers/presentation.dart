@@ -81,7 +81,7 @@ mixin GeneralPresentationHandler {
     _applyAnimation(
       animation,
       bloc,
-      bloc.currentIndexCubit,
+      bloc.editorController,
       bloc.transformCubit,
     );
 
@@ -130,7 +130,7 @@ mixin GeneralPresentationHandler {
   void _applyAnimation(
     AnimationTrack animation,
     DocumentBloc bloc,
-    CurrentIndexCubit cubit,
+    EditorController cubit,
     TransformCubit transformCubit,
   ) {
     final state = bloc.state;
@@ -151,7 +151,7 @@ mixin GeneralPresentationHandler {
     _applyAnimation(
       animation,
       bloc,
-      bloc.currentIndexCubit,
+      bloc.editorController,
       bloc.transformCubit,
     );
   }
@@ -226,7 +226,7 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
   void _refreshToolbar(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    bloc.currentIndexCubit.refreshToolbar(bloc);
+    bloc.editorController.refreshToolbar(bloc);
   }
 }
 

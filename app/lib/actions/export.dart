@@ -37,10 +37,7 @@ class ExportAction extends Action<ExportIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final data = await state.saveData(
-      null,
-      bloc.currentIndexCubit.state.viewOption,
-    );
+    final data = await state.saveData();
     exportData(context, data, isTextBased: intent.isText);
   }
 }

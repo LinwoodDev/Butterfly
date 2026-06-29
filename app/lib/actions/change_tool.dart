@@ -1,4 +1,4 @@
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,7 @@ class ChangeToolAction extends Action<ChangeToolIntent> {
   @override
   Future<void> invoke(ChangeToolIntent intent) async {
     final bloc = context.read<DocumentBloc>();
-    context.read<CurrentIndexCubit>().changeTool(
+    context.read<EditorController>().changeTool(
       bloc,
       context: context,
       index: intent.index,

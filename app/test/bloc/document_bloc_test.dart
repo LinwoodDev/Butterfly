@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/viewport.dart';
@@ -49,7 +49,7 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
 
   @override
   Future<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     Size size,
@@ -61,7 +61,7 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
 
   @override
   Future<void> onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     Size size,
@@ -88,8 +88,8 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
   }
 }
 
-class _BlockingReloadCurrentIndexCubit extends CurrentIndexCubit {
-  _BlockingReloadCurrentIndexCubit(
+class _BlockingReloadEditorController extends EditorController {
+  _BlockingReloadEditorController(
     super.settingsCubit,
     super.transformCubit,
     super.viewport,
@@ -117,7 +117,7 @@ class _ThrowingVisibleRenderer extends Renderer<PadElement> {
 
   @override
   Future<void> onVisible(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     Size size,
@@ -167,7 +167,7 @@ void main() {
 
   late MockButterflyFileSystem fileSystem;
   late MockSettingsCubit settingsCubit;
-  late CurrentIndexCubit currentIndexCubit;
+  late EditorController editorController;
   late WindowCubit windowCubit;
   late DocumentBloc bloc;
 
@@ -180,7 +180,7 @@ void main() {
     ).thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(),
@@ -202,7 +202,7 @@ void main() {
 
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -216,8 +216,8 @@ void main() {
     if (!bloc.isClosed) {
       await bloc.close();
     }
-    if (!currentIndexCubit.isClosed) {
-      await currentIndexCubit.close();
+    if (!editorController.isClosed) {
+      await editorController.close();
     }
     if (!windowCubit.isClosed) {
       await windowCubit.close();
@@ -327,7 +327,7 @@ void main() {
 
     bloc.add(ToolsReplaced([activeTool, otherTool]));
     await _settleBlocEvents();
-    currentIndexCubit.changeIndex(0);
+    editorController.toolCubit.setIndex(0);
 
     bloc.add(
       ToolsChanged([PenTool(property: const PenProperty(strokeWidth: 12))]),
@@ -345,7 +345,7 @@ void main() {
 
   test('reset state change waits for reload to finish', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final firstElement = ShapeElement(
       id: 'first-page-element',
@@ -374,7 +374,7 @@ void main() {
     final (secondData, secondPageName) = data.setPage(secondPage, 'Page 2');
     data = secondData;
     final secondRenderer = Renderer.fromInstance(secondElement);
-    final blockingCubit = _BlockingReloadCurrentIndexCubit(
+    final blockingCubit = _BlockingReloadEditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -385,10 +385,10 @@ void main() {
         height: 100,
       ),
     );
-    currentIndexCubit = blockingCubit;
+    editorController = blockingCubit;
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -418,7 +418,7 @@ void main() {
 
   test('current index close disposes initially loaded renderers', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final element = ShapeElement(
       id: 'initial-renderer',
@@ -434,7 +434,7 @@ void main() {
     var data = NoteData(Archive());
     final (newData, pageName) = data.setPage(page, 'Page');
     data = newData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -445,7 +445,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -455,15 +455,15 @@ void main() {
     );
 
     await bloc.load();
-    expect(currentIndexCubit.renderers, contains(same(renderer)));
+    expect(editorController.rendererCubit.renderers, contains(same(renderer)));
 
-    await currentIndexCubit.close();
+    await editorController.close();
     expect(renderer.disposeCalls, 1);
   });
 
   test('failed visible renderer is retried', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final element = ShapeElement(
       id: 'failed-visible',
@@ -479,7 +479,7 @@ void main() {
     var data = NoteData(Archive());
     final (nextData, pageName) = data.setPage(page, 'Page 1');
     data = nextData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -492,7 +492,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -501,14 +501,14 @@ void main() {
       pageName,
     );
 
-    await currentIndexCubit.loadElements(bloc.state);
-    await currentIndexCubit.loadElements(bloc.state);
+    await editorController.loadElements(bloc.state);
+    await editorController.loadElements(bloc.state);
 
     expect(renderer.onVisibleCalls, 2);
   });
 
   test('pdf renderer catches document load failures', () async {
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final element = PdfElement(source: 'test.pdf', width: 100, height: 100);
     final renderer = PdfRenderer(element, 'layer');
@@ -521,7 +521,7 @@ void main() {
     final (nextData, pageName) = data.setPage(page, 'Page 1');
     data = nextData;
     final assetService = _ThrowingPdfAssetService();
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -539,11 +539,11 @@ void main() {
       fileSystem: fileSystem,
       windowCubit: windowCubit,
       assetService: assetService,
-      absolute: currentIndexCubit.state.absolute,
+      absolute: editorController.saveCubit.state.absolute,
     );
 
     await renderer.onVisible(
-      currentIndexCubit,
+      editorController,
       docState,
       const CameraTransform(),
       const Size(100, 100),
@@ -621,24 +621,29 @@ void main() {
     expect(state.invisibleLayers, contains(layers[1].id));
     expect(state.invisibleLayers, isNot(contains(layers[3].id)));
     expect(
-      currentIndexCubit.renderers.map((renderer) => renderer.layer),
+      editorController.rendererCubit.renderers.map(
+        (renderer) => renderer.layer,
+      ),
       containsAll([layers[1].id, layers[3].id]),
     );
   });
 
   test('resetInput clears active pointers and buttons', () async {
-    currentIndexCubit.addPointer(12);
-    currentIndexCubit.setButtons(kPrimaryMouseButton);
+    editorController.inputCubit.addPointer(12);
+    editorController.inputCubit.setButtons(kPrimaryMouseButton);
 
-    await currentIndexCubit.resetInput(bloc);
+    await editorController.toolCubit.resetInput(
+      bloc,
+      editorController.inputCubit,
+    );
 
-    expect(currentIndexCubit.state.pointers, isEmpty);
-    expect(currentIndexCubit.state.buttons, isNull);
+    expect(editorController.inputCubit.state.pointers, isEmpty);
+    expect(editorController.inputCubit.state.buttons, isNull);
   });
 
   test('adding a combined highlight immediately unbakes its group', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final existingElement = PenElement(
       id: 'existing',
@@ -654,7 +659,7 @@ void main() {
     var data = NoteData(Archive());
     final (nextData, pageName) = data.setPage(page, 'Page 1');
     data = nextData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -667,7 +672,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -675,13 +680,16 @@ void main() {
       page,
       pageName,
     );
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
       reset: true,
     );
-    expect(currentIndexCubit.state.cameraViewport.bakedElements, isNotEmpty);
+    expect(
+      editorController.rendererCubit.state.cameraViewport.bakedElements,
+      isNotEmpty,
+    );
 
     bloc.add(
       ElementsCreated([
@@ -694,7 +702,7 @@ void main() {
     );
     await _settleBlocEvents();
 
-    final viewport = currentIndexCubit.state.cameraViewport;
+    final viewport = editorController.rendererCubit.state.cameraViewport;
     expect(viewport.bakedElements, isEmpty);
     expect(
       viewport.unbakedElements.whereType<PenRenderer>().map(
@@ -707,7 +715,7 @@ void main() {
 
   test('bake records only elements visible in the current viewport', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final visibleElement = ShapeElement(
       id: 'visible',
@@ -731,7 +739,7 @@ void main() {
     var data = NoteData(Archive());
     final (nextData, pageName) = data.setPage(page, 'Page 1');
     data = nextData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -744,7 +752,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -753,14 +761,14 @@ void main() {
       pageName,
     );
 
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
       reset: true,
     );
 
-    final viewport = currentIndexCubit.state.cameraViewport;
+    final viewport = editorController.rendererCubit.state.cameraViewport;
     expect(viewport.baked, isTrue);
     expect(
       viewport.visibleElements.map((renderer) => renderer.element.id),
@@ -775,7 +783,7 @@ void main() {
 
   test('bake refreshes cached viewport when pixel ratio changes', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final element = ShapeElement(
       id: 'visible',
@@ -791,7 +799,7 @@ void main() {
     var data = NoteData(Archive());
     final (nextData, pageName) = data.setPage(page, 'pixel-ratio-page');
     data = nextData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -804,7 +812,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -813,29 +821,32 @@ void main() {
       pageName,
     );
 
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
       reset: true,
     );
-    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 1);
-    expect(currentIndexCubit.state.cameraViewport.unbakedElements, isEmpty);
+    expect(editorController.rendererCubit.state.cameraViewport.pixelRatio, 1);
+    expect(
+      editorController.rendererCubit.state.cameraViewport.unbakedElements,
+      isEmpty,
+    );
 
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 2,
     );
 
-    expect(currentIndexCubit.state.cameraViewport.pixelRatio, 2);
+    expect(editorController.rendererCubit.state.cameraViewport.pixelRatio, 2);
   });
 
   test(
     'bake snaps cached viewport to screen pixels at fractional zoom',
     () async {
       await bloc.close();
-      await currentIndexCubit.close();
+      await editorController.close();
       when(() => settingsCubit.state).thenReturn(
         const ButterflySettings(
           autosave: false,
@@ -859,7 +870,7 @@ void main() {
       data = nextData;
       final transformCubit = TransformCubit(1);
       transformCubit.teleport(const Offset(12.3, 45.6), 1.37);
-      currentIndexCubit = CurrentIndexCubit(
+      editorController = EditorController(
         settingsCubit,
         transformCubit,
         CameraViewport.unbaked(
@@ -872,7 +883,7 @@ void main() {
       );
       bloc = DocumentBloc(
         fileSystem,
-        currentIndexCubit,
+        editorController,
         windowCubit,
         data,
         const AssetLocation(path: 'test-note.bfly'),
@@ -881,15 +892,15 @@ void main() {
         pageName,
       );
 
-      await currentIndexCubit.bake(
+      await editorController.bake(
         bloc.state as DocumentLoadSuccess,
         viewportSize: const Size(401, 303),
         pixelRatio: 1,
         reset: true,
       );
 
-      final viewport = currentIndexCubit.state.cameraViewport;
-      final transform = currentIndexCubit.transformCubit.state;
+      final viewport = editorController.rendererCubit.state.cameraViewport;
+      final transform = editorController.transformCubit.state;
       final left = (viewport.x - transform.position.dx) * transform.size;
       final top = (viewport.y - transform.position.dy) * transform.size;
       final right = left + viewport.width!;
@@ -906,7 +917,7 @@ void main() {
 
   test('renderImage does not hide already tracked visible renderers', () async {
     await bloc.close();
-    await currentIndexCubit.close();
+    await editorController.close();
 
     final element = ShapeElement(
       id: 'visible',
@@ -923,7 +934,7 @@ void main() {
     var data = NoteData(Archive());
     final (nextData, pageName) = data.setPage(page, 'Page 1');
     data = nextData;
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       CameraViewport.unbaked(
@@ -936,7 +947,7 @@ void main() {
     );
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -945,7 +956,7 @@ void main() {
       pageName,
     );
 
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -953,14 +964,14 @@ void main() {
     );
     renderer.onVisibleCalls = 0;
     renderer.onHiddenCalls = 0;
-    await currentIndexCubit.renderImage(
+    await editorController.renderImage(
       (bloc.state as DocumentLoadSuccess).data,
       page,
       (bloc.state as DocumentLoadSuccess).info,
       const ImageExportOptions(width: 100, height: 100),
       docState: bloc.state as DocumentLoadSuccess,
     );
-    await currentIndexCubit.bake(
+    await editorController.bake(
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -975,7 +986,7 @@ void main() {
     'renderImage passes quality as pixel ratio without offsetting scale',
     () async {
       await bloc.close();
-      await currentIndexCubit.close();
+      await editorController.close();
 
       final element = ShapeElement(
         id: 'aligned',
@@ -998,7 +1009,7 @@ void main() {
       var data = NoteData(Archive());
       final (nextData, pageName) = data.setPage(page, 'Page 1');
       data = nextData;
-      currentIndexCubit = CurrentIndexCubit(
+      editorController = EditorController(
         settingsCubit,
         TransformCubit(1),
         CameraViewport.unbaked(
@@ -1011,7 +1022,7 @@ void main() {
       );
       bloc = DocumentBloc(
         fileSystem,
-        currentIndexCubit,
+        editorController,
         windowCubit,
         data,
         const AssetLocation(path: 'test-note.bfly'),
@@ -1020,7 +1031,7 @@ void main() {
         pageName,
       );
 
-      final image = await currentIndexCubit.renderImage(
+      final image = await editorController.renderImage(
         data,
         page,
         (bloc.state as DocumentLoadSuccess).info,

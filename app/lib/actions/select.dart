@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keybinder/keybinder.dart';
 
-import '../cubits/current_index.dart';
+import '../cubits/editor_controller.dart';
 
 class SelectAllIntent extends Intent {
   const SelectAllIntent();
@@ -26,7 +26,7 @@ class SelectAllAction extends Action<SelectAllIntent> {
 
   @override
   Future<void> invoke(SelectAllIntent intent) async {
-    final cubit = context.read<CurrentIndexCubit>();
+    final cubit = context.read<EditorController>();
     if (cubit.getHandler() is SelectHandler) return;
     final bloc = context.read<DocumentBloc>();
     final handler = await cubit.changeTemporaryHandler(

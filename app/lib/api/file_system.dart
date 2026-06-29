@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
@@ -77,6 +78,7 @@ Future<String> getButterflyDocumentsDirectory([ExternalStorage? storage]) =>
 typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteFile>;
 typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
+typedef DocumentStateFileSystem = TypedKeyFileSystem<PersistedDocumentState>;
 
 const kCorePackFileName = 'Core.bfly';
 
@@ -109,11 +111,15 @@ class ButterflyFileSystem {
   // ignore: unused_field
   final BuildContext _context;
   final SettingsCubit settingsCubit;
-  final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
+  final FileSystemConfig _documentConfig,
+      _templateConfig,
+      _packConfig,
+      _documentStateConfig;
 
   final _documentCache = <String, DocumentFileSystem>{};
   final _templateCache = <String, TemplateFileSystem>{};
   final _packCache = <String, PackFileSystem>{};
+  final _documentStateCache = <String, DocumentStateFileSystem>{};
   StreamSubscription<ButterflySettings>? _settingsSubscription;
 
   ButterflyFileSystem(this._context, this.settingsCubit)
@@ -145,6 +151,15 @@ class ButterflyFileSystem {
         databaseVersion: _databaseVersion,
         onDatabaseUpgrade: _upgradeDatabase,
         defaultStorageKey: 'defaultPack',
+      ),
+      _documentStateConfig = FileSystemConfig(
+        passwordStorage: passwordStorage,
+        storeName: 'documentstates',
+        variant: 'documentstates',
+        getDirectory: _getRemoteDirectory('DocumentStates'),
+        database: _database,
+        databaseVersion: _databaseVersion,
+        onDatabaseUpgrade: _upgradeDatabase,
       ) {
     _listenSettings();
   }
@@ -172,13 +187,14 @@ class ButterflyFileSystem {
     _documentCache.clear();
     _templateCache.clear();
     _packCache.clear();
+    _documentStateCache.clear();
   }
 
   factory ButterflyFileSystem.build(BuildContext context) =>
       ButterflyFileSystem(context, context.read<SettingsCubit>());
 
   static const _database = 'butterfly.db';
-  static const _databaseVersion = 4;
+  static const _databaseVersion = 5;
 
   static Future<void> _upgradeDatabase(VersionChangeEvent event) async {
     final db = event.database;
@@ -231,6 +247,10 @@ class ButterflyFileSystem {
         }).toList(),
       );
       await txn.completed;
+    }
+    if (event.oldVersion < 5) {
+      db.createObjectStore('documentstates');
+      db.createObjectStore('documentstates-data');
     }
   }
 
@@ -301,6 +321,26 @@ class ButterflyFileSystem {
       useAndroidSaf: true,
     );
     _packCache[key] = system;
+    return system;
+  }
+
+  DocumentStateFileSystem buildDocumentStateSystem([
+    ExternalStorage? storage,
+    bool forceRecreate = false,
+  ]) {
+    final key = _cacheKey(storage);
+    if (!forceRecreate) {
+      final cached = _documentStateCache[key];
+      if (cached != null) return cached;
+    }
+    final system = TypedKeyFileSystem.build(
+      _documentStateConfig,
+      onEncode: encodePersistedDocumentState,
+      onDecode: decodePersistedDocumentState,
+      storage: _cacheAllStorage(storage, _documentStateConfig.variant),
+      useAndroidSaf: true,
+    );
+    _documentStateCache[key] = system;
     return system;
   }
 
@@ -411,9 +451,15 @@ class ButterflyFileSystem {
     _packCache.remove(key);
   }
 
+  void removeCachedDocumentStateSystem(ExternalStorage? storage) {
+    final key = _cacheKey(storage);
+    _documentStateCache.remove(key);
+  }
+
   void removeCachedFileSystem(ExternalStorage? storage) {
     removeCachedDocumentSystem(storage);
     removeCachedTemplateSystem(storage);
     removeCachedPackSystem(storage);
+    removeCachedDocumentStateSystem(storage);
   }
 }

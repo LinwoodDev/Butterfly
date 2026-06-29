@@ -12,6 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../renderers/renderer.dart';
 import '../bloc/document_bloc.dart';
+import '../cubits/editor_controller.dart';
 import '../services/import.dart';
 
 ContextMenuBuilder buildElementsContextMenu(
@@ -24,7 +25,7 @@ ContextMenuBuilder buildElementsContextMenu(
   List<Renderer<PadElement>> renderers,
   Rect? rect,
 ) {
-  final cubit = bloc.currentIndexCubit;
+  final cubit = bloc.editorController;
   final settingsCubit = state.settingsCubit;
   final operations =
       Map<
@@ -178,8 +179,8 @@ ContextMenuBuilder buildElementsContextMenu(
           onPressed: () {
             Navigator.of(context).pop(true);
             if (renderers.isEmpty) return;
-            cubit.changeSelection(renderers.first);
-            renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
+            cubit.toolCubit.changeSelection(renderers.first);
+            renderers.sublist(1).forEach((r) => cubit.toolCubit.insertSelection(r));
           },
           icon: const PhosphorIcon(PhosphorIconsLight.faders),
           label: AppLocalizations.of(context).properties,

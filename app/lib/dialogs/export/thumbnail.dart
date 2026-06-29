@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -104,7 +105,8 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
   Widget build(BuildContext context) {
     final cameraViewport = context
         .read<DocumentBloc>()
-        .currentIndexCubit
+        .editorController
+        .rendererCubit
         .state
         .cameraViewport;
     return ResponsiveAlertDialog(
@@ -510,16 +512,15 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
       scale: scale,
     );
 
-    final currentIndexCubit = context.read<DocumentBloc>().currentIndexCubit;
-    final thumbnail = await currentIndexCubit.render(
+    final editorController = context.read<DocumentBloc>().editorController;
+    final thumbnail = await editorController.render(
       widget.state.data,
       widget.state.page,
       widget.state.info,
       options,
       invisibleLayers: widget.state.invisibleLayers,
-      cameraViewport: currentIndexCubit.state.cameraViewport.unbake(
-        unbakedElements: currentIndexCubit.renderers,
-      ),
+      cameraViewport: editorController.rendererCubit.state.cameraViewport
+          .unbake(unbakedElements: editorController.rendererCubit.renderers),
       docState: widget.state,
     );
 

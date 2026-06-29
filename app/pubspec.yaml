@@ -33,6 +33,7 @@ dependencies:
   intl: any
   path_provider: ^2.1.3
   shared_preferences: ^2.2.3
+  crypto: ^3.0.7
   url_launcher: ^6.2.6
   phosphor_flutter: ^2.1.0
   replay_bloc: ^0.3.0

@@ -1,17 +1,17 @@
 import 'dart:ui';
 
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCurrentIndexCubit extends Mock implements CurrentIndexCubit {}
+class MockEditorController extends Mock implements EditorController {}
 
 void main() {
   test('does not create shapes with zero size', () {
     final handler = ShapeHandler(ShapeTool());
-    final cubit = MockCurrentIndexCubit();
+    final cubit = MockEditorController();
 
     expect(
       handler.transformElements(
@@ -27,7 +27,7 @@ void main() {
     final handler = ShapeHandler(
       ShapeTool(property: const ShapeProperty(shape: LineShape())),
     );
-    final cubit = MockCurrentIndexCubit();
+    final cubit = MockEditorController();
 
     expect(
       handler.transformElements(const Rect.fromLTRB(10, 10, 10, 20), '', cubit),

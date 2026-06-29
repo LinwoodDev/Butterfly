@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:butterfly/views/toolbar/color.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -37,7 +37,7 @@ class PolygonToolbarView extends StatelessWidget
         ),
       ),
       onEyeDropper: (context) {
-        bloc.currentIndexCubit.changeTemporaryHandler(
+        bloc.editorController.changeTemporaryHandler(
           context,
           EyeDropperTool(),
           bloc: bloc,

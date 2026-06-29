@@ -1,4 +1,4 @@
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +21,6 @@ class HideUIAction extends Action<HideUIIntent> {
 
   @override
   void invoke(HideUIIntent intent) {
-    context.read<CurrentIndexCubit>().toggleKeyboardHideUI();
+    context.read<EditorInputCubit>().toggleKeyboardHideUI();
   }
 }

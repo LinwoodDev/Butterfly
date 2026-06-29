@@ -61,7 +61,7 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
@@ -115,15 +115,16 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
-    final currentIndex = context.getCurrentIndex();
-    if (currentIndex.buttons == kSecondaryMouseButton &&
-        currentIndex.temporaryHandler == null) {
+    final toolState = context.getToolState();
+    final inputState = context.getInputState();
+    if (inputState.buttons == kSecondaryMouseButton &&
+        toolState.temporaryHandler == null) {
       return true;
     }
     final transform = context.getCameraTransform();
     var localPos = details.localFocalPoint;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-      currentIndex,
+      toolState,
       localPos,
       context.viewportSize,
       transform,
@@ -150,7 +151,7 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final transform = context.getCameraTransform();
-    final currentIndex = context.getCurrentIndex();
+    final currentIndex = context.getToolState();
     var localPos = details.localFocalPoint;
     localPos = PointerManipulationHandler.calculatePointerPosition(
       currentIndex,

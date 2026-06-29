@@ -11,7 +11,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   void changeStartedDrawing(EventContext context) {
     if (_startedDrawing) return;
     _startedDrawing = true;
-    context.getCurrentIndexCubit().refreshToolbar(context.getDocumentBloc());
+    context.getEditorController().refreshToolbar(context.getDocumentBloc());
   }
 
   @override
@@ -25,7 +25,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
       color: getColor(),
       onChanged: (value) => changeToolColor(bloc, value),
       onEyeDropper: (context) {
-        bloc.currentIndexCubit.changeTemporaryHandler(
+        bloc.editorController.changeTemporaryHandler(
           context,
           EyeDropperTool(),
           bloc: bloc,
@@ -52,14 +52,14 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @mustCallSuper
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
   ]) {
     final renderers = super.createForegrounds(
-      currentIndexCubit,
+      editorController,
       document,
       page,
       info,
@@ -100,26 +100,26 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   @override
   List<Renderer> createForegrounds(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     NoteData document,
     DocumentPage page,
     DocumentInfo info, [
     Area? currentArea,
   ]) => [
     if (_firstPos != null && _secondPos != null)
-      ...getTransformed(currentIndexCubit).map((e) => Renderer.fromInstance(e)),
+      ...getTransformed(editorController).map((e) => Renderer.fromInstance(e)),
     if (_firstPos == null && showHoverPreview && _hoverPos != null)
       ...transformElements(
         Rect.fromPoints(_hoverPos!, _hoverPos!),
         _currentCollection,
-        currentIndexCubit,
+        editorController,
       ).map(Renderer.fromInstance),
   ];
 
   List<PadElement> transformElements(
     Rect rect,
     String collection,
-    CurrentIndexCubit cubit,
+    EditorController cubit,
   );
 
   @protected
@@ -130,7 +130,7 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   bool get shouldNormalize => true;
 
-  List<PadElement> getTransformed(CurrentIndexCubit cubit) {
+  List<PadElement> getTransformed(EditorController cubit) {
     final first = _firstPos;
     final second = _secondPos;
     if (first == null || second == null) return [];
@@ -195,7 +195,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   Offset _getGlobalPosition(Offset localPosition, EventContext context) {
     final transform = context.getCameraTransform();
     var localPos = localPosition;
-    final currentIndex = context.getCurrentIndex();
+    final currentIndex = context.getToolState();
     final viewportSize = context.viewportSize;
     localPos = PointerManipulationHandler.calculatePointerPosition(
       currentIndex,
@@ -266,7 +266,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   }
 
   void _createElements(DocumentBloc bloc, EventContext context) {
-    final elements = getTransformed(bloc.currentIndexCubit);
+    final elements = getTransformed(bloc.editorController);
     if (elements.isEmpty) return;
     final current = List<PadElement>.from(elements);
     bloc.add(ElementsCreated(current));
@@ -302,7 +302,7 @@ mixin PointerManipulationHandler<T> on Handler<T> {
   }
 
   static Offset calculatePointerPosition(
-    CurrentIndex index,
+    ToolRuntimeState index,
     Offset position,
     Size viewportSize, [
     CameraTransform transform = const CameraTransform(),

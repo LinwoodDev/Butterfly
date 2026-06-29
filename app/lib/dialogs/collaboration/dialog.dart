@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -22,16 +22,16 @@ part 'view.dart';
 
 Future<void> showCollaborationDialog(BuildContext context) {
   final bloc = context.read<DocumentBloc>();
-  final currentIndexCubit = context.read<CurrentIndexCubit>();
+  final editorController = context.read<EditorController>();
 
   return showDialog(
     context: context,
     builder: (context) => MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: bloc),
-        BlocProvider.value(value: currentIndexCubit),
-      ],
-      child: const CollaborationDialog(),
+      providers: [BlocProvider.value(value: bloc)],
+      child: RepositoryProvider.value(
+        value: editorController,
+        child: const CollaborationDialog(),
+      ),
     ),
   );
 }
@@ -41,7 +41,7 @@ class CollaborationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<CurrentIndexCubit>();
+    final cubit = context.read<EditorController>();
     final service = cubit.networkingService;
     return BlocBuilder<NetworkingService, NetworkState?>(
       bloc: service,
@@ -51,7 +51,7 @@ class CollaborationDialog extends StatelessWidget {
           return ViewCollaborationDialog(
             state: state,
             service: service,
-            currentIndexCubit: cubit,
+            editorController: cubit,
           );
         } else {
           return StartCollaborationDialog(service: service);

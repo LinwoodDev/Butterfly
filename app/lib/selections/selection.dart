@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/dialogs/texture.dart';
@@ -76,7 +76,7 @@ abstract class Selection<T> {
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
-    if (selected is CurrentIndexCubit) {
+    if (selected is EditorController) {
       return DocumentSelection(selected) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');

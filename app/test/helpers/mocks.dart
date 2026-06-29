@@ -3,6 +3,7 @@ import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/src/models/text.dart';
 import 'package:mocktail/mocktail.dart';
@@ -14,6 +15,8 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   final DocumentFileSystem _documentFileSystem = buildMockDocumentFileSystem();
   final TemplateFileSystem _templateFileSystem = buildMockTemplateFileSystem();
   final PackFileSystem _packFileSystem = buildMockPackFileSystem();
+  final DocumentStateFileSystem _documentStateFileSystem =
+      buildMockDocumentStateFileSystem();
   final SettingsCubit _settingsCubit;
 
   MockButterflyFileSystem({SettingsCubit? settingsCubit})
@@ -42,6 +45,12 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
     ExternalStorage? storage,
     bool forceRecreate = false,
   ]) => _documentFileSystem;
+
+  @override
+  DocumentStateFileSystem buildDocumentStateSystem([
+    ExternalStorage? storage,
+    bool forceRecreate = false,
+  ]) => _documentStateFileSystem;
 
   @override
   TypedKeyFileSystem<NoteData> buildPackSystem([
@@ -116,6 +125,9 @@ class MockButterflyFileSystem implements ButterflyFileSystem {
   void removeCachedDocumentSystem(ExternalStorage? storage) {}
 
   @override
+  void removeCachedDocumentStateSystem(ExternalStorage? storage) {}
+
+  @override
   void removeCachedFileSystem(ExternalStorage? storage) {}
 
   @override
@@ -161,5 +173,12 @@ PackFileSystem buildMockPackFileSystem() {
   return MockTypedKeyFileSystem(
     onEncode: encodeNoteData,
     onDecode: decodeNoteData,
+  );
+}
+
+DocumentStateFileSystem buildMockDocumentStateFileSystem() {
+  return MockTypedKeyFileSystem(
+    onEncode: encodePersistedDocumentState,
+    onDecode: decodePersistedDocumentState,
   );
 }

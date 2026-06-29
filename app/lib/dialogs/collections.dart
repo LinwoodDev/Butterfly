@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/dialogs/layers.dart';
 import 'package:butterfly/handlers/handler.dart';
@@ -96,7 +96,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       Navigator.pop(context);
-                      final cubit = bloc.currentIndexCubit;
+                      final cubit = bloc.editorController;
                       final handler =
                           cubit.fetchHandler<SelectHandler>() ??
                           await cubit.changeTemporaryHandler(

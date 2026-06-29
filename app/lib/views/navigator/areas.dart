@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/area/init.dart';
@@ -72,7 +72,8 @@ class _AreasViewState extends State<AreasView> {
     Offset position;
     if (config.positionMode == AreaPositionMode.currentCenter) {
       final center = context
-          .read<CurrentIndexCubit>()
+          .read<EditorController>()
+          .rendererCubit
           .state
           .cameraViewport
           .toRect()
@@ -218,14 +219,12 @@ class _AreasViewState extends State<AreasView> {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
-    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+    return BlocBuilder<RendererCubit, RendererRuntimeState>(
       buildWhen: (previous, current) =>
-          previous.cameraViewport != current.cameraViewport ||
-          previous.areaNavigatorCreate != current.areaNavigatorCreate ||
-          previous.areaNavigatorExact != current.areaNavigatorExact ||
-          previous.areaNavigatorAsk != current.areaNavigatorAsk,
-      builder: (context, currentIndex) {
-        final viewport = currentIndex.cameraViewport;
+          previous.cameraViewport != current.cameraViewport,
+      builder: (context, rendererState) {
+        final viewState = context.watch<EditorViewCubit>().state;
+        final viewport = rendererState.cameraViewport;
         final viewportRect = viewport.toRect();
         return BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
@@ -264,28 +263,28 @@ class _AreasViewState extends State<AreasView> {
               );
             }).toList();
 
-            final currentIndexCubit = context.read<CurrentIndexCubit>();
+            final editorController = context.read<EditorController>();
 
             bool enableButton(int dx, int dy) {
               if (current == null) return false;
-              return currentIndex.areaNavigatorCreate ||
-                  currentIndexCubit.getRelativeArea(current, dx, dy) != null;
+              return viewState.areaNavigatorCreate ||
+                  editorController.getRelativeArea(current, dx, dy) != null;
             }
 
             bool selectedButton(int dx, int dy) {
               if (current == null) return false;
-              return currentIndexCubit.getRelativeArea(current, dx, dy, true) !=
+              return editorController.getRelativeArea(current, dx, dy, true) !=
                   null;
             }
 
             Future<void> navigateToRelativeArea(int dx, int dy) async {
-              await currentIndexCubit.navigateToRelativeArea(
+              await editorController.navigateToRelativeArea(
                 dx,
                 dy,
                 createAreaName: () => createAreaName(
                   context,
                   state.page,
-                  currentIndex.areaNavigatorAsk,
+                  viewState.areaNavigatorAsk,
                 ),
               );
             }
@@ -488,28 +487,32 @@ class _AreasViewState extends State<AreasView> {
                               child: MenuAnchor(
                                 menuChildren: [
                                   CheckboxMenuButton(
-                                    value: currentIndex.areaNavigatorCreate,
+                                    value: viewState.areaNavigatorCreate,
                                     onChanged: (value) => context
-                                        .read<CurrentIndexCubit>()
-                                        .setAreaNavigatorCreate(value ?? false),
+                                        .read<EditorViewCubit>()
+                                        .setAreaNavigator(
+                                          create: value ?? false,
+                                        ),
                                     child: Text(
                                       LeapLocalizations.of(context).create,
                                     ),
                                   ),
                                   CheckboxMenuButton(
-                                    value: currentIndex.areaNavigatorExact,
+                                    value: viewState.areaNavigatorExact,
                                     onChanged: (value) => context
-                                        .read<CurrentIndexCubit>()
-                                        .setAreaNavigatorExact(value ?? false),
+                                        .read<EditorViewCubit>()
+                                        .setAreaNavigator(
+                                          exact: value ?? false,
+                                        ),
                                     child: Text(
                                       AppLocalizations.of(context).exact,
                                     ),
                                   ),
                                   CheckboxMenuButton(
-                                    value: currentIndex.areaNavigatorAsk,
+                                    value: viewState.areaNavigatorAsk,
                                     onChanged: (value) => context
-                                        .read<CurrentIndexCubit>()
-                                        .setAreaNavigatorAsk(value ?? false),
+                                        .read<EditorViewCubit>()
+                                        .setAreaNavigator(ask: value ?? false),
                                     child: Text(
                                       AppLocalizations.of(context).askForName,
                                     ),

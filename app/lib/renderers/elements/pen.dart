@@ -148,7 +148,7 @@ class PenRenderer extends Renderer<PenElement> {
 
   @override
   void onHidden(
-    CurrentIndexCubit currentIndexCubit,
+    EditorController editorController,
     DocumentLoaded blocState,
     CameraTransform renderTransform,
     ui.Size size,

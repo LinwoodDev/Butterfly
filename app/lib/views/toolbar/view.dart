@@ -1,4 +1,4 @@
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,15 +25,14 @@ class _ToolbarViewState extends State<ToolbarView> {
       builder: (context, state) {
         return Align(
           child: Card(
-            child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+            child: BlocBuilder<ToolCubit, ToolRuntimeState>(
               buildWhen: (previous, current) =>
                   previous.temporaryToolbar != current.temporaryToolbar ||
                   previous.toolbar != current.toolbar,
-              builder: (context, currentIndex) {
+              builder: (context, toolState) {
                 Widget? child;
                 var height = 0.0;
-                final toolbar =
-                    currentIndex.temporaryToolbar ?? currentIndex.toolbar;
+                final toolbar = toolState.temporaryToolbar ?? toolState.toolbar;
                 if (toolbar != null) {
                   height = toolbar.preferredSize.height;
                   child = toolbar;

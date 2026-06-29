@@ -1,5 +1,5 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color.dart';
@@ -265,7 +265,7 @@ class _AddDialogState extends State<AddDialog> {
 
   Widget _buildBody(ButterflySettings settings) {
     final bloc = context.read<DocumentBloc>();
-    final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final editorController = context.read<EditorController>();
     final favorites = settings.favoriteTools;
 
     final settingsCubit = context.read<SettingsCubit>();
@@ -287,7 +287,7 @@ class _AddDialogState extends State<AddDialog> {
       bloc.add(ToolCreated(defaultTool));
 
       if (!defaultTool.isAction()) {
-        currentIndexCubit.changeTool(
+        editorController.changeTool(
           bloc,
           index: state.info.tools.length,
           context: context,

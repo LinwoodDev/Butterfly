@@ -27,10 +27,9 @@ class ChangePathAction extends Action<ChangePathIntent> {
   @override
   Future<void> invoke(ChangePathIntent intent) async {
     final bloc = context.read<DocumentBloc>();
-    final cubit = bloc.currentIndexCubit;
-    final cubitState = cubit.state;
-    if (cubitState.location.path == '') return;
-    final location = cubitState.location;
+    final cubit = bloc.editorController;
+    final location = cubit.saveCubit.state.location;
+    if (location.path == '') return;
     final settings = context.read<SettingsCubit>().state;
     final fileSystem = context.read<ButterflyFileSystem>().buildDocumentSystem(
       settings.getRemote(location.remote),
@@ -46,7 +45,10 @@ class ChangePathAction extends Action<ChangePathIntent> {
         ),
       );
       if (newLocations == null) return;
-      cubit.setSaveState(location: newLocations.first, isCreating: false);
+      cubit.saveCubit.setSaveState(
+        location: newLocations.first,
+        isCreating: false,
+      );
       bloc.save();
     }
   }

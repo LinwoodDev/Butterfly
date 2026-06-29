@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/widgets/editable_list_tile.dart';
@@ -53,7 +53,7 @@ class _PropertyViewState extends State<PropertyView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+    return BlocBuilder<ToolCubit, ToolRuntimeState>(
       buildWhen: (previous, current) =>
           previous.selection?.selected != current.selection?.selected ||
           previous.pinned != current.pinned,
@@ -103,7 +103,7 @@ class _PropertyViewState extends State<PropertyView>
   }
 
   void _closeView() {
-    context.read<CurrentIndexCubit>().resetSelection(force: true);
+    context.read<ToolCubit>().resetSelection(force: true);
   }
 
   Animation<Offset> get _offsetAnimation => Tween<Offset>(
@@ -318,7 +318,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                             tooltip: AppLocalizations.of(context).delete,
                             onPressed: () {
                               selection.onDelete(context);
-                              context.read<CurrentIndexCubit>().resetSelection(
+                              context.read<ToolCubit>().resetSelection(
                                 force: true,
                               );
                             },
@@ -333,7 +333,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                           ),
                         const SizedBox(height: 42, child: VerticalDivider()),
                         if (!widget.isMobile)
-                          BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                          BlocBuilder<ToolCubit, ToolRuntimeState>(
                             buildWhen: (previous, current) =>
                                 previous.pinned != current.pinned,
                             builder: (context, state) => IconButton(
@@ -348,7 +348,7 @@ class _PropertyCardState extends State<_PropertyCard> {
                                       PhosphorIconsLight.pushPin,
                                     ),
                               onPressed: () =>
-                                  context.read<CurrentIndexCubit>().togglePin(),
+                                  context.read<ToolCubit>().togglePin(),
                             ),
                           ),
                         const SizedBox(width: 8),

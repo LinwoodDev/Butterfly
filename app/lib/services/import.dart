@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/services/asset.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -159,7 +159,7 @@ class ImportResult {
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
-      service.currentIndexCubit?.changeTemporaryHandler(
+      service.editorController?.changeTemporaryHandler(
         context,
         ImportTool(elements: elements, areas: areas, assets: assets),
         bloc: bloc!,
@@ -207,7 +207,7 @@ class ImportService {
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
-  CurrentIndexCubit? get currentIndexCubit => bloc?.currentIndexCubit;
+  EditorController? get editorController => bloc?.editorController;
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
   ButterflySettings getSettings() => getSettingsCubit().state;
   ButterflyFileSystem getFileSystem() => context.read<ButterflyFileSystem>();
@@ -237,7 +237,7 @@ class ImportService {
     Object? data,
     NoteData? document,
   }) async {
-    final location = bloc?.currentIndexCubit.state.location;
+    final location = bloc?.editorController.saveCubit.state.location;
     Uint8List? bytes;
     final fs = getDocumentSystem();
     if (data is Uint8List) {
@@ -607,13 +607,13 @@ class ImportService {
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
-      if (position == null && currentIndexCubit != null && settingsScale > 0) {
+      if (position == null && editorController != null && settingsScale > 0) {
         final scale =
             min(
               (screen.width * settingsScale) / width,
               (screen.height * settingsScale) / height,
             ) /
-            currentIndexCubit!.state.cameraViewport.scale;
+            editorController!.rendererCubit.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
       return ImportResult(
@@ -920,14 +920,14 @@ class ImportService {
           final settingsScale = getSettingsCubit().state.imageScale;
           ElementConstraints? constraints;
           if (position == null &&
-              currentIndexCubit != null &&
+              editorController != null &&
               settingsScale > 0) {
             final scale =
                 min(
                   (screen.width * settingsScale) / width,
                   (screen.height * settingsScale) / height,
                 ) /
-                currentIndexCubit!.state.cameraViewport.scale;
+                editorController!.rendererCubit.state.cameraViewport.scale;
             constraints = ElementConstraints.scaled(
               scaleX: scale,
               scaleY: scale,
@@ -1186,19 +1186,13 @@ class ImportService {
     final bloc = this.bloc;
     final state = bloc?.state;
     if (state is! DocumentLoadSuccess) return;
-    final fileType = bloc?.currentIndexCubit.state.location.fileType;
-    final currentIndexCubit = bloc!.currentIndexCubit;
-    final viewport = currentIndexCubit.state.cameraViewport;
+    final fileType = bloc?.editorController.saveCubit.state.location.fileType;
+    final editorController = bloc!.editorController;
+    final viewport = editorController.rendererCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
       case AssetFileType.textNote:
-        exportData(
-          context,
-          await state.saveData(
-            null,
-            context.read<CurrentIndexCubit>().state.viewOption,
-          ),
-        );
+        exportData(context, await state.saveData());
         break;
       case AssetFileType.image:
         return showDialog<void>(

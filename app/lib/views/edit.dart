@@ -1,5 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/tool.dart';
@@ -83,26 +83,32 @@ class _EditToolbarState extends State<EditToolbar> {
               if (state is! DocumentLoadSuccess) return Container();
               final tools = state.info.tools;
 
-              return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+              return BlocBuilder<ToolCubit, ToolRuntimeState>(
                 buildWhen: (previous, current) =>
                     previous.index != current.index ||
                     previous.handler != current.handler ||
                     previous.toggleableHandlers != current.toggleableHandlers ||
                     previous.temporaryHandler != current.temporaryHandler ||
                     previous.selection != current.selection,
-                builder: (context, currentIndex) {
-                  return Card(
-                    elevation: 10,
-                    child: _buildBody(
-                      state,
-                      currentIndex,
-                      settings,
-                      tools,
-                      shortcuts,
-                      size,
+                builder: (context, toolState) =>
+                    BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
+                      buildWhen: (previous, current) =>
+                          previous.embedding != current.embedding,
+                      builder: (context, saveState) {
+                        return Card(
+                          elevation: 10,
+                          child: _buildBody(
+                            state,
+                            toolState,
+                            saveState,
+                            settings,
+                            tools,
+                            shortcuts,
+                            size,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
               );
             },
           );
@@ -115,7 +121,8 @@ class _EditToolbarState extends State<EditToolbar> {
       PhosphorIcon(data, size: size * (6 / 16), color: color);
   Widget _buildBody(
     DocumentLoadSuccess state,
-    CurrentIndex currentIndex,
+    ToolRuntimeState currentIndex,
+    DocumentSaveState saveState,
     ButterflySettings settings,
     List<Tool> tools,
     Set<InputMapping> shortcuts,
@@ -123,7 +130,7 @@ class _EditToolbarState extends State<EditToolbar> {
   ) {
     final fullSize = (size + 4) * settings.toolbarRows;
     final bloc = context.read<DocumentBloc>();
-    final cubit = context.read<CurrentIndexCubit>();
+    final cubit = context.read<EditorController>();
     final isMobile = widget.isMobile;
     final temp = currentIndex.temporaryHandler;
     final tempData = temp?.data;
@@ -148,7 +155,7 @@ class _EditToolbarState extends State<EditToolbar> {
           scrollDirection: direction,
           shrinkWrap: true,
           slivers: [
-            if (currentIndex.embedding?.editable ?? true) ...[
+            if (saveState.embedding?.editable ?? true) ...[
               if (temp != null && tempData != null) ...[
                 SliverToBoxAdapter(
                   child: Padding(
@@ -166,12 +173,12 @@ class _EditToolbarState extends State<EditToolbar> {
                               false,
                           icon: _buildIcon(icon, size),
                           selectedIcon: _buildIcon(iconFilled, size),
-                          onLongPressed: () => cubit.changeSelection(tempData),
+                          onLongPressed: () => cubit.toolCubit.changeSelection(tempData),
                           onPressed: () {
                             if (_mouseState == _MouseState.multi) {
-                              cubit.insertSelection(tempData, true);
+                              cubit.toolCubit.insertSelection(tempData, true);
                             } else {
-                              cubit.changeSelection(tempData, true);
+                              cubit.toolCubit.changeSelection(tempData, true);
                             }
                           },
                         ),
@@ -224,10 +231,14 @@ class _EditToolbarState extends State<EditToolbar> {
                                   pageBuilder: (ctx, _, _) => MultiBlocProvider(
                                     providers: [
                                       BlocProvider.value(value: bloc),
-                                      BlocProvider.value(value: cubit),
                                     ],
-                                    child: RepositoryProvider.value(
-                                      value: importService,
+                                    child: MultiRepositoryProvider(
+                                      providers: [
+                                        RepositoryProvider.value(value: cubit),
+                                        RepositoryProvider.value(
+                                          value: importService,
+                                        ),
+                                      ],
                                       child: const AddDialog(),
                                     ),
                                   ),
@@ -310,15 +321,15 @@ class _EditToolbarState extends State<EditToolbar> {
                               onLongPressed: selected || highlighted
                                   ? null
                                   : () => context
-                                        .read<CurrentIndexCubit>()
+                                        .read<ToolCubit>()
                                         .insertSelection(tool, true),
                               onDoubleTap: highlighted || selected
                                   ? () => context
-                                        .read<CurrentIndexCubit>()
+                                        .read<ToolCubit>()
                                         .insertSelection(tool, true)
                                   : null,
                               onSecondaryPressed: () => context
-                                  .read<CurrentIndexCubit>()
+                                  .read<ToolCubit>()
                                   .changeSelection(tool),
                               focussed: shortcuts.contains(InputMapping(i)),
                               selected:
@@ -361,9 +372,9 @@ class _EditToolbarState extends State<EditToolbar> {
                               ),
                               onPressed: () {
                                 if (_mouseState == _MouseState.multi) {
-                                  cubit.insertSelection(tool, true);
+                                  cubit.toolCubit.insertSelection(tool, true);
                                 } else if (!selected || temp != null) {
-                                  cubit.resetSelection();
+                                  cubit.toolCubit.resetSelection();
                                   cubit.changeTool(
                                     bloc,
                                     index: i,
@@ -371,7 +382,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                     context: context,
                                   );
                                 } else {
-                                  cubit.changeSelection(tool, true);
+                                  cubit.toolCubit.changeSelection(tool, true);
                                 }
                               },
                             ),
@@ -383,7 +394,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 },
                 onReorder: (oldIndex, newIndex) {
                   if (oldIndex == newIndex) {
-                    context.read<CurrentIndexCubit>().insertSelection(
+                    context.read<ToolCubit>().insertSelection(
                       tools[newIndex],
                       true,
                     );
@@ -414,16 +425,16 @@ class _EditToolbarState extends State<EditToolbar> {
                         ),
                         isSelected:
                             currentIndex.selection?.selected.any(
-                              (element) => element is CurrentIndexCubit,
+                              (element) => element is EditorController,
                             ) ??
                             false,
                         onPressed: () {
-                          cubit.changeSelection(cubit);
+                          cubit.toolCubit.changeSelection(cubit);
                         },
                       ),
-                      BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                        builder: (context, currentIndex) {
-                          final utilitiesState = currentIndex.utilities;
+                      BlocBuilder<EditorViewCubit, EditorViewState>(
+                        builder: (context, viewState) {
+                          final utilitiesState = viewState.utilities;
                           Widget buildButton(
                             bool selected,
                             UtilitiesState Function() update,
@@ -433,7 +444,7 @@ class _EditToolbarState extends State<EditToolbar> {
                             value: selected,
                             trailingIcon: PhosphorIcon(icon),
                             onChanged: (value) => context
-                                .read<CurrentIndexCubit>()
+                                .read<EditorViewCubit>()
                                 .updateUtilities(utilities: update()),
                             child: Text(title),
                           );

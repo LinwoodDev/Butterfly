@@ -3,7 +3,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/renderers/renderer.dart';

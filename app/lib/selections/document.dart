@@ -1,7 +1,7 @@
 part of 'selection.dart';
 
-class DocumentSelection extends Selection<CurrentIndexCubit> {
-  DocumentSelection(CurrentIndexCubit cubit) : super([cubit]);
+class DocumentSelection extends Selection<EditorController> {
+  DocumentSelection(EditorController cubit) : super([cubit]);
 
   @override
   IconGetter get icon => PhosphorIcons.wrench;
@@ -16,14 +16,16 @@ class DocumentSelection extends Selection<CurrentIndexCubit> {
   @override
   List<Widget> buildProperties(BuildContext context) {
     final cubit = selected.first;
-    final currentIndex = cubit.state;
+    final viewState = cubit.viewCubit.state;
     return [
       ...super.buildProperties(context),
       _UtilitiesView(
-        state: currentIndex.utilities,
-        option: currentIndex.viewOption,
-        onStateChanged: (state) => cubit.updateUtilities(utilities: state),
-        onToolChanged: (option) => cubit.updateUtilities(view: option),
+        state: viewState.utilities,
+        option: viewState.viewOption,
+        onStateChanged: (state) =>
+            cubit.viewCubit.updateUtilities(utilities: state),
+        onToolChanged: (option) =>
+            cubit.viewCubit.updateUtilities(view: option),
       ),
     ];
   }
@@ -155,10 +157,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ListTile(
                   leading: const PhosphorIcon(PhosphorIconsLight.camera),
                   onTap: () async {
-                    final cubit = context
-                        .read<DocumentBloc>()
-                        .currentIndexCubit;
-                    final viewport = cubit.state.cameraViewport;
+                    final cubit = context.read<DocumentBloc>().editorController;
+                    final viewport = cubit.rendererCubit.state.cameraViewport;
                     final rect = viewport.toRealRect();
                     final targetAspectRatio =
                         kThumbnailWidth / kThumbnailHeight;
@@ -408,11 +408,12 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                   max: kMaxZoom * 100,
                   onChangeEnd: (value) {
                     final size = context
-                        .read<CurrentIndexCubit>()
+                        .read<EditorController>()
+                        .rendererCubit
                         .state
                         .cameraViewport
                         .toSize();
-                    context.read<CurrentIndexCubit>().size(
+                    context.read<EditorController>().size(
                       value / 100,
                       Offset(size.width / 2, size.height / 2),
                     );

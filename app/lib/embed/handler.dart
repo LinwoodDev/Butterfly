@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -83,7 +83,7 @@ class EmbedHandler {
   void register(BuildContext context, DocumentBloc bloc) {
     _blocSubscription ??= bloc.stream.listen((state) {
       if (state is DocumentLoadSuccess &&
-          bloc.currentIndexCubit.state.saved == SaveState.unsaved) {
+          bloc.editorController.saveCubit.state.saved == SaveState.unsaved) {
         _changeDebounceTimer?.cancel();
         _changeDebounceTimer = Timer(
           const Duration(milliseconds: 500),
@@ -92,10 +92,7 @@ class EmbedHandler {
             if (currentState is DocumentLoadSuccess) {
               sendEmbedMessage(
                 'change',
-                (await currentState.saveData(
-                  null,
-                  bloc.currentIndexCubit.state.viewOption,
-                )).exportAsBytes(),
+                (await currentState.saveData()).exportAsBytes(),
               );
             }
           },
@@ -106,13 +103,7 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage(
-          'getData',
-          (await state.saveData(
-            null,
-            bloc.currentIndexCubit.state.viewOption,
-          )).exportAsBytes(),
-        );
+        sendEmbedMessage('getData', (await state.saveData()).exportAsBytes());
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
@@ -125,7 +116,7 @@ class EmbedHandler {
         });
         return;
       }
-      final embedding = bloc.currentIndexCubit.state.embedding;
+      final embedding = bloc.editorController.saveCubit.state.embedding;
       if (embedding == null) return;
       GoRouter.of(
         context,
@@ -146,7 +137,7 @@ class EmbedHandler {
           scale = _mapDouble(map, 'scale', 1);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await bloc.currentIndexCubit.render(
+        final data = await bloc.editorController.render(
           state.data,
           state.page,
           state.info,
@@ -182,7 +173,7 @@ class EmbedHandler {
         }
         sendEmbedMessage(
           'renderSVG',
-          bloc.currentIndexCubit
+          bloc.editorController
               .renderSVG(
                 state.data,
                 state.page,

@@ -1,6 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
@@ -25,7 +25,7 @@ void main() {
 
   late MockButterflyFileSystem fileSystem;
   late MockSettingsCubit settingsCubit;
-  late CurrentIndexCubit currentIndexCubit;
+  late EditorController editorController;
   late WindowCubit windowCubit;
   DocumentBloc? bloc;
 
@@ -38,7 +38,7 @@ void main() {
     ).thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
 
-    currentIndexCubit = CurrentIndexCubit(
+    editorController = EditorController(
       settingsCubit,
       TransformCubit(1),
       const CameraViewport.unbaked(),
@@ -51,8 +51,8 @@ void main() {
     if (currentBloc != null && !currentBloc.isClosed) {
       await currentBloc.close();
     }
-    if (!currentIndexCubit.isClosed) {
-      await currentIndexCubit.close();
+    if (!editorController.isClosed) {
+      await editorController.close();
     }
     windowCubit.close();
   });
@@ -79,7 +79,7 @@ void main() {
     final (data, pageName) = NoteData(Archive()).setPage(page, 'Page 1');
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
