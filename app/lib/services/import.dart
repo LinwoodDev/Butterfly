@@ -159,8 +159,9 @@ class ImportResult {
     if (choosePosition &&
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
-      service.editorController?.changeTemporaryHandler(
+      service.editorController?.toolCubit.changeTemporaryHandler(
         context,
+        service.editorController!,
         ImportTool(elements: elements, areas: areas, assets: assets),
         bloc: bloc!,
         temporaryState: TemporaryState.removeAfterRelease,

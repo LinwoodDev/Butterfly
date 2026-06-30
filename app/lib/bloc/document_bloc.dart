@@ -429,10 +429,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           ),
         ),
         addedElements: renderers,
-        shouldRefresh: () => editorController.getHandler().onRenderersCreated(
-          current.page,
-          renderers,
-        ),
+        shouldRefresh: () => editorController.toolCubit
+            .getHandler(
+              editable:
+                  editorController.saveCubit.state.embedding?.editable != false,
+            )
+            .onRenderersCreated(current.page, renderers),
       );
     });
     on<ElementsChanged>((event, emit) async {
@@ -519,11 +521,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         replacedElements: orderRenderersByPage(newPage, renderers),
         shouldRefresh: () => replacedRenderers.entries
             .map(
-              (element) => cubit.getHandler().onRendererUpdated(
-                page,
-                element.key,
-                element.value,
-              ),
+              (element) => cubit.toolCubit
+                  .getHandler(
+                    editable:
+                        cubit.saveCubit.state.embedding?.editable != false,
+                  )
+                  .onRendererUpdated(page, element.key, element.value),
             )
             .toList()
             .any((e) => e),
@@ -758,11 +761,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
       );
       if (updatedCurrent != null) {
-        editorController.updateTool(this, updatedCurrent!);
+        editorController.toolCubit.updateTool(
+          editorController,
+          this,
+          updatedCurrent!,
+        );
       }
-      editorController.updateTogglingTools(this, changedTools);
+      editorController.toolCubit.updateTogglingTools(
+        editorController,
+        this,
+        changedTools,
+      );
       if (updatedTemporary != null) {
-        editorController.updateTemporaryTool(this, updatedTemporary!);
+        editorController.toolCubit.updateTemporaryTool(
+          editorController,
+          this,
+          updatedTemporary!,
+        );
       }
       if (selection != null) {
         editorController.toolCubit.changeSelection(selection);
@@ -1013,7 +1028,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       editorController.editorSessionCubit?.updateLayer(
         invisibleLayers: invisibleLayers,
       );
-      editorController.unbake(newState);
+      editorController.rendererCubit.unbake(editorController, newState);
     });
 
     on<LayerCreated>((event, emit) async {
@@ -1551,14 +1566,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         windowCubit: current.windowCubit,
         absolute: current.absolute,
       );
-      editorController.updateHandler(this, newState.handler);
+      editorController.toolCubit.updateHandler(
+        this,
+        editorController.rendererCubit,
+        newState.handler,
+      );
       emit(newState);
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
       emit(current.oldState);
-      editorController.changeTool(this);
+      editorController.toolCubit.changeTool(editorController, this);
       setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
@@ -1583,7 +1602,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             ),
           )
           .toList();
-      editorController.invalidateRenderers(updatedRenderers);
+      editorController.rendererCubit.invalidateRenderers(updatedRenderers);
       _saveState(
         emit,
         state: current.copyWith(data: data),
@@ -1715,7 +1734,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     final cubit = _editorController;
     if (current is! DocumentLoadSuccess || cubit == null) return;
-    return cubit.refresh(current, allowBake: allowBake);
+    return cubit.toolCubit.refresh(cubit, current, allowBake: allowBake);
   }
 
   /// Lightweight refresh that only updates foregrounds without rebaking.
@@ -1724,16 +1743,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     final cubit = _editorController;
     if (current is! DocumentLoadSuccess || cubit == null) return;
-    return cubit.refreshForegrounds(current);
+    return cubit.toolCubit.refreshForegrounds(cubit, current);
   }
 
   /// Ultra-lightweight update for cursor changes only.
   void updateCursor(MouseCursor cursor) {
-    _editorController?.updateCursor(cursor);
+    _editorController?.toolCubit.setCursor(cursor);
   }
 
   Future<void> refreshToolbar() =>
-      _editorController?.refreshToolbar(this) ?? Future.value();
+      _editorController?.toolCubit.refreshToolbar(this) ?? Future.value();
 
   Future<void> bake({
     Size? viewportSize,
@@ -1743,7 +1762,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     final cubit = _editorController;
     if (current is! DocumentLoaded || cubit == null) return;
-    return cubit.bake(
+    return cubit.rendererCubit.bake(
+      cubit,
       current,
       viewportSize: viewportSize,
       pixelRatio: pixelRatio,
@@ -1760,7 +1780,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     final cubit = _editorController;
     if (current is! DocumentLoaded || cubit == null) return Future.value();
-    return cubit.delayedBake(
+    return cubit.rendererCubit.delayedBake(
+      cubit,
       current,
       viewportSize: viewportSize,
       pixelRatio: pixelRatio,
@@ -1770,7 +1791,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   void cancelDelayedBake() {
-    _editorController?.cancelDelayedBake();
+    _editorController?.rendererCubit.cancelDelayedBake();
   }
 
   Future<void> load() async {
@@ -1786,7 +1807,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     } else {
       cubit.saveCubit.setSaveState(isCreating: true);
     }
-    await cubit.loadElements(current);
+    await cubit.rendererCubit.loadElements(cubit, current);
     cubit.init(this);
   }
 
@@ -1806,7 +1827,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final cubit = _editorController;
     if (current is! DocumentLoadSuccess || cubit == null) return;
     final data = await current.saveData();
-    final render = await cubit.render(
+    final render = await cubit.rendererCubit.render(
+      cubit,
       current.data,
       current.page,
       current.info,
@@ -1882,8 +1904,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     AssetLocation? location,
     bool force = false,
     bool isAutosave = false,
-  }) async => await _editorController?.save(
+  }) async => await _editorController?.saveCubit.save(
     this,
+    _editorController!.networkingService,
     location: location,
     force: force,
     isAutosave: isAutosave,

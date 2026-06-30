@@ -173,7 +173,8 @@ class _EditToolbarState extends State<EditToolbar> {
                               false,
                           icon: _buildIcon(icon, size),
                           selectedIcon: _buildIcon(iconFilled, size),
-                          onLongPressed: () => cubit.toolCubit.changeSelection(tempData),
+                          onLongPressed: () =>
+                              cubit.toolCubit.changeSelection(tempData),
                           onPressed: () {
                             if (_mouseState == _MouseState.multi) {
                               cubit.toolCubit.insertSelection(tempData, true);
@@ -299,95 +300,105 @@ class _EditToolbarState extends State<EditToolbar> {
                     enabled: selected || highlighted,
                     child: Builder(
                       builder: (context) {
-                        return cubit.useHandler(bloc, i, (handler) {
-                          String tooltip = tool.name.trim();
-                          if (tooltip.isEmpty) {
-                            tooltip = tool.getLocalizedName(context);
-                          }
-                          final status = handler.getStatus(bloc);
-                          final theme = Theme.of(context);
-                          final color = switch (status) {
-                            ToolStatus.normal => null,
-                            ToolStatus.disabled => theme.disabledColor,
-                            ToolStatus.selected => theme.colorScheme.secondary,
-                          };
-                          var handlerIcon = handler.getIcon(bloc);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                            ),
-                            child: OptionButton(
-                              tooltip: tooltip,
-                              onLongPressed: selected || highlighted
-                                  ? null
-                                  : () => context
-                                        .read<ToolCubit>()
-                                        .insertSelection(tool, true),
-                              onDoubleTap: highlighted || selected
-                                  ? () => context
-                                        .read<ToolCubit>()
-                                        .insertSelection(tool, true)
-                                  : null,
-                              onSecondaryPressed: () => context
-                                  .read<ToolCubit>()
-                                  .changeSelection(tool),
-                              focussed: shortcuts.contains(InputMapping(i)),
-                              selected:
-                                  selected ||
-                                  currentIndex.toggleableHandlers.containsKey(
-                                    i,
-                                  ),
-                              showBottom: selected || tool.isAction(),
-                              highlighted: highlighted,
-                              bottomIcon: selected || tool.isAction()
-                                  ? PhosphorIcon(
-                                      tool.isAction()
-                                          ? PhosphorIconsLight.playCircle
-                                          : isMobile
-                                          ? PhosphorIconsLight.caretUp
-                                          : switch (settings.toolbarPosition) {
-                                              ToolbarPosition.top ||
-                                              ToolbarPosition.inline =>
-                                                PhosphorIconsLight.caretDown,
-                                              ToolbarPosition.bottom =>
-                                                PhosphorIconsLight.caretUp,
-                                              ToolbarPosition.left =>
-                                                PhosphorIconsLight.caretRight,
-                                              ToolbarPosition.right =>
-                                                PhosphorIconsLight.caretLeft,
-                                            },
-                                    )
-                                  : null,
-                              selectedIcon: _buildIcon(
-                                handlerIcon ??
-                                    tool.icon(PhosphorIconsStyle.fill),
-                                size,
-                                color,
+                        return cubit.toolCubit.useHandler(
+                          bloc,
+                          i,
+                          (handler) {
+                            String tooltip = tool.name.trim();
+                            if (tooltip.isEmpty) {
+                              tooltip = tool.getLocalizedName(context);
+                            }
+                            final status = handler.getStatus(bloc);
+                            final theme = Theme.of(context);
+                            final color = switch (status) {
+                              ToolStatus.normal => null,
+                              ToolStatus.disabled => theme.disabledColor,
+                              ToolStatus.selected =>
+                                theme.colorScheme.secondary,
+                            };
+                            var handlerIcon = handler.getIcon(bloc);
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4.0,
                               ),
-                              icon: _buildIcon(
-                                handlerIcon ??
-                                    tool.icon(PhosphorIconsStyle.light),
-                                size,
-                                color,
+                              child: OptionButton(
+                                tooltip: tooltip,
+                                onLongPressed: selected || highlighted
+                                    ? null
+                                    : () => context
+                                          .read<ToolCubit>()
+                                          .insertSelection(tool, true),
+                                onDoubleTap: highlighted || selected
+                                    ? () => context
+                                          .read<ToolCubit>()
+                                          .insertSelection(tool, true)
+                                    : null,
+                                onSecondaryPressed: () => context
+                                    .read<ToolCubit>()
+                                    .changeSelection(tool),
+                                focussed: shortcuts.contains(InputMapping(i)),
+                                selected:
+                                    selected ||
+                                    currentIndex.toggleableHandlers.containsKey(
+                                      i,
+                                    ),
+                                showBottom: selected || tool.isAction(),
+                                highlighted: highlighted,
+                                bottomIcon: selected || tool.isAction()
+                                    ? PhosphorIcon(
+                                        tool.isAction()
+                                            ? PhosphorIconsLight.playCircle
+                                            : isMobile
+                                            ? PhosphorIconsLight.caretUp
+                                            : switch (settings
+                                                  .toolbarPosition) {
+                                                ToolbarPosition.top ||
+                                                ToolbarPosition.inline =>
+                                                  PhosphorIconsLight.caretDown,
+                                                ToolbarPosition.bottom =>
+                                                  PhosphorIconsLight.caretUp,
+                                                ToolbarPosition.left =>
+                                                  PhosphorIconsLight.caretRight,
+                                                ToolbarPosition.right =>
+                                                  PhosphorIconsLight.caretLeft,
+                                              },
+                                      )
+                                    : null,
+                                selectedIcon: _buildIcon(
+                                  handlerIcon ??
+                                      tool.icon(PhosphorIconsStyle.fill),
+                                  size,
+                                  color,
+                                ),
+                                icon: _buildIcon(
+                                  handlerIcon ??
+                                      tool.icon(PhosphorIconsStyle.light),
+                                  size,
+                                  color,
+                                ),
+                                onPressed: () {
+                                  if (_mouseState == _MouseState.multi) {
+                                    cubit.toolCubit.insertSelection(tool, true);
+                                  } else if (!selected || temp != null) {
+                                    cubit.toolCubit.resetSelection();
+                                    cubit.toolCubit.changeTool(
+                                      cubit,
+                                      bloc,
+                                      index: i,
+                                      handler: handler,
+                                      context: context,
+                                    );
+                                  } else {
+                                    cubit.toolCubit.changeSelection(tool, true);
+                                  }
+                                },
                               ),
-                              onPressed: () {
-                                if (_mouseState == _MouseState.multi) {
-                                  cubit.toolCubit.insertSelection(tool, true);
-                                } else if (!selected || temp != null) {
-                                  cubit.toolCubit.resetSelection();
-                                  cubit.changeTool(
-                                    bloc,
-                                    index: i,
-                                    handler: handler,
-                                    context: context,
-                                  );
-                                } else {
-                                  cubit.toolCubit.changeSelection(tool, true);
-                                }
-                              },
-                            ),
-                          );
-                        });
+                            );
+                          },
+                          editable:
+                              cubit.saveCubit.state.embedding?.editable !=
+                              false,
+                        );
                       },
                     ),
                   );

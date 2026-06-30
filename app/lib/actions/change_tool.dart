@@ -40,7 +40,9 @@ class ChangeToolAction extends Action<ChangeToolIntent> {
   @override
   Future<void> invoke(ChangeToolIntent intent) async {
     final bloc = context.read<DocumentBloc>();
-    context.read<EditorController>().changeTool(
+    final editorController = context.read<EditorController>();
+    editorController.toolCubit.changeTool(
+      editorController,
       bloc,
       context: context,
       index: intent.index,

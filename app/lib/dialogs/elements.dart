@@ -12,7 +12,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../renderers/renderer.dart';
 import '../bloc/document_bloc.dart';
-import '../cubits/editor_controller.dart';
 import '../services/import.dart';
 
 ContextMenuBuilder buildElementsContextMenu(
@@ -58,11 +57,11 @@ ContextMenuBuilder buildElementsContextMenu(
         ContextMenuItem(
           onPressed: () {
             Navigator.of(context).pop(true);
-            cubit.fetchHandler<SelectHandler>()?.copySelection(
-              bloc,
-              clipboardManager,
-              true,
-            );
+            cubit.toolCubit
+                .fetchHandler<SelectHandler>(
+                  editable: cubit.saveCubit.state.embedding?.editable != false,
+                )
+                ?.copySelection(bloc, clipboardManager, true);
           },
           icon: const PhosphorIcon(PhosphorIconsLight.scissors),
           label: AppLocalizations.of(context).cut,
@@ -70,11 +69,11 @@ ContextMenuBuilder buildElementsContextMenu(
         ContextMenuItem(
           onPressed: () {
             Navigator.of(context).pop(true);
-            cubit.fetchHandler<SelectHandler>()?.copySelection(
-              bloc,
-              clipboardManager,
-              false,
-            );
+            cubit.toolCubit
+                .fetchHandler<SelectHandler>(
+                  editable: cubit.saveCubit.state.embedding?.editable != false,
+                )
+                ?.copySelection(bloc, clipboardManager, false);
           },
           icon: const PhosphorIcon(PhosphorIconsLight.copy),
           label: AppLocalizations.of(context).copy,
@@ -97,12 +96,11 @@ ContextMenuBuilder buildElementsContextMenu(
                 page,
               );
             }
-            cubit.fetchHandler<SelectHandler>()?.transform(
-              bloc,
-              null,
-              next: transforms,
-              duplicate: true,
-            );
+            cubit.toolCubit
+                .fetchHandler<SelectHandler>(
+                  editable: cubit.saveCubit.state.embedding?.editable != false,
+                )
+                ?.transform(bloc, null, next: transforms, duplicate: true);
           },
           label: AppLocalizations.of(context).duplicate,
         ),
@@ -180,7 +178,9 @@ ContextMenuBuilder buildElementsContextMenu(
             Navigator.of(context).pop(true);
             if (renderers.isEmpty) return;
             cubit.toolCubit.changeSelection(renderers.first);
-            renderers.sublist(1).forEach((r) => cubit.toolCubit.insertSelection(r));
+            renderers
+                .sublist(1)
+                .forEach((r) => cubit.toolCubit.insertSelection(r));
           },
           icon: const PhosphorIcon(PhosphorIconsLight.faders),
           label: AppLocalizations.of(context).properties,

@@ -226,7 +226,7 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
   void _refreshToolbar(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    bloc.editorController.refreshToolbar(bloc);
+    bloc.editorController.toolCubit.refreshToolbar(bloc);
   }
 }
 

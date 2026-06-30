@@ -119,8 +119,10 @@ class _ComponentsViewState extends State<ComponentsView> {
                           key: ValueKey((e.namespace, e.key)),
                           onTap: () => context
                               .read<EditorController>()
+                              .toolCubit
                               .changeTemporaryHandler(
                                 context,
+                                context.read<EditorController>(),
                                 StampTool(component: named),
                                 temporaryState:
                                     TemporaryState.removeAfterRelease,

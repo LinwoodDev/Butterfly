@@ -137,7 +137,8 @@ class EmbedHandler {
           scale = _mapDouble(map, 'scale', 1);
           renderBackground = _mapBool(map, 'renderBackground', true);
         }
-        final data = await bloc.editorController.render(
+        final data = await bloc.editorController.rendererCubit.render(
+          bloc.editorController,
           state.data,
           state.page,
           state.info,
@@ -173,7 +174,7 @@ class EmbedHandler {
         }
         sendEmbedMessage(
           'renderSVG',
-          bloc.editorController
+          bloc.editorController.rendererCubit
               .renderSVG(
                 state.data,
                 state.page,
