@@ -74,9 +74,17 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
     }
     final size = rendererState.cameraViewport.toRealSize();
     final center = Offset(size.width / 2, size.height / 2);
-    editorController.size(value, center, true);
+    editorController.transformCubit.sizeConstrained(
+      value,
+      cursor: center,
+      force: true,
+      settingsCubit: editorController.settingsCubit,
+      rendererCubit: editorController.rendererCubit,
+      inputCubit: editorController.inputCubit,
+      viewCubit: editorController.viewCubit,
+    );
     if (bake) {
-      editorController.bake(documentState);
+      editorController.rendererCubit.bake(editorController, documentState);
     }
 
     final settings = context.read<SettingsCubit>().state;

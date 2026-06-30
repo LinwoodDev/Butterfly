@@ -203,7 +203,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
     final cubit = context.getEditorController();
-    cubit.cancelDelayedBake();
+    cubit.rendererCubit.cancelDelayedBake();
     isDrawing = true;
     changeStartedDrawing(context);
     _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;

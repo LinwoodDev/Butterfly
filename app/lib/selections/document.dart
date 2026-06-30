@@ -172,7 +172,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     final heightOffset = (rect.height - captureHeight) / 2;
                     final quality =
                         kThumbnailWidth / (captureWidth * viewport.scale);
-                    final thumbnail = await cubit.render(
+                    final thumbnail = await cubit.rendererCubit.render(
+                      cubit,
                       state.data,
                       state.page,
                       state.info,
@@ -413,9 +414,14 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         .state
                         .cameraViewport
                         .toSize();
-                    context.read<EditorController>().size(
+                    final editorController = context.read<EditorController>();
+                    editorController.transformCubit.sizeConstrained(
                       value / 100,
-                      Offset(size.width / 2, size.height / 2),
+                      cursor: Offset(size.width / 2, size.height / 2),
+                      settingsCubit: editorController.settingsCubit,
+                      rendererCubit: editorController.rendererCubit,
+                      inputCubit: editorController.inputCubit,
+                      viewCubit: editorController.viewCubit,
                     );
                     context.read<DocumentBloc>().bake();
                   },

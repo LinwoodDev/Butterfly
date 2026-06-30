@@ -37,8 +37,9 @@ class PolygonToolbarView extends StatelessWidget
         ),
       ),
       onEyeDropper: (context) {
-        bloc.editorController.changeTemporaryHandler(
+        bloc.editorController.toolCubit.changeTemporaryHandler(
           context,
+          bloc.editorController,
           EyeDropperTool(),
           bloc: bloc,
           temporaryState: TemporaryState.removeAfterRelease,

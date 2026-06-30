@@ -404,7 +404,11 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       bloc.add(ElementsCreated([element]));
     }
     _resetTool();
-    bloc.editorController.resetTemporaryHandler(bloc, true);
+    bloc.editorController.toolCubit.resetTemporaryHandler(
+      bloc,
+      true,
+      bloc.editorController.rendererCubit,
+    );
     bloc.delayedBake();
     bloc.refreshToolbar();
   }
@@ -425,7 +429,11 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
       _resetTool();
       bloc.refreshForegrounds();
       bloc.refreshToolbar();
-      bloc.editorController.resetTemporaryHandler(bloc, true);
+      bloc.editorController.toolCubit.resetTemporaryHandler(
+        bloc,
+        true,
+        bloc.editorController.rendererCubit,
+      );
       return;
     }
 
@@ -438,7 +446,11 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
         bloc.refresh();
       }
       _resetTool();
-      bloc.editorController.resetTemporaryHandler(bloc, true);
+      bloc.editorController.toolCubit.resetTemporaryHandler(
+        bloc,
+        true,
+        bloc.editorController.rendererCubit,
+      );
     } else {
       _selectedPointIndex = max(0, selectedIndex - 1);
     }

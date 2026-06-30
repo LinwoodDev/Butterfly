@@ -268,19 +268,38 @@ class _AreasViewState extends State<AreasView> {
             bool enableButton(int dx, int dy) {
               if (current == null) return false;
               return viewState.areaNavigatorCreate ||
-                  editorController.getRelativeArea(current, dx, dy) != null;
+                  editorController.transformCubit.getRelativeArea(
+                        docState: state,
+                        viewCubit: editorController.viewCubit,
+                        currentArea: current,
+                        dx: dx,
+                        dy: dy,
+                      ) !=
+                      null;
             }
 
             bool selectedButton(int dx, int dy) {
               if (current == null) return false;
-              return editorController.getRelativeArea(current, dx, dy, true) !=
+              return editorController.transformCubit.getRelativeArea(
+                    docState: state,
+                    viewCubit: editorController.viewCubit,
+                    currentArea: current,
+                    dx: dx,
+                    dy: dy,
+                    exact: true,
+                  ) !=
                   null;
             }
 
             Future<void> navigateToRelativeArea(int dx, int dy) async {
-              await editorController.navigateToRelativeArea(
-                dx,
-                dy,
+              await editorController.transformCubit.navigateToRelativeArea(
+                bloc: context.read<DocumentBloc>(),
+                settingsCubit: editorController.settingsCubit,
+                rendererCubit: editorController.rendererCubit,
+                inputCubit: editorController.inputCubit,
+                viewCubit: editorController.viewCubit,
+                dx: dx,
+                dy: dy,
                 createAreaName: () => createAreaName(
                   context,
                   state.page,

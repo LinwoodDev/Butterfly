@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -513,7 +512,8 @@ class _ThumbnailCaptureDialogState extends State<ThumbnailCaptureDialog> {
     );
 
     final editorController = context.read<DocumentBloc>().editorController;
-    final thumbnail = await editorController.render(
+    final thumbnail = await editorController.rendererCubit.render(
+      editorController,
       widget.state.data,
       widget.state.page,
       widget.state.info,

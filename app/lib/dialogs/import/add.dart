@@ -287,7 +287,8 @@ class _AddDialogState extends State<AddDialog> {
       bloc.add(ToolCreated(defaultTool));
 
       if (!defaultTool.isAction()) {
-        editorController.changeTool(
+        editorController.toolCubit.changeTool(
+          editorController,
           bloc,
           index: state.info.tools.length,
           context: context,

@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';
@@ -116,10 +115,15 @@ class SearchButton extends StatelessWidget {
               if (position != null) {
                 bloc.transformCubit.teleport(position.toOffset());
               }
-              cubit.bake(state);
+              cubit.rendererCubit.bake(cubit, state);
               if (result is ToolResult) {
                 cubit.toolCubit.resetSelection();
-                cubit.changeTool(bloc, index: result.index, context: context);
+                cubit.toolCubit.changeTool(
+                  cubit,
+                  bloc,
+                  index: result.index,
+                  context: context,
+                );
               }
               Navigator.pop(context);
             },

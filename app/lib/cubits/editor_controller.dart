@@ -1,38 +1,25 @@
 import 'dart:async';
-import 'dart:math';
-import 'dart:ui' as ui;
 
-import 'package:butterfly/api/image.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/editor_runtime.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/helpers/rect.dart';
-import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/services/logger.dart';
-import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image/image.dart' as img;
-import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
-import 'package:pdfrx/pdfrx.dart';
-import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/viewport.dart';
-import '../view_painter.dart';
 
 export 'editor_runtime.dart'
     show
@@ -50,8 +37,6 @@ export 'editor_runtime.dart'
         TemporaryState,
         ToolCubit,
         ToolRuntimeState;
-
-part 'editor_controller_methods.dart';
 
 class EditorController {
   final SettingsCubit settingsCubit;
@@ -136,10 +121,324 @@ class EditorController {
 
   bool get isClosed => _closed;
 
+  DocumentBloc? get activeDocumentBloc {
+    final bloc = _documentBloc?.target;
+    if (bloc == null || bloc.isClosed) return null;
+    return bloc;
+  }
+
+  DocumentLoaded? get activeDocumentState {
+    final state = activeDocumentBloc?.state;
+    return state is DocumentLoaded ? state : null;
+  }
+
   Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) =>
       reloadRuntime(bloc, blocState);
-}
 
-Future<NoteFile> _toFile((NoteData, bool) args) async {
-  return args.$1.toFile(isTextBased: args.$2);
+  void _onTransformChanged(CameraTransform transform) {
+    // Debounce transform changes to avoid excessive updates during pan/zoom
+    _transformDebounceTimer?.cancel();
+    _transformDebounceTimer = Timer(const Duration(milliseconds: 16), () {
+      rendererCubit.updateVisibleElements(this, activeDocumentBloc);
+    });
+  }
+
+  void init(DocumentBloc bloc) {
+    _documentBloc = WeakReference(bloc);
+    final blocState = bloc.state;
+    final index = blocState is DocumentLoadSuccess
+        ? editorSessionCubit?.resolveToolIndex(blocState.info)
+        : toolCubit.state.index;
+    toolCubit.changeTool(this, bloc, index: index ?? 0);
+    networkingService.setup(bloc);
+  }
+
+  void _onToolChanged(ToolRuntimeState next) {
+    if (_isClosing) {
+      return;
+    }
+    final current = _previousToolState;
+    _previousToolState = next;
+    if (current == null) return;
+
+    if (next.foregrounds != current.foregrounds ||
+        next.temporaryForegrounds != current.temporaryForegrounds) {
+      _networkingDebounceTimer?.cancel();
+      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
+        if (!isClosed) _sendNetworkingState();
+      });
+    }
+  }
+
+  void _onInputChanged(EditorInputState next) {
+    if (_isClosing) return;
+    final current = _previousInputState;
+    _previousInputState = next;
+    if (next.lastPosition != current.lastPosition) {
+      _networkingDebounceTimer?.cancel();
+      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
+        if (!isClosed) _sendNetworkingState();
+      });
+    }
+  }
+
+  void _onViewChanged(EditorViewState next) {
+    if (_isClosing) return;
+    final current = _previousViewState;
+    _previousViewState = next;
+    if (current != null && next.userName != current.userName) {
+      _networkingDebounceTimer?.cancel();
+      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
+        if (!isClosed) _sendNetworkingState();
+      });
+    }
+  }
+
+  void _onRendererChanged(RendererRuntimeState next) {
+    if (_isClosing) return;
+    final current = _previousRendererState;
+    _previousRendererState = next;
+    final currentViewport = current.cameraViewport;
+    final newViewport = next.cameraViewport;
+
+    if (!identical(currentViewport, newViewport) &&
+        currentViewport != newViewport) {
+      toolCubit.state.handler.onViewportUpdated(currentViewport, newViewport);
+      toolCubit.state.temporaryHandler?.onViewportUpdated(
+        currentViewport,
+        newViewport,
+      );
+    }
+
+    currentViewport.disposeImages(except: newViewport);
+  }
+
+  void _sendNetworkingState({
+    List<Renderer<dynamic>>? foregrounds,
+    Offset? cursor,
+  }) {
+    cursor ??= inputCubit.state.lastPosition ?? Offset.zero;
+    networkingService.sendUser(
+      NetworkingUser(
+        cursor: transformCubit.state.localToGlobal(cursor).toPoint(),
+        foreground: (foregrounds ?? toolCubit.state.getAllForegrounds(false))
+            .map((e) => e.element)
+            .whereType<PadElement>()
+            .toList(),
+        name: networkingService.userName,
+      ),
+    );
+  }
+
+  Future<void> updateNetworkingState(
+    DocumentBloc bloc, [
+    Map<Channel?, NetworkingUser>? current,
+  ]) async {
+    talker.verbose('Updating networking state');
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
+    final users = (current ?? networkingService.users).entries.toList();
+    final usersByChannel = {for (final entry in users) entry.key: entry.value};
+    final activeForegroundElements = users
+        .expand((entry) => entry.value.foreground ?? const <PadElement>[])
+        .toSet();
+
+    final foregrounds = toolCubit.state.networkingForegrounds.toList();
+    foregrounds.removeWhere((renderer) {
+      bool shouldRemove;
+      if (renderer is UserCursor) {
+        final activeUser = usersByChannel[renderer.userId];
+        shouldRemove = activeUser == null || activeUser != renderer.element;
+      } else {
+        shouldRemove = !activeForegroundElements.contains(renderer.element);
+      }
+      if (shouldRemove) {
+        renderer.dispose();
+      }
+      return shouldRemove;
+    });
+
+    final existingElements = foregrounds.map((e) => e.element).toSet();
+    final added = <Renderer>[];
+    added.addAll(
+      users
+          .expand((entry) => entry.value.foreground ?? const <PadElement>[])
+          .where((element) => !existingElements.contains(element))
+          .map((element) => Renderer.fromInstance(element)),
+    );
+    added.addAll(
+      users
+          .where(
+            (entry) =>
+                foregrounds.whereType<UserCursor>().firstWhereOrNull(
+                  (cursor) =>
+                      cursor.userId == entry.key &&
+                      cursor.element == entry.value,
+                ) ==
+                null,
+          )
+          .map((entry) => UserCursor(entry.value, entry.key)),
+    );
+    await Future.wait(
+      added.map(
+        (e) async => await e.setup(
+          transformCubit,
+          blocState.data,
+          blocState.assetService,
+          blocState.page,
+        ),
+      ),
+    );
+    foregrounds.addAll(added);
+    toolCubit.setForegrounds(networkingForegrounds: foregrounds);
+  }
+
+  Future<void> close() async {
+    if (_closed) return;
+    _isClosing = true;
+    _closed = true;
+    final bloc = activeDocumentBloc;
+    if (bloc != null) {
+      await toolCubit.disposeRuntime(bloc);
+    }
+    _documentBloc = null;
+    await rendererCubit.disposeRuntime();
+    await _transformSubscription?.cancel();
+    _transformSubscription = null;
+    await _rendererSubscription?.cancel();
+    _rendererSubscription = null;
+    await _toolSubscription?.cancel();
+    _toolSubscription = null;
+    await _inputSubscription?.cancel();
+    _inputSubscription = null;
+    await _viewSubscription?.cancel();
+    _viewSubscription = null;
+    _transformDebounceTimer?.cancel();
+    _transformDebounceTimer = null;
+    _networkingDebounceTimer?.cancel();
+    _networkingDebounceTimer = null;
+    await rendererCubit.close();
+    await toolCubit.close();
+    await inputCubit.close();
+    await saveCubit.close();
+    await viewCubit.close();
+    if (!networkingService.isClosed) {
+      await networkingService.close();
+    }
+  }
+
+  /// If addedElements is null, the viewport gets unbaked
+  Future<void> stateChanged(
+    DocumentLoadSuccess current,
+    DocumentBloc bloc, {
+    DocumentLoadSuccess? oldState,
+    List<Renderer<PadElement>> addedElements = const [],
+    List<Renderer<PadElement>>? replacedElements,
+    List<Renderer<Background>>? backgrounds,
+    bool reset = false,
+    bool unbake = false,
+    bool Function()? shouldRefresh,
+    bool updateIndex = false,
+  }) async {
+    rendererCubit.cancelDelayedBake();
+    for (var renderer in {
+      ...?backgrounds,
+      ...?replacedElements,
+      ...addedElements,
+    }) {
+      await renderer.setup(
+        transformCubit,
+        current.data,
+        current.assetService,
+        current.page,
+      );
+    }
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
+    toolCubit.state.handler.onDocumentUpdated(blocState, oldState);
+
+    final addsCombinedHighlight = addedElements.any(
+      (renderer) =>
+          renderer is PenRenderer && renderer.element.combineId != null,
+    );
+    if (replacedElements != null) {
+      await rendererCubit.replaceUnbaked(this, blocState, [
+        ...replacedElements,
+        ...addedElements,
+      ], backgrounds: backgrounds);
+    } else if (addsCombinedHighlight) {
+      await rendererCubit.unbake(
+        this,
+        blocState,
+        unbakedElements: [...rendererCubit.renderers, ...addedElements],
+      );
+    } else if (unbake) {
+      await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
+    } else if (backgrounds != null) {
+      await rendererCubit.unbake(this, blocState, backgrounds: backgrounds);
+    } else {
+      await rendererCubit.addUnbaked(this, blocState, addedElements);
+    }
+
+    saveCubit.setSaveState(saved: SaveState.unsaved);
+    if (saveCubit.state.embedding != null) {
+      return;
+    }
+    if (reset) {
+      await reload(bloc, current);
+    } else {
+      final refreshRequested = shouldRefresh?.call() == true;
+      if (refreshRequested) {
+        // For replacement updates we force a reset bake below, so avoid
+        // scheduling an extra delayed bake from refresh().
+        await toolCubit.refresh(
+          this,
+          current,
+          allowBake: replacedElements == null,
+        );
+      }
+      if (replacedElements != null) {
+        await rendererCubit.bake(this, blocState, reset: true);
+      }
+    }
+    if (updateIndex) {
+      toolCubit.updateIndex(this, bloc);
+    }
+    if (saveCubit.hasAutosave(networkingService)) {
+      saveCubit.save(bloc, networkingService, isAutosave: true);
+    }
+  }
+
+  Future<void> reloadTool(
+    DocumentBloc bloc, [
+    DocumentLoaded? blocState,
+  ]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    final tools = current.info.tools;
+    final toolIndex = toolCubit.state.index ?? 0;
+    final newTool = tools.elementAtOrNull(toolIndex);
+    if (newTool?.isAction() ?? true) {
+      await toolCubit.changeTool(this, bloc, index: 0, allowBake: false);
+    } else if (newTool != toolCubit.state.handler.data) {
+      await toolCubit.changeTool(
+        this,
+        bloc,
+        index: toolIndex,
+        allowBake: false,
+      );
+    }
+  }
+
+  Future<void> reloadRuntime(
+    DocumentBloc bloc, [
+    DocumentLoaded? blocState,
+  ]) async {
+    final current = blocState ?? bloc.state;
+    if (current is! DocumentLoaded) return;
+    await reloadTool(bloc, current);
+    await rendererCubit.loadElements(this, current);
+    await toolCubit.refresh(this, current, allowBake: false);
+    await rendererCubit.delayedBake(this, current);
+  }
 }

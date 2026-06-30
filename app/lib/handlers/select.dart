@@ -564,7 +564,9 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return;
     _selected.clear();
     _selected.addAll(
-      bloc.editorController.rendererCubit.renderers.where((e) => filter?.call(e) ?? true),
+      bloc.editorController.rendererCubit.renderers.where(
+        (e) => filter?.call(e) ?? true,
+      ),
     );
     _updateSelectionRect();
     bloc.refreshForegrounds();

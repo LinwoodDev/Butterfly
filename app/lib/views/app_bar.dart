@@ -281,8 +281,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         final newLocation = location.copyWith(
                           path: toFilePath(value),
                         );
-                        final savedLocation = await cubit.save(
+                        final savedLocation = await cubit.saveCubit.save(
                           bloc,
+                          cubit.networkingService,
                           location: newLocation,
                           force: true,
                         );
@@ -394,7 +395,8 @@ class _AppBarTitleState extends State<_AppBarTitle> {
         ),
         const SizedBox(width: 8),
         if (state is DocumentLoadSuccess) ...[
-          if ((!cubit.hasAutosave() || settings.showSaveButton) &&
+          if ((!cubit.saveCubit.hasAutosave(cubit.networkingService) ||
+                  settings.showSaveButton) &&
               currentIndex.embedding?.save != false)
             SizedBox(
               width: 42,

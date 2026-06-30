@@ -219,7 +219,9 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     if (state is! DocumentLoadSuccess) return;
     final loading = showLoadingDialog(context);
     try {
-      final pdf = await context.read<DocumentBloc>().editorController.renderPDF(
+      final editorController = context.read<DocumentBloc>().editorController;
+      final pdf = await editorController.rendererCubit.renderPDF(
+        editorController,
         state,
         areas: _areas.map((e) => e.preset).toList(),
         onProgress: (progress) => loading?.setProgress(progress),
@@ -429,7 +431,8 @@ class _AreaPreviewState extends State<_AreaPreview> {
   void _load() {
     const maxImageDimension = 1000;
     final maxSide = max(widget.area.width, widget.area.height);
-    _future = widget.currentIndex.render(
+    _future = widget.currentIndex.rendererCubit.render(
+      widget.currentIndex,
       widget.state.data,
       widget.page,
       widget.state.info,

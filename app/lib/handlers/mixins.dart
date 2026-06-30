@@ -11,7 +11,9 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   void changeStartedDrawing(EventContext context) {
     if (_startedDrawing) return;
     _startedDrawing = true;
-    context.getEditorController().refreshToolbar(context.getDocumentBloc());
+    context.getEditorController().toolCubit.refreshToolbar(
+      context.getDocumentBloc(),
+    );
   }
 
   @override
@@ -25,8 +27,9 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
       color: getColor(),
       onChanged: (value) => changeToolColor(bloc, value),
       onEyeDropper: (context) {
-        bloc.editorController.changeTemporaryHandler(
+        bloc.editorController.toolCubit.changeTemporaryHandler(
           context,
+          bloc.editorController,
           EyeDropperTool(),
           bloc: bloc,
           temporaryState: TemporaryState.removeAfterRelease,

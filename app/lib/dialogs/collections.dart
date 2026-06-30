@@ -98,9 +98,14 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       Navigator.pop(context);
                       final cubit = bloc.editorController;
                       final handler =
-                          cubit.fetchHandler<SelectHandler>() ??
-                          await cubit.changeTemporaryHandler(
+                          cubit.toolCubit.fetchHandler<SelectHandler>(
+                            editable:
+                                cubit.saveCubit.state.embedding?.editable !=
+                                false,
+                          ) ??
+                          await cubit.toolCubit.changeTemporaryHandler(
                             context,
+                            cubit,
                             SelectTool(),
                             bloc: bloc,
                             temporaryState: TemporaryState.removeAfterClick,

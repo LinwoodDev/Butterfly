@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:cryptography_plus/cryptography_plus.dart';
 import 'package:flutter/foundation.dart';

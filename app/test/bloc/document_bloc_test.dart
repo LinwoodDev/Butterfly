@@ -501,8 +501,14 @@ void main() {
       pageName,
     );
 
-    await editorController.loadElements(bloc.state);
-    await editorController.loadElements(bloc.state);
+    await editorController.rendererCubit.loadElements(
+      editorController,
+      bloc.state,
+    );
+    await editorController.rendererCubit.loadElements(
+      editorController,
+      bloc.state,
+    );
 
     expect(renderer.onVisibleCalls, 2);
   });
@@ -680,7 +686,8 @@ void main() {
       page,
       pageName,
     );
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -761,7 +768,8 @@ void main() {
       pageName,
     );
 
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -821,7 +829,8 @@ void main() {
       pageName,
     );
 
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -833,7 +842,8 @@ void main() {
       isEmpty,
     );
 
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 2,
@@ -892,7 +902,8 @@ void main() {
         pageName,
       );
 
-      await editorController.bake(
+      await editorController.rendererCubit.bake(
+        editorController,
         bloc.state as DocumentLoadSuccess,
         viewportSize: const Size(401, 303),
         pixelRatio: 1,
@@ -956,7 +967,8 @@ void main() {
       pageName,
     );
 
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -964,14 +976,16 @@ void main() {
     );
     renderer.onVisibleCalls = 0;
     renderer.onHiddenCalls = 0;
-    await editorController.renderImage(
+    await editorController.rendererCubit.renderImage(
+      editorController,
       (bloc.state as DocumentLoadSuccess).data,
       page,
       (bloc.state as DocumentLoadSuccess).info,
       const ImageExportOptions(width: 100, height: 100),
       docState: bloc.state as DocumentLoadSuccess,
     );
-    await editorController.bake(
+    await editorController.rendererCubit.bake(
+      editorController,
       bloc.state as DocumentLoadSuccess,
       viewportSize: const Size(100, 100),
       pixelRatio: 1,
@@ -1031,7 +1045,8 @@ void main() {
         pageName,
       );
 
-      final image = await editorController.renderImage(
+      final image = await editorController.rendererCubit.renderImage(
+        editorController,
         data,
         page,
         (bloc.state as DocumentLoadSuccess).info,

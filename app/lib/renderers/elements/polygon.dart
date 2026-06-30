@@ -164,12 +164,17 @@ class PolygonRenderer extends Renderer<PolygonElement> {
   ContextMenuItem? getContextMenuItem(DocumentBloc bloc, BuildContext context) {
     return ContextMenuItem(
       onPressed: () async {
-        bloc.editorController.fetchHandler<SelectHandler>()?.clearSelection(
-          bloc,
-        );
+        bloc.editorController.toolCubit
+            .fetchHandler<SelectHandler>(
+              editable:
+                  bloc.editorController.saveCubit.state.embedding?.editable !=
+                  false,
+            )
+            ?.clearSelection(bloc);
         final polygon =
-            await bloc.editorController.changeTemporaryHandler(
+            await bloc.editorController.toolCubit.changeTemporaryHandler(
                   context,
+                  bloc.editorController,
                   PolygonTool(property: element.property),
                   bloc: bloc,
                 )

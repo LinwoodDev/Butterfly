@@ -27,10 +27,16 @@ class SelectAllAction extends Action<SelectAllIntent> {
   @override
   Future<void> invoke(SelectAllIntent intent) async {
     final cubit = context.read<EditorController>();
-    if (cubit.getHandler() is SelectHandler) return;
+    if (cubit.toolCubit.getHandler(
+          editable: cubit.saveCubit.state.embedding?.editable != false,
+        )
+        is SelectHandler) {
+      return;
+    }
     final bloc = context.read<DocumentBloc>();
-    final handler = await cubit.changeTemporaryHandler(
+    final handler = await cubit.toolCubit.changeTemporaryHandler(
       context,
+      cubit,
       SelectTool(),
       bloc: bloc,
       temporaryState: TemporaryState.removeAfterClick,
