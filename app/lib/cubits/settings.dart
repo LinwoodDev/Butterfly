@@ -437,6 +437,27 @@ class SRGBConverter extends JsonConverter<SRGBColor, int> {
 enum SaveMethod { manual, autosave, delayedAutosave }
 
 @freezed
+sealed class DocumentStatePersistenceSettings
+    with _$DocumentStatePersistenceSettings {
+  const factory DocumentStatePersistenceSettings({
+    @Default(true) bool enabled,
+    @Default(true) bool page,
+    @Default(true) bool camera,
+    @Default(true) bool locks,
+    @Default(true) bool tool,
+    @Default(true) bool navigator,
+    @Default(true) bool layers,
+    @Default(true) bool areas,
+    @Default(400) int maxEntries,
+    @Default(180) int maxAgeDays,
+  }) = _DocumentStatePersistenceSettings;
+
+  factory DocumentStatePersistenceSettings.fromJson(
+    Map<String, dynamic> json,
+  ) => _$DocumentStatePersistenceSettingsFromJson(json);
+}
+
+@freezed
 sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
@@ -496,6 +517,8 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(3) int autosaveDelaySeconds,
     @Default(false) bool hideCursorWhileDrawing,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
+    @Default(DocumentStatePersistenceSettings())
+    DocumentStatePersistenceSettings documentStatePersistence,
     @Default(SimpleToolbarVisibility.show)
     SimpleToolbarVisibility simpleToolbarVisibility,
     @Default(OptionsPanelPosition.top)
@@ -685,6 +708,13 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               StartupBehavior.openHomeScreen,
             )
           : StartupBehavior.openHomeScreen,
+      documentStatePersistence: prefs.containsKey('document_state_persistence')
+          ? DocumentStatePersistenceSettings.fromJson(
+              _decodeJsonMapOrEmpty(
+                prefs.getString('document_state_persistence'),
+              ),
+            )
+          : const DocumentStatePersistenceSettings(),
       simpleToolbarVisibility: prefs.containsKey('simple_toolbar_visibility')
           ? _enumByNameOr(
               SimpleToolbarVisibility.values,
@@ -839,6 +869,10 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
     await prefs.setString('navigator_position', navigatorPosition.name);
     await prefs.setString('on_startup', onStartup.name);
+    await prefs.setString(
+      'document_state_persistence',
+      json.encode(documentStatePersistence.toJson()),
+    );
     await prefs.setString(
       'simple_toolbar_visibility',
       simpleToolbarVisibility.name,
@@ -1508,6 +1542,13 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeStartupBehavior(StartupBehavior behavior) {
     emit(state.copyWith(onStartup: behavior));
+    return save();
+  }
+
+  Future<void> changeDocumentStatePersistence(
+    DocumentStatePersistenceSettings settings,
+  ) {
+    emit(state.copyWith(documentStatePersistence: settings));
     return save();
   }
 

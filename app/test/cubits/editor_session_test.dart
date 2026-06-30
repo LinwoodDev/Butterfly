@@ -1,5 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_session.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/repositories/document_state.dart';
@@ -97,6 +98,104 @@ void main() {
       ).load(contentHash: 'missing', pathKey: 'path/missing');
 
       expect(loaded, isNull);
+    });
+
+    test('does not load or save when persistence is disabled', () async {
+      const state = PersistedDocumentState(pageName: 'Page 1');
+      await fileSystem.initialize();
+      await fileSystem.createFile('path/a', state);
+
+      final repository = DocumentStateRepository(
+        fileSystem,
+        settingsProvider: () =>
+            const DocumentStatePersistenceSettings(enabled: false),
+      );
+
+      expect(await repository.load(pathKey: 'path/a'), isNull);
+      await repository.save(
+        const PersistedDocumentState(pageName: 'Changed'),
+        pathKey: 'path/b',
+      );
+      expect(await fileSystem.getFile('path/b'), isNull);
+    });
+
+    test('filters disabled categories on load', () async {
+      final state = PersistedDocumentState(
+        pageName: 'Page 1',
+        locks: const PersistentLockState(lockZoom: true),
+        areaNavigator: const PersistedAreaNavigatorState(create: false),
+      );
+      await fileSystem.initialize();
+      await fileSystem.createFile('path/a', state);
+
+      final loaded = await DocumentStateRepository(
+        fileSystem,
+        settingsProvider: () =>
+            const DocumentStatePersistenceSettings(locks: false, areas: false),
+      ).load(pathKey: 'path/a');
+
+      expect(loaded?.pageName, 'Page 1');
+      expect(loaded?.locks, const PersistentLockState());
+      expect(loaded?.areaNavigator, const PersistedAreaNavigatorState());
+    });
+
+    test('preserves disabled categories on save', () async {
+      final existing = PersistedDocumentState(
+        pageName: 'Page 1',
+        locks: const PersistentLockState(lockZoom: true),
+      );
+      await fileSystem.initialize();
+      await fileSystem.createFile('path/a', existing);
+
+      await DocumentStateRepository(
+        fileSystem,
+        settingsProvider: () =>
+            const DocumentStatePersistenceSettings(locks: false),
+      ).save(
+        const PersistedDocumentState(
+          pageName: 'Page 2',
+          locks: PersistentLockState(lockLayer: true),
+        ),
+        pathKey: 'path/a',
+      );
+
+      final saved = await fileSystem.getFile('path/a');
+      expect(saved?.pageName, 'Page 2');
+      expect(saved?.locks, existing.locks);
+    });
+
+    test('cleanup removes old and overflowing records', () async {
+      final repository = DocumentStateRepository(
+        fileSystem,
+        settingsProvider: () => const DocumentStatePersistenceSettings(
+          maxEntries: 2,
+          maxAgeDays: 30,
+        ),
+      );
+      await fileSystem.initialize();
+      await fileSystem.createFile(
+        'path/old',
+        PersistedDocumentState(updatedAt: DateTime.utc(2026, 1)),
+      );
+      await fileSystem.createFile(
+        'path/a',
+        PersistedDocumentState(updatedAt: DateTime.utc(2026, 5, 1)),
+      );
+      await fileSystem.createFile(
+        'path/b',
+        PersistedDocumentState(updatedAt: DateTime.utc(2026, 5, 2)),
+      );
+      await fileSystem.createFile(
+        'path/c',
+        PersistedDocumentState(updatedAt: DateTime.utc(2026, 5, 3)),
+      );
+
+      await repository.cleanup(now: DateTime.utc(2026, 6, 1));
+
+      expect(await fileSystem.getFile('path/old'), isNull);
+      expect(await fileSystem.getFile('path/a'), isNull);
+      expect(await fileSystem.getFile('path/b'), isNotNull);
+      expect(await fileSystem.getFile('path/c'), isNotNull);
     });
 
     test('writes session state to content and path keys', () async {

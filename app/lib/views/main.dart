@@ -343,6 +343,7 @@ class _ProjectPageState extends State<ProjectPage> {
           : documentStateContentHash(loadedDocumentBytes);
       final documentStateRepository = DocumentStateRepository(
         fileSystem.buildDocumentStateSystem(remote),
+        settingsProvider: () => settingsCubit.state.documentStatePersistence,
       );
       final restoredSession = await documentStateRepository.load(
         contentHash: contentHash,

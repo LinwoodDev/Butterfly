@@ -108,6 +108,36 @@ Map<String, dynamic> _$InputConfigurationToJson(_InputConfiguration instance) =>
       'tripleTouchShortcut': instance.tripleTouchShortcut,
     };
 
+_DocumentStatePersistenceSettings _$DocumentStatePersistenceSettingsFromJson(
+  Map json,
+) => _DocumentStatePersistenceSettings(
+  enabled: json['enabled'] as bool? ?? true,
+  page: json['page'] as bool? ?? true,
+  camera: json['camera'] as bool? ?? true,
+  locks: json['locks'] as bool? ?? true,
+  tool: json['tool'] as bool? ?? true,
+  navigator: json['navigator'] as bool? ?? true,
+  layers: json['layers'] as bool? ?? true,
+  areas: json['areas'] as bool? ?? true,
+  maxEntries: (json['maxEntries'] as num?)?.toInt() ?? 400,
+  maxAgeDays: (json['maxAgeDays'] as num?)?.toInt() ?? 180,
+);
+
+Map<String, dynamic> _$DocumentStatePersistenceSettingsToJson(
+  _DocumentStatePersistenceSettings instance,
+) => <String, dynamic>{
+  'enabled': instance.enabled,
+  'page': instance.page,
+  'camera': instance.camera,
+  'locks': instance.locks,
+  'tool': instance.tool,
+  'navigator': instance.navigator,
+  'layers': instance.layers,
+  'areas': instance.areas,
+  'maxEntries': instance.maxEntries,
+  'maxAgeDays': instance.maxAgeDays,
+};
+
 _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   theme:
       $enumDecodeNullable(_$ThemeModeEnumMap, json['theme']) ??
@@ -212,6 +242,11 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   onStartup:
       $enumDecodeNullable(_$StartupBehaviorEnumMap, json['onStartup']) ??
       StartupBehavior.openHomeScreen,
+  documentStatePersistence: json['documentStatePersistence'] == null
+      ? const DocumentStatePersistenceSettings()
+      : DocumentStatePersistenceSettings.fromJson(
+          Map<String, dynamic>.from(json['documentStatePersistence'] as Map),
+        ),
   simpleToolbarVisibility:
       $enumDecodeNullable(
         _$SimpleToolbarVisibilityEnumMap,
@@ -310,6 +345,7 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'autosaveDelaySeconds': instance.autosaveDelaySeconds,
   'hideCursorWhileDrawing': instance.hideCursorWhileDrawing,
   'onStartup': _$StartupBehaviorEnumMap[instance.onStartup]!,
+  'documentStatePersistence': instance.documentStatePersistence.toJson(),
   'simpleToolbarVisibility':
       _$SimpleToolbarVisibilityEnumMap[instance.simpleToolbarVisibility]!,
   'optionsPanelPosition':

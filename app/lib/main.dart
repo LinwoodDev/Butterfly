@@ -5,7 +5,8 @@ import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
-import 'package:butterfly/settings/behaviors.dart';
+import 'package:butterfly/settings/behaviors/home.dart';
+import 'package:butterfly/settings/behaviors/persistence.dart';
 import 'package:butterfly/settings/inputs/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
 import 'package:butterfly/settings/view.dart';
@@ -191,6 +192,13 @@ class ButterflyApp extends StatelessWidget {
               GoRoute(
                 path: 'behaviors',
                 builder: (context, state) => const BehaviorsSettingsPage(),
+                routes: [
+                  GoRoute(
+                    path: 'persistence',
+                    builder: (context, state) =>
+                        const PersistenceBehaviorSettings(),
+                  ),
+                ],
               ),
               GoRoute(
                 path: 'personalization',

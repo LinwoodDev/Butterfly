@@ -1371,5 +1371,6 @@
   "bringMovedElementsToFront": "Bring moved elements to front",
   "addTool": "Add tool",
   "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "previousPage": "Previous page",
+  "persistenceDocumentStates": "Persistent document states"
 }
