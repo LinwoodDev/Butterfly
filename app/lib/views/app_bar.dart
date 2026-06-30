@@ -419,12 +419,20 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                       context,
                     ).readOnly,
                   };
+                  final canSave =
+                      currentIndex.saved == SaveState.unsaved ||
+                      currentIndex.isSaveDelayed;
                   return IconButton(
                     icon: icon,
                     tooltip: tooltip,
-                    onPressed: () {
-                      Actions.maybeInvoke<SaveIntent>(context, SaveIntent());
-                    },
+                    onPressed: canSave
+                        ? () {
+                            Actions.maybeInvoke<SaveIntent>(
+                              context,
+                              SaveIntent(),
+                            );
+                          }
+                        : null,
                   );
                 },
               ),
