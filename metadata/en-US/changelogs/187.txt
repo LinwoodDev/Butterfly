@@ -7,6 +7,7 @@
 * Add next and previous page shortcuts
 * Improve xournal++ importer
 * Improve state management for better linking different systems together
+* Improve window title bar design
 * Unify area context menu and area selection context menu ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
 * Fix refresh foregrounds can be run concurrently
 * Fix location synchronization issues

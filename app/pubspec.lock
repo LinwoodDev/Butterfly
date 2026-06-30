@@ -236,10 +236,10 @@ packages:
     dependency: transitive
     description:
       name: code_assets
-      sha256: "83ccdaa064c980b5596c35dd64a8d3ecc68620174ab9b90b6343b753aa721687"
+      sha256: bf394f466ba9205f1812a0433b392d6af280f155f56651eda7c18cc32ed493b8
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.2.1"
   collection:
     dependency: "direct main"
     description:
@@ -484,18 +484,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_rust_bridge
-      sha256: "37bcf055414b4b6417a046d536c16d09a1f58bdf099f45a91008f0fe49f641c0"
+      sha256: "20861a4148ebb72f547366b2dd575ef803e32ff1cb6dc5aa0c9ffdbc774f2799"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.2"
+    version: "2.13.0-beta.4"
   flutter_rust_bridge_hooks:
     dependency: transitive
     description:
       name: flutter_rust_bridge_hooks
-      sha256: bebf66b09522335b99a77728fd9856ac76bd40e66431db21f01307a54b78f0f9
+      sha256: "0ae752d541b6878ac1baac7827502ea21cb3ac81bf57362895a6df2929707ac7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0-beta.2"
+    version: "2.13.0-beta.4"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -627,10 +627,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: "025f060e86d2d4c3c47b56e33caf7f93bf9283340f26d23424ebcfccf34f621e"
+      sha256: "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "2.0.2"
   html:
     dependency: "direct main"
     description:
@@ -836,8 +836,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "064aed61c361194bf0eb3cb599e62bdd3c111d7c"
-      resolved-ref: "064aed61c361194bf0eb3cb599e62bdd3c111d7c"
+      ref: bc69ad6ef16c6730ba52dfd466ae7d0c0af2e082
+      resolved-ref: bc69ad6ef16c6730ba52dfd466ae7d0c0af2e082
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -873,22 +873,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.18.0"
-  native_toolchain_c:
-    dependency: transitive
-    description:
-      name: native_toolchain_c
-      sha256: "6ba77bb18063eebe9de401f5e6437e95e1438af0a87a3a39084fbd37c90df572"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.17.6"
   native_toolchain_rust:
     dependency: transitive
     description:
       name: native_toolchain_rust
-      sha256: "26d4dcae954328af4ebfa8fc56cca0bf74b9ae8b4a6132de5da2071ac3d237b3"
+      sha256: faa57d2258a3b0fd2a634054f54e4496c9fcbd971977e7d2b7e6916d56892857
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.4+0"
   nested:
     dependency: transitive
     description:
@@ -952,10 +944,10 @@ packages:
     dependency: transitive
     description:
       name: objective_c
-      sha256: "100a1c87616ab6ed41ec263b083c0ef3261ee6cd1dc3b0f35f8ddfa4f996fe52"
+      sha256: "6cb691c686fa2838c6deb34980d426145c2a5d537491cb83d463c33cdbc726ed"
       url: "https://pub.dev"
     source: hosted
-    version: "9.3.0"
+    version: "9.4.1"
   one_dollar_unistroke_recognizer:
     dependency: "direct main"
     description:
@@ -968,8 +960,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/onenote_parser"
-      ref: "5d2919c34bcd128bc904a1cfe18b03cb37f02006"
-      resolved-ref: "5d2919c34bcd128bc904a1cfe18b03cb37f02006"
+      ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
+      resolved-ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

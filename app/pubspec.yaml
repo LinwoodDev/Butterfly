@@ -62,7 +62,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 064aed61c361194bf0eb3cb599e62bdd3c111d7c
+      ref: bc69ad6ef16c6730ba52dfd466ae7d0c0af2e082
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -109,7 +109,7 @@ dependencies:
   onenote_parser:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 5d2919c34bcd128bc904a1cfe18b03cb37f02006
+      ref: d7d00d81291d6a2716da40b9f1d004ac4973771d
       path: packages/onenote_parser
   web: ^1.0.0
   cryptography_plus: ^3.0.0
