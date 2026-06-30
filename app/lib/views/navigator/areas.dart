@@ -294,10 +294,7 @@ class _AreasViewState extends State<AreasView> {
             Future<void> navigateToRelativeArea(int dx, int dy) async {
               await editorController.transformCubit.navigateToRelativeArea(
                 bloc: context.read<DocumentBloc>(),
-                settingsCubit: editorController.settingsCubit,
-                rendererCubit: editorController.rendererCubit,
-                inputCubit: editorController.inputCubit,
-                viewCubit: editorController.viewCubit,
+                runtime: editorController,
                 dx: dx,
                 dy: dy,
                 createAreaName: () => createAreaName(
