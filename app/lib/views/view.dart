@@ -343,10 +343,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         final transform = context.read<TransformCubit>().state;
         cubit.transformCubit.moveConstrained(
           -event.delta / transform.size,
-          settingsCubit: cubit.settingsCubit,
-          rendererCubit: cubit.rendererCubit,
-          inputCubit: cubit.inputCubit,
-          viewCubit: cubit.viewCubit,
+          runtime: cubit,
           bloc: context.read<DocumentBloc>(),
           currentArea: state.currentArea,
         );
@@ -663,10 +660,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                             -details.focalPointDelta /
                                                 sensitivity /
                                                 cubit.transformCubit.state.size,
-                                            settingsCubit: cubit.settingsCubit,
-                                            rendererCubit: cubit.rendererCubit,
-                                            inputCubit: cubit.inputCubit,
-                                            viewCubit: cubit.viewCubit,
+                                            runtime: cubit,
                                             bloc: bloc,
                                             currentArea: state.currentArea,
                                           );
@@ -674,10 +668,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                           cubit.transformCubit.zoomConstrained(
                                             current / sensitivity + 1,
                                             cursor: point,
-                                            settingsCubit: cubit.settingsCubit,
-                                            rendererCubit: cubit.rendererCubit,
-                                            inputCubit: cubit.inputCubit,
-                                            viewCubit: cubit.viewCubit,
+                                            runtime: cubit,
                                           );
                                         }
                                         size = details.scale;
@@ -716,10 +707,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                                 sensitivity /
                                                 cubit.transformCubit.state.size,
                                             details.scaleVelocity,
-                                            settingsCubit: cubit.settingsCubit,
-                                            rendererCubit: cubit.rendererCubit,
-                                            inputCubit: cubit.inputCubit,
-                                            viewCubit: cubit.viewCubit,
+                                            runtime: cubit,
                                             currentArea: state.currentArea,
                                           );
                                           if (!settings.hasFlag(
@@ -842,13 +830,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                                     scale,
                                                     cursor: pointerSignal
                                                         .localPosition,
-                                                    settingsCubit:
-                                                        cubit.settingsCubit,
-                                                    rendererCubit:
-                                                        cubit.rendererCubit,
-                                                    inputCubit:
-                                                        cubit.inputCubit,
-                                                    viewCubit: cubit.viewCubit,
+                                                    runtime: cubit,
                                                   );
                                             } else {
                                               cubit.transformCubit
@@ -859,13 +841,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                                             ? Offset(dy, dx)
                                                             : Offset(dx, dy)) /
                                                         transform.size,
-                                                    settingsCubit:
-                                                        cubit.settingsCubit,
-                                                    rendererCubit:
-                                                        cubit.rendererCubit,
-                                                    inputCubit:
-                                                        cubit.inputCubit,
-                                                    viewCubit: cubit.viewCubit,
+                                                    runtime: cubit,
                                                     bloc: bloc,
                                                     currentArea:
                                                         state.currentArea,
@@ -875,13 +851,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                                     scale,
                                                     cursor: pointerSignal
                                                         .localPosition,
-                                                    settingsCubit:
-                                                        cubit.settingsCubit,
-                                                    rendererCubit:
-                                                        cubit.rendererCubit,
-                                                    inputCubit:
-                                                        cubit.inputCubit,
-                                                    viewCubit: cubit.viewCubit,
+                                                    runtime: cubit,
                                                   );
                                             }
                                             if (!settings.hasFlag(

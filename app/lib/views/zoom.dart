@@ -78,10 +78,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
       value,
       cursor: center,
       force: true,
-      settingsCubit: editorController.settingsCubit,
-      rendererCubit: editorController.rendererCubit,
-      inputCubit: editorController.inputCubit,
-      viewCubit: editorController.viewCubit,
+      runtime: editorController,
     );
     if (bake) {
       editorController.rendererCubit.bake(editorController, documentState);

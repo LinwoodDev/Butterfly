@@ -227,37 +227,30 @@ class TransformCubit extends Cubit<CameraTransform> {
     return Rect.fromLTRB(minX, minY, maxX, maxY);
   }
 
-  bool _isNavigationRailVisible(
-    SettingsCubit settingsCubit,
-    RendererCubit rendererCubit,
-    EditorInputCubit inputCubit,
-  ) {
-    final settings = settingsCubit.state;
-    final viewport = rendererCubit.state.cameraViewport;
+  bool _isNavigationRailVisible(EditorRuntimeContext runtime) {
+    final settings = runtime.settingsCubit.state;
+    final viewport = runtime.rendererCubit.state.cameraViewport;
     return settings.navigationRail &&
         settings.navigatorPosition == NavigatorPosition.left &&
-        inputCubit.state.hideUi == HideState.visible &&
+        runtime.inputCubit.state.hideUi == HideState.visible &&
         (viewport.width ?? 0) >= LeapBreakpoints.expanded &&
         (viewport.height ?? 0) >= 400;
   }
 
   Rect? calculateViewportBounds({
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
+    required EditorRuntimeContext runtime,
     Area? currentArea,
     CameraTransform? customTransform,
   }) {
-    final settings = settingsCubit.state;
+    final settings = runtime.settingsCubit.state;
     var multiplier = settings.limitViewportMultiplier;
     final positive = settings.limitViewportPositive;
 
     if (multiplier == null && !positive && currentArea == null) return null;
 
-    final viewport = rendererCubit.state.cameraViewport;
+    final viewport = runtime.rendererCubit.state.cameraViewport;
     final transform = customTransform ?? state;
-    final navigationRailOffset =
-        _isNavigationRailVisible(settingsCubit, rendererCubit, inputCubit)
+    final navigationRailOffset = _isNavigationRailVisible(runtime)
         ? kNavigationRailWidth / transform.size
         : 0.0;
     final size =
@@ -267,7 +260,7 @@ class TransformCubit extends Cubit<CameraTransform> {
         ) /
         settings.renderResolution.multiplier;
 
-    final contentRect = getContentRect(rendererCubit, currentArea);
+    final contentRect = getContentRect(runtime.rendererCubit, currentArea);
 
     double minX = double.negativeInfinity;
     double minY = double.negativeInfinity;
@@ -308,14 +301,10 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   CameraTransform _clampTransform({
     required CameraTransform transform,
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
+    required EditorRuntimeContext runtime,
   }) {
     final bounds = calculateViewportBounds(
-      settingsCubit: settingsCubit,
-      rendererCubit: rendererCubit,
-      inputCubit: inputCubit,
+      runtime: runtime,
       customTransform: transform,
     );
     if (bounds == null) return transform;
@@ -362,14 +351,10 @@ class TransformCubit extends Cubit<CameraTransform> {
     required Area area,
     required int dx,
     required int dy,
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
+    required EditorRuntimeContext runtime,
   }) {
     final newBounds = calculateViewportBounds(
-      settingsCubit: settingsCubit,
-      rendererCubit: rendererCubit,
-      inputCubit: inputCubit,
+      runtime: runtime,
       currentArea: area,
     );
     if (newBounds == null) return;
@@ -396,10 +381,7 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   Future<void> navigateToRelativeArea({
     required DocumentBloc bloc,
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
-    required EditorViewCubit viewCubit,
+    required EditorRuntimeContext runtime,
     required int dx,
     required int dy,
     Future<String?> Function()? createAreaName,
@@ -412,25 +394,21 @@ class TransformCubit extends Cubit<CameraTransform> {
 
     var area = getRelativeArea(
       docState: docState,
-      viewCubit: viewCubit,
+      viewCubit: runtime.viewCubit,
       currentArea: current,
       dx: dx,
       dy: dy,
     );
     if (area != null) {
       bloc.add(CurrentAreaChanged(area.name));
-      teleportToAreaEdge(
-        area: area,
-        dx: dx,
-        dy: dy,
-        settingsCubit: settingsCubit,
-        rendererCubit: rendererCubit,
-        inputCubit: inputCubit,
-      );
+      teleportToAreaEdge(area: area, dx: dx, dy: dy, runtime: runtime);
       return;
     }
 
-    if (!viewCubit.state.areaNavigatorCreate || createAreaName == null) return;
+    if (!runtime.viewCubit.state.areaNavigatorCreate ||
+        createAreaName == null) {
+      return;
+    }
     final name = await createAreaName();
     if (name == null) return;
 
@@ -447,35 +425,23 @@ class TransformCubit extends Cubit<CameraTransform> {
     );
     bloc.add(AreasCreated([AreaPreset(area: newArea)]));
     bloc.add(CurrentAreaChanged(name));
-    teleportToAreaEdge(
-      area: newArea,
-      dx: dx,
-      dy: dy,
-      settingsCubit: settingsCubit,
-      rendererCubit: rendererCubit,
-      inputCubit: inputCubit,
-    );
+    teleportToAreaEdge(area: newArea, dx: dx, dy: dy, runtime: runtime);
   }
 
   void moveConstrained(
     Offset delta, {
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
-    required EditorViewCubit viewCubit,
+    required EditorRuntimeContext runtime,
     DocumentBloc? bloc,
     bool force = false,
     Area? currentArea,
   }) {
-    final utilitiesState = viewCubit.state.utilities;
+    final utilitiesState = runtime.viewCubit.state.utilities;
     if (!force) {
       if (utilitiesState.lockHorizontal) delta = Offset(0, delta.dy);
       if (utilitiesState.lockVertical) delta = Offset(delta.dx, 0);
 
       final bounds = calculateViewportBounds(
-        settingsCubit: settingsCubit,
-        rendererCubit: rendererCubit,
-        inputCubit: inputCubit,
+        runtime: runtime,
         currentArea: currentArea,
       );
       if (bounds != null) {
@@ -505,24 +471,17 @@ class TransformCubit extends Cubit<CameraTransform> {
           }
 
           if ((dx != 0 || dy != 0) &&
-              settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
+              runtime.settingsCubit.state.hasFlag('edgePanAreaSwitching')) {
             final area = getRelativeArea(
               docState: docState,
-              viewCubit: viewCubit,
+              viewCubit: runtime.viewCubit,
               currentArea: currentArea,
               dx: dx,
               dy: dy,
             );
             if (area != null) {
               bloc?.add(CurrentAreaChanged(area.name));
-              teleportToAreaEdge(
-                area: area,
-                dx: dx,
-                dy: dy,
-                settingsCubit: settingsCubit,
-                rendererCubit: rendererCubit,
-                inputCubit: inputCubit,
-              );
+              teleportToAreaEdge(area: area, dx: dx, dy: dy, runtime: runtime);
               return;
             }
           }
@@ -540,14 +499,11 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void zoomConstrained(
     double delta, {
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
-    required EditorViewCubit viewCubit,
+    required EditorRuntimeContext runtime,
     Offset cursor = Offset.zero,
     bool force = false,
   }) {
-    final utilitiesState = viewCubit.state.utilities;
+    final utilitiesState = runtime.viewCubit.state.utilities;
     if (utilitiesState.lockZoom && !force) {
       delta = 1;
     }
@@ -559,25 +515,17 @@ class TransformCubit extends Cubit<CameraTransform> {
       return;
     }
     final transform = state.withSize(state.size * delta, cursor);
-    final clamped = _clampTransform(
-      transform: transform,
-      settingsCubit: settingsCubit,
-      rendererCubit: rendererCubit,
-      inputCubit: inputCubit,
-    );
+    final clamped = _clampTransform(transform: transform, runtime: runtime);
     teleport(clamped.position, clamped.size);
   }
 
   void sizeConstrained(
     double size, {
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
-    required EditorViewCubit viewCubit,
+    required EditorRuntimeContext runtime,
     Offset cursor = Offset.zero,
     bool force = false,
   }) {
-    final utilitiesState = viewCubit.state.utilities;
+    final utilitiesState = runtime.viewCubit.state.utilities;
     if (utilitiesState.lockZoom && !force) return;
     if (force) {
       this.size(size, cursor);
@@ -585,9 +533,7 @@ class TransformCubit extends Cubit<CameraTransform> {
     }
     final transform = _clampTransform(
       transform: state.withSize(size, cursor),
-      settingsCubit: settingsCubit,
-      rendererCubit: rendererCubit,
-      inputCubit: inputCubit,
+      runtime: runtime,
     );
     teleport(transform.position, transform.size);
   }
@@ -595,16 +541,13 @@ class TransformCubit extends Cubit<CameraTransform> {
   void slideConstrained(
     Offset positionVelocity,
     double sizeVelocity, {
-    required SettingsCubit settingsCubit,
-    required RendererCubit rendererCubit,
-    required EditorInputCubit inputCubit,
-    required EditorViewCubit viewCubit,
+    required EditorRuntimeContext runtime,
     bool force = false,
     Area? currentArea,
   }) {
-    final settings = settingsCubit.state;
+    final settings = runtime.settingsCubit.state;
     if (!settings.hasFlag('smoothNavigation')) return;
-    final utilitiesState = viewCubit.state.utilities;
+    final utilitiesState = runtime.viewCubit.state.utilities;
     Rect? bounds;
     var outOfBounds = false;
     if (!force) {
@@ -617,9 +560,7 @@ class TransformCubit extends Cubit<CameraTransform> {
       if (utilitiesState.lockZoom) sizeVelocity = 0;
 
       bounds = calculateViewportBounds(
-        settingsCubit: settingsCubit,
-        rendererCubit: rendererCubit,
-        inputCubit: inputCubit,
+        runtime: runtime,
         currentArea: currentArea,
       );
       if (bounds != null) {

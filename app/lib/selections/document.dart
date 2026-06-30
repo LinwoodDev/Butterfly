@@ -418,10 +418,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     editorController.transformCubit.sizeConstrained(
                       value / 100,
                       cursor: Offset(size.width / 2, size.height / 2),
-                      settingsCubit: editorController.settingsCubit,
-                      rendererCubit: editorController.rendererCubit,
-                      inputCubit: editorController.inputCubit,
-                      viewCubit: editorController.viewCubit,
+                      runtime: editorController,
                     );
                     context.read<DocumentBloc>().bake();
                   },

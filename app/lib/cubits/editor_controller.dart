@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/editor_runtime.dart';
@@ -13,8 +11,6 @@ import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 
 import '../embed/embedding.dart';
@@ -27,6 +23,7 @@ export 'editor_runtime.dart'
         DocumentSaveState,
         EditorInputCubit,
         EditorInputState,
+        EditorRuntimeContext,
         EditorViewCubit,
         EditorViewState,
         HideState,
@@ -38,20 +35,20 @@ export 'editor_runtime.dart'
         ToolCubit,
         ToolRuntimeState;
 
-class EditorController {
+class EditorController implements EditorRuntimeContext {
+  @override
   final SettingsCubit settingsCubit;
   final TransformCubit transformCubit;
   final NetworkingService networkingService;
   final EditorSessionCubit? editorSessionCubit;
-  late final RendererCubit rendererCubit;
-  late final ToolCubit toolCubit;
-  late final EditorInputCubit inputCubit;
-  late final DocumentSaveCubit saveCubit;
-  late final EditorViewCubit viewCubit;
-  StreamSubscription<RendererRuntimeState>? _rendererSubscription;
-  StreamSubscription<ToolRuntimeState>? _toolSubscription;
-  StreamSubscription<EditorInputState>? _inputSubscription;
-  StreamSubscription<EditorViewState>? _viewSubscription;
+  @override
+  final RendererCubit rendererCubit;
+  final ToolCubit toolCubit;
+  @override
+  final EditorInputCubit inputCubit;
+  final DocumentSaveCubit saveCubit;
+  @override
+  final EditorViewCubit viewCubit;
 
   EditorController(
     this.settingsCubit,
@@ -97,27 +94,14 @@ class EditorController {
                editorSessionCubit?.state.areaNavigatorAsk ?? false,
          ),
        ) {
-    _previousRendererState = rendererCubit.state;
-    _previousToolState = toolCubit.state;
-    _previousInputState = inputCubit.state;
-    _previousViewState = viewCubit.state;
-    _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
-    _rendererSubscription = rendererCubit.stream.listen(_onRendererChanged);
-    _toolSubscription = toolCubit.stream.listen(_onToolChanged);
-    _inputSubscription = inputCubit.stream.listen(_onInputChanged);
-    _viewSubscription = viewCubit.stream.listen(_onViewChanged);
+    rendererCubit.bindController(this);
+    toolCubit.bindController(this);
+    inputCubit.bindToolCubit(toolCubit);
+    viewCubit.bindToolCubit(toolCubit);
   }
 
-  StreamSubscription? _transformSubscription;
-  Timer? _transformDebounceTimer;
-  Timer? _networkingDebounceTimer;
-  RendererRuntimeState _previousRendererState = const RendererRuntimeState();
-  ToolRuntimeState? _previousToolState;
-  EditorInputState _previousInputState = const EditorInputState();
-  EditorViewState? _previousViewState;
   WeakReference<DocumentBloc>? _documentBloc;
   var _closed = false;
-  var _isClosing = false;
 
   bool get isClosed => _closed;
 
@@ -135,14 +119,6 @@ class EditorController {
   Future<void> reload(DocumentBloc bloc, [DocumentLoaded? blocState]) =>
       reloadRuntime(bloc, blocState);
 
-  void _onTransformChanged(CameraTransform transform) {
-    // Debounce transform changes to avoid excessive updates during pan/zoom
-    _transformDebounceTimer?.cancel();
-    _transformDebounceTimer = Timer(const Duration(milliseconds: 16), () {
-      rendererCubit.updateVisibleElements(this, activeDocumentBloc);
-    });
-  }
-
   void init(DocumentBloc bloc) {
     _documentBloc = WeakReference(bloc);
     final blocState = bloc.state;
@@ -151,83 +127,6 @@ class EditorController {
         : toolCubit.state.index;
     toolCubit.changeTool(this, bloc, index: index ?? 0);
     networkingService.setup(bloc);
-  }
-
-  void _onToolChanged(ToolRuntimeState next) {
-    if (_isClosing) {
-      return;
-    }
-    final current = _previousToolState;
-    _previousToolState = next;
-    if (current == null) return;
-
-    if (next.foregrounds != current.foregrounds ||
-        next.temporaryForegrounds != current.temporaryForegrounds) {
-      _networkingDebounceTimer?.cancel();
-      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
-        if (!isClosed) _sendNetworkingState();
-      });
-    }
-  }
-
-  void _onInputChanged(EditorInputState next) {
-    if (_isClosing) return;
-    final current = _previousInputState;
-    _previousInputState = next;
-    if (next.lastPosition != current.lastPosition) {
-      _networkingDebounceTimer?.cancel();
-      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
-        if (!isClosed) _sendNetworkingState();
-      });
-    }
-  }
-
-  void _onViewChanged(EditorViewState next) {
-    if (_isClosing) return;
-    final current = _previousViewState;
-    _previousViewState = next;
-    if (current != null && next.userName != current.userName) {
-      _networkingDebounceTimer?.cancel();
-      _networkingDebounceTimer = Timer(const Duration(milliseconds: 50), () {
-        if (!isClosed) _sendNetworkingState();
-      });
-    }
-  }
-
-  void _onRendererChanged(RendererRuntimeState next) {
-    if (_isClosing) return;
-    final current = _previousRendererState;
-    _previousRendererState = next;
-    final currentViewport = current.cameraViewport;
-    final newViewport = next.cameraViewport;
-
-    if (!identical(currentViewport, newViewport) &&
-        currentViewport != newViewport) {
-      toolCubit.state.handler.onViewportUpdated(currentViewport, newViewport);
-      toolCubit.state.temporaryHandler?.onViewportUpdated(
-        currentViewport,
-        newViewport,
-      );
-    }
-
-    currentViewport.disposeImages(except: newViewport);
-  }
-
-  void _sendNetworkingState({
-    List<Renderer<dynamic>>? foregrounds,
-    Offset? cursor,
-  }) {
-    cursor ??= inputCubit.state.lastPosition ?? Offset.zero;
-    networkingService.sendUser(
-      NetworkingUser(
-        cursor: transformCubit.state.localToGlobal(cursor).toPoint(),
-        foreground: (foregrounds ?? toolCubit.state.getAllForegrounds(false))
-            .map((e) => e.element)
-            .whereType<PadElement>()
-            .toList(),
-        name: networkingService.userName,
-      ),
-    );
   }
 
   Future<void> updateNetworkingState(
@@ -295,7 +194,6 @@ class EditorController {
 
   Future<void> close() async {
     if (_closed) return;
-    _isClosing = true;
     _closed = true;
     final bloc = activeDocumentBloc;
     if (bloc != null) {
@@ -303,20 +201,6 @@ class EditorController {
     }
     _documentBloc = null;
     await rendererCubit.disposeRuntime();
-    await _transformSubscription?.cancel();
-    _transformSubscription = null;
-    await _rendererSubscription?.cancel();
-    _rendererSubscription = null;
-    await _toolSubscription?.cancel();
-    _toolSubscription = null;
-    await _inputSubscription?.cancel();
-    _inputSubscription = null;
-    await _viewSubscription?.cancel();
-    _viewSubscription = null;
-    _transformDebounceTimer?.cancel();
-    _transformDebounceTimer = null;
-    _networkingDebounceTimer?.cancel();
-    _networkingDebounceTimer = null;
     await rendererCubit.close();
     await toolCubit.close();
     await inputCubit.close();

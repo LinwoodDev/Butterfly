@@ -12,7 +12,7 @@ part of 'editor_runtime.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RendererRuntimeState {
+mixin _$RendererRuntimeState implements DiagnosticableTreeMixin {
 
  CameraViewport get cameraViewport; Map<String, RendererState> get rendererStates; Map<String, RendererState>? get temporaryRendererStates;
 /// Create a copy of RendererRuntimeState
@@ -22,11 +22,17 @@ mixin _$RendererRuntimeState {
 $RendererRuntimeStateCopyWith<RendererRuntimeState> get copyWith => _$RendererRuntimeStateCopyWithImpl<RendererRuntimeState>(this as RendererRuntimeState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'RendererRuntimeState'))
+    ..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'RendererRuntimeState(cameraViewport: $cameraViewport, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates)';
 }
 
@@ -80,7 +86,7 @@ $CameraViewportCopyWith<$Res> get cameraViewport {
 /// @nodoc
 
 
-class _RendererRuntimeState extends RendererRuntimeState {
+class _RendererRuntimeState extends RendererRuntimeState with DiagnosticableTreeMixin {
   const _RendererRuntimeState({this.cameraViewport = const CameraViewport.unbaked(), final  Map<String, RendererState> rendererStates = const {}, final  Map<String, RendererState>? temporaryRendererStates = const {}}): _rendererStates = rendererStates,_temporaryRendererStates = temporaryRendererStates,super._();
   
 
@@ -109,11 +115,17 @@ class _RendererRuntimeState extends RendererRuntimeState {
 _$RendererRuntimeStateCopyWith<_RendererRuntimeState> get copyWith => __$RendererRuntimeStateCopyWithImpl<_RendererRuntimeState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'RendererRuntimeState'))
+    ..add(DiagnosticsProperty('cameraViewport', cameraViewport))..add(DiagnosticsProperty('rendererStates', rendererStates))..add(DiagnosticsProperty('temporaryRendererStates', temporaryRendererStates));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'RendererRuntimeState(cameraViewport: $cameraViewport, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates)';
 }
 
@@ -164,7 +176,7 @@ $CameraViewportCopyWith<$Res> get cameraViewport {
 }
 
 /// @nodoc
-mixin _$ToolRuntimeState {
+mixin _$ToolRuntimeState implements DiagnosticableTreeMixin {
 
  int? get index; Handler get handler; Handler<Tool>? get temporaryHandler; int? get temporaryIndex; List<Renderer> get foregrounds; Selection? get selection; bool get pinned; List<Renderer>? get temporaryForegrounds; Map<int, Handler<Tool>> get toggleableHandlers; List<Renderer> get networkingForegrounds; Map<int, List<Renderer>> get toggleableForegrounds; MouseCursor get cursor; MouseCursor? get temporaryCursor; TemporaryState get temporaryState; PreferredSizeWidget? get toolbar; PreferredSizeWidget? get temporaryToolbar;
 /// Create a copy of ToolRuntimeState
@@ -174,11 +186,17 @@ mixin _$ToolRuntimeState {
 $ToolRuntimeStateCopyWith<ToolRuntimeState> get copyWith => _$ToolRuntimeStateCopyWithImpl<ToolRuntimeState>(this as ToolRuntimeState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ToolRuntimeState'))
+    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('temporaryIndex', temporaryIndex))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ToolRuntimeState(index: $index, handler: $handler, temporaryHandler: $temporaryHandler, temporaryIndex: $temporaryIndex, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
 }
 
@@ -236,7 +254,7 @@ as PreferredSizeWidget?,
 /// @nodoc
 
 
-class _ToolRuntimeState extends ToolRuntimeState {
+class _ToolRuntimeState extends ToolRuntimeState with DiagnosticableTreeMixin {
   const _ToolRuntimeState({this.index, required this.handler, this.temporaryHandler, this.temporaryIndex, final  List<Renderer> foregrounds = const [], this.selection, this.pinned = false, final  List<Renderer>? temporaryForegrounds, final  Map<int, Handler<Tool>> toggleableHandlers = const {}, final  List<Renderer> networkingForegrounds = const [], final  Map<int, List<Renderer>> toggleableForegrounds = const {}, this.cursor = MouseCursor.defer, this.temporaryCursor, this.temporaryState = TemporaryState.allowClick, this.toolbar, this.temporaryToolbar}): _foregrounds = foregrounds,_temporaryForegrounds = temporaryForegrounds,_toggleableHandlers = toggleableHandlers,_networkingForegrounds = networkingForegrounds,_toggleableForegrounds = toggleableForegrounds,super._();
   
 
@@ -296,11 +314,17 @@ class _ToolRuntimeState extends ToolRuntimeState {
 _$ToolRuntimeStateCopyWith<_ToolRuntimeState> get copyWith => __$ToolRuntimeStateCopyWithImpl<_ToolRuntimeState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ToolRuntimeState'))
+    ..add(DiagnosticsProperty('index', index))..add(DiagnosticsProperty('handler', handler))..add(DiagnosticsProperty('temporaryHandler', temporaryHandler))..add(DiagnosticsProperty('temporaryIndex', temporaryIndex))..add(DiagnosticsProperty('foregrounds', foregrounds))..add(DiagnosticsProperty('selection', selection))..add(DiagnosticsProperty('pinned', pinned))..add(DiagnosticsProperty('temporaryForegrounds', temporaryForegrounds))..add(DiagnosticsProperty('toggleableHandlers', toggleableHandlers))..add(DiagnosticsProperty('networkingForegrounds', networkingForegrounds))..add(DiagnosticsProperty('toggleableForegrounds', toggleableForegrounds))..add(DiagnosticsProperty('cursor', cursor))..add(DiagnosticsProperty('temporaryCursor', temporaryCursor))..add(DiagnosticsProperty('temporaryState', temporaryState))..add(DiagnosticsProperty('toolbar', toolbar))..add(DiagnosticsProperty('temporaryToolbar', temporaryToolbar));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ToolRuntimeState(index: $index, handler: $handler, temporaryHandler: $temporaryHandler, temporaryIndex: $temporaryIndex, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
 }
 
@@ -355,7 +379,7 @@ as PreferredSizeWidget?,
 }
 
 /// @nodoc
-mixin _$EditorInputState {
+mixin _$EditorInputState implements DiagnosticableTreeMixin {
 
  Offset? get lastPosition; List<int> get pointers; int? get buttons; bool get penDetected; bool get sessionPenOnlyInput; HideState get hideUi;
 /// Create a copy of EditorInputState
@@ -365,6 +389,12 @@ mixin _$EditorInputState {
 $EditorInputStateCopyWith<EditorInputState> get copyWith => _$EditorInputStateCopyWithImpl<EditorInputState>(this as EditorInputState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'EditorInputState'))
+    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
+}
 
 @override
 bool operator ==(Object other) {
@@ -376,7 +406,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
 }
 
@@ -424,7 +454,7 @@ as HideState,
 /// @nodoc
 
 
-class _EditorInputState implements EditorInputState {
+class _EditorInputState with DiagnosticableTreeMixin implements EditorInputState {
   const _EditorInputState({this.lastPosition, final  List<int> pointers = const [], this.buttons, this.penDetected = false, this.sessionPenOnlyInput = false, this.hideUi = HideState.visible}): _pointers = pointers;
   
 
@@ -448,6 +478,12 @@ class _EditorInputState implements EditorInputState {
 _$EditorInputStateCopyWith<_EditorInputState> get copyWith => __$EditorInputStateCopyWithImpl<_EditorInputState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'EditorInputState'))
+    ..add(DiagnosticsProperty('lastPosition', lastPosition))..add(DiagnosticsProperty('pointers', pointers))..add(DiagnosticsProperty('buttons', buttons))..add(DiagnosticsProperty('penDetected', penDetected))..add(DiagnosticsProperty('sessionPenOnlyInput', sessionPenOnlyInput))..add(DiagnosticsProperty('hideUi', hideUi));
+}
 
 @override
 bool operator ==(Object other) {
@@ -459,7 +495,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,lastPosition,const DeepCollectionEquality().hash(_pointers),buttons,penDetected,sessionPenOnlyInput,hideUi);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'EditorInputState(lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, penDetected: $penDetected, sessionPenOnlyInput: $sessionPenOnlyInput, hideUi: $hideUi)';
 }
 
@@ -504,7 +540,7 @@ as HideState,
 }
 
 /// @nodoc
-mixin _$DocumentSaveState {
+mixin _$DocumentSaveState implements DiagnosticableTreeMixin {
 
  bool get isSaveDelayed; AssetLocation get location; Embedding? get embedding; SaveState get saved; bool get isCreating;
 /// Create a copy of DocumentSaveState
@@ -514,6 +550,12 @@ mixin _$DocumentSaveState {
 $DocumentSaveStateCopyWith<DocumentSaveState> get copyWith => _$DocumentSaveStateCopyWithImpl<DocumentSaveState>(this as DocumentSaveState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
+    ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
+}
 
 @override
 bool operator ==(Object other) {
@@ -525,7 +567,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
 }
 
@@ -572,7 +614,7 @@ as bool,
 /// @nodoc
 
 
-class _DocumentSaveState extends DocumentSaveState {
+class _DocumentSaveState extends DocumentSaveState with DiagnosticableTreeMixin {
   const _DocumentSaveState({this.isSaveDelayed = false, this.location = const AssetLocation(path: ''), this.embedding, this.saved = SaveState.saved, this.isCreating = false}): super._();
   
 
@@ -589,6 +631,12 @@ class _DocumentSaveState extends DocumentSaveState {
 _$DocumentSaveStateCopyWith<_DocumentSaveState> get copyWith => __$DocumentSaveStateCopyWithImpl<_DocumentSaveState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DocumentSaveState'))
+    ..add(DiagnosticsProperty('isSaveDelayed', isSaveDelayed))..add(DiagnosticsProperty('location', location))..add(DiagnosticsProperty('embedding', embedding))..add(DiagnosticsProperty('saved', saved))..add(DiagnosticsProperty('isCreating', isCreating));
+}
 
 @override
 bool operator ==(Object other) {
@@ -600,7 +648,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,isSaveDelayed,location,embedding,saved,isCreating);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DocumentSaveState(isSaveDelayed: $isSaveDelayed, location: $location, embedding: $embedding, saved: $saved, isCreating: $isCreating)';
 }
 
@@ -644,7 +692,7 @@ as bool,
 }
 
 /// @nodoc
-mixin _$EditorViewState {
+mixin _$EditorViewState implements DiagnosticableTreeMixin {
 
  UtilitiesState get utilities; ViewOption get viewOption; bool get areaNavigatorCreate; bool get areaNavigatorExact; bool get areaNavigatorAsk; bool get navigatorEnabled; NavigatorPage get navigatorPage; String get userName;
 /// Create a copy of EditorViewState
@@ -654,6 +702,12 @@ mixin _$EditorViewState {
 $EditorViewStateCopyWith<EditorViewState> get copyWith => _$EditorViewStateCopyWithImpl<EditorViewState>(this as EditorViewState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'EditorViewState'))
+    ..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
+}
 
 @override
 bool operator ==(Object other) {
@@ -665,7 +719,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,utilities,viewOption,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'EditorViewState(utilities: $utilities, viewOption: $viewOption, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
 }
 
@@ -733,7 +787,7 @@ $ViewOptionCopyWith<$Res> get viewOption {
 /// @nodoc
 
 
-class _EditorViewState implements EditorViewState {
+class _EditorViewState with DiagnosticableTreeMixin implements EditorViewState {
   const _EditorViewState({this.utilities = const UtilitiesState(), this.viewOption = const ViewOption(), this.areaNavigatorCreate = true, this.areaNavigatorExact = true, this.areaNavigatorAsk = false, this.navigatorEnabled = false, this.navigatorPage = NavigatorPage.waypoints, this.userName = ''});
   
 
@@ -753,6 +807,12 @@ class _EditorViewState implements EditorViewState {
 _$EditorViewStateCopyWith<_EditorViewState> get copyWith => __$EditorViewStateCopyWithImpl<_EditorViewState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'EditorViewState'))
+    ..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
+}
 
 @override
 bool operator ==(Object other) {
@@ -764,7 +824,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,utilities,viewOption,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'EditorViewState(utilities: $utilities, viewOption: $viewOption, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
 }
 

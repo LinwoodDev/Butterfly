@@ -39,10 +39,7 @@ class ZoomAction extends Action<ZoomIntent> {
     cubit.transformCubit.sizeConstrained(
       transformCubit.state.size + (intent.reverse ? -0.1 : 0.1),
       cursor: center,
-      settingsCubit: cubit.settingsCubit,
-      rendererCubit: cubit.rendererCubit,
-      inputCubit: cubit.inputCubit,
-      viewCubit: cubit.viewCubit,
+      runtime: cubit,
     );
   }
 }
