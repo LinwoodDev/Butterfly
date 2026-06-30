@@ -11,5 +11,6 @@
 * Unify area context menu and area selection context menu ([#1151](https://github.com/LinwoodDev/Butterfly/issues/1151))
 * Fix refresh foregrounds can be run concurrently
 * Fix location synchronization issues
+* Fix zoom slider and reset button not working if zoom is locked
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.1

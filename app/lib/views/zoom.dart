@@ -73,7 +73,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
     }
     final size = currentIndex.cameraViewport.toRealSize();
     final center = Offset(size.width / 2, size.height / 2);
-    currentIndexCubit.size(value, center);
+    currentIndexCubit.size(value, center, true);
     if (bake) {
       currentIndexCubit.bake(documentState);
     }
