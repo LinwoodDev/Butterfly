@@ -34,30 +34,37 @@ Map<String, dynamic> _$PersistedCameraStateToJson(
   'zoom': instance.zoom,
 };
 
-_PersistedDocumentState _$PersistedDocumentStateFromJson(Map json) =>
-    _PersistedDocumentState(
-      version:
-          (json['version'] as num?)?.toInt() ?? kPersistedDocumentStateVersion,
-      pathKey: json['pathKey'] as String?,
-      contentHash: json['contentHash'] as String?,
-      pageName: json['pageName'] as String?,
-      camera: json['camera'] == null
-          ? const PersistedCameraState()
-          : PersistedCameraState.fromJson(
-              Map<String, dynamic>.from(json['camera'] as Map),
-            ),
-      utilities: json['utilities'] == null
-          ? const UtilitiesState()
-          : UtilitiesState.fromJson(
-              Map<String, dynamic>.from(json['utilities'] as Map),
-            ),
-      selectedTool: json['selectedTool'] == null
-          ? const PersistedToolSelection()
-          : PersistedToolSelection.fromJson(
-              Map<String, dynamic>.from(json['selectedTool'] as Map),
-            ),
-      navigatorEnabled: json['navigatorEnabled'] as bool? ?? false,
-      navigatorPage: json['navigatorPage'] as String? ?? 'waypoints',
+_PersistentLockState _$PersistentLockStateFromJson(Map json) =>
+    _PersistentLockState(
+      lockCollection: json['lockCollection'] as bool? ?? false,
+      lockLayer: json['lockLayer'] as bool? ?? false,
+      lockZoom: json['lockZoom'] as bool? ?? false,
+      lockHorizontal: json['lockHorizontal'] as bool? ?? false,
+      lockVertical: json['lockVertical'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$PersistentLockStateToJson(
+  _PersistentLockState instance,
+) => <String, dynamic>{
+  'lockCollection': instance.lockCollection,
+  'lockLayer': instance.lockLayer,
+  'lockZoom': instance.lockZoom,
+  'lockHorizontal': instance.lockHorizontal,
+  'lockVertical': instance.lockVertical,
+};
+
+_PersistedNavigatorState _$PersistedNavigatorStateFromJson(Map json) =>
+    _PersistedNavigatorState(
+      enabled: json['enabled'] as bool? ?? false,
+      page: json['page'] as String? ?? 'waypoints',
+    );
+
+Map<String, dynamic> _$PersistedNavigatorStateToJson(
+  _PersistedNavigatorState instance,
+) => <String, dynamic>{'enabled': instance.enabled, 'page': instance.page};
+
+_PersistedLayerState _$PersistedLayerStateFromJson(Map json) =>
+    _PersistedLayerState(
       currentLayer: json['currentLayer'] as String? ?? '',
       currentCollection: json['currentCollection'] as String? ?? '',
       invisibleLayers:
@@ -65,13 +72,74 @@ _PersistedDocumentState _$PersistedDocumentStateFromJson(Map json) =>
               ?.map((e) => e as String)
               .toSet() ??
           const {},
-      areaNavigatorCreate: json['areaNavigatorCreate'] as bool? ?? true,
-      areaNavigatorExact: json['areaNavigatorExact'] as bool? ?? true,
-      areaNavigatorAsk: json['areaNavigatorAsk'] as bool? ?? false,
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
     );
+
+Map<String, dynamic> _$PersistedLayerStateToJson(
+  _PersistedLayerState instance,
+) => <String, dynamic>{
+  'currentLayer': instance.currentLayer,
+  'currentCollection': instance.currentCollection,
+  'invisibleLayers': instance.invisibleLayers.toList(),
+};
+
+_PersistedAreaNavigatorState _$PersistedAreaNavigatorStateFromJson(Map json) =>
+    _PersistedAreaNavigatorState(
+      create: json['create'] as bool? ?? true,
+      exact: json['exact'] as bool? ?? true,
+      ask: json['ask'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$PersistedAreaNavigatorStateToJson(
+  _PersistedAreaNavigatorState instance,
+) => <String, dynamic>{
+  'create': instance.create,
+  'exact': instance.exact,
+  'ask': instance.ask,
+};
+
+_PersistedDocumentState _$PersistedDocumentStateFromJson(
+  Map json,
+) => _PersistedDocumentState(
+  version: (json['version'] as num?)?.toInt() ?? kPersistedDocumentStateVersion,
+  pathKey: json['pathKey'] as String?,
+  contentHash: json['contentHash'] as String?,
+  pageName: json['pageName'] as String?,
+  camera: json['camera'] == null
+      ? const PersistedCameraState()
+      : PersistedCameraState.fromJson(
+          Map<String, dynamic>.from(json['camera'] as Map),
+        ),
+  locks: _readLocks(json, 'locks') == null
+      ? const PersistentLockState()
+      : PersistentLockState.fromJson(
+          Map<String, dynamic>.from(_readLocks(json, 'locks') as Map),
+        ),
+  selectedTool: json['selectedTool'] == null
+      ? const PersistedToolSelection()
+      : PersistedToolSelection.fromJson(
+          Map<String, dynamic>.from(json['selectedTool'] as Map),
+        ),
+  navigator: _readNavigator(json, 'navigator') == null
+      ? const PersistedNavigatorState()
+      : PersistedNavigatorState.fromJson(
+          Map<String, dynamic>.from(_readNavigator(json, 'navigator') as Map),
+        ),
+  layers: _readLayers(json, 'layers') == null
+      ? const PersistedLayerState()
+      : PersistedLayerState.fromJson(
+          Map<String, dynamic>.from(_readLayers(json, 'layers') as Map),
+        ),
+  areaNavigator: _readAreaNavigator(json, 'areaNavigator') == null
+      ? const PersistedAreaNavigatorState()
+      : PersistedAreaNavigatorState.fromJson(
+          Map<String, dynamic>.from(
+            _readAreaNavigator(json, 'areaNavigator') as Map,
+          ),
+        ),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+);
 
 Map<String, dynamic> _$PersistedDocumentStateToJson(
   _PersistedDocumentState instance,
@@ -81,15 +149,10 @@ Map<String, dynamic> _$PersistedDocumentStateToJson(
   'contentHash': instance.contentHash,
   'pageName': instance.pageName,
   'camera': instance.camera.toJson(),
-  'utilities': instance.utilities.toJson(),
+  'locks': instance.locks.toJson(),
   'selectedTool': instance.selectedTool.toJson(),
-  'navigatorEnabled': instance.navigatorEnabled,
-  'navigatorPage': instance.navigatorPage,
-  'currentLayer': instance.currentLayer,
-  'currentCollection': instance.currentCollection,
-  'invisibleLayers': instance.invisibleLayers.toList(),
-  'areaNavigatorCreate': instance.areaNavigatorCreate,
-  'areaNavigatorExact': instance.areaNavigatorExact,
-  'areaNavigatorAsk': instance.areaNavigatorAsk,
+  'navigator': instance.navigator.toJson(),
+  'layers': instance.layers.toJson(),
+  'areaNavigator': instance.areaNavigator.toJson(),
   'updatedAt': instance.updatedAt?.toIso8601String(),
 };

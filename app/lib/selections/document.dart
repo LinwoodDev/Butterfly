@@ -20,29 +20,18 @@ class DocumentSelection extends Selection<EditorController> {
     return [
       ...super.buildProperties(context),
       _UtilitiesView(
-        state: viewState.utilities,
-        option: viewState.viewOption,
-        onStateChanged: (state) =>
-            cubit.viewCubit.updateUtilities(utilities: state),
-        onToolChanged: (option) =>
-            cubit.viewCubit.updateUtilities(view: option),
+        state: viewState.locks,
+        onStateChanged: (state) => cubit.viewCubit.updateLocks(locks: state),
       ),
     ];
   }
 }
 
 class _UtilitiesView extends StatefulWidget {
-  final UtilitiesState state;
-  final ViewOption option;
-  final ValueChanged<UtilitiesState> onStateChanged;
-  final ValueChanged<ViewOption> onToolChanged;
+  final PersistentLockState state;
+  final ValueChanged<PersistentLockState> onStateChanged;
 
-  const _UtilitiesView({
-    required this.state,
-    required this.option,
-    required this.onStateChanged,
-    required this.onToolChanged,
-  });
+  const _UtilitiesView({required this.state, required this.onStateChanged});
 
   @override
   State<_UtilitiesView> createState() => _UtilitiesViewState();

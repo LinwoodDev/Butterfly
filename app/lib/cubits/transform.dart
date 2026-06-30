@@ -435,10 +435,10 @@ class TransformCubit extends Cubit<CameraTransform> {
     bool force = false,
     Area? currentArea,
   }) {
-    final utilitiesState = runtime.viewCubit.state.utilities;
+    final locks = runtime.viewCubit.state.locks;
     if (!force) {
-      if (utilitiesState.lockHorizontal) delta = Offset(0, delta.dy);
-      if (utilitiesState.lockVertical) delta = Offset(delta.dx, 0);
+      if (locks.lockHorizontal) delta = Offset(0, delta.dy);
+      if (locks.lockVertical) delta = Offset(delta.dx, 0);
 
       final bounds = calculateViewportBounds(
         runtime: runtime,
@@ -503,8 +503,8 @@ class TransformCubit extends Cubit<CameraTransform> {
     Offset cursor = Offset.zero,
     bool force = false,
   }) {
-    final utilitiesState = runtime.viewCubit.state.utilities;
-    if (utilitiesState.lockZoom && !force) {
+    final locks = runtime.viewCubit.state.locks;
+    if (locks.lockZoom && !force) {
       delta = 1;
     }
     if (delta == 1) {
@@ -525,8 +525,8 @@ class TransformCubit extends Cubit<CameraTransform> {
     Offset cursor = Offset.zero,
     bool force = false,
   }) {
-    final utilitiesState = runtime.viewCubit.state.utilities;
-    if (utilitiesState.lockZoom && !force) return;
+    final locks = runtime.viewCubit.state.locks;
+    if (locks.lockZoom && !force) return;
     if (force) {
       this.size(size, cursor);
       return;
@@ -547,17 +547,17 @@ class TransformCubit extends Cubit<CameraTransform> {
   }) {
     final settings = runtime.settingsCubit.state;
     if (!settings.hasFlag('smoothNavigation')) return;
-    final utilitiesState = runtime.viewCubit.state.utilities;
+    final locks = runtime.viewCubit.state.locks;
     Rect? bounds;
     var outOfBounds = false;
     if (!force) {
-      if (utilitiesState.lockHorizontal) {
+      if (locks.lockHorizontal) {
         positionVelocity = Offset(0, positionVelocity.dy);
       }
-      if (utilitiesState.lockVertical) {
+      if (locks.lockVertical) {
         positionVelocity = Offset(positionVelocity.dx, 0);
       }
-      if (utilitiesState.lockZoom) sizeVelocity = 0;
+      if (locks.lockZoom) sizeVelocity = 0;
 
       bounds = calculateViewportBounds(
         runtime: runtime,

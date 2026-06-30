@@ -59,11 +59,6 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     @Uint8ListJsonConverter() Uint8List data,
   ) = ThumbnailCaptured;
 
-  const factory DocumentEvent.viewChanged(ViewOption view) = ViewChanged;
-
-  const factory DocumentEvent.utilitiesChanged(UtilitiesState state) =
-      UtilitiesChanged;
-
   const factory DocumentEvent.elementsCreated(
     List<PadElement> elements, {
     @Uint8ListJsonConverter() @Default({}) Map<String, Uint8List> assets,
@@ -239,7 +234,6 @@ sealed class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     CurrentCollectionChanged _ => false,
     CurrentAreaChanged _ => false,
     LayerVisibilityChanged _ => false,
-    UtilitiesChanged _ => false,
     PresentationModeEntered _ => false,
     PresentationModeExited _ => false,
     PresentationTick _ => false,

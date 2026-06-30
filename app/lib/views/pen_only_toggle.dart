@@ -13,20 +13,29 @@ class PenOnlyToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(
-      buildWhen: (previous, current) =>
-          previous.runtimeType != current.runtimeType,
-      builder: (context, docState) =>
-          BlocBuilder<EditorInputCubit, EditorInputState>(
-            buildWhen: (previous, current) =>
-                previous.penDetected != current.penDetected ||
-                previous.hideUi != current.hideUi ||
-                previous.sessionPenOnlyInput != current.sessionPenOnlyInput,
+    return BlocSelector<DocumentBloc, DocumentState, bool>(
+      selector: (state) => state is DocumentLoadSuccess,
+      builder: (context, loaded) =>
+          BlocSelector<
+            EditorInputCubit,
+            EditorInputState,
+            ({HideState hideUi, bool penDetected, bool? sessionPenOnlyInput})
+          >(
+            selector: (state) => (
+              hideUi: state.hideUi,
+              penDetected: state.penDetected,
+              sessionPenOnlyInput: state.sessionPenOnlyInput,
+            ),
             builder: (context, inputState) =>
-                BlocBuilder<SettingsCubit, ButterflySettings>(
-                  buildWhen: (previous, current) =>
-                      previous.penOnlyInput != current.penOnlyInput ||
-                      previous.showPenOnlyToggle != current.showPenOnlyToggle,
+                BlocSelector<
+                  SettingsCubit,
+                  ButterflySettings,
+                  ({bool? penOnlyInput, bool showPenOnlyToggle})
+                >(
+                  selector: (state) => (
+                    penOnlyInput: state.penOnlyInput,
+                    showPenOnlyToggle: state.showPenOnlyToggle,
+                  ),
                   builder: (context, settings) {
                     // Don't show if:
                     // - No pen has been detected
@@ -36,7 +45,7 @@ class PenOnlyToggle extends StatelessWidget {
                     if (!inputState.penDetected ||
                         inputState.hideUi != HideState.visible ||
                         !settings.showPenOnlyToggle ||
-                        docState is! DocumentLoadSuccess) {
+                        !loaded) {
                       return const SizedBox.shrink();
                     }
 

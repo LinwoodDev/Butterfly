@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   EditorSessionCubit({
-    required this.fileSystem,
+    required this.repository,
     required TransformCubit transformCubit,
     required PersistedDocumentState initialState,
     required this.pathKey,
@@ -22,7 +22,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
   }
 
-  final DocumentStateFileSystem fileSystem;
+  final DocumentStateRepository repository;
   final TransformCubit _transformCubit;
   final String? pathKey;
   final String? contentHash;
@@ -30,31 +30,12 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _saveDebounce;
 
-  static Future<PersistedDocumentState?> load({
-    required DocumentStateFileSystem fileSystem,
-    String? contentHash,
-    String? pathKey,
-    bool allowContentHash = true,
-  }) async {
-    await fileSystem.initialize();
-    if (allowContentHash && contentHash != null) {
-      final byContent = await fileSystem.getFile(
-        documentStateContentKey(contentHash),
-      );
-      if (byContent != null) return byContent;
-    }
-    if (pathKey != null) {
-      return fileSystem.getFile(pathKey);
-    }
-    return null;
-  }
-
   static PersistedDocumentState buildInitial({
     PersistedDocumentState? restored,
     required NoteData document,
     required DocumentPage page,
     required String? fallbackPageName,
-    required UtilitiesState fallbackUtilities,
+    required PersistentLockState fallbackLocks,
     String? pathKey,
     String? contentHash,
   }) {
@@ -65,23 +46,24 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
         : fallbackPageName;
     final layers = page.layers.map((e) => e.id).nonNulls.toSet();
     final currentLayer =
-        restored?.currentLayer != null &&
-            restored!.currentLayer.isNotEmpty &&
-            layers.contains(restored.currentLayer)
-        ? restored.currentLayer
+        restored?.layers.currentLayer != null &&
+            restored!.layers.currentLayer.isNotEmpty &&
+            layers.contains(restored.layers.currentLayer)
+        ? restored.layers.currentLayer
         : page.layers.lastOrNull?.id ?? '';
     final invisibleLayers =
-        restored?.invisibleLayers.where(layers.contains).toSet() ??
+        restored?.layers.invisibleLayers.where(layers.contains).toSet() ??
         const <String>{};
-    return (restored ?? PersistedDocumentState(utilities: fallbackUtilities))
-        .copyWith(
-          pathKey: pathKey,
-          contentHash: contentHash,
-          pageName: pageName,
-          currentLayer: currentLayer,
-          invisibleLayers: invisibleLayers,
-          updatedAt: restored?.updatedAt,
-        );
+    return (restored ?? PersistedDocumentState(locks: fallbackLocks)).copyWith(
+      pathKey: pathKey,
+      contentHash: contentHash,
+      pageName: pageName,
+      layers: (restored?.layers ?? const PersistedLayerState()).copyWith(
+        currentLayer: currentLayer,
+        invisibleLayers: invisibleLayers,
+      ),
+      updatedAt: restored?.updatedAt,
+    );
   }
 
   CameraTransform get cameraTransform => CameraTransform(
@@ -105,7 +87,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
 
   NavigatorPage get navigatorPage =>
       NavigatorPage.values.firstWhereOrNull(
-        (e) => e.name == state.navigatorPage,
+        (e) => e.name == state.navigator.page,
       ) ??
       NavigatorPage.waypoints;
 
@@ -126,9 +108,9 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     unawaited(saveNow());
   }
 
-  void updateUtilities(UtilitiesState utilities) {
-    if (state.utilities == utilities) return;
-    emit(state.copyWith(utilities: utilities));
+  void updateLocks(PersistentLockState locks) {
+    if (state.locks == locks) return;
+    emit(state.copyWith(locks: locks));
     unawaited(saveNow());
   }
 
@@ -144,8 +126,10 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
 
   void updateNavigator({bool? enabled, NavigatorPage? page}) {
     final next = state.copyWith(
-      navigatorEnabled: enabled ?? state.navigatorEnabled,
-      navigatorPage: page?.name ?? state.navigatorPage,
+      navigator: state.navigator.copyWith(
+        enabled: enabled ?? state.navigator.enabled,
+        page: page?.name ?? state.navigator.page,
+      ),
     );
     if (next == state) return;
     emit(next);
@@ -158,9 +142,11 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     Set<String>? invisibleLayers,
   }) {
     final next = state.copyWith(
-      currentLayer: currentLayer ?? state.currentLayer,
-      currentCollection: currentCollection ?? state.currentCollection,
-      invisibleLayers: invisibleLayers ?? state.invisibleLayers,
+      layers: state.layers.copyWith(
+        currentLayer: currentLayer ?? state.layers.currentLayer,
+        currentCollection: currentCollection ?? state.layers.currentCollection,
+        invisibleLayers: invisibleLayers ?? state.layers.invisibleLayers,
+      ),
     );
     if (next == state) return;
     emit(next);
@@ -169,9 +155,11 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
 
   void updateAreaNavigator({bool? create, bool? exact, bool? ask}) {
     final next = state.copyWith(
-      areaNavigatorCreate: create ?? state.areaNavigatorCreate,
-      areaNavigatorExact: exact ?? state.areaNavigatorExact,
-      areaNavigatorAsk: ask ?? state.areaNavigatorAsk,
+      areaNavigator: state.areaNavigator.copyWith(
+        create: create ?? state.areaNavigator.create,
+        exact: exact ?? state.areaNavigator.exact,
+        ask: ask ?? state.areaNavigator.ask,
+      ),
     );
     if (next == state) return;
     emit(next);
@@ -191,22 +179,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     _saveDebounce = null;
     final next = state.touch(pathKey: pathKey, contentHash: contentHash);
     emit(next);
-    await fileSystem.initialize();
-    if (contentHash != null) {
-      final key = documentStateContentKey(contentHash!);
-      if (await fileSystem.hasKey(key)) {
-        await fileSystem.updateFile(key, next);
-      } else {
-        await fileSystem.createFile(key, next);
-      }
-    }
-    if (pathKey != null) {
-      if (await fileSystem.hasKey(pathKey!)) {
-        await fileSystem.updateFile(pathKey!, next);
-      } else {
-        await fileSystem.createFile(pathKey!, next);
-      }
-    }
+    await repository.save(next, contentHash: contentHash, pathKey: pathKey);
   }
 
   @override

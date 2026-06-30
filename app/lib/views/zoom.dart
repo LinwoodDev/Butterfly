@@ -97,129 +97,131 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(
-      buildWhen: (previous, current) =>
-          previous.runtimeType != current.runtimeType,
-      builder: (context, state) => BlocBuilder<WindowCubit, WindowState>(
-        builder: (context, windowState) =>
-            BlocBuilder<SettingsCubit, ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.zoomEnabled != current.zoomEnabled,
-              builder: (context, settings) =>
-                  BlocBuilder<TransformCubit, CameraTransform>(
-                    buildWhen: (previous, current) =>
-                        previous.size != current.size,
-                    builder: (context, transform) {
-                      var scale = transform.size;
-                      final editorController = context.read<EditorController>();
-                      final hideZoom =
-                          !settings.zoomEnabled ||
-                          windowState.fullScreen ||
-                          editorController.inputCubit.state.hideUi !=
-                              HideState.visible;
+    return BlocSelector<DocumentBloc, DocumentState, bool>(
+      selector: (state) => state is DocumentLoadSuccess,
+      builder: (context, loaded) =>
+          BlocSelector<WindowCubit, WindowState, bool>(
+            selector: (state) => state.fullScreen,
+            builder: (context, fullScreen) =>
+                BlocSelector<SettingsCubit, ButterflySettings, bool>(
+                  selector: (state) => state.zoomEnabled,
+                  builder: (context, zoomEnabled) =>
+                      BlocSelector<TransformCubit, CameraTransform, double>(
+                        selector: (state) => state.size,
+                        builder: (context, transformSize) {
+                          var scale = transformSize;
+                          final editorController = context
+                              .read<EditorController>();
+                          final hideZoom =
+                              !zoomEnabled ||
+                              fullScreen ||
+                              editorController.inputCubit.state.hideUi !=
+                                  HideState.visible;
 
-                      final body = StatefulBuilder(
-                        builder: (context, setState) {
-                          final text = (scale * 100).toStringAsFixed(0);
-                          if (text != _zoomController.text) {
-                            _zoomController.text = text;
-                          }
-                          return LayoutBuilder(
-                            builder: (context, constraints) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 75,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      controller: _zoomController,
-                                      keyboardType: TextInputType.number,
-                                      focusNode: _focusNode,
-                                      onChanged: (value) {
-                                        setState(
-                                          () => scale =
-                                              (parseDoubleInput(value) ??
-                                                  (scale * 100)) /
-                                              100,
-                                        );
-                                      },
-                                      onEditingComplete: () => _zoom(scale),
-                                      onTapOutside: (event) {
-                                        if (!_focusNode.hasFocus) return;
-                                        _zoom(scale);
-                                        _focusNode.unfocus();
-                                      },
-                                      onFieldSubmitted: (value) => _zoom(scale),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Tooltip(
-                                    message: AppLocalizations.of(
-                                      context,
-                                    ).resetZoom,
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        PhosphorIconsLight
-                                            .clockCounterClockwise,
-                                      ),
-                                      onPressed: () {
-                                        _zoom(1.0);
-                                      },
-                                    ),
-                                  ),
-                                  if (!widget.isMobile) ...[
-                                    if (constraints.maxWidth > 200)
-                                      Flexible(
-                                        child: Slider(
-                                          value: scale.clamp(kMinZoom, 10),
-                                          min: kMinZoom,
-                                          max: 10,
-                                          onChanged: (value) =>
-                                              _zoom(value, false),
-                                          onChangeEnd: _zoom,
+                          final body = StatefulBuilder(
+                            builder: (context, setState) {
+                              final text = (scale * 100).toStringAsFixed(0);
+                              if (text != _zoomController.text) {
+                                _zoomController.text = text;
+                              }
+                              return LayoutBuilder(
+                                builder: (context, constraints) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 75,
+                                        child: TextFormField(
+                                          textAlign: TextAlign.center,
+                                          controller: _zoomController,
+                                          keyboardType: TextInputType.number,
+                                          focusNode: _focusNode,
+                                          onChanged: (value) {
+                                            setState(
+                                              () => scale =
+                                                  (parseDoubleInput(value) ??
+                                                      (scale * 100)) /
+                                                  100,
+                                            );
+                                          },
+                                          onEditingComplete: () => _zoom(scale),
+                                          onTapOutside: (event) {
+                                            if (!_focusNode.hasFocus) return;
+                                            _zoom(scale);
+                                            _focusNode.unfocus();
+                                          },
+                                          onFieldSubmitted: (value) =>
+                                              _zoom(scale),
                                         ),
                                       ),
-                                  ],
-                                ],
+                                      const SizedBox(width: 8),
+                                      Tooltip(
+                                        message: AppLocalizations.of(
+                                          context,
+                                        ).resetZoom,
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            PhosphorIconsLight
+                                                .clockCounterClockwise,
+                                          ),
+                                          onPressed: () {
+                                            _zoom(1.0);
+                                          },
+                                        ),
+                                      ),
+                                      if (!widget.isMobile) ...[
+                                        if (constraints.maxWidth > 200)
+                                          Flexible(
+                                            child: Slider(
+                                              value: scale.clamp(kMinZoom, 10),
+                                              min: kMinZoom,
+                                              max: 10,
+                                              onChanged: (value) =>
+                                                  _zoom(value, false),
+                                              onChangeEnd: _zoom,
+                                            ),
+                                          ),
+                                      ],
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          );
+
+                          if ((!_focusNode.hasFocus && widget.isMobile) ||
+                              hideZoom) {
+                            _controller.reverse();
+                          } else {
+                            _controller.forward();
+                          }
+                          return AnimatedBuilder(
+                            animation: _animation,
+                            child: body,
+                            builder: (context, child) {
+                              if (_animation.value == 0 || !loaded) {
+                                return const SizedBox();
+                              }
+                              return ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minWidth: 400,
+                                ),
+                                child: Opacity(
+                                  opacity: _animation.value,
+                                  child: Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: child,
+                                    ),
+                                  ),
+                                ),
                               );
                             },
                           );
                         },
-                      );
-
-                      if ((!_focusNode.hasFocus && widget.isMobile) ||
-                          hideZoom) {
-                        _controller.reverse();
-                      } else {
-                        _controller.forward();
-                      }
-                      return AnimatedBuilder(
-                        animation: _animation,
-                        child: body,
-                        builder: (context, child) {
-                          if (_animation.value == 0 ||
-                              state is! DocumentLoadSuccess) {
-                            return const SizedBox();
-                          }
-                          return ConstrainedBox(
-                            constraints: const BoxConstraints(minWidth: 400),
-                            child: Opacity(
-                              opacity: _animation.value,
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: child,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-            ),
-      ),
+                      ),
+                ),
+          ),
     );
   }
 }
