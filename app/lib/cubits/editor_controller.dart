@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/editor_runtime.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/renderers/cursors/user.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/network.dart';
@@ -80,18 +81,18 @@ class EditorController implements EditorRuntimeContext {
        viewCubit = EditorViewCubit(
          editorSessionCubit: editorSessionCubit,
          initial: EditorViewState(
-           utilities:
-               editorSessionCubit?.state.utilities ?? const UtilitiesState(),
+           locks:
+               editorSessionCubit?.state.locks ?? const PersistentLockState(),
            navigatorEnabled:
-               editorSessionCubit?.state.navigatorEnabled ?? false,
+               editorSessionCubit?.state.navigator.enabled ?? false,
            navigatorPage:
                editorSessionCubit?.navigatorPage ?? NavigatorPage.waypoints,
            areaNavigatorCreate:
-               editorSessionCubit?.state.areaNavigatorCreate ?? true,
+               editorSessionCubit?.state.areaNavigator.create ?? true,
            areaNavigatorExact:
-               editorSessionCubit?.state.areaNavigatorExact ?? true,
+               editorSessionCubit?.state.areaNavigator.exact ?? true,
            areaNavigatorAsk:
-               editorSessionCubit?.state.areaNavigatorAsk ?? false,
+               editorSessionCubit?.state.areaNavigator.ask ?? false,
          ),
        ) {
     rendererCubit.bindController(this);

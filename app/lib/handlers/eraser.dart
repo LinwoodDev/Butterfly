@@ -97,7 +97,7 @@ class EraserHandler extends Handler<EraserTool> {
   Future<void> _eraseAt(Offset position, EventContext context) async {
     final cubit = context.getEditorController();
     final transform = cubit.transformCubit.state;
-    final utilities = cubit.viewCubit.state.utilities;
+    final locks = cubit.viewCubit.state.locks;
     final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final sizeSquared = size * size;
@@ -112,8 +112,8 @@ class EraserHandler extends Handler<EraserTool> {
       final ray = await context.getDocumentBloc().rayCast(
         globalPos,
         size,
-        useCollection: utilities.lockCollection,
-        useLayer: utilities.lockLayer,
+        useCollection: locks.lockCollection,
+        useLayer: locks.lockLayer,
         hitElementMode: data.hitElementMode,
       );
       var elements = ray.map((e) => e.element);

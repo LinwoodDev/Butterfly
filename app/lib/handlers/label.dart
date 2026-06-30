@@ -193,14 +193,14 @@ class LabelHandler extends Handler<LabelTool>
     final style = theme.textTheme.bodyLarge!;
     if (!hit || forceCreate || _context?.element == null) {
       if (_context?.element != null && !hit) _submit(context.getDocumentBloc());
-      final utilities = context.getViewState().utilities;
+      final locks = context.getViewState().locks;
       final hits = forceCreate
           ? <Renderer<PadElement>>{}
           : await context.getDocumentBloc().rayCast(
               globalPos,
               0.0,
-              useCollection: utilities.lockCollection,
-              useLayer: utilities.lockLayer,
+              useCollection: locks.lockCollection,
+              useLayer: locks.lockLayer,
             );
       final labelRenderer = hits
           .whereType<Renderer<LabelElement>>()

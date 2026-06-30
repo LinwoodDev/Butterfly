@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/editor_session.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -22,17 +23,21 @@ void main() {
           positionY: 20,
           zoom: 2,
         ),
-        utilities: const UtilitiesState(lockZoom: true),
+        locks: const PersistentLockState(lockZoom: true),
         selectedTool: const PersistedToolSelection(
           toolId: 'tool-a',
           toolIndex: 3,
         ),
-        navigatorEnabled: true,
-        navigatorPage: NavigatorPage.layers.name,
-        currentLayer: 'layer-a',
-        currentCollection: 'collection-a',
-        invisibleLayers: {'hidden-a'},
-        areaNavigatorCreate: false,
+        navigator: PersistedNavigatorState(
+          enabled: true,
+          page: NavigatorPage.layers.name,
+        ),
+        layers: const PersistedLayerState(
+          currentLayer: 'layer-a',
+          currentCollection: 'collection-a',
+          invisibleLayers: {'hidden-a'},
+        ),
+        areaNavigator: const PersistedAreaNavigatorState(create: false),
         updatedAt: DateTime.utc(2026),
       );
 
@@ -48,8 +53,8 @@ void main() {
 
       expect(state.version, kPersistedDocumentStateVersion);
       expect(state.camera.zoom, 1);
-      expect(state.utilities, const UtilitiesState());
-      expect(state.navigatorPage, NavigatorPage.waypoints.name);
+      expect(state.locks, const PersistentLockState());
+      expect(state.navigator.page, NavigatorPage.waypoints.name);
     });
   });
 
@@ -67,11 +72,9 @@ void main() {
       await fileSystem.createFile(documentStateContentKey('hash-a'), byContent);
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await EditorSessionCubit.load(
-        fileSystem: fileSystem,
-        contentHash: 'hash-a',
-        pathKey: 'path/a',
-      );
+      final loaded = await DocumentStateRepository(
+        fileSystem,
+      ).load(contentHash: 'hash-a', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Content Page');
     });
@@ -81,21 +84,17 @@ void main() {
       await fileSystem.initialize();
       await fileSystem.createFile('path/a', byPath);
 
-      final loaded = await EditorSessionCubit.load(
-        fileSystem: fileSystem,
-        contentHash: 'missing',
-        pathKey: 'path/a',
-      );
+      final loaded = await DocumentStateRepository(
+        fileSystem,
+      ).load(contentHash: 'missing', pathKey: 'path/a');
 
       expect(loaded?.pageName, 'Path Page');
     });
 
     test('returns null when no fingerprints match', () async {
-      final loaded = await EditorSessionCubit.load(
-        fileSystem: fileSystem,
-        contentHash: 'missing',
-        pathKey: 'path/missing',
-      );
+      final loaded = await DocumentStateRepository(
+        fileSystem,
+      ).load(contentHash: 'missing', pathKey: 'path/missing');
 
       expect(loaded, isNull);
     });
@@ -103,7 +102,7 @@ void main() {
     test('writes session state to content and path keys', () async {
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        fileSystem: fileSystem,
+        repository: DocumentStateRepository(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/a',
@@ -116,7 +115,7 @@ void main() {
       expect(
         (await fileSystem.getFile(
           documentStateContentKey('hash-a'),
-        ))?.navigatorPage,
+        ))?.navigator.page,
         NavigatorPage.layers.name,
       );
       final contentRecord = await fileSystem.getFile(
@@ -127,7 +126,7 @@ void main() {
       expect(contentRecord?.contentHash, 'hash-a');
       expect(pathRecord?.pathKey, 'path/a');
       expect(pathRecord?.contentHash, 'hash-a');
-      expect(pathRecord?.navigatorEnabled, isTrue);
+      expect(pathRecord?.navigator.enabled, isTrue);
 
       await cubit.close();
       await transformCubit.close();
@@ -141,7 +140,7 @@ void main() {
 
       final transformCubit = TransformCubit(1);
       final cubit = EditorSessionCubit(
-        fileSystem: fileSystem,
+        repository: DocumentStateRepository(fileSystem),
         transformCubit: transformCubit,
         initialState: const PersistedDocumentState(pageName: 'Page 1'),
         pathKey: 'path/test',

@@ -3,8 +3,7 @@ part of 'editor_runtime.dart';
 @freezed
 sealed class EditorViewState with _$EditorViewState {
   const factory EditorViewState({
-    @Default(UtilitiesState()) UtilitiesState utilities,
-    @Default(ViewOption()) ViewOption viewOption,
+    @Default(PersistentLockState()) PersistentLockState locks,
     @Default(true) bool areaNavigatorCreate,
     @Default(true) bool areaNavigatorExact,
     @Default(false) bool areaNavigatorAsk,
@@ -35,15 +34,10 @@ class EditorViewCubit extends Cubit<EditorViewState> {
 
   void replace(EditorViewState state) => emit(state);
 
-  void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
-    emit(
-      state.copyWith(
-        utilities: utilities ?? state.utilities,
-        viewOption: view ?? state.viewOption,
-      ),
-    );
-    if (utilities != null) {
-      editorSessionCubit?.updateUtilities(utilities);
+  void updateLocks({PersistentLockState? locks}) {
+    emit(state.copyWith(locks: locks ?? state.locks));
+    if (locks != null) {
+      editorSessionCubit?.updateLocks(locks);
     }
   }
 

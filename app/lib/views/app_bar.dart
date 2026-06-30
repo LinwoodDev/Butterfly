@@ -34,7 +34,9 @@ import '../actions/save.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../embed/action.dart';
+import '../embed/embedding.dart';
 import 'navigator/view.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
@@ -491,24 +493,35 @@ class MainPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<EditorController>();
     final windowCubit = context.read<WindowCubit>();
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-      buildWhen: (previous, current) =>
-          previous.navigationRail != current.navigationRail ||
-          previous.flags != current.flags,
+    return BlocSelector<
+      SettingsCubit,
+      ButterflySettings,
+      ({bool collaboration, List<AssetLocation> history, bool navigationRail})
+    >(
+      selector: (state) => (
+        collaboration: state.hasFlag('collaboration'),
+        history: state.history,
+        navigationRail: state.navigationRail,
+      ),
       builder: (context, settings) {
-        return BlocBuilder<WindowCubit, WindowState>(
-          buildWhen: (previous, current) =>
-              previous.fullScreen != current.fullScreen,
-          builder: (context, windowState) {
-            return BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
-              buildWhen: (previous, current) =>
-                  previous.embedding != current.embedding ||
-                  previous.saved != current.saved,
+        return BlocSelector<WindowCubit, WindowState, bool>(
+          selector: (state) => state.fullScreen,
+          builder: (context, fullScreen) {
+            return BlocSelector<
+              DocumentSaveCubit,
+              DocumentSaveState,
+              ({Embedding? embedding, SaveState saved})
+            >(
+              selector: (state) =>
+                  (embedding: state.embedding, saved: state.saved),
               builder: (context, saveState) {
-                return BlocBuilder<EditorInputCubit, EditorInputState>(
-                  buildWhen: (previous, current) =>
-                      previous.hideUi != current.hideUi,
-                  builder: (context, inputState) {
+                return BlocSelector<
+                  EditorInputCubit,
+                  EditorInputState,
+                  HideState
+                >(
+                  selector: (state) => state.hideUi,
+                  builder: (context, hideUi) {
                     final size = MediaQuery.sizeOf(context);
                     final navigatorRailEnabled =
                         settings.navigationRail || saveState.embedding != null;
@@ -516,8 +529,8 @@ class MainPopupMenu extends StatelessWidget {
                         MediaQuery.sizeOf(context).width <
                             LeapBreakpoints.expanded ||
                         !navigatorRailEnabled ||
-                        windowState.fullScreen ||
-                        inputState.hideUi != HideState.visible;
+                        fullScreen ||
+                        hideUi != HideState.visible;
                     return MenuAnchor(
                       menuChildren: [
                         if (showNavigatorDialog)
@@ -824,7 +837,7 @@ class MainPopupMenu extends StatelessWidget {
                           ),
                         ],
                         if (saveState.embedding == null &&
-                            settings.hasFlag('collaboration'))
+                            settings.collaboration)
                           BlocBuilder<NetworkingService, NetworkState?>(
                             bloc: context
                                 .read<EditorController>()

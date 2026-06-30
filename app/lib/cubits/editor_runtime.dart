@@ -17,6 +17,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/helpers/xml.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/view_painter.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';

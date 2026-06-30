@@ -19,9 +19,6 @@ _DocumentInfo _$DocumentInfoFromJson(Map json) => _DocumentInfo(
           )
           .toList() ??
       const [],
-  view: json['view'] == null
-      ? const ViewOption()
-      : ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
   extra:
       (json['extra'] as Map?)?.map((k, e) => MapEntry(k as String, e)) ??
       const {},
@@ -31,6 +28,5 @@ Map<String, dynamic> _$DocumentInfoToJson(_DocumentInfo instance) =>
     <String, dynamic>{
       'tools': instance.tools.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
-      'view': instance.view.toJson(),
       'extra': instance.extra,
     };

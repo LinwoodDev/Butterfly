@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/dialogs/import/add.dart';
+import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';
@@ -445,10 +446,10 @@ class _EditToolbarState extends State<EditToolbar> {
                       ),
                       BlocBuilder<EditorViewCubit, EditorViewState>(
                         builder: (context, viewState) {
-                          final utilitiesState = viewState.utilities;
+                          final locks = viewState.locks;
                           Widget buildButton(
                             bool selected,
-                            UtilitiesState Function() update,
+                            PersistentLockState Function() update,
                             PhosphorIconData icon,
                             String title,
                           ) => CheckboxMenuButton(
@@ -456,50 +457,45 @@ class _EditToolbarState extends State<EditToolbar> {
                             trailingIcon: PhosphorIcon(icon),
                             onChanged: (value) => context
                                 .read<EditorViewCubit>()
-                                .updateUtilities(utilities: update()),
+                                .updateLocks(locks: update()),
                             child: Text(title),
                           );
 
                           return MenuAnchor(
                             menuChildren: [
                               buildButton(
-                                utilitiesState.lockCollection,
-                                () => utilitiesState.copyWith(
-                                  lockCollection:
-                                      !utilitiesState.lockCollection,
+                                locks.lockCollection,
+                                () => locks.copyWith(
+                                  lockCollection: !locks.lockCollection,
                                 ),
                                 PhosphorIconsLight.folder,
                                 AppLocalizations.of(context).collection,
                               ),
                               buildButton(
-                                utilitiesState.lockLayer,
-                                () => utilitiesState.copyWith(
-                                  lockLayer: !utilitiesState.lockLayer,
-                                ),
+                                locks.lockLayer,
+                                () =>
+                                    locks.copyWith(lockLayer: !locks.lockLayer),
                                 PhosphorIconsLight.folder,
                                 AppLocalizations.of(context).layer,
                               ),
                               buildButton(
-                                utilitiesState.lockZoom,
-                                () => utilitiesState.copyWith(
-                                  lockZoom: !utilitiesState.lockZoom,
-                                ),
+                                locks.lockZoom,
+                                () => locks.copyWith(lockZoom: !locks.lockZoom),
                                 PhosphorIconsLight.magnifyingGlassPlus,
                                 AppLocalizations.of(context).zoom,
                               ),
                               buildButton(
-                                utilitiesState.lockHorizontal,
-                                () => utilitiesState.copyWith(
-                                  lockHorizontal:
-                                      !utilitiesState.lockHorizontal,
+                                locks.lockHorizontal,
+                                () => locks.copyWith(
+                                  lockHorizontal: !locks.lockHorizontal,
                                 ),
                                 PhosphorIconsLight.arrowsHorizontal,
                                 AppLocalizations.of(context).horizontal,
                               ),
                               buildButton(
-                                utilitiesState.lockVertical,
-                                () => utilitiesState.copyWith(
-                                  lockVertical: !utilitiesState.lockVertical,
+                                locks.lockVertical,
+                                () => locks.copyWith(
+                                  lockVertical: !locks.lockVertical,
                                 ),
                                 PhosphorIconsLight.arrowsVertical,
                                 AppLocalizations.of(context).vertical,

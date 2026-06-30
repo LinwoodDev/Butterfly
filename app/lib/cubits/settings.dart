@@ -495,7 +495,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool delayedAutosave,
     @Default(3) int autosaveDelaySeconds,
     @Default(false) bool hideCursorWhileDrawing,
-    @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
     @Default(SimpleToolbarVisibility.show)
     SimpleToolbarVisibility simpleToolbarVisibility,
@@ -679,11 +678,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
               NavigatorPosition.left,
             )
           : NavigatorPosition.left,
-      utilities: prefs.containsKey('utilities')
-          ? UtilitiesState.fromJson(
-              _decodeJsonMapOrEmpty(prefs.getString('utilities')),
-            )
-          : const UtilitiesState(),
       onStartup: prefs.containsKey('on_startup')
           ? _enumByNameOr(
               StartupBehavior.values,
@@ -844,7 +838,6 @@ sealed class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setInt('toolbar_rows', toolbarRows);
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
     await prefs.setString('navigator_position', navigatorPosition.name);
-    await prefs.setString('utilities', json.encode(utilities.toJson()));
     await prefs.setString('on_startup', onStartup.name);
     await prefs.setString(
       'simple_toolbar_visibility',
@@ -1510,11 +1503,6 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeNavigatorPosition(NavigatorPosition value) {
     emit(state.copyWith(navigatorPosition: value));
-    return save();
-  }
-
-  Future<void> changeUtilities(UtilitiesState utilities) {
-    emit(state.copyWith(utilities: utilities));
     return save();
   }
 

@@ -209,11 +209,6 @@ _ButterflySettings _$ButterflySettingsFromJson(Map json) => _ButterflySettings(
   delayedAutosave: json['delayedAutosave'] as bool? ?? true,
   autosaveDelaySeconds: (json['autosaveDelaySeconds'] as num?)?.toInt() ?? 3,
   hideCursorWhileDrawing: json['hideCursorWhileDrawing'] as bool? ?? false,
-  utilities: json['utilities'] == null
-      ? const UtilitiesState()
-      : UtilitiesState.fromJson(
-          Map<String, dynamic>.from(json['utilities'] as Map),
-        ),
   onStartup:
       $enumDecodeNullable(_$StartupBehaviorEnumMap, json['onStartup']) ??
       StartupBehavior.openHomeScreen,
@@ -314,7 +309,6 @@ Map<String, dynamic> _$ButterflySettingsToJson(
   'delayedAutosave': instance.delayedAutosave,
   'autosaveDelaySeconds': instance.autosaveDelaySeconds,
   'hideCursorWhileDrawing': instance.hideCursorWhileDrawing,
-  'utilities': instance.utilities.toJson(),
   'onStartup': _$StartupBehaviorEnumMap[instance.onStartup]!,
   'simpleToolbarVisibility':
       _$SimpleToolbarVisibilityEnumMap[instance.simpleToolbarVisibility]!,

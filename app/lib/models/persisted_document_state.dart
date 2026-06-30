@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:crypto/crypto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -63,6 +62,88 @@ sealed class PersistedCameraState with _$PersistedCameraState {
 }
 
 @freezed
+sealed class PersistentLockState with _$PersistentLockState {
+  const PersistentLockState._();
+
+  const factory PersistentLockState({
+    @Default(false) bool lockCollection,
+    @Default(false) bool lockLayer,
+    @Default(false) bool lockZoom,
+    @Default(false) bool lockHorizontal,
+    @Default(false) bool lockVertical,
+  }) = _PersistentLockState;
+
+  factory PersistentLockState.fromJson(Map<String, dynamic> json) =>
+      _$PersistentLockStateFromJson(json);
+}
+
+@freezed
+sealed class PersistedNavigatorState with _$PersistedNavigatorState {
+  const factory PersistedNavigatorState({
+    @Default(false) bool enabled,
+    @Default('waypoints') String page,
+  }) = _PersistedNavigatorState;
+
+  factory PersistedNavigatorState.fromJson(Map<String, dynamic> json) =>
+      _$PersistedNavigatorStateFromJson(json);
+}
+
+@freezed
+sealed class PersistedLayerState with _$PersistedLayerState {
+  const factory PersistedLayerState({
+    @Default('') String currentLayer,
+    @Default('') String currentCollection,
+    @Default({}) Set<String> invisibleLayers,
+  }) = _PersistedLayerState;
+
+  factory PersistedLayerState.fromJson(Map<String, dynamic> json) =>
+      _$PersistedLayerStateFromJson(json);
+}
+
+@freezed
+sealed class PersistedAreaNavigatorState with _$PersistedAreaNavigatorState {
+  const factory PersistedAreaNavigatorState({
+    @Default(true) bool create,
+    @Default(true) bool exact,
+    @Default(false) bool ask,
+  }) = _PersistedAreaNavigatorState;
+
+  factory PersistedAreaNavigatorState.fromJson(Map<String, dynamic> json) =>
+      _$PersistedAreaNavigatorStateFromJson(json);
+}
+
+Object? _readLocks(Map json, String key) => json[key] ?? json['utilities'];
+
+Object? _readNavigator(Map json, String key) =>
+    json[key] ??
+    <String, dynamic>{
+      if (json.containsKey('navigatorEnabled'))
+        'enabled': json['navigatorEnabled'],
+      if (json.containsKey('navigatorPage')) 'page': json['navigatorPage'],
+    };
+
+Object? _readLayers(Map json, String key) =>
+    json[key] ??
+    <String, dynamic>{
+      if (json.containsKey('currentLayer'))
+        'currentLayer': json['currentLayer'],
+      if (json.containsKey('currentCollection'))
+        'currentCollection': json['currentCollection'],
+      if (json.containsKey('invisibleLayers'))
+        'invisibleLayers': json['invisibleLayers'],
+    };
+
+Object? _readAreaNavigator(Map json, String key) =>
+    json[key] ??
+    <String, dynamic>{
+      if (json.containsKey('areaNavigatorCreate'))
+        'create': json['areaNavigatorCreate'],
+      if (json.containsKey('areaNavigatorExact'))
+        'exact': json['areaNavigatorExact'],
+      if (json.containsKey('areaNavigatorAsk')) 'ask': json['areaNavigatorAsk'],
+    };
+
+@freezed
 sealed class PersistedDocumentState with _$PersistedDocumentState {
   const PersistedDocumentState._();
 
@@ -72,16 +153,19 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
     String? contentHash,
     String? pageName,
     @Default(PersistedCameraState()) PersistedCameraState camera,
-    @Default(UtilitiesState()) UtilitiesState utilities,
+    @JsonKey(readValue: _readLocks)
+    @Default(PersistentLockState())
+    PersistentLockState locks,
     @Default(PersistedToolSelection()) PersistedToolSelection selectedTool,
-    @Default(false) bool navigatorEnabled,
-    @Default('waypoints') String navigatorPage,
-    @Default('') String currentLayer,
-    @Default('') String currentCollection,
-    @Default({}) Set<String> invisibleLayers,
-    @Default(true) bool areaNavigatorCreate,
-    @Default(true) bool areaNavigatorExact,
-    @Default(false) bool areaNavigatorAsk,
+    @JsonKey(readValue: _readNavigator)
+    @Default(PersistedNavigatorState())
+    PersistedNavigatorState navigator,
+    @JsonKey(readValue: _readLayers)
+    @Default(PersistedLayerState())
+    PersistedLayerState layers,
+    @JsonKey(readValue: _readAreaNavigator)
+    @Default(PersistedAreaNavigatorState())
+    PersistedAreaNavigatorState areaNavigator,
     DateTime? updatedAt,
   }) = _PersistedDocumentState;
 

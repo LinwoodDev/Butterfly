@@ -13,6 +13,7 @@ import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
@@ -340,9 +341,10 @@ class _ProjectPageState extends State<ProjectPage> {
       final contentHash = loadedDocumentBytes == null
           ? null
           : documentStateContentHash(loadedDocumentBytes);
-      final documentStateSystem = fileSystem.buildDocumentStateSystem(remote);
-      final restoredSession = await EditorSessionCubit.load(
-        fileSystem: documentStateSystem,
+      final documentStateRepository = DocumentStateRepository(
+        fileSystem.buildDocumentStateSystem(remote),
+      );
+      final restoredSession = await documentStateRepository.load(
         contentHash: contentHash,
         pathKey: pathKey,
         allowContentHash: loadedDocumentBytes != null,
@@ -361,7 +363,7 @@ class _ProjectPageState extends State<ProjectPage> {
         document: document,
         page: page,
         fallbackPageName: pageName,
-        fallbackUtilities: settingsCubit.state.utilities,
+        fallbackLocks: const PersistentLockState(),
         pathKey: pathKey,
         contentHash: contentHash,
       );
@@ -382,7 +384,7 @@ class _ProjectPageState extends State<ProjectPage> {
         initialSession.camera.zoom,
       );
       final editorSessionCubit = EditorSessionCubit(
-        fileSystem: documentStateSystem,
+        repository: documentStateRepository,
         transformCubit: transformCubit,
         initialState: initialSession,
         pathKey: pathKey,
@@ -439,11 +441,11 @@ class _ProjectPageState extends State<ProjectPage> {
         page,
         pageName,
         false,
-        initialSession.currentLayer.isEmpty
+        initialSession.layers.currentLayer.isEmpty
             ? null
-            : initialSession.currentLayer,
-        initialSession.currentCollection,
-        initialSession.invisibleLayers,
+            : initialSession.layers.currentLayer,
+        initialSession.layers.currentCollection,
+        initialSession.layers.invisibleLayers,
       );
       final isImportedDocument =
           documentOpened && !(location.fileType?.isNote() ?? false);
@@ -559,24 +561,31 @@ class _ProjectPageState extends State<ProjectPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
               },
-              child: BlocBuilder<WindowCubit, WindowState>(
-                builder: (context, windowState) =>
-                    BlocBuilder<EditorInputCubit, EditorInputState>(
-                      buildWhen: (previous, current) =>
-                          previous.hideUi != current.hideUi,
-                      builder: (context, inputState) =>
-                          BlocBuilder<DocumentSaveCubit, DocumentSaveState>(
-                            buildWhen: (previous, current) =>
-                                previous.embedding?.editable !=
-                                    current.embedding?.editable ||
-                                previous.embedding?.isInternal !=
-                                    current.embedding?.isInternal,
+              child: BlocSelector<WindowCubit, WindowState, bool>(
+                selector: (state) => state.fullScreen,
+                builder: (context, fullScreen) =>
+                    BlocSelector<EditorInputCubit, EditorInputState, HideState>(
+                      selector: (state) => state.hideUi,
+                      builder: (context, hideUi) =>
+                          BlocSelector<
+                            DocumentSaveCubit,
+                            DocumentSaveState,
+                            ({bool editable, bool inView})
+                          >(
+                            selector: (state) => (
+                              editable: state.embedding?.editable != false,
+                              inView: state.embedding?.isInternal ?? false,
+                            ),
                             builder: (context, saveState) =>
-                                BlocBuilder<SettingsCubit, ButterflySettings>(
-                                  buildWhen: (previous, current) =>
-                                      previous.toolbarSize !=
-                                          current.toolbarSize ||
-                                      previous.isInline != current.isInline,
+                                BlocSelector<
+                                  SettingsCubit,
+                                  ButterflySettings,
+                                  ({bool isInline, ToolbarSize toolbarSize})
+                                >(
+                                  selector: (state) => (
+                                    isInline: state.isInline,
+                                    toolbarSize: state.toolbarSize,
+                                  ),
                                   builder: (context, settings) {
                                     final actions = _buildActions(context);
 
@@ -600,9 +609,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                           child: Scaffold(
                                             appBar:
                                                 state is DocumentPresentationState ||
-                                                    windowState.fullScreen ||
-                                                    inputState.hideUi !=
-                                                        HideState.visible
+                                                    fullScreen ||
+                                                    hideUi != HideState.visible
                                                 ? null
                                                 : PadAppBar(
                                                     viewportKey: _viewportKey,
@@ -614,17 +622,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         Directionality.of(
                                                           context,
                                                         ),
-                                                    inView:
-                                                        saveState
-                                                            .embedding
-                                                            ?.isInternal ??
-                                                        false,
+                                                    inView: saveState.inView,
                                                     showTools:
                                                         settings.isInline &&
-                                                        saveState
-                                                                .embedding
-                                                                ?.editable !=
-                                                            false,
+                                                        saveState.editable,
                                                   ),
                                             body: const _MainBody(),
                                           ),

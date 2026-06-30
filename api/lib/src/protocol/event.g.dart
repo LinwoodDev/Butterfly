@@ -107,22 +107,6 @@ Map<String, dynamic> _$ThumbnailCapturedToJson(ThumbnailCaptured instance) =>
       'type': instance.$type,
     };
 
-ViewChanged _$ViewChangedFromJson(Map json) => ViewChanged(
-  ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
-  $type: json['type'] as String?,
-);
-
-Map<String, dynamic> _$ViewChangedToJson(ViewChanged instance) =>
-    <String, dynamic>{'view': instance.view.toJson(), 'type': instance.$type};
-
-UtilitiesChanged _$UtilitiesChangedFromJson(Map json) => UtilitiesChanged(
-  UtilitiesState.fromJson(Map<String, dynamic>.from(json['state'] as Map)),
-  $type: json['type'] as String?,
-);
-
-Map<String, dynamic> _$UtilitiesChangedToJson(UtilitiesChanged instance) =>
-    <String, dynamic>{'state': instance.state.toJson(), 'type': instance.$type};
-
 ElementsCreated _$ElementsCreatedFromJson(Map json) => ElementsCreated(
   (json['elements'] as List<dynamic>)
       .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))

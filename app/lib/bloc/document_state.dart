@@ -20,10 +20,9 @@ abstract class DocumentState {
 
   String? get currentLayer => null;
 
-  Future<NoteData?> saveData([NoteData? current, ViewOption? viewOption]) =>
-      Future.value(data);
-  Future<Uint8List?> saveBytes([NoteData? current, ViewOption? viewOption]) =>
-      saveData(current, viewOption).then((e) => e?.exportAsBytes());
+  Future<NoteData?> saveData([NoteData? current]) => Future.value(data);
+  Future<Uint8List?> saveBytes([NoteData? current]) =>
+      saveData(current).then((e) => e?.exportAsBytes());
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -67,9 +66,6 @@ abstract class DocumentLoaded extends DocumentState {
       current.setRawPage(await compute(_encodePage, page), pageName).$1;
   NoteData _updateMetadata(NoteData current) =>
       current.setMetadata(metadata.copyWith(updatedAt: DateTime.now().toUtc()));
-  NoteData _updateInfo(NoteData current, ViewOption viewOption) =>
-      current.setInfo(info.copyWith(view: viewOption));
-
   DocumentLoaded(
     this.data, {
     DocumentPage? page,
@@ -92,18 +88,17 @@ abstract class DocumentLoaded extends DocumentState {
   Area? get currentArea => null;
 
   @override
-  Future<NoteData> saveData([NoteData? current, ViewOption? viewOption]) async {
+  Future<NoteData> saveData([NoteData? current]) async {
     current ??= data;
-    viewOption ??= info.view;
     current = await _updatePage(current);
     current = _updateMetadata(current);
-    current = _updateInfo(current, viewOption);
+    current = current.setInfo(info);
     return current;
   }
 
   @override
-  Future<Uint8List> saveBytes([NoteData? current, ViewOption? viewOption]) =>
-      saveData(current, viewOption).then((e) => e.exportAsBytes());
+  Future<Uint8List> saveBytes([NoteData? current]) =>
+      saveData(current).then((e) => e.exportAsBytes());
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {

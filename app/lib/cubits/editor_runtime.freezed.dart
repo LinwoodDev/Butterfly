@@ -694,7 +694,7 @@ as bool,
 /// @nodoc
 mixin _$EditorViewState implements DiagnosticableTreeMixin {
 
- UtilitiesState get utilities; ViewOption get viewOption; bool get areaNavigatorCreate; bool get areaNavigatorExact; bool get areaNavigatorAsk; bool get navigatorEnabled; NavigatorPage get navigatorPage; String get userName;
+ PersistentLockState get locks; bool get areaNavigatorCreate; bool get areaNavigatorExact; bool get areaNavigatorAsk; bool get navigatorEnabled; NavigatorPage get navigatorPage; String get userName;
 /// Create a copy of EditorViewState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -706,21 +706,21 @@ $EditorViewStateCopyWith<EditorViewState> get copyWith => _$EditorViewStateCopyW
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'EditorViewState'))
-    ..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
+    ..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.viewOption, viewOption) || other.viewOption == viewOption)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditorViewState&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,utilities,viewOption,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
+int get hashCode => Object.hash(runtimeType,locks,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorViewState(utilities: $utilities, viewOption: $viewOption, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
+  return 'EditorViewState(locks: $locks, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
 }
 
 
@@ -731,11 +731,11 @@ abstract mixin class $EditorViewStateCopyWith<$Res>  {
   factory $EditorViewStateCopyWith(EditorViewState value, $Res Function(EditorViewState) _then) = _$EditorViewStateCopyWithImpl;
 @useResult
 $Res call({
- UtilitiesState utilities, ViewOption viewOption, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName
+ PersistentLockState locks, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName
 });
 
 
-$UtilitiesStateCopyWith<$Res> get utilities;$ViewOptionCopyWith<$Res> get viewOption;
+$PersistentLockStateCopyWith<$Res> get locks;
 
 }
 /// @nodoc
@@ -748,11 +748,10 @@ class _$EditorViewStateCopyWithImpl<$Res>
 
 /// Create a copy of EditorViewState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? utilities = null,Object? viewOption = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? locks = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
   return _then(_self.copyWith(
-utilities: null == utilities ? _self.utilities : utilities // ignore: cast_nullable_to_non_nullable
-as UtilitiesState,viewOption: null == viewOption ? _self.viewOption : viewOption // ignore: cast_nullable_to_non_nullable
-as ViewOption,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
+locks: null == locks ? _self.locks : locks // ignore: cast_nullable_to_non_nullable
+as PersistentLockState,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
 as bool,areaNavigatorExact: null == areaNavigatorExact ? _self.areaNavigatorExact : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
 as bool,areaNavigatorAsk: null == areaNavigatorAsk ? _self.areaNavigatorAsk : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
 as bool,navigatorEnabled: null == navigatorEnabled ? _self.navigatorEnabled : navigatorEnabled // ignore: cast_nullable_to_non_nullable
@@ -765,19 +764,10 @@ as String,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UtilitiesStateCopyWith<$Res> get utilities {
+$PersistentLockStateCopyWith<$Res> get locks {
   
-  return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
-    return _then(_self.copyWith(utilities: value));
-  });
-}/// Create a copy of EditorViewState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ViewOptionCopyWith<$Res> get viewOption {
-  
-  return $ViewOptionCopyWith<$Res>(_self.viewOption, (value) {
-    return _then(_self.copyWith(viewOption: value));
+  return $PersistentLockStateCopyWith<$Res>(_self.locks, (value) {
+    return _then(_self.copyWith(locks: value));
   });
 }
 }
@@ -788,11 +778,10 @@ $ViewOptionCopyWith<$Res> get viewOption {
 
 
 class _EditorViewState with DiagnosticableTreeMixin implements EditorViewState {
-  const _EditorViewState({this.utilities = const UtilitiesState(), this.viewOption = const ViewOption(), this.areaNavigatorCreate = true, this.areaNavigatorExact = true, this.areaNavigatorAsk = false, this.navigatorEnabled = false, this.navigatorPage = NavigatorPage.waypoints, this.userName = ''});
+  const _EditorViewState({this.locks = const PersistentLockState(), this.areaNavigatorCreate = true, this.areaNavigatorExact = true, this.areaNavigatorAsk = false, this.navigatorEnabled = false, this.navigatorPage = NavigatorPage.waypoints, this.userName = ''});
   
 
-@override@JsonKey() final  UtilitiesState utilities;
-@override@JsonKey() final  ViewOption viewOption;
+@override@JsonKey() final  PersistentLockState locks;
 @override@JsonKey() final  bool areaNavigatorCreate;
 @override@JsonKey() final  bool areaNavigatorExact;
 @override@JsonKey() final  bool areaNavigatorAsk;
@@ -811,21 +800,21 @@ _$EditorViewStateCopyWith<_EditorViewState> get copyWith => __$EditorViewStateCo
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'EditorViewState'))
-    ..add(DiagnosticsProperty('utilities', utilities))..add(DiagnosticsProperty('viewOption', viewOption))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
+    ..add(DiagnosticsProperty('locks', locks))..add(DiagnosticsProperty('areaNavigatorCreate', areaNavigatorCreate))..add(DiagnosticsProperty('areaNavigatorExact', areaNavigatorExact))..add(DiagnosticsProperty('areaNavigatorAsk', areaNavigatorAsk))..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))..add(DiagnosticsProperty('navigatorPage', navigatorPage))..add(DiagnosticsProperty('userName', userName));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorViewState&&(identical(other.utilities, utilities) || other.utilities == utilities)&&(identical(other.viewOption, viewOption) || other.viewOption == viewOption)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditorViewState&&(identical(other.locks, locks) || other.locks == locks)&&(identical(other.areaNavigatorCreate, areaNavigatorCreate) || other.areaNavigatorCreate == areaNavigatorCreate)&&(identical(other.areaNavigatorExact, areaNavigatorExact) || other.areaNavigatorExact == areaNavigatorExact)&&(identical(other.areaNavigatorAsk, areaNavigatorAsk) || other.areaNavigatorAsk == areaNavigatorAsk)&&(identical(other.navigatorEnabled, navigatorEnabled) || other.navigatorEnabled == navigatorEnabled)&&(identical(other.navigatorPage, navigatorPage) || other.navigatorPage == navigatorPage)&&(identical(other.userName, userName) || other.userName == userName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,utilities,viewOption,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
+int get hashCode => Object.hash(runtimeType,locks,areaNavigatorCreate,areaNavigatorExact,areaNavigatorAsk,navigatorEnabled,navigatorPage,userName);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'EditorViewState(utilities: $utilities, viewOption: $viewOption, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
+  return 'EditorViewState(locks: $locks, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk, navigatorEnabled: $navigatorEnabled, navigatorPage: $navigatorPage, userName: $userName)';
 }
 
 
@@ -836,11 +825,11 @@ abstract mixin class _$EditorViewStateCopyWith<$Res> implements $EditorViewState
   factory _$EditorViewStateCopyWith(_EditorViewState value, $Res Function(_EditorViewState) _then) = __$EditorViewStateCopyWithImpl;
 @override @useResult
 $Res call({
- UtilitiesState utilities, ViewOption viewOption, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName
+ PersistentLockState locks, bool areaNavigatorCreate, bool areaNavigatorExact, bool areaNavigatorAsk, bool navigatorEnabled, NavigatorPage navigatorPage, String userName
 });
 
 
-@override $UtilitiesStateCopyWith<$Res> get utilities;@override $ViewOptionCopyWith<$Res> get viewOption;
+@override $PersistentLockStateCopyWith<$Res> get locks;
 
 }
 /// @nodoc
@@ -853,11 +842,10 @@ class __$EditorViewStateCopyWithImpl<$Res>
 
 /// Create a copy of EditorViewState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? utilities = null,Object? viewOption = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? locks = null,Object? areaNavigatorCreate = null,Object? areaNavigatorExact = null,Object? areaNavigatorAsk = null,Object? navigatorEnabled = null,Object? navigatorPage = null,Object? userName = null,}) {
   return _then(_EditorViewState(
-utilities: null == utilities ? _self.utilities : utilities // ignore: cast_nullable_to_non_nullable
-as UtilitiesState,viewOption: null == viewOption ? _self.viewOption : viewOption // ignore: cast_nullable_to_non_nullable
-as ViewOption,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
+locks: null == locks ? _self.locks : locks // ignore: cast_nullable_to_non_nullable
+as PersistentLockState,areaNavigatorCreate: null == areaNavigatorCreate ? _self.areaNavigatorCreate : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
 as bool,areaNavigatorExact: null == areaNavigatorExact ? _self.areaNavigatorExact : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
 as bool,areaNavigatorAsk: null == areaNavigatorAsk ? _self.areaNavigatorAsk : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
 as bool,navigatorEnabled: null == navigatorEnabled ? _self.navigatorEnabled : navigatorEnabled // ignore: cast_nullable_to_non_nullable
@@ -871,19 +859,10 @@ as String,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$UtilitiesStateCopyWith<$Res> get utilities {
+$PersistentLockStateCopyWith<$Res> get locks {
   
-  return $UtilitiesStateCopyWith<$Res>(_self.utilities, (value) {
-    return _then(_self.copyWith(utilities: value));
-  });
-}/// Create a copy of EditorViewState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ViewOptionCopyWith<$Res> get viewOption {
-  
-  return $ViewOptionCopyWith<$Res>(_self.viewOption, (value) {
-    return _then(_self.copyWith(viewOption: value));
+  return $PersistentLockStateCopyWith<$Res>(_self.locks, (value) {
+    return _then(_self.copyWith(locks: value));
   });
 }
 }

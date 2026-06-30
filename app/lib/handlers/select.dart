@@ -272,7 +272,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       return;
     }
-    final utilities = context.getViewState().utilities;
+    final locks = context.getViewState().locks;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
     final selectionRect = getSelectionRect();
@@ -287,8 +287,8 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await context.getDocumentBloc().rayCast(
       globalPos,
       radius,
-      useCollection: utilities.lockCollection,
-      useLayer: utilities.lockLayer,
+      useCollection: locks.lockCollection,
+      useLayer: locks.lockLayer,
     );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
@@ -329,12 +329,12 @@ class SelectHandler extends Handler<SelectTool> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final utilities = context.getViewState().utilities;
+    final locks = context.getViewState().locks;
     final hits = await bloc.rayCast(
       position,
       0.0,
-      useCollection: utilities.lockCollection,
-      useLayer: utilities.lockLayer,
+      useCollection: locks.lockCollection,
+      useLayer: locks.lockLayer,
     );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
@@ -456,7 +456,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final utilities = context.getViewState().utilities;
+    final locks = context.getViewState().locks;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
     final transformed = _submitTransform(context.getDocumentBloc());
@@ -475,16 +475,16 @@ class SelectHandler extends Handler<SelectTool> {
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
         rectangleSelection,
-        useCollection: utilities.lockCollection,
-        useLayer: utilities.lockLayer,
+        useCollection: locks.lockCollection,
+        useLayer: locks.lockLayer,
         hitElementMode: data.hitElementMode,
       );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
         lassoSelection,
-        useCollection: utilities.lockCollection,
-        useLayer: utilities.lockLayer,
+        useCollection: locks.lockCollection,
+        useLayer: locks.lockLayer,
         hitElementMode: data.hitElementMode,
       );
       _selected.addAll(hits);
