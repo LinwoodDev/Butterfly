@@ -262,6 +262,15 @@ void main() {
     },
   );
 
+  test('force saving an already saved document does not write again', () async {
+    expect(currentIndexCubit.state.saved, SaveState.saved);
+
+    final location = await currentIndexCubit.save(bloc, force: true);
+
+    expect(location, const AssetLocation(path: 'test-note.bfly'));
+    expect(currentIndexCubit.state.saved, SaveState.saved);
+  });
+
   test('duplicating area adds it to selected pages', () async {
     final initialState = bloc.state as DocumentLoadSuccess;
     final pages = initialState.data.getPages(true);

@@ -385,6 +385,11 @@ class _ProjectPageState extends State<ProjectPage> {
         page,
         pageName,
       );
+      final isImportedDocument =
+          documentOpened && !(location.fileType?.isNote() ?? false);
+      if (!absolute && isImportedDocument) {
+        currentIndexCubit.setSaveState(saved: SaveState.unsaved);
+      }
       networkingService.setup(bloc);
       setState(() {
         _runtime = _ProjectDocumentRuntime(

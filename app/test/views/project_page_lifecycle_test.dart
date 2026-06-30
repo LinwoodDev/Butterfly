@@ -133,6 +133,10 @@ void main() {
                 );
               },
             ),
+            GoRoute(
+              path: 'import',
+              builder: (context, state) => ProjectPage(data: document),
+            ),
           ],
         ),
       ],
@@ -196,6 +200,32 @@ void main() {
     expect(observer.currentIndexCubitCreates, 3);
     expect(observer.currentIndexCubitCloses, 3);
   });
+
+  testWidgets('converted imported file starts unsaved', (tester) async {
+    await tester.pumpWidget(buildApp());
+
+    router.go('/import');
+    await pumpUntil(
+      tester,
+      () =>
+          find.byType(ProjectPage).evaluate().isNotEmpty &&
+          observer.lastCurrentIndexCubit != null,
+      'imported document open',
+    );
+
+    expect(observer.lastCurrentIndexCubit!.state.saved, SaveState.unsaved);
+
+    router.go('/');
+    await pumpUntil(
+      tester,
+      () =>
+          find.byType(ProjectPage).evaluate().isEmpty &&
+          find.byType(ProjectPage, skipOffstage: false).evaluate().isEmpty &&
+          observer.documentBlocCloses == 1 &&
+          observer.currentIndexCubitCloses == 1,
+      'imported document close',
+    );
+  });
 }
 
 class _LifecycleObserver extends BlocObserver {
@@ -203,6 +233,7 @@ class _LifecycleObserver extends BlocObserver {
   int documentBlocCloses = 0;
   int currentIndexCubitCreates = 0;
   int currentIndexCubitCloses = 0;
+  CurrentIndexCubit? lastCurrentIndexCubit;
   final events = <String>[];
 
   @override
@@ -212,6 +243,7 @@ class _LifecycleObserver extends BlocObserver {
       documentBlocCreates++;
     } else if (bloc is CurrentIndexCubit) {
       currentIndexCubitCreates++;
+      lastCurrentIndexCubit = bloc;
     }
   }
 
