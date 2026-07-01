@@ -99,7 +99,7 @@
   },
   "background": "الخلفية",
   "applyBackground": "تطبيق الخلفية",
-  "applyAreas": "Apply areas",
+  "applyAreas": "تطبيق",
   "currentPage": "الصفحة الحالية",
   "allPages": "جميع الصفحات",
   "box": "مربع",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "اللوحة الافتراضية",
   "highlighter": "قلم تظليل",
-  "combinePaths": "Combine paths",
+  "combinePaths": "ادمج المسارين",
   "add": "إضافة",
   "@add": {
     "description": "Add action"
@@ -966,7 +966,7 @@
   "ascending": "تصاعدي",
   "descending": "تنازلي",
   "imageScale": "حجم الصورة",
-  "svgScale": "مقياس SVG",
+  "svgScale": "مقاس SVG",
   "noImageSelected": "لم يتم تحديد صورة",
   "noSvgSelected": "لم يتم تحديد SVG",
   "select": "حدد",
@@ -1370,6 +1370,6 @@
   "key": "المفتاح",
   "bringMovedElementsToFront": "إحضار العناصر إلى الأمام",
   "addTool": "إضافة أداة",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "الصفحة التالية",
+  "previousPage": "الصفحة السابقة"
 }
