@@ -66,7 +66,7 @@ void main() {
       fileSystem = buildMockDocumentStateFileSystem();
     });
 
-    test('content hash match wins over path match', () async {
+    test('path match wins over content hash match', () async {
       const byContent = PersistedDocumentState(pageName: 'Content Page');
       const byPath = PersistedDocumentState(pageName: 'Path Page');
       await fileSystem.initialize();
@@ -77,7 +77,7 @@ void main() {
         fileSystem,
       ).load(contentHash: 'hash-a', pathKey: 'path/a');
 
-      expect(loaded?.pageName, 'Content Page');
+      expect(loaded?.pageName, 'Path Page');
     });
 
     test('falls back to path when content hash is missing', () async {
@@ -115,6 +115,7 @@ void main() {
       await repository.save(
         const PersistedDocumentState(pageName: 'Changed'),
         pathKey: 'path/b',
+        persistentChanged: true,
       );
       expect(await fileSystem.getFile('path/b'), isNull);
     });
@@ -157,6 +158,7 @@ void main() {
           locks: PersistentLockState(lockLayer: true),
         ),
         pathKey: 'path/a',
+        persistentChanged: true,
       );
 
       final saved = await fileSystem.getFile('path/a');
@@ -211,12 +213,6 @@ void main() {
       cubit.updateNavigator(enabled: true, page: NavigatorPage.layers);
       await cubit.saveNow();
 
-      expect(
-        (await fileSystem.getFile(
-          documentStateContentKey('hash-a'),
-        ))?.navigator.page,
-        NavigatorPage.layers.name,
-      );
       final contentRecord = await fileSystem.getFile(
         documentStateContentKey('hash-a'),
       );
@@ -226,6 +222,83 @@ void main() {
       expect(pathRecord?.pathKey, 'path/a');
       expect(pathRecord?.contentHash, 'hash-a');
       expect(pathRecord?.navigator.enabled, isTrue);
+
+      await cubit.close();
+      await transformCubit.close();
+    });
+
+    test('writes session state to updated document identity', () async {
+      final transformCubit = TransformCubit(1);
+      final cubit = EditorSessionCubit(
+        repository: DocumentStateRepository(fileSystem),
+        transformCubit: transformCubit,
+        initialState: const PersistedDocumentState(pageName: 'Page 1'),
+        pathKey: 'path/old',
+        contentHash: 'hash-old',
+      );
+
+      await cubit.saveNow(pathKey: 'path/new');
+
+      expect(await fileSystem.getFile('path/old'), isNull);
+      final pathRecord = await fileSystem.getFile('path/new');
+      final contentRecord = await fileSystem.getFile(
+        documentStateContentKey('hash-old'),
+      );
+      expect(pathRecord?.pathKey, 'path/old');
+      expect(pathRecord?.contentHash, 'hash-old');
+      expect(contentRecord?.pathKey, 'path/old');
+      expect(contentRecord?.contentHash, 'hash-old');
+
+      await cubit.close();
+      await transformCubit.close();
+    });
+
+    test('rewrites state when document identity and state changed', () async {
+      final transformCubit = TransformCubit(1);
+      final cubit = EditorSessionCubit(
+        repository: DocumentStateRepository(fileSystem),
+        transformCubit: transformCubit,
+        initialState: const PersistedDocumentState(pageName: 'Page 1'),
+        pathKey: 'path/old',
+        contentHash: 'hash-old',
+      );
+
+      cubit.updateNavigator(enabled: true);
+      await cubit.saveNow(pathKey: 'path/new');
+
+      expect(await fileSystem.getFile('path/old'), isNull);
+      final pathRecord = await fileSystem.getFile('path/new');
+      expect(pathRecord?.pathKey, 'path/new');
+      expect(pathRecord?.navigator.enabled, isTrue);
+
+      await cubit.close();
+      await transformCubit.close();
+    });
+
+    test('renames content identity without leaving old content key', () async {
+      final transformCubit = TransformCubit(1);
+      final cubit = EditorSessionCubit(
+        repository: DocumentStateRepository(fileSystem),
+        transformCubit: transformCubit,
+        initialState: const PersistedDocumentState(pageName: 'Page 1'),
+        pathKey: 'path/a',
+        contentHash: 'hash-old',
+      );
+
+      cubit.updateNavigator(enabled: true);
+      await cubit.saveNow();
+      await cubit.saveNow(contentHash: 'hash-new');
+
+      expect(
+        await fileSystem.getFile(documentStateContentKey('hash-old')),
+        isNull,
+      );
+      final contentRecord = await fileSystem.getFile(
+        documentStateContentKey('hash-new'),
+      );
+      final pathRecord = await fileSystem.getFile('path/a');
+      expect(contentRecord?.contentHash, 'hash-new');
+      expect(pathRecord?.contentHash, 'hash-new');
 
       await cubit.close();
       await transformCubit.close();

@@ -118,6 +118,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
         setSaveState(saved: SaveState.saved);
         return AssetLocation.empty;
       }
+      Uint8List currentDataBytes;
       if (absolute || !(current.fileType?.isNote() ?? false)) {
         final file = await compute(_toFile, (currentData, false));
         final document = await fileSystem.createFileWithName(
@@ -131,15 +132,22 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
           file,
         );
         current = document.location;
+        currentDataBytes = file.data;
       } else {
         final file = await compute(_toFile, (
           currentData,
           current.fileType == AssetFileType.textNote,
         ));
         await fileSystem.updateFile(current.path, file);
+        currentDataBytes = file.data;
       }
       settingsCubit.addRecentHistory(current);
-      await editorSessionCubit?.saveNow();
+      await editorSessionCubit?.saveNow(
+        pathKey: documentStatePathKeyOrNull(current),
+        contentHash: documentStateContentKey(
+          documentStateContentHash(currentDataBytes),
+        ),
+      );
       if (isClosed) {
         return current;
       }
