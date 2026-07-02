@@ -119,7 +119,13 @@ class PolygonHandler extends Handler<PolygonTool> with ColoredHandler {
     final element = _element;
     if (element != null) {
       _element = element.copyWith(property: tool.property);
-      unawaited(bloc.currentIndexCubit.refreshToolbar(bloc));
+      unawaited(
+        bloc.editorController.toolCubit.updateHandler(
+          bloc,
+          bloc.editorController.rendererCubit,
+          this,
+        ),
+      );
       unawaited(bloc.refreshForegrounds());
       return;
     }
