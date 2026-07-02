@@ -451,7 +451,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final isImportedDocument =
           documentOpened && !(location.fileType?.isNote() ?? false);
       if (!absolute && isImportedDocument) {
-        currentIndexCubit.setSaveState(saved: SaveState.unsaved);
+        editorController.saveCubit.setSaveState(saved: SaveState.unsaved);
       }
       networkingService.setup(bloc);
       setState(() {

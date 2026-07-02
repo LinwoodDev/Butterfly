@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:synchronized/synchronized.dart';
 
 class DocumentStateRepository {
@@ -26,100 +27,119 @@ class DocumentStateRepository {
     final settings = _settings;
     if (!settings.enabled) return null;
     await fileSystem.initialize();
+    if (pathKey != null) {
+      final byPath = await _getFileOrNull(pathKey);
+      if (byPath != null) return _applySettings(byPath, settings);
+    }
     if (allowContentHash && contentHash != null) {
       final byContent = await _getFileOrNull(
         documentStateContentKey(contentHash),
       );
       if (byContent != null) return _applySettings(byContent, settings);
     }
-    if (pathKey != null) {
-      final byPath = await _getFileOrNull(pathKey);
-      return byPath == null ? null : _applySettings(byPath, settings);
-    }
     return null;
   });
 
   Future<void> save(
     PersistedDocumentState state, {
-    String? contentHash,
+    String? contentKey,
     String? pathKey,
+    String? previousContentKey,
+    String? previousPathKey,
+    required bool persistentChanged,
   }) => _lock.synchronized(() async {
     final settings = _settings;
     if (!settings.enabled) return;
     await fileSystem.initialize();
-    if (contentHash != null) {
-      await _put(documentStateContentKey(contentHash), state, settings);
-    }
-    if (pathKey != null) {
-      await _put(pathKey, state, settings);
-    }
-    _scheduleCleanupAfterSave(contentHash: contentHash, pathKey: pathKey);
+    await _updateFile(previousPathKey, pathKey, state, persistentChanged);
+    await _updateFile(previousContentKey, contentKey, state, persistentChanged);
+    _scheduleCleanupAfterSave(
+      contentHash: state.contentHash,
+      pathKey: state.pathKey,
+    );
   });
 
-  Future<void> cleanup({
-    String? contentHash,
-    String? pathKey,
-    DateTime? now,
-  }) => _lock.synchronized(() async {
-    final settings = _settings;
-    await fileSystem.initialize();
-    final keys = await fileSystem.getKeys();
-    final protectedKeys = <String>{};
-    if (contentHash != null) {
-      protectedKeys.add(documentStateContentKey(contentHash));
-    }
-    if (pathKey != null) {
-      protectedKeys.add(pathKey);
-    }
-    final records = <({String key, PersistedDocumentState state})>[];
-    for (final key in keys) {
-      final state = await _getFileOrNull(key);
-      if (state == null) continue;
-      records.add((key: key, state: state));
-    }
-    final cutoff = (now ?? DateTime.now().toUtc()).subtract(
-      Duration(days: settings.maxAgeDays),
-    );
-    for (final record in records) {
-      final updatedAt = record.state.updatedAt;
-      if (protectedKeys.contains(record.key) || updatedAt == null) continue;
-      if (updatedAt.isBefore(cutoff)) {
-        await fileSystem.deleteFile(record.key);
-      }
-    }
-    final remaining = <({String key, PersistedDocumentState state})>[];
-    for (final key in await fileSystem.getKeys()) {
-      final state = await _getFileOrNull(key);
-      if (state != null) remaining.add((key: key, state: state));
-    }
-    remaining.sort((a, b) {
-      final aTime = a.state.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-      final bTime = b.state.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
-      return aTime.compareTo(bTime);
-    });
-    final removable = remaining
-        .where((record) => !protectedKeys.contains(record.key))
-        .toList();
-    final overflow = (remaining.length - settings.maxEntries).clamp(
-      0,
-      removable.length,
-    );
-    for (final record in removable.take(overflow)) {
-      await fileSystem.deleteFile(record.key);
-    }
-  });
+  Future<void> cleanup({String? contentHash, String? pathKey, DateTime? now}) =>
+      _lock.synchronized(() async {
+        final settings = _settings;
+        await fileSystem.initialize();
+        final keys = await fileSystem.getKeys();
+        final protectedKeys = <String>{};
+        if (contentHash != null) {
+          protectedKeys.add(documentStateContentKey(contentHash));
+        }
+        if (pathKey != null) {
+          protectedKeys.add(pathKey);
+        }
 
-  Future<void> _put(
-    String key,
+        // Load all records once
+        final records = <({String key, PersistedDocumentState state})>[];
+        for (final key in keys) {
+          final state = await _getFileOrNull(key);
+          if (state == null) continue;
+          records.add((key: key, state: state));
+        }
+
+        // Delete expired records
+        final cutoff = (now ?? DateTime.now().toUtc()).subtract(
+          Duration(days: settings.maxAgeDays),
+        );
+        for (final record in records) {
+          final updatedAt = record.state.updatedAt;
+          if (protectedKeys.contains(record.key) || updatedAt == null) continue;
+          if (updatedAt.isBefore(cutoff)) {
+            await fileSystem.deleteFile(record.key);
+          }
+        }
+
+        // Delete overflow records (oldest first)
+        final remaining = records
+            .where((r) => !protectedKeys.contains(r.key))
+            .toList();
+        if (remaining.length > settings.maxEntries) {
+          remaining.sort((a, b) {
+            final aTime =
+                a.state.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+            final bTime =
+                b.state.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+            return aTime.compareTo(bTime);
+          });
+          final overflow = remaining.length - settings.maxEntries;
+          for (final record in remaining.take(overflow)) {
+            await fileSystem.deleteFile(record.key);
+          }
+        }
+      });
+
+  Future<void> _updateFile(
+    String? oldKey,
+    String? newKey,
     PersistedDocumentState state,
-    DocumentStatePersistenceSettings settings,
+    bool persistentChanged,
   ) async {
-    final existing = await _getFileOrNull(key);
-    final next = _mergeEnabled(existing, state, settings);
-    if (existing != null || await fileSystem.hasKey(key)) {
-      await fileSystem.updateFile(key, next);
+    // No keys to update
+    if (oldKey == null && newKey == null) return;
+
+    // Same key and no changes to persist
+    if (oldKey == newKey && !persistentChanged) return;
+
+    final key = (newKey ?? oldKey)!;
+    final keyChanged = oldKey != newKey;
+
+    if (!keyChanged) {
+      // Same key, only update if persistent data changed
+      if (persistentChanged) {
+        await fileSystem.updateFile(key, state);
+      }
+    } else if (persistentChanged || oldKey == null) {
+      // Key changed or new key: delete old and create new
+      if (oldKey != null) {
+        await fileSystem.deleteFile(oldKey);
+      }
+      await fileSystem.createFile(key, state);
     } else {
-      await fileSystem.createFile(key, next);
+      // Key changed but only transient data changed: rename
+      await fileSystem.renameFile(oldKey, key);
     }
   }
 
@@ -142,40 +162,28 @@ class DocumentStateRepository {
         : const PersistedAreaNavigatorState(),
   );
 
-  PersistedDocumentState _mergeEnabled(
-    PersistedDocumentState? existing,
-    PersistedDocumentState state,
-    DocumentStatePersistenceSettings settings,
-  ) {
-    final fallback = existing ?? const PersistedDocumentState();
-    return state.copyWith(
-      pageName: settings.page ? state.pageName : fallback.pageName,
-      camera: settings.camera ? state.camera : fallback.camera,
-      locks: settings.locks ? state.locks : fallback.locks,
-      selectedTool: settings.tool ? state.selectedTool : fallback.selectedTool,
-      navigator: settings.navigator ? state.navigator : fallback.navigator,
-      layers: settings.layers ? state.layers : fallback.layers,
-      areaNavigator: settings.areas
-          ? state.areaNavigator
-          : fallback.areaNavigator,
-    );
-  }
-
   Future<PersistedDocumentState?> _getFileOrNull(String key) async {
     try {
       return await fileSystem.getFile(key);
-    } on FormatException {
+    } on FormatException catch (e) {
+      debugPrint('Failed to parse document state at $key: $e');
       return null;
     }
   }
 
+  static const _minCleanupInterval = Duration(hours: 1);
+
   void _scheduleCleanupAfterSave({String? contentHash, String? pathKey}) {
-    final now = DateTime.now().toUtc();
+    // Skip if cleanup already scheduled or running
+    if (_scheduledCleanup != null || _cleanupStarted) return;
+
+    // Skip if cleanup ran recently
     final last = _lastCleanupAt;
-    if (last != null && now.difference(last) < const Duration(minutes: 10)) {
+    if (last != null &&
+        DateTime.now().toUtc().difference(last) < _minCleanupInterval) {
       return;
     }
-    if (_scheduledCleanup != null) return;
+
     _scheduledCleanup =
         Future<void>(() {
           return _cleanupAfterSave(contentHash: contentHash, pathKey: pathKey);

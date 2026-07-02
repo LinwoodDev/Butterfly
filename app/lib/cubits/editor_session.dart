@@ -14,23 +14,24 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     required this.repository,
     required TransformCubit transformCubit,
     required PersistedDocumentState initialState,
-    required this.pathKey,
-    required this.contentHash,
-    this.persist = true,
+    String? pathKey,
+    String? contentHash,
   }) : _transformCubit = transformCubit,
-       super(initialState.touch(pathKey: pathKey, contentHash: contentHash)) {
+       super(initialState) {
     _transformSubscription = transformCubit.stream.listen(_onTransformChanged);
   }
 
   final DocumentStateRepository repository;
   final TransformCubit _transformCubit;
-  final String? pathKey;
-  final String? contentHash;
-  final bool persist;
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _saveDebounce;
   Future<void>? _saveFuture;
-  PersistedDocumentState? _pendingSave;
+  ({
+    PersistedDocumentState state,
+    bool persistentChanged,
+    PersistedDocumentState? previousState,
+  })?
+  _pendingSave;
   var _dirty = false;
 
   static PersistedDocumentState buildInitial({
@@ -176,15 +177,31 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     });
   }
 
-  Future<void> saveNow() async {
-    if (!persist) return;
+  Future<void> saveNow({String? pathKey, String? contentHash}) async {
+    final persistentChanged = _dirty;
     _saveDebounce?.cancel();
     _saveDebounce = null;
-    if (!_dirty && _pendingSave == null && _saveFuture == null) return;
-    final next = state.touch(pathKey: pathKey, contentHash: contentHash);
+    final pathChanged = pathKey != null && pathKey != state.pathKey;
+    final contentChanged =
+        contentHash != null && contentHash != state.contentHash;
+    if (!pathChanged && !contentChanged && !persistentChanged) {
+      return;
+    }
+
+    final next = state.copyWith(
+      pathKey: pathKey ?? state.pathKey,
+      contentHash: contentHash ?? state.contentHash,
+      updatedAt: DateTime.now().toUtc(),
+    );
+    final previousState = state;
     _dirty = false;
     emit(next);
-    _pendingSave = next;
+    _pendingSave = (
+      state: next,
+      previousState: previousState,
+      persistentChanged:
+          persistentChanged || (_pendingSave?.persistentChanged ?? false),
+    );
     _saveFuture ??= _drainSaves();
     await _saveFuture;
   }
@@ -192,9 +209,27 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   Future<void> _drainSaves() async {
     try {
       while (_pendingSave != null) {
-        final next = _pendingSave!;
+        final pending = _pendingSave!;
+        final next = pending.state;
+        final previousState = pending.previousState;
         _pendingSave = null;
-        await repository.save(next, contentHash: contentHash, pathKey: pathKey);
+
+        try {
+          await repository.save(
+            next,
+            contentKey: next.contentHash,
+            pathKey: next.pathKey,
+            previousContentKey: previousState?.contentHash,
+            previousPathKey: previousState?.pathKey,
+            persistentChanged: pending.persistentChanged,
+          );
+        } catch (e, stackTrace) {
+          debugPrintStack(
+            label: 'Error saving document state',
+            stackTrace: stackTrace,
+          );
+          rethrow;
+        }
       }
     } finally {
       _saveFuture = null;
@@ -205,7 +240,6 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   Future<void> close() async {
     _saveDebounce?.cancel();
     _saveDebounce = null;
-    if (persist) await saveNow();
     await _transformSubscription?.cancel();
     return super.close();
   }
