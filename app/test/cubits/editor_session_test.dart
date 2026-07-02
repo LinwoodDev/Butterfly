@@ -231,6 +231,31 @@ void main() {
       await transformCubit.close();
     });
 
+    test('camera changes stay in memory until session is flushed', () async {
+      final transformCubit = TransformCubit(1);
+      final cubit = EditorSessionCubit(
+        repository: DocumentStateRepository(fileSystem),
+        transformCubit: transformCubit,
+        initialState: const PersistedDocumentState(pageName: 'Page 1'),
+        pathKey: 'path/a',
+        contentHash: 'hash-a',
+      );
+
+      transformCubit.teleport(const Offset(10, 20), 2);
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+
+      expect(await fileSystem.getFile('path/a'), isNull);
+      await cubit.saveNow();
+
+      final saved = await fileSystem.getFile('path/a');
+      expect(saved?.camera.positionX, 10);
+      expect(saved?.camera.positionY, 20);
+      expect(saved?.camera.zoom, 2);
+
+      await cubit.close();
+      await transformCubit.close();
+    });
+
     test('does not modify document files when session state changes', () async {
       final documentSystem = buildMockDocumentFileSystem();
       final original = NoteFile(Uint8List.fromList([1, 2, 3]));

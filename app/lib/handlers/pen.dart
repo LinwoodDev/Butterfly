@@ -123,6 +123,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     CameraViewport newViewport,
   ) async {
     if (_submittedElements.isEmpty) return;
+    final submittedIds = _submittedElements.map((e) => e.id).nonNulls.toSet();
+    final viewportIds = [
+      ...newViewport.bakedElements,
+      ...newViewport.unbakedElements,
+    ].map((renderer) => renderer.element.id).nonNulls.toSet();
+    if (submittedIds.isNotEmpty && viewportIds.containsAll(submittedIds)) {
+      return;
+    }
     if (_currentlyBaking) return;
     _currentlyBaking = true;
     _submittedElements.clear();

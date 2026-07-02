@@ -12,7 +12,7 @@ sealed class RendererRuntimeState with _$RendererRuntimeState {
 
   Map<String, RendererState> get allRendererStates => {
     ...rendererStates,
-    ...?temporaryRendererStates,
+    ...(temporaryRendererStates ?? const <String, RendererState>{}),
   };
 }
 
@@ -110,6 +110,21 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
 
   void invalidateRenderers(Iterable<Renderer<PadElement>> renderers) {
     initializedElements.removeAll(renderers);
+  }
+
+  bool rendererStateChangesAffectBaked(
+    Map<String, RendererState> current,
+    Map<String, RendererState> next,
+  ) {
+    final changedIds = {
+      ...current.keys,
+      ...next.keys,
+    }.where((id) => current[id] != next[id]);
+    if (changedIds.isEmpty) return false;
+    final bakedIds = state.cameraViewport.bakedElements
+        .map((renderer) => renderer.id)
+        .toSet();
+    return changedIds.any(bakedIds.contains);
   }
 
   Rect getViewportRect(TransformCubit transformCubit, {Size? viewportSize}) {

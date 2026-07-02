@@ -1,13 +1,19 @@
+import 'dart:async';
+
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/persisted_document_state.dart';
+import 'package:synchronized/synchronized.dart';
 
 class DocumentStateRepository {
   DocumentStateRepository(this.fileSystem, {this.settingsProvider});
 
   final DocumentStateFileSystem fileSystem;
   final DocumentStatePersistenceSettings Function()? settingsProvider;
+  final _lock = Lock();
   var _cleanupStarted = false;
+  DateTime? _lastCleanupAt;
+  Future<void>? _scheduledCleanup;
 
   DocumentStatePersistenceSettings get _settings =>
       settingsProvider?.call() ?? const DocumentStatePersistenceSettings();
@@ -16,28 +22,28 @@ class DocumentStateRepository {
     String? contentHash,
     String? pathKey,
     bool allowContentHash = true,
-  }) async {
+  }) => _lock.synchronized(() async {
     final settings = _settings;
     if (!settings.enabled) return null;
     await fileSystem.initialize();
     if (allowContentHash && contentHash != null) {
-      final byContent = await fileSystem.getFile(
+      final byContent = await _getFileOrNull(
         documentStateContentKey(contentHash),
       );
       if (byContent != null) return _applySettings(byContent, settings);
     }
     if (pathKey != null) {
-      final byPath = await fileSystem.getFile(pathKey);
+      final byPath = await _getFileOrNull(pathKey);
       return byPath == null ? null : _applySettings(byPath, settings);
     }
     return null;
-  }
+  });
 
   Future<void> save(
     PersistedDocumentState state, {
     String? contentHash,
     String? pathKey,
-  }) async {
+  }) => _lock.synchronized(() async {
     final settings = _settings;
     if (!settings.enabled) return;
     await fileSystem.initialize();
@@ -47,14 +53,14 @@ class DocumentStateRepository {
     if (pathKey != null) {
       await _put(pathKey, state, settings);
     }
-    await _cleanupAfterSave(contentHash: contentHash, pathKey: pathKey);
-  }
+    _scheduleCleanupAfterSave(contentHash: contentHash, pathKey: pathKey);
+  });
 
   Future<void> cleanup({
     String? contentHash,
     String? pathKey,
     DateTime? now,
-  }) async {
+  }) => _lock.synchronized(() async {
     final settings = _settings;
     await fileSystem.initialize();
     final keys = await fileSystem.getKeys();
@@ -67,7 +73,7 @@ class DocumentStateRepository {
     }
     final records = <({String key, PersistedDocumentState state})>[];
     for (final key in keys) {
-      final state = await fileSystem.getFile(key);
+      final state = await _getFileOrNull(key);
       if (state == null) continue;
       records.add((key: key, state: state));
     }
@@ -83,7 +89,7 @@ class DocumentStateRepository {
     }
     final remaining = <({String key, PersistedDocumentState state})>[];
     for (final key in await fileSystem.getKeys()) {
-      final state = await fileSystem.getFile(key);
+      final state = await _getFileOrNull(key);
       if (state != null) remaining.add((key: key, state: state));
     }
     remaining.sort((a, b) {
@@ -101,14 +107,14 @@ class DocumentStateRepository {
     for (final record in removable.take(overflow)) {
       await fileSystem.deleteFile(record.key);
     }
-  }
+  });
 
   Future<void> _put(
     String key,
     PersistedDocumentState state,
     DocumentStatePersistenceSettings settings,
   ) async {
-    final existing = await fileSystem.getFile(key);
+    final existing = await _getFileOrNull(key);
     final next = _mergeEnabled(existing, state, settings);
     if (existing != null || await fileSystem.hasKey(key)) {
       await fileSystem.updateFile(key, next);
@@ -155,11 +161,35 @@ class DocumentStateRepository {
     );
   }
 
+  Future<PersistedDocumentState?> _getFileOrNull(String key) async {
+    try {
+      return await fileSystem.getFile(key);
+    } on FormatException {
+      return null;
+    }
+  }
+
+  void _scheduleCleanupAfterSave({String? contentHash, String? pathKey}) {
+    final now = DateTime.now().toUtc();
+    final last = _lastCleanupAt;
+    if (last != null && now.difference(last) < const Duration(minutes: 10)) {
+      return;
+    }
+    if (_scheduledCleanup != null) return;
+    _scheduledCleanup =
+        Future<void>(() {
+          return _cleanupAfterSave(contentHash: contentHash, pathKey: pathKey);
+        }).whenComplete(() {
+          _scheduledCleanup = null;
+        });
+  }
+
   Future<void> _cleanupAfterSave({String? contentHash, String? pathKey}) async {
     if (_cleanupStarted) return;
     _cleanupStarted = true;
     try {
       await cleanup(contentHash: contentHash, pathKey: pathKey);
+      _lastCleanupAt = DateTime.now().toUtc();
     } finally {
       _cleanupStarted = false;
     }
