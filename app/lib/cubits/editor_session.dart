@@ -29,6 +29,9 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
   final bool persist;
   StreamSubscription<CameraTransform>? _transformSubscription;
   Timer? _saveDebounce;
+  Future<void>? _saveFuture;
+  PersistedDocumentState? _pendingSave;
+  var _dirty = false;
 
   static PersistedDocumentState buildInitial({
     PersistedDocumentState? restored,
@@ -99,19 +102,19 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     );
     if (state.camera == camera) return;
     emit(state.copyWith(camera: camera));
-    scheduleSave();
+    _dirty = true;
   }
 
   void updatePage(String pageName) {
     if (state.pageName == pageName) return;
     emit(state.copyWith(pageName: pageName));
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void updateLocks(PersistentLockState locks) {
     if (state.locks == locks) return;
     emit(state.copyWith(locks: locks));
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void updateSelectedTool(Tool? tool, int? index) {
@@ -121,7 +124,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     );
     if (state.selectedTool == selection) return;
     emit(state.copyWith(selectedTool: selection));
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void updateNavigator({bool? enabled, NavigatorPage? page}) {
@@ -133,7 +136,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     );
     if (next == state) return;
     emit(next);
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void updateLayer({
@@ -150,7 +153,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     );
     if (next == state) return;
     emit(next);
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void updateAreaNavigator({bool? create, bool? exact, bool? ask}) {
@@ -163,7 +166,7 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     );
     if (next == state) return;
     emit(next);
-    unawaited(saveNow());
+    _dirty = true;
   }
 
   void scheduleSave() {
@@ -177,9 +180,25 @@ class EditorSessionCubit extends Cubit<PersistedDocumentState> {
     if (!persist) return;
     _saveDebounce?.cancel();
     _saveDebounce = null;
+    if (!_dirty && _pendingSave == null && _saveFuture == null) return;
     final next = state.touch(pathKey: pathKey, contentHash: contentHash);
+    _dirty = false;
     emit(next);
-    await repository.save(next, contentHash: contentHash, pathKey: pathKey);
+    _pendingSave = next;
+    _saveFuture ??= _drainSaves();
+    await _saveFuture;
+  }
+
+  Future<void> _drainSaves() async {
+    try {
+      while (_pendingSave != null) {
+        final next = _pendingSave!;
+        _pendingSave = null;
+        await repository.save(next, contentHash: contentHash, pathKey: pathKey);
+      }
+    } finally {
+      _saveFuture = null;
+    }
   }
 
   @override

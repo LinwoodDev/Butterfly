@@ -1910,6 +1910,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     location: location,
     force: force,
     isAutosave: isAutosave,
+    editorSessionCubit: _editorController!.editorSessionCubit,
   );
 
   bool isInBounds(Offset globalPosition) {

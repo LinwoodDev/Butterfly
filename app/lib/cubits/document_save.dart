@@ -68,12 +68,14 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
     AssetLocation? location,
     bool force = false,
     bool isAutosave = false,
+    EditorSessionCubit? editorSessionCubit,
   }) async {
     final absolute = state.absolute;
     if (location == null &&
         !force &&
         (state.saved == SaveState.saved ||
             state.saved == SaveState.absoluteRead)) {
+      await editorSessionCubit?.saveNow();
       return state.location;
     }
     if (networkingService.isClient) {
@@ -98,6 +100,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
           !force &&
           (state.saved == SaveState.saved ||
               state.saved == SaveState.absoluteRead)) {
+        await editorSessionCubit?.saveNow();
         return state.location;
       }
       var current = location ?? state.location;
@@ -136,6 +139,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
         await fileSystem.updateFile(current.path, file);
       }
       settingsCubit.addRecentHistory(current);
+      await editorSessionCubit?.saveNow();
       if (isClosed) {
         return current;
       }

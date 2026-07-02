@@ -288,6 +288,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                           cubit.networkingService,
                           location: newLocation,
                           force: true,
+                          editorSessionCubit: cubit.editorSessionCubit,
                         );
                         if (!location.isEmpty &&
                             !savedLocation.isEmpty &&

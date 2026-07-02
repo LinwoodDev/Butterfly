@@ -290,7 +290,12 @@ class EditorController implements EditorRuntimeContext {
       toolCubit.updateIndex(this, bloc);
     }
     if (saveCubit.hasAutosave(networkingService)) {
-      saveCubit.save(bloc, networkingService, isAutosave: true);
+      saveCubit.save(
+        bloc,
+        networkingService,
+        isAutosave: true,
+        editorSessionCubit: editorSessionCubit,
+      );
     }
   }
 

@@ -7,6 +7,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/editor_controller.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/asset.dart';
@@ -30,6 +31,7 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
   int onVisibleCalls = 0;
   int onHiddenCalls = 0;
   int disposeCalls = 0;
+  int buildCalls = 0;
   CameraTransform? lastVisibleTransform;
   Size? lastVisibleSize;
 
@@ -79,7 +81,9 @@ class _VisibleTrackingRenderer extends Renderer<PadElement> {
     CameraTransform transform, [
     ColorScheme? colorScheme,
     bool foreground = false,
-  ]) {}
+  ]) {
+    buildCalls++;
+  }
 
   @override
   void dispose() {
@@ -720,6 +724,72 @@ void main() {
     expect(viewport.unbakedElements, hasLength(2));
   });
 
+  test(
+    'pen viewport update keeps submitted stroke until renderer is reported',
+    () async {
+      final state = bloc.state as DocumentLoadSuccess;
+      final handler = PenHandler(PenTool(id: 'pen'));
+      final element = PenElement(
+        id: 'stroke',
+        points: const [PathPoint(10, 20), PathPoint(40, 20)],
+      );
+      handler.elements[1] = element;
+
+      await handler.submitElements(bloc, [1]);
+
+      expect(
+        handler.createForegrounds(
+          editorController,
+          state.data,
+          state.page,
+          state.info,
+        ),
+        hasLength(1),
+      );
+
+      final renderer = Renderer<PadElement>.fromInstance(
+        element,
+        state.currentLayer,
+      );
+      await renderer.setup(
+        editorController.transformCubit,
+        state.data,
+        state.assetService,
+        state.page,
+      );
+      await handler.onViewportUpdated(
+        const CameraViewport.unbaked(),
+        CameraViewport.unbaked(
+          unbakedElements: [renderer],
+          visibleElements: [renderer],
+          visibleUnbakedElements: [renderer],
+        ),
+      );
+
+      expect(
+        handler.createForegrounds(
+          editorController,
+          state.data,
+          state.page,
+          state.info,
+        ),
+        hasLength(1),
+      );
+      expect(handler.onRenderersCreated(state.page, [renderer]), isTrue);
+      expect(
+        handler.createForegrounds(
+          editorController,
+          state.data,
+          state.page,
+          state.info,
+        ),
+        isEmpty,
+      );
+
+      renderer.dispose();
+    },
+  );
+
   test('bake records only elements visible in the current viewport', () async {
     await bloc.close();
     await editorController.close();
@@ -788,6 +858,215 @@ void main() {
     );
     expect(viewport.visibleUnbakedElements, isEmpty);
   });
+
+  test('incremental bake does not rebuild already baked renderers', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final existingElement = ShapeElement(
+      id: 'existing',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final addedElement = ShapeElement(
+      id: 'added',
+      firstPosition: const Point(30, 30),
+      secondPosition: const Point(40, 40),
+    );
+    final existingRenderer = _VisibleTrackingRenderer(existingElement, 'layer');
+    final addedRenderer = _VisibleTrackingRenderer(addedElement, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [existingElement, addedElement]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [existingRenderer],
+        visibleElements: [existingRenderer],
+        visibleUnbakedElements: [existingRenderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    final state = bloc.state as DocumentLoadSuccess;
+    await editorController.rendererCubit.bake(
+      editorController,
+      state,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final existingBuildsAfterReset = existingRenderer.buildCalls;
+
+    await addedRenderer.setup(
+      editorController.transformCubit,
+      state.data,
+      state.assetService,
+      state.page,
+    );
+    await editorController.rendererCubit.addUnbaked(editorController, state, [
+      addedRenderer,
+    ]);
+    await editorController.rendererCubit.bake(
+      editorController,
+      state,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+    );
+
+    expect(existingRenderer.buildCalls, existingBuildsAfterReset);
+    expect(addedRenderer.buildCalls, greaterThan(0));
+  });
+
+  test('tool refresh without temporary handler does not reset bake', () async {
+    await bloc.close();
+    await editorController.close();
+
+    final element = ShapeElement(
+      id: 'existing',
+      firstPosition: const Point(10, 10),
+      secondPosition: const Point(20, 20),
+    );
+    final renderer = _VisibleTrackingRenderer(element, 'layer');
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    var data = NoteData(Archive());
+    final (nextData, pageName) = data.setPage(page, 'Page 1');
+    data = nextData;
+    editorController = EditorController(
+      settingsCubit,
+      TransformCubit(1),
+      CameraViewport.unbaked(
+        unbakedElements: [renderer],
+        visibleElements: [renderer],
+        visibleUnbakedElements: [renderer],
+        width: 100,
+        height: 100,
+      ),
+    );
+    bloc = DocumentBloc(
+      fileSystem,
+      editorController,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+
+    final state = bloc.state as DocumentLoadSuccess;
+    await editorController.rendererCubit.bake(
+      editorController,
+      state,
+      viewportSize: const Size(100, 100),
+      pixelRatio: 1,
+      reset: true,
+    );
+    final buildsAfterBake = renderer.buildCalls;
+
+    await editorController.toolCubit.refresh(editorController, state);
+
+    expect(renderer.buildCalls, buildsAfterBake);
+  });
+
+  test(
+    'creating pen stroke through bloc keeps the next bake incremental',
+    () async {
+      await bloc.close();
+      await editorController.close();
+
+      final existingElement = ShapeElement(
+        id: 'existing',
+        firstPosition: const Point(10, 10),
+        secondPosition: const Point(20, 20),
+      );
+      final existingRenderer = _VisibleTrackingRenderer(
+        existingElement,
+        'layer',
+      );
+      final page = DocumentPage(
+        layers: [
+          DocumentLayer(id: 'layer', content: [existingElement]),
+        ],
+      );
+      var data = NoteData(Archive());
+      final (nextData, pageName) = data.setPage(page, 'Page 1');
+      data = nextData;
+      editorController = EditorController(
+        settingsCubit,
+        TransformCubit(1),
+        CameraViewport.unbaked(
+          unbakedElements: [existingRenderer],
+          visibleElements: [existingRenderer],
+          visibleUnbakedElements: [existingRenderer],
+          width: 100,
+          height: 100,
+        ),
+      );
+      bloc = DocumentBloc(
+        fileSystem,
+        editorController,
+        windowCubit,
+        data,
+        const AssetLocation(path: 'test-note.bfly'),
+        null,
+        page,
+        pageName,
+      );
+      final state = bloc.state as DocumentLoadSuccess;
+      final penHandler = PenHandler(PenTool(id: 'pen'));
+      await editorController.toolCubit.changeTool(
+        editorController,
+        bloc,
+        handler: penHandler,
+        allowBake: false,
+      );
+      await editorController.rendererCubit.bake(
+        editorController,
+        state,
+        viewportSize: const Size(100, 100),
+        pixelRatio: 1,
+        reset: true,
+      );
+      final buildsAfterInitialBake = existingRenderer.buildCalls;
+
+      penHandler.elements[1] = PenElement(
+        id: 'stroke',
+        points: const [PathPoint(30, 30), PathPoint(40, 40)],
+      );
+      await penHandler.submitElements(bloc, [1]);
+      await _settleBlocEvents();
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      await _settleBlocEvents();
+
+      expect(existingRenderer.buildCalls, buildsAfterInitialBake);
+      expect(
+        editorController.rendererCubit.renderers.map((e) => e.element.id),
+        contains('stroke'),
+      );
+    },
+  );
 
   test('bake refreshes cached viewport when pixel ratio changes', () async {
     await bloc.close();
