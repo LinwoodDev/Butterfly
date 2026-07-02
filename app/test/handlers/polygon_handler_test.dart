@@ -132,7 +132,7 @@ void main() {
     final (data, pageName) = NoteData(Archive()).setPage(page, 'Page 1');
     bloc = DocumentBloc(
       fileSystem,
-      currentIndexCubit,
+      editorController,
       windowCubit,
       data,
       const AssetLocation(path: 'test-note.bfly'),
@@ -143,20 +143,26 @@ void main() {
     final handler = PolygonHandler(
       PolygonTool(id: 'polygon-tool', property: originalProperty),
     )..editElement(element);
-    final toolbar = handler.getToolbar(bloc!) as PolygonToolbarView;
+    await editorController.toolCubit.updateHandler(
+      bloc!,
+      editorController.rendererCubit,
+      handler,
+    );
+    await bloc!.refreshForegrounds();
+
+    final toolbar =
+        editorController.toolCubit.state.toolbar as PolygonToolbarView;
     toolbar.onToolChanged(toolbar.tool.copyWith(property: updatedProperty));
     await _settleBlocEvents();
+    await bloc!.refreshForegrounds();
 
-    final polygon = handler
-        .createForegrounds(
-          currentIndexCubit,
-          (bloc!.state as DocumentLoadSuccess).data,
-          (bloc!.state as DocumentLoadSuccess).page,
-          (bloc!.state as DocumentLoadSuccess).info,
-        )
+    final polygon = editorController.toolCubit.state.foregrounds
         .whereType<PolygonRenderer>()
         .single
         .element;
     expect(polygon.property, updatedProperty);
+    expect(editorController.rendererCubit.state.rendererStates, {
+      'polygon': RendererState.hidden,
+    });
   });
 }
