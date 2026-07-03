@@ -40,8 +40,9 @@ part 'editor_input.dart';
 part 'document_save.dart';
 part 'editor_view.dart';
 
-Future<NoteFile> _toFile((NoteData, bool) args) async {
-  return args.$1.toFile(isTextBased: args.$2);
+Future<(NoteFile, String)> _toFileWithContentHash((NoteData, bool) args) async {
+  final file = args.$1.toFile(isTextBased: args.$2);
+  return (file, documentStateContentHash(file.data));
 }
 
 void _sendNetworkingState(

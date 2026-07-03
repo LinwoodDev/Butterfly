@@ -118,9 +118,12 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
         setSaveState(saved: SaveState.saved);
         return AssetLocation.empty;
       }
-      Uint8List currentDataBytes;
+      String contentHash;
       if (absolute || !(current.fileType?.isNote() ?? false)) {
-        final file = await compute(_toFile, (currentData, false));
+        final (file, hash) = await compute(_toFileWithContentHash, (
+          currentData,
+          false,
+        ));
         final document = await fileSystem.createFileWithName(
           name: currentData.name,
           suffix: '.bfly',
@@ -132,21 +135,19 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
           file,
         );
         current = document.location;
-        currentDataBytes = file.data;
+        contentHash = hash;
       } else {
-        final file = await compute(_toFile, (
+        final (file, hash) = await compute(_toFileWithContentHash, (
           currentData,
           current.fileType == AssetFileType.textNote,
         ));
         await fileSystem.updateFile(current.path, file);
-        currentDataBytes = file.data;
+        contentHash = hash;
       }
       settingsCubit.addRecentHistory(current);
       await editorSessionCubit?.saveNow(
         pathKey: documentStatePathKeyOrNull(current),
-        contentHash: documentStateContentKey(
-          documentStateContentHash(currentDataBytes),
-        ),
+        contentHash: documentStateContentKey(contentHash),
       );
       if (isClosed) {
         return current;

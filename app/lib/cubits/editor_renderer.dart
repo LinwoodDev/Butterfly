@@ -363,7 +363,6 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       size /= resolution.multiplier;
     }
     var transform = transformCubit.state;
-    var renderers = List<Renderer<PadElement>>.from(rendererCubit.renderers);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final rect = rendererCubit.getViewportRect(
@@ -409,9 +408,9 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
     resetAllLayers = resetAllLayers || viewChanged;
     if (cameraViewport.unbakedElements.isEmpty && !reset) return;
     final currentLayer = blocState.currentLayer;
+    final renderers = rendererCubit.renderers;
     List<Renderer<PadElement>> visibleElements;
     final oldVisible = cameraViewport.visibleElements;
-    final oldVisibleSet = oldVisible.toSet();
     talker.verbose(
       'Baking viewport (reset: $reset, viewChanged: $viewChanged, '
       'rendererStatesChanged: $rendererStatesChanged)',
@@ -422,6 +421,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
           .where((renderer) => renderer.isVisible(rect))
           .toList();
     } else {
+      final oldVisibleSet = oldVisible.toSet();
       visibleElements = List.from(oldVisible)
         ..addAll(
           cameraViewport.unbakedElements.where(
@@ -430,8 +430,6 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
           ),
         );
     }
-
-    final visibleElementsSet = visibleElements.toSet();
 
     await rendererCubit.updateOnVisible(
       controller,
@@ -557,24 +555,26 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       }
     }
 
-    final bakedElementsSet = cameraViewport.bakedElements
-        .map((e) => e.element)
-        .toSet();
-    final unbakedElementsSet = cameraViewport.unbakedElements
-        .map((e) => e.element)
-        .toSet();
-
-    final newlyUnbaked =
-        (reset
-                ? rendererCubit.renderers
-                : rendererCubit.state.cameraViewport.unbakedElements)
-            .where(
-              (element) =>
-                  !bakedElementsSet.contains(element.element) &&
-                  !unbakedElementsSet.contains(element.element) &&
-                  !visibleElementsSet.contains(element),
-            )
-            .toList();
+    final List<Renderer<PadElement>> newlyUnbaked;
+    if (reset) {
+      final bakedElementsSet = cameraViewport.bakedElements
+          .map((e) => e.element)
+          .toSet();
+      final unbakedElementsSet = cameraViewport.unbakedElements
+          .map((e) => e.element)
+          .toSet();
+      final visibleElementsSet = visibleElements.toSet();
+      newlyUnbaked = renderers
+          .where(
+            (element) =>
+                !bakedElementsSet.contains(element.element) &&
+                !unbakedElementsSet.contains(element.element) &&
+                !visibleElementsSet.contains(element),
+          )
+          .toList();
+    } else {
+      newlyUnbaked = const [];
+    }
 
     if (controller.isClosed) return;
 
@@ -620,9 +620,7 @@ class RendererCubit extends Cubit<RendererRuntimeState> {
       bakedElements: renderers,
       unbakedElements: newlyUnbaked,
       visibleElements: visibleElements,
-      visibleUnbakedElements: newlyUnbaked
-          .where((renderer) => renderer.isVisible(rect))
-          .toList(),
+      visibleUnbakedElements: const [],
       belowLayerImage: belowLayerImage,
       aboveLayerImage: aboveLayerImage,
       rendererStates: allRendererStates,
