@@ -7,7 +7,6 @@ import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/navigator/constants.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
@@ -27,14 +26,17 @@ void _paintRenderer(
   bool foreground = false,
   bool combined = false,
 }) {
-  canvas.save();
-  final center = renderer.rect?.center;
-  if (center != null) {
-    canvas.translate(center.dx, center.dy);
-  }
-  canvas.rotate(renderer.rotation * (pi / 180));
-  if (center != null) {
-    canvas.translate(-center.dx, -center.dy);
+  final rotation = renderer.rotation;
+  if (rotation != 0) {
+    canvas.save();
+    final center = renderer.rect?.center;
+    if (center != null) {
+      canvas.translate(center.dx, center.dy);
+    }
+    canvas.rotate(rotation * (pi / 180));
+    if (center != null) {
+      canvas.translate(-center.dx, -center.dy);
+    }
   }
   if (combined && renderer is PenRenderer) {
     renderer.buildCombined(canvas);
@@ -50,7 +52,21 @@ void _paintRenderer(
       foreground,
     );
   }
-  canvas.restore();
+  if (rotation != 0) {
+    canvas.restore();
+  }
+}
+
+Rect? _rendererBounds(Renderer renderer) => renderer.expandedRect;
+
+Rect? _groupBounds(Iterable<Renderer> renderers) {
+  Rect? bounds;
+  for (final renderer in renderers) {
+    final rect = _rendererBounds(renderer);
+    if (rect == null) return null;
+    bounds = bounds?.expandToInclude(rect) ?? rect;
+  }
+  return bounds;
 }
 
 void _paintRenderers(
@@ -64,13 +80,31 @@ void _paintRenderers(
   Iterable<Renderer> renderers, {
   bool foreground = false,
 }) {
-  final rendererList = renderers.toList();
-  final groups = <String, List<PenRenderer>>{};
+  final rendererList = renderers is List<Renderer>
+      ? renderers
+      : renderers.toList();
+  Map<String, List<PenRenderer>>? groups;
   for (final renderer in rendererList.whereType<PenRenderer>()) {
     final combineId = renderer.element.combineId;
     if (combineId != null) {
-      groups.putIfAbsent(combineId, () => []).add(renderer);
+      (groups ??= {}).putIfAbsent(combineId, () => []).add(renderer);
     }
+  }
+  if (groups == null) {
+    for (final renderer in rendererList) {
+      _paintRenderer(
+        canvas,
+        size,
+        document,
+        page,
+        info,
+        transform,
+        colorScheme,
+        renderer,
+        foreground: foreground,
+      );
+    }
+    return;
   }
   final paintedGroups = <String>{};
   for (final renderer in rendererList) {
@@ -92,8 +126,24 @@ void _paintRenderers(
       continue;
     }
     if (!paintedGroups.add(combineId)) continue;
-    canvas.saveLayer(null, Paint());
-    for (final groupedRenderer in groups[combineId]!) {
+    final group = groups[combineId]!;
+    if (group.length == 1) {
+      _paintRenderer(
+        canvas,
+        size,
+        document,
+        page,
+        info,
+        transform,
+        colorScheme,
+        group.first,
+        foreground: foreground,
+        combined: true,
+      );
+      continue;
+    }
+    canvas.saveLayer(_groupBounds(group), Paint());
+    for (final groupedRenderer in group) {
       _paintRenderer(
         canvas,
         size,
@@ -244,13 +294,16 @@ class ViewPainter extends CustomPainter {
     }
     final areaSelectionWidth = 5 * transform.size;
     if (areaRect != null) {
+      final visibleRect =
+          transform.position & (Size(size.width, size.height) / transform.size);
       final currentAreaColor = currentArea?.color?.toColor();
       final paint = Paint()
         ..style = PaintingStyle.stroke
         ..color = currentAreaColor ?? colorScheme?.primary ?? Colors.green
         ..strokeWidth = areaSelectionWidth;
       canvas.drawRect(areaRect.inflate(areaSelectionWidth / 2), paint);
-      for (final area in page.areas.sortedBy((a) => a == currentArea ? 1 : 0)) {
+      for (final area in page.areas) {
+        if (area == currentArea || !area.rect.overlaps(visibleRect)) continue;
         if (areaRect.overlaps(area.rect)) continue;
         var rect = area.rect;
         rect = Rect.fromPoints(
@@ -262,10 +315,7 @@ class ViewPainter extends CustomPainter {
           ..color =
               area.color?.toColor() ?? colorScheme?.secondary ?? Colors.grey
           ..strokeWidth = areaSelectionWidth;
-        canvas.drawRect(
-          rect.inflate(areaSelectionWidth / 2),
-          area == currentArea ? paint : areaPaint,
-        );
+        canvas.drawRect(rect.inflate(areaSelectionWidth / 2), areaPaint);
       }
       canvas.clipRect(areaRect);
     }
@@ -322,16 +372,17 @@ class ViewPainter extends CustomPainter {
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
     final shouldRepaint =
-        document != oldDelegate.document ||
-        page != oldDelegate.page ||
-        info != oldDelegate.info ||
+        !identical(document, oldDelegate.document) ||
+        !identical(page, oldDelegate.page) ||
+        !identical(info, oldDelegate.info) ||
         renderBackground != oldDelegate.renderBackground ||
         renderBaked != oldDelegate.renderBaked ||
         renderBakedLayers != oldDelegate.renderBakedLayers ||
         transform != oldDelegate.transform ||
-        cameraViewport != oldDelegate.cameraViewport ||
-        !setEquals(invisibleLayers, oldDelegate.invisibleLayers) ||
-        currentArea != oldDelegate.currentArea ||
+        !identical(cameraViewport, oldDelegate.cameraViewport) ||
+        (!identical(invisibleLayers, oldDelegate.invisibleLayers) &&
+            !setEquals(invisibleLayers, oldDelegate.invisibleLayers)) ||
+        !identical(currentArea, oldDelegate.currentArea) ||
         colorScheme != oldDelegate.colorScheme;
     return shouldRepaint;
   }

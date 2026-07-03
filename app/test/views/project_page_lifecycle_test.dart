@@ -197,13 +197,13 @@ void main() {
     await tester.pumpWidget(buildApp());
 
     router.go('/import');
-      await pumpUntil(
-        tester,
-        () =>
-            find.byType(ProjectPage).evaluate().isNotEmpty &&
-            observer.lastSaveCubit != null,
-        'imported document open',
-      );
+    await pumpUntil(
+      tester,
+      () =>
+          find.byType(ProjectPage).evaluate().isNotEmpty &&
+          observer.lastSaveCubit != null,
+      'imported document open',
+    );
 
     expect(observer.lastSaveCubit!.state.saved, SaveState.unsaved);
 

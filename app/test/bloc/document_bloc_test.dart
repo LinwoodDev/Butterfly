@@ -175,6 +175,10 @@ void main() {
   late WindowCubit windowCubit;
   late DocumentBloc bloc;
 
+  setUpAll(() {
+    registerFallbackValue(const AssetLocation(path: 'fallback.bfly'));
+  });
+
   setUp(() {
     fileSystem = MockButterflyFileSystem();
     settingsCubit = fileSystem.settingsCubit as MockSettingsCubit;
@@ -183,6 +187,7 @@ void main() {
       () => settingsCubit.state,
     ).thenReturn(const ButterflySettings(autosave: false));
     when(() => settingsCubit.stream).thenAnswer((_) => const Stream.empty());
+    when(() => settingsCubit.addRecentHistory(any())).thenAnswer((_) async {});
 
     editorController = EditorController(
       settingsCubit,
