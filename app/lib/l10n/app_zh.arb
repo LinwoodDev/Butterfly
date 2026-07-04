@@ -99,7 +99,7 @@
   },
   "background": "背景",
   "applyBackground": "应用背景",
-  "applyAreas": "Apply areas",
+  "applyAreas": "应用区域",
   "currentPage": "当前页面",
   "allPages": "所有页面",
   "box": "框",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "默认调色板",
   "highlighter": "高亮器",
-  "combinePaths": "Combine paths",
+  "combinePaths": "合并路径",
   "add": "添加",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "关键字",
   "bringMovedElementsToFront": "将移动元素带到前端",
   "addTool": "添加工具",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "下一页",
+  "previousPage": "上一页"
 }
