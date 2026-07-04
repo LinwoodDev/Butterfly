@@ -99,7 +99,7 @@
   },
   "background": "Achtergrond",
   "applyBackground": "Achtergrond toepassen",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Pas gebieden toe",
   "currentPage": "Huidige pagina",
   "allPages": "Alle pagina's",
   "box": "Vierkant",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Standaard palet",
   "highlighter": "Markeerstift",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Combineer paden",
   "add": "Toevoegen",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Sleutel",
   "bringMovedElementsToFront": "Breng verplaatste elementen naar voren",
   "addTool": "Functie toevoegen",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Volgende pagina",
+  "previousPage": "Vorige pagina"
 }
