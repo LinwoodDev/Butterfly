@@ -99,7 +99,7 @@
   },
   "background": "Tausta",
   "applyBackground": "Käytä taustakuvaa",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Käytä alueita",
   "currentPage": "Nykyinen sivu",
   "allPages": "Kaikki sivut",
   "box": "Laatikko",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Oletus paletti",
   "highlighter": "Korostus",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Yhdistä polut",
   "add": "Lisää",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Avain",
   "bringMovedElementsToFront": "Tuo siirretyt elementit eteen",
   "addTool": "Lisää työkalu",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Seuraava sivu",
+  "previousPage": "Edellinen sivu"
 }
