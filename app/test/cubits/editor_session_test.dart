@@ -46,7 +46,7 @@ void main() {
         encodePersistedDocumentState(state),
       );
 
-      expect(decoded, state);
+      expect(decoded, state.copyWith(pathKey: null, contentHash: null));
     });
 
     test('uses schema defaults for sparse json', () {
@@ -217,10 +217,10 @@ void main() {
         documentStateContentKey('hash-a'),
       );
       final pathRecord = await fileSystem.getFile('path/a');
-      expect(contentRecord?.pathKey, 'path/a');
-      expect(contentRecord?.contentHash, 'hash-a');
-      expect(pathRecord?.pathKey, 'path/a');
-      expect(pathRecord?.contentHash, 'hash-a');
+      expect(contentRecord?.pathKey, isNull);
+      expect(contentRecord?.contentHash, isNull);
+      expect(pathRecord?.pathKey, isNull);
+      expect(pathRecord?.contentHash, isNull);
       expect(pathRecord?.navigator.enabled, isTrue);
 
       await cubit.close();
@@ -237,6 +237,8 @@ void main() {
         contentHash: 'hash-old',
       );
 
+      cubit.updateNavigator(enabled: true);
+      await cubit.saveNow();
       await cubit.saveNow(pathKey: 'path/new');
 
       expect(await fileSystem.getFile('path/old'), isNull);
@@ -244,10 +246,11 @@ void main() {
       final contentRecord = await fileSystem.getFile(
         documentStateContentKey('hash-old'),
       );
-      expect(pathRecord?.pathKey, 'path/old');
-      expect(pathRecord?.contentHash, 'hash-old');
-      expect(contentRecord?.pathKey, 'path/old');
-      expect(contentRecord?.contentHash, 'hash-old');
+      expect(pathRecord?.pathKey, isNull);
+      expect(pathRecord?.contentHash, isNull);
+      expect(contentRecord?.pathKey, isNull);
+      expect(contentRecord?.contentHash, isNull);
+      expect(pathRecord?.navigator.enabled, isTrue);
 
       await cubit.close();
       await transformCubit.close();
@@ -268,7 +271,7 @@ void main() {
 
       expect(await fileSystem.getFile('path/old'), isNull);
       final pathRecord = await fileSystem.getFile('path/new');
-      expect(pathRecord?.pathKey, 'path/new');
+      expect(pathRecord?.pathKey, isNull);
       expect(pathRecord?.navigator.enabled, isTrue);
 
       await cubit.close();
@@ -297,8 +300,9 @@ void main() {
         documentStateContentKey('hash-new'),
       );
       final pathRecord = await fileSystem.getFile('path/a');
-      expect(contentRecord?.contentHash, 'hash-new');
-      expect(pathRecord?.contentHash, 'hash-new');
+      expect(contentRecord?.contentHash, isNull);
+      expect(pathRecord?.contentHash, isNull);
+      expect(contentRecord?.navigator.enabled, isTrue);
 
       await cubit.close();
       await transformCubit.close();
@@ -355,6 +359,28 @@ void main() {
       );
 
       await cubit.close();
+      await transformCubit.close();
+    });
+
+    test('close flushes unsaved session state', () async {
+      final transformCubit = TransformCubit(1);
+      final cubit = EditorSessionCubit(
+        repository: DocumentStateRepository(fileSystem),
+        transformCubit: transformCubit,
+        initialState: const PersistedDocumentState(pageName: 'Page 1'),
+        pathKey: 'path/a',
+        contentHash: 'hash-a',
+      );
+
+      cubit.updateNavigator(enabled: true);
+      expect(cubit.isDirty, isTrue);
+
+      await cubit.close();
+
+      final saved = await fileSystem.getFile('path/a');
+      expect(saved?.navigator.enabled, isTrue);
+      expect(saved?.contentHash, isNull);
+
       await transformCubit.close();
     });
   });

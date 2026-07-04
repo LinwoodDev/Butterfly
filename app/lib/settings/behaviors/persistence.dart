@@ -1,3 +1,5 @@
+import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/repositories/document_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
@@ -119,12 +121,40 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                     onChangeEnd: (value) =>
                         change(settings.copyWith(maxAgeDays: value.toInt())),
                   ),
+                  ListTile(
+                    leading: const PhosphorIcon(PhosphorIconsLight.trash),
+                    title: const Text('Clean up stored states'),
+                    subtitle: const Text(
+                      'Delete records older than the limits above',
+                    ),
+                    enabled: settings.enabled,
+                    onTap: settings.enabled
+                        ? () => _cleanupPersistentStates(context)
+                        : null,
+                  ),
                 ],
               );
             },
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _cleanupPersistentStates(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final remotes = [null, ...settingsCubit.state.connections];
+    for (final remote in remotes) {
+      final repository = DocumentStateRepository(
+        fileSystem.buildDocumentStateSystem(remote),
+        settingsProvider: () => settingsCubit.state.documentStatePersistence,
+      );
+      await repository.cleanup();
+    }
+    messenger.showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context).deleted)),
     );
   }
 }

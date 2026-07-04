@@ -111,6 +111,14 @@ class DocumentStateRepository {
         }
       });
 
+  Future<void> cleanupAll() => _lock.synchronized(() async {
+    await fileSystem.initialize();
+    final keys = await fileSystem.getKeys();
+    for (final key in keys) {
+      await fileSystem.deleteFile(key);
+    }
+  });
+
   Future<void> _updateFile(
     String? oldKey,
     String? newKey,
@@ -126,21 +134,54 @@ class DocumentStateRepository {
     final key = (newKey ?? oldKey)!;
     final keyChanged = oldKey != newKey;
 
+    final nextState = await _mergeDisabledSettings(oldKey ?? key, state);
+
     if (!keyChanged) {
       // Same key, only update if persistent data changed
       if (persistentChanged) {
-        await fileSystem.updateFile(key, state);
+        await fileSystem.updateFile(key, nextState);
       }
     } else if (persistentChanged || oldKey == null) {
       // Key changed or new key: delete old and create new
       if (oldKey != null) {
         await fileSystem.deleteFile(oldKey);
+        await fileSystem.createFile(key, nextState);
+      } else {
+        await fileSystem.updateFile(key, nextState);
       }
-      await fileSystem.createFile(key, state);
     } else {
-      // Key changed but only transient data changed: rename
+      // Key changed but persisted data did not.
       await fileSystem.renameFile(oldKey, key);
     }
+  }
+
+  Future<PersistedDocumentState> _mergeDisabledSettings(
+    String key,
+    PersistedDocumentState state,
+  ) async {
+    final settings = _settings;
+    if (settings.page &&
+        settings.camera &&
+        settings.locks &&
+        settings.tool &&
+        settings.navigator &&
+        settings.layers &&
+        settings.areas) {
+      return state;
+    }
+    final existing = await _getFileOrNull(key);
+    if (existing == null) return state;
+    return state.copyWith(
+      pageName: settings.page ? state.pageName : existing.pageName,
+      camera: settings.camera ? state.camera : existing.camera,
+      locks: settings.locks ? state.locks : existing.locks,
+      selectedTool: settings.tool ? state.selectedTool : existing.selectedTool,
+      navigator: settings.navigator ? state.navigator : existing.navigator,
+      layers: settings.layers ? state.layers : existing.layers,
+      areaNavigator: settings.areas
+          ? state.areaNavigator
+          : existing.areaNavigator,
+    );
   }
 
   PersistedDocumentState _applySettings(
