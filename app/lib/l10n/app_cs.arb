@@ -99,7 +99,7 @@
   },
   "background": "Pozadí",
   "applyBackground": "Použít pozadí",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Aplikovat oblasti",
   "currentPage": "Aktuální stránka",
   "allPages": "Všechny stránky",
   "box": "Krabice",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Výchozí paleta",
   "highlighter": "Zvýrazňovač",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Kombinovat cesty",
   "add": "Přidat",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Klíč",
   "bringMovedElementsToFront": "Přeneste přesunuté prvky do předku",
   "addTool": "Přidat nástroj",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Další stránka",
+  "previousPage": "Předchozí stránka"
 }
