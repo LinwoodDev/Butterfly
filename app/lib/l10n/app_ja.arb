@@ -99,7 +99,7 @@
   },
   "background": "背景",
   "applyBackground": "背景を適用",
-  "applyAreas": "Apply areas",
+  "applyAreas": "エリアを適用",
   "currentPage": "現在のページ",
   "allPages": "すべてのページ",
   "box": "Box",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "デフォルトのパレット",
   "highlighter": "ハイライト",
-  "combinePaths": "Combine paths",
+  "combinePaths": "パスを結合",
   "add": "追加",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "キー",
   "bringMovedElementsToFront": "移動した要素を前面に移動",
   "addTool": "ツールを追加",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "次のページ",
+  "previousPage": "前のページ"
 }
