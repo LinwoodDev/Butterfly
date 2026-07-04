@@ -99,7 +99,7 @@
   },
   "background": "Bakgrund",
   "applyBackground": "Tillämpa bakgrund",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Tillämpa områden",
   "currentPage": "Nuvarande sida",
   "allPages": "Alla sidor",
   "box": "Låda",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Highlighter",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Kombinera sökvägar",
   "add": "Lägg till",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Nyckel",
   "bringMovedElementsToFront": "Ta med flyttade element framtill",
   "addTool": "Lägg till verktyg",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Nästa sida",
+  "previousPage": "Föregående sida"
 }
