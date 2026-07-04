@@ -99,7 +99,7 @@
   },
   "background": "Φόντο",
   "applyBackground": "Εφαρμογή φόντου",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Εφαρμογή περιοχών",
   "currentPage": "Τρέχουσα σελίδα",
   "allPages": "Όλες οι σελίδες",
   "box": "Κουτί",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Προεπιλεγμένη παλέτα",
   "highlighter": "Επισήμανση",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Συνδυάστε διαδρομές",
   "add": "Προσθήκη",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Κλειδί",
   "bringMovedElementsToFront": "Φέρτε τα μετακινούμενα στοιχεία μπροστά",
   "addTool": "Προσθήκη εργαλείου",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Επόμενη σελίδα",
+  "previousPage": "Προηγούμενη σελίδα"
 }
