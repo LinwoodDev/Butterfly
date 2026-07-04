@@ -99,7 +99,7 @@
   },
   "background": "Fundo",
   "applyBackground": "Aplicar fundo",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Aplicar áreas",
   "currentPage": "Página atual",
   "allPages": "Todas as páginas",
   "box": "Caixa",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Paleta padrão",
   "highlighter": "Marcador",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Combinar caminhos",
   "add": "Adicionar",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Chave",
   "bringMovedElementsToFront": "Trazer elementos movidos para a frente",
   "addTool": "Adicionar ferramenta",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Página seguinte",
+  "previousPage": "Página anterior"
 }
