@@ -149,8 +149,8 @@ sealed class PersistedDocumentState with _$PersistedDocumentState {
 
   const factory PersistedDocumentState({
     @Default(kPersistedDocumentStateVersion) int version,
-    String? pathKey,
-    String? contentHash,
+    @JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,
+    @JsonKey(includeFromJson: false, includeToJson: false) String? contentHash,
     String? pageName,
     @Default(PersistedCameraState()) PersistedCameraState camera,
     @JsonKey(readValue: _readLocks)

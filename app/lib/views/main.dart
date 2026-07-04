@@ -647,7 +647,8 @@ class _ProjectPageState extends State<ProjectPage> {
 
   CloseRequest? _preventClose() {
     final saveState = _runtime?.editorController.saveCubit.state;
-    return saveState?.saved == SaveState.saved
+    final sessionDirty = _runtime?.editorSessionCubit?.isDirty ?? false;
+    return saveState?.saved == SaveState.saved && !sessionDirty
         ? null
         : CloseRequest(
             message: AppLocalizations.of(context).thereAreUnsavedChanges,
@@ -656,10 +657,16 @@ class _ProjectPageState extends State<ProjectPage> {
   }
 
   Future<bool> _saveBeforeClose() async {
-    final bloc = _runtime?.bloc;
+    final runtime = _runtime;
+    final bloc = runtime?.bloc;
     if (bloc == null || bloc.isClosed) return false;
-    await bloc.save(force: true);
-    return bloc.editorController.saveCubit.state.saved == SaveState.saved;
+    if (bloc.editorController.saveCubit.state.saved != SaveState.saved) {
+      await bloc.save(force: true);
+    } else {
+      await runtime?.editorSessionCubit?.saveNow();
+    }
+    return bloc.editorController.saveCubit.state.saved == SaveState.saved &&
+        !(runtime?.editorSessionCubit?.isDirty ?? false);
   }
 
   Map<Type, Action<Intent>> _buildActions(BuildContext context) {

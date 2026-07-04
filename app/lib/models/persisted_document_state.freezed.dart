@@ -861,7 +861,7 @@ as bool,
 /// @nodoc
 mixin _$PersistedDocumentState {
 
- int get version; String? get pathKey; String? get contentHash; String? get pageName; PersistedCameraState get camera;@JsonKey(readValue: _readLocks) PersistentLockState get locks; PersistedToolSelection get selectedTool;@JsonKey(readValue: _readNavigator) PersistedNavigatorState get navigator;@JsonKey(readValue: _readLayers) PersistedLayerState get layers;@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState get areaNavigator; DateTime? get updatedAt;
+ int get version;@JsonKey(includeFromJson: false, includeToJson: false) String? get pathKey;@JsonKey(includeFromJson: false, includeToJson: false) String? get contentHash; String? get pageName; PersistedCameraState get camera;@JsonKey(readValue: _readLocks) PersistentLockState get locks; PersistedToolSelection get selectedTool;@JsonKey(readValue: _readNavigator) PersistedNavigatorState get navigator;@JsonKey(readValue: _readLayers) PersistedLayerState get layers;@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState get areaNavigator; DateTime? get updatedAt;
 /// Create a copy of PersistedDocumentState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -894,7 +894,7 @@ abstract mixin class $PersistedDocumentStateCopyWith<$Res>  {
   factory $PersistedDocumentStateCopyWith(PersistedDocumentState value, $Res Function(PersistedDocumentState) _then) = _$PersistedDocumentStateCopyWithImpl;
 @useResult
 $Res call({
- int version, String? pathKey, String? contentHash, String? pageName, PersistedCameraState camera,@JsonKey(readValue: _readLocks) PersistentLockState locks, PersistedToolSelection selectedTool,@JsonKey(readValue: _readNavigator) PersistedNavigatorState navigator,@JsonKey(readValue: _readLayers) PersistedLayerState layers,@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
+ int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera,@JsonKey(readValue: _readLocks) PersistentLockState locks, PersistedToolSelection selectedTool,@JsonKey(readValue: _readNavigator) PersistedNavigatorState navigator,@JsonKey(readValue: _readLayers) PersistedLayerState layers,@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
 });
 
 
@@ -990,12 +990,12 @@ $PersistedAreaNavigatorStateCopyWith<$Res> get areaNavigator {
 @JsonSerializable()
 
 class _PersistedDocumentState extends PersistedDocumentState {
-  const _PersistedDocumentState({this.version = kPersistedDocumentStateVersion, this.pathKey, this.contentHash, this.pageName, this.camera = const PersistedCameraState(), @JsonKey(readValue: _readLocks) this.locks = const PersistentLockState(), this.selectedTool = const PersistedToolSelection(), @JsonKey(readValue: _readNavigator) this.navigator = const PersistedNavigatorState(), @JsonKey(readValue: _readLayers) this.layers = const PersistedLayerState(), @JsonKey(readValue: _readAreaNavigator) this.areaNavigator = const PersistedAreaNavigatorState(), this.updatedAt}): super._();
+  const _PersistedDocumentState({this.version = kPersistedDocumentStateVersion, @JsonKey(includeFromJson: false, includeToJson: false) this.pathKey, @JsonKey(includeFromJson: false, includeToJson: false) this.contentHash, this.pageName, this.camera = const PersistedCameraState(), @JsonKey(readValue: _readLocks) this.locks = const PersistentLockState(), this.selectedTool = const PersistedToolSelection(), @JsonKey(readValue: _readNavigator) this.navigator = const PersistedNavigatorState(), @JsonKey(readValue: _readLayers) this.layers = const PersistedLayerState(), @JsonKey(readValue: _readAreaNavigator) this.areaNavigator = const PersistedAreaNavigatorState(), this.updatedAt}): super._();
   factory _PersistedDocumentState.fromJson(Map<String, dynamic> json) => _$PersistedDocumentStateFromJson(json);
 
 @override@JsonKey() final  int version;
-@override final  String? pathKey;
-@override final  String? contentHash;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  String? pathKey;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  String? contentHash;
 @override final  String? pageName;
 @override@JsonKey() final  PersistedCameraState camera;
 @override@JsonKey(readValue: _readLocks) final  PersistentLockState locks;
@@ -1038,7 +1038,7 @@ abstract mixin class _$PersistedDocumentStateCopyWith<$Res> implements $Persiste
   factory _$PersistedDocumentStateCopyWith(_PersistedDocumentState value, $Res Function(_PersistedDocumentState) _then) = __$PersistedDocumentStateCopyWithImpl;
 @override @useResult
 $Res call({
- int version, String? pathKey, String? contentHash, String? pageName, PersistedCameraState camera,@JsonKey(readValue: _readLocks) PersistentLockState locks, PersistedToolSelection selectedTool,@JsonKey(readValue: _readNavigator) PersistedNavigatorState navigator,@JsonKey(readValue: _readLayers) PersistedLayerState layers,@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
+ int version,@JsonKey(includeFromJson: false, includeToJson: false) String? pathKey,@JsonKey(includeFromJson: false, includeToJson: false) String? contentHash, String? pageName, PersistedCameraState camera,@JsonKey(readValue: _readLocks) PersistentLockState locks, PersistedToolSelection selectedTool,@JsonKey(readValue: _readNavigator) PersistedNavigatorState navigator,@JsonKey(readValue: _readLayers) PersistedLayerState layers,@JsonKey(readValue: _readAreaNavigator) PersistedAreaNavigatorState areaNavigator, DateTime? updatedAt
 });
 
 

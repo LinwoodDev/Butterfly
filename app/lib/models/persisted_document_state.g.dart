@@ -101,8 +101,6 @@ _PersistedDocumentState _$PersistedDocumentStateFromJson(
   Map json,
 ) => _PersistedDocumentState(
   version: (json['version'] as num?)?.toInt() ?? kPersistedDocumentStateVersion,
-  pathKey: json['pathKey'] as String?,
-  contentHash: json['contentHash'] as String?,
   pageName: json['pageName'] as String?,
   camera: json['camera'] == null
       ? const PersistedCameraState()
@@ -145,8 +143,6 @@ Map<String, dynamic> _$PersistedDocumentStateToJson(
   _PersistedDocumentState instance,
 ) => <String, dynamic>{
   'version': instance.version,
-  'pathKey': instance.pathKey,
-  'contentHash': instance.contentHash,
   'pageName': instance.pageName,
   'camera': instance.camera.toJson(),
   'locks': instance.locks.toJson(),

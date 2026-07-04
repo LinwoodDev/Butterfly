@@ -147,7 +147,7 @@ class DocumentSaveCubit extends Cubit<DocumentSaveState> {
       settingsCubit.addRecentHistory(current);
       await editorSessionCubit?.saveNow(
         pathKey: documentStatePathKeyOrNull(current),
-        contentHash: documentStateContentKey(contentHash),
+        contentHash: contentHash,
       );
       if (isClosed) {
         return current;
