@@ -99,7 +99,7 @@
   },
   "background": "Context",
   "applyBackground": "Aplică fundal",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Aplică zone",
   "currentPage": "Pagina curentă",
   "allPages": "Toate paginile",
   "box": "Cutie",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Paletă implicită",
   "highlighter": "Evidențiere",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Combinați căile",
   "add": "Adăugare",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Cheie",
   "bringMovedElementsToFront": "Aduce elementele mutate în față",
   "addTool": "Adăugare unealtă",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Pagina următoare",
+  "previousPage": "Pagina precedentă"
 }
