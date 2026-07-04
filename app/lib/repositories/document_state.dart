@@ -59,12 +59,13 @@ class DocumentStateRepository {
     );
   });
 
-  Future<void> cleanup({String? contentHash, String? pathKey, DateTime? now}) =>
+  Future<int> cleanup({String? contentHash, String? pathKey, DateTime? now}) =>
       _lock.synchronized(() async {
         final settings = _settings;
         await fileSystem.initialize();
         final keys = await fileSystem.getKeys();
         final protectedKeys = <String>{};
+        final deletedKeys = <String>{};
         if (contentHash != null) {
           protectedKeys.add(documentStateContentKey(contentHash));
         }
@@ -89,12 +90,17 @@ class DocumentStateRepository {
           if (protectedKeys.contains(record.key) || updatedAt == null) continue;
           if (updatedAt.isBefore(cutoff)) {
             await fileSystem.deleteFile(record.key);
+            deletedKeys.add(record.key);
           }
         }
 
         // Delete overflow records (oldest first)
         final remaining = records
-            .where((r) => !protectedKeys.contains(r.key))
+            .where(
+              (r) =>
+                  !protectedKeys.contains(r.key) &&
+                  !deletedKeys.contains(r.key),
+            )
             .toList();
         if (remaining.length > settings.maxEntries) {
           remaining.sort((a, b) {
@@ -107,16 +113,19 @@ class DocumentStateRepository {
           final overflow = remaining.length - settings.maxEntries;
           for (final record in remaining.take(overflow)) {
             await fileSystem.deleteFile(record.key);
+            deletedKeys.add(record.key);
           }
         }
+        return deletedKeys.length;
       });
 
-  Future<void> cleanupAll() => _lock.synchronized(() async {
+  Future<int> cleanupAll() => _lock.synchronized(() async {
     await fileSystem.initialize();
     final keys = await fileSystem.getKeys();
     for (final key in keys) {
       await fileSystem.deleteFile(key);
     }
+    return keys.length;
   });
 
   Future<void> _updateFile(
@@ -226,7 +235,7 @@ class DocumentStateRepository {
     }
 
     _scheduledCleanup =
-        Future<void>(() {
+        Future<void>.microtask(() {
           return _cleanupAfterSave(contentHash: contentHash, pathKey: pathKey);
         }).whenComplete(() {
           _scheduledCleanup = null;

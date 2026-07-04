@@ -3,6 +3,7 @@ import 'package:butterfly/repositories/document_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -35,7 +36,9 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                   SwitchListTile(
                     value: settings.enabled,
                     secondary: const PhosphorIcon(PhosphorIconsLight.power),
-                    title: const Text('Enable persistent document states'),
+                    title: Text(
+                      AppLocalizations.of(context).persistentStatesEnabled,
+                    ),
                     onChanged: (value) =>
                         change(settings.copyWith(enabled: value)),
                   ),
@@ -43,7 +46,9 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                   SwitchListTile(
                     value: settings.page,
                     secondary: const PhosphorIcon(PhosphorIconsLight.file),
-                    title: const Text('Current page'),
+                    title: Text(
+                      AppLocalizations.of(context).persistentStateCurrentPage,
+                    ),
                     onChanged: settings.enabled
                         ? (value) => change(settings.copyWith(page: value))
                         : null,
@@ -53,7 +58,9 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                     secondary: const PhosphorIcon(
                       PhosphorIconsLight.frameCorners,
                     ),
-                    title: const Text('Viewport position and zoom'),
+                    title: Text(
+                      AppLocalizations.of(context).persistentStateViewport,
+                    ),
                     onChanged: settings.enabled
                         ? (value) => change(settings.copyWith(camera: value))
                         : null,
@@ -69,7 +76,9 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                   SwitchListTile(
                     value: settings.tool,
                     secondary: const PhosphorIcon(PhosphorIconsLight.toolbox),
-                    title: const Text('Selected tool'),
+                    title: Text(
+                      AppLocalizations.of(context).persistentStateSelectedTool,
+                    ),
                     onChanged: settings.enabled
                         ? (value) => change(settings.copyWith(tool: value))
                         : null,
@@ -100,7 +109,9 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                   ),
                   const Divider(),
                   ExactSlider(
-                    header: const Text('Maximum stored records'),
+                    header: Text(
+                      AppLocalizations.of(context).persistentStateMaxRecords,
+                    ),
                     leading: const PhosphorIcon(PhosphorIconsLight.listNumbers),
                     value: settings.maxEntries.toDouble(),
                     min: 20,
@@ -111,7 +122,11 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                         change(settings.copyWith(maxEntries: value.toInt())),
                   ),
                   ExactSlider(
-                    header: const Text('Delete records older than days'),
+                    header: Text(
+                      AppLocalizations.of(
+                        context,
+                      ).persistentStateDeleteOlderThanDays,
+                    ),
                     leading: const PhosphorIcon(PhosphorIconsLight.calendar),
                     value: settings.maxAgeDays.toDouble(),
                     min: 7,
@@ -123,9 +138,13 @@ class PersistenceBehaviorSettings extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const PhosphorIcon(PhosphorIconsLight.trash),
-                    title: const Text('Clean up stored states'),
-                    subtitle: const Text(
-                      'Delete records older than the limits above',
+                    title: Text(
+                      AppLocalizations.of(context).persistentStateCleanup,
+                    ),
+                    subtitle: Text(
+                      AppLocalizations.of(
+                        context,
+                      ).persistentStateCleanupDescription,
                     ),
                     enabled: settings.enabled,
                     onTap: settings.enabled
@@ -145,16 +164,148 @@ class PersistenceBehaviorSettings extends StatelessWidget {
     final messenger = ScaffoldMessenger.of(context);
     final settingsCubit = context.read<SettingsCubit>();
     final fileSystem = context.read<ButterflyFileSystem>();
-    final remotes = [null, ...settingsCubit.state.connections];
-    for (final remote in remotes) {
-      final repository = DocumentStateRepository(
-        fileSystem.buildDocumentStateSystem(remote),
-        settingsProvider: () => settingsCubit.state.documentStatePersistence,
-      );
-      await repository.cleanup();
-    }
+    final result = await _showCleanupTargetsDialog(
+      context,
+      settingsCubit,
+      fileSystem,
+    );
+    if (result == null) return;
+    if (!context.mounted) return;
     messenger.showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context).deleted)),
+      SnackBar(
+        content: Text(
+          AppLocalizations.of(context).persistentStateCleanupFeedback(
+            result.targetCount,
+            result.deletedRecords,
+          ),
+        ),
+      ),
     );
   }
+
+  Future<_CleanupResult?> _showCleanupTargetsDialog(
+    BuildContext context,
+    SettingsCubit settingsCubit,
+    ButterflyFileSystem fileSystem,
+  ) async {
+    final settings = settingsCubit.state;
+    final targets = [
+      _CleanupTarget(
+        id: '',
+        label: AppLocalizations.of(context).local,
+        storage: null,
+      ),
+      ...settings.connections.map(
+        (connection) => _CleanupTarget(
+          id: connection.identifier,
+          label: connection.identifier,
+          storage: connection,
+        ),
+      ),
+    ];
+    final selected = targets.map((target) => target.id).toSet();
+    var cleaning = false;
+
+    return showDialog<_CleanupResult>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: Text(AppLocalizations.of(context).persistentStateCleanup),
+          scrollable: true,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (cleaning) ...[
+                const LinearProgressIndicator(),
+                const SizedBox(height: 16),
+              ],
+              for (final target in targets)
+                CheckboxListTile(
+                  value: selected.contains(target.id),
+                  onChanged: cleaning
+                      ? null
+                      : (value) {
+                          setState(() {
+                            if (value ?? false) {
+                              selected.add(target.id);
+                            } else {
+                              selected.remove(target.id);
+                            }
+                          });
+                        },
+                  secondary: PhosphorIcon(
+                    target.storage == null
+                        ? PhosphorIconsLight.house
+                        : PhosphorIconsLight.cloud,
+                  ),
+                  title: Text(target.label),
+                  controlAffinity: ListTileControlAffinity.leading,
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: cleaning ? null : () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            ElevatedButton(
+              onPressed: selected.isEmpty || cleaning
+                  ? null
+                  : () async {
+                      final selectedTargets = targets
+                          .where((target) => selected.contains(target.id))
+                          .toList();
+                      setState(() => cleaning = true);
+                      var deleted = 0;
+                      for (final target in selectedTargets) {
+                        final repository = DocumentStateRepository(
+                          fileSystem.buildDocumentStateSystem(target.storage),
+                          settingsProvider: () =>
+                              settingsCubit.state.documentStatePersistence,
+                        );
+                        deleted += await repository.cleanup();
+                      }
+                      if (!context.mounted) return;
+                      Navigator.of(context).pop(
+                        _CleanupResult(
+                          targetCount: selectedTargets.length,
+                          deletedRecords: deleted,
+                        ),
+                      );
+                    },
+              child: cleaning
+                  ? Text(
+                      AppLocalizations.of(
+                        context,
+                      ).persistentStateCleanupInProgress,
+                    )
+                  : Text(AppLocalizations.of(context).delete),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CleanupTarget {
+  const _CleanupTarget({
+    required this.id,
+    required this.label,
+    required this.storage,
+  });
+
+  final String id;
+  final String label;
+  final ExternalStorage? storage;
+}
+
+class _CleanupResult {
+  const _CleanupResult({
+    required this.targetCount,
+    required this.deletedRecords,
+  });
+
+  final int targetCount;
+  final int deletedRecords;
 }
