@@ -99,7 +99,7 @@
   },
   "background": "Фон",
   "applyBackground": "Применить фон",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Применить области",
   "currentPage": "Текущая страница",
   "allPages": "Все страницы",
   "box": "Блок",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Стандартная палитра",
   "highlighter": "Выделение",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Комбинировать пути",
   "add": "Добавить",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Спецификация",
   "bringMovedElementsToFront": "Принести перемещенные элементы на передний план",
   "addTool": "Добавить инструмент",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Следующая страница",
+  "previousPage": "Предыдущая страница"
 }
