@@ -99,7 +99,7 @@
   },
   "background": "Arrière-plan",
   "applyBackground": "Appliquer l'arrière-plan",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Appliquer des zones",
   "currentPage": "Page actuelle",
   "allPages": "Toutes les pages",
   "box": "Boîte",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Palette par défaut",
   "highlighter": "Surligneur",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Combiner les chemins",
   "add": "Ajouter",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Clés",
   "bringMovedElementsToFront": "Apporter les éléments déplacés à l'avant",
   "addTool": "Ajouter un outil",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Page suivante",
+  "previousPage": "Page précédente"
 }
