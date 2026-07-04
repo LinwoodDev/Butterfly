@@ -99,7 +99,7 @@
   },
   "background": "Bakgrunn",
   "applyBackground": "Bruk bakgrunn",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Påfør områder",
   "currentPage": "Nåværende side",
   "allPages": "Alle sider",
   "box": "Boks",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Uthever",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Kombiner baner",
   "add": "Legg til",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Nøkkel",
   "bringMovedElementsToFront": "Plasser flyttede elementer forsiden",
   "addTool": "Legg til verktøy",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Neste side",
+  "previousPage": "Forrige side"
 }
