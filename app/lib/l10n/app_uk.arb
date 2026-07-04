@@ -99,7 +99,7 @@
   },
   "background": "Фон",
   "applyBackground": "Застосувати тло",
-  "applyAreas": "Apply areas",
+  "applyAreas": "Застосувати області",
   "currentPage": "Поточна сторінка",
   "allPages": "Усі сторінки",
   "box": "Ящик",
@@ -124,7 +124,7 @@
   },
   "defaultPalette": "Стандартна палітра",
   "highlighter": "Маркер",
-  "combinePaths": "Combine paths",
+  "combinePaths": "Комбайнові шляхи",
   "add": "Додати",
   "@add": {
     "description": "Add action"
@@ -1370,6 +1370,6 @@
   "key": "Ключ",
   "bringMovedElementsToFront": "Принести переміщені елементи на передній план",
   "addTool": "Додати інструмент",
-  "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "nextPage": "Наступна сторінка",
+  "previousPage": "Попередня сторінка"
 }
