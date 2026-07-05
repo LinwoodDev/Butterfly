@@ -16,6 +16,8 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).collaboration,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).collaborationDescription,
           icon: PhosphorIconsLight.chatTeardrop,
           read: (state) => state.hasFlag('collaboration'),
           write: (context, value) =>
@@ -24,6 +26,8 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).smoothNavigation,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).smoothNavigationDescription,
           icon: PhosphorIconsLight.caretCircleDoubleDown,
           read: (state) => state.hasFlag('smoothNavigation'),
           write: (context, value) =>
@@ -32,6 +36,8 @@ final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).edgePanAreaSwitching,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).edgePanAreaSwitchingDescription,
           icon: PhosphorIconsLight.cursor,
           read: (state) => state.hasFlag('edgePanAreaSwitching'),
           write: (context, value) =>

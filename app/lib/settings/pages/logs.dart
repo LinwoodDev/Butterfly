@@ -9,6 +9,8 @@ final _logsSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).logs,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).showVerboseLogsDescription,
           read: (state) => state.showVerboseLogs,
           write: (context, value) =>
               context.read<SettingsCubit>().changeShowVerboseLogs(value),

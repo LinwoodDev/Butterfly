@@ -20,29 +20,65 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
             ThemeMode.dark => AppLocalizations.of(context).darkTheme,
           },
         ),
-        SettingsLeapCustomSetting(
+        SettingsLeapListSetting<ButterflySettings, String>(
+          id: 'design',
           displayName: (context) => AppLocalizations.of(context).design,
-          builder: (context, state) {
-            final design = state.design;
-            return ListTile(
-              leading: const PhosphorIcon(PhosphorIconsLight.palette),
-              title: Text(AppLocalizations.of(context).design),
-              subtitle: Text(
-                design.isEmpty
-                    ? AppLocalizations.of(context).systemTheme
-                    : design,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).designDescription,
+          icon: PhosphorIconsLight.palette,
+          options: [
+            SettingsLeapOption(
+              id: 'system',
+              value: '',
+              displayName: (context) =>
+                  AppLocalizations.of(context).systemTheme,
+            ),
+            for (final theme in getThemes())
+              SettingsLeapOption(
+                id: theme,
+                value: theme,
+                displayName: (context) => theme,
               ),
-              trailing: ThemeBox(theme: getThemeData(state.design, false)),
-              onTap: () => _openDesignModal(context),
-            );
-          },
+          ],
+          read: (state) => state.design,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeDesign(value),
         ),
-        SettingsLeapCustomSetting(
+        SettingsLeapListSetting<ButterflySettings, String>(
+          id: 'locale',
           displayName: (context) => AppLocalizations.of(context).locale,
-          builder: _localeSetting,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).localeDescription,
+          icon: PhosphorIconsLight.translate,
+          options: [
+            SettingsLeapOption(
+              id: 'system',
+              value: '',
+              displayName: (context) =>
+                  AppLocalizations.of(context).systemLocale,
+            ),
+            for (final locale in getLocales())
+              SettingsLeapOption(
+                id: locale.toLanguageTag(),
+                value: locale.toLanguageTag(),
+                displayName: (context) =>
+                    _localeName(context, locale.toLanguageTag()),
+              ),
+          ],
+          read: (state) => state.localeTag,
+          write: (context, value) {
+            final locale = value.isEmpty
+                ? null
+                : getLocales()
+                      .where((e) => e.toLanguageTag() == value)
+                      .firstOrNull;
+            context.read<SettingsCubit>().changeLocale(locale);
+          },
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).platformTheme,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).platformThemeDescription,
           icon: PhosphorIconsLight.cursor,
           values: PlatformTheme.values,
           read: (state) => state.platformTheme,
@@ -56,6 +92,8 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).density,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).densityDescription,
           icon: PhosphorIconsLight.gridNine,
           values: ThemeDensity.values,
           read: (state) => state.density,
@@ -76,6 +114,8 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).highContrast,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).highContrastDescription,
           icon: PhosphorIconsLight.circleHalf,
           read: (state) => state.highContrast,
           write: (context, value) =>
@@ -83,6 +123,8 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).nativeTitleBar,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).nativeTitleBarDescription,
           icon: PhosphorIconsLight.appWindow,
           enabled: (context, state) => !kIsWeb && isWindow,
           read: (state) => state.nativeTitleBar,
@@ -97,76 +139,3 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
 String _localeName(BuildContext context, String locale) => locale.isNotEmpty
     ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
     : AppLocalizations.of(context).systemLocale;
-
-Widget _localeSetting(BuildContext context, ButterflySettings state) {
-  return ListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.translate),
-    title: Text(AppLocalizations.of(context).locale),
-    subtitle: Text(_localeName(context, state.localeTag)),
-    onTap: () => _openLocaleModal(context),
-  );
-}
-
-void _openDesignModal(BuildContext context) {
-  final cubit = context.read<SettingsCubit>();
-  final design = cubit.state.design;
-  showLeapBottomSheet(
-    context: context,
-    titleBuilder: (context) => Text(AppLocalizations.of(context).design),
-    childrenBuilder: (context) {
-      void changeDesign(String design) {
-        cubit.changeDesign(design);
-        Navigator.of(context).pop();
-      }
-
-      return [
-        ListTile(
-          title: Text(AppLocalizations.of(context).systemTheme),
-          selected: design.isEmpty,
-          onTap: () => changeDesign(''),
-          leading: ThemeBox(theme: getThemeData('', false)),
-        ),
-        ...getThemes().map((e) {
-          final theme = getThemeData(e, false);
-          return ListTile(
-            title: Text(e),
-            selected: e == design,
-            onTap: () => changeDesign(e),
-            leading: ThemeBox(theme: theme),
-          );
-        }),
-      ];
-    },
-  );
-}
-
-void _openLocaleModal(BuildContext context) {
-  final cubit = context.read<SettingsCubit>();
-  final currentLocale = cubit.state.localeTag;
-  final locales = getLocales();
-  showLeapBottomSheet(
-    context: context,
-    titleBuilder: (context) => Text(AppLocalizations.of(context).locale),
-    childrenBuilder: (context) {
-      void changeLocale(Locale? locale) {
-        cubit.changeLocale(locale);
-        Navigator.of(context).pop();
-      }
-
-      return [
-        ListTile(
-          title: Text(AppLocalizations.of(context).systemLocale),
-          selected: currentLocale.isEmpty,
-          onTap: () => changeLocale(null),
-        ),
-        ...locales.map(
-          (e) => ListTile(
-            title: Text(_localeName(context, e.toLanguageTag())),
-            selected: currentLocale == e.toLanguageTag(),
-            onTap: () => changeLocale(e),
-          ),
-        ),
-      ];
-    },
-  );
-}

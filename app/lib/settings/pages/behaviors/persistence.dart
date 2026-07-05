@@ -24,6 +24,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.enabled,
         secondary: const PhosphorIcon(PhosphorIconsLight.power),
         title: Text(AppLocalizations.of(context).persistentStatesEnabled),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStatesEnabledDescription,
+        ),
         onChanged: (value) => change(settings.copyWith(enabled: value)),
       ),
       const Divider(),
@@ -31,6 +34,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.page,
         secondary: const PhosphorIcon(PhosphorIconsLight.file),
         title: Text(AppLocalizations.of(context).persistentStateCurrentPage),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateCurrentPageDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(page: value))
             : null,
@@ -39,6 +45,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.camera,
         secondary: const PhosphorIcon(PhosphorIconsLight.frameCorners),
         title: Text(AppLocalizations.of(context).persistentStateViewport),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateViewportDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(camera: value))
             : null,
@@ -47,6 +56,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.locks,
         secondary: const PhosphorIcon(PhosphorIconsLight.lockKey),
         title: Text(AppLocalizations.of(context).lock),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateLocksDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(locks: value))
             : null,
@@ -55,6 +67,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.tool,
         secondary: const PhosphorIcon(PhosphorIconsLight.toolbox),
         title: Text(AppLocalizations.of(context).persistentStateSelectedTool),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateSelectedToolDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(tool: value))
             : null,
@@ -63,6 +78,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.navigator,
         secondary: const PhosphorIcon(PhosphorIconsLight.sidebar),
         title: Text(AppLocalizations.of(context).navigator),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateNavigatorDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(navigator: value))
             : null,
@@ -71,6 +89,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.layers,
         secondary: const PhosphorIcon(PhosphorIconsLight.stack),
         title: Text(AppLocalizations.of(context).layers),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateLayersDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(layers: value))
             : null,
@@ -79,6 +100,9 @@ Widget _buildPersistenceSettingsPage(
         value: settings.areas,
         secondary: const PhosphorIcon(PhosphorIconsLight.selection),
         title: Text(AppLocalizations.of(context).areas),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateAreasDescription,
+        ),
         onChanged: settings.enabled
             ? (value) => change(settings.copyWith(areas: value))
             : null,
@@ -86,6 +110,9 @@ Widget _buildPersistenceSettingsPage(
       const Divider(),
       ExactSlider(
         header: Text(AppLocalizations.of(context).persistentStateMaxRecords),
+        subtitle: Text(
+          AppLocalizations.of(context).persistentStateMaxRecordsDescription,
+        ),
         leading: const PhosphorIcon(PhosphorIconsLight.listNumbers),
         value: settings.maxEntries.toDouble(),
         min: 20,
@@ -98,6 +125,11 @@ Widget _buildPersistenceSettingsPage(
       ExactSlider(
         header: Text(
           AppLocalizations.of(context).persistentStateDeleteOlderThanDays,
+        ),
+        subtitle: Text(
+          AppLocalizations.of(
+            context,
+          ).persistentStateDeleteOlderThanDaysDescription,
         ),
         leading: const PhosphorIcon(PhosphorIconsLight.calendar),
         value: settings.maxAgeDays.toDouble(),
