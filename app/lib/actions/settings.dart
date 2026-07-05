@@ -37,7 +37,7 @@ Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
         clipBehavior: Clip.antiAlias,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 800, maxWidth: 1000),
-          child: const SettingsPage(isDialog: true),
+          child: const SettingsPage(inView: true),
         ),
       ),
     ),
