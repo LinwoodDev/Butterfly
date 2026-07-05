@@ -9,6 +9,8 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).syncMode,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).syncModeDescription,
           icon: PhosphorIconsLight.cloudArrowDown,
           enabled: (context, state) => !kIsWeb,
           values: SyncMode.values,
@@ -16,6 +18,17 @@ final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
           write: (context, value) =>
               context.read<SettingsCubit>().changeSyncMode(value),
           valueLabel: (context, value) => value.getLocalizedName(context),
+          valueDescription: (context, value) => switch (value) {
+            SyncMode.always => AppLocalizations.of(
+              context,
+            ).syncModeAlwaysDescription,
+            SyncMode.noMobile => AppLocalizations.of(
+              context,
+            ).syncModeNoMobileDescription,
+            SyncMode.manual => AppLocalizations.of(
+              context,
+            ).syncModeManualDescription,
+          },
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).dataDirectory,

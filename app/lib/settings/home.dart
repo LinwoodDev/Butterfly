@@ -3,17 +3,15 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:butterfly/actions/shortcuts.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/input.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/repositories/document_state.dart';
 import 'package:butterfly/services/logger.dart';
 import 'package:butterfly/settings/data.dart';
-import 'package:butterfly/settings/inputs/keyboard.dart';
-import 'package:butterfly/settings/inputs/mouse.dart';
-import 'package:butterfly/settings/inputs/pen.dart';
-import 'package:butterfly/settings/inputs/touch.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_picker/file_picker.dart';
@@ -27,6 +25,7 @@ import 'package:go_router/go_router.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:image/image.dart' as img;
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:keybinder/keybinder.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -72,6 +71,9 @@ class SettingsPage extends StatelessWidget {
         searchHint: (context) => AppLocalizations.of(context).search,
         isDialog: inView,
         compactWidth: LeapBreakpoints.compact,
+        onOpenPage: (context, id, page, focusedId) {
+          context.go('/settings/${id.replaceAll('.', '/')}', extra: focusedId);
+        },
         closeButton: IconButton.outlined(
           icon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () => Navigator.of(context).maybePop(),
@@ -94,9 +96,15 @@ class SettingsPage extends StatelessWidget {
 
 class SettingsDetailsPage extends StatelessWidget {
   final String id;
+  final String? focusedId;
   final bool inView;
 
-  const SettingsDetailsPage({super.key, required this.id, this.inView = false});
+  const SettingsDetailsPage({
+    super.key,
+    required this.id,
+    this.focusedId,
+    this.inView = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +121,7 @@ class SettingsDetailsPage extends StatelessWidget {
       return null;
     }
 
-    final page = findPage(settingsTree.pages, id);
+    final page = settingsTree.pageById(id) ?? findPage(settingsTree.pages, id);
     if (page == null) {
       return Scaffold(
         appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
@@ -126,6 +134,8 @@ class SettingsDetailsPage extends StatelessWidget {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       builder: (context, state) => SettingsLeapGeneratedPage<ButterflySettings>(
         page: page,
+        pageId: id,
+        focusedId: focusedId,
         state: state,
         inView: inView,
         cardMargin: settingsCardMargin,

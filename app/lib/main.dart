@@ -135,17 +135,22 @@ class ButterflyApp extends StatelessWidget {
     SettingsLeapTree<ButterflySettings> tree,
   ) {
     List<RouteBase> buildEntries(
-      Map<String, SettingsLeapPage<ButterflySettings>> entries,
-    ) {
+      Map<String, SettingsLeapPage<ButterflySettings>> entries, [
+      String? parentId,
+    ]) {
       return entries.entries.map((entry) {
         final id = entry.key;
+        final fullId = parentId == null ? id : '$parentId.$id';
         final page = entry.value;
         final children = page.children;
         return GoRoute(
           path: id,
-          builder: (context, state) => SettingsDetailsPage(id: id),
+          builder: (context, state) => SettingsDetailsPage(
+            id: fullId,
+            focusedId: state.extra is String ? state.extra as String : null,
+          ),
           routes: [
-            ...buildEntries(children),
+            ...buildEntries(children, fullId),
             if (id == 'connections')
               GoRoute(
                 path: ':id',

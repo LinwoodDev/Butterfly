@@ -7,12 +7,33 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
   sections: {
     'interface': SettingsLeapSection(
       settings: [
-        SettingsLeapCustomSetting(
+        SettingsLeapBoolSetting(
+          id: 'zoomControl',
           displayName: (context) => AppLocalizations.of(context).zoomControl,
-          builder: _zoomControlSetting,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).zoomControlDescription,
+          icon: PhosphorIconsLight.magnifyingGlass,
+          read: (state) => state.zoomEnabled,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeZoomEnabled(value),
+        ),
+        SettingsLeapEnumSetting(
+          id: 'zoomPosition',
+          displayName: (context) => AppLocalizations.of(context).zoomPosition,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).zoomPositionDescription,
+          icon: PhosphorIconsLight.arrowsOut,
+          enabled: (context, state) => state.zoomEnabled,
+          values: ZoomPosition.values,
+          read: (state) => state.zoomPosition,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeZoomPosition(value),
+          valueLabel: (context, value) => value.getLocalizedName(context),
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).properties,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).propertiesDescription,
           icon: PhosphorIconsLight.sliders,
           values: ZoomPosition.values,
           read: (state) => state.propertyPosition,
@@ -23,6 +44,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).toolbarPosition,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).toolbarPositionDescription,
           icon: PhosphorIconsLight.toolbox,
           values: ToolbarPosition.values,
           read: (state) => state.toolbarPosition,
@@ -32,6 +55,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).toolbarSize,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).toolbarSizeDescription,
           icon: PhosphorIconsLight.toolbox,
           values: ToolbarSize.values,
           read: (state) => state.toolbarSize,
@@ -41,15 +66,38 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).toolbarRows,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).toolbarRowsDescription,
           builder: _toolbarRowsSetting,
         ),
-        SettingsLeapCustomSetting(
+        SettingsLeapBoolSetting(
+          id: 'navigationRail',
           displayName: (context) => AppLocalizations.of(context).navigationRail,
-          builder: _navigationRailSetting,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).navigationRailDescription,
+          icon: PhosphorIconsLight.sidebar,
+          read: (state) => state.navigationRail,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeNavigationRail(value),
+        ),
+        SettingsLeapEnumSetting(
+          id: 'navigatorPosition',
+          displayName: (context) => AppLocalizations.of(context).position,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).navigatorPositionDescription,
+          icon: PhosphorIconsLight.sidebar,
+          enabled: (context, state) => state.navigationRail,
+          values: NavigatorPosition.values,
+          read: (state) => state.navigatorPosition,
+          write: (context, value) =>
+              context.read<SettingsCubit>().changeNavigatorPosition(value),
+          valueLabel: _navigatorPositionName,
         ),
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).optionsPanelPosition,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).optionsPanelPositionDescription,
           icon: PhosphorIconsLight.archive,
           values: OptionsPanelPosition.values,
           read: (state) => state.optionsPanelPosition,
@@ -60,6 +108,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapEnumSetting(
           displayName: (context) =>
               AppLocalizations.of(context).simpleToolbarVisibility,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).simpleToolbarVisibilityDescription,
           icon: PhosphorIconsLight.cursorText,
           values: SimpleToolbarVisibility.values,
           read: (state) => state.simpleToolbarVisibility,
@@ -75,6 +125,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
       settings: [
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).showThumbnails,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).showThumbnailsDescription,
           icon: PhosphorIconsLight.image,
           read: (state) => state.showThumbnails,
           write: (context, value) =>
@@ -83,6 +135,8 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapBoolSetting(
           displayName: (context) =>
               AppLocalizations.of(context).hideFileExtension,
+          descriptionBuilder: (context) =>
+              AppLocalizations.of(context).hideFileExtensionDescription,
           icon: PhosphorIconsLight.fileText,
           read: (state) => state.hideExtension,
           write: (context, value) =>
@@ -92,19 +146,6 @@ final _viewSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
-
-Widget _contentViewportSetting(BuildContext context, ButterflySettings state) {
-  return ListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.appWindow),
-    title: Text(AppLocalizations.of(context).contentViewport),
-    subtitle: Text(
-      state.limitViewportMultiplier == null
-          ? AppLocalizations.of(context).off
-          : '${state.limitViewportMultiplier}x',
-    ),
-    onTap: () => _openContentViewportModal(context),
-  );
-}
 
 Widget _imageScaleSetting(BuildContext context, ButterflySettings state) {
   return ExactSlider(
@@ -123,93 +164,6 @@ Widget _imageScaleSetting(BuildContext context, ButterflySettings state) {
 void _openPersistenceSettings(BuildContext context) =>
     context.push('/settings/behaviors/persistence');
 
-void _openContentViewportModal(BuildContext context) {
-  final cubit = context.read<SettingsCubit>();
-  final currentMultiplier = cubit.state.limitViewportMultiplier;
-  showLeapBottomSheet(
-    context: context,
-    titleBuilder: (context) =>
-        Text(AppLocalizations.of(context).contentViewport),
-    childrenBuilder: (context) {
-      final options = [
-        (null, AppLocalizations.of(context).off),
-        (1.0, '1x'),
-        (1.5, '1.5x'),
-        (2.0, '2x'),
-        (3.0, '3x'),
-      ];
-      return options
-          .map(
-            (e) => ListTile(
-              title: Text(e.$2),
-              selected: currentMultiplier == e.$1,
-              onTap: () {
-                cubit.changeLimitViewportMultiplier(e.$1);
-                Navigator.of(context).pop();
-              },
-            ),
-          )
-          .toList();
-    },
-  );
-}
-
-void _openAutosaveModal(BuildContext context) {
-  final cubit = context.read<SettingsCubit>();
-  final autosave = cubit.state.autosave;
-  final showSaveButton = cubit.state.showSaveButton;
-  final delayed = cubit.state.delayedAutosave;
-  showLeapBottomSheet(
-    context: context,
-    titleBuilder: (context) => Text(AppLocalizations.of(context).autosave),
-    childrenBuilder: (context) {
-      void changeAutosave(bool? autosave, {bool delayed = false}) {
-        cubit.changeAutosave(autosave, delayed: delayed);
-        Navigator.of(context).pop();
-      }
-
-      return [
-        ListTile(
-          title: Text(AppLocalizations.of(context).yes),
-          leading: const Icon(PhosphorIconsLight.check),
-          selected: autosave && !showSaveButton && !delayed,
-          onTap: () => changeAutosave(true),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).delay),
-          leading: const Icon(PhosphorIconsLight.clock),
-          selected: autosave && delayed,
-          onTap: () => changeAutosave(null, delayed: true),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).yesButShowButtons),
-          leading: const Icon(PhosphorIconsLight.question),
-          selected: autosave && showSaveButton && !delayed,
-          onTap: () => changeAutosave(null),
-        ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).no),
-          leading: const Icon(PhosphorIconsLight.x),
-          selected: !autosave,
-          onTap: () => changeAutosave(false),
-        ),
-      ];
-    },
-  );
-}
-
-Widget _zoomControlSetting(BuildContext context, ButterflySettings state) {
-  return AdvancedSwitchListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-    title: Text(AppLocalizations.of(context).zoomControl),
-    subtitle: Text(state.zoomPosition.getLocalizedName(context)),
-    value: state.zoomEnabled,
-    onChanged: (value) =>
-        context.read<SettingsCubit>().changeZoomEnabled(value),
-    onTap: () => _openZoomPositionModal(context),
-  );
-}
-
 Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
   return ExactSlider(
     header: Text(AppLocalizations.of(context).toolbarRows),
@@ -226,84 +180,8 @@ Widget _toolbarRowsSetting(BuildContext context, ButterflySettings state) {
   );
 }
 
-Widget _navigationRailSetting(BuildContext context, ButterflySettings state) {
-  return AdvancedSwitchListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.sidebar),
-    title: Text(AppLocalizations.of(context).navigationRail),
-    height: 76,
-    subtitle: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          state.navigatorPosition == NavigatorPosition.left
-              ? AppLocalizations.of(context).left
-              : AppLocalizations.of(context).right,
-        ),
-        Text(
-          AppLocalizations.of(context).onlyAvailableLargerScreen,
-          style: TextTheme.of(context).labelSmall,
-        ),
-      ],
-    ),
-    onTap: () async {
-      final position = await showLeapBottomSheet<NavigatorPosition>(
-        context: context,
-        titleBuilder: (context) => Text(AppLocalizations.of(context).position),
-        childrenBuilder: (context) => [
-          ListTile(
-            title: Text(AppLocalizations.of(context).left),
-            selected: state.navigatorPosition == NavigatorPosition.left,
-            leading: const PhosphorIcon(
-              PhosphorIconsLight.arrowLineLeft,
-              textDirection: TextDirection.ltr,
-            ),
-            onTap: () => Navigator.of(context).pop(NavigatorPosition.left),
-          ),
-          ListTile(
-            title: Text(AppLocalizations.of(context).right),
-            selected: state.navigatorPosition == NavigatorPosition.right,
-            leading: const PhosphorIcon(
-              PhosphorIconsLight.arrowLineRight,
-              textDirection: TextDirection.ltr,
-            ),
-            onTap: () => Navigator.of(context).pop(NavigatorPosition.right),
-          ),
-        ],
-      );
-      if (position != null && context.mounted) {
-        context.read<SettingsCubit>().changeNavigatorPosition(position);
-      }
-    },
-    value: state.navigationRail,
-    onChanged: (value) =>
-        context.read<SettingsCubit>().changeNavigationRail(value),
-  );
-}
-
-void _openZoomPositionModal(BuildContext context) {
-  final cubit = context.read<SettingsCubit>();
-  final currentPos = cubit.state.zoomPosition;
-  showLeapBottomSheet(
-    context: context,
-    titleBuilder: (context) => Text(AppLocalizations.of(context).zoomPosition),
-    childrenBuilder: (context) => ZoomPosition.values
-        .map(
-          (e) => ListTile(
-            title: Text(e.getLocalizedName(context)),
-            selected: currentPos == e,
-            leading: Icon(switch (e) {
-              ZoomPosition.topRight => PhosphorIconsLight.arrowUpRight,
-              ZoomPosition.topLeft => PhosphorIconsLight.arrowUpLeft,
-              ZoomPosition.bottomRight => PhosphorIconsLight.arrowDownRight,
-              ZoomPosition.bottomLeft => PhosphorIconsLight.arrowDownLeft,
-            }, textDirection: TextDirection.ltr),
-            onTap: () {
-              cubit.changeZoomPosition(e);
-              Navigator.of(context).pop();
-            },
-          ),
-        )
-        .toList(),
-  );
-}
+String _navigatorPositionName(BuildContext context, NavigatorPosition value) =>
+    switch (value) {
+      NavigatorPosition.left => AppLocalizations.of(context).left,
+      NavigatorPosition.right => AppLocalizations.of(context).right,
+    };
