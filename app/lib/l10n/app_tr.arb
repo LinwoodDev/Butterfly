@@ -99,6 +99,7 @@
   },
   "background": "Arkaplan",
   "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
   "currentPage": "Current page",
   "allPages": "All pages",
   "box": "Kutu",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Varsayılan palet",
   "highlighter": "Fosforlu kalem",
+  "combinePaths": "Combine paths",
   "add": "Ekle",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Hold a key to temporarily switch to another tool. Releasing the key switches back to the previous tool.",
   "key": "Key",
   "bringMovedElementsToFront": "Bring moved elements to front",
-  "addTool": "Add tool"
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

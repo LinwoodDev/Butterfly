@@ -99,6 +99,7 @@
   },
   "background": "Kontekst",
   "applyBackground": "Zastosuj tło",
+  "applyAreas": "Zastosuj obszary",
   "currentPage": "Bieżąca strona",
   "allPages": "Wszystkie strony",
   "box": "Pudełko",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Domyślna paleta",
   "highlighter": "Podświetlenie",
+  "combinePaths": "Połącz ścieżki",
   "add": "Dodaj",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Przytrzymaj klawisz, aby tymczasowo przełączyć się na inne narzędzie. Uruchomienie przełącznika klawisza przywróci poprzednie narzędzie.",
   "key": "Klucz",
   "bringMovedElementsToFront": "Przynieś elementy do przodu",
-  "addTool": "Dodaj narzędzie"
+  "addTool": "Dodaj narzędzie",
+  "nextPage": "Następna strona",
+  "previousPage": "Poprzednia strona"
 }

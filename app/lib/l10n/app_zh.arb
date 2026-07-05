@@ -99,6 +99,7 @@
   },
   "background": "背景",
   "applyBackground": "应用背景",
+  "applyAreas": "应用区域",
   "currentPage": "当前页面",
   "allPages": "所有页面",
   "box": "框",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "默认调色板",
   "highlighter": "高亮器",
+  "combinePaths": "合并路径",
   "add": "添加",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "按住键暂时切换到另一个工具。释放键切换回上一个工具。",
   "key": "关键字",
   "bringMovedElementsToFront": "将移动元素带到前端",
-  "addTool": "添加工具"
+  "addTool": "添加工具",
+  "nextPage": "下一页",
+  "previousPage": "上一页"
 }

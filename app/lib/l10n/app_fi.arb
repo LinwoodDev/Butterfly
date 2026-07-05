@@ -99,6 +99,7 @@
   },
   "background": "Tausta",
   "applyBackground": "Käytä taustakuvaa",
+  "applyAreas": "Käytä alueita",
   "currentPage": "Nykyinen sivu",
   "allPages": "Kaikki sivut",
   "box": "Laatikko",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Oletus paletti",
   "highlighter": "Korostus",
+  "combinePaths": "Yhdistä polut",
   "add": "Lisää",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Pidä näppäintä pohjassa vaihtaaksesi väliaikaisesti toiseen työkaluun. Avaimen vapauttaminen siirtyy takaisin edelliseen työkaluun.",
   "key": "Avain",
   "bringMovedElementsToFront": "Tuo siirretyt elementit eteen",
-  "addTool": "Lisää työkalu"
+  "addTool": "Lisää työkalu",
+  "nextPage": "Seuraava sivu",
+  "previousPage": "Edellinen sivu"
 }

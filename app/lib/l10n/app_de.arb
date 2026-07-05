@@ -99,6 +99,7 @@
   },
   "background": "Hintergrund",
   "applyBackground": "Hintergrund anwenden",
+  "applyAreas": "Bereiche anwenden",
   "currentPage": "Aktuelle Seite",
   "allPages": "Alle Seiten",
   "box": "Kasten",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Standardpalette",
   "highlighter": "Hervorhebung",
+  "combinePaths": "Pfade kombinieren",
   "add": "Neu",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Halte eine Taste um vorübergehend zu einem anderen Werkzeug zu wechseln. Wenn die Taste losgelassen wird, schaltet er zurück zum vorherigen Werkzeug.",
   "key": "Schlüssel",
   "bringMovedElementsToFront": "Bewege Elemente nach vorne",
-  "addTool": "Werkzeug hinzufügen"
+  "addTool": "Werkzeug hinzufügen",
+  "nextPage": "Nächste Seite",
+  "previousPage": "Vorherige Seite"
 }

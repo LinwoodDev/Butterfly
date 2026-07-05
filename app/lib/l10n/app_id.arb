@@ -99,6 +99,7 @@
   },
   "background": "Latar belakang",
   "applyBackground": "Apply background",
+  "applyAreas": "Apply areas",
   "currentPage": "Current page",
   "allPages": "All pages",
   "box": "Kotak",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Palet bawaan",
   "highlighter": "Penyorot",
+  "combinePaths": "Combine paths",
   "add": "Tambah",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Tahan tombol untuk sementara beralih ke alat lain. Melepas tombol akan kembali ke alat sebelumnya.",
   "key": "Tombol",
   "bringMovedElementsToFront": "Bring moved elements to front",
-  "addTool": "Add tool"
+  "addTool": "Add tool",
+  "nextPage": "Next page",
+  "previousPage": "Previous page"
 }

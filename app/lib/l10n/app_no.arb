@@ -99,6 +99,7 @@
   },
   "background": "Bakgrunn",
   "applyBackground": "Bruk bakgrunn",
+  "applyAreas": "Påfør områder",
   "currentPage": "Nåværende side",
   "allPages": "Alle sider",
   "box": "Boks",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Uthever",
+  "combinePaths": "Kombiner baner",
   "add": "Legg til",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Hold en nøkkel for å midlertidig bytte til et annet verktøy. Løs inn tasten skifter tilbake til det forrige verktøyet.",
   "key": "Nøkkel",
   "bringMovedElementsToFront": "Plasser flyttede elementer forsiden",
-  "addTool": "Legg til verktøy"
+  "addTool": "Legg til verktøy",
+  "nextPage": "Neste side",
+  "previousPage": "Forrige side"
 }

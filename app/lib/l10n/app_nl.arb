@@ -99,6 +99,7 @@
   },
   "background": "Achtergrond",
   "applyBackground": "Achtergrond toepassen",
+  "applyAreas": "Pas gebieden toe",
   "currentPage": "Huidige pagina",
   "allPages": "Alle pagina's",
   "box": "Vierkant",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Standaard palet",
   "highlighter": "Markeerstift",
+  "combinePaths": "Combineer paden",
   "add": "Toevoegen",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Houd een sleutel ingedrukt om tijdelijk naar een andere tool over te schakelen. Laat de toetsschakelaars terug naar de vorige tool.",
   "key": "Sleutel",
   "bringMovedElementsToFront": "Breng verplaatste elementen naar voren",
-  "addTool": "Functie toevoegen"
+  "addTool": "Functie toevoegen",
+  "nextPage": "Volgende pagina",
+  "previousPage": "Vorige pagina"
 }

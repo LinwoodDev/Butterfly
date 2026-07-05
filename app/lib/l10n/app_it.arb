@@ -99,6 +99,7 @@
   },
   "background": "Sfondo",
   "applyBackground": "Applica sfondo",
+  "applyAreas": "Applica aree",
   "currentPage": "Pagina corrente",
   "allPages": "Tutte le pagine",
   "box": "Riquadro",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Palette predefinita",
   "highlighter": "Evidenziatore",
+  "combinePaths": "Combina percorsi",
   "add": "Aggiungi",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Tieni premuto un tasto per passare temporaneamente a un altro strumento. Rilasciare il tasto passa allo strumento precedente.",
   "key": "Chiave",
   "bringMovedElementsToFront": "Porta in primo piano gli elementi spostati",
-  "addTool": "Aggiungi strumento"
+  "addTool": "Aggiungi strumento",
+  "nextPage": "Pagina successiva",
+  "previousPage": "Pagina precedente"
 }

@@ -99,6 +99,7 @@
   },
   "background": "Bakgrund",
   "applyBackground": "Tillämpa bakgrund",
+  "applyAreas": "Tillämpa områden",
   "currentPage": "Nuvarande sida",
   "allPages": "Alla sidor",
   "box": "Låda",
@@ -123,6 +124,7 @@
   },
   "defaultPalette": "Standard palett",
   "highlighter": "Highlighter",
+  "combinePaths": "Kombinera sökvägar",
   "add": "Lägg till",
   "@add": {
     "description": "Add action"
@@ -1367,5 +1369,7 @@
   "holdShortcutsDescription": "Håll en nyckel för att tillfälligt växla till ett annat verktyg. Släppa knapparna tillbaka till föregående verktyg.",
   "key": "Nyckel",
   "bringMovedElementsToFront": "Ta med flyttade element framtill",
-  "addTool": "Lägg till verktyg"
+  "addTool": "Lägg till verktyg",
+  "nextPage": "Nästa sida",
+  "previousPage": "Föregående sida"
 }
