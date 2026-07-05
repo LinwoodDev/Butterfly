@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _generalSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'general',
   displayName: (context) => AppLocalizations.of(context).general,
   icon: PhosphorIconsLight.gear,
   appBarBuilder: _butterflyAppBar,
@@ -17,7 +16,7 @@ final _generalSettingsPage = SettingsLeapPage<ButterflySettings>(
           displayName: (context) =>
               AppLocalizations.of(context).checkForUpdates,
           enabled: (context, state) => !kIsWeb,
-          builder: _updateCheckSetting,
+          builder: (context, state) => const _UpdateCheckSetting(),
         ),
       ],
     ),
@@ -26,7 +25,7 @@ final _generalSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).documentation,
           icon: PhosphorIconsLight.article,
-          onTap: _openDocumentation,
+          onTap: (context) => _openUrl(Uri.https('butterfly.linwood.dev', '')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).releaseNotes,
@@ -36,27 +35,30 @@ final _generalSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) => 'Matrix',
           icon: PhosphorIconsLight.users,
-          onTap: _openMatrix,
+          onTap: (context) => _openUrl(Uri.https('go.linwood.dev', 'matrix')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => 'Discord',
           icon: PhosphorIconsLight.users,
-          onTap: _openDiscord,
+          onTap: (context) => _openUrl(Uri.https('go.linwood.dev', 'discord')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).translate,
           icon: PhosphorIconsLight.translate,
-          onTap: _openTranslate,
+          onTap: (context) =>
+              _openUrl(Uri.https('go.linwood.dev', 'butterfly/translate')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).sourceCode,
           icon: PhosphorIconsLight.code,
-          onTap: _openSourceCode,
+          onTap: (context) =>
+              _openUrl(Uri.https('go.linwood.dev', 'butterfly/source')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).changelog,
           icon: PhosphorIconsLight.arrowCounterClockwise,
-          onTap: _openChangelog,
+          onTap: (context) =>
+              _openUrl(Uri.https('butterfly.linwood.dev', 'changelog')),
         ),
       ],
     ),
@@ -65,17 +67,19 @@ final _generalSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).license,
           icon: PhosphorIconsLight.stack,
-          onTap: _openLicense,
+          onTap: (context) =>
+              _openUrl(Uri.https('go.linwood.dev', 'butterfly/license')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).imprint,
           icon: PhosphorIconsLight.identificationCard,
-          onTap: _openImprint,
+          onTap: (context) => _openUrl(Uri.https('go.linwood.dev', 'imprint')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).privacypolicy,
           icon: PhosphorIconsLight.shield,
-          onTap: _openPrivacyPolicy,
+          onTap: (context) =>
+              _openUrl(Uri.https('butterfly.linwood.dev', 'privacypolicy')),
         ),
         SettingsLeapActionSetting(
           displayName: (context) =>
@@ -134,9 +138,11 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
   Future<_Meta>? _metaFuture;
   final Future<String> _currentVersion = getCurrentVersion();
 
-  void _loadMeta() => setState(() {
-    _metaFuture = _fetchMeta();
-  });
+  void _loadMeta() {
+    setState(() {
+      _metaFuture = _fetchMeta();
+    });
+  }
 
   Future<_Meta> _fetchMeta() async {
     final response = await http.get(
@@ -172,6 +178,7 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
                 onTap: _loadMeta,
               );
             }
+
             final meta = snapshot.data!;
             final stableVersion = meta.stableVersion;
             final nightlyVersion = meta.nightlyVersion;
@@ -183,6 +190,7 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
                 meta.nightlyVersion == '?' || meta.stableVersion == '?';
             final isUpdateAvailable =
                 !isError && !isStable && !isNightly && !isDevelop && !isMain;
+
             return Column(
               children: [
                 ListTile(
@@ -213,7 +221,9 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
                     title: Text(AppLocalizations.of(context).updateAvailable),
                     subtitle: Text(AppLocalizations.of(context).updateNow),
                     leading: const PhosphorIcon(PhosphorIconsLight.arrowRight),
-                    onTap: _openDownloads,
+                    onTap: () => _openUrl(
+                      Uri.parse('https://butterfly.linwood.dev/downloads'),
+                    ),
                   ),
               ],
             );
@@ -224,38 +234,5 @@ class _UpdateCheckSettingState extends State<_UpdateCheckSetting> {
   }
 }
 
-Widget _updateCheckSetting(BuildContext context, ButterflySettings state) =>
-    const _UpdateCheckSetting();
-
 Future<void> _openUrl(Uri uri) =>
     launchUrl(uri, mode: LaunchMode.externalApplication);
-
-void _openDocumentation(BuildContext context) =>
-    _openUrl(Uri.https('butterfly.linwood.dev', ''));
-
-void _openMatrix(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'matrix'));
-
-void _openDiscord(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'discord'));
-
-void _openTranslate(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'butterfly/translate'));
-
-void _openSourceCode(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'butterfly/source'));
-
-void _openChangelog(BuildContext context) =>
-    _openUrl(Uri.https('butterfly.linwood.dev', 'changelog'));
-
-void _openLicense(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'butterfly/license'));
-
-void _openImprint(BuildContext context) =>
-    _openUrl(Uri.https('go.linwood.dev', 'imprint'));
-
-void _openPrivacyPolicy(BuildContext context) =>
-    _openUrl(Uri.https('butterfly.linwood.dev', 'privacypolicy'));
-
-void _openDownloads() =>
-    _openUrl(Uri.parse('https://butterfly.linwood.dev/downloads'));

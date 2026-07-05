@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _dataSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'data',
   displayName: (context) => AppLocalizations.of(context).data,
   icon: PhosphorIconsLight.database,
   appBarBuilder: _butterflyAppBar,

@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _experimentsSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'experiments',
   displayName: (context) => AppLocalizations.of(context).experiments,
   icon: PhosphorIconsLight.flask,
   keywordsBuilder: (context) => [
