@@ -60,6 +60,11 @@ dependencies:
   args: ^2.5.0
   reorderable_grid: ^1.0.12
   perfect_freehand: ^2.5.0
+  settings_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 81142414ae23372173056f4e56ba893fe2ff47e4
+      path: packages/settings_leap
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git

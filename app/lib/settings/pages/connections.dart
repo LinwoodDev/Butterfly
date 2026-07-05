@@ -1,151 +1,123 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math' as math;
-import 'dart:ui';
+part of '../home.dart';
 
-import 'package:butterfly/api/open.dart';
-import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/visualizer/connection.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:html/parser.dart' as html_parser;
-import 'package:image/image.dart' as img;
-import 'package:lw_file_system/lw_file_system.dart';
-import 'package:material_leap/material_leap.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-class ConnectionsSettingsPage extends StatelessWidget {
-  final bool inView;
-  const ConnectionsSettingsPage({super.key, this.inView = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: inView ? Colors.transparent : null,
-      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-        title: Text(AppLocalizations.of(context).connections),
-        backgroundColor: inView ? Colors.transparent : null,
-        inView: inView,
-        actions: [
-          IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-            tooltip: AppLocalizations.of(context).help,
-            onPressed: () => openHelp(['storage'], 'remote'),
-          ),
-          BlocBuilder<SettingsCubit, ButterflySettings>(
-            builder: (context, settings) {
-              return IconButton(
-                icon: settings.defaultRemote.isEmpty
-                    ? const PhosphorIcon(PhosphorIconsFill.house)
-                    : const PhosphorIcon(PhosphorIconsLight.house),
-                tooltip: settings.defaultRemote.isEmpty
-                    ? AppLocalizations.of(context).defaultConnection
-                    : AppLocalizations.of(context).notDefaultConnection,
-                onPressed: () {
-                  BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
+final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
+  id: 'connections',
+  displayName: (context) => AppLocalizations.of(context).connections,
+  icon: PhosphorIconsLight.cloud,
+  enabled: (context, state) => !kIsWeb,
+  appBarBuilder: _butterflyAppBar,
+  actionsBuilder: buildConnectionsSettingsActions,
+  floatingActionButtonBuilder: buildConnectionsSettingsFloatingActionButton,
+  sections: {
+    'content': SettingsLeapSection(
+      builder: (context, state, inView) {
+        if (kIsWeb) {
+          return Center(
+            child: Text(AppLocalizations.of(context).webNotSupported),
+          );
+        }
+        if (state.connections.isEmpty) {
+          return Center(
+            child: Text(AppLocalizations.of(context).noConnections),
+          );
+        }
+        return Material(
+          type: MaterialType.transparency,
+          child: ListView.builder(
+            itemCount: state.connections.length,
+            itemBuilder: (context, index) {
+              final remote = state.connections[index];
+              return Dismissible(
+                key: Key(remote.identifier),
+                onDismissed: (details) {
+                  BlocProvider.of<SettingsCubit>(
+                    context,
+                  ).deleteRemote(remote.identifier);
                 },
-              );
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: kIsWeb
-          ? null
-          : FloatingActionButton.extended(
-              onPressed: () =>
-                  showLeapBottomSheet<ExternalStorage>(
-                    context: context,
-                    titleBuilder: (context) =>
-                        Text(AppLocalizations.of(context).addConnection),
-                    childrenBuilder: (context) => getSupportedStorages()
-                        .map(
-                          (e) => ListTile(
-                            title: Text(e.getLocalizedTypeName(context)),
-                            leading: PhosphorIcon(
-                              e.typeIcon(PhosphorIconsStyle.light),
-                            ),
-                            onTap: () => Navigator.pop(context, e),
-                          ),
-                        )
-                        .toList(),
-                  ).then((value) {
-                    if (value == null) return;
-                    showDialog<void>(
-                      context: context,
-                      builder: (context) => _AddRemoteDialog(storage: value),
-                    );
-                  }),
-              label: Text(AppLocalizations.of(context).addConnection),
-              icon: const PhosphorIcon(PhosphorIconsLight.plus),
-            ),
-      body: Builder(
-        builder: (context) {
-          if (kIsWeb) {
-            return Center(
-              child: Text(AppLocalizations.of(context).webNotSupported),
-            );
-          }
-          return BlocBuilder<SettingsCubit, ButterflySettings>(
-            builder: (context, state) {
-              if (state.connections.isEmpty) {
-                return Center(
-                  child: Text(AppLocalizations.of(context).noConnections),
-                );
-              }
-              return Material(
-                type: MaterialType.transparency,
-                child: ListView.builder(
-                  itemCount: state.connections.length,
-                  itemBuilder: (context, index) {
-                    final remote = state.connections[index];
-                    return Dismissible(
-                      key: Key(remote.identifier),
-                      onDismissed: (details) {
-                        BlocProvider.of<SettingsCubit>(
-                          context,
-                        ).deleteRemote(remote.identifier);
-                      },
-                      child: ListTile(
-                        title: Text(remote.label),
-                        leading: remote.icon?.isEmpty ?? true
-                            ? PhosphorIcon(
-                                remote.typeIcon(PhosphorIconsStyle.light),
-                              )
-                            : Image.memory(remote.icon!),
-                        onTap: () => context.pushNamed(
-                          'connection',
-                          pathParameters: {'id': remote.identifier},
-                        ),
-                        trailing: IconButton(
-                          icon: remote.identifier == state.defaultRemote
-                              ? const PhosphorIcon(PhosphorIconsFill.cloud)
-                              : const PhosphorIcon(PhosphorIconsLight.cloud),
-                          tooltip: remote.identifier == state.defaultRemote
-                              ? AppLocalizations.of(context).defaultConnection
-                              : AppLocalizations.of(
-                                  context,
-                                ).notDefaultConnection,
-                          onPressed: () {
-                            BlocProvider.of<SettingsCubit>(
-                              context,
-                            ).setDefaultRemote(remote.identifier);
-                          },
-                        ),
-                      ),
-                    );
-                  },
+                child: ListTile(
+                  title: Text(remote.label),
+                  leading: remote.icon?.isEmpty ?? true
+                      ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
+                      : Image.memory(remote.icon!),
+                  onTap: () => context.pushNamed(
+                    'connection',
+                    pathParameters: {'id': remote.identifier},
+                  ),
+                  trailing: IconButton(
+                    icon: remote.identifier == state.defaultRemote
+                        ? const PhosphorIcon(PhosphorIconsFill.cloud)
+                        : const PhosphorIcon(PhosphorIconsLight.cloud),
+                    tooltip: remote.identifier == state.defaultRemote
+                        ? AppLocalizations.of(context).defaultConnection
+                        : AppLocalizations.of(context).notDefaultConnection,
+                    onPressed: () {
+                      BlocProvider.of<SettingsCubit>(
+                        context,
+                      ).setDefaultRemote(remote.identifier);
+                    },
+                  ),
                 ),
               );
             },
+          ),
+        );
+      },
+      wrapBuilder: false,
+      fillRemaining: true,
+    ),
+  },
+);
+
+List<Widget> buildConnectionsSettingsActions(
+  BuildContext context,
+  ButterflySettings state,
+) => [
+  IconButton(
+    icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+    tooltip: AppLocalizations.of(context).help,
+    onPressed: () => openHelp(['storage'], 'remote'),
+  ),
+  IconButton(
+    icon: state.defaultRemote.isEmpty
+        ? const PhosphorIcon(PhosphorIconsFill.house)
+        : const PhosphorIcon(PhosphorIconsLight.house),
+    tooltip: state.defaultRemote.isEmpty
+        ? AppLocalizations.of(context).defaultConnection
+        : AppLocalizations.of(context).notDefaultConnection,
+    onPressed: () => context.read<SettingsCubit>().setDefaultRemote(''),
+  ),
+];
+
+Widget? buildConnectionsSettingsFloatingActionButton(
+  BuildContext context,
+  ButterflySettings state,
+) {
+  if (kIsWeb) return null;
+  return FloatingActionButton.extended(
+    onPressed: () =>
+        showLeapBottomSheet<ExternalStorage>(
+          context: context,
+          titleBuilder: (context) =>
+              Text(AppLocalizations.of(context).addConnection),
+          childrenBuilder: (context) => getSupportedStorages()
+              .map(
+                (e) => ListTile(
+                  title: Text(e.getLocalizedTypeName(context)),
+                  leading: PhosphorIcon(e.typeIcon(PhosphorIconsStyle.light)),
+                  onTap: () => Navigator.pop(context, e),
+                ),
+              )
+              .toList(),
+        ).then((value) {
+          if (value == null) return;
+          showDialog<void>(
+            context: context,
+            builder: (context) => _AddRemoteDialog(storage: value),
           );
-        },
-      ),
-    );
-  }
+        }),
+    label: Text(AppLocalizations.of(context).addConnection),
+    icon: const PhosphorIcon(PhosphorIconsLight.plus),
+  );
 }
 
 String _formatSha1Uint8List(Uint8List sha1Bytes) {

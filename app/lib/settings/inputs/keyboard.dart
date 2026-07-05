@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:butterfly/src/generated/i18n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:keybinder/keybinder.dart';
 import 'package:butterfly/dialogs/input.dart';
@@ -13,7 +12,8 @@ import 'package:butterfly/dialogs/input.dart';
 import '../../cubits/settings.dart';
 
 class KeyboardInputSettings extends StatelessWidget {
-  const KeyboardInputSettings({super.key});
+  final ButterflySettings state;
+  const KeyboardInputSettings({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -51,56 +51,34 @@ class KeyboardInputSettings extends StatelessWidget {
       ...changeToolShortcuts,
     ];
 
-    return Scaffold(
-      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-        title: Text(AppLocalizations.of(context).keyboard),
-      ),
-      body: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1000),
-            child: BlocBuilder<SettingsCubit, ButterflySettings>(
-              builder: (context, state) => ListenableBuilder(
-                listenable: keybinder,
-                builder: (context, _) => Column(
-                  children: [
-                    Card(
-                      margin: settingsCardMargin,
-                      child: Padding(
-                        padding: settingsCardPadding,
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context).shortcuts),
-                          leading: const PhosphorIcon(
-                            PhosphorIconsLight.keyboard,
-                          ),
-                          onTap: () => openHelp(['shortcuts'], 'keyboard'),
-                          trailing: const PhosphorIcon(
-                            PhosphorIconsLight.arrowSquareOut,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildHoldShortcutsSection(
-                      context,
-                      state.inputConfiguration,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildSection(
-                      context,
-                      AppLocalizations.of(context).general,
-                      generalShortcuts,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildSection(context, 'Project', projectShortcuts),
-                    const SizedBox(height: 16),
-                  ],
-                ),
+    return ListenableBuilder(
+      listenable: keybinder,
+      builder: (context, _) => Column(
+        children: [
+          Card(
+            margin: settingsCardMargin,
+            child: Padding(
+              padding: settingsCardPadding,
+              child: ListTile(
+                title: Text(AppLocalizations.of(context).shortcuts),
+                leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
+                onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                trailing: const PhosphorIcon(PhosphorIconsLight.arrowSquareOut),
               ),
             ),
           ),
-        ),
+          const SizedBox(height: 16),
+          _buildHoldShortcutsSection(context, state.inputConfiguration),
+          const SizedBox(height: 16),
+          _buildSection(
+            context,
+            AppLocalizations.of(context).general,
+            generalShortcuts,
+          ),
+          const SizedBox(height: 16),
+          _buildSection(context, 'Project', projectShortcuts),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }

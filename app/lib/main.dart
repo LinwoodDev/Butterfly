@@ -5,11 +5,7 @@ import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
-import 'package:butterfly/settings/behaviors/home.dart';
-import 'package:butterfly/settings/behaviors/persistence.dart';
-import 'package:butterfly/settings/inputs/mouse.dart';
-import 'package:butterfly/settings/experiments.dart';
-import 'package:butterfly/settings/view.dart';
+import 'package:butterfly/settings/connection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +18,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:settings_leap/settings_leap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -30,22 +27,12 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
-import 'settings/inputs/home.dart';
-import 'settings/inputs/keyboard.dart';
-import 'settings/inputs/pen.dart';
-import 'settings/inputs/touch.dart';
-import 'settings/data.dart';
-import 'settings/general.dart';
 import 'settings/home.dart';
-import 'settings/personalization.dart';
-import 'settings/connection.dart';
-import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.js_interop) 'setup_web.dart';
 import 'theme.dart';
 import 'views/error.dart';
 import 'views/home/page.dart';
 import 'views/main.dart';
-import 'settings/logs.dart';
 import 'services/logger.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
@@ -144,6 +131,36 @@ class ButterflyApp extends StatelessWidget {
     this.debugShowCheckedModeBanner = true,
   });
 
+  List<RouteBase> _buildSettingsRoute(
+    SettingsLeapTree<ButterflySettings> tree,
+  ) {
+    List<RouteBase> buildEntries(
+      Map<String, SettingsLeapPage<ButterflySettings>> entries,
+    ) {
+      return entries.entries.map((entry) {
+        final id = entry.key;
+        final page = entry.value;
+        final children = page.children;
+        return GoRoute(
+          path: id,
+          builder: (context, state) => SettingsDetailsPage(id: id),
+          routes: [
+            ...buildEntries(children),
+            if (id == 'connections')
+              GoRoute(
+                path: ':id',
+                name: 'connection',
+                builder: (context, state) =>
+                    ConnectionSettingsPage(remote: state.pathParameters['id']!),
+              ),
+          ],
+        );
+      }).toList();
+    }
+
+    return buildEntries(tree.pages);
+  }
+
   late final GoRouter _router = GoRouter(
     initialLocation: initialLocation,
     initialExtra: initialExtra,
@@ -162,79 +179,7 @@ class ButterflyApp extends StatelessWidget {
           GoRoute(
             path: 'settings',
             builder: (context, state) => const SettingsPage(),
-            routes: [
-              GoRoute(
-                path: 'general',
-                builder: (context, state) => const GeneralSettingsPage(),
-              ),
-              GoRoute(
-                path: 'inputs',
-                builder: (context, state) => const InputsSettingsPage(),
-                routes: [
-                  GoRoute(
-                    path: 'mouse',
-                    builder: (context, state) => const MouseInputSettings(),
-                  ),
-                  GoRoute(
-                    path: 'pen',
-                    builder: (context, state) => const PenInputSettings(),
-                  ),
-                  GoRoute(
-                    path: 'keyboard',
-                    builder: (context, state) => const KeyboardInputSettings(),
-                  ),
-                  GoRoute(
-                    path: 'touch',
-                    builder: (context, state) => const TouchInputSettings(),
-                  ),
-                ],
-              ),
-              GoRoute(
-                path: 'behaviors',
-                builder: (context, state) => const BehaviorsSettingsPage(),
-                routes: [
-                  GoRoute(
-                    path: 'persistence',
-                    builder: (context, state) =>
-                        const PersistenceBehaviorSettings(),
-                  ),
-                ],
-              ),
-              GoRoute(
-                path: 'personalization',
-                builder: (context, state) =>
-                    const PersonalizationSettingsPage(),
-              ),
-              GoRoute(
-                path: 'view',
-                builder: (context, state) => const ViewSettingsPage(),
-              ),
-              GoRoute(
-                path: 'data',
-                builder: (context, state) => const DataSettingsPage(),
-              ),
-              GoRoute(
-                path: 'experiments',
-                builder: (context, state) => const ExperimentsSettingsPage(),
-              ),
-              GoRoute(
-                path: 'connections',
-                builder: (context, state) => const ConnectionsSettingsPage(),
-                routes: [
-                  GoRoute(
-                    path: ':id',
-                    name: 'connection',
-                    builder: (context, state) => ConnectionSettingsPage(
-                      remote: state.pathParameters['id']!,
-                    ),
-                  ),
-                ],
-              ),
-              GoRoute(
-                path: 'logs',
-                builder: (context, state) => const LogsSettingsPage(),
-              ),
-            ],
+            routes: _buildSettingsRoute(settingsTree),
           ),
           GoRoute(
             name: 'new',
