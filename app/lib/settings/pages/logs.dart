@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _logsSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'logs',
   displayName: (context) => AppLocalizations.of(context).logs,
   icon: PhosphorIconsLight.bug,
   appBarBuilder: _butterflyAppBar,

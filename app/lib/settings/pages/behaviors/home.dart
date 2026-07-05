@@ -1,7 +1,6 @@
 part of '../../home.dart';
 
 final _behaviorsSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'behaviors',
   displayName: (context) => AppLocalizations.of(context).behaviors,
   icon: PhosphorIconsLight.faders,
   appBarBuilder: _butterflyAppBar,

@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'inputs',
   displayName: (context) => AppLocalizations.of(context).inputs,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
@@ -17,22 +16,22 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).mouse,
           icon: PhosphorIconsLight.mouse,
-          onTap: _openMouseSettings,
+          onTap: (context) => context.push('/settings/inputs/mouse'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).touch,
           icon: PhosphorIconsLight.hand,
-          onTap: _openTouchSettings,
+          onTap: (context) => context.push('/settings/inputs/touch'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).keyboard,
           icon: PhosphorIconsLight.keyboard,
-          onTap: _openKeyboardSettings,
+          onTap: (context) => context.push('/settings/inputs/keyboard'),
         ),
         SettingsLeapActionSetting(
           displayName: (context) => AppLocalizations.of(context).pen,
           icon: PhosphorIconsLight.pen,
-          onTap: _openPenSettings,
+          onTap: (context) => context.push('/settings/inputs/pen'),
         ),
       ],
     ),
@@ -65,8 +64,8 @@ final _inputsSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
+
 final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'mouse',
   displayName: (context) => AppLocalizations.of(context).mouse,
   icon: PhosphorIconsLight.mouse,
   appBarBuilder: _butterflyAppBar,
@@ -77,8 +76,8 @@ final _mouseSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
+
 final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'touch',
   displayName: (context) => AppLocalizations.of(context).touch,
   icon: PhosphorIconsLight.hand,
   appBarBuilder: _butterflyAppBar,
@@ -89,8 +88,8 @@ final _touchSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
+
 final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'keyboard',
   displayName: (context) => AppLocalizations.of(context).keyboard,
   icon: PhosphorIconsLight.keyboard,
   appBarBuilder: _butterflyAppBar,
@@ -101,8 +100,8 @@ final _keyboardSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
+
 final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'pen',
   displayName: (context) => AppLocalizations.of(context).pen,
   icon: PhosphorIconsLight.pen,
   appBarBuilder: _butterflyAppBar,
@@ -113,18 +112,6 @@ final _penSettingsPage = SettingsLeapPage<ButterflySettings>(
     ),
   },
 );
-
-void _openMouseSettings(BuildContext context) =>
-    context.push('/settings/inputs/mouse');
-
-void _openTouchSettings(BuildContext context) =>
-    context.push('/settings/inputs/touch');
-
-void _openKeyboardSettings(BuildContext context) =>
-    context.push('/settings/inputs/keyboard');
-
-void _openPenSettings(BuildContext context) =>
-    context.push('/settings/inputs/pen');
 
 Widget _selectSensitivitySetting(
   BuildContext context,
@@ -196,7 +183,9 @@ Widget _pointerTestSection(
   BuildContext context,
   ButterflySettings state,
   Widget child,
-) => const _PointerTest();
+) {
+  return const _PointerTest();
+}
 
 void _changeFlag(BuildContext context, String flag, bool enabled) {
   final cubit = context.read<SettingsCubit>();
@@ -220,17 +209,18 @@ class __PointerTestState extends State<_PointerTest> {
   double? _pressure, _pressureMin, _pressureMax;
   Color? _pressed;
 
-  void Function(PointerEvent event) _changeInputTest(Color? color) =>
-      (PointerEvent event) {
-        setState(() {
-          _kind = event.kind;
-          _buttons = event.buttons;
-          _pressure = event.pressure;
-          _pressureMin = event.pressureMin;
-          _pressureMax = event.pressureMax;
-          _pressed = color;
-        });
-      };
+  void Function(PointerEvent event) _changeInputTest(Color? color) {
+    return (PointerEvent event) {
+      setState(() {
+        _kind = event.kind;
+        _buttons = event.buttons;
+        _pressure = event.pressure;
+        _pressureMin = event.pressureMin;
+        _pressureMax = event.pressureMax;
+        _pressed = color;
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {

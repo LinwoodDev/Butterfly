@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _connectionsSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'connections',
   displayName: (context) => AppLocalizations.of(context).connections,
   icon: PhosphorIconsLight.cloud,
   enabled: (context, state) => !kIsWeb,

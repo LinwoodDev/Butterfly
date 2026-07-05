@@ -1,7 +1,6 @@
 part of '../home.dart';
 
 final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'personalization',
   displayName: (context) => AppLocalizations.of(context).personalization,
   icon: PhosphorIconsLight.monitor,
   appBarBuilder: _butterflyAppBar,
@@ -15,11 +14,28 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.theme,
           write: (context, value) =>
               context.read<SettingsCubit>().changeTheme(value, context),
-          valueLabel: _themeName,
+          valueLabel: (context, value) => switch (value) {
+            ThemeMode.system => AppLocalizations.of(context).systemTheme,
+            ThemeMode.light => AppLocalizations.of(context).lightTheme,
+            ThemeMode.dark => AppLocalizations.of(context).darkTheme,
+          },
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).design,
-          builder: _designSetting,
+          builder: (context, state) {
+            final design = state.design;
+            return ListTile(
+              leading: const PhosphorIcon(PhosphorIconsLight.palette),
+              title: Text(AppLocalizations.of(context).design),
+              subtitle: Text(
+                design.isEmpty
+                    ? AppLocalizations.of(context).systemTheme
+                    : design,
+              ),
+              trailing: ThemeBox(theme: getThemeData(state.design, false)),
+              onTap: () => _openDesignModal(context),
+            );
+          },
         ),
         SettingsLeapCustomSetting(
           displayName: (context) => AppLocalizations.of(context).locale,
@@ -32,7 +48,11 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.platformTheme,
           write: (context, value) =>
               context.read<SettingsCubit>().changePlatformTheme(value),
-          valueLabel: _platformThemeName,
+          valueLabel: (context, value) => switch (value) {
+            PlatformTheme.system => AppLocalizations.of(context).systemTheme,
+            PlatformTheme.desktop => AppLocalizations.of(context).desktop,
+            PlatformTheme.mobile => AppLocalizations.of(context).mobile,
+          },
         ),
         SettingsLeapEnumSetting(
           displayName: (context) => AppLocalizations.of(context).density,
@@ -41,7 +61,18 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
           read: (state) => state.density,
           write: (context, value) =>
               context.read<SettingsCubit>().changeDensity(value),
-          valueLabel: _densityName,
+          valueLabel: (context, value) => switch (value) {
+            ThemeDensity.system => AppLocalizations.of(context).systemTheme,
+            ThemeDensity.maximize => AppLocalizations.of(
+              context,
+            ).densityMaximize,
+            ThemeDensity.desktop => AppLocalizations.of(context).desktop,
+            ThemeDensity.compact => AppLocalizations.of(context).compact,
+            ThemeDensity.standard => AppLocalizations.of(context).standard,
+            ThemeDensity.comfortable => AppLocalizations.of(
+              context,
+            ).comfortable,
+          },
         ),
         SettingsLeapBoolSetting(
           displayName: (context) => AppLocalizations.of(context).highContrast,
@@ -63,45 +94,9 @@ final _personalizationSettingsPage = SettingsLeapPage<ButterflySettings>(
   },
 );
 
-String _themeName(BuildContext context, ThemeMode mode) => switch (mode) {
-  ThemeMode.system => AppLocalizations.of(context).systemTheme,
-  ThemeMode.light => AppLocalizations.of(context).lightTheme,
-  ThemeMode.dark => AppLocalizations.of(context).darkTheme,
-};
-
-String _platformThemeName(BuildContext context, PlatformTheme theme) =>
-    switch (theme) {
-      PlatformTheme.system => AppLocalizations.of(context).systemTheme,
-      PlatformTheme.desktop => AppLocalizations.of(context).desktop,
-      PlatformTheme.mobile => AppLocalizations.of(context).mobile,
-    };
-
 String _localeName(BuildContext context, String locale) => locale.isNotEmpty
     ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
     : AppLocalizations.of(context).systemLocale;
-
-String _densityName(BuildContext context, ThemeDensity density) =>
-    switch (density) {
-      ThemeDensity.system => AppLocalizations.of(context).systemTheme,
-      ThemeDensity.maximize => AppLocalizations.of(context).densityMaximize,
-      ThemeDensity.desktop => AppLocalizations.of(context).desktop,
-      ThemeDensity.compact => AppLocalizations.of(context).compact,
-      ThemeDensity.standard => AppLocalizations.of(context).standard,
-      ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
-    };
-
-Widget _designSetting(BuildContext context, ButterflySettings state) {
-  final design = state.design;
-  return ListTile(
-    leading: const PhosphorIcon(PhosphorIconsLight.palette),
-    title: Text(AppLocalizations.of(context).design),
-    subtitle: Text(
-      design.isEmpty ? AppLocalizations.of(context).systemTheme : design,
-    ),
-    trailing: ThemeBox(theme: getThemeData(state.design, false)),
-    onTap: () => _openDesignModal(context),
-  );
-}
 
 Widget _localeSetting(BuildContext context, ButterflySettings state) {
   return ListTile(

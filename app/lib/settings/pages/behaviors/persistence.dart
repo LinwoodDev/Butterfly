@@ -1,7 +1,6 @@
 part of '../../home.dart';
 
 final _persistenceSettingsPage = SettingsLeapPage<ButterflySettings>(
-  id: 'persistence',
   displayName: (context) =>
       AppLocalizations.of(context).persistenceDocumentStates,
   icon: PhosphorIconsLight.database,
