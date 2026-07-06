@@ -14,5 +14,6 @@
 * Fix saved documents being saved again
 * Fix imported documents starting as saved
 * Fix zoom slider and reset button not working if zoom is locked
+* Fix polygon disappears
 
 Read more here: https://linwood.dev/butterfly/2.6.0-beta.1

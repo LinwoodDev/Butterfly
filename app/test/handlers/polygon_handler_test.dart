@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/models/viewport.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/views/toolbar/polygon.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -93,11 +94,69 @@ void main() {
     final toolbar = handler.getToolbar(bloc!) as PolygonToolbarView;
     toolbar.onToolChanged(toolbar.tool.copyWith(property: updatedProperty));
     await _settleBlocEvents();
+    final updatedState = bloc!.stream
+        .where((state) => state is DocumentLoadSuccess)
+        .cast<DocumentLoadSuccess>()
+        .firstWhere(
+          (state) =>
+              (state.page.content.single as PolygonElement).property ==
+              updatedProperty,
+        );
     (handler.getToolbar(bloc!) as PolygonToolbarView).onSubmit?.call();
-    await _settleBlocEvents();
+    await updatedState;
 
     final state = bloc!.state as DocumentLoadSuccess;
     final updatedElement = state.page.content.single as PolygonElement;
     expect(updatedElement.property, updatedProperty);
+  });
+
+  test('toolbar changes keep edited polygon visible in foregrounds', () async {
+    const originalProperty = PolygonProperty(
+      strokeWidth: 3,
+      paint: ElementPaint.solid(color: SRGBColor(0xFF000000)),
+    );
+    const updatedProperty = PolygonProperty(
+      strokeWidth: 9,
+      paint: ElementPaint.solid(color: SRGBColor(0xFFFF0000)),
+    );
+    final element = PolygonElement(
+      id: 'polygon',
+      points: const [PolygonPoint(0, 0), PolygonPoint(10, 10)],
+      property: originalProperty,
+    );
+    final page = DocumentPage(
+      layers: [
+        DocumentLayer(id: 'layer', content: [element]),
+      ],
+    );
+    final (data, pageName) = NoteData(Archive()).setPage(page, 'Page 1');
+    bloc = DocumentBloc(
+      fileSystem,
+      currentIndexCubit,
+      windowCubit,
+      data,
+      const AssetLocation(path: 'test-note.bfly'),
+      null,
+      page,
+      pageName,
+    );
+    final handler = PolygonHandler(
+      PolygonTool(id: 'polygon-tool', property: originalProperty),
+    )..editElement(element);
+    final toolbar = handler.getToolbar(bloc!) as PolygonToolbarView;
+    toolbar.onToolChanged(toolbar.tool.copyWith(property: updatedProperty));
+    await _settleBlocEvents();
+
+    final polygon = handler
+        .createForegrounds(
+          currentIndexCubit,
+          (bloc!.state as DocumentLoadSuccess).data,
+          (bloc!.state as DocumentLoadSuccess).page,
+          (bloc!.state as DocumentLoadSuccess).info,
+        )
+        .whereType<PolygonRenderer>()
+        .single
+        .element;
+    expect(polygon.property, updatedProperty);
   });
 }
