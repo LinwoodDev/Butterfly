@@ -460,7 +460,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 26
       - name: Install appdmg
         run: |
           python3 -m pip install setuptools
