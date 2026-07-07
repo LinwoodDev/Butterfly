@@ -9,9 +9,16 @@
   "darkTheme": "डार्क थीम",
   "lightTheme": "लाइट थीम",
   "systemTheme": "सिस्टम की डिफ़ॉल्ट थीम का उपयोग करें",
+  "designDescription": "Choose the visual theme design",
   "view": "देखें",
   "contentViewport": "Content Viewport",
+  "@contentViewport": {
+    "description": "Limit how far the viewport can move beyond the content"
+  },
   "limitViewportToPositiveCoordinates": "Limit Viewport to positive coordinates",
+  "@limitViewportToPositiveCoordinates": {
+    "description": "Prevent the viewport from moving into negative coordinates"
+  },
   "off": "Off",
   "canvas": "Canvas",
   "interface": "Interface",
@@ -108,6 +115,7 @@
   },
   "locale": "लोकेल",
   "systemLocale": "सिस्टम लोकेल",
+  "localeDescription": "Choose the app language",
   "information": "जानकारी",
   "license": "लाइसेंस",
   "imprint": "इंप्रिंट",
@@ -577,6 +585,9 @@
   "bottomLeft": "नीचे बाएँ",
   "bottomRight": "नीचे दाएँ",
   "zoomPosition": "Zoom control position",
+  "@zoomPosition": {
+    "description": "Choose where the zoom controls appear"
+  },
   "caches": "कैश",
   "manage": "प्रबंधित करें",
   "@manage": {
@@ -636,24 +647,37 @@
     "description": "Setting to show pen only toggle button when pen is detected"
   },
   "inputGestures": "इनपुट जेस्चर",
+  "inputGesturesDescription": "Enable touch gestures for moving and zooming the canvas",
+  "gestureSensitivityDescription": "Adjust how fast two-finger pan and zoom gestures move the canvas",
+  "touchSensitivityDescription": "Increase this to make touch targets easier to hit",
+  "selectSensitivityDescription": "Increase this to make element selection easier",
+  "scrollSensitivityDescription": "Adjust how fast mouse wheel scrolling moves or zooms the canvas",
   "nativeTitleBar": "नेटिव टाइटल बार",
+  "nativeTitleBarDescription": "Use the operating system title bar on desktop",
   "mode": "Mode",
   "syncMode": "सिंक मोड",
+  "syncModeDescription": "Choose when remote files sync",
   "connection": "कनेक्शन",
   "always": "हमेशा",
   "@always": {
     "description": "Frequency"
   },
   "noMobile": "कोई मोबाइल नहीं",
+  "syncModeAlwaysDescription": "Sync automatically whenever files change",
+  "syncModeNoMobileDescription": "Sync automatically except on mobile devices",
   "manual": "मैनुअल",
   "@manual": {
     "description": "Manual mode"
   },
+  "syncModeManualDescription": "Only sync when you trigger it manually",
   "search": "खोजें",
   "@search": {
     "description": "Search action"
   },
   "properties": "गुण",
+  "@properties": {
+    "description": "Choose where the properties panel appears"
+  },
   "pin": "पिन करें",
   "@pin": {
     "description": "Pin action"
@@ -942,6 +966,9 @@
   "direction": "Direction",
   "onlyAvailableLargerScreen": "केवल बड़ी स्क्रीन पर उपलब्ध है",
   "toolbarPosition": "टूलबार की स्थिति",
+  "@toolbarPosition": {
+    "description": "Choose where the main toolbar appears"
+  },
   "rotate": "घुमाएं",
   "@rotate": {
     "description": "Rotate action"
@@ -951,6 +978,9 @@
     "description": "Spacer element"
   },
   "navigationRail": "नेविगेशन रेल",
+  "@navigationRail": {
+    "description": "Show a navigation rail on wider screens"
+  },
   "cut": "काटें",
   "@cut": {
     "description": "Clipboard action"
@@ -966,6 +996,7 @@
   "ascending": "आरोही",
   "descending": "अवरोही",
   "imageScale": "छवि स्केल",
+  "imageScaleDescription": "Scale imported images when their size is detected automatically",
   "svgScale": "SVG scale",
   "noImageSelected": "No image selected",
   "noSvgSelected": "No SVG selected",
@@ -982,6 +1013,9 @@
     "description": "Texture property"
   },
   "platformTheme": "प्लेटफ़ॉर्म थीम",
+  "@platformTheme": {
+    "description": "Choose whether the app follows the system, desktop, or mobile layout"
+  },
   "desktop": "डेस्कटॉप",
   "@desktop": {
     "description": "Platform"
@@ -1006,6 +1040,9 @@
   },
   "iceServers": "ICE सर्वर्स",
   "collaboration": "सहयोग",
+  "@collaboration": {
+    "description": "Allow multiple people to edit the same note together"
+  },
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE सर्वर",
@@ -1037,7 +1074,7 @@
   "hideUI": "UI छिपाएं",
   "density": "घनत्व",
   "@density": {
-    "description": "Density property"
+    "description": "Choose how compact the interface should be"
   },
   "compact": "कॉम्पैक्ट",
   "@compact": {
@@ -1109,14 +1146,23 @@
   },
   "continueAnyway": "फिर भी जारी रखें",
   "zoomControl": "ज़ूम नियंत्रण",
+  "@zoomControl": {
+    "description": "Show zoom controls in the canvas view"
+  },
   "showThumbnails": "Show thumbnails",
   "@showThumbnails": {
     "description": "Show thumbnails for notes in the file list"
   },
   "highContrast": "उच्च कंट्रास्ट",
+  "@highContrast": {
+    "description": "Use stronger contrast in the app theme"
+  },
   "shouldANumber": "यह मान एक मान्य संख्या होनी चाहिए",
   "createAreas": "क्षेत्र बनाएं",
   "autosave": "ऑटोसेव",
+  "@autosave": {
+    "description": "Choose how changes are saved"
+  },
   "invert": "उलट दें",
   "@invert": {
     "description": "Invert action"
@@ -1131,10 +1177,19 @@
     "description": "Size value"
   },
   "toolbarSize": "टूलबार का आकार",
+  "@toolbarSize": {
+    "description": "Choose how large the toolbar buttons are"
+  },
   "addAll": "सभी जोड़ें",
   "onlyCurrentPage": "केवल वर्तमान पेज",
   "smoothNavigation": "सहज नेविगेशन",
+  "@smoothNavigation": {
+    "description": "Reduce the amount of rendering work while navigating"
+  },
   "edgePanAreaSwitching": "Edge pan area switching",
+  "@edgePanAreaSwitching": {
+    "description": "Switch areas when you pan near the edge of the canvas"
+  },
   "useAndroidSaf": "Use Android SAF",
   "exact": "सटीक",
   "@exact": {
@@ -1145,6 +1200,9 @@
     "description": "Inline position"
   },
   "toolbarRows": "टूलबार पंक्तियाँ",
+  "@toolbarRows": {
+    "description": "Set how many rows the toolbar can use"
+  },
   "pointerTest": "पॉइंटर टेस्ट",
   "pressure": "दबाव",
   "small": "छोटा",
@@ -1158,6 +1216,9 @@
   "selectAll": "सभी चुनें",
   "overrideTools": "टूल्स ओवरराइड करें",
   "hideCursorWhileDrawing": "ड्राइंग करते समय कर्सर छिपाएं",
+  "@hideCursorWhileDrawing": {
+    "description": "Hide the mouse cursor while drawing"
+  },
   "installed": "स्थापित",
   "install": "इंस्टॉल करें",
   "@install": {
@@ -1174,6 +1235,9 @@
     "description": "Scroll action"
   },
   "onStartup": "स्टार्टअप पर",
+  "@onStartup": {
+    "description": "Choose what opens when the app starts"
+  },
   "homeScreen": "होम स्क्रीन",
   "lastNote": "अंतिम नोट",
   "newNote": "नया नोट",
@@ -1301,10 +1365,21 @@
     "description": "Math tool"
   },
   "ignorePressure": "Ignore pressure",
+  "@ignorePressure": {
+    "description": "Choose how stylus pressure is handled"
+  },
   "ignoreFirstPressureDescription": "On some devices, the first pressure value is not accurate. This setting will ignore the first pressure value and use the pressure of the second event instead.",
+  "ignorePressureNeverDescription": "Use every pressure value from the device",
+  "ignorePressureAlwaysDescription": "Ignore pressure and treat the pen as fully pressed",
   "temporary": "Temporary",
   "simpleToolbarVisibility": "Simple toolbar visibility",
+  "@simpleToolbarVisibility": {
+    "description": "Choose when the simplified toolbar is shown"
+  },
   "autosaveDelay": "Autosave delay",
+  "@autosaveDelay": {
+    "description": "Wait time before delayed autosave runs"
+  },
   "saved": "Saved",
   "@saved": {
     "description": "Save status"
@@ -1371,5 +1446,76 @@
   "bringMovedElementsToFront": "Bring moved elements to front",
   "addTool": "Add tool",
   "nextPage": "Next page",
-  "previousPage": "Previous page"
+  "previousPage": "Previous page",
+  "persistenceDocumentStates": "Persistent document states",
+  "persistentStatesEnabled": "Enable persistent document states",
+  "persistentStateCurrentPage": "Current page",
+  "persistentStateViewport": "Viewport position and zoom",
+  "persistentStateSelectedTool": "Selected tool",
+  "persistentStateMaxRecords": "Maximum stored records",
+  "persistentStateDeleteOlderThanDays": "Delete records older than days",
+  "persistentStateCleanup": "Clean up stored states",
+  "persistentStateCleanupDescription": "Delete records older than the limits above",
+  "persistentStateCleanupInProgress": "Cleaning up...",
+  "persistentStateCleanupFeedback": "{locations, plural, =1{Cleaned up 1 storage location} other{Cleaned up {locations} storage locations}}; {records, plural, =1{removed 1 record} other{removed {records} records}}.",
+  "@persistentStateCleanupFeedback": {
+    "placeholders": {
+      "locations": {
+        "type": "int"
+      },
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "zoomControlDescription": "Show zoom controls in the canvas view",
+  "zoomPositionDescription": "Choose where the zoom controls appear",
+  "propertiesDescription": "Choose where the properties panel appears",
+  "toolbarPositionDescription": "Choose where the main toolbar appears",
+  "toolbarSizeDescription": "Choose how large the toolbar buttons are",
+  "toolbarRowsDescription": "Set how many rows the toolbar can use",
+  "navigationRailDescription": "Show a navigation rail on wider screens",
+  "navigatorPositionDescription": "Choose which side the navigator appears on",
+  "optionsPanelPositionDescription": "Choose whether the options panel appears above or below the canvas",
+  "simpleToolbarVisibilityDescription": "Choose when the simplified toolbar is shown",
+  "showThumbnailsDescription": "Show thumbnails for notes in the file list",
+  "hideFileExtensionDescription": "Hide file extensions in file names",
+  "highContrastDescription": "Use stronger contrast in the app theme",
+  "autosaveDescription": "Choose how changes are saved",
+  "autosaveEnabledDescription": "Save changes automatically as you work",
+  "autosaveDelayedDescription": "Save changes automatically after a short delay",
+  "autosaveShowButtonDescription": "Show a save button and save manually",
+  "autosaveDisabledDescription": "Turn off automatic saving",
+  "autosaveDelayDescription": "Wait time before delayed autosave runs",
+  "hideCursorWhileDrawingDescription": "Hide the mouse cursor while drawing",
+  "onStartupDescription": "Choose what opens when the app starts",
+  "onStartupHomeScreenDescription": "Open the home screen when the app starts",
+  "onStartupLastNoteDescription": "Reopen the most recent note when the app starts",
+  "onStartupNewNoteDescription": "Create a new note when the app starts",
+  "smoothNavigationDescription": "Reduce the amount of rendering work while navigating",
+  "edgePanAreaSwitchingDescription": "Switch areas when you pan near the edge of the canvas",
+  "collaborationDescription": "Allow multiple people to edit the same note together",
+  "densityDescription": "Choose how compact the interface should be",
+  "showVerboseLogsDescription": "Include debug and verbose logs in the log view and console",
+  "bringMovedElementsToFrontDescription": "Move dragged elements in front of other elements",
+  "persistenceDocumentStatesDescription": "Choose which document state details are stored between sessions",
+  "persistentStatesEnabledDescription": "Store document state information between app sessions",
+  "persistentStateCurrentPageDescription": "Remember the current page when reopening a file",
+  "persistentStateViewportDescription": "Remember the viewport position and zoom",
+  "persistentStateSelectedToolDescription": "Remember the selected tool when reopening a file",
+  "persistentStateLocksDescription": "Remember layer and collection locks when reopening a file",
+  "persistentStateNavigatorDescription": "Remember the navigator state when reopening a file",
+  "persistentStateLayersDescription": "Remember the layer panel state when reopening a file",
+  "persistentStateAreasDescription": "Remember the area panel state when reopening a file",
+  "persistentStateMaxRecordsDescription": "Keep at most this many stored states per file",
+  "persistentStateDeleteOlderThanDaysDescription": "Delete stored states older than this many days",
+  "contentViewportDescription": "Limit how far the viewport can move beyond the content",
+  "limitViewportPositiveDescription": "Prevent the viewport from moving into negative coordinates",
+  "startInFullScreenDescription": "Open the app in full screen",
+  "platformThemeDescription": "Choose whether the app follows the system, desktop, or mobile layout",
+  "penOnlyInputDescription": "Choose when the app should ignore touch and mouse input",
+  "showPenOnlyToggleDescription": "Show the pen only toggle button when a stylus is detected",
+  "ignorePressureDescription": "Choose how stylus pressure is handled",
+  "moveOnGestureDescription": "Move the canvas when multi-touch gestures are used",
+  "spreadPagesDescription": "Split imported content across multiple pages"
 }
